@@ -115,6 +115,7 @@ pub struct ClassFeatureProjection {
 pub enum ProjectionError {
     DuplicateMetamagicOption,
     MissingExtraCantrip,
+    WrongWeaponMasteryChoiceCount,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -225,6 +226,53 @@ pub struct ClassOrderProjection {
     pub total_level: ClassLevel,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum WeaponMasteryClass {
+    Barbarian,
+    Fighter,
+    Paladin,
+    Ranger,
+    Rogue,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum WeaponMasteryFeature {
+    Barbarian,
+    Fighter,
+    Paladin,
+    Ranger,
+    Rogue,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ClassUnit {
+    Barbarian,
+    Fighter,
+    Paladin,
+    Ranger,
+    Rogue,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Weapon {
+    Dagger,
+    Flail,
+    Longsword,
+    Shortsword,
+    Spear,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct WeaponMasteryProjection {
+    pub feature: WeaponMasteryFeature,
+    pub class_unit: ClassUnit,
+    pub selected_weapons: Vec<Weapon>,
+    pub selected_mastery_choice_count: u8,
+    pub build_mastery_feature_count: u8,
+    pub open_hole_count: u8,
+    pub total_level: ClassLevel,
+}
+
 pub fn level_two_feature_projection(
     feature_set: FeatureSet,
 ) -> Result<ClassFeatureProjection, ProjectionError> {
@@ -272,6 +320,59 @@ pub fn fighter_fighting_style_projection(
             selected_fighting_style_feature_ref_count: 1,
             total_level: new_total_level,
         },
+    }
+}
+
+pub fn weapon_mastery_projection(
+    class: WeaponMasteryClass,
+    selected_weapons: &[Weapon],
+) -> Result<WeaponMasteryProjection, ProjectionError> {
+    let expected_count = weapon_mastery_choice_count(class);
+    if selected_weapons.len() != usize::from(expected_count) {
+        return Err(ProjectionError::WrongWeaponMasteryChoiceCount);
+    }
+
+    Ok(WeaponMasteryProjection {
+        // cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md,
+        // "Level 1: Weapon Mastery"; equivalent level-1 Weapon Mastery
+        // entries are cited for Barbarian, Paladin, Ranger, and Rogue.
+        feature: weapon_mastery_feature(class),
+        class_unit: weapon_mastery_class_unit(class),
+        selected_weapons: selected_weapons.to_vec(),
+        selected_mastery_choice_count: expected_count,
+        build_mastery_feature_count: expected_count,
+        open_hole_count: 0,
+        total_level: ClassLevel::One,
+    })
+}
+
+fn weapon_mastery_choice_count(class: WeaponMasteryClass) -> u8 {
+    match class {
+        WeaponMasteryClass::Fighter => 3,
+        WeaponMasteryClass::Barbarian
+        | WeaponMasteryClass::Paladin
+        | WeaponMasteryClass::Ranger
+        | WeaponMasteryClass::Rogue => 2,
+    }
+}
+
+fn weapon_mastery_feature(class: WeaponMasteryClass) -> WeaponMasteryFeature {
+    match class {
+        WeaponMasteryClass::Barbarian => WeaponMasteryFeature::Barbarian,
+        WeaponMasteryClass::Fighter => WeaponMasteryFeature::Fighter,
+        WeaponMasteryClass::Paladin => WeaponMasteryFeature::Paladin,
+        WeaponMasteryClass::Ranger => WeaponMasteryFeature::Ranger,
+        WeaponMasteryClass::Rogue => WeaponMasteryFeature::Rogue,
+    }
+}
+
+fn weapon_mastery_class_unit(class: WeaponMasteryClass) -> ClassUnit {
+    match class {
+        WeaponMasteryClass::Barbarian => ClassUnit::Barbarian,
+        WeaponMasteryClass::Fighter => ClassUnit::Fighter,
+        WeaponMasteryClass::Paladin => ClassUnit::Paladin,
+        WeaponMasteryClass::Ranger => ClassUnit::Ranger,
+        WeaponMasteryClass::Rogue => ClassUnit::Rogue,
     }
 }
 

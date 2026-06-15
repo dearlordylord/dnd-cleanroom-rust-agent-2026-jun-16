@@ -6,12 +6,15 @@ mod character_creation_cleric_druid_order_selected_identity;
 mod character_creation_fighter_fighting_style_selected_identity;
 #[path = "../qnt_adapters/character_creation_runtime.rs"]
 mod character_creation_runtime;
+#[path = "../qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs"]
+mod character_creation_weapon_mastery_containers_selected_identity;
 
 use crate::rules::class_features::{
     cleric_divine_order_projection, druid_primal_order_projection,
-    fighter_fighting_style_projection, level_two_feature_projection, Cantrip, ClassLevel,
-    ClericDivineOrder, DruidPrimalOrder, FeatureSet, FighterFightingStyleSelection,
-    FightingStyleFeat, MetamagicOption, ProjectionError,
+    fighter_fighting_style_projection, level_two_feature_projection, weapon_mastery_projection,
+    Cantrip, ClassLevel, ClericDivineOrder, DruidPrimalOrder, FeatureSet,
+    FighterFightingStyleSelection, FightingStyleFeat, MetamagicOption, ProjectionError, Weapon,
+    WeaponMasteryClass,
 };
 
 use character_creation_class_feature_projections::{
@@ -30,6 +33,12 @@ use character_creation_fighter_fighting_style_selected_identity::{
 use character_creation_runtime::{
     projection_payload as runtime_projection_payload,
     replay_observed_action as replay_runtime_action, BRANCH_ACTIONS,
+};
+use character_creation_weapon_mastery_containers_selected_identity::{
+    expected_barbarian_witness, expected_fighter_witness, expected_paladin_witness,
+    expected_ranger_witness, expected_rogue_witness,
+    projection_payload as weapon_mastery_projection_payload,
+    replay_observed_action as replay_weapon_mastery_action,
 };
 
 #[test]
@@ -237,4 +246,47 @@ fn character_creation_runtime_rejects_manifest_protocol_issues() {
         .contains("qLastFillIssues=0:HLoadoutArmor:unknownHole"));
     assert!(runtime_projection_payload(&unsupported_class_equipment)
         .contains("qLastFillIssues=0:HClassEquipment:unsupportedChoice"));
+}
+
+#[test]
+fn weapon_mastery_adapter_replays_container_identity_branches() {
+    // QNT: cleanroom-input/qnt/character-creation-runtime/
+    // character-creation-weapon-mastery-containers-selected-identity.mbt.qnt.
+    let barbarian = replay_weapon_mastery_action("doFinalizeBarbarianWeaponMastery");
+    let fighter = replay_weapon_mastery_action("doFinalizeFighterWeaponMastery");
+    let paladin = replay_weapon_mastery_action("doFinalizePaladinWeaponMastery");
+    let ranger = replay_weapon_mastery_action("doFinalizeRangerWeaponMastery");
+    let rogue = replay_weapon_mastery_action("doFinalizeRogueWeaponMastery");
+
+    assert_eq!(barbarian, expected_barbarian_witness());
+    assert_eq!(fighter, expected_fighter_witness());
+    assert_eq!(paladin, expected_paladin_witness());
+    assert_eq!(ranger, expected_ranger_witness());
+    assert_eq!(rogue, expected_rogue_witness());
+    assert!(weapon_mastery_projection_payload(&fighter).contains("selectedMasteryChoiceCount=3"));
+    assert!(
+        weapon_mastery_projection_payload(&rogue).contains("secondWeaponUnitId=weapon_shortsword")
+    );
+}
+
+#[test]
+fn weapon_mastery_projection_enforces_class_choice_count() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md
+    // "Level 1: Weapon Mastery"; cleanroom-input/raw/srd-5.2.1/Classes/Barbarian.md,
+    // Paladin.md, Ranger.md, and Rogue.md "Level 1: Weapon Mastery".
+    let fighter = weapon_mastery_projection(
+        WeaponMasteryClass::Fighter,
+        &[Weapon::Longsword, Weapon::Spear, Weapon::Flail],
+    )
+    .expect("fighter has three level-1 weapon mastery choices");
+    let short_fighter = weapon_mastery_projection(
+        WeaponMasteryClass::Fighter,
+        &[Weapon::Longsword, Weapon::Spear],
+    );
+
+    assert_eq!(fighter.selected_mastery_choice_count, 3);
+    assert_eq!(
+        short_fighter,
+        Err(ProjectionError::WrongWeaponMasteryChoiceCount)
+    );
 }

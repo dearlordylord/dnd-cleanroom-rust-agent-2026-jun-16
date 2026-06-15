@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt`
-- Next task id: `T005`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt`
+- Next task id: `T006`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,84 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T005: character-creation-weapon-mastery-containers-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doFinalizeBarbarianWeaponMastery`
+  - `step:doFinalizeFighterWeaponMastery`
+  - `step:doFinalizePaladinWeaponMastery`
+  - `step:doFinalizeRangerWeaponMastery`
+  - `step:doFinalizeRogueWeaponMastery`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Barbarian.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Paladin.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Ranger.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Rogue.md`
+  - `cleanroom-input/raw/srd-5.2.1/Equipment.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added reusable level-1 Weapon Mastery container projections for Barbarian, Fighter, Paladin, Ranger, and Rogue.
+- Enforced the level-1 selected weapon count from the copied RAW/QNT model: Fighter selects three weapons; Barbarian, Paladin, Ranger, and Rogue select two.
+- Projected selected weapon order, build feature count, open hole count, and total level for the selected-identity witness.
+- Kept QNT action dispatch and witness field mapping quarantined in `src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt#step:doFinalizeBarbarianWeaponMastery` | `tasks/target-replay-evidence/T005-character-creation-weapon-mastery-containers-selected-identity.json#T005-finalize-barbarian-weapon-mastery#step:doFinalizeBarbarianWeaponMastery` | `src/tests/mod.rs::weapon_mastery_adapter_replays_container_identity_branches` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt#step:doFinalizeFighterWeaponMastery` | `tasks/target-replay-evidence/T005-character-creation-weapon-mastery-containers-selected-identity.json#T005-finalize-fighter-weapon-mastery#step:doFinalizeFighterWeaponMastery` | `src/tests/mod.rs::weapon_mastery_adapter_replays_container_identity_branches` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt#step:doFinalizePaladinWeaponMastery` | `tasks/target-replay-evidence/T005-character-creation-weapon-mastery-containers-selected-identity.json#T005-finalize-paladin-weapon-mastery#step:doFinalizePaladinWeaponMastery` | `src/tests/mod.rs::weapon_mastery_adapter_replays_container_identity_branches` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt#step:doFinalizeRangerWeaponMastery` | `tasks/target-replay-evidence/T005-character-creation-weapon-mastery-containers-selected-identity.json#T005-finalize-ranger-weapon-mastery#step:doFinalizeRangerWeaponMastery` | `src/tests/mod.rs::weapon_mastery_adapter_replays_container_identity_branches` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt#step:doFinalizeRogueWeaponMastery` | `tasks/target-replay-evidence/T005-character-creation-weapon-mastery-containers-selected-identity.json#T005-finalize-rogue-weapon-mastery#step:doFinalizeRogueWeaponMastery` | `src/tests/mod.rs::weapon_mastery_adapter_replays_container_identity_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T005-character-creation-weapon-mastery-containers-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T005-finalize-barbarian-weapon-mastery`
+- Reproduction seed or trace id: `T005-finalize-fighter-weapon-mastery`
+- Reproduction seed or trace id: `T005-finalize-paladin-weapon-mastery`
+- Reproduction seed or trace id: `T005-finalize-ranger-weapon-mastery`
+- Reproduction seed or trace id: `T005-finalize-rogue-weapon-mastery`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::weapon_mastery_adapter_replays_container_identity_branches`
+- `src/tests/mod.rs::weapon_mastery_projection_enforces_class_choice_count`
 
 Remaining gaps:
 

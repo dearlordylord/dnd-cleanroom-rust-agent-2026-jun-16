@@ -2,24 +2,13 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_creation_runtime.rs",
+      "path": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doFillAbilityScoresOnly",
-        "doFillInitialChoicesOnly",
-        "doFillInitialManifest",
-        "doFillManifestChoices",
-        "doFillManifestLoadout",
-        "doFillManifestPurchase",
-        "doRejectClosedInitialProgressionHole",
-        "doRejectDuplicateFill",
-        "doRejectDuplicateLanguage",
-        "doRejectStaleInitialManifest",
-        "doRejectTooFewLanguages",
-        "doRejectTooManyLanguages",
-        "doRejectUnknownLoadoutArmor",
-        "doRejectUnsupportedClassEquipment",
-        "doRejectUnsupportedLanguage",
-        "doRejectWrongKindPrimaryClass",
+        "doFinalizeBarbarianWeaponMastery",
+        "doFinalizeFighterWeaponMastery",
+        "doFinalizePaladinWeaponMastery",
+        "doFinalizeRangerWeaponMastery",
+        "doFinalizeRogueWeaponMastery",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -37,41 +26,34 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T004-character-creation-runtime.json"
+        "tasks/target-replay-evidence/T005-character-creation-weapon-mastery-containers-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "fill_creation_holes",
-      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt",
-      "module": "src/rules/character_creation.rs"
+      "api": "weapon_mastery_projection",
+      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt",
+      "module": "src/rules/class_features.rs"
     },
     {
-      "api": "accepted_draft",
-      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt",
-      "module": "src/rules/character_creation.rs"
+      "api": "weapon_mastery_projection",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
+      "module": "src/rules/class_features.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "empty_draft",
-        "open_creation_holes",
-        "finalize_draft",
-        "fill_creation_holes",
-        "initial_manifest_fills",
-        "initial_choices_only_fills",
-        "ability_scores_only_fills",
-        "manifest_choice_fills",
-        "manifest_purchase_fills",
-        "manifest_loadout_fills",
-        "accepted_draft"
+        "weapon_mastery_projection",
+        "fighter_fighting_style_projection",
+        "level_one_order_projection",
+        "level_two_feature_projection"
       ],
-      "path": "src/rules/character_creation.rs",
+      "path": "src/rules/class_features.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T004"
+  "taskId": "T005"
 }

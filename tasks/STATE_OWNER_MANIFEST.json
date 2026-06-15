@@ -2,179 +2,73 @@
   "durableFields": [
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character creation weapon mastery container projection",
+        "sourceField": "WeaponMasteryProjection",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "Draft.revision",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
+      "fieldPath": "WeaponMasteryProjection.feature",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character creation weapon mastery container projection",
+        "sourceField": "WeaponMasteryProjection",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "Draft.progression",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
+      "fieldPath": "WeaponMasteryProjection.class_unit",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character creation weapon mastery container projection",
+        "sourceField": "WeaponMasteryProjection",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "Draft.background",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
+      "fieldPath": "WeaponMasteryProjection.selected_weapons",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character creation weapon mastery container projection",
+        "sourceField": "WeaponMasteryProjection",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "Draft.species",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
+      "fieldPath": "WeaponMasteryProjection.selected_mastery_choice_count",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character creation weapon mastery container projection",
+        "sourceField": "WeaponMasteryProjection",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "Draft.ability_scores",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
+      "fieldPath": "WeaponMasteryProjection.build_mastery_feature_count",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character creation weapon mastery container projection",
+        "sourceField": "WeaponMasteryProjection",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "Draft.languages",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
+      "fieldPath": "WeaponMasteryProjection.open_hole_count",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character creation weapon mastery container projection",
+        "sourceField": "WeaponMasteryProjection",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "Draft.alignment",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.class_skills",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.fighter_fighting_style",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.fighter_weapon_mastery",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.background_ability_score_increase",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.background_tool",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.class_equipment",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.background_equipment",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.equipment_purchase",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.loadout_armor",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.loadout_shield",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "Draft.loadout_weapon",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FillBatchResult.holes",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FillBatchResult.finalization",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreationIssues.batch",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreationIssues.fills",
-      "introducedIn": "src/rules/character_creation.rs",
-      "owner": "build-evidence"
+      "fieldPath": "WeaponMasteryProjection.total_level",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
@@ -182,10 +76,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/character_creation_runtime.rs",
+      "introducedIn": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T004"
+  "taskId": "T005"
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T004",
-  "startHeadSha": "fe30255b4d66a06648f20423c8e3752b974f409f",
+  "taskId": "T005",
+  "startHeadSha": "cff221a056d71f86207101512333174cd859d16d",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "creation",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt"
+      "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt"
     ]
   }
 }

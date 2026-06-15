@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T004-character-creation-runtime.json",
+      "evidence": "tasks/target-replay-evidence/T005-character-creation-weapon-mastery-containers-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -27,7 +27,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/VALIDATION_REPORT.md",
+      "evidence": "production source scan",
       "gate": "authored-identity-dispatch",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T004"
+  "taskId": "T005"
 }
