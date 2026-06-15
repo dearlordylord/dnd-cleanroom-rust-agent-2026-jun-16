@@ -1,0 +1,76 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
+      "qntFileSha256": "1a3710eb18c667601d2b5120783a5084bc5f89192466a3c54f494c3be854d22d",
+      "branchFamily": "step",
+      "branchAction": "doProjectDangerSenseDexterityAdvantage",
+      "observedActionTaken": "doProjectDangerSenseDexterityAdvantage",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
+      "traceId": "T021-project-danger-sense-dexterity-advantage",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "DangerSenseWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "69d1839b72528ffaca8cb9ef0d66f47ae0679cc32165f1b78f6eab5062b1fe62",
+        "observedProjectionSha256": "69d1839b72528ffaca8cb9ef0d66f47ae0679cc32165f1b78f6eab5062b1fe62",
+        "checkedTargetStateFields": [
+          "DangerSenseState.scenario_outcome",
+          "DangerSenseState.feature_present",
+          "DangerSenseState.dexterity_roll_mode_count",
+          "DangerSenseState.constitution_roll_mode_count",
+          "DangerSenseState.suppressed",
+          "DangerSenseState.accepted",
+          "DangerSenseState.protocol",
+          "DangerSenseFacts.saving_throw_ability",
+          "DangerSenseFacts.actor_incapacitated"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
+      "qntFileSha256": "1a3710eb18c667601d2b5120783a5084bc5f89192466a3c54f494c3be854d22d",
+      "branchFamily": "step",
+      "branchAction": "doSuppressDangerSenseWhileIncapacitated",
+      "observedActionTaken": "doSuppressDangerSenseWhileIncapacitated",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
+      "traceId": "T021-suppress-danger-sense-while-incapacitated",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "DangerSenseWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "40d193c463694d21b1bb16a327767958768a50744ee3f246eaee7e4371cfd924",
+        "observedProjectionSha256": "40d193c463694d21b1bb16a327767958768a50744ee3f246eaee7e4371cfd924",
+        "checkedTargetStateFields": [
+          "DangerSenseState.scenario_outcome",
+          "DangerSenseState.feature_present",
+          "DangerSenseState.dexterity_roll_mode_count",
+          "DangerSenseState.constitution_roll_mode_count",
+          "DangerSenseState.suppressed",
+          "DangerSenseState.accepted",
+          "DangerSenseState.protocol",
+          "DangerSenseFacts.saving_throw_ability",
+          "DangerSenseFacts.actor_incapacitated"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}

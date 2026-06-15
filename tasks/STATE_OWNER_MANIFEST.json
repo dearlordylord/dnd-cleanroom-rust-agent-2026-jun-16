@@ -4,168 +4,72 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CreatureTypeProtectionState.beast_target_admitted",
-      "introducedIn": "src/rules/creature_type_protection.rs",
+      "fieldPath": "DangerSenseState.scenario_outcome",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CreatureTypeProtectionState.humanoid_target_admitted",
-      "introducedIn": "src/rules/creature_type_protection.rs",
+      "fieldPath": "DangerSenseState.feature_present",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CreatureTypeProtectionState.known_willing_protection_target_admitted",
-      "introducedIn": "src/rules/creature_type_protection.rs",
+      "fieldPath": "DangerSenseState.dexterity_roll_mode_count",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CreatureTypeProtectionState.plain_protection_target_rejected",
-      "introducedIn": "src/rules/creature_type_protection.rs",
+      "fieldPath": "DangerSenseState.constitution_roll_mode_count",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CreatureTypeProtectionState.protection_effect_present",
-      "introducedIn": "src/rules/creature_type_protection.rs",
+      "fieldPath": "DangerSenseState.suppressed",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CreatureTypeProtectionState.scoped_attack_roll_disadvantage",
-      "introducedIn": "src/rules/creature_type_protection.rs",
+      "fieldPath": "DangerSenseState.accepted",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CreatureTypeProtectionState.unscoped_attack_roll_normal",
-      "introducedIn": "src/rules/creature_type_protection.rs",
+      "fieldPath": "DangerSenseState.protocol",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CreatureTypeProtectionState.scoped_charm_prevented",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.unscoped_charm_applied",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.scoped_possession_prevented",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.unscoped_possession_unprevented",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.relevant_charm_save_has_advantage",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.relevant_charm_save_cleared",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.target_charmed",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.animal_friendship_effect_present",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.action_available",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.first_level_slots_expended",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.scenario_outcome",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CreatureTypeProtectionState.protocol",
-      "introducedIn": "src/rules/creature_type_protection.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ProtectionTargetFacts.target_known",
-      "introducedIn": "src/rules/creature_type_protection.rs",
+      "fieldPath": "DangerSenseFacts.saving_throw_ability",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ProtectionTargetFacts.target_willing",
-      "introducedIn": "src/rules/creature_type_protection.rs",
+      "fieldPath": "DangerSenseFacts.actor_incapacitated",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "structured-input"
     },
     {
@@ -174,10 +78,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T020"
+  "taskId": "T021"
 }

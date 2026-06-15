@@ -12,6 +12,8 @@ mod battle_runtime_command_ordering;
 mod battle_runtime_concentration_break_teardown;
 #[path = "../qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs"]
 mod battle_runtime_creature_type_protection_and_charm_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_danger_sense_selected_identity.rs"]
+mod battle_runtime_danger_sense_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -48,8 +50,11 @@ use crate::rules::armor_class::{
     ArmorClassOption, ShieldArmorClassBonus,
 };
 use crate::rules::battle_features::{
-    resolve_adrenaline_rush_bonus_action_dash, AdrenalineRushFacts, AdrenalineRushRejection,
-    AdrenalineRushResult, BattleTurnFeatureState,
+    danger_sense_initial_state, danger_sense_saving_throw_roll_mode,
+    project_danger_sense_dexterity_advantage, resolve_adrenaline_rush_bonus_action_dash,
+    suppress_danger_sense_while_incapacitated, AdrenalineRushFacts, AdrenalineRushRejection,
+    AdrenalineRushResult, BattleTurnFeatureState, DangerSenseFacts, DangerSenseProtocol,
+    DangerSenseScenarioOutcome, PassiveSavingThrowRollMode, SavingThrowAbility,
 };
 use crate::rules::chained_spell_attacks::{
     choose_chromatic_orb_damage_type, choose_chromatic_orb_initial_target,
@@ -161,6 +166,12 @@ use battle_runtime_creature_type_protection_and_charm_selected_identity::{
     projection_payload as creature_type_protection_projection_payload,
     replay_observed_action as replay_creature_type_protection_action,
     BRANCH_ACTIONS as CREATURE_TYPE_PROTECTION_BRANCH_ACTIONS,
+};
+use battle_runtime_danger_sense_selected_identity::{
+    expected_witness as expected_danger_sense_witness,
+    projection_payload as danger_sense_projection_payload,
+    replay_observed_action as replay_danger_sense_action,
+    BRANCH_ACTIONS as DANGER_SENSE_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1486,4 +1497,69 @@ fn creature_type_protection_projects_charm_and_scoped_protection_rules() {
     assert!(prevention_projection.unscoped_possession_unprevented);
     assert!(save_projection.relevant_charm_save_has_advantage);
     assert!(save_projection.relevant_charm_save_cleared);
+}
+
+#[test]
+fn danger_sense_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-danger-sense-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Classes/Barbarian.md
+    // "Level 2: Danger Sense".
+    for action in DANGER_SENSE_BRANCH_ACTIONS {
+        let observed = replay_danger_sense_action(action);
+        assert_eq!(observed, expected_danger_sense_witness(action));
+        assert!(danger_sense_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn danger_sense_only_advantages_dexterity_saves_while_not_incapacitated() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Barbarian.md
+    // "Level 2: Danger Sense"; QNT:
+    // unit-feature-save-damage-core-examples.qnt passiveSavingThrowRollMode.
+    assert_eq!(
+        danger_sense_saving_throw_roll_mode(DangerSenseFacts {
+            saving_throw_ability: SavingThrowAbility::Dexterity,
+            actor_incapacitated: false,
+        }),
+        PassiveSavingThrowRollMode::Advantage
+    );
+    assert_eq!(
+        danger_sense_saving_throw_roll_mode(DangerSenseFacts {
+            saving_throw_ability: SavingThrowAbility::Constitution,
+            actor_incapacitated: false,
+        }),
+        PassiveSavingThrowRollMode::Normal
+    );
+    assert_eq!(
+        danger_sense_saving_throw_roll_mode(DangerSenseFacts {
+            saving_throw_ability: SavingThrowAbility::Dexterity,
+            actor_incapacitated: true,
+        }),
+        PassiveSavingThrowRollMode::Normal
+    );
+
+    let projected = project_danger_sense_dexterity_advantage(danger_sense_initial_state());
+    let suppressed = suppress_danger_sense_while_incapacitated(danger_sense_initial_state());
+
+    assert_eq!(
+        projected.scenario_outcome,
+        DangerSenseScenarioOutcome::DexterityAdvantage
+    );
+    assert_eq!(projected.protocol, DangerSenseProtocol::Resolved);
+    assert_eq!(projected.dexterity_roll_mode_count, 1);
+    assert_eq!(projected.constitution_roll_mode_count, 0);
+    assert!(projected.feature_present);
+    assert!(projected.accepted);
+    assert!(!projected.suppressed);
+
+    assert_eq!(
+        suppressed.scenario_outcome,
+        DangerSenseScenarioOutcome::IncapacitatedSuppressed
+    );
+    assert_eq!(suppressed.protocol, DangerSenseProtocol::Resolved);
+    assert_eq!(suppressed.dexterity_roll_mode_count, 0);
+    assert!(suppressed.feature_present);
+    assert!(suppressed.accepted);
+    assert!(suppressed.suppressed);
 }

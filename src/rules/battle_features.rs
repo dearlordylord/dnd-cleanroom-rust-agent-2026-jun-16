@@ -39,6 +39,49 @@ pub struct AdrenalineRushProjection {
     pub result: AdrenalineRushResult,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SavingThrowAbility {
+    Strength,
+    Dexterity,
+    Constitution,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum PassiveSavingThrowRollMode {
+    Normal,
+    Advantage,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DangerSenseScenarioOutcome {
+    Init,
+    DexterityAdvantage,
+    IncapacitatedSuppressed,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DangerSenseProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct DangerSenseState {
+    pub scenario_outcome: DangerSenseScenarioOutcome,
+    pub feature_present: bool,
+    pub dexterity_roll_mode_count: i16,
+    pub constitution_roll_mode_count: i16,
+    pub suppressed: bool,
+    pub accepted: bool,
+    pub protocol: DangerSenseProtocol,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct DangerSenseFacts {
+    pub saving_throw_ability: SavingThrowAbility,
+    pub actor_incapacitated: bool,
+}
+
 #[must_use]
 pub fn resolve_adrenaline_rush_bonus_action_dash(
     facts: AdrenalineRushFacts,
@@ -85,5 +128,64 @@ fn rejected(
     AdrenalineRushProjection {
         turn,
         result: AdrenalineRushResult::Invalid(rejection),
+    }
+}
+
+#[must_use]
+pub fn danger_sense_initial_state() -> DangerSenseState {
+    DangerSenseState {
+        scenario_outcome: DangerSenseScenarioOutcome::Init,
+        feature_present: false,
+        dexterity_roll_mode_count: 0,
+        constitution_roll_mode_count: 0,
+        suppressed: false,
+        accepted: false,
+        protocol: DangerSenseProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn danger_sense_saving_throw_roll_mode(facts: DangerSenseFacts) -> PassiveSavingThrowRollMode {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Barbarian.md
+    // "Level 2: Danger Sense"; QNT:
+    // unit-feature-save-damage-core-examples.qnt passiveSavingThrowRollMode.
+    if facts.saving_throw_ability == SavingThrowAbility::Dexterity && !facts.actor_incapacitated {
+        PassiveSavingThrowRollMode::Advantage
+    } else {
+        PassiveSavingThrowRollMode::Normal
+    }
+}
+
+#[must_use]
+pub fn project_danger_sense_dexterity_advantage(_state: DangerSenseState) -> DangerSenseState {
+    let mode = danger_sense_saving_throw_roll_mode(DangerSenseFacts {
+        saving_throw_ability: SavingThrowAbility::Dexterity,
+        actor_incapacitated: false,
+    });
+    DangerSenseState {
+        scenario_outcome: DangerSenseScenarioOutcome::DexterityAdvantage,
+        feature_present: true,
+        dexterity_roll_mode_count: i16::from(mode == PassiveSavingThrowRollMode::Advantage),
+        constitution_roll_mode_count: 0,
+        suppressed: false,
+        accepted: true,
+        protocol: DangerSenseProtocol::Resolved,
+    }
+}
+
+#[must_use]
+pub fn suppress_danger_sense_while_incapacitated(_state: DangerSenseState) -> DangerSenseState {
+    let mode = danger_sense_saving_throw_roll_mode(DangerSenseFacts {
+        saving_throw_ability: SavingThrowAbility::Dexterity,
+        actor_incapacitated: true,
+    });
+    DangerSenseState {
+        scenario_outcome: DangerSenseScenarioOutcome::IncapacitatedSuppressed,
+        feature_present: true,
+        dexterity_roll_mode_count: i16::from(mode == PassiveSavingThrowRollMode::Advantage),
+        constitution_roll_mode_count: 0,
+        suppressed: true,
+        accepted: true,
+        protocol: DangerSenseProtocol::Resolved,
     }
 }

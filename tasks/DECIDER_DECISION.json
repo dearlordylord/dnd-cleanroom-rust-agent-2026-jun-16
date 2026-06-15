@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T020-battle-runtime-creature-type-protection-and-charm-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T021-battle-runtime-danger-sense-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T020"
+  "taskId": "T021"
 }
