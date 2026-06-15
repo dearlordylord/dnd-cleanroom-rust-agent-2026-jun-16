@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T005-character-creation-weapon-mastery-containers-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T006-character-sheet-ability-check-proficiency-bonus.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T005"
+  "taskId": "T006"
 }

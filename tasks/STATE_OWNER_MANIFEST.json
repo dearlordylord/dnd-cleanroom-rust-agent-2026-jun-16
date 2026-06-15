@@ -2,73 +2,19 @@
   "durableFields": [
     {
       "derivability": {
-        "boundary": "character creation weapon mastery container projection",
-        "sourceField": "WeaponMasteryProjection",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
-      "fieldPath": "WeaponMasteryProjection.feature",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection"
+      "fieldPath": "AbilityCheckProficiencyBonusProjection.kind",
+      "introducedIn": "src/rules/ability_checks.rs",
+      "owner": "sheet-state"
     },
     {
       "derivability": {
-        "boundary": "character creation weapon mastery container projection",
-        "sourceField": "WeaponMasteryProjection",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
-      "fieldPath": "WeaponMasteryProjection.class_unit",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character creation weapon mastery container projection",
-        "sourceField": "WeaponMasteryProjection",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "WeaponMasteryProjection.selected_weapons",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character creation weapon mastery container projection",
-        "sourceField": "WeaponMasteryProjection",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "WeaponMasteryProjection.selected_mastery_choice_count",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character creation weapon mastery container projection",
-        "sourceField": "WeaponMasteryProjection",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "WeaponMasteryProjection.build_mastery_feature_count",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character creation weapon mastery container projection",
-        "sourceField": "WeaponMasteryProjection",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "WeaponMasteryProjection.open_hole_count",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character creation weapon mastery container projection",
-        "sourceField": "WeaponMasteryProjection",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "WeaponMasteryProjection.total_level",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection"
+      "fieldPath": "AbilityCheckProficiencyBonusProjection.bonus",
+      "introducedIn": "src/rules/ability_checks.rs",
+      "owner": "sheet-state"
     },
     {
       "derivability": {
@@ -76,10 +22,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/character_sheet_ability_check_proficiency_bonus.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T005"
+  "taskId": "T006"
 }

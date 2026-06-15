@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T005",
-  "startHeadSha": "cff221a056d71f86207101512333174cd859d16d",
+  "taskId": "T006",
+  "startHeadSha": "d780e2ee672db9e6f683afa0e7d241222e75cdf0",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -9,9 +9,9 @@
   },
   "taskScope": {
     "assignmentId": "level-1-2-full",
-    "laneId": "creation",
+    "laneId": "sheet",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt"
     ]
   }
 }

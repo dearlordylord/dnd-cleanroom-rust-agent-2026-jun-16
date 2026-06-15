@@ -2,13 +2,14 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
+      "path": "src/qnt_adapters/character_sheet_ability_check_proficiency_bonus.rs",
       "quarantinedWitnessNames": [
-        "doFinalizeBarbarianWeaponMastery",
-        "doFinalizeFighterWeaponMastery",
-        "doFinalizePaladinWeaponMastery",
-        "doFinalizeRangerWeaponMastery",
-        "doFinalizeRogueWeaponMastery",
+        "doProjectExpertise",
+        "doProjectJackOfAllTradesLevelTwo",
+        "doProjectJackOfAllTradesRoundedDown",
+        "doProjectSkillProficiency",
+        "doRejectMissingBardLevelTwo",
+        "doRejectOtherProficiencyBonus",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -26,34 +27,31 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-character-creation-weapon-mastery-containers-selected-identity.json"
+        "tasks/target-replay-evidence/T006-character-sheet-ability-check-proficiency-bonus.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "weapon_mastery_projection",
-      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt",
-      "module": "src/rules/class_features.rs"
+      "api": "ability_check_proficiency_bonus",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt",
+      "module": "src/rules/ability_checks.rs"
     },
     {
-      "api": "weapon_mastery_projection",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
-      "module": "src/rules/class_features.rs"
+      "api": "ability_check_proficiency_bonus",
+      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt",
+      "module": "src/rules/ability_checks.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "weapon_mastery_projection",
-        "fighter_fighting_style_projection",
-        "level_one_order_projection",
-        "level_two_feature_projection"
+        "ability_check_proficiency_bonus"
       ],
-      "path": "src/rules/class_features.rs",
+      "path": "src/rules/ability_checks.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T005"
+  "taskId": "T006"
 }

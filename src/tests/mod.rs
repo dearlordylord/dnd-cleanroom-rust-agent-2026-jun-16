@@ -8,7 +8,13 @@ mod character_creation_fighter_fighting_style_selected_identity;
 mod character_creation_runtime;
 #[path = "../qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs"]
 mod character_creation_weapon_mastery_containers_selected_identity;
+#[path = "../qnt_adapters/character_sheet_ability_check_proficiency_bonus.rs"]
+mod character_sheet_ability_check_proficiency_bonus;
 
+use crate::rules::ability_checks::{
+    ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
+    JackOfAllTradesState, OtherProficiencyBonusState,
+};
 use crate::rules::class_features::{
     cleric_divine_order_projection, druid_primal_order_projection,
     fighter_fighting_style_projection, level_two_feature_projection, weapon_mastery_projection,
@@ -39,6 +45,13 @@ use character_creation_weapon_mastery_containers_selected_identity::{
     expected_ranger_witness, expected_rogue_witness,
     projection_payload as weapon_mastery_projection_payload,
     replay_observed_action as replay_weapon_mastery_action,
+};
+use character_sheet_ability_check_proficiency_bonus::{
+    expected_expertise_witness, expected_jack_of_all_trades_level_two_witness,
+    expected_jack_of_all_trades_rounded_down_witness, expected_missing_bard_level_two_witness,
+    expected_other_proficiency_bonus_witness, expected_skill_proficiency_witness,
+    projection_payload as ability_check_projection_payload,
+    replay_observed_action as replay_ability_check_action,
 };
 
 #[test]
@@ -289,4 +302,59 @@ fn weapon_mastery_projection_enforces_class_choice_count() {
         short_fighter,
         Err(ProjectionError::WrongWeaponMasteryChoiceCount)
     );
+}
+
+#[test]
+fn ability_check_proficiency_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/character-sheet-runtime/
+    // character-sheet-ability-check-proficiency-bonus.mbt.qnt;
+    // shared algebra: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // ability-check-proficiency-bonus.qnt.
+    let jack_level_two = replay_ability_check_action("doProjectJackOfAllTradesLevelTwo");
+    let jack_rounded = replay_ability_check_action("doProjectJackOfAllTradesRoundedDown");
+    let skill = replay_ability_check_action("doProjectSkillProficiency");
+    let expertise = replay_ability_check_action("doProjectExpertise");
+    let other = replay_ability_check_action("doRejectOtherProficiencyBonus");
+    let missing_bard = replay_ability_check_action("doRejectMissingBardLevelTwo");
+
+    assert_eq!(
+        jack_level_two,
+        expected_jack_of_all_trades_level_two_witness()
+    );
+    assert_eq!(
+        jack_rounded,
+        expected_jack_of_all_trades_rounded_down_witness()
+    );
+    assert_eq!(skill, expected_skill_proficiency_witness());
+    assert_eq!(expertise, expected_expertise_witness());
+    assert_eq!(other, expected_other_proficiency_bonus_witness());
+    assert_eq!(missing_bard, expected_missing_bard_level_two_witness());
+    assert!(ability_check_projection_payload(&expertise).contains("bonus=6"));
+}
+
+#[test]
+fn ability_check_proficiency_prefers_training_over_jack_of_all_trades() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Proficiency Bonus";
+    // cleanroom-input/raw/srd-5.2.1/Classes/Bard.md "Level 2: Jack of All Trades";
+    // cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md "Expertise".
+    let proficient = ability_check_proficiency_bonus(
+        3,
+        AbilityCheckSkillTraining::Proficient,
+        JackOfAllTradesState::Present,
+        OtherProficiencyBonusState::NoOtherProficiencyBonus,
+    );
+    let blocked_jack = ability_check_proficiency_bonus(
+        3,
+        AbilityCheckSkillTraining::Unproficient,
+        JackOfAllTradesState::Present,
+        OtherProficiencyBonusState::OtherProficiencyBonusApplies,
+    );
+
+    assert_eq!(
+        proficient.kind,
+        AbilityCheckProficiencyBonusKind::SkillProficiency
+    );
+    assert_eq!(proficient.bonus, 3);
+    assert_eq!(blocked_jack.kind, AbilityCheckProficiencyBonusKind::None);
+    assert_eq!(blocked_jack.bonus, 0);
 }
