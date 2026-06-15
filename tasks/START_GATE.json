@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T018",
-  "startHeadSha": "d45e047ac8500405d531d49824e2510c666ac14b",
+  "taskId": "T019",
+  "startHeadSha": "a0dae6d636d310dc7b2adbbcf1ce0ab1ce071b83",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt"
     ]
   }
 }

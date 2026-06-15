@@ -8,6 +8,8 @@ mod battle_runtime_chained_attack_sequence;
 mod battle_runtime_command_option_next_turn;
 #[path = "../qnt_adapters/battle_runtime_command_ordering.rs"]
 mod battle_runtime_command_ordering;
+#[path = "../qnt_adapters/battle_runtime_concentration_break_teardown.rs"]
+mod battle_runtime_concentration_break_teardown;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -73,6 +75,13 @@ use crate::rules::command_options::{
     CommandNextTurnInvalidReason, CommandNextTurnOption, CommandNextTurnProtocol,
     CommandNextTurnScenario, CommandOrderingFillFacts, CommandOrderingProtocol, CommandTurnActor,
 };
+use crate::rules::concentration::{
+    cast_concentration_spell, cast_replacement_concentration_spell, concentration_initial_state,
+    concentration_save_dc_for_damage, fail_concentration_saving_throw,
+    request_concentration_save_after_damage, voluntarily_end_concentration,
+    ConcentrationBreakScenario, ConcentrationDamageFacts, ConcentrationProtocol,
+    ConcentrationSavingThrowError, ConcentrationSavingThrowFacts,
+};
 use crate::rules::feature_resources::{
     apply_lay_on_hands_resource, apply_temporary_hit_points, FeatureResourceHitPoints,
     ResourcePoolError, ResourcePoolFacts,
@@ -125,6 +134,12 @@ use battle_runtime_command_ordering::{
     projection_payload as command_ordering_projection_payload,
     replay_observed_action as replay_command_ordering_action,
     BRANCH_ACTIONS as COMMAND_ORDERING_BRANCH_ACTIONS,
+};
+use battle_runtime_concentration_break_teardown::{
+    expected_witness as expected_concentration_break_teardown_witness,
+    projection_payload as concentration_break_teardown_projection_payload,
+    replay_observed_action as replay_concentration_break_teardown_action, sampled_damage_total,
+    BRANCH_ACTIONS as CONCENTRATION_BREAK_TEARDOWN_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1243,4 +1258,91 @@ fn command_ordering_frontier_requires_target_option_save_then_movement() {
         flee_without_movement,
         CommandFillOrderResult::Rejected(CommandFillOrderingError::MovementRequired)
     );
+}
+
+#[test]
+fn concentration_break_teardown_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-concentration-break-teardown.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md "Concentration".
+    for action in CONCENTRATION_BREAK_TEARDOWN_BRANCH_ACTIONS {
+        let observed = replay_concentration_break_teardown_action(action);
+        assert_eq!(
+            observed,
+            expected_concentration_break_teardown_witness(action)
+        );
+        assert!(
+            concentration_break_teardown_projection_payload(&observed).contains("protocolResult=")
+        );
+    }
+}
+
+#[test]
+fn concentration_breaks_after_failed_save_voluntary_end_or_replacement() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md
+    // "Concentration"; QNT: battle-runtime-concentration.qnt.
+    assert_eq!(sampled_damage_total(), 6);
+    assert_eq!(concentration_save_dc_for_damage(3), 10);
+    assert_eq!(concentration_save_dc_for_damage(22), 11);
+    assert_eq!(concentration_save_dc_for_damage(80), 30);
+
+    let concentrating = cast_concentration_spell(concentration_initial_state());
+    assert!(concentrating.caster_concentrating);
+    assert_eq!(concentrating.active_concentration_effect_count, 1);
+
+    let save_needed = request_concentration_save_after_damage(
+        concentrating,
+        ConcentrationDamageFacts {
+            damage_roll_result: 4,
+            damage_bonus: 2,
+        },
+    );
+    assert_eq!(
+        save_needed.scenario,
+        ConcentrationBreakScenario::DamageSaveNeeded
+    );
+    assert_eq!(
+        save_needed.protocol,
+        ConcentrationProtocol::NeedsSavingThrow
+    );
+    assert_eq!(save_needed.save_dc, 10);
+
+    let passed = fail_concentration_saving_throw(
+        save_needed.clone(),
+        ConcentrationSavingThrowFacts {
+            saving_throw_total: 10,
+        },
+    );
+    assert_eq!(passed, Err(ConcentrationSavingThrowError::SaveDidNotFail));
+
+    let broken = fail_concentration_saving_throw(
+        save_needed,
+        ConcentrationSavingThrowFacts {
+            saving_throw_total: 9,
+        },
+    )
+    .expect("saving throw below DC breaks concentration");
+    assert_eq!(
+        broken.scenario,
+        ConcentrationBreakScenario::DamageFailedTeardownBeforeNextCommand
+    );
+    assert!(!broken.caster_concentrating);
+    assert_eq!(broken.active_concentration_effect_count, 0);
+    assert!(broken.teardown_before_next_command);
+
+    let voluntarily_ended = voluntarily_end_concentration(concentration_initial_state());
+    assert_eq!(
+        voluntarily_ended.scenario,
+        ConcentrationBreakScenario::VoluntaryEndTeardown
+    );
+    assert!(!voluntarily_ended.caster_concentrating);
+    assert!(voluntarily_ended.teardown_before_next_command);
+
+    let replacement = cast_replacement_concentration_spell(concentration_initial_state());
+    assert_eq!(
+        replacement.scenario,
+        ConcentrationBreakScenario::ReplacementTeardownBeforeNewEffect
+    );
+    assert!(replacement.caster_concentrating);
+    assert!(replacement.replacement_started_after_teardown);
 }

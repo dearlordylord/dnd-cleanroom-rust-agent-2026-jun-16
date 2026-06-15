@@ -1,0 +1,207 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "branchFamily": "step",
+      "branchAction": "doCastConcentrationSpell",
+      "observedActionTaken": "doCastConcentrationSpell",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "traceId": "T019-cast-concentration-spell",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ConcentrationBreakTeardownWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "fa851e6bbbeef8c60f944421a28481f02b112377cb037b14972fccfcce4e6ce3",
+        "observedProjectionSha256": "fa851e6bbbeef8c60f944421a28481f02b112377cb037b14972fccfcce4e6ce3",
+        "checkedTargetStateFields": [
+          "ConcentrationState.scenario",
+          "ConcentrationState.protocol",
+          "ConcentrationState.damage_taken",
+          "ConcentrationState.save_dc",
+          "ConcentrationState.saving_throw_total",
+          "ConcentrationState.concentration_save_offered",
+          "ConcentrationState.caster_concentrating",
+          "ConcentrationState.active_concentration_effect_count",
+          "ConcentrationState.spell_slot_expended",
+          "ConcentrationState.teardown_before_next_command",
+          "ConcentrationState.replacement_started_after_teardown",
+          "ConcentrationDamageFacts.damage_roll_result",
+          "ConcentrationDamageFacts.damage_bonus",
+          "ConcentrationSavingThrowFacts.saving_throw_total"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "branchFamily": "step",
+      "branchAction": "doCastReplacementConcentrationSpell",
+      "observedActionTaken": "doCastReplacementConcentrationSpell",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "traceId": "T019-cast-replacement-concentration-spell",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ConcentrationBreakTeardownWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "6fa8a20ccf444da8bab72fe975fd2738936670fad1988dc79b57417ec846fca2",
+        "observedProjectionSha256": "6fa8a20ccf444da8bab72fe975fd2738936670fad1988dc79b57417ec846fca2",
+        "checkedTargetStateFields": [
+          "ConcentrationState.scenario",
+          "ConcentrationState.protocol",
+          "ConcentrationState.damage_taken",
+          "ConcentrationState.save_dc",
+          "ConcentrationState.saving_throw_total",
+          "ConcentrationState.concentration_save_offered",
+          "ConcentrationState.caster_concentrating",
+          "ConcentrationState.active_concentration_effect_count",
+          "ConcentrationState.spell_slot_expended",
+          "ConcentrationState.teardown_before_next_command",
+          "ConcentrationState.replacement_started_after_teardown",
+          "ConcentrationDamageFacts.damage_roll_result",
+          "ConcentrationDamageFacts.damage_bonus",
+          "ConcentrationSavingThrowFacts.saving_throw_total"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "branchFamily": "step",
+      "branchAction": "doDamageRequestsConcentrationSave",
+      "observedActionTaken": "doDamageRequestsConcentrationSave",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "traceId": "T019-damage-requests-concentration-save",
+      "sampledInputs": [
+        {
+          "pickName": "damageDiePip",
+          "value": 4
+        }
+      ],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ConcentrationBreakTeardownWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "d069f2640ffa3f736712d7ea65595cb6900fb65f005c21c08924738821a56d8a",
+        "observedProjectionSha256": "d069f2640ffa3f736712d7ea65595cb6900fb65f005c21c08924738821a56d8a",
+        "checkedTargetStateFields": [
+          "ConcentrationState.scenario",
+          "ConcentrationState.protocol",
+          "ConcentrationState.damage_taken",
+          "ConcentrationState.save_dc",
+          "ConcentrationState.saving_throw_total",
+          "ConcentrationState.concentration_save_offered",
+          "ConcentrationState.caster_concentrating",
+          "ConcentrationState.active_concentration_effect_count",
+          "ConcentrationState.spell_slot_expended",
+          "ConcentrationState.teardown_before_next_command",
+          "ConcentrationState.replacement_started_after_teardown",
+          "ConcentrationDamageFacts.damage_roll_result",
+          "ConcentrationDamageFacts.damage_bonus",
+          "ConcentrationSavingThrowFacts.saving_throw_total"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "branchFamily": "step",
+      "branchAction": "doFailConcentrationSave",
+      "observedActionTaken": "doFailConcentrationSave",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "traceId": "T019-fail-concentration-save",
+      "sampledInputs": [
+        {
+          "pickName": "saveRollTotal",
+          "value": 9
+        }
+      ],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ConcentrationBreakTeardownWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "3527a329cddf6f99a3afa20f40a99143b16a8c27f28be19391f59c1d8dedff15",
+        "observedProjectionSha256": "3527a329cddf6f99a3afa20f40a99143b16a8c27f28be19391f59c1d8dedff15",
+        "checkedTargetStateFields": [
+          "ConcentrationState.scenario",
+          "ConcentrationState.protocol",
+          "ConcentrationState.damage_taken",
+          "ConcentrationState.save_dc",
+          "ConcentrationState.saving_throw_total",
+          "ConcentrationState.concentration_save_offered",
+          "ConcentrationState.caster_concentrating",
+          "ConcentrationState.active_concentration_effect_count",
+          "ConcentrationState.spell_slot_expended",
+          "ConcentrationState.teardown_before_next_command",
+          "ConcentrationState.replacement_started_after_teardown",
+          "ConcentrationDamageFacts.damage_roll_result",
+          "ConcentrationDamageFacts.damage_bonus",
+          "ConcentrationSavingThrowFacts.saving_throw_total"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "branchFamily": "step",
+      "branchAction": "doVoluntaryEndConcentration",
+      "observedActionTaken": "doVoluntaryEndConcentration",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "traceId": "T019-voluntary-end-concentration",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ConcentrationBreakTeardownWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "7c6a1baf063ee2d8953895b88598640eb1a8ec1977a6978c970c3b5705b83d66",
+        "observedProjectionSha256": "7c6a1baf063ee2d8953895b88598640eb1a8ec1977a6978c970c3b5705b83d66",
+        "checkedTargetStateFields": [
+          "ConcentrationState.scenario",
+          "ConcentrationState.protocol",
+          "ConcentrationState.damage_taken",
+          "ConcentrationState.save_dc",
+          "ConcentrationState.saving_throw_total",
+          "ConcentrationState.concentration_save_offered",
+          "ConcentrationState.caster_concentrating",
+          "ConcentrationState.active_concentration_effect_count",
+          "ConcentrationState.spell_slot_expended",
+          "ConcentrationState.teardown_before_next_command",
+          "ConcentrationState.replacement_started_after_teardown",
+          "ConcentrationDamageFacts.damage_roll_result",
+          "ConcentrationDamageFacts.damage_bonus",
+          "ConcentrationSavingThrowFacts.saving_throw_total"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}

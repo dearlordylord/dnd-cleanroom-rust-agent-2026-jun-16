@@ -4,144 +4,112 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.stage",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.scenario",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.protocol",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.protocol",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.table_fact_frontier_open",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.damage_taken",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.last_ordering_error",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.save_dc",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.pending_option",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.saving_throw_total",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.target_prone",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.concentration_save_offered",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.dropped_object_count",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.caster_concentrating",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.halt_suppressed",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.active_concentration_effect_count",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.movement_spent_feet",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.spell_slot_expended",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.current_actor",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.teardown_before_next_command",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingState.reaction_window_open",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationState.replacement_started_after_teardown",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingFillFacts.fill_kind",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationDamageFacts.damage_roll_result",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingFillFacts.option",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationDamageFacts.damage_bonus",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandOrderingFillFacts.failed_saving_throw",
-      "introducedIn": "src/rules/command_options.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CommandOrderingFillFacts.movement_available",
-      "introducedIn": "src/rules/command_options.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CommandOrderingFillFacts.held_object_facts_required",
-      "introducedIn": "src/rules/command_options.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
-      "introducedIn": "src/rules/command_options.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "CommandOrderingFillFacts.opened_opportunity_attack",
-      "introducedIn": "src/rules/command_options.rs",
+      "fieldPath": "ConcentrationSavingThrowFacts.saving_throw_total",
+      "introducedIn": "src/rules/concentration.rs",
       "owner": "structured-input"
     },
     {
@@ -150,10 +118,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T018"
+  "taskId": "T019"
 }

@@ -3,38 +3,22 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "extended Command module with reusable fill-frontier ordering types, results, and projection helpers"
+      "reason": "added reusable Concentration break teardown state, damage-save DC, and effect-removal projection APIs"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "path": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
       "quarantinedWitnessNames": [
-        "doDiscoverCommand",
-        "doSubmitOptionBeforeTargetList",
-        "doFillTargetList",
-        "doSubmitSavingThrowBeforeOption",
-        "doFillGrovelOption",
-        "doFillFailedGrovelSavingThrow",
-        "doFollowGrovel",
-        "doDropNeedsHeldObjectFacts",
-        "doFillDropHeldObjectFacts",
-        "doHaltSuppresses",
-        "doApproachMovementContinues",
-        "doFillApproachMovementContinues",
-        "doFillApproachMovementWithinFive",
-        "doApproachNoMovement",
-        "doFleeMovement",
-        "doFillFleeMovement",
-        "doRejectFleePartialMovement",
-        "doFleeNoMovement",
-        "doFleeOpportunityAttack",
-        "TargetChoiceHoleKind",
-        "SpellTargetListHoleKind",
-        "CommandOptionChoiceHoleKind",
-        "SavingThrowOutcomeHoleKind",
-        "MovementHoleKind",
-        "WInvalidFill",
+        "doCastConcentrationSpell",
+        "doCastReplacementConcentrationSpell",
+        "doDamageRequestsConcentrationSave",
+        "doFailConcentrationSave",
+        "doVoluntaryEndConcentration",
+        "damageDiePip",
+        "saveRollTotal",
+        "ConcentrationSavingThrow",
+        "ConcentrationBreakTeardown",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -52,40 +36,38 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json"
+        "tasks/target-replay-evidence/T019-battle-runtime-concentration-break-teardown.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "command_fill_order_result",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
-      "module": "src/rules/command_options.rs"
+      "api": "concentration_save_dc_for_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "module": "src/rules/concentration.rs"
     },
     {
-      "api": "command_hole_frontier",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
-      "module": "src/rules/command_options.rs"
+      "api": "fail_concentration_saving_throw",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt",
+      "module": "src/rules/concentration.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "command_ordering_initial_state",
-        "command_hole_frontier",
-        "command_hole_frontier_includes_table_facts",
-        "command_after_saving_throw_stage",
-        "command_after_movement_stage",
-        "command_fill_order_result",
-        "command_fill_order_accepted_stage",
-        "command_fill_order_error",
-        "command_fill_order_runtime_result",
-        "command_ordering_projection"
+        "concentration_initial_state",
+        "concentration_damage_total",
+        "concentration_save_dc_for_damage",
+        "cast_concentration_spell",
+        "request_concentration_save_after_damage",
+        "fail_concentration_saving_throw",
+        "voluntarily_end_concentration",
+        "cast_replacement_concentration_spell"
       ],
-      "path": "src/rules/command_options.rs",
+      "path": "src/rules/concentration.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T018"
+  "taskId": "T019"
 }
