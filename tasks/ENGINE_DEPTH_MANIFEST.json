@@ -3,21 +3,15 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "new SRD weapon choice enum variant required by sheet Weapon Mastery witness"
+      "reason": "new typed origin-feat and initiative handoff module for battle projection reuse"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs",
+      "path": "src/qnt_adapters/character_battle_origin_feat_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doAcceptOneChangeWeaponMasteryReselection",
-        "doRejectTooManyChangesWeaponMasteryReselection",
-        "doReselectPaladinWeaponMasteryOnLongRest",
-        "doReselectRangerWeaponMasteryOnLongRest",
-        "doReselectRogueWeaponMasteryOnLongRest",
-        "doSelectPaladinWeaponMastery",
-        "doSelectRangerWeaponMastery",
-        "doSelectRogueWeaponMastery",
+        "doFinalizeCriminalAlertOriginFeat",
+        "doProjectAlertInitiativeHandoff",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -35,29 +29,27 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json"
+        "tasks/target-replay-evidence/T013-character-battle-origin-feat-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "apply_weapon_mastery_long_rest_reselection",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
-      "module": "src/rules/class_features.rs"
+      "api": "initiative_handoff_projection",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "module": "src/rules/origin_feats.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "weapon_mastery_projection",
-        "weapon_mastery_changed_choice_count",
-        "can_apply_weapon_mastery_long_rest_reselection",
-        "apply_weapon_mastery_long_rest_reselection"
+        "criminal_origin_feat_projection",
+        "initiative_handoff_projection"
       ],
-      "path": "src/rules/class_features.rs",
+      "path": "src/rules/origin_feats.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T012"
+  "taskId": "T013"
 }

@@ -1,3 +1,5 @@
+#[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
+mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
 mod character_creation_class_feature_projections;
 #[path = "../qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs"]
@@ -45,12 +47,22 @@ use crate::rules::hit_points::{
     complete_long_rest_benefits, fixed_higher_level_hit_point_gain, hit_point_maximum_projection,
     spend_hit_point_die, HitPointMaximumFacts, SheetHitPointState,
 };
+use crate::rules::origin_feats::{
+    criminal_origin_feat_projection, initiative_handoff_projection, AlertInitiativeState,
+    Background, InitiativeHandoffFacts, OriginFeat,
+};
 use crate::rules::spellbook_rituals::{
     can_cast_spellbook_ritual, spellbook_ritual_invocation, PreparationRequirement,
     RequiredSpellAccess, SpellSlotCost, SpellbookRitualAccess, SpellbookRitualAdept,
     SpellbookRitualFacts, SpellbookRitualResult, SpellbookSpellKind,
 };
 
+use character_battle_origin_feat_selected_identity::{
+    expected_witness as expected_origin_feat_witness,
+    projection_payload as origin_feat_projection_payload,
+    replay_observed_action as replay_origin_feat_action,
+    BRANCH_ACTIONS as ORIGIN_FEAT_BRANCH_ACTIONS,
+};
 use character_creation_class_feature_projections::{
     expected_monk_witness, expected_sorcerer_witness, projection_payload, replay_observed_action,
 };
@@ -721,4 +733,38 @@ fn weapon_mastery_reselection_applies_long_rest_change_limit() {
         apply_weapon_mastery_long_rest_reselection(&too_many),
         Err(ProjectionError::TooManyWeaponMasteryChanges)
     );
+}
+
+#[test]
+fn origin_feat_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/character-battle-runtime/
+    // character-battle-origin-feat-selected-identity.mbt.qnt.
+    for action in ORIGIN_FEAT_BRANCH_ACTIONS {
+        let observed = replay_origin_feat_action(action);
+        assert_eq!(observed, expected_origin_feat_witness(action));
+        assert!(origin_feat_projection_payload(&observed).contains("originFeatUnitId=alert"));
+    }
+}
+
+#[test]
+fn alert_origin_feat_adds_proficiency_to_initiative_score() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Origins.md "Criminal";
+    // cleanroom-input/raw/srd-5.2.1/Feats.md "Alert";
+    // cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md "Initiative".
+    let origin = criminal_origin_feat_projection();
+    let alert = initiative_handoff_projection(InitiativeHandoffFacts {
+        dexterity_modifier: 4,
+        proficiency_bonus: 2,
+        alert_initiative: AlertInitiativeState::Present,
+    });
+    let no_alert = initiative_handoff_projection(InitiativeHandoffFacts {
+        dexterity_modifier: 4,
+        proficiency_bonus: 2,
+        alert_initiative: AlertInitiativeState::Absent,
+    });
+
+    assert_eq!(origin.background, Background::Criminal);
+    assert_eq!(origin.origin_feat, OriginFeat::Alert);
+    assert_eq!(alert.initiative_score, 16);
+    assert_eq!(no_alert.initiative_score, 14);
 }

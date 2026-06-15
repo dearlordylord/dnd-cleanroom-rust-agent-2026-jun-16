@@ -4,76 +4,50 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponMasteryProjection.selected_weapons",
-      "introducedIn": "src/rules/class_features.rs",
+      "fieldPath": "OriginFeatProjection.background",
+      "introducedIn": "src/rules/origin_feats.rs",
       "owner": "sheet-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponMasteryProjection.selected_mastery_choice_count",
-      "introducedIn": "src/rules/class_features.rs",
+      "fieldPath": "OriginFeatProjection.origin_feat",
+      "introducedIn": "src/rules/origin_feats.rs",
       "owner": "sheet-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponMasteryReselectionFacts.choice_count",
-      "introducedIn": "src/rules/class_features.rs",
+      "fieldPath": "InitiativeHandoffFacts.dexterity_modifier",
+      "introducedIn": "src/rules/origin_feats.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponMasteryReselectionFacts.long_rest_change_count",
-      "introducedIn": "src/rules/class_features.rs",
+      "fieldPath": "InitiativeHandoffFacts.proficiency_bonus",
+      "introducedIn": "src/rules/origin_feats.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponMasteryReselectionFacts.current_weapons",
-      "introducedIn": "src/rules/class_features.rs",
+      "fieldPath": "InitiativeHandoffFacts.alert_initiative",
+      "introducedIn": "src/rules/origin_feats.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WeaponMasteryReselectionFacts.requested_weapons",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WeaponMasteryReselectionFacts.eligible_weapons",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "boundary": "character-sheet-weapon-mastery-containers-selected-identity",
-        "sourceField": "WeaponMasteryReselectionFacts.requested_weapons",
+        "boundary": "character-battle-origin-feat-selected-identity",
+        "sourceField": "InitiativeHandoffFacts",
         "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "WeaponMasteryReselectionProjection.selected_weapons",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character-sheet-weapon-mastery-containers-selected-identity",
-        "sourceField": "WeaponMasteryReselectionFacts",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "WeaponMasteryReselectionProjection.changed_choice_count",
-      "introducedIn": "src/rules/class_features.rs",
+      "fieldPath": "InitiativeHandoffProjection.initiative_score",
+      "introducedIn": "src/rules/origin_feats.rs",
       "owner": "executable-boundary-projection"
     },
     {
@@ -82,10 +56,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/character_battle_origin_feat_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T012"
+  "taskId": "T013"
 }

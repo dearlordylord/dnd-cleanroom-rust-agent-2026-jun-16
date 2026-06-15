@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T012",
-  "startHeadSha": "9a82858ce4efbce92a7bb6e92b744cafd3f2cd64",
+  "taskId": "T013",
+  "startHeadSha": "f193d1d10b5445b5edff7f165b734ada4b2a08eb",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -9,9 +9,9 @@
   },
   "taskScope": {
     "assignmentId": "level-1-2-full",
-    "laneId": "sheet",
+    "laneId": "handoff",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt"
     ]
   }
 }
