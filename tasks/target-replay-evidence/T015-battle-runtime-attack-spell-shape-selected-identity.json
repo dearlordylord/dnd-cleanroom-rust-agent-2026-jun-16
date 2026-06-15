@@ -1,0 +1,210 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "branchFamily": "step",
+      "branchAction": "doChillTouchHitPointRegainPrevention",
+      "observedActionTaken": "doChillTouchHitPointRegainPrevention",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "traceId": "T015-chill-touch-hit-point-regain-prevention",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "AttackSpellShapeWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "8a13d4a17cd48676c2594272c3b4d8ae072fd31655e412339aebcac259b2e321",
+        "observedProjectionSha256": "8a13d4a17cd48676c2594272c3b4d8ae072fd31655e412339aebcac259b2e321",
+        "checkedTargetStateFields": [
+          "SpellShapeState.target_hit_points",
+          "SpellShapeState.spell_slot_spent_this_turn",
+          "SpellShapeState.level_one_slots_remaining",
+          "SpellShapeState.active_effects",
+          "AttackSpellHitFacts.spell",
+          "AttackSpellHitFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.spell",
+          "SaveGatedSpellDamageFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.saving_throw_succeeded",
+          "SpellShapeProjection.outcome"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "branchFamily": "step",
+      "branchAction": "doFireBoltHit",
+      "observedActionTaken": "doFireBoltHit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "traceId": "T015-fire-bolt-hit",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "AttackSpellShapeWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "2066da776c4a02070022d5b10b45b683f4c5316fd25da6e65fcbbc8ffe86bf19",
+        "observedProjectionSha256": "2066da776c4a02070022d5b10b45b683f4c5316fd25da6e65fcbbc8ffe86bf19",
+        "checkedTargetStateFields": [
+          "SpellShapeState.target_hit_points",
+          "SpellShapeState.spell_slot_spent_this_turn",
+          "SpellShapeState.level_one_slots_remaining",
+          "SpellShapeState.active_effects",
+          "AttackSpellHitFacts.spell",
+          "AttackSpellHitFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.spell",
+          "SaveGatedSpellDamageFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.saving_throw_succeeded",
+          "SpellShapeProjection.outcome"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "branchFamily": "step",
+      "branchAction": "doGuidingBoltNextAttackAdvantage",
+      "observedActionTaken": "doGuidingBoltNextAttackAdvantage",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "traceId": "T015-guiding-bolt-next-attack-advantage",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "AttackSpellShapeWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "e654c6c9fa699973eb2854d0c234c581a69d37ada213ec352fae232a2de61a4e",
+        "observedProjectionSha256": "e654c6c9fa699973eb2854d0c234c581a69d37ada213ec352fae232a2de61a4e",
+        "checkedTargetStateFields": [
+          "SpellShapeState.target_hit_points",
+          "SpellShapeState.spell_slot_spent_this_turn",
+          "SpellShapeState.level_one_slots_remaining",
+          "SpellShapeState.active_effects",
+          "AttackSpellHitFacts.spell",
+          "AttackSpellHitFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.spell",
+          "SaveGatedSpellDamageFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.saving_throw_succeeded",
+          "SpellShapeProjection.outcome"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "branchFamily": "step",
+      "branchAction": "doInflictWoundsFailedSave",
+      "observedActionTaken": "doInflictWoundsFailedSave",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "traceId": "T015-inflict-wounds-failed-save",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "AttackSpellShapeWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "e09349798c117b1c5f8d5703d71b054e8bd5ed63ed5fdac23e03505cb28ce8ed",
+        "observedProjectionSha256": "e09349798c117b1c5f8d5703d71b054e8bd5ed63ed5fdac23e03505cb28ce8ed",
+        "checkedTargetStateFields": [
+          "SpellShapeState.target_hit_points",
+          "SpellShapeState.spell_slot_spent_this_turn",
+          "SpellShapeState.level_one_slots_remaining",
+          "SpellShapeState.active_effects",
+          "AttackSpellHitFacts.spell",
+          "AttackSpellHitFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.spell",
+          "SaveGatedSpellDamageFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.saving_throw_succeeded",
+          "SpellShapeProjection.outcome"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "branchFamily": "step",
+      "branchAction": "doInflictWoundsSuccessfulSave",
+      "observedActionTaken": "doInflictWoundsSuccessfulSave",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "traceId": "T015-inflict-wounds-successful-save",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "AttackSpellShapeWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "93d660c3043df65daf5d2997d0083e4f23e3610d0416b61f51c3f827a1ac70ee",
+        "observedProjectionSha256": "93d660c3043df65daf5d2997d0083e4f23e3610d0416b61f51c3f827a1ac70ee",
+        "checkedTargetStateFields": [
+          "SpellShapeState.target_hit_points",
+          "SpellShapeState.spell_slot_spent_this_turn",
+          "SpellShapeState.level_one_slots_remaining",
+          "SpellShapeState.active_effects",
+          "AttackSpellHitFacts.spell",
+          "AttackSpellHitFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.spell",
+          "SaveGatedSpellDamageFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.saving_throw_succeeded",
+          "SpellShapeProjection.outcome"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "branchFamily": "step",
+      "branchAction": "doShockingGraspOpportunityAttackDenied",
+      "observedActionTaken": "doShockingGraspOpportunityAttackDenied",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "traceId": "T015-shocking-grasp-opportunity-attack-denied",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "AttackSpellShapeWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "6f92e3adc0e3fd009f8bd8b4f49b490cbe7cab7a154b682f0c3b65325951209a",
+        "observedProjectionSha256": "6f92e3adc0e3fd009f8bd8b4f49b490cbe7cab7a154b682f0c3b65325951209a",
+        "checkedTargetStateFields": [
+          "SpellShapeState.target_hit_points",
+          "SpellShapeState.spell_slot_spent_this_turn",
+          "SpellShapeState.level_one_slots_remaining",
+          "SpellShapeState.active_effects",
+          "AttackSpellHitFacts.spell",
+          "AttackSpellHitFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.spell",
+          "SaveGatedSpellDamageFacts.damage_roll",
+          "SaveGatedSpellDamageFacts.saving_throw_succeeded",
+          "SpellShapeProjection.outcome"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}

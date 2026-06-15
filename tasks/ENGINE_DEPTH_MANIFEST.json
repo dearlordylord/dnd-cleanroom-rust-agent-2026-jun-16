@@ -3,15 +3,19 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "new battle feature resolution module for bonus-action Dash plus temporary hit point grant"
+      "reason": "new reusable spell shape projection module for attack spell hits and save-gated damage"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_adrenaline_rush.rs",
+      "path": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doAdrenalineRushDash",
-        "doRejectSecondDash",
+        "doChillTouchHitPointRegainPrevention",
+        "doFireBoltHit",
+        "doGuidingBoltNextAttackAdvantage",
+        "doInflictWoundsFailedSave",
+        "doInflictWoundsSuccessfulSave",
+        "doShockingGraspOpportunityAttackDenied",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -29,38 +33,34 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T014-battle-runtime-adrenaline-rush.json"
+        "tasks/target-replay-evidence/T015-battle-runtime-attack-spell-shape-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "resolve_adrenaline_rush_bonus_action_dash",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
-      "module": "src/rules/battle_features.rs"
+      "api": "resolve_spell_attack_hit",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "module": "src/rules/spell_shapes.rs"
     },
     {
-      "api": "apply_temporary_hit_points",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
-      "module": "src/rules/feature_resources.rs"
+      "api": "resolve_save_gated_spell_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "module": "src/rules/spell_shapes.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "resolve_adrenaline_rush_bonus_action_dash"
+        "spell_attack_damage_type",
+        "save_gated_spell_damage_type",
+        "resolve_spell_attack_hit",
+        "resolve_save_gated_spell_damage"
       ],
-      "path": "src/rules/battle_features.rs",
+      "path": "src/rules/spell_shapes.rs",
       "role": "domain-engine"
-    },
-    {
-      "domainApis": [
-        "apply_temporary_hit_points"
-      ],
-      "path": "src/rules/feature_resources.rs",
-      "role": "domain-api"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T014"
+  "taskId": "T015"
 }

@@ -1236,7 +1236,7 @@ function validateReportHonesty({
         `tasks/VALIDATION_REPORT.md:${lineIndex + 1} marks branch covered without target replay evidence.`,
       );
     }
-    if (/diagnostic|unit/i.test(evidenceCell)) {
+    if (/(?:diagnostic|\bunit\b)/i.test(evidenceCell)) {
       issues.push(
         `tasks/VALIDATION_REPORT.md:${lineIndex + 1} uses diagnostic evidence as target replay evidence.`,
       );

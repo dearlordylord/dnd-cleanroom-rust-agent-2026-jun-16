@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T014-battle-runtime-adrenaline-rush.json",
+      "evidence": "tasks/target-replay-evidence/T015-battle-runtime-attack-spell-shape-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T014"
+  "taskId": "T015"
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T014",
-  "startHeadSha": "086a0430fe4776bfec1647a2a409687a2edd641b",
+  "taskId": "T015",
+  "startHeadSha": "e59b9c555dbda723af5310ce41f42c9d77937710",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt"
     ]
   }
 }

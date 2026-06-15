@@ -1,5 +1,7 @@
 #[path = "../qnt_adapters/battle_runtime_adrenaline_rush.rs"]
 mod battle_runtime_adrenaline_rush;
+#[path = "../qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs"]
+mod battle_runtime_attack_spell_shape_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -58,6 +60,11 @@ use crate::rules::origin_feats::{
     criminal_origin_feat_projection, initiative_handoff_projection, AlertInitiativeState,
     Background, InitiativeHandoffFacts, OriginFeat,
 };
+use crate::rules::spell_shapes::{
+    resolve_save_gated_spell_damage, resolve_spell_attack_hit, AttackSpellHitFacts,
+    AttackSpellProfile, SaveGatedSpellDamageFacts, SaveGatedSpellProfile, SpellActiveEffect,
+    SpellShapeOutcome, SpellShapeState,
+};
 use crate::rules::spellbook_rituals::{
     can_cast_spellbook_ritual, spellbook_ritual_invocation, PreparationRequirement,
     RequiredSpellAccess, SpellSlotCost, SpellbookRitualAccess, SpellbookRitualAdept,
@@ -69,6 +76,12 @@ use battle_runtime_adrenaline_rush::{
     projection_payload as adrenaline_rush_projection_payload,
     replay_observed_action as replay_adrenaline_rush_action,
     BRANCH_ACTIONS as ADRENALINE_RUSH_BRANCH_ACTIONS,
+};
+use battle_runtime_attack_spell_shape_selected_identity::{
+    expected_witness as expected_attack_spell_shape_witness,
+    projection_payload as attack_spell_shape_projection_payload,
+    replay_observed_action as replay_attack_spell_shape_action,
+    BRANCH_ACTIONS as ATTACK_SPELL_SHAPE_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -829,4 +842,76 @@ fn adrenaline_rush_bonus_action_dash_spends_use_and_keeps_higher_temp_hp() {
         AdrenalineRushResult::Invalid(AdrenalineRushRejection::StaleSubject)
     );
     assert_eq!(apply_temporary_hit_points(5, 3), 5);
+}
+
+#[test]
+fn attack_spell_shape_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-attack-spell-shape-selected-identity.mbt.qnt;
+    // shared algebra: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // spell-attack-damage-projection-core.qnt and spell-save-damage-projection-core.qnt.
+    for action in ATTACK_SPELL_SHAPE_BRANCH_ACTIONS {
+        let observed = replay_attack_spell_shape_action(action);
+        assert_eq!(observed, expected_attack_spell_shape_witness(action));
+        assert!(
+            attack_spell_shape_projection_payload(&observed).contains("protocolResult=resolved")
+        );
+    }
+}
+
+#[test]
+fn attack_spell_shapes_project_slots_effects_and_save_damage() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Chill Touch"; Descriptions-E-L.md "Fire Bolt", "Guiding Bolt", and
+    // "Inflict Wounds"; Descriptions-S-Z.md "Shocking Grasp".
+    let initial = SpellShapeState {
+        target_hit_points: 12,
+        spell_slot_spent_this_turn: false,
+        level_one_slots_remaining: 2,
+        active_effects: vec![],
+    };
+    let chill_touch = resolve_spell_attack_hit(
+        initial.clone(),
+        AttackSpellHitFacts {
+            spell: AttackSpellProfile::ChillTouch,
+            damage_roll: 4,
+        },
+    );
+    let guiding_bolt = resolve_spell_attack_hit(
+        initial.clone(),
+        AttackSpellHitFacts {
+            spell: AttackSpellProfile::GuidingBolt,
+            damage_roll: 4,
+        },
+    );
+    let inflict_success = resolve_save_gated_spell_damage(
+        initial,
+        SaveGatedSpellDamageFacts {
+            spell: SaveGatedSpellProfile::InflictWounds,
+            damage_roll: 6,
+            saving_throw_succeeded: true,
+        },
+    );
+
+    assert_eq!(chill_touch.state.target_hit_points, 8);
+    assert_eq!(
+        chill_touch.state.active_effects,
+        vec![SpellActiveEffect::HitPointRegainPrevented]
+    );
+    assert_eq!(chill_touch.outcome, SpellShapeOutcome::ChillTouchHit);
+    assert!(!chill_touch.state.spell_slot_spent_this_turn);
+
+    assert_eq!(guiding_bolt.state.level_one_slots_remaining, 1);
+    assert!(guiding_bolt.state.spell_slot_spent_this_turn);
+    assert_eq!(
+        guiding_bolt.state.active_effects,
+        vec![SpellActiveEffect::NextAttackRollAgainstTargetAdvantage]
+    );
+
+    assert_eq!(inflict_success.state.target_hit_points, 9);
+    assert_eq!(
+        inflict_success.outcome,
+        SpellShapeOutcome::InflictWoundsSuccessfulSave
+    );
+    assert!(inflict_success.state.spell_slot_spent_this_turn);
 }
