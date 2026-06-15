@@ -16,6 +16,8 @@ mod character_sheet_armor_class_base_selected_identity;
 mod character_sheet_healing_resource_selected_identity;
 #[path = "../qnt_adapters/character_sheet_hit_point_maximum.rs"]
 mod character_sheet_hit_point_maximum;
+#[path = "../qnt_adapters/character_sheet_hp_rest_hit_dice.rs"]
+mod character_sheet_hp_rest_hit_dice;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -36,7 +38,8 @@ use crate::rules::feature_resources::{
     apply_lay_on_hands_resource, FeatureResourceHitPoints, ResourcePoolError, ResourcePoolFacts,
 };
 use crate::rules::hit_points::{
-    fixed_higher_level_hit_point_gain, hit_point_maximum_projection, HitPointMaximumFacts,
+    complete_long_rest_benefits, fixed_higher_level_hit_point_gain, hit_point_maximum_projection,
+    spend_hit_point_die, HitPointMaximumFacts, SheetHitPointState,
 };
 
 use character_creation_class_feature_projections::{
@@ -85,6 +88,12 @@ use character_sheet_hit_point_maximum::{
     projection_payload as hit_point_maximum_projection_payload,
     replay_observed_action as replay_hit_point_maximum_action,
     BRANCH_ACTIONS as HIT_POINT_MAXIMUM_BRANCH_ACTIONS,
+};
+use character_sheet_hp_rest_hit_dice::{
+    expected_witness as expected_hp_rest_hit_dice_witness,
+    projection_payload as hp_rest_hit_dice_projection_payload,
+    replay_observed_action as replay_hp_rest_hit_dice_action,
+    BRANCH_ACTIONS as HP_REST_HIT_DICE_BRANCH_ACTIONS,
 };
 
 #[test]
@@ -543,4 +552,46 @@ fn hit_point_maximum_applies_fixed_gain_minimum_and_reduction() {
     assert_eq!(projection.normal_hit_point_maximum, 18);
     assert_eq!(projection.effective_hit_point_maximum, 15);
     assert_eq!(projection.hit_dice_total, 2);
+}
+
+#[test]
+fn hp_rest_hit_dice_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/character-sheet-runtime/
+    // character-sheet-hp-rest-hit-dice.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md "Short Rest" and
+    // "Long Rest".
+    for action in HP_REST_HIT_DICE_BRANCH_ACTIONS {
+        let observed = replay_hp_rest_hit_dice_action(action);
+        assert_eq!(observed, expected_hp_rest_hit_dice_witness(action));
+        assert!(hp_rest_hit_dice_projection_payload(&observed).contains("replayIndex="));
+    }
+}
+
+#[test]
+fn hp_rest_hit_dice_spending_caps_healing_and_long_rest_resets() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md "Short Rest" and
+    // "Long Rest"; QNT: character-sheet-hp-rest-hit-dice.mbt.qnt.
+    let nearly_full = SheetHitPointState {
+        current_hp: 17,
+        normal_hit_point_maximum: 18,
+        hit_point_maximum_reduction: 0,
+        temporary_hit_points: 0,
+        spent_hit_dice: 0,
+    };
+    let healed = spend_hit_point_die(nearly_full, 8, 3);
+
+    assert_eq!(healed.current_hp, 18);
+    assert_eq!(healed.spent_hit_dice, 1);
+
+    let rested = complete_long_rest_benefits(SheetHitPointState {
+        current_hp: 7,
+        normal_hit_point_maximum: 18,
+        hit_point_maximum_reduction: 6,
+        temporary_hit_points: 2,
+        spent_hit_dice: 1,
+    });
+    assert_eq!(rested.current_hp, 18);
+    assert_eq!(rested.hit_point_maximum_reduction, 0);
+    assert_eq!(rested.temporary_hit_points, 0);
+    assert_eq!(rested.spent_hit_dice, 0);
 }

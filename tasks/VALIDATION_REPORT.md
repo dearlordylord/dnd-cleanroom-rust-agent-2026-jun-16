@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt`
-- Next task id: `T010`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt`
+- Next task id: `T011`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,108 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T010: character-sheet-hp-rest-hit-dice
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt`
+- Branch obligations:
+  - `step:doCompleteLongRestRestoresHpHitPointDiceAndMaximum`
+  - `step:doInterruptLongRestBeforeOneHourNoBenefit`
+  - `step:doInterruptLongRestWithShortRestBenefits`
+  - `step:doInterruptShortRestNoBenefit`
+  - `step:doRejectLongRestBeforeSixteenHourWait`
+  - `step:doRejectLongRestDurationTooShort`
+  - `step:doRejectLongRestInterruptionAtRequiredDuration`
+  - `step:doRejectLongRestPhysicalExertionTooShort`
+  - `step:doRejectLongRestStartAtZeroHp`
+  - `step:doRejectShortRestDurationTooShort`
+  - `step:doRejectShortRestStartAtZeroHp`
+  - `step:doSpendShortRestHitPointDiceSequentially`
+  - `step:doSpendShortRestHitPointDie`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/hit-point-damage.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/hit-point-recovery.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/zero-hit-point-lifecycle.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Character-Creation.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added reusable Character Sheet Hit Point state transitions for Hit Die healing, Long Rest reset benefits, interrupted Long Rest outcomes, and explicit rest rejection reasons.
+- Reused feature-resource healing to clamp Short Rest Hit Die healing to the effective Hit Point Maximum.
+- Modeled Long Rest benefits restoring all HP, spent Hit Dice, Temporary Hit Points expiry, and reduced Hit Point Maximum reset.
+- Kept QNT action dispatch and witness field mapping quarantined in `src/qnt_adapters/character_sheet_hp_rest_hit_dice.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doCompleteLongRestRestoresHpHitPointDiceAndMaximum` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-complete-long-rest-restores-hp-hit-point-dice-and-maximum#step:doCompleteLongRestRestoresHpHitPointDiceAndMaximum` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doInterruptLongRestBeforeOneHourNoBenefit` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-interrupt-long-rest-before-one-hour-no-benefit#step:doInterruptLongRestBeforeOneHourNoBenefit` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doInterruptLongRestWithShortRestBenefits` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-interrupt-long-rest-with-short-rest-benefits#step:doInterruptLongRestWithShortRestBenefits` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doInterruptShortRestNoBenefit` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-interrupt-short-rest-no-benefit#step:doInterruptShortRestNoBenefit` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestBeforeSixteenHourWait` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-reject-long-rest-before-sixteen-hour-wait#step:doRejectLongRestBeforeSixteenHourWait` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestDurationTooShort` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-reject-long-rest-duration-too-short#step:doRejectLongRestDurationTooShort` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestInterruptionAtRequiredDuration` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-reject-long-rest-interruption-at-required-duration#step:doRejectLongRestInterruptionAtRequiredDuration` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestPhysicalExertionTooShort` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-reject-long-rest-physical-exertion-too-short#step:doRejectLongRestPhysicalExertionTooShort` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestStartAtZeroHp` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-reject-long-rest-start-at-zero-hp#step:doRejectLongRestStartAtZeroHp` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectShortRestDurationTooShort` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-reject-short-rest-duration-too-short#step:doRejectShortRestDurationTooShort` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectShortRestStartAtZeroHp` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-reject-short-rest-start-at-zero-hp#step:doRejectShortRestStartAtZeroHp` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doSpendShortRestHitPointDiceSequentially` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-spend-short-rest-hit-point-dice-sequentially#step:doSpendShortRestHitPointDiceSequentially` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doSpendShortRestHitPointDie` | `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json#T010-spend-short-rest-hit-point-die#step:doSpendShortRestHitPointDie` | `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T010-complete-long-rest-restores-hp-hit-point-dice-and-maximum`
+- Reproduction seed or trace id: `T010-interrupt-long-rest-before-one-hour-no-benefit`
+- Reproduction seed or trace id: `T010-interrupt-long-rest-with-short-rest-benefits`
+- Reproduction seed or trace id: `T010-interrupt-short-rest-no-benefit`
+- Reproduction seed or trace id: `T010-reject-long-rest-before-sixteen-hour-wait`
+- Reproduction seed or trace id: `T010-reject-long-rest-duration-too-short`
+- Reproduction seed or trace id: `T010-reject-long-rest-interruption-at-required-duration`
+- Reproduction seed or trace id: `T010-reject-long-rest-physical-exertion-too-short`
+- Reproduction seed or trace id: `T010-reject-long-rest-start-at-zero-hp`
+- Reproduction seed or trace id: `T010-reject-short-rest-duration-too-short`
+- Reproduction seed or trace id: `T010-reject-short-rest-start-at-zero-hp`
+- Reproduction seed or trace id: `T010-spend-short-rest-hit-point-dice-sequentially`
+- Reproduction seed or trace id: `T010-spend-short-rest-hit-point-die`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::hp_rest_hit_dice_adapter_replays_all_branches`
+- `src/tests/mod.rs::hp_rest_hit_dice_spending_caps_healing_and_long_rest_resets`
 
 Remaining gaps:
 

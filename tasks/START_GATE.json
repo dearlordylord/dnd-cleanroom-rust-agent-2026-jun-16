@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T009",
-  "startHeadSha": "14c6cd91ff735ecf775a34a60a089814116eb9ee",
+  "taskId": "T010",
+  "startHeadSha": "01554038315e05322f0f7f4561e14fa1b93083ce",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "sheet",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt"
+      "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt"
     ]
   }
 }

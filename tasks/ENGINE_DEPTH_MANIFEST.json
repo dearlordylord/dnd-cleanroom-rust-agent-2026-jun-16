@@ -2,14 +2,21 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_sheet_hit_point_maximum.rs",
+      "path": "src/qnt_adapters/character_sheet_hp_rest_hit_dice.rs",
       "quarantinedWitnessNames": [
-        "doProjectFighterLevelOne",
-        "doProjectFighterLevelTwo",
-        "doProjectMinimumHigherLevelGain",
-        "doProjectReducedEffectiveMaximum",
-        "doProjectSorcererDraconicResilience",
-        "doProjectWizardFighterMulticlass",
+        "doCompleteLongRestRestoresHpHitPointDiceAndMaximum",
+        "doInterruptLongRestBeforeOneHourNoBenefit",
+        "doInterruptLongRestWithShortRestBenefits",
+        "doInterruptShortRestNoBenefit",
+        "doRejectLongRestBeforeSixteenHourWait",
+        "doRejectLongRestDurationTooShort",
+        "doRejectLongRestInterruptionAtRequiredDuration",
+        "doRejectLongRestPhysicalExertionTooShort",
+        "doRejectLongRestStartAtZeroHp",
+        "doRejectShortRestDurationTooShort",
+        "doRejectShortRestStartAtZeroHp",
+        "doSpendShortRestHitPointDiceSequentially",
+        "doSpendShortRestHitPointDie",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -27,35 +34,37 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T009-character-sheet-hit-point-maximum.json"
+        "tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "effective_hit_point_maximum",
-      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
+      "api": "spend_hit_point_die",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt",
       "module": "src/rules/hit_points.rs"
     },
     {
-      "api": "hit_point_maximum_projection",
-      "driver": "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt",
+      "api": "complete_long_rest_benefits",
+      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt",
       "module": "src/rules/hit_points.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "fixed_higher_level_hit_point_gain",
-        "normal_hit_point_maximum",
-        "effective_hit_point_maximum",
-        "legal_hit_point_maximum_facts",
-        "hit_point_maximum_projection"
+        "effective_sheet_hit_point_maximum",
+        "heal_sheet_hit_points",
+        "spend_hit_point_die",
+        "complete_long_rest_benefits",
+        "accepted_rest_hit_point_projection",
+        "interrupted_long_rest_projection",
+        "rejected_rest_hit_point_projection"
       ],
       "path": "src/rules/hit_points.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T009"
+  "taskId": "T010"
 }

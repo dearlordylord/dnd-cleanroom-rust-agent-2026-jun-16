@@ -4,7 +4,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointMaximumFacts.starting_hit_point_die",
+      "fieldPath": "SheetHitPointState.current_hp",
       "introducedIn": "src/rules/hit_points.rs",
       "owner": "sheet-state"
     },
@@ -12,7 +12,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointMaximumFacts.constitution_modifier",
+      "fieldPath": "SheetHitPointState.normal_hit_point_maximum",
       "introducedIn": "src/rules/hit_points.rs",
       "owner": "sheet-state"
     },
@@ -20,7 +20,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointMaximumFacts.fixed_higher_level_hit_point_dice",
+      "fieldPath": "SheetHitPointState.hit_point_maximum_reduction",
       "introducedIn": "src/rules/hit_points.rs",
       "owner": "sheet-state"
     },
@@ -28,7 +28,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointMaximumFacts.hit_point_maximum_bonus",
+      "fieldPath": "SheetHitPointState.temporary_hit_points",
       "introducedIn": "src/rules/hit_points.rs",
       "owner": "sheet-state"
     },
@@ -36,7 +36,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointMaximumFacts.hit_point_maximum_reduction",
+      "fieldPath": "SheetHitPointState.spent_hit_dice",
       "introducedIn": "src/rules/hit_points.rs",
       "owner": "sheet-state"
     },
@@ -44,7 +44,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointMaximumProjection.normal_hit_point_maximum",
+      "fieldPath": "RestHitPointProjection.decision",
       "introducedIn": "src/rules/hit_points.rs",
       "owner": "sheet-state"
     },
@@ -52,7 +52,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointMaximumProjection.effective_hit_point_maximum",
+      "fieldPath": "RestHitPointProjection.sheet.current_hp",
       "introducedIn": "src/rules/hit_points.rs",
       "owner": "sheet-state"
     },
@@ -60,7 +60,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointMaximumProjection.hit_dice_total",
+      "fieldPath": "RestHitPointProjection.sheet.hit_point_maximum_reduction",
       "introducedIn": "src/rules/hit_points.rs",
       "owner": "sheet-state"
     },
@@ -68,7 +68,31 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointMaximumProjection.hit_point_maximum_reduction",
+      "fieldPath": "RestHitPointProjection.sheet.temporary_hit_points",
+      "introducedIn": "src/rules/hit_points.rs",
+      "owner": "sheet-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "RestHitPointProjection.sheet.spent_hit_dice",
+      "introducedIn": "src/rules/hit_points.rs",
+      "owner": "sheet-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "RestHitPointProjection.required_long_rest_ticks",
+      "introducedIn": "src/rules/hit_points.rs",
+      "owner": "sheet-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "RestHitPointProjection.remaining_wait_ticks",
       "introducedIn": "src/rules/hit_points.rs",
       "owner": "sheet-state"
     },
@@ -78,10 +102,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/character_sheet_hit_point_maximum.rs",
+      "introducedIn": "src/qnt_adapters/character_sheet_hp_rest_hit_dice.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T009"
+  "taskId": "T010"
 }
