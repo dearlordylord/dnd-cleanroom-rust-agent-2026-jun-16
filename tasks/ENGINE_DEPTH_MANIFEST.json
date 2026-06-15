@@ -1,14 +1,23 @@
 {
-  "accumulatorGrowth": [],
+  "accumulatorGrowth": [
+    {
+      "addedEntries": 1,
+      "owner": "production",
+      "reason": "new SRD weapon choice enum variant required by sheet Weapon Mastery witness"
+    }
+  ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs",
+      "path": "src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doInvokeSpellbookRitual",
-        "doRejectMissingRitualAccessFeature",
-        "doRejectNonLeveledRitualSpellbookSpell",
-        "doRejectNonRitualSpellbookSpell",
-        "doRejectPreparedOnlyRitual",
+        "doAcceptOneChangeWeaponMasteryReselection",
+        "doRejectTooManyChangesWeaponMasteryReselection",
+        "doReselectPaladinWeaponMasteryOnLongRest",
+        "doReselectRangerWeaponMasteryOnLongRest",
+        "doReselectRogueWeaponMasteryOnLongRest",
+        "doSelectPaladinWeaponMastery",
+        "doSelectRangerWeaponMastery",
+        "doSelectRogueWeaponMastery",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -26,27 +35,29 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T011-character-sheet-spellbook-ritual-selected-identity.json"
+        "tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "spellbook_ritual_invocation",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt",
-      "module": "src/rules/spellbook_rituals.rs"
+      "api": "apply_weapon_mastery_long_rest_reselection",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
+      "module": "src/rules/class_features.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "can_cast_spellbook_ritual",
-        "spellbook_ritual_invocation"
+        "weapon_mastery_projection",
+        "weapon_mastery_changed_choice_count",
+        "can_apply_weapon_mastery_long_rest_reselection",
+        "apply_weapon_mastery_long_rest_reselection"
       ],
-      "path": "src/rules/spellbook_rituals.rs",
+      "path": "src/rules/class_features.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T011"
+  "taskId": "T012"
 }

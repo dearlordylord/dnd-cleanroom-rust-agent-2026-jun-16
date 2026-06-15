@@ -116,6 +116,13 @@ pub enum ProjectionError {
     DuplicateMetamagicOption,
     MissingExtraCantrip,
     WrongWeaponMasteryChoiceCount,
+    IllegalWeaponMasteryReselectionFacts,
+    ExistingWeaponMasteryChoiceCountMismatch,
+    RequestedWeaponMasteryChoiceCountMismatch,
+    DuplicateExistingWeaponMasteryChoice,
+    DuplicateRequestedWeaponMasteryChoice,
+    IneligibleWeaponMasteryChoice,
+    TooManyWeaponMasteryChanges,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -258,6 +265,7 @@ pub enum Weapon {
     Dagger,
     Flail,
     Longsword,
+    Shortbow,
     Shortsword,
     Spear,
 }
@@ -271,6 +279,23 @@ pub struct WeaponMasteryProjection {
     pub build_mastery_feature_count: u8,
     pub open_hole_count: u8,
     pub total_level: ClassLevel,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct WeaponMasteryReselectionFacts<T> {
+    pub choice_count: usize,
+    pub long_rest_change_count: usize,
+    pub current_weapons: Vec<T>,
+    pub requested_weapons: Vec<T>,
+    pub eligible_weapons: Vec<T>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct WeaponMasteryReselectionProjection<T> {
+    pub selected_weapons: Vec<T>,
+    pub changed_choice_count: usize,
+    pub choice_count: usize,
+    pub long_rest_change_count: usize,
 }
 
 pub fn level_two_feature_projection(
@@ -344,6 +369,87 @@ pub fn weapon_mastery_projection(
         open_hole_count: 0,
         total_level: ClassLevel::One,
     })
+}
+
+#[must_use]
+pub fn weapon_mastery_changed_choice_count<T: Copy + Eq>(
+    current_weapons: &[T],
+    requested_weapons: &[T],
+) -> usize {
+    requested_weapons
+        .iter()
+        .filter(|requested| !current_weapons.contains(requested))
+        .count()
+}
+
+#[must_use]
+pub fn can_apply_weapon_mastery_long_rest_reselection<T: Copy + Eq>(
+    facts: &WeaponMasteryReselectionFacts<T>,
+) -> bool {
+    validate_weapon_mastery_reselection(facts).is_ok()
+}
+
+pub fn apply_weapon_mastery_long_rest_reselection<T: Copy + Eq>(
+    facts: &WeaponMasteryReselectionFacts<T>,
+) -> Result<WeaponMasteryReselectionProjection<T>, ProjectionError> {
+    // QNT: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // weapon-mastery-reselection.qnt; RAW: Paladin, Ranger, and Rogue
+    // "Level 1: Weapon Mastery" Long Rest reselection clauses.
+    validate_weapon_mastery_reselection(facts)?;
+
+    Ok(WeaponMasteryReselectionProjection {
+        selected_weapons: facts.requested_weapons.clone(),
+        changed_choice_count: weapon_mastery_changed_choice_count(
+            &facts.current_weapons,
+            &facts.requested_weapons,
+        ),
+        choice_count: facts.choice_count,
+        long_rest_change_count: facts.long_rest_change_count,
+    })
+}
+
+fn validate_weapon_mastery_reselection<T: Copy + Eq>(
+    facts: &WeaponMasteryReselectionFacts<T>,
+) -> Result<(), ProjectionError> {
+    if facts.choice_count == 0
+        || facts.long_rest_change_count > facts.choice_count
+        || facts.eligible_weapons.len() < facts.choice_count
+    {
+        return Err(ProjectionError::IllegalWeaponMasteryReselectionFacts);
+    }
+    if facts.current_weapons.len() != facts.choice_count {
+        return Err(ProjectionError::ExistingWeaponMasteryChoiceCountMismatch);
+    }
+    if weapon_mastery_choices_have_duplicates(&facts.current_weapons) {
+        return Err(ProjectionError::DuplicateExistingWeaponMasteryChoice);
+    }
+    if facts.requested_weapons.len() != facts.choice_count {
+        return Err(ProjectionError::RequestedWeaponMasteryChoiceCountMismatch);
+    }
+    if weapon_mastery_choices_have_duplicates(&facts.requested_weapons) {
+        return Err(ProjectionError::DuplicateRequestedWeaponMasteryChoice);
+    }
+    if facts
+        .requested_weapons
+        .iter()
+        .any(|requested| !facts.eligible_weapons.contains(requested))
+    {
+        return Err(ProjectionError::IneligibleWeaponMasteryChoice);
+    }
+    if weapon_mastery_changed_choice_count(&facts.current_weapons, &facts.requested_weapons)
+        > facts.long_rest_change_count
+    {
+        return Err(ProjectionError::TooManyWeaponMasteryChanges);
+    }
+
+    Ok(())
+}
+
+fn weapon_mastery_choices_have_duplicates<T: Eq>(weapons: &[T]) -> bool {
+    weapons
+        .iter()
+        .enumerate()
+        .any(|(index, weapon)| weapons[..index].contains(weapon))
 }
 
 fn weapon_mastery_choice_count(class: WeaponMasteryClass) -> u8 {

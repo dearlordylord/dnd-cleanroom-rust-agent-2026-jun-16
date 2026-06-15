@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T011-character-sheet-spellbook-ritual-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T011"
+  "taskId": "T012"
 }

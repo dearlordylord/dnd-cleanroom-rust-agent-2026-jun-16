@@ -4,94 +4,76 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SpellbookRitualFacts.spell_kind",
-      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "fieldPath": "WeaponMasteryProjection.selected_weapons",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "sheet-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponMasteryProjection.selected_mastery_choice_count",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "sheet-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponMasteryReselectionFacts.choice_count",
+      "introducedIn": "src/rules/class_features.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SpellbookRitualFacts.access",
-      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "fieldPath": "WeaponMasteryReselectionFacts.long_rest_change_count",
+      "introducedIn": "src/rules/class_features.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SpellbookRitualFacts.ritual_adept",
-      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "fieldPath": "WeaponMasteryReselectionFacts.current_weapons",
+      "introducedIn": "src/rules/class_features.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
-        "boundary": "character-sheet-spellbook-ritual-selected-identity",
-        "sourceField": "SpellbookRitualFacts",
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponMasteryReselectionFacts.requested_weapons",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "structured-input"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponMasteryReselectionFacts.eligible_weapons",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "structured-input"
+    },
+    {
+      "derivability": {
+        "boundary": "character-sheet-weapon-mastery-containers-selected-identity",
+        "sourceField": "WeaponMasteryReselectionFacts.requested_weapons",
         "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "SpellbookRitualResult",
-      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "fieldPath": "WeaponMasteryReselectionProjection.selected_weapons",
+      "introducedIn": "src/rules/class_features.rs",
       "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "boundary": "character-sheet-spellbook-ritual-selected-identity",
-        "sourceField": "SpellbookRitualInvocation",
+        "boundary": "character-sheet-weapon-mastery-containers-selected-identity",
+        "sourceField": "WeaponMasteryReselectionFacts",
         "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "SpellbookRitualInvocation.spell_slot_cost",
-      "introducedIn": "src/rules/spellbook_rituals.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character-sheet-spellbook-ritual-selected-identity",
-        "sourceField": "SpellbookRitualInvocation",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "SpellbookRitualInvocation.preparation_requirement",
-      "introducedIn": "src/rules/spellbook_rituals.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character-sheet-spellbook-ritual-selected-identity",
-        "sourceField": "SpellbookRitualInvocation",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "SpellbookRitualInvocation.required_access",
-      "introducedIn": "src/rules/spellbook_rituals.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character-sheet-spellbook-ritual-selected-identity",
-        "sourceField": "SpellbookRitualInvocation",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "SpellbookRitualInvocation.additional_casting_time_minutes",
-      "introducedIn": "src/rules/spellbook_rituals.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character-sheet-spellbook-ritual-selected-identity",
-        "sourceField": "SpellbookRitualInvocation",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "SpellbookRitualInvocation.requires_reading_spellbook",
-      "introducedIn": "src/rules/spellbook_rituals.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "derivability": {
-        "boundary": "character-sheet-spellbook-ritual-selected-identity",
-        "sourceField": "SpellbookRitualInvocation",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "SpellbookRitualInvocation.first_level_spell_slots_expended",
-      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "fieldPath": "WeaponMasteryReselectionProjection.changed_choice_count",
+      "introducedIn": "src/rules/class_features.rs",
       "owner": "executable-boundary-projection"
     },
     {
@@ -100,10 +82,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T011"
+  "taskId": "T012"
 }

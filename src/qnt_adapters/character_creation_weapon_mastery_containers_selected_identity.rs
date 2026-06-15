@@ -258,6 +258,7 @@ fn weapon_ref(weapon: Weapon) -> &'static str {
         Weapon::Dagger => "weapon_dagger",
         Weapon::Flail => "weapon_flail",
         Weapon::Longsword => "weapon_longsword",
+        Weapon::Shortbow => "weapon_shortbow",
         Weapon::Shortsword => "weapon_shortsword",
         Weapon::Spear => "weapon_spear",
     }

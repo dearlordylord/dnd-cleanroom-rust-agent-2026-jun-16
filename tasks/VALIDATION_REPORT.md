@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt`
-- Next task id: `T012`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt`
+- Next task id: `T013`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,92 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T012: character-sheet-weapon-mastery-containers-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doAcceptOneChangeWeaponMasteryReselection`
+  - `step:doRejectTooManyChangesWeaponMasteryReselection`
+  - `step:doReselectPaladinWeaponMasteryOnLongRest`
+  - `step:doReselectRangerWeaponMasteryOnLongRest`
+  - `step:doReselectRogueWeaponMasteryOnLongRest`
+  - `step:doSelectPaladinWeaponMastery`
+  - `step:doSelectRangerWeaponMastery`
+  - `step:doSelectRogueWeaponMastery`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/weapon-mastery-reselection.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Paladin.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Ranger.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Rogue.md`
+  - `cleanroom-input/raw/srd-5.2.1/Equipment.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Extended reusable Weapon Mastery rules with Shortbow as an SRD weapon choice needed by Rogue sheet witnesses.
+- Added generic Long Rest Weapon Mastery reselection facts and projection that enforce positive choice count, current/requested choice counts, distinct current/requested choices, requested-choice eligibility, and changed-choice count within the Long Rest allowance.
+- Reused creation-time Weapon Mastery projection for initial Paladin, Ranger, and Rogue sheet selections.
+- Kept QNT action dispatch, placeholder weapon refs, and witness field mapping quarantined in `src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doAcceptOneChangeWeaponMasteryReselection` | `tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json#T012-accept-one-change-weapon-mastery-reselection#step:doAcceptOneChangeWeaponMasteryReselection` | `src/tests/mod.rs::sheet_weapon_mastery_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doRejectTooManyChangesWeaponMasteryReselection` | `tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json#T012-reject-too-many-changes-weapon-mastery-reselection#step:doRejectTooManyChangesWeaponMasteryReselection` | `src/tests/mod.rs::sheet_weapon_mastery_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doReselectPaladinWeaponMasteryOnLongRest` | `tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json#T012-reselect-paladin-weapon-mastery-on-long-rest#step:doReselectPaladinWeaponMasteryOnLongRest` | `src/tests/mod.rs::sheet_weapon_mastery_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doReselectRangerWeaponMasteryOnLongRest` | `tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json#T012-reselect-ranger-weapon-mastery-on-long-rest#step:doReselectRangerWeaponMasteryOnLongRest` | `src/tests/mod.rs::sheet_weapon_mastery_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doReselectRogueWeaponMasteryOnLongRest` | `tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json#T012-reselect-rogue-weapon-mastery-on-long-rest#step:doReselectRogueWeaponMasteryOnLongRest` | `src/tests/mod.rs::sheet_weapon_mastery_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doSelectPaladinWeaponMastery` | `tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json#T012-select-paladin-weapon-mastery#step:doSelectPaladinWeaponMastery` | `src/tests/mod.rs::sheet_weapon_mastery_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doSelectRangerWeaponMastery` | `tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json#T012-select-ranger-weapon-mastery#step:doSelectRangerWeaponMastery` | `src/tests/mod.rs::sheet_weapon_mastery_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doSelectRogueWeaponMastery` | `tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json#T012-select-rogue-weapon-mastery#step:doSelectRogueWeaponMastery` | `src/tests/mod.rs::sheet_weapon_mastery_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T012-character-sheet-weapon-mastery-containers-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T012-accept-one-change-weapon-mastery-reselection`
+- Reproduction seed or trace id: `T012-reject-too-many-changes-weapon-mastery-reselection`
+- Reproduction seed or trace id: `T012-reselect-paladin-weapon-mastery-on-long-rest`
+- Reproduction seed or trace id: `T012-reselect-ranger-weapon-mastery-on-long-rest`
+- Reproduction seed or trace id: `T012-reselect-rogue-weapon-mastery-on-long-rest`
+- Reproduction seed or trace id: `T012-select-paladin-weapon-mastery`
+- Reproduction seed or trace id: `T012-select-ranger-weapon-mastery`
+- Reproduction seed or trace id: `T012-select-rogue-weapon-mastery`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::sheet_weapon_mastery_adapter_replays_all_branches`
+- `src/tests/mod.rs::weapon_mastery_reselection_applies_long_rest_change_limit`
 
 Remaining gaps:
 

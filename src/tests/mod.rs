@@ -20,6 +20,8 @@ mod character_sheet_hit_point_maximum;
 mod character_sheet_hp_rest_hit_dice;
 #[path = "../qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs"]
 mod character_sheet_spellbook_ritual_selected_identity;
+#[path = "../qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs"]
+mod character_sheet_weapon_mastery_containers_selected_identity;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -30,11 +32,11 @@ use crate::rules::armor_class::{
     ArmorClassOption, ShieldArmorClassBonus,
 };
 use crate::rules::class_features::{
-    cleric_divine_order_projection, druid_primal_order_projection,
-    fighter_fighting_style_projection, level_two_feature_projection, weapon_mastery_projection,
-    Cantrip, ClassLevel, ClericDivineOrder, DruidPrimalOrder, FeatureSet,
-    FighterFightingStyleSelection, FightingStyleFeat, MetamagicOption, ProjectionError, Weapon,
-    WeaponMasteryClass,
+    apply_weapon_mastery_long_rest_reselection, cleric_divine_order_projection,
+    druid_primal_order_projection, fighter_fighting_style_projection, level_two_feature_projection,
+    weapon_mastery_projection, Cantrip, ClassLevel, ClericDivineOrder, DruidPrimalOrder,
+    FeatureSet, FighterFightingStyleSelection, FightingStyleFeat, MetamagicOption, ProjectionError,
+    Weapon, WeaponMasteryClass, WeaponMasteryReselectionFacts,
 };
 use crate::rules::feature_resources::{
     apply_lay_on_hands_resource, FeatureResourceHitPoints, ResourcePoolError, ResourcePoolFacts,
@@ -107,6 +109,12 @@ use character_sheet_spellbook_ritual_selected_identity::{
     projection_payload as spellbook_ritual_projection_payload,
     replay_observed_action as replay_spellbook_ritual_action,
     BRANCH_ACTIONS as SPELLBOOK_RITUAL_BRANCH_ACTIONS,
+};
+use character_sheet_weapon_mastery_containers_selected_identity::{
+    expected_witness as expected_sheet_weapon_mastery_witness,
+    projection_payload as sheet_weapon_mastery_projection_payload,
+    replay_observed_action as replay_sheet_weapon_mastery_action,
+    BRANCH_ACTIONS as SHEET_WEAPON_MASTERY_BRANCH_ACTIONS,
 };
 
 #[test]
@@ -665,5 +673,52 @@ fn spellbook_ritual_requires_spellbook_access_and_ritual_adept() {
     assert_eq!(
         spellbook_ritual_invocation(non_leveled),
         SpellbookRitualResult::Rejected
+    );
+}
+
+#[test]
+fn sheet_weapon_mastery_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/character-sheet-runtime/
+    // character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt;
+    // shared algebra: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // weapon-mastery-reselection.qnt.
+    for action in SHEET_WEAPON_MASTERY_BRANCH_ACTIONS {
+        let observed = replay_sheet_weapon_mastery_action(action);
+        assert_eq!(observed, expected_sheet_weapon_mastery_witness(action));
+        assert!(sheet_weapon_mastery_projection_payload(&observed).contains("choiceCount=2"));
+    }
+}
+
+#[test]
+fn weapon_mastery_reselection_applies_long_rest_change_limit() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Paladin.md,
+    // Classes/Ranger.md, and Classes/Rogue.md "Level 1: Weapon Mastery";
+    // QNT: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // weapon-mastery-reselection.qnt.
+    let one_change = WeaponMasteryReselectionFacts {
+        choice_count: 2,
+        long_rest_change_count: 1,
+        current_weapons: vec![Weapon::Longsword, Weapon::Dagger],
+        requested_weapons: vec![Weapon::Longsword, Weapon::Spear],
+        eligible_weapons: vec![Weapon::Longsword, Weapon::Spear, Weapon::Flail],
+    };
+    let projection = apply_weapon_mastery_long_rest_reselection(&one_change)
+        .expect("one changed Weapon Mastery choice is within the Long Rest limit");
+
+    assert_eq!(
+        projection.selected_weapons,
+        vec![Weapon::Longsword, Weapon::Spear]
+    );
+    assert_eq!(projection.changed_choice_count, 1);
+    assert_eq!(projection.long_rest_change_count, 1);
+
+    let too_many = WeaponMasteryReselectionFacts {
+        requested_weapons: vec![Weapon::Spear, Weapon::Flail],
+        eligible_weapons: vec![Weapon::Spear, Weapon::Flail],
+        ..one_change
+    };
+    assert_eq!(
+        apply_weapon_mastery_long_rest_reselection(&too_many),
+        Err(ProjectionError::TooManyWeaponMasteryChanges)
     );
 }
