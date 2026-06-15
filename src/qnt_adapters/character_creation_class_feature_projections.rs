@@ -294,6 +294,7 @@ fn rule_fact_kind(kind: RuleFactKind) -> &'static str {
 
 fn class_level(level: ClassLevel) -> u8 {
     match level {
+        ClassLevel::One => 1,
         ClassLevel::Two => 2,
     }
 }

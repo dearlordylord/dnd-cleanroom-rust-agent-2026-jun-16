@@ -1,5 +1,6 @@
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ClassLevel {
+    One,
     Two,
 }
 
@@ -113,6 +114,85 @@ pub struct ClassFeatureProjection {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum ProjectionError {
     DuplicateMetamagicOption,
+    MissingExtraCantrip,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum OrderSelection {
+    Cleric(ClericDivineOrder),
+    Druid(DruidPrimalOrder),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ClericDivineOrder {
+    Protector,
+    Thaumaturge { extra_cantrip: Cantrip },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DruidPrimalOrder {
+    Magician { extra_cantrip: Cantrip },
+    Warden,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ClassOrderFeature {
+    DivineOrder,
+    PrimalOrder,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum OrderChoice {
+    Protector,
+    Thaumaturge,
+    Magician,
+    Warden,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Cantrip {
+    Guidance,
+    Light,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct TrainingProjection {
+    pub martial_weapon_proficiency: bool,
+    pub heavy_armor_training: bool,
+    pub medium_armor_training: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Ability {
+    Intelligence,
+    Wisdom,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Skill {
+    Arcana,
+    Nature,
+    Religion,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct AbilityCheckBonus {
+    pub check_ability: Ability,
+    pub skills: [Skill; 2],
+    pub bonus_ability: Ability,
+    pub minimum_bonus: u8,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ClassOrderProjection {
+    pub feature: ClassOrderFeature,
+    pub selected_choice: OrderChoice,
+    pub extra_cantrip: Option<Cantrip>,
+    pub selected_order_option_count: u8,
+    pub selected_suborder_class_choice_feature_count: u8,
+    pub training: TrainingProjection,
+    pub ability_check_bonus: Option<AbilityCheckBonus>,
+    pub total_level: ClassLevel,
 }
 
 pub fn level_two_feature_projection(
@@ -123,6 +203,100 @@ pub fn level_two_feature_projection(
         FeatureSet::SorcererLevelTwo { metamagic_options } => {
             sorcerer_level_two_projection(metamagic_options)
         }
+    }
+}
+
+#[must_use]
+pub fn level_one_order_projection(selection: OrderSelection) -> ClassOrderProjection {
+    match selection {
+        OrderSelection::Cleric(choice) => cleric_divine_order_projection(choice),
+        OrderSelection::Druid(choice) => druid_primal_order_projection(choice),
+    }
+}
+
+#[must_use]
+pub fn cleric_divine_order_projection(choice: ClericDivineOrder) -> ClassOrderProjection {
+    match choice {
+        ClericDivineOrder::Protector => ClassOrderProjection {
+            // cleanroom-input/raw/srd-5.2.1/Classes/Cleric.md,
+            // "Level 1: Divine Order", Protector.
+            feature: ClassOrderFeature::DivineOrder,
+            selected_choice: OrderChoice::Protector,
+            extra_cantrip: None,
+            selected_order_option_count: 1,
+            selected_suborder_class_choice_feature_count: 0,
+            training: TrainingProjection {
+                martial_weapon_proficiency: true,
+                heavy_armor_training: true,
+                medium_armor_training: true,
+            },
+            ability_check_bonus: None,
+            total_level: ClassLevel::One,
+        },
+        ClericDivineOrder::Thaumaturge { extra_cantrip } => ClassOrderProjection {
+            // cleanroom-input/raw/srd-5.2.1/Classes/Cleric.md,
+            // "Level 1: Divine Order", Thaumaturge.
+            feature: ClassOrderFeature::DivineOrder,
+            selected_choice: OrderChoice::Thaumaturge,
+            extra_cantrip: Some(extra_cantrip),
+            selected_order_option_count: 1,
+            selected_suborder_class_choice_feature_count: 0,
+            training: TrainingProjection {
+                martial_weapon_proficiency: false,
+                heavy_armor_training: false,
+                medium_armor_training: true,
+            },
+            ability_check_bonus: Some(AbilityCheckBonus {
+                check_ability: Ability::Intelligence,
+                skills: [Skill::Arcana, Skill::Religion],
+                bonus_ability: Ability::Wisdom,
+                minimum_bonus: 1,
+            }),
+            total_level: ClassLevel::One,
+        },
+    }
+}
+
+#[must_use]
+pub fn druid_primal_order_projection(choice: DruidPrimalOrder) -> ClassOrderProjection {
+    match choice {
+        DruidPrimalOrder::Magician { extra_cantrip } => ClassOrderProjection {
+            // cleanroom-input/raw/srd-5.2.1/Classes/Druid.md,
+            // "Level 1: Primal Order", Magician.
+            feature: ClassOrderFeature::PrimalOrder,
+            selected_choice: OrderChoice::Magician,
+            extra_cantrip: Some(extra_cantrip),
+            selected_order_option_count: 1,
+            selected_suborder_class_choice_feature_count: 0,
+            training: TrainingProjection {
+                martial_weapon_proficiency: false,
+                heavy_armor_training: false,
+                medium_armor_training: false,
+            },
+            ability_check_bonus: Some(AbilityCheckBonus {
+                check_ability: Ability::Intelligence,
+                skills: [Skill::Arcana, Skill::Nature],
+                bonus_ability: Ability::Wisdom,
+                minimum_bonus: 1,
+            }),
+            total_level: ClassLevel::One,
+        },
+        DruidPrimalOrder::Warden => ClassOrderProjection {
+            // cleanroom-input/raw/srd-5.2.1/Classes/Druid.md,
+            // "Level 1: Primal Order", Warden.
+            feature: ClassOrderFeature::PrimalOrder,
+            selected_choice: OrderChoice::Warden,
+            extra_cantrip: None,
+            selected_order_option_count: 1,
+            selected_suborder_class_choice_feature_count: 0,
+            training: TrainingProjection {
+                martial_weapon_proficiency: true,
+                heavy_armor_training: false,
+                medium_armor_training: true,
+            },
+            ability_check_bonus: None,
+            total_level: ClassLevel::One,
+        },
     }
 }
 

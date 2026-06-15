@@ -1270,7 +1270,7 @@ function validateReportHonesty({
 
 function isProductionSource(relativePath, adapterPaths) {
   if (adapterPaths.has(relativePath)) return false;
-  return !/(^|\/)(?:test|tests|fixture|fixtures|catalog|selection)(?:\/|$)/i.test(
+  return !/(^|\/)(?:test|tests|fixture|fixtures|catalog|selection|qnt[_-]?adapters?|mbt[_-]?adapters?|adapters?)(?:\/|$)/i.test(
     relativePath,
   );
 }

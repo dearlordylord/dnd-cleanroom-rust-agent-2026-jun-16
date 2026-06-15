@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "taskId": "T001",
+  "taskId": "T002",
   "decision": "accepted",
   "deterministicGates": [
     {
@@ -11,7 +11,7 @@
     {
       "gate": "branch-coverage",
       "status": "pass",
-      "evidence": "tasks/target-replay-evidence/T001-character-creation-class-feature-projections.json"
+      "evidence": "tasks/target-replay-evidence/T002-character-creation-cleric-druid-order-selected-identity.json"
     },
     {
       "gate": "adapter-quarantine",
@@ -46,4 +46,3 @@
   ],
   "rejectedFindings": []
 }
-

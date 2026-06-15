@@ -1,11 +1,14 @@
 {
   "schemaVersion": 1,
-  "taskId": "T001",
+  "taskId": "T002",
   "productionModulesExtended": [
     {
       "path": "src/rules/class_features.rs",
       "role": "domain-engine",
       "domainApis": [
+        "level_one_order_projection",
+        "cleric_divine_order_projection",
+        "druid_primal_order_projection",
         "level_two_feature_projection",
         "monk_level_two_projection",
         "sorcerer_level_two_projection",
@@ -15,10 +18,12 @@
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_creation_class_feature_projections.rs",
+      "path": "src/qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doProjectMonkFocusAndUncannyMetabolism",
-        "doProjectSorcererFontAndMetamagic",
+        "doSelectClericProtectorOrder",
+        "doSelectClericThaumaturgeOrder",
+        "doSelectDruidMagicianOrder",
+        "doSelectDruidWardenOrder",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -36,22 +41,21 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T001-character-creation-class-feature-projections.json"
+        "tasks/target-replay-evidence/T002-character-creation-cleric-druid-order-selected-identity.json"
       ]
     }
   ],
   "accumulatorGrowth": [],
   "expectedNextReuse": [
     {
-      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
       "module": "src/rules/class_features.rs",
-      "api": "level_two_feature_projection"
+      "api": "level_one_order_projection"
     },
     {
-      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt",
+      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
       "module": "src/rules/class_features.rs",
-      "api": "level_two_feature_projection"
+      "api": "level_one_order_projection"
     }
   ]
 }
-
