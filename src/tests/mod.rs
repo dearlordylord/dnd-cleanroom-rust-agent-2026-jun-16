@@ -18,6 +18,8 @@ mod battle_runtime_danger_sense_selected_identity;
 mod battle_runtime_death_saving_throw;
 #[path = "../qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs"]
 mod battle_runtime_dragonborn_breath_weapon;
+#[path = "../qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs"]
+mod battle_runtime_druid_wild_shape_form_lifecycle;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -138,6 +140,13 @@ use crate::rules::spellbook_rituals::{
     RequiredSpellAccess, SpellSlotCost, SpellbookRitualAccess, SpellbookRitualAdept,
     SpellbookRitualFacts, SpellbookRitualResult, SpellbookSpellKind,
 };
+use crate::rules::wild_shape::{
+    assume_riding_horse_wild_shape, begin_wild_shape_next_turn, dismiss_wild_shape_form,
+    reuse_wild_shape_as_cat, revert_wild_shape_due_to_death,
+    revert_wild_shape_due_to_incapacitated, stutter_wild_shape_state, wild_shape_initial_state,
+    WildShapeCreatureSize, WildShapeDruidStatus, WildShapeForm, WildShapeProtocol,
+    WildShapeScenarioOutcome,
+};
 
 use battle_runtime_adrenaline_rush::{
     expected_witness as expected_adrenaline_rush_witness,
@@ -198,6 +207,12 @@ use battle_runtime_dragonborn_breath_weapon::{
     projection_payload as dragonborn_breath_weapon_projection_payload,
     replay_observed_action as replay_dragonborn_breath_weapon_action,
     BRANCH_ACTIONS as DRAGONBORN_BREATH_WEAPON_BRANCH_ACTIONS,
+};
+use battle_runtime_druid_wild_shape_form_lifecycle::{
+    expected_witness as expected_druid_wild_shape_witness,
+    projection_payload as druid_wild_shape_projection_payload,
+    replay_observed_action as replay_druid_wild_shape_action,
+    BRANCH_ACTIONS as DRUID_WILD_SHAPE_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1778,4 +1793,93 @@ fn dragonborn_breath_weapon_spends_use_and_replaces_attack_with_save_damage() {
         invalid_damage.protocol,
         DragonbornBreathWeaponProtocol::Invalid(DragonbornBreathWeaponInvalidReason::InvalidFill)
     );
+}
+
+#[test]
+fn druid_wild_shape_form_lifecycle_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Classes/Druid.md
+    // "Level 2: Wild Shape".
+    for action in DRUID_WILD_SHAPE_BRANCH_ACTIONS {
+        let observed = replay_druid_wild_shape_action(action);
+        assert_eq!(observed, expected_druid_wild_shape_witness(action));
+        assert!(druid_wild_shape_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn druid_wild_shape_assumes_reuses_dismisses_and_reverts_forms() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Druid.md
+    // "Level 2: Wild Shape"; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md
+    // "Shape-Shifting" and "Incapacitated"; QNT:
+    // battle-runtime-druid-wild-shape.qnt.
+    let initial = wild_shape_initial_state();
+    assert_eq!(initial.active_form, WildShapeForm::TrueForm);
+    assert!(initial.bonus_action_available);
+    assert_eq!(initial.uses_remaining, 2);
+    assert!(initial.spell_available);
+
+    let assumed = assume_riding_horse_wild_shape(initial);
+    assert_eq!(assumed.active_form, WildShapeForm::RidingHorse);
+    assert!(!assumed.bonus_action_available);
+    assert_eq!(assumed.uses_remaining, 1);
+    assert_eq!(assumed.temporary_hit_points, 2);
+    assert_eq!(assumed.armor_class, 11);
+    assert_eq!(assumed.creature_size, WildShapeCreatureSize::Large);
+    assert_eq!(assumed.speed_feet, 60);
+    assert_eq!(assumed.shove_dc, 13);
+    assert!(!assumed.spell_available);
+    assert_eq!(assumed.active_form_effect_count, 1);
+    assert_eq!(assumed.merged_equipment_count, 2);
+    assert_eq!(
+        assumed.scenario_outcome,
+        WildShapeScenarioOutcome::AssumedRidingHorse
+    );
+    assert_eq!(assumed.protocol, WildShapeProtocol::Resolved);
+
+    let next_turn = begin_wild_shape_next_turn(assumed);
+    assert!(next_turn.bonus_action_available);
+    assert_eq!(
+        next_turn.scenario_outcome,
+        WildShapeScenarioOutcome::NextTurn
+    );
+
+    let reused = reuse_wild_shape_as_cat(next_turn);
+    assert_eq!(reused.active_form, WildShapeForm::Cat);
+    assert_eq!(reused.uses_remaining, 0);
+    assert_eq!(reused.creature_size, WildShapeCreatureSize::Tiny);
+    assert_eq!(reused.speed_feet, 40);
+    assert_eq!(reused.shove_dc, 6);
+    assert_eq!(reused.scenario_outcome, WildShapeScenarioOutcome::ReusedCat);
+
+    let dismissed = dismiss_wild_shape_form(next_turn);
+    assert_eq!(dismissed.active_form, WildShapeForm::TrueForm);
+    assert!(!dismissed.bonus_action_available);
+    assert_eq!(dismissed.uses_remaining, 1);
+    assert_eq!(dismissed.temporary_hit_points, 2);
+    assert_eq!(dismissed.armor_class, 16);
+    assert_eq!(dismissed.creature_size, WildShapeCreatureSize::Medium);
+    assert!(dismissed.spell_available);
+    assert_eq!(dismissed.active_form_effect_count, 0);
+    assert_eq!(dismissed.merged_equipment_count, 0);
+
+    let incapacitated = revert_wild_shape_due_to_incapacitated(assumed);
+    assert_eq!(incapacitated.active_form, WildShapeForm::TrueForm);
+    assert_eq!(
+        incapacitated.druid_status,
+        WildShapeDruidStatus::Incapacitated
+    );
+    assert!(!incapacitated.spell_available);
+    assert_eq!(
+        incapacitated.scenario_outcome,
+        WildShapeScenarioOutcome::FormIncapacitated
+    );
+
+    let dead = revert_wild_shape_due_to_death(assumed);
+    assert_eq!(dead.active_form, WildShapeForm::TrueForm);
+    assert_eq!(dead.druid_status, WildShapeDruidStatus::Dead);
+    assert!(!dead.spell_available);
+    assert_eq!(stutter_wild_shape_state(dead), dead);
 }

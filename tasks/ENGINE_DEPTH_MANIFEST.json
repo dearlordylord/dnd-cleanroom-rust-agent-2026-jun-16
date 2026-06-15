@@ -3,26 +3,33 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "extended battle feature rules with reusable Dragonborn Breath Weapon attack-replacement projection"
+      "reason": "added reusable Wild Shape battle form lifecycle projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs",
+      "path": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
       "quarantinedWitnessNames": [
-        "doOpenExtraAttackSlot",
-        "doRejectInvalidDamageRoll",
-        "doRejectMismatchedArea",
-        "doRejectMissingResource",
-        "doResolveBreathWeapon",
-        "DragonbornBreathWeapon",
-        "Init",
-        "Resolved",
-        "OpenedExtraAttack",
-        "RejectMissingResource",
-        "RejectMismatchedArea",
-        "RejectInvalidDamageRoll",
-        "WInvalidFill",
+        "doAssumeRidingHorse",
+        "doBeginNextTurn",
+        "doDeathReversion",
+        "doDismissForm",
+        "doIncapacitatedReversion",
+        "doReuseAsCat",
+        "doStutter",
+        "WitnessProtocolHole",
+        "AssumedRidingHorse",
+        "NextTurn",
+        "ReusedCat",
+        "Dismissed",
+        "FormIncapacitated",
+        "FormDead",
+        "trueForm",
+        "ridingHorse",
+        "cat",
+        "able",
+        "incapacitated",
+        "dead",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -40,37 +47,40 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T023-battle-runtime-dragonborn-breath-weapon.json"
+        "tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "resolve_dragonborn_breath_weapon",
+      "api": "assume_riding_horse_wild_shape",
       "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt",
-      "module": "src/rules/battle_features.rs"
+      "module": "src/rules/wild_shape.rs"
     },
     {
-      "api": "dragonborn_breath_weapon_damage_die_count",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
-      "module": "src/rules/battle_features.rs"
+      "api": "revert_wild_shape_due_to_death",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
+      "module": "src/rules/wild_shape.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "dragonborn_breath_weapon_initial_state",
-        "dragonborn_breath_weapon_save_dc",
-        "dragonborn_breath_weapon_damage_die_count",
-        "resolve_dragonborn_breath_weapon",
-        "reject_dragonborn_breath_weapon_missing_resource",
-        "reject_dragonborn_breath_weapon_mismatched_area",
-        "reject_dragonborn_breath_weapon_invalid_damage_roll"
+        "wild_shape_initial_state",
+        "riding_horse_wild_shape_form",
+        "cat_wild_shape_form",
+        "assume_riding_horse_wild_shape",
+        "reuse_wild_shape_as_cat",
+        "begin_wild_shape_next_turn",
+        "dismiss_wild_shape_form",
+        "revert_wild_shape_due_to_incapacitated",
+        "revert_wild_shape_due_to_death",
+        "stutter_wild_shape_state"
       ],
-      "path": "src/rules/battle_features.rs",
+      "path": "src/rules/wild_shape.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T023"
+  "taskId": "T024"
 }

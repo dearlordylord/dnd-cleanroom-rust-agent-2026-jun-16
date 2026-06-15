@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T023",
-  "startHeadSha": "3104cc37313110c40cc683009fc801bb1976c5fc",
+  "taskId": "T024",
+  "startHeadSha": "5f2c5f08e9e91afc961be536790e027f74351a14",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt"
     ]
   }
 }

@@ -12,3 +12,4 @@ pub mod hit_points;
 pub mod origin_feats;
 pub mod spell_shapes;
 pub mod spellbook_rituals;
+pub mod wild_shape;

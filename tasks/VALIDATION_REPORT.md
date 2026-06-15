@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt`
-- Next task id: `T024`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt`
+- Next task id: `T025`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,87 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T024: battle-runtime-druid-wild-shape-form-lifecycle
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt`
+- Branch obligations:
+  - `step:doAssumeRidingHorse`
+  - `step:doBeginNextTurn`
+  - `step:doDeathReversion`
+  - `step:doDismissForm`
+  - `step:doIncapacitatedReversion`
+  - `step:doReuseAsCat`
+  - `step:doStutter`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-shape-shifting.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Druid.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added `src/rules/wild_shape.rs` with reusable Wild Shape form lifecycle state, known form facts, and true-form reversion helpers.
+- Projected Bonus Action form assumption into Riding Horse, spending one Wild Shape use, setting form Temporary Hit Points to Druid level, merging equipment, suppressing spellcasting, and applying Beast stat-block combat fields.
+- Projected next-turn Bonus Action refresh, reuse into Cat with replacement form fields and use spending, Bonus Action dismissal, Incapacitated reversion, death reversion, and a no-op stutter after death.
+- Kept QNT action names, witness form labels, status labels, scenario labels, and witness protocol hole labels quarantined in `src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doAssumeRidingHorse` | `tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json#T024-assume-riding-horse#step:doAssumeRidingHorse` | `src/tests/mod.rs::druid_wild_shape_form_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doBeginNextTurn` | `tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json#T024-begin-next-turn#step:doBeginNextTurn` | `src/tests/mod.rs::druid_wild_shape_form_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doDeathReversion` | `tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json#T024-death-reversion#step:doDeathReversion` | `src/tests/mod.rs::druid_wild_shape_form_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doDismissForm` | `tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json#T024-dismiss-form#step:doDismissForm` | `src/tests/mod.rs::druid_wild_shape_form_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doIncapacitatedReversion` | `tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json#T024-incapacitated-reversion#step:doIncapacitatedReversion` | `src/tests/mod.rs::druid_wild_shape_form_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doReuseAsCat` | `tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json#T024-reuse-as-cat#step:doReuseAsCat` | `src/tests/mod.rs::druid_wild_shape_form_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doStutter` | `tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json#T024-stutter-after-death#step:doStutter` | `src/tests/mod.rs::druid_wild_shape_form_lifecycle_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T024-assume-riding-horse`
+- Reproduction seed or trace id: `T024-begin-next-turn`
+- Reproduction seed or trace id: `T024-death-reversion`
+- Reproduction seed or trace id: `T024-dismiss-form`
+- Reproduction seed or trace id: `T024-incapacitated-reversion`
+- Reproduction seed or trace id: `T024-reuse-as-cat`
+- Reproduction seed or trace id: `T024-stutter-after-death`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::druid_wild_shape_assumes_reuses_dismisses_and_reverts_forms`
 
 Remaining gaps:
 
