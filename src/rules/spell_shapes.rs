@@ -1,6 +1,7 @@
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum DamageType {
     Fire,
+    Force,
     Lightning,
     Necrotic,
     Radiant,
@@ -63,6 +64,39 @@ pub struct SpellShapeProjection {
     pub outcome: SpellShapeOutcome,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum EldritchBlastInvalidReason {
+    StaleSubject,
+    InvalidFill,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum EldritchBlastProtocol {
+    NeedsTargets,
+    NeedsAttackRoll,
+    NeedsDamageRoll,
+    Resolved,
+    Invalid(EldritchBlastInvalidReason),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct EldritchBlastState {
+    pub action_available: bool,
+    pub target_hit_points: i16,
+    pub resolved_beams: i16,
+    pub protocol: EldritchBlastProtocol,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct EldritchBlastAttackFacts {
+    pub hit: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct EldritchBlastDamageFacts {
+    pub damage_roll: i16,
+}
+
 #[must_use]
 pub fn spell_attack_damage_type(spell: AttackSpellProfile) -> DamageType {
     // QNT: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
@@ -81,6 +115,96 @@ pub fn save_gated_spell_damage_type(spell: SaveGatedSpellProfile) -> DamageType 
     // spell-save-damage-projection-core.qnt.
     match spell {
         SaveGatedSpellProfile::InflictWounds => DamageType::Necrotic,
+    }
+}
+
+#[must_use]
+pub fn eldritch_blast_damage_type() -> DamageType {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Eldritch Blast".
+    DamageType::Force
+}
+
+#[must_use]
+pub fn eldritch_blast_beam_count(character_level: i16) -> Option<i16> {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Eldritch Blast", "Cantrip Upgrade".
+    match character_level {
+        1..=4 => Some(1),
+        5..=10 => Some(2),
+        11..=16 => Some(3),
+        17.. => Some(4),
+        _ => None,
+    }
+}
+
+#[must_use]
+pub fn eldritch_blast_initial_state() -> EldritchBlastState {
+    EldritchBlastState {
+        action_available: true,
+        target_hit_points: 13,
+        resolved_beams: 0,
+        protocol: EldritchBlastProtocol::NeedsTargets,
+    }
+}
+
+#[must_use]
+pub fn fill_eldritch_blast_targets(state: EldritchBlastState) -> EldritchBlastState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Eldritch Blast" allows one creature or object target per beam.
+    if !state.action_available || state.protocol != EldritchBlastProtocol::NeedsTargets {
+        return invalid_eldritch_blast(state, EldritchBlastInvalidReason::InvalidFill);
+    }
+
+    EldritchBlastState {
+        protocol: EldritchBlastProtocol::NeedsAttackRoll,
+        ..state
+    }
+}
+
+#[must_use]
+pub fn fill_eldritch_blast_attack(
+    state: EldritchBlastState,
+    facts: EldritchBlastAttackFacts,
+) -> EldritchBlastState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Eldritch Blast"; each beam has a separate ranged spell attack roll.
+    if !state.action_available || state.protocol != EldritchBlastProtocol::NeedsAttackRoll {
+        return invalid_eldritch_blast(state, EldritchBlastInvalidReason::InvalidFill);
+    }
+
+    if facts.hit {
+        return EldritchBlastState {
+            protocol: EldritchBlastProtocol::NeedsDamageRoll,
+            ..state
+        };
+    }
+
+    completed_eldritch_blast_beam(state, 0)
+}
+
+#[must_use]
+pub fn fill_eldritch_blast_damage(
+    state: EldritchBlastState,
+    facts: EldritchBlastDamageFacts,
+) -> EldritchBlastState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Eldritch Blast" deals 1d10 Force damage on a hit.
+    if !state.action_available
+        || state.protocol != EldritchBlastProtocol::NeedsDamageRoll
+        || !(1..=10).contains(&facts.damage_roll)
+    {
+        return invalid_eldritch_blast(state, EldritchBlastInvalidReason::InvalidFill);
+    }
+
+    completed_eldritch_blast_beam(state, facts.damage_roll)
+}
+
+#[must_use]
+pub fn reject_eldritch_blast_stale_after_resolved(state: EldritchBlastState) -> EldritchBlastState {
+    EldritchBlastState {
+        protocol: EldritchBlastProtocol::Invalid(EldritchBlastInvalidReason::StaleSubject),
+        ..state
     }
 }
 
@@ -172,4 +296,30 @@ fn spend_level_one_slot_if_required(
 
 fn apply_damage(hit_points: i16, damage: i16) -> i16 {
     hit_points.saturating_sub(damage.max(0)).max(0)
+}
+
+fn completed_eldritch_blast_beam(state: EldritchBlastState, damage: i16) -> EldritchBlastState {
+    let resolved_beams = state.resolved_beams + 1;
+    let sequence_complete = resolved_beams >= 2;
+
+    EldritchBlastState {
+        action_available: !sequence_complete,
+        target_hit_points: apply_damage(state.target_hit_points, damage),
+        resolved_beams,
+        protocol: if sequence_complete {
+            EldritchBlastProtocol::Resolved
+        } else {
+            EldritchBlastProtocol::NeedsAttackRoll
+        },
+    }
+}
+
+fn invalid_eldritch_blast(
+    state: EldritchBlastState,
+    reason: EldritchBlastInvalidReason,
+) -> EldritchBlastState {
+    EldritchBlastState {
+        protocol: EldritchBlastProtocol::Invalid(reason),
+        ..state
+    }
 }

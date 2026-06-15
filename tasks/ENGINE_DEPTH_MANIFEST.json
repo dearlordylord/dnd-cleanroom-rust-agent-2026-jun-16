@@ -3,33 +3,30 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added reusable Wild Shape battle form lifecycle projection"
+      "reason": "added reusable Eldritch Blast beam sequence and spell attack projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "path": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
       "quarantinedWitnessNames": [
-        "doAssumeRidingHorse",
-        "doBeginNextTurn",
-        "doDeathReversion",
-        "doDismissForm",
-        "doIncapacitatedReversion",
-        "doReuseAsCat",
-        "doStutter",
-        "WitnessProtocolHole",
-        "AssumedRidingHorse",
-        "NextTurn",
-        "ReusedCat",
-        "Dismissed",
-        "FormIncapacitated",
-        "FormDead",
-        "trueForm",
-        "ridingHorse",
-        "cat",
-        "able",
-        "incapacitated",
-        "dead",
+        "doFillFirstAttackHit",
+        "doFillFirstAttackMiss",
+        "doFillFirstDamageLow",
+        "doFillSecondAttackHit",
+        "doFillSecondAttackMiss",
+        "doFillSecondDamageLow",
+        "doFillTwoCreatureTargets",
+        "doRejectStaleAfterResolved",
+        "TargetChoice",
+        "ObjectTargetChoice",
+        "AttackRoll",
+        "SpellDamageRoll",
+        "WStaleSubject",
+        "WInvalidFill",
+        "needsHoles",
+        "resolved",
+        "invalid",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -47,40 +44,42 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json"
+        "tasks/target-replay-evidence/T025-battle-runtime-eldritch-blast.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "assume_riding_horse_wild_shape",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt",
-      "module": "src/rules/wild_shape.rs"
+      "api": "fill_eldritch_blast_attack",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "module": "src/rules/spell_shapes.rs"
     },
     {
-      "api": "revert_wild_shape_due_to_death",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
-      "module": "src/rules/wild_shape.rs"
+      "api": "eldritch_blast_damage_type",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "module": "src/rules/spell_shapes.rs"
+    },
+    {
+      "api": "fill_eldritch_blast_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.mbt.qnt",
+      "module": "src/rules/spell_shapes.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "wild_shape_initial_state",
-        "riding_horse_wild_shape_form",
-        "cat_wild_shape_form",
-        "assume_riding_horse_wild_shape",
-        "reuse_wild_shape_as_cat",
-        "begin_wild_shape_next_turn",
-        "dismiss_wild_shape_form",
-        "revert_wild_shape_due_to_incapacitated",
-        "revert_wild_shape_due_to_death",
-        "stutter_wild_shape_state"
+        "eldritch_blast_damage_type",
+        "eldritch_blast_beam_count",
+        "eldritch_blast_initial_state",
+        "fill_eldritch_blast_targets",
+        "fill_eldritch_blast_attack",
+        "fill_eldritch_blast_damage",
+        "reject_eldritch_blast_stale_after_resolved"
       ],
-      "path": "src/rules/wild_shape.rs",
+      "path": "src/rules/spell_shapes.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T024"
+  "taskId": "T025"
 }

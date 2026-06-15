@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T024-battle-runtime-druid-wild-shape-form-lifecycle.json",
+      "evidence": "tasks/target-replay-evidence/T025-battle-runtime-eldritch-blast.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T024"
+  "taskId": "T025"
 }

@@ -4,152 +4,48 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WildShapeState.active_form",
-      "introducedIn": "src/rules/wild_shape.rs",
+      "fieldPath": "EldritchBlastState.action_available",
+      "introducedIn": "src/rules/spell_shapes.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WildShapeState.bonus_action_available",
-      "introducedIn": "src/rules/wild_shape.rs",
+      "fieldPath": "EldritchBlastState.target_hit_points",
+      "introducedIn": "src/rules/spell_shapes.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WildShapeState.uses_remaining",
-      "introducedIn": "src/rules/wild_shape.rs",
+      "fieldPath": "EldritchBlastState.resolved_beams",
+      "introducedIn": "src/rules/spell_shapes.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WildShapeState.temporary_hit_points",
-      "introducedIn": "src/rules/wild_shape.rs",
+      "fieldPath": "EldritchBlastState.protocol",
+      "introducedIn": "src/rules/spell_shapes.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WildShapeState.armor_class",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeState.creature_size",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeState.speed_feet",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeState.shove_dc",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeState.spell_available",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeState.active_form_effect_count",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeState.merged_equipment_count",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeState.druid_status",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeState.scenario_outcome",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeState.protocol",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeFormFacts.form",
-      "introducedIn": "src/rules/wild_shape.rs",
+      "fieldPath": "EldritchBlastAttackFacts.hit",
+      "introducedIn": "src/rules/spell_shapes.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WildShapeFormFacts.armor_class",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeFormFacts.creature_size",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeFormFacts.speed_feet",
-      "introducedIn": "src/rules/wild_shape.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "WildShapeFormFacts.strength_modifier",
-      "introducedIn": "src/rules/wild_shape.rs",
+      "fieldPath": "EldritchBlastDamageFacts.damage_roll",
+      "introducedIn": "src/rules/spell_shapes.rs",
       "owner": "structured-input"
     },
     {
@@ -158,10 +54,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T024"
+  "taskId": "T025"
 }

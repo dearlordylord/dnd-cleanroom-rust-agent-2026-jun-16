@@ -20,6 +20,8 @@ mod battle_runtime_death_saving_throw;
 mod battle_runtime_dragonborn_breath_weapon;
 #[path = "../qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs"]
 mod battle_runtime_druid_wild_shape_form_lifecycle;
+#[path = "../qnt_adapters/battle_runtime_eldritch_blast.rs"]
+mod battle_runtime_eldritch_blast;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -131,8 +133,12 @@ use crate::rules::origin_feats::{
     Background, InitiativeHandoffFacts, OriginFeat,
 };
 use crate::rules::spell_shapes::{
-    resolve_save_gated_spell_damage, resolve_spell_attack_hit, AttackSpellHitFacts,
-    AttackSpellProfile, SaveGatedSpellDamageFacts, SaveGatedSpellProfile, SpellActiveEffect,
+    eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
+    fill_eldritch_blast_attack, fill_eldritch_blast_damage, fill_eldritch_blast_targets,
+    reject_eldritch_blast_stale_after_resolved, resolve_save_gated_spell_damage,
+    resolve_spell_attack_hit, AttackSpellHitFacts, AttackSpellProfile, DamageType,
+    EldritchBlastAttackFacts, EldritchBlastDamageFacts, EldritchBlastInvalidReason,
+    EldritchBlastProtocol, SaveGatedSpellDamageFacts, SaveGatedSpellProfile, SpellActiveEffect,
     SpellShapeOutcome, SpellShapeState,
 };
 use crate::rules::spellbook_rituals::{
@@ -213,6 +219,12 @@ use battle_runtime_druid_wild_shape_form_lifecycle::{
     projection_payload as druid_wild_shape_projection_payload,
     replay_observed_action as replay_druid_wild_shape_action,
     BRANCH_ACTIONS as DRUID_WILD_SHAPE_BRANCH_ACTIONS,
+};
+use battle_runtime_eldritch_blast::{
+    expected_witness as expected_eldritch_blast_witness,
+    projection_payload as eldritch_blast_projection_payload,
+    replay_observed_action as replay_eldritch_blast_action,
+    BRANCH_ACTIONS as ELDRITCH_BLAST_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1882,4 +1894,74 @@ fn druid_wild_shape_assumes_reuses_dismisses_and_reverts_forms() {
     assert_eq!(dead.druid_status, WildShapeDruidStatus::Dead);
     assert!(!dead.spell_available);
     assert_eq!(stutter_wild_shape_state(dead), dead);
+}
+
+#[test]
+fn eldritch_blast_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-eldritch-blast.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Eldritch Blast".
+    for action in ELDRITCH_BLAST_BRANCH_ACTIONS {
+        let observed = replay_eldritch_blast_action(action);
+        assert_eq!(observed, expected_eldritch_blast_witness(action));
+        assert!(eldritch_blast_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn eldritch_blast_resolves_two_beam_spell_attack_sequence() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Eldritch Blast"; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md
+    // "Spell attack modifier"; QNT:
+    // spell-procedure-profiles-examples.qnt and
+    // battle-runtime-eldritch-blast.mbt.qnt.
+    assert_eq!(eldritch_blast_damage_type(), DamageType::Force);
+    assert_eq!(eldritch_blast_beam_count(1), Some(1));
+    assert_eq!(eldritch_blast_beam_count(5), Some(2));
+    assert_eq!(eldritch_blast_beam_count(11), Some(3));
+    assert_eq!(eldritch_blast_beam_count(17), Some(4));
+    assert_eq!(eldritch_blast_beam_count(0), None);
+
+    let targets = fill_eldritch_blast_targets(eldritch_blast_initial_state());
+    assert!(targets.action_available);
+    assert_eq!(targets.target_hit_points, 13);
+    assert_eq!(targets.resolved_beams, 0);
+    assert_eq!(targets.protocol, EldritchBlastProtocol::NeedsAttackRoll);
+
+    let first_miss = fill_eldritch_blast_attack(targets, EldritchBlastAttackFacts { hit: false });
+    assert_eq!(first_miss.resolved_beams, 1);
+    assert_eq!(first_miss.target_hit_points, 13);
+    assert_eq!(first_miss.protocol, EldritchBlastProtocol::NeedsAttackRoll);
+
+    let first_hit = fill_eldritch_blast_attack(targets, EldritchBlastAttackFacts { hit: true });
+    assert_eq!(first_hit.protocol, EldritchBlastProtocol::NeedsDamageRoll);
+    assert_eq!(first_hit.resolved_beams, 0);
+
+    let first_damage =
+        fill_eldritch_blast_damage(first_hit, EldritchBlastDamageFacts { damage_roll: 4 });
+    assert_eq!(first_damage.target_hit_points, 9);
+    assert_eq!(first_damage.resolved_beams, 1);
+    assert_eq!(
+        first_damage.protocol,
+        EldritchBlastProtocol::NeedsAttackRoll
+    );
+
+    let second_hit =
+        fill_eldritch_blast_attack(first_damage, EldritchBlastAttackFacts { hit: true });
+    assert_eq!(second_hit.protocol, EldritchBlastProtocol::NeedsDamageRoll);
+
+    let completed =
+        fill_eldritch_blast_damage(second_hit, EldritchBlastDamageFacts { damage_roll: 4 });
+    assert!(!completed.action_available);
+    assert_eq!(completed.target_hit_points, 5);
+    assert_eq!(completed.resolved_beams, 2);
+    assert_eq!(completed.protocol, EldritchBlastProtocol::Resolved);
+
+    let stale = reject_eldritch_blast_stale_after_resolved(completed);
+    assert_eq!(
+        stale.protocol,
+        EldritchBlastProtocol::Invalid(EldritchBlastInvalidReason::StaleSubject)
+    );
 }
