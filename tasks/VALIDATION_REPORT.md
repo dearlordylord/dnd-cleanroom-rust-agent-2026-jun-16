@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt`
-- Next task id: `T007`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt`
+- Next task id: `T008`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,87 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T007: character-sheet-armor-class-base-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doProjectHeavyArmorWithShield`
+  - `step:doProjectLightArmor`
+  - `step:doProjectMediumArmorDexCap`
+  - `step:doSelectBarbarianUnarmoredDefense`
+  - `step:doSelectBarbarianUnarmoredDefenseWithShield`
+  - `step:doSelectMonkUnarmoredDefense`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/armor-class-base.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Equipment.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Barbarian.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Monk.md`
+  - `cleanroom-input/raw/srd-5.2.1/Character-Creation.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added a reusable armor class base projection for ability-sum, Light armor, Medium armor with Dexterity cap, Heavy fixed armor, and trained Shield bonuses.
+- Projected Barbarian and Monk Unarmored Defense formulas, including Barbarian's Shield-compatible case.
+- Preserved the QNT distinction between the source base Armor Class number and the computed current Armor Class.
+- Kept QNT action dispatch and witness field mapping quarantined in `src/qnt_adapters/character_sheet_armor_class_base_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doProjectHeavyArmorWithShield` | `tasks/target-replay-evidence/T007-character-sheet-armor-class-base-selected-identity.json#T007-project-heavy-armor-with-shield#step:doProjectHeavyArmorWithShield` | `src/tests/mod.rs::armor_class_adapter_replays_selected_identity_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doProjectLightArmor` | `tasks/target-replay-evidence/T007-character-sheet-armor-class-base-selected-identity.json#T007-project-light-armor#step:doProjectLightArmor` | `src/tests/mod.rs::armor_class_adapter_replays_selected_identity_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doProjectMediumArmorDexCap` | `tasks/target-replay-evidence/T007-character-sheet-armor-class-base-selected-identity.json#T007-project-medium-armor-dex-cap#step:doProjectMediumArmorDexCap` | `src/tests/mod.rs::armor_class_adapter_replays_selected_identity_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doSelectBarbarianUnarmoredDefense` | `tasks/target-replay-evidence/T007-character-sheet-armor-class-base-selected-identity.json#T007-select-barbarian-unarmored-defense#step:doSelectBarbarianUnarmoredDefense` | `src/tests/mod.rs::armor_class_adapter_replays_selected_identity_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doSelectBarbarianUnarmoredDefenseWithShield` | `tasks/target-replay-evidence/T007-character-sheet-armor-class-base-selected-identity.json#T007-select-barbarian-unarmored-defense-with-shield#step:doSelectBarbarianUnarmoredDefenseWithShield` | `src/tests/mod.rs::armor_class_adapter_replays_selected_identity_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doSelectMonkUnarmoredDefense` | `tasks/target-replay-evidence/T007-character-sheet-armor-class-base-selected-identity.json#T007-select-monk-unarmored-defense#step:doSelectMonkUnarmoredDefense` | `src/tests/mod.rs::armor_class_adapter_replays_selected_identity_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T007-character-sheet-armor-class-base-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T007-project-heavy-armor-with-shield`
+- Reproduction seed or trace id: `T007-project-light-armor`
+- Reproduction seed or trace id: `T007-project-medium-armor-dex-cap`
+- Reproduction seed or trace id: `T007-select-barbarian-unarmored-defense`
+- Reproduction seed or trace id: `T007-select-barbarian-unarmored-defense-with-shield`
+- Reproduction seed or trace id: `T007-select-monk-unarmored-defense`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::armor_class_adapter_replays_selected_identity_branches`
+- `src/tests/mod.rs::armor_class_projection_caps_medium_dex_and_requires_trained_shield`
 
 Remaining gaps:
 

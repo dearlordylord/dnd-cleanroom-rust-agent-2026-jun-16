@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T006-character-sheet-ability-check-proficiency-bonus.json",
+      "evidence": "tasks/target-replay-evidence/T007-character-sheet-armor-class-base-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T006"
+  "taskId": "T007"
 }

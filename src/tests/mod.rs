@@ -10,10 +10,16 @@ mod character_creation_runtime;
 mod character_creation_weapon_mastery_containers_selected_identity;
 #[path = "../qnt_adapters/character_sheet_ability_check_proficiency_bonus.rs"]
 mod character_sheet_ability_check_proficiency_bonus;
+#[path = "../qnt_adapters/character_sheet_armor_class_base_selected_identity.rs"]
+mod character_sheet_armor_class_base_selected_identity;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
     JackOfAllTradesState, OtherProficiencyBonusState,
+};
+use crate::rules::armor_class::{
+    armor_class_projection, ArmorClassAbility, ArmorClassFacts, ArmorClassFormula,
+    ArmorClassOption, ShieldArmorClassBonus,
 };
 use crate::rules::class_features::{
     cleric_divine_order_projection, druid_primal_order_projection,
@@ -52,6 +58,13 @@ use character_sheet_ability_check_proficiency_bonus::{
     expected_other_proficiency_bonus_witness, expected_skill_proficiency_witness,
     projection_payload as ability_check_projection_payload,
     replay_observed_action as replay_ability_check_action,
+};
+use character_sheet_armor_class_base_selected_identity::{
+    expected_barbarian_unarmored_defense_with_shield_witness,
+    expected_barbarian_unarmored_defense_witness, expected_heavy_armor_with_shield_witness,
+    expected_light_armor_witness, expected_medium_armor_dex_cap_witness,
+    expected_monk_unarmored_defense_witness, projection_payload as armor_class_projection_payload,
+    replay_observed_action as replay_armor_class_action,
 };
 
 #[test]
@@ -357,4 +370,68 @@ fn ability_check_proficiency_prefers_training_over_jack_of_all_trades() {
     assert_eq!(proficient.bonus, 3);
     assert_eq!(blocked_jack.kind, AbilityCheckProficiencyBonusKind::None);
     assert_eq!(blocked_jack.bonus, 0);
+}
+
+#[test]
+fn armor_class_adapter_replays_selected_identity_branches() {
+    // QNT: cleanroom-input/qnt/character-sheet-runtime/
+    // character-sheet-armor-class-base-selected-identity.mbt.qnt;
+    // shared algebra: cleanroom-input/qnt/shared-algebras/proofs/rule-core/armor-class-base.qnt.
+    let barbarian = replay_armor_class_action("doSelectBarbarianUnarmoredDefense");
+    let barbarian_shield = replay_armor_class_action("doSelectBarbarianUnarmoredDefenseWithShield");
+    let monk = replay_armor_class_action("doSelectMonkUnarmoredDefense");
+    let light = replay_armor_class_action("doProjectLightArmor");
+    let medium = replay_armor_class_action("doProjectMediumArmorDexCap");
+    let heavy = replay_armor_class_action("doProjectHeavyArmorWithShield");
+
+    assert_eq!(barbarian, expected_barbarian_unarmored_defense_witness());
+    assert_eq!(
+        barbarian_shield,
+        expected_barbarian_unarmored_defense_with_shield_witness()
+    );
+    assert_eq!(monk, expected_monk_unarmored_defense_witness());
+    assert_eq!(light, expected_light_armor_witness());
+    assert_eq!(medium, expected_medium_armor_dex_cap_witness());
+    assert_eq!(heavy, expected_heavy_armor_with_shield_witness());
+    assert!(armor_class_projection_payload(&heavy).contains("armorClass=18"));
+}
+
+#[test]
+fn armor_class_projection_caps_medium_dex_and_requires_trained_shield() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Equipment.md "Armor" and "Shield";
+    // cleanroom-input/raw/srd-5.2.1/Classes/Barbarian.md and Classes/Monk.md
+    // "Level 1: Unarmored Defense".
+    let medium = armor_class_projection(
+        ArmorClassOption::ChainShirt,
+        ArmorClassFacts {
+            dexterity_modifier: 5,
+            constitution_modifier: 0,
+            wisdom_modifier: 0,
+            charisma_modifier: 0,
+            formula: ArmorClassFormula::MediumDexMax2 { base: 13 },
+            shield_bonus: None,
+        },
+    );
+    let untrained_shield = armor_class_projection(
+        ArmorClassOption::DefaultUnarmored,
+        ArmorClassFacts {
+            dexterity_modifier: 2,
+            constitution_modifier: 0,
+            wisdom_modifier: 0,
+            charisma_modifier: 0,
+            formula: ArmorClassFormula::AbilitySum {
+                base: 10,
+                abilities: vec![ArmorClassAbility::Dexterity],
+            },
+            shield_bonus: Some(ShieldArmorClassBonus {
+                bonus: 2,
+                wielding_shield: true,
+                shield_training: false,
+            }),
+        },
+    );
+
+    assert_eq!(medium.armor_class, 15);
+    assert_eq!(untrained_shield.armor_class, 12);
+    assert_eq!(untrained_shield.shield_bonus, 0);
 }

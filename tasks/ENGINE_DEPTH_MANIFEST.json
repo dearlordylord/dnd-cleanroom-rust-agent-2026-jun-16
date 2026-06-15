@@ -2,14 +2,14 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_sheet_ability_check_proficiency_bonus.rs",
+      "path": "src/qnt_adapters/character_sheet_armor_class_base_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doProjectExpertise",
-        "doProjectJackOfAllTradesLevelTwo",
-        "doProjectJackOfAllTradesRoundedDown",
-        "doProjectSkillProficiency",
-        "doRejectMissingBardLevelTwo",
-        "doRejectOtherProficiencyBonus",
+        "doProjectHeavyArmorWithShield",
+        "doProjectLightArmor",
+        "doProjectMediumArmorDexCap",
+        "doSelectBarbarianUnarmoredDefense",
+        "doSelectBarbarianUnarmoredDefenseWithShield",
+        "doSelectMonkUnarmoredDefense",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -27,31 +27,32 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T006-character-sheet-ability-check-proficiency-bonus.json"
+        "tasks/target-replay-evidence/T007-character-sheet-armor-class-base-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "ability_check_proficiency_bonus",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt",
-      "module": "src/rules/ability_checks.rs"
+      "api": "armor_class_projection",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
+      "module": "src/rules/armor_class.rs"
     },
     {
-      "api": "ability_check_proficiency_bonus",
-      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt",
-      "module": "src/rules/ability_checks.rs"
+      "api": "current_armor_class",
+      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt",
+      "module": "src/rules/armor_class.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "ability_check_proficiency_bonus"
+        "armor_class_projection",
+        "current_armor_class"
       ],
-      "path": "src/rules/ability_checks.rs",
+      "path": "src/rules/armor_class.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T006"
+  "taskId": "T007"
 }
