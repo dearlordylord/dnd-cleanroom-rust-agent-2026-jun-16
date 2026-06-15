@@ -1,0 +1,63 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "Rust class feature projection adapter"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt",
+      "qntFileSha256": "62ed08830ecf7b7847fff40c677f3a040f04fe974b5d931c2c21be7167b7f961",
+      "branchFamily": "step",
+      "branchAction": "doProjectMonkFocusAndUncannyMetabolism",
+      "observedActionTaken": "doProjectMonkFocusAndUncannyMetabolism",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_projections.rs",
+      "traceId": "T001-monk-focus-uncanny-metabolism",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "character creation class feature projection witness",
+        "comparator": "class-feature-projection-payload-sha256-v1",
+        "expectedProjectionSha256": "ca71cf4a7cb50f948c7558c297fc67caac09ccb9ccb31793cc015e935873cbaf",
+        "observedProjectionSha256": "ca71cf4a7cb50f948c7558c297fc67caac09ccb9ccb31793cc015e935873cbaf",
+        "checkedTargetStateFields": [
+          "ClassFeatureProjection.resource",
+          "ClassFeatureProjection.fact",
+          "ClassFeatureProjection.fact.metamagic"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt",
+      "qntFileSha256": "62ed08830ecf7b7847fff40c677f3a040f04fe974b5d931c2c21be7167b7f961",
+      "branchFamily": "step",
+      "branchAction": "doProjectSorcererFontAndMetamagic",
+      "observedActionTaken": "doProjectSorcererFontAndMetamagic",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_projections.rs",
+      "traceId": "T001-sorcerer-font-metamagic",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "character creation class feature projection witness",
+        "comparator": "class-feature-projection-payload-sha256-v1",
+        "expectedProjectionSha256": "f34a373dc931ca473762362db0e147944a2d9e60073be67b32b37500b998322e",
+        "observedProjectionSha256": "f34a373dc931ca473762362db0e147944a2d9e60073be67b32b37500b998322e",
+        "checkedTargetStateFields": [
+          "ClassFeatureProjection.resource",
+          "ClassFeatureProjection.fact",
+          "ClassFeatureProjection.fact.metamagic"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}
+

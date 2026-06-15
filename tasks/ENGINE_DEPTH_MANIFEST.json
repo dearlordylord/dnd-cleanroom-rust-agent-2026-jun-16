@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "T001",
+  "productionModulesExtended": [
+    {
+      "path": "src/rules/class_features.rs",
+      "role": "domain-engine",
+      "domainApis": [
+        "level_two_feature_projection",
+        "monk_level_two_projection",
+        "sorcerer_level_two_projection",
+        "metamagic_option_fact"
+      ]
+    }
+  ],
+  "adapterModules": [
+    {
+      "path": "src/qnt_adapters/character_creation_class_feature_projections.rs",
+      "quarantinedWitnessNames": [
+        "doProjectMonkFocusAndUncannyMetabolism",
+        "doProjectSorcererFontAndMetamagic",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "traceId",
+        "qntFileSha256",
+        "sourceBranchInventorySha256",
+        "cleanroomManifestSourceCommitSha",
+        "targetProfile",
+        "targetProfileSha256",
+        "stateCheck",
+        "comparator",
+        "expectedProjectionSha256",
+        "observedProjectionSha256",
+        "checkedTargetStateFields",
+        "harnessTestPath"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T001-character-creation-class-feature-projections.json"
+      ]
+    }
+  ],
+  "accumulatorGrowth": [],
+  "expectedNextReuse": [
+    {
+      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "module": "src/rules/class_features.rs",
+      "api": "level_two_feature_projection"
+    },
+    {
+      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt",
+      "module": "src/rules/class_features.rs",
+      "api": "level_two_feature_projection"
+    }
+  ]
+}
+

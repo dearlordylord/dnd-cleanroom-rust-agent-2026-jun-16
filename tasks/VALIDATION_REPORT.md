@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `<none>`
-- Next queued driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt`
-- Next task id: `T001`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt`
+- Next task id: `T002`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -62,8 +62,70 @@ Harness artifacts:
 
 Diagnostic tests:
 
-- Focused target-language tests may be listed here, but they do not close
-  branch coverage.
+- Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T001: character-creation-class-feature-projections
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt`
+- Branch obligations:
+  - `step:doProjectMonkFocusAndUncannyMetabolism`
+  - `step:doProjectSorcererFontAndMetamagic`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Monk.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added a reusable Rust class-feature projection module for level-2 Monk Focus Points and Uncanny Metabolism facts from `Classes/Monk.md`.
+- Added level-2 Sorcerer Font of Magic and Metamagic projection facts, including unique option selection and the Empowered Spell and Heightened Spell costs/effects from `Classes/Sorcerer.md`.
+- Kept QNT action dispatch and witness field mapping quarantined in `src/qnt_adapters/character_creation_class_feature_projections.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt#step:doProjectMonkFocusAndUncannyMetabolism` | `tasks/target-replay-evidence/T001-character-creation-class-feature-projections.json#T001-monk-focus-uncanny-metabolism#step:doProjectMonkFocusAndUncannyMetabolism` | `src/tests/mod.rs::class_feature_projection_adapter_replays_monk_branch` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt#step:doProjectSorcererFontAndMetamagic` | `tasks/target-replay-evidence/T001-character-creation-class-feature-projections.json#T001-sorcerer-font-metamagic#step:doProjectSorcererFontAndMetamagic` | `src/tests/mod.rs::class_feature_projection_adapter_replays_sorcerer_branch` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T001-character-creation-class-feature-projections.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T001-monk-focus-uncanny-metabolism`
+- Reproduction seed or trace id: `T001-sorcerer-font-metamagic`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::sorcerer_metamagic_projection_rejects_duplicate_options`
 
 Remaining gaps:
 

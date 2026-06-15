@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "taskId": "T001",
+  "durableFields": [
+    {
+      "fieldPath": "ClassFeatureProjection.resource",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection",
+      "derivability": {
+        "tag": "stored-executable-boundary-projection",
+        "sourceField": "ClassResource",
+        "boundary": "character creation class feature projection"
+      }
+    },
+    {
+      "fieldPath": "ClassFeatureProjection.fact",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection",
+      "derivability": {
+        "tag": "stored-executable-boundary-projection",
+        "sourceField": "RuleFact",
+        "boundary": "character creation class feature projection"
+      }
+    },
+    {
+      "fieldPath": "ClassFeatureProjection.fact.metamagic",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection",
+      "derivability": {
+        "tag": "stored-executable-boundary-projection",
+        "sourceField": "MetamagicSelection",
+        "boundary": "character creation class feature projection"
+      }
+    },
+    {
+      "fieldPath": "TargetReplayEvidence.observedActionTaken",
+      "introducedIn": "src/qnt_adapters/character_creation_class_feature_projections.rs",
+      "owner": "harness-witness-protocol",
+      "derivability": {
+        "tag": "harness-witness-protocol",
+        "witnessName": "mbt::actionTaken"
+      }
+    }
+  ]
+}
+
