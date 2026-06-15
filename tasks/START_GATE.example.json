@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "taskId": "T001",
+  "startHeadSha": "<40 hex HEAD SHA before task edits>",
+  "preImplementationStatus": {
+    "command": "git status --short",
+    "result": "clean",
+    "output": ""
+  },
+  "taskScope": {
+    "assignmentId": "level-1-2-full",
+    "laneId": "creation",
+    "selectedDrivers": [
+      "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt"
+    ]
+  }
+}
