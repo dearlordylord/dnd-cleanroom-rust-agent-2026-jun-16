@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt`
-- Next task id: `T020`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt`
+- Next task id: `T021`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,88 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T020: battle-runtime-creature-type-protection-and-charm-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverAnimalFriendshipBeastTargetAdmission`
+  - `step:doResolveAnimalFriendshipFailedSaveCharmed`
+  - `step:doResolveAnimalFriendshipCasterDamageBreak`
+  - `step:doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection`
+  - `step:doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage`
+  - `step:doPreventProtectionFromEvilAndGoodScopedCharmAndPossession`
+  - `step:doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-save-condition-projection-core.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added reusable creature-type targeting and protection rules in `src/rules/creature_type_protection.rs`.
+- Implemented Animal Friendship Beast-only target admission, failed-save Charmed effect projection, and damage ending the Animal Friendship effect.
+- Implemented Protection from Evil and Good known willing target admission, plain-target rejection, scoped creature-type attack disadvantage, scoped Charmed/Frightened and possession prevention, and relevant-effect save Advantage.
+- Kept QNT action dispatch, witness scenario labels, and witness hole labels quarantined in `src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doDiscoverAnimalFriendshipBeastTargetAdmission` | `tasks/target-replay-evidence/T020-battle-runtime-creature-type-protection-and-charm-selected-identity.json#T020-discover-animal-friendship-beast-target-admission#step:doDiscoverAnimalFriendshipBeastTargetAdmission` | `src/tests/mod.rs::creature_type_protection_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveAnimalFriendshipFailedSaveCharmed` | `tasks/target-replay-evidence/T020-battle-runtime-creature-type-protection-and-charm-selected-identity.json#T020-resolve-animal-friendship-failed-save-charmed#step:doResolveAnimalFriendshipFailedSaveCharmed` | `src/tests/mod.rs::creature_type_protection_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveAnimalFriendshipCasterDamageBreak` | `tasks/target-replay-evidence/T020-battle-runtime-creature-type-protection-and-charm-selected-identity.json#T020-resolve-animal-friendship-caster-damage-break#step:doResolveAnimalFriendshipCasterDamageBreak` | `src/tests/mod.rs::creature_type_protection_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection` | `tasks/target-replay-evidence/T020-battle-runtime-creature-type-protection-and-charm-selected-identity.json#T020-resolve-protection-known-willing-target#step:doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection` | `src/tests/mod.rs::creature_type_protection_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage` | `tasks/target-replay-evidence/T020-battle-runtime-creature-type-protection-and-charm-selected-identity.json#T020-project-protection-scoped-attack-disadvantage#step:doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage` | `src/tests/mod.rs::creature_type_protection_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doPreventProtectionFromEvilAndGoodScopedCharmAndPossession` | `tasks/target-replay-evidence/T020-battle-runtime-creature-type-protection-and-charm-selected-identity.json#T020-prevent-protection-scoped-charm-possession#step:doPreventProtectionFromEvilAndGoodScopedCharmAndPossession` | `src/tests/mod.rs::creature_type_protection_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage` | `tasks/target-replay-evidence/T020-battle-runtime-creature-type-protection-and-charm-selected-identity.json#T020-resolve-protection-relevant-charm-save-advantage#step:doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage` | `src/tests/mod.rs::creature_type_protection_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T020-battle-runtime-creature-type-protection-and-charm-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T020-discover-animal-friendship-beast-target-admission`
+- Reproduction seed or trace id: `T020-resolve-animal-friendship-failed-save-charmed`
+- Reproduction seed or trace id: `T020-resolve-animal-friendship-caster-damage-break`
+- Reproduction seed or trace id: `T020-resolve-protection-known-willing-target`
+- Reproduction seed or trace id: `T020-project-protection-scoped-attack-disadvantage`
+- Reproduction seed or trace id: `T020-prevent-protection-scoped-charm-possession`
+- Reproduction seed or trace id: `T020-resolve-protection-relevant-charm-save-advantage`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::creature_type_protection_projects_charm_and_scoped_protection_rules`
 
 Remaining gaps:
 

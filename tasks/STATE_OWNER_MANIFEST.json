@@ -4,112 +4,168 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.scenario",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.beast_target_admitted",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.protocol",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.humanoid_target_admitted",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.damage_taken",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.known_willing_protection_target_admitted",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.save_dc",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.plain_protection_target_rejected",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.saving_throw_total",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.protection_effect_present",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.concentration_save_offered",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.scoped_attack_roll_disadvantage",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.caster_concentrating",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.unscoped_attack_roll_normal",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.active_concentration_effect_count",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.scoped_charm_prevented",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.spell_slot_expended",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.unscoped_charm_applied",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.teardown_before_next_command",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.scoped_possession_prevented",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationState.replacement_started_after_teardown",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.unscoped_possession_unprevented",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationDamageFacts.damage_roll_result",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "CreatureTypeProtectionState.relevant_charm_save_has_advantage",
+      "introducedIn": "src/rules/creature_type_protection.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CreatureTypeProtectionState.relevant_charm_save_cleared",
+      "introducedIn": "src/rules/creature_type_protection.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CreatureTypeProtectionState.target_charmed",
+      "introducedIn": "src/rules/creature_type_protection.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CreatureTypeProtectionState.animal_friendship_effect_present",
+      "introducedIn": "src/rules/creature_type_protection.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CreatureTypeProtectionState.action_available",
+      "introducedIn": "src/rules/creature_type_protection.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CreatureTypeProtectionState.first_level_slots_expended",
+      "introducedIn": "src/rules/creature_type_protection.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CreatureTypeProtectionState.scenario_outcome",
+      "introducedIn": "src/rules/creature_type_protection.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CreatureTypeProtectionState.protocol",
+      "introducedIn": "src/rules/creature_type_protection.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ProtectionTargetFacts.target_known",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ConcentrationDamageFacts.damage_bonus",
-      "introducedIn": "src/rules/concentration.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ConcentrationSavingThrowFacts.saving_throw_total",
-      "introducedIn": "src/rules/concentration.rs",
+      "fieldPath": "ProtectionTargetFacts.target_willing",
+      "introducedIn": "src/rules/creature_type_protection.rs",
       "owner": "structured-input"
     },
     {
@@ -118,10 +174,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T019"
+  "taskId": "T020"
 }

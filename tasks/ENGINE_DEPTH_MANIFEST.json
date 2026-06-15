@@ -3,22 +3,21 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added reusable Concentration break teardown state, damage-save DC, and effect-removal projection APIs"
+      "reason": "added reusable creature-type targeting, charm projection, and scoped protection APIs"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "path": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
-        "damageDiePip",
-        "saveRollTotal",
-        "ConcentrationSavingThrow",
-        "ConcentrationBreakTeardown",
+        "doDiscoverAnimalFriendshipBeastTargetAdmission",
+        "doResolveAnimalFriendshipFailedSaveCharmed",
+        "doResolveAnimalFriendshipCasterDamageBreak",
+        "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
+        "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
+        "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
+        "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
+        "CreatureTypeProtectionCharm",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -36,38 +35,47 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T019-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/T020-battle-runtime-creature-type-protection-and-charm-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "concentration_save_dc_for_damage",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
-      "module": "src/rules/concentration.rs"
+      "api": "save_condition_target_creature_type_is_legal",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "module": "src/rules/creature_type_protection.rs"
     },
     {
-      "api": "fail_concentration_saving_throw",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt",
-      "module": "src/rules/concentration.rs"
+      "api": "protection_prevents_condition_from_creature_type",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "module": "src/rules/creature_type_protection.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "concentration_initial_state",
-        "concentration_damage_total",
-        "concentration_save_dc_for_damage",
-        "cast_concentration_spell",
-        "request_concentration_save_after_damage",
-        "fail_concentration_saving_throw",
-        "voluntarily_end_concentration",
-        "cast_replacement_concentration_spell"
+        "creature_type_protection_initial_state",
+        "save_condition_target_creature_type_is_legal",
+        "discover_animal_friendship_target_admission",
+        "resolve_animal_friendship_failed_save",
+        "resolve_animal_friendship_damage_break",
+        "protection_from_evil_and_good_creature_type_is_scoped",
+        "protection_target_is_admitted",
+        "protection_plain_target_is_rejected",
+        "resolve_protection_from_evil_and_good_target",
+        "project_protection_scoped_attack_roll",
+        "project_protection_condition_and_possession_prevention",
+        "resolve_protection_relevant_charm_save",
+        "spell_attack_roll_mode_from_creature_type_protection",
+        "protection_condition_is_prevented",
+        "protection_prevents_condition_from_creature_type",
+        "protection_prevents_possession_from_creature_type",
+        "protection_relevant_effect_save_roll_mode"
       ],
-      "path": "src/rules/concentration.rs",
+      "path": "src/rules/creature_type_protection.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T019"
+  "taskId": "T020"
 }

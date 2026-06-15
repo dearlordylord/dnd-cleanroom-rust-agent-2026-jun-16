@@ -10,6 +10,8 @@ mod battle_runtime_command_option_next_turn;
 mod battle_runtime_command_ordering;
 #[path = "../qnt_adapters/battle_runtime_concentration_break_teardown.rs"]
 mod battle_runtime_concentration_break_teardown;
+#[path = "../qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs"]
+mod battle_runtime_creature_type_protection_and_charm_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -82,6 +84,19 @@ use crate::rules::concentration::{
     ConcentrationBreakScenario, ConcentrationDamageFacts, ConcentrationProtocol,
     ConcentrationSavingThrowError, ConcentrationSavingThrowFacts,
 };
+use crate::rules::creature_type_protection::{
+    creature_type_protection_initial_state, discover_animal_friendship_target_admission,
+    project_protection_condition_and_possession_prevention, project_protection_scoped_attack_roll,
+    protection_condition_is_prevented, protection_from_evil_and_good_creature_type_is_scoped,
+    protection_prevents_condition_from_creature_type,
+    protection_prevents_possession_from_creature_type, protection_relevant_effect_save_roll_mode,
+    resolve_animal_friendship_damage_break, resolve_animal_friendship_failed_save,
+    resolve_protection_from_evil_and_good_target, resolve_protection_relevant_charm_save,
+    save_condition_target_creature_type_is_legal,
+    spell_attack_roll_mode_from_creature_type_protection, ProtectedCondition,
+    ProtectionAttackRollMode, ProtectionSavingThrowMode, RuntimeCreatureType,
+    SaveGatedConditionSpell,
+};
 use crate::rules::feature_resources::{
     apply_lay_on_hands_resource, apply_temporary_hit_points, FeatureResourceHitPoints,
     ResourcePoolError, ResourcePoolFacts,
@@ -140,6 +155,12 @@ use battle_runtime_concentration_break_teardown::{
     projection_payload as concentration_break_teardown_projection_payload,
     replay_observed_action as replay_concentration_break_teardown_action, sampled_damage_total,
     BRANCH_ACTIONS as CONCENTRATION_BREAK_TEARDOWN_BRANCH_ACTIONS,
+};
+use battle_runtime_creature_type_protection_and_charm_selected_identity::{
+    expected_witness as expected_creature_type_protection_witness,
+    projection_payload as creature_type_protection_projection_payload,
+    replay_observed_action as replay_creature_type_protection_action,
+    BRANCH_ACTIONS as CREATURE_TYPE_PROTECTION_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1345,4 +1366,124 @@ fn concentration_breaks_after_failed_save_voluntary_end_or_replacement() {
     );
     assert!(replacement.caster_concentrating);
     assert!(replacement.replacement_started_after_teardown);
+}
+
+#[test]
+fn creature_type_protection_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Animal Friendship" and "Charm Person";
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md
+    // "Protection from Evil and Good".
+    for action in CREATURE_TYPE_PROTECTION_BRANCH_ACTIONS {
+        let observed = replay_creature_type_protection_action(action);
+        assert_eq!(observed, expected_creature_type_protection_witness(action));
+        assert!(creature_type_protection_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn creature_type_protection_projects_charm_and_scoped_protection_rules() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Animal Friendship" and "Charm Person"; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md
+    // "Protection from Evil and Good"; QNT:
+    // battle-runtime-creature-type-protection.qnt and
+    // spell-save-condition-projection-core.qnt.
+    assert!(save_condition_target_creature_type_is_legal(
+        SaveGatedConditionSpell::AnimalFriendship,
+        RuntimeCreatureType::Beast
+    ));
+    assert!(!save_condition_target_creature_type_is_legal(
+        SaveGatedConditionSpell::AnimalFriendship,
+        RuntimeCreatureType::Humanoid
+    ));
+    assert!(save_condition_target_creature_type_is_legal(
+        SaveGatedConditionSpell::CharmPerson,
+        RuntimeCreatureType::Humanoid
+    ));
+    assert!(!save_condition_target_creature_type_is_legal(
+        SaveGatedConditionSpell::CharmPerson,
+        RuntimeCreatureType::Beast
+    ));
+
+    let discovered =
+        discover_animal_friendship_target_admission(creature_type_protection_initial_state());
+    let charmed = resolve_animal_friendship_failed_save(creature_type_protection_initial_state());
+    let damage_break =
+        resolve_animal_friendship_damage_break(creature_type_protection_initial_state());
+
+    assert!(discovered.beast_target_admitted);
+    assert!(discovered.action_available);
+    assert!(charmed.target_charmed);
+    assert!(charmed.animal_friendship_effect_present);
+    assert_eq!(charmed.first_level_slots_expended, 1);
+    assert!(!damage_break.target_charmed);
+    assert!(!damage_break.animal_friendship_effect_present);
+
+    assert!(protection_from_evil_and_good_creature_type_is_scoped(
+        RuntimeCreatureType::Fey
+    ));
+    assert!(!protection_from_evil_and_good_creature_type_is_scoped(
+        RuntimeCreatureType::Humanoid
+    ));
+    assert_eq!(
+        spell_attack_roll_mode_from_creature_type_protection(RuntimeCreatureType::Fiend, true),
+        ProtectionAttackRollMode::Disadvantage
+    );
+    assert_eq!(
+        spell_attack_roll_mode_from_creature_type_protection(RuntimeCreatureType::Humanoid, true),
+        ProtectionAttackRollMode::Normal
+    );
+    assert!(protection_condition_is_prevented(
+        ProtectedCondition::Charmed
+    ));
+    assert!(protection_condition_is_prevented(
+        ProtectedCondition::Frightened
+    ));
+    assert!(protection_prevents_condition_from_creature_type(
+        RuntimeCreatureType::Undead,
+        true,
+        ProtectedCondition::Charmed
+    ));
+    assert!(!protection_prevents_condition_from_creature_type(
+        RuntimeCreatureType::Humanoid,
+        true,
+        ProtectedCondition::Charmed
+    ));
+    assert!(protection_prevents_possession_from_creature_type(
+        RuntimeCreatureType::Fiend,
+        true
+    ));
+    assert_eq!(
+        protection_relevant_effect_save_roll_mode(RuntimeCreatureType::Fiend, true, true),
+        ProtectionSavingThrowMode::Advantage
+    );
+    assert_eq!(
+        protection_relevant_effect_save_roll_mode(RuntimeCreatureType::Fiend, true, false),
+        ProtectionSavingThrowMode::Normal
+    );
+
+    let protection =
+        resolve_protection_from_evil_and_good_target(creature_type_protection_initial_state());
+    let attack_projection =
+        project_protection_scoped_attack_roll(creature_type_protection_initial_state());
+    let prevention_projection = project_protection_condition_and_possession_prevention(
+        creature_type_protection_initial_state(),
+    );
+    let save_projection =
+        resolve_protection_relevant_charm_save(creature_type_protection_initial_state());
+
+    assert!(protection.known_willing_protection_target_admitted);
+    assert!(protection.plain_protection_target_rejected);
+    assert!(protection.protection_effect_present);
+    assert!(attack_projection.scoped_attack_roll_disadvantage);
+    assert!(attack_projection.unscoped_attack_roll_normal);
+    assert!(prevention_projection.scoped_charm_prevented);
+    assert!(prevention_projection.unscoped_charm_applied);
+    assert!(prevention_projection.scoped_possession_prevented);
+    assert!(prevention_projection.unscoped_possession_unprevented);
+    assert!(save_projection.relevant_charm_save_has_advantage);
+    assert!(save_projection.relevant_charm_save_cleared);
 }

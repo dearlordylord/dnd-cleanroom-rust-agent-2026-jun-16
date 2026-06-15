@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T019",
-  "startHeadSha": "a0dae6d636d310dc7b2adbbcf1ce0ab1ce071b83",
+  "taskId": "T020",
+  "startHeadSha": "b36613b9a2e2d33363a7f1920d60d465ed5315bc",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt"
     ]
   }
 }

@@ -1,0 +1,320 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "branchFamily": "step",
+      "branchAction": "doDiscoverAnimalFriendshipBeastTargetAdmission",
+      "observedActionTaken": "doDiscoverAnimalFriendshipBeastTargetAdmission",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "traceId": "T020-discover-animal-friendship-beast-target-admission",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CreatureTypeProtectionAndCharmWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "4cc936f80e3e0a99c4ee5d55b1a124cc3de3d40322f377607aecd03cdf1397b7",
+        "observedProjectionSha256": "4cc936f80e3e0a99c4ee5d55b1a124cc3de3d40322f377607aecd03cdf1397b7",
+        "checkedTargetStateFields": [
+          "CreatureTypeProtectionState.beast_target_admitted",
+          "CreatureTypeProtectionState.humanoid_target_admitted",
+          "CreatureTypeProtectionState.known_willing_protection_target_admitted",
+          "CreatureTypeProtectionState.plain_protection_target_rejected",
+          "CreatureTypeProtectionState.protection_effect_present",
+          "CreatureTypeProtectionState.scoped_attack_roll_disadvantage",
+          "CreatureTypeProtectionState.unscoped_attack_roll_normal",
+          "CreatureTypeProtectionState.scoped_charm_prevented",
+          "CreatureTypeProtectionState.unscoped_charm_applied",
+          "CreatureTypeProtectionState.scoped_possession_prevented",
+          "CreatureTypeProtectionState.unscoped_possession_unprevented",
+          "CreatureTypeProtectionState.relevant_charm_save_has_advantage",
+          "CreatureTypeProtectionState.relevant_charm_save_cleared",
+          "CreatureTypeProtectionState.target_charmed",
+          "CreatureTypeProtectionState.animal_friendship_effect_present",
+          "CreatureTypeProtectionState.action_available",
+          "CreatureTypeProtectionState.first_level_slots_expended",
+          "CreatureTypeProtectionState.scenario_outcome",
+          "CreatureTypeProtectionState.protocol",
+          "ProtectionTargetFacts.target_known",
+          "ProtectionTargetFacts.target_willing"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "branchFamily": "step",
+      "branchAction": "doResolveAnimalFriendshipFailedSaveCharmed",
+      "observedActionTaken": "doResolveAnimalFriendshipFailedSaveCharmed",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "traceId": "T020-resolve-animal-friendship-failed-save-charmed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CreatureTypeProtectionAndCharmWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "9285ecb8706481fe4617df2a1b0e350022cc1db432f825fa298df84a691e1bce",
+        "observedProjectionSha256": "9285ecb8706481fe4617df2a1b0e350022cc1db432f825fa298df84a691e1bce",
+        "checkedTargetStateFields": [
+          "CreatureTypeProtectionState.beast_target_admitted",
+          "CreatureTypeProtectionState.humanoid_target_admitted",
+          "CreatureTypeProtectionState.known_willing_protection_target_admitted",
+          "CreatureTypeProtectionState.plain_protection_target_rejected",
+          "CreatureTypeProtectionState.protection_effect_present",
+          "CreatureTypeProtectionState.scoped_attack_roll_disadvantage",
+          "CreatureTypeProtectionState.unscoped_attack_roll_normal",
+          "CreatureTypeProtectionState.scoped_charm_prevented",
+          "CreatureTypeProtectionState.unscoped_charm_applied",
+          "CreatureTypeProtectionState.scoped_possession_prevented",
+          "CreatureTypeProtectionState.unscoped_possession_unprevented",
+          "CreatureTypeProtectionState.relevant_charm_save_has_advantage",
+          "CreatureTypeProtectionState.relevant_charm_save_cleared",
+          "CreatureTypeProtectionState.target_charmed",
+          "CreatureTypeProtectionState.animal_friendship_effect_present",
+          "CreatureTypeProtectionState.action_available",
+          "CreatureTypeProtectionState.first_level_slots_expended",
+          "CreatureTypeProtectionState.scenario_outcome",
+          "CreatureTypeProtectionState.protocol",
+          "ProtectionTargetFacts.target_known",
+          "ProtectionTargetFacts.target_willing"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "branchFamily": "step",
+      "branchAction": "doResolveAnimalFriendshipCasterDamageBreak",
+      "observedActionTaken": "doResolveAnimalFriendshipCasterDamageBreak",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "traceId": "T020-resolve-animal-friendship-caster-damage-break",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CreatureTypeProtectionAndCharmWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "3f9ac9f773ac28b1aef92dbac56be10c154db1b11e5c3c12237963f14598318f",
+        "observedProjectionSha256": "3f9ac9f773ac28b1aef92dbac56be10c154db1b11e5c3c12237963f14598318f",
+        "checkedTargetStateFields": [
+          "CreatureTypeProtectionState.beast_target_admitted",
+          "CreatureTypeProtectionState.humanoid_target_admitted",
+          "CreatureTypeProtectionState.known_willing_protection_target_admitted",
+          "CreatureTypeProtectionState.plain_protection_target_rejected",
+          "CreatureTypeProtectionState.protection_effect_present",
+          "CreatureTypeProtectionState.scoped_attack_roll_disadvantage",
+          "CreatureTypeProtectionState.unscoped_attack_roll_normal",
+          "CreatureTypeProtectionState.scoped_charm_prevented",
+          "CreatureTypeProtectionState.unscoped_charm_applied",
+          "CreatureTypeProtectionState.scoped_possession_prevented",
+          "CreatureTypeProtectionState.unscoped_possession_unprevented",
+          "CreatureTypeProtectionState.relevant_charm_save_has_advantage",
+          "CreatureTypeProtectionState.relevant_charm_save_cleared",
+          "CreatureTypeProtectionState.target_charmed",
+          "CreatureTypeProtectionState.animal_friendship_effect_present",
+          "CreatureTypeProtectionState.action_available",
+          "CreatureTypeProtectionState.first_level_slots_expended",
+          "CreatureTypeProtectionState.scenario_outcome",
+          "CreatureTypeProtectionState.protocol",
+          "ProtectionTargetFacts.target_known",
+          "ProtectionTargetFacts.target_willing"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "branchFamily": "step",
+      "branchAction": "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
+      "observedActionTaken": "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "traceId": "T020-resolve-protection-known-willing-target",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CreatureTypeProtectionAndCharmWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "d34fa227a7f4db96e6c95c4591d2bdbc41daeac92158e246774002b89464e0d4",
+        "observedProjectionSha256": "d34fa227a7f4db96e6c95c4591d2bdbc41daeac92158e246774002b89464e0d4",
+        "checkedTargetStateFields": [
+          "CreatureTypeProtectionState.beast_target_admitted",
+          "CreatureTypeProtectionState.humanoid_target_admitted",
+          "CreatureTypeProtectionState.known_willing_protection_target_admitted",
+          "CreatureTypeProtectionState.plain_protection_target_rejected",
+          "CreatureTypeProtectionState.protection_effect_present",
+          "CreatureTypeProtectionState.scoped_attack_roll_disadvantage",
+          "CreatureTypeProtectionState.unscoped_attack_roll_normal",
+          "CreatureTypeProtectionState.scoped_charm_prevented",
+          "CreatureTypeProtectionState.unscoped_charm_applied",
+          "CreatureTypeProtectionState.scoped_possession_prevented",
+          "CreatureTypeProtectionState.unscoped_possession_unprevented",
+          "CreatureTypeProtectionState.relevant_charm_save_has_advantage",
+          "CreatureTypeProtectionState.relevant_charm_save_cleared",
+          "CreatureTypeProtectionState.target_charmed",
+          "CreatureTypeProtectionState.animal_friendship_effect_present",
+          "CreatureTypeProtectionState.action_available",
+          "CreatureTypeProtectionState.first_level_slots_expended",
+          "CreatureTypeProtectionState.scenario_outcome",
+          "CreatureTypeProtectionState.protocol",
+          "ProtectionTargetFacts.target_known",
+          "ProtectionTargetFacts.target_willing"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "branchFamily": "step",
+      "branchAction": "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
+      "observedActionTaken": "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "traceId": "T020-project-protection-scoped-attack-disadvantage",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CreatureTypeProtectionAndCharmWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "caa5231b4b0b2b12a16df752454205e8ed88a98247832c288381addf1f232203",
+        "observedProjectionSha256": "caa5231b4b0b2b12a16df752454205e8ed88a98247832c288381addf1f232203",
+        "checkedTargetStateFields": [
+          "CreatureTypeProtectionState.beast_target_admitted",
+          "CreatureTypeProtectionState.humanoid_target_admitted",
+          "CreatureTypeProtectionState.known_willing_protection_target_admitted",
+          "CreatureTypeProtectionState.plain_protection_target_rejected",
+          "CreatureTypeProtectionState.protection_effect_present",
+          "CreatureTypeProtectionState.scoped_attack_roll_disadvantage",
+          "CreatureTypeProtectionState.unscoped_attack_roll_normal",
+          "CreatureTypeProtectionState.scoped_charm_prevented",
+          "CreatureTypeProtectionState.unscoped_charm_applied",
+          "CreatureTypeProtectionState.scoped_possession_prevented",
+          "CreatureTypeProtectionState.unscoped_possession_unprevented",
+          "CreatureTypeProtectionState.relevant_charm_save_has_advantage",
+          "CreatureTypeProtectionState.relevant_charm_save_cleared",
+          "CreatureTypeProtectionState.target_charmed",
+          "CreatureTypeProtectionState.animal_friendship_effect_present",
+          "CreatureTypeProtectionState.action_available",
+          "CreatureTypeProtectionState.first_level_slots_expended",
+          "CreatureTypeProtectionState.scenario_outcome",
+          "CreatureTypeProtectionState.protocol",
+          "ProtectionTargetFacts.target_known",
+          "ProtectionTargetFacts.target_willing"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "branchFamily": "step",
+      "branchAction": "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
+      "observedActionTaken": "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "traceId": "T020-prevent-protection-scoped-charm-possession",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CreatureTypeProtectionAndCharmWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "a14e4dac7897e7bc4a84d62cc4715c9469974b197f5d770dc35ccd9c15ed8c42",
+        "observedProjectionSha256": "a14e4dac7897e7bc4a84d62cc4715c9469974b197f5d770dc35ccd9c15ed8c42",
+        "checkedTargetStateFields": [
+          "CreatureTypeProtectionState.beast_target_admitted",
+          "CreatureTypeProtectionState.humanoid_target_admitted",
+          "CreatureTypeProtectionState.known_willing_protection_target_admitted",
+          "CreatureTypeProtectionState.plain_protection_target_rejected",
+          "CreatureTypeProtectionState.protection_effect_present",
+          "CreatureTypeProtectionState.scoped_attack_roll_disadvantage",
+          "CreatureTypeProtectionState.unscoped_attack_roll_normal",
+          "CreatureTypeProtectionState.scoped_charm_prevented",
+          "CreatureTypeProtectionState.unscoped_charm_applied",
+          "CreatureTypeProtectionState.scoped_possession_prevented",
+          "CreatureTypeProtectionState.unscoped_possession_unprevented",
+          "CreatureTypeProtectionState.relevant_charm_save_has_advantage",
+          "CreatureTypeProtectionState.relevant_charm_save_cleared",
+          "CreatureTypeProtectionState.target_charmed",
+          "CreatureTypeProtectionState.animal_friendship_effect_present",
+          "CreatureTypeProtectionState.action_available",
+          "CreatureTypeProtectionState.first_level_slots_expended",
+          "CreatureTypeProtectionState.scenario_outcome",
+          "CreatureTypeProtectionState.protocol",
+          "ProtectionTargetFacts.target_known",
+          "ProtectionTargetFacts.target_willing"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "branchFamily": "step",
+      "branchAction": "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
+      "observedActionTaken": "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "traceId": "T020-resolve-protection-relevant-charm-save-advantage",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CreatureTypeProtectionAndCharmWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "8da5fcb57c470ec07701b9b7679fd7a7dc8b60732b75c7d0927bc960244df9ee",
+        "observedProjectionSha256": "8da5fcb57c470ec07701b9b7679fd7a7dc8b60732b75c7d0927bc960244df9ee",
+        "checkedTargetStateFields": [
+          "CreatureTypeProtectionState.beast_target_admitted",
+          "CreatureTypeProtectionState.humanoid_target_admitted",
+          "CreatureTypeProtectionState.known_willing_protection_target_admitted",
+          "CreatureTypeProtectionState.plain_protection_target_rejected",
+          "CreatureTypeProtectionState.protection_effect_present",
+          "CreatureTypeProtectionState.scoped_attack_roll_disadvantage",
+          "CreatureTypeProtectionState.unscoped_attack_roll_normal",
+          "CreatureTypeProtectionState.scoped_charm_prevented",
+          "CreatureTypeProtectionState.unscoped_charm_applied",
+          "CreatureTypeProtectionState.scoped_possession_prevented",
+          "CreatureTypeProtectionState.unscoped_possession_unprevented",
+          "CreatureTypeProtectionState.relevant_charm_save_has_advantage",
+          "CreatureTypeProtectionState.relevant_charm_save_cleared",
+          "CreatureTypeProtectionState.target_charmed",
+          "CreatureTypeProtectionState.animal_friendship_effect_present",
+          "CreatureTypeProtectionState.action_available",
+          "CreatureTypeProtectionState.first_level_slots_expended",
+          "CreatureTypeProtectionState.scenario_outcome",
+          "CreatureTypeProtectionState.protocol",
+          "ProtectionTargetFacts.target_known",
+          "ProtectionTargetFacts.target_willing"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}
