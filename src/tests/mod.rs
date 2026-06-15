@@ -4,6 +4,8 @@ mod character_creation_class_feature_projections;
 mod character_creation_cleric_druid_order_selected_identity;
 #[path = "../qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs"]
 mod character_creation_fighter_fighting_style_selected_identity;
+#[path = "../qnt_adapters/character_creation_runtime.rs"]
+mod character_creation_runtime;
 
 use crate::rules::class_features::{
     cleric_divine_order_projection, druid_primal_order_projection,
@@ -24,6 +26,10 @@ use character_creation_fighter_fighting_style_selected_identity::{
     expected_replace_defense_with_archery_witness, expected_select_defense_witness,
     projection_payload as fighting_style_projection_payload,
     replay_observed_action as replay_fighting_style_action,
+};
+use character_creation_runtime::{
+    projection_payload as runtime_projection_payload,
+    replay_observed_action as replay_runtime_action, BRANCH_ACTIONS,
 };
 
 #[test]
@@ -134,4 +140,101 @@ fn fighter_fighting_style_replacement_records_previous_and_new_feat() {
     assert_eq!(projection.replaced_feat, Some(FightingStyleFeat::Defense));
     assert_eq!(projection.selected_feat, FightingStyleFeat::Archery);
     assert_eq!(projection.total_level, ClassLevel::Two);
+}
+
+#[test]
+fn character_creation_runtime_adapter_replays_all_branch_actions() {
+    // QNT: cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt,
+    // action step; slice: character-creation-runtime-slice.qnt.
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Creation.md "Choose a Class",
+    // "Choose Languages", "Determine Ability Scores", "Choose Alignment", and
+    // "Choose Starting Equipment"; cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md
+    // "Core Fighter Traits".
+    for action in BRANCH_ACTIONS {
+        let witness = replay_runtime_action(action);
+        let payload = runtime_projection_payload(&witness);
+        assert!(payload.contains("qDraft.revision="));
+        assert!(matches!(witness.q_last_result, "accepted" | "rejected"));
+    }
+}
+
+#[test]
+fn character_creation_runtime_accepts_manifest_progression() {
+    let initial_manifest = replay_runtime_action("doFillInitialManifest");
+    let manifest_choices = replay_runtime_action("doFillManifestChoices");
+    let manifest_purchase = replay_runtime_action("doFillManifestPurchase");
+    let manifest_loadout = replay_runtime_action("doFillManifestLoadout");
+
+    assert_eq!(initial_manifest.q_last_result, "accepted");
+    assert_eq!(initial_manifest.q_draft_revision, 1);
+    assert_eq!(
+        initial_manifest.q_draft_progression,
+        "SelectedProgression(FighterLevel1)"
+    );
+    assert_eq!(
+        initial_manifest.q_holes,
+        vec![
+            "HClassSkills",
+            "HFighterFightingStyle",
+            "HFighterWeaponMastery",
+            "HBackgroundAbilityScoreIncrease",
+            "HBackgroundTool",
+            "HClassEquipment",
+            "HBackgroundEquipment"
+        ]
+    );
+
+    assert_eq!(manifest_choices.q_draft_revision, 2);
+    assert_eq!(manifest_choices.q_holes, vec!["HEquipmentPurchase"]);
+    assert_eq!(manifest_purchase.q_draft_revision, 3);
+    assert_eq!(
+        manifest_purchase.q_holes,
+        vec!["HLoadoutArmor", "HLoadoutShield", "HLoadoutWeapon"]
+    );
+    assert_eq!(manifest_loadout.q_draft_revision, 4);
+    assert!(manifest_loadout.q_holes.is_empty());
+    assert_eq!(manifest_loadout.q_finalization, "Ready");
+}
+
+#[test]
+fn character_creation_runtime_rejects_manifest_protocol_issues() {
+    let stale = replay_runtime_action("doRejectStaleInitialManifest");
+    let unsupported_language = replay_runtime_action("doRejectUnsupportedLanguage");
+    let duplicate_language = replay_runtime_action("doRejectDuplicateLanguage");
+    let duplicate_fill = replay_runtime_action("doRejectDuplicateFill");
+    let too_few_languages = replay_runtime_action("doRejectTooFewLanguages");
+    let too_many_languages = replay_runtime_action("doRejectTooManyLanguages");
+    let wrong_kind = replay_runtime_action("doRejectWrongKindPrimaryClass");
+    let closed_progression = replay_runtime_action("doRejectClosedInitialProgressionHole");
+    let unknown_loadout = replay_runtime_action("doRejectUnknownLoadoutArmor");
+    let unsupported_class_equipment = replay_runtime_action("doRejectUnsupportedClassEquipment");
+
+    assert_eq!(stale.q_last_result, "rejected");
+    assert_eq!(stale.q_last_batch_issue_codes, vec!["staleRevision"]);
+    assert!(stale.q_last_fill_issues.is_empty());
+
+    assert_eq!(
+        runtime_projection_payload(&unsupported_language),
+        runtime_projection_payload(&unsupported_language)
+    );
+    assert!(runtime_projection_payload(&unsupported_language)
+        .contains("qLastFillIssues=0:HLanguages:unsupportedChoice"));
+    assert!(runtime_projection_payload(&duplicate_language)
+        .contains("qLastFillIssues=0:HLanguages:invalidChoice"));
+    assert!(runtime_projection_payload(&duplicate_fill)
+        .contains("qLastFillIssues=1:HLanguages:duplicateFill"));
+    assert!(runtime_projection_payload(&too_few_languages)
+        .contains("qLastFillIssues=0:HLanguages:tooFewChoices"));
+    assert!(runtime_projection_payload(&too_many_languages).contains("0:HLanguages:tooManyChoices"));
+    assert!(
+        runtime_projection_payload(&too_many_languages).contains("0:HLanguages:unsupportedChoice")
+    );
+    assert!(runtime_projection_payload(&wrong_kind)
+        .contains("qLastFillIssues=0:HProgression:wrongFillKind"));
+    assert!(runtime_projection_payload(&closed_progression)
+        .contains("qLastFillIssues=0:HProgression:unknownHole"));
+    assert!(runtime_projection_payload(&unknown_loadout)
+        .contains("qLastFillIssues=0:HLoadoutArmor:unknownHole"));
+    assert!(runtime_projection_payload(&unsupported_class_equipment)
+        .contains("qLastFillIssues=0:HClassEquipment:unsupportedChoice"));
 }

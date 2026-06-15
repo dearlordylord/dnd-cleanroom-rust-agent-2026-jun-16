@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt`
-- Next task id: `T004`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt`
+- Next task id: `T005`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,117 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T004: character-creation-runtime
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt`
+- Branch obligations:
+  - `step:doFillAbilityScoresOnly`
+  - `step:doFillInitialChoicesOnly`
+  - `step:doFillInitialManifest`
+  - `step:doFillManifestChoices`
+  - `step:doFillManifestLoadout`
+  - `step:doFillManifestPurchase`
+  - `step:doRejectClosedInitialProgressionHole`
+  - `step:doRejectDuplicateFill`
+  - `step:doRejectDuplicateLanguage`
+  - `step:doRejectStaleInitialManifest`
+  - `step:doRejectTooFewLanguages`
+  - `step:doRejectTooManyLanguages`
+  - `step:doRejectUnknownLoadoutArmor`
+  - `step:doRejectUnsupportedClassEquipment`
+  - `step:doRejectUnsupportedLanguage`
+  - `step:doRejectWrongKindPrimaryClass`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt`
+  - `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime-slice.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Character-Creation.md`
+  - `cleanroom-input/raw/srd-5.2.1/Character-Origins.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md`
+  - `cleanroom-input/raw/srd-5.2.1/Equipment.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added a reusable character creation draft engine for the `character-creation-runtime-slice.qnt` Fighter/Soldier/Orc manifest path.
+- Implemented open hole discovery, draft finalization, accepted fill application, and rejected batch reporting for stale revisions, duplicate fills, wrong fill kinds, invalid choices, unsupported choices, and choice cardinality failures.
+- Replayed the initial manifest, later choice fills, equipment purchase, and loadout progression through `Ready` finalization.
+- Kept QNT action dispatch and witness field mapping quarantined in `src/qnt_adapters/character_creation_runtime.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillAbilityScoresOnly` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-fill-ability-scores-only#step:doFillAbilityScoresOnly` | `src/tests/mod.rs::character_creation_runtime_adapter_replays_all_branch_actions` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillInitialChoicesOnly` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-fill-initial-choices-only#step:doFillInitialChoicesOnly` | `src/tests/mod.rs::character_creation_runtime_adapter_replays_all_branch_actions` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillInitialManifest` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-fill-initial-manifest#step:doFillInitialManifest` | `src/tests/mod.rs::character_creation_runtime_accepts_manifest_progression` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillManifestChoices` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-fill-manifest-choices#step:doFillManifestChoices` | `src/tests/mod.rs::character_creation_runtime_accepts_manifest_progression` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillManifestLoadout` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-fill-manifest-loadout#step:doFillManifestLoadout` | `src/tests/mod.rs::character_creation_runtime_accepts_manifest_progression` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillManifestPurchase` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-fill-manifest-purchase#step:doFillManifestPurchase` | `src/tests/mod.rs::character_creation_runtime_accepts_manifest_progression` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectClosedInitialProgressionHole` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-reject-closed-initial-progression-hole#step:doRejectClosedInitialProgressionHole` | `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectDuplicateFill` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-reject-duplicate-fill#step:doRejectDuplicateFill` | `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectDuplicateLanguage` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-reject-duplicate-language#step:doRejectDuplicateLanguage` | `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectStaleInitialManifest` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-reject-stale-initial-manifest#step:doRejectStaleInitialManifest` | `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectTooFewLanguages` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-reject-too-few-languages#step:doRejectTooFewLanguages` | `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectTooManyLanguages` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-reject-too-many-languages#step:doRejectTooManyLanguages` | `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectUnknownLoadoutArmor` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-reject-unknown-loadout-armor#step:doRejectUnknownLoadoutArmor` | `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectUnsupportedClassEquipment` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-reject-unsupported-class-equipment#step:doRejectUnsupportedClassEquipment` | `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectUnsupportedLanguage` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-reject-unsupported-language#step:doRejectUnsupportedLanguage` | `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectWrongKindPrimaryClass` | `tasks/target-replay-evidence/T004-character-creation-runtime.json#T004-reject-wrong-kind-primary-class#step:doRejectWrongKindPrimaryClass` | `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T004-character-creation-runtime.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T004-fill-ability-scores-only`
+- Reproduction seed or trace id: `T004-fill-initial-choices-only`
+- Reproduction seed or trace id: `T004-fill-initial-manifest`
+- Reproduction seed or trace id: `T004-fill-manifest-choices`
+- Reproduction seed or trace id: `T004-fill-manifest-loadout`
+- Reproduction seed or trace id: `T004-fill-manifest-purchase`
+- Reproduction seed or trace id: `T004-reject-closed-initial-progression-hole`
+- Reproduction seed or trace id: `T004-reject-duplicate-fill`
+- Reproduction seed or trace id: `T004-reject-duplicate-language`
+- Reproduction seed or trace id: `T004-reject-stale-initial-manifest`
+- Reproduction seed or trace id: `T004-reject-too-few-languages`
+- Reproduction seed or trace id: `T004-reject-too-many-languages`
+- Reproduction seed or trace id: `T004-reject-unknown-loadout-armor`
+- Reproduction seed or trace id: `T004-reject-unsupported-class-equipment`
+- Reproduction seed or trace id: `T004-reject-unsupported-language`
+- Reproduction seed or trace id: `T004-reject-wrong-kind-primary-class`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::character_creation_runtime_adapter_replays_all_branch_actions`
+- `src/tests/mod.rs::character_creation_runtime_accepts_manifest_progression`
+- `src/tests/mod.rs::character_creation_runtime_rejects_manifest_protocol_issues`
 
 Remaining gaps:
 

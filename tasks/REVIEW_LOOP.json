@@ -1,9 +1,7 @@
 {
-  "schemaVersion": 1,
-  "taskId": "T003",
+  "findings": [],
   "rounds": [
     {
-      "round": 1,
       "passes": [
         {
           "checklist": "raw-qnt-traceability",
@@ -45,8 +43,10 @@
           "checklist": "report-honesty",
           "status": "pass"
         }
-      ]
+      ],
+      "round": 1
     }
   ],
-  "findings": []
+  "schemaVersion": 1,
+  "taskId": "T004"
 }

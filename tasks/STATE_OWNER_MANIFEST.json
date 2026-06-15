@@ -1,55 +1,191 @@
 {
-  "schemaVersion": 1,
-  "taskId": "T003",
   "durableFields": [
     {
-      "fieldPath": "FightingStyleProjection.source_feature",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection",
       "derivability": {
-        "tag": "stored-executable-boundary-projection",
-        "sourceField": "FightingStyleFeature",
-        "boundary": "character creation fighter fighting style projection"
-      }
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.revision",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
     },
     {
-      "fieldPath": "FightingStyleProjection.selected_feat",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection",
       "derivability": {
-        "tag": "stored-executable-boundary-projection",
-        "sourceField": "FightingStyleFeat",
-        "boundary": "character creation fighter fighting style projection"
-      }
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.progression",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
     },
     {
-      "fieldPath": "FightingStyleProjection.replaced_feat",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection",
       "derivability": {
-        "tag": "stored-executable-boundary-projection",
-        "sourceField": "FightingStyleFeat",
-        "boundary": "character creation fighter fighting style projection"
-      }
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.background",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
     },
     {
-      "fieldPath": "FightingStyleProjection.total_level",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection",
       "derivability": {
-        "tag": "stored-executable-boundary-projection",
-        "sourceField": "ClassLevel",
-        "boundary": "character creation fighter fighting style projection"
-      }
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.species",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
     },
     {
-      "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
-      "owner": "harness-witness-protocol",
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.ability_scores",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.languages",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.alignment",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.class_skills",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.fighter_fighting_style",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.fighter_weapon_mastery",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.background_ability_score_increase",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.background_tool",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.class_equipment",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.background_equipment",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.equipment_purchase",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.loadout_armor",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.loadout_shield",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "Draft.loadout_weapon",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "FillBatchResult.holes",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "FillBatchResult.finalization",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CreationIssues.batch",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CreationIssues.fills",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "build-evidence"
+    },
+    {
       "derivability": {
         "tag": "harness-witness-protocol",
         "witnessName": "mbt::actionTaken"
-      }
+      },
+      "fieldPath": "TargetReplayEvidence.observedActionTaken",
+      "introducedIn": "src/qnt_adapters/character_creation_runtime.rs",
+      "owner": "harness-witness-protocol"
     }
-  ]
+  ],
+  "schemaVersion": 1,
+  "taskId": "T004"
 }

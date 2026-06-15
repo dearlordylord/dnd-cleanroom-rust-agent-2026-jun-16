@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T003",
-  "startHeadSha": "7b393af09b0a56aa89cf7e887acc7e97beae8030",
+  "taskId": "T004",
+  "startHeadSha": "fe30255b4d66a06648f20423c8e3752b974f409f",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "creation",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt"
     ]
   }
 }

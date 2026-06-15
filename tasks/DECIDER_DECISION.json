@@ -1,48 +1,48 @@
 {
-  "schemaVersion": 1,
-  "taskId": "T003",
   "decision": "accepted",
   "deterministicGates": [
     {
+      "evidence": "tasks/START_GATE.json",
       "gate": "start-gate",
-      "status": "pass",
-      "evidence": "tasks/START_GATE.json"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/target-replay-evidence/T004-character-creation-runtime.json",
       "gate": "branch-coverage",
-      "status": "pass",
-      "evidence": "tasks/target-replay-evidence/T003-character-creation-fighter-fighting-style-selected-identity.json"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/ENGINE_DEPTH_MANIFEST.json",
       "gate": "adapter-quarantine",
-      "status": "pass",
-      "evidence": "tasks/ENGINE_DEPTH_MANIFEST.json"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/ENGINE_DEPTH_MANIFEST.json",
       "gate": "engine-depth",
-      "status": "pass",
-      "evidence": "tasks/ENGINE_DEPTH_MANIFEST.json"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/STATE_OWNER_MANIFEST.json",
       "gate": "state-owner-derivability",
-      "status": "pass",
-      "evidence": "tasks/STATE_OWNER_MANIFEST.json"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/VALIDATION_REPORT.md",
       "gate": "authored-identity-dispatch",
-      "status": "pass",
-      "evidence": "production source scan"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/VALIDATION_REPORT.md",
       "gate": "report-honesty",
-      "status": "pass",
-      "evidence": "tasks/VALIDATION_REPORT.md"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/REVIEW_LOOP.json",
       "gate": "reviewer-loop-convergence",
-      "status": "pass",
-      "evidence": "tasks/REVIEW_LOOP.json"
+      "status": "pass"
     }
   ],
-  "rejectedFindings": []
+  "rejectedFindings": [],
+  "schemaVersion": 1,
+  "taskId": "T004"
 }

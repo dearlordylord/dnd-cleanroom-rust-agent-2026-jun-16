@@ -1,28 +1,25 @@
 {
-  "schemaVersion": 1,
-  "taskId": "T003",
-  "productionModulesExtended": [
-    {
-      "path": "src/rules/class_features.rs",
-      "role": "domain-engine",
-      "domainApis": [
-        "fighter_fighting_style_projection",
-        "level_one_order_projection",
-        "cleric_divine_order_projection",
-        "druid_primal_order_projection",
-        "level_two_feature_projection",
-        "monk_level_two_projection",
-        "sorcerer_level_two_projection",
-        "metamagic_option_fact"
-      ]
-    }
-  ],
+  "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "path": "src/qnt_adapters/character_creation_runtime.rs",
       "quarantinedWitnessNames": [
-        "doReplaceDefenseWithArcheryOnFighterLevelGain",
-        "doSelectDefenseFightingStyle",
+        "doFillAbilityScoresOnly",
+        "doFillInitialChoicesOnly",
+        "doFillInitialManifest",
+        "doFillManifestChoices",
+        "doFillManifestLoadout",
+        "doFillManifestPurchase",
+        "doRejectClosedInitialProgressionHole",
+        "doRejectDuplicateFill",
+        "doRejectDuplicateLanguage",
+        "doRejectStaleInitialManifest",
+        "doRejectTooFewLanguages",
+        "doRejectTooManyLanguages",
+        "doRejectUnknownLoadoutArmor",
+        "doRejectUnsupportedClassEquipment",
+        "doRejectUnsupportedLanguage",
+        "doRejectWrongKindPrimaryClass",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -40,21 +37,41 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T003-character-creation-fighter-fighting-style-selected-identity.json"
+        "tasks/target-replay-evidence/T004-character-creation-runtime.json"
       ]
     }
   ],
-  "accumulatorGrowth": [],
   "expectedNextReuse": [
     {
-      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
-      "module": "src/rules/class_features.rs",
-      "api": "fighter_fighting_style_projection"
+      "api": "fill_creation_holes",
+      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt",
+      "module": "src/rules/character_creation.rs"
     },
     {
-      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt",
-      "module": "src/rules/class_features.rs",
-      "api": "fighter_fighting_style_projection"
+      "api": "accepted_draft",
+      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt",
+      "module": "src/rules/character_creation.rs"
     }
-  ]
+  ],
+  "productionModulesExtended": [
+    {
+      "domainApis": [
+        "empty_draft",
+        "open_creation_holes",
+        "finalize_draft",
+        "fill_creation_holes",
+        "initial_manifest_fills",
+        "initial_choices_only_fills",
+        "ability_scores_only_fills",
+        "manifest_choice_fills",
+        "manifest_purchase_fills",
+        "manifest_loadout_fills",
+        "accepted_draft"
+      ],
+      "path": "src/rules/character_creation.rs",
+      "role": "domain-engine"
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "T004"
 }
