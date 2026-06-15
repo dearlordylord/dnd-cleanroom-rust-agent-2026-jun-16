@@ -2,6 +2,8 @@
 mod battle_runtime_adrenaline_rush;
 #[path = "../qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs"]
 mod battle_runtime_attack_spell_shape_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_chained_attack_sequence.rs"]
+mod battle_runtime_chained_attack_sequence;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -40,6 +42,14 @@ use crate::rules::armor_class::{
 use crate::rules::battle_features::{
     resolve_adrenaline_rush_bonus_action_dash, AdrenalineRushFacts, AdrenalineRushRejection,
     AdrenalineRushResult, BattleTurnFeatureState,
+};
+use crate::rules::chained_spell_attacks::{
+    choose_chromatic_orb_damage_type, choose_chromatic_orb_initial_target,
+    choose_chromatic_orb_leap_target, chromatic_orb_can_leap, chromatic_orb_damage_die_count,
+    chromatic_orb_damage_die_size, chromatic_orb_initial_state, resolve_chromatic_orb_attack_hit,
+    resolve_chromatic_orb_damage, start_chromatic_orb_cast, ChainedAttackHole,
+    ChainedAttackProtocol, ChainedAttackRollFacts, ChainedAttackScenarioOutcome, ChainedAttackStep,
+    ChainedDamageRollFacts, ChainedDamageTypeChoice, ChainedTarget, ChromaticOrbSequenceState,
 };
 use crate::rules::class_features::{
     apply_weapon_mastery_long_rest_reselection, cleric_divine_order_projection,
@@ -82,6 +92,12 @@ use battle_runtime_attack_spell_shape_selected_identity::{
     projection_payload as attack_spell_shape_projection_payload,
     replay_observed_action as replay_attack_spell_shape_action,
     BRANCH_ACTIONS as ATTACK_SPELL_SHAPE_BRANCH_ACTIONS,
+};
+use battle_runtime_chained_attack_sequence::{
+    expected_witness as expected_chained_attack_sequence_witness,
+    projection_payload as chained_attack_sequence_projection_payload,
+    replay_observed_action as replay_chained_attack_sequence_action,
+    BRANCH_ACTIONS as CHAINED_ATTACK_SEQUENCE_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -914,4 +930,122 @@ fn attack_spell_shapes_project_slots_effects_and_save_damage() {
         SpellShapeOutcome::InflictWoundsSuccessfulSave
     );
     assert!(inflict_success.state.spell_slot_spent_this_turn);
+}
+
+#[test]
+fn chained_attack_sequence_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-chained-attack-sequence.mbt.qnt; shared algebra:
+    // cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // spell-chained-attack-damage-projection-core.qnt.
+    for action in CHAINED_ATTACK_SEQUENCE_BRANCH_ACTIONS {
+        let observed = replay_chained_attack_sequence_action(action);
+        assert_eq!(observed, expected_chained_attack_sequence_witness(action));
+        assert!(chained_attack_sequence_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn chromatic_orb_sequence_tracks_duplicate_leap_limit() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Chromatic Orb"; QNT: battle-runtime-chained-spell-attack.qnt.
+    fn sequence_through_first_leap(
+        slot_level: i16,
+        step0_damage_total: i16,
+    ) -> ChromaticOrbSequenceState {
+        let state = start_chromatic_orb_cast(chromatic_orb_initial_state(), slot_level)
+            .expect("slot level is legal");
+        let state = choose_chromatic_orb_damage_type(state, ChainedDamageTypeChoice::Fire)
+            .expect("damage type choice is legal");
+        let state = choose_chromatic_orb_initial_target(state, ChainedTarget::First)
+            .expect("initial target is legal");
+        let state = resolve_chromatic_orb_attack_hit(
+            state,
+            ChainedAttackStep::Step0,
+            ChainedAttackRollFacts {
+                attack_total: 18,
+                natural_d20: 12,
+            },
+        )
+        .expect("step 0 attack resolves");
+        let state = resolve_chromatic_orb_damage(
+            state,
+            ChainedAttackStep::Step0,
+            ChainedDamageRollFacts {
+                damage_total: step0_damage_total,
+                has_duplicate: true,
+            },
+        )
+        .expect("duplicate step 0 damage resolves");
+        choose_chromatic_orb_leap_target(state, ChainedTarget::Second, true)
+            .expect("first leap target is legal")
+    }
+
+    let slot_one_step1 = resolve_chromatic_orb_attack_hit(
+        sequence_through_first_leap(1, 9),
+        ChainedAttackStep::Step1,
+        ChainedAttackRollFacts {
+            attack_total: 18,
+            natural_d20: 12,
+        },
+    )
+    .expect("slot 1 step 1 attack resolves");
+    let slot_one_done = resolve_chromatic_orb_damage(
+        slot_one_step1,
+        ChainedAttackStep::Step1,
+        ChainedDamageRollFacts {
+            damage_total: 3,
+            has_duplicate: true,
+        },
+    )
+    .expect("slot 1 duplicate step 1 damage resolves");
+
+    let slot_two_step1 = resolve_chromatic_orb_attack_hit(
+        sequence_through_first_leap(2, 10),
+        ChainedAttackStep::Step1,
+        ChainedAttackRollFacts {
+            attack_total: 18,
+            natural_d20: 12,
+        },
+    )
+    .expect("slot 2 step 1 attack resolves");
+    let slot_two_awaits_second_leap = resolve_chromatic_orb_damage(
+        slot_two_step1,
+        ChainedAttackStep::Step1,
+        ChainedDamageRollFacts {
+            damage_total: 4,
+            has_duplicate: true,
+        },
+    )
+    .expect("slot 2 duplicate step 1 damage resolves");
+
+    assert_eq!(chromatic_orb_damage_die_size(), 8);
+    assert_eq!(chromatic_orb_damage_die_count(1), 3);
+    assert_eq!(chromatic_orb_damage_die_count(2), 4);
+    assert!(!chromatic_orb_can_leap(1, 1, true));
+    assert!(chromatic_orb_can_leap(2, 1, true));
+
+    assert_eq!(
+        slot_one_done.outcome,
+        ChainedAttackScenarioOutcome::Slot1LeapLimitComplete
+    );
+    assert_eq!(slot_one_done.protocol, ChainedAttackProtocol::Resolved);
+    assert_eq!(slot_one_done.first_target_hit_points, 3);
+    assert_eq!(slot_one_done.second_target_hit_points, 9);
+
+    assert_eq!(
+        slot_two_awaits_second_leap.outcome,
+        ChainedAttackScenarioOutcome::AwaitingSecondLeapTarget
+    );
+    assert_eq!(
+        slot_two_awaits_second_leap.protocol,
+        ChainedAttackProtocol::NeedsHole(ChainedAttackHole::TargetChoice2)
+    );
+    assert_eq!(
+        slot_two_awaits_second_leap.targeted,
+        vec![ChainedTarget::First, ChainedTarget::Second]
+    );
+    assert_eq!(slot_two_awaits_second_leap.leaps_used, 1);
+    assert_eq!(slot_two_awaits_second_leap.first_target_hit_points, 2);
+    assert_eq!(slot_two_awaits_second_leap.second_target_hit_points, 8);
 }

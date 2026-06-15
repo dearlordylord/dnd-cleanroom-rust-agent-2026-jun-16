@@ -76,6 +76,14 @@ const harnessWitnessProtocolNames = [
   "harnessTestPath",
 ];
 
+const canonicalSampledInputNames = new Set([
+  // These sampled MBT pick names are also Ubiquitous Language domain terms.
+  // Evidence must still record them, but production rules may use the domain
+  // vocabulary without being treated as a witness-protocol leak.
+  "damageType",
+  "slotLevel",
+]);
+
 const skippedSourceDirs = new Set([
   ".git",
   "node_modules",
@@ -712,9 +720,9 @@ function protocolNamesForObligations(selected) {
 }
 
 function forbiddenWitnessNamesForSelection(selected) {
-  const sampledInputNames = (selected.sampledInputs ?? []).map(
-    (input) => input.pickName,
-  );
+  const sampledInputNames = (selected.sampledInputs ?? [])
+    .map((input) => input.pickName)
+    .filter((pickName) => !canonicalSampledInputNames.has(pickName));
   return Array.from(
     new Set([
       ...protocolNamesForObligations(selected),

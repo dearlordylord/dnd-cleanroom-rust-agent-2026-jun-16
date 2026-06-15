@@ -1,6 +1,7 @@
 pub mod ability_checks;
 pub mod armor_class;
 pub mod battle_features;
+pub mod chained_spell_attacks;
 pub mod character_creation;
 pub mod class_features;
 pub mod feature_resources;

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T015",
-  "startHeadSha": "e59b9c555dbda723af5310ce41f42c9d77937710",
+  "taskId": "T016",
+  "startHeadSha": "cb24f3071df9f5a46ae200bf49f2ed6911b1c800",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt"
     ]
   }
 }

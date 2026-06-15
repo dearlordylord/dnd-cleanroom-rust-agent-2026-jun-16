@@ -4,83 +4,153 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SpellShapeState.target_hit_points",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "ChromaticOrbSequenceState.damage_type",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SpellShapeState.spell_slot_spent_this_turn",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "ChromaticOrbSequenceState.slot_level",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SpellShapeState.level_one_slots_remaining",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "ChromaticOrbSequenceState.targeted",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SpellShapeState.active_effects",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "ChromaticOrbSequenceState.previous_target",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "AttackSpellHitFacts.spell",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "ChromaticOrbSequenceState.leaps_used",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChromaticOrbSequenceState.step_index",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChromaticOrbSequenceState.first_target_hit_points",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChromaticOrbSequenceState.second_target_hit_points",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChromaticOrbSequenceState.third_target_hit_points",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChromaticOrbSequenceState.step0_attack",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChromaticOrbSequenceState.step0_damage",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChromaticOrbSequenceState.step1_attack",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChromaticOrbSequenceState.step1_damage",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChromaticOrbSequenceState.outcome",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChromaticOrbSequenceState.protocol",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ChainedAttackRollFacts.attack_total",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "AttackSpellHitFacts.damage_roll",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "ChainedAttackRollFacts.natural_d20",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SaveGatedSpellDamageFacts.spell",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "ChainedDamageRollFacts.damage_total",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SaveGatedSpellDamageFacts.damage_roll",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "ChainedDamageRollFacts.has_duplicate",
+      "introducedIn": "src/rules/chained_spell_attacks.rs",
       "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SaveGatedSpellDamageFacts.saving_throw_succeeded",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "boundary": "battle-runtime-attack-spell-shape-selected-identity",
-        "sourceField": "AttackSpellHitFacts | SaveGatedSpellDamageFacts",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "SpellShapeProjection.outcome",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
@@ -88,10 +158,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T015"
+  "taskId": "T016"
 }

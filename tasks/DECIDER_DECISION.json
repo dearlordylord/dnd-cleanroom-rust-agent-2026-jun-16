@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T015-battle-runtime-attack-spell-shape-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T016-battle-runtime-chained-attack-sequence.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T015"
+  "taskId": "T016"
 }

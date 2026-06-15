@@ -1,0 +1,442 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doStartCast",
+      "observedActionTaken": "doStartCast",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "T016-start-cast",
+      "sampledInputs": [
+        {
+          "pickName": "slotLevel",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ChainedAttackSequenceWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "ca073eaa1b9caf3a73e7ae1e29ad1dee27e490d8fac5f54104d9f1756a40baad",
+        "observedProjectionSha256": "ca073eaa1b9caf3a73e7ae1e29ad1dee27e490d8fac5f54104d9f1756a40baad",
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState.damage_type",
+          "ChromaticOrbSequenceState.slot_level",
+          "ChromaticOrbSequenceState.targeted",
+          "ChromaticOrbSequenceState.previous_target",
+          "ChromaticOrbSequenceState.leaps_used",
+          "ChromaticOrbSequenceState.step_index",
+          "ChromaticOrbSequenceState.first_target_hit_points",
+          "ChromaticOrbSequenceState.second_target_hit_points",
+          "ChromaticOrbSequenceState.third_target_hit_points",
+          "ChromaticOrbSequenceState.step0_attack",
+          "ChromaticOrbSequenceState.step0_damage",
+          "ChromaticOrbSequenceState.step1_attack",
+          "ChromaticOrbSequenceState.step1_damage",
+          "ChromaticOrbSequenceState.outcome",
+          "ChromaticOrbSequenceState.protocol",
+          "ChainedAttackRollFacts.attack_total",
+          "ChainedAttackRollFacts.natural_d20",
+          "ChainedDamageRollFacts.damage_total",
+          "ChainedDamageRollFacts.has_duplicate"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doChooseDamageType",
+      "observedActionTaken": "doChooseDamageType",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "T016-choose-damage-type",
+      "sampledInputs": [
+        {
+          "pickName": "damageType",
+          "value": "fire"
+        }
+      ],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ChainedAttackSequenceWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "0068e34b8ca77d60af973fcd4fd03fb587bfa06e4a3b6277c77b60b2dbe0e373",
+        "observedProjectionSha256": "0068e34b8ca77d60af973fcd4fd03fb587bfa06e4a3b6277c77b60b2dbe0e373",
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState.damage_type",
+          "ChromaticOrbSequenceState.slot_level",
+          "ChromaticOrbSequenceState.targeted",
+          "ChromaticOrbSequenceState.previous_target",
+          "ChromaticOrbSequenceState.leaps_used",
+          "ChromaticOrbSequenceState.step_index",
+          "ChromaticOrbSequenceState.first_target_hit_points",
+          "ChromaticOrbSequenceState.second_target_hit_points",
+          "ChromaticOrbSequenceState.third_target_hit_points",
+          "ChromaticOrbSequenceState.step0_attack",
+          "ChromaticOrbSequenceState.step0_damage",
+          "ChromaticOrbSequenceState.step1_attack",
+          "ChromaticOrbSequenceState.step1_damage",
+          "ChromaticOrbSequenceState.outcome",
+          "ChromaticOrbSequenceState.protocol",
+          "ChainedAttackRollFacts.attack_total",
+          "ChainedAttackRollFacts.natural_d20",
+          "ChainedDamageRollFacts.damage_total",
+          "ChainedDamageRollFacts.has_duplicate"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doChooseInitialTarget",
+      "observedActionTaken": "doChooseInitialTarget",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "T016-choose-initial-target",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ChainedAttackSequenceWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "c5f1d3053334fc491822ba1ece79121759ce639595e11b4257190aaa6e969021",
+        "observedProjectionSha256": "c5f1d3053334fc491822ba1ece79121759ce639595e11b4257190aaa6e969021",
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState.damage_type",
+          "ChromaticOrbSequenceState.slot_level",
+          "ChromaticOrbSequenceState.targeted",
+          "ChromaticOrbSequenceState.previous_target",
+          "ChromaticOrbSequenceState.leaps_used",
+          "ChromaticOrbSequenceState.step_index",
+          "ChromaticOrbSequenceState.first_target_hit_points",
+          "ChromaticOrbSequenceState.second_target_hit_points",
+          "ChromaticOrbSequenceState.third_target_hit_points",
+          "ChromaticOrbSequenceState.step0_attack",
+          "ChromaticOrbSequenceState.step0_damage",
+          "ChromaticOrbSequenceState.step1_attack",
+          "ChromaticOrbSequenceState.step1_damage",
+          "ChromaticOrbSequenceState.outcome",
+          "ChromaticOrbSequenceState.protocol",
+          "ChainedAttackRollFacts.attack_total",
+          "ChainedAttackRollFacts.natural_d20",
+          "ChainedDamageRollFacts.damage_total",
+          "ChainedDamageRollFacts.has_duplicate"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep0AttackHit",
+      "observedActionTaken": "doResolveStep0AttackHit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "T016-resolve-step0-attack-hit",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ChainedAttackSequenceWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "caf89970619042d650236f34cc66fbb01dd69114feb32a548fa87574b2fe88a8",
+        "observedProjectionSha256": "caf89970619042d650236f34cc66fbb01dd69114feb32a548fa87574b2fe88a8",
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState.damage_type",
+          "ChromaticOrbSequenceState.slot_level",
+          "ChromaticOrbSequenceState.targeted",
+          "ChromaticOrbSequenceState.previous_target",
+          "ChromaticOrbSequenceState.leaps_used",
+          "ChromaticOrbSequenceState.step_index",
+          "ChromaticOrbSequenceState.first_target_hit_points",
+          "ChromaticOrbSequenceState.second_target_hit_points",
+          "ChromaticOrbSequenceState.third_target_hit_points",
+          "ChromaticOrbSequenceState.step0_attack",
+          "ChromaticOrbSequenceState.step0_damage",
+          "ChromaticOrbSequenceState.step1_attack",
+          "ChromaticOrbSequenceState.step1_damage",
+          "ChromaticOrbSequenceState.outcome",
+          "ChromaticOrbSequenceState.protocol",
+          "ChainedAttackRollFacts.attack_total",
+          "ChainedAttackRollFacts.natural_d20",
+          "ChainedDamageRollFacts.damage_total",
+          "ChainedDamageRollFacts.has_duplicate"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep0DamageNoDuplicate",
+      "observedActionTaken": "doResolveStep0DamageNoDuplicate",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "T016-resolve-step0-damage-no-duplicate",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ChainedAttackSequenceWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "ba897d4e6935f52c78cb9d34610ddb2d8ce23d8e52f9551ac21c1704f291172c",
+        "observedProjectionSha256": "ba897d4e6935f52c78cb9d34610ddb2d8ce23d8e52f9551ac21c1704f291172c",
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState.damage_type",
+          "ChromaticOrbSequenceState.slot_level",
+          "ChromaticOrbSequenceState.targeted",
+          "ChromaticOrbSequenceState.previous_target",
+          "ChromaticOrbSequenceState.leaps_used",
+          "ChromaticOrbSequenceState.step_index",
+          "ChromaticOrbSequenceState.first_target_hit_points",
+          "ChromaticOrbSequenceState.second_target_hit_points",
+          "ChromaticOrbSequenceState.third_target_hit_points",
+          "ChromaticOrbSequenceState.step0_attack",
+          "ChromaticOrbSequenceState.step0_damage",
+          "ChromaticOrbSequenceState.step1_attack",
+          "ChromaticOrbSequenceState.step1_damage",
+          "ChromaticOrbSequenceState.outcome",
+          "ChromaticOrbSequenceState.protocol",
+          "ChainedAttackRollFacts.attack_total",
+          "ChainedAttackRollFacts.natural_d20",
+          "ChainedDamageRollFacts.damage_total",
+          "ChainedDamageRollFacts.has_duplicate"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep0DamageDuplicate",
+      "observedActionTaken": "doResolveStep0DamageDuplicate",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "T016-resolve-step0-damage-duplicate",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ChainedAttackSequenceWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "f8b312fb8fb66692456d74ba7500fc5ce47d47aabe76bf78fc20e28f0cf99a5a",
+        "observedProjectionSha256": "f8b312fb8fb66692456d74ba7500fc5ce47d47aabe76bf78fc20e28f0cf99a5a",
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState.damage_type",
+          "ChromaticOrbSequenceState.slot_level",
+          "ChromaticOrbSequenceState.targeted",
+          "ChromaticOrbSequenceState.previous_target",
+          "ChromaticOrbSequenceState.leaps_used",
+          "ChromaticOrbSequenceState.step_index",
+          "ChromaticOrbSequenceState.first_target_hit_points",
+          "ChromaticOrbSequenceState.second_target_hit_points",
+          "ChromaticOrbSequenceState.third_target_hit_points",
+          "ChromaticOrbSequenceState.step0_attack",
+          "ChromaticOrbSequenceState.step0_damage",
+          "ChromaticOrbSequenceState.step1_attack",
+          "ChromaticOrbSequenceState.step1_damage",
+          "ChromaticOrbSequenceState.outcome",
+          "ChromaticOrbSequenceState.protocol",
+          "ChainedAttackRollFacts.attack_total",
+          "ChainedAttackRollFacts.natural_d20",
+          "ChainedDamageRollFacts.damage_total",
+          "ChainedDamageRollFacts.has_duplicate"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doChooseFirstLeapTarget",
+      "observedActionTaken": "doChooseFirstLeapTarget",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "T016-choose-first-leap-target",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ChainedAttackSequenceWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "0ff6a089dcd600b6f75e94d392ceb283a123ccbb64098d706b6eb98510100f87",
+        "observedProjectionSha256": "0ff6a089dcd600b6f75e94d392ceb283a123ccbb64098d706b6eb98510100f87",
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState.damage_type",
+          "ChromaticOrbSequenceState.slot_level",
+          "ChromaticOrbSequenceState.targeted",
+          "ChromaticOrbSequenceState.previous_target",
+          "ChromaticOrbSequenceState.leaps_used",
+          "ChromaticOrbSequenceState.step_index",
+          "ChromaticOrbSequenceState.first_target_hit_points",
+          "ChromaticOrbSequenceState.second_target_hit_points",
+          "ChromaticOrbSequenceState.third_target_hit_points",
+          "ChromaticOrbSequenceState.step0_attack",
+          "ChromaticOrbSequenceState.step0_damage",
+          "ChromaticOrbSequenceState.step1_attack",
+          "ChromaticOrbSequenceState.step1_damage",
+          "ChromaticOrbSequenceState.outcome",
+          "ChromaticOrbSequenceState.protocol",
+          "ChainedAttackRollFacts.attack_total",
+          "ChainedAttackRollFacts.natural_d20",
+          "ChainedDamageRollFacts.damage_total",
+          "ChainedDamageRollFacts.has_duplicate"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep1AttackHit",
+      "observedActionTaken": "doResolveStep1AttackHit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "T016-resolve-step1-attack-hit",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ChainedAttackSequenceWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "2df6b41c418534a79b315e9c49745ee975989dab0e9be68612acfd66de73ef32",
+        "observedProjectionSha256": "2df6b41c418534a79b315e9c49745ee975989dab0e9be68612acfd66de73ef32",
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState.damage_type",
+          "ChromaticOrbSequenceState.slot_level",
+          "ChromaticOrbSequenceState.targeted",
+          "ChromaticOrbSequenceState.previous_target",
+          "ChromaticOrbSequenceState.leaps_used",
+          "ChromaticOrbSequenceState.step_index",
+          "ChromaticOrbSequenceState.first_target_hit_points",
+          "ChromaticOrbSequenceState.second_target_hit_points",
+          "ChromaticOrbSequenceState.third_target_hit_points",
+          "ChromaticOrbSequenceState.step0_attack",
+          "ChromaticOrbSequenceState.step0_damage",
+          "ChromaticOrbSequenceState.step1_attack",
+          "ChromaticOrbSequenceState.step1_damage",
+          "ChromaticOrbSequenceState.outcome",
+          "ChromaticOrbSequenceState.protocol",
+          "ChainedAttackRollFacts.attack_total",
+          "ChainedAttackRollFacts.natural_d20",
+          "ChainedDamageRollFacts.damage_total",
+          "ChainedDamageRollFacts.has_duplicate"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep1DuplicateDamageSlot1Limit",
+      "observedActionTaken": "doResolveStep1DuplicateDamageSlot1Limit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "T016-resolve-step1-duplicate-damage-slot1-limit",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ChainedAttackSequenceWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "dcd6fa3657ea9a65ce5aa8ab9d69be24387863e10c067e601ca74acaf02c450e",
+        "observedProjectionSha256": "dcd6fa3657ea9a65ce5aa8ab9d69be24387863e10c067e601ca74acaf02c450e",
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState.damage_type",
+          "ChromaticOrbSequenceState.slot_level",
+          "ChromaticOrbSequenceState.targeted",
+          "ChromaticOrbSequenceState.previous_target",
+          "ChromaticOrbSequenceState.leaps_used",
+          "ChromaticOrbSequenceState.step_index",
+          "ChromaticOrbSequenceState.first_target_hit_points",
+          "ChromaticOrbSequenceState.second_target_hit_points",
+          "ChromaticOrbSequenceState.third_target_hit_points",
+          "ChromaticOrbSequenceState.step0_attack",
+          "ChromaticOrbSequenceState.step0_damage",
+          "ChromaticOrbSequenceState.step1_attack",
+          "ChromaticOrbSequenceState.step1_damage",
+          "ChromaticOrbSequenceState.outcome",
+          "ChromaticOrbSequenceState.protocol",
+          "ChainedAttackRollFacts.attack_total",
+          "ChainedAttackRollFacts.natural_d20",
+          "ChainedDamageRollFacts.damage_total",
+          "ChainedDamageRollFacts.has_duplicate"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep1DuplicateDamageSlot2AllowsLeap",
+      "observedActionTaken": "doResolveStep1DuplicateDamageSlot2AllowsLeap",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "T016-resolve-step1-duplicate-damage-slot2-allows-leap",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ChainedAttackSequenceWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "10d70306882721bfbf305ae533bc324808962279c6ff3dbca3ac4815ff578863",
+        "observedProjectionSha256": "10d70306882721bfbf305ae533bc324808962279c6ff3dbca3ac4815ff578863",
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState.damage_type",
+          "ChromaticOrbSequenceState.slot_level",
+          "ChromaticOrbSequenceState.targeted",
+          "ChromaticOrbSequenceState.previous_target",
+          "ChromaticOrbSequenceState.leaps_used",
+          "ChromaticOrbSequenceState.step_index",
+          "ChromaticOrbSequenceState.first_target_hit_points",
+          "ChromaticOrbSequenceState.second_target_hit_points",
+          "ChromaticOrbSequenceState.third_target_hit_points",
+          "ChromaticOrbSequenceState.step0_attack",
+          "ChromaticOrbSequenceState.step0_damage",
+          "ChromaticOrbSequenceState.step1_attack",
+          "ChromaticOrbSequenceState.step1_damage",
+          "ChromaticOrbSequenceState.outcome",
+          "ChromaticOrbSequenceState.protocol",
+          "ChainedAttackRollFacts.attack_total",
+          "ChainedAttackRollFacts.natural_d20",
+          "ChainedDamageRollFacts.damage_total",
+          "ChainedDamageRollFacts.has_duplicate"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}
