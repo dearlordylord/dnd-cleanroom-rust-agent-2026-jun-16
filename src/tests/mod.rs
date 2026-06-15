@@ -12,6 +12,8 @@ mod character_creation_weapon_mastery_containers_selected_identity;
 mod character_sheet_ability_check_proficiency_bonus;
 #[path = "../qnt_adapters/character_sheet_armor_class_base_selected_identity.rs"]
 mod character_sheet_armor_class_base_selected_identity;
+#[path = "../qnt_adapters/character_sheet_healing_resource_selected_identity.rs"]
+mod character_sheet_healing_resource_selected_identity;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -27,6 +29,9 @@ use crate::rules::class_features::{
     Cantrip, ClassLevel, ClericDivineOrder, DruidPrimalOrder, FeatureSet,
     FighterFightingStyleSelection, FightingStyleFeat, MetamagicOption, ProjectionError, Weapon,
     WeaponMasteryClass,
+};
+use crate::rules::feature_resources::{
+    apply_lay_on_hands_resource, FeatureResourceHitPoints, ResourcePoolError, ResourcePoolFacts,
 };
 
 use character_creation_class_feature_projections::{
@@ -65,6 +70,10 @@ use character_sheet_armor_class_base_selected_identity::{
     expected_light_armor_witness, expected_medium_armor_dex_cap_witness,
     expected_monk_unarmored_defense_witness, projection_payload as armor_class_projection_payload,
     replay_observed_action as replay_armor_class_action,
+};
+use character_sheet_healing_resource_selected_identity::{
+    expected_lay_on_hands_witness, projection_payload as healing_resource_projection_payload,
+    replay_observed_action as replay_healing_resource_action,
 };
 
 #[test]
@@ -434,4 +443,59 @@ fn armor_class_projection_caps_medium_dex_and_requires_trained_shield() {
     assert_eq!(medium.armor_class, 15);
     assert_eq!(untrained_shield.armor_class, 12);
     assert_eq!(untrained_shield.shield_bonus, 0);
+}
+
+#[test]
+fn healing_resource_adapter_replays_lay_on_hands_branch() {
+    // QNT: cleanroom-input/qnt/character-sheet-runtime/
+    // character-sheet-healing-resource-selected-identity.mbt.qnt;
+    // shared algebra: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // lay-on-hands-resource.qnt.
+    let observed = replay_healing_resource_action("doLayOnHandsRestoreHpAndRemovePoisoned");
+
+    assert_eq!(observed, expected_lay_on_hands_witness());
+    assert!(healing_resource_projection_payload(&observed).contains("poolRemaining=3"));
+}
+
+#[test]
+fn lay_on_hands_spends_condition_cost_separately_from_healing() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Paladin.md
+    // "Level 1: Lay On Hands"; Playing-the-Game.md "Healing".
+    let projection = apply_lay_on_hands_resource(
+        ResourcePoolFacts {
+            capacity: 10,
+            expended: 0,
+        },
+        FeatureResourceHitPoints {
+            current_hit_points: 11,
+            hit_point_maximum: 12,
+            temporary_hit_points: 0,
+        },
+        4,
+        1,
+    )
+    .expect("pool has enough remaining points");
+
+    assert_eq!(projection.pool_spend, 9);
+    assert_eq!(projection.healing_pool.expended, 9);
+    assert_eq!(projection.target_hit_points.current_hit_points, 12);
+    assert!(projection.condition_removed);
+
+    let insufficient = apply_lay_on_hands_resource(
+        ResourcePoolFacts {
+            capacity: 10,
+            expended: 4,
+        },
+        FeatureResourceHitPoints {
+            current_hit_points: 3,
+            hit_point_maximum: 12,
+            temporary_hit_points: 0,
+        },
+        2,
+        1,
+    );
+    assert!(matches!(
+        insufficient,
+        Err(ResourcePoolError::InsufficientRemaining)
+    ));
 }

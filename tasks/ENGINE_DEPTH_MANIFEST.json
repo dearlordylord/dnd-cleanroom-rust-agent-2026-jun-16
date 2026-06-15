@@ -2,14 +2,9 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_sheet_armor_class_base_selected_identity.rs",
+      "path": "src/qnt_adapters/character_sheet_healing_resource_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doProjectHeavyArmorWithShield",
-        "doProjectLightArmor",
-        "doProjectMediumArmorDexCap",
-        "doSelectBarbarianUnarmoredDefense",
-        "doSelectBarbarianUnarmoredDefenseWithShield",
-        "doSelectMonkUnarmoredDefense",
+        "doLayOnHandsRestoreHpAndRemovePoisoned",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -27,32 +22,38 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T007-character-sheet-armor-class-base-selected-identity.json"
+        "tasks/target-replay-evidence/T008-character-sheet-healing-resource-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "armor_class_projection",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
-      "module": "src/rules/armor_class.rs"
+      "api": "apply_feature_resource_hit_point_healing",
+      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
+      "module": "src/rules/feature_resources.rs"
     },
     {
-      "api": "current_armor_class",
-      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt",
-      "module": "src/rules/armor_class.rs"
+      "api": "resource_pool_remaining",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt",
+      "module": "src/rules/feature_resources.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "armor_class_projection",
-        "current_armor_class"
+        "legal_resource_pool",
+        "resource_pool_remaining",
+        "can_spend_resource_pool",
+        "spend_resource_pool",
+        "lay_on_hands_pool_spend",
+        "can_apply_lay_on_hands_resource",
+        "apply_lay_on_hands_resource",
+        "apply_feature_resource_hit_point_healing"
       ],
-      "path": "src/rules/armor_class.rs",
+      "path": "src/rules/feature_resources.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T007"
+  "taskId": "T008"
 }

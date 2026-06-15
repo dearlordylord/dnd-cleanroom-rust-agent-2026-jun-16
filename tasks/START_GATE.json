@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T007",
-  "startHeadSha": "c721a4b03817859b65dc302297d9a787862e21f9",
+  "taskId": "T008",
+  "startHeadSha": "ab5d7c1a5405f32f283b7d0df21754605d804477",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "sheet",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt"
     ]
   }
 }

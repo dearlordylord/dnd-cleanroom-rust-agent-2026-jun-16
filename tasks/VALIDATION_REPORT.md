@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt`
-- Next task id: `T008`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt`
+- Next task id: `T009`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,74 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T008: character-sheet-healing-resource-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doLayOnHandsRestoreHpAndRemovePoisoned`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/lay-on-hands-resource.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/feature-resource-pool.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/feature-resource-hit-point-healing.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/hit-point-recovery.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/hit-point-damage.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Paladin.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added reusable Resource Pool facts and spend helpers for legal capacity, remaining points, and pool expenditure.
+- Added feature-resource Hit Point healing with QNT/RAW clamping to the target's Hit Point Maximum.
+- Added Lay On Hands projection that spends restored Hit Points plus 5 pool points per removed condition, keeps condition-removal spend separate from healing, and projects the resulting pool and target Hit Points.
+- Kept QNT action dispatch and witness field mapping quarantined in `src/qnt_adapters/character_sheet_healing_resource_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt#step:doLayOnHandsRestoreHpAndRemovePoisoned` | `tasks/target-replay-evidence/T008-character-sheet-healing-resource-selected-identity.json#T008-lay-on-hands-restore-hp-and-remove-poisoned#step:doLayOnHandsRestoreHpAndRemovePoisoned` | `src/tests/mod.rs::healing_resource_adapter_replays_lay_on_hands_branch` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T008-character-sheet-healing-resource-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T008-lay-on-hands-restore-hp-and-remove-poisoned`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::healing_resource_adapter_replays_lay_on_hands_branch`
+- `src/tests/mod.rs::lay_on_hands_spends_condition_cost_separately_from_healing`
 
 Remaining gaps:
 

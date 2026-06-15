@@ -4,64 +4,72 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ArmorClassProjection.option",
-      "introducedIn": "src/rules/armor_class.rs",
+      "fieldPath": "ResourcePoolFacts.capacity",
+      "introducedIn": "src/rules/feature_resources.rs",
       "owner": "sheet-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ArmorClassProjection.formula",
-      "introducedIn": "src/rules/armor_class.rs",
+      "fieldPath": "ResourcePoolFacts.expended",
+      "introducedIn": "src/rules/feature_resources.rs",
       "owner": "sheet-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ArmorClassProjection.base_armor_class",
-      "introducedIn": "src/rules/armor_class.rs",
+      "fieldPath": "LayOnHandsProjection.healing_pool.expended",
+      "introducedIn": "src/rules/feature_resources.rs",
       "owner": "sheet-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ArmorClassProjection.uses_dexterity",
-      "introducedIn": "src/rules/armor_class.rs",
+      "fieldPath": "LayOnHandsProjection.target_hit_points.current_hit_points",
+      "introducedIn": "src/rules/feature_resources.rs",
       "owner": "sheet-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ArmorClassProjection.uses_constitution",
-      "introducedIn": "src/rules/armor_class.rs",
+      "fieldPath": "FeatureResourceHitPoints.current_hit_points",
+      "introducedIn": "src/rules/feature_resources.rs",
       "owner": "sheet-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ArmorClassProjection.uses_wisdom",
-      "introducedIn": "src/rules/armor_class.rs",
+      "fieldPath": "FeatureResourceHitPoints.hit_point_maximum",
+      "introducedIn": "src/rules/feature_resources.rs",
       "owner": "sheet-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ArmorClassProjection.shield_bonus",
-      "introducedIn": "src/rules/armor_class.rs",
+      "fieldPath": "FeatureResourceHitPoints.temporary_hit_points",
+      "introducedIn": "src/rules/feature_resources.rs",
       "owner": "sheet-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ArmorClassProjection.armor_class",
-      "introducedIn": "src/rules/armor_class.rs",
+      "fieldPath": "LayOnHandsProjection.condition_removed",
+      "introducedIn": "src/rules/feature_resources.rs",
+      "owner": "sheet-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LayOnHandsProjection.pool_spend",
+      "introducedIn": "src/rules/feature_resources.rs",
       "owner": "sheet-state"
     },
     {
@@ -70,10 +78,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/character_sheet_armor_class_base_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/character_sheet_healing_resource_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T007"
+  "taskId": "T008"
 }
