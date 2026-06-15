@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T016",
-  "startHeadSha": "cb24f3071df9f5a46ae200bf49f2ed6911b1c800",
+  "taskId": "T017",
+  "startHeadSha": "a909bc629bb0ef53f9568faac034bf60a430110d",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt"
     ]
   }
 }

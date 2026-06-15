@@ -4,6 +4,7 @@ pub mod battle_features;
 pub mod chained_spell_attacks;
 pub mod character_creation;
 pub mod class_features;
+pub mod command_options;
 pub mod feature_resources;
 pub mod hit_points;
 pub mod origin_feats;

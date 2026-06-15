@@ -4,6 +4,8 @@ mod battle_runtime_adrenaline_rush;
 mod battle_runtime_attack_spell_shape_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_chained_attack_sequence.rs"]
 mod battle_runtime_chained_attack_sequence;
+#[path = "../qnt_adapters/battle_runtime_command_option_next_turn.rs"]
+mod battle_runtime_command_option_next_turn;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -58,6 +60,13 @@ use crate::rules::class_features::{
     FeatureSet, FighterFightingStyleSelection, FightingStyleFeat, MetamagicOption, ProjectionError,
     Weapon, WeaponMasteryClass, WeaponMasteryReselectionFacts,
 };
+use crate::rules::command_options::{
+    cleanup_command_halt_turn, command_next_turn_initial_state,
+    decline_command_flee_opportunity_attack, follow_command_grovel,
+    open_command_flee_opportunity_attack_window, record_command_failed_save_pending,
+    reject_command_approach_movement, suppress_command_halt, CommandNextTurnInvalidReason,
+    CommandNextTurnOption, CommandNextTurnProtocol, CommandNextTurnScenario, CommandTurnActor,
+};
 use crate::rules::feature_resources::{
     apply_lay_on_hands_resource, apply_temporary_hit_points, FeatureResourceHitPoints,
     ResourcePoolError, ResourcePoolFacts,
@@ -98,6 +107,12 @@ use battle_runtime_chained_attack_sequence::{
     projection_payload as chained_attack_sequence_projection_payload,
     replay_observed_action as replay_chained_attack_sequence_action,
     BRANCH_ACTIONS as CHAINED_ATTACK_SEQUENCE_BRANCH_ACTIONS,
+};
+use battle_runtime_command_option_next_turn::{
+    expected_witness as expected_command_option_next_turn_witness,
+    projection_payload as command_option_next_turn_projection_payload,
+    replay_observed_action as replay_command_option_next_turn_action,
+    BRANCH_ACTIONS as COMMAND_OPTION_NEXT_TURN_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1048,4 +1063,82 @@ fn chromatic_orb_sequence_tracks_duplicate_leap_limit() {
     assert_eq!(slot_two_awaits_second_leap.leaps_used, 1);
     assert_eq!(slot_two_awaits_second_leap.first_target_hit_points, 2);
     assert_eq!(slot_two_awaits_second_leap.second_target_hit_points, 8);
+}
+
+#[test]
+fn command_option_next_turn_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-command-option-next-turn.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md "Command".
+    for action in COMMAND_OPTION_NEXT_TURN_BRANCH_ACTIONS {
+        let observed = replay_command_option_next_turn_action(action);
+        assert_eq!(observed, expected_command_option_next_turn_witness(action));
+        assert!(command_option_next_turn_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn command_options_project_next_turn_effects_and_cleanup() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Command"; Playing-the-Game.md and Rules-Glossary.md "Opportunity
+    // Attacks"; Rules-Glossary.md "Prone".
+    let pending_grovel = record_command_failed_save_pending(
+        command_next_turn_initial_state(),
+        CommandNextTurnOption::Grovel,
+    );
+    let grovel = follow_command_grovel(pending_grovel.clone());
+    let halt = suppress_command_halt(
+        record_command_failed_save_pending(
+            command_next_turn_initial_state(),
+            CommandNextTurnOption::Halt,
+        ),
+        30,
+    );
+    let halt_cleanup = cleanup_command_halt_turn(halt.clone());
+    let approach_rejected = reject_command_approach_movement(record_command_failed_save_pending(
+        command_next_turn_initial_state(),
+        CommandNextTurnOption::Approach,
+    ));
+    let flee_window =
+        open_command_flee_opportunity_attack_window(record_command_failed_save_pending(
+            command_next_turn_initial_state(),
+            CommandNextTurnOption::Flee,
+        ));
+    let flee_continues = decline_command_flee_opportunity_attack(flee_window.clone(), 30);
+
+    assert_eq!(pending_grovel.target_effect_count, 1);
+    assert_eq!(
+        pending_grovel.pending_option,
+        Some(CommandNextTurnOption::Grovel)
+    );
+    assert!(!pending_grovel.action_available);
+
+    assert!(grovel.target_prone);
+    assert_eq!(grovel.target_effect_count, 0);
+    assert_eq!(grovel.pending_option, None);
+
+    assert_eq!(halt.scenario, CommandNextTurnScenario::HaltSuppresses);
+    assert!(!halt.action_available);
+    assert!(!halt.bonus_action_available);
+    assert!(halt.halt_suppressed);
+    assert_eq!(halt_cleanup.current_actor, CommandTurnActor::Caster);
+    assert!(!halt_cleanup.halt_suppressed);
+
+    assert_eq!(
+        approach_rejected.protocol,
+        CommandNextTurnProtocol::Invalid(CommandNextTurnInvalidReason::InvalidFill)
+    );
+    assert_eq!(
+        approach_rejected.pending_option,
+        Some(CommandNextTurnOption::Approach)
+    );
+
+    assert_eq!(
+        flee_window.protocol,
+        CommandNextTurnProtocol::NeedsInterruptDecision
+    );
+    assert!(flee_window.reaction_window_open);
+    assert_eq!(flee_continues.movement_spent_feet, 30);
+    assert!(!flee_continues.reaction_window_open);
+    assert_eq!(flee_continues.current_actor, CommandTurnActor::Caster);
 }

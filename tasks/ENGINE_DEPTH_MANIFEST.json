@@ -3,31 +3,31 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "new reusable Chromatic Orb chained spell attack state machine and damage/leap helpers"
+      "reason": "new reusable Command next-turn option projection module for failed-save effects, cleanup, and movement continuation"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "path": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
       "quarantinedWitnessNames": [
-        "doStartCast",
-        "doChooseDamageType",
-        "doChooseInitialTarget",
-        "doResolveStep0AttackHit",
-        "doResolveStep0DamageNoDuplicate",
-        "doResolveStep0DamageDuplicate",
-        "doChooseFirstLeapTarget",
-        "doResolveStep1AttackHit",
-        "doResolveStep1DuplicateDamageSlot1Limit",
-        "doResolveStep1DuplicateDamageSlot2AllowsLeap",
-        "DamageTypeChoice",
-        "TargetChoice0",
-        "AttackRoll0",
-        "DamageRoll0",
-        "TargetChoice1",
-        "AttackRoll1",
-        "DamageRoll1",
-        "TargetChoice2",
+        "doFailedSaveRecordsPending",
+        "doFollowGrovel",
+        "doFollowDrop",
+        "doHaltSuppresses",
+        "doHaltEndTurnCleanup",
+        "doApproachContinues",
+        "doApproachWithinFiveEndsTurn",
+        "doApproachMovementRejected",
+        "doApproachNoMovementCleanup",
+        "doFleeFullMovementEndsTurn",
+        "doFleePartialMovementRejected",
+        "doFleeNoMovementCleanup",
+        "doFleeOpportunityAttackWindow",
+        "doFleeOpportunityAttackDeclinedContinuation",
+        "doComplete",
+        "CommandOptionNextTurn",
+        "InterruptDecision",
+        "WInvalidFill",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -45,40 +45,46 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T016-battle-runtime-chained-attack-sequence.json"
+        "tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "chromatic_orb_damage_die_count",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
-      "module": "src/rules/chained_spell_attacks.rs"
+      "api": "record_command_failed_save_pending",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "module": "src/rules/command_options.rs"
     },
     {
-      "api": "chromatic_orb_can_leap",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
-      "module": "src/rules/chained_spell_attacks.rs"
+      "api": "open_command_flee_opportunity_attack_window",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt",
+      "module": "src/rules/command_options.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "chromatic_orb_initial_state",
-        "start_chromatic_orb_cast",
-        "choose_chromatic_orb_damage_type",
-        "choose_chromatic_orb_initial_target",
-        "resolve_chromatic_orb_attack_hit",
-        "resolve_chromatic_orb_damage",
-        "choose_chromatic_orb_leap_target",
-        "chromatic_orb_damage_die_count",
-        "chromatic_orb_damage_die_size",
-        "chromatic_orb_can_leap"
+        "command_next_turn_initial_state",
+        "record_command_failed_save_pending",
+        "follow_command_grovel",
+        "follow_command_drop",
+        "suppress_command_halt",
+        "cleanup_command_halt_turn",
+        "continue_command_approach",
+        "end_command_approach_within_five_feet",
+        "reject_command_approach_movement",
+        "cleanup_command_approach_no_movement",
+        "resolve_command_flee_full_movement",
+        "reject_command_flee_partial_movement",
+        "cleanup_command_flee_no_movement",
+        "open_command_flee_opportunity_attack_window",
+        "decline_command_flee_opportunity_attack",
+        "complete_command_option_sequence"
       ],
-      "path": "src/rules/chained_spell_attacks.rs",
+      "path": "src/rules/command_options.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T016"
+  "taskId": "T017"
 }

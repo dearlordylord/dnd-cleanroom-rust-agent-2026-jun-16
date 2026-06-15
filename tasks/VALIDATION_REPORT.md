@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt`
-- Next task id: `T017`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt`
+- Next task id: `T018`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,112 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T017: battle-runtime-command-option-next-turn
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt`
+- Branch obligations:
+  - `step:doFailedSaveRecordsPending`
+  - `step:doFollowGrovel`
+  - `step:doFollowDrop`
+  - `step:doHaltSuppresses`
+  - `step:doHaltEndTurnCleanup`
+  - `step:doApproachContinues`
+  - `step:doApproachWithinFiveEndsTurn`
+  - `step:doApproachMovementRejected`
+  - `step:doApproachNoMovementCleanup`
+  - `step:doFleeFullMovementEndsTurn`
+  - `step:doFleePartialMovementRejected`
+  - `step:doFleeNoMovementCleanup`
+  - `step:doFleeOpportunityAttackWindow`
+  - `step:doFleeOpportunityAttackDeclinedContinuation`
+  - `step:doComplete`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-witness-protocol.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added typed Command next-turn option projections for failed-save pending effects and the Grovel, Drop, Halt, Approach, and Flee option outcomes.
+- Modeled Grovel applying Prone, Drop releasing held objects, Halt suppressing Movement/Action/Bonus Action for the target turn, Approach movement continuation and invalid movement cleanup, and Flee movement completion, invalid movement cleanup, and Opportunity Attack decision windows.
+- Kept QNT action dispatch, scenario strings, actor witness names, invalid-fill witness reason, and interrupt hole labels quarantined in `src/qnt_adapters/battle_runtime_command_option_next_turn.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFailedSaveRecordsPending` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-failed-save-records-pending#step:doFailedSaveRecordsPending` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFollowGrovel` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-follow-grovel#step:doFollowGrovel` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFollowDrop` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-follow-drop#step:doFollowDrop` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doHaltSuppresses` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-halt-suppresses#step:doHaltSuppresses` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doHaltEndTurnCleanup` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-halt-end-turn-cleanup#step:doHaltEndTurnCleanup` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doApproachContinues` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-approach-continues#step:doApproachContinues` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doApproachWithinFiveEndsTurn` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-approach-within-five-ends-turn#step:doApproachWithinFiveEndsTurn` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doApproachMovementRejected` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-approach-movement-rejected#step:doApproachMovementRejected` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doApproachNoMovementCleanup` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-approach-no-movement-cleanup#step:doApproachNoMovementCleanup` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFleeFullMovementEndsTurn` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-flee-full-movement-ends-turn#step:doFleeFullMovementEndsTurn` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFleePartialMovementRejected` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-flee-partial-movement-rejected#step:doFleePartialMovementRejected` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFleeNoMovementCleanup` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-flee-no-movement-cleanup#step:doFleeNoMovementCleanup` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFleeOpportunityAttackWindow` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-flee-opportunity-attack-window#step:doFleeOpportunityAttackWindow` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFleeOpportunityAttackDeclinedContinuation` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-flee-opportunity-attack-declined-continuation#step:doFleeOpportunityAttackDeclinedContinuation` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doComplete` | `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json#T017-complete#step:doComplete` | `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T017-failed-save-records-pending`
+- Reproduction seed or trace id: `T017-follow-grovel`
+- Reproduction seed or trace id: `T017-follow-drop`
+- Reproduction seed or trace id: `T017-halt-suppresses`
+- Reproduction seed or trace id: `T017-halt-end-turn-cleanup`
+- Reproduction seed or trace id: `T017-approach-continues`
+- Reproduction seed or trace id: `T017-approach-within-five-ends-turn`
+- Reproduction seed or trace id: `T017-approach-movement-rejected`
+- Reproduction seed or trace id: `T017-approach-no-movement-cleanup`
+- Reproduction seed or trace id: `T017-flee-full-movement-ends-turn`
+- Reproduction seed or trace id: `T017-flee-partial-movement-rejected`
+- Reproduction seed or trace id: `T017-flee-no-movement-cleanup`
+- Reproduction seed or trace id: `T017-flee-opportunity-attack-window`
+- Reproduction seed or trace id: `T017-flee-opportunity-attack-declined-continuation`
+- Reproduction seed or trace id: `T017-complete`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::command_option_next_turn_adapter_replays_all_branches`
+- `src/tests/mod.rs::command_options_project_next_turn_effects_and_cleanup`
 
 Remaining gaps:
 

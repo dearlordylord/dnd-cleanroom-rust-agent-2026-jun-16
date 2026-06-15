@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T016-battle-runtime-chained-attack-sequence.json",
+      "evidence": "tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T016"
+  "taskId": "T017"
 }

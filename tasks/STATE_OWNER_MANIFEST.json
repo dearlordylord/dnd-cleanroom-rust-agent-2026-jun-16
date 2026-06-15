@@ -4,153 +4,97 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.damage_type",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.scenario",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.slot_level",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.protocol",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.targeted",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.target_prone",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.previous_target",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.target_effect_count",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.leaps_used",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.action_available",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.step_index",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.bonus_action_available",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.first_target_hit_points",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.movement_spent_feet",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.second_target_hit_points",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.current_actor",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.third_target_hit_points",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.pending_option",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.step0_attack",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.dropped_object_count",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.step0_damage",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.reaction_window_open",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ChromaticOrbSequenceState.step1_attack",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
+      "fieldPath": "CommandNextTurnState.halt_suppressed",
+      "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ChromaticOrbSequenceState.step1_damage",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ChromaticOrbSequenceState.outcome",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ChromaticOrbSequenceState.protocol",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ChainedAttackRollFacts.attack_total",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ChainedAttackRollFacts.natural_d20",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ChainedDamageRollFacts.damage_total",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ChainedDamageRollFacts.has_duplicate",
-      "introducedIn": "src/rules/chained_spell_attacks.rs",
-      "owner": "structured-input"
     },
     {
       "derivability": {
@@ -158,10 +102,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T016"
+  "taskId": "T017"
 }
