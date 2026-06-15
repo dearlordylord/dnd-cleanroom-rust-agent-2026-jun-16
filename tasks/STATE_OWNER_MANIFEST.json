@@ -4,97 +4,95 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SheetHitPointState.current_hp",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
+      "fieldPath": "SpellbookRitualFacts.spell_kind",
+      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SheetHitPointState.normal_hit_point_maximum",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
+      "fieldPath": "SpellbookRitualFacts.access",
+      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SheetHitPointState.hit_point_maximum_reduction",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
+      "fieldPath": "SpellbookRitualFacts.ritual_adept",
+      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "owner": "structured-input"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character-sheet-spellbook-ritual-selected-identity",
+        "sourceField": "SpellbookRitualFacts",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "SheetHitPointState.temporary_hit_points",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
+      "fieldPath": "SpellbookRitualResult",
+      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character-sheet-spellbook-ritual-selected-identity",
+        "sourceField": "SpellbookRitualInvocation",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "SheetHitPointState.spent_hit_dice",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
+      "fieldPath": "SpellbookRitualInvocation.spell_slot_cost",
+      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character-sheet-spellbook-ritual-selected-identity",
+        "sourceField": "SpellbookRitualInvocation",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "RestHitPointProjection.decision",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
+      "fieldPath": "SpellbookRitualInvocation.preparation_requirement",
+      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character-sheet-spellbook-ritual-selected-identity",
+        "sourceField": "SpellbookRitualInvocation",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "RestHitPointProjection.sheet.current_hp",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
+      "fieldPath": "SpellbookRitualInvocation.required_access",
+      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character-sheet-spellbook-ritual-selected-identity",
+        "sourceField": "SpellbookRitualInvocation",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "RestHitPointProjection.sheet.hit_point_maximum_reduction",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
+      "fieldPath": "SpellbookRitualInvocation.additional_casting_time_minutes",
+      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character-sheet-spellbook-ritual-selected-identity",
+        "sourceField": "SpellbookRitualInvocation",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "RestHitPointProjection.sheet.temporary_hit_points",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
+      "fieldPath": "SpellbookRitualInvocation.requires_reading_spellbook",
+      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "character-sheet-spellbook-ritual-selected-identity",
+        "sourceField": "SpellbookRitualInvocation",
+        "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "RestHitPointProjection.sheet.spent_hit_dice",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "RestHitPointProjection.required_long_rest_ticks",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "RestHitPointProjection.remaining_wait_ticks",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "sheet-state"
+      "fieldPath": "SpellbookRitualInvocation.first_level_spell_slots_expended",
+      "introducedIn": "src/rules/spellbook_rituals.rs",
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
@@ -102,10 +100,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/character_sheet_hp_rest_hit_dice.rs",
+      "introducedIn": "src/qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T010"
+  "taskId": "T011"
 }

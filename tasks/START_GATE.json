@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T010",
-  "startHeadSha": "01554038315e05322f0f7f4561e14fa1b93083ce",
+  "taskId": "T011",
+  "startHeadSha": "82c201fd01b8401b8f6994c96496189643eefd7a",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "sheet",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt"
+      "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt"
     ]
   }
 }

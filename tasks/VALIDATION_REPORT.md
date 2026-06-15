@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt`
-- Next task id: `T011`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt`
+- Next task id: `T012`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,83 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T011: character-sheet-spellbook-ritual-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doInvokeSpellbookRitual`
+  - `step:doRejectMissingRitualAccessFeature`
+  - `step:doRejectNonLeveledRitualSpellbookSpell`
+  - `step:doRejectNonRitualSpellbookSpell`
+  - `step:doRejectPreparedOnlyRitual`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/spellbook-ritual-access.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Wizard.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added reusable spellbook ritual facts and invocation projection for Wizard Ritual Adept access to a level 1+ Ritual spell in the spellbook.
+- Accepted spellbook ritual invocation projects no spell-slot cost, no preparation requirement, required spellbook access, 10 additional casting-time minutes, reading from the spellbook, and zero first-level spell slots expended.
+- Rejected prepared-only ritual access for the Wizard spellbook feature path, non-Ritual level 1+ spellbook spells, missing Ritual Adept access, and non-leveled spells.
+- Kept QNT action dispatch and witness field mapping quarantined in `src/qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt#step:doInvokeSpellbookRitual` | `tasks/target-replay-evidence/T011-character-sheet-spellbook-ritual-selected-identity.json#T011-invoke-spellbook-ritual#step:doInvokeSpellbookRitual` | `src/tests/mod.rs::spellbook_ritual_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt#step:doRejectMissingRitualAccessFeature` | `tasks/target-replay-evidence/T011-character-sheet-spellbook-ritual-selected-identity.json#T011-reject-missing-ritual-access-feature#step:doRejectMissingRitualAccessFeature` | `src/tests/mod.rs::spellbook_ritual_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt#step:doRejectNonLeveledRitualSpellbookSpell` | `tasks/target-replay-evidence/T011-character-sheet-spellbook-ritual-selected-identity.json#T011-reject-non-leveled-ritual-spellbook-spell#step:doRejectNonLeveledRitualSpellbookSpell` | `src/tests/mod.rs::spellbook_ritual_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt#step:doRejectNonRitualSpellbookSpell` | `tasks/target-replay-evidence/T011-character-sheet-spellbook-ritual-selected-identity.json#T011-reject-non-ritual-spellbook-spell#step:doRejectNonRitualSpellbookSpell` | `src/tests/mod.rs::spellbook_ritual_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt#step:doRejectPreparedOnlyRitual` | `tasks/target-replay-evidence/T011-character-sheet-spellbook-ritual-selected-identity.json#T011-reject-prepared-only-ritual#step:doRejectPreparedOnlyRitual` | `src/tests/mod.rs::spellbook_ritual_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T011-character-sheet-spellbook-ritual-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T011-invoke-spellbook-ritual`
+- Reproduction seed or trace id: `T011-reject-missing-ritual-access-feature`
+- Reproduction seed or trace id: `T011-reject-non-leveled-ritual-spellbook-spell`
+- Reproduction seed or trace id: `T011-reject-non-ritual-spellbook-spell`
+- Reproduction seed or trace id: `T011-reject-prepared-only-ritual`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::spellbook_ritual_adapter_replays_all_branches`
+- `src/tests/mod.rs::spellbook_ritual_requires_spellbook_access_and_ritual_adept`
 
 Remaining gaps:
 

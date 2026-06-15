@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json",
+      "evidence": "tasks/target-replay-evidence/T011-character-sheet-spellbook-ritual-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T010"
+  "taskId": "T011"
 }

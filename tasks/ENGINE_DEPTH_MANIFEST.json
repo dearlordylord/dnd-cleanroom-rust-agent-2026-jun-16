@@ -2,21 +2,13 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_sheet_hp_rest_hit_dice.rs",
+      "path": "src/qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doCompleteLongRestRestoresHpHitPointDiceAndMaximum",
-        "doInterruptLongRestBeforeOneHourNoBenefit",
-        "doInterruptLongRestWithShortRestBenefits",
-        "doInterruptShortRestNoBenefit",
-        "doRejectLongRestBeforeSixteenHourWait",
-        "doRejectLongRestDurationTooShort",
-        "doRejectLongRestInterruptionAtRequiredDuration",
-        "doRejectLongRestPhysicalExertionTooShort",
-        "doRejectLongRestStartAtZeroHp",
-        "doRejectShortRestDurationTooShort",
-        "doRejectShortRestStartAtZeroHp",
-        "doSpendShortRestHitPointDiceSequentially",
-        "doSpendShortRestHitPointDie",
+        "doInvokeSpellbookRitual",
+        "doRejectMissingRitualAccessFeature",
+        "doRejectNonLeveledRitualSpellbookSpell",
+        "doRejectNonRitualSpellbookSpell",
+        "doRejectPreparedOnlyRitual",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -34,37 +26,27 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T010-character-sheet-hp-rest-hit-dice.json"
+        "tasks/target-replay-evidence/T011-character-sheet-spellbook-ritual-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "spend_hit_point_die",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt",
-      "module": "src/rules/hit_points.rs"
-    },
-    {
-      "api": "complete_long_rest_benefits",
-      "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt",
-      "module": "src/rules/hit_points.rs"
+      "api": "spellbook_ritual_invocation",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt",
+      "module": "src/rules/spellbook_rituals.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "effective_sheet_hit_point_maximum",
-        "heal_sheet_hit_points",
-        "spend_hit_point_die",
-        "complete_long_rest_benefits",
-        "accepted_rest_hit_point_projection",
-        "interrupted_long_rest_projection",
-        "rejected_rest_hit_point_projection"
+        "can_cast_spellbook_ritual",
+        "spellbook_ritual_invocation"
       ],
-      "path": "src/rules/hit_points.rs",
+      "path": "src/rules/spellbook_rituals.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T010"
+  "taskId": "T011"
 }

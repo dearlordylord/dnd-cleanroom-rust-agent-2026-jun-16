@@ -18,6 +18,8 @@ mod character_sheet_healing_resource_selected_identity;
 mod character_sheet_hit_point_maximum;
 #[path = "../qnt_adapters/character_sheet_hp_rest_hit_dice.rs"]
 mod character_sheet_hp_rest_hit_dice;
+#[path = "../qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs"]
+mod character_sheet_spellbook_ritual_selected_identity;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -40,6 +42,11 @@ use crate::rules::feature_resources::{
 use crate::rules::hit_points::{
     complete_long_rest_benefits, fixed_higher_level_hit_point_gain, hit_point_maximum_projection,
     spend_hit_point_die, HitPointMaximumFacts, SheetHitPointState,
+};
+use crate::rules::spellbook_rituals::{
+    can_cast_spellbook_ritual, spellbook_ritual_invocation, PreparationRequirement,
+    RequiredSpellAccess, SpellSlotCost, SpellbookRitualAccess, SpellbookRitualAdept,
+    SpellbookRitualFacts, SpellbookRitualResult, SpellbookSpellKind,
 };
 
 use character_creation_class_feature_projections::{
@@ -94,6 +101,12 @@ use character_sheet_hp_rest_hit_dice::{
     projection_payload as hp_rest_hit_dice_projection_payload,
     replay_observed_action as replay_hp_rest_hit_dice_action,
     BRANCH_ACTIONS as HP_REST_HIT_DICE_BRANCH_ACTIONS,
+};
+use character_sheet_spellbook_ritual_selected_identity::{
+    expected_witness as expected_spellbook_ritual_witness,
+    projection_payload as spellbook_ritual_projection_payload,
+    replay_observed_action as replay_spellbook_ritual_action,
+    BRANCH_ACTIONS as SPELLBOOK_RITUAL_BRANCH_ACTIONS,
 };
 
 #[test]
@@ -594,4 +607,63 @@ fn hp_rest_hit_dice_spending_caps_healing_and_long_rest_resets() {
     assert_eq!(rested.hit_point_maximum_reduction, 0);
     assert_eq!(rested.temporary_hit_points, 0);
     assert_eq!(rested.spent_hit_dice, 0);
+}
+
+#[test]
+fn spellbook_ritual_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/character-sheet-runtime/
+    // character-sheet-spellbook-ritual-selected-identity.mbt.qnt;
+    // shared algebra: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // spellbook-ritual-access.qnt.
+    for action in SPELLBOOK_RITUAL_BRANCH_ACTIONS {
+        let observed = replay_spellbook_ritual_action(action);
+        assert_eq!(observed, expected_spellbook_ritual_witness(action));
+        assert!(spellbook_ritual_projection_payload(&observed).contains("lastResult="));
+    }
+}
+
+#[test]
+fn spellbook_ritual_requires_spellbook_access_and_ritual_adept() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Wizard.md
+    // "Level 1: Ritual Adept" and "Spellbook";
+    // cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md
+    // "Casting without Slots"; cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md
+    // "Ritual".
+    let accepted_facts = SpellbookRitualFacts {
+        spell_kind: SpellbookSpellKind::LevelOnePlusRitual,
+        access: SpellbookRitualAccess::InSpellbook,
+        ritual_adept: SpellbookRitualAdept::Present,
+    };
+    let prepared_only = SpellbookRitualFacts {
+        access: SpellbookRitualAccess::PreparedOnly,
+        ..accepted_facts
+    };
+    let non_leveled = SpellbookRitualFacts {
+        spell_kind: SpellbookSpellKind::NonLeveled,
+        ..accepted_facts
+    };
+
+    assert!(can_cast_spellbook_ritual(accepted_facts));
+    let SpellbookRitualResult::Accepted(invocation) = spellbook_ritual_invocation(accepted_facts)
+    else {
+        panic!("spellbook ritual facts should be accepted");
+    };
+    assert_eq!(invocation.spell_slot_cost, SpellSlotCost::None);
+    assert_eq!(
+        invocation.preparation_requirement,
+        PreparationRequirement::NotRequired
+    );
+    assert_eq!(invocation.required_access, RequiredSpellAccess::Spellbook);
+    assert_eq!(invocation.additional_casting_time_minutes, 10);
+    assert!(invocation.requires_reading_spellbook);
+    assert_eq!(invocation.first_level_spell_slots_expended, 0);
+
+    assert_eq!(
+        spellbook_ritual_invocation(prepared_only),
+        SpellbookRitualResult::Rejected
+    );
+    assert_eq!(
+        spellbook_ritual_invocation(non_leveled),
+        SpellbookRitualResult::Rejected
+    );
 }
