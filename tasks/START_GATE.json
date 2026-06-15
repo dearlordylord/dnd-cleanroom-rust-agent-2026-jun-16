@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T021",
-  "startHeadSha": "4fdbcc49533dad3aa7df168861d6b893d6f4f07b",
+  "taskId": "T022",
+  "startHeadSha": "82cfdbb861fee6d8dc224a974ac3f69c68eba0a3",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt"
     ]
   }
 }

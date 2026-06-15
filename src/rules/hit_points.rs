@@ -59,6 +59,43 @@ pub struct RestHitPointProjection {
     pub remaining_wait_ticks: i16,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DeathSavingThrowTurnRole {
+    Actor,
+    Target,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DeathSavingThrowInvalidReason {
+    WrongActor,
+    InvalidFill,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DeathSavingThrowProtocol {
+    Init,
+    NeedsSavingThrow,
+    Resolved,
+    Invalid(DeathSavingThrowInvalidReason),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct DeathSavingThrowState {
+    pub current_turn_role: DeathSavingThrowTurnRole,
+    pub target_hp: i16,
+    pub target_unconscious: bool,
+    pub target_stable: bool,
+    pub target_dead: bool,
+    pub target_death_successes: i16,
+    pub target_death_failures: i16,
+    pub protocol: DeathSavingThrowProtocol,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct DeathSavingThrowFacts {
+    pub natural_d20: i16,
+}
+
 pub const SHORT_REST_TICKS: i16 = 600;
 pub const LONG_REST_BASE_TICKS: i16 = 8 * SHORT_REST_TICKS;
 pub const LONG_REST_WAIT_TICKS: i16 = 16 * SHORT_REST_TICKS;
@@ -222,5 +259,104 @@ pub fn rejected_rest_hit_point_projection(
         sheet,
         required_long_rest_ticks,
         remaining_wait_ticks,
+    }
+}
+
+#[must_use]
+pub fn death_saving_throw_initial_state() -> DeathSavingThrowState {
+    DeathSavingThrowState {
+        current_turn_role: DeathSavingThrowTurnRole::Actor,
+        target_hp: 0,
+        target_unconscious: true,
+        target_stable: false,
+        target_dead: false,
+        target_death_successes: 2,
+        target_death_failures: 1,
+        protocol: DeathSavingThrowProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn discover_death_saving_throw(state: DeathSavingThrowState) -> DeathSavingThrowState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Death Saving Throws"; QNT:
+    // battle-runtime-death-saving-throw.mbt.qnt.
+    if state.current_turn_role != DeathSavingThrowTurnRole::Actor {
+        return DeathSavingThrowState {
+            protocol: DeathSavingThrowProtocol::Invalid(DeathSavingThrowInvalidReason::WrongActor),
+            ..state
+        };
+    }
+
+    DeathSavingThrowState {
+        protocol: DeathSavingThrowProtocol::NeedsSavingThrow,
+        ..state
+    }
+}
+
+#[must_use]
+pub fn fill_death_saving_throw(
+    state: DeathSavingThrowState,
+    facts: DeathSavingThrowFacts,
+) -> DeathSavingThrowState {
+    if state.protocol != DeathSavingThrowProtocol::NeedsSavingThrow {
+        return DeathSavingThrowState {
+            protocol: DeathSavingThrowProtocol::Invalid(DeathSavingThrowInvalidReason::InvalidFill),
+            ..state
+        };
+    }
+
+    let mut resolved = DeathSavingThrowState {
+        current_turn_role: DeathSavingThrowTurnRole::Target,
+        target_hp: 0,
+        target_unconscious: true,
+        target_stable: false,
+        target_dead: false,
+        target_death_successes: state.target_death_successes,
+        target_death_failures: state.target_death_failures,
+        protocol: DeathSavingThrowProtocol::Resolved,
+    };
+
+    match facts.natural_d20 {
+        1 => {
+            resolved.target_death_failures = (state.target_death_failures + 2).min(3);
+            resolved.target_dead = resolved.target_death_failures >= 3;
+        }
+        2..=9 => {
+            resolved.target_death_failures = (state.target_death_failures + 1).min(3);
+            resolved.target_dead = resolved.target_death_failures >= 3;
+        }
+        10..=19 => {
+            resolved.target_death_successes = state.target_death_successes + 1;
+            if resolved.target_death_successes >= 3 {
+                resolved.target_stable = true;
+                resolved.target_death_successes = 0;
+                resolved.target_death_failures = 0;
+            }
+        }
+        20 => {
+            resolved.target_hp = 1;
+            resolved.target_unconscious = false;
+            resolved.target_death_successes = 0;
+            resolved.target_death_failures = 0;
+        }
+        _ => {
+            return DeathSavingThrowState {
+                protocol: DeathSavingThrowProtocol::Invalid(
+                    DeathSavingThrowInvalidReason::InvalidFill,
+                ),
+                ..state
+            };
+        }
+    }
+
+    resolved
+}
+
+#[must_use]
+pub fn reject_wrong_actor_after_resolved(state: DeathSavingThrowState) -> DeathSavingThrowState {
+    DeathSavingThrowState {
+        protocol: DeathSavingThrowProtocol::Invalid(DeathSavingThrowInvalidReason::WrongActor),
+        ..state
     }
 }

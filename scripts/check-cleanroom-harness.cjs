@@ -81,6 +81,7 @@ const canonicalSampledInputNames = new Set([
   // Evidence must still record them, but production rules may use the domain
   // vocabulary without being treated as a witness-protocol leak.
   "damageType",
+  "roll",
   "slotLevel",
 ]);
 

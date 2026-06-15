@@ -4,72 +4,72 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "DangerSenseState.scenario_outcome",
-      "introducedIn": "src/rules/battle_features.rs",
+      "fieldPath": "DeathSavingThrowState.current_turn_role",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "DangerSenseState.feature_present",
-      "introducedIn": "src/rules/battle_features.rs",
+      "fieldPath": "DeathSavingThrowState.target_hp",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "DangerSenseState.dexterity_roll_mode_count",
-      "introducedIn": "src/rules/battle_features.rs",
+      "fieldPath": "DeathSavingThrowState.target_unconscious",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "DangerSenseState.constitution_roll_mode_count",
-      "introducedIn": "src/rules/battle_features.rs",
+      "fieldPath": "DeathSavingThrowState.target_stable",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "DangerSenseState.suppressed",
-      "introducedIn": "src/rules/battle_features.rs",
+      "fieldPath": "DeathSavingThrowState.target_dead",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "DangerSenseState.accepted",
-      "introducedIn": "src/rules/battle_features.rs",
+      "fieldPath": "DeathSavingThrowState.target_death_successes",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "DangerSenseState.protocol",
-      "introducedIn": "src/rules/battle_features.rs",
+      "fieldPath": "DeathSavingThrowState.target_death_failures",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "DangerSenseFacts.saving_throw_ability",
-      "introducedIn": "src/rules/battle_features.rs",
-      "owner": "structured-input"
+      "fieldPath": "DeathSavingThrowState.protocol",
+      "introducedIn": "src/rules/hit_points.rs",
+      "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "DangerSenseFacts.actor_incapacitated",
-      "introducedIn": "src/rules/battle_features.rs",
+      "fieldPath": "DeathSavingThrowFacts.natural_d20",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "structured-input"
     },
     {
@@ -78,10 +78,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_death_saving_throw.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T021"
+  "taskId": "T022"
 }

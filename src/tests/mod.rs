@@ -14,6 +14,8 @@ mod battle_runtime_concentration_break_teardown;
 mod battle_runtime_creature_type_protection_and_charm_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_danger_sense_selected_identity.rs"]
 mod battle_runtime_danger_sense_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_death_saving_throw.rs"]
+mod battle_runtime_death_saving_throw;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -107,8 +109,11 @@ use crate::rules::feature_resources::{
     ResourcePoolError, ResourcePoolFacts,
 };
 use crate::rules::hit_points::{
-    complete_long_rest_benefits, fixed_higher_level_hit_point_gain, hit_point_maximum_projection,
-    spend_hit_point_die, HitPointMaximumFacts, SheetHitPointState,
+    complete_long_rest_benefits, death_saving_throw_initial_state, discover_death_saving_throw,
+    fill_death_saving_throw, fixed_higher_level_hit_point_gain, hit_point_maximum_projection,
+    reject_wrong_actor_after_resolved, spend_hit_point_die, DeathSavingThrowFacts,
+    DeathSavingThrowInvalidReason, DeathSavingThrowProtocol, DeathSavingThrowTurnRole,
+    HitPointMaximumFacts, SheetHitPointState,
 };
 use crate::rules::origin_feats::{
     criminal_origin_feat_projection, initiative_handoff_projection, AlertInitiativeState,
@@ -172,6 +177,12 @@ use battle_runtime_danger_sense_selected_identity::{
     projection_payload as danger_sense_projection_payload,
     replay_observed_action as replay_danger_sense_action,
     BRANCH_ACTIONS as DANGER_SENSE_BRANCH_ACTIONS,
+};
+use battle_runtime_death_saving_throw::{
+    expected_witness as expected_death_saving_throw_witness,
+    projection_payload as death_saving_throw_projection_payload, replay_fill_death_saving_throw,
+    replay_observed_action as replay_death_saving_throw_action,
+    BRANCH_ACTIONS as DEATH_SAVING_THROW_BRANCH_ACTIONS, FILL_SAMPLE_NATURAL_D20S,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1562,4 +1573,95 @@ fn danger_sense_only_advantages_dexterity_saves_while_not_incapacitated() {
     assert!(suppressed.feature_present);
     assert!(suppressed.accepted);
     assert!(suppressed.suppressed);
+}
+
+#[test]
+fn death_saving_throw_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-death-saving-throw.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Death Saving Throws".
+    for action in DEATH_SAVING_THROW_BRANCH_ACTIONS {
+        let observed = replay_death_saving_throw_action(action);
+        assert_eq!(observed, expected_death_saving_throw_witness(action));
+        assert!(death_saving_throw_projection_payload(&observed).contains("protocolResult="));
+    }
+
+    for natural_d20 in FILL_SAMPLE_NATURAL_D20S {
+        let observed = replay_fill_death_saving_throw(natural_d20);
+        assert!(death_saving_throw_projection_payload(&observed).contains("currentTurnRole=target"));
+    }
+}
+
+#[test]
+fn death_saving_throw_resolves_all_sampled_edges() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Death Saving Throws"; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md
+    // "Death Saving Throw"; QNT:
+    // battle-runtime-death-saving-throw.mbt.qnt.
+    let discovered = discover_death_saving_throw(death_saving_throw_initial_state());
+    assert_eq!(
+        discovered.protocol,
+        DeathSavingThrowProtocol::NeedsSavingThrow
+    );
+
+    let early_state = crate::rules::hit_points::DeathSavingThrowState {
+        target_death_successes: 0,
+        target_death_failures: 0,
+        ..discovered
+    };
+    let early_success =
+        fill_death_saving_throw(early_state, DeathSavingThrowFacts { natural_d20: 10 });
+    let early_failure =
+        fill_death_saving_throw(early_state, DeathSavingThrowFacts { natural_d20: 5 });
+    assert_eq!(early_success.target_death_successes, 1);
+    assert!(!early_success.target_stable);
+    assert_eq!(early_failure.target_death_failures, 1);
+    assert!(!early_failure.target_dead);
+
+    let natural_one = fill_death_saving_throw(discovered, DeathSavingThrowFacts { natural_d20: 1 });
+    assert_eq!(
+        natural_one.current_turn_role,
+        DeathSavingThrowTurnRole::Target
+    );
+    assert!(natural_one.target_dead);
+    assert_eq!(natural_one.target_death_failures, 3);
+    assert_eq!(natural_one.protocol, DeathSavingThrowProtocol::Resolved);
+
+    let ordinary_failure =
+        fill_death_saving_throw(discovered, DeathSavingThrowFacts { natural_d20: 5 });
+    assert_eq!(ordinary_failure.target_death_failures, 2);
+    assert!(!ordinary_failure.target_dead);
+    assert_eq!(
+        ordinary_failure.protocol,
+        DeathSavingThrowProtocol::Resolved
+    );
+
+    let stable = fill_death_saving_throw(discovered, DeathSavingThrowFacts { natural_d20: 10 });
+    assert!(stable.target_stable);
+    assert_eq!(stable.target_death_successes, 0);
+    assert_eq!(stable.target_death_failures, 0);
+    assert_eq!(stable.protocol, DeathSavingThrowProtocol::Resolved);
+
+    let natural_twenty =
+        fill_death_saving_throw(discovered, DeathSavingThrowFacts { natural_d20: 20 });
+    assert_eq!(natural_twenty.target_hp, 1);
+    assert!(!natural_twenty.target_unconscious);
+    assert_eq!(natural_twenty.target_death_successes, 0);
+    assert_eq!(natural_twenty.target_death_failures, 0);
+    assert_eq!(natural_twenty.protocol, DeathSavingThrowProtocol::Resolved);
+
+    let invalid_fill =
+        fill_death_saving_throw(discovered, DeathSavingThrowFacts { natural_d20: 0 });
+    assert_eq!(
+        invalid_fill.protocol,
+        DeathSavingThrowProtocol::Invalid(DeathSavingThrowInvalidReason::InvalidFill)
+    );
+
+    let wrong_actor = reject_wrong_actor_after_resolved(natural_twenty);
+    assert_eq!(
+        wrong_actor.protocol,
+        DeathSavingThrowProtocol::Invalid(DeathSavingThrowInvalidReason::WrongActor)
+    );
 }
