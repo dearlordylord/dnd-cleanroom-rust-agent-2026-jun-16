@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T002",
-  "startHeadSha": "0983cc1d2293b823ea1351dce3d923b7a57050fd",
+  "taskId": "T003",
+  "startHeadSha": "7b393af09b0a56aa89cf7e887acc7e97beae8030",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "creation",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt"
     ]
   }
 }

@@ -1,60 +1,50 @@
 {
   "schemaVersion": 1,
-  "taskId": "T002",
+  "taskId": "T003",
   "durableFields": [
     {
-      "fieldPath": "ClassOrderProjection.feature",
+      "fieldPath": "FightingStyleProjection.source_feature",
       "introducedIn": "src/rules/class_features.rs",
       "owner": "executable-boundary-projection",
       "derivability": {
         "tag": "stored-executable-boundary-projection",
-        "sourceField": "ClassOrderFeature",
-        "boundary": "character creation order selected identity projection"
+        "sourceField": "FightingStyleFeature",
+        "boundary": "character creation fighter fighting style projection"
       }
     },
     {
-      "fieldPath": "ClassOrderProjection.selected_choice",
+      "fieldPath": "FightingStyleProjection.selected_feat",
       "introducedIn": "src/rules/class_features.rs",
       "owner": "executable-boundary-projection",
       "derivability": {
         "tag": "stored-executable-boundary-projection",
-        "sourceField": "OrderChoice",
-        "boundary": "character creation order selected identity projection"
+        "sourceField": "FightingStyleFeat",
+        "boundary": "character creation fighter fighting style projection"
       }
     },
     {
-      "fieldPath": "ClassOrderProjection.extra_cantrip",
+      "fieldPath": "FightingStyleProjection.replaced_feat",
       "introducedIn": "src/rules/class_features.rs",
       "owner": "executable-boundary-projection",
       "derivability": {
         "tag": "stored-executable-boundary-projection",
-        "sourceField": "Cantrip",
-        "boundary": "character creation order selected identity projection"
+        "sourceField": "FightingStyleFeat",
+        "boundary": "character creation fighter fighting style projection"
       }
     },
     {
-      "fieldPath": "ClassOrderProjection.training",
+      "fieldPath": "FightingStyleProjection.total_level",
       "introducedIn": "src/rules/class_features.rs",
       "owner": "executable-boundary-projection",
       "derivability": {
         "tag": "stored-executable-boundary-projection",
-        "sourceField": "TrainingProjection",
-        "boundary": "character creation order selected identity projection"
-      }
-    },
-    {
-      "fieldPath": "ClassOrderProjection.ability_check_bonus",
-      "introducedIn": "src/rules/class_features.rs",
-      "owner": "executable-boundary-projection",
-      "derivability": {
-        "tag": "stored-executable-boundary-projection",
-        "sourceField": "AbilityCheckBonus",
-        "boundary": "character creation order selected identity projection"
+        "sourceField": "ClassLevel",
+        "boundary": "character creation fighter fighting style projection"
       }
     },
     {
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
       "owner": "harness-witness-protocol",
       "derivability": {
         "tag": "harness-witness-protocol",

@@ -118,6 +118,36 @@ pub enum ProjectionError {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum FighterFightingStyleSelection {
+    Initial(FightingStyleFeat),
+    ReplacementOnLevelGain {
+        previous: FightingStyleFeat,
+        replacement: FightingStyleFeat,
+        new_total_level: ClassLevel,
+    },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum FightingStyleFeature {
+    Fighter,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum FightingStyleFeat {
+    Archery,
+    Defense,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct FightingStyleProjection {
+    pub source_feature: FightingStyleFeature,
+    pub selected_feat: FightingStyleFeat,
+    pub replaced_feat: Option<FightingStyleFeat>,
+    pub selected_fighting_style_feature_ref_count: u8,
+    pub total_level: ClassLevel,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum OrderSelection {
     Cleric(ClericDivineOrder),
     Druid(DruidPrimalOrder),
@@ -211,6 +241,37 @@ pub fn level_one_order_projection(selection: OrderSelection) -> ClassOrderProjec
     match selection {
         OrderSelection::Cleric(choice) => cleric_divine_order_projection(choice),
         OrderSelection::Druid(choice) => druid_primal_order_projection(choice),
+    }
+}
+
+#[must_use]
+pub fn fighter_fighting_style_projection(
+    selection: FighterFightingStyleSelection,
+) -> FightingStyleProjection {
+    match selection {
+        FighterFightingStyleSelection::Initial(selected_feat) => FightingStyleProjection {
+            // cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md,
+            // "Level 1: Fighting Style"; cleanroom-input/raw/srd-5.2.1/Feats.md,
+            // "Fighting Style Feats".
+            source_feature: FightingStyleFeature::Fighter,
+            selected_feat,
+            replaced_feat: None,
+            selected_fighting_style_feature_ref_count: 1,
+            total_level: ClassLevel::One,
+        },
+        FighterFightingStyleSelection::ReplacementOnLevelGain {
+            previous,
+            replacement,
+            new_total_level,
+        } => FightingStyleProjection {
+            // cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md,
+            // "Whenever you gain a Fighter level, you can replace the feat...".
+            source_feature: FightingStyleFeature::Fighter,
+            selected_feat: replacement,
+            replaced_feat: Some(previous),
+            selected_fighting_style_feature_ref_count: 1,
+            total_level: new_total_level,
+        },
     }
 }
 

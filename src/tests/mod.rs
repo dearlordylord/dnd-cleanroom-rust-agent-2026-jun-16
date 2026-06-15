@@ -2,10 +2,14 @@
 mod character_creation_class_feature_projections;
 #[path = "../qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs"]
 mod character_creation_cleric_druid_order_selected_identity;
+#[path = "../qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs"]
+mod character_creation_fighter_fighting_style_selected_identity;
 
 use crate::rules::class_features::{
-    cleric_divine_order_projection, druid_primal_order_projection, level_two_feature_projection,
-    Cantrip, ClericDivineOrder, DruidPrimalOrder, FeatureSet, MetamagicOption, ProjectionError,
+    cleric_divine_order_projection, druid_primal_order_projection,
+    fighter_fighting_style_projection, level_two_feature_projection, Cantrip, ClassLevel,
+    ClericDivineOrder, DruidPrimalOrder, FeatureSet, FighterFightingStyleSelection,
+    FightingStyleFeat, MetamagicOption, ProjectionError,
 };
 
 use character_creation_class_feature_projections::{
@@ -15,6 +19,11 @@ use character_creation_cleric_druid_order_selected_identity::{
     expected_cleric_protector_witness, expected_cleric_thaumaturge_witness,
     expected_druid_magician_witness, expected_druid_warden_witness,
     projection_payload as order_projection_payload, replay_observed_action as replay_order_action,
+};
+use character_creation_fighter_fighting_style_selected_identity::{
+    expected_replace_defense_with_archery_witness, expected_select_defense_witness,
+    projection_payload as fighting_style_projection_payload,
+    replay_observed_action as replay_fighting_style_action,
 };
 
 #[test]
@@ -95,4 +104,34 @@ fn order_projection_keeps_base_and_selected_training_distinct() {
         1
     );
     assert_eq!(druid_magician.ability_check_bonus.unwrap().minimum_bonus, 1);
+}
+
+#[test]
+fn fighter_fighting_style_adapter_replays_selected_identity_branches() {
+    // QNT: cleanroom-input/qnt/character-creation-runtime/
+    // character-creation-fighter-fighting-style-selected-identity.mbt.qnt.
+    let selected = replay_fighting_style_action("doSelectDefenseFightingStyle");
+    let replaced = replay_fighting_style_action("doReplaceDefenseWithArcheryOnFighterLevelGain");
+
+    assert_eq!(selected, expected_select_defense_witness());
+    assert_eq!(replaced, expected_replace_defense_with_archery_witness());
+    assert!(fighting_style_projection_payload(&selected).contains("totalLevel=1"));
+    assert!(fighting_style_projection_payload(&replaced).contains("totalLevel=2"));
+}
+
+#[test]
+fn fighter_fighting_style_replacement_records_previous_and_new_feat() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md
+    // "Level 1: Fighting Style"; cleanroom-input/raw/srd-5.2.1/Feats.md
+    // "Fighting Style Feats", Archery and Defense.
+    let projection =
+        fighter_fighting_style_projection(FighterFightingStyleSelection::ReplacementOnLevelGain {
+            previous: FightingStyleFeat::Defense,
+            replacement: FightingStyleFeat::Archery,
+            new_total_level: ClassLevel::Two,
+        });
+
+    assert_eq!(projection.replaced_feat, Some(FightingStyleFeat::Defense));
+    assert_eq!(projection.selected_feat, FightingStyleFeat::Archery);
+    assert_eq!(projection.total_level, ClassLevel::Two);
 }

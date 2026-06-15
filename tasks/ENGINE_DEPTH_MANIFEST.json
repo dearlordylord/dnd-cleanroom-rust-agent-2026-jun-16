@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
-  "taskId": "T002",
+  "taskId": "T003",
   "productionModulesExtended": [
     {
       "path": "src/rules/class_features.rs",
       "role": "domain-engine",
       "domainApis": [
+        "fighter_fighting_style_projection",
         "level_one_order_projection",
         "cleric_divine_order_projection",
         "druid_primal_order_projection",
@@ -18,12 +19,10 @@
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs",
+      "path": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doSelectClericProtectorOrder",
-        "doSelectClericThaumaturgeOrder",
-        "doSelectDruidMagicianOrder",
-        "doSelectDruidWardenOrder",
+        "doReplaceDefenseWithArcheryOnFighterLevelGain",
+        "doSelectDefenseFightingStyle",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -41,21 +40,21 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T002-character-creation-cleric-druid-order-selected-identity.json"
+        "tasks/target-replay-evidence/T003-character-creation-fighter-fighting-style-selected-identity.json"
       ]
     }
   ],
   "accumulatorGrowth": [],
   "expectedNextReuse": [
     {
-      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
-      "module": "src/rules/class_features.rs",
-      "api": "level_one_order_projection"
-    },
-    {
       "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
       "module": "src/rules/class_features.rs",
-      "api": "level_one_order_projection"
+      "api": "fighter_fighting_style_projection"
+    },
+    {
+      "driver": "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt",
+      "module": "src/rules/class_features.rs",
+      "api": "fighter_fighting_style_projection"
     }
   ]
 }
