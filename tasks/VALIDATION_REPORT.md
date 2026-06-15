@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt`
-- Next task id: `T018`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
+- Next task id: `T019`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,125 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T018: battle-runtime-command-ordering
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverCommand`
+  - `step:doSubmitOptionBeforeTargetList`
+  - `step:doFillTargetList`
+  - `step:doSubmitSavingThrowBeforeOption`
+  - `step:doFillGrovelOption`
+  - `step:doFillFailedGrovelSavingThrow`
+  - `step:doFollowGrovel`
+  - `step:doDropNeedsHeldObjectFacts`
+  - `step:doFillDropHeldObjectFacts`
+  - `step:doHaltSuppresses`
+  - `step:doApproachMovementContinues`
+  - `step:doFillApproachMovementContinues`
+  - `step:doFillApproachMovementWithinFive`
+  - `step:doApproachNoMovement`
+  - `step:doFleeMovement`
+  - `step:doFillFleeMovement`
+  - `step:doRejectFleePartialMovement`
+  - `step:doFleeNoMovement`
+  - `step:doFleeOpportunityAttack`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-witness-protocol.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-hole-kinds.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-fill-kinds.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Extended the Command module with typed fill-frontier stages, hole kinds, fill kinds, ordering errors, and fill-order results for Command target list, option choice, saving throw, held-object facts, and movement stages.
+- Implemented QNT ordering rules: target list is required before option, option before saving throw, failed saves route Grovel/Halt to resolved, Drop to table-owned held-object facts when required, and Approach/Flee to movement stages when movement is available.
+- Modeled Flee movement rejection when movement is required but unavailable, table-fact frontier detection for Drop held-object facts, and protocol projection from each stage's hole frontier.
+- Kept QNT action dispatch, hole-kind labels, stage labels, and witness error labels quarantined in `src/qnt_adapters/battle_runtime_command_ordering.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doDiscoverCommand` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-discover-command#step:doDiscoverCommand` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doSubmitOptionBeforeTargetList` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-submit-option-before-target-list#step:doSubmitOptionBeforeTargetList` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillTargetList` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-fill-target-list#step:doFillTargetList` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doSubmitSavingThrowBeforeOption` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-submit-saving-throw-before-option#step:doSubmitSavingThrowBeforeOption` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillGrovelOption` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-fill-grovel-option#step:doFillGrovelOption` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillFailedGrovelSavingThrow` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-fill-failed-grovel-saving-throw#step:doFillFailedGrovelSavingThrow` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFollowGrovel` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-follow-grovel#step:doFollowGrovel` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doDropNeedsHeldObjectFacts` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-drop-needs-held-object-facts#step:doDropNeedsHeldObjectFacts` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillDropHeldObjectFacts` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-fill-drop-held-object-facts#step:doFillDropHeldObjectFacts` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doHaltSuppresses` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-halt-suppresses#step:doHaltSuppresses` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doApproachMovementContinues` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-approach-movement-continues#step:doApproachMovementContinues` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillApproachMovementContinues` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-fill-approach-movement-continues#step:doFillApproachMovementContinues` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillApproachMovementWithinFive` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-fill-approach-movement-within-five#step:doFillApproachMovementWithinFive` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doApproachNoMovement` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-approach-no-movement#step:doApproachNoMovement` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFleeMovement` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-flee-movement#step:doFleeMovement` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillFleeMovement` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-fill-flee-movement#step:doFillFleeMovement` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doRejectFleePartialMovement` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-reject-flee-partial-movement#step:doRejectFleePartialMovement` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFleeNoMovement` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-flee-no-movement#step:doFleeNoMovement` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFleeOpportunityAttack` | `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json#T018-flee-opportunity-attack#step:doFleeOpportunityAttack` | `src/tests/mod.rs::command_ordering_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T018-discover-command`
+- Reproduction seed or trace id: `T018-submit-option-before-target-list`
+- Reproduction seed or trace id: `T018-fill-target-list`
+- Reproduction seed or trace id: `T018-submit-saving-throw-before-option`
+- Reproduction seed or trace id: `T018-fill-grovel-option`
+- Reproduction seed or trace id: `T018-fill-failed-grovel-saving-throw`
+- Reproduction seed or trace id: `T018-follow-grovel`
+- Reproduction seed or trace id: `T018-drop-needs-held-object-facts`
+- Reproduction seed or trace id: `T018-fill-drop-held-object-facts`
+- Reproduction seed or trace id: `T018-halt-suppresses`
+- Reproduction seed or trace id: `T018-approach-movement-continues`
+- Reproduction seed or trace id: `T018-fill-approach-movement-continues`
+- Reproduction seed or trace id: `T018-fill-approach-movement-within-five`
+- Reproduction seed or trace id: `T018-approach-no-movement`
+- Reproduction seed or trace id: `T018-flee-movement`
+- Reproduction seed or trace id: `T018-fill-flee-movement`
+- Reproduction seed or trace id: `T018-reject-flee-partial-movement`
+- Reproduction seed or trace id: `T018-flee-no-movement`
+- Reproduction seed or trace id: `T018-flee-opportunity-attack`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::command_ordering_adapter_replays_all_branches`
+- `src/tests/mod.rs::command_ordering_frontier_requires_target_option_save_then_movement`
 
 Remaining gaps:
 

@@ -1,0 +1,791 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/battle_runtime_command_ordering.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doDiscoverCommand",
+      "observedActionTaken": "doDiscoverCommand",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-discover-command",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "40f584fb9ae344d73a2331ee4b36e7931f9de6e9c036ac9ac0e059f54b5bbf7f",
+        "observedProjectionSha256": "40f584fb9ae344d73a2331ee4b36e7931f9de6e9c036ac9ac0e059f54b5bbf7f",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doSubmitOptionBeforeTargetList",
+      "observedActionTaken": "doSubmitOptionBeforeTargetList",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-submit-option-before-target-list",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "f0f4fe106eb01423654724fa4143f3f5ef42fddf14800b7555d9822fedba099a",
+        "observedProjectionSha256": "f0f4fe106eb01423654724fa4143f3f5ef42fddf14800b7555d9822fedba099a",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFillTargetList",
+      "observedActionTaken": "doFillTargetList",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-fill-target-list",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "6445c387e6324878aaf5ec70bd5d9d96cfae8b0d62994528ee9d1eb647d678f0",
+        "observedProjectionSha256": "6445c387e6324878aaf5ec70bd5d9d96cfae8b0d62994528ee9d1eb647d678f0",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doSubmitSavingThrowBeforeOption",
+      "observedActionTaken": "doSubmitSavingThrowBeforeOption",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-submit-saving-throw-before-option",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "df573eea1128ef8dff449d2af98070b529fbe1598aaaf22f5cc0640ade6f107a",
+        "observedProjectionSha256": "df573eea1128ef8dff449d2af98070b529fbe1598aaaf22f5cc0640ade6f107a",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFillGrovelOption",
+      "observedActionTaken": "doFillGrovelOption",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-fill-grovel-option",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "31bd0ac149fd72969afc1cf4c0885422f0e5a685bc4815434385f60a6005aecd",
+        "observedProjectionSha256": "31bd0ac149fd72969afc1cf4c0885422f0e5a685bc4815434385f60a6005aecd",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFillFailedGrovelSavingThrow",
+      "observedActionTaken": "doFillFailedGrovelSavingThrow",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-fill-failed-grovel-saving-throw",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "7fdb7ea2a497998677e173ff40ca8e3c4fe0913e5bf67a3f90243670dd291dfa",
+        "observedProjectionSha256": "7fdb7ea2a497998677e173ff40ca8e3c4fe0913e5bf67a3f90243670dd291dfa",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFollowGrovel",
+      "observedActionTaken": "doFollowGrovel",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-follow-grovel",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "32555f99934abb379750971be203ba267da8ae07f9f3374d0f2a80a8cfb5252a",
+        "observedProjectionSha256": "32555f99934abb379750971be203ba267da8ae07f9f3374d0f2a80a8cfb5252a",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doDropNeedsHeldObjectFacts",
+      "observedActionTaken": "doDropNeedsHeldObjectFacts",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-drop-needs-held-object-facts",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "dbb283601a06e797c80850c86f7a4c33df0530f74601c76bc36691ae1f2ad8e9",
+        "observedProjectionSha256": "dbb283601a06e797c80850c86f7a4c33df0530f74601c76bc36691ae1f2ad8e9",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFillDropHeldObjectFacts",
+      "observedActionTaken": "doFillDropHeldObjectFacts",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-fill-drop-held-object-facts",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "7ef7b17d18a81e1b63bad9e0f0f379f217b1b37d4747d3e6b14e892456560deb",
+        "observedProjectionSha256": "7ef7b17d18a81e1b63bad9e0f0f379f217b1b37d4747d3e6b14e892456560deb",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doHaltSuppresses",
+      "observedActionTaken": "doHaltSuppresses",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-halt-suppresses",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "b5854e4a0c0cfca871a9c442591ae882dc90287d9814a5c30444f0e7f6f1cc19",
+        "observedProjectionSha256": "b5854e4a0c0cfca871a9c442591ae882dc90287d9814a5c30444f0e7f6f1cc19",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doApproachMovementContinues",
+      "observedActionTaken": "doApproachMovementContinues",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-approach-movement-continues",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "1e15cc61452cfa97600381a3d89010e2fdbb8ad148e66787e6ac23d4c87bfbb9",
+        "observedProjectionSha256": "1e15cc61452cfa97600381a3d89010e2fdbb8ad148e66787e6ac23d4c87bfbb9",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFillApproachMovementContinues",
+      "observedActionTaken": "doFillApproachMovementContinues",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-fill-approach-movement-continues",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "93dd8bf9901cdc6c68a13d9b0a9f2f168c5be3f9247baa0f5be83904ae1231b6",
+        "observedProjectionSha256": "93dd8bf9901cdc6c68a13d9b0a9f2f168c5be3f9247baa0f5be83904ae1231b6",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFillApproachMovementWithinFive",
+      "observedActionTaken": "doFillApproachMovementWithinFive",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-fill-approach-movement-within-five",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "ea81fb7c2a73cd360243dbe9bdcfa382798756a4b99704287dd6c7576602c69c",
+        "observedProjectionSha256": "ea81fb7c2a73cd360243dbe9bdcfa382798756a4b99704287dd6c7576602c69c",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doApproachNoMovement",
+      "observedActionTaken": "doApproachNoMovement",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-approach-no-movement",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "1f016dc5adb3988be41e7b6a12634d521c67878ee85514c9290e189d7215d0f5",
+        "observedProjectionSha256": "1f016dc5adb3988be41e7b6a12634d521c67878ee85514c9290e189d7215d0f5",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFleeMovement",
+      "observedActionTaken": "doFleeMovement",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-flee-movement",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "07dc35008836ee1a1a7b72b1564632edd4758c93cd7693b48e213e6396ff08db",
+        "observedProjectionSha256": "07dc35008836ee1a1a7b72b1564632edd4758c93cd7693b48e213e6396ff08db",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFillFleeMovement",
+      "observedActionTaken": "doFillFleeMovement",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-fill-flee-movement",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "168753dd50e4e4d3cd54dd3fa66e81b137ace4d72fe25c6bd1531e0587e53fd9",
+        "observedProjectionSha256": "168753dd50e4e4d3cd54dd3fa66e81b137ace4d72fe25c6bd1531e0587e53fd9",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doRejectFleePartialMovement",
+      "observedActionTaken": "doRejectFleePartialMovement",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-reject-flee-partial-movement",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "58222bf3ff76e52709fbbcadf4c31b48af4df2cb660a6b161099955e6f06d53d",
+        "observedProjectionSha256": "58222bf3ff76e52709fbbcadf4c31b48af4df2cb660a6b161099955e6f06d53d",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFleeNoMovement",
+      "observedActionTaken": "doFleeNoMovement",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-flee-no-movement",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "aa83622bdeafb351b1c0ba24cce3763b904981d3ba3ef43db37027150575558e",
+        "observedProjectionSha256": "aa83622bdeafb351b1c0ba24cce3763b904981d3ba3ef43db37027150575558e",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "qntFileSha256": "e4f7b983343110bb550723d97e3f6d3e601b10d033b226be93be6c3db8a282a6",
+      "branchFamily": "step",
+      "branchAction": "doFleeOpportunityAttack",
+      "observedActionTaken": "doFleeOpportunityAttack",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "traceId": "T018-flee-opportunity-attack",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CommandOrderingWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "c8ed52872cdccee551d797ba500d121ea80a11143289ed28e4cbb6168b010a23",
+        "observedProjectionSha256": "c8ed52872cdccee551d797ba500d121ea80a11143289ed28e4cbb6168b010a23",
+        "checkedTargetStateFields": [
+          "CommandOrderingState.stage",
+          "CommandOrderingState.protocol",
+          "CommandOrderingState.table_fact_frontier_open",
+          "CommandOrderingState.last_ordering_error",
+          "CommandOrderingState.pending_option",
+          "CommandOrderingState.target_prone",
+          "CommandOrderingState.dropped_object_count",
+          "CommandOrderingState.halt_suppressed",
+          "CommandOrderingState.movement_spent_feet",
+          "CommandOrderingState.current_actor",
+          "CommandOrderingState.reaction_window_open",
+          "CommandOrderingFillFacts.fill_kind",
+          "CommandOrderingFillFacts.option",
+          "CommandOrderingFillFacts.failed_saving_throw",
+          "CommandOrderingFillFacts.movement_available",
+          "CommandOrderingFillFacts.held_object_facts_required",
+          "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+          "CommandOrderingFillFacts.opened_opportunity_attack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}

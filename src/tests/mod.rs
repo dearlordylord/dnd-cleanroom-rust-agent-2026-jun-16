@@ -6,6 +6,8 @@ mod battle_runtime_attack_spell_shape_selected_identity;
 mod battle_runtime_chained_attack_sequence;
 #[path = "../qnt_adapters/battle_runtime_command_option_next_turn.rs"]
 mod battle_runtime_command_option_next_turn;
+#[path = "../qnt_adapters/battle_runtime_command_ordering.rs"]
+mod battle_runtime_command_ordering;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -61,11 +63,15 @@ use crate::rules::class_features::{
     Weapon, WeaponMasteryClass, WeaponMasteryReselectionFacts,
 };
 use crate::rules::command_options::{
-    cleanup_command_halt_turn, command_next_turn_initial_state,
+    cleanup_command_halt_turn, command_after_saving_throw_stage, command_fill_order_result,
+    command_hole_frontier, command_hole_frontier_includes_table_facts,
+    command_next_turn_initial_state, command_ordering_initial_state,
     decline_command_flee_opportunity_attack, follow_command_grovel,
     open_command_flee_opportunity_attack_window, record_command_failed_save_pending,
-    reject_command_approach_movement, suppress_command_halt, CommandNextTurnInvalidReason,
-    CommandNextTurnOption, CommandNextTurnProtocol, CommandNextTurnScenario, CommandTurnActor,
+    reject_command_approach_movement, suppress_command_halt, CommandFillKind,
+    CommandFillOrderResult, CommandFillOrderingError, CommandFrontierStage, CommandHoleKind,
+    CommandNextTurnInvalidReason, CommandNextTurnOption, CommandNextTurnProtocol,
+    CommandNextTurnScenario, CommandOrderingFillFacts, CommandOrderingProtocol, CommandTurnActor,
 };
 use crate::rules::feature_resources::{
     apply_lay_on_hands_resource, apply_temporary_hit_points, FeatureResourceHitPoints,
@@ -113,6 +119,12 @@ use battle_runtime_command_option_next_turn::{
     projection_payload as command_option_next_turn_projection_payload,
     replay_observed_action as replay_command_option_next_turn_action,
     BRANCH_ACTIONS as COMMAND_OPTION_NEXT_TURN_BRANCH_ACTIONS,
+};
+use battle_runtime_command_ordering::{
+    expected_witness as expected_command_ordering_witness,
+    projection_payload as command_ordering_projection_payload,
+    replay_observed_action as replay_command_ordering_action,
+    BRANCH_ACTIONS as COMMAND_ORDERING_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1141,4 +1153,94 @@ fn command_options_project_next_turn_effects_and_cleanup() {
     assert_eq!(flee_continues.movement_spent_feet, 30);
     assert!(!flee_continues.reaction_window_open);
     assert_eq!(flee_continues.current_actor, CommandTurnActor::Caster);
+}
+
+#[test]
+fn command_ordering_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-command-ordering.mbt.qnt and
+    // battle-runtime-command-ordering.qnt.
+    for action in COMMAND_ORDERING_BRANCH_ACTIONS {
+        let observed = replay_command_ordering_action(action);
+        assert_eq!(observed, expected_command_ordering_witness(action));
+        assert!(command_ordering_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn command_ordering_frontier_requires_target_option_save_then_movement() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Command"; QNT: battle-runtime-command-ordering.qnt.
+    let initial = command_ordering_initial_state();
+    let submit_option_too_early = command_fill_order_result(
+        CommandFrontierStage::TargetListAndOptionChoice,
+        CommandOrderingFillFacts {
+            fill_kind: CommandFillKind::CommandOptionChoice,
+            option: CommandNextTurnOption::Grovel,
+            failed_saving_throw: true,
+            movement_available: false,
+            held_object_facts_required: false,
+            moved_within_five_feet_of_caster: false,
+            opened_opportunity_attack: false,
+        },
+    );
+    let submit_save_too_early = command_fill_order_result(
+        CommandFrontierStage::OptionChoice,
+        CommandOrderingFillFacts {
+            fill_kind: CommandFillKind::SavingThrowOutcome,
+            option: CommandNextTurnOption::Grovel,
+            failed_saving_throw: true,
+            movement_available: false,
+            held_object_facts_required: false,
+            moved_within_five_feet_of_caster: false,
+            opened_opportunity_attack: false,
+        },
+    );
+    let flee_without_movement = command_fill_order_result(
+        CommandFrontierStage::FleeMovement,
+        CommandOrderingFillFacts {
+            fill_kind: CommandFillKind::Movement,
+            option: CommandNextTurnOption::Flee,
+            failed_saving_throw: true,
+            movement_available: false,
+            held_object_facts_required: false,
+            moved_within_five_feet_of_caster: false,
+            opened_opportunity_attack: false,
+        },
+    );
+
+    assert_eq!(initial.stage, CommandFrontierStage::ActSelection);
+    assert_eq!(initial.protocol, CommandOrderingProtocol::Init);
+    assert_eq!(
+        command_hole_frontier(CommandFrontierStage::TargetListAndOptionChoice),
+        vec![
+            CommandHoleKind::SpellTargetList,
+            CommandHoleKind::CommandOptionChoice
+        ]
+    );
+    assert!(command_hole_frontier_includes_table_facts(
+        CommandFrontierStage::DropHeldObjectFacts
+    ));
+    assert_eq!(
+        command_after_saving_throw_stage(CommandNextTurnOption::Drop, true, false, true),
+        CommandFrontierStage::DropHeldObjectFacts
+    );
+    assert_eq!(
+        submit_option_too_early,
+        CommandFillOrderResult::RequestedEarlier {
+            error: CommandFillOrderingError::TargetListRequired,
+            stage: CommandFrontierStage::TargetList
+        }
+    );
+    assert_eq!(
+        submit_save_too_early,
+        CommandFillOrderResult::RequestedEarlier {
+            error: CommandFillOrderingError::OptionChoiceRequired,
+            stage: CommandFrontierStage::OptionChoice
+        }
+    );
+    assert_eq!(
+        flee_without_movement,
+        CommandFillOrderResult::Rejected(CommandFillOrderingError::MovementRequired)
+    );
 }

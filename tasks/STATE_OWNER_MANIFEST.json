@@ -4,7 +4,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.scenario",
+      "fieldPath": "CommandOrderingState.stage",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -12,7 +12,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.protocol",
+      "fieldPath": "CommandOrderingState.protocol",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -20,7 +20,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.target_prone",
+      "fieldPath": "CommandOrderingState.table_fact_frontier_open",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -28,7 +28,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.target_effect_count",
+      "fieldPath": "CommandOrderingState.last_ordering_error",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -36,7 +36,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.action_available",
+      "fieldPath": "CommandOrderingState.pending_option",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -44,7 +44,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.bonus_action_available",
+      "fieldPath": "CommandOrderingState.target_prone",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -52,7 +52,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.movement_spent_feet",
+      "fieldPath": "CommandOrderingState.dropped_object_count",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -60,7 +60,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.current_actor",
+      "fieldPath": "CommandOrderingState.halt_suppressed",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -68,7 +68,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.pending_option",
+      "fieldPath": "CommandOrderingState.movement_spent_feet",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -76,7 +76,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.dropped_object_count",
+      "fieldPath": "CommandOrderingState.current_actor",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -84,7 +84,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.reaction_window_open",
+      "fieldPath": "CommandOrderingState.reaction_window_open",
       "introducedIn": "src/rules/command_options.rs",
       "owner": "battle-state"
     },
@@ -92,9 +92,57 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CommandNextTurnState.halt_suppressed",
+      "fieldPath": "CommandOrderingFillFacts.fill_kind",
       "introducedIn": "src/rules/command_options.rs",
-      "owner": "battle-state"
+      "owner": "structured-input"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CommandOrderingFillFacts.option",
+      "introducedIn": "src/rules/command_options.rs",
+      "owner": "structured-input"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CommandOrderingFillFacts.failed_saving_throw",
+      "introducedIn": "src/rules/command_options.rs",
+      "owner": "structured-input"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CommandOrderingFillFacts.movement_available",
+      "introducedIn": "src/rules/command_options.rs",
+      "owner": "structured-input"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CommandOrderingFillFacts.held_object_facts_required",
+      "introducedIn": "src/rules/command_options.rs",
+      "owner": "structured-input"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CommandOrderingFillFacts.moved_within_five_feet_of_caster",
+      "introducedIn": "src/rules/command_options.rs",
+      "owner": "structured-input"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "CommandOrderingFillFacts.opened_opportunity_attack",
+      "introducedIn": "src/rules/command_options.rs",
+      "owner": "structured-input"
     },
     {
       "derivability": {
@@ -102,10 +150,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_command_ordering.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T017"
+  "taskId": "T018"
 }

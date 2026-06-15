@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T017-battle-runtime-command-option-next-turn.json",
+      "evidence": "tasks/target-replay-evidence/T018-battle-runtime-command-ordering.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T017"
+  "taskId": "T018"
 }
