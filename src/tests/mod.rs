@@ -14,6 +14,8 @@ mod character_sheet_ability_check_proficiency_bonus;
 mod character_sheet_armor_class_base_selected_identity;
 #[path = "../qnt_adapters/character_sheet_healing_resource_selected_identity.rs"]
 mod character_sheet_healing_resource_selected_identity;
+#[path = "../qnt_adapters/character_sheet_hit_point_maximum.rs"]
+mod character_sheet_hit_point_maximum;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -32,6 +34,9 @@ use crate::rules::class_features::{
 };
 use crate::rules::feature_resources::{
     apply_lay_on_hands_resource, FeatureResourceHitPoints, ResourcePoolError, ResourcePoolFacts,
+};
+use crate::rules::hit_points::{
+    fixed_higher_level_hit_point_gain, hit_point_maximum_projection, HitPointMaximumFacts,
 };
 
 use character_creation_class_feature_projections::{
@@ -74,6 +79,12 @@ use character_sheet_armor_class_base_selected_identity::{
 use character_sheet_healing_resource_selected_identity::{
     expected_lay_on_hands_witness, projection_payload as healing_resource_projection_payload,
     replay_observed_action as replay_healing_resource_action,
+};
+use character_sheet_hit_point_maximum::{
+    expected_witness as expected_hit_point_maximum_witness,
+    projection_payload as hit_point_maximum_projection_payload,
+    replay_observed_action as replay_hit_point_maximum_action,
+    BRANCH_ACTIONS as HIT_POINT_MAXIMUM_BRANCH_ACTIONS,
 };
 
 #[test]
@@ -498,4 +509,38 @@ fn lay_on_hands_spends_condition_cost_separately_from_healing() {
         insufficient,
         Err(ResourcePoolError::InsufficientRemaining)
     ));
+}
+
+#[test]
+fn hit_point_maximum_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/character-sheet-runtime/
+    // character-sheet-hit-point-maximum.mbt.qnt;
+    // shared algebra: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // hit-point-maximum.qnt.
+    for action in HIT_POINT_MAXIMUM_BRANCH_ACTIONS {
+        let observed = replay_hit_point_maximum_action(action);
+        assert_eq!(observed, expected_hit_point_maximum_witness(action));
+        assert!(hit_point_maximum_projection_payload(&observed).contains("hitDiceTotal="));
+    }
+}
+
+#[test]
+fn hit_point_maximum_applies_fixed_gain_minimum_and_reduction() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Creation.md
+    // "Gaining a Level", "Fixed Hit Points by Class", and "Hit Points and Hit
+    // Point Dice".
+    assert_eq!(fixed_higher_level_hit_point_gain(6, -4), 1);
+
+    let projection = hit_point_maximum_projection(HitPointMaximumFacts {
+        starting_hit_point_die: 10,
+        constitution_modifier: 1,
+        fixed_higher_level_hit_point_dice: vec![10],
+        hit_point_maximum_bonus: 0,
+        hit_point_maximum_reduction: 3,
+    })
+    .expect("reduction remains below normal maximum");
+
+    assert_eq!(projection.normal_hit_point_maximum, 18);
+    assert_eq!(projection.effective_hit_point_maximum, 15);
+    assert_eq!(projection.hit_dice_total, 2);
 }

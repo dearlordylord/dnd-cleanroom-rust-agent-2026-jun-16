@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T008",
-  "startHeadSha": "ab5d7c1a5405f32f283b7d0df21754605d804477",
+  "taskId": "T009",
+  "startHeadSha": "14c6cd91ff735ecf775a34a60a089814116eb9ee",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "sheet",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt"
     ]
   }
 }

@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt`
-- Next task id: `T009`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt`
+- Next task id: `T010`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,87 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T009: character-sheet-hit-point-maximum
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt`
+- Branch obligations:
+  - `step:doProjectFighterLevelOne`
+  - `step:doProjectFighterLevelTwo`
+  - `step:doProjectMinimumHigherLevelGain`
+  - `step:doProjectReducedEffectiveMaximum`
+  - `step:doProjectSorcererDraconicResilience`
+  - `step:doProjectWizardFighterMulticlass`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/hit-point-maximum.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Character-Creation.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Wizard.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added reusable Hit Point Maximum facts and projection for level-1 starting Hit Die, fixed higher-level Hit Dice, Constitution modifier, bonuses, and reductions.
+- Implemented fixed higher-level gains as `hitPointDie / 2 + 1 + Constitution modifier`, with the RAW minimum gain of 1.
+- Projected normal and effective Hit Point Maximums, total Hit Dice, Wizard/Fighter multiclass arithmetic, Draconic Resilience bonus, and reduced effective maximum.
+- Kept QNT action dispatch and witness field mapping quarantined in `src/qnt_adapters/character_sheet_hit_point_maximum.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectFighterLevelOne` | `tasks/target-replay-evidence/T009-character-sheet-hit-point-maximum.json#T009-project-fighter-level-one#step:doProjectFighterLevelOne` | `src/tests/mod.rs::hit_point_maximum_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectFighterLevelTwo` | `tasks/target-replay-evidence/T009-character-sheet-hit-point-maximum.json#T009-project-fighter-level-two#step:doProjectFighterLevelTwo` | `src/tests/mod.rs::hit_point_maximum_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectMinimumHigherLevelGain` | `tasks/target-replay-evidence/T009-character-sheet-hit-point-maximum.json#T009-project-minimum-higher-level-gain#step:doProjectMinimumHigherLevelGain` | `src/tests/mod.rs::hit_point_maximum_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectReducedEffectiveMaximum` | `tasks/target-replay-evidence/T009-character-sheet-hit-point-maximum.json#T009-project-reduced-effective-maximum#step:doProjectReducedEffectiveMaximum` | `src/tests/mod.rs::hit_point_maximum_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectSorcererDraconicResilience` | `tasks/target-replay-evidence/T009-character-sheet-hit-point-maximum.json#T009-project-sorcerer-draconic-resilience#step:doProjectSorcererDraconicResilience` | `src/tests/mod.rs::hit_point_maximum_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectWizardFighterMulticlass` | `tasks/target-replay-evidence/T009-character-sheet-hit-point-maximum.json#T009-project-wizard-fighter-multiclass#step:doProjectWizardFighterMulticlass` | `src/tests/mod.rs::hit_point_maximum_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T009-character-sheet-hit-point-maximum.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T009-project-fighter-level-one`
+- Reproduction seed or trace id: `T009-project-fighter-level-two`
+- Reproduction seed or trace id: `T009-project-minimum-higher-level-gain`
+- Reproduction seed or trace id: `T009-project-reduced-effective-maximum`
+- Reproduction seed or trace id: `T009-project-sorcerer-draconic-resilience`
+- Reproduction seed or trace id: `T009-project-wizard-fighter-multiclass`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::hit_point_maximum_adapter_replays_all_branches`
+- `src/tests/mod.rs::hit_point_maximum_applies_fixed_gain_minimum_and_reduction`
 
 Remaining gaps:
 

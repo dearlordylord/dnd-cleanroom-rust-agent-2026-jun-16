@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T008-character-sheet-healing-resource-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T009-character-sheet-hit-point-maximum.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T008"
+  "taskId": "T009"
 }

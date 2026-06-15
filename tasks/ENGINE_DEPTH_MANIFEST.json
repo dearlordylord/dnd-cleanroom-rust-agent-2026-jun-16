@@ -2,9 +2,14 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_sheet_healing_resource_selected_identity.rs",
+      "path": "src/qnt_adapters/character_sheet_hit_point_maximum.rs",
       "quarantinedWitnessNames": [
-        "doLayOnHandsRestoreHpAndRemovePoisoned",
+        "doProjectFighterLevelOne",
+        "doProjectFighterLevelTwo",
+        "doProjectMinimumHigherLevelGain",
+        "doProjectReducedEffectiveMaximum",
+        "doProjectSorcererDraconicResilience",
+        "doProjectWizardFighterMulticlass",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -22,38 +27,35 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T008-character-sheet-healing-resource-selected-identity.json"
+        "tasks/target-replay-evidence/T009-character-sheet-hit-point-maximum.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "apply_feature_resource_hit_point_healing",
+      "api": "effective_hit_point_maximum",
       "driver": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
-      "module": "src/rules/feature_resources.rs"
+      "module": "src/rules/hit_points.rs"
     },
     {
-      "api": "resource_pool_remaining",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt",
-      "module": "src/rules/feature_resources.rs"
+      "api": "hit_point_maximum_projection",
+      "driver": "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt",
+      "module": "src/rules/hit_points.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "legal_resource_pool",
-        "resource_pool_remaining",
-        "can_spend_resource_pool",
-        "spend_resource_pool",
-        "lay_on_hands_pool_spend",
-        "can_apply_lay_on_hands_resource",
-        "apply_lay_on_hands_resource",
-        "apply_feature_resource_hit_point_healing"
+        "fixed_higher_level_hit_point_gain",
+        "normal_hit_point_maximum",
+        "effective_hit_point_maximum",
+        "legal_hit_point_maximum_facts",
+        "hit_point_maximum_projection"
       ],
-      "path": "src/rules/feature_resources.rs",
+      "path": "src/rules/hit_points.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T008"
+  "taskId": "T009"
 }
