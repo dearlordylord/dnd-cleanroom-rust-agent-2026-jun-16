@@ -146,6 +146,16 @@ pub fn apply_feature_resource_hit_point_healing(
     }
 }
 
+#[must_use]
+pub fn apply_temporary_hit_points(
+    current_temporary_hit_points: i16,
+    granted_temporary_hit_points: i16,
+) -> i16 {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Temporary Hit Points" and "They Don't Stack".
+    current_temporary_hit_points.max(granted_temporary_hit_points)
+}
+
 fn clamp_hit_points(hit_points: i16, hit_point_maximum: i16) -> i16 {
     if hit_points < 0 {
         0

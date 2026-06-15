@@ -1,3 +1,5 @@
+#[path = "../qnt_adapters/battle_runtime_adrenaline_rush.rs"]
+mod battle_runtime_adrenaline_rush;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -33,6 +35,10 @@ use crate::rules::armor_class::{
     armor_class_projection, ArmorClassAbility, ArmorClassFacts, ArmorClassFormula,
     ArmorClassOption, ShieldArmorClassBonus,
 };
+use crate::rules::battle_features::{
+    resolve_adrenaline_rush_bonus_action_dash, AdrenalineRushFacts, AdrenalineRushRejection,
+    AdrenalineRushResult, BattleTurnFeatureState,
+};
 use crate::rules::class_features::{
     apply_weapon_mastery_long_rest_reselection, cleric_divine_order_projection,
     druid_primal_order_projection, fighter_fighting_style_projection, level_two_feature_projection,
@@ -41,7 +47,8 @@ use crate::rules::class_features::{
     Weapon, WeaponMasteryClass, WeaponMasteryReselectionFacts,
 };
 use crate::rules::feature_resources::{
-    apply_lay_on_hands_resource, FeatureResourceHitPoints, ResourcePoolError, ResourcePoolFacts,
+    apply_lay_on_hands_resource, apply_temporary_hit_points, FeatureResourceHitPoints,
+    ResourcePoolError, ResourcePoolFacts,
 };
 use crate::rules::hit_points::{
     complete_long_rest_benefits, fixed_higher_level_hit_point_gain, hit_point_maximum_projection,
@@ -57,6 +64,12 @@ use crate::rules::spellbook_rituals::{
     SpellbookRitualFacts, SpellbookRitualResult, SpellbookSpellKind,
 };
 
+use battle_runtime_adrenaline_rush::{
+    expected_witness as expected_adrenaline_rush_witness,
+    projection_payload as adrenaline_rush_projection_payload,
+    replay_observed_action as replay_adrenaline_rush_action,
+    BRANCH_ACTIONS as ADRENALINE_RUSH_BRANCH_ACTIONS,
+};
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
     projection_payload as origin_feat_projection_payload,
@@ -767,4 +780,53 @@ fn alert_origin_feat_adds_proficiency_to_initiative_score() {
     assert_eq!(origin.origin_feat, OriginFeat::Alert);
     assert_eq!(alert.initiative_score, 16);
     assert_eq!(no_alert.initiative_score, 14);
+}
+
+#[test]
+fn adrenaline_rush_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-adrenaline-rush.mbt.qnt; shared movement model:
+    // cleanroom-input/qnt/battle-runtime/battle-runtime-movement.qnt.
+    for action in ADRENALINE_RUSH_BRANCH_ACTIONS {
+        let observed = replay_adrenaline_rush_action(action);
+        assert_eq!(observed, expected_adrenaline_rush_witness(action));
+        assert!(adrenaline_rush_projection_payload(&observed).contains("protocolHoleCount=0"));
+    }
+}
+
+#[test]
+fn adrenaline_rush_bonus_action_dash_spends_use_and_keeps_higher_temp_hp() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Origins.md
+    // "Orc" and "Adrenaline Rush"; Playing-the-Game.md "Dash",
+    // "Bonus Actions", and "Temporary Hit Points".
+    let facts = AdrenalineRushFacts {
+        turn: BattleTurnFeatureState {
+            actor_temporary_hit_points: 1,
+            bonus_action_available: true,
+            dash_bonus_feet: 0,
+            feature_uses_remaining: 3,
+        },
+        speed_feet: 30,
+        proficiency_bonus: 3,
+        actor_owns_turn: true,
+        actor_unconscious: false,
+        actor_incapacitated: false,
+    };
+    let resolved = resolve_adrenaline_rush_bonus_action_dash(facts);
+    let stale = resolve_adrenaline_rush_bonus_action_dash(AdrenalineRushFacts {
+        turn: resolved.turn,
+        ..facts
+    });
+
+    assert_eq!(resolved.result, AdrenalineRushResult::Resolved);
+    assert_eq!(resolved.turn.actor_temporary_hit_points, 3);
+    assert!(!resolved.turn.bonus_action_available);
+    assert_eq!(resolved.turn.dash_bonus_feet, 30);
+    assert_eq!(resolved.turn.feature_uses_remaining, 2);
+    assert_eq!(stale.turn, resolved.turn);
+    assert_eq!(
+        stale.result,
+        AdrenalineRushResult::Invalid(AdrenalineRushRejection::StaleSubject)
+    );
+    assert_eq!(apply_temporary_hit_points(5, 3), 5);
 }

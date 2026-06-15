@@ -4,50 +4,82 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "OriginFeatProjection.background",
-      "introducedIn": "src/rules/origin_feats.rs",
-      "owner": "sheet-state"
+      "fieldPath": "BattleTurnFeatureState.actor_temporary_hit_points",
+      "introducedIn": "src/rules/battle_features.rs",
+      "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "OriginFeatProjection.origin_feat",
-      "introducedIn": "src/rules/origin_feats.rs",
-      "owner": "sheet-state"
+      "fieldPath": "BattleTurnFeatureState.bonus_action_available",
+      "introducedIn": "src/rules/battle_features.rs",
+      "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "InitiativeHandoffFacts.dexterity_modifier",
-      "introducedIn": "src/rules/origin_feats.rs",
+      "fieldPath": "BattleTurnFeatureState.dash_bonus_feet",
+      "introducedIn": "src/rules/battle_features.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleTurnFeatureState.feature_uses_remaining",
+      "introducedIn": "src/rules/battle_features.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "AdrenalineRushFacts.speed_feet",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "InitiativeHandoffFacts.proficiency_bonus",
-      "introducedIn": "src/rules/origin_feats.rs",
+      "fieldPath": "AdrenalineRushFacts.proficiency_bonus",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "InitiativeHandoffFacts.alert_initiative",
-      "introducedIn": "src/rules/origin_feats.rs",
+      "fieldPath": "AdrenalineRushFacts.actor_owns_turn",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "structured-input"
     },
     {
       "derivability": {
-        "boundary": "character-battle-origin-feat-selected-identity",
-        "sourceField": "InitiativeHandoffFacts",
+        "tag": "canonical-source"
+      },
+      "fieldPath": "AdrenalineRushFacts.actor_unconscious",
+      "introducedIn": "src/rules/battle_features.rs",
+      "owner": "structured-input"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "AdrenalineRushFacts.actor_incapacitated",
+      "introducedIn": "src/rules/battle_features.rs",
+      "owner": "structured-input"
+    },
+    {
+      "derivability": {
+        "boundary": "battle-runtime-adrenaline-rush",
+        "sourceField": "AdrenalineRushFacts",
         "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "InitiativeHandoffProjection.initiative_score",
-      "introducedIn": "src/rules/origin_feats.rs",
+      "fieldPath": "AdrenalineRushProjection.result",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "executable-boundary-projection"
     },
     {
@@ -56,10 +88,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/character_battle_origin_feat_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_adrenaline_rush.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T013"
+  "taskId": "T014"
 }

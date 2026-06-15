@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T013",
-  "startHeadSha": "f193d1d10b5445b5edff7f165b734ada4b2a08eb",
+  "taskId": "T014",
+  "startHeadSha": "086a0430fe4776bfec1647a2a409687a2edd641b",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -9,9 +9,9 @@
   },
   "taskScope": {
     "assignmentId": "level-1-2-full",
-    "laneId": "handoff",
+    "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt"
     ]
   }
 }
