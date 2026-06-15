@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt`
-- Next task id: `T023`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt`
+- Next task id: `T024`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,80 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T023: battle-runtime-dragonborn-breath-weapon
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt`
+- Branch obligations:
+  - `step:doOpenExtraAttackSlot`
+  - `step:doRejectInvalidDamageRoll`
+  - `step:doRejectMismatchedArea`
+  - `step:doRejectMissingResource`
+  - `step:doResolveBreathWeapon`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-bridge.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Character-Origins.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Extended `src/rules/battle_features.rs` with Dragonborn Breath Weapon state, DC calculation, level-scaled damage dice count, and attack-replacement resolution.
+- Resolved a valid Breath Weapon use by spending one use, applying failed-save full damage to the first target, applying successful-save half damage to the second target, and consuming the replaced attack.
+- Resolved the extra-attack continuation branch by spending one use and preserving the remaining Attack action attack slot.
+- Rejected missing resource, mismatched area, and invalid damage roll fills without damaging targets.
+- Kept QNT action names, witness scenario labels, witness hole labels, and witness invalid-reason labels quarantined in `src/qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt#step:doOpenExtraAttackSlot` | `tasks/target-replay-evidence/T023-battle-runtime-dragonborn-breath-weapon.json#T023-open-extra-attack-slot#step:doOpenExtraAttackSlot` | `src/tests/mod.rs::dragonborn_breath_weapon_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt#step:doRejectInvalidDamageRoll` | `tasks/target-replay-evidence/T023-battle-runtime-dragonborn-breath-weapon.json#T023-reject-invalid-damage-roll#step:doRejectInvalidDamageRoll` | `src/tests/mod.rs::dragonborn_breath_weapon_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt#step:doRejectMismatchedArea` | `tasks/target-replay-evidence/T023-battle-runtime-dragonborn-breath-weapon.json#T023-reject-mismatched-area#step:doRejectMismatchedArea` | `src/tests/mod.rs::dragonborn_breath_weapon_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt#step:doRejectMissingResource` | `tasks/target-replay-evidence/T023-battle-runtime-dragonborn-breath-weapon.json#T023-reject-missing-resource#step:doRejectMissingResource` | `src/tests/mod.rs::dragonborn_breath_weapon_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt#step:doResolveBreathWeapon` | `tasks/target-replay-evidence/T023-battle-runtime-dragonborn-breath-weapon.json#T023-resolve-breath-weapon#step:doResolveBreathWeapon` | `src/tests/mod.rs::dragonborn_breath_weapon_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T023-battle-runtime-dragonborn-breath-weapon.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T023-open-extra-attack-slot`
+- Reproduction seed or trace id: `T023-reject-invalid-damage-roll`
+- Reproduction seed or trace id: `T023-reject-mismatched-area`
+- Reproduction seed or trace id: `T023-reject-missing-resource`
+- Reproduction seed or trace id: `T023-resolve-breath-weapon`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::dragonborn_breath_weapon_spends_use_and_replaces_attack_with_save_damage`
 
 Remaining gaps:
 

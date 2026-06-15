@@ -82,6 +82,56 @@ pub struct DangerSenseFacts {
     pub actor_incapacitated: bool,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BreathWeaponAreaShape {
+    Cone15Feet,
+    Line30By5Feet,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DragonbornBreathWeaponScenarioOutcome {
+    Init,
+    Resolved,
+    OpenedExtraAttack,
+    RejectMissingResource,
+    RejectMismatchedArea,
+    RejectInvalidDamageRoll,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DragonbornBreathWeaponInvalidReason {
+    InvalidFill,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DragonbornBreathWeaponProtocol {
+    Init,
+    Resolved,
+    Invalid(DragonbornBreathWeaponInvalidReason),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct DragonbornBreathWeaponState {
+    pub target_hit_points: i16,
+    pub second_target_hit_points: i16,
+    pub breath_weapon_uses_remaining: i16,
+    pub attack_action_attacks_remaining: i16,
+    pub scenario_outcome: DragonbornBreathWeaponScenarioOutcome,
+    pub protocol: DragonbornBreathWeaponProtocol,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct DragonbornBreathWeaponFacts {
+    pub character_level: i16,
+    pub damage_roll: i16,
+    pub target_saving_throw_succeeded: bool,
+    pub second_target_in_area: bool,
+    pub second_target_saving_throw_succeeded: bool,
+    pub area_shape: BreathWeaponAreaShape,
+    pub expected_area_shape: BreathWeaponAreaShape,
+    pub opens_extra_attack_slot: bool,
+}
+
 #[must_use]
 pub fn resolve_adrenaline_rush_bonus_action_dash(
     facts: AdrenalineRushFacts,
@@ -187,5 +237,183 @@ pub fn suppress_danger_sense_while_incapacitated(_state: DangerSenseState) -> Da
         suppressed: true,
         accepted: true,
         protocol: DangerSenseProtocol::Resolved,
+    }
+}
+
+#[must_use]
+pub fn dragonborn_breath_weapon_initial_state() -> DragonbornBreathWeaponState {
+    DragonbornBreathWeaponState {
+        target_hit_points: 20,
+        second_target_hit_points: 20,
+        breath_weapon_uses_remaining: 3,
+        attack_action_attacks_remaining: 1,
+        scenario_outcome: DragonbornBreathWeaponScenarioOutcome::Init,
+        protocol: DragonbornBreathWeaponProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn dragonborn_breath_weapon_save_dc(constitution_modifier: i16, proficiency_bonus: i16) -> i16 {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Origins.md
+    // "Dragonborn", "Breath Weapon".
+    8 + constitution_modifier + proficiency_bonus
+}
+
+#[must_use]
+pub fn dragonborn_breath_weapon_damage_die_count(character_level: i16) -> Option<i16> {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Origins.md
+    // "Dragonborn", "Breath Weapon".
+    match character_level {
+        1..=4 => Some(1),
+        5..=10 => Some(2),
+        11..=16 => Some(3),
+        17.. => Some(4),
+        _ => None,
+    }
+}
+
+#[must_use]
+pub fn resolve_dragonborn_breath_weapon(
+    state: DragonbornBreathWeaponState,
+    facts: DragonbornBreathWeaponFacts,
+) -> DragonbornBreathWeaponState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Origins.md
+    // "Dragonborn", "Breath Weapon"; QNT:
+    // cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-dragonborn-breath-weapon.mbt.qnt.
+    if state.breath_weapon_uses_remaining <= 0 {
+        return invalid_dragonborn_breath_weapon(
+            state,
+            DragonbornBreathWeaponScenarioOutcome::RejectMissingResource,
+        );
+    }
+    if facts.area_shape != facts.expected_area_shape {
+        return invalid_dragonborn_breath_weapon(
+            state,
+            DragonbornBreathWeaponScenarioOutcome::RejectMismatchedArea,
+        );
+    }
+
+    let Some(damage_die_count) = dragonborn_breath_weapon_damage_die_count(facts.character_level)
+    else {
+        return invalid_dragonborn_breath_weapon(
+            state,
+            DragonbornBreathWeaponScenarioOutcome::RejectInvalidDamageRoll,
+        );
+    };
+    let minimum_damage_roll = damage_die_count;
+    let maximum_damage_roll = damage_die_count * 10;
+    if facts.damage_roll < minimum_damage_roll || facts.damage_roll > maximum_damage_roll {
+        return invalid_dragonborn_breath_weapon(
+            state,
+            DragonbornBreathWeaponScenarioOutcome::RejectInvalidDamageRoll,
+        );
+    }
+
+    let target_damage =
+        breath_weapon_damage_after_save(facts.damage_roll, facts.target_saving_throw_succeeded);
+    let second_target_damage = if facts.second_target_in_area {
+        breath_weapon_damage_after_save(
+            facts.damage_roll,
+            facts.second_target_saving_throw_succeeded,
+        )
+    } else {
+        0
+    };
+
+    DragonbornBreathWeaponState {
+        target_hit_points: apply_breath_weapon_damage(state.target_hit_points, target_damage),
+        second_target_hit_points: apply_breath_weapon_damage(
+            state.second_target_hit_points,
+            second_target_damage,
+        ),
+        breath_weapon_uses_remaining: state.breath_weapon_uses_remaining - 1,
+        attack_action_attacks_remaining: if facts.opens_extra_attack_slot {
+            state.attack_action_attacks_remaining
+        } else {
+            state.attack_action_attacks_remaining.saturating_sub(1)
+        },
+        scenario_outcome: if facts.opens_extra_attack_slot {
+            DragonbornBreathWeaponScenarioOutcome::OpenedExtraAttack
+        } else {
+            DragonbornBreathWeaponScenarioOutcome::Resolved
+        },
+        protocol: DragonbornBreathWeaponProtocol::Resolved,
+    }
+}
+
+#[must_use]
+pub fn reject_dragonborn_breath_weapon_missing_resource(
+    state: DragonbornBreathWeaponState,
+) -> DragonbornBreathWeaponState {
+    invalid_dragonborn_breath_weapon(
+        DragonbornBreathWeaponState {
+            breath_weapon_uses_remaining: 0,
+            ..state
+        },
+        DragonbornBreathWeaponScenarioOutcome::RejectMissingResource,
+    )
+}
+
+#[must_use]
+pub fn reject_dragonborn_breath_weapon_mismatched_area(
+    state: DragonbornBreathWeaponState,
+) -> DragonbornBreathWeaponState {
+    resolve_dragonborn_breath_weapon(
+        state,
+        DragonbornBreathWeaponFacts {
+            character_level: 1,
+            damage_roll: 10,
+            target_saving_throw_succeeded: false,
+            second_target_in_area: true,
+            second_target_saving_throw_succeeded: true,
+            area_shape: BreathWeaponAreaShape::Line30By5Feet,
+            expected_area_shape: BreathWeaponAreaShape::Cone15Feet,
+            opens_extra_attack_slot: false,
+        },
+    )
+}
+
+#[must_use]
+pub fn reject_dragonborn_breath_weapon_invalid_damage_roll(
+    state: DragonbornBreathWeaponState,
+) -> DragonbornBreathWeaponState {
+    resolve_dragonborn_breath_weapon(
+        state,
+        DragonbornBreathWeaponFacts {
+            character_level: 1,
+            damage_roll: 11,
+            target_saving_throw_succeeded: false,
+            second_target_in_area: true,
+            second_target_saving_throw_succeeded: true,
+            area_shape: BreathWeaponAreaShape::Cone15Feet,
+            expected_area_shape: BreathWeaponAreaShape::Cone15Feet,
+            opens_extra_attack_slot: false,
+        },
+    )
+}
+
+fn breath_weapon_damage_after_save(damage_roll: i16, saving_throw_succeeded: bool) -> i16 {
+    if saving_throw_succeeded {
+        damage_roll / 2
+    } else {
+        damage_roll
+    }
+}
+
+fn apply_breath_weapon_damage(hit_points: i16, damage: i16) -> i16 {
+    hit_points.saturating_sub(damage.max(0)).max(0)
+}
+
+fn invalid_dragonborn_breath_weapon(
+    state: DragonbornBreathWeaponState,
+    scenario_outcome: DragonbornBreathWeaponScenarioOutcome,
+) -> DragonbornBreathWeaponState {
+    DragonbornBreathWeaponState {
+        scenario_outcome,
+        protocol: DragonbornBreathWeaponProtocol::Invalid(
+            DragonbornBreathWeaponInvalidReason::InvalidFill,
+        ),
+        ..state
     }
 }

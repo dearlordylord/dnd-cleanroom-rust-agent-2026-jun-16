@@ -16,6 +16,8 @@ mod battle_runtime_creature_type_protection_and_charm_selected_identity;
 mod battle_runtime_danger_sense_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_death_saving_throw.rs"]
 mod battle_runtime_death_saving_throw;
+#[path = "../qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs"]
+mod battle_runtime_dragonborn_breath_weapon;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -53,10 +55,17 @@ use crate::rules::armor_class::{
 };
 use crate::rules::battle_features::{
     danger_sense_initial_state, danger_sense_saving_throw_roll_mode,
-    project_danger_sense_dexterity_advantage, resolve_adrenaline_rush_bonus_action_dash,
-    suppress_danger_sense_while_incapacitated, AdrenalineRushFacts, AdrenalineRushRejection,
-    AdrenalineRushResult, BattleTurnFeatureState, DangerSenseFacts, DangerSenseProtocol,
-    DangerSenseScenarioOutcome, PassiveSavingThrowRollMode, SavingThrowAbility,
+    dragonborn_breath_weapon_damage_die_count, dragonborn_breath_weapon_initial_state,
+    dragonborn_breath_weapon_save_dc, project_danger_sense_dexterity_advantage,
+    reject_dragonborn_breath_weapon_invalid_damage_roll,
+    reject_dragonborn_breath_weapon_mismatched_area,
+    reject_dragonborn_breath_weapon_missing_resource, resolve_adrenaline_rush_bonus_action_dash,
+    resolve_dragonborn_breath_weapon, suppress_danger_sense_while_incapacitated,
+    AdrenalineRushFacts, AdrenalineRushRejection, AdrenalineRushResult, BattleTurnFeatureState,
+    BreathWeaponAreaShape, DangerSenseFacts, DangerSenseProtocol, DangerSenseScenarioOutcome,
+    DragonbornBreathWeaponFacts, DragonbornBreathWeaponInvalidReason,
+    DragonbornBreathWeaponProtocol, DragonbornBreathWeaponScenarioOutcome,
+    PassiveSavingThrowRollMode, SavingThrowAbility,
 };
 use crate::rules::chained_spell_attacks::{
     choose_chromatic_orb_damage_type, choose_chromatic_orb_initial_target,
@@ -183,6 +192,12 @@ use battle_runtime_death_saving_throw::{
     projection_payload as death_saving_throw_projection_payload, replay_fill_death_saving_throw,
     replay_observed_action as replay_death_saving_throw_action,
     BRANCH_ACTIONS as DEATH_SAVING_THROW_BRANCH_ACTIONS, FILL_SAMPLE_NATURAL_D20S,
+};
+use battle_runtime_dragonborn_breath_weapon::{
+    expected_witness as expected_dragonborn_breath_weapon_witness,
+    projection_payload as dragonborn_breath_weapon_projection_payload,
+    replay_observed_action as replay_dragonborn_breath_weapon_action,
+    BRANCH_ACTIONS as DRAGONBORN_BREATH_WEAPON_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1663,5 +1678,104 @@ fn death_saving_throw_resolves_all_sampled_edges() {
     assert_eq!(
         wrong_actor.protocol,
         DeathSavingThrowProtocol::Invalid(DeathSavingThrowInvalidReason::WrongActor)
+    );
+}
+
+#[test]
+fn dragonborn_breath_weapon_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-dragonborn-breath-weapon.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Character-Origins.md
+    // "Dragonborn", "Breath Weapon".
+    for action in DRAGONBORN_BREATH_WEAPON_BRANCH_ACTIONS {
+        let observed = replay_dragonborn_breath_weapon_action(action);
+        assert_eq!(observed, expected_dragonborn_breath_weapon_witness(action));
+        assert!(dragonborn_breath_weapon_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn dragonborn_breath_weapon_spends_use_and_replaces_attack_with_save_damage() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Origins.md
+    // "Dragonborn", "Breath Weapon"; domain:
+    // cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md "Action Resource Modeling",
+    // "Saving Throw", "Proficiency Bonus", "Damage Type", and
+    // "Area of Effect".
+    assert_eq!(dragonborn_breath_weapon_save_dc(3, 2), 13);
+    assert_eq!(dragonborn_breath_weapon_damage_die_count(1), Some(1));
+    assert_eq!(dragonborn_breath_weapon_damage_die_count(5), Some(2));
+    assert_eq!(dragonborn_breath_weapon_damage_die_count(11), Some(3));
+    assert_eq!(dragonborn_breath_weapon_damage_die_count(17), Some(4));
+    assert_eq!(dragonborn_breath_weapon_damage_die_count(0), None);
+
+    let resolved = resolve_dragonborn_breath_weapon(
+        dragonborn_breath_weapon_initial_state(),
+        DragonbornBreathWeaponFacts {
+            character_level: 1,
+            damage_roll: 10,
+            target_saving_throw_succeeded: false,
+            second_target_in_area: true,
+            second_target_saving_throw_succeeded: true,
+            area_shape: BreathWeaponAreaShape::Cone15Feet,
+            expected_area_shape: BreathWeaponAreaShape::Cone15Feet,
+            opens_extra_attack_slot: false,
+        },
+    );
+    assert_eq!(
+        resolved.scenario_outcome,
+        DragonbornBreathWeaponScenarioOutcome::Resolved
+    );
+    assert_eq!(resolved.target_hit_points, 10);
+    assert_eq!(resolved.second_target_hit_points, 15);
+    assert_eq!(resolved.breath_weapon_uses_remaining, 2);
+    assert_eq!(resolved.attack_action_attacks_remaining, 0);
+    assert_eq!(resolved.protocol, DragonbornBreathWeaponProtocol::Resolved);
+
+    let opened_extra_attack = resolve_dragonborn_breath_weapon(
+        dragonborn_breath_weapon_initial_state(),
+        DragonbornBreathWeaponFacts {
+            character_level: 1,
+            damage_roll: 10,
+            target_saving_throw_succeeded: false,
+            second_target_in_area: false,
+            second_target_saving_throw_succeeded: true,
+            area_shape: BreathWeaponAreaShape::Cone15Feet,
+            expected_area_shape: BreathWeaponAreaShape::Cone15Feet,
+            opens_extra_attack_slot: true,
+        },
+    );
+    assert_eq!(
+        opened_extra_attack.scenario_outcome,
+        DragonbornBreathWeaponScenarioOutcome::OpenedExtraAttack
+    );
+    assert_eq!(opened_extra_attack.target_hit_points, 10);
+    assert_eq!(opened_extra_attack.second_target_hit_points, 20);
+    assert_eq!(opened_extra_attack.breath_weapon_uses_remaining, 2);
+    assert_eq!(opened_extra_attack.attack_action_attacks_remaining, 1);
+
+    let missing_resource =
+        reject_dragonborn_breath_weapon_missing_resource(dragonborn_breath_weapon_initial_state());
+    let mismatched_area =
+        reject_dragonborn_breath_weapon_mismatched_area(dragonborn_breath_weapon_initial_state());
+    let invalid_damage = reject_dragonborn_breath_weapon_invalid_damage_roll(
+        dragonborn_breath_weapon_initial_state(),
+    );
+
+    assert_eq!(
+        missing_resource.scenario_outcome,
+        DragonbornBreathWeaponScenarioOutcome::RejectMissingResource
+    );
+    assert_eq!(missing_resource.breath_weapon_uses_remaining, 0);
+    assert_eq!(
+        mismatched_area.scenario_outcome,
+        DragonbornBreathWeaponScenarioOutcome::RejectMismatchedArea
+    );
+    assert_eq!(
+        invalid_damage.scenario_outcome,
+        DragonbornBreathWeaponScenarioOutcome::RejectInvalidDamageRoll
+    );
+    assert_eq!(
+        invalid_damage.protocol,
+        DragonbornBreathWeaponProtocol::Invalid(DragonbornBreathWeaponInvalidReason::InvalidFill)
     );
 }

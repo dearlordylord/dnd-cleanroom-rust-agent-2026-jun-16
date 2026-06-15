@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T022",
-  "startHeadSha": "82cfdbb861fee6d8dc224a974ac3f69c68eba0a3",
+  "taskId": "T023",
+  "startHeadSha": "3104cc37313110c40cc683009fc801bb1976c5fc",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt"
     ]
   }
 }
