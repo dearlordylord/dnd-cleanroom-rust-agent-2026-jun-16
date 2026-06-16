@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T042-battle-runtime-scalar-buff-active-effects.json",
+      "evidence": "tasks/target-replay-evidence/T043-battle-runtime-scalar-buff.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T042"
+  "taskId": "T043"
 }

@@ -1,28 +1,22 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 6,
+      "addedEntries": 2,
       "owner": "production",
-      "reason": "added scalar-buff active-effect projections for Aid, False Life, Longstrider, Shield of Faith, Spider Climb, and stutter"
+      "reason": "added scalar-buff target selection and stale-subject rejection projections for Longstrider"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs",
+      "path": "src/qnt_adapters/battle_runtime_scalar_buff.rs",
       "quarantinedWitnessNames": [
-        "doCastShieldOfFaith",
-        "doCastLongstrider",
-        "doCastSpiderClimb",
-        "doCastAid",
-        "doCastFalseLife",
-        "doStutter",
-        "shieldOfFaith",
-        "longstrider",
-        "spiderClimb",
-        "aid",
-        "falseLife",
+        "doFillLongstriderTarget",
+        "doRejectStaleAfterResolved",
+        "TargetChoice",
+        "WStaleSubject",
         "init",
         "resolved",
+        "invalid",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -40,37 +34,33 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T042-battle-runtime-scalar-buff-active-effects.json"
+        "tasks/target-replay-evidence/T043-battle-runtime-scalar-buff.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "resolve_longstrider_scalar_buff",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt",
-      "module": "src/rules/scalar_buff_active_effects.rs"
+      "api": "fill_longstrider_target_choice",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt",
+      "module": "src/rules/scalar_buff.rs"
     },
     {
-      "api": "resolve_shield_of_faith_scalar_buff",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt",
-      "module": "src/rules/scalar_buff_active_effects.rs"
+      "api": "reject_stale_scalar_buff_after_resolved",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "module": "src/rules/scalar_buff.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "scalar_buff_active_effects_initial_state",
-        "resolve_shield_of_faith_scalar_buff",
-        "resolve_longstrider_scalar_buff",
-        "resolve_spider_climb_scalar_buff",
-        "resolve_aid_scalar_buff",
-        "resolve_false_life_scalar_buff",
-        "stutter_scalar_buff_active_effect"
+        "scalar_buff_target_initial_state",
+        "fill_longstrider_target_choice",
+        "reject_stale_scalar_buff_after_resolved"
       ],
-      "path": "src/rules/scalar_buff_active_effects.rs",
+      "path": "src/rules/scalar_buff.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T042"
+  "taskId": "T043"
 }

@@ -54,6 +54,8 @@ mod battle_runtime_roll_modifier_buff_selected_identity;
 mod battle_runtime_sanctuary_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_save_gated_spell_ordering.rs"]
 mod battle_runtime_save_gated_spell_ordering;
+#[path = "../qnt_adapters/battle_runtime_scalar_buff.rs"]
+mod battle_runtime_scalar_buff;
 #[path = "../qnt_adapters/battle_runtime_scalar_buff_active_effects.rs"]
 mod battle_runtime_scalar_buff_active_effects;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
@@ -278,6 +280,11 @@ use crate::rules::save_gated_spell_ordering::{
     SaveGatedSpellFillOrderingError, SaveGatedSpellFrontierStage, SaveGatedSpellHoleKind,
     SaveGatedSpellOrderingProtocol,
 };
+use crate::rules::scalar_buff::{
+    fill_longstrider_target_choice, reject_stale_scalar_buff_after_resolved,
+    scalar_buff_target_initial_state, ScalarBuffTargetHole, ScalarBuffTargetInvalidReason,
+    ScalarBuffTargetProtocol,
+};
 use crate::rules::scalar_buff_active_effects::{
     resolve_aid_scalar_buff, resolve_false_life_scalar_buff, resolve_longstrider_scalar_buff,
     resolve_shield_of_faith_scalar_buff, resolve_spider_climb_scalar_buff,
@@ -474,6 +481,12 @@ use battle_runtime_save_gated_spell_ordering::{
     projection_payload as save_gated_spell_ordering_projection_payload,
     replay_observed_action as replay_save_gated_spell_ordering_action,
     BRANCH_ACTIONS as SAVE_GATED_SPELL_ORDERING_BRANCH_ACTIONS,
+};
+use battle_runtime_scalar_buff::{
+    expected_witness as expected_scalar_buff_witness,
+    projection_payload as scalar_buff_projection_payload,
+    replay_observed_action as replay_scalar_buff_action,
+    BRANCH_ACTIONS as SCALAR_BUFF_BRANCH_ACTIONS,
 };
 use battle_runtime_scalar_buff_active_effects::{
     expected_witness as expected_scalar_buff_active_effects_witness,
@@ -2960,6 +2973,52 @@ fn save_gated_spell_ordering_tracks_area_damage_and_condition_paths() {
         fill_condition_saving_throw().protocol,
         SaveGatedSpellOrderingProtocol::Resolved
     );
+}
+
+#[test]
+fn scalar_buff_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-scalar-buff.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Longstrider".
+    for action in SCALAR_BUFF_BRANCH_ACTIONS {
+        let observed = replay_scalar_buff_action(action);
+        assert_eq!(observed, expected_scalar_buff_witness(action));
+        assert!(scalar_buff_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn scalar_buff_projects_longstrider_target_and_stale_rejection() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Longstrider"; Ubiquitous Language "Speed"; QNT:
+    // battle-runtime-scalar-buff.mbt.qnt.
+    let initial = scalar_buff_target_initial_state();
+    assert_eq!(initial.fighter_speed_feet, 30);
+    assert_eq!(initial.goblin_speed_feet, 30);
+    assert!(initial.action_available);
+    assert_eq!(initial.protocol, ScalarBuffTargetProtocol::Init);
+    assert_eq!(
+        initial.protocol_holes,
+        vec![ScalarBuffTargetHole::TargetChoice]
+    );
+
+    let filled = fill_longstrider_target_choice();
+    assert_eq!(filled.fighter_speed_feet, 30);
+    assert_eq!(filled.goblin_speed_feet, 40);
+    assert!(!filled.action_available);
+    assert_eq!(filled.protocol, ScalarBuffTargetProtocol::Resolved);
+    assert!(filled.protocol_holes.is_empty());
+
+    let stale = reject_stale_scalar_buff_after_resolved();
+    assert_eq!(stale.fighter_speed_feet, 30);
+    assert_eq!(stale.goblin_speed_feet, 40);
+    assert!(!stale.action_available);
+    assert_eq!(
+        stale.protocol,
+        ScalarBuffTargetProtocol::Invalid(ScalarBuffTargetInvalidReason::StaleSubject)
+    );
+    assert!(stale.protocol_holes.is_empty());
 }
 
 #[test]

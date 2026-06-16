@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T042",
-  "startHeadSha": "924d50090df3775afab38372c92582be4b77c26e",
+  "taskId": "T043",
+  "startHeadSha": "2f5140812b2900e2640e45bfff6daf4c879ea59d",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt"
     ]
   }
 }
