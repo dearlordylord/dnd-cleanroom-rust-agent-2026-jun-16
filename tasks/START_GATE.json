@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T048",
-  "startHeadSha": "e796d195180cc397c42cfb8db71f9de08ba41a4c",
+  "taskId": "T049",
+  "startHeadSha": "775714729189dee67d62854b213a3b790427d290",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt"
     ]
   }
 }

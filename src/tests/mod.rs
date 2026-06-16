@@ -68,6 +68,8 @@ mod battle_runtime_sorcerer_metamagic_distant_selected_identity;
 mod battle_runtime_sorcerer_metamagic_empowered_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_extended_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_extended_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs"]
+mod battle_runtime_sorcerer_metamagic_heightened_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -311,12 +313,16 @@ use crate::rules::sleep_repeat_save::{
 };
 use crate::rules::sorcerer_metamagic::{
     careful_spell_initial_state, distant_spell_initial_state, empowered_spell_initial_state,
-    extended_spell_initial_state, resolve_careful_save_gated_damage,
-    resolve_careful_save_gated_no_effect, resolve_distant_object_light,
-    resolve_empowered_spell_damage_reroll, resolve_extended_creature_size_increase,
+    extended_spell_initial_state, heightened_spell_initial_state,
+    resolve_careful_save_gated_damage, resolve_careful_save_gated_no_effect,
+    resolve_distant_object_light, resolve_empowered_spell_damage_reroll,
+    resolve_extended_creature_size_increase, resolve_heightened_grease_entry_save,
+    resolve_heightened_gust_of_wind_end_turn_save, resolve_heightened_hideous_laughter,
+    resolve_heightened_save_gated_condition_end_turn_save, resolve_heightened_save_gated_damage,
     CarefulSpellProtocol, CarefulSpellScenarioResult, DistantSpellProtocol,
     DistantSpellScenarioResult, EmpoweredSpellProtocol, EmpoweredSpellScenarioResult,
     ExtendedSpellConcentrationSaveMode, ExtendedSpellProtocol, ExtendedSpellScenarioResult,
+    HeightenedSpellProtocol, HeightenedSpellScenarioResult,
 };
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
@@ -550,6 +556,12 @@ use battle_runtime_sorcerer_metamagic_extended_selected_identity::{
     projection_payload as extended_spell_projection_payload,
     replay_observed_action as replay_extended_spell_action,
     BRANCH_ACTIONS as EXTENDED_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_sorcerer_metamagic_heightened_selected_identity::{
+    expected_witness as expected_heightened_spell_witness,
+    projection_payload as heightened_spell_projection_payload,
+    replay_observed_action as replay_heightened_spell_action,
+    BRANCH_ACTIONS as HEIGHTENED_SPELL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3380,6 +3392,62 @@ fn extended_spell_projects_creature_size_duration_and_concentration_mode() {
         ExtendedSpellScenarioResult::ExtendedCreatureSizeIncrease
     );
     assert_eq!(extended.protocol, ExtendedSpellProtocol::Resolved);
+}
+
+#[test]
+fn heightened_spell_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Heightened Spell".
+    for action in HEIGHTENED_SPELL_BRANCH_ACTIONS {
+        let observed = replay_heightened_spell_action(action);
+        assert_eq!(observed, expected_heightened_spell_witness(action));
+        assert!(heightened_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn heightened_spell_projects_damage_condition_and_later_save_cases() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Heightened Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt.
+    let initial = heightened_spell_initial_state();
+    assert!(initial.magic_action_available);
+    assert_eq!(initial.sorcery_points_remaining, 4);
+    assert_eq!(initial.protocol, HeightenedSpellProtocol::Init);
+
+    let damage = resolve_heightened_save_gated_damage();
+    assert!(!damage.magic_action_available);
+    assert_eq!(damage.sorcery_points_remaining, 2);
+    assert_eq!(damage.target_hit_points, 1);
+    assert_eq!(damage.target_active_effect_count, 0);
+    assert_eq!(
+        damage.scenario_result,
+        HeightenedSpellScenarioResult::HeightenedSaveGatedDamage
+    );
+
+    let laughter = resolve_heightened_hideous_laughter();
+    assert!(!laughter.magic_action_available);
+    assert_eq!(laughter.target_hit_points, 10);
+    assert_eq!(laughter.target_active_effect_count, 1);
+    assert_eq!(
+        laughter.scenario_result,
+        HeightenedSpellScenarioResult::HeightenedHideousLaughter
+    );
+
+    for later_save in [
+        resolve_heightened_grease_entry_save(),
+        resolve_heightened_gust_of_wind_end_turn_save(),
+        resolve_heightened_save_gated_condition_end_turn_save(),
+    ] {
+        assert!(later_save.magic_action_available);
+        assert!(later_save.bonus_action_available);
+        assert_eq!(later_save.sorcery_points_remaining, 2);
+        assert_eq!(later_save.target_hit_points, 10);
+        assert_eq!(later_save.target_active_effect_count, 0);
+        assert_eq!(later_save.protocol, HeightenedSpellProtocol::Resolved);
+    }
 }
 
 #[test]

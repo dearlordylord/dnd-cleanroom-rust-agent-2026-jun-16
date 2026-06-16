@@ -215,3 +215,116 @@ pub fn resolve_extended_creature_size_increase() -> ExtendedSpellState {
         protocol: ExtendedSpellProtocol::Resolved,
     }
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum HeightenedSpellScenarioResult {
+    Init,
+    HeightenedSaveGatedDamage,
+    HeightenedHideousLaughter,
+    HeightenedGreaseEntrySave,
+    HeightenedGustOfWindEndTurnSave,
+    HeightenedSaveGatedConditionEndTurnSave,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum HeightenedSpellProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct HeightenedSpellState {
+    pub magic_action_available: bool,
+    pub bonus_action_available: bool,
+    pub sorcery_points_remaining: i16,
+    pub target_hit_points: i16,
+    pub target_active_effect_count: i16,
+    pub scenario_result: HeightenedSpellScenarioResult,
+    pub protocol: HeightenedSpellProtocol,
+}
+
+#[must_use]
+pub fn heightened_spell_initial_state() -> HeightenedSpellState {
+    HeightenedSpellState {
+        magic_action_available: true,
+        bonus_action_available: true,
+        sorcery_points_remaining: 4,
+        target_hit_points: 10,
+        target_active_effect_count: 0,
+        scenario_result: HeightenedSpellScenarioResult::Init,
+        protocol: HeightenedSpellProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn resolve_heightened_save_gated_damage() -> HeightenedSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Heightened Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt.
+    resolved_heightened_spell(
+        false,
+        1,
+        0,
+        HeightenedSpellScenarioResult::HeightenedSaveGatedDamage,
+    )
+}
+
+#[must_use]
+pub fn resolve_heightened_hideous_laughter() -> HeightenedSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Heightened Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt.
+    resolved_heightened_spell(
+        false,
+        10,
+        1,
+        HeightenedSpellScenarioResult::HeightenedHideousLaughter,
+    )
+}
+
+#[must_use]
+pub fn resolve_heightened_grease_entry_save() -> HeightenedSpellState {
+    resolved_heightened_spell(
+        true,
+        10,
+        0,
+        HeightenedSpellScenarioResult::HeightenedGreaseEntrySave,
+    )
+}
+
+#[must_use]
+pub fn resolve_heightened_gust_of_wind_end_turn_save() -> HeightenedSpellState {
+    resolved_heightened_spell(
+        true,
+        10,
+        0,
+        HeightenedSpellScenarioResult::HeightenedGustOfWindEndTurnSave,
+    )
+}
+
+#[must_use]
+pub fn resolve_heightened_save_gated_condition_end_turn_save() -> HeightenedSpellState {
+    resolved_heightened_spell(
+        true,
+        10,
+        0,
+        HeightenedSpellScenarioResult::HeightenedSaveGatedConditionEndTurnSave,
+    )
+}
+
+fn resolved_heightened_spell(
+    magic_action_available: bool,
+    target_hit_points: i16,
+    target_active_effect_count: i16,
+    scenario_result: HeightenedSpellScenarioResult,
+) -> HeightenedSpellState {
+    HeightenedSpellState {
+        magic_action_available,
+        bonus_action_available: true,
+        sorcery_points_remaining: 2,
+        target_hit_points,
+        target_active_effect_count,
+        scenario_result,
+        protocol: HeightenedSpellProtocol::Resolved,
+    }
+}
