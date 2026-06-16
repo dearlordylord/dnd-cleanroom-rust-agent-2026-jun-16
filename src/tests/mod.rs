@@ -102,6 +102,8 @@ mod battle_runtime_weapon_attack_ordering;
 mod battle_runtime_weapon_attack_skeleton;
 #[path = "../qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs"]
 mod battle_runtime_weapon_hosted_attack_and_riders;
+#[path = "../qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs"]
+mod battle_runtime_weapon_mastery_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -449,6 +451,13 @@ use crate::rules::weapon_hosted_attack_and_riders::{
     WEAPON_HOSTED_PROFICIENCY_BONUS, WEAPON_HOSTED_SPELLCASTING_ABILITY_MODIFIER,
     WEAPON_HOSTED_TARGET_INITIAL_HIT_POINTS,
 };
+use crate::rules::weapon_mastery_selected_identity::{
+    damage_after_weapon_mastery_hit, resolve_cleave_mastery_property_second_target_hit,
+    resolve_sap_mastery_property_hit, resolve_topple_mastery_property_failed_saving_throw,
+    weapon_mastery_selected_identity_initial_state, WeaponMasteryRuntimeHole,
+    WeaponMasteryRuntimeOutcome, WeaponMasteryRuntimeProtocol, WEAPON_MASTERY_SAMPLE_WEAPON_DAMAGE,
+    WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS,
+};
 use crate::rules::wild_shape::{
     assume_riding_horse_wild_shape, begin_wild_shape_next_turn, dismiss_wild_shape_form,
     reuse_wild_shape_as_cat, revert_wild_shape_due_to_death,
@@ -770,6 +779,12 @@ use battle_runtime_weapon_hosted_attack_and_riders::{
     replay_divine_favor_damage_sample, replay_observed_action as replay_weapon_hosted_action,
     replay_shillelagh_damage_sample, replay_true_strike_damage_sample,
     BRANCH_ACTIONS as WEAPON_HOSTED_ATTACK_AND_RIDERS_BRANCH_ACTIONS,
+};
+use battle_runtime_weapon_mastery_selected_identity::{
+    expected_witness as expected_weapon_mastery_selected_identity_witness,
+    projection_payload as weapon_mastery_selected_identity_projection_payload,
+    replay_observed_action as replay_weapon_mastery_selected_identity_action,
+    BRANCH_ACTIONS as WEAPON_MASTERY_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3962,6 +3977,79 @@ fn weapon_hosted_attack_and_riders_projects_spells_damage_and_cleanup() {
     assert_eq!(finished.scenario, WeaponHostedScenario::Done);
     assert_eq!(finished.protocol, WeaponHostedProtocol::Resolved);
     assert!(!finished.active_effect_present);
+}
+
+#[test]
+fn weapon_mastery_selected_identity_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-weapon-mastery-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Equipment.md
+    // "Mastery Properties" / "Sap", "Topple", and "Cleave".
+    for action in WEAPON_MASTERY_SELECTED_IDENTITY_BRANCH_ACTIONS {
+        let observed = replay_weapon_mastery_selected_identity_action(action);
+        assert_eq!(
+            observed,
+            expected_weapon_mastery_selected_identity_witness(action)
+        );
+        assert!(
+            weapon_mastery_selected_identity_projection_payload(&observed)
+                .contains("qPrimaryTargetHp=")
+        );
+    }
+}
+
+#[test]
+fn weapon_mastery_selected_identity_projects_sap_topple_and_cleave() {
+    // RAW/QNT citations match `weapon_mastery_selected_identity_adapter_replays_all_branches`.
+    let initial = weapon_mastery_selected_identity_initial_state();
+    assert_eq!(
+        initial.primary_target_hit_points,
+        WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS
+    );
+    assert_eq!(
+        initial.protocol,
+        WeaponMasteryRuntimeProtocol::Init(vec![WeaponMasteryRuntimeHole::WitnessProtocol])
+    );
+    assert_eq!(initial.outcome, WeaponMasteryRuntimeOutcome::Init);
+
+    assert_eq!(
+        damage_after_weapon_mastery_hit(
+            WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS,
+            WEAPON_MASTERY_SAMPLE_WEAPON_DAMAGE
+        ),
+        9
+    );
+
+    let sap = resolve_sap_mastery_property_hit();
+    assert_eq!(sap.primary_target_hit_points, 9);
+    assert_eq!(
+        sap.second_target_hit_points,
+        WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS
+    );
+    assert!(!sap.action_available);
+    assert!(sap.primary_target_has_sap_effect);
+    assert!(!sap.primary_target_prone);
+    assert_eq!(sap.protocol, WeaponMasteryRuntimeProtocol::Resolved);
+
+    let topple = resolve_topple_mastery_property_failed_saving_throw();
+    assert_eq!(
+        topple.primary_target_hit_points,
+        WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS
+    );
+    assert!(topple.action_available);
+    assert!(topple.primary_target_prone);
+    assert_eq!(
+        topple.protocol,
+        WeaponMasteryRuntimeProtocol::NeedsHoles(vec![WeaponMasteryRuntimeHole::WitnessProtocol])
+    );
+    assert_eq!(topple.outcome, WeaponMasteryRuntimeOutcome::NeedsHoles);
+
+    let cleave = resolve_cleave_mastery_property_second_target_hit();
+    assert_eq!(cleave.primary_target_hit_points, 9);
+    assert_eq!(cleave.second_target_hit_points, 9);
+    assert!(!cleave.action_available);
+    assert!(cleave.cleave_used);
+    assert_eq!(cleave.protocol, WeaponMasteryRuntimeProtocol::Resolved);
 }
 
 #[test]

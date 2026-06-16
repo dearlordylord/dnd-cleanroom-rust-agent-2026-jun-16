@@ -3,70 +3,30 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added hosted weapon attack spell and rider runtime projection"
+      "reason": "added battle runtime weapon mastery selected-identity projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "path": "src/qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doDiscoverTrueStrike",
-        "doFillTrueStrikeRadiantTarget",
-        "doFillTrueStrikeHit",
-        "doFillTrueStrikeDamage",
-        "doStartShillelagh",
-        "doCastShillelagh",
-        "doDiscoverShillelaghAttack",
-        "doFillShillelaghTarget",
-        "doFillShillelaghHit",
-        "doFillShillelaghDamage",
-        "doCleanShillelaghLetGo",
-        "doStartDivineFavor",
-        "doCastDivineFavor",
-        "doDiscoverDivineFavorAttack",
-        "doFillDivineFavorTarget",
-        "doFillDivineFavorHit",
-        "doFillDivineFavorDamage",
-        "doCleanDivineFavorDuration",
-        "doStartMagicWeapon",
-        "doDiscoverMagicWeapon",
-        "doFillMagicWeaponTarget",
-        "doCleanMagicWeaponDuration",
-        "doFinish",
-        "weaponDiePip",
-        "riderDiePip",
-        "damageDiePip",
-        "TrueStrikeRadiantHit",
-        "ShillelaghHeldWeaponOverride",
-        "DivineFavorWeaponDamageRider",
-        "MagicWeaponEnhancement",
-        "Done",
-        "Fresh",
-        "SpellChoiceNeeded",
-        "AttackRollNeeded",
-        "AttackDamageNeeded",
-        "ActiveEffectApplied",
-        "WeaponTargetNeeded",
-        "AfterWeaponDamage",
-        "Cleaned",
-        "DamageTypeChoice",
-        "TargetChoice",
-        "AttackRoll",
-        "AttackDamageRoll",
-        "MagicWeaponTargetItem",
+        "doResolveSapMasteryPropertyHit",
+        "doResolveToppleMasteryPropertyFailedSavingThrow",
+        "doResolveCleaveMasteryPropertySecondTargetHit",
+        "WitnessProtocolHole",
+        "Init",
+        "NeedsHoles",
+        "Resolved",
         "init",
         "needsHoles",
         "resolved",
-        "qScenario",
-        "qPhase",
-        "qTargetHp",
-        "qBonusActionAvailable",
-        "qSlotExpended",
-        "qActiveEffectPresent",
-        "qAttackBonus",
-        "qDamageTypeChoiceApplied",
-        "qDamageRiderPresent",
-        "qWeaponEnhancementBonus",
+        "qPrimaryTargetHp",
+        "qSecondTargetHp",
+        "qActionAvailable",
+        "qPrimaryTargetHasSapEffect",
+        "qPrimaryTargetProne",
+        "qCleaveUsed",
+        "qLastResult",
         "qHoles",
         "protocolResult",
         "protocolHoles",
@@ -87,59 +47,35 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T065-battle-runtime-weapon-hosted-attack-and-riders.json"
+        "tasks/target-replay-evidence/T066-battle-runtime-weapon-mastery-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "damage_after",
+      "api": "damage_after_weapon_mastery_hit",
       "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
-      "module": "src/rules/weapon_hosted_attack_and_riders.rs"
+      "module": "src/rules/weapon_mastery_selected_identity.rs"
     },
     {
-      "api": "hosted_spell_attack_bonus",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
-      "module": "src/rules/weapon_hosted_attack_and_riders.rs"
+      "api": "WeaponMasteryRuntimeProtocol",
+      "driver": "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt",
+      "module": "src/rules/weapon_mastery_selected_identity.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "weapon_hosted_attack_and_riders_initial_state",
-        "discover_true_strike_hosted_attack",
-        "fill_true_strike_radiant_target",
-        "fill_true_strike_hit",
-        "fill_true_strike_damage_low",
-        "fill_true_strike_damage_high",
-        "start_shillelagh_scenario",
-        "cast_shillelagh",
-        "discover_shillelagh_attack",
-        "fill_shillelagh_target",
-        "fill_shillelagh_hit",
-        "fill_shillelagh_damage_low",
-        "fill_shillelagh_damage_high",
-        "clean_shillelagh_after_let_go",
-        "start_divine_favor_scenario",
-        "cast_divine_favor",
-        "discover_divine_favor_attack",
-        "fill_divine_favor_target",
-        "fill_divine_favor_hit",
-        "fill_divine_favor_damage_low",
-        "fill_divine_favor_damage_high",
-        "clean_divine_favor_duration",
-        "start_magic_weapon_scenario",
-        "discover_magic_weapon_target_item",
-        "fill_magic_weapon_target_item",
-        "clean_magic_weapon_duration",
-        "finish_weapon_hosted_attack_and_riders",
-        "hosted_spell_attack_bonus",
-        "damage_after"
+        "weapon_mastery_selected_identity_initial_state",
+        "resolve_sap_mastery_property_hit",
+        "resolve_topple_mastery_property_failed_saving_throw",
+        "resolve_cleave_mastery_property_second_target_hit",
+        "damage_after_weapon_mastery_hit"
       ],
-      "path": "src/rules/weapon_hosted_attack_and_riders.rs",
+      "path": "src/rules/weapon_mastery_selected_identity.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T065"
+  "taskId": "T066"
 }

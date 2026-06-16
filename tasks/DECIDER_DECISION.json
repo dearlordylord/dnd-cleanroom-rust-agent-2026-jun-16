@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T065-battle-runtime-weapon-hosted-attack-and-riders.json",
+      "evidence": "tasks/target-replay-evidence/T066-battle-runtime-weapon-mastery-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T065"
+  "taskId": "T066"
 }

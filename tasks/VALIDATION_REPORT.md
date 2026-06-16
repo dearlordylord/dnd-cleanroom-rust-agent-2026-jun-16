@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt`
-- Next task id: `T066`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt`
+- Next task id: `T067`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,74 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T066: battle-runtime-weapon-mastery-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doResolveSapMasteryPropertyHit`
+  - `step:doResolveToppleMasteryPropertyFailedSavingThrow`
+  - `step:doResolveCleaveMasteryPropertySecondTargetHit`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Equipment.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/weapon_mastery_selected_identity.rs` with a bounded battle runtime projection for Sap, Topple, and Cleave mastery property outcomes.
+- Modeled Sap as a weapon hit that damages the primary target, spends the action, and applies the next-attack Sap effect.
+- Modeled Topple failed saving throw as applying Prone while leaving the action available and projecting the QNT witness hole state.
+- Modeled Cleave second-target hit as damaging both primary and second targets, spending the action, and marking Cleave as used.
+- Kept QNT branch actions, witness hole label, outcome labels, protocol strings, and projection field names quarantined in `src/qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt#step:doResolveSapMasteryPropertyHit` | `tasks/target-replay-evidence/T066-battle-runtime-weapon-mastery-selected-identity.json#T066-resolve-sap-mastery-property-hit#step:doResolveSapMasteryPropertyHit` | `src/tests/mod.rs::weapon_mastery_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt#step:doResolveToppleMasteryPropertyFailedSavingThrow` | `tasks/target-replay-evidence/T066-battle-runtime-weapon-mastery-selected-identity.json#T066-resolve-topple-mastery-property-failed-saving-throw#step:doResolveToppleMasteryPropertyFailedSavingThrow` | `src/tests/mod.rs::weapon_mastery_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt#step:doResolveCleaveMasteryPropertySecondTargetHit` | `tasks/target-replay-evidence/T066-battle-runtime-weapon-mastery-selected-identity.json#T066-resolve-cleave-mastery-property-second-target-hit#step:doResolveCleaveMasteryPropertySecondTargetHit` | `src/tests/mod.rs::weapon_mastery_selected_identity_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T066-battle-runtime-weapon-mastery-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T066-resolve-sap-mastery-property-hit`
+- Reproduction seed or trace id: `T066-resolve-topple-mastery-property-failed-saving-throw`
+- Reproduction seed or trace id: `T066-resolve-cleave-mastery-property-second-target-hit`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::weapon_mastery_selected_identity_adapter_replays_all_branches`
+- `src/tests/mod.rs::weapon_mastery_selected_identity_projects_sap_topple_and_cleave`
 
 Remaining gaps:
 
