@@ -48,6 +48,8 @@ mod battle_runtime_magic_missile;
 mod battle_runtime_quickened_spell_governor;
 #[path = "../qnt_adapters/battle_runtime_roll_modifier_active_effects.rs"]
 mod battle_runtime_roll_modifier_active_effects;
+#[path = "../qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs"]
+mod battle_runtime_roll_modifier_buff_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -246,6 +248,13 @@ use crate::rules::roll_modifier_active_effects::{
     RollModifierProtocol, RollModifierRollMode, RollModifierScenarioOutcome, RollModifierSkill,
     RollModifierValue,
 };
+use crate::rules::roll_modifier_buff_selected_identity::{
+    project_bane_failed_save_penalty, project_bless_attack_and_save_modifier,
+    project_guidance_skill_ability_check_modifier, project_resistance_matching_damage_reduction,
+    project_shield_of_faith_armor_class_bonus, roll_modifier_buff_selected_identity_initial_state,
+    RollModifierBuffDamageType, RollModifierBuffProtocol, RollModifierBuffScenarioOutcome,
+    RollModifierBuffSign, RollModifierBuffSkill,
+};
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
     fill_eldritch_blast_attack, fill_eldritch_blast_damage, fill_eldritch_blast_targets,
@@ -418,6 +427,12 @@ use battle_runtime_roll_modifier_active_effects::{
     projection_payload as roll_modifier_active_effects_projection_payload,
     replay_observed_action as replay_roll_modifier_active_effects_action,
     BRANCH_ACTIONS as ROLL_MODIFIER_ACTIVE_EFFECTS_BRANCH_ACTIONS,
+};
+use battle_runtime_roll_modifier_buff_selected_identity::{
+    expected_witness as expected_roll_modifier_buff_selected_identity_witness,
+    projection_payload as roll_modifier_buff_selected_identity_projection_payload,
+    replay_observed_action as replay_roll_modifier_buff_selected_identity_action,
+    BRANCH_ACTIONS as ROLL_MODIFIER_BUFF_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2678,6 +2693,74 @@ fn roll_modifier_active_effects_project_modifiers_holes_and_cleanup() {
         broken.scenario_outcome,
         RollModifierScenarioOutcome::ConcentrationBroken
     );
+}
+
+#[test]
+fn roll_modifier_buff_selected_identity_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt; RAW:
+    // Bane, Bless, Guidance, Resistance, and Shield of Faith descriptions.
+    for action in ROLL_MODIFIER_BUFF_SELECTED_IDENTITY_BRANCH_ACTIONS {
+        let observed = replay_roll_modifier_buff_selected_identity_action(action);
+        assert_eq!(
+            observed,
+            expected_roll_modifier_buff_selected_identity_witness(action)
+        );
+        assert!(
+            roll_modifier_buff_selected_identity_projection_payload(&observed)
+                .contains("protocolResult=resolved")
+        );
+    }
+}
+
+#[test]
+fn roll_modifier_buff_selected_identity_projects_spell_modifiers() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Bane" and "Bless"; Spells/Descriptions-E-L.md "Guidance";
+    // Spells/Descriptions-Q-R.md "Resistance"; Spells/Descriptions-S-Z.md
+    // "Shield of Faith"; QNT:
+    // battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt.
+    let initial = roll_modifier_buff_selected_identity_initial_state();
+    assert_eq!(initial.protocol, RollModifierBuffProtocol::Init);
+    assert_eq!(
+        initial.scenario_outcome,
+        RollModifierBuffScenarioOutcome::Init
+    );
+    assert!(!initial.caster_concentrating);
+
+    let bless = project_bless_attack_and_save_modifier();
+    assert_eq!(bless.d20_modifier_sign, RollModifierBuffSign::Plus);
+    assert!(bless.d20_modifier_attack_roll);
+    assert!(bless.d20_modifier_saving_throw);
+    assert_eq!(bless.primary_target_effect_count, 1);
+    assert_eq!(bless.secondary_target_effect_count, 1);
+
+    let bane = project_bane_failed_save_penalty();
+    assert_eq!(bane.d20_modifier_sign, RollModifierBuffSign::Minus);
+    assert!(bane.d20_modifier_attack_roll);
+    assert!(bane.d20_modifier_saving_throw);
+    assert_eq!(bane.primary_target_effect_count, 1);
+
+    let guidance = project_guidance_skill_ability_check_modifier();
+    assert_eq!(guidance.d20_modifier_sign, RollModifierBuffSign::Plus);
+    assert!(guidance.d20_modifier_ability_check);
+    assert_eq!(guidance.d20_modifier_skill, RollModifierBuffSkill::Stealth);
+    assert!(guidance.invalid_target_rejected);
+
+    let resistance = project_resistance_matching_damage_reduction();
+    assert_eq!(
+        resistance.damage_reduction_type,
+        RollModifierBuffDamageType::Bludgeoning
+    );
+    assert!(resistance.damage_reduction_used);
+
+    let shield = project_shield_of_faith_armor_class_bonus();
+    assert_eq!(
+        shield.scenario_outcome,
+        RollModifierBuffScenarioOutcome::ShieldOfFaith
+    );
+    assert_eq!(shield.primary_target_armor_class, 12);
+    assert_eq!(shield.primary_target_effect_count, 1);
 }
 
 #[test]

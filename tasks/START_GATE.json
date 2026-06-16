@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T038",
-  "startHeadSha": "80eac4c54aab7c2b245ab60d6aafe8699e664861",
+  "taskId": "T039",
+  "startHeadSha": "4cf9b02c30b0b209f8f11116ed721de123c5e5fb",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt"
     ]
   }
 }

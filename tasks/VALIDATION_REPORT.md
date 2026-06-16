@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt`
-- Next task id: `T039`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
+- Next task id: `T040`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,80 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T039: battle-runtime-roll-modifier-buff-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doBaneFailedSavePenalty`
+  - `step:doBlessAttackAndSaveModifier`
+  - `step:doGuidanceSkillAbilityCheckModifier`
+  - `step:doResistanceReducesMatchingDamage`
+  - `step:doShieldOfFaithArmorClassBonus`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-Q-R.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/guidance/README.md`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/roll_modifier_buff_selected_identity.rs` with typed selected-identity projections for Bane, Bless, Guidance, Resistance, and Shield of Faith.
+- Projected caster concentration, effect counts, target Armor Class and Hit Points, D20 modifier sign and scope, Guidance skill identity, invalid-target rejection, Resistance damage type and use, scenario outcome, and resolved protocol state from the QNT driver and cited spell descriptions.
+- Kept exact QNT action names, witness scenario labels, D20 sign strings, damage type strings, and protocol strings quarantined in `src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt#step:doBaneFailedSavePenalty` | `tasks/target-replay-evidence/T039-battle-runtime-roll-modifier-buff-selected-identity.json#T039-bane-failed-save-penalty#step:doBaneFailedSavePenalty` | `src/tests/mod.rs::roll_modifier_buff_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt#step:doBlessAttackAndSaveModifier` | `tasks/target-replay-evidence/T039-battle-runtime-roll-modifier-buff-selected-identity.json#T039-bless-attack-and-save-modifier#step:doBlessAttackAndSaveModifier` | `src/tests/mod.rs::roll_modifier_buff_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt#step:doGuidanceSkillAbilityCheckModifier` | `tasks/target-replay-evidence/T039-battle-runtime-roll-modifier-buff-selected-identity.json#T039-guidance-skill-ability-check-modifier#step:doGuidanceSkillAbilityCheckModifier` | `src/tests/mod.rs::roll_modifier_buff_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt#step:doResistanceReducesMatchingDamage` | `tasks/target-replay-evidence/T039-battle-runtime-roll-modifier-buff-selected-identity.json#T039-resistance-reduces-matching-damage#step:doResistanceReducesMatchingDamage` | `src/tests/mod.rs::roll_modifier_buff_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt#step:doShieldOfFaithArmorClassBonus` | `tasks/target-replay-evidence/T039-battle-runtime-roll-modifier-buff-selected-identity.json#T039-shield-of-faith-armor-class-bonus#step:doShieldOfFaithArmorClassBonus` | `src/tests/mod.rs::roll_modifier_buff_selected_identity_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T039-battle-runtime-roll-modifier-buff-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T039-bane-failed-save-penalty`
+- Reproduction seed or trace id: `T039-bless-attack-and-save-modifier`
+- Reproduction seed or trace id: `T039-guidance-skill-ability-check-modifier`
+- Reproduction seed or trace id: `T039-resistance-reduces-matching-damage`
+- Reproduction seed or trace id: `T039-shield-of-faith-armor-class-bonus`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::roll_modifier_buff_selected_identity_projects_spell_modifiers`
 
 Remaining gaps:
 

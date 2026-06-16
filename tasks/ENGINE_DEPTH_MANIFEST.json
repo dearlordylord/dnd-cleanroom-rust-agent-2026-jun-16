@@ -1,69 +1,31 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 8,
+      "addedEntries": 5,
       "owner": "production",
-      "reason": "added roll-modifier discovery and spell-cast projections for Bane, Bless, Guidance, Pass without Trace, and Enhance Ability"
-    },
-    {
-      "addedEntries": 8,
-      "owner": "production",
-      "reason": "added roll-modifier projections for per-target Enhance Ability, Enthrall, Thaumaturgy, concentration cleanup, and active-effect stutter"
+      "reason": "added roll-modifier buff selected-identity projections for Bane, Bless, Guidance, Resistance, and Shield of Faith"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs",
+      "path": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doDiscoverBaneSave",
-        "doCastBaneFailed",
-        "doCastBless",
-        "doDiscoverGuidanceSkillChoice",
-        "doCastGuidanceStealth",
-        "doCastPassWithoutTrace",
-        "doDiscoverEnhanceAbilityChoice",
-        "doCastEnhanceDex",
-        "doDiscoverEnhanceTargetAbilityChoices",
-        "doCastEnhancePerTarget",
-        "doCastEnthrall",
-        "doDiscoverThaumaturgyCount",
-        "doCastThaumaturgyBoomingVoice",
-        "doCastThaumaturgyCancelled",
-        "doBreakConcentration",
-        "doStutter",
-        "NeedsBaneSave",
-        "BaneFailedTarget",
-        "BlessTarget",
-        "NeedsGuidanceSkill",
-        "GuidanceStealth",
-        "PassWithoutTraceStealth",
-        "NeedsEnhanceAbility",
-        "EnhanceDex",
-        "NeedsEnhanceTargetAbilities",
-        "EnhancePerTarget",
-        "EnthrallPerception",
-        "NeedsThaumaturgyCount",
-        "ThaumaturgyBoomingVoice",
-        "ThaumaturgyCancelled",
-        "ConcentrationBroken",
-        "SavingThrowOutcome",
-        "SkillChoice",
-        "AbilityChoice",
-        "TargetAbilityChoices",
-        "ThaumaturgyActiveOneMinuteEffectCount",
+        "doBlessAttackAndSaveModifier",
+        "doBaneFailedSavePenalty",
+        "doGuidanceSkillAbilityCheckModifier",
+        "doResistanceReducesMatchingDamage",
+        "doShieldOfFaithArmorClassBonus",
+        "Bless",
+        "Bane",
+        "Guidance",
+        "Resistance",
+        "ShieldOfFaith",
         "none",
-        "+1d4",
-        "-1d4",
-        "+10",
-        "-10",
-        "dex",
-        "wis",
+        "+",
+        "-",
         "stealth",
-        "perception",
-        "normal",
-        "advantage",
+        "bludgeoning",
         "init",
-        "needsHoles",
         "resolved",
         "mbt::actionTaken",
         "mbt::nondetPicks",
@@ -82,52 +44,36 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json"
+        "tasks/target-replay-evidence/T039-battle-runtime-roll-modifier-buff-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "cast_bane_failed",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
-      "module": "src/rules/roll_modifier_active_effects.rs"
+      "api": "project_shield_of_faith_armor_class_bonus",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt",
+      "module": "src/rules/roll_modifier_buff_selected_identity.rs"
     },
     {
-      "api": "cast_bless",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
-      "module": "src/rules/roll_modifier_active_effects.rs"
-    },
-    {
-      "api": "break_roll_modifier_concentration",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
-      "module": "src/rules/roll_modifier_active_effects.rs"
+      "api": "project_resistance_matching_damage_reduction",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt",
+      "module": "src/rules/roll_modifier_buff_selected_identity.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "roll_modifier_active_effects_initial_state",
-        "discover_bane_save",
-        "cast_bane_failed",
-        "cast_bless",
-        "discover_guidance_skill_choice",
-        "cast_guidance_stealth",
-        "cast_pass_without_trace",
-        "discover_enhance_ability_choice",
-        "cast_enhance_dex",
-        "discover_enhance_target_ability_choices",
-        "cast_enhance_per_target",
-        "cast_enthrall",
-        "discover_thaumaturgy_count",
-        "cast_thaumaturgy_booming_voice",
-        "cast_thaumaturgy_cancelled",
-        "break_roll_modifier_concentration",
-        "stutter_roll_modifier_active_effect"
+        "roll_modifier_buff_selected_identity_initial_state",
+        "project_bless_attack_and_save_modifier",
+        "project_bane_failed_save_penalty",
+        "project_guidance_skill_ability_check_modifier",
+        "project_resistance_matching_damage_reduction",
+        "project_shield_of_faith_armor_class_bonus"
       ],
-      "path": "src/rules/roll_modifier_active_effects.rs",
+      "path": "src/rules/roll_modifier_buff_selected_identity.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T038"
+  "taskId": "T039"
 }

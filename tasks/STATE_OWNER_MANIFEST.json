@@ -4,152 +4,136 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.action_available",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.caster_concentrating",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.spell_available",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.caster_hp",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.caster_concentrating",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.caster_effect_count",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.target_attack_modifier",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.primary_target_effect_count",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.target_saving_throw_modifier",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.secondary_target_effect_count",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.caster_ability_check_modifier",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.primary_target_armor_class",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.target_ability_check_modifier",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.primary_target_hp",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.caster_skill",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.d20_modifier_sign",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.target_skill",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.d20_modifier_attack_roll",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.target_ability_choice",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.d20_modifier_saving_throw",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.second_target_ability_choice",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.d20_modifier_ability_check",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.target_ability_check_roll_mode",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.d20_modifier_skill",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.second_target_ability_check_roll_mode",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.invalid_target_rejected",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.thaumaturgy_intimidation_roll_mode",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.damage_reduction_type",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.thaumaturgy_effect_active",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.damage_reduction_used",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.passive_perception_delta",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.scenario_outcome",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RollModifierActiveEffectsState.scenario_outcome",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "RollModifierActiveEffectsState.protocol",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "RollModifierActiveEffectsState.protocol_holes",
-      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "fieldPath": "RollModifierBuffSelectedIdentityState.protocol",
+      "introducedIn": "src/rules/roll_modifier_buff_selected_identity.rs",
       "owner": "battle-state"
     },
     {
@@ -158,10 +142,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T038"
+  "taskId": "T039"
 }

@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json",
+      "evidence": "tasks/target-replay-evidence/T039-battle-runtime-roll-modifier-buff-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T038"
+  "taskId": "T039"
 }
