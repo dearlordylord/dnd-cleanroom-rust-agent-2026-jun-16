@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt`
-- Next task id: `T073`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt`
+- Next task id: `T074`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,84 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T073: rule-core-shove-outcome
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt`
+- Branch obligations:
+  - `step:doInvalidPushDistance`
+  - `step:doSaveFailsProne`
+  - `step:doSaveFailsPush`
+  - `step:doSaveFailsPushBlocked`
+  - `step:doSaveFailsPushNoLegalDestination`
+  - `step:doSaveSucceeds`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/shove-outcome.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/shove-outcome-examples.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/rule_core_shove_outcome.rs` with typed Shove outcome inputs, legal push-distance validation, accepted no-push and accepted push projections, blocked push reasons, invalid-distance rejection, action availability, opportunity-attack suppression, and replay index projection.
+- Kept QNT branch actions, scenario labels, disposition labels, blocked reason labels, and projection field names quarantined in `src/qnt_adapters/rule_core_shove_outcome_mbt.rs`.
+- Followed RAW Unarmed Strike Shove, Attack action, and Opportunity Attacks text, plus the formal `shove-outcome.qnt` projection.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doInvalidPushDistance` | `tasks/target-replay-evidence/T073-rule-core-shove-outcome.json#T073-invalid-push-distance#step:doInvalidPushDistance` | `src/tests/mod.rs::shove_outcome_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsProne` | `tasks/target-replay-evidence/T073-rule-core-shove-outcome.json#T073-save-fails-prone#step:doSaveFailsProne` | `src/tests/mod.rs::shove_outcome_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsPush` | `tasks/target-replay-evidence/T073-rule-core-shove-outcome.json#T073-save-fails-push#step:doSaveFailsPush` | `src/tests/mod.rs::shove_outcome_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsPushBlocked` | `tasks/target-replay-evidence/T073-rule-core-shove-outcome.json#T073-save-fails-push-blocked#step:doSaveFailsPushBlocked` | `src/tests/mod.rs::shove_outcome_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsPushNoLegalDestination` | `tasks/target-replay-evidence/T073-rule-core-shove-outcome.json#T073-save-fails-push-no-legal-destination#step:doSaveFailsPushNoLegalDestination` | `src/tests/mod.rs::shove_outcome_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveSucceeds` | `tasks/target-replay-evidence/T073-rule-core-shove-outcome.json#T073-save-succeeds#step:doSaveSucceeds` | `src/tests/mod.rs::shove_outcome_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T073-rule-core-shove-outcome.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T073-invalid-push-distance`
+- Reproduction seed or trace id: `T073-save-fails-prone`
+- Reproduction seed or trace id: `T073-save-fails-push`
+- Reproduction seed or trace id: `T073-save-fails-push-blocked`
+- Reproduction seed or trace id: `T073-save-fails-push-no-legal-destination`
+- Reproduction seed or trace id: `T073-save-succeeds`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::shove_outcome_adapter_replays_all_branches`
+- `src/tests/mod.rs::shove_outcome_projects_save_prone_push_and_rejections`
 
 Remaining gaps:
 

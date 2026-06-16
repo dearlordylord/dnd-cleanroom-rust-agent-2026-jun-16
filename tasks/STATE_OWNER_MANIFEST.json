@@ -4,88 +4,80 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RuleCoreReactionState.interrupted_movement_spent_feet",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "fieldPath": "ShoveOutcomeState.last_scenario",
+      "introducedIn": "src/rules/rule_core_shove_outcome.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RuleCoreReactionState.reactor_reaction_available",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "fieldPath": "ShoveOutcomeState.accepted",
+      "introducedIn": "src/rules/rule_core_shove_outcome.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RuleCoreReactionState.reactor_readied_movement_held",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "fieldPath": "ShoveOutcomeState.target_prone",
+      "introducedIn": "src/rules/rule_core_shove_outcome.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RuleCoreReactionState.reactor_readied_spell_held",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "fieldPath": "ShoveOutcomeState.push_emitted",
+      "introducedIn": "src/rules/rule_core_shove_outcome.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RuleCoreReactionState.reactor_movement_spent_feet",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "fieldPath": "ShoveOutcomeState.push_disposition_kind",
+      "introducedIn": "src/rules/rule_core_shove_outcome.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RuleCoreReactionState.interrupted_concentration",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "fieldPath": "ShoveOutcomeState.push_blocked_reason",
+      "introducedIn": "src/rules/rule_core_shove_outcome.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RuleCoreReactionState.reactor_concentration",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "fieldPath": "ShoveOutcomeState.push_distance_feet",
+      "introducedIn": "src/rules/rule_core_shove_outcome.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RuleCoreReactionState.reaction_window",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "fieldPath": "ShoveOutcomeState.push_provokes_opportunity_attacks",
+      "introducedIn": "src/rules/rule_core_shove_outcome.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RuleCoreReactionState.pending_trigger",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "fieldPath": "ShoveOutcomeState.action_available",
+      "introducedIn": "src/rules/rule_core_shove_outcome.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "RuleCoreReactionState.protocol",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "RuleCoreReactionState.last_concentration_save_dc",
-      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "fieldPath": "ShoveOutcomeState.replay_index",
+      "introducedIn": "src/rules/rule_core_shove_outcome.rs",
       "owner": "battle-state"
     },
     {
@@ -94,10 +86,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "introducedIn": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T072"
+  "taskId": "T073"
 }

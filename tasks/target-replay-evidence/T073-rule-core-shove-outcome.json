@@ -1,0 +1,210 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "qntFileSha256": "47a6105beffcc3bef07f37af7b061910a875b754ee13a64a4b7ed5f6cde57193",
+      "branchFamily": "step",
+      "branchAction": "doInvalidPushDistance",
+      "observedActionTaken": "doInvalidPushDistance",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "traceId": "T073-invalid-push-distance",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ShoveOutcomeState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "4441ff49b8a1dc7f114203b3a45b30896c545886543c846afbac998ac42b1cb4",
+        "observedProjectionSha256": "4441ff49b8a1dc7f114203b3a45b30896c545886543c846afbac998ac42b1cb4",
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "qntFileSha256": "47a6105beffcc3bef07f37af7b061910a875b754ee13a64a4b7ed5f6cde57193",
+      "branchFamily": "step",
+      "branchAction": "doSaveFailsProne",
+      "observedActionTaken": "doSaveFailsProne",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "traceId": "T073-save-fails-prone",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ShoveOutcomeState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "b576b07c93a3b48e91ab18bfc087b0413f0d3462ca9ca15444cce48245388f40",
+        "observedProjectionSha256": "b576b07c93a3b48e91ab18bfc087b0413f0d3462ca9ca15444cce48245388f40",
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "qntFileSha256": "47a6105beffcc3bef07f37af7b061910a875b754ee13a64a4b7ed5f6cde57193",
+      "branchFamily": "step",
+      "branchAction": "doSaveFailsPush",
+      "observedActionTaken": "doSaveFailsPush",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "traceId": "T073-save-fails-push",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ShoveOutcomeState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "d89bf1743e41a5eb24d718f40fee17e5840c1735cf5fbf6525f9b48fad35d53d",
+        "observedProjectionSha256": "d89bf1743e41a5eb24d718f40fee17e5840c1735cf5fbf6525f9b48fad35d53d",
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "qntFileSha256": "47a6105beffcc3bef07f37af7b061910a875b754ee13a64a4b7ed5f6cde57193",
+      "branchFamily": "step",
+      "branchAction": "doSaveFailsPushBlocked",
+      "observedActionTaken": "doSaveFailsPushBlocked",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "traceId": "T073-save-fails-push-blocked",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ShoveOutcomeState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "29aa15a99b219088b2f4737af648feda89caf952cfdb4afe5323b3a3f6c5ee36",
+        "observedProjectionSha256": "29aa15a99b219088b2f4737af648feda89caf952cfdb4afe5323b3a3f6c5ee36",
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "qntFileSha256": "47a6105beffcc3bef07f37af7b061910a875b754ee13a64a4b7ed5f6cde57193",
+      "branchFamily": "step",
+      "branchAction": "doSaveFailsPushNoLegalDestination",
+      "observedActionTaken": "doSaveFailsPushNoLegalDestination",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "traceId": "T073-save-fails-push-no-legal-destination",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ShoveOutcomeState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "aa74dd8344a1f756c03e58cb02016109ab79013a3de020da00b9d4328cf1e3d2",
+        "observedProjectionSha256": "aa74dd8344a1f756c03e58cb02016109ab79013a3de020da00b9d4328cf1e3d2",
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "qntFileSha256": "47a6105beffcc3bef07f37af7b061910a875b754ee13a64a4b7ed5f6cde57193",
+      "branchFamily": "step",
+      "branchAction": "doSaveSucceeds",
+      "observedActionTaken": "doSaveSucceeds",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "traceId": "T073-save-succeeds",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "ShoveOutcomeState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "8d9f515f59f1fd8609e9297aaa346737970c0f1e783540ac2a4c246a21881486",
+        "observedProjectionSha256": "8d9f515f59f1fd8609e9297aaa346737970c0f1e783540ac2a4c246a21881486",
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}

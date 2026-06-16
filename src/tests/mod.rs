@@ -142,6 +142,8 @@ mod rule_core_hit_point_damage_mbt;
 mod rule_core_movement_mbt;
 #[path = "../qnt_adapters/rule_core_reactions_mbt.rs"]
 mod rule_core_reactions_mbt;
+#[path = "../qnt_adapters/rule_core_shove_outcome_mbt.rs"]
+mod rule_core_shove_outcome_mbt;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -357,6 +359,14 @@ use crate::rules::rule_core_reactions::{
     take_readied_movement_fill, take_readied_movement_short, RuleCorePendingTrigger,
     RuleCoreReactionHole, RuleCoreReactionInvalidReason, RuleCoreReactionProtocol,
     RuleCoreReactionWindow,
+};
+use crate::rules::rule_core_shove_outcome::{
+    apply_shove_outcome, legal_shove_push_disposition, reject_shove_invalid_push_distance,
+    resolve_shove_save_fails_prone, resolve_shove_save_fails_push,
+    resolve_shove_save_fails_push_blocked, resolve_shove_save_fails_push_no_legal_destination,
+    resolve_shove_save_succeeds, ShoveFailedEffect, ShoveOutcome, ShoveOutcomeResult,
+    ShovePushBlockedProjectionReason, ShovePushBlockedReason, ShovePushDisposition,
+    ShovePushDispositionKind, SHOVE_INVALID_PUSH_DISTANCE_FEET, SHOVE_LEGAL_PUSH_DISTANCE_FEET,
 };
 use crate::rules::sanctuary_selected_identity::{
     cast_sanctuary_ward_creation, end_ward_on_warded_attack_roll, end_ward_on_warded_damage_dealt,
@@ -946,6 +956,10 @@ use rule_core_reactions_mbt::{
     expected_witness as expected_reactions_witness,
     projection_payload as reactions_projection_payload,
     replay_observed_action as replay_reactions_action, BRANCH_ACTIONS as REACTIONS_BRANCH_ACTIONS,
+};
+use rule_core_shove_outcome_mbt::{
+    expected_witness as expected_shove_witness, projection_payload as shove_projection_payload,
+    replay_observed_action as replay_shove_action, BRANCH_ACTIONS as SHOVE_BRANCH_ACTIONS,
 };
 
 #[test]
@@ -2495,6 +2509,90 @@ fn reactions_project_opportunity_ready_movement_and_concentration() {
     let broken = break_reactor_concentration_after_large_damage();
     assert!(!broken.reactor_concentration);
     assert_eq!(broken.last_concentration_save_dc, 11);
+}
+
+#[test]
+fn shove_outcome_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt
+    // and shared-algebras/proofs/rule-core/shove-outcome.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md "Unarmed Strike"
+    // / "Shove"; Playing-the-Game.md "Actions" and "Opportunity Attacks".
+    assert_eq!(SHOVE_BRANCH_ACTIONS.len(), 6);
+    for action in SHOVE_BRANCH_ACTIONS {
+        let observed = replay_shove_action(action);
+        assert_eq!(observed, expected_shove_witness(action));
+        assert!(shove_projection_payload(&observed).contains("qPushDistanceFeet="));
+    }
+}
+
+#[test]
+fn shove_outcome_projects_save_prone_push_and_rejections() {
+    // RAW/QNT citations match `shove_outcome_adapter_replays_all_branches`.
+    let save_succeeds = resolve_shove_save_succeeds();
+    assert!(save_succeeds.accepted);
+    assert!(!save_succeeds.target_prone);
+    assert!(!save_succeeds.action_available);
+    assert_eq!(save_succeeds.replay_index, 1);
+
+    let prone = resolve_shove_save_fails_prone();
+    assert!(prone.accepted);
+    assert!(prone.target_prone);
+    assert!(!prone.push_emitted);
+
+    let push = resolve_shove_save_fails_push();
+    assert!(push.accepted);
+    assert!(push.push_emitted);
+    assert_eq!(push.push_disposition_kind, ShovePushDispositionKind::Pushed);
+    assert_eq!(push.push_distance_feet, SHOVE_LEGAL_PUSH_DISTANCE_FEET);
+    assert!(!push.push_provokes_opportunity_attacks);
+
+    let blocked = resolve_shove_save_fails_push_blocked();
+    assert_eq!(
+        blocked.push_disposition_kind,
+        ShovePushDispositionKind::Blocked
+    );
+    assert_eq!(
+        blocked.push_blocked_reason,
+        ShovePushBlockedProjectionReason::Blocked
+    );
+    let no_destination = resolve_shove_save_fails_push_no_legal_destination();
+    assert_eq!(
+        no_destination.push_blocked_reason,
+        ShovePushBlockedProjectionReason::NoLegalDestination
+    );
+
+    let invalid = reject_shove_invalid_push_distance();
+    assert!(!invalid.accepted);
+    assert!(!invalid.push_emitted);
+    assert!(invalid.action_available);
+    assert_eq!(invalid.push_distance_feet, 0);
+
+    assert!(legal_shove_push_disposition(ShovePushDisposition::Pushed {
+        distance_feet: SHOVE_LEGAL_PUSH_DISTANCE_FEET,
+    }));
+    assert!(!legal_shove_push_disposition(
+        ShovePushDisposition::Pushed {
+            distance_feet: SHOVE_INVALID_PUSH_DISTANCE_FEET,
+        }
+    ));
+    assert_eq!(
+        apply_shove_outcome(
+            false,
+            ShoveOutcome::SaveFailed {
+                failed_effect: ShoveFailedEffect::PushAway(ShovePushDisposition::Blocked {
+                    distance_feet: SHOVE_LEGAL_PUSH_DISTANCE_FEET,
+                    reason: ShovePushBlockedReason::NoLegalDestination,
+                }),
+            },
+        ),
+        ShoveOutcomeResult::AcceptedPush {
+            target_prone: false,
+            disposition: ShovePushDisposition::Blocked {
+                distance_feet: SHOVE_LEGAL_PUSH_DISTANCE_FEET,
+                reason: ShovePushBlockedReason::NoLegalDestination,
+            },
+        }
+    );
 }
 
 #[test]

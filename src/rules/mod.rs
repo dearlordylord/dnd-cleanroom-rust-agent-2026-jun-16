@@ -26,6 +26,7 @@ pub mod roll_modifier_buff_selected_identity;
 pub mod rule_core_hit_point_damage;
 pub mod rule_core_movement;
 pub mod rule_core_reactions;
+pub mod rule_core_shove_outcome;
 pub mod sanctuary_selected_identity;
 pub mod save_gated_spell_ordering;
 pub mod scalar_buff;
