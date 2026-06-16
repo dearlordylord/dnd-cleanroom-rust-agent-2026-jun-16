@@ -328,3 +328,55 @@ fn resolved_heightened_spell(
         protocol: HeightenedSpellProtocol::Resolved,
     }
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SeekingSpellScenarioResult {
+    Init,
+    SeekingSpellAttackReroll,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SeekingSpellProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SeekingSpellState {
+    pub magic_action_available: bool,
+    pub bonus_action_available: bool,
+    pub sorcery_points_remaining: i16,
+    pub target_hit_points: i16,
+    pub target_active_effect_count: i16,
+    pub scenario_result: SeekingSpellScenarioResult,
+    pub protocol: SeekingSpellProtocol,
+}
+
+#[must_use]
+pub fn seeking_spell_initial_state() -> SeekingSpellState {
+    SeekingSpellState {
+        magic_action_available: true,
+        bonus_action_available: true,
+        sorcery_points_remaining: 4,
+        target_hit_points: 10,
+        target_active_effect_count: 0,
+        scenario_result: SeekingSpellScenarioResult::Init,
+        protocol: SeekingSpellProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn resolve_seeking_spell_attack_reroll() -> SeekingSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Seeking Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-seeking-selected-identity.mbt.qnt.
+    SeekingSpellState {
+        magic_action_available: false,
+        bonus_action_available: true,
+        sorcery_points_remaining: 3,
+        target_hit_points: 3,
+        target_active_effect_count: 1,
+        scenario_result: SeekingSpellScenarioResult::SeekingSpellAttackReroll,
+        protocol: SeekingSpellProtocol::Resolved,
+    }
+}

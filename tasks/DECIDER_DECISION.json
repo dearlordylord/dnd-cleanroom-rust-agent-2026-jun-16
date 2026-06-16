@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T049-battle-runtime-sorcerer-metamagic-heightened-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T050-battle-runtime-sorcerer-metamagic-seeking-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T049"
+  "taskId": "T050"
 }
