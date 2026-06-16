@@ -1,13 +1,13 @@
 use crate::rules::sorcerer_metamagic::{
-    resolve_quickened_spell_attack, QuickenedMetamagicProtocol, QuickenedMetamagicScenarioResult,
-    QuickenedMetamagicState,
+    resolve_quickened_spell_attack_sequence, QuickenedMetamagicProtocol,
+    QuickenedMetamagicScenarioResult, QuickenedMetamagicState,
 };
 
-pub const BRANCH_ACTIONS: [&str; 1] = ["doResolveQuickenedSpellAttack"];
+pub const BRANCH_ACTIONS: [&str; 1] = ["doResolveQuickenedSpellAttackSequence"];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> QuickenedMetamagicState {
     match observed_action_taken {
-        "doResolveQuickenedSpellAttack" => resolve_quickened_spell_attack(),
+        "doResolveQuickenedSpellAttackSequence" => resolve_quickened_spell_attack_sequence(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
 }

@@ -38,6 +38,9 @@ fn scenario_ref(result: QuickenedMetamagicScenarioResult) -> &'static str {
         QuickenedMetamagicScenarioResult::Init => "init",
         QuickenedMetamagicScenarioResult::QuickenedSaveGatedDamage => "quickenedSaveGatedDamage",
         QuickenedMetamagicScenarioResult::QuickenedSpellAttack => "quickenedSpellAttack",
+        QuickenedMetamagicScenarioResult::QuickenedSpellAttackSequence => {
+            "quickenedSpellAttackSequence"
+        }
     }
 }
 
