@@ -92,6 +92,26 @@ pub struct DeathSavingThrowState {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum HealingStabilizationScenarioOutcome {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum HealingStabilizationProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct HealingStabilizationState {
+    pub death_saving_throw: DeathSavingThrowState,
+    pub action_available: bool,
+    pub scenario_outcome: HealingStabilizationScenarioOutcome,
+    pub protocol: HealingStabilizationProtocol,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct DeathSavingThrowFacts {
     pub natural_d20: i16,
 }
@@ -273,6 +293,46 @@ pub fn death_saving_throw_initial_state() -> DeathSavingThrowState {
         target_death_successes: 2,
         target_death_failures: 1,
         protocol: DeathSavingThrowProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn healing_stabilization_initial_state() -> HealingStabilizationState {
+    HealingStabilizationState {
+        death_saving_throw: death_saving_throw_initial_state(),
+        action_available: true,
+        scenario_outcome: HealingStabilizationScenarioOutcome::Init,
+        protocol: HealingStabilizationProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn resolve_spare_the_dying_stabilization(
+    state: HealingStabilizationState,
+) -> HealingStabilizationState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Spare the Dying"; RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Death Saving Throws" and "Stabilizing a Character".
+    if !state.action_available
+        || state.death_saving_throw.target_hp != 0
+        || state.death_saving_throw.target_dead
+    {
+        return state;
+    }
+
+    HealingStabilizationState {
+        death_saving_throw: DeathSavingThrowState {
+            target_hp: 0,
+            target_stable: true,
+            target_unconscious: true,
+            target_death_successes: 0,
+            target_death_failures: 0,
+            protocol: DeathSavingThrowProtocol::Resolved,
+            ..state.death_saving_throw
+        },
+        action_available: false,
+        scenario_outcome: HealingStabilizationScenarioOutcome::Resolved,
+        protocol: HealingStabilizationProtocol::Resolved,
     }
 }
 

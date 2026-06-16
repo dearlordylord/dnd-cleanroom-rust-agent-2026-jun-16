@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T028",
-  "startHeadSha": "0e262d7c49607af96a108926f727e9f644812275",
+  "taskId": "T029",
+  "startHeadSha": "03364e7f707b68d44e8fc01b7d2068a9905aa4b5",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt"
     ]
   }
 }

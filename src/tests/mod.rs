@@ -28,6 +28,8 @@ mod battle_runtime_feature_selected_identity;
 mod battle_runtime_find_familiar_companion_lifecycle;
 #[path = "../qnt_adapters/battle_runtime_find_familiar_selected_identity.rs"]
 mod battle_runtime_find_familiar_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs"]
+mod battle_runtime_healing_stabilization_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -141,9 +143,11 @@ use crate::rules::find_familiar::{
 };
 use crate::rules::hit_points::{
     complete_long_rest_benefits, death_saving_throw_initial_state, discover_death_saving_throw,
-    fill_death_saving_throw, fixed_higher_level_hit_point_gain, hit_point_maximum_projection,
-    reject_wrong_actor_after_resolved, spend_hit_point_die, DeathSavingThrowFacts,
-    DeathSavingThrowInvalidReason, DeathSavingThrowProtocol, DeathSavingThrowTurnRole,
+    fill_death_saving_throw, fixed_higher_level_hit_point_gain,
+    healing_stabilization_initial_state, hit_point_maximum_projection,
+    reject_wrong_actor_after_resolved, resolve_spare_the_dying_stabilization, spend_hit_point_die,
+    DeathSavingThrowFacts, DeathSavingThrowInvalidReason, DeathSavingThrowProtocol,
+    DeathSavingThrowTurnRole, HealingStabilizationProtocol, HealingStabilizationScenarioOutcome,
     HitPointMaximumFacts, SheetHitPointState,
 };
 use crate::rules::origin_feats::{
@@ -261,6 +265,12 @@ use battle_runtime_find_familiar_selected_identity::{
     projection_payload as find_familiar_selected_identity_projection_payload,
     replay_observed_action as replay_find_familiar_selected_identity_action,
     BRANCH_ACTIONS as FIND_FAMILIAR_SELECTED_IDENTITY_BRANCH_ACTIONS,
+};
+use battle_runtime_healing_stabilization_selected_identity::{
+    expected_witness as expected_healing_stabilization_witness,
+    projection_payload as healing_stabilization_projection_payload,
+    replay_observed_action as replay_healing_stabilization_action,
+    BRANCH_ACTIONS as HEALING_STABILIZATION_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1742,6 +1752,49 @@ fn death_saving_throw_resolves_all_sampled_edges() {
         wrong_actor.protocol,
         DeathSavingThrowProtocol::Invalid(DeathSavingThrowInvalidReason::WrongActor)
     );
+}
+
+#[test]
+fn healing_stabilization_adapter_replays_spare_the_dying_branch() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-healing-stabilization-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Spare the Dying".
+    for action in HEALING_STABILIZATION_BRANCH_ACTIONS {
+        let observed = replay_healing_stabilization_action(action);
+        assert_eq!(observed, expected_healing_stabilization_witness(action));
+        assert!(healing_stabilization_projection_payload(&observed).contains("qTargetStable=true"));
+    }
+}
+
+#[test]
+fn spare_the_dying_stabilizes_without_healing_or_waking() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Spare the Dying"; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Death Saving Throws" and "Stabilizing a Character"; QNT:
+    // battle-runtime-healing-stabilization-selected-identity.mbt.qnt.
+    let initial = healing_stabilization_initial_state();
+    assert_eq!(initial.death_saving_throw.target_hp, 0);
+    assert!(!initial.death_saving_throw.target_stable);
+    assert!(initial.death_saving_throw.target_unconscious);
+    assert_eq!(initial.death_saving_throw.target_death_successes, 2);
+    assert_eq!(initial.death_saving_throw.target_death_failures, 1);
+    assert!(initial.action_available);
+    assert_eq!(initial.protocol, HealingStabilizationProtocol::Init);
+
+    let resolved = resolve_spare_the_dying_stabilization(initial);
+    assert_eq!(resolved.death_saving_throw.target_hp, 0);
+    assert!(resolved.death_saving_throw.target_stable);
+    assert!(resolved.death_saving_throw.target_unconscious);
+    assert_eq!(resolved.death_saving_throw.target_death_successes, 0);
+    assert_eq!(resolved.death_saving_throw.target_death_failures, 0);
+    assert!(!resolved.action_available);
+    assert_eq!(
+        resolved.scenario_outcome,
+        HealingStabilizationScenarioOutcome::Resolved
+    );
+    assert_eq!(resolved.protocol, HealingStabilizationProtocol::Resolved);
 }
 
 #[test]

@@ -1,0 +1,43 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt",
+      "qntFileSha256": "ae9644c3ba29c4ac59f9b23fac37cff84ee358962d841175a6d94aaab3714e35",
+      "branchFamily": "step",
+      "branchAction": "doResolveSpareTheDyingStable",
+      "observedActionTaken": "doResolveSpareTheDyingStable",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs",
+      "traceId": "T029-resolve-spare-the-dying-stable",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "HealingStabilizationSelectedIdentityWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "0ac26679ad50ac1baa5a68d32755068766372ac890503008e6fec691dcc2e309",
+        "observedProjectionSha256": "0ac26679ad50ac1baa5a68d32755068766372ac890503008e6fec691dcc2e309",
+        "checkedTargetStateFields": [
+          "HealingStabilizationState.death_saving_throw.target_hp",
+          "HealingStabilizationState.death_saving_throw.target_stable",
+          "HealingStabilizationState.death_saving_throw.target_unconscious",
+          "HealingStabilizationState.death_saving_throw.target_death_successes",
+          "HealingStabilizationState.death_saving_throw.target_death_failures",
+          "HealingStabilizationState.action_available",
+          "HealingStabilizationState.scenario_outcome",
+          "HealingStabilizationState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}

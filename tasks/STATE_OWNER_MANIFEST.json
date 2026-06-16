@@ -4,153 +4,65 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "FindFamiliarCompanionState.status",
-      "introducedIn": "src/rules/find_familiar.rs",
+      "fieldPath": "HealingStabilizationState.death_saving_throw.target_hp",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "FindFamiliarCompanionState.slot",
-      "introducedIn": "src/rules/find_familiar.rs",
+      "fieldPath": "HealingStabilizationState.death_saving_throw.target_stable",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "FindFamiliarCompanionState.form",
-      "introducedIn": "src/rules/find_familiar.rs",
+      "fieldPath": "HealingStabilizationState.death_saving_throw.target_unconscious",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "FindFamiliarCompanionState.creature_type_override",
-      "introducedIn": "src/rules/find_familiar.rs",
+      "fieldPath": "HealingStabilizationState.death_saving_throw.target_death_successes",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "FindFamiliarCompanionState.companion_count",
-      "introducedIn": "src/rules/find_familiar.rs",
+      "fieldPath": "HealingStabilizationState.death_saving_throw.target_death_failures",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "FindFamiliarCompanionState.telepathy_available",
-      "introducedIn": "src/rules/find_familiar.rs",
+      "fieldPath": "HealingStabilizationState.action_available",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "FindFamiliarCompanionState.shared_senses_active",
-      "introducedIn": "src/rules/find_familiar.rs",
+      "fieldPath": "HealingStabilizationState.scenario_outcome",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "FindFamiliarCompanionState.bonus_action_available",
-      "introducedIn": "src/rules/find_familiar.rs",
+      "fieldPath": "HealingStabilizationState.protocol",
+      "introducedIn": "src/rules/hit_points.rs",
       "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FindFamiliarCompanionState.owner_action_available",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FindFamiliarCompanionState.owner_attack_available",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FindFamiliarCompanionState.familiar_reaction_available",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FindFamiliarCompanionState.touch_delivery_reaction_spent",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FindFamiliarCompanionState.pact_reaction_attack_resolved",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FindFamiliarCompanionState.spell_slot_committed",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FindFamiliarCompanionState.target_hit_points",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FindFamiliarCompanionState.scenario_outcome",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FindFamiliarCompanionState.protocol",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FamiliarFormFacts.form",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "FamiliarFormFacts.creature_type_override",
-      "introducedIn": "src/rules/find_familiar.rs",
-      "owner": "structured-input"
     },
     {
       "derivability": {
@@ -158,10 +70,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T028"
+  "taskId": "T029"
 }

@@ -1,31 +1,19 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 3,
+      "addedEntries": 4,
       "owner": "production",
-      "reason": "extended reusable Find Familiar companion state with owner action and lifecycle operations"
+      "reason": "added reusable Spare the Dying stabilization projection over death-saving state"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doCastFindFamiliar",
-        "doDeliverTouchSpellThroughFindFamiliar",
-        "doDismissAndReappearFindFamiliar",
-        "doRecastFindFamiliarReplacement",
+        "doResolveSpareTheDyingStable",
         "WitnessProtocolHole",
         "Init",
-        "Cast",
-        "Recast",
-        "DismissedAndReappeared",
-        "TouchDelivered",
-        "SharedSenses",
-        "PactAttack",
-        "none",
-        "present",
-        "cat",
-        "rat",
+        "Resolved",
         "resolved",
         "init",
         "mbt::actionTaken",
@@ -45,38 +33,33 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T028-battle-runtime-find-familiar-selected-identity.json"
+        "tasks/target-replay-evidence/T029-battle-runtime-healing-stabilization-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "deliver_find_familiar_touch_spell",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
-      "module": "src/rules/find_familiar.rs"
+      "api": "heal_sheet_hit_points",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+      "module": "src/rules/hit_points.rs"
     },
     {
-      "api": "resolve_pact_find_familiar_reaction_attack",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.mbt.qnt",
-      "module": "src/rules/find_familiar.rs"
+      "api": "healing_stabilization_initial_state",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
+      "module": "src/rules/hit_points.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "find_familiar_companion_initial_state",
-        "create_find_familiar_companion",
-        "replace_find_familiar_companion_form",
-        "recast_find_familiar_companion_replacement",
-        "dismiss_and_reappear_find_familiar_companion",
-        "share_find_familiar_senses",
-        "deliver_find_familiar_touch_spell",
-        "resolve_pact_find_familiar_reaction_attack"
+        "death_saving_throw_initial_state",
+        "healing_stabilization_initial_state",
+        "resolve_spare_the_dying_stabilization"
       ],
-      "path": "src/rules/find_familiar.rs",
+      "path": "src/rules/hit_points.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T028"
+  "taskId": "T029"
 }
