@@ -1,0 +1,382 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "qntFileSha256": "f53db6a45d9eaaffeb08ba58a9fb9e3dcb4c717ebc957023460081709c405070",
+      "branchFamily": "step",
+      "branchAction": "doDancingLightsMovableDimLight",
+      "observedActionTaken": "doDancingLightsMovableDimLight",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "traceId": "T034-dancing-lights-movable-dim-light",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "LevelOneSpatialState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "c70f2a05ec9ed185a5e68498201346c78a63ecca349da00c038a593e086b7c68",
+        "observedProjectionSha256": "c70f2a05ec9ed185a5e68498201346c78a63ecca349da00c038a593e086b7c68",
+        "checkedTargetStateFields": [
+          "LevelOneSpatialState.light",
+          "LevelOneSpatialState.faerie_fire",
+          "LevelOneSpatialState.feather_fall",
+          "LevelOneSpatialState.fog_cloud",
+          "LevelOneSpatialState.grease",
+          "LevelOneSpatialState.jump",
+          "LevelOneSpatialState.produce_flame",
+          "LevelOneSpatialState.thunderwave",
+          "LevelOneSpatialState.vision",
+          "LevelOneSpatialState.caster_concentrating",
+          "LevelOneSpatialState.magic_action_available",
+          "LevelOneSpatialState.bonus_action_available",
+          "LevelOneSpatialState.scenario_outcome",
+          "LevelOneSpatialState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "qntFileSha256": "f53db6a45d9eaaffeb08ba58a9fb9e3dcb4c717ebc957023460081709c405070",
+      "branchFamily": "step",
+      "branchAction": "doFaerieFireOutlineAdvantageInvisibleDimLight",
+      "observedActionTaken": "doFaerieFireOutlineAdvantageInvisibleDimLight",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "traceId": "T034-faerie-fire-outline-advantage-invisible-dim-light",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "LevelOneSpatialState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "b3744e5611ab1f43b480823ab150b22790d6ed58e87308da4159a884453e6884",
+        "observedProjectionSha256": "b3744e5611ab1f43b480823ab150b22790d6ed58e87308da4159a884453e6884",
+        "checkedTargetStateFields": [
+          "LevelOneSpatialState.light",
+          "LevelOneSpatialState.faerie_fire",
+          "LevelOneSpatialState.feather_fall",
+          "LevelOneSpatialState.fog_cloud",
+          "LevelOneSpatialState.grease",
+          "LevelOneSpatialState.jump",
+          "LevelOneSpatialState.produce_flame",
+          "LevelOneSpatialState.thunderwave",
+          "LevelOneSpatialState.vision",
+          "LevelOneSpatialState.caster_concentrating",
+          "LevelOneSpatialState.magic_action_available",
+          "LevelOneSpatialState.bonus_action_available",
+          "LevelOneSpatialState.scenario_outcome",
+          "LevelOneSpatialState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "qntFileSha256": "f53db6a45d9eaaffeb08ba58a9fb9e3dcb4c717ebc957023460081709c405070",
+      "branchFamily": "step",
+      "branchAction": "doFeatherFallReactionMitigationLanding",
+      "observedActionTaken": "doFeatherFallReactionMitigationLanding",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "traceId": "T034-feather-fall-reaction-mitigation-landing",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "LevelOneSpatialState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "05804e95cff7b489fa534beaa6de2b43644c2901b5336447d740b8a584aa6431",
+        "observedProjectionSha256": "05804e95cff7b489fa534beaa6de2b43644c2901b5336447d740b8a584aa6431",
+        "checkedTargetStateFields": [
+          "LevelOneSpatialState.light",
+          "LevelOneSpatialState.faerie_fire",
+          "LevelOneSpatialState.feather_fall",
+          "LevelOneSpatialState.fog_cloud",
+          "LevelOneSpatialState.grease",
+          "LevelOneSpatialState.jump",
+          "LevelOneSpatialState.produce_flame",
+          "LevelOneSpatialState.thunderwave",
+          "LevelOneSpatialState.vision",
+          "LevelOneSpatialState.caster_concentrating",
+          "LevelOneSpatialState.magic_action_available",
+          "LevelOneSpatialState.bonus_action_available",
+          "LevelOneSpatialState.scenario_outcome",
+          "LevelOneSpatialState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "qntFileSha256": "f53db6a45d9eaaffeb08ba58a9fb9e3dcb4c717ebc957023460081709c405070",
+      "branchFamily": "step",
+      "branchAction": "doFogCloudAreaIdentityObscurementStrongWindCleanup",
+      "observedActionTaken": "doFogCloudAreaIdentityObscurementStrongWindCleanup",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "traceId": "T034-fog-cloud-area-identity-obscurement-strong-wind-cleanup",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "LevelOneSpatialState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "7e0b37e47e8e223b3463bae56e819c2d420faed9f2438e8f2f2bc614bb3dd177",
+        "observedProjectionSha256": "7e0b37e47e8e223b3463bae56e819c2d420faed9f2438e8f2f2bc614bb3dd177",
+        "checkedTargetStateFields": [
+          "LevelOneSpatialState.light",
+          "LevelOneSpatialState.faerie_fire",
+          "LevelOneSpatialState.feather_fall",
+          "LevelOneSpatialState.fog_cloud",
+          "LevelOneSpatialState.grease",
+          "LevelOneSpatialState.jump",
+          "LevelOneSpatialState.produce_flame",
+          "LevelOneSpatialState.thunderwave",
+          "LevelOneSpatialState.vision",
+          "LevelOneSpatialState.caster_concentrating",
+          "LevelOneSpatialState.magic_action_available",
+          "LevelOneSpatialState.bonus_action_available",
+          "LevelOneSpatialState.scenario_outcome",
+          "LevelOneSpatialState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "qntFileSha256": "f53db6a45d9eaaffeb08ba58a9fb9e3dcb4c717ebc957023460081709c405070",
+      "branchFamily": "step",
+      "branchAction": "doGreaseCastGroundHazardSavingThrows",
+      "observedActionTaken": "doGreaseCastGroundHazardSavingThrows",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "traceId": "T034-grease-cast-ground-hazard-saving-throws",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "LevelOneSpatialState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "413911d3e2f1ce48aff96dad5dbc06abb91bb502ac8cf990d7b216602d89e5c3",
+        "observedProjectionSha256": "413911d3e2f1ce48aff96dad5dbc06abb91bb502ac8cf990d7b216602d89e5c3",
+        "checkedTargetStateFields": [
+          "LevelOneSpatialState.light",
+          "LevelOneSpatialState.faerie_fire",
+          "LevelOneSpatialState.feather_fall",
+          "LevelOneSpatialState.fog_cloud",
+          "LevelOneSpatialState.grease",
+          "LevelOneSpatialState.jump",
+          "LevelOneSpatialState.produce_flame",
+          "LevelOneSpatialState.thunderwave",
+          "LevelOneSpatialState.vision",
+          "LevelOneSpatialState.caster_concentrating",
+          "LevelOneSpatialState.magic_action_available",
+          "LevelOneSpatialState.bonus_action_available",
+          "LevelOneSpatialState.scenario_outcome",
+          "LevelOneSpatialState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "qntFileSha256": "f53db6a45d9eaaffeb08ba58a9fb9e3dcb4c717ebc957023460081709c405070",
+      "branchFamily": "step",
+      "branchAction": "doGreaseMovementAndTurnTriggers",
+      "observedActionTaken": "doGreaseMovementAndTurnTriggers",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "traceId": "T034-grease-movement-and-turn-triggers",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "LevelOneSpatialState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "be6dbc6db7c58fa5bc91f81fed6b5cc305a29eac9cd7e91e495ac39e23ef441d",
+        "observedProjectionSha256": "be6dbc6db7c58fa5bc91f81fed6b5cc305a29eac9cd7e91e495ac39e23ef441d",
+        "checkedTargetStateFields": [
+          "LevelOneSpatialState.light",
+          "LevelOneSpatialState.faerie_fire",
+          "LevelOneSpatialState.feather_fall",
+          "LevelOneSpatialState.fog_cloud",
+          "LevelOneSpatialState.grease",
+          "LevelOneSpatialState.jump",
+          "LevelOneSpatialState.produce_flame",
+          "LevelOneSpatialState.thunderwave",
+          "LevelOneSpatialState.vision",
+          "LevelOneSpatialState.caster_concentrating",
+          "LevelOneSpatialState.magic_action_available",
+          "LevelOneSpatialState.bonus_action_available",
+          "LevelOneSpatialState.scenario_outcome",
+          "LevelOneSpatialState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "qntFileSha256": "f53db6a45d9eaaffeb08ba58a9fb9e3dcb4c717ebc957023460081709c405070",
+      "branchFamily": "step",
+      "branchAction": "doJumpMovementReplacementLandingWitness",
+      "observedActionTaken": "doJumpMovementReplacementLandingWitness",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "traceId": "T034-jump-movement-replacement-landing-witness",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "LevelOneSpatialState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "27046df0c2ed29443cf29a7ec5fa9c58aeb0fa5c7d8121dd2d1f2c307200ef50",
+        "observedProjectionSha256": "27046df0c2ed29443cf29a7ec5fa9c58aeb0fa5c7d8121dd2d1f2c307200ef50",
+        "checkedTargetStateFields": [
+          "LevelOneSpatialState.light",
+          "LevelOneSpatialState.faerie_fire",
+          "LevelOneSpatialState.feather_fall",
+          "LevelOneSpatialState.fog_cloud",
+          "LevelOneSpatialState.grease",
+          "LevelOneSpatialState.jump",
+          "LevelOneSpatialState.produce_flame",
+          "LevelOneSpatialState.thunderwave",
+          "LevelOneSpatialState.vision",
+          "LevelOneSpatialState.caster_concentrating",
+          "LevelOneSpatialState.magic_action_available",
+          "LevelOneSpatialState.bonus_action_available",
+          "LevelOneSpatialState.scenario_outcome",
+          "LevelOneSpatialState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "qntFileSha256": "f53db6a45d9eaaffeb08ba58a9fb9e3dcb4c717ebc957023460081709c405070",
+      "branchFamily": "step",
+      "branchAction": "doLightObjectEmitterProjectionReplacementCleanup",
+      "observedActionTaken": "doLightObjectEmitterProjectionReplacementCleanup",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "traceId": "T034-light-object-emitter-projection-replacement-cleanup",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "LevelOneSpatialState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "fcbced9a833ea997f5992c067b31d4bc3ae9b0fb04d5a79c62c5573bec797200",
+        "observedProjectionSha256": "fcbced9a833ea997f5992c067b31d4bc3ae9b0fb04d5a79c62c5573bec797200",
+        "checkedTargetStateFields": [
+          "LevelOneSpatialState.light",
+          "LevelOneSpatialState.faerie_fire",
+          "LevelOneSpatialState.feather_fall",
+          "LevelOneSpatialState.fog_cloud",
+          "LevelOneSpatialState.grease",
+          "LevelOneSpatialState.jump",
+          "LevelOneSpatialState.produce_flame",
+          "LevelOneSpatialState.thunderwave",
+          "LevelOneSpatialState.vision",
+          "LevelOneSpatialState.caster_concentrating",
+          "LevelOneSpatialState.magic_action_available",
+          "LevelOneSpatialState.bonus_action_available",
+          "LevelOneSpatialState.scenario_outcome",
+          "LevelOneSpatialState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "qntFileSha256": "f53db6a45d9eaaffeb08ba58a9fb9e3dcb4c717ebc957023460081709c405070",
+      "branchFamily": "step",
+      "branchAction": "doProduceFlameHeldLightProjectionHurlCleanup",
+      "observedActionTaken": "doProduceFlameHeldLightProjectionHurlCleanup",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "traceId": "T034-produce-flame-held-light-projection-hurl-cleanup",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "LevelOneSpatialState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "732cad8fa2a7f254a48a44781d230febb248d7e407cbca605445114a7d97d410",
+        "observedProjectionSha256": "732cad8fa2a7f254a48a44781d230febb248d7e407cbca605445114a7d97d410",
+        "checkedTargetStateFields": [
+          "LevelOneSpatialState.light",
+          "LevelOneSpatialState.faerie_fire",
+          "LevelOneSpatialState.feather_fall",
+          "LevelOneSpatialState.fog_cloud",
+          "LevelOneSpatialState.grease",
+          "LevelOneSpatialState.jump",
+          "LevelOneSpatialState.produce_flame",
+          "LevelOneSpatialState.thunderwave",
+          "LevelOneSpatialState.vision",
+          "LevelOneSpatialState.caster_concentrating",
+          "LevelOneSpatialState.magic_action_available",
+          "LevelOneSpatialState.bonus_action_available",
+          "LevelOneSpatialState.scenario_outcome",
+          "LevelOneSpatialState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "qntFileSha256": "f53db6a45d9eaaffeb08ba58a9fb9e3dcb4c717ebc957023460081709c405070",
+      "branchFamily": "step",
+      "branchAction": "doThunderwaveSavePushObjectsBoom",
+      "observedActionTaken": "doThunderwaveSavePushObjectsBoom",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "traceId": "T034-thunderwave-save-push-objects-boom",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "LevelOneSpatialState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "359758781044d9ee10a7de46ab0798af86c062aa72f485b0d8df90bde6e4b268",
+        "observedProjectionSha256": "359758781044d9ee10a7de46ab0798af86c062aa72f485b0d8df90bde6e4b268",
+        "checkedTargetStateFields": [
+          "LevelOneSpatialState.light",
+          "LevelOneSpatialState.faerie_fire",
+          "LevelOneSpatialState.feather_fall",
+          "LevelOneSpatialState.fog_cloud",
+          "LevelOneSpatialState.grease",
+          "LevelOneSpatialState.jump",
+          "LevelOneSpatialState.produce_flame",
+          "LevelOneSpatialState.thunderwave",
+          "LevelOneSpatialState.vision",
+          "LevelOneSpatialState.caster_concentrating",
+          "LevelOneSpatialState.magic_action_available",
+          "LevelOneSpatialState.bonus_action_available",
+          "LevelOneSpatialState.scenario_outcome",
+          "LevelOneSpatialState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}

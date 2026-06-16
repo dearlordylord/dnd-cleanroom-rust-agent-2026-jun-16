@@ -38,6 +38,8 @@ mod battle_runtime_interrupt_stack_resume;
 mod battle_runtime_level1_buff_mark_smite_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs"]
 mod battle_runtime_level1_damage_spell_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs"]
+mod battle_runtime_level1_spatial_witness_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -180,6 +182,16 @@ use crate::rules::level_one_damage_spells::{
     project_starry_wisp_object_spell_attack_damage_and_dim_light,
     project_vicious_mockery_wisdom_saving_throw_psychic_damage_and_next_attack_disadvantage,
     LevelOneDamageSpellProtocol, LevelOneDamageSpellScenarioOutcome,
+};
+use crate::rules::level_one_spatial_spells::{
+    level_one_spatial_initial_state, project_faerie_fire_outline_advantage_invisible_dim_light,
+    project_feather_fall_reaction_mitigation_landing,
+    project_fog_cloud_area_identity_obscurement_strong_wind_cleanup,
+    project_grease_movement_and_turn_triggers,
+    project_light_object_emitter_projection_replacement_cleanup,
+    project_produce_flame_held_light_projection_hurl_cleanup,
+    project_thunderwave_save_push_objects_boom, AttackRollMode, Illumination,
+    LevelOneSpatialProtocol, LevelOneSpatialScenarioOutcome, SightObscurement,
 };
 use crate::rules::level_one_spell_effects::{
     level_one_spell_effects_initial_state, project_divine_favor_weapon_damage_rider,
@@ -337,6 +349,12 @@ use battle_runtime_level1_damage_spell_selected_identity::{
     projection_payload as level1_damage_spell_projection_payload,
     replay_observed_action as replay_level1_damage_spell_action,
     BRANCH_ACTIONS as LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_level1_spatial_witness_selected_identity::{
+    expected_witness as expected_level1_spatial_witness,
+    projection_payload as level1_spatial_projection_payload,
+    replay_observed_action as replay_level1_spatial_action,
+    BRANCH_ACTIONS as LEVEL1_SPATIAL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2182,6 +2200,87 @@ fn level1_damage_spell_projects_selected_damage_cases() {
         project_vicious_mockery_wisdom_saving_throw_psychic_damage_and_next_attack_disadvantage();
     assert!(vicious_mockery.primary_target_next_attack_roll_disadvantage);
     assert_eq!(vicious_mockery.primary_target_hit_points, 6);
+}
+
+#[test]
+fn level1_spatial_witness_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md,
+    // Descriptions-E-L.md, Descriptions-M-P.md, and Descriptions-S-Z.md
+    // selected level-1 and cantrip spatial spells.
+    for action in LEVEL1_SPATIAL_BRANCH_ACTIONS {
+        let observed = replay_level1_spatial_action(action);
+        assert_eq!(observed, expected_level1_spatial_witness(action));
+        assert!(level1_spatial_projection_payload(&observed).contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn level1_spatial_witness_projects_light_hazards_and_reactions() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Faerie Fire", "Feather Fall", "Fog Cloud", "Grease", and "Light";
+    // Spells/Descriptions-M-P.md "Produce Flame"; Spells/Descriptions-S-Z.md
+    // "Thunderwave"; QNT:
+    // battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt.
+    let initial = level_one_spatial_initial_state();
+    assert_eq!(initial.protocol, LevelOneSpatialProtocol::Init);
+    assert_eq!(
+        initial.vision.projected_illumination,
+        Illumination::Darkness
+    );
+    assert!(initial.magic_action_available);
+    assert!(initial.bonus_action_available);
+
+    let faerie_fire = project_faerie_fire_outline_advantage_invisible_dim_light();
+    assert_eq!(faerie_fire.light.dim_light_emitter_count, 2);
+    assert_eq!(
+        faerie_fire.faerie_fire.creature_attack_roll_mode,
+        AttackRollMode::Advantage
+    );
+    assert!(faerie_fire.faerie_fire.object_invisible_benefit_denied);
+    assert!(faerie_fire.caster_concentrating);
+
+    let feather_fall = project_feather_fall_reaction_mitigation_landing();
+    assert!(feather_fall.feather_fall.trigger_offered);
+    assert!(feather_fall.feather_fall.reaction_spent);
+    assert_eq!(
+        feather_fall
+            .feather_fall
+            .landed_target_descent_rate_cap_feet_per_round,
+        60
+    );
+
+    let fog_cloud = project_fog_cloud_area_identity_obscurement_strong_wind_cleanup();
+    assert_eq!(fog_cloud.fog_cloud.radius_feet, 20);
+    assert_eq!(fog_cloud.fog_cloud.duration_ticks, 600);
+    assert!(fog_cloud.fog_cloud.cleanup_cleared_concentration);
+
+    let grease = project_grease_movement_and_turn_triggers();
+    assert_eq!(grease.grease.difficult_terrain_movement_cost_feet, 15);
+    assert!(grease.grease.entry_failed_target_prone);
+    assert!(grease.grease.end_turn_advanced_to_caster);
+
+    let light = project_light_object_emitter_projection_replacement_cleanup();
+    assert!(light.light.object_admitted);
+    assert_eq!(light.light.invalid_object_rejection_count, 3);
+    assert_eq!(
+        light.vision.darkvision_sight_obscurement,
+        SightObscurement::Unobscured
+    );
+
+    let produce_flame = project_produce_flame_held_light_projection_hurl_cleanup();
+    assert!(produce_flame.produce_flame.held_light_installed);
+    assert!(produce_flame.produce_flame.hurl_cleanup_cleared_emitter);
+    assert!(!produce_flame.bonus_action_available);
+
+    let thunderwave = project_thunderwave_save_push_objects_boom();
+    assert_eq!(thunderwave.thunderwave.affected_target_outcome_count, 3);
+    assert!(thunderwave.thunderwave.audible_boom_matched);
+    assert_eq!(
+        thunderwave.scenario_outcome,
+        LevelOneSpatialScenarioOutcome::ThunderwaveSavePushObjectsBoom
+    );
 }
 
 #[test]

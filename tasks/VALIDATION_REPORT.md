@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt`
-- Next task id: `T034`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt`
+- Next task id: `T035`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,102 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T034: battle-runtime-level1-spatial-witness-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doDancingLightsMovableDimLight`
+  - `step:doFaerieFireOutlineAdvantageInvisibleDimLight`
+  - `step:doFeatherFallReactionMitigationLanding`
+  - `step:doFogCloudAreaIdentityObscurementStrongWindCleanup`
+  - `step:doGreaseCastGroundHazardSavingThrows`
+  - `step:doGreaseMovementAndTurnTriggers`
+  - `step:doJumpMovementReplacementLandingWitness`
+  - `step:doLightObjectEmitterProjectionReplacementCleanup`
+  - `step:doProduceFlameHeldLightProjectionHurlCleanup`
+  - `step:doThunderwaveSavePushObjectsBoom`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-witness-protocol.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-light.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-feather-fall.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-jump-movement.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-area-trigger-timing.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-bridge-examples.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/level_one_spatial_spells.rs` with typed projections for level-one spatial spell witnesses covering light emitters, Faerie Fire outlines and Advantage, Feather Fall reaction mitigation and landing cleanup, Fog Cloud area identity and strong-wind cleanup, Grease cast and movement/end-turn triggers, Jump movement replacement and landing witness, Light object emitter replacement and cleanup, Produce Flame held light and hurl cleanup, and Thunderwave push/object/boom witness facts.
+- Projected illumination, sight obscurement, attack roll mode, concentration, action availability, spell slot use, target identity, hazard lifecycle, and witness protocol fields from the QNT-selected branches and RAW spell text.
+- Kept exact QNT action names, scenario labels, protocol labels, and target replay witness strings quarantined in `src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doDancingLightsMovableDimLight` | `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json#T034-dancing-lights-movable-dim-light#step:doDancingLightsMovableDimLight` | `src/tests/mod.rs::level1_spatial_witness_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doFaerieFireOutlineAdvantageInvisibleDimLight` | `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json#T034-faerie-fire-outline-advantage-invisible-dim-light#step:doFaerieFireOutlineAdvantageInvisibleDimLight` | `src/tests/mod.rs::level1_spatial_witness_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doFeatherFallReactionMitigationLanding` | `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json#T034-feather-fall-reaction-mitigation-landing#step:doFeatherFallReactionMitigationLanding` | `src/tests/mod.rs::level1_spatial_witness_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doFogCloudAreaIdentityObscurementStrongWindCleanup` | `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json#T034-fog-cloud-area-identity-obscurement-strong-wind-cleanup#step:doFogCloudAreaIdentityObscurementStrongWindCleanup` | `src/tests/mod.rs::level1_spatial_witness_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doGreaseCastGroundHazardSavingThrows` | `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json#T034-grease-cast-ground-hazard-saving-throws#step:doGreaseCastGroundHazardSavingThrows` | `src/tests/mod.rs::level1_spatial_witness_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doGreaseMovementAndTurnTriggers` | `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json#T034-grease-movement-and-turn-triggers#step:doGreaseMovementAndTurnTriggers` | `src/tests/mod.rs::level1_spatial_witness_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doJumpMovementReplacementLandingWitness` | `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json#T034-jump-movement-replacement-landing-witness#step:doJumpMovementReplacementLandingWitness` | `src/tests/mod.rs::level1_spatial_witness_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doLightObjectEmitterProjectionReplacementCleanup` | `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json#T034-light-object-emitter-projection-replacement-cleanup#step:doLightObjectEmitterProjectionReplacementCleanup` | `src/tests/mod.rs::level1_spatial_witness_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doProduceFlameHeldLightProjectionHurlCleanup` | `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json#T034-produce-flame-held-light-projection-hurl-cleanup#step:doProduceFlameHeldLightProjectionHurlCleanup` | `src/tests/mod.rs::level1_spatial_witness_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doThunderwaveSavePushObjectsBoom` | `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json#T034-thunderwave-save-push-objects-boom#step:doThunderwaveSavePushObjectsBoom` | `src/tests/mod.rs::level1_spatial_witness_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T034-dancing-lights-movable-dim-light`
+- Reproduction seed or trace id: `T034-faerie-fire-outline-advantage-invisible-dim-light`
+- Reproduction seed or trace id: `T034-feather-fall-reaction-mitigation-landing`
+- Reproduction seed or trace id: `T034-fog-cloud-area-identity-obscurement-strong-wind-cleanup`
+- Reproduction seed or trace id: `T034-grease-cast-ground-hazard-saving-throws`
+- Reproduction seed or trace id: `T034-grease-movement-and-turn-triggers`
+- Reproduction seed or trace id: `T034-jump-movement-replacement-landing-witness`
+- Reproduction seed or trace id: `T034-light-object-emitter-projection-replacement-cleanup`
+- Reproduction seed or trace id: `T034-produce-flame-held-light-projection-hurl-cleanup`
+- Reproduction seed or trace id: `T034-thunderwave-save-push-objects-boom`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::level1_spatial_witness_projects_light_hazards_and_reactions`
 
 Remaining gaps:
 

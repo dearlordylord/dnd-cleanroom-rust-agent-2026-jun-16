@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T033"
+  "taskId": "T034"
 }

@@ -4,72 +4,112 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneDamageSpellState.action_available",
-      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "fieldPath": "LevelOneSpatialState.light",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneDamageSpellState.spell_slot_spent_this_turn",
-      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "fieldPath": "LevelOneSpatialState.faerie_fire",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneDamageSpellState.level_one_slots_remaining",
-      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "fieldPath": "LevelOneSpatialState.feather_fall",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneDamageSpellState.primary_target_hit_points",
-      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "fieldPath": "LevelOneSpatialState.fog_cloud",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneDamageSpellState.primary_target_poisoned",
-      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "fieldPath": "LevelOneSpatialState.grease",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneDamageSpellState.primary_target_next_attack_roll_disadvantage",
-      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "fieldPath": "LevelOneSpatialState.jump",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneDamageSpellState.secondary_target_hit_points",
-      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "fieldPath": "LevelOneSpatialState.produce_flame",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneDamageSpellState.scenario_outcome",
-      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "fieldPath": "LevelOneSpatialState.thunderwave",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneDamageSpellState.protocol",
-      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "fieldPath": "LevelOneSpatialState.vision",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneSpatialState.caster_concentrating",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneSpatialState.magic_action_available",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneSpatialState.bonus_action_available",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneSpatialState.scenario_outcome",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneSpatialState.protocol",
+      "introducedIn": "src/rules/level_one_spatial_spells.rs",
       "owner": "battle-state"
     },
     {
@@ -78,10 +118,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T033"
+  "taskId": "T034"
 }

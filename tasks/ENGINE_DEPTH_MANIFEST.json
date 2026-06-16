@@ -1,35 +1,43 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 9,
+      "addedEntries": 11,
       "owner": "production",
-      "reason": "added reusable level-one damage spell projection fields for action, spell slot, hit point, condition, and protocol outcomes"
+      "reason": "added grouped spatial spell projection components for light, outline, falling, hazard, movement, object, and area-push witnesses"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doResolveBurningHandsMixedConeSavingThrows",
-        "doResolveChromaticOrbDuplicateDamageLeap",
-        "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
-        "doResolveIceKnifeMissBurstSavingThrows",
-        "doResolvePoisonSpraySpellAttackDamage",
-        "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
-        "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
-        "doResolveSorcerousBurstSpellAttackDamage",
-        "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
-        "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
-        "BurningHandsMixedConeSavingThrows",
-        "ChromaticOrbDuplicateDamageLeap",
-        "IceKnifeHitAttackDamageAndBurstSavingThrows",
-        "IceKnifeMissBurstSavingThrows",
-        "PoisonSpraySpellAttackDamage",
-        "RayOfSicknessSpellAttackDamageAndPoisoned",
-        "SacredFlameDexteritySavingThrowRadiantDamage",
-        "SorcerousBurstSpellAttackDamage",
-        "StarryWispObjectSpellAttackDamageAndDimLight",
-        "ViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+        "doDancingLightsMovableDimLight",
+        "doFaerieFireOutlineAdvantageInvisibleDimLight",
+        "doFeatherFallReactionMitigationLanding",
+        "doFogCloudAreaIdentityObscurementStrongWindCleanup",
+        "doGreaseCastGroundHazardSavingThrows",
+        "doGreaseMovementAndTurnTriggers",
+        "doJumpMovementReplacementLandingWitness",
+        "doLightObjectEmitterProjectionReplacementCleanup",
+        "doProduceFlameHeldLightProjectionHurlCleanup",
+        "doThunderwaveSavePushObjectsBoom",
+        "DancingLightsMovableDimLight",
+        "FaerieFireOutlineAdvantageInvisibleDimLight",
+        "FeatherFallReactionMitigationLanding",
+        "FogCloudAreaIdentityObscurementStrongWindCleanup",
+        "GreaseCastGroundHazardSavingThrows",
+        "GreaseMovementAndTurnTriggers",
+        "JumpMovementReplacementLandingWitness",
+        "LightObjectEmitterProjectionReplacementCleanup",
+        "ProduceFlameHeldLightProjectionHurlCleanup",
+        "ThunderwaveSavePushObjectsBoom",
+        "darkness",
+        "dimLight",
+        "brightLight",
+        "heavilyObscured",
+        "lightlyObscured",
+        "unobscured",
+        "normal",
+        "advantage",
         "init",
         "resolved",
         "none",
@@ -50,46 +58,46 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json"
+        "tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "LevelOneDamageSpellState",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
-      "module": "src/rules/level_one_damage_spells.rs"
-    },
-    {
-      "api": "project_starry_wisp_object_spell_attack_damage_and_dim_light",
+      "api": "LevelOneSpatialState",
       "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
-      "module": "src/rules/level_one_damage_spells.rs"
+      "module": "src/rules/level_one_spatial_spells.rs"
     },
     {
-      "api": "project_ray_of_sickness_spell_attack_damage_and_poisoned",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
-      "module": "src/rules/level_one_damage_spells.rs"
+      "api": "project_light_object_emitter_projection_replacement_cleanup",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
+      "module": "src/rules/level_one_spatial_spells.rs"
+    },
+    {
+      "api": "project_grease_movement_and_turn_triggers",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "module": "src/rules/level_one_spatial_spells.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "level_one_damage_spells_initial_state",
-        "project_burning_hands_mixed_cone_saving_throws",
-        "project_chromatic_orb_duplicate_damage_leap",
-        "project_ice_knife_hit_attack_damage_and_burst_saving_throws",
-        "project_ice_knife_miss_burst_saving_throws",
-        "project_poison_spray_spell_attack_damage",
-        "project_ray_of_sickness_spell_attack_damage_and_poisoned",
-        "project_sacred_flame_dexterity_saving_throw_radiant_damage",
-        "project_sorcerous_burst_spell_attack_damage",
-        "project_starry_wisp_object_spell_attack_damage_and_dim_light",
-        "project_vicious_mockery_wisdom_saving_throw_psychic_damage_and_next_attack_disadvantage"
+        "level_one_spatial_initial_state",
+        "project_dancing_lights_movable_dim_light",
+        "project_faerie_fire_outline_advantage_invisible_dim_light",
+        "project_feather_fall_reaction_mitigation_landing",
+        "project_fog_cloud_area_identity_obscurement_strong_wind_cleanup",
+        "project_grease_cast_ground_hazard_saving_throws",
+        "project_grease_movement_and_turn_triggers",
+        "project_jump_movement_replacement_landing_witness",
+        "project_light_object_emitter_projection_replacement_cleanup",
+        "project_produce_flame_held_light_projection_hurl_cleanup",
+        "project_thunderwave_save_push_objects_boom"
       ],
-      "path": "src/rules/level_one_damage_spells.rs",
+      "path": "src/rules/level_one_spatial_spells.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T033"
+  "taskId": "T034"
 }

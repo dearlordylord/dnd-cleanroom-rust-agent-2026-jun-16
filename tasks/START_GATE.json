@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T033",
-  "startHeadSha": "b3a014df25873d279701031cb7fb80b0d05fbe95",
+  "taskId": "T034",
+  "startHeadSha": "f01be8975fcfc0c86ae256c6c6d355611ffeb8d8",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
     ]
   }
 }
