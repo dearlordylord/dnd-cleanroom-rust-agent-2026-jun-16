@@ -80,6 +80,8 @@ mod battle_runtime_sorcerer_metamagic_spell_attack_selected_identity;
 mod battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_subtle_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_subtle_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_transmuted_selected_identity.rs"]
+mod battle_runtime_sorcerer_metamagic_transmuted_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -332,13 +334,15 @@ use crate::rules::sorcerer_metamagic::{
     resolve_heightened_save_gated_condition_end_turn_save, resolve_heightened_save_gated_damage,
     resolve_quickened_save_gated_damage, resolve_quickened_spell_attack,
     resolve_quickened_spell_attack_sequence, resolve_seeking_spell_attack_reroll,
-    resolve_subtle_false_life, seeking_spell_initial_state, subtle_spell_initial_state,
-    CarefulSpellProtocol, CarefulSpellScenarioResult, DistantSpellProtocol,
-    DistantSpellScenarioResult, EmpoweredSpellProtocol, EmpoweredSpellScenarioResult,
-    ExtendedSpellConcentrationSaveMode, ExtendedSpellProtocol, ExtendedSpellScenarioResult,
-    HeightenedSpellProtocol, HeightenedSpellScenarioResult, QuickenedMetamagicProtocol,
-    QuickenedMetamagicScenarioResult, SeekingSpellProtocol, SeekingSpellScenarioResult,
-    SubtleSpellProtocol, SubtleSpellScenarioResult,
+    resolve_subtle_false_life, resolve_transmuted_save_gated_damage,
+    resolve_transmuted_spell_attack, seeking_spell_initial_state, subtle_spell_initial_state,
+    transmuted_spell_initial_state, CarefulSpellProtocol, CarefulSpellScenarioResult,
+    DistantSpellProtocol, DistantSpellScenarioResult, EmpoweredSpellProtocol,
+    EmpoweredSpellScenarioResult, ExtendedSpellConcentrationSaveMode, ExtendedSpellProtocol,
+    ExtendedSpellScenarioResult, HeightenedSpellProtocol, HeightenedSpellScenarioResult,
+    QuickenedMetamagicProtocol, QuickenedMetamagicScenarioResult, SeekingSpellProtocol,
+    SeekingSpellScenarioResult, SubtleSpellProtocol, SubtleSpellScenarioResult,
+    TransmutedSpellProtocol, TransmutedSpellScenarioResult,
 };
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
@@ -608,6 +612,12 @@ use battle_runtime_sorcerer_metamagic_subtle_selected_identity::{
     projection_payload as subtle_spell_projection_payload,
     replay_observed_action as replay_subtle_spell_action,
     BRANCH_ACTIONS as SUBTLE_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_sorcerer_metamagic_transmuted_selected_identity::{
+    expected_witness as expected_transmuted_spell_witness,
+    projection_payload as transmuted_spell_projection_payload,
+    replay_observed_action as replay_transmuted_spell_action,
+    BRANCH_ACTIONS as TRANSMUTED_SPELL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3713,6 +3723,57 @@ fn subtle_spell_projects_false_life_and_unaffordable_cases() {
         rejected.protocol,
         SubtleSpellProtocol::InvalidUnsupportedActOption
     );
+}
+
+#[test]
+fn transmuted_spell_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Transmuted Spell".
+    for action in TRANSMUTED_SPELL_BRANCH_ACTIONS {
+        let observed = replay_transmuted_spell_action(action);
+        assert_eq!(observed, expected_transmuted_spell_witness(action));
+        assert!(transmuted_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn transmuted_spell_projects_save_gated_and_spell_attack_cases() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Transmuted Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt.
+    let initial = transmuted_spell_initial_state();
+    assert!(initial.magic_action_available);
+    assert!(initial.bonus_action_available);
+    assert_eq!(initial.sorcery_points_remaining, 4);
+    assert_eq!(initial.target_hit_points, 10);
+    assert_eq!(initial.target_active_effect_count, 0);
+    assert_eq!(initial.protocol, TransmutedSpellProtocol::Init);
+
+    let save_gated = resolve_transmuted_save_gated_damage();
+    assert!(!save_gated.magic_action_available);
+    assert!(save_gated.bonus_action_available);
+    assert_eq!(save_gated.sorcery_points_remaining, 3);
+    assert_eq!(save_gated.target_hit_points, 1);
+    assert_eq!(save_gated.target_active_effect_count, 0);
+    assert_eq!(
+        save_gated.scenario_result,
+        TransmutedSpellScenarioResult::TransmutedSaveGatedDamage
+    );
+    assert_eq!(save_gated.protocol, TransmutedSpellProtocol::Resolved);
+
+    let spell_attack = resolve_transmuted_spell_attack();
+    assert!(!spell_attack.magic_action_available);
+    assert!(spell_attack.bonus_action_available);
+    assert_eq!(spell_attack.sorcery_points_remaining, 3);
+    assert_eq!(spell_attack.target_hit_points, 3);
+    assert_eq!(spell_attack.target_active_effect_count, 1);
+    assert_eq!(
+        spell_attack.scenario_result,
+        TransmutedSpellScenarioResult::TransmutedSpellAttack
+    );
+    assert_eq!(spell_attack.protocol, TransmutedSpellProtocol::Resolved);
 }
 
 #[test]

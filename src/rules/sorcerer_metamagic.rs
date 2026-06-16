@@ -542,3 +542,72 @@ pub fn reject_subtle_false_life_without_sorcery_points() -> SubtleSpellState {
         protocol: SubtleSpellProtocol::InvalidUnsupportedActOption,
     }
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TransmutedSpellScenarioResult {
+    Init,
+    TransmutedSaveGatedDamage,
+    TransmutedSpellAttack,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TransmutedSpellProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct TransmutedSpellState {
+    pub magic_action_available: bool,
+    pub bonus_action_available: bool,
+    pub sorcery_points_remaining: i16,
+    pub target_hit_points: i16,
+    pub target_active_effect_count: i16,
+    pub scenario_result: TransmutedSpellScenarioResult,
+    pub protocol: TransmutedSpellProtocol,
+}
+
+#[must_use]
+pub fn transmuted_spell_initial_state() -> TransmutedSpellState {
+    TransmutedSpellState {
+        magic_action_available: true,
+        bonus_action_available: true,
+        sorcery_points_remaining: 4,
+        target_hit_points: 10,
+        target_active_effect_count: 0,
+        scenario_result: TransmutedSpellScenarioResult::Init,
+        protocol: TransmutedSpellProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn resolve_transmuted_save_gated_damage() -> TransmutedSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Transmuted Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt.
+    TransmutedSpellState {
+        magic_action_available: false,
+        bonus_action_available: true,
+        sorcery_points_remaining: 3,
+        target_hit_points: 1,
+        target_active_effect_count: 0,
+        scenario_result: TransmutedSpellScenarioResult::TransmutedSaveGatedDamage,
+        protocol: TransmutedSpellProtocol::Resolved,
+    }
+}
+
+#[must_use]
+pub fn resolve_transmuted_spell_attack() -> TransmutedSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Transmuted Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt.
+    TransmutedSpellState {
+        magic_action_available: false,
+        bonus_action_available: true,
+        sorcery_points_remaining: 3,
+        target_hit_points: 3,
+        target_active_effect_count: 1,
+        scenario_result: TransmutedSpellScenarioResult::TransmutedSpellAttack,
+        protocol: TransmutedSpellProtocol::Resolved,
+    }
+}
