@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
-- Next task id: `T040`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+- Next task id: `T041`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,89 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T040: battle-runtime-sanctuary-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doCastSanctuaryWardCreation`
+  - `step:doEndWardOnWardedAttackRoll`
+  - `step:doEndWardOnWardedDamageDealt`
+  - `step:doEndWardOnWardedSpellCast`
+  - `step:doExcludeAreaEffectFromInterdiction`
+  - `step:doInterdictDirectAttackFailedSaveLoss`
+  - `step:doInterdictDirectSpellSuccessfulSavePassThrough`
+  - `step:doRejectIllegalReplacementTarget`
+  - `step:doRetargetDirectAttackToLegalReplacement`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/guidance/README.md`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/sanctuary_selected_identity.rs` with typed Sanctuary selected-identity projections for ward creation, direct attack and spell interdiction, legal and illegal replacement targets, area-effect exclusion, and ward-ending attack, spell, or damage events.
+- Projected ward presence, Sanctuary source identity, Wisdom saving throw request, lost attack or spell, successful save pass-through, replacement pass-through or rejection, area-effect bypass, warded Hit Points, scenario outcome, and protocol result from the QNT driver and cited Sanctuary RAW.
+- Kept exact QNT action names, witness scenario labels, and protocol strings quarantined in `src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doCastSanctuaryWardCreation` | `tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json#T040-cast-sanctuary-ward-creation#step:doCastSanctuaryWardCreation` | `src/tests/mod.rs::sanctuary_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedAttackRoll` | `tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json#T040-end-ward-on-warded-attack-roll#step:doEndWardOnWardedAttackRoll` | `src/tests/mod.rs::sanctuary_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedDamageDealt` | `tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json#T040-end-ward-on-warded-damage-dealt#step:doEndWardOnWardedDamageDealt` | `src/tests/mod.rs::sanctuary_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedSpellCast` | `tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json#T040-end-ward-on-warded-spell-cast#step:doEndWardOnWardedSpellCast` | `src/tests/mod.rs::sanctuary_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doExcludeAreaEffectFromInterdiction` | `tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json#T040-exclude-area-effect-from-interdiction#step:doExcludeAreaEffectFromInterdiction` | `src/tests/mod.rs::sanctuary_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doInterdictDirectAttackFailedSaveLoss` | `tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json#T040-interdict-direct-attack-failed-save-loss#step:doInterdictDirectAttackFailedSaveLoss` | `src/tests/mod.rs::sanctuary_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doInterdictDirectSpellSuccessfulSavePassThrough` | `tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json#T040-interdict-direct-spell-successful-save-pass-through#step:doInterdictDirectSpellSuccessfulSavePassThrough` | `src/tests/mod.rs::sanctuary_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doRejectIllegalReplacementTarget` | `tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json#T040-reject-illegal-replacement-target#step:doRejectIllegalReplacementTarget` | `src/tests/mod.rs::sanctuary_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doRetargetDirectAttackToLegalReplacement` | `tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json#T040-retarget-direct-attack-to-legal-replacement#step:doRetargetDirectAttackToLegalReplacement` | `src/tests/mod.rs::sanctuary_selected_identity_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T040-cast-sanctuary-ward-creation`
+- Reproduction seed or trace id: `T040-end-ward-on-warded-attack-roll`
+- Reproduction seed or trace id: `T040-end-ward-on-warded-damage-dealt`
+- Reproduction seed or trace id: `T040-end-ward-on-warded-spell-cast`
+- Reproduction seed or trace id: `T040-exclude-area-effect-from-interdiction`
+- Reproduction seed or trace id: `T040-interdict-direct-attack-failed-save-loss`
+- Reproduction seed or trace id: `T040-interdict-direct-spell-successful-save-pass-through`
+- Reproduction seed or trace id: `T040-reject-illegal-replacement-target`
+- Reproduction seed or trace id: `T040-retarget-direct-attack-to-legal-replacement`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::sanctuary_selected_identity_projects_ward_interdiction_and_teardown`
 
 Remaining gaps:
 

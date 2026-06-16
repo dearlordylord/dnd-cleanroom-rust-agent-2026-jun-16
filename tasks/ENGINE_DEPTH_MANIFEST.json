@@ -1,30 +1,33 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 5,
+      "addedEntries": 9,
       "owner": "production",
-      "reason": "added roll-modifier buff selected-identity projections for Bane, Bless, Guidance, Resistance, and Shield of Faith"
+      "reason": "added Sanctuary selected-identity projections for ward creation, interdiction, replacement targeting, area exclusion, and ward-ending causes"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doBlessAttackAndSaveModifier",
-        "doBaneFailedSavePenalty",
-        "doGuidanceSkillAbilityCheckModifier",
-        "doResistanceReducesMatchingDamage",
-        "doShieldOfFaithArmorClassBonus",
-        "Bless",
-        "Bane",
-        "Guidance",
-        "Resistance",
-        "ShieldOfFaith",
-        "none",
-        "+",
-        "-",
-        "stealth",
-        "bludgeoning",
+        "doCastSanctuaryWardCreation",
+        "doInterdictDirectAttackFailedSaveLoss",
+        "doInterdictDirectSpellSuccessfulSavePassThrough",
+        "doRetargetDirectAttackToLegalReplacement",
+        "doRejectIllegalReplacementTarget",
+        "doExcludeAreaEffectFromInterdiction",
+        "doEndWardOnWardedAttackRoll",
+        "doEndWardOnWardedSpellCast",
+        "doEndWardOnWardedDamageDealt",
+        "WardCreated",
+        "AttackLost",
+        "SpellSaveSucceeded",
+        "ReplacementAdmitted",
+        "ReplacementRejected",
+        "AreaEffectExcluded",
+        "AttackRollEndedWard",
+        "SpellCastEndedWard",
+        "DamageEndedWard",
         "init",
         "resolved",
         "mbt::actionTaken",
@@ -44,36 +47,40 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T039-battle-runtime-roll-modifier-buff-selected-identity.json"
+        "tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "project_shield_of_faith_armor_class_bonus",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt",
-      "module": "src/rules/roll_modifier_buff_selected_identity.rs"
+      "api": "exclude_area_effect_from_interdiction",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "module": "src/rules/sanctuary_selected_identity.rs"
     },
     {
-      "api": "project_resistance_matching_damage_reduction",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt",
-      "module": "src/rules/roll_modifier_buff_selected_identity.rs"
+      "api": "end_ward_on_warded_damage_dealt",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
+      "module": "src/rules/sanctuary_selected_identity.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "roll_modifier_buff_selected_identity_initial_state",
-        "project_bless_attack_and_save_modifier",
-        "project_bane_failed_save_penalty",
-        "project_guidance_skill_ability_check_modifier",
-        "project_resistance_matching_damage_reduction",
-        "project_shield_of_faith_armor_class_bonus"
+        "sanctuary_selected_identity_initial_state",
+        "cast_sanctuary_ward_creation",
+        "interdict_direct_attack_failed_save_loss",
+        "interdict_direct_spell_successful_save_pass_through",
+        "retarget_direct_attack_to_legal_replacement",
+        "reject_illegal_replacement_target",
+        "exclude_area_effect_from_interdiction",
+        "end_ward_on_warded_attack_roll",
+        "end_ward_on_warded_spell_cast",
+        "end_ward_on_warded_damage_dealt"
       ],
-      "path": "src/rules/roll_modifier_buff_selected_identity.rs",
+      "path": "src/rules/sanctuary_selected_identity.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T039"
+  "taskId": "T040"
 }

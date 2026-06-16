@@ -50,6 +50,8 @@ mod battle_runtime_quickened_spell_governor;
 mod battle_runtime_roll_modifier_active_effects;
 #[path = "../qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs"]
 mod battle_runtime_roll_modifier_buff_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_sanctuary_selected_identity.rs"]
+mod battle_runtime_sanctuary_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -255,6 +257,14 @@ use crate::rules::roll_modifier_buff_selected_identity::{
     RollModifierBuffDamageType, RollModifierBuffProtocol, RollModifierBuffScenarioOutcome,
     RollModifierBuffSign, RollModifierBuffSkill,
 };
+use crate::rules::sanctuary_selected_identity::{
+    cast_sanctuary_ward_creation, end_ward_on_warded_attack_roll, end_ward_on_warded_damage_dealt,
+    end_ward_on_warded_spell_cast, exclude_area_effect_from_interdiction,
+    interdict_direct_attack_failed_save_loss, interdict_direct_spell_successful_save_pass_through,
+    reject_illegal_replacement_target, retarget_direct_attack_to_legal_replacement,
+    sanctuary_selected_identity_initial_state, SanctuarySelectedIdentityProtocol,
+    SanctuarySelectedIdentityScenarioOutcome,
+};
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
     fill_eldritch_blast_attack, fill_eldritch_blast_damage, fill_eldritch_blast_targets,
@@ -433,6 +443,12 @@ use battle_runtime_roll_modifier_buff_selected_identity::{
     projection_payload as roll_modifier_buff_selected_identity_projection_payload,
     replay_observed_action as replay_roll_modifier_buff_selected_identity_action,
     BRANCH_ACTIONS as ROLL_MODIFIER_BUFF_SELECTED_IDENTITY_BRANCH_ACTIONS,
+};
+use battle_runtime_sanctuary_selected_identity::{
+    expected_witness as expected_sanctuary_selected_identity_witness,
+    projection_payload as sanctuary_selected_identity_projection_payload,
+    replay_observed_action as replay_sanctuary_selected_identity_action,
+    BRANCH_ACTIONS as SANCTUARY_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2761,6 +2777,73 @@ fn roll_modifier_buff_selected_identity_projects_spell_modifiers() {
     );
     assert_eq!(shield.primary_target_armor_class, 12);
     assert_eq!(shield.primary_target_effect_count, 1);
+}
+
+#[test]
+fn sanctuary_selected_identity_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sanctuary-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Sanctuary".
+    for action in SANCTUARY_SELECTED_IDENTITY_BRANCH_ACTIONS {
+        let observed = replay_sanctuary_selected_identity_action(action);
+        assert_eq!(
+            observed,
+            expected_sanctuary_selected_identity_witness(action)
+        );
+        assert!(sanctuary_selected_identity_projection_payload(&observed)
+            .contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn sanctuary_selected_identity_projects_ward_interdiction_and_teardown() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Sanctuary"; QNT:
+    // battle-runtime-sanctuary-selected-identity.mbt.qnt.
+    let initial = sanctuary_selected_identity_initial_state();
+    assert_eq!(initial.protocol, SanctuarySelectedIdentityProtocol::Init);
+    assert!(!initial.ward_present);
+
+    let ward = cast_sanctuary_ward_creation();
+    assert!(ward.ward_present);
+    assert!(ward.ward_source_is_sanctuary);
+
+    let lost = interdict_direct_attack_failed_save_loss();
+    assert!(lost.wisdom_save_requested);
+    assert!(lost.attack_or_spell_lost);
+    assert_eq!(lost.warded_hp, 12);
+
+    let save = interdict_direct_spell_successful_save_pass_through();
+    assert!(save.wisdom_save_requested);
+    assert!(save.successful_save_pass_through);
+
+    let replacement = retarget_direct_attack_to_legal_replacement();
+    assert!(replacement.legal_replacement_pass_through);
+    let rejected = reject_illegal_replacement_target();
+    assert!(rejected.illegal_replacement_rejected);
+
+    let area = exclude_area_effect_from_interdiction();
+    assert!(area.area_effect_bypassed_interdiction);
+    assert!(!area.wisdom_save_requested);
+
+    let attack_end = end_ward_on_warded_attack_roll();
+    assert!(!attack_end.ward_present);
+    assert_eq!(
+        attack_end.scenario_outcome,
+        SanctuarySelectedIdentityScenarioOutcome::AttackRollEndedWard
+    );
+    let spell_end = end_ward_on_warded_spell_cast();
+    assert_eq!(
+        spell_end.scenario_outcome,
+        SanctuarySelectedIdentityScenarioOutcome::SpellCastEndedWard
+    );
+    let damage_end = end_ward_on_warded_damage_dealt();
+    assert_eq!(damage_end.warded_hp, 11);
+    assert_eq!(
+        damage_end.scenario_outcome,
+        SanctuarySelectedIdentityScenarioOutcome::DamageEndedWard
+    );
 }
 
 #[test]
