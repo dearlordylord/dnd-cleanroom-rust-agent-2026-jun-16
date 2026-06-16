@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T057",
-  "startHeadSha": "9d282d20ab8f47d08bf294068daae95e801c60cf",
+  "taskId": "T058",
+  "startHeadSha": "80b110ab7962adf83b30ef15c620baf84e38a414",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt"
     ]
   }
 }

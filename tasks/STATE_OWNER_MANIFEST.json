@@ -4,80 +4,24 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SpeciesPassiveTraitState.dragonborn_fire_damage_after",
-      "introducedIn": "src/rules/species_passive_traits.rs",
+      "fieldPath": "SpellAttackOrderingState.stage",
+      "introducedIn": "src/rules/spell_attack_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SpeciesPassiveTraitState.dragonborn_cold_damage_after",
-      "introducedIn": "src/rules/species_passive_traits.rs",
+      "fieldPath": "SpellAttackOrderingState.protocol",
+      "introducedIn": "src/rules/spell_attack_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SpeciesPassiveTraitState.dwarf_poison_damage_after",
-      "introducedIn": "src/rules/species_passive_traits.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SpeciesPassiveTraitState.dwarf_fire_damage_after",
-      "introducedIn": "src/rules/species_passive_traits.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SpeciesPassiveTraitState.dwarf_poisoned_save_advantage",
-      "introducedIn": "src/rules/species_passive_traits.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SpeciesPassiveTraitState.dwarf_charmed_save_advantage",
-      "introducedIn": "src/rules/species_passive_traits.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SpeciesPassiveTraitState.goliath_escape_roll_mode",
-      "introducedIn": "src/rules/species_passive_traits.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SpeciesPassiveTraitState.goliath_poisoned_escape_roll_mode",
-      "introducedIn": "src/rules/species_passive_traits.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SpeciesPassiveTraitState.scenario_result",
-      "introducedIn": "src/rules/species_passive_traits.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SpeciesPassiveTraitState.protocol",
-      "introducedIn": "src/rules/species_passive_traits.rs",
+      "fieldPath": "SpellAttackOrderingState.last_ordering_error",
+      "introducedIn": "src/rules/spell_attack_ordering.rs",
       "owner": "battle-state"
     },
     {
@@ -86,10 +30,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T057"
+  "taskId": "T058"
 }

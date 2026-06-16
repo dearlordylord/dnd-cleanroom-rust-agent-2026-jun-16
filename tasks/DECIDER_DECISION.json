@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T057-battle-runtime-species-passive-trait-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T057"
+  "taskId": "T058"
 }

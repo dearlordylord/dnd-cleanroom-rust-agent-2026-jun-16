@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt`
-- Next task id: `T058`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt`
+- Next task id: `T059`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,105 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T058: battle-runtime-spell-attack-ordering
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverSingleTargetSpellAttack`
+  - `step:doSubmitAttackRollBeforeTargetChoice`
+  - `step:doFillTargetChoice`
+  - `step:doSubmitDamageBeforeAttackRoll`
+  - `step:doFillAttackRollMiss`
+  - `step:doFillAttackRollHit`
+  - `step:doFillDamageDice`
+  - `step:doDiscoverTypedSpellAttack`
+  - `step:doFillDamageTypeBeforeTargetChoice`
+  - `step:doFillTargetChoiceBeforeDamageType`
+  - `step:doFillDamageTypeAfterTargetChoice`
+  - `step:doFillTargetChoiceAfterDamageType`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-hole-kinds.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-fill-kinds.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-witness-protocol.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/spell_attack_ordering.rs` with the QNT spell-attack frontier stages, fill-order result handling, requested-earlier error labels, and witness protocol projection.
+- Covered single-target spell attacks where target choice must precede attack rolls and attack rolls must precede damage dice.
+- Covered typed spell attacks where damage type and target choice may be supplied in either order before the attack roll frontier.
+- Kept QNT action names, stage names, hole names, and string labels quarantined in `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doDiscoverSingleTargetSpellAttack` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-discover-single-target-spell-attack#step:doDiscoverSingleTargetSpellAttack` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doSubmitAttackRollBeforeTargetChoice` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-submit-attack-roll-before-target-choice#step:doSubmitAttackRollBeforeTargetChoice` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-target-choice#step:doFillTargetChoice` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doSubmitDamageBeforeAttackRoll` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-submit-damage-before-attack-roll#step:doSubmitDamageBeforeAttackRoll` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-attack-roll-miss#step:doFillAttackRollMiss` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-attack-roll-hit#step:doFillAttackRollHit` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillDamageDice` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-damage-dice#step:doFillDamageDice` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doDiscoverTypedSpellAttack` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-discover-typed-spell-attack#step:doDiscoverTypedSpellAttack` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillDamageTypeBeforeTargetChoice` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-damage-type-before-target-choice#step:doFillDamageTypeBeforeTargetChoice` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillTargetChoiceBeforeDamageType` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-target-choice-before-damage-type#step:doFillTargetChoiceBeforeDamageType` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillDamageTypeAfterTargetChoice` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-damage-type-after-target-choice#step:doFillDamageTypeAfterTargetChoice` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillTargetChoiceAfterDamageType` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-target-choice-after-damage-type#step:doFillTargetChoiceAfterDamageType` | `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T058-discover-single-target-spell-attack`
+- Reproduction seed or trace id: `T058-submit-attack-roll-before-target-choice`
+- Reproduction seed or trace id: `T058-fill-target-choice`
+- Reproduction seed or trace id: `T058-submit-damage-before-attack-roll`
+- Reproduction seed or trace id: `T058-fill-attack-roll-miss`
+- Reproduction seed or trace id: `T058-fill-attack-roll-hit`
+- Reproduction seed or trace id: `T058-fill-damage-dice`
+- Reproduction seed or trace id: `T058-discover-typed-spell-attack`
+- Reproduction seed or trace id: `T058-fill-damage-type-before-target-choice`
+- Reproduction seed or trace id: `T058-fill-target-choice-before-damage-type`
+- Reproduction seed or trace id: `T058-fill-damage-type-after-target-choice`
+- Reproduction seed or trace id: `T058-fill-target-choice-after-damage-type`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::spell_attack_ordering_adapter_replays_all_branches`
+- `src/tests/mod.rs::spell_attack_ordering_tracks_single_target_and_typed_paths`
 
 Remaining gaps:
 

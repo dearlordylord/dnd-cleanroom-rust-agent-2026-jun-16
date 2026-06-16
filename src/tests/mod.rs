@@ -86,6 +86,8 @@ mod battle_runtime_sorcerer_metamagic_transmuted_selected_identity;
 mod battle_runtime_sorcerer_metamagic_twinned_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs"]
 mod battle_runtime_species_passive_trait_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_spell_attack_ordering.rs"]
+mod battle_runtime_spell_attack_ordering;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -353,6 +355,15 @@ use crate::rules::species_passive_traits::{
     project_dragonborn_damage_resistance, project_dwarven_resilience,
     project_goliath_powerful_build, species_passive_traits_initial_state, SpeciesPassiveProtocol,
     SpeciesPassiveRollMode, SpeciesPassiveScenarioResult,
+};
+use crate::rules::spell_attack_ordering::{
+    discover_single_target_spell_attack, discover_typed_spell_attack, fill_attack_roll_hit,
+    fill_attack_roll_miss, fill_damage_dice, fill_damage_type_after_target_choice,
+    fill_damage_type_before_target_choice, fill_target_choice,
+    fill_target_choice_after_damage_type, fill_target_choice_before_damage_type,
+    spell_attack_ordering_initial_state, submit_attack_roll_before_target_choice,
+    submit_damage_before_attack_roll, SpellAttackFillOrderingError, SpellAttackFrontierStage,
+    SpellAttackHoleKind, SpellAttackOrderingProtocol,
 };
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
@@ -640,6 +651,12 @@ use battle_runtime_species_passive_trait_selected_identity::{
     projection_payload as species_passive_projection_payload,
     replay_observed_action as replay_species_passive_action,
     BRANCH_ACTIONS as SPECIES_PASSIVE_BRANCH_ACTIONS,
+};
+use battle_runtime_spell_attack_ordering::{
+    expected_witness as expected_spell_attack_ordering_witness,
+    projection_payload as spell_attack_ordering_projection_payload,
+    replay_observed_action as replay_spell_attack_ordering_action,
+    BRANCH_ACTIONS as SPELL_ATTACK_ORDERING_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3119,6 +3136,107 @@ fn save_gated_spell_ordering_tracks_area_damage_and_condition_paths() {
     assert_eq!(
         fill_condition_saving_throw().protocol,
         SaveGatedSpellOrderingProtocol::Resolved
+    );
+}
+
+#[test]
+fn spell_attack_ordering_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-spell-attack-ordering.mbt.qnt and
+    // battle-runtime-spell-attack-ordering.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Making an Attack", "Attack Rolls", "Damage Rolls", and
+    // "Damage Types"; cleanroom-input/raw/srd-5.2.1/
+    // Spells/Gaining-and-Casting.md "Targets" and "Attack Rolls".
+    for action in SPELL_ATTACK_ORDERING_BRANCH_ACTIONS {
+        let observed = replay_spell_attack_ordering_action(action);
+        assert_eq!(observed, expected_spell_attack_ordering_witness(action));
+        assert!(spell_attack_ordering_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn spell_attack_ordering_tracks_single_target_and_typed_paths() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Making an Attack", "Attack Rolls", and "Damage Rolls"; QNT:
+    // battle-runtime-spell-attack-ordering.qnt.
+    let initial = spell_attack_ordering_initial_state();
+    assert_eq!(initial.stage, SpellAttackFrontierStage::ActSelection);
+    assert_eq!(initial.protocol, SpellAttackOrderingProtocol::Init);
+
+    let single_target = discover_single_target_spell_attack();
+    assert_eq!(single_target.stage, SpellAttackFrontierStage::TargetChoice);
+    assert_eq!(
+        single_target.protocol,
+        SpellAttackOrderingProtocol::NeedsHoles(vec![SpellAttackHoleKind::TargetChoice])
+    );
+
+    let premature_attack = submit_attack_roll_before_target_choice();
+    assert_eq!(
+        premature_attack.last_ordering_error,
+        Some(SpellAttackFillOrderingError::TargetRequired)
+    );
+    assert_eq!(
+        premature_attack.stage,
+        SpellAttackFrontierStage::TargetChoice
+    );
+
+    let target_filled = fill_target_choice();
+    assert_eq!(target_filled.stage, SpellAttackFrontierStage::AttackRoll);
+    assert_eq!(
+        target_filled.protocol,
+        SpellAttackOrderingProtocol::NeedsHoles(vec![SpellAttackHoleKind::AttackRoll])
+    );
+
+    let premature_damage = submit_damage_before_attack_roll();
+    assert_eq!(
+        premature_damage.last_ordering_error,
+        Some(SpellAttackFillOrderingError::AttackRollRequired)
+    );
+
+    let attack_miss = fill_attack_roll_miss();
+    assert_eq!(attack_miss.stage, SpellAttackFrontierStage::Resolved);
+    assert_eq!(attack_miss.protocol, SpellAttackOrderingProtocol::Resolved);
+
+    let attack_hit = fill_attack_roll_hit();
+    assert_eq!(attack_hit.stage, SpellAttackFrontierStage::DamageDice);
+    assert_eq!(
+        attack_hit.protocol,
+        SpellAttackOrderingProtocol::NeedsHoles(vec![SpellAttackHoleKind::RolledDice])
+    );
+    assert_eq!(
+        fill_damage_dice().protocol,
+        SpellAttackOrderingProtocol::Resolved
+    );
+
+    let typed = discover_typed_spell_attack();
+    assert_eq!(
+        typed.stage,
+        SpellAttackFrontierStage::DamageTypeAndTargetChoice
+    );
+    assert_eq!(
+        typed.protocol,
+        SpellAttackOrderingProtocol::NeedsHoles(vec![
+            SpellAttackHoleKind::DamageTypeChoice,
+            SpellAttackHoleKind::TargetChoice
+        ])
+    );
+
+    assert_eq!(
+        fill_damage_type_before_target_choice().stage,
+        SpellAttackFrontierStage::TypedTargetChoice
+    );
+    assert_eq!(
+        fill_target_choice_after_damage_type().stage,
+        SpellAttackFrontierStage::AttackRoll
+    );
+    assert_eq!(
+        fill_target_choice_before_damage_type().stage,
+        SpellAttackFrontierStage::DamageTypeChoice
+    );
+    assert_eq!(
+        fill_damage_type_after_target_choice().stage,
+        SpellAttackFrontierStage::AttackRoll
     );
 }
 
