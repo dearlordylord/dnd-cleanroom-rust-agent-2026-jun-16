@@ -4,16 +4,56 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CreatureAttackState.creature_a_hit_points",
-      "introducedIn": "src/rules/creature_attack.rs",
+      "fieldPath": "AttackDamageDispositionState.outcome",
+      "introducedIn": "src/rules/attack_damage_disposition.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "CreatureAttackState.creature_b_hit_points",
-      "introducedIn": "src/rules/creature_attack.rs",
+      "fieldPath": "AttackDamageDispositionState.accepted",
+      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "AttackDamageDispositionState.target_hit_points",
+      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "AttackDamageDispositionState.target_unconscious",
+      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "AttackDamageDispositionState.target_dead",
+      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "AttackDamageDispositionState.knock_out_recovery_ends_when_hit_points_regained",
+      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "AttackDamageDispositionState.replay_index",
+      "introducedIn": "src/rules/attack_damage_disposition.rs",
       "owner": "battle-state"
     },
     {
@@ -22,10 +62,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/creature_attack_mbt.rs",
+      "introducedIn": "src/qnt_adapters/rule_core_attack_damage_disposition.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T068"
+  "taskId": "T069"
 }

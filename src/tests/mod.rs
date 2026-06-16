@@ -134,6 +134,8 @@ mod character_sheet_spellbook_ritual_selected_identity;
 mod character_sheet_weapon_mastery_containers_selected_identity;
 #[path = "../qnt_adapters/creature_attack_mbt.rs"]
 mod creature_attack_mbt;
+#[path = "../qnt_adapters/rule_core_attack_damage_disposition.rs"]
+mod rule_core_attack_damage_disposition;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -142,6 +144,15 @@ use crate::rules::ability_checks::{
 use crate::rules::armor_class::{
     armor_class_projection, ArmorClassAbility, ArmorClassFacts, ArmorClassFormula,
     ArmorClassOption, ShieldArmorClassBonus,
+};
+use crate::rules::attack_damage_disposition::{
+    apply_knock_out_disposition, apply_resolved_damage_to_positive_hit_points,
+    attack_damage_disposition_initial_state, attack_damage_disposition_is_legal,
+    attack_damage_facts, attack_damage_target_vitals, damage_amount_before_hit_points,
+    reject_ranged_knock_out_disposition, resolve_melee_knock_out_disposition,
+    AttackDamageDisposition, AttackDamageDispositionOutcome, AttackKind,
+    ATTACK_DAMAGE_ROLLED_DAMAGE, ATTACK_DAMAGE_TARGET_HIT_POINTS,
+    ATTACK_DAMAGE_TARGET_HIT_POINT_MAXIMUM,
 };
 use crate::rules::battle_features::{
     activate_innate_sorcery, danger_sense_initial_state, danger_sense_saving_throw_roll_mode,
@@ -884,6 +895,12 @@ use creature_attack_mbt::{
     projection_payload as creature_attack_projection_payload,
     replay_observed_action as replay_creature_attack_action, replay_sampled_inputs,
     BRANCH_ACTIONS as CREATURE_ATTACK_BRANCH_ACTIONS, REPLAY_DAMAGE_SAMPLE, REPLAY_HIT_SAMPLE,
+};
+use rule_core_attack_damage_disposition::{
+    expected_witness as expected_attack_damage_disposition_witness,
+    projection_payload as attack_damage_disposition_projection_payload,
+    replay_observed_action as replay_attack_damage_disposition_action,
+    BRANCH_ACTIONS as ATTACK_DAMAGE_DISPOSITION_BRANCH_ACTIONS,
 };
 
 #[test]
@@ -2101,6 +2118,86 @@ fn creature_attack_applies_hit_damage_to_opposing_creature_only() {
         0
     );
     assert_eq!(apply_damage_to_creature(3, -2), 3);
+}
+
+#[test]
+fn attack_damage_disposition_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // rule-core-attack-damage-disposition.mbt.qnt and imported rule-core QNT;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Damage Rolls" and "Knocking Out a Creature".
+    for action in ATTACK_DAMAGE_DISPOSITION_BRANCH_ACTIONS {
+        let observed = replay_attack_damage_disposition_action(action);
+        assert_eq!(observed, expected_attack_damage_disposition_witness(action));
+        assert!(attack_damage_disposition_projection_payload(&observed).contains("qReplayIndex="));
+    }
+}
+
+#[test]
+fn attack_damage_disposition_accepts_only_melee_knock_out_to_zero() {
+    // RAW/QNT citations match `attack_damage_disposition_adapter_replays_all_branches`.
+    let initial = attack_damage_disposition_initial_state();
+    assert_eq!(initial.outcome, AttackDamageDispositionOutcome::Initial);
+    assert!(initial.accepted);
+    assert_eq!(initial.target_hit_points, ATTACK_DAMAGE_TARGET_HIT_POINTS);
+
+    let target_vitals = attack_damage_target_vitals();
+    assert_eq!(
+        target_vitals.hit_point_maximum,
+        ATTACK_DAMAGE_TARGET_HIT_POINT_MAXIMUM
+    );
+    let melee_knock_out = attack_damage_facts(AttackKind::Melee, AttackDamageDisposition::KnockOut);
+    assert_eq!(
+        damage_amount_before_hit_points(melee_knock_out),
+        ATTACK_DAMAGE_ROLLED_DAMAGE
+    );
+    assert!(attack_damage_disposition_is_legal(
+        target_vitals,
+        ATTACK_DAMAGE_ROLLED_DAMAGE,
+        melee_knock_out
+    ));
+
+    let damage_result =
+        apply_resolved_damage_to_positive_hit_points(target_vitals, ATTACK_DAMAGE_ROLLED_DAMAGE);
+    assert_eq!(damage_result.vitals.hit_points, 0);
+    assert!(damage_result.vitals.unconscious);
+    assert!(!damage_result.vitals.dead);
+    let (knocked_out, recovery) = apply_knock_out_disposition(damage_result);
+    assert_eq!(knocked_out.hit_points, 1);
+    assert!(knocked_out.unconscious);
+    assert!(!knocked_out.dead);
+    assert!(recovery);
+
+    let melee = resolve_melee_knock_out_disposition();
+    assert_eq!(
+        melee.outcome,
+        AttackDamageDispositionOutcome::MeleeKnockOutAccepted
+    );
+    assert!(melee.accepted);
+    assert_eq!(melee.target_hit_points, 1);
+    assert!(melee.target_unconscious);
+    assert!(!melee.target_dead);
+    assert!(melee.knock_out_recovery_ends_when_hit_points_regained);
+    assert_eq!(melee.replay_index, 1);
+
+    let ranged_knock_out =
+        attack_damage_facts(AttackKind::Ranged, AttackDamageDisposition::KnockOut);
+    assert!(!attack_damage_disposition_is_legal(
+        target_vitals,
+        ATTACK_DAMAGE_ROLLED_DAMAGE,
+        ranged_knock_out
+    ));
+    let ranged = reject_ranged_knock_out_disposition();
+    assert_eq!(
+        ranged.outcome,
+        AttackDamageDispositionOutcome::RangedKnockOutRejected
+    );
+    assert!(!ranged.accepted);
+    assert_eq!(ranged.target_hit_points, ATTACK_DAMAGE_TARGET_HIT_POINTS);
+    assert!(!ranged.target_unconscious);
+    assert!(!ranged.target_dead);
+    assert!(!ranged.knock_out_recovery_ends_when_hit_points_regained);
+    assert_eq!(ranged.replay_index, 2);
 }
 
 #[test]

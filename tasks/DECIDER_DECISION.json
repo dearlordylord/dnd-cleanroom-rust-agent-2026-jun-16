@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T068-creature-attack.json",
+      "evidence": "tasks/target-replay-evidence/T069-rule-core-attack-damage-disposition.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T068"
+  "taskId": "T069"
 }

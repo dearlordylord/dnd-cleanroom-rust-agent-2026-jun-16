@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T068",
-  "startHeadSha": "0a1c0a69fd1d1915e3fa62af2b90dbf73e1861b2",
+  "taskId": "T069",
+  "startHeadSha": "c7b3926ab4fbd158f8b0b60a4c6e4fbdba8a8d87",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -9,9 +9,9 @@
   },
   "taskScope": {
     "assignmentId": "level-1-2-full",
-    "laneId": "battle",
+    "laneId": "rules-core",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt"
     ]
   }
 }

@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt`
-- Next task id: `T069`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt`
+- Next task id: `T070`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,75 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T069: rule-core-attack-damage-disposition
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt`
+- Branch obligations:
+  - `step:doMeleeKnockOut`
+  - `step:doRejectRangedKnockOut`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/attack-damage-composition.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/damage-component-adjustments.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/hit-point-damage.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/hit-point-recovery.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/attack_damage_disposition.rs` with target vitals, attack kind, damage disposition, positive Hit Point damage, and knockout recovery projection.
+- Modeled melee knockout as legal only when positive damage would reduce the target to 0 Hit Points, then applies the knockout disposition as 1 Hit Point, Unconscious, not dead, with recovery ending when Hit Points are regained.
+- Modeled ranged knockout as rejected by disposition legality, preserving the target's original Hit Points and condition state.
+- Kept QNT branch actions, scenario strings, and projection field names quarantined in `src/qnt_adapters/rule_core_attack_damage_disposition.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt#step:doMeleeKnockOut` | `tasks/target-replay-evidence/T069-rule-core-attack-damage-disposition.json#T069-melee-knock-out#step:doMeleeKnockOut` | `src/tests/mod.rs::attack_damage_disposition_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt#step:doRejectRangedKnockOut` | `tasks/target-replay-evidence/T069-rule-core-attack-damage-disposition.json#T069-reject-ranged-knock-out#step:doRejectRangedKnockOut` | `src/tests/mod.rs::attack_damage_disposition_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T069-rule-core-attack-damage-disposition.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T069-melee-knock-out`
+- Reproduction seed or trace id: `T069-reject-ranged-knock-out`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::attack_damage_disposition_adapter_replays_all_branches`
+- `src/tests/mod.rs::attack_damage_disposition_accepts_only_melee_knock_out_to_zero`
 
 Remaining gaps:
 

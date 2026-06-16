@@ -3,21 +3,25 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added minimal creature attack hit point projection"
+      "reason": "added attack damage disposition rule-core projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/creature_attack_mbt.rs",
+      "path": "src/qnt_adapters/rule_core_attack_damage_disposition.rs",
       "quarantinedWitnessNames": [
-        "doAttackerAAttacks",
-        "doAttackerBAttacks",
-        "damage",
-        "hit",
-        "AttackerA",
-        "AttackerB",
-        "qCreatureAHp",
-        "qCreatureBHp",
+        "doMeleeKnockOut",
+        "doRejectRangedKnockOut",
+        "init",
+        "melee-knock-out",
+        "ranged-knock-out-rejected",
+        "qLastScenario",
+        "qAccepted",
+        "qTargetHp",
+        "qTargetUnconscious",
+        "qTargetDead",
+        "qKnockOutRecovery",
+        "qReplayIndex",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -35,33 +39,36 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T068-creature-attack.json"
+        "tasks/target-replay-evidence/T069-rule-core-attack-damage-disposition.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "apply_damage_to_creature",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
-      "module": "src/rules/creature_attack.rs"
+      "api": "apply_resolved_damage_to_positive_hit_points",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+      "module": "src/rules/attack_damage_disposition.rs"
     },
     {
-      "api": "CreatureAttackState",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
-      "module": "src/rules/creature_attack.rs"
+      "api": "attack_damage_disposition_is_legal",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "module": "src/rules/attack_damage_disposition.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "creature_attack_initial_state",
-        "resolve_creature_attack",
-        "apply_damage_to_creature"
+        "attack_damage_disposition_initial_state",
+        "resolve_melee_knock_out_disposition",
+        "reject_ranged_knock_out_disposition",
+        "attack_damage_disposition_is_legal",
+        "apply_resolved_damage_to_positive_hit_points",
+        "apply_knock_out_disposition"
       ],
-      "path": "src/rules/creature_attack.rs",
+      "path": "src/rules/attack_damage_disposition.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T068"
+  "taskId": "T069"
 }
