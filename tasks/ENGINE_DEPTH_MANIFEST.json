@@ -3,15 +3,15 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added Quickened Spell save-gated damage projection"
+      "reason": "added Quickened Spell spell-attack projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doResolveQuickenedSaveGatedDamage",
-        "quickenedSaveGatedDamage",
+        "doResolveQuickenedSpellAttack",
+        "quickenedSpellAttack",
         "init",
         "resolved",
         "mbt::actionTaken",
@@ -31,19 +31,19 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T051-battle-runtime-sorcerer-metamagic-selected-identity.json"
+        "tasks/target-replay-evidence/T052-battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
       "api": "quickened_metamagic_initial_state",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.mbt.qnt",
       "module": "src/rules/sorcerer_metamagic.rs"
     },
     {
-      "api": "resolve_quickened_save_gated_damage",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt",
+      "api": "resolve_quickened_spell_attack",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.mbt.qnt",
       "module": "src/rules/sorcerer_metamagic.rs"
     }
   ],
@@ -51,12 +51,12 @@
     {
       "domainApis": [
         "quickened_metamagic_initial_state",
-        "resolve_quickened_save_gated_damage"
+        "resolve_quickened_spell_attack"
       ],
       "path": "src/rules/sorcerer_metamagic.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T051"
+  "taskId": "T052"
 }

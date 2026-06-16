@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T051",
-  "startHeadSha": "9837a9a7f65e835b0fef0fab0cf3fc9a103f988c",
+  "taskId": "T052",
+  "startHeadSha": "f70e8a746118722f7be132fd99d6d206650d78a9",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt"
     ]
   }
 }

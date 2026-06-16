@@ -74,6 +74,8 @@ mod battle_runtime_sorcerer_metamagic_heightened_selected_identity;
 mod battle_runtime_sorcerer_metamagic_seeking_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_selected_identity.rs"]
+mod battle_runtime_sorcerer_metamagic_spell_attack_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -324,12 +326,13 @@ use crate::rules::sorcerer_metamagic::{
     resolve_heightened_grease_entry_save, resolve_heightened_gust_of_wind_end_turn_save,
     resolve_heightened_hideous_laughter, resolve_heightened_save_gated_condition_end_turn_save,
     resolve_heightened_save_gated_damage, resolve_quickened_save_gated_damage,
-    resolve_seeking_spell_attack_reroll, seeking_spell_initial_state, CarefulSpellProtocol,
-    CarefulSpellScenarioResult, DistantSpellProtocol, DistantSpellScenarioResult,
-    EmpoweredSpellProtocol, EmpoweredSpellScenarioResult, ExtendedSpellConcentrationSaveMode,
-    ExtendedSpellProtocol, ExtendedSpellScenarioResult, HeightenedSpellProtocol,
-    HeightenedSpellScenarioResult, QuickenedMetamagicProtocol, QuickenedMetamagicScenarioResult,
-    SeekingSpellProtocol, SeekingSpellScenarioResult,
+    resolve_quickened_spell_attack, resolve_seeking_spell_attack_reroll,
+    seeking_spell_initial_state, CarefulSpellProtocol, CarefulSpellScenarioResult,
+    DistantSpellProtocol, DistantSpellScenarioResult, EmpoweredSpellProtocol,
+    EmpoweredSpellScenarioResult, ExtendedSpellConcentrationSaveMode, ExtendedSpellProtocol,
+    ExtendedSpellScenarioResult, HeightenedSpellProtocol, HeightenedSpellScenarioResult,
+    QuickenedMetamagicProtocol, QuickenedMetamagicScenarioResult, SeekingSpellProtocol,
+    SeekingSpellScenarioResult,
 };
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
@@ -581,6 +584,12 @@ use battle_runtime_sorcerer_metamagic_selected_identity::{
     projection_payload as quickened_metamagic_projection_payload,
     replay_observed_action as replay_quickened_metamagic_action,
     BRANCH_ACTIONS as QUICKENED_METAMAGIC_BRANCH_ACTIONS,
+};
+use battle_runtime_sorcerer_metamagic_spell_attack_selected_identity::{
+    expected_witness as expected_quickened_spell_attack_witness,
+    projection_payload as quickened_spell_attack_projection_payload,
+    replay_observed_action as replay_quickened_spell_attack_action,
+    BRANCH_ACTIONS as QUICKENED_SPELL_ATTACK_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3545,6 +3554,44 @@ fn quickened_metamagic_projects_save_gated_damage_case() {
     assert_eq!(
         quickened.scenario_result,
         QuickenedMetamagicScenarioResult::QuickenedSaveGatedDamage
+    );
+    assert_eq!(quickened.protocol, QuickenedMetamagicProtocol::Resolved);
+}
+
+#[test]
+fn quickened_spell_attack_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Quickened Spell".
+    for action in QUICKENED_SPELL_ATTACK_BRANCH_ACTIONS {
+        let observed = replay_quickened_spell_attack_action(action);
+        assert_eq!(observed, expected_quickened_spell_attack_witness(action));
+        assert!(quickened_spell_attack_projection_payload(&observed)
+            .contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn quickened_spell_attack_projects_spell_attack_case() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Quickened Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt.
+    let initial = quickened_metamagic_initial_state();
+    assert!(initial.magic_action_available);
+    assert!(initial.bonus_action_available);
+    assert_eq!(initial.sorcery_points_remaining, 4);
+    assert_eq!(initial.protocol, QuickenedMetamagicProtocol::Init);
+
+    let quickened = resolve_quickened_spell_attack();
+    assert!(quickened.magic_action_available);
+    assert!(!quickened.bonus_action_available);
+    assert_eq!(quickened.sorcery_points_remaining, 2);
+    assert_eq!(quickened.target_hit_points, 3);
+    assert_eq!(quickened.target_active_effect_count, 1);
+    assert_eq!(
+        quickened.scenario_result,
+        QuickenedMetamagicScenarioResult::QuickenedSpellAttack
     );
     assert_eq!(quickened.protocol, QuickenedMetamagicProtocol::Resolved);
 }
