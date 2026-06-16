@@ -92,6 +92,8 @@ mod battle_runtime_spell_attack_ordering;
 mod battle_runtime_starry_wisp_object;
 #[path = "../qnt_adapters/battle_runtime_stat_block_action_ordering.rs"]
 mod battle_runtime_stat_block_action_ordering;
+#[path = "../qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs"]
+mod battle_runtime_thaumaturgy_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -397,6 +399,13 @@ use crate::rules::stat_block_action_ordering::{
     StatBlockActionFrontierStage, StatBlockActionHoleKind, StatBlockActionInvalidReason,
     StatBlockActionOrderingProtocol,
 };
+use crate::rules::thaumaturgy_selected_identity::{
+    resolve_thaumaturgy_booming_voice, thaumaturgy_booming_voice_roll_mode,
+    thaumaturgy_selected_identity_initial_state, ThaumaturgyAbility, ThaumaturgyRollMode,
+    ThaumaturgySelectedIdentityProtocol, ThaumaturgySelectedIdentityScenarioOutcome,
+    ThaumaturgySkill, THAUMATURGY_BOOMING_VOICE_DURATION_TICKS,
+    THAUMATURGY_MAX_ACTIVE_ONE_MINUTE_EFFECTS,
+};
 use crate::rules::wild_shape::{
     assume_riding_horse_wild_shape, begin_wild_shape_next_turn, dismiss_wild_shape_form,
     reuse_wild_shape_as_cat, revert_wild_shape_due_to_death,
@@ -687,6 +696,12 @@ use battle_runtime_stat_block_action_ordering::{
     projection_payload as stat_block_action_ordering_projection_payload,
     replay_observed_action as replay_stat_block_action_ordering_action,
     BRANCH_ACTIONS as STAT_BLOCK_ACTION_ORDERING_BRANCH_ACTIONS,
+};
+use battle_runtime_thaumaturgy_selected_identity::{
+    expected_witness as expected_thaumaturgy_selected_identity_witness,
+    projection_payload as thaumaturgy_selected_identity_projection_payload,
+    replay_observed_action as replay_thaumaturgy_selected_identity_action,
+    BRANCH_ACTIONS as THAUMATURGY_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3412,6 +3427,86 @@ fn stat_block_action_ordering_tracks_multiattack_damage_and_recharge_paths() {
         StatBlockActionOrderingProtocol::Resolved
     );
     assert!(recharge_filled.recharge_action_available);
+}
+
+#[test]
+fn thaumaturgy_selected_identity_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-thaumaturgy-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Thaumaturgy"; cleanroom-input/raw/srd-5.2.1/Classes/Cleric.md
+    // "Cantrips".
+    for action in THAUMATURGY_SELECTED_IDENTITY_BRANCH_ACTIONS {
+        let observed = replay_thaumaturgy_selected_identity_action(action);
+        assert_eq!(
+            observed,
+            expected_thaumaturgy_selected_identity_witness(action)
+        );
+        assert!(thaumaturgy_selected_identity_projection_payload(&observed)
+            .contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn thaumaturgy_selected_identity_projects_booming_voice_roll_modes() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Thaumaturgy", "Booming Voice"; QNT:
+    // battle-runtime-thaumaturgy.qnt and
+    // battle-runtime-thaumaturgy-selected-identity.mbt.qnt.
+    let initial = thaumaturgy_selected_identity_initial_state();
+    assert_eq!(initial.caster_effect_count, 0);
+    assert!(initial.action_available);
+    assert_eq!(initial.intimidation_roll_mode, ThaumaturgyRollMode::Normal);
+    assert_eq!(initial.protocol, ThaumaturgySelectedIdentityProtocol::Init);
+
+    assert_eq!(THAUMATURGY_BOOMING_VOICE_DURATION_TICKS, 10);
+    assert_eq!(THAUMATURGY_MAX_ACTIVE_ONE_MINUTE_EFFECTS, 3);
+
+    let resolved = resolve_thaumaturgy_booming_voice();
+    assert_eq!(resolved.caster_effect_count, 1);
+    assert!(!resolved.action_available);
+    assert_eq!(
+        resolved.scenario_outcome,
+        ThaumaturgySelectedIdentityScenarioOutcome::Resolved
+    );
+    assert_eq!(
+        resolved.protocol,
+        ThaumaturgySelectedIdentityProtocol::Resolved
+    );
+    assert_eq!(
+        resolved.intimidation_roll_mode,
+        ThaumaturgyRollMode::Advantage
+    );
+    assert_eq!(
+        resolved.wisdom_intimidation_roll_mode,
+        ThaumaturgyRollMode::Normal
+    );
+    assert_eq!(resolved.perception_roll_mode, ThaumaturgyRollMode::Normal);
+
+    assert_eq!(
+        thaumaturgy_booming_voice_roll_mode(
+            true,
+            ThaumaturgyAbility::Charisma,
+            ThaumaturgySkill::Intimidation,
+        ),
+        ThaumaturgyRollMode::Advantage
+    );
+    assert_eq!(
+        thaumaturgy_booming_voice_roll_mode(
+            true,
+            ThaumaturgyAbility::Wisdom,
+            ThaumaturgySkill::Intimidation,
+        ),
+        ThaumaturgyRollMode::Normal
+    );
+    assert_eq!(
+        thaumaturgy_booming_voice_roll_mode(
+            true,
+            ThaumaturgyAbility::Charisma,
+            ThaumaturgySkill::Perception,
+        ),
+        ThaumaturgyRollMode::Normal
+    );
 }
 
 #[test]

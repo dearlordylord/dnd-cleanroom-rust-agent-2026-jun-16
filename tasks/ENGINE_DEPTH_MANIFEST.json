@@ -3,48 +3,26 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added stat-block action frontier state and fill-ordering projection"
+      "reason": "added Thaumaturgy Booming Voice selected-identity projection state"
     },
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added stat-block multiattack, static-damage, rolled-damage, and recharge path helpers"
+      "reason": "added typed Booming Voice ability-check roll-mode helper"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "path": "src/qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doStartMultiattackControl",
-        "doDiscoverRolledActionAttackControl",
-        "doDiscoverStaticActionAttackControl",
-        "doRejectAttackRollBeforeTargetChoice",
-        "doFillTargetChoice",
-        "doRejectDamageBeforeAttackRoll",
-        "doFillAttackRollMiss",
-        "doFillRolledAttackRollHit",
-        "doFillStaticAttackRollHit",
-        "doFillDamageDice",
-        "doSpendRechargeGatedRolledAttack",
-        "doFillRechargeRoll",
-        "StatBlockActSelectionStage",
-        "StatBlockAttackTargetChoiceStage",
-        "StatBlockAttackRollStage",
-        "StatBlockDamageDiceStage",
-        "StatBlockRechargeRollStage",
-        "StatBlockResolvedStage",
-        "TargetChoiceHoleKind",
-        "AttackRollHoleKind",
-        "RolledDiceHoleKind",
-        "StatBlockRechargeRollHoleKind",
-        "statBlockTargetChoiceRequired",
-        "statBlockAttackRollRequired",
-        "statBlockRechargeRollRequired",
-        "WInvalidFill",
+        "doResolveThaumaturgyBoomingVoice",
+        "WitnessProtocolHole",
+        "Init",
+        "Resolved",
+        "normal",
+        "advantage",
         "init",
-        "needsHoles",
         "resolved",
-        "invalid",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -62,45 +40,33 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json"
+        "tasks/target-replay-evidence/T061-battle-runtime-thaumaturgy-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "stat_block_action_fill_order_result",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
-      "module": "src/rules/stat_block_action_ordering.rs"
+      "api": "thaumaturgy_booming_voice_roll_mode",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
+      "module": "src/rules/thaumaturgy_selected_identity.rs"
     },
     {
-      "api": "StatBlockActionOrderingState",
-      "driver": "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt",
-      "module": "src/rules/stat_block_action_ordering.rs"
+      "api": "ThaumaturgySelectedIdentityState",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt",
+      "module": "src/rules/thaumaturgy_selected_identity.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "stat_block_action_ordering_initial_state",
-        "stat_block_action_hole_frontier",
-        "stat_block_action_fill_order_result",
-        "start_multiattack_control",
-        "discover_rolled_action_attack_control",
-        "discover_static_action_attack_control",
-        "reject_attack_roll_before_target_choice",
-        "fill_stat_block_target_choice",
-        "reject_damage_before_attack_roll",
-        "fill_stat_block_attack_roll_miss",
-        "fill_rolled_attack_roll_hit",
-        "fill_static_attack_roll_hit",
-        "fill_stat_block_damage_dice",
-        "spend_recharge_gated_rolled_attack",
-        "fill_stat_block_recharge_roll"
+        "thaumaturgy_selected_identity_initial_state",
+        "resolve_thaumaturgy_booming_voice",
+        "thaumaturgy_booming_voice_roll_mode"
       ],
-      "path": "src/rules/stat_block_action_ordering.rs",
+      "path": "src/rules/thaumaturgy_selected_identity.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T060"
+  "taskId": "T061"
 }

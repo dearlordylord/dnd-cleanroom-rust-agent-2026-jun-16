@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json",
+      "evidence": "tasks/target-replay-evidence/T061-battle-runtime-thaumaturgy-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T060"
+  "taskId": "T061"
 }

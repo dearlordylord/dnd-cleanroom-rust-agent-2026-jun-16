@@ -32,4 +32,5 @@ pub mod spell_attack_ordering;
 pub mod spell_shapes;
 pub mod spellbook_rituals;
 pub mod stat_block_action_ordering;
+pub mod thaumaturgy_selected_identity;
 pub mod wild_shape;

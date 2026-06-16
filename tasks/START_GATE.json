@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T060",
-  "startHeadSha": "02763871436bcf29f4a015ee080870a371a7f432",
+  "taskId": "T061",
+  "startHeadSha": "62b7aa146abc37c0e0732adff901908b13bc655c",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt"
     ]
   }
 }
