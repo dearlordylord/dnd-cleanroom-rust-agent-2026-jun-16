@@ -96,6 +96,8 @@ mod battle_runtime_stat_block_action_ordering;
 mod battle_runtime_thaumaturgy_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs"]
 mod battle_runtime_turn_boundary_effect_lifecycle;
+#[path = "../qnt_adapters/battle_runtime_weapon_attack_ordering.rs"]
+mod battle_runtime_weapon_attack_ordering;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -413,6 +415,13 @@ use crate::rules::turn_boundary_effect_lifecycle::{
     resolve_target_start_turn, turn_boundary_effect_lifecycle_initial_state, TurnBoundaryActor,
     TurnBoundaryHoleOrder, TurnBoundaryLifecycleProtocol, TurnBoundaryLifecycleScenario,
 };
+use crate::rules::weapon_attack_ordering::{
+    discover_weapon_attack, fill_weapon_attack_damage_dice, fill_weapon_attack_roll_hit,
+    fill_weapon_attack_roll_miss, fill_weapon_attack_target_choice,
+    reject_weapon_attack_roll_before_target_choice, reject_weapon_damage_before_attack_roll,
+    weapon_attack_ordering_initial_state, WeaponAttackFillOrderingError, WeaponAttackFrontierStage,
+    WeaponAttackHoleKind, WeaponAttackInvalidReason, WeaponAttackOrderingProtocol,
+};
 use crate::rules::wild_shape::{
     assume_riding_horse_wild_shape, begin_wild_shape_next_turn, dismiss_wild_shape_form,
     reuse_wild_shape_as_cat, revert_wild_shape_due_to_death,
@@ -715,6 +724,12 @@ use battle_runtime_turn_boundary_effect_lifecycle::{
     projection_payload as turn_boundary_effect_lifecycle_projection_payload,
     replay_observed_action as replay_turn_boundary_effect_lifecycle_action,
     BRANCH_ACTIONS as TURN_BOUNDARY_EFFECT_LIFECYCLE_BRANCH_ACTIONS,
+};
+use battle_runtime_weapon_attack_ordering::{
+    expected_witness as expected_weapon_attack_ordering_witness,
+    projection_payload as weapon_attack_ordering_projection_payload,
+    replay_observed_action as replay_weapon_attack_ordering_action,
+    BRANCH_ACTIONS as WEAPON_ATTACK_ORDERING_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3607,6 +3622,86 @@ fn turn_boundary_effect_lifecycle_orders_start_end_and_source_expiry() {
         source_next,
         "branch helper must replay the same two-boundary sequence"
     );
+}
+
+#[test]
+fn weapon_attack_ordering_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-weapon-attack-ordering.mbt.qnt and
+    // battle-runtime-weapon-attack-ordering.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Making an Attack", "Attack Rolls", and "Damage Rolls";
+    // cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md "Weapon Attack".
+    for action in WEAPON_ATTACK_ORDERING_BRANCH_ACTIONS {
+        let observed = replay_weapon_attack_ordering_action(action);
+        assert_eq!(observed, expected_weapon_attack_ordering_witness(action));
+        assert!(weapon_attack_ordering_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn weapon_attack_ordering_requires_target_attack_roll_and_damage_order() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Making an Attack", "Attack Rolls", and "Damage Rolls"; QNT:
+    // battle-runtime-weapon-attack-ordering.qnt.
+    let initial = weapon_attack_ordering_initial_state();
+    assert_eq!(initial.stage, WeaponAttackFrontierStage::ActSelection);
+    assert_eq!(initial.protocol, WeaponAttackOrderingProtocol::Init);
+
+    let discovered = discover_weapon_attack();
+    assert_eq!(discovered.stage, WeaponAttackFrontierStage::TargetChoice);
+    assert_eq!(
+        discovered.protocol,
+        WeaponAttackOrderingProtocol::NeedsHoles(vec![WeaponAttackHoleKind::TargetChoice])
+    );
+
+    let premature_attack = reject_weapon_attack_roll_before_target_choice();
+    assert_eq!(
+        premature_attack.last_ordering_error,
+        Some(WeaponAttackFillOrderingError::TargetChoiceRequired)
+    );
+    assert_eq!(
+        premature_attack.protocol,
+        WeaponAttackOrderingProtocol::Invalid {
+            holes: vec![WeaponAttackHoleKind::TargetChoice],
+            reason: WeaponAttackInvalidReason::InvalidFill,
+        }
+    );
+
+    let target = fill_weapon_attack_target_choice();
+    assert_eq!(target.stage, WeaponAttackFrontierStage::AttackRoll);
+    assert_eq!(
+        target.protocol,
+        WeaponAttackOrderingProtocol::NeedsHoles(vec![WeaponAttackHoleKind::AttackRoll])
+    );
+
+    let premature_damage = reject_weapon_damage_before_attack_roll();
+    assert_eq!(
+        premature_damage.last_ordering_error,
+        Some(WeaponAttackFillOrderingError::AttackRollRequired)
+    );
+    assert_eq!(
+        premature_damage.protocol,
+        WeaponAttackOrderingProtocol::Invalid {
+            holes: vec![WeaponAttackHoleKind::AttackRoll],
+            reason: WeaponAttackInvalidReason::InvalidFill,
+        }
+    );
+
+    let miss = fill_weapon_attack_roll_miss();
+    assert_eq!(miss.stage, WeaponAttackFrontierStage::Resolved);
+    assert_eq!(miss.protocol, WeaponAttackOrderingProtocol::Resolved);
+
+    let hit = fill_weapon_attack_roll_hit();
+    assert_eq!(hit.stage, WeaponAttackFrontierStage::DamageDice);
+    assert_eq!(
+        hit.protocol,
+        WeaponAttackOrderingProtocol::NeedsHoles(vec![WeaponAttackHoleKind::RolledDice])
+    );
+
+    let damage = fill_weapon_attack_damage_dice();
+    assert_eq!(damage.stage, WeaponAttackFrontierStage::Resolved);
+    assert_eq!(damage.protocol, WeaponAttackOrderingProtocol::Resolved);
 }
 
 #[test]

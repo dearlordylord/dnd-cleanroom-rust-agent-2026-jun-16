@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt`
-- Next task id: `T063`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
+- Next task id: `T064`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,90 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T063: battle-runtime-weapon-attack-ordering
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverAttack`
+  - `step:doRejectAttackRollBeforeTargetChoice`
+  - `step:doFillTargetChoice`
+  - `step:doRejectDamageBeforeAttackRoll`
+  - `step:doFillAttackRollMiss`
+  - `step:doFillAttackRollHit`
+  - `step:doFillDamageDice`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-hole-kinds.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-fill-kinds.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-witness-protocol.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/weapon_attack_ordering.rs` with weapon attack frontier stages, hole kinds, fill kinds, ordering errors, protocol projection, and helper transitions.
+- Modeled the QNT fill order: attack discovery opens target choice, target choice opens attack roll, attack roll miss resolves, attack roll hit opens damage dice, and damage dice resolves.
+- Modeled invalid fill attempts for attack roll before target choice and damage before attack roll.
+- Kept QNT branch actions, stage labels, hole names, ordering error labels, invalid reason, and protocol strings quarantined in `src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doDiscoverAttack` | `tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json#T063-discover-attack#step:doDiscoverAttack` | `src/tests/mod.rs::weapon_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doRejectAttackRollBeforeTargetChoice` | `tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json#T063-reject-attack-roll-before-target-choice#step:doRejectAttackRollBeforeTargetChoice` | `src/tests/mod.rs::weapon_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json#T063-fill-target-choice#step:doFillTargetChoice` | `src/tests/mod.rs::weapon_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doRejectDamageBeforeAttackRoll` | `tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json#T063-reject-damage-before-attack-roll#step:doRejectDamageBeforeAttackRoll` | `src/tests/mod.rs::weapon_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json#T063-fill-attack-roll-miss#step:doFillAttackRollMiss` | `src/tests/mod.rs::weapon_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json#T063-fill-attack-roll-hit#step:doFillAttackRollHit` | `src/tests/mod.rs::weapon_attack_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillDamageDice` | `tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json#T063-fill-damage-dice#step:doFillDamageDice` | `src/tests/mod.rs::weapon_attack_ordering_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T063-discover-attack`
+- Reproduction seed or trace id: `T063-reject-attack-roll-before-target-choice`
+- Reproduction seed or trace id: `T063-fill-target-choice`
+- Reproduction seed or trace id: `T063-reject-damage-before-attack-roll`
+- Reproduction seed or trace id: `T063-fill-attack-roll-miss`
+- Reproduction seed or trace id: `T063-fill-attack-roll-hit`
+- Reproduction seed or trace id: `T063-fill-damage-dice`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::weapon_attack_ordering_adapter_replays_all_branches`
+- `src/tests/mod.rs::weapon_attack_ordering_requires_target_attack_roll_and_damage_order`
 
 Remaining gaps:
 
