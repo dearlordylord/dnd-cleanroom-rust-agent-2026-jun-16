@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json",
+      "evidence": "tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T031"
+  "taskId": "T032"
 }

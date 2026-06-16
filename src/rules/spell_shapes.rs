@@ -4,6 +4,7 @@ pub enum DamageType {
     Force,
     Lightning,
     Necrotic,
+    Piercing,
     Radiant,
 }
 

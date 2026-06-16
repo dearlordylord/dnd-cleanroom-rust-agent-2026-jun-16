@@ -34,6 +34,8 @@ mod battle_runtime_healing_stabilization_selected_identity;
 mod battle_runtime_hit_point_restoration_ordering;
 #[path = "../qnt_adapters/battle_runtime_interrupt_stack_resume.rs"]
 mod battle_runtime_interrupt_stack_resume;
+#[path = "../qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs"]
+mod battle_runtime_level1_buff_mark_smite_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -169,6 +171,17 @@ use crate::rules::interrupt_stack_resume::{
     InterruptStackResumeProtocol, InterruptStackResumeScenarioOutcome, ReactionWindowOffer,
     ReactionWindowRole,
 };
+use crate::rules::level_one_spell_effects::{
+    level_one_spell_effects_initial_state, project_divine_favor_weapon_damage_rider,
+    project_false_life_temporary_hit_points, project_heroism_cleanup_after_effect_end,
+    project_heroism_frightened_immunity_and_turn_start_temporary_hit_points,
+    project_hex_damage_rider_and_later_turn_transfer,
+    project_hunters_mark_damage_rider_and_same_turn_transfer, project_longstrider_speed_increase,
+    project_searing_smite_timed_damage_and_save_cleanup, project_shillelagh_weapon_attack_override,
+    project_true_strike_spell_hosted_weapon_attack, shillelagh_attack_modifier,
+    shillelagh_damage_dice, true_strike_bonus_damage_dice, true_strike_weapon_attack_modifier,
+    LevelOneSpell, LevelOneSpellEffectProtocol, LevelOneSpellEffectScenarioOutcome,
+};
 use crate::rules::origin_feats::{
     criminal_origin_feat_projection, initiative_handoff_projection, AlertInitiativeState,
     Background, InitiativeHandoffFacts, OriginFeat,
@@ -302,6 +315,12 @@ use battle_runtime_interrupt_stack_resume::{
     projection_payload as interrupt_stack_resume_projection_payload,
     replay_observed_action as replay_interrupt_stack_resume_action,
     BRANCH_ACTIONS as INTERRUPT_STACK_RESUME_BRANCH_ACTIONS,
+};
+use battle_runtime_level1_buff_mark_smite_selected_identity::{
+    expected_witness as expected_level1_buff_mark_smite_witness,
+    projection_payload as level1_buff_mark_smite_projection_payload,
+    replay_observed_action as replay_level1_buff_mark_smite_action,
+    BRANCH_ACTIONS as LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1995,6 +2014,92 @@ fn interrupt_stack_resume_declines_spends_and_replays_from_root() {
         replay.scenario_outcome,
         InterruptStackResumeScenarioOutcome::ReplayFromRootResolved
     );
+}
+
+#[test]
+fn level1_buff_mark_smite_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md,
+    // Descriptions-E-L.md, and Descriptions-S-Z.md selected level-1 spells.
+    for action in LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS {
+        let observed = replay_level1_buff_mark_smite_action(action);
+        assert_eq!(observed, expected_level1_buff_mark_smite_witness(action));
+        assert!(level1_buff_mark_smite_projection_payload(&observed)
+            .contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn level1_buff_mark_smite_projects_core_spell_effects() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Divine Favor"; Spells/Descriptions-E-L.md "False Life",
+    // "Heroism", "Hex", "Hunter's Mark", and "Longstrider";
+    // Spells/Descriptions-S-Z.md "Searing Smite", "Shillelagh", and
+    // "True Strike"; QNT:
+    // battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt.
+    let initial = level_one_spell_effects_initial_state();
+    assert_eq!(initial.projection.target_hit_points, 12);
+    assert_eq!(initial.projection.level_one_slots_remaining, 2);
+    assert_eq!(initial.protocol, LevelOneSpellEffectProtocol::Init);
+
+    let divine_favor = project_divine_favor_weapon_damage_rider();
+    assert_eq!(divine_favor.projection.divine_favor_active_rider_count, 1);
+    assert_eq!(
+        divine_favor.projection.damage_rider.spell,
+        Some(LevelOneSpell::DivineFavor)
+    );
+    assert_eq!(divine_favor.projection.damage_rider.dice.die_size, 4);
+    assert!(divine_favor.projection.spell_slot_spent_this_turn);
+
+    let false_life = project_false_life_temporary_hit_points();
+    assert_eq!(false_life.projection.caster_temporary_hit_points, 11);
+    assert_eq!(false_life.projection.temporary_hit_points.dice.dice, 2);
+    assert_eq!(false_life.projection.temporary_hit_points.flat, 4);
+
+    let heroism = project_heroism_frightened_immunity_and_turn_start_temporary_hit_points();
+    assert!(heroism.projection.caster_concentrating);
+    assert_eq!(heroism.projection.turn_start_temporary_hit_points.amount, 3);
+    let cleanup = project_heroism_cleanup_after_effect_end();
+    assert!(cleanup.projection.caster_frightened);
+    assert!(!cleanup.projection.caster_concentrating);
+
+    let hunters_mark = project_hunters_mark_damage_rider_and_same_turn_transfer();
+    assert!(
+        hunters_mark
+            .projection
+            .hunters_mark
+            .transfer_visible_on_drop_turn
+    );
+    assert!(hunters_mark.projection.caster_concentrating);
+    let hex = project_hex_damage_rider_and_later_turn_transfer();
+    assert!(!hex.projection.hex.transfer_visible_on_drop_turn);
+
+    let longstrider = project_longstrider_speed_increase();
+    assert_eq!(longstrider.projection.longstrider.target_speed_feet, 40);
+    assert_eq!(longstrider.projection.longstrider.delta_feet, 10);
+
+    let searing_smite = project_searing_smite_timed_damage_and_save_cleanup();
+    assert!(
+        searing_smite
+            .projection
+            .searing_smite
+            .active_before_successful_save
+    );
+    assert_eq!(
+        searing_smite.scenario_outcome,
+        LevelOneSpellEffectScenarioOutcome::SearingSmite
+    );
+
+    assert_eq!(shillelagh_attack_modifier(3, 2), 5);
+    assert_eq!(shillelagh_damage_dice(1).die_size, 8);
+    let shillelagh = project_shillelagh_weapon_attack_override();
+    assert_eq!(shillelagh.projection.shillelagh.damage_modifier, 3);
+
+    assert_eq!(true_strike_weapon_attack_modifier(3, 2), 5);
+    assert_eq!(true_strike_bonus_damage_dice(1).dice, 0);
+    let true_strike = project_true_strike_spell_hosted_weapon_attack();
+    assert_eq!(true_strike.projection.true_strike.damage.die_size, 4);
 }
 
 #[test]

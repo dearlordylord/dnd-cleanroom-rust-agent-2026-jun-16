@@ -1,25 +1,67 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 10,
+      "addedEntries": 11,
       "owner": "production",
-      "reason": "added reusable interrupt stack resume state and replay projection reducer"
+      "reason": "added reusable level-one spell effect projection components for buff, mark, smite, and spell-hosted weapon branches"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_interrupt_stack_resume.rs",
+      "path": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doNestedDeclineResumesOuterInterrupt",
-        "doReplayRecordedProcedureFromRoot",
-        "doShieldMutationResumesInterruptedAttack",
+        "doDivineFavorWeaponDamageRider",
+        "doDivineSmiteAfterHitDamage",
+        "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
+        "doFalseLifeTemporaryHitPoints",
+        "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
+        "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
+        "doHexMarkedDamageRiderAndLaterTurnTransfer",
+        "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
+        "doLongstriderSpeedIncrease",
+        "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
+        "doShillelaghWeaponAttackOverride",
+        "doTrueStrikeSpellHostedWeaponAttack",
+        "divine_favor",
+        "divine_smite",
+        "ensnaring_strike",
+        "false_life",
+        "heroism",
+        "hunters_mark",
+        "hex",
+        "longstrider",
+        "searing_smite",
+        "shillelagh",
+        "true_strike",
         "none",
-        "attackHit",
-        "rolledDice",
-        "Init",
-        "NestedDeclineResumedOuter",
-        "ActiveEffectMutationResumed",
-        "ReplayFromRootResolved",
+        "radiant",
+        "force",
+        "necrotic",
+        "piercing",
+        "fire",
+        "frightened",
+        "available",
+        "availableAfterTurn",
+        "awaitingTargetDrop",
+        "sameTurn",
+        "laterTurn",
+        "transferTarget",
+        "weapon_quarterstaff",
+        "main:weapon_dagger",
+        "weapon_dagger",
+        "Quarterstaff (force)",
+        "Dagger",
+        "DivineFavor",
+        "DivineSmite",
+        "EnsnaringStrike",
+        "FalseLife",
+        "Heroism",
+        "HuntersMark",
+        "Hex",
+        "Longstrider",
+        "SearingSmite",
+        "Shillelagh",
+        "TrueStrike",
         "init",
         "resolved",
         "mbt::actionTaken",
@@ -39,48 +81,59 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json"
+        "tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "offer_reaction_window",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "module": "src/rules/interrupt_stack_resume.rs"
+      "api": "LevelOneSpellEffectProjection",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "module": "src/rules/level_one_spell_effects.rs"
     },
     {
-      "api": "recorded_attack_replay_from_root_equivalent",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
-      "module": "src/rules/interrupt_stack_resume.rs"
+      "api": "shillelagh_damage_dice",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "module": "src/rules/level_one_spell_effects.rs"
+    },
+    {
+      "api": "true_strike_weapon_attack_modifier",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "module": "src/rules/level_one_spell_effects.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "interrupt_stack_resume_initial_state",
-        "interrupt_stack_resume_projection",
-        "reaction_window_depth",
-        "offer_reaction_window",
-        "restore_suspended_reaction_window",
-        "decline_reaction_window",
-        "advance_reaction_continuation",
-        "take_matching_reaction",
-        "resolve_nested_interrupt_decline",
-        "resolve_interrupted_attack_after_reaction_mutation",
-        "resolve_recorded_attack_replay_from_root",
-        "recorded_attack_replay_from_root_equivalent",
-        "independent_recorded_attack_replay_projection",
-        "recorded_attack_replay_root",
-        "recorded_attack_replay_continuation",
-        "recorded_attack_replay_fills",
-        "recorded_attack_replay_suffix_fills",
-        "battle_replay_from_root"
+        "level_one_spell_effects_initial_state",
+        "project_divine_favor_weapon_damage_rider",
+        "project_divine_smite_after_hit_damage",
+        "project_ensnaring_strike_restraint_damage_and_escape",
+        "project_false_life_temporary_hit_points",
+        "project_heroism_frightened_immunity_and_turn_start_temporary_hit_points",
+        "project_heroism_cleanup_after_effect_end",
+        "project_hunters_mark_damage_rider_and_same_turn_transfer",
+        "project_hex_damage_rider_and_later_turn_transfer",
+        "project_longstrider_speed_increase",
+        "project_searing_smite_timed_damage_and_save_cleanup",
+        "project_shillelagh_weapon_attack_override",
+        "project_true_strike_spell_hosted_weapon_attack",
+        "shillelagh_attack_modifier",
+        "shillelagh_damage_dice",
+        "true_strike_weapon_attack_modifier",
+        "true_strike_bonus_damage_dice"
       ],
-      "path": "src/rules/interrupt_stack_resume.rs",
+      "path": "src/rules/level_one_spell_effects.rs",
       "role": "domain-engine"
+    },
+    {
+      "domainApis": [
+        "DamageType::Piercing"
+      ],
+      "path": "src/rules/spell_shapes.rs",
+      "role": "domain-api"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T031"
+  "taskId": "T032"
 }

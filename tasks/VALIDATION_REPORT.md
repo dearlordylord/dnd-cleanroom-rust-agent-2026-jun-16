@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt`
-- Next task id: `T032`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt`
+- Next task id: `T033`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,110 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T032: battle-runtime-level1-buff-mark-smite-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doDivineFavorWeaponDamageRider`
+  - `step:doDivineSmiteAfterHitDamage`
+  - `step:doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape`
+  - `step:doFalseLifeTemporaryHitPoints`
+  - `step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints`
+  - `step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup`
+  - `step:doHexMarkedDamageRiderAndLaterTurnTransfer`
+  - `step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer`
+  - `step:doLongstriderSpeedIncrease`
+  - `step:doSearingSmiteAfterHitTimedDamageAndSaveCleanup`
+  - `step:doShillelaghWeaponAttackOverride`
+  - `step:doTrueStrikeSpellHostedWeaponAttack`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-facts.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-light.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-marked-riders.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-marked-spells.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-restoration-and-buffs.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-damage-rider-projection-core.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-scalar-buff-projection-core.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/guidance/README.md`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/level_one_spell_effects.rs` with typed component projections for level-1 damage riders, temporary HP, speed effects, frightened immunity, restrained escape lifecycles, marked damage transfer, timed smite damage/save cleanup, Shillelagh weapon attack overrides, and True Strike spell-hosted weapon attacks.
+- Extended the shared `DamageType` vocabulary with `Piercing` for Ensnaring Strike turn-start damage.
+- Implemented the T032 driver projections for Divine Favor, Divine Smite, Ensnaring Strike, False Life, Heroism and cleanup, Hunter's Mark, Hex, Longstrider, Searing Smite, Shillelagh, and True Strike.
+- Kept QNT action names, spell string ids, weapon ids, scenario labels, and witness protocol labels quarantined in `src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doDivineFavorWeaponDamageRider` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-divine-favor-weapon-damage-rider#step:doDivineFavorWeaponDamageRider` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doDivineSmiteAfterHitDamage` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-divine-smite-after-hit-damage#step:doDivineSmiteAfterHitDamage` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-ensnaring-strike-restraint-turn-start-damage-escape#step:doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doFalseLifeTemporaryHitPoints` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-false-life-temporary-hit-points#step:doFalseLifeTemporaryHitPoints` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-heroism-frightened-immunity-turn-start-temporary-hit-points#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-heroism-frightened-immunity-turn-start-temporary-hit-points-cleanup#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHexMarkedDamageRiderAndLaterTurnTransfer` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-hex-damage-rider-later-turn-transfer#step:doHexMarkedDamageRiderAndLaterTurnTransfer` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-hunters-mark-damage-rider-concentration-same-turn-transfer#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doLongstriderSpeedIncrease` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-longstrider-speed-increase#step:doLongstriderSpeedIncrease` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doSearingSmiteAfterHitTimedDamageAndSaveCleanup` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-searing-smite-timed-damage-save-cleanup#step:doSearingSmiteAfterHitTimedDamageAndSaveCleanup` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doShillelaghWeaponAttackOverride` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-shillelagh-weapon-attack-override#step:doShillelaghWeaponAttackOverride` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doTrueStrikeSpellHostedWeaponAttack` | `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json#T032-true-strike-spell-hosted-weapon-attack#step:doTrueStrikeSpellHostedWeaponAttack` | `src/tests/mod.rs::level1_buff_mark_smite_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T032-divine-favor-weapon-damage-rider`
+- Reproduction seed or trace id: `T032-divine-smite-after-hit-damage`
+- Reproduction seed or trace id: `T032-ensnaring-strike-restraint-turn-start-damage-escape`
+- Reproduction seed or trace id: `T032-false-life-temporary-hit-points`
+- Reproduction seed or trace id: `T032-heroism-frightened-immunity-turn-start-temporary-hit-points`
+- Reproduction seed or trace id: `T032-heroism-frightened-immunity-turn-start-temporary-hit-points-cleanup`
+- Reproduction seed or trace id: `T032-hex-damage-rider-later-turn-transfer`
+- Reproduction seed or trace id: `T032-hunters-mark-damage-rider-concentration-same-turn-transfer`
+- Reproduction seed or trace id: `T032-longstrider-speed-increase`
+- Reproduction seed or trace id: `T032-searing-smite-timed-damage-save-cleanup`
+- Reproduction seed or trace id: `T032-shillelagh-weapon-attack-override`
+- Reproduction seed or trace id: `T032-true-strike-spell-hosted-weapon-attack`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::level1_buff_mark_smite_projects_core_spell_effects`
 
 Remaining gaps:
 

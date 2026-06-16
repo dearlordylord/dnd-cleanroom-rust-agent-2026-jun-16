@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T031",
-  "startHeadSha": "bcf0ad8cb192264f068281138a293fd38b89ea5f",
+  "taskId": "T032",
+  "startHeadSha": "4afedc0c12bfe9d1380e32ee45cc9710b2139e1d",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt"
     ]
   }
 }
