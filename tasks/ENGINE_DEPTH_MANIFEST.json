@@ -3,15 +3,15 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added Distant Spell object-light projection"
+      "reason": "added Empowered Spell damage reroll projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_distant_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_empowered_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doResolveDistantObjectLight",
-        "distantObjectLight",
+        "doResolveEmpoweredSpellDamageReroll",
+        "empoweredSpellDamageReroll",
         "init",
         "resolved",
         "mbt::actionTaken",
@@ -31,18 +31,18 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T046-battle-runtime-sorcerer-metamagic-distant-selected-identity.json"
+        "tasks/target-replay-evidence/T047-battle-runtime-sorcerer-metamagic-empowered-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "distant_spell_initial_state",
+      "api": "empowered_spell_initial_state",
       "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
       "module": "src/rules/sorcerer_metamagic.rs"
     },
     {
-      "api": "resolve_distant_object_light",
+      "api": "resolve_empowered_spell_damage_reroll",
       "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
       "module": "src/rules/sorcerer_metamagic.rs"
     }
@@ -50,13 +50,13 @@
   "productionModulesExtended": [
     {
       "domainApis": [
-        "distant_spell_initial_state",
-        "resolve_distant_object_light"
+        "empowered_spell_initial_state",
+        "resolve_empowered_spell_damage_reroll"
       ],
       "path": "src/rules/sorcerer_metamagic.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T046"
+  "taskId": "T047"
 }

@@ -64,6 +64,8 @@ mod battle_runtime_sleep_repeat_save;
 mod battle_runtime_sorcerer_metamagic_careful_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_distant_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_distant_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_empowered_selected_identity.rs"]
+mod battle_runtime_sorcerer_metamagic_empowered_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -306,9 +308,11 @@ use crate::rules::sleep_repeat_save::{
     SleepRepeatSaveTurnRole,
 };
 use crate::rules::sorcerer_metamagic::{
-    careful_spell_initial_state, distant_spell_initial_state, resolve_careful_save_gated_damage,
-    resolve_careful_save_gated_no_effect, resolve_distant_object_light, CarefulSpellProtocol,
+    careful_spell_initial_state, distant_spell_initial_state, empowered_spell_initial_state,
+    resolve_careful_save_gated_damage, resolve_careful_save_gated_no_effect,
+    resolve_distant_object_light, resolve_empowered_spell_damage_reroll, CarefulSpellProtocol,
     CarefulSpellScenarioResult, DistantSpellProtocol, DistantSpellScenarioResult,
+    EmpoweredSpellProtocol, EmpoweredSpellScenarioResult,
 };
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
@@ -530,6 +534,12 @@ use battle_runtime_sorcerer_metamagic_distant_selected_identity::{
     projection_payload as distant_spell_projection_payload,
     replay_observed_action as replay_distant_spell_action,
     BRANCH_ACTIONS as DISTANT_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_sorcerer_metamagic_empowered_selected_identity::{
+    expected_witness as expected_empowered_spell_witness,
+    projection_payload as empowered_spell_projection_payload,
+    replay_observed_action as replay_empowered_spell_action,
+    BRANCH_ACTIONS as EMPOWERED_SPELL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3280,6 +3290,45 @@ fn distant_spell_projects_object_light_range_case() {
         DistantSpellScenarioResult::DistantObjectLight
     );
     assert_eq!(light.protocol, DistantSpellProtocol::Resolved);
+}
+
+#[test]
+fn empowered_spell_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Empowered Spell".
+    for action in EMPOWERED_SPELL_BRANCH_ACTIONS {
+        let observed = replay_empowered_spell_action(action);
+        assert_eq!(observed, expected_empowered_spell_witness(action));
+        assert!(empowered_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn empowered_spell_projects_damage_reroll_case() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Empowered Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt.
+    let initial = empowered_spell_initial_state();
+    assert!(initial.magic_action_available);
+    assert!(initial.bonus_action_available);
+    assert_eq!(initial.sorcery_points_remaining, 4);
+    assert_eq!(initial.target_hit_points, 10);
+    assert_eq!(initial.target_active_effect_count, 0);
+    assert_eq!(initial.protocol, EmpoweredSpellProtocol::Init);
+
+    let reroll = resolve_empowered_spell_damage_reroll();
+    assert!(!reroll.magic_action_available);
+    assert!(reroll.bonus_action_available);
+    assert_eq!(reroll.sorcery_points_remaining, 3);
+    assert_eq!(reroll.target_hit_points, 1);
+    assert_eq!(reroll.target_active_effect_count, 1);
+    assert_eq!(
+        reroll.scenario_result,
+        EmpoweredSpellScenarioResult::EmpoweredSpellDamageReroll
+    );
+    assert_eq!(reroll.protocol, EmpoweredSpellProtocol::Resolved);
 }
 
 #[test]

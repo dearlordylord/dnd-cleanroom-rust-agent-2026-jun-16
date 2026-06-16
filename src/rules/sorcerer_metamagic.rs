@@ -111,3 +111,55 @@ pub fn resolve_distant_object_light() -> DistantSpellState {
         protocol: DistantSpellProtocol::Resolved,
     }
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum EmpoweredSpellScenarioResult {
+    Init,
+    EmpoweredSpellDamageReroll,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum EmpoweredSpellProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct EmpoweredSpellState {
+    pub magic_action_available: bool,
+    pub bonus_action_available: bool,
+    pub sorcery_points_remaining: i16,
+    pub target_hit_points: i16,
+    pub target_active_effect_count: i16,
+    pub scenario_result: EmpoweredSpellScenarioResult,
+    pub protocol: EmpoweredSpellProtocol,
+}
+
+#[must_use]
+pub fn empowered_spell_initial_state() -> EmpoweredSpellState {
+    EmpoweredSpellState {
+        magic_action_available: true,
+        bonus_action_available: true,
+        sorcery_points_remaining: 4,
+        target_hit_points: 10,
+        target_active_effect_count: 0,
+        scenario_result: EmpoweredSpellScenarioResult::Init,
+        protocol: EmpoweredSpellProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn resolve_empowered_spell_damage_reroll() -> EmpoweredSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Empowered Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt.
+    EmpoweredSpellState {
+        magic_action_available: false,
+        bonus_action_available: true,
+        sorcery_points_remaining: 3,
+        target_hit_points: 1,
+        target_active_effect_count: 1,
+        scenario_result: EmpoweredSpellScenarioResult::EmpoweredSpellDamageReroll,
+        protocol: EmpoweredSpellProtocol::Resolved,
+    }
+}
