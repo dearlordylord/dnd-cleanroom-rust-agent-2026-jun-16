@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T059",
-  "startHeadSha": "f2c7f2f1b6be4a8fb96f867750f48c101da8bbbb",
+  "taskId": "T060",
+  "startHeadSha": "02763871436bcf29f4a015ee080870a371a7f432",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt"
     ]
   }
 }

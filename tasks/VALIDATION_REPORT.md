@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt`
-- Next task id: `T060`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt`
+- Next task id: `T061`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,104 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T060: battle-runtime-stat-block-action-ordering
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt`
+- Branch obligations:
+  - `step:doStartMultiattackControl`
+  - `step:doDiscoverRolledActionAttackControl`
+  - `step:doDiscoverStaticActionAttackControl`
+  - `step:doRejectAttackRollBeforeTargetChoice`
+  - `step:doFillTargetChoice`
+  - `step:doRejectDamageBeforeAttackRoll`
+  - `step:doFillAttackRollMiss`
+  - `step:doFillRolledAttackRollHit`
+  - `step:doFillStaticAttackRollHit`
+  - `step:doFillDamageDice`
+  - `step:doSpendRechargeGatedRolledAttack`
+  - `step:doFillRechargeRoll`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-model.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-witness-protocol.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/stat_block_action_ordering.rs` with stat-block action frontier stages, hole kinds, fill kinds, ordering errors, protocol projection, and helper transitions for multiattack, rolled attack damage, static attack damage, and recharge-gated attacks.
+- Modeled the QNT fill order: target choice before attack roll, attack roll before damage dice, rolled hit damage before resolution, static hit and miss resolving without damage dice, and recharge roll before recharge resolution.
+- Kept QNT branch actions, stage labels, hole names, ordering errors, invalid reasons, and witness strings quarantined in `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doStartMultiattackControl` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-start-multiattack-control#step:doStartMultiattackControl` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doDiscoverRolledActionAttackControl` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-discover-rolled-action-attack-control#step:doDiscoverRolledActionAttackControl` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doDiscoverStaticActionAttackControl` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-discover-static-action-attack-control#step:doDiscoverStaticActionAttackControl` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doRejectAttackRollBeforeTargetChoice` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-reject-attack-roll-before-target-choice#step:doRejectAttackRollBeforeTargetChoice` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-target-choice#step:doFillTargetChoice` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doRejectDamageBeforeAttackRoll` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-reject-damage-before-attack-roll#step:doRejectDamageBeforeAttackRoll` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-attack-roll-miss#step:doFillAttackRollMiss` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillRolledAttackRollHit` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-rolled-attack-roll-hit#step:doFillRolledAttackRollHit` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillStaticAttackRollHit` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-static-attack-roll-hit#step:doFillStaticAttackRollHit` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillDamageDice` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-damage-dice#step:doFillDamageDice` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doSpendRechargeGatedRolledAttack` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-spend-recharge-gated-rolled-attack#step:doSpendRechargeGatedRolledAttack` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillRechargeRoll` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-recharge-roll#step:doFillRechargeRoll` | `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T060-start-multiattack-control`
+- Reproduction seed or trace id: `T060-discover-rolled-action-attack-control`
+- Reproduction seed or trace id: `T060-discover-static-action-attack-control`
+- Reproduction seed or trace id: `T060-reject-attack-roll-before-target-choice`
+- Reproduction seed or trace id: `T060-fill-target-choice`
+- Reproduction seed or trace id: `T060-reject-damage-before-attack-roll`
+- Reproduction seed or trace id: `T060-fill-attack-roll-miss`
+- Reproduction seed or trace id: `T060-fill-rolled-attack-roll-hit`
+- Reproduction seed or trace id: `T060-fill-static-attack-roll-hit`
+- Reproduction seed or trace id: `T060-fill-damage-dice`
+- Reproduction seed or trace id: `T060-spend-recharge-gated-rolled-attack`
+- Reproduction seed or trace id: `T060-fill-recharge-roll`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::stat_block_action_ordering_adapter_replays_all_branches`
+- `src/tests/mod.rs::stat_block_action_ordering_tracks_multiattack_damage_and_recharge_paths`
 
 Remaining gaps:
 

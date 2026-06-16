@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T059-battle-runtime-starry-wisp-object.json",
+      "evidence": "tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T059"
+  "taskId": "T060"
 }

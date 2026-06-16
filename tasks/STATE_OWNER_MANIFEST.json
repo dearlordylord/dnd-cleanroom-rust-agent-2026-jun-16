@@ -4,136 +4,48 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "StarryWispObjectState.action_available",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "StatBlockActionOrderingState.stage",
+      "introducedIn": "src/rules/stat_block_action_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "StarryWispObjectState.object_damage",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "StatBlockActionOrderingState.protocol",
+      "introducedIn": "src/rules/stat_block_action_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "StarryWispObjectState.light_emitters",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "StatBlockActionOrderingState.last_ordering_error",
+      "introducedIn": "src/rules/stat_block_action_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "StarryWispObjectState.protocol",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "StatBlockActionOrderingState.multiattack_dispatches_available",
+      "introducedIn": "src/rules/stat_block_action_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ObjectDamageOutcome.object",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "StatBlockActionOrderingState.recharge_action_available",
+      "introducedIn": "src/rules/stat_block_action_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ObjectDamageOutcome.damage_type",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectDamageOutcome.rolled_damage",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectDamageOutcome.effective_damage",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectDamageOutcome.prior_hit_points",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectDamageOutcome.next_hit_points",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectDamageOutcome.destroyed",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectInvisibleRevealLightEmitter.source",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectInvisibleRevealLightEmitter.source_spell",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectInvisibleRevealLightEmitter.object",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectInvisibleRevealLightEmitter.dim_light_radius_feet",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectInvisibleRevealLightEmitter.expires_at_actor",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "ObjectInvisibleRevealLightEmitter.expires_at_round",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "StatBlockActionOrderingState.uses_rolled_damage",
+      "introducedIn": "src/rules/stat_block_action_ordering.rs",
       "owner": "battle-state"
     },
     {
@@ -142,10 +54,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T059"
+  "taskId": "T060"
 }

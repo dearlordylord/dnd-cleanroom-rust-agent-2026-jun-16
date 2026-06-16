@@ -90,6 +90,8 @@ mod battle_runtime_species_passive_trait_selected_identity;
 mod battle_runtime_spell_attack_ordering;
 #[path = "../qnt_adapters/battle_runtime_starry_wisp_object.rs"]
 mod battle_runtime_starry_wisp_object;
+#[path = "../qnt_adapters/battle_runtime_stat_block_action_ordering.rs"]
+mod battle_runtime_stat_block_action_ordering;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -385,6 +387,16 @@ use crate::rules::spellbook_rituals::{
     RequiredSpellAccess, SpellSlotCost, SpellbookRitualAccess, SpellbookRitualAdept,
     SpellbookRitualFacts, SpellbookRitualResult, SpellbookSpellKind,
 };
+use crate::rules::stat_block_action_ordering::{
+    discover_rolled_action_attack_control, discover_static_action_attack_control,
+    fill_rolled_attack_roll_hit, fill_stat_block_attack_roll_miss, fill_stat_block_damage_dice,
+    fill_stat_block_recharge_roll, fill_stat_block_target_choice, fill_static_attack_roll_hit,
+    reject_attack_roll_before_target_choice, reject_damage_before_attack_roll,
+    spend_recharge_gated_rolled_attack, start_multiattack_control,
+    stat_block_action_ordering_initial_state, StatBlockActionFillOrderingError,
+    StatBlockActionFrontierStage, StatBlockActionHoleKind, StatBlockActionInvalidReason,
+    StatBlockActionOrderingProtocol,
+};
 use crate::rules::wild_shape::{
     assume_riding_horse_wild_shape, begin_wild_shape_next_turn, dismiss_wild_shape_form,
     reuse_wild_shape_as_cat, revert_wild_shape_due_to_death,
@@ -669,6 +681,12 @@ use battle_runtime_starry_wisp_object::{
     projection_payload as starry_wisp_object_projection_payload,
     replay_observed_action as replay_starry_wisp_object_action,
     BRANCH_ACTIONS as STARRY_WISP_OBJECT_BRANCH_ACTIONS,
+};
+use battle_runtime_stat_block_action_ordering::{
+    expected_witness as expected_stat_block_action_ordering_witness,
+    projection_payload as stat_block_action_ordering_projection_payload,
+    replay_observed_action as replay_stat_block_action_ordering_action,
+    BRANCH_ACTIONS as STAT_BLOCK_ACTION_ORDERING_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3250,6 +3268,150 @@ fn spell_attack_ordering_tracks_single_target_and_typed_paths() {
         fill_damage_type_after_target_choice().stage,
         SpellAttackFrontierStage::AttackRoll
     );
+}
+
+#[test]
+fn stat_block_action_ordering_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-stat-block-action-ordering.mbt.qnt and
+    // battle-runtime-stat-block-action-ordering.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md
+    // "Actions", "Damage Notation", "Multiattack", and "Recharge X-Y".
+    for action in STAT_BLOCK_ACTION_ORDERING_BRANCH_ACTIONS {
+        let observed = replay_stat_block_action_ordering_action(action);
+        assert_eq!(
+            observed,
+            expected_stat_block_action_ordering_witness(action)
+        );
+        assert!(
+            stat_block_action_ordering_projection_payload(&observed).contains("protocolResult=")
+        );
+    }
+}
+
+#[test]
+fn stat_block_action_ordering_tracks_multiattack_damage_and_recharge_paths() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md
+    // "Damage Notation", "Multiattack", and "Recharge X-Y"; QNT:
+    // battle-runtime-stat-block-action-ordering.qnt.
+    let initial = stat_block_action_ordering_initial_state();
+    assert_eq!(initial.stage, StatBlockActionFrontierStage::ActSelection);
+    assert_eq!(initial.protocol, StatBlockActionOrderingProtocol::Init);
+    assert!(initial.recharge_action_available);
+    assert!(initial.uses_rolled_damage);
+
+    let multiattack = start_multiattack_control();
+    assert_eq!(
+        multiattack.stage,
+        StatBlockActionFrontierStage::AttackTargetChoice
+    );
+    assert_eq!(multiattack.multiattack_dispatches_available, 2);
+    assert!(!multiattack.recharge_action_available);
+    assert_eq!(
+        multiattack.protocol,
+        StatBlockActionOrderingProtocol::NeedsHoles(vec![StatBlockActionHoleKind::TargetChoice])
+    );
+
+    let rolled = discover_rolled_action_attack_control();
+    assert_eq!(
+        rolled.stage,
+        StatBlockActionFrontierStage::AttackTargetChoice
+    );
+    assert_eq!(rolled.multiattack_dispatches_available, 0);
+    assert!(rolled.recharge_action_available);
+    assert!(rolled.uses_rolled_damage);
+
+    let static_damage = discover_static_action_attack_control();
+    assert_eq!(
+        static_damage.stage,
+        StatBlockActionFrontierStage::AttackTargetChoice
+    );
+    assert!(!static_damage.recharge_action_available);
+    assert!(!static_damage.uses_rolled_damage);
+
+    let premature_attack = reject_attack_roll_before_target_choice();
+    assert_eq!(
+        premature_attack.last_ordering_error,
+        Some(StatBlockActionFillOrderingError::TargetChoiceRequired)
+    );
+    assert_eq!(
+        premature_attack.protocol,
+        StatBlockActionOrderingProtocol::Invalid {
+            holes: vec![StatBlockActionHoleKind::TargetChoice],
+            reason: StatBlockActionInvalidReason::InvalidFill,
+        }
+    );
+
+    let target = fill_stat_block_target_choice();
+    assert_eq!(target.stage, StatBlockActionFrontierStage::AttackRoll);
+    assert_eq!(
+        target.protocol,
+        StatBlockActionOrderingProtocol::NeedsHoles(vec![StatBlockActionHoleKind::AttackRoll])
+    );
+
+    let premature_damage = reject_damage_before_attack_roll();
+    assert_eq!(
+        premature_damage.last_ordering_error,
+        Some(StatBlockActionFillOrderingError::AttackRollRequired)
+    );
+    assert_eq!(
+        premature_damage.protocol,
+        StatBlockActionOrderingProtocol::Invalid {
+            holes: vec![StatBlockActionHoleKind::AttackRoll],
+            reason: StatBlockActionInvalidReason::InvalidFill,
+        }
+    );
+
+    let miss = fill_stat_block_attack_roll_miss();
+    assert_eq!(miss.stage, StatBlockActionFrontierStage::Resolved);
+    assert_eq!(miss.protocol, StatBlockActionOrderingProtocol::Resolved);
+    assert!(!miss.recharge_action_available);
+
+    let rolled_hit = fill_rolled_attack_roll_hit();
+    assert_eq!(rolled_hit.stage, StatBlockActionFrontierStage::DamageDice);
+    assert_eq!(
+        rolled_hit.protocol,
+        StatBlockActionOrderingProtocol::NeedsHoles(vec![StatBlockActionHoleKind::RolledDice])
+    );
+
+    let static_hit = fill_static_attack_roll_hit();
+    assert_eq!(static_hit.stage, StatBlockActionFrontierStage::Resolved);
+    assert_eq!(
+        static_hit.protocol,
+        StatBlockActionOrderingProtocol::Resolved
+    );
+    assert!(!static_hit.uses_rolled_damage);
+    assert!(!static_hit.recharge_action_available);
+
+    let damage = fill_stat_block_damage_dice();
+    assert_eq!(damage.stage, StatBlockActionFrontierStage::Resolved);
+    assert_eq!(damage.protocol, StatBlockActionOrderingProtocol::Resolved);
+    assert!(!damage.recharge_action_available);
+    assert!(damage.uses_rolled_damage);
+
+    let recharge_spent = spend_recharge_gated_rolled_attack();
+    assert_eq!(
+        recharge_spent.stage,
+        StatBlockActionFrontierStage::RechargeRoll
+    );
+    assert_eq!(
+        recharge_spent.protocol,
+        StatBlockActionOrderingProtocol::NeedsHoles(vec![
+            StatBlockActionHoleKind::StatBlockRechargeRoll
+        ])
+    );
+    assert!(!recharge_spent.recharge_action_available);
+
+    let recharge_filled = fill_stat_block_recharge_roll();
+    assert_eq!(
+        recharge_filled.stage,
+        StatBlockActionFrontierStage::Resolved
+    );
+    assert_eq!(
+        recharge_filled.protocol,
+        StatBlockActionOrderingProtocol::Resolved
+    );
+    assert!(recharge_filled.recharge_action_available);
 }
 
 #[test]
