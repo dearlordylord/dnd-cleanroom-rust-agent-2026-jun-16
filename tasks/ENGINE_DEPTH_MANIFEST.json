@@ -1,19 +1,38 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 4,
+      "addedEntries": 8,
       "owner": "production",
-      "reason": "added reusable Spare the Dying stabilization projection over death-saving state"
+      "reason": "added reusable hit point restoration frontier reducer and projection state"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
       "quarantinedWitnessNames": [
-        "doResolveSpareTheDyingStable",
-        "WitnessProtocolHole",
-        "Init",
-        "Resolved",
+        "doDiscoverFeatureHealingPool",
+        "doDiscoverSingleTargetSpellHealing",
+        "doDiscoverTargetListSpellHealing",
+        "doFillFeatureHealingDistribution",
+        "doFillSpellHealingRoll",
+        "doFillSpellHealingTargetChoice",
+        "doFillSpellHealingTargetList",
+        "doSubmitHealingRollBeforeTargetChoice",
+        "doSubmitHealingRollBeforeTargetList",
+        "TargetChoiceHoleKind",
+        "SpellTargetListHoleKind",
+        "RolledDiceHoleKind",
+        "HitPointHealingDistributionHoleKind",
+        "HitPointRestorationActSelectionStage",
+        "SpellHealingTargetChoiceStage",
+        "SpellHealingTargetListStage",
+        "SpellHealingRollStage",
+        "FeatureHealingPoolDistributionStage",
+        "HitPointRestorationResolvedStage",
+        "healingTargetRequired",
+        "healingAmountRequired",
+        "healingDistributionRequired",
+        "needsHoles",
         "resolved",
         "init",
         "mbt::actionTaken",
@@ -33,33 +52,39 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T029-battle-runtime-healing-stabilization-selected-identity.json"
+        "tasks/target-replay-evidence/T030-battle-runtime-hit-point-restoration-ordering.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "heal_sheet_hit_points",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
-      "module": "src/rules/hit_points.rs"
+      "api": "restored_hit_points_from_zero",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
+      "module": "src/rules/hit_point_restoration_ordering.rs"
     },
     {
-      "api": "healing_stabilization_initial_state",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
-      "module": "src/rules/hit_points.rs"
+      "api": "hit_point_restoration_hole_frontier",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "module": "src/rules/hit_point_restoration_ordering.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "death_saving_throw_initial_state",
-        "healing_stabilization_initial_state",
-        "resolve_spare_the_dying_stabilization"
+        "hit_point_restoration_initial_state",
+        "hit_point_restoration_hole_frontier",
+        "hit_point_restoration_fill_order_result",
+        "hit_point_restoration_fill_order_accepted_stage",
+        "hit_point_restoration_fill_order_error",
+        "hit_point_restoration_fill_order_runtime_result",
+        "hit_point_restoration_projection",
+        "hit_point_restoration_projection_from_result",
+        "restored_hit_points_from_zero"
       ],
-      "path": "src/rules/hit_points.rs",
+      "path": "src/rules/hit_point_restoration_ordering.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T029"
+  "taskId": "T030"
 }

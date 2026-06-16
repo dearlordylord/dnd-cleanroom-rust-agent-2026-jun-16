@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T029-battle-runtime-healing-stabilization-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T030-battle-runtime-hit-point-restoration-ordering.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T029"
+  "taskId": "T030"
 }

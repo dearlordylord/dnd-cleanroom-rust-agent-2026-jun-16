@@ -4,64 +4,56 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HealingStabilizationState.death_saving_throw.target_hp",
-      "introducedIn": "src/rules/hit_points.rs",
+      "fieldPath": "HitPointRestorationState.stage",
+      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HealingStabilizationState.death_saving_throw.target_stable",
-      "introducedIn": "src/rules/hit_points.rs",
+      "fieldPath": "HitPointRestorationState.protocol",
+      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HealingStabilizationState.death_saving_throw.target_unconscious",
-      "introducedIn": "src/rules/hit_points.rs",
+      "fieldPath": "HitPointRestorationState.last_ordering_error",
+      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HealingStabilizationState.death_saving_throw.target_death_successes",
-      "introducedIn": "src/rules/hit_points.rs",
+      "fieldPath": "HitPointRestorationState.spell_target_hit_points",
+      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HealingStabilizationState.death_saving_throw.target_death_failures",
-      "introducedIn": "src/rules/hit_points.rs",
+      "fieldPath": "HitPointRestorationState.spell_target_zero_hit_point_lifecycle_cleared",
+      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HealingStabilizationState.action_available",
-      "introducedIn": "src/rules/hit_points.rs",
+      "fieldPath": "HitPointRestorationState.feature_target_hit_points",
+      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HealingStabilizationState.scenario_outcome",
-      "introducedIn": "src/rules/hit_points.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "HealingStabilizationState.protocol",
-      "introducedIn": "src/rules/hit_points.rs",
+      "fieldPath": "HitPointRestorationState.feature_target_zero_hit_point_lifecycle_cleared",
+      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
       "owner": "battle-state"
     },
     {
@@ -70,10 +62,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T029"
+  "taskId": "T030"
 }

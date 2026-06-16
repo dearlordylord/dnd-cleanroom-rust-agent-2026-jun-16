@@ -30,6 +30,8 @@ mod battle_runtime_find_familiar_companion_lifecycle;
 mod battle_runtime_find_familiar_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs"]
 mod battle_runtime_healing_stabilization_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs"]
+mod battle_runtime_hit_point_restoration_ordering;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -140,6 +142,13 @@ use crate::rules::find_familiar::{
     resolve_pact_find_familiar_reaction_attack, share_find_familiar_senses,
     FamiliarCreatureTypeOverride, FamiliarForm, FamiliarFormFacts, FamiliarSlot, FamiliarStatus,
     FindFamiliarCompanionProtocol, FindFamiliarCompanionScenarioOutcome,
+};
+use crate::rules::hit_point_restoration_ordering::{
+    hit_point_restoration_fill_order_result, hit_point_restoration_hole_frontier,
+    hit_point_restoration_initial_state, hit_point_restoration_projection_from_result,
+    restored_hit_points_from_zero, HitPointRestorationFillKind, HitPointRestorationFillOrderResult,
+    HitPointRestorationFillOrderingError, HitPointRestorationFrontierStage,
+    HitPointRestorationHoleKind, HitPointRestorationProtocol,
 };
 use crate::rules::hit_points::{
     complete_long_rest_benefits, death_saving_throw_initial_state, discover_death_saving_throw,
@@ -271,6 +280,12 @@ use battle_runtime_healing_stabilization_selected_identity::{
     projection_payload as healing_stabilization_projection_payload,
     replay_observed_action as replay_healing_stabilization_action,
     BRANCH_ACTIONS as HEALING_STABILIZATION_BRANCH_ACTIONS,
+};
+use battle_runtime_hit_point_restoration_ordering::{
+    expected_witness as expected_hit_point_restoration_ordering_witness,
+    projection_payload as hit_point_restoration_ordering_projection_payload,
+    replay_observed_action as replay_hit_point_restoration_ordering_action,
+    BRANCH_ACTIONS as HIT_POINT_RESTORATION_ORDERING_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1795,6 +1810,105 @@ fn spare_the_dying_stabilizes_without_healing_or_waking() {
         HealingStabilizationScenarioOutcome::Resolved
     );
     assert_eq!(resolved.protocol, HealingStabilizationProtocol::Resolved);
+}
+
+#[test]
+fn hit_point_restoration_ordering_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-hit-point-restoration-ordering.mbt.qnt and
+    // battle-runtime-hit-point-restoration-ordering.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Healing".
+    for action in HIT_POINT_RESTORATION_ORDERING_BRANCH_ACTIONS {
+        let observed = replay_hit_point_restoration_ordering_action(action);
+        assert_eq!(
+            observed,
+            expected_hit_point_restoration_ordering_witness(action)
+        );
+        assert!(hit_point_restoration_ordering_projection_payload(&observed)
+            .contains("protocolResult="));
+    }
+}
+
+#[test]
+fn hit_point_restoration_ordering_requires_target_before_roll_and_applies_healing() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Healing" and "Death Saving Throws"; QNT:
+    // battle-runtime-hit-point-restoration-ordering.qnt.
+    let initial = hit_point_restoration_initial_state();
+    assert_eq!(
+        initial.stage,
+        HitPointRestorationFrontierStage::ActSelection
+    );
+    assert_eq!(initial.protocol, HitPointRestorationProtocol::Init);
+
+    assert_eq!(
+        hit_point_restoration_hole_frontier(
+            HitPointRestorationFrontierStage::SpellHealingTargetChoice
+        ),
+        vec![HitPointRestorationHoleKind::TargetChoice]
+    );
+    assert_eq!(
+        hit_point_restoration_hole_frontier(
+            HitPointRestorationFrontierStage::FeatureHealingPoolDistribution
+        ),
+        vec![HitPointRestorationHoleKind::HitPointHealingDistribution]
+    );
+
+    let roll_before_target = hit_point_restoration_fill_order_result(
+        HitPointRestorationFrontierStage::SpellHealingTargetChoice,
+        HitPointRestorationFillKind::RolledDice,
+    );
+    assert_eq!(
+        roll_before_target,
+        HitPointRestorationFillOrderResult::RequestedEarlier {
+            error: HitPointRestorationFillOrderingError::HealingTargetRequired,
+            stage: HitPointRestorationFrontierStage::SpellHealingTargetChoice
+        }
+    );
+
+    let fill_target = hit_point_restoration_fill_order_result(
+        HitPointRestorationFrontierStage::SpellHealingTargetChoice,
+        HitPointRestorationFillKind::TargetChoice,
+    );
+    assert_eq!(
+        fill_target,
+        HitPointRestorationFillOrderResult::Accepted(
+            HitPointRestorationFrontierStage::SpellHealingRoll
+        )
+    );
+
+    let spell_roll = hit_point_restoration_fill_order_result(
+        HitPointRestorationFrontierStage::SpellHealingRoll,
+        HitPointRestorationFillKind::RolledDice,
+    );
+    let (spell_hp, spell_cleared) = restored_hit_points_from_zero(5);
+    let spell_resolved =
+        hit_point_restoration_projection_from_result(spell_roll, spell_hp, spell_cleared, 0, false);
+    assert_eq!(
+        spell_resolved.stage,
+        HitPointRestorationFrontierStage::Resolved
+    );
+    assert_eq!(
+        spell_resolved.protocol,
+        HitPointRestorationProtocol::Resolved
+    );
+    assert_eq!(spell_resolved.spell_target_hit_points, 5);
+    assert!(spell_resolved.spell_target_zero_hit_point_lifecycle_cleared);
+
+    let feature_distribution = hit_point_restoration_fill_order_result(
+        HitPointRestorationFrontierStage::FeatureHealingPoolDistribution,
+        HitPointRestorationFillKind::HitPointHealingDistribution,
+    );
+    let (feature_hp, feature_cleared) = restored_hit_points_from_zero(8);
+    let feature_resolved = hit_point_restoration_projection_from_result(
+        feature_distribution,
+        0,
+        false,
+        feature_hp,
+        feature_cleared,
+    );
+    assert_eq!(feature_resolved.feature_target_hit_points, 8);
+    assert!(feature_resolved.feature_target_zero_hit_point_lifecycle_cleared);
 }
 
 #[test]
