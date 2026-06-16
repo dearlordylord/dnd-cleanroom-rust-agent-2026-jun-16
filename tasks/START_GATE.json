@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T036",
-  "startHeadSha": "64b8871cd91284800c969960178f21be367c1c4e",
+  "taskId": "T037",
+  "startHeadSha": "4c74fcc8e8496ff39e772ee89106e7434ef4d6c2",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt"
     ]
   }
 }

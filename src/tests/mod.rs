@@ -44,6 +44,8 @@ mod battle_runtime_level1_spatial_witness_selected_identity;
 mod battle_runtime_mage_armor_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_magic_missile.rs"]
 mod battle_runtime_magic_missile;
+#[path = "../qnt_adapters/battle_runtime_quickened_spell_governor.rs"]
+mod battle_runtime_quickened_spell_governor;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -223,6 +225,15 @@ use crate::rules::origin_feats::{
     criminal_origin_feat_projection, initiative_handoff_projection, AlertInitiativeState,
     Background, InitiativeHandoffFacts, OriginFeat,
 };
+use crate::rules::quickened_spell_governor::{
+    quickened_spell_governor_initial_state, reject_quickened_one_per_spell,
+    reject_quickened_prior_level_one_plus_spell, reject_quickened_unaffordable,
+    reject_quickened_unknown_option, reject_quickened_unsupported_second_option,
+    resolve_quickened_after_magic_action_spent, resolve_quickened_direct_condition,
+    resolve_quickened_restoration, resolve_quickened_roll_modifier,
+    resolve_quickened_save_gated_condition, resolve_quickened_save_gated_condition_immunity,
+    QuickenedSpellInvalidKind, QuickenedSpellProtocol, QuickenedSpellScenarioOutcome,
+};
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
     fill_eldritch_blast_attack, fill_eldritch_blast_damage, fill_eldritch_blast_targets,
@@ -383,6 +394,12 @@ use battle_runtime_magic_missile::{
     replay_observed_action as replay_magic_missile_action,
     BRANCH_ACTIONS as MAGIC_MISSILE_BRANCH_ACTIONS,
     DAMAGE_SAMPLE_DART_ROLL_TOTALS as MAGIC_MISSILE_DAMAGE_SAMPLES,
+};
+use battle_runtime_quickened_spell_governor::{
+    expected_witness as expected_quickened_spell_witness,
+    projection_payload as quickened_spell_projection_payload,
+    replay_observed_action as replay_quickened_spell_action,
+    BRANCH_ACTIONS as QUICKENED_SPELL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2423,6 +2440,93 @@ fn magic_missile_projects_allocation_and_sampled_damage() {
         high_damage.protocol_result,
         MagicMissileProtocolResult::Resolved
     );
+}
+
+#[test]
+fn quickened_spell_governor_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-quickened-spell-governor.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Quickened Spell".
+    for action in QUICKENED_SPELL_BRANCH_ACTIONS {
+        let observed = replay_quickened_spell_action(action);
+        assert_eq!(observed, expected_quickened_spell_witness(action));
+        assert!(quickened_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn quickened_spell_governor_projects_successes_and_rejections() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Metamagic" and "Quickened Spell"; QNT:
+    // battle-runtime-quickened-spell-governor.mbt.qnt.
+    let initial = quickened_spell_governor_initial_state();
+    assert!(initial.quickened_cure_wounds_offered);
+    assert_eq!(initial.sorcery_points_remaining, 4);
+    assert_eq!(initial.target_hit_points, 4);
+    assert_eq!(initial.protocol, QuickenedSpellProtocol::Init);
+
+    let restoration = resolve_quickened_restoration();
+    assert!(!restoration.quickened_cure_wounds_offered);
+    assert!(!restoration.bonus_action_available);
+    assert_eq!(restoration.sorcery_points_remaining, 2);
+    assert_eq!(restoration.target_hit_points, 14);
+    assert!(restoration.spell_slot_committed);
+    assert!(restoration.level_one_plus_cast_this_turn);
+    assert!(restoration.quickened_level_one_plus_cast_this_turn);
+    assert!(!restoration.spell_slot_acts_available);
+
+    let save_condition = resolve_quickened_save_gated_condition();
+    assert!(save_condition.color_spray_blinded);
+    let immunity = resolve_quickened_save_gated_condition_immunity();
+    assert!(immunity.calm_emotions_immunity);
+    let direct = resolve_quickened_direct_condition();
+    assert!(direct.invisibility_active);
+    let roll_modifier = resolve_quickened_roll_modifier();
+    assert!(roll_modifier.bless_active);
+
+    let after_magic = resolve_quickened_after_magic_action_spent();
+    assert!(!after_magic.magic_action_available);
+    assert!(!after_magic.bonus_action_available);
+    assert_eq!(
+        after_magic.scenario_outcome,
+        QuickenedSpellScenarioOutcome::ResolvedAfterMagicActionSpent
+    );
+
+    let unaffordable = reject_quickened_unaffordable();
+    assert_eq!(unaffordable.sorcery_points_remaining, 1);
+    assert_eq!(
+        unaffordable.invalid_kind,
+        QuickenedSpellInvalidKind::Unaffordable
+    );
+    assert!(unaffordable.magic_action_available);
+    assert!(unaffordable.bonus_action_available);
+    assert!(!unaffordable.spell_slot_committed);
+
+    let unknown = reject_quickened_unknown_option();
+    assert_eq!(
+        unknown.invalid_kind,
+        QuickenedSpellInvalidKind::UnknownOption
+    );
+    let unsupported = reject_quickened_unsupported_second_option();
+    assert_eq!(
+        unsupported.invalid_kind,
+        QuickenedSpellInvalidKind::UnsupportedSecondOption
+    );
+    assert_eq!(unsupported.sorcery_points_remaining, 5);
+    let one_per_spell = reject_quickened_one_per_spell();
+    assert_eq!(
+        one_per_spell.invalid_kind,
+        QuickenedSpellInvalidKind::OnePerSpell
+    );
+
+    let prior = reject_quickened_prior_level_one_plus_spell();
+    assert_eq!(
+        prior.invalid_kind,
+        QuickenedSpellInvalidKind::SameTurnLevelOnePlus
+    );
+    assert!(prior.level_one_plus_cast_this_turn);
+    assert!(!prior.quickened_level_one_plus_cast_this_turn);
 }
 
 #[test]

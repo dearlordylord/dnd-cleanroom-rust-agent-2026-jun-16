@@ -4,56 +4,128 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MagicMissileState.skeleton_hit_points",
-      "introducedIn": "src/rules/magic_missile.rs",
+      "fieldPath": "QuickenedSpellGovernorState.quickened_cure_wounds_offered",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MagicMissileState.skeleton_dead",
-      "introducedIn": "src/rules/magic_missile.rs",
+      "fieldPath": "QuickenedSpellGovernorState.color_spray_blinded",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MagicMissileState.action_available",
-      "introducedIn": "src/rules/magic_missile.rs",
+      "fieldPath": "QuickenedSpellGovernorState.calm_emotions_immunity",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MagicMissileState.multiattack_dispatches_available",
-      "introducedIn": "src/rules/magic_missile.rs",
+      "fieldPath": "QuickenedSpellGovernorState.invisibility_active",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MagicMissileState.sneak_attack_used_this_turn",
-      "introducedIn": "src/rules/magic_missile.rs",
+      "fieldPath": "QuickenedSpellGovernorState.bless_active",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MagicMissileState.protocol_holes",
-      "introducedIn": "src/rules/magic_missile.rs",
+      "fieldPath": "QuickenedSpellGovernorState.magic_action_available",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MagicMissileState.protocol_result",
-      "introducedIn": "src/rules/magic_missile.rs",
+      "fieldPath": "QuickenedSpellGovernorState.bonus_action_available",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "QuickenedSpellGovernorState.sorcery_points_remaining",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "QuickenedSpellGovernorState.target_hit_points",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "QuickenedSpellGovernorState.spell_slot_committed",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "QuickenedSpellGovernorState.level_one_plus_cast_this_turn",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "QuickenedSpellGovernorState.quickened_level_one_plus_cast_this_turn",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "QuickenedSpellGovernorState.spell_slot_acts_available",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "QuickenedSpellGovernorState.invalid_kind",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "QuickenedSpellGovernorState.scenario_outcome",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "QuickenedSpellGovernorState.protocol",
+      "introducedIn": "src/rules/quickened_spell_governor.rs",
       "owner": "battle-state"
     },
     {
@@ -62,19 +134,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_magic_missile.rs",
-      "owner": "harness-witness-protocol"
-    },
-    {
-      "derivability": {
-        "tag": "harness-witness-protocol",
-        "witnessName": "mbt::nondetPicks"
-      },
-      "fieldPath": "TargetReplayEvidence.sampledInputs.dartRollTotal",
-      "introducedIn": "src/qnt_adapters/battle_runtime_magic_missile.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_quickened_spell_governor.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T036"
+  "taskId": "T037"
 }
