@@ -4,7 +4,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TransmutedSpellState.magic_action_available",
+      "fieldPath": "TwinnedSpellState.magic_action_available",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -12,7 +12,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TransmutedSpellState.bonus_action_available",
+      "fieldPath": "TwinnedSpellState.bonus_action_available",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -20,7 +20,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TransmutedSpellState.sorcery_points_remaining",
+      "fieldPath": "TwinnedSpellState.sorcery_points_remaining",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -28,7 +28,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TransmutedSpellState.target_hit_points",
+      "fieldPath": "TwinnedSpellState.target_hit_points",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -36,7 +36,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TransmutedSpellState.target_active_effect_count",
+      "fieldPath": "TwinnedSpellState.target_active_effect_count",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -44,7 +44,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TransmutedSpellState.scenario_result",
+      "fieldPath": "TwinnedSpellState.scenario_result",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -52,7 +52,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TransmutedSpellState.protocol",
+      "fieldPath": "TwinnedSpellState.protocol",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -62,10 +62,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_transmuted_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_twinned_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T055"
+  "taskId": "T056"
 }

@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T055-battle-runtime-sorcerer-metamagic-transmuted-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T056-battle-runtime-sorcerer-metamagic-twinned-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T055"
+  "taskId": "T056"
 }

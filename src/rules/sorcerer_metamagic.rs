@@ -611,3 +611,55 @@ pub fn resolve_transmuted_spell_attack() -> TransmutedSpellState {
         protocol: TransmutedSpellProtocol::Resolved,
     }
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TwinnedSpellScenarioResult {
+    Init,
+    TwinnedTargetCount,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TwinnedSpellProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct TwinnedSpellState {
+    pub magic_action_available: bool,
+    pub bonus_action_available: bool,
+    pub sorcery_points_remaining: i16,
+    pub target_hit_points: i16,
+    pub target_active_effect_count: i16,
+    pub scenario_result: TwinnedSpellScenarioResult,
+    pub protocol: TwinnedSpellProtocol,
+}
+
+#[must_use]
+pub fn twinned_spell_initial_state() -> TwinnedSpellState {
+    TwinnedSpellState {
+        magic_action_available: true,
+        bonus_action_available: true,
+        sorcery_points_remaining: 4,
+        target_hit_points: 10,
+        target_active_effect_count: 0,
+        scenario_result: TwinnedSpellScenarioResult::Init,
+        protocol: TwinnedSpellProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn resolve_twinned_target_count() -> TwinnedSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Twinned Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt.
+    TwinnedSpellState {
+        magic_action_available: false,
+        bonus_action_available: true,
+        sorcery_points_remaining: 3,
+        target_hit_points: 10,
+        target_active_effect_count: 1,
+        scenario_result: TwinnedSpellScenarioResult::TwinnedTargetCount,
+        protocol: TwinnedSpellProtocol::Resolved,
+    }
+}

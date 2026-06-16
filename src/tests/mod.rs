@@ -82,6 +82,8 @@ mod battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity;
 mod battle_runtime_sorcerer_metamagic_subtle_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_transmuted_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_transmuted_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_twinned_selected_identity.rs"]
+mod battle_runtime_sorcerer_metamagic_twinned_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -335,14 +337,15 @@ use crate::rules::sorcerer_metamagic::{
     resolve_quickened_save_gated_damage, resolve_quickened_spell_attack,
     resolve_quickened_spell_attack_sequence, resolve_seeking_spell_attack_reroll,
     resolve_subtle_false_life, resolve_transmuted_save_gated_damage,
-    resolve_transmuted_spell_attack, seeking_spell_initial_state, subtle_spell_initial_state,
-    transmuted_spell_initial_state, CarefulSpellProtocol, CarefulSpellScenarioResult,
-    DistantSpellProtocol, DistantSpellScenarioResult, EmpoweredSpellProtocol,
-    EmpoweredSpellScenarioResult, ExtendedSpellConcentrationSaveMode, ExtendedSpellProtocol,
-    ExtendedSpellScenarioResult, HeightenedSpellProtocol, HeightenedSpellScenarioResult,
-    QuickenedMetamagicProtocol, QuickenedMetamagicScenarioResult, SeekingSpellProtocol,
-    SeekingSpellScenarioResult, SubtleSpellProtocol, SubtleSpellScenarioResult,
-    TransmutedSpellProtocol, TransmutedSpellScenarioResult,
+    resolve_transmuted_spell_attack, resolve_twinned_target_count, seeking_spell_initial_state,
+    subtle_spell_initial_state, transmuted_spell_initial_state, twinned_spell_initial_state,
+    CarefulSpellProtocol, CarefulSpellScenarioResult, DistantSpellProtocol,
+    DistantSpellScenarioResult, EmpoweredSpellProtocol, EmpoweredSpellScenarioResult,
+    ExtendedSpellConcentrationSaveMode, ExtendedSpellProtocol, ExtendedSpellScenarioResult,
+    HeightenedSpellProtocol, HeightenedSpellScenarioResult, QuickenedMetamagicProtocol,
+    QuickenedMetamagicScenarioResult, SeekingSpellProtocol, SeekingSpellScenarioResult,
+    SubtleSpellProtocol, SubtleSpellScenarioResult, TransmutedSpellProtocol,
+    TransmutedSpellScenarioResult, TwinnedSpellProtocol, TwinnedSpellScenarioResult,
 };
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
@@ -618,6 +621,12 @@ use battle_runtime_sorcerer_metamagic_transmuted_selected_identity::{
     projection_payload as transmuted_spell_projection_payload,
     replay_observed_action as replay_transmuted_spell_action,
     BRANCH_ACTIONS as TRANSMUTED_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_sorcerer_metamagic_twinned_selected_identity::{
+    expected_witness as expected_twinned_spell_witness,
+    projection_payload as twinned_spell_projection_payload,
+    replay_observed_action as replay_twinned_spell_action,
+    BRANCH_ACTIONS as TWINNED_SPELL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3774,6 +3783,45 @@ fn transmuted_spell_projects_save_gated_and_spell_attack_cases() {
         TransmutedSpellScenarioResult::TransmutedSpellAttack
     );
     assert_eq!(spell_attack.protocol, TransmutedSpellProtocol::Resolved);
+}
+
+#[test]
+fn twinned_spell_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Twinned Spell".
+    for action in TWINNED_SPELL_BRANCH_ACTIONS {
+        let observed = replay_twinned_spell_action(action);
+        assert_eq!(observed, expected_twinned_spell_witness(action));
+        assert!(twinned_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn twinned_spell_projects_target_count_case() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Twinned Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt.
+    let initial = twinned_spell_initial_state();
+    assert!(initial.magic_action_available);
+    assert!(initial.bonus_action_available);
+    assert_eq!(initial.sorcery_points_remaining, 4);
+    assert_eq!(initial.target_hit_points, 10);
+    assert_eq!(initial.target_active_effect_count, 0);
+    assert_eq!(initial.protocol, TwinnedSpellProtocol::Init);
+
+    let twinned = resolve_twinned_target_count();
+    assert!(!twinned.magic_action_available);
+    assert!(twinned.bonus_action_available);
+    assert_eq!(twinned.sorcery_points_remaining, 3);
+    assert_eq!(twinned.target_hit_points, 10);
+    assert_eq!(twinned.target_active_effect_count, 1);
+    assert_eq!(
+        twinned.scenario_result,
+        TwinnedSpellScenarioResult::TwinnedTargetCount
+    );
+    assert_eq!(twinned.protocol, TwinnedSpellProtocol::Resolved);
 }
 
 #[test]
