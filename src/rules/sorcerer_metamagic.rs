@@ -330,6 +330,58 @@ fn resolved_heightened_spell(
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum QuickenedMetamagicScenarioResult {
+    Init,
+    QuickenedSaveGatedDamage,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum QuickenedMetamagicProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct QuickenedMetamagicState {
+    pub magic_action_available: bool,
+    pub bonus_action_available: bool,
+    pub sorcery_points_remaining: i16,
+    pub target_hit_points: i16,
+    pub target_active_effect_count: i16,
+    pub scenario_result: QuickenedMetamagicScenarioResult,
+    pub protocol: QuickenedMetamagicProtocol,
+}
+
+#[must_use]
+pub fn quickened_metamagic_initial_state() -> QuickenedMetamagicState {
+    QuickenedMetamagicState {
+        magic_action_available: true,
+        bonus_action_available: true,
+        sorcery_points_remaining: 4,
+        target_hit_points: 10,
+        target_active_effect_count: 0,
+        scenario_result: QuickenedMetamagicScenarioResult::Init,
+        protocol: QuickenedMetamagicProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn resolve_quickened_save_gated_damage() -> QuickenedMetamagicState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Quickened Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt.
+    QuickenedMetamagicState {
+        magic_action_available: true,
+        bonus_action_available: false,
+        sorcery_points_remaining: 2,
+        target_hit_points: 1,
+        target_active_effect_count: 0,
+        scenario_result: QuickenedMetamagicScenarioResult::QuickenedSaveGatedDamage,
+        protocol: QuickenedMetamagicProtocol::Resolved,
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum SeekingSpellScenarioResult {
     Init,
     SeekingSpellAttackReroll,

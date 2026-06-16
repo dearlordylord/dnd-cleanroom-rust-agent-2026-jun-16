@@ -3,15 +3,15 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added Seeking Spell attack-reroll projection"
+      "reason": "added Quickened Spell save-gated damage projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_seeking_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doResolveSeekingSpellAttackReroll",
-        "seekingSpellAttackReroll",
+        "doResolveQuickenedSaveGatedDamage",
+        "quickenedSaveGatedDamage",
         "init",
         "resolved",
         "mbt::actionTaken",
@@ -31,32 +31,32 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T050-battle-runtime-sorcerer-metamagic-seeking-selected-identity.json"
+        "tasks/target-replay-evidence/T051-battle-runtime-sorcerer-metamagic-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "seeking_spell_initial_state",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
+      "api": "quickened_metamagic_initial_state",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt",
       "module": "src/rules/sorcerer_metamagic.rs"
     },
     {
-      "api": "resolve_seeking_spell_attack_reroll",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
+      "api": "resolve_quickened_save_gated_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt",
       "module": "src/rules/sorcerer_metamagic.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "seeking_spell_initial_state",
-        "resolve_seeking_spell_attack_reroll"
+        "quickened_metamagic_initial_state",
+        "resolve_quickened_save_gated_damage"
       ],
       "path": "src/rules/sorcerer_metamagic.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T050"
+  "taskId": "T051"
 }
