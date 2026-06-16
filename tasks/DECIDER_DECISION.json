@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T053-battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T054-battle-runtime-sorcerer-metamagic-subtle-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T053"
+  "taskId": "T054"
 }

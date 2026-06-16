@@ -4,7 +4,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedMetamagicState.magic_action_available",
+      "fieldPath": "SubtleSpellState.verbal_suppressed",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -12,7 +12,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedMetamagicState.bonus_action_available",
+      "fieldPath": "SubtleSpellState.somatic_suppressed",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -20,7 +20,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedMetamagicState.sorcery_points_remaining",
+      "fieldPath": "SubtleSpellState.material_suppressed",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -28,7 +28,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedMetamagicState.target_hit_points",
+      "fieldPath": "SubtleSpellState.material_preserved",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -36,7 +36,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedMetamagicState.target_active_effect_count",
+      "fieldPath": "SubtleSpellState.sorcery_points_remaining",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -44,7 +44,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedMetamagicState.scenario_result",
+      "fieldPath": "SubtleSpellState.temporary_hit_points",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -52,7 +52,15 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedMetamagicState.protocol",
+      "fieldPath": "SubtleSpellState.scenario_result",
+      "introducedIn": "src/rules/sorcerer_metamagic.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "SubtleSpellState.protocol",
       "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
@@ -62,10 +70,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_subtle_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T053"
+  "taskId": "T054"
 }

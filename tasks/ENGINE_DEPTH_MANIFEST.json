@@ -1,19 +1,23 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 1,
+      "addedEntries": 2,
       "owner": "production",
-      "reason": "added Quickened Spell spell-attack sequence projection"
+      "reason": "added Subtle Spell False Life resolved and unaffordable rejection projections"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_subtle_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doResolveQuickenedSpellAttackSequence",
-        "quickenedSpellAttackSequence",
+        "doRejectSubtleFalseLifeWithoutSorceryPoints",
+        "doResolveSubtleFalseLife",
+        "unaffordableSubtleFalseLife",
+        "subtleFalseLife",
+        "WUnsupportedActOption",
         "init",
         "resolved",
+        "invalid",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -27,36 +31,38 @@
         "comparator",
         "expectedProjectionSha256",
         "observedProjectionSha256",
+        "protocolInvalidReason",
         "checkedTargetStateFields",
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T053-battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.json"
+        "tasks/target-replay-evidence/T054-battle-runtime-sorcerer-metamagic-subtle-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "quickened_metamagic_initial_state",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt",
+      "api": "subtle_spell_initial_state",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt",
       "module": "src/rules/sorcerer_metamagic.rs"
     },
     {
-      "api": "resolve_quickened_spell_attack_sequence",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt",
+      "api": "resolve_subtle_false_life",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt",
       "module": "src/rules/sorcerer_metamagic.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "quickened_metamagic_initial_state",
-        "resolve_quickened_spell_attack_sequence"
+        "subtle_spell_initial_state",
+        "resolve_subtle_false_life",
+        "reject_subtle_false_life_without_sorcery_points"
       ],
       "path": "src/rules/sorcerer_metamagic.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T053"
+  "taskId": "T054"
 }

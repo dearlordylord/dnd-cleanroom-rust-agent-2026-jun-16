@@ -466,3 +466,79 @@ pub fn resolve_seeking_spell_attack_reroll() -> SeekingSpellState {
         protocol: SeekingSpellProtocol::Resolved,
     }
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SubtleSpellScenarioResult {
+    Init,
+    SubtleFalseLife,
+    UnaffordableSubtleFalseLife,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SubtleSpellProtocol {
+    Init,
+    Resolved,
+    InvalidUnsupportedActOption,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SubtleSpellState {
+    pub verbal_suppressed: bool,
+    pub somatic_suppressed: bool,
+    pub material_suppressed: bool,
+    pub material_preserved: bool,
+    pub sorcery_points_remaining: i16,
+    pub temporary_hit_points: i16,
+    pub scenario_result: SubtleSpellScenarioResult,
+    pub protocol: SubtleSpellProtocol,
+}
+
+#[must_use]
+pub fn subtle_spell_initial_state() -> SubtleSpellState {
+    SubtleSpellState {
+        verbal_suppressed: false,
+        somatic_suppressed: false,
+        material_suppressed: false,
+        material_preserved: false,
+        sorcery_points_remaining: 2,
+        temporary_hit_points: 0,
+        scenario_result: SubtleSpellScenarioResult::Init,
+        protocol: SubtleSpellProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn resolve_subtle_false_life() -> SubtleSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Subtle Spell"; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "False Life"; QNT:
+    // battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt.
+    SubtleSpellState {
+        verbal_suppressed: true,
+        somatic_suppressed: true,
+        material_suppressed: true,
+        material_preserved: false,
+        sorcery_points_remaining: 1,
+        temporary_hit_points: 11,
+        scenario_result: SubtleSpellScenarioResult::SubtleFalseLife,
+        protocol: SubtleSpellProtocol::Resolved,
+    }
+}
+
+#[must_use]
+pub fn reject_subtle_false_life_without_sorcery_points() -> SubtleSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Subtle Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt.
+    SubtleSpellState {
+        verbal_suppressed: false,
+        somatic_suppressed: false,
+        material_suppressed: false,
+        material_preserved: false,
+        sorcery_points_remaining: 0,
+        temporary_hit_points: 0,
+        scenario_result: SubtleSpellScenarioResult::UnaffordableSubtleFalseLife,
+        protocol: SubtleSpellProtocol::InvalidUnsupportedActOption,
+    }
+}

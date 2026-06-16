@@ -78,6 +78,8 @@ mod battle_runtime_sorcerer_metamagic_selected_identity;
 mod battle_runtime_sorcerer_metamagic_spell_attack_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_subtle_selected_identity.rs"]
+mod battle_runtime_sorcerer_metamagic_subtle_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -322,19 +324,21 @@ use crate::rules::sleep_repeat_save::{
 use crate::rules::sorcerer_metamagic::{
     careful_spell_initial_state, distant_spell_initial_state, empowered_spell_initial_state,
     extended_spell_initial_state, heightened_spell_initial_state,
-    quickened_metamagic_initial_state, resolve_careful_save_gated_damage,
-    resolve_careful_save_gated_no_effect, resolve_distant_object_light,
-    resolve_empowered_spell_damage_reroll, resolve_extended_creature_size_increase,
-    resolve_heightened_grease_entry_save, resolve_heightened_gust_of_wind_end_turn_save,
-    resolve_heightened_hideous_laughter, resolve_heightened_save_gated_condition_end_turn_save,
-    resolve_heightened_save_gated_damage, resolve_quickened_save_gated_damage,
-    resolve_quickened_spell_attack, resolve_quickened_spell_attack_sequence,
-    resolve_seeking_spell_attack_reroll, seeking_spell_initial_state, CarefulSpellProtocol,
-    CarefulSpellScenarioResult, DistantSpellProtocol, DistantSpellScenarioResult,
-    EmpoweredSpellProtocol, EmpoweredSpellScenarioResult, ExtendedSpellConcentrationSaveMode,
-    ExtendedSpellProtocol, ExtendedSpellScenarioResult, HeightenedSpellProtocol,
-    HeightenedSpellScenarioResult, QuickenedMetamagicProtocol, QuickenedMetamagicScenarioResult,
-    SeekingSpellProtocol, SeekingSpellScenarioResult,
+    quickened_metamagic_initial_state, reject_subtle_false_life_without_sorcery_points,
+    resolve_careful_save_gated_damage, resolve_careful_save_gated_no_effect,
+    resolve_distant_object_light, resolve_empowered_spell_damage_reroll,
+    resolve_extended_creature_size_increase, resolve_heightened_grease_entry_save,
+    resolve_heightened_gust_of_wind_end_turn_save, resolve_heightened_hideous_laughter,
+    resolve_heightened_save_gated_condition_end_turn_save, resolve_heightened_save_gated_damage,
+    resolve_quickened_save_gated_damage, resolve_quickened_spell_attack,
+    resolve_quickened_spell_attack_sequence, resolve_seeking_spell_attack_reroll,
+    resolve_subtle_false_life, seeking_spell_initial_state, subtle_spell_initial_state,
+    CarefulSpellProtocol, CarefulSpellScenarioResult, DistantSpellProtocol,
+    DistantSpellScenarioResult, EmpoweredSpellProtocol, EmpoweredSpellScenarioResult,
+    ExtendedSpellConcentrationSaveMode, ExtendedSpellProtocol, ExtendedSpellScenarioResult,
+    HeightenedSpellProtocol, HeightenedSpellScenarioResult, QuickenedMetamagicProtocol,
+    QuickenedMetamagicScenarioResult, SeekingSpellProtocol, SeekingSpellScenarioResult,
+    SubtleSpellProtocol, SubtleSpellScenarioResult,
 };
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
@@ -598,6 +602,12 @@ use battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity::{
     projection_payload as quickened_spell_attack_sequence_projection_payload,
     replay_observed_action as replay_quickened_spell_attack_sequence_action,
     BRANCH_ACTIONS as QUICKENED_SPELL_ATTACK_SEQUENCE_BRANCH_ACTIONS,
+};
+use battle_runtime_sorcerer_metamagic_subtle_selected_identity::{
+    expected_witness as expected_subtle_spell_witness,
+    projection_payload as subtle_spell_projection_payload,
+    replay_observed_action as replay_subtle_spell_action,
+    BRANCH_ACTIONS as SUBTLE_SPELL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3645,6 +3655,64 @@ fn quickened_spell_attack_sequence_projects_sequence_case() {
         QuickenedMetamagicScenarioResult::QuickenedSpellAttackSequence
     );
     assert_eq!(quickened.protocol, QuickenedMetamagicProtocol::Resolved);
+}
+
+#[test]
+fn subtle_spell_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Subtle Spell".
+    for action in SUBTLE_SPELL_BRANCH_ACTIONS {
+        let observed = replay_subtle_spell_action(action);
+        assert_eq!(observed, expected_subtle_spell_witness(action));
+        assert!(subtle_spell_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn subtle_spell_projects_false_life_and_unaffordable_cases() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Subtle Spell"; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "False Life"; QNT:
+    // battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt.
+    let initial = subtle_spell_initial_state();
+    assert!(!initial.verbal_suppressed);
+    assert!(!initial.somatic_suppressed);
+    assert!(!initial.material_suppressed);
+    assert!(!initial.material_preserved);
+    assert_eq!(initial.sorcery_points_remaining, 2);
+    assert_eq!(initial.temporary_hit_points, 0);
+    assert_eq!(initial.protocol, SubtleSpellProtocol::Init);
+
+    let resolved = resolve_subtle_false_life();
+    assert!(resolved.verbal_suppressed);
+    assert!(resolved.somatic_suppressed);
+    assert!(resolved.material_suppressed);
+    assert!(!resolved.material_preserved);
+    assert_eq!(resolved.sorcery_points_remaining, 1);
+    assert_eq!(resolved.temporary_hit_points, 11);
+    assert_eq!(
+        resolved.scenario_result,
+        SubtleSpellScenarioResult::SubtleFalseLife
+    );
+    assert_eq!(resolved.protocol, SubtleSpellProtocol::Resolved);
+
+    let rejected = reject_subtle_false_life_without_sorcery_points();
+    assert!(!rejected.verbal_suppressed);
+    assert!(!rejected.somatic_suppressed);
+    assert!(!rejected.material_suppressed);
+    assert_eq!(rejected.sorcery_points_remaining, 0);
+    assert_eq!(rejected.temporary_hit_points, 0);
+    assert_eq!(
+        rejected.scenario_result,
+        SubtleSpellScenarioResult::UnaffordableSubtleFalseLife
+    );
+    assert_eq!(
+        rejected.protocol,
+        SubtleSpellProtocol::InvalidUnsupportedActOption
+    );
 }
 
 #[test]
