@@ -3,56 +3,48 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added rule-core movement and grapple projection"
+      "reason": "added rule-core reactions, readied movement, and concentration projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "path": "src/qnt_adapters/rule_core_reactions_mbt.rs",
       "quarantinedWitnessNames": [
-        "doDash",
+        "doBreakReactorConcentrationAfterLargeDamage",
         "doDeclineOpportunityAttack",
-        "doDiscoverEscapeGrapple",
-        "doDiscoverGrapple",
-        "doDiscoverMovement",
-        "doDisengage",
-        "doMoveProvokesOpportunityAttack",
-        "doMoveThreatSuppressedByDisengage",
-        "doRejectDashAfterActionSpent",
-        "doRejectMovementOverspend",
-        "doReleaseGrapple",
-        "doResolveEscapeFailure",
-        "doResolveEscapeSuccess",
-        "doResolveGrappleFailure",
-        "doResolveGrappleSuccess",
-        "doSelectGrappleTarget",
-        "doSpendFullMovement",
-        "doSpendMovement",
-        "doSpendShortMovement",
-        "doStandFromProne",
-        "doStartGrappledTargetTurn",
-        "Fighter",
-        "GrappledTarget",
-        "Movement",
+        "doDeclineReadiedMovement",
+        "doHoldReactorConcentrationAfterSmallDamage",
+        "doOfferOpportunityAttack",
+        "doOfferReadiedMovement",
+        "doReadyMovementFixture",
+        "doRejectReadiedMovementZero",
+        "doStartReactorConcentrationFixture",
+        "doTakeReadiedMovementFill",
+        "doTakeReadiedMovementShort",
+        "NoReactionWindow",
+        "OfferedOpportunityAttackWindow",
+        "OfferedReadiedMovementWindow",
+        "none",
+        "opportunityAttack",
+        "attackHit",
         "ReactionDecision",
-        "TargetChoice",
-        "GrappleOutcome",
+        "DamageRoll",
         "init",
         "needsHoles",
         "resolved",
         "invalid",
         "WInvalidFill",
-        "WStaleSubject",
-        "qCurrentActor",
-        "qMovementSpentFeet",
-        "qDashBonusFeet",
-        "qProne",
-        "qDisengaged",
-        "qActionAvailable",
-        "qGrappleActive",
-        "qGrappleEscapeDc",
+        "qInterruptedMovementSpentFeet",
+        "qReactorReactionAvailable",
+        "qReactorReadiedMovementHeld",
+        "qReactorReadiedSpellHeld",
+        "qReactorMovementSpentFeet",
+        "qInterruptedConcentration",
+        "qReactorConcentration",
+        "qReactionWindow",
+        "qPendingTrigger",
         "qHoles",
-        "qPendingOpportunityAttack",
+        "qLastConcentrationSaveDc",
         "protocolResult",
         "protocolInvalidReason",
         "protocolHoles",
@@ -73,62 +65,53 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T071-rule-core-movement.json"
+        "tasks/target-replay-evidence/T072-rule-core-reactions.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "MovementState",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
-      "module": "src/rules/rule_core_movement.rs"
+      "api": "RuleCoreReactionState",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
+      "module": "src/rules/rule_core_reactions.rs"
     },
     {
-      "api": "move_provokes_opportunity_attack",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
-      "module": "src/rules/rule_core_movement.rs"
+      "api": "offer_reaction_opportunity_attack",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt",
+      "module": "src/rules/rule_core_reactions.rs"
     },
     {
-      "api": "MovementProtocol",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
-      "module": "src/rules/rule_core_movement.rs"
+      "api": "hold_reactor_concentration_after_small_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "module": "src/rules/rule_core_reactions.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "MovementActor",
-        "MovementHole",
-        "MovementInvalidReason",
-        "MovementProtocol",
-        "MovementState",
-        "movement_initial_state",
-        "discover_movement",
-        "spend_movement",
-        "spend_short_movement",
-        "spend_full_movement",
-        "move_provokes_opportunity_attack",
-        "move_threat_suppressed_by_disengage",
-        "decline_opportunity_attack",
-        "reject_movement_overspend",
-        "dash",
-        "disengage",
-        "reject_dash_after_action_spent",
-        "stand_from_prone",
-        "discover_grapple",
-        "select_grapple_target",
-        "resolve_grapple_success",
-        "resolve_grapple_failure",
-        "start_grappled_target_turn",
-        "discover_escape_grapple",
-        "resolve_escape_success",
-        "resolve_escape_failure",
-        "release_grapple"
+        "RuleCoreReactionWindow",
+        "RuleCorePendingTrigger",
+        "RuleCoreReactionHole",
+        "RuleCoreReactionInvalidReason",
+        "RuleCoreReactionProtocol",
+        "RuleCoreReactionState",
+        "rule_core_reactions_initial_state",
+        "offer_reaction_opportunity_attack",
+        "decline_reaction_opportunity_attack",
+        "ready_reaction_movement_fixture",
+        "offer_readied_movement_reaction",
+        "decline_readied_movement_reaction",
+        "take_readied_movement_short",
+        "take_readied_movement_fill",
+        "reject_readied_movement_zero",
+        "start_reactor_concentration",
+        "hold_reactor_concentration_after_small_damage",
+        "break_reactor_concentration_after_large_damage"
       ],
-      "path": "src/rules/rule_core_movement.rs",
+      "path": "src/rules/rule_core_reactions.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T071"
+  "taskId": "T072"
 }

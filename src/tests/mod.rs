@@ -140,6 +140,8 @@ mod rule_core_attack_damage_disposition;
 mod rule_core_hit_point_damage_mbt;
 #[path = "../qnt_adapters/rule_core_movement_mbt.rs"]
 mod rule_core_movement_mbt;
+#[path = "../qnt_adapters/rule_core_reactions_mbt.rs"]
+mod rule_core_reactions_mbt;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -346,6 +348,15 @@ use crate::rules::rule_core_movement::{
     stand_from_prone, MovementHole, MovementInvalidReason, MovementProtocol,
     MOVEMENT_FILL_COST_FEET, MOVEMENT_FULL_COST_FEET, MOVEMENT_GRAPPLE_ESCAPE_DC,
     MOVEMENT_SHORT_COST_FEET, MOVEMENT_SPEED_FEET,
+};
+use crate::rules::rule_core_reactions::{
+    break_reactor_concentration_after_large_damage, decline_reaction_opportunity_attack,
+    decline_readied_movement_reaction, hold_reactor_concentration_after_small_damage,
+    offer_reaction_opportunity_attack, offer_readied_movement_reaction,
+    ready_reaction_movement_fixture, reject_readied_movement_zero, start_reactor_concentration,
+    take_readied_movement_fill, take_readied_movement_short, RuleCorePendingTrigger,
+    RuleCoreReactionHole, RuleCoreReactionInvalidReason, RuleCoreReactionProtocol,
+    RuleCoreReactionWindow,
 };
 use crate::rules::sanctuary_selected_identity::{
     cast_sanctuary_ward_creation, end_ward_on_warded_attack_roll, end_ward_on_warded_damage_dealt,
@@ -930,6 +941,11 @@ use rule_core_movement_mbt::{
     expected_witness as expected_movement_witness,
     projection_payload as movement_projection_payload,
     replay_observed_action as replay_movement_action, BRANCH_ACTIONS as MOVEMENT_BRANCH_ACTIONS,
+};
+use rule_core_reactions_mbt::{
+    expected_witness as expected_reactions_witness,
+    projection_payload as reactions_projection_payload,
+    replay_observed_action as replay_reactions_action, BRANCH_ACTIONS as REACTIONS_BRANCH_ACTIONS,
 };
 
 #[test]
@@ -2393,6 +2409,92 @@ fn movement_projects_spending_actions_grapples_and_reactions() {
     assert!(escape_failed.grapple_active);
     assert_eq!(escape_failed.grapple_escape_dc, MOVEMENT_GRAPPLE_ESCAPE_DC);
     assert!(!escape_failed.action_available);
+}
+
+#[test]
+fn reactions_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt
+    // and shared-algebras/proofs/rule-core/
+    // reactions-continuations-concentration.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Reactions",
+    // "Ready", and "Opportunity Attacks"; Rules-Glossary.md "Reaction",
+    // "Ready", and "Concentration".
+    assert_eq!(REACTIONS_BRANCH_ACTIONS.len(), 11);
+    for action in REACTIONS_BRANCH_ACTIONS {
+        let observed = replay_reactions_action(action);
+        assert_eq!(observed, expected_reactions_witness(action));
+        assert!(reactions_projection_payload(&observed).contains("qReactionWindow="));
+    }
+}
+
+#[test]
+fn reactions_project_opportunity_ready_movement_and_concentration() {
+    // RAW/QNT citations match `reactions_adapter_replays_all_branches`.
+    let opportunity = offer_reaction_opportunity_attack();
+    assert_eq!(
+        opportunity.reaction_window,
+        RuleCoreReactionWindow::OfferedOpportunityAttackWindow
+    );
+    assert_eq!(
+        opportunity.pending_trigger,
+        RuleCorePendingTrigger::OpportunityAttack
+    );
+    assert_eq!(
+        opportunity.protocol,
+        RuleCoreReactionProtocol::NeedsHoles(vec![RuleCoreReactionHole::ReactionDecision])
+    );
+
+    let declined = decline_reaction_opportunity_attack();
+    assert_eq!(
+        declined.interrupted_movement_spent_feet,
+        MOVEMENT_FILL_COST_FEET
+    );
+    assert_eq!(declined.protocol, RuleCoreReactionProtocol::Resolved);
+
+    let readied = ready_reaction_movement_fixture();
+    assert!(readied.reactor_readied_movement_held);
+    let offered_readied = offer_readied_movement_reaction();
+    assert_eq!(
+        offered_readied.reaction_window,
+        RuleCoreReactionWindow::OfferedReadiedMovementWindow
+    );
+    assert_eq!(
+        offered_readied.pending_trigger,
+        RuleCorePendingTrigger::AttackHit
+    );
+
+    let declined_readied = decline_readied_movement_reaction();
+    assert!(declined_readied.reactor_reaction_available);
+    assert!(declined_readied.reactor_readied_movement_held);
+    assert_eq!(
+        declined_readied.protocol,
+        RuleCoreReactionProtocol::NeedsHoles(vec![RuleCoreReactionHole::DamageRoll])
+    );
+
+    let short = take_readied_movement_short();
+    assert!(!short.reactor_reaction_available);
+    assert!(!short.reactor_readied_movement_held);
+    assert_eq!(short.reactor_movement_spent_feet, MOVEMENT_SHORT_COST_FEET);
+    let fill = take_readied_movement_fill();
+    assert_eq!(fill.reactor_movement_spent_feet, MOVEMENT_FILL_COST_FEET);
+
+    let rejected = reject_readied_movement_zero();
+    assert_eq!(
+        rejected.protocol,
+        RuleCoreReactionProtocol::Invalid {
+            holes: vec![RuleCoreReactionHole::ReactionDecision],
+            reason: RuleCoreReactionInvalidReason::InvalidFill,
+        }
+    );
+
+    let concentration_started = start_reactor_concentration();
+    assert!(concentration_started.reactor_concentration);
+    let held = hold_reactor_concentration_after_small_damage();
+    assert!(held.reactor_concentration);
+    assert_eq!(held.last_concentration_save_dc, 10);
+    let broken = break_reactor_concentration_after_large_damage();
+    assert!(!broken.reactor_concentration);
+    assert_eq!(broken.last_concentration_save_dc, 11);
 }
 
 #[test]

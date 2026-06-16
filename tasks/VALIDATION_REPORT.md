@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt`
-- Next task id: `T072`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt`
+- Next task id: `T073`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,100 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T072: rule-core-reactions
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt`
+- Branch obligations:
+  - `step:doBreakReactorConcentrationAfterLargeDamage`
+  - `step:doDeclineOpportunityAttack`
+  - `step:doDeclineReadiedMovement`
+  - `step:doHoldReactorConcentrationAfterSmallDamage`
+  - `step:doOfferOpportunityAttack`
+  - `step:doOfferReadiedMovement`
+  - `step:doReadyMovementFixture`
+  - `step:doRejectReadiedMovementZero`
+  - `step:doStartReactorConcentrationFixture`
+  - `step:doTakeReadiedMovementFill`
+  - `step:doTakeReadiedMovementShort`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/movement-spatial-grapple.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/reactions-continuations-concentration.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/rule_core_reactions.rs` with a bounded rule-core projection for opportunity attack reaction offers and decline resolution, Ready movement fixture setup, readied movement offers, decline, movement spending, zero-distance rejection, and reactor Concentration start/hold/break projections after damage.
+- Reused `concentration_save_dc_for_damage` and movement cost constants while keeping QNT branch actions, reaction window labels, pending trigger labels, hole labels, protocol labels, invalid reason labels, and projection field names quarantined in `src/qnt_adapters/rule_core_reactions_mbt.rs`.
+- Followed RAW Reaction, Ready, Opportunity Attack, and Concentration text and the formal QNT `reactions-continuations-concentration` rule slice for window, readied movement, and concentration damage-save behavior.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doBreakReactorConcentrationAfterLargeDamage` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-break-reactor-concentration-after-large-damage#step:doBreakReactorConcentrationAfterLargeDamage` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doDeclineOpportunityAttack` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-decline-opportunity-attack#step:doDeclineOpportunityAttack` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doDeclineReadiedMovement` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-decline-readied-movement#step:doDeclineReadiedMovement` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doHoldReactorConcentrationAfterSmallDamage` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-hold-reactor-concentration-after-small-damage#step:doHoldReactorConcentrationAfterSmallDamage` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doOfferOpportunityAttack` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-offer-opportunity-attack#step:doOfferOpportunityAttack` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doOfferReadiedMovement` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-offer-readied-movement#step:doOfferReadiedMovement` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doReadyMovementFixture` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-ready-movement-fixture#step:doReadyMovementFixture` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doRejectReadiedMovementZero` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-reject-readied-movement-zero#step:doRejectReadiedMovementZero` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doStartReactorConcentrationFixture` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-start-reactor-concentration-fixture#step:doStartReactorConcentrationFixture` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doTakeReadiedMovementFill` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-take-readied-movement-fill#step:doTakeReadiedMovementFill` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doTakeReadiedMovementShort` | `tasks/target-replay-evidence/T072-rule-core-reactions.json#T072-take-readied-movement-short#step:doTakeReadiedMovementShort` | `src/tests/mod.rs::reactions_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T072-rule-core-reactions.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T072-break-reactor-concentration-after-large-damage`
+- Reproduction seed or trace id: `T072-decline-opportunity-attack`
+- Reproduction seed or trace id: `T072-decline-readied-movement`
+- Reproduction seed or trace id: `T072-hold-reactor-concentration-after-small-damage`
+- Reproduction seed or trace id: `T072-offer-opportunity-attack`
+- Reproduction seed or trace id: `T072-offer-readied-movement`
+- Reproduction seed or trace id: `T072-ready-movement-fixture`
+- Reproduction seed or trace id: `T072-reject-readied-movement-zero`
+- Reproduction seed or trace id: `T072-start-reactor-concentration-fixture`
+- Reproduction seed or trace id: `T072-take-readied-movement-fill`
+- Reproduction seed or trace id: `T072-take-readied-movement-short`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::reactions_adapter_replays_all_branches`
+- `src/tests/mod.rs::reactions_project_opportunity_ready_movement_and_concentration`
 
 Remaining gaps:
 

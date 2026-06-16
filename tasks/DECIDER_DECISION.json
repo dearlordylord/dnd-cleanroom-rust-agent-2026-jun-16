@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T071-rule-core-movement.json",
+      "evidence": "tasks/target-replay-evidence/T072-rule-core-reactions.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T071"
+  "taskId": "T072"
 }

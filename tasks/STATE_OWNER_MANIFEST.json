@@ -4,80 +4,88 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MovementState.current_actor",
-      "introducedIn": "src/rules/rule_core_movement.rs",
+      "fieldPath": "RuleCoreReactionState.interrupted_movement_spent_feet",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MovementState.movement_spent_feet",
-      "introducedIn": "src/rules/rule_core_movement.rs",
+      "fieldPath": "RuleCoreReactionState.reactor_reaction_available",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MovementState.dash_bonus_feet",
-      "introducedIn": "src/rules/rule_core_movement.rs",
+      "fieldPath": "RuleCoreReactionState.reactor_readied_movement_held",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MovementState.prone",
-      "introducedIn": "src/rules/rule_core_movement.rs",
+      "fieldPath": "RuleCoreReactionState.reactor_readied_spell_held",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MovementState.disengaged",
-      "introducedIn": "src/rules/rule_core_movement.rs",
+      "fieldPath": "RuleCoreReactionState.reactor_movement_spent_feet",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MovementState.action_available",
-      "introducedIn": "src/rules/rule_core_movement.rs",
+      "fieldPath": "RuleCoreReactionState.interrupted_concentration",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MovementState.grapple_active",
-      "introducedIn": "src/rules/rule_core_movement.rs",
+      "fieldPath": "RuleCoreReactionState.reactor_concentration",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MovementState.grapple_escape_dc",
-      "introducedIn": "src/rules/rule_core_movement.rs",
+      "fieldPath": "RuleCoreReactionState.reaction_window",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MovementState.protocol",
-      "introducedIn": "src/rules/rule_core_movement.rs",
+      "fieldPath": "RuleCoreReactionState.pending_trigger",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MovementState.pending_opportunity_attack",
-      "introducedIn": "src/rules/rule_core_movement.rs",
+      "fieldPath": "RuleCoreReactionState.protocol",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "RuleCoreReactionState.last_concentration_save_dc",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
@@ -86,10 +94,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "introducedIn": "src/qnt_adapters/rule_core_reactions_mbt.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T071"
+  "taskId": "T072"
 }
