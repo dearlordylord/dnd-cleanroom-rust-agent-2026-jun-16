@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T034",
-  "startHeadSha": "f01be8975fcfc0c86ae256c6c6d355611ffeb8d8",
+  "taskId": "T035",
+  "startHeadSha": "5738556e823aa468008e14022d8591de91c51f23",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt"
     ]
   }
 }

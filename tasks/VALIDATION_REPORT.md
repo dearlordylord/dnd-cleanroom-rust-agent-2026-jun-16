@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt`
-- Next task id: `T035`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
+- Next task id: `T036`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,78 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T035: battle-runtime-mage-armor-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverMageArmorUnarmoredSelfTarget`
+  - `step:doExpireMageArmorDuration`
+  - `step:doRejectMageArmorArmoredTarget`
+  - `step:doResolveMageArmorBaseArmorClassProjection`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-armor-class.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-armor-spell-resolution.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-hp-armor-buff-spatial-tests.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/guidance/README.md`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/level_one_armor_spells.rs` with typed Mage Armor projections for unarmored self-target discovery, armored-target rejection, base Armor Class replacement, duration expiration, level-1 slot expenditure, and Action availability.
+- Reused the existing Armor Class formula helper to project default unarmored `10 + Dexterity modifier` and Mage Armor `13 + Dexterity modifier` totals from RAW and QNT.
+- Kept exact QNT action names, scenario labels, protocol labels, and target replay witness strings quarantined in `src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doDiscoverMageArmorUnarmoredSelfTarget` | `tasks/target-replay-evidence/T035-battle-runtime-mage-armor-selected-identity.json#T035-discover-mage-armor-unarmored-self-target#step:doDiscoverMageArmorUnarmoredSelfTarget` | `src/tests/mod.rs::mage_armor_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration` | `tasks/target-replay-evidence/T035-battle-runtime-mage-armor-selected-identity.json#T035-expire-mage-armor-duration#step:doExpireMageArmorDuration` | `src/tests/mod.rs::mage_armor_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget` | `tasks/target-replay-evidence/T035-battle-runtime-mage-armor-selected-identity.json#T035-reject-mage-armor-armored-target#step:doRejectMageArmorArmoredTarget` | `src/tests/mod.rs::mage_armor_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doResolveMageArmorBaseArmorClassProjection` | `tasks/target-replay-evidence/T035-battle-runtime-mage-armor-selected-identity.json#T035-resolve-mage-armor-base-armor-class-projection#step:doResolveMageArmorBaseArmorClassProjection` | `src/tests/mod.rs::mage_armor_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T035-battle-runtime-mage-armor-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T035-discover-mage-armor-unarmored-self-target`
+- Reproduction seed or trace id: `T035-expire-mage-armor-duration`
+- Reproduction seed or trace id: `T035-reject-mage-armor-armored-target`
+- Reproduction seed or trace id: `T035-resolve-mage-armor-base-armor-class-projection`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::mage_armor_projects_base_armor_class_and_duration`
 
 Remaining gaps:
 

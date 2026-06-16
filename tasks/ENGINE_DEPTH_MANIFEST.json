@@ -1,43 +1,23 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 11,
+      "addedEntries": 7,
       "owner": "production",
-      "reason": "added grouped spatial spell projection components for light, outline, falling, hazard, movement, object, and area-push witnesses"
+      "reason": "added Mage Armor state projection, AC totals, duration lifecycle, target admission, and armored-target rejection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doDancingLightsMovableDimLight",
-        "doFaerieFireOutlineAdvantageInvisibleDimLight",
-        "doFeatherFallReactionMitigationLanding",
-        "doFogCloudAreaIdentityObscurementStrongWindCleanup",
-        "doGreaseCastGroundHazardSavingThrows",
-        "doGreaseMovementAndTurnTriggers",
-        "doJumpMovementReplacementLandingWitness",
-        "doLightObjectEmitterProjectionReplacementCleanup",
-        "doProduceFlameHeldLightProjectionHurlCleanup",
-        "doThunderwaveSavePushObjectsBoom",
-        "DancingLightsMovableDimLight",
-        "FaerieFireOutlineAdvantageInvisibleDimLight",
-        "FeatherFallReactionMitigationLanding",
-        "FogCloudAreaIdentityObscurementStrongWindCleanup",
-        "GreaseCastGroundHazardSavingThrows",
-        "GreaseMovementAndTurnTriggers",
-        "JumpMovementReplacementLandingWitness",
-        "LightObjectEmitterProjectionReplacementCleanup",
-        "ProduceFlameHeldLightProjectionHurlCleanup",
-        "ThunderwaveSavePushObjectsBoom",
-        "darkness",
-        "dimLight",
-        "brightLight",
-        "heavilyObscured",
-        "lightlyObscured",
-        "unobscured",
-        "normal",
-        "advantage",
+        "doDiscoverMageArmorUnarmoredSelfTarget",
+        "doExpireMageArmorDuration",
+        "doRejectMageArmorArmoredTarget",
+        "doResolveMageArmorBaseArmorClassProjection",
+        "Discovered",
+        "ArmoredRejected",
+        "Resolved",
+        "DurationExpired",
         "init",
         "resolved",
         "none",
@@ -58,46 +38,37 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T034-battle-runtime-level1-spatial-witness-selected-identity.json"
+        "tasks/target-replay-evidence/T035-battle-runtime-mage-armor-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "LevelOneSpatialState",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
-      "module": "src/rules/level_one_spatial_spells.rs"
+      "api": "mage_armor_armor_class",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt",
+      "module": "src/rules/level_one_armor_spells.rs"
     },
     {
-      "api": "project_light_object_emitter_projection_replacement_cleanup",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
-      "module": "src/rules/level_one_spatial_spells.rs"
-    },
-    {
-      "api": "project_grease_movement_and_turn_triggers",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
-      "module": "src/rules/level_one_spatial_spells.rs"
+      "api": "resolve_mage_armor_base_armor_class",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "module": "src/rules/level_one_armor_spells.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "level_one_spatial_initial_state",
-        "project_dancing_lights_movable_dim_light",
-        "project_faerie_fire_outline_advantage_invisible_dim_light",
-        "project_feather_fall_reaction_mitigation_landing",
-        "project_fog_cloud_area_identity_obscurement_strong_wind_cleanup",
-        "project_grease_cast_ground_hazard_saving_throws",
-        "project_grease_movement_and_turn_triggers",
-        "project_jump_movement_replacement_landing_witness",
-        "project_light_object_emitter_projection_replacement_cleanup",
-        "project_produce_flame_held_light_projection_hurl_cleanup",
-        "project_thunderwave_save_push_objects_boom"
+        "mage_armor_initial_state",
+        "discover_mage_armor_unarmored_self_target",
+        "reject_mage_armor_armored_target",
+        "resolve_mage_armor_base_armor_class",
+        "expire_mage_armor_duration",
+        "unarmored_armor_class",
+        "mage_armor_armor_class"
       ],
-      "path": "src/rules/level_one_spatial_spells.rs",
+      "path": "src/rules/level_one_armor_spells.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T034"
+  "taskId": "T035"
 }

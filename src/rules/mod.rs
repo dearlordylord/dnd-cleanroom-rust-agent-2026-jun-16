@@ -12,6 +12,7 @@ pub mod find_familiar;
 pub mod hit_point_restoration_ordering;
 pub mod hit_points;
 pub mod interrupt_stack_resume;
+pub mod level_one_armor_spells;
 pub mod level_one_damage_spells;
 pub mod level_one_spatial_spells;
 pub mod level_one_spell_effects;

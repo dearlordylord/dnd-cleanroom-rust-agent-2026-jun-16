@@ -40,6 +40,8 @@ mod battle_runtime_level1_buff_mark_smite_selected_identity;
 mod battle_runtime_level1_damage_spell_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs"]
 mod battle_runtime_level1_spatial_witness_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_mage_armor_selected_identity.rs"]
+mod battle_runtime_mage_armor_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -174,6 +176,12 @@ use crate::rules::interrupt_stack_resume::{
     resolve_recorded_attack_replay_from_root, InterruptPendingTrigger, InterruptResumeHole,
     InterruptStackResumeProtocol, InterruptStackResumeScenarioOutcome, ReactionWindowOffer,
     ReactionWindowRole,
+};
+use crate::rules::level_one_armor_spells::{
+    discover_mage_armor_unarmored_self_target, expire_mage_armor_duration, mage_armor_armor_class,
+    mage_armor_initial_state, reject_mage_armor_armored_target,
+    resolve_mage_armor_base_armor_class, unarmored_armor_class, MageArmorProtocol,
+    MageArmorScenarioOutcome,
 };
 use crate::rules::level_one_damage_spells::{
     level_one_damage_spells_initial_state, project_burning_hands_mixed_cone_saving_throws,
@@ -355,6 +363,12 @@ use battle_runtime_level1_spatial_witness_selected_identity::{
     projection_payload as level1_spatial_projection_payload,
     replay_observed_action as replay_level1_spatial_action,
     BRANCH_ACTIONS as LEVEL1_SPATIAL_BRANCH_ACTIONS,
+};
+use battle_runtime_mage_armor_selected_identity::{
+    expected_witness as expected_mage_armor_witness,
+    projection_payload as mage_armor_projection_payload,
+    replay_observed_action as replay_mage_armor_action,
+    BRANCH_ACTIONS as MAGE_ARMOR_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2281,6 +2295,62 @@ fn level1_spatial_witness_projects_light_hazards_and_reactions() {
         thunderwave.scenario_outcome,
         LevelOneSpatialScenarioOutcome::ThunderwaveSavePushObjectsBoom
     );
+}
+
+#[test]
+fn mage_armor_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-mage-armor-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md "Mage Armor".
+    for action in MAGE_ARMOR_BRANCH_ACTIONS {
+        let observed = replay_mage_armor_action(action);
+        assert_eq!(observed, expected_mage_armor_witness(action));
+        assert!(mage_armor_projection_payload(&observed).contains("protocolHoles=none"));
+    }
+}
+
+#[test]
+fn mage_armor_projects_base_armor_class_and_duration() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Armor Class"
+    // and Spells/Descriptions-M-P.md "Mage Armor"; QNT:
+    // battle-runtime-armor-class.qnt and
+    // battle-runtime-mage-armor-selected-identity.mbt.qnt.
+    let initial = mage_armor_initial_state();
+    assert_eq!(initial.armor_class, 12);
+    assert_eq!(initial.protocol, MageArmorProtocol::Init);
+    assert_eq!(unarmored_armor_class(), 12);
+    assert_eq!(mage_armor_armor_class(), 15);
+
+    let discovered = discover_mage_armor_unarmored_self_target();
+    assert!(discovered.self_target_admitted);
+    assert_eq!(
+        discovered.scenario_outcome,
+        MageArmorScenarioOutcome::Discovered
+    );
+    assert!(discovered.action_available);
+
+    let rejected = reject_mage_armor_armored_target();
+    assert!(rejected.armored_target_rejected);
+    assert_eq!(rejected.armor_class, 12);
+
+    let resolved = resolve_mage_armor_base_armor_class();
+    assert!(resolved.mage_armor_effect_present);
+    assert!(resolved.projected_base_is_mage_armor);
+    assert!(resolved.stored_armor_base_still_unarmored);
+    assert_eq!(resolved.armor_class, 15);
+    assert_eq!(resolved.mage_armor_duration_ticks, 4_800);
+    assert_eq!(resolved.level_one_slots_expended, 1);
+    assert!(!resolved.action_available);
+
+    let expired = expire_mage_armor_duration();
+    assert!(!expired.mage_armor_effect_present);
+    assert_eq!(expired.armor_class, 12);
+    assert_eq!(
+        expired.scenario_outcome,
+        MageArmorScenarioOutcome::DurationExpired
+    );
+    assert_eq!(expired.level_one_slots_expended, 1);
+    assert!(!expired.action_available);
 }
 
 #[test]

@@ -4,112 +4,88 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.light",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.self_target_admitted",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.faerie_fire",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.armored_target_rejected",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.feather_fall",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.mage_armor_effect_present",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.fog_cloud",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.stored_armor_base_still_unarmored",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.grease",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.projected_base_is_mage_armor",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.jump",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.armor_class",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.produce_flame",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.mage_armor_duration_ticks",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.thunderwave",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.level_one_slots_expended",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.vision",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.action_available",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.caster_concentrating",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.scenario_outcome",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpatialState.magic_action_available",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "LevelOneSpatialState.bonus_action_available",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "LevelOneSpatialState.scenario_outcome",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "LevelOneSpatialState.protocol",
-      "introducedIn": "src/rules/level_one_spatial_spells.rs",
+      "fieldPath": "MageArmorState.protocol",
+      "introducedIn": "src/rules/level_one_armor_spells.rs",
       "owner": "battle-state"
     },
     {
@@ -118,10 +94,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T034"
+  "taskId": "T035"
 }
