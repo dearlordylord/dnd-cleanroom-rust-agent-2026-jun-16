@@ -1,33 +1,31 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 1,
+      "addedEntries": 3,
       "owner": "production",
-      "reason": "added reusable Find Familiar companion lifecycle projection"
+      "reason": "extended reusable Find Familiar companion state with owner action and lifecycle operations"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs",
+      "path": "src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doCreateCatFamiliar",
-        "doDeliverTouchSpell",
-        "doPactFamiliarAttack",
-        "doReplaceWithRatFamiliar",
-        "doShareSenses",
+        "doCastFindFamiliar",
+        "doDeliverTouchSpellThroughFindFamiliar",
+        "doDismissAndReappearFindFamiliar",
+        "doRecastFindFamiliarReplacement",
         "WitnessProtocolHole",
         "Init",
-        "CreatedCat",
-        "ReplacedRat",
-        "SharedSenses",
+        "Cast",
+        "Recast",
+        "DismissedAndReappeared",
         "TouchDelivered",
+        "SharedSenses",
         "PactAttack",
         "none",
         "present",
-        "primary",
         "cat",
         "rat",
-        "fey",
         "resolved",
         "init",
         "mbt::actionTaken",
@@ -47,19 +45,14 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T027-battle-runtime-find-familiar-companion-lifecycle.json"
+        "tasks/target-replay-evidence/T028-battle-runtime-find-familiar-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "create_find_familiar_companion",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt",
-      "module": "src/rules/find_familiar.rs"
-    },
-    {
       "api": "deliver_find_familiar_touch_spell",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
       "module": "src/rules/find_familiar.rs"
     },
     {
@@ -74,6 +67,8 @@
         "find_familiar_companion_initial_state",
         "create_find_familiar_companion",
         "replace_find_familiar_companion_form",
+        "recast_find_familiar_companion_replacement",
+        "dismiss_and_reappear_find_familiar_companion",
         "share_find_familiar_senses",
         "deliver_find_familiar_touch_spell",
         "resolve_pact_find_familiar_reaction_attack"
@@ -83,5 +78,5 @@
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T027"
+  "taskId": "T028"
 }

@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt`
-- Next task id: `T028`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt`
+- Next task id: `T029`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,79 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T028: battle-runtime-find-familiar-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doCastFindFamiliar`
+  - `step:doDeliverTouchSpellThroughFindFamiliar`
+  - `step:doDismissAndReappearFindFamiliar`
+  - `step:doRecastFindFamiliarReplacement`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-model.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Extended `src/rules/find_familiar.rs` with owner Magic Action availability, a reusable recast replacement helper, and a dismiss-and-reappear helper for Find Familiar lifecycle projections.
+- Cast Find Familiar creates a present primary cat familiar, keeps a single combatant, leaves the familiar Reaction available, and preserves the target HP projected by the scenario.
+- Recast replacement uses the one-familiar rule to adopt the rat form without creating a replacement combatant.
+- Dismiss-and-reappear spends the owner Magic Action while returning the same present cat familiar with its Reaction available.
+- Touch delivery spends the owner action, spends the familiar Reaction, commits the touch spell slot, and keeps the target HP projected by the QNT driver.
+- Kept QNT action names, scenario labels, familiar status/form strings, and witness protocol labels quarantined in `src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt#step:doCastFindFamiliar` | `tasks/target-replay-evidence/T028-battle-runtime-find-familiar-selected-identity.json#T028-cast-find-familiar#step:doCastFindFamiliar` | `src/tests/mod.rs::find_familiar_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt#step:doDeliverTouchSpellThroughFindFamiliar` | `tasks/target-replay-evidence/T028-battle-runtime-find-familiar-selected-identity.json#T028-deliver-touch-spell-through-find-familiar#step:doDeliverTouchSpellThroughFindFamiliar` | `src/tests/mod.rs::find_familiar_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt#step:doDismissAndReappearFindFamiliar` | `tasks/target-replay-evidence/T028-battle-runtime-find-familiar-selected-identity.json#T028-dismiss-and-reappear-find-familiar#step:doDismissAndReappearFindFamiliar` | `src/tests/mod.rs::find_familiar_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt#step:doRecastFindFamiliarReplacement` | `tasks/target-replay-evidence/T028-battle-runtime-find-familiar-selected-identity.json#T028-recast-find-familiar-replacement#step:doRecastFindFamiliarReplacement` | `src/tests/mod.rs::find_familiar_selected_identity_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T028-battle-runtime-find-familiar-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T028-cast-find-familiar`
+- Reproduction seed or trace id: `T028-deliver-touch-spell-through-find-familiar`
+- Reproduction seed or trace id: `T028-dismiss-and-reappear-find-familiar`
+- Reproduction seed or trace id: `T028-recast-find-familiar-replacement`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::find_familiar_selected_identity_recasts_reappears_and_delivers_touch`
 
 Remaining gaps:
 

@@ -26,6 +26,8 @@ mod battle_runtime_eldritch_blast;
 mod battle_runtime_feature_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs"]
 mod battle_runtime_find_familiar_companion_lifecycle;
+#[path = "../qnt_adapters/battle_runtime_find_familiar_selected_identity.rs"]
+mod battle_runtime_find_familiar_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -131,7 +133,8 @@ use crate::rules::feature_resources::{
 };
 use crate::rules::find_familiar::{
     create_find_familiar_companion, deliver_find_familiar_touch_spell,
-    find_familiar_companion_initial_state, replace_find_familiar_companion_form,
+    dismiss_and_reappear_find_familiar_companion, find_familiar_companion_initial_state,
+    recast_find_familiar_companion_replacement, replace_find_familiar_companion_form,
     resolve_pact_find_familiar_reaction_attack, share_find_familiar_senses,
     FamiliarCreatureTypeOverride, FamiliarForm, FamiliarFormFacts, FamiliarSlot, FamiliarStatus,
     FindFamiliarCompanionProtocol, FindFamiliarCompanionScenarioOutcome,
@@ -252,6 +255,12 @@ use battle_runtime_find_familiar_companion_lifecycle::{
     projection_payload as find_familiar_companion_projection_payload,
     replay_observed_action as replay_find_familiar_companion_action,
     BRANCH_ACTIONS as FIND_FAMILIAR_COMPANION_BRANCH_ACTIONS,
+};
+use battle_runtime_find_familiar_selected_identity::{
+    expected_witness as expected_find_familiar_selected_identity_witness,
+    projection_payload as find_familiar_selected_identity_projection_payload,
+    replay_observed_action as replay_find_familiar_selected_identity_action,
+    BRANCH_ACTIONS as FIND_FAMILIAR_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2174,5 +2183,83 @@ fn find_familiar_companion_creates_replaces_shares_and_spends_reactions() {
     assert_eq!(
         pact_attack.scenario_outcome,
         FindFamiliarCompanionScenarioOutcome::PactAttack
+    );
+}
+
+#[test]
+fn find_familiar_selected_identity_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-find-familiar-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Find Familiar".
+    for action in FIND_FAMILIAR_SELECTED_IDENTITY_BRANCH_ACTIONS {
+        let observed = replay_find_familiar_selected_identity_action(action);
+        assert_eq!(
+            observed,
+            expected_find_familiar_selected_identity_witness(action)
+        );
+        assert!(
+            find_familiar_selected_identity_projection_payload(&observed)
+                .contains("qOwnerActionAvailable=")
+        );
+    }
+}
+
+#[test]
+fn find_familiar_selected_identity_recasts_reappears_and_delivers_touch() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Find Familiar"; QNT:
+    // battle-runtime-find-familiar-selected-identity.mbt.qnt.
+    let mut initial = find_familiar_companion_initial_state();
+    initial.target_hit_points = 1;
+    assert!(initial.owner_action_available);
+
+    let cat = create_find_familiar_companion(
+        initial,
+        FamiliarFormFacts {
+            form: FamiliarForm::Cat,
+            creature_type_override: FamiliarCreatureTypeOverride::Fey,
+        },
+    );
+    assert_eq!(cat.status, FamiliarStatus::Present);
+    assert_eq!(cat.form, FamiliarForm::Cat);
+    assert!(cat.owner_action_available);
+    assert_eq!(cat.target_hit_points, 1);
+
+    let rat = recast_find_familiar_companion_replacement(cat, FamiliarForm::Rat);
+    assert_eq!(rat.status, FamiliarStatus::Present);
+    assert_eq!(rat.form, FamiliarForm::Rat);
+    assert_eq!(rat.companion_count, 1);
+    assert_eq!(
+        rat.scenario_outcome,
+        FindFamiliarCompanionScenarioOutcome::Replaced
+    );
+
+    let reappeared = dismiss_and_reappear_find_familiar_companion(cat);
+    assert_eq!(reappeared.status, FamiliarStatus::Present);
+    assert_eq!(reappeared.form, FamiliarForm::Cat);
+    assert!(!reappeared.owner_action_available);
+    assert!(reappeared.familiar_reaction_available);
+    assert_eq!(
+        reappeared.scenario_outcome,
+        FindFamiliarCompanionScenarioOutcome::DismissedAndReappeared
+    );
+
+    let touch_ready = create_find_familiar_companion(
+        find_familiar_companion_initial_state(),
+        FamiliarFormFacts {
+            form: FamiliarForm::Cat,
+            creature_type_override: FamiliarCreatureTypeOverride::Fey,
+        },
+    );
+    let delivered = deliver_find_familiar_touch_spell(touch_ready);
+    assert!(!delivered.owner_action_available);
+    assert!(!delivered.owner_attack_available);
+    assert!(!delivered.familiar_reaction_available);
+    assert!(delivered.spell_slot_committed);
+    assert_eq!(delivered.target_hit_points, 12);
+    assert_eq!(
+        delivered.scenario_outcome,
+        FindFamiliarCompanionScenarioOutcome::TouchDelivered
     );
 }

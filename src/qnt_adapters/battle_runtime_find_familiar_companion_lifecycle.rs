@@ -167,6 +167,7 @@ fn scenario_outcome_ref(outcome: FindFamiliarCompanionScenarioOutcome) -> &'stat
         FindFamiliarCompanionScenarioOutcome::Init => "Init",
         FindFamiliarCompanionScenarioOutcome::Created => "CreatedCat",
         FindFamiliarCompanionScenarioOutcome::Replaced => "ReplacedRat",
+        FindFamiliarCompanionScenarioOutcome::DismissedAndReappeared => "DismissedAndReappeared",
         FindFamiliarCompanionScenarioOutcome::SharedSenses => "SharedSenses",
         FindFamiliarCompanionScenarioOutcome::TouchDelivered => "TouchDelivered",
         FindFamiliarCompanionScenarioOutcome::PactAttack => "PactAttack",

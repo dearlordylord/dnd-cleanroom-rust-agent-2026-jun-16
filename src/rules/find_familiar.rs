@@ -28,6 +28,7 @@ pub enum FindFamiliarCompanionScenarioOutcome {
     Init,
     Created,
     Replaced,
+    DismissedAndReappeared,
     SharedSenses,
     TouchDelivered,
     PactAttack,
@@ -55,6 +56,7 @@ pub struct FindFamiliarCompanionState {
     pub telepathy_available: bool,
     pub shared_senses_active: bool,
     pub bonus_action_available: bool,
+    pub owner_action_available: bool,
     pub owner_attack_available: bool,
     pub familiar_reaction_available: bool,
     pub touch_delivery_reaction_spent: bool,
@@ -76,6 +78,7 @@ pub fn find_familiar_companion_initial_state() -> FindFamiliarCompanionState {
         telepathy_available: false,
         shared_senses_active: false,
         bonus_action_available: true,
+        owner_action_available: true,
         owner_attack_available: true,
         familiar_reaction_available: false,
         touch_delivery_reaction_spent: false,
@@ -137,6 +140,35 @@ pub fn replace_find_familiar_companion_form(
 }
 
 #[must_use]
+pub fn recast_find_familiar_companion_replacement(
+    state: FindFamiliarCompanionState,
+    form: FamiliarForm,
+) -> FindFamiliarCompanionState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "One Familiar Only".
+    replace_find_familiar_companion_form(state, form)
+}
+
+#[must_use]
+pub fn dismiss_and_reappear_find_familiar_companion(
+    state: FindFamiliarCompanionState,
+) -> FindFamiliarCompanionState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Disappearance of the Familiar".
+    if state.status != FamiliarStatus::Present || !state.owner_action_available {
+        return state;
+    }
+
+    FindFamiliarCompanionState {
+        owner_action_available: false,
+        familiar_reaction_available: true,
+        scenario_outcome: FindFamiliarCompanionScenarioOutcome::DismissedAndReappeared,
+        protocol: FindFamiliarCompanionProtocol::Resolved,
+        ..state
+    }
+}
+
+#[must_use]
 pub fn share_find_familiar_senses(state: FindFamiliarCompanionState) -> FindFamiliarCompanionState {
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
     // "Telepathic Connection".
@@ -164,6 +196,7 @@ pub fn deliver_find_familiar_touch_spell(
     // "Find Familiar", touch delivery.
     if state.status != FamiliarStatus::Present
         || !state.telepathy_available
+        || !state.owner_action_available
         || !state.owner_attack_available
         || !state.familiar_reaction_available
         || state.spell_slot_committed
@@ -172,6 +205,7 @@ pub fn deliver_find_familiar_touch_spell(
     }
 
     FindFamiliarCompanionState {
+        owner_action_available: false,
         owner_attack_available: false,
         familiar_reaction_available: false,
         touch_delivery_reaction_spent: true,
