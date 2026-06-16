@@ -136,6 +136,8 @@ mod character_sheet_weapon_mastery_containers_selected_identity;
 mod creature_attack_mbt;
 #[path = "../qnt_adapters/rule_core_attack_damage_disposition.rs"]
 mod rule_core_attack_damage_disposition;
+#[path = "../qnt_adapters/rule_core_hit_point_damage_mbt.rs"]
+mod rule_core_hit_point_damage_mbt;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -328,6 +330,11 @@ use crate::rules::roll_modifier_buff_selected_identity::{
     project_shield_of_faith_armor_class_bonus, roll_modifier_buff_selected_identity_initial_state,
     RollModifierBuffDamageType, RollModifierBuffProtocol, RollModifierBuffScenarioOutcome,
     RollModifierBuffSign, RollModifierBuffSkill,
+};
+use crate::rules::rule_core_hit_point_damage::{
+    hit_point_damage_initial_state, resolve_monster_dies_at_zero,
+    resolve_player_character_dies_from_massive_damage, resolve_player_character_falls_unconscious,
+    resolve_temporary_hit_points_absorb_first, HitPointDamageOutcome,
 };
 use crate::rules::sanctuary_selected_identity::{
     cast_sanctuary_ward_creation, end_ward_on_warded_attack_roll, end_ward_on_warded_damage_dealt,
@@ -901,6 +908,12 @@ use rule_core_attack_damage_disposition::{
     projection_payload as attack_damage_disposition_projection_payload,
     replay_observed_action as replay_attack_damage_disposition_action,
     BRANCH_ACTIONS as ATTACK_DAMAGE_DISPOSITION_BRANCH_ACTIONS,
+};
+use rule_core_hit_point_damage_mbt::{
+    expected_witness as expected_hit_point_damage_witness,
+    projection_payload as hit_point_damage_projection_payload,
+    replay_observed_action as replay_hit_point_damage_action,
+    BRANCH_ACTIONS as HIT_POINT_DAMAGE_BRANCH_ACTIONS,
 };
 
 #[test]
@@ -2198,6 +2211,79 @@ fn attack_damage_disposition_accepts_only_melee_knock_out_to_zero() {
     assert!(!ranged.target_dead);
     assert!(!ranged.knock_out_recovery_ends_when_hit_points_regained);
     assert_eq!(ranged.replay_index, 2);
+}
+
+#[test]
+fn hit_point_damage_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // rule-core-hit-point-damage.mbt.qnt and
+    // cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // hit-point-damage.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Hit Points",
+    // "Dropping to 0 Hit Points", and "Temporary Hit Points".
+    for action in HIT_POINT_DAMAGE_BRANCH_ACTIONS {
+        let observed = replay_hit_point_damage_action(action);
+        assert_eq!(observed, expected_hit_point_damage_witness(action));
+        assert!(hit_point_damage_projection_payload(&observed).contains("qReplayIndex="));
+    }
+}
+
+#[test]
+fn hit_point_damage_projects_temporary_zero_and_massive_damage() {
+    // RAW/QNT citations match `hit_point_damage_adapter_replays_all_branches`.
+    let initial = hit_point_damage_initial_state();
+    assert_eq!(initial.outcome, HitPointDamageOutcome::Initial);
+    assert_eq!(initial.hit_points, 0);
+    assert_eq!(initial.hit_point_maximum, 1);
+    assert!(!initial.dead);
+    assert!(!initial.unconscious);
+
+    let temporary = resolve_temporary_hit_points_absorb_first();
+    assert_eq!(
+        temporary.outcome,
+        HitPointDamageOutcome::TemporaryHitPointsAbsorbFirst
+    );
+    assert_eq!(temporary.hit_points, 6);
+    assert_eq!(temporary.hit_point_maximum, 10);
+    assert_eq!(temporary.temporary_hit_points, 0);
+    assert_eq!(temporary.damage_to_hit_points, 2);
+    assert_eq!(temporary.remaining_damage_at_zero, 0);
+    assert!(!temporary.dead);
+    assert!(!temporary.unconscious);
+    assert_eq!(temporary.replay_index, 1);
+
+    let monster = resolve_monster_dies_at_zero();
+    assert_eq!(monster.outcome, HitPointDamageOutcome::MonsterDiesAtZero);
+    assert_eq!(monster.hit_points, 0);
+    assert_eq!(monster.damage_to_hit_points, 4);
+    assert_eq!(monster.remaining_damage_at_zero, 0);
+    assert!(monster.dead);
+    assert!(!monster.unconscious);
+    assert_eq!(monster.replay_index, 2);
+
+    let character_unconscious = resolve_player_character_falls_unconscious();
+    assert_eq!(
+        character_unconscious.outcome,
+        HitPointDamageOutcome::PlayerCharacterFallsUnconscious
+    );
+    assert_eq!(character_unconscious.hit_points, 0);
+    assert_eq!(character_unconscious.damage_to_hit_points, 7);
+    assert_eq!(character_unconscious.remaining_damage_at_zero, 3);
+    assert!(!character_unconscious.dead);
+    assert!(character_unconscious.unconscious);
+    assert_eq!(character_unconscious.replay_index, 3);
+
+    let massive = resolve_player_character_dies_from_massive_damage();
+    assert_eq!(
+        massive.outcome,
+        HitPointDamageOutcome::PlayerCharacterDiesFromMassiveDamage
+    );
+    assert_eq!(massive.hit_points, 0);
+    assert_eq!(massive.damage_to_hit_points, 18);
+    assert_eq!(massive.remaining_damage_at_zero, 12);
+    assert!(massive.dead);
+    assert!(!massive.unconscious);
+    assert_eq!(massive.replay_index, 4);
 }
 
 #[test]

@@ -4,7 +4,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "AttackDamageDispositionState.outcome",
+      "fieldPath": "PositiveHitPointDamageResult.remaining_damage_at_zero",
       "introducedIn": "src/rules/attack_damage_disposition.rs",
       "owner": "battle-state"
     },
@@ -12,48 +12,72 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "AttackDamageDispositionState.accepted",
-      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "fieldPath": "HitPointDamageState.outcome",
+      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "AttackDamageDispositionState.target_hit_points",
-      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "fieldPath": "HitPointDamageState.hit_points",
+      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "AttackDamageDispositionState.target_unconscious",
-      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "fieldPath": "HitPointDamageState.hit_point_maximum",
+      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "AttackDamageDispositionState.target_dead",
-      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "fieldPath": "HitPointDamageState.temporary_hit_points",
+      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "AttackDamageDispositionState.knock_out_recovery_ends_when_hit_points_regained",
-      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "fieldPath": "HitPointDamageState.dead",
+      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "AttackDamageDispositionState.replay_index",
-      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "fieldPath": "HitPointDamageState.unconscious",
+      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "HitPointDamageState.damage_to_hit_points",
+      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "HitPointDamageState.remaining_damage_at_zero",
+      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "HitPointDamageState.replay_index",
+      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
       "owner": "battle-state"
     },
     {
@@ -62,10 +86,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/rule_core_attack_damage_disposition.rs",
+      "introducedIn": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T069"
+  "taskId": "T070"
 }

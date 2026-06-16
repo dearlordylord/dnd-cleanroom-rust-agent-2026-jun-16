@@ -45,6 +45,7 @@ pub struct AttackDamageFacts {
 pub struct PositiveHitPointDamageResult {
     pub vitals: CreatureVitals,
     pub damage_to_hit_points: i16,
+    pub remaining_damage_at_zero: i16,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -175,12 +176,18 @@ pub fn apply_resolved_damage_to_positive_hit_points(
         return PositiveHitPointDamageResult {
             vitals,
             damage_to_hit_points: 0,
+            remaining_damage_at_zero: 0,
         };
     }
 
     let resolved_damage = raw_damage.max(0);
     let absorbed_by_temporary_hit_points = resolved_damage.min(vitals.temporary_hit_points);
     let damage_to_hit_points = resolved_damage - absorbed_by_temporary_hit_points;
+    let remaining_damage_at_zero = if damage_to_hit_points > vitals.hit_points {
+        damage_to_hit_points - vitals.hit_points
+    } else {
+        0
+    };
     let next_hit_points = (vitals.hit_points - damage_to_hit_points)
         .max(0)
         .min(vitals.hit_point_maximum);
@@ -201,6 +208,7 @@ pub fn apply_resolved_damage_to_positive_hit_points(
             ..vitals
         },
         damage_to_hit_points,
+        remaining_damage_at_zero,
     }
 }
 

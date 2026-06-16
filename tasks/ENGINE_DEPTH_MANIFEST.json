@@ -3,24 +3,30 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added attack damage disposition rule-core projection"
+      "reason": "added rule-core hit point damage projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/rule_core_attack_damage_disposition.rs",
+      "path": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
       "quarantinedWitnessNames": [
-        "doMeleeKnockOut",
-        "doRejectRangedKnockOut",
+        "doMonsterDiesAtZero",
+        "doPlayerCharacterDiesFromMassiveDamage",
+        "doPlayerCharacterFallsUnconscious",
+        "doTemporaryHitPointsAbsorbFirst",
         "init",
-        "melee-knock-out",
-        "ranged-knock-out-rejected",
+        "temporary-hit-points-absorb-first",
+        "monster-dies-at-zero",
+        "player-character-falls-unconscious",
+        "player-character-dies-from-massive-damage",
         "qLastScenario",
-        "qAccepted",
-        "qTargetHp",
-        "qTargetUnconscious",
-        "qTargetDead",
-        "qKnockOutRecovery",
+        "qHitPoints",
+        "qHitPointMaximum",
+        "qTemporaryHitPoints",
+        "qDead",
+        "qUnconscious",
+        "qDamageToHitPoints",
+        "qRemainingDamageAtZero",
         "qReplayIndex",
         "mbt::actionTaken",
         "mbt::nondetPicks",
@@ -39,36 +45,43 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T069-rule-core-attack-damage-disposition.json"
+        "tasks/target-replay-evidence/T070-rule-core-hit-point-damage.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
       "api": "apply_resolved_damage_to_positive_hit_points",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
       "module": "src/rules/attack_damage_disposition.rs"
     },
     {
-      "api": "attack_damage_disposition_is_legal",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
-      "module": "src/rules/attack_damage_disposition.rs"
+      "api": "HitPointDamageState",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
+      "module": "src/rules/rule_core_hit_point_damage.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "attack_damage_disposition_initial_state",
-        "resolve_melee_knock_out_disposition",
-        "reject_ranged_knock_out_disposition",
-        "attack_damage_disposition_is_legal",
         "apply_resolved_damage_to_positive_hit_points",
-        "apply_knock_out_disposition"
+        "PositiveHitPointDamageResult"
       ],
       "path": "src/rules/attack_damage_disposition.rs",
+      "role": "domain-engine"
+    },
+    {
+      "domainApis": [
+        "hit_point_damage_initial_state",
+        "resolve_temporary_hit_points_absorb_first",
+        "resolve_monster_dies_at_zero",
+        "resolve_player_character_falls_unconscious",
+        "resolve_player_character_dies_from_massive_damage"
+      ],
+      "path": "src/rules/rule_core_hit_point_damage.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T069"
+  "taskId": "T070"
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T069",
-  "startHeadSha": "c7b3926ab4fbd158f8b0b60a4c6e4fbdba8a8d87",
+  "taskId": "T070",
+  "startHeadSha": "404d6bdbb9a14ad9ae15330e6900c1fbe345b428",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "rules-core",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt"
     ]
   }
 }

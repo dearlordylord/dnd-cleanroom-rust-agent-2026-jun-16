@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T069-rule-core-attack-damage-disposition.json",
+      "evidence": "tasks/target-replay-evidence/T070-rule-core-hit-point-damage.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T069"
+  "taskId": "T070"
 }
