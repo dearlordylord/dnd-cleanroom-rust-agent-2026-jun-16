@@ -62,6 +62,8 @@ mod battle_runtime_scalar_buff_active_effects;
 mod battle_runtime_sleep_repeat_save;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_careful_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_distant_selected_identity.rs"]
+mod battle_runtime_sorcerer_metamagic_distant_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -304,8 +306,9 @@ use crate::rules::sleep_repeat_save::{
     SleepRepeatSaveTurnRole,
 };
 use crate::rules::sorcerer_metamagic::{
-    careful_spell_initial_state, resolve_careful_save_gated_damage,
-    resolve_careful_save_gated_no_effect, CarefulSpellProtocol, CarefulSpellScenarioResult,
+    careful_spell_initial_state, distant_spell_initial_state, resolve_careful_save_gated_damage,
+    resolve_careful_save_gated_no_effect, resolve_distant_object_light, CarefulSpellProtocol,
+    CarefulSpellScenarioResult, DistantSpellProtocol, DistantSpellScenarioResult,
 };
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
@@ -521,6 +524,12 @@ use battle_runtime_sorcerer_metamagic_careful_selected_identity::{
     projection_payload as careful_spell_projection_payload,
     replay_observed_action as replay_careful_spell_action,
     BRANCH_ACTIONS as CAREFUL_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_sorcerer_metamagic_distant_selected_identity::{
+    expected_witness as expected_distant_spell_witness,
+    projection_payload as distant_spell_projection_payload,
+    replay_observed_action as replay_distant_spell_action,
+    BRANCH_ACTIONS as DISTANT_SPELL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3234,6 +3243,43 @@ fn careful_spell_projects_save_gated_damage_and_no_effect_cases() {
         CarefulSpellScenarioResult::CarefulSaveGatedNoEffect
     );
     assert_eq!(no_effect.protocol, CarefulSpellProtocol::Resolved);
+}
+
+#[test]
+fn distant_spell_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Distant Spell".
+    for action in DISTANT_SPELL_BRANCH_ACTIONS {
+        let observed = replay_distant_spell_action(action);
+        assert_eq!(observed, expected_distant_spell_witness(action));
+        assert!(distant_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn distant_spell_projects_object_light_range_case() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Distant Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt.
+    let initial = distant_spell_initial_state();
+    assert_eq!(initial.sorcery_points_remaining, 2);
+    assert_eq!(initial.light_emitter_count, 0);
+    assert_eq!(initial.bright_radius_feet, 0);
+    assert_eq!(initial.dim_additional_feet, 0);
+    assert_eq!(initial.protocol, DistantSpellProtocol::Init);
+
+    let light = resolve_distant_object_light();
+    assert_eq!(light.sorcery_points_remaining, 1);
+    assert_eq!(light.light_emitter_count, 1);
+    assert_eq!(light.bright_radius_feet, 20);
+    assert_eq!(light.dim_additional_feet, 20);
+    assert_eq!(
+        light.scenario_result,
+        DistantSpellScenarioResult::DistantObjectLight
+    );
+    assert_eq!(light.protocol, DistantSpellProtocol::Resolved);
 }
 
 #[test]

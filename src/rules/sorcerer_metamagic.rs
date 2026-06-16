@@ -62,3 +62,52 @@ fn resolved_careful_spell(scenario_result: CarefulSpellScenarioResult) -> Carefu
         protocol: CarefulSpellProtocol::Resolved,
     }
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DistantSpellScenarioResult {
+    Init,
+    DistantObjectLight,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DistantSpellProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct DistantSpellState {
+    pub sorcery_points_remaining: i16,
+    pub light_emitter_count: i16,
+    pub bright_radius_feet: i16,
+    pub dim_additional_feet: i16,
+    pub scenario_result: DistantSpellScenarioResult,
+    pub protocol: DistantSpellProtocol,
+}
+
+#[must_use]
+pub fn distant_spell_initial_state() -> DistantSpellState {
+    DistantSpellState {
+        sorcery_points_remaining: 2,
+        light_emitter_count: 0,
+        bright_radius_feet: 0,
+        dim_additional_feet: 0,
+        scenario_result: DistantSpellScenarioResult::Init,
+        protocol: DistantSpellProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn resolve_distant_object_light() -> DistantSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Distant Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt.
+    DistantSpellState {
+        sorcery_points_remaining: 1,
+        light_emitter_count: 1,
+        bright_radius_feet: 20,
+        dim_additional_feet: 20,
+        scenario_result: DistantSpellScenarioResult::DistantObjectLight,
+        protocol: DistantSpellProtocol::Resolved,
+    }
+}

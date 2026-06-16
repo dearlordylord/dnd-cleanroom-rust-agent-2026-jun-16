@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T045-battle-runtime-sorcerer-metamagic-careful-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T046-battle-runtime-sorcerer-metamagic-distant-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T045"
+  "taskId": "T046"
 }
