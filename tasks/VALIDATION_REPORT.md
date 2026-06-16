@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt`
-- Next task id: `T027`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt`
+- Next task id: `T028`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,82 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T027: battle-runtime-find-familiar-companion-lifecycle
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt`
+- Branch obligations:
+  - `step:doCreateCatFamiliar`
+  - `step:doDeliverTouchSpell`
+  - `step:doPactFamiliarAttack`
+  - `step:doReplaceWithRatFamiliar`
+  - `step:doShareSenses`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-model.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Warlock.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Added `src/rules/find_familiar.rs` with reusable companion lifecycle state, typed form facts, typed creature type override facts, and operation helpers for creation, recast replacement, shared senses, touch spell delivery, and pact reaction attack.
+- Created a present primary companion with one-at-a-time companion count, telepathy, chosen form, chosen creature type override, and available familiar Reaction.
+- Recast replacement preserves the primary companion slot and creature type override while replacing the form and retaining a single companion.
+- Shared senses spends the owner's Bonus Action, touch delivery spends the familiar Reaction and commits the touch spell slot, and pact reaction attack spends one owner Attack-action attack plus the familiar Reaction and applies fixed target damage.
+- Kept QNT action names, scenario labels, familiar id/status/form strings, creature type strings, and witness protocol labels quarantined in `src/qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt#step:doCreateCatFamiliar` | `tasks/target-replay-evidence/T027-battle-runtime-find-familiar-companion-lifecycle.json#T027-create-cat-familiar#step:doCreateCatFamiliar` | `src/tests/mod.rs::find_familiar_companion_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt#step:doDeliverTouchSpell` | `tasks/target-replay-evidence/T027-battle-runtime-find-familiar-companion-lifecycle.json#T027-deliver-touch-spell#step:doDeliverTouchSpell` | `src/tests/mod.rs::find_familiar_companion_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt#step:doPactFamiliarAttack` | `tasks/target-replay-evidence/T027-battle-runtime-find-familiar-companion-lifecycle.json#T027-pact-familiar-attack#step:doPactFamiliarAttack` | `src/tests/mod.rs::find_familiar_companion_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt#step:doReplaceWithRatFamiliar` | `tasks/target-replay-evidence/T027-battle-runtime-find-familiar-companion-lifecycle.json#T027-replace-with-rat-familiar#step:doReplaceWithRatFamiliar` | `src/tests/mod.rs::find_familiar_companion_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt#step:doShareSenses` | `tasks/target-replay-evidence/T027-battle-runtime-find-familiar-companion-lifecycle.json#T027-share-senses#step:doShareSenses` | `src/tests/mod.rs::find_familiar_companion_lifecycle_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T027-battle-runtime-find-familiar-companion-lifecycle.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T027-create-cat-familiar`
+- Reproduction seed or trace id: `T027-deliver-touch-spell`
+- Reproduction seed or trace id: `T027-pact-familiar-attack`
+- Reproduction seed or trace id: `T027-replace-with-rat-familiar`
+- Reproduction seed or trace id: `T027-share-senses`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::find_familiar_companion_creates_replaces_shares_and_spends_reactions`
 
 Remaining gaps:
 

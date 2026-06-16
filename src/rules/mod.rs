@@ -8,6 +8,7 @@ pub mod command_options;
 pub mod concentration;
 pub mod creature_type_protection;
 pub mod feature_resources;
+pub mod find_familiar;
 pub mod hit_points;
 pub mod origin_feats;
 pub mod spell_shapes;

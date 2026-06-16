@@ -24,6 +24,8 @@ mod battle_runtime_druid_wild_shape_form_lifecycle;
 mod battle_runtime_eldritch_blast;
 #[path = "../qnt_adapters/battle_runtime_feature_selected_identity.rs"]
 mod battle_runtime_feature_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs"]
+mod battle_runtime_find_familiar_companion_lifecycle;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -126,6 +128,13 @@ use crate::rules::creature_type_protection::{
 use crate::rules::feature_resources::{
     apply_lay_on_hands_resource, apply_temporary_hit_points, FeatureResourceHitPoints,
     ResourcePoolError, ResourcePoolFacts,
+};
+use crate::rules::find_familiar::{
+    create_find_familiar_companion, deliver_find_familiar_touch_spell,
+    find_familiar_companion_initial_state, replace_find_familiar_companion_form,
+    resolve_pact_find_familiar_reaction_attack, share_find_familiar_senses,
+    FamiliarCreatureTypeOverride, FamiliarForm, FamiliarFormFacts, FamiliarSlot, FamiliarStatus,
+    FindFamiliarCompanionProtocol, FindFamiliarCompanionScenarioOutcome,
 };
 use crate::rules::hit_points::{
     complete_long_rest_benefits, death_saving_throw_initial_state, discover_death_saving_throw,
@@ -237,6 +246,12 @@ use battle_runtime_feature_selected_identity::{
     projection_payload as feature_selected_identity_projection_payload,
     replay_observed_action as replay_feature_selected_identity_action,
     BRANCH_ACTIONS as FEATURE_SELECTED_IDENTITY_BRANCH_ACTIONS,
+};
+use battle_runtime_find_familiar_companion_lifecycle::{
+    expected_witness as expected_find_familiar_companion_witness,
+    projection_payload as find_familiar_companion_projection_payload,
+    replay_observed_action as replay_find_familiar_companion_action,
+    BRANCH_ACTIONS as FIND_FAMILIAR_COMPANION_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2068,4 +2083,96 @@ fn innate_sorcery_spends_bonus_action_use_and_scopes_spell_benefits() {
     no_uses.feature_uses_remaining = 0;
     let exhausted = activate_innate_sorcery(no_uses, 1);
     assert_eq!(exhausted.occurrence, InnateSorceryOccurrence::Inactive);
+}
+
+#[test]
+fn find_familiar_companion_lifecycle_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-find-familiar-companion-lifecycle.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Find Familiar".
+    for action in FIND_FAMILIAR_COMPANION_BRANCH_ACTIONS {
+        let observed = replay_find_familiar_companion_action(action);
+        assert_eq!(observed, expected_find_familiar_companion_witness(action));
+        assert!(find_familiar_companion_projection_payload(&observed).contains("qCompanionCount="));
+    }
+}
+
+#[test]
+fn find_familiar_companion_creates_replaces_shares_and_spends_reactions() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
+    // "Find Familiar"; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Classes/Warlock.md "Pact of the Chain";
+    // QNT: battle-runtime-find-familiar-companion-lifecycle.mbt.qnt.
+    let initial = find_familiar_companion_initial_state();
+    assert_eq!(initial.status, FamiliarStatus::None);
+    assert_eq!(initial.companion_count, 0);
+    assert!(initial.bonus_action_available);
+    assert!(initial.owner_attack_available);
+    assert_eq!(initial.protocol, FindFamiliarCompanionProtocol::Init);
+
+    let cat = create_find_familiar_companion(
+        initial,
+        FamiliarFormFacts {
+            form: FamiliarForm::Cat,
+            creature_type_override: FamiliarCreatureTypeOverride::Fey,
+        },
+    );
+    assert_eq!(cat.status, FamiliarStatus::Present);
+    assert_eq!(cat.slot, FamiliarSlot::Primary);
+    assert_eq!(cat.form, FamiliarForm::Cat);
+    assert_eq!(
+        cat.creature_type_override,
+        FamiliarCreatureTypeOverride::Fey
+    );
+    assert_eq!(cat.companion_count, 1);
+    assert!(cat.telepathy_available);
+    assert!(cat.familiar_reaction_available);
+    assert_eq!(
+        cat.scenario_outcome,
+        FindFamiliarCompanionScenarioOutcome::Created
+    );
+
+    let rat = replace_find_familiar_companion_form(cat, FamiliarForm::Rat);
+    assert_eq!(rat.status, FamiliarStatus::Present);
+    assert_eq!(rat.slot, FamiliarSlot::Primary);
+    assert_eq!(rat.form, FamiliarForm::Rat);
+    assert_eq!(
+        rat.creature_type_override,
+        FamiliarCreatureTypeOverride::Fey
+    );
+    assert_eq!(rat.companion_count, 1);
+    assert_eq!(
+        rat.scenario_outcome,
+        FindFamiliarCompanionScenarioOutcome::Replaced
+    );
+
+    let senses = share_find_familiar_senses(cat);
+    assert!(senses.shared_senses_active);
+    assert!(!senses.bonus_action_available);
+    assert_eq!(
+        senses.scenario_outcome,
+        FindFamiliarCompanionScenarioOutcome::SharedSenses
+    );
+
+    let delivered = deliver_find_familiar_touch_spell(cat);
+    assert!(!delivered.owner_attack_available);
+    assert!(!delivered.familiar_reaction_available);
+    assert!(delivered.touch_delivery_reaction_spent);
+    assert!(delivered.spell_slot_committed);
+    assert_eq!(delivered.target_hit_points, 12);
+    assert_eq!(
+        delivered.scenario_outcome,
+        FindFamiliarCompanionScenarioOutcome::TouchDelivered
+    );
+
+    let pact_attack = resolve_pact_find_familiar_reaction_attack(cat, 1);
+    assert!(!pact_attack.owner_attack_available);
+    assert!(!pact_attack.familiar_reaction_available);
+    assert!(pact_attack.pact_reaction_attack_resolved);
+    assert_eq!(pact_attack.target_hit_points, 11);
+    assert_eq!(
+        pact_attack.scenario_outcome,
+        FindFamiliarCompanionScenarioOutcome::PactAttack
+    );
 }

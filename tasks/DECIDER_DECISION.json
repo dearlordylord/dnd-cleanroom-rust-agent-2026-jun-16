@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T026-battle-runtime-feature-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T027-battle-runtime-find-familiar-companion-lifecycle.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T026"
+  "taskId": "T027"
 }

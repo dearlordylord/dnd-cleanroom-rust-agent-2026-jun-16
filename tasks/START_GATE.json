@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T026",
-  "startHeadSha": "60e2ecc7a03913eb9b52a000870cd4ac8b0a550e",
+  "taskId": "T027",
+  "startHeadSha": "d34e585ec33d19acd51dc91f7e819379282b5bbf",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt"
     ]
   }
 }
