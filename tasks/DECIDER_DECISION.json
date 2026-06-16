@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json",
+      "evidence": "tasks/target-replay-evidence/T065-battle-runtime-weapon-hosted-attack-and-riders.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T064"
+  "taskId": "T065"
 }

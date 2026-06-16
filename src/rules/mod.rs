@@ -36,4 +36,5 @@ pub mod thaumaturgy_selected_identity;
 pub mod turn_boundary_effect_lifecycle;
 pub mod weapon_attack_ordering;
 pub mod weapon_attack_skeleton;
+pub mod weapon_hosted_attack_and_riders;
 pub mod wild_shape;

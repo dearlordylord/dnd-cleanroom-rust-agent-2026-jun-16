@@ -4,48 +4,88 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponAttackSkeletonState.skeleton_hp",
-      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
+      "fieldPath": "WeaponHostedAttackAndRidersState.scenario",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponAttackSkeletonState.skeleton_dead",
-      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
+      "fieldPath": "WeaponHostedAttackAndRidersState.phase",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponAttackSkeletonState.action_available",
-      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
+      "fieldPath": "WeaponHostedAttackAndRidersState.target_hit_points",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponAttackSkeletonState.multiattack_dispatches_available",
-      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
+      "fieldPath": "WeaponHostedAttackAndRidersState.bonus_action_available",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponAttackSkeletonState.sneak_attack_used_this_turn",
-      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
+      "fieldPath": "WeaponHostedAttackAndRidersState.slot_expended",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponAttackSkeletonState.protocol",
-      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
+      "fieldPath": "WeaponHostedAttackAndRidersState.active_effect_present",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponHostedAttackAndRidersState.attack_bonus",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponHostedAttackAndRidersState.damage_type_choice_applied",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponHostedAttackAndRidersState.damage_rider_present",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponHostedAttackAndRidersState.weapon_enhancement_bonus",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponHostedAttackAndRidersState.protocol",
+      "introducedIn": "src/rules/weapon_hosted_attack_and_riders.rs",
       "owner": "battle-state"
     },
     {
@@ -54,10 +94,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T064"
+  "taskId": "T065"
 }

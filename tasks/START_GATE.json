@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T064",
-  "startHeadSha": "0df5c253be9c7d732c8ec2d98200aeeeaeea59e9",
+  "taskId": "T065",
+  "startHeadSha": "13e66d381de055cd594e5b4475582ed318164895",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt"
     ]
   }
 }

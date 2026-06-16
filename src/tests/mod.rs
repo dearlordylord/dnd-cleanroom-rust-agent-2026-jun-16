@@ -100,6 +100,8 @@ mod battle_runtime_turn_boundary_effect_lifecycle;
 mod battle_runtime_weapon_attack_ordering;
 #[path = "../qnt_adapters/battle_runtime_weapon_attack_skeleton.rs"]
 mod battle_runtime_weapon_attack_skeleton;
+#[path = "../qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs"]
+mod battle_runtime_weapon_hosted_attack_and_riders;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -436,6 +438,17 @@ use crate::rules::weapon_attack_skeleton::{
     WeaponAttackSkeletonInvalidReason, WeaponAttackSkeletonProtocol, ROGUE_ATTACK_MODIFIER,
     SKELETON_INITIAL_HP,
 };
+use crate::rules::weapon_hosted_attack_and_riders::{
+    cast_divine_favor, cast_shillelagh, clean_divine_favor_duration, clean_magic_weapon_duration,
+    clean_shillelagh_after_let_go, damage_after, discover_magic_weapon_target_item,
+    discover_true_strike_hosted_attack, fill_divine_favor_damage_high,
+    fill_magic_weapon_target_item, fill_shillelagh_damage_high, fill_true_strike_damage_high,
+    fill_true_strike_radiant_target, finish_weapon_hosted_attack_and_riders,
+    hosted_spell_attack_bonus, weapon_hosted_attack_and_riders_initial_state, WeaponHostedHole,
+    WeaponHostedPhase, WeaponHostedProtocol, WeaponHostedScenario, MAGIC_WEAPON_LEVEL_TWO_BONUS,
+    WEAPON_HOSTED_PROFICIENCY_BONUS, WEAPON_HOSTED_SPELLCASTING_ABILITY_MODIFIER,
+    WEAPON_HOSTED_TARGET_INITIAL_HIT_POINTS,
+};
 use crate::rules::wild_shape::{
     assume_riding_horse_wild_shape, begin_wild_shape_next_turn, dismiss_wild_shape_form,
     reuse_wild_shape_as_cat, revert_wild_shape_due_to_death,
@@ -750,6 +763,13 @@ use battle_runtime_weapon_attack_skeleton::{
     projection_payload as weapon_attack_skeleton_projection_payload,
     replay_observed_action as replay_weapon_attack_skeleton_action,
     BRANCH_ACTIONS as WEAPON_ATTACK_SKELETON_BRANCH_ACTIONS,
+};
+use battle_runtime_weapon_hosted_attack_and_riders::{
+    expected_witness as expected_weapon_hosted_attack_and_riders_witness,
+    projection_payload as weapon_hosted_attack_and_riders_projection_payload,
+    replay_divine_favor_damage_sample, replay_observed_action as replay_weapon_hosted_action,
+    replay_shillelagh_damage_sample, replay_true_strike_damage_sample,
+    BRANCH_ACTIONS as WEAPON_HOSTED_ATTACK_AND_RIDERS_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3834,6 +3854,114 @@ fn weapon_attack_skeleton_resolves_damage_sneak_and_multiattack_dispatch() {
     let spent = spend_skeleton_multiattack_dispatch();
     assert_eq!(spent.multiattack_dispatches_available, 0);
     assert_eq!(spent.protocol, WeaponAttackSkeletonProtocol::Resolved);
+}
+
+#[test]
+fn weapon_hosted_attack_and_riders_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "True Strike" and "Shillelagh",
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Divine Favor", and
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md
+    // "Magic Weapon".
+    for action in WEAPON_HOSTED_ATTACK_AND_RIDERS_BRANCH_ACTIONS {
+        let observed = replay_weapon_hosted_action(action);
+        assert_eq!(
+            observed,
+            expected_weapon_hosted_attack_and_riders_witness(action)
+        );
+        assert!(
+            weapon_hosted_attack_and_riders_projection_payload(&observed)
+                .contains("protocolResult=")
+        );
+    }
+}
+
+#[test]
+fn weapon_hosted_attack_and_riders_projects_spells_damage_and_cleanup() {
+    // RAW/QNT citations match `weapon_hosted_attack_and_riders_adapter_replays_all_branches`.
+    let initial = weapon_hosted_attack_and_riders_initial_state();
+    assert_eq!(initial.scenario, WeaponHostedScenario::TrueStrikeRadiantHit);
+    assert_eq!(initial.phase, WeaponHostedPhase::Fresh);
+    assert_eq!(
+        initial.target_hit_points,
+        WEAPON_HOSTED_TARGET_INITIAL_HIT_POINTS
+    );
+    assert_eq!(initial.protocol, WeaponHostedProtocol::Init(Vec::new()));
+
+    let discovered = discover_true_strike_hosted_attack();
+    assert_eq!(
+        discovered.protocol,
+        WeaponHostedProtocol::NeedsHoles(vec![
+            WeaponHostedHole::DamageTypeChoice,
+            WeaponHostedHole::TargetChoice,
+        ])
+    );
+
+    let true_strike_targeted = fill_true_strike_radiant_target();
+    assert_eq!(
+        true_strike_targeted.attack_bonus,
+        WEAPON_HOSTED_SPELLCASTING_ABILITY_MODIFIER + WEAPON_HOSTED_PROFICIENCY_BONUS
+    );
+    assert_eq!(
+        true_strike_targeted.attack_bonus,
+        hosted_spell_attack_bonus()
+    );
+    assert!(true_strike_targeted.damage_type_choice_applied);
+
+    let true_strike_low = replay_true_strike_damage_sample(1, 1);
+    assert_eq!(
+        true_strike_low.target_hit_points,
+        damage_after(WEAPON_HOSTED_TARGET_INITIAL_HIT_POINTS, 1 + 3 + 1)
+    );
+    let true_strike_high = fill_true_strike_damage_high();
+    assert_eq!(true_strike_high.target_hit_points, 8);
+    assert_eq!(true_strike_high.phase, WeaponHostedPhase::Cleaned);
+
+    let shillelagh = cast_shillelagh();
+    assert!(!shillelagh.bonus_action_available);
+    assert!(shillelagh.active_effect_present);
+    assert_eq!(shillelagh.attack_bonus, hosted_spell_attack_bonus());
+    let shillelagh_low = replay_shillelagh_damage_sample(1);
+    assert_eq!(
+        shillelagh_low.target_hit_points,
+        damage_after(WEAPON_HOSTED_TARGET_INITIAL_HIT_POINTS, 5)
+    );
+    assert_eq!(fill_shillelagh_damage_high().target_hit_points, 9);
+    let shillelagh_cleaned = clean_shillelagh_after_let_go();
+    assert_eq!(shillelagh_cleaned.phase, WeaponHostedPhase::Cleaned);
+    assert!(shillelagh_cleaned.bonus_action_available);
+    assert!(!shillelagh_cleaned.active_effect_present);
+
+    let divine_favor = cast_divine_favor();
+    assert!(divine_favor.slot_expended);
+    assert!(divine_favor.active_effect_present);
+    let divine_favor_low = replay_divine_favor_damage_sample(1, 1);
+    assert_eq!(divine_favor_low.target_hit_points, 18);
+    assert_eq!(fill_divine_favor_damage_high().target_hit_points, 13);
+    let divine_favor_cleaned = clean_divine_favor_duration();
+    assert!(!divine_favor_cleaned.slot_expended);
+    assert!(!divine_favor_cleaned.active_effect_present);
+
+    let magic_weapon_discovered = discover_magic_weapon_target_item();
+    assert_eq!(
+        magic_weapon_discovered.protocol,
+        WeaponHostedProtocol::NeedsHoles(vec![WeaponHostedHole::MagicWeaponTargetItem])
+    );
+    let magic_weapon = fill_magic_weapon_target_item();
+    assert_eq!(
+        magic_weapon.weapon_enhancement_bonus,
+        MAGIC_WEAPON_LEVEL_TWO_BONUS
+    );
+    assert!(magic_weapon.slot_expended);
+    assert!(!clean_magic_weapon_duration().active_effect_present);
+
+    let finished = finish_weapon_hosted_attack_and_riders();
+    assert_eq!(finished.scenario, WeaponHostedScenario::Done);
+    assert_eq!(finished.protocol, WeaponHostedProtocol::Resolved);
+    assert!(!finished.active_effect_present);
 }
 
 #[test]
