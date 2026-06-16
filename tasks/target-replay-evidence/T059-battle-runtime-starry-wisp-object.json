@@ -1,0 +1,210 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "04249edf345a7752de2f1551dd3d509a2fffc160",
+  "sourceBranchInventorySha256": "b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "17622431eb5514b05b5bf587c6d632be4eb51119927ae9ec099612ce41c814bb",
+      "branchFamily": "step",
+      "branchAction": "doFillObjectTarget",
+      "observedActionTaken": "doFillObjectTarget",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "T059-fill-object-target",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StarryWispObjectWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "868c9663a9e541b01b4b4ddc7f2603d4f80e8dfb6f4afbc33f7329cafc22f3d1",
+        "observedProjectionSha256": "868c9663a9e541b01b4b4ddc7f2603d4f80e8dfb6f4afbc33f7329cafc22f3d1",
+        "checkedTargetStateFields": [
+          "StarryWispObjectState.action_available",
+          "StarryWispObjectState.object_damage",
+          "StarryWispObjectState.light_emitters",
+          "StarryWispObjectState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "17622431eb5514b05b5bf587c6d632be4eb51119927ae9ec099612ce41c814bb",
+      "branchFamily": "step",
+      "branchAction": "doRejectObjectWithoutFact",
+      "observedActionTaken": "doRejectObjectWithoutFact",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "T059-reject-object-without-fact",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StarryWispObjectWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "06248065be5ff487d69f4e5a8e05421497b6acf8efc4baff54e5a5f8694f8bd6",
+        "observedProjectionSha256": "06248065be5ff487d69f4e5a8e05421497b6acf8efc4baff54e5a5f8694f8bd6",
+        "checkedTargetStateFields": [
+          "StarryWispObjectState.action_available",
+          "StarryWispObjectState.object_damage",
+          "StarryWispObjectState.light_emitters",
+          "StarryWispObjectState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "17622431eb5514b05b5bf587c6d632be4eb51119927ae9ec099612ce41c814bb",
+      "branchFamily": "step",
+      "branchAction": "doFillObjectAttackRollMiss",
+      "observedActionTaken": "doFillObjectAttackRollMiss",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "T059-fill-object-attack-roll-miss",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StarryWispObjectWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "66c9b3966448925fa36dce0ae5089389c8a79c8dc76b3d6cb838dc1e60f9ed00",
+        "observedProjectionSha256": "66c9b3966448925fa36dce0ae5089389c8a79c8dc76b3d6cb838dc1e60f9ed00",
+        "checkedTargetStateFields": [
+          "StarryWispObjectState.action_available",
+          "StarryWispObjectState.object_damage",
+          "StarryWispObjectState.light_emitters",
+          "StarryWispObjectState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "17622431eb5514b05b5bf587c6d632be4eb51119927ae9ec099612ce41c814bb",
+      "branchFamily": "step",
+      "branchAction": "doFillObjectAttackRollHit",
+      "observedActionTaken": "doFillObjectAttackRollHit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "T059-fill-object-attack-roll-hit",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StarryWispObjectWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "d8095b27d3ecbdbbf45bd10cc09e90b49c5453c2624d613e6f6d781d959286f3",
+        "observedProjectionSha256": "d8095b27d3ecbdbbf45bd10cc09e90b49c5453c2624d613e6f6d781d959286f3",
+        "checkedTargetStateFields": [
+          "StarryWispObjectState.action_available",
+          "StarryWispObjectState.object_damage",
+          "StarryWispObjectState.light_emitters",
+          "StarryWispObjectState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "17622431eb5514b05b5bf587c6d632be4eb51119927ae9ec099612ce41c814bb",
+      "branchFamily": "step",
+      "branchAction": "doFillObjectDamageLow",
+      "observedActionTaken": "doFillObjectDamageLow",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "T059-fill-object-damage-low",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StarryWispObjectWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "741c880ac3126e58a127c1ea81ed6242fbea5b23702078112058fb7eb5a8ebe6",
+        "observedProjectionSha256": "741c880ac3126e58a127c1ea81ed6242fbea5b23702078112058fb7eb5a8ebe6",
+        "checkedTargetStateFields": [
+          "StarryWispObjectState.action_available",
+          "StarryWispObjectState.object_damage",
+          "StarryWispObjectState.light_emitters",
+          "StarryWispObjectState.protocol",
+          "ObjectDamageOutcome.rolled_damage",
+          "ObjectDamageOutcome.effective_damage",
+          "ObjectDamageOutcome.next_hit_points",
+          "ObjectInvisibleRevealLightEmitter.dim_light_radius_feet"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "17622431eb5514b05b5bf587c6d632be4eb51119927ae9ec099612ce41c814bb",
+      "branchFamily": "step",
+      "branchAction": "doFillObjectDamageHigh",
+      "observedActionTaken": "doFillObjectDamageHigh",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "T059-fill-object-damage-high",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StarryWispObjectWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "963118d2624f306589c3a252727e26d3dee26d0e5f0ed7fa1395f6bb24e511e1",
+        "observedProjectionSha256": "963118d2624f306589c3a252727e26d3dee26d0e5f0ed7fa1395f6bb24e511e1",
+        "checkedTargetStateFields": [
+          "StarryWispObjectState.action_available",
+          "StarryWispObjectState.object_damage",
+          "StarryWispObjectState.light_emitters",
+          "StarryWispObjectState.protocol",
+          "ObjectDamageOutcome.rolled_damage",
+          "ObjectDamageOutcome.effective_damage",
+          "ObjectDamageOutcome.next_hit_points",
+          "ObjectDamageOutcome.destroyed",
+          "ObjectInvisibleRevealLightEmitter.dim_light_radius_feet"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "17622431eb5514b05b5bf587c6d632be4eb51119927ae9ec099612ce41c814bb",
+      "branchFamily": "step",
+      "branchAction": "doRejectStaleAfterResolved",
+      "observedActionTaken": "doRejectStaleAfterResolved",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "T059-reject-stale-after-resolved",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StarryWispObjectWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "0975cc24a085db5f487a48fa3278a0c0796dd666279af7b77e3875c16e619989",
+        "observedProjectionSha256": "0975cc24a085db5f487a48fa3278a0c0796dd666279af7b77e3875c16e619989",
+        "checkedTargetStateFields": [
+          "StarryWispObjectState.action_available",
+          "StarryWispObjectState.object_damage",
+          "StarryWispObjectState.light_emitters",
+          "StarryWispObjectState.protocol"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}

@@ -88,6 +88,8 @@ mod battle_runtime_sorcerer_metamagic_twinned_selected_identity;
 mod battle_runtime_species_passive_trait_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_spell_attack_ordering.rs"]
 mod battle_runtime_spell_attack_ordering;
+#[path = "../qnt_adapters/battle_runtime_starry_wisp_object.rs"]
+mod battle_runtime_starry_wisp_object;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -368,11 +370,15 @@ use crate::rules::spell_attack_ordering::{
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
     fill_eldritch_blast_attack, fill_eldritch_blast_damage, fill_eldritch_blast_targets,
-    reject_eldritch_blast_stale_after_resolved, resolve_save_gated_spell_damage,
-    resolve_spell_attack_hit, AttackSpellHitFacts, AttackSpellProfile, DamageType,
-    EldritchBlastAttackFacts, EldritchBlastDamageFacts, EldritchBlastInvalidReason,
-    EldritchBlastProtocol, SaveGatedSpellDamageFacts, SaveGatedSpellProfile, SpellActiveEffect,
-    SpellShapeOutcome, SpellShapeState,
+    fill_starry_wisp_object_attack, fill_starry_wisp_object_damage, fill_starry_wisp_object_target,
+    reject_eldritch_blast_stale_after_resolved, reject_starry_wisp_object_stale_after_resolved,
+    reject_starry_wisp_object_without_fact, resolve_save_gated_spell_damage,
+    resolve_spell_attack_hit, starry_wisp_object_initial_state, AttackSpellHitFacts,
+    AttackSpellProfile, DamageType, EldritchBlastAttackFacts, EldritchBlastDamageFacts,
+    EldritchBlastInvalidReason, EldritchBlastProtocol, RuntimeActor, SaveGatedSpellDamageFacts,
+    SaveGatedSpellProfile, SpellActiveEffect, SpellInvocationKind, SpellObjectTarget,
+    SpellShapeOutcome, SpellShapeState, StarryWispObjectAttackFacts, StarryWispObjectDamageFacts,
+    StarryWispObjectInvalidReason, StarryWispObjectProtocol,
 };
 use crate::rules::spellbook_rituals::{
     can_cast_spellbook_ritual, spellbook_ritual_invocation, PreparationRequirement,
@@ -657,6 +663,12 @@ use battle_runtime_spell_attack_ordering::{
     projection_payload as spell_attack_ordering_projection_payload,
     replay_observed_action as replay_spell_attack_ordering_action,
     BRANCH_ACTIONS as SPELL_ATTACK_ORDERING_BRANCH_ACTIONS,
+};
+use battle_runtime_starry_wisp_object::{
+    expected_witness as expected_starry_wisp_object_witness,
+    projection_payload as starry_wisp_object_projection_payload,
+    replay_observed_action as replay_starry_wisp_object_action,
+    BRANCH_ACTIONS as STARRY_WISP_OBJECT_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -4272,6 +4284,95 @@ fn eldritch_blast_resolves_two_beam_spell_attack_sequence() {
         stale.protocol,
         EldritchBlastProtocol::Invalid(EldritchBlastInvalidReason::StaleSubject)
     );
+}
+
+#[test]
+fn starry_wisp_object_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-starry-wisp-object.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Starry Wisp"; cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md
+    // "Breaking Objects" and "Target".
+    for action in STARRY_WISP_OBJECT_BRANCH_ACTIONS {
+        let observed = replay_starry_wisp_object_action(action);
+        assert_eq!(observed, expected_starry_wisp_object_witness(action));
+        assert!(starry_wisp_object_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn starry_wisp_object_resolves_damage_light_and_rejections() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Starry Wisp"; RAW: cleanroom-input/raw/srd-5.2.1/
+    // Rules-Glossary.md "Breaking Objects"; QNT:
+    // battle-runtime-starry-wisp-object.mbt.qnt and
+    // battle-runtime-spell-attack.qnt.
+    let initial = starry_wisp_object_initial_state();
+    assert!(initial.action_available);
+    assert_eq!(initial.protocol, StarryWispObjectProtocol::NeedsTarget);
+    assert!(initial.object_damage.is_none());
+    assert!(initial.light_emitters.is_empty());
+
+    let target = fill_starry_wisp_object_target(initial.clone());
+    assert_eq!(target.protocol, StarryWispObjectProtocol::NeedsAttackRoll);
+
+    let missing_object_fact = reject_starry_wisp_object_without_fact(initial);
+    assert_eq!(
+        missing_object_fact.protocol,
+        StarryWispObjectProtocol::Invalid(StarryWispObjectInvalidReason::InvalidFill)
+    );
+
+    let miss =
+        fill_starry_wisp_object_attack(target.clone(), StarryWispObjectAttackFacts { hit: false });
+    assert!(!miss.action_available);
+    assert_eq!(miss.protocol, StarryWispObjectProtocol::Resolved);
+    assert!(miss.object_damage.is_none());
+    assert!(miss.light_emitters.is_empty());
+
+    let hit = fill_starry_wisp_object_attack(target, StarryWispObjectAttackFacts { hit: true });
+    assert!(hit.action_available);
+    assert_eq!(hit.protocol, StarryWispObjectProtocol::NeedsDamageRoll);
+
+    let low_damage =
+        fill_starry_wisp_object_damage(hit.clone(), StarryWispObjectDamageFacts { damage_roll: 4 });
+    let low_outcome = low_damage
+        .object_damage
+        .expect("low damage records object damage");
+    assert_eq!(low_outcome.damage_type, DamageType::Radiant);
+    assert_eq!(low_outcome.prior_hit_points, 5);
+    assert_eq!(low_outcome.next_hit_points, 1);
+    assert!(!low_outcome.destroyed);
+    assert_eq!(low_damage.light_emitters.len(), 1);
+
+    let high_damage =
+        fill_starry_wisp_object_damage(hit, StarryWispObjectDamageFacts { damage_roll: 6 });
+    let high_outcome = high_damage
+        .object_damage
+        .expect("high damage records object damage");
+    assert_eq!(
+        high_outcome.object,
+        SpellObjectTarget::StarryWispObjectTarget
+    );
+    assert_eq!(high_outcome.next_hit_points, 0);
+    assert!(high_outcome.destroyed);
+
+    let emitter = high_damage
+        .light_emitters
+        .first()
+        .expect("hit Starry Wisp records object dim-light emitter");
+    assert_eq!(emitter.source, RuntimeActor::Fighter);
+    assert_eq!(emitter.source_spell, SpellInvocationKind::StarryWisp);
+    assert_eq!(emitter.object, SpellObjectTarget::StarryWispObjectTarget);
+    assert_eq!(emitter.dim_light_radius_feet, 10);
+    assert_eq!(emitter.expires_at_actor, RuntimeActor::Fighter);
+    assert_eq!(emitter.expires_at_round, 2);
+
+    let stale = reject_starry_wisp_object_stale_after_resolved(high_damage);
+    assert_eq!(
+        stale.protocol,
+        StarryWispObjectProtocol::Invalid(StarryWispObjectInvalidReason::StaleSubject)
+    );
+    assert!(!stale.action_available);
 }
 
 #[test]

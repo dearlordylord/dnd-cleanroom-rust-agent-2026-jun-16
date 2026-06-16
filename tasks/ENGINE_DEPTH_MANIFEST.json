@@ -1,55 +1,43 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 10,
+      "addedEntries": 1,
       "owner": "production",
-      "reason": "added spell attack frontier stages for ordered target, damage-type, attack-roll, and damage-dice fills"
+      "reason": "added Starry Wisp object-target spell attack runtime state"
     },
     {
-      "addedEntries": 6,
+      "addedEntries": 2,
       "owner": "production",
-      "reason": "added spell attack hole and fill vocabularies used by the frontier ordering projection"
+      "reason": "added object hit-point damage and object invisible-reveal light-emitter projections"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "path": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
       "quarantinedWitnessNames": [
-        "doDiscoverSingleTargetSpellAttack",
-        "doSubmitAttackRollBeforeTargetChoice",
-        "doFillTargetChoice",
-        "doSubmitDamageBeforeAttackRoll",
-        "doFillAttackRollMiss",
-        "doFillAttackRollHit",
-        "doFillDamageDice",
-        "doDiscoverTypedSpellAttack",
-        "doFillDamageTypeBeforeTargetChoice",
-        "doFillTargetChoiceBeforeDamageType",
-        "doFillDamageTypeAfterTargetChoice",
-        "doFillTargetChoiceAfterDamageType",
-        "SpellAttackActSelectionStage",
-        "SpellAttackTargetChoiceStage",
-        "SpellAttackTypedTargetChoiceStage",
-        "SpellAttackTargetListStage",
-        "SpellAttackTargetAllocationStage",
-        "SpellAttackDamageTypeAndTargetChoiceStage",
-        "SpellAttackDamageTypeChoiceStage",
-        "SpellAttackAttackRollStage",
-        "SpellAttackDamageDiceStage",
-        "SpellAttackResolvedStage",
-        "TargetChoiceHoleKind",
-        "SpellTargetListHoleKind",
-        "SpellTargetAllocationHoleKind",
-        "DamageTypeChoiceHoleKind",
-        "AttackRollHoleKind",
-        "RolledDiceHoleKind",
-        "targetRequired",
-        "damageTypeRequired",
-        "targetOrDamageTypeRequired",
-        "attackRollRequired",
+        "doFillObjectTarget",
+        "doRejectObjectWithoutFact",
+        "doFillObjectAttackRollMiss",
+        "doFillObjectAttackRollHit",
+        "doFillObjectDamageLow",
+        "doFillObjectDamageHigh",
+        "doRejectStaleAfterResolved",
+        "NoObjectDamage",
+        "SomeObjectDamage",
+        "TargetChoice",
+        "ObjectTargetChoice",
+        "AttackRoll",
+        "SpellDamageRoll",
+        "WInvalidFill",
+        "WStaleSubject",
+        "Fighter",
+        "StarryWisp",
+        "StarryWispObjectTarget",
+        "Radiant",
         "init",
         "needsHoles",
         "resolved",
+        "invalid",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -67,45 +55,36 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json"
+        "tasks/target-replay-evidence/T059-battle-runtime-starry-wisp-object.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "discover_single_target_spell_attack",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
-      "module": "src/rules/spell_attack_ordering.rs"
+      "api": "ObjectDamageOutcome",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+      "module": "src/rules/spell_shapes.rs"
     },
     {
-      "api": "spell_attack_fill_order_result",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
-      "module": "src/rules/spell_attack_ordering.rs"
+      "api": "fill_starry_wisp_object_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "module": "src/rules/spell_shapes.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "spell_attack_ordering_initial_state",
-        "spell_attack_hole_frontier",
-        "spell_attack_fill_order_result",
-        "discover_single_target_spell_attack",
-        "submit_attack_roll_before_target_choice",
-        "fill_target_choice",
-        "submit_damage_before_attack_roll",
-        "fill_attack_roll_miss",
-        "fill_attack_roll_hit",
-        "fill_damage_dice",
-        "discover_typed_spell_attack",
-        "fill_damage_type_before_target_choice",
-        "fill_target_choice_before_damage_type",
-        "fill_damage_type_after_target_choice",
-        "fill_target_choice_after_damage_type"
+        "starry_wisp_object_initial_state",
+        "fill_starry_wisp_object_target",
+        "reject_starry_wisp_object_without_fact",
+        "fill_starry_wisp_object_attack",
+        "fill_starry_wisp_object_damage",
+        "reject_starry_wisp_object_stale_after_resolved"
       ],
-      "path": "src/rules/spell_attack_ordering.rs",
+      "path": "src/rules/spell_shapes.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T058"
+  "taskId": "T059"
 }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T058",
-  "startHeadSha": "80b110ab7962adf83b30ef15c620baf84e38a414",
+  "taskId": "T059",
+  "startHeadSha": "f2c7f2f1b6be4a8fb96f867750f48c101da8bbbb",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt"
     ]
   }
 }

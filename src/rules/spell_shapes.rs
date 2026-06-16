@@ -29,6 +29,21 @@ pub enum SpellActiveEffect {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum RuntimeActor {
+    Fighter,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SpellObjectTarget {
+    StarryWispObjectTarget,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SpellInvocationKind {
+    StarryWisp,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum SpellShapeOutcome {
     ChillTouchHit,
     FireBoltHit,
@@ -98,6 +113,60 @@ pub struct EldritchBlastDamageFacts {
     pub damage_roll: i16,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum StarryWispObjectInvalidReason {
+    StaleSubject,
+    InvalidFill,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum StarryWispObjectProtocol {
+    NeedsTarget,
+    NeedsAttackRoll,
+    NeedsDamageRoll,
+    Resolved,
+    Invalid(StarryWispObjectInvalidReason),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct StarryWispObjectAttackFacts {
+    pub hit: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct StarryWispObjectDamageFacts {
+    pub damage_roll: i16,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ObjectDamageOutcome {
+    pub object: SpellObjectTarget,
+    pub damage_type: DamageType,
+    pub rolled_damage: i16,
+    pub effective_damage: i16,
+    pub prior_hit_points: i16,
+    pub next_hit_points: i16,
+    pub destroyed: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ObjectInvisibleRevealLightEmitter {
+    pub source: RuntimeActor,
+    pub source_spell: SpellInvocationKind,
+    pub object: SpellObjectTarget,
+    pub dim_light_radius_feet: i16,
+    pub expires_at_actor: RuntimeActor,
+    pub expires_at_round: i16,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct StarryWispObjectState {
+    pub action_available: bool,
+    pub object_damage: Option<ObjectDamageOutcome>,
+    pub light_emitters: Vec<ObjectInvisibleRevealLightEmitter>,
+    pub protocol: StarryWispObjectProtocol,
+}
+
 #[must_use]
 pub fn spell_attack_damage_type(spell: AttackSpellProfile) -> DamageType {
     // QNT: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
@@ -146,6 +215,16 @@ pub fn eldritch_blast_initial_state() -> EldritchBlastState {
         target_hit_points: 13,
         resolved_beams: 0,
         protocol: EldritchBlastProtocol::NeedsTargets,
+    }
+}
+
+#[must_use]
+pub fn starry_wisp_object_initial_state() -> StarryWispObjectState {
+    StarryWispObjectState {
+        action_available: true,
+        object_damage: None,
+        light_emitters: Vec::new(),
+        protocol: StarryWispObjectProtocol::NeedsTarget,
     }
 }
 
@@ -205,6 +284,87 @@ pub fn fill_eldritch_blast_damage(
 pub fn reject_eldritch_blast_stale_after_resolved(state: EldritchBlastState) -> EldritchBlastState {
     EldritchBlastState {
         protocol: EldritchBlastProtocol::Invalid(EldritchBlastInvalidReason::StaleSubject),
+        ..state
+    }
+}
+
+#[must_use]
+pub fn fill_starry_wisp_object_target(state: StarryWispObjectState) -> StarryWispObjectState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Starry Wisp" targets one creature or object; QNT:
+    // battle-runtime-starry-wisp-object.mbt.qnt.
+    if !state.action_available || state.protocol != StarryWispObjectProtocol::NeedsTarget {
+        return invalid_starry_wisp_object(state, StarryWispObjectInvalidReason::InvalidFill);
+    }
+
+    StarryWispObjectState {
+        protocol: StarryWispObjectProtocol::NeedsAttackRoll,
+        ..state
+    }
+}
+
+#[must_use]
+pub fn reject_starry_wisp_object_without_fact(
+    state: StarryWispObjectState,
+) -> StarryWispObjectState {
+    invalid_starry_wisp_object(state, StarryWispObjectInvalidReason::InvalidFill)
+}
+
+#[must_use]
+pub fn fill_starry_wisp_object_attack(
+    state: StarryWispObjectState,
+    facts: StarryWispObjectAttackFacts,
+) -> StarryWispObjectState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Starry Wisp" makes a ranged spell attack against the target.
+    if !state.action_available || state.protocol != StarryWispObjectProtocol::NeedsAttackRoll {
+        return invalid_starry_wisp_object(state, StarryWispObjectInvalidReason::InvalidFill);
+    }
+
+    if facts.hit {
+        return StarryWispObjectState {
+            protocol: StarryWispObjectProtocol::NeedsDamageRoll,
+            ..state
+        };
+    }
+
+    StarryWispObjectState {
+        action_available: false,
+        protocol: StarryWispObjectProtocol::Resolved,
+        object_damage: None,
+        light_emitters: Vec::new(),
+    }
+}
+
+#[must_use]
+pub fn fill_starry_wisp_object_damage(
+    state: StarryWispObjectState,
+    facts: StarryWispObjectDamageFacts,
+) -> StarryWispObjectState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Starry Wisp" deals 1d8 Radiant damage and emits Dim Light on a hit;
+    // Rules-Glossary.md "Breaking Objects" supplies object HP semantics.
+    if !state.action_available
+        || state.protocol != StarryWispObjectProtocol::NeedsDamageRoll
+        || !(1..=8).contains(&facts.damage_roll)
+    {
+        return invalid_starry_wisp_object(state, StarryWispObjectInvalidReason::InvalidFill);
+    }
+
+    StarryWispObjectState {
+        action_available: false,
+        object_damage: Some(starry_wisp_object_damage_outcome(facts.damage_roll)),
+        light_emitters: vec![starry_wisp_object_dim_light_emitter()],
+        protocol: StarryWispObjectProtocol::Resolved,
+    }
+}
+
+#[must_use]
+pub fn reject_starry_wisp_object_stale_after_resolved(
+    state: StarryWispObjectState,
+) -> StarryWispObjectState {
+    StarryWispObjectState {
+        protocol: StarryWispObjectProtocol::Invalid(StarryWispObjectInvalidReason::StaleSubject),
         ..state
     }
 }
@@ -321,6 +481,43 @@ fn invalid_eldritch_blast(
 ) -> EldritchBlastState {
     EldritchBlastState {
         protocol: EldritchBlastProtocol::Invalid(reason),
+        ..state
+    }
+}
+
+fn starry_wisp_object_damage_outcome(rolled_damage: i16) -> ObjectDamageOutcome {
+    let prior_hit_points = 5;
+    let effective_damage = rolled_damage;
+    let next_hit_points = apply_damage(prior_hit_points, effective_damage);
+
+    ObjectDamageOutcome {
+        object: SpellObjectTarget::StarryWispObjectTarget,
+        damage_type: DamageType::Radiant,
+        rolled_damage,
+        effective_damage,
+        prior_hit_points,
+        next_hit_points,
+        destroyed: next_hit_points == 0,
+    }
+}
+
+fn starry_wisp_object_dim_light_emitter() -> ObjectInvisibleRevealLightEmitter {
+    ObjectInvisibleRevealLightEmitter {
+        source: RuntimeActor::Fighter,
+        source_spell: SpellInvocationKind::StarryWisp,
+        object: SpellObjectTarget::StarryWispObjectTarget,
+        dim_light_radius_feet: 10,
+        expires_at_actor: RuntimeActor::Fighter,
+        expires_at_round: 2,
+    }
+}
+
+fn invalid_starry_wisp_object(
+    state: StarryWispObjectState,
+    reason: StarryWispObjectInvalidReason,
+) -> StarryWispObjectState {
+    StarryWispObjectState {
+        protocol: StarryWispObjectProtocol::Invalid(reason),
         ..state
     }
 }
