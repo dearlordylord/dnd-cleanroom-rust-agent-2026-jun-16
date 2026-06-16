@@ -144,6 +144,8 @@ mod rule_core_movement_mbt;
 mod rule_core_reactions_mbt;
 #[path = "../qnt_adapters/rule_core_shove_outcome_mbt.rs"]
 mod rule_core_shove_outcome_mbt;
+#[path = "../qnt_adapters/rule_core_stat_block_controls_mbt.rs"]
+mod rule_core_stat_block_controls_mbt;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -367,6 +369,14 @@ use crate::rules::rule_core_shove_outcome::{
     resolve_shove_save_succeeds, ShoveFailedEffect, ShoveOutcome, ShoveOutcomeResult,
     ShovePushBlockedProjectionReason, ShovePushBlockedReason, ShovePushDisposition,
     ShovePushDispositionKind, SHOVE_INVALID_PUSH_DISTANCE_FEET, SHOVE_LEGAL_PUSH_DISTANCE_FEET,
+};
+use crate::rules::rule_core_stat_block_controls::{
+    end_turn_closes_stat_block_dispatches, move_during_stat_block_dispatch,
+    multiattack_dispatch_subject_permitted, reject_bonus_action_during_dispatch,
+    reject_ordinary_action_during_dispatch, resolve_primary_stat_block_dispatch,
+    resolve_secondary_stat_block_dispatch, start_stat_block_multiattack, StatBlockControlProtocol,
+    StatBlockDispatchSubject, STAT_BLOCK_INITIAL_MOVEMENT_REMAINING_FEET,
+    STAT_BLOCK_INTERLEAVED_MOVEMENT_FEET,
 };
 use crate::rules::sanctuary_selected_identity::{
     cast_sanctuary_ward_creation, end_ward_on_warded_attack_roll, end_ward_on_warded_damage_dealt,
@@ -960,6 +970,12 @@ use rule_core_reactions_mbt::{
 use rule_core_shove_outcome_mbt::{
     expected_witness as expected_shove_witness, projection_payload as shove_projection_payload,
     replay_observed_action as replay_shove_action, BRANCH_ACTIONS as SHOVE_BRANCH_ACTIONS,
+};
+use rule_core_stat_block_controls_mbt::{
+    expected_witness as expected_stat_block_control_witness,
+    projection_payload as stat_block_control_projection_payload,
+    replay_observed_action as replay_stat_block_control_action,
+    BRANCH_ACTIONS as STAT_BLOCK_CONTROL_BRANCH_ACTIONS,
 };
 
 #[test]
@@ -2592,6 +2608,99 @@ fn shove_outcome_projects_save_prone_push_and_rejections() {
                 reason: ShovePushBlockedReason::NoLegalDestination,
             },
         }
+    );
+}
+
+#[test]
+fn stat_block_controls_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // rule-core-stat-block-controls.mbt.qnt and
+    // shared-algebras/proofs/rule-core/stat-block-controls.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md "Actions" and
+    // "Multiattack"; Playing-the-Game.md "Actions".
+    assert_eq!(STAT_BLOCK_CONTROL_BRANCH_ACTIONS.len(), 7);
+    for action in STAT_BLOCK_CONTROL_BRANCH_ACTIONS {
+        let observed = replay_stat_block_control_action(action);
+        assert_eq!(observed, expected_stat_block_control_witness(action));
+        assert!(stat_block_control_projection_payload(&observed)
+            .contains("qMultiattackContinuationOpen="));
+    }
+}
+
+#[test]
+fn stat_block_controls_project_dispatch_interleaving_and_rejections() {
+    // RAW/QNT citations match `stat_block_controls_adapter_replays_all_branches`.
+    let started = start_stat_block_multiattack();
+    assert!(!started.attack_action_available);
+    assert!(started.bonus_action_available);
+    assert_eq!(started.pending_primary_dispatches, 1);
+    assert_eq!(started.pending_secondary_dispatches, 1);
+    assert!(started.multiattack_continuation_open);
+    assert_eq!(started.protocol, StatBlockControlProtocol::Resolved);
+
+    assert!(multiattack_dispatch_subject_permitted(
+        &started,
+        StatBlockDispatchSubject::Movement
+    ));
+    assert!(multiattack_dispatch_subject_permitted(
+        &started,
+        StatBlockDispatchSubject::EndTurn
+    ));
+    assert!(multiattack_dispatch_subject_permitted(
+        &started,
+        StatBlockDispatchSubject::PrimaryAttack
+    ));
+    assert!(multiattack_dispatch_subject_permitted(
+        &started,
+        StatBlockDispatchSubject::SecondaryAttack
+    ));
+    assert!(!multiattack_dispatch_subject_permitted(
+        &started,
+        StatBlockDispatchSubject::BonusAction
+    ));
+    assert!(!multiattack_dispatch_subject_permitted(
+        &started,
+        StatBlockDispatchSubject::OrdinaryAction
+    ));
+
+    let moved = move_during_stat_block_dispatch();
+    assert_eq!(
+        moved.movement_spent_feet,
+        STAT_BLOCK_INTERLEAVED_MOVEMENT_FEET
+    );
+    assert_eq!(
+        moved.movement_remaining_feet,
+        STAT_BLOCK_INITIAL_MOVEMENT_REMAINING_FEET - STAT_BLOCK_INTERLEAVED_MOVEMENT_FEET
+    );
+    assert!(moved.multiattack_continuation_open);
+
+    assert!(matches!(
+        reject_bonus_action_during_dispatch().protocol,
+        StatBlockControlProtocol::Invalid { .. }
+    ));
+    assert!(matches!(
+        reject_ordinary_action_during_dispatch().protocol,
+        StatBlockControlProtocol::Invalid { .. }
+    ));
+
+    let primary = resolve_primary_stat_block_dispatch();
+    assert_eq!(primary.pending_primary_dispatches, 0);
+    assert_eq!(primary.pending_secondary_dispatches, 1);
+    assert!(primary.multiattack_continuation_open);
+    let secondary = resolve_secondary_stat_block_dispatch();
+    assert_eq!(secondary.pending_primary_dispatches, 1);
+    assert_eq!(secondary.pending_secondary_dispatches, 0);
+    assert!(secondary.multiattack_continuation_open);
+
+    let ended = end_turn_closes_stat_block_dispatches();
+    assert!(ended.attack_action_available);
+    assert!(ended.bonus_action_available);
+    assert_eq!(ended.pending_primary_dispatches, 0);
+    assert_eq!(ended.pending_secondary_dispatches, 0);
+    assert!(!ended.multiattack_continuation_open);
+    assert_eq!(
+        ended.movement_remaining_feet,
+        STAT_BLOCK_INITIAL_MOVEMENT_REMAINING_FEET
     );
 }
 

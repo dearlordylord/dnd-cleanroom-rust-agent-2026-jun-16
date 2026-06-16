@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T073",
-  "startHeadSha": "a31d708f78639468465a7c28e4641ba461ac3be7",
+  "taskId": "T074",
+  "startHeadSha": "40dddab51c73ba872a5e3d83f69f2de4f2bc4a88",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "rules-core",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt"
     ]
   }
 }

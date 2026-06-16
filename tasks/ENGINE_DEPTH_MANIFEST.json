@@ -3,40 +3,38 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added rule-core shove outcome projection"
+      "reason": "added rule-core stat-block multiattack control projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "path": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
       "quarantinedWitnessNames": [
-        "doInvalidPushDistance",
-        "doSaveFailsProne",
-        "doSaveFailsPush",
-        "doSaveFailsPushBlocked",
-        "doSaveFailsPushNoLegalDestination",
-        "doSaveSucceeds",
+        "doEndTurnClosesDispatches",
+        "doMoveDuringDispatch",
+        "doRejectBonusActionDuringDispatch",
+        "doRejectOrdinaryActionDuringDispatch",
+        "doResolvePrimaryDispatch",
+        "doResolveSecondaryDispatch",
+        "doStartMultiattack",
+        "Movement",
         "init",
-        "save-succeeds",
-        "save-fails-prone",
-        "save-fails-push",
-        "save-fails-push-blocked",
-        "save-fails-push-no-legal-destination",
-        "invalid-push-distance",
-        "none",
-        "pushed",
-        "blocked",
-        "noLegalDestination",
-        "qLastScenario",
-        "qAccepted",
-        "qTargetProne",
-        "qPushEmitted",
-        "qPushDispositionKind",
-        "qPushBlockedReason",
-        "qPushDistanceFeet",
-        "qPushProvokesOpportunityAttacks",
-        "qActionAvailable",
-        "qReplayIndex",
+        "needsHoles",
+        "resolved",
+        "invalid",
+        "WInvalidFill",
+        "WStaleSubject",
+        "qAttackActionAvailable",
+        "qBonusActionAvailable",
+        "qPendingPrimaryDispatches",
+        "qPendingSecondaryDispatches",
+        "qMovementSpentFeet",
+        "qMovementRemainingFeet",
+        "qMultiattackContinuationOpen",
+        "qHoles",
+        "protocolResult",
+        "protocolInvalidReason",
+        "protocolHoles",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -54,53 +52,39 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T073-rule-core-shove-outcome.json"
+        "tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "apply_shove_outcome",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
-      "module": "src/rules/rule_core_shove_outcome.rs"
-    },
-    {
-      "api": "ShoveOutcomeState",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
-      "module": "src/rules/rule_core_shove_outcome.rs"
+      "api": "StatBlockControlState",
+      "driver": "_none_",
+      "module": "src/rules/rule_core_stat_block_controls.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "ShoveScenario",
-        "ShovePushBlockedReason",
-        "ShovePushDisposition",
-        "ShoveFailedEffect",
-        "ShoveOutcome",
-        "ShoveOutcomeResult",
-        "ShovePushDispositionKind",
-        "ShovePushBlockedProjectionReason",
-        "ShoveOutcomeProjection",
-        "ShoveOutcomeState",
-        "shove_outcome_initial_state",
-        "apply_shove_outcome",
-        "project_shove_outcome_result",
-        "resolve_shove_save_succeeds",
-        "resolve_shove_save_fails_prone",
-        "resolve_shove_save_fails_push",
-        "resolve_shove_save_fails_push_blocked",
-        "resolve_shove_save_fails_push_no_legal_destination",
-        "reject_shove_invalid_push_distance",
-        "legal_shove_push_disposition",
-        "shove_push_distance_feet",
-        "shove_push_disposition_kind",
-        "shove_push_blocked_reason"
+        "StatBlockControlHole",
+        "StatBlockControlInvalidReason",
+        "StatBlockControlProtocol",
+        "StatBlockControlState",
+        "StatBlockDispatchSubject",
+        "stat_block_control_initial_state",
+        "start_stat_block_multiattack",
+        "move_during_stat_block_dispatch",
+        "reject_bonus_action_during_dispatch",
+        "reject_ordinary_action_during_dispatch",
+        "resolve_primary_stat_block_dispatch",
+        "resolve_secondary_stat_block_dispatch",
+        "end_turn_closes_stat_block_dispatches",
+        "multiattack_dispatch_subject_permitted"
       ],
-      "path": "src/rules/rule_core_shove_outcome.rs",
+      "path": "src/rules/rule_core_stat_block_controls.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T073"
+  "taskId": "T074"
 }

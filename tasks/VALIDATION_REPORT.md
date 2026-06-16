@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt`
-- Next task id: `T074`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt`
+- Next queued driver: `_none_`
+- Next task id: `_none_`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,89 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T074: rule-core-stat-block-controls
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt`
+- Branch obligations:
+  - `step:doEndTurnClosesDispatches`
+  - `step:doMoveDuringDispatch`
+  - `step:doRejectBonusActionDuringDispatch`
+  - `step:doRejectOrdinaryActionDuringDispatch`
+  - `step:doResolvePrimaryDispatch`
+  - `step:doResolveSecondaryDispatch`
+  - `step:doStartMultiattack`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/stat-block-controls.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/stat-block-controls-examples.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-witness-protocol.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/rule_core_stat_block_controls.rs` with a bounded stat-block Multiattack control projection for starting a two-dispatch Multiattack, interleaving movement, rejecting Bonus Action and ordinary action subjects during an open dispatch continuation, resolving primary and secondary dispatch names, and ending the turn to close pending dispatches.
+- Modeled the QNT rule that an open Multiattack continuation permits Movement, End Turn, and available named dispatch attacks, while rejecting other subjects as stale.
+- Kept QNT branch actions, protocol labels, invalid reason labels, hole labels, and projection field names quarantined in `src/qnt_adapters/rule_core_stat_block_controls_mbt.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doEndTurnClosesDispatches` | `tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json#T074-end-turn-closes-dispatches#step:doEndTurnClosesDispatches` | `src/tests/mod.rs::stat_block_controls_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doMoveDuringDispatch` | `tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json#T074-move-during-dispatch#step:doMoveDuringDispatch` | `src/tests/mod.rs::stat_block_controls_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doRejectBonusActionDuringDispatch` | `tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json#T074-reject-bonus-action-during-dispatch#step:doRejectBonusActionDuringDispatch` | `src/tests/mod.rs::stat_block_controls_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doRejectOrdinaryActionDuringDispatch` | `tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json#T074-reject-ordinary-action-during-dispatch#step:doRejectOrdinaryActionDuringDispatch` | `src/tests/mod.rs::stat_block_controls_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doResolvePrimaryDispatch` | `tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json#T074-resolve-primary-dispatch#step:doResolvePrimaryDispatch` | `src/tests/mod.rs::stat_block_controls_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doResolveSecondaryDispatch` | `tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json#T074-resolve-secondary-dispatch#step:doResolveSecondaryDispatch` | `src/tests/mod.rs::stat_block_controls_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doStartMultiattack` | `tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json#T074-start-multiattack#step:doStartMultiattack` | `src/tests/mod.rs::stat_block_controls_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T074-end-turn-closes-dispatches`
+- Reproduction seed or trace id: `T074-move-during-dispatch`
+- Reproduction seed or trace id: `T074-reject-bonus-action-during-dispatch`
+- Reproduction seed or trace id: `T074-reject-ordinary-action-during-dispatch`
+- Reproduction seed or trace id: `T074-resolve-primary-dispatch`
+- Reproduction seed or trace id: `T074-resolve-secondary-dispatch`
+- Reproduction seed or trace id: `T074-start-multiattack`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::stat_block_controls_adapter_replays_all_branches`
+- `src/tests/mod.rs::stat_block_controls_project_dispatch_interleaving_and_rejections`
 
 Remaining gaps:
 

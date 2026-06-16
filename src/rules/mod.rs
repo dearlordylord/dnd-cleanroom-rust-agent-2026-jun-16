@@ -27,6 +27,7 @@ pub mod rule_core_hit_point_damage;
 pub mod rule_core_movement;
 pub mod rule_core_reactions;
 pub mod rule_core_shove_outcome;
+pub mod rule_core_stat_block_controls;
 pub mod sanctuary_selected_identity;
 pub mod save_gated_spell_ordering;
 pub mod scalar_buff;
