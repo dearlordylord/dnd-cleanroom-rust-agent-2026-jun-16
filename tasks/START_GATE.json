@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T043",
-  "startHeadSha": "2f5140812b2900e2640e45bfff6daf4c879ea59d",
+  "taskId": "T044",
+  "startHeadSha": "bccad7d1c301c45b03ab793ad7d36180bbac7a1d",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt"
     ]
   }
 }

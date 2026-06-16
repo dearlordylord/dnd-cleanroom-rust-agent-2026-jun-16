@@ -4,40 +4,64 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ScalarBuffTargetState.fighter_speed_feet",
-      "introducedIn": "src/rules/scalar_buff.rs",
+      "fieldPath": "SleepRepeatSaveState.current_turn_role",
+      "introducedIn": "src/rules/sleep_repeat_save.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ScalarBuffTargetState.goblin_speed_feet",
-      "introducedIn": "src/rules/scalar_buff.rs",
+      "fieldPath": "SleepRepeatSaveState.target_incapacitated",
+      "introducedIn": "src/rules/sleep_repeat_save.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ScalarBuffTargetState.action_available",
-      "introducedIn": "src/rules/scalar_buff.rs",
+      "fieldPath": "SleepRepeatSaveState.target_unconscious",
+      "introducedIn": "src/rules/sleep_repeat_save.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ScalarBuffTargetState.protocol",
-      "introducedIn": "src/rules/scalar_buff.rs",
+      "fieldPath": "SleepRepeatSaveState.target_prone",
+      "introducedIn": "src/rules/sleep_repeat_save.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ScalarBuffTargetState.protocol_holes",
-      "introducedIn": "src/rules/scalar_buff.rs",
+      "fieldPath": "SleepRepeatSaveState.caster_concentrating",
+      "introducedIn": "src/rules/sleep_repeat_save.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "SleepRepeatSaveState.action_available",
+      "introducedIn": "src/rules/sleep_repeat_save.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "SleepRepeatSaveState.protocol",
+      "introducedIn": "src/rules/sleep_repeat_save.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "SleepRepeatSaveState.protocol_holes",
+      "introducedIn": "src/rules/sleep_repeat_save.rs",
       "owner": "battle-state"
     },
     {
@@ -46,10 +70,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_scalar_buff.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_sleep_repeat_save.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T043"
+  "taskId": "T044"
 }

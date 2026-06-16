@@ -1,22 +1,29 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 2,
+      "addedEntries": 8,
       "owner": "production",
-      "reason": "added scalar-buff target selection and stale-subject rejection projections for Longstrider"
+      "reason": "added Sleep initial save, concentration break, turn advancement, repeat-save discovery, and repeat-save outcome projections"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_scalar_buff.rs",
+      "path": "src/qnt_adapters/battle_runtime_sleep_repeat_save.rs",
       "quarantinedWitnessNames": [
-        "doFillLongstriderTarget",
-        "doRejectStaleAfterResolved",
-        "TargetChoice",
-        "WStaleSubject",
+        "doFillInitialSaveFailure",
+        "doBreakConcentrationBeforeRepeat",
+        "doEndCasterTurn",
+        "doEndCasterTurnAfterConcentrationBreak",
+        "doEndTargetTurnAfterConcentrationBreak",
+        "doDiscoverRepeatSave",
+        "doFillRepeatSaveSuccess",
+        "doFillRepeatSaveFailure",
+        "SavingThrowOutcome",
+        "caster",
+        "target",
         "init",
+        "needsHoles",
         "resolved",
-        "invalid",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -34,33 +41,39 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T043-battle-runtime-scalar-buff.json"
+        "tasks/target-replay-evidence/T044-battle-runtime-sleep-repeat-save.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "fill_longstrider_target_choice",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt",
-      "module": "src/rules/scalar_buff.rs"
+      "api": "discover_sleep_repeat_save",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
+      "module": "src/rules/sleep_repeat_save.rs"
     },
     {
-      "api": "reject_stale_scalar_buff_after_resolved",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
-      "module": "src/rules/scalar_buff.rs"
+      "api": "fill_sleep_repeat_save_failure",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
+      "module": "src/rules/sleep_repeat_save.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "scalar_buff_target_initial_state",
-        "fill_longstrider_target_choice",
-        "reject_stale_scalar_buff_after_resolved"
+        "sleep_repeat_save_initial_state",
+        "fill_sleep_initial_save_failure",
+        "break_sleep_concentration_before_repeat",
+        "end_caster_turn_with_sleep",
+        "end_caster_turn_after_sleep_concentration_break",
+        "end_target_turn_after_sleep_concentration_break",
+        "discover_sleep_repeat_save",
+        "fill_sleep_repeat_save_success",
+        "fill_sleep_repeat_save_failure"
       ],
-      "path": "src/rules/scalar_buff.rs",
+      "path": "src/rules/sleep_repeat_save.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T043"
+  "taskId": "T044"
 }

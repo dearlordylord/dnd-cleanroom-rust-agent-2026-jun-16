@@ -58,6 +58,8 @@ mod battle_runtime_save_gated_spell_ordering;
 mod battle_runtime_scalar_buff;
 #[path = "../qnt_adapters/battle_runtime_scalar_buff_active_effects.rs"]
 mod battle_runtime_scalar_buff_active_effects;
+#[path = "../qnt_adapters/battle_runtime_sleep_repeat_save.rs"]
+mod battle_runtime_sleep_repeat_save;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -291,6 +293,14 @@ use crate::rules::scalar_buff_active_effects::{
     scalar_buff_active_effects_initial_state, stutter_scalar_buff_active_effect,
     ScalarBuffProtocol, ScalarBuffScenarioResult,
 };
+use crate::rules::sleep_repeat_save::{
+    break_sleep_concentration_before_repeat, discover_sleep_repeat_save,
+    end_caster_turn_after_sleep_concentration_break, end_caster_turn_with_sleep,
+    end_target_turn_after_sleep_concentration_break, fill_sleep_initial_save_failure,
+    fill_sleep_repeat_save_failure, fill_sleep_repeat_save_success,
+    sleep_repeat_save_initial_state, SleepRepeatSaveHole, SleepRepeatSaveProtocol,
+    SleepRepeatSaveTurnRole,
+};
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
     fill_eldritch_blast_attack, fill_eldritch_blast_damage, fill_eldritch_blast_targets,
@@ -493,6 +503,12 @@ use battle_runtime_scalar_buff_active_effects::{
     projection_payload as scalar_buff_active_effects_projection_payload,
     replay_observed_action as replay_scalar_buff_active_effects_action,
     BRANCH_ACTIONS as SCALAR_BUFF_ACTIVE_EFFECTS_BRANCH_ACTIONS,
+};
+use battle_runtime_sleep_repeat_save::{
+    expected_witness as expected_sleep_repeat_save_witness,
+    projection_payload as sleep_repeat_save_projection_payload,
+    replay_observed_action as replay_sleep_repeat_save_action,
+    BRANCH_ACTIONS as SLEEP_REPEAT_SAVE_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3075,6 +3091,87 @@ fn scalar_buff_active_effects_project_spell_scalar_fields() {
 
     let stutter = stutter_scalar_buff_active_effect();
     assert_eq!(stutter, false_life);
+}
+
+#[test]
+fn sleep_repeat_save_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sleep-repeat-save.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md "Sleep".
+    for action in SLEEP_REPEAT_SAVE_BRANCH_ACTIONS {
+        let observed = replay_sleep_repeat_save_action(action);
+        assert_eq!(observed, expected_sleep_repeat_save_witness(action));
+        assert!(sleep_repeat_save_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn sleep_repeat_save_projects_initial_repeat_and_concentration_paths() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
+    // "Sleep"; Rules Glossary "Unconscious [Condition]"; QNT:
+    // battle-runtime-sleep-repeat-save.mbt.qnt.
+    let initial = sleep_repeat_save_initial_state();
+    assert_eq!(initial.current_turn_role, SleepRepeatSaveTurnRole::Caster);
+    assert_eq!(initial.protocol, SleepRepeatSaveProtocol::Init);
+    assert_eq!(
+        initial.protocol_holes,
+        vec![SleepRepeatSaveHole::SavingThrowOutcome]
+    );
+
+    let failed_initial = fill_sleep_initial_save_failure();
+    assert!(failed_initial.target_incapacitated);
+    assert!(!failed_initial.target_unconscious);
+    assert!(!failed_initial.target_prone);
+    assert!(failed_initial.caster_concentrating);
+    assert!(!failed_initial.action_available);
+
+    let broken = break_sleep_concentration_before_repeat();
+    assert!(!broken.target_incapacitated);
+    assert!(!broken.caster_concentrating);
+    assert!(!broken.action_available);
+
+    let target_turn = end_caster_turn_with_sleep();
+    assert_eq!(
+        target_turn.current_turn_role,
+        SleepRepeatSaveTurnRole::Target
+    );
+    assert!(target_turn.target_incapacitated);
+    assert!(target_turn.caster_concentrating);
+    assert!(target_turn.action_available);
+
+    let repeat_needed = discover_sleep_repeat_save();
+    assert_eq!(repeat_needed.protocol, SleepRepeatSaveProtocol::NeedsHoles);
+    assert_eq!(
+        repeat_needed.protocol_holes,
+        vec![SleepRepeatSaveHole::SavingThrowOutcome]
+    );
+
+    let repeat_success = fill_sleep_repeat_save_success();
+    assert_eq!(
+        repeat_success.current_turn_role,
+        SleepRepeatSaveTurnRole::Caster
+    );
+    assert!(!repeat_success.target_incapacitated);
+    assert!(repeat_success.caster_concentrating);
+
+    let repeat_failure = fill_sleep_repeat_save_failure();
+    assert!(repeat_failure.target_incapacitated);
+    assert!(repeat_failure.target_unconscious);
+    assert!(repeat_failure.target_prone);
+
+    let target_turn_after_break = end_caster_turn_after_sleep_concentration_break();
+    assert_eq!(
+        target_turn_after_break.current_turn_role,
+        SleepRepeatSaveTurnRole::Target
+    );
+    assert!(!target_turn_after_break.target_incapacitated);
+
+    let next_caster_turn = end_target_turn_after_sleep_concentration_break();
+    assert_eq!(
+        next_caster_turn.current_turn_role,
+        SleepRepeatSaveTurnRole::Caster
+    );
+    assert!(next_caster_turn.action_available);
 }
 
 #[test]
