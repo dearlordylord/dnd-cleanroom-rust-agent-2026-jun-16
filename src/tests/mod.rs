@@ -52,6 +52,8 @@ mod battle_runtime_roll_modifier_active_effects;
 mod battle_runtime_roll_modifier_buff_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sanctuary_selected_identity.rs"]
 mod battle_runtime_sanctuary_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_save_gated_spell_ordering.rs"]
+mod battle_runtime_save_gated_spell_ordering;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -265,6 +267,15 @@ use crate::rules::sanctuary_selected_identity::{
     sanctuary_selected_identity_initial_state, SanctuarySelectedIdentityProtocol,
     SanctuarySelectedIdentityScenarioOutcome,
 };
+use crate::rules::save_gated_spell_ordering::{
+    discover_area_save_damage, discover_target_list_condition_choice, fill_area_damage_dice,
+    fill_area_save_failed, fill_condition_choice_after_target_list,
+    fill_condition_choice_before_target_list, fill_condition_saving_throw,
+    fill_target_list_after_condition_choice, fill_target_list_before_condition_choice,
+    save_gated_spell_ordering_initial_state, submit_damage_before_saving_throw,
+    SaveGatedSpellFillOrderingError, SaveGatedSpellFrontierStage, SaveGatedSpellHoleKind,
+    SaveGatedSpellOrderingProtocol,
+};
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
     fill_eldritch_blast_attack, fill_eldritch_blast_damage, fill_eldritch_blast_targets,
@@ -449,6 +460,12 @@ use battle_runtime_sanctuary_selected_identity::{
     projection_payload as sanctuary_selected_identity_projection_payload,
     replay_observed_action as replay_sanctuary_selected_identity_action,
     BRANCH_ACTIONS as SANCTUARY_SELECTED_IDENTITY_BRANCH_ACTIONS,
+};
+use battle_runtime_save_gated_spell_ordering::{
+    expected_witness as expected_save_gated_spell_ordering_witness,
+    projection_payload as save_gated_spell_ordering_projection_payload,
+    replay_observed_action as replay_save_gated_spell_ordering_action,
+    BRANCH_ACTIONS as SAVE_GATED_SPELL_ORDERING_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2843,6 +2860,91 @@ fn sanctuary_selected_identity_projects_ward_interdiction_and_teardown() {
     assert_eq!(
         damage_end.scenario_outcome,
         SanctuarySelectedIdentityScenarioOutcome::DamageEndedWard
+    );
+}
+
+#[test]
+fn save_gated_spell_ordering_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-save-gated-spell-ordering.mbt.qnt and
+    // battle-runtime-save-gated-spell-ordering.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Saving Throws",
+    // "Damage Rolls", and "Saving Throws and Damage".
+    for action in SAVE_GATED_SPELL_ORDERING_BRANCH_ACTIONS {
+        let observed = replay_save_gated_spell_ordering_action(action);
+        assert_eq!(observed, expected_save_gated_spell_ordering_witness(action));
+        assert!(save_gated_spell_ordering_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn save_gated_spell_ordering_tracks_area_damage_and_condition_paths() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Saving Throws", "Damage Rolls", and "Saving Throws and Damage";
+    // Rules-Glossary.md "Area of Effect" and "Target"; QNT:
+    // battle-runtime-save-gated-spell-ordering.qnt.
+    let initial = save_gated_spell_ordering_initial_state();
+    assert_eq!(initial.protocol, SaveGatedSpellOrderingProtocol::Init);
+
+    let area = discover_area_save_damage();
+    assert_eq!(
+        area.stage,
+        SaveGatedSpellFrontierStage::DamageSavingThrowOutcome
+    );
+    assert_eq!(
+        area.protocol,
+        SaveGatedSpellOrderingProtocol::NeedsHoles(vec![
+            SaveGatedSpellHoleKind::SavingThrowOutcome
+        ])
+    );
+
+    let premature_damage = submit_damage_before_saving_throw();
+    assert_eq!(
+        premature_damage.last_ordering_error,
+        Some(SaveGatedSpellFillOrderingError::SavingThrowRequired)
+    );
+    assert_eq!(
+        premature_damage.stage,
+        SaveGatedSpellFrontierStage::DamageSavingThrowOutcome
+    );
+
+    let save = fill_area_save_failed();
+    assert_eq!(save.stage, SaveGatedSpellFrontierStage::DamageDice);
+    assert_eq!(
+        save.protocol,
+        SaveGatedSpellOrderingProtocol::NeedsHoles(vec![SaveGatedSpellHoleKind::RolledDice])
+    );
+    let damage = fill_area_damage_dice();
+    assert_eq!(damage.stage, SaveGatedSpellFrontierStage::Resolved);
+    assert_eq!(damage.protocol, SaveGatedSpellOrderingProtocol::Resolved);
+
+    let dual_frontier = discover_target_list_condition_choice();
+    assert_eq!(
+        dual_frontier.protocol,
+        SaveGatedSpellOrderingProtocol::NeedsHoles(vec![
+            SaveGatedSpellHoleKind::SpellTargetList,
+            SaveGatedSpellHoleKind::ConditionChoice
+        ])
+    );
+    assert_eq!(
+        fill_target_list_before_condition_choice().stage,
+        SaveGatedSpellFrontierStage::ConditionChoice
+    );
+    assert_eq!(
+        fill_condition_choice_after_target_list().stage,
+        SaveGatedSpellFrontierStage::ConditionSavingThrowOutcome
+    );
+    assert_eq!(
+        fill_condition_choice_before_target_list().stage,
+        SaveGatedSpellFrontierStage::TargetList
+    );
+    assert_eq!(
+        fill_target_list_after_condition_choice().stage,
+        SaveGatedSpellFrontierStage::ConditionSavingThrowOutcome
+    );
+    assert_eq!(
+        fill_condition_saving_throw().protocol,
+        SaveGatedSpellOrderingProtocol::Resolved
     );
 }
 

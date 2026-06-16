@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T040"
+  "taskId": "T041"
 }

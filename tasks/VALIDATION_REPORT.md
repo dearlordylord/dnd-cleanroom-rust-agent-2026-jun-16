@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
-- Next task id: `T041`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt`
+- Next task id: `T042`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,97 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T041: battle-runtime-save-gated-spell-ordering
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverAreaSaveDamage`
+  - `step:doDiscoverTargetListConditionChoice`
+  - `step:doFillAreaDamageDice`
+  - `step:doFillAreaSaveFailed`
+  - `step:doFillConditionChoiceAfterTargetList`
+  - `step:doFillConditionChoiceBeforeTargetList`
+  - `step:doFillConditionSavingThrow`
+  - `step:doFillTargetListAfterConditionChoice`
+  - `step:doFillTargetListBeforeConditionChoice`
+  - `step:doSubmitDamageBeforeSavingThrow`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-hole-kinds.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-fill-kinds.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/guidance/README.md`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/save_gated_spell_ordering.rs` with typed frontier stages, hole kinds, fill kinds, ordering errors, runtime results, protocol states, and projections for save-gated spell ordering.
+- Implemented the area-damage path requiring a Saving Throw outcome before damage dice, with premature damage fill retaining the Saving Throw frontier and recording `savingThrowRequired`.
+- Implemented target-list plus condition-choice ordering in either accepted order before the condition Saving Throw outcome, resolving after that save.
+- Kept exact QNT branch actions, stage labels, hole labels, error labels, and protocol strings quarantined in `src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doDiscoverAreaSaveDamage` | `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json#T041-discover-area-save-damage#step:doDiscoverAreaSaveDamage` | `src/tests/mod.rs::save_gated_spell_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doDiscoverTargetListConditionChoice` | `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json#T041-discover-target-list-condition-choice#step:doDiscoverTargetListConditionChoice` | `src/tests/mod.rs::save_gated_spell_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillAreaDamageDice` | `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json#T041-fill-area-damage-dice#step:doFillAreaDamageDice` | `src/tests/mod.rs::save_gated_spell_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillAreaSaveFailed` | `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json#T041-fill-area-save-failed#step:doFillAreaSaveFailed` | `src/tests/mod.rs::save_gated_spell_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionChoiceAfterTargetList` | `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json#T041-fill-condition-choice-after-target-list#step:doFillConditionChoiceAfterTargetList` | `src/tests/mod.rs::save_gated_spell_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionChoiceBeforeTargetList` | `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json#T041-fill-condition-choice-before-target-list#step:doFillConditionChoiceBeforeTargetList` | `src/tests/mod.rs::save_gated_spell_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionSavingThrow` | `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json#T041-fill-condition-saving-throw#step:doFillConditionSavingThrow` | `src/tests/mod.rs::save_gated_spell_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillTargetListAfterConditionChoice` | `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json#T041-fill-target-list-after-condition-choice#step:doFillTargetListAfterConditionChoice` | `src/tests/mod.rs::save_gated_spell_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillTargetListBeforeConditionChoice` | `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json#T041-fill-target-list-before-condition-choice#step:doFillTargetListBeforeConditionChoice` | `src/tests/mod.rs::save_gated_spell_ordering_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doSubmitDamageBeforeSavingThrow` | `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json#T041-submit-damage-before-saving-throw#step:doSubmitDamageBeforeSavingThrow` | `src/tests/mod.rs::save_gated_spell_ordering_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T041-discover-area-save-damage`
+- Reproduction seed or trace id: `T041-discover-target-list-condition-choice`
+- Reproduction seed or trace id: `T041-fill-area-damage-dice`
+- Reproduction seed or trace id: `T041-fill-area-save-failed`
+- Reproduction seed or trace id: `T041-fill-condition-choice-after-target-list`
+- Reproduction seed or trace id: `T041-fill-condition-choice-before-target-list`
+- Reproduction seed or trace id: `T041-fill-condition-saving-throw`
+- Reproduction seed or trace id: `T041-fill-target-list-after-condition-choice`
+- Reproduction seed or trace id: `T041-fill-target-list-before-condition-choice`
+- Reproduction seed or trace id: `T041-submit-damage-before-saving-throw`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::save_gated_spell_ordering_tracks_area_damage_and_condition_paths`
 
 Remaining gaps:
 

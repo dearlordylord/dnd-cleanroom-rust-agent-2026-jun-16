@@ -4,88 +4,24 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SanctuarySelectedIdentityState.ward_present",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
+      "fieldPath": "SaveGatedSpellOrderingState.stage",
+      "introducedIn": "src/rules/save_gated_spell_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SanctuarySelectedIdentityState.ward_source_is_sanctuary",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
+      "fieldPath": "SaveGatedSpellOrderingState.protocol",
+      "introducedIn": "src/rules/save_gated_spell_ordering.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SanctuarySelectedIdentityState.wisdom_save_requested",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SanctuarySelectedIdentityState.attack_or_spell_lost",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SanctuarySelectedIdentityState.successful_save_pass_through",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SanctuarySelectedIdentityState.legal_replacement_pass_through",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SanctuarySelectedIdentityState.illegal_replacement_rejected",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SanctuarySelectedIdentityState.area_effect_bypassed_interdiction",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SanctuarySelectedIdentityState.warded_hp",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SanctuarySelectedIdentityState.scenario_outcome",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SanctuarySelectedIdentityState.protocol",
-      "introducedIn": "src/rules/sanctuary_selected_identity.rs",
+      "fieldPath": "SaveGatedSpellOrderingState.last_ordering_error",
+      "introducedIn": "src/rules/save_gated_spell_ordering.rs",
       "owner": "battle-state"
     },
     {
@@ -94,10 +30,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T040"
+  "taskId": "T041"
 }

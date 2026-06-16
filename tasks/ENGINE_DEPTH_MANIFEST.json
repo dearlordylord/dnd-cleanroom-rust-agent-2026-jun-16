@@ -1,34 +1,41 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 9,
+      "addedEntries": 10,
       "owner": "production",
-      "reason": "added Sanctuary selected-identity projections for ward creation, interdiction, replacement targeting, area exclusion, and ward-ending causes"
+      "reason": "added save-gated spell ordering projections for area damage, target-list and condition-choice ordering, saving throws, damage dice, and premature damage rejection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
       "quarantinedWitnessNames": [
-        "doCastSanctuaryWardCreation",
-        "doInterdictDirectAttackFailedSaveLoss",
-        "doInterdictDirectSpellSuccessfulSavePassThrough",
-        "doRetargetDirectAttackToLegalReplacement",
-        "doRejectIllegalReplacementTarget",
-        "doExcludeAreaEffectFromInterdiction",
-        "doEndWardOnWardedAttackRoll",
-        "doEndWardOnWardedSpellCast",
-        "doEndWardOnWardedDamageDealt",
-        "WardCreated",
-        "AttackLost",
-        "SpellSaveSucceeded",
-        "ReplacementAdmitted",
-        "ReplacementRejected",
-        "AreaEffectExcluded",
-        "AttackRollEndedWard",
-        "SpellCastEndedWard",
-        "DamageEndedWard",
+        "doDiscoverAreaSaveDamage",
+        "doSubmitDamageBeforeSavingThrow",
+        "doFillAreaSaveFailed",
+        "doFillAreaDamageDice",
+        "doDiscoverTargetListConditionChoice",
+        "doFillTargetListBeforeConditionChoice",
+        "doFillConditionChoiceAfterTargetList",
+        "doFillConditionChoiceBeforeTargetList",
+        "doFillTargetListAfterConditionChoice",
+        "doFillConditionSavingThrow",
+        "SaveGatedSpellActSelectionStage",
+        "SaveGatedSpellTargetListAndConditionChoiceStage",
+        "SaveGatedSpellTargetListStage",
+        "SaveGatedSpellConditionChoiceStage",
+        "SaveGatedSpellDamageSavingThrowOutcomeStage",
+        "SaveGatedSpellConditionSavingThrowOutcomeStage",
+        "SaveGatedSpellDamageDiceStage",
+        "SaveGatedSpellResolvedStage",
+        "SpellTargetListHoleKind",
+        "ConditionChoiceHoleKind",
+        "SavingThrowOutcomeHoleKind",
+        "RolledDiceHoleKind",
+        "targetOrAreaRequired",
+        "savingThrowRequired",
         "init",
+        "needsHoles",
         "resolved",
         "mbt::actionTaken",
         "mbt::nondetPicks",
@@ -47,40 +54,48 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T040-battle-runtime-sanctuary-selected-identity.json"
+        "tasks/target-replay-evidence/T041-battle-runtime-save-gated-spell-ordering.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "exclude_area_effect_from_interdiction",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
-      "module": "src/rules/sanctuary_selected_identity.rs"
+      "api": "save_gated_spell_fill_order_result",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt",
+      "module": "src/rules/save_gated_spell_ordering.rs"
     },
     {
-      "api": "end_ward_on_warded_damage_dealt",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
-      "module": "src/rules/sanctuary_selected_identity.rs"
+      "api": "save_gated_spell_hole_frontier",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt",
+      "module": "src/rules/save_gated_spell_ordering.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "sanctuary_selected_identity_initial_state",
-        "cast_sanctuary_ward_creation",
-        "interdict_direct_attack_failed_save_loss",
-        "interdict_direct_spell_successful_save_pass_through",
-        "retarget_direct_attack_to_legal_replacement",
-        "reject_illegal_replacement_target",
-        "exclude_area_effect_from_interdiction",
-        "end_ward_on_warded_attack_roll",
-        "end_ward_on_warded_spell_cast",
-        "end_ward_on_warded_damage_dealt"
+        "save_gated_spell_ordering_initial_state",
+        "save_gated_spell_hole_frontier",
+        "save_gated_spell_after_saving_throw_stage",
+        "save_gated_spell_fill_order_result",
+        "save_gated_spell_fill_order_accepted_stage",
+        "save_gated_spell_fill_order_runtime_result",
+        "save_gated_spell_fill_order_error",
+        "save_gated_spell_ordering_projection",
+        "discover_area_save_damage",
+        "submit_damage_before_saving_throw",
+        "fill_area_save_failed",
+        "fill_area_damage_dice",
+        "discover_target_list_condition_choice",
+        "fill_target_list_before_condition_choice",
+        "fill_condition_choice_after_target_list",
+        "fill_condition_choice_before_target_list",
+        "fill_target_list_after_condition_choice",
+        "fill_condition_saving_throw"
       ],
-      "path": "src/rules/sanctuary_selected_identity.rs",
+      "path": "src/rules/save_gated_spell_ordering.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T040"
+  "taskId": "T041"
 }

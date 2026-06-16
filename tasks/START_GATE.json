@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T040",
-  "startHeadSha": "a67a9eae192efd3c16025a4db2920f065c8e4fd5",
+  "taskId": "T041",
+  "startHeadSha": "60bcdf037fce523a0fe89063ec3d55744c295f29",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt"
     ]
   }
 }
