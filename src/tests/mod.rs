@@ -138,6 +138,8 @@ mod creature_attack_mbt;
 mod rule_core_attack_damage_disposition;
 #[path = "../qnt_adapters/rule_core_hit_point_damage_mbt.rs"]
 mod rule_core_hit_point_damage_mbt;
+#[path = "../qnt_adapters/rule_core_movement_mbt.rs"]
+mod rule_core_movement_mbt;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -335,6 +337,15 @@ use crate::rules::rule_core_hit_point_damage::{
     hit_point_damage_initial_state, resolve_monster_dies_at_zero,
     resolve_player_character_dies_from_massive_damage, resolve_player_character_falls_unconscious,
     resolve_temporary_hit_points_absorb_first, HitPointDamageOutcome,
+};
+use crate::rules::rule_core_movement::{
+    dash, discover_movement, disengage, move_provokes_opportunity_attack,
+    move_threat_suppressed_by_disengage, reject_dash_after_action_spent, reject_movement_overspend,
+    resolve_escape_failure, resolve_escape_success, resolve_grapple_failure,
+    resolve_grapple_success, spend_full_movement, spend_movement, spend_short_movement,
+    stand_from_prone, MovementHole, MovementInvalidReason, MovementProtocol,
+    MOVEMENT_FILL_COST_FEET, MOVEMENT_FULL_COST_FEET, MOVEMENT_GRAPPLE_ESCAPE_DC,
+    MOVEMENT_SHORT_COST_FEET, MOVEMENT_SPEED_FEET,
 };
 use crate::rules::sanctuary_selected_identity::{
     cast_sanctuary_ward_creation, end_ward_on_warded_attack_roll, end_ward_on_warded_damage_dealt,
@@ -914,6 +925,11 @@ use rule_core_hit_point_damage_mbt::{
     projection_payload as hit_point_damage_projection_payload,
     replay_observed_action as replay_hit_point_damage_action,
     BRANCH_ACTIONS as HIT_POINT_DAMAGE_BRANCH_ACTIONS,
+};
+use rule_core_movement_mbt::{
+    expected_witness as expected_movement_witness,
+    projection_payload as movement_projection_payload,
+    replay_observed_action as replay_movement_action, BRANCH_ACTIONS as MOVEMENT_BRANCH_ACTIONS,
 };
 
 #[test]
@@ -2284,6 +2300,99 @@ fn hit_point_damage_projects_temporary_zero_and_massive_damage() {
     assert!(massive.dead);
     assert!(!massive.unconscious);
     assert_eq!(massive.replay_index, 4);
+}
+
+#[test]
+fn movement_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt and
+    // cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // movement-spatial-grapple.qnt and action-turn-procedures.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Movement and Position", "Actions", and "Opportunity Attacks";
+    // Rules-Glossary.md "Dash", "Disengage", "Grappling", and
+    // "Opportunity Attacks".
+    assert_eq!(MOVEMENT_BRANCH_ACTIONS.len(), 21);
+    for action in MOVEMENT_BRANCH_ACTIONS {
+        let observed = replay_movement_action(action);
+        assert_eq!(observed, expected_movement_witness(action));
+        assert!(movement_projection_payload(&observed).contains("qCurrentActor="));
+    }
+}
+
+#[test]
+fn movement_projects_spending_actions_grapples_and_reactions() {
+    // RAW/QNT citations match `movement_adapter_replays_all_branches`.
+    let discovered = discover_movement();
+    assert_eq!(
+        discovered.protocol,
+        MovementProtocol::NeedsHoles(vec![MovementHole::Movement])
+    );
+
+    let spent = spend_movement();
+    assert_eq!(spent.movement_spent_feet, MOVEMENT_FILL_COST_FEET);
+    assert!(spent.action_available);
+    assert_eq!(spent.protocol, MovementProtocol::Resolved);
+
+    assert_eq!(
+        spend_short_movement().movement_spent_feet,
+        MOVEMENT_SHORT_COST_FEET
+    );
+    assert_eq!(
+        spend_full_movement().movement_spent_feet,
+        MOVEMENT_FULL_COST_FEET
+    );
+
+    let provoked = move_provokes_opportunity_attack();
+    assert!(provoked.pending_opportunity_attack);
+    assert_eq!(
+        provoked.protocol,
+        MovementProtocol::NeedsHoles(vec![MovementHole::ReactionDecision])
+    );
+    let disengaged_move = move_threat_suppressed_by_disengage();
+    assert!(disengaged_move.disengaged);
+    assert!(!disengaged_move.action_available);
+    assert!(!disengaged_move.pending_opportunity_attack);
+
+    let dash_state = dash();
+    assert_eq!(dash_state.dash_bonus_feet, MOVEMENT_SPEED_FEET);
+    assert!(!dash_state.action_available);
+    let disengage_state = disengage();
+    assert!(disengage_state.disengaged);
+    assert!(!disengage_state.action_available);
+    assert_eq!(
+        reject_dash_after_action_spent().protocol,
+        MovementProtocol::Invalid {
+            holes: Vec::new(),
+            reason: MovementInvalidReason::StaleSubject,
+        }
+    );
+    assert_eq!(
+        reject_movement_overspend().protocol,
+        MovementProtocol::Invalid {
+            holes: vec![MovementHole::Movement],
+            reason: MovementInvalidReason::InvalidFill,
+        }
+    );
+
+    let standing = stand_from_prone();
+    assert_eq!(standing.movement_spent_feet, MOVEMENT_SPEED_FEET / 2);
+    assert!(!standing.prone);
+
+    let grappled = resolve_grapple_success();
+    assert!(grappled.grapple_active);
+    assert_eq!(grappled.grapple_escape_dc, MOVEMENT_GRAPPLE_ESCAPE_DC);
+    assert!(!grappled.action_available);
+    let failed_grapple = resolve_grapple_failure();
+    assert!(!failed_grapple.grapple_active);
+    assert!(!failed_grapple.action_available);
+
+    let escaped = resolve_escape_success();
+    assert!(!escaped.grapple_active);
+    assert!(!escaped.action_available);
+    let escape_failed = resolve_escape_failure();
+    assert!(escape_failed.grapple_active);
+    assert_eq!(escape_failed.grapple_escape_dc, MOVEMENT_GRAPPLE_ESCAPE_DC);
+    assert!(!escape_failed.action_available);
 }
 
 #[test]

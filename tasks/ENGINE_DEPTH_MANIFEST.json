@@ -3,31 +3,59 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added rule-core hit point damage projection"
+      "reason": "added rule-core movement and grapple projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
+      "path": "src/qnt_adapters/rule_core_movement_mbt.rs",
       "quarantinedWitnessNames": [
-        "doMonsterDiesAtZero",
-        "doPlayerCharacterDiesFromMassiveDamage",
-        "doPlayerCharacterFallsUnconscious",
-        "doTemporaryHitPointsAbsorbFirst",
+        "doDash",
+        "doDeclineOpportunityAttack",
+        "doDiscoverEscapeGrapple",
+        "doDiscoverGrapple",
+        "doDiscoverMovement",
+        "doDisengage",
+        "doMoveProvokesOpportunityAttack",
+        "doMoveThreatSuppressedByDisengage",
+        "doRejectDashAfterActionSpent",
+        "doRejectMovementOverspend",
+        "doReleaseGrapple",
+        "doResolveEscapeFailure",
+        "doResolveEscapeSuccess",
+        "doResolveGrappleFailure",
+        "doResolveGrappleSuccess",
+        "doSelectGrappleTarget",
+        "doSpendFullMovement",
+        "doSpendMovement",
+        "doSpendShortMovement",
+        "doStandFromProne",
+        "doStartGrappledTargetTurn",
+        "Fighter",
+        "GrappledTarget",
+        "Movement",
+        "ReactionDecision",
+        "TargetChoice",
+        "GrappleOutcome",
         "init",
-        "temporary-hit-points-absorb-first",
-        "monster-dies-at-zero",
-        "player-character-falls-unconscious",
-        "player-character-dies-from-massive-damage",
-        "qLastScenario",
-        "qHitPoints",
-        "qHitPointMaximum",
-        "qTemporaryHitPoints",
-        "qDead",
-        "qUnconscious",
-        "qDamageToHitPoints",
-        "qRemainingDamageAtZero",
-        "qReplayIndex",
+        "needsHoles",
+        "resolved",
+        "invalid",
+        "WInvalidFill",
+        "WStaleSubject",
+        "qCurrentActor",
+        "qMovementSpentFeet",
+        "qDashBonusFeet",
+        "qProne",
+        "qDisengaged",
+        "qActionAvailable",
+        "qGrappleActive",
+        "qGrappleEscapeDc",
+        "qHoles",
+        "qPendingOpportunityAttack",
+        "protocolResult",
+        "protocolInvalidReason",
+        "protocolHoles",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -45,43 +73,62 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T070-rule-core-hit-point-damage.json"
+        "tasks/target-replay-evidence/T071-rule-core-movement.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "apply_resolved_damage_to_positive_hit_points",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
-      "module": "src/rules/attack_damage_disposition.rs"
+      "api": "MovementState",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "module": "src/rules/rule_core_movement.rs"
     },
     {
-      "api": "HitPointDamageState",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
-      "module": "src/rules/rule_core_hit_point_damage.rs"
+      "api": "move_provokes_opportunity_attack",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "module": "src/rules/rule_core_movement.rs"
+    },
+    {
+      "api": "MovementProtocol",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "module": "src/rules/rule_core_movement.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "apply_resolved_damage_to_positive_hit_points",
-        "PositiveHitPointDamageResult"
+        "MovementActor",
+        "MovementHole",
+        "MovementInvalidReason",
+        "MovementProtocol",
+        "MovementState",
+        "movement_initial_state",
+        "discover_movement",
+        "spend_movement",
+        "spend_short_movement",
+        "spend_full_movement",
+        "move_provokes_opportunity_attack",
+        "move_threat_suppressed_by_disengage",
+        "decline_opportunity_attack",
+        "reject_movement_overspend",
+        "dash",
+        "disengage",
+        "reject_dash_after_action_spent",
+        "stand_from_prone",
+        "discover_grapple",
+        "select_grapple_target",
+        "resolve_grapple_success",
+        "resolve_grapple_failure",
+        "start_grappled_target_turn",
+        "discover_escape_grapple",
+        "resolve_escape_success",
+        "resolve_escape_failure",
+        "release_grapple"
       ],
-      "path": "src/rules/attack_damage_disposition.rs",
-      "role": "domain-engine"
-    },
-    {
-      "domainApis": [
-        "hit_point_damage_initial_state",
-        "resolve_temporary_hit_points_absorb_first",
-        "resolve_monster_dies_at_zero",
-        "resolve_player_character_falls_unconscious",
-        "resolve_player_character_dies_from_massive_damage"
-      ],
-      "path": "src/rules/rule_core_hit_point_damage.rs",
+      "path": "src/rules/rule_core_movement.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T070"
+  "taskId": "T071"
 }

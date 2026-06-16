@@ -4,80 +4,80 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "PositiveHitPointDamageResult.remaining_damage_at_zero",
-      "introducedIn": "src/rules/attack_damage_disposition.rs",
+      "fieldPath": "MovementState.current_actor",
+      "introducedIn": "src/rules/rule_core_movement.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointDamageState.outcome",
-      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "fieldPath": "MovementState.movement_spent_feet",
+      "introducedIn": "src/rules/rule_core_movement.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointDamageState.hit_points",
-      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "fieldPath": "MovementState.dash_bonus_feet",
+      "introducedIn": "src/rules/rule_core_movement.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointDamageState.hit_point_maximum",
-      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "fieldPath": "MovementState.prone",
+      "introducedIn": "src/rules/rule_core_movement.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointDamageState.temporary_hit_points",
-      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "fieldPath": "MovementState.disengaged",
+      "introducedIn": "src/rules/rule_core_movement.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointDamageState.dead",
-      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "fieldPath": "MovementState.action_available",
+      "introducedIn": "src/rules/rule_core_movement.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointDamageState.unconscious",
-      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "fieldPath": "MovementState.grapple_active",
+      "introducedIn": "src/rules/rule_core_movement.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointDamageState.damage_to_hit_points",
-      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "fieldPath": "MovementState.grapple_escape_dc",
+      "introducedIn": "src/rules/rule_core_movement.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointDamageState.remaining_damage_at_zero",
-      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "fieldPath": "MovementState.protocol",
+      "introducedIn": "src/rules/rule_core_movement.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointDamageState.replay_index",
-      "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
+      "fieldPath": "MovementState.pending_opportunity_attack",
+      "introducedIn": "src/rules/rule_core_movement.rs",
       "owner": "battle-state"
     },
     {
@@ -86,10 +86,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
+      "introducedIn": "src/qnt_adapters/rule_core_movement_mbt.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T070"
+  "taskId": "T071"
 }

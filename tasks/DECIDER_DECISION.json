@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T070-rule-core-hit-point-damage.json",
+      "evidence": "tasks/target-replay-evidence/T071-rule-core-movement.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T070"
+  "taskId": "T071"
 }

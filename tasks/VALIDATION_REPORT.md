@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt`
-- Next task id: `T071`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt`
+- Next task id: `T072`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,131 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T071: rule-core-movement
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt`
+- Branch obligations:
+  - `step:doDash`
+  - `step:doDeclineOpportunityAttack`
+  - `step:doDiscoverEscapeGrapple`
+  - `step:doDiscoverGrapple`
+  - `step:doDiscoverMovement`
+  - `step:doDisengage`
+  - `step:doMoveProvokesOpportunityAttack`
+  - `step:doMoveThreatSuppressedByDisengage`
+  - `step:doRejectDashAfterActionSpent`
+  - `step:doRejectMovementOverspend`
+  - `step:doReleaseGrapple`
+  - `step:doResolveEscapeFailure`
+  - `step:doResolveEscapeSuccess`
+  - `step:doResolveGrappleFailure`
+  - `step:doResolveGrappleSuccess`
+  - `step:doSelectGrappleTarget`
+  - `step:doSpendFullMovement`
+  - `step:doSpendMovement`
+  - `step:doSpendShortMovement`
+  - `step:doStandFromProne`
+  - `step:doStartGrappledTargetTurn`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/movement-spatial-grapple.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/action-turn-procedures.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-witness-protocol.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/rule_core_movement.rs` with a bounded rule-core projection for movement discovery, movement spending, Dash, Disengage, prone standing, opportunity attack threat and decline, grapple target selection, grapple success and failure, grappled target turn start, escape success and failure, and release.
+- Kept QNT branch actions, witness labels, protocol labels, actor labels, hole labels, and projection fields quarantined in `src/qnt_adapters/rule_core_movement_mbt.rs`.
+- Cited RAW movement, action, Dash, Disengage, Grappled, Grappling, and Opportunity Attacks text in the movement rule tests and rule code, and used the QNT movement-spatial-grapple and action-turn-procedures slices as the formal rule statement.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDash` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-dash#step:doDash` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDeclineOpportunityAttack` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-decline-opportunity-attack#step:doDeclineOpportunityAttack` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDiscoverEscapeGrapple` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-discover-escape-grapple#step:doDiscoverEscapeGrapple` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDiscoverGrapple` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-discover-grapple#step:doDiscoverGrapple` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDiscoverMovement` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-discover-movement#step:doDiscoverMovement` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDisengage` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-disengage#step:doDisengage` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doMoveProvokesOpportunityAttack` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-move-provokes-opportunity-attack#step:doMoveProvokesOpportunityAttack` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doMoveThreatSuppressedByDisengage` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-move-threat-suppressed-by-disengage#step:doMoveThreatSuppressedByDisengage` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doRejectDashAfterActionSpent` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-reject-dash-after-action-spent#step:doRejectDashAfterActionSpent` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doRejectMovementOverspend` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-reject-movement-overspend#step:doRejectMovementOverspend` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doReleaseGrapple` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-release-grapple#step:doReleaseGrapple` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveEscapeFailure` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-resolve-escape-failure#step:doResolveEscapeFailure` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveEscapeSuccess` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-resolve-escape-success#step:doResolveEscapeSuccess` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveGrappleFailure` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-resolve-grapple-failure#step:doResolveGrappleFailure` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveGrappleSuccess` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-resolve-grapple-success#step:doResolveGrappleSuccess` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSelectGrappleTarget` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-select-grapple-target#step:doSelectGrappleTarget` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSpendFullMovement` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-spend-full-movement#step:doSpendFullMovement` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSpendMovement` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-spend-movement#step:doSpendMovement` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSpendShortMovement` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-spend-short-movement#step:doSpendShortMovement` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doStandFromProne` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-stand-from-prone#step:doStandFromProne` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doStartGrappledTargetTurn` | `tasks/target-replay-evidence/T071-rule-core-movement.json#T071-start-grappled-target-turn#step:doStartGrappledTargetTurn` | `src/tests/mod.rs::movement_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T071-rule-core-movement.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T071-dash`
+- Reproduction seed or trace id: `T071-decline-opportunity-attack`
+- Reproduction seed or trace id: `T071-discover-escape-grapple`
+- Reproduction seed or trace id: `T071-discover-grapple`
+- Reproduction seed or trace id: `T071-discover-movement`
+- Reproduction seed or trace id: `T071-disengage`
+- Reproduction seed or trace id: `T071-move-provokes-opportunity-attack`
+- Reproduction seed or trace id: `T071-move-threat-suppressed-by-disengage`
+- Reproduction seed or trace id: `T071-reject-dash-after-action-spent`
+- Reproduction seed or trace id: `T071-reject-movement-overspend`
+- Reproduction seed or trace id: `T071-release-grapple`
+- Reproduction seed or trace id: `T071-resolve-escape-failure`
+- Reproduction seed or trace id: `T071-resolve-escape-success`
+- Reproduction seed or trace id: `T071-resolve-grapple-failure`
+- Reproduction seed or trace id: `T071-resolve-grapple-success`
+- Reproduction seed or trace id: `T071-select-grapple-target`
+- Reproduction seed or trace id: `T071-spend-full-movement`
+- Reproduction seed or trace id: `T071-spend-movement`
+- Reproduction seed or trace id: `T071-spend-short-movement`
+- Reproduction seed or trace id: `T071-stand-from-prone`
+- Reproduction seed or trace id: `T071-start-grappled-target-turn`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::movement_adapter_replays_all_branches`
+- `src/tests/mod.rs::movement_projects_spending_actions_grapples_and_reactions`
 
 Remaining gaps:
 
