@@ -32,6 +32,8 @@ mod battle_runtime_find_familiar_selected_identity;
 mod battle_runtime_healing_stabilization_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs"]
 mod battle_runtime_hit_point_restoration_ordering;
+#[path = "../qnt_adapters/battle_runtime_interrupt_stack_resume.rs"]
+mod battle_runtime_interrupt_stack_resume;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -158,6 +160,14 @@ use crate::rules::hit_points::{
     DeathSavingThrowFacts, DeathSavingThrowInvalidReason, DeathSavingThrowProtocol,
     DeathSavingThrowTurnRole, HealingStabilizationProtocol, HealingStabilizationScenarioOutcome,
     HitPointMaximumFacts, SheetHitPointState,
+};
+use crate::rules::interrupt_stack_resume::{
+    decline_reaction_window, interrupt_stack_resume_initial_state, offer_reaction_window,
+    reaction_window_depth, recorded_attack_replay_from_root_equivalent,
+    resolve_interrupted_attack_after_reaction_mutation, resolve_nested_interrupt_decline,
+    resolve_recorded_attack_replay_from_root, InterruptPendingTrigger, InterruptResumeHole,
+    InterruptStackResumeProtocol, InterruptStackResumeScenarioOutcome, ReactionWindowOffer,
+    ReactionWindowRole,
 };
 use crate::rules::origin_feats::{
     criminal_origin_feat_projection, initiative_handoff_projection, AlertInitiativeState,
@@ -286,6 +296,12 @@ use battle_runtime_hit_point_restoration_ordering::{
     projection_payload as hit_point_restoration_ordering_projection_payload,
     replay_observed_action as replay_hit_point_restoration_ordering_action,
     BRANCH_ACTIONS as HIT_POINT_RESTORATION_ORDERING_BRANCH_ACTIONS,
+};
+use battle_runtime_interrupt_stack_resume::{
+    expected_witness as expected_interrupt_stack_resume_witness,
+    projection_payload as interrupt_stack_resume_projection_payload,
+    replay_observed_action as replay_interrupt_stack_resume_action,
+    BRANCH_ACTIONS as INTERRUPT_STACK_RESUME_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1909,6 +1925,76 @@ fn hit_point_restoration_ordering_requires_target_before_roll_and_applies_healin
     );
     assert_eq!(feature_resolved.feature_target_hit_points, 8);
     assert!(feature_resolved.feature_target_zero_hit_point_lifecycle_cleared);
+}
+
+#[test]
+fn interrupt_stack_resume_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-interrupt-stack-resume.mbt.qnt and
+    // battle-runtime-replay-equivalence.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Reactions".
+    for action in INTERRUPT_STACK_RESUME_BRANCH_ACTIONS {
+        let observed = replay_interrupt_stack_resume_action(action);
+        assert_eq!(observed, expected_interrupt_stack_resume_witness(action));
+        assert!(interrupt_stack_resume_projection_payload(&observed)
+            .contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn interrupt_stack_resume_declines_spends_and_replays_from_root() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Reactions"; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md "Reaction" and
+    // "Ready [Action]"; assumption:
+    // cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md A45; QNT:
+    // battle-runtime-interrupt-stack-resume.mbt.qnt.
+    let initial = interrupt_stack_resume_initial_state();
+    assert_eq!(initial.max_stack_depth_observed, 0);
+    assert_eq!(initial.final_stack_depth, 0);
+    assert!(initial.responder_reaction_available);
+    assert_eq!(initial.protocol, InterruptStackResumeProtocol::Init);
+
+    let outer = offer_reaction_window(
+        ReactionWindowOffer::Closed,
+        ReactionWindowRole::AttackHitInterruption,
+    );
+    let inner = offer_reaction_window(outer, ReactionWindowRole::AttackHitInterruption);
+    assert_eq!(reaction_window_depth(inner), 2);
+    assert_eq!(decline_reaction_window(inner), outer);
+
+    let nested = resolve_nested_interrupt_decline(initial);
+    assert_eq!(nested.max_stack_depth_observed, 2);
+    assert_eq!(nested.final_stack_depth, 1);
+    assert_eq!(nested.pending_trigger, InterruptPendingTrigger::AttackHit);
+    assert_eq!(nested.resumed_hole, InterruptResumeHole::RolledDice);
+    assert!(nested.responder_reaction_available);
+    assert_eq!(nested.target_hit_points, 10);
+    assert_eq!(
+        nested.scenario_outcome,
+        InterruptStackResumeScenarioOutcome::NestedDeclineResumedOuter
+    );
+    assert_eq!(nested.protocol, InterruptStackResumeProtocol::Resolved);
+
+    let mutation = resolve_interrupted_attack_after_reaction_mutation(initial);
+    assert_eq!(mutation.max_stack_depth_observed, 1);
+    assert_eq!(mutation.final_stack_depth, 0);
+    assert!(mutation.active_effect_mutation_seen_on_resume);
+    assert!(!mutation.responder_reaction_available);
+    assert_eq!(mutation.target_hit_points, 12);
+    assert_eq!(
+        mutation.scenario_outcome,
+        InterruptStackResumeScenarioOutcome::ActiveEffectMutationResumed
+    );
+
+    assert!(recorded_attack_replay_from_root_equivalent(12, 3));
+    let replay = resolve_recorded_attack_replay_from_root(initial);
+    assert!(replay.replay_from_root_equivalent);
+    assert_eq!(replay.target_hit_points, 3);
+    assert_eq!(
+        replay.scenario_outcome,
+        InterruptStackResumeScenarioOutcome::ReplayFromRootResolved
+    );
 }
 
 #[test]

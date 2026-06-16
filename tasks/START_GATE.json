@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T030",
-  "startHeadSha": "46f5bd3a9ff4af0d6898493f18ecd6e3c8aa06e2",
+  "taskId": "T031",
+  "startHeadSha": "bcf0ad8cb192264f068281138a293fd38b89ea5f",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt"
     ]
   }
 }

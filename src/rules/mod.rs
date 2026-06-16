@@ -11,6 +11,7 @@ pub mod feature_resources;
 pub mod find_familiar;
 pub mod hit_point_restoration_ordering;
 pub mod hit_points;
+pub mod interrupt_stack_resume;
 pub mod origin_feats;
 pub mod spell_shapes;
 pub mod spellbook_rituals;

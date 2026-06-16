@@ -1,40 +1,27 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 8,
+      "addedEntries": 10,
       "owner": "production",
-      "reason": "added reusable hit point restoration frontier reducer and projection state"
+      "reason": "added reusable interrupt stack resume state and replay projection reducer"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "path": "src/qnt_adapters/battle_runtime_interrupt_stack_resume.rs",
       "quarantinedWitnessNames": [
-        "doDiscoverFeatureHealingPool",
-        "doDiscoverSingleTargetSpellHealing",
-        "doDiscoverTargetListSpellHealing",
-        "doFillFeatureHealingDistribution",
-        "doFillSpellHealingRoll",
-        "doFillSpellHealingTargetChoice",
-        "doFillSpellHealingTargetList",
-        "doSubmitHealingRollBeforeTargetChoice",
-        "doSubmitHealingRollBeforeTargetList",
-        "TargetChoiceHoleKind",
-        "SpellTargetListHoleKind",
-        "RolledDiceHoleKind",
-        "HitPointHealingDistributionHoleKind",
-        "HitPointRestorationActSelectionStage",
-        "SpellHealingTargetChoiceStage",
-        "SpellHealingTargetListStage",
-        "SpellHealingRollStage",
-        "FeatureHealingPoolDistributionStage",
-        "HitPointRestorationResolvedStage",
-        "healingTargetRequired",
-        "healingAmountRequired",
-        "healingDistributionRequired",
-        "needsHoles",
-        "resolved",
+        "doNestedDeclineResumesOuterInterrupt",
+        "doReplayRecordedProcedureFromRoot",
+        "doShieldMutationResumesInterruptedAttack",
+        "none",
+        "attackHit",
+        "rolledDice",
+        "Init",
+        "NestedDeclineResumedOuter",
+        "ActiveEffectMutationResumed",
+        "ReplayFromRootResolved",
         "init",
+        "resolved",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -52,39 +39,48 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T030-battle-runtime-hit-point-restoration-ordering.json"
+        "tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "restored_hit_points_from_zero",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
-      "module": "src/rules/hit_point_restoration_ordering.rs"
+      "api": "offer_reaction_window",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "module": "src/rules/interrupt_stack_resume.rs"
     },
     {
-      "api": "hit_point_restoration_hole_frontier",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
-      "module": "src/rules/hit_point_restoration_ordering.rs"
+      "api": "recorded_attack_replay_from_root_equivalent",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
+      "module": "src/rules/interrupt_stack_resume.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "hit_point_restoration_initial_state",
-        "hit_point_restoration_hole_frontier",
-        "hit_point_restoration_fill_order_result",
-        "hit_point_restoration_fill_order_accepted_stage",
-        "hit_point_restoration_fill_order_error",
-        "hit_point_restoration_fill_order_runtime_result",
-        "hit_point_restoration_projection",
-        "hit_point_restoration_projection_from_result",
-        "restored_hit_points_from_zero"
+        "interrupt_stack_resume_initial_state",
+        "interrupt_stack_resume_projection",
+        "reaction_window_depth",
+        "offer_reaction_window",
+        "restore_suspended_reaction_window",
+        "decline_reaction_window",
+        "advance_reaction_continuation",
+        "take_matching_reaction",
+        "resolve_nested_interrupt_decline",
+        "resolve_interrupted_attack_after_reaction_mutation",
+        "resolve_recorded_attack_replay_from_root",
+        "recorded_attack_replay_from_root_equivalent",
+        "independent_recorded_attack_replay_projection",
+        "recorded_attack_replay_root",
+        "recorded_attack_replay_continuation",
+        "recorded_attack_replay_fills",
+        "recorded_attack_replay_suffix_fills",
+        "battle_replay_from_root"
       ],
-      "path": "src/rules/hit_point_restoration_ordering.rs",
+      "path": "src/rules/interrupt_stack_resume.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T030"
+  "taskId": "T031"
 }

@@ -4,56 +4,80 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointRestorationState.stage",
-      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
+      "fieldPath": "InterruptStackResumeState.max_stack_depth_observed",
+      "introducedIn": "src/rules/interrupt_stack_resume.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointRestorationState.protocol",
-      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
+      "fieldPath": "InterruptStackResumeState.final_stack_depth",
+      "introducedIn": "src/rules/interrupt_stack_resume.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointRestorationState.last_ordering_error",
-      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
+      "fieldPath": "InterruptStackResumeState.pending_trigger",
+      "introducedIn": "src/rules/interrupt_stack_resume.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointRestorationState.spell_target_hit_points",
-      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
+      "fieldPath": "InterruptStackResumeState.resumed_hole",
+      "introducedIn": "src/rules/interrupt_stack_resume.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointRestorationState.spell_target_zero_hit_point_lifecycle_cleared",
-      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
+      "fieldPath": "InterruptStackResumeState.active_effect_mutation_seen_on_resume",
+      "introducedIn": "src/rules/interrupt_stack_resume.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointRestorationState.feature_target_hit_points",
-      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
+      "fieldPath": "InterruptStackResumeState.replay_from_root_equivalent",
+      "introducedIn": "src/rules/interrupt_stack_resume.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "HitPointRestorationState.feature_target_zero_hit_point_lifecycle_cleared",
-      "introducedIn": "src/rules/hit_point_restoration_ordering.rs",
+      "fieldPath": "InterruptStackResumeState.responder_reaction_available",
+      "introducedIn": "src/rules/interrupt_stack_resume.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "InterruptStackResumeState.target_hit_points",
+      "introducedIn": "src/rules/interrupt_stack_resume.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "InterruptStackResumeState.scenario_outcome",
+      "introducedIn": "src/rules/interrupt_stack_resume.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "InterruptStackResumeState.protocol",
+      "introducedIn": "src/rules/interrupt_stack_resume.rs",
       "owner": "battle-state"
     },
     {
@@ -62,10 +86,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_interrupt_stack_resume.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T030"
+  "taskId": "T031"
 }
