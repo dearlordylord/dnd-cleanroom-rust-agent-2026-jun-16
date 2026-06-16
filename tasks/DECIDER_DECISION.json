@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json",
+      "evidence": "tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T063"
+  "taskId": "T064"
 }

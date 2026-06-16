@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
-- Next task id: `T064`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt`
+- Next task id: `T065`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,108 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T064: battle-runtime-weapon-attack-skeleton
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverAttack`
+  - `step:doFillTarget`
+  - `step:doRejectWrongTarget`
+  - `step:doFillAttackRollMiss`
+  - `step:doFillAttackRollHit`
+  - `step:doFillDamageLow`
+  - `step:doFillDamageHigh`
+  - `step:doFillDamageLowSneakAttack`
+  - `step:doFillDamageHighSneakAttack`
+  - `step:doRejectStaleAfterResolved`
+  - `step:doStartSkeletonTurn`
+  - `step:doResolveSkeletonMultiattack`
+  - `step:doRejectRecursiveSkeletonMultiattack`
+  - `step:doSpendSkeletonMultiattackDispatch`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Equipment.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/weapon_attack_skeleton.rs` with a bounded skeleton weapon attack projection for target choice, attack roll, damage roll, Sneak Attack use, action spending, and skeleton multiattack dispatch count.
+- Modeled the QNT damage fixture as shortsword piercing damage plus the rogue attack modifier, clamped at 0 hit points, with low/high and Sneak Attack damage branches.
+- Modeled wrong-target and stale-subject invalid witness outcomes, plus skeleton turn start, multiattack resolution, recursive multiattack rejection, and dispatch spending.
+- Kept QNT branch actions, hole names, protocol labels, invalid reasons, and projection field names quarantined in `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doDiscoverAttack` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-discover-attack#step:doDiscoverAttack` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillTarget` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-fill-target#step:doFillTarget` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectWrongTarget` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-reject-wrong-target#step:doRejectWrongTarget` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-fill-attack-roll-miss#step:doFillAttackRollMiss` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-fill-attack-roll-hit#step:doFillAttackRollHit` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLow` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-fill-damage-low#step:doFillDamageLow` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHigh` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-fill-damage-high#step:doFillDamageHigh` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLowSneakAttack` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-fill-damage-low-sneak-attack#step:doFillDamageLowSneakAttack` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHighSneakAttack` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-fill-damage-high-sneak-attack#step:doFillDamageHighSneakAttack` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectStaleAfterResolved` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-reject-stale-after-resolved#step:doRejectStaleAfterResolved` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doStartSkeletonTurn` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-start-skeleton-turn#step:doStartSkeletonTurn` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doResolveSkeletonMultiattack` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-resolve-skeleton-multiattack#step:doResolveSkeletonMultiattack` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectRecursiveSkeletonMultiattack` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-reject-recursive-skeleton-multiattack#step:doRejectRecursiveSkeletonMultiattack` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doSpendSkeletonMultiattackDispatch` | `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json#T064-spend-skeleton-multiattack-dispatch#step:doSpendSkeletonMultiattackDispatch` | `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T064-discover-attack`
+- Reproduction seed or trace id: `T064-fill-target`
+- Reproduction seed or trace id: `T064-reject-wrong-target`
+- Reproduction seed or trace id: `T064-fill-attack-roll-miss`
+- Reproduction seed or trace id: `T064-fill-attack-roll-hit`
+- Reproduction seed or trace id: `T064-fill-damage-low`
+- Reproduction seed or trace id: `T064-fill-damage-high`
+- Reproduction seed or trace id: `T064-fill-damage-low-sneak-attack`
+- Reproduction seed or trace id: `T064-fill-damage-high-sneak-attack`
+- Reproduction seed or trace id: `T064-reject-stale-after-resolved`
+- Reproduction seed or trace id: `T064-start-skeleton-turn`
+- Reproduction seed or trace id: `T064-resolve-skeleton-multiattack`
+- Reproduction seed or trace id: `T064-reject-recursive-skeleton-multiattack`
+- Reproduction seed or trace id: `T064-spend-skeleton-multiattack-dispatch`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::weapon_attack_skeleton_adapter_replays_all_branches`
+- `src/tests/mod.rs::weapon_attack_skeleton_resolves_damage_sneak_and_multiattack_dispatch`
 
 Remaining gaps:
 

@@ -3,35 +3,45 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added weapon attack frontier state and fill-ordering projection"
+      "reason": "added skeleton weapon attack damage, sneak attack, and multiattack dispatch projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "path": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
       "quarantinedWitnessNames": [
         "doDiscoverAttack",
-        "doRejectAttackRollBeforeTargetChoice",
-        "doFillTargetChoice",
-        "doRejectDamageBeforeAttackRoll",
+        "doFillTarget",
+        "doRejectWrongTarget",
         "doFillAttackRollMiss",
         "doFillAttackRollHit",
-        "doFillDamageDice",
-        "WeaponAttackActSelectionStage",
-        "WeaponAttackTargetChoiceStage",
-        "WeaponAttackAttackRollStage",
-        "WeaponAttackDamageDiceStage",
-        "WeaponAttackResolvedStage",
-        "TargetChoiceHoleKind",
-        "AttackRollHoleKind",
-        "RolledDiceHoleKind",
-        "targetChoiceRequired",
-        "attackRollRequired",
+        "doFillDamageLow",
+        "doFillDamageHigh",
+        "doFillDamageLowSneakAttack",
+        "doFillDamageHighSneakAttack",
+        "doRejectStaleAfterResolved",
+        "doStartSkeletonTurn",
+        "doResolveSkeletonMultiattack",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "TargetChoice",
+        "AttackRoll",
+        "DamageRoll",
         "WInvalidFill",
+        "WStaleSubject",
         "init",
         "needsHoles",
         "resolved",
         "invalid",
+        "qSkeletonHp",
+        "qSkeletonDead",
+        "qActionAvailable",
+        "qMultiattackDispatchesAvailable",
+        "qSneakAttackUsedThisTurn",
+        "qHoles",
+        "protocolResult",
+        "protocolInvalidReason",
+        "protocolHoles",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -49,40 +59,46 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json"
+        "tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "weapon_attack_fill_order_result",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
-      "module": "src/rules/weapon_attack_ordering.rs"
+      "api": "WeaponAttackSkeletonState",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "module": "src/rules/weapon_attack_skeleton.rs"
     },
     {
-      "api": "WeaponAttackOrderingState",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
-      "module": "src/rules/weapon_attack_ordering.rs"
+      "api": "skeleton_hp_after_piercing_weapon_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
+      "module": "src/rules/weapon_attack_skeleton.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "weapon_attack_ordering_initial_state",
-        "weapon_attack_hole_frontier",
-        "weapon_attack_fill_order_result",
-        "discover_weapon_attack",
-        "reject_weapon_attack_roll_before_target_choice",
-        "fill_weapon_attack_target_choice",
-        "reject_weapon_damage_before_attack_roll",
-        "fill_weapon_attack_roll_miss",
-        "fill_weapon_attack_roll_hit",
-        "fill_weapon_attack_damage_dice"
+        "weapon_attack_skeleton_initial_state",
+        "discover_skeleton_weapon_attack",
+        "fill_skeleton_weapon_attack_target",
+        "reject_skeleton_weapon_attack_wrong_target",
+        "fill_skeleton_weapon_attack_roll_miss",
+        "fill_skeleton_weapon_attack_roll_hit",
+        "fill_skeleton_weapon_damage_low",
+        "fill_skeleton_weapon_damage_high",
+        "fill_skeleton_weapon_damage_low_sneak_attack",
+        "fill_skeleton_weapon_damage_high_sneak_attack",
+        "reject_skeleton_weapon_attack_stale_after_resolved",
+        "start_skeleton_turn",
+        "resolve_skeleton_multiattack",
+        "reject_recursive_skeleton_multiattack",
+        "spend_skeleton_multiattack_dispatch",
+        "skeleton_hp_after_piercing_weapon_damage"
       ],
-      "path": "src/rules/weapon_attack_ordering.rs",
+      "path": "src/rules/weapon_attack_skeleton.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T063"
+  "taskId": "T064"
 }

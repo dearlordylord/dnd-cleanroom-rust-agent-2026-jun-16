@@ -98,6 +98,8 @@ mod battle_runtime_thaumaturgy_selected_identity;
 mod battle_runtime_turn_boundary_effect_lifecycle;
 #[path = "../qnt_adapters/battle_runtime_weapon_attack_ordering.rs"]
 mod battle_runtime_weapon_attack_ordering;
+#[path = "../qnt_adapters/battle_runtime_weapon_attack_skeleton.rs"]
+mod battle_runtime_weapon_attack_skeleton;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -422,6 +424,18 @@ use crate::rules::weapon_attack_ordering::{
     weapon_attack_ordering_initial_state, WeaponAttackFillOrderingError, WeaponAttackFrontierStage,
     WeaponAttackHoleKind, WeaponAttackInvalidReason, WeaponAttackOrderingProtocol,
 };
+use crate::rules::weapon_attack_skeleton::{
+    discover_skeleton_weapon_attack, fill_skeleton_weapon_attack_roll_hit,
+    fill_skeleton_weapon_attack_roll_miss, fill_skeleton_weapon_attack_target,
+    fill_skeleton_weapon_damage_high, fill_skeleton_weapon_damage_high_sneak_attack,
+    fill_skeleton_weapon_damage_low, fill_skeleton_weapon_damage_low_sneak_attack,
+    reject_recursive_skeleton_multiattack, reject_skeleton_weapon_attack_stale_after_resolved,
+    reject_skeleton_weapon_attack_wrong_target, resolve_skeleton_multiattack,
+    skeleton_hp_after_piercing_weapon_damage, spend_skeleton_multiattack_dispatch,
+    start_skeleton_turn, weapon_attack_skeleton_initial_state, WeaponAttackSkeletonHole,
+    WeaponAttackSkeletonInvalidReason, WeaponAttackSkeletonProtocol, ROGUE_ATTACK_MODIFIER,
+    SKELETON_INITIAL_HP,
+};
 use crate::rules::wild_shape::{
     assume_riding_horse_wild_shape, begin_wild_shape_next_turn, dismiss_wild_shape_form,
     reuse_wild_shape_as_cat, revert_wild_shape_due_to_death,
@@ -730,6 +744,12 @@ use battle_runtime_weapon_attack_ordering::{
     projection_payload as weapon_attack_ordering_projection_payload,
     replay_observed_action as replay_weapon_attack_ordering_action,
     BRANCH_ACTIONS as WEAPON_ATTACK_ORDERING_BRANCH_ACTIONS,
+};
+use battle_runtime_weapon_attack_skeleton::{
+    expected_witness as expected_weapon_attack_skeleton_witness,
+    projection_payload as weapon_attack_skeleton_projection_payload,
+    replay_observed_action as replay_weapon_attack_skeleton_action,
+    BRANCH_ACTIONS as WEAPON_ATTACK_SKELETON_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3702,6 +3722,118 @@ fn weapon_attack_ordering_requires_target_attack_roll_and_damage_order() {
     let damage = fill_weapon_attack_damage_dice();
     assert_eq!(damage.stage, WeaponAttackFrontierStage::Resolved);
     assert_eq!(damage.protocol, WeaponAttackOrderingProtocol::Resolved);
+}
+
+#[test]
+fn weapon_attack_skeleton_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-weapon-attack-skeleton.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Making an Attack", "Attack Rolls", and "Damage Rolls";
+    // cleanroom-input/raw/srd-5.2.1/Equipment.md "Shortsword".
+    for action in WEAPON_ATTACK_SKELETON_BRANCH_ACTIONS {
+        let observed = replay_weapon_attack_skeleton_action(action);
+        assert_eq!(observed, expected_weapon_attack_skeleton_witness(action));
+        assert!(weapon_attack_skeleton_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn weapon_attack_skeleton_resolves_damage_sneak_and_multiattack_dispatch() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Making an Attack" and "Damage Rolls"; Equipment.md "Shortsword";
+    // QNT: battle-runtime-weapon-attack-skeleton.mbt.qnt.
+    let initial = weapon_attack_skeleton_initial_state();
+    assert_eq!(initial.skeleton_hp, SKELETON_INITIAL_HP);
+    assert!(initial.action_available);
+    assert_eq!(
+        initial.protocol,
+        WeaponAttackSkeletonProtocol::Init(vec![WeaponAttackSkeletonHole::TargetChoice])
+    );
+
+    let discovered = discover_skeleton_weapon_attack();
+    assert_eq!(
+        discovered.protocol,
+        WeaponAttackSkeletonProtocol::NeedsHoles(vec![WeaponAttackSkeletonHole::TargetChoice])
+    );
+
+    let target = fill_skeleton_weapon_attack_target();
+    assert_eq!(
+        target.protocol,
+        WeaponAttackSkeletonProtocol::NeedsHoles(vec![WeaponAttackSkeletonHole::AttackRoll])
+    );
+
+    let wrong_target = reject_skeleton_weapon_attack_wrong_target();
+    assert_eq!(
+        wrong_target.protocol,
+        WeaponAttackSkeletonProtocol::Invalid {
+            holes: vec![WeaponAttackSkeletonHole::TargetChoice],
+            reason: WeaponAttackSkeletonInvalidReason::InvalidFill,
+        }
+    );
+
+    let miss = fill_skeleton_weapon_attack_roll_miss();
+    assert_eq!(miss.skeleton_hp, SKELETON_INITIAL_HP);
+    assert!(!miss.action_available);
+    assert_eq!(miss.protocol, WeaponAttackSkeletonProtocol::Resolved);
+
+    let hit = fill_skeleton_weapon_attack_roll_hit();
+    assert_eq!(
+        hit.protocol,
+        WeaponAttackSkeletonProtocol::NeedsHoles(vec![WeaponAttackSkeletonHole::DamageRoll])
+    );
+
+    assert_eq!(ROGUE_ATTACK_MODIFIER, 3);
+    assert_eq!(skeleton_hp_after_piercing_weapon_damage(13, 2), 8);
+    assert_eq!(skeleton_hp_after_piercing_weapon_damage(13, 8), 2);
+
+    let low = fill_skeleton_weapon_damage_low();
+    assert_eq!(low.skeleton_hp, 8);
+    assert!(!low.skeleton_dead);
+    assert!(!low.sneak_attack_used_this_turn);
+
+    let high = fill_skeleton_weapon_damage_high();
+    assert_eq!(high.skeleton_hp, 6);
+    assert!(!high.skeleton_dead);
+
+    let low_sneak = fill_skeleton_weapon_damage_low_sneak_attack();
+    assert_eq!(low_sneak.skeleton_hp, 6);
+    assert!(low_sneak.sneak_attack_used_this_turn);
+
+    let high_sneak = fill_skeleton_weapon_damage_high_sneak_attack();
+    assert_eq!(high_sneak.skeleton_hp, 2);
+    assert!(high_sneak.sneak_attack_used_this_turn);
+
+    let stale = reject_skeleton_weapon_attack_stale_after_resolved();
+    assert_eq!(
+        stale.protocol,
+        WeaponAttackSkeletonProtocol::Invalid {
+            holes: Vec::new(),
+            reason: WeaponAttackSkeletonInvalidReason::StaleSubject,
+        }
+    );
+    assert!(!stale.action_available);
+
+    let turn = start_skeleton_turn();
+    assert!(turn.action_available);
+    assert_eq!(turn.protocol, WeaponAttackSkeletonProtocol::Resolved);
+
+    let multiattack = resolve_skeleton_multiattack();
+    assert!(!multiattack.action_available);
+    assert_eq!(multiattack.multiattack_dispatches_available, 1);
+
+    let recursive = reject_recursive_skeleton_multiattack();
+    assert_eq!(
+        recursive.protocol,
+        WeaponAttackSkeletonProtocol::Invalid {
+            holes: Vec::new(),
+            reason: WeaponAttackSkeletonInvalidReason::StaleSubject,
+        }
+    );
+
+    let spent = spend_skeleton_multiattack_dispatch();
+    assert_eq!(spent.multiattack_dispatches_available, 0);
+    assert_eq!(spent.protocol, WeaponAttackSkeletonProtocol::Resolved);
 }
 
 #[test]

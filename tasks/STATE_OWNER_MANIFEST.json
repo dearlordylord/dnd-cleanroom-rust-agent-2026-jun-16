@@ -4,24 +4,48 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponAttackOrderingState.stage",
-      "introducedIn": "src/rules/weapon_attack_ordering.rs",
+      "fieldPath": "WeaponAttackSkeletonState.skeleton_hp",
+      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponAttackOrderingState.protocol",
-      "introducedIn": "src/rules/weapon_attack_ordering.rs",
+      "fieldPath": "WeaponAttackSkeletonState.skeleton_dead",
+      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "WeaponAttackOrderingState.last_ordering_error",
-      "introducedIn": "src/rules/weapon_attack_ordering.rs",
+      "fieldPath": "WeaponAttackSkeletonState.action_available",
+      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponAttackSkeletonState.multiattack_dispatches_available",
+      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponAttackSkeletonState.sneak_attack_used_this_turn",
+      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "WeaponAttackSkeletonState.protocol",
+      "introducedIn": "src/rules/weapon_attack_skeleton.rs",
       "owner": "battle-state"
     },
     {
@@ -30,10 +54,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T063"
+  "taskId": "T064"
 }
