@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T025-battle-runtime-eldritch-blast.json",
+      "evidence": "tasks/target-replay-evidence/T026-battle-runtime-feature-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T025"
+  "taskId": "T026"
 }

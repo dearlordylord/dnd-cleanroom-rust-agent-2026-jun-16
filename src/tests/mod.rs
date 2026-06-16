@@ -22,6 +22,8 @@ mod battle_runtime_dragonborn_breath_weapon;
 mod battle_runtime_druid_wild_shape_form_lifecycle;
 #[path = "../qnt_adapters/battle_runtime_eldritch_blast.rs"]
 mod battle_runtime_eldritch_blast;
+#[path = "../qnt_adapters/battle_runtime_feature_selected_identity.rs"]
+mod battle_runtime_feature_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -58,18 +60,22 @@ use crate::rules::armor_class::{
     ArmorClassOption, ShieldArmorClassBonus,
 };
 use crate::rules::battle_features::{
-    danger_sense_initial_state, danger_sense_saving_throw_roll_mode,
+    activate_innate_sorcery, danger_sense_initial_state, danger_sense_saving_throw_roll_mode,
     dragonborn_breath_weapon_damage_die_count, dragonborn_breath_weapon_initial_state,
-    dragonborn_breath_weapon_save_dc, project_danger_sense_dexterity_advantage,
+    dragonborn_breath_weapon_save_dc, innate_sorcery_initial_state,
+    project_danger_sense_dexterity_advantage, project_innate_sorcery_spell_benefits,
     reject_dragonborn_breath_weapon_invalid_damage_roll,
     reject_dragonborn_breath_weapon_mismatched_area,
     reject_dragonborn_breath_weapon_missing_resource, resolve_adrenaline_rush_bonus_action_dash,
-    resolve_dragonborn_breath_weapon, suppress_danger_sense_while_incapacitated,
-    AdrenalineRushFacts, AdrenalineRushRejection, AdrenalineRushResult, BattleTurnFeatureState,
-    BreathWeaponAreaShape, DangerSenseFacts, DangerSenseProtocol, DangerSenseScenarioOutcome,
-    DragonbornBreathWeaponFacts, DragonbornBreathWeaponInvalidReason,
-    DragonbornBreathWeaponProtocol, DragonbornBreathWeaponScenarioOutcome,
-    PassiveSavingThrowRollMode, SavingThrowAbility,
+    resolve_dragonborn_breath_weapon, sorcerer_spell_save_dc,
+    suppress_danger_sense_while_incapacitated, AdrenalineRushFacts, AdrenalineRushRejection,
+    AdrenalineRushResult, BattleTurnFeatureState, BreathWeaponAreaShape, DangerSenseFacts,
+    DangerSenseProtocol, DangerSenseScenarioOutcome, DragonbornBreathWeaponFacts,
+    DragonbornBreathWeaponInvalidReason, DragonbornBreathWeaponProtocol,
+    DragonbornBreathWeaponScenarioOutcome, InnateSorceryOccurrence, InnateSorceryProtocol,
+    InnateSorceryScenarioOutcome, InnateSorcerySpellAttackRollMode,
+    InnateSorcerySpellBenefitEligibility, InnateSorcerySpellFacts, PassiveSavingThrowRollMode,
+    SavingThrowAbility,
 };
 use crate::rules::chained_spell_attacks::{
     choose_chromatic_orb_damage_type, choose_chromatic_orb_initial_target,
@@ -225,6 +231,12 @@ use battle_runtime_eldritch_blast::{
     projection_payload as eldritch_blast_projection_payload,
     replay_observed_action as replay_eldritch_blast_action,
     BRANCH_ACTIONS as ELDRITCH_BLAST_BRANCH_ACTIONS,
+};
+use battle_runtime_feature_selected_identity::{
+    expected_witness as expected_feature_selected_identity_witness,
+    projection_payload as feature_selected_identity_projection_payload,
+    replay_observed_action as replay_feature_selected_identity_action,
+    BRANCH_ACTIONS as FEATURE_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -1964,4 +1976,96 @@ fn eldritch_blast_resolves_two_beam_spell_attack_sequence() {
         stale.protocol,
         EldritchBlastProtocol::Invalid(EldritchBlastInvalidReason::StaleSubject)
     );
+}
+
+#[test]
+fn feature_selected_identity_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-feature-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Level 1: Innate Sorcery".
+    for action in FEATURE_SELECTED_IDENTITY_BRANCH_ACTIONS {
+        let observed = replay_feature_selected_identity_action(action);
+        assert_eq!(observed, expected_feature_selected_identity_witness(action));
+        assert!(feature_selected_identity_projection_payload(&observed)
+            .contains("qInnateSorceryOccurrence=activeUntilEndOfRound11"));
+    }
+}
+
+#[test]
+fn innate_sorcery_spends_bonus_action_use_and_scopes_spell_benefits() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Spellcasting Ability" and "Level 1: Innate Sorcery"; QNT:
+    // battle-runtime-feature-selected-identity.mbt.qnt and
+    // battle-runtime-feature-bridge-examples.qnt.
+    let base_spell_save_dc = sorcerer_spell_save_dc(3, 2);
+    assert_eq!(base_spell_save_dc, 13);
+
+    let initial = innate_sorcery_initial_state(base_spell_save_dc);
+    assert!(initial.bonus_action_available);
+    assert_eq!(initial.feature_uses_remaining, 2);
+    assert_eq!(initial.occurrence, InnateSorceryOccurrence::Inactive);
+    assert_eq!(initial.spell_save_dc, 13);
+    assert_eq!(
+        initial.spell_attack_roll_mode,
+        InnateSorcerySpellAttackRollMode::Normal
+    );
+    assert_eq!(initial.protocol, InnateSorceryProtocol::Init);
+
+    let activated = activate_innate_sorcery(initial, 1);
+    assert!(!activated.bonus_action_available);
+    assert_eq!(activated.feature_uses_remaining, 1);
+    assert_eq!(
+        activated.occurrence,
+        InnateSorceryOccurrence::ActiveUntilEndOfRound(11)
+    );
+    assert_eq!(activated.spell_save_dc, 14);
+    assert_eq!(
+        activated.spell_attack_roll_mode,
+        InnateSorcerySpellAttackRollMode::Normal
+    );
+    assert_eq!(
+        activated.scenario_outcome,
+        InnateSorceryScenarioOutcome::Activated
+    );
+    assert_eq!(activated.protocol, InnateSorceryProtocol::Resolved);
+
+    let sorcerer_spell = project_innate_sorcery_spell_benefits(
+        initial,
+        1,
+        InnateSorcerySpellFacts {
+            benefit_eligibility: InnateSorcerySpellBenefitEligibility::Eligible,
+        },
+    );
+    assert_eq!(sorcerer_spell.spell_save_dc, 14);
+    assert_eq!(
+        sorcerer_spell.spell_attack_roll_mode,
+        InnateSorcerySpellAttackRollMode::Advantage
+    );
+    assert_eq!(
+        sorcerer_spell.scenario_outcome,
+        InnateSorceryScenarioOutcome::SpellBenefitsProjected
+    );
+
+    let non_sorcerer_spell = project_innate_sorcery_spell_benefits(
+        initial,
+        1,
+        InnateSorcerySpellFacts {
+            benefit_eligibility: InnateSorcerySpellBenefitEligibility::Ineligible,
+        },
+    );
+    assert_eq!(non_sorcerer_spell.spell_save_dc, 13);
+    assert_eq!(
+        non_sorcerer_spell.spell_attack_roll_mode,
+        InnateSorcerySpellAttackRollMode::Normal
+    );
+    assert_eq!(
+        non_sorcerer_spell.scenario_outcome,
+        InnateSorceryScenarioOutcome::NonSorcererExcluded
+    );
+
+    let mut no_uses = innate_sorcery_initial_state(base_spell_save_dc);
+    no_uses.feature_uses_remaining = 0;
+    let exhausted = activate_innate_sorcery(no_uses, 1);
+    assert_eq!(exhausted.occurrence, InnateSorceryOccurrence::Inactive);
 }

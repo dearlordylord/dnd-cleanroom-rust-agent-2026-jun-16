@@ -3,30 +3,27 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added reusable Eldritch Blast beam sequence and spell attack projection"
+      "reason": "added reusable Innate Sorcery activation and spell-benefit projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "path": "src/qnt_adapters/battle_runtime_feature_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doFillFirstAttackHit",
-        "doFillFirstAttackMiss",
-        "doFillFirstDamageLow",
-        "doFillSecondAttackHit",
-        "doFillSecondAttackMiss",
-        "doFillSecondDamageLow",
-        "doFillTwoCreatureTargets",
-        "doRejectStaleAfterResolved",
-        "TargetChoice",
-        "ObjectTargetChoice",
-        "AttackRoll",
-        "SpellDamageRoll",
-        "WStaleSubject",
-        "WInvalidFill",
-        "needsHoles",
+        "doActivateInnateSorcery",
+        "doExcludeInnateSorceryNonSorcererSpellBenefits",
+        "doProjectInnateSorcerySpellBenefits",
+        "WitnessProtocolHole",
+        "Init",
+        "Activated",
+        "SpellBenefitsProjected",
+        "NonSorcererExcluded",
+        "activeUntilEndOfRound11",
+        "inactive",
+        "advantage",
+        "none",
         "resolved",
-        "invalid",
+        "init",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -44,42 +41,34 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T025-battle-runtime-eldritch-blast.json"
+        "tasks/target-replay-evidence/T026-battle-runtime-feature-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "fill_eldritch_blast_attack",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
-      "module": "src/rules/spell_shapes.rs"
+      "api": "project_innate_sorcery_spell_benefits",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt",
+      "module": "src/rules/battle_features.rs"
     },
     {
-      "api": "eldritch_blast_damage_type",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
-      "module": "src/rules/spell_shapes.rs"
-    },
-    {
-      "api": "fill_eldritch_blast_damage",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.mbt.qnt",
-      "module": "src/rules/spell_shapes.rs"
+      "api": "activate_innate_sorcery",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
+      "module": "src/rules/battle_features.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "eldritch_blast_damage_type",
-        "eldritch_blast_beam_count",
-        "eldritch_blast_initial_state",
-        "fill_eldritch_blast_targets",
-        "fill_eldritch_blast_attack",
-        "fill_eldritch_blast_damage",
-        "reject_eldritch_blast_stale_after_resolved"
+        "sorcerer_spell_save_dc",
+        "innate_sorcery_initial_state",
+        "activate_innate_sorcery",
+        "project_innate_sorcery_spell_benefits"
       ],
-      "path": "src/rules/spell_shapes.rs",
+      "path": "src/rules/battle_features.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T025"
+  "taskId": "T026"
 }

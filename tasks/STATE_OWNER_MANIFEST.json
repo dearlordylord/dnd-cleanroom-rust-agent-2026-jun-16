@@ -4,48 +4,68 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "EldritchBlastState.action_available",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "InnateSorceryState.bonus_action_available",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "EldritchBlastState.target_hit_points",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "InnateSorceryState.feature_uses_remaining",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "EldritchBlastState.resolved_beams",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "InnateSorceryState.occurrence",
+      "introducedIn": "src/rules/battle_features.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "stored-executable-boundary-projection",
+        "sourceField": "SorcererSpellSaveDc + InnateSorceryOccurrence",
+        "boundary": "Innate Sorcery spell invocation projection"
+      },
+      "fieldPath": "InnateSorceryState.spell_save_dc",
+      "introducedIn": "src/rules/battle_features.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "derivability": {
+        "tag": "stored-executable-boundary-projection",
+        "sourceField": "InnateSorcerySpellFacts.benefit_eligibility + InnateSorceryOccurrence",
+        "boundary": "Innate Sorcery spell invocation projection"
+      },
+      "fieldPath": "InnateSorceryState.spell_attack_roll_mode",
+      "introducedIn": "src/rules/battle_features.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "InnateSorceryState.scenario_outcome",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "EldritchBlastState.protocol",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "InnateSorceryState.protocol",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "EldritchBlastAttackFacts.hit",
-      "introducedIn": "src/rules/spell_shapes.rs",
-      "owner": "structured-input"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "EldritchBlastDamageFacts.damage_roll",
-      "introducedIn": "src/rules/spell_shapes.rs",
+      "fieldPath": "InnateSorcerySpellFacts.benefit_eligibility",
+      "introducedIn": "src/rules/battle_features.rs",
       "owner": "structured-input"
     },
     {
@@ -54,10 +74,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_feature_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T025"
+  "taskId": "T026"
 }

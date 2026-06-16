@@ -132,6 +132,54 @@ pub struct DragonbornBreathWeaponFacts {
     pub opens_extra_attack_slot: bool,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum InnateSorceryOccurrence {
+    Inactive,
+    ActiveUntilEndOfRound(i16),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum InnateSorcerySpellAttackRollMode {
+    Normal,
+    Advantage,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum InnateSorcerySpellBenefitEligibility {
+    Eligible,
+    Ineligible,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum InnateSorceryScenarioOutcome {
+    Init,
+    Activated,
+    SpellBenefitsProjected,
+    NonSorcererExcluded,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum InnateSorceryProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct InnateSorceryState {
+    pub bonus_action_available: bool,
+    pub feature_uses_remaining: i16,
+    pub occurrence: InnateSorceryOccurrence,
+    pub spell_save_dc: i16,
+    pub spell_attack_roll_mode: InnateSorcerySpellAttackRollMode,
+    pub scenario_outcome: InnateSorceryScenarioOutcome,
+    pub protocol: InnateSorceryProtocol,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct InnateSorcerySpellFacts {
+    pub benefit_eligibility: InnateSorcerySpellBenefitEligibility,
+}
+
 #[must_use]
 pub fn resolve_adrenaline_rush_bonus_action_dash(
     facts: AdrenalineRushFacts,
@@ -393,6 +441,71 @@ pub fn reject_dragonborn_breath_weapon_invalid_damage_roll(
     )
 }
 
+#[must_use]
+pub fn sorcerer_spell_save_dc(spellcasting_ability_modifier: i16, proficiency_bonus: i16) -> i16 {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md,
+    // "Spellcasting Ability"; Ubiquitous Language "Spell Save DC".
+    8 + spellcasting_ability_modifier + proficiency_bonus
+}
+
+#[must_use]
+pub fn innate_sorcery_initial_state(base_spell_save_dc: i16) -> InnateSorceryState {
+    InnateSorceryState {
+        bonus_action_available: true,
+        feature_uses_remaining: 2,
+        occurrence: InnateSorceryOccurrence::Inactive,
+        spell_save_dc: base_spell_save_dc,
+        spell_attack_roll_mode: InnateSorcerySpellAttackRollMode::Normal,
+        scenario_outcome: InnateSorceryScenarioOutcome::Init,
+        protocol: InnateSorceryProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn activate_innate_sorcery(
+    state: InnateSorceryState,
+    current_round: i16,
+) -> InnateSorceryState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Level 1: Innate Sorcery"; QNT:
+    // battle-runtime-feature-selected-identity.mbt.qnt.
+    let Some(active) = active_innate_sorcery_state(state, current_round) else {
+        return state;
+    };
+    InnateSorceryState {
+        spell_save_dc: state.spell_save_dc + 1,
+        scenario_outcome: InnateSorceryScenarioOutcome::Activated,
+        ..active
+    }
+}
+
+#[must_use]
+pub fn project_innate_sorcery_spell_benefits(
+    state: InnateSorceryState,
+    current_round: i16,
+    facts: InnateSorcerySpellFacts,
+) -> InnateSorceryState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Level 1: Innate Sorcery".
+    let Some(active) = active_innate_sorcery_state(state, current_round) else {
+        return state;
+    };
+    match facts.benefit_eligibility {
+        InnateSorcerySpellBenefitEligibility::Eligible => InnateSorceryState {
+            spell_save_dc: state.spell_save_dc + 1,
+            spell_attack_roll_mode: InnateSorcerySpellAttackRollMode::Advantage,
+            scenario_outcome: InnateSorceryScenarioOutcome::SpellBenefitsProjected,
+            ..active
+        },
+        InnateSorcerySpellBenefitEligibility::Ineligible => InnateSorceryState {
+            spell_save_dc: state.spell_save_dc,
+            spell_attack_roll_mode: InnateSorcerySpellAttackRollMode::Normal,
+            scenario_outcome: InnateSorceryScenarioOutcome::NonSorcererExcluded,
+            ..active
+        },
+    }
+}
+
 fn breath_weapon_damage_after_save(damage_roll: i16, saving_throw_succeeded: bool) -> i16 {
     if saving_throw_succeeded {
         damage_roll / 2
@@ -416,4 +529,24 @@ fn invalid_dragonborn_breath_weapon(
         ),
         ..state
     }
+}
+
+fn active_innate_sorcery_state(
+    state: InnateSorceryState,
+    current_round: i16,
+) -> Option<InnateSorceryState> {
+    let can_activate = state.bonus_action_available && state.feature_uses_remaining > 0;
+    if !can_activate {
+        return None;
+    }
+
+    Some(InnateSorceryState {
+        bonus_action_available: false,
+        feature_uses_remaining: state.feature_uses_remaining - 1,
+        occurrence: InnateSorceryOccurrence::ActiveUntilEndOfRound(current_round + 10),
+        spell_save_dc: state.spell_save_dc,
+        spell_attack_roll_mode: InnateSorcerySpellAttackRollMode::Normal,
+        scenario_outcome: state.scenario_outcome,
+        protocol: InnateSorceryProtocol::Resolved,
+    })
 }

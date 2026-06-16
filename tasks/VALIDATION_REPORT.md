@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt`
-- Next task id: `T026`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt`
+- Next task id: `T027`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,74 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T026: battle-runtime-feature-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doActivateInnateSorcery`
+  - `step:doExcludeInnateSorceryNonSorcererSpellBenefits`
+  - `step:doProjectInnateSorcerySpellBenefits`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-bridge-examples.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-model.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+
+Behavior implemented:
+
+- Extended `src/rules/battle_features.rs` with Innate Sorcery activation state, occurrence duration, use spending, base Sorcerer Spell Save DC calculation, and spell-benefit projection.
+- Activated Innate Sorcery by spending the Bonus Action and one of two uses, producing an active 10-round occurrence and the Sorcerer-spell save DC increase.
+- Scoped the attack-roll Advantage and +1 Spell Save DC benefits to Sorcerer spells while excluding non-Sorcerer spell invocations from those spell benefits.
+- Kept QNT action names, scenario labels, occurrence strings, roll-mode strings, and witness protocol labels quarantined in `src/qnt_adapters/battle_runtime_feature_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt#step:doActivateInnateSorcery` | `tasks/target-replay-evidence/T026-battle-runtime-feature-selected-identity.json#T026-activate-innate-sorcery#step:doActivateInnateSorcery` | `src/tests/mod.rs::feature_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt#step:doExcludeInnateSorceryNonSorcererSpellBenefits` | `tasks/target-replay-evidence/T026-battle-runtime-feature-selected-identity.json#T026-exclude-innate-sorcery-non-sorcerer-spell-benefits#step:doExcludeInnateSorceryNonSorcererSpellBenefits` | `src/tests/mod.rs::feature_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt#step:doProjectInnateSorcerySpellBenefits` | `tasks/target-replay-evidence/T026-battle-runtime-feature-selected-identity.json#T026-project-innate-sorcery-spell-benefits#step:doProjectInnateSorcerySpellBenefits` | `src/tests/mod.rs::feature_selected_identity_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T026-battle-runtime-feature-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T026-activate-innate-sorcery`
+- Reproduction seed or trace id: `T026-exclude-innate-sorcery-non-sorcerer-spell-benefits`
+- Reproduction seed or trace id: `T026-project-innate-sorcery-spell-benefits`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::innate_sorcery_spends_bonus_action_use_and_scopes_spell_benefits`
 
 Remaining gaps:
 
