@@ -4,56 +4,136 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ThaumaturgySelectedIdentityState.caster_effect_count",
-      "introducedIn": "src/rules/thaumaturgy_selected_identity.rs",
+      "fieldPath": "TurnBoundaryEffectLifecycleState.scenario",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ThaumaturgySelectedIdentityState.action_available",
-      "introducedIn": "src/rules/thaumaturgy_selected_identity.rs",
+      "fieldPath": "TurnBoundaryEffectLifecycleState.actor",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ThaumaturgySelectedIdentityState.intimidation_roll_mode",
-      "introducedIn": "src/rules/thaumaturgy_selected_identity.rs",
+      "fieldPath": "TurnBoundaryEffectLifecycleState.round",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ThaumaturgySelectedIdentityState.wisdom_intimidation_roll_mode",
-      "introducedIn": "src/rules/thaumaturgy_selected_identity.rs",
+      "fieldPath": "TurnBoundaryEffectLifecycleState.target_hp",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ThaumaturgySelectedIdentityState.perception_roll_mode",
-      "introducedIn": "src/rules/thaumaturgy_selected_identity.rs",
+      "fieldPath": "TurnBoundaryEffectLifecycleState.turn_start_damage_active",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ThaumaturgySelectedIdentityState.scenario_outcome",
-      "introducedIn": "src/rules/thaumaturgy_selected_identity.rs",
+      "fieldPath": "TurnBoundaryEffectLifecycleState.turn_end_damage_active",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "ThaumaturgySelectedIdentityState.protocol",
-      "introducedIn": "src/rules/thaumaturgy_selected_identity.rs",
+      "fieldPath": "TurnBoundaryEffectLifecycleState.until_next_turn_active",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "TurnBoundaryEffectLifecycleState.start_turn_ongoing_feature_active",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "TurnBoundaryEffectLifecycleState.end_turn_ongoing_feature_active",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "TurnBoundaryEffectLifecycleState.turn_start_damage_applied_before_end_damage",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "TurnBoundaryEffectLifecycleState.turn_end_damage_applied_before_expiry",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "TurnBoundaryEffectLifecycleState.end_turn_ongoing_expired_at_target_end",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "TurnBoundaryEffectLifecycleState.until_next_turn_expired_at_source_start",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "TurnBoundaryEffectLifecycleState.start_turn_ongoing_expired_at_source_start",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "TurnBoundaryEffectLifecycleState.turn_start_duration_expired_after_round_tick",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "TurnBoundaryEffectLifecycleState.last_hole_order",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "TurnBoundaryEffectLifecycleState.protocol",
+      "introducedIn": "src/rules/turn_boundary_effect_lifecycle.rs",
       "owner": "battle-state"
     },
     {
@@ -62,10 +142,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T061"
+  "taskId": "T062"
 }

@@ -3,24 +3,29 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added Thaumaturgy Booming Voice selected-identity projection state"
+      "reason": "added turn-boundary effect lifecycle projection state"
     },
     {
-      "addedEntries": 1,
+      "addedEntries": 2,
       "owner": "production",
-      "reason": "added typed Booming Voice ability-check roll-mode helper"
+      "reason": "added target start-turn and source next-turn lifecycle transitions"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs",
       "quarantinedWitnessNames": [
-        "doResolveThaumaturgyBoomingVoice",
-        "WitnessProtocolHole",
+        "doResolveTargetStartTurn",
+        "doResolveSourceNextTurn",
+        "TurnBoundaryLifecycle",
         "Init",
-        "Resolved",
-        "normal",
-        "advantage",
+        "TargetStartTurnResolved",
+        "SourceNextTurnResolved",
+        "SourceTurn",
+        "TargetTurn",
+        "NoBoundaryHoles",
+        "TurnStartDamageThenSave",
+        "TurnEndDamageOnly",
         "init",
         "resolved",
         "mbt::actionTaken",
@@ -40,33 +45,34 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T061-battle-runtime-thaumaturgy-selected-identity.json"
+        "tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "thaumaturgy_booming_voice_roll_mode",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
-      "module": "src/rules/thaumaturgy_selected_identity.rs"
+      "api": "TurnBoundaryEffectLifecycleState",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
+      "module": "src/rules/turn_boundary_effect_lifecycle.rs"
     },
     {
-      "api": "ThaumaturgySelectedIdentityState",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt",
-      "module": "src/rules/thaumaturgy_selected_identity.rs"
+      "api": "resolve_source_next_turn_after_target_start",
+      "driver": "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt",
+      "module": "src/rules/turn_boundary_effect_lifecycle.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "thaumaturgy_selected_identity_initial_state",
-        "resolve_thaumaturgy_booming_voice",
-        "thaumaturgy_booming_voice_roll_mode"
+        "turn_boundary_effect_lifecycle_initial_state",
+        "resolve_target_start_turn",
+        "resolve_source_next_turn",
+        "resolve_source_next_turn_after_target_start"
       ],
-      "path": "src/rules/thaumaturgy_selected_identity.rs",
+      "path": "src/rules/turn_boundary_effect_lifecycle.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T061"
+  "taskId": "T062"
 }

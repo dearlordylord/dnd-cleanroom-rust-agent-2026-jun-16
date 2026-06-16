@@ -94,6 +94,8 @@ mod battle_runtime_starry_wisp_object;
 mod battle_runtime_stat_block_action_ordering;
 #[path = "../qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs"]
 mod battle_runtime_thaumaturgy_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs"]
+mod battle_runtime_turn_boundary_effect_lifecycle;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -406,6 +408,11 @@ use crate::rules::thaumaturgy_selected_identity::{
     ThaumaturgySkill, THAUMATURGY_BOOMING_VOICE_DURATION_TICKS,
     THAUMATURGY_MAX_ACTIVE_ONE_MINUTE_EFFECTS,
 };
+use crate::rules::turn_boundary_effect_lifecycle::{
+    resolve_source_next_turn, resolve_source_next_turn_after_target_start,
+    resolve_target_start_turn, turn_boundary_effect_lifecycle_initial_state, TurnBoundaryActor,
+    TurnBoundaryHoleOrder, TurnBoundaryLifecycleProtocol, TurnBoundaryLifecycleScenario,
+};
 use crate::rules::wild_shape::{
     assume_riding_horse_wild_shape, begin_wild_shape_next_turn, dismiss_wild_shape_form,
     reuse_wild_shape_as_cat, revert_wild_shape_due_to_death,
@@ -702,6 +709,12 @@ use battle_runtime_thaumaturgy_selected_identity::{
     projection_payload as thaumaturgy_selected_identity_projection_payload,
     replay_observed_action as replay_thaumaturgy_selected_identity_action,
     BRANCH_ACTIONS as THAUMATURGY_SELECTED_IDENTITY_BRANCH_ACTIONS,
+};
+use battle_runtime_turn_boundary_effect_lifecycle::{
+    expected_witness as expected_turn_boundary_effect_lifecycle_witness,
+    projection_payload as turn_boundary_effect_lifecycle_projection_payload,
+    replay_observed_action as replay_turn_boundary_effect_lifecycle_action,
+    BRANCH_ACTIONS as TURN_BOUNDARY_EFFECT_LIFECYCLE_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3506,6 +3519,93 @@ fn thaumaturgy_selected_identity_projects_booming_voice_roll_modes() {
             ThaumaturgySkill::Perception,
         ),
         ThaumaturgyRollMode::Normal
+    );
+}
+
+#[test]
+fn turn_boundary_effect_lifecycle_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "The Order of Combat"; cleanroom-input/raw/srd-5.2.1/
+    // Rules-Glossary.md "Simultaneous Effects", "Reaction", "Ready", and
+    // "Burning".
+    for action in TURN_BOUNDARY_EFFECT_LIFECYCLE_BRANCH_ACTIONS {
+        let observed = replay_turn_boundary_effect_lifecycle_action(action);
+        assert_eq!(
+            observed,
+            expected_turn_boundary_effect_lifecycle_witness(action)
+        );
+        assert!(turn_boundary_effect_lifecycle_projection_payload(&observed)
+            .contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn turn_boundary_effect_lifecycle_orders_start_end_and_source_expiry() {
+    // Ubiquitous Language "Boundary Crossing", "Timer", and "Spell Effect";
+    // QNT: battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt.
+    let initial = turn_boundary_effect_lifecycle_initial_state();
+    assert_eq!(initial.scenario, TurnBoundaryLifecycleScenario::Init);
+    assert_eq!(initial.actor, TurnBoundaryActor::SourceTurn);
+    assert_eq!(initial.round, 1);
+    assert_eq!(initial.target_hp, 10);
+    assert!(initial.turn_start_damage_active);
+    assert!(initial.turn_end_damage_active);
+    assert!(initial.until_next_turn_active);
+    assert!(initial.start_turn_ongoing_feature_active);
+    assert!(initial.end_turn_ongoing_feature_active);
+    assert_eq!(
+        initial.last_hole_order,
+        TurnBoundaryHoleOrder::NoBoundaryHoles
+    );
+    assert_eq!(initial.protocol, TurnBoundaryLifecycleProtocol::Init);
+
+    let target_start = resolve_target_start_turn();
+    assert_eq!(
+        target_start.scenario,
+        TurnBoundaryLifecycleScenario::TargetStartTurnResolved
+    );
+    assert_eq!(target_start.actor, TurnBoundaryActor::TargetTurn);
+    assert_eq!(target_start.target_hp, 8);
+    assert!(target_start.turn_start_damage_applied_before_end_damage);
+    assert!(!target_start.turn_end_damage_applied_before_expiry);
+    assert_eq!(
+        target_start.last_hole_order,
+        TurnBoundaryHoleOrder::TurnStartDamageThenSave
+    );
+    assert_eq!(
+        target_start.protocol,
+        TurnBoundaryLifecycleProtocol::Resolved
+    );
+
+    let source_next = resolve_source_next_turn_after_target_start(target_start);
+    assert_eq!(
+        source_next.scenario,
+        TurnBoundaryLifecycleScenario::SourceNextTurnResolved
+    );
+    assert_eq!(source_next.actor, TurnBoundaryActor::SourceTurn);
+    assert_eq!(source_next.round, 2);
+    assert_eq!(source_next.target_hp, 5);
+    assert!(!source_next.turn_start_damage_active);
+    assert!(!source_next.turn_end_damage_active);
+    assert!(!source_next.until_next_turn_active);
+    assert!(!source_next.start_turn_ongoing_feature_active);
+    assert!(!source_next.end_turn_ongoing_feature_active);
+    assert!(source_next.turn_start_damage_applied_before_end_damage);
+    assert!(source_next.turn_end_damage_applied_before_expiry);
+    assert!(source_next.end_turn_ongoing_expired_at_target_end);
+    assert!(source_next.until_next_turn_expired_at_source_start);
+    assert!(source_next.start_turn_ongoing_expired_at_source_start);
+    assert!(source_next.turn_start_duration_expired_after_round_tick);
+    assert_eq!(
+        source_next.last_hole_order,
+        TurnBoundaryHoleOrder::TurnEndDamageOnly
+    );
+    assert_eq!(
+        resolve_source_next_turn(),
+        source_next,
+        "branch helper must replay the same two-boundary sequence"
     );
 }
 

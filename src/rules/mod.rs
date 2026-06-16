@@ -33,4 +33,5 @@ pub mod spell_shapes;
 pub mod spellbook_rituals;
 pub mod stat_block_action_ordering;
 pub mod thaumaturgy_selected_identity;
+pub mod turn_boundary_effect_lifecycle;
 pub mod wild_shape;

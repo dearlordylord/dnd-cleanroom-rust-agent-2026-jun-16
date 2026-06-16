@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
-- Next task id: `T062`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt`
+- Next task id: `T063`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,73 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T062: battle-runtime-turn-boundary-effect-lifecycle
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
+- Branch obligations:
+  - `step:doResolveTargetStartTurn`
+  - `step:doResolveSourceNextTurn`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-witness-protocol.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/turn_boundary_effect_lifecycle.rs` with a bounded fixture projection for target start-turn and source next-turn effect lifecycle ordering.
+- Modeled target start-turn resolution as start-turn damage preceding later end-turn damage/save processing, leaving all effects active and recording `TurnStartDamageThenSave`.
+- Modeled source next-turn resolution as target end damage before expiry, end-turn expiry, source-start expiry for until-next-turn and start-turn ongoing effects, round tick to 2, all fixture effects inactive, and `TurnEndDamageOnly`.
+- Kept QNT branch actions, scenario labels, actor labels, hole-order labels, witness holes, and protocol strings quarantined in `src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt#step:doResolveTargetStartTurn` | `tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json#T062-resolve-target-start-turn#step:doResolveTargetStartTurn` | `src/tests/mod.rs::turn_boundary_effect_lifecycle_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt#step:doResolveSourceNextTurn` | `tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json#T062-resolve-source-next-turn#step:doResolveSourceNextTurn` | `src/tests/mod.rs::turn_boundary_effect_lifecycle_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T062-resolve-target-start-turn`
+- Reproduction seed or trace id: `T062-resolve-source-next-turn`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::turn_boundary_effect_lifecycle_adapter_replays_all_branches`
+- `src/tests/mod.rs::turn_boundary_effect_lifecycle_orders_start_end_and_source_expiry`
 
 Remaining gaps:
 

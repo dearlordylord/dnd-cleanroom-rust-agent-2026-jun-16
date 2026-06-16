@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T061",
-  "startHeadSha": "62b7aa146abc37c0e0732adff901908b13bc655c",
+  "taskId": "T062",
+  "startHeadSha": "874d39aeceb7eaee541612cf045e14e53b024e36",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt"
     ]
   }
 }
