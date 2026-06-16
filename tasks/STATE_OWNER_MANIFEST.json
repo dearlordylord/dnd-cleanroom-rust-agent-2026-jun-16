@@ -4,64 +4,56 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SleepRepeatSaveState.current_turn_role",
-      "introducedIn": "src/rules/sleep_repeat_save.rs",
+      "fieldPath": "CarefulSpellState.magic_action_available",
+      "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SleepRepeatSaveState.target_incapacitated",
-      "introducedIn": "src/rules/sleep_repeat_save.rs",
+      "fieldPath": "CarefulSpellState.bonus_action_available",
+      "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SleepRepeatSaveState.target_unconscious",
-      "introducedIn": "src/rules/sleep_repeat_save.rs",
+      "fieldPath": "CarefulSpellState.sorcery_points_remaining",
+      "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SleepRepeatSaveState.target_prone",
-      "introducedIn": "src/rules/sleep_repeat_save.rs",
+      "fieldPath": "CarefulSpellState.target_hit_points",
+      "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SleepRepeatSaveState.caster_concentrating",
-      "introducedIn": "src/rules/sleep_repeat_save.rs",
+      "fieldPath": "CarefulSpellState.target_active_effect_count",
+      "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SleepRepeatSaveState.action_available",
-      "introducedIn": "src/rules/sleep_repeat_save.rs",
+      "fieldPath": "CarefulSpellState.scenario_result",
+      "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SleepRepeatSaveState.protocol",
-      "introducedIn": "src/rules/sleep_repeat_save.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "SleepRepeatSaveState.protocol_holes",
-      "introducedIn": "src/rules/sleep_repeat_save.rs",
+      "fieldPath": "CarefulSpellState.protocol",
+      "introducedIn": "src/rules/sorcerer_metamagic.rs",
       "owner": "battle-state"
     },
     {
@@ -70,10 +62,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_sleep_repeat_save.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T044"
+  "taskId": "T045"
 }

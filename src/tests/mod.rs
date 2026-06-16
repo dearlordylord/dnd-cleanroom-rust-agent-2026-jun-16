@@ -60,6 +60,8 @@ mod battle_runtime_scalar_buff;
 mod battle_runtime_scalar_buff_active_effects;
 #[path = "../qnt_adapters/battle_runtime_sleep_repeat_save.rs"]
 mod battle_runtime_sleep_repeat_save;
+#[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs"]
+mod battle_runtime_sorcerer_metamagic_careful_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -301,6 +303,10 @@ use crate::rules::sleep_repeat_save::{
     sleep_repeat_save_initial_state, SleepRepeatSaveHole, SleepRepeatSaveProtocol,
     SleepRepeatSaveTurnRole,
 };
+use crate::rules::sorcerer_metamagic::{
+    careful_spell_initial_state, resolve_careful_save_gated_damage,
+    resolve_careful_save_gated_no_effect, CarefulSpellProtocol, CarefulSpellScenarioResult,
+};
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
     fill_eldritch_blast_attack, fill_eldritch_blast_damage, fill_eldritch_blast_targets,
@@ -509,6 +515,12 @@ use battle_runtime_sleep_repeat_save::{
     projection_payload as sleep_repeat_save_projection_payload,
     replay_observed_action as replay_sleep_repeat_save_action,
     BRANCH_ACTIONS as SLEEP_REPEAT_SAVE_BRANCH_ACTIONS,
+};
+use battle_runtime_sorcerer_metamagic_careful_selected_identity::{
+    expected_witness as expected_careful_spell_witness,
+    projection_payload as careful_spell_projection_payload,
+    replay_observed_action as replay_careful_spell_action,
+    BRANCH_ACTIONS as CAREFUL_SPELL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3172,6 +3184,56 @@ fn sleep_repeat_save_projects_initial_repeat_and_concentration_paths() {
         SleepRepeatSaveTurnRole::Caster
     );
     assert!(next_caster_turn.action_available);
+}
+
+#[test]
+fn careful_spell_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Careful Spell".
+    for action in CAREFUL_SPELL_BRANCH_ACTIONS {
+        let observed = replay_careful_spell_action(action);
+        assert_eq!(observed, expected_careful_spell_witness(action));
+        assert!(careful_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn careful_spell_projects_save_gated_damage_and_no_effect_cases() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Level 2: Metamagic" and "Careful Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt.
+    let initial = careful_spell_initial_state();
+    assert!(initial.magic_action_available);
+    assert!(initial.bonus_action_available);
+    assert_eq!(initial.sorcery_points_remaining, 4);
+    assert_eq!(initial.target_hit_points, 10);
+    assert_eq!(initial.target_active_effect_count, 0);
+    assert_eq!(initial.protocol, CarefulSpellProtocol::Init);
+
+    let damage = resolve_careful_save_gated_damage();
+    assert!(!damage.magic_action_available);
+    assert!(damage.bonus_action_available);
+    assert_eq!(damage.sorcery_points_remaining, 3);
+    assert_eq!(damage.target_hit_points, 10);
+    assert_eq!(damage.target_active_effect_count, 0);
+    assert_eq!(
+        damage.scenario_result,
+        CarefulSpellScenarioResult::CarefulSaveGatedDamage
+    );
+    assert_eq!(damage.protocol, CarefulSpellProtocol::Resolved);
+
+    let no_effect = resolve_careful_save_gated_no_effect();
+    assert!(!no_effect.magic_action_available);
+    assert_eq!(no_effect.sorcery_points_remaining, 3);
+    assert_eq!(no_effect.target_hit_points, 10);
+    assert_eq!(no_effect.target_active_effect_count, 0);
+    assert_eq!(
+        no_effect.scenario_result,
+        CarefulSpellScenarioResult::CarefulSaveGatedNoEffect
+    );
+    assert_eq!(no_effect.protocol, CarefulSpellProtocol::Resolved);
 }
 
 #[test]

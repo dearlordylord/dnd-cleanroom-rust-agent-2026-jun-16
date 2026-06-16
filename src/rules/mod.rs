@@ -26,6 +26,7 @@ pub mod save_gated_spell_ordering;
 pub mod scalar_buff;
 pub mod scalar_buff_active_effects;
 pub mod sleep_repeat_save;
+pub mod sorcerer_metamagic;
 pub mod spell_shapes;
 pub mod spellbook_rituals;
 pub mod wild_shape;

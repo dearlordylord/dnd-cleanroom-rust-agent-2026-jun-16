@@ -1,28 +1,20 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 8,
+      "addedEntries": 2,
       "owner": "production",
-      "reason": "added Sleep initial save, concentration break, turn advancement, repeat-save discovery, and repeat-save outcome projections"
+      "reason": "added Careful Spell save-gated damage and no-effect projections"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_sleep_repeat_save.rs",
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doFillInitialSaveFailure",
-        "doBreakConcentrationBeforeRepeat",
-        "doEndCasterTurn",
-        "doEndCasterTurnAfterConcentrationBreak",
-        "doEndTargetTurnAfterConcentrationBreak",
-        "doDiscoverRepeatSave",
-        "doFillRepeatSaveSuccess",
-        "doFillRepeatSaveFailure",
-        "SavingThrowOutcome",
-        "caster",
-        "target",
+        "doResolveCarefulSaveGatedDamage",
+        "doResolveCarefulSaveGatedNoEffect",
+        "carefulSaveGatedDamage",
+        "carefulSaveGatedNoEffect",
         "init",
-        "needsHoles",
         "resolved",
         "mbt::actionTaken",
         "mbt::nondetPicks",
@@ -41,39 +33,33 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T044-battle-runtime-sleep-repeat-save.json"
+        "tasks/target-replay-evidence/T045-battle-runtime-sorcerer-metamagic-careful-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "discover_sleep_repeat_save",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
-      "module": "src/rules/sleep_repeat_save.rs"
+      "api": "careful_spell_initial_state",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
+      "module": "src/rules/sorcerer_metamagic.rs"
     },
     {
-      "api": "fill_sleep_repeat_save_failure",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
-      "module": "src/rules/sleep_repeat_save.rs"
+      "api": "resolve_careful_save_gated_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
+      "module": "src/rules/sorcerer_metamagic.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "sleep_repeat_save_initial_state",
-        "fill_sleep_initial_save_failure",
-        "break_sleep_concentration_before_repeat",
-        "end_caster_turn_with_sleep",
-        "end_caster_turn_after_sleep_concentration_break",
-        "end_target_turn_after_sleep_concentration_break",
-        "discover_sleep_repeat_save",
-        "fill_sleep_repeat_save_success",
-        "fill_sleep_repeat_save_failure"
+        "careful_spell_initial_state",
+        "resolve_careful_save_gated_damage",
+        "resolve_careful_save_gated_no_effect"
       ],
-      "path": "src/rules/sleep_repeat_save.rs",
+      "path": "src/rules/sorcerer_metamagic.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T044"
+  "taskId": "T045"
 }
