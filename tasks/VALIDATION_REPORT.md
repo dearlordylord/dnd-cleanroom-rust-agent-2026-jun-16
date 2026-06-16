@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt`
-- Next task id: `T033`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt`
+- Next task id: `T034`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,102 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T033: battle-runtime-level1-damage-spell-selected-identity
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt`
+- Branch obligations:
+  - `step:doResolveBurningHandsMixedConeSavingThrows`
+  - `step:doResolveChromaticOrbDuplicateDamageLeap`
+  - `step:doResolveIceKnifeHitAttackDamageAndBurstSavingThrows`
+  - `step:doResolveIceKnifeMissBurstSavingThrows`
+  - `step:doResolvePoisonSpraySpellAttackDamage`
+  - `step:doResolveRayOfSicknessSpellAttackDamageAndPoisoned`
+  - `step:doResolveSacredFlameDexteritySavingThrowRadiantDamage`
+  - `step:doResolveSorcerousBurstSpellAttackDamage`
+  - `step:doResolveStarryWispObjectSpellAttackDamageAndDimLight`
+  - `step:doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-spell-attack.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-bridge-examples.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerous-burst-damage-choice.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-Q-R.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/level_one_damage_spells.rs` with a typed projection state for level-one and cantrip damage spell outcomes, covering action availability, spell slot spend/remain, primary and secondary target Hit Points, Poisoned, next attack roll Disadvantage, scenario outcome, and witness protocol state.
+- Implemented selected identity projections for Burning Hands, Chromatic Orb, Ice Knife hit and miss burst cases, Poison Spray, Ray of Sickness, Sacred Flame, Sorcerous Burst, Starry Wisp object targeting and Dim Light, and Vicious Mockery next-attack Disadvantage.
+- Kept QNT action names, scenario labels, protocol labels, and target replay witness strings quarantined in `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveBurningHandsMixedConeSavingThrows` | `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json#T033-burning-hands-mixed-cone-saving-throws#step:doResolveBurningHandsMixedConeSavingThrows` | `src/tests/mod.rs::level1_damage_spell_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveChromaticOrbDuplicateDamageLeap` | `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json#T033-chromatic-orb-duplicate-damage-leap#step:doResolveChromaticOrbDuplicateDamageLeap` | `src/tests/mod.rs::level1_damage_spell_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveIceKnifeHitAttackDamageAndBurstSavingThrows` | `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json#T033-ice-knife-hit-attack-damage-burst-saving-throws#step:doResolveIceKnifeHitAttackDamageAndBurstSavingThrows` | `src/tests/mod.rs::level1_damage_spell_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveIceKnifeMissBurstSavingThrows` | `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json#T033-ice-knife-miss-burst-saving-throws#step:doResolveIceKnifeMissBurstSavingThrows` | `src/tests/mod.rs::level1_damage_spell_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolvePoisonSpraySpellAttackDamage` | `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json#T033-poison-spray-spell-attack-damage#step:doResolvePoisonSpraySpellAttackDamage` | `src/tests/mod.rs::level1_damage_spell_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveRayOfSicknessSpellAttackDamageAndPoisoned` | `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json#T033-ray-of-sickness-spell-attack-damage-poisoned#step:doResolveRayOfSicknessSpellAttackDamageAndPoisoned` | `src/tests/mod.rs::level1_damage_spell_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveSacredFlameDexteritySavingThrowRadiantDamage` | `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json#T033-sacred-flame-dexterity-saving-throw-radiant-damage#step:doResolveSacredFlameDexteritySavingThrowRadiantDamage` | `src/tests/mod.rs::level1_damage_spell_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveSorcerousBurstSpellAttackDamage` | `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json#T033-sorcerous-burst-spell-attack-damage#step:doResolveSorcerousBurstSpellAttackDamage` | `src/tests/mod.rs::level1_damage_spell_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight` | `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json#T033-starry-wisp-object-spell-attack-damage-dim-light#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight` | `src/tests/mod.rs::level1_damage_spell_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage` | `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json#T033-vicious-mockery-wisdom-saving-throw-psychic-damage-next-attack-disadvantage#step:doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage` | `src/tests/mod.rs::level1_damage_spell_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T033-burning-hands-mixed-cone-saving-throws`
+- Reproduction seed or trace id: `T033-chromatic-orb-duplicate-damage-leap`
+- Reproduction seed or trace id: `T033-ice-knife-hit-attack-damage-burst-saving-throws`
+- Reproduction seed or trace id: `T033-ice-knife-miss-burst-saving-throws`
+- Reproduction seed or trace id: `T033-poison-spray-spell-attack-damage`
+- Reproduction seed or trace id: `T033-ray-of-sickness-spell-attack-damage-poisoned`
+- Reproduction seed or trace id: `T033-sacred-flame-dexterity-saving-throw-radiant-damage`
+- Reproduction seed or trace id: `T033-sorcerous-burst-spell-attack-damage`
+- Reproduction seed or trace id: `T033-starry-wisp-object-spell-attack-damage-dim-light`
+- Reproduction seed or trace id: `T033-vicious-mockery-wisdom-saving-throw-psychic-damage-next-attack-disadvantage`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::level1_damage_spell_projects_selected_damage_cases`
 
 Remaining gaps:
 

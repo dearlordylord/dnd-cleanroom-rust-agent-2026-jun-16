@@ -4,24 +4,72 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpellEffectState.projection",
-      "introducedIn": "src/rules/level_one_spell_effects.rs",
+      "fieldPath": "LevelOneDamageSpellState.action_available",
+      "introducedIn": "src/rules/level_one_damage_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpellEffectState.scenario_outcome",
-      "introducedIn": "src/rules/level_one_spell_effects.rs",
+      "fieldPath": "LevelOneDamageSpellState.spell_slot_spent_this_turn",
+      "introducedIn": "src/rules/level_one_damage_spells.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "LevelOneSpellEffectState.protocol",
-      "introducedIn": "src/rules/level_one_spell_effects.rs",
+      "fieldPath": "LevelOneDamageSpellState.level_one_slots_remaining",
+      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneDamageSpellState.primary_target_hit_points",
+      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneDamageSpellState.primary_target_poisoned",
+      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneDamageSpellState.primary_target_next_attack_roll_disadvantage",
+      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneDamageSpellState.secondary_target_hit_points",
+      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneDamageSpellState.scenario_outcome",
+      "introducedIn": "src/rules/level_one_damage_spells.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "LevelOneDamageSpellState.protocol",
+      "introducedIn": "src/rules/level_one_damage_spells.rs",
       "owner": "battle-state"
     },
     {
@@ -30,10 +78,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T032"
+  "taskId": "T033"
 }

@@ -36,6 +36,8 @@ mod battle_runtime_hit_point_restoration_ordering;
 mod battle_runtime_interrupt_stack_resume;
 #[path = "../qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs"]
 mod battle_runtime_level1_buff_mark_smite_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs"]
+mod battle_runtime_level1_damage_spell_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -170,6 +172,14 @@ use crate::rules::interrupt_stack_resume::{
     resolve_recorded_attack_replay_from_root, InterruptPendingTrigger, InterruptResumeHole,
     InterruptStackResumeProtocol, InterruptStackResumeScenarioOutcome, ReactionWindowOffer,
     ReactionWindowRole,
+};
+use crate::rules::level_one_damage_spells::{
+    level_one_damage_spells_initial_state, project_burning_hands_mixed_cone_saving_throws,
+    project_chromatic_orb_duplicate_damage_leap, project_poison_spray_spell_attack_damage,
+    project_ray_of_sickness_spell_attack_damage_and_poisoned,
+    project_starry_wisp_object_spell_attack_damage_and_dim_light,
+    project_vicious_mockery_wisdom_saving_throw_psychic_damage_and_next_attack_disadvantage,
+    LevelOneDamageSpellProtocol, LevelOneDamageSpellScenarioOutcome,
 };
 use crate::rules::level_one_spell_effects::{
     level_one_spell_effects_initial_state, project_divine_favor_weapon_damage_rider,
@@ -321,6 +331,12 @@ use battle_runtime_level1_buff_mark_smite_selected_identity::{
     projection_payload as level1_buff_mark_smite_projection_payload,
     replay_observed_action as replay_level1_buff_mark_smite_action,
     BRANCH_ACTIONS as LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS,
+};
+use battle_runtime_level1_damage_spell_selected_identity::{
+    expected_witness as expected_level1_damage_spell_witness,
+    projection_payload as level1_damage_spell_projection_payload,
+    replay_observed_action as replay_level1_damage_spell_action,
+    BRANCH_ACTIONS as LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2100,6 +2116,72 @@ fn level1_buff_mark_smite_projects_core_spell_effects() {
     assert_eq!(true_strike_bonus_damage_dice(1).dice, 0);
     let true_strike = project_true_strike_spell_hosted_weapon_attack();
     assert_eq!(true_strike.projection.true_strike.damage.die_size, 4);
+}
+
+#[test]
+fn level1_damage_spell_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-level1-damage-spell-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md,
+    // Descriptions-E-L.md, Descriptions-M-P.md, Descriptions-Q-R.md, and
+    // Descriptions-S-Z.md selected level-1 and cantrip damage spells.
+    for action in LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS {
+        let observed = replay_level1_damage_spell_action(action);
+        assert_eq!(observed, expected_level1_damage_spell_witness(action));
+        assert!(
+            level1_damage_spell_projection_payload(&observed).contains("protocolResult=resolved")
+        );
+    }
+}
+
+#[test]
+fn level1_damage_spell_projects_selected_damage_cases() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Burning Hands" and "Chromatic Orb"; Spells/Descriptions-M-P.md
+    // "Poison Spray"; Spells/Descriptions-Q-R.md "Ray of Sickness";
+    // Spells/Descriptions-S-Z.md "Starry Wisp" and "Vicious Mockery"; QNT:
+    // battle-runtime-level1-damage-spell-selected-identity.mbt.qnt.
+    let initial = level_one_damage_spells_initial_state();
+    assert!(initial.action_available);
+    assert_eq!(initial.level_one_slots_remaining, 1);
+    assert_eq!(initial.protocol, LevelOneDamageSpellProtocol::Init);
+
+    let burning_hands = project_burning_hands_mixed_cone_saving_throws();
+    assert!(!burning_hands.action_available);
+    assert!(burning_hands.spell_slot_spent_this_turn);
+    assert_eq!(burning_hands.level_one_slots_remaining, 0);
+    assert_eq!(burning_hands.primary_target_hit_points, 6);
+    assert_eq!(burning_hands.secondary_target_hit_points, 9);
+
+    let chromatic_orb = project_chromatic_orb_duplicate_damage_leap();
+    assert!(chromatic_orb.spell_slot_spent_this_turn);
+    assert_eq!(chromatic_orb.primary_target_hit_points, 3);
+    assert_eq!(chromatic_orb.secondary_target_hit_points, 9);
+
+    let poison_spray = project_poison_spray_spell_attack_damage();
+    assert!(!poison_spray.spell_slot_spent_this_turn);
+    assert_eq!(poison_spray.level_one_slots_remaining, 1);
+    assert_eq!(poison_spray.primary_target_hit_points, 5);
+
+    let ray = project_ray_of_sickness_spell_attack_damage_and_poisoned();
+    assert!(ray.primary_target_poisoned);
+    assert_eq!(
+        ray.scenario_outcome,
+        LevelOneDamageSpellScenarioOutcome::RayOfSicknessSpellAttackDamageAndPoisoned
+    );
+
+    let starry_wisp = project_starry_wisp_object_spell_attack_damage_and_dim_light();
+    assert!(!starry_wisp.spell_slot_spent_this_turn);
+    assert_eq!(starry_wisp.primary_target_hit_points, 12);
+    assert_eq!(
+        starry_wisp.scenario_outcome,
+        LevelOneDamageSpellScenarioOutcome::StarryWispObjectSpellAttackDamageAndDimLight
+    );
+
+    let vicious_mockery =
+        project_vicious_mockery_wisdom_saving_throw_psychic_damage_and_next_attack_disadvantage();
+    assert!(vicious_mockery.primary_target_next_attack_roll_disadvantage);
+    assert_eq!(vicious_mockery.primary_target_hit_points, 6);
 }
 
 #[test]

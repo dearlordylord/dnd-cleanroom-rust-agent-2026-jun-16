@@ -1,69 +1,38 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 11,
+      "addedEntries": 9,
       "owner": "production",
-      "reason": "added reusable level-one spell effect projection components for buff, mark, smite, and spell-hosted weapon branches"
+      "reason": "added reusable level-one damage spell projection fields for action, spell slot, hit point, condition, and protocol outcomes"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doDivineFavorWeaponDamageRider",
-        "doDivineSmiteAfterHitDamage",
-        "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
-        "doFalseLifeTemporaryHitPoints",
-        "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
-        "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
-        "doHexMarkedDamageRiderAndLaterTurnTransfer",
-        "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
-        "doLongstriderSpeedIncrease",
-        "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
-        "doShillelaghWeaponAttackOverride",
-        "doTrueStrikeSpellHostedWeaponAttack",
-        "divine_favor",
-        "divine_smite",
-        "ensnaring_strike",
-        "false_life",
-        "heroism",
-        "hunters_mark",
-        "hex",
-        "longstrider",
-        "searing_smite",
-        "shillelagh",
-        "true_strike",
-        "none",
-        "radiant",
-        "force",
-        "necrotic",
-        "piercing",
-        "fire",
-        "frightened",
-        "available",
-        "availableAfterTurn",
-        "awaitingTargetDrop",
-        "sameTurn",
-        "laterTurn",
-        "transferTarget",
-        "weapon_quarterstaff",
-        "main:weapon_dagger",
-        "weapon_dagger",
-        "Quarterstaff (force)",
-        "Dagger",
-        "DivineFavor",
-        "DivineSmite",
-        "EnsnaringStrike",
-        "FalseLife",
-        "Heroism",
-        "HuntersMark",
-        "Hex",
-        "Longstrider",
-        "SearingSmite",
-        "Shillelagh",
-        "TrueStrike",
+        "doResolveBurningHandsMixedConeSavingThrows",
+        "doResolveChromaticOrbDuplicateDamageLeap",
+        "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+        "doResolveIceKnifeMissBurstSavingThrows",
+        "doResolvePoisonSpraySpellAttackDamage",
+        "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
+        "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
+        "doResolveSorcerousBurstSpellAttackDamage",
+        "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
+        "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+        "BurningHandsMixedConeSavingThrows",
+        "ChromaticOrbDuplicateDamageLeap",
+        "IceKnifeHitAttackDamageAndBurstSavingThrows",
+        "IceKnifeMissBurstSavingThrows",
+        "PoisonSpraySpellAttackDamage",
+        "RayOfSicknessSpellAttackDamageAndPoisoned",
+        "SacredFlameDexteritySavingThrowRadiantDamage",
+        "SorcerousBurstSpellAttackDamage",
+        "StarryWispObjectSpellAttackDamageAndDimLight",
+        "ViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
         "init",
         "resolved",
+        "none",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -81,59 +50,46 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T032-battle-runtime-level1-buff-mark-smite-selected-identity.json"
+        "tasks/target-replay-evidence/T033-battle-runtime-level1-damage-spell-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "LevelOneSpellEffectProjection",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
-      "module": "src/rules/level_one_spell_effects.rs"
+      "api": "LevelOneDamageSpellState",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "module": "src/rules/level_one_damage_spells.rs"
     },
     {
-      "api": "shillelagh_damage_dice",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
-      "module": "src/rules/level_one_spell_effects.rs"
+      "api": "project_starry_wisp_object_spell_attack_damage_and_dim_light",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "module": "src/rules/level_one_damage_spells.rs"
     },
     {
-      "api": "true_strike_weapon_attack_modifier",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
-      "module": "src/rules/level_one_spell_effects.rs"
+      "api": "project_ray_of_sickness_spell_attack_damage_and_poisoned",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "module": "src/rules/level_one_damage_spells.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "level_one_spell_effects_initial_state",
-        "project_divine_favor_weapon_damage_rider",
-        "project_divine_smite_after_hit_damage",
-        "project_ensnaring_strike_restraint_damage_and_escape",
-        "project_false_life_temporary_hit_points",
-        "project_heroism_frightened_immunity_and_turn_start_temporary_hit_points",
-        "project_heroism_cleanup_after_effect_end",
-        "project_hunters_mark_damage_rider_and_same_turn_transfer",
-        "project_hex_damage_rider_and_later_turn_transfer",
-        "project_longstrider_speed_increase",
-        "project_searing_smite_timed_damage_and_save_cleanup",
-        "project_shillelagh_weapon_attack_override",
-        "project_true_strike_spell_hosted_weapon_attack",
-        "shillelagh_attack_modifier",
-        "shillelagh_damage_dice",
-        "true_strike_weapon_attack_modifier",
-        "true_strike_bonus_damage_dice"
+        "level_one_damage_spells_initial_state",
+        "project_burning_hands_mixed_cone_saving_throws",
+        "project_chromatic_orb_duplicate_damage_leap",
+        "project_ice_knife_hit_attack_damage_and_burst_saving_throws",
+        "project_ice_knife_miss_burst_saving_throws",
+        "project_poison_spray_spell_attack_damage",
+        "project_ray_of_sickness_spell_attack_damage_and_poisoned",
+        "project_sacred_flame_dexterity_saving_throw_radiant_damage",
+        "project_sorcerous_burst_spell_attack_damage",
+        "project_starry_wisp_object_spell_attack_damage_and_dim_light",
+        "project_vicious_mockery_wisdom_saving_throw_psychic_damage_and_next_attack_disadvantage"
       ],
-      "path": "src/rules/level_one_spell_effects.rs",
+      "path": "src/rules/level_one_damage_spells.rs",
       "role": "domain-engine"
-    },
-    {
-      "domainApis": [
-        "DamageType::Piercing"
-      ],
-      "path": "src/rules/spell_shapes.rs",
-      "role": "domain-api"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T032"
+  "taskId": "T033"
 }
