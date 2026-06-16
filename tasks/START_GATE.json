@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T066",
-  "startHeadSha": "29a888bb5e0faada58e5d5f38d63d33c92a17aaf",
+  "taskId": "T067",
+  "startHeadSha": "b0fd02cb5bce42ce90e7596fa442f6bcb8af94bc",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt"
     ]
   }
 }

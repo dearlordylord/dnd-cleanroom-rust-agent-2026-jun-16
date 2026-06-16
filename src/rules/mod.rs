@@ -39,3 +39,4 @@ pub mod weapon_attack_skeleton;
 pub mod weapon_hosted_attack_and_riders;
 pub mod weapon_mastery_selected_identity;
 pub mod wild_shape;
+pub mod zero_hit_point_mid_resolution;

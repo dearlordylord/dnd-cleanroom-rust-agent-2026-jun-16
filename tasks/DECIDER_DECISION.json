@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T066-battle-runtime-weapon-mastery-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T067-battle-runtime-zero-hit-point-mid-resolution.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T066"
+  "taskId": "T067"
 }

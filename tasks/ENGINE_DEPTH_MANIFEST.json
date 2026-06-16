@@ -3,30 +3,31 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added battle runtime weapon mastery selected-identity projection"
+      "reason": "added zero hit point mid-resolution battle projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_zero_hit_point_mid_resolution.rs",
       "quarantinedWitnessNames": [
-        "doResolveSapMasteryPropertyHit",
-        "doResolveToppleMasteryPropertyFailedSavingThrow",
-        "doResolveCleaveMasteryPropertySecondTargetHit",
-        "WitnessProtocolHole",
+        "doResolveEldritchBlast",
+        "ZeroHitPointMidResolution",
         "Init",
-        "NeedsHoles",
-        "Resolved",
+        "SpellAttackSequenceResolved",
         "init",
-        "needsHoles",
         "resolved",
-        "qPrimaryTargetHp",
-        "qSecondTargetHp",
-        "qActionAvailable",
-        "qPrimaryTargetHasSapEffect",
-        "qPrimaryTargetProne",
-        "qCleaveUsed",
-        "qLastResult",
+        "qScenario",
+        "qSourceHp",
+        "qSourceUnconscious",
+        "qSourceConcentrating",
+        "qShieldOfFaithPresent",
+        "qProtectedTargetHp",
+        "qSourceDamage",
+        "qProtectedTargetDamage",
+        "qProtectedTargetDamageIfShieldOfFaithRemained",
+        "qZeroHpAppliedBeforeSecondBeam",
+        "qTeardownBeforeSecondBeam",
+        "qRemainderUsedPostTeardownState",
         "qHoles",
         "protocolResult",
         "protocolHoles",
@@ -47,35 +48,33 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T066-battle-runtime-weapon-mastery-selected-identity.json"
+        "tasks/target-replay-evidence/T067-battle-runtime-zero-hit-point-mid-resolution.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "damage_after_weapon_mastery_hit",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt",
-      "module": "src/rules/weapon_mastery_selected_identity.rs"
+      "api": "hit_points_after_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt",
+      "module": "src/rules/zero_hit_point_mid_resolution.rs"
     },
     {
-      "api": "WeaponMasteryRuntimeProtocol",
-      "driver": "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt",
-      "module": "src/rules/weapon_mastery_selected_identity.rs"
+      "api": "ZeroHitPointMidResolutionProtocol",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
+      "module": "src/rules/zero_hit_point_mid_resolution.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "weapon_mastery_selected_identity_initial_state",
-        "resolve_sap_mastery_property_hit",
-        "resolve_topple_mastery_property_failed_saving_throw",
-        "resolve_cleave_mastery_property_second_target_hit",
-        "damage_after_weapon_mastery_hit"
+        "zero_hit_point_mid_resolution_initial_state",
+        "resolve_eldritch_blast_zero_hit_point_mid_resolution",
+        "hit_points_after_damage"
       ],
-      "path": "src/rules/weapon_mastery_selected_identity.rs",
+      "path": "src/rules/zero_hit_point_mid_resolution.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T066"
+  "taskId": "T067"
 }

@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt`
-- Next task id: `T067`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt`
+- Next task id: `T068`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,70 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T067: battle-runtime-zero-hit-point-mid-resolution
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt`
+- Branch obligations:
+  - `step:doResolveEldritchBlast`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/zero_hit_point_mid_resolution.rs` with a bounded battle runtime projection for a two-beam spell attack sequence where the first beam drops the concentrating source to 0 hit points.
+- Modeled the source reaching 0 hit points as unconscious, no longer concentrating, and no longer maintaining Shield of Faith before the second beam resolves.
+- Modeled the protected target taking the post-teardown second-beam damage and retaining zero damage for the counterfactual state where Shield of Faith remained.
+- Kept the QNT branch action, witness hole label, scenario labels, protocol strings, and projection field names quarantined in `src/qnt_adapters/battle_runtime_zero_hit_point_mid_resolution.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt#step:doResolveEldritchBlast` | `tasks/target-replay-evidence/T067-battle-runtime-zero-hit-point-mid-resolution.json#T067-resolve-eldritch-blast#step:doResolveEldritchBlast` | `src/tests/mod.rs::zero_hit_point_mid_resolution_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T067-battle-runtime-zero-hit-point-mid-resolution.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T067-resolve-eldritch-blast`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::zero_hit_point_mid_resolution_adapter_replays_all_branches`
+- `src/tests/mod.rs::zero_hit_point_mid_resolution_tears_down_concentration_before_second_beam`
 
 Remaining gaps:
 

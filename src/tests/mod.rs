@@ -104,6 +104,8 @@ mod battle_runtime_weapon_attack_skeleton;
 mod battle_runtime_weapon_hosted_attack_and_riders;
 #[path = "../qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs"]
 mod battle_runtime_weapon_mastery_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_zero_hit_point_mid_resolution.rs"]
+mod battle_runtime_zero_hit_point_mid_resolution;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -465,6 +467,13 @@ use crate::rules::wild_shape::{
     WildShapeCreatureSize, WildShapeDruidStatus, WildShapeForm, WildShapeProtocol,
     WildShapeScenarioOutcome,
 };
+use crate::rules::zero_hit_point_mid_resolution::{
+    hit_points_after_damage, resolve_eldritch_blast_zero_hit_point_mid_resolution,
+    zero_hit_point_mid_resolution_initial_state, ZeroHitPointMidResolutionHole,
+    ZeroHitPointMidResolutionProtocol, ZeroHitPointMidResolutionScenario,
+    ZERO_HP_PROTECTED_TARGET_DAMAGE_AFTER_TEARDOWN, ZERO_HP_PROTECTED_TARGET_INITIAL_HIT_POINTS,
+    ZERO_HP_SOURCE_DAMAGE, ZERO_HP_SOURCE_INITIAL_HIT_POINTS,
+};
 
 use battle_runtime_adrenaline_rush::{
     expected_witness as expected_adrenaline_rush_witness,
@@ -785,6 +794,12 @@ use battle_runtime_weapon_mastery_selected_identity::{
     projection_payload as weapon_mastery_selected_identity_projection_payload,
     replay_observed_action as replay_weapon_mastery_selected_identity_action,
     BRANCH_ACTIONS as WEAPON_MASTERY_SELECTED_IDENTITY_BRANCH_ACTIONS,
+};
+use battle_runtime_zero_hit_point_mid_resolution::{
+    expected_witness as expected_zero_hit_point_mid_resolution_witness,
+    projection_payload as zero_hit_point_mid_resolution_projection_payload,
+    replay_observed_action as replay_zero_hit_point_mid_resolution_action,
+    BRANCH_ACTIONS as ZERO_HIT_POINT_MID_RESOLUTION_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -4050,6 +4065,80 @@ fn weapon_mastery_selected_identity_projects_sap_topple_and_cleave() {
     assert!(!cleave.action_available);
     assert!(cleave.cleave_used);
     assert_eq!(cleave.protocol, WeaponMasteryRuntimeProtocol::Resolved);
+}
+
+#[test]
+fn zero_hit_point_mid_resolution_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-zero-hit-point-mid-resolution.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Dropping to 0 Hit Points"; Rules-Glossary.md "Unconscious",
+    // "Incapacitated", and "Concentration"; Spells/Descriptions-E-L.md
+    // "Eldritch Blast"; Spells/Descriptions-S-Z.md "Shield of Faith".
+    for action in ZERO_HIT_POINT_MID_RESOLUTION_BRANCH_ACTIONS {
+        let observed = replay_zero_hit_point_mid_resolution_action(action);
+        assert_eq!(
+            observed,
+            expected_zero_hit_point_mid_resolution_witness(action)
+        );
+        assert!(zero_hit_point_mid_resolution_projection_payload(&observed)
+            .contains("qTeardownBeforeSecondBeam=true"));
+    }
+}
+
+#[test]
+fn zero_hit_point_mid_resolution_tears_down_concentration_before_second_beam() {
+    // RAW/QNT citations match `zero_hit_point_mid_resolution_adapter_replays_all_branches`.
+    let initial = zero_hit_point_mid_resolution_initial_state();
+    assert_eq!(initial.scenario, ZeroHitPointMidResolutionScenario::Init);
+    assert_eq!(initial.source_hit_points, ZERO_HP_SOURCE_INITIAL_HIT_POINTS);
+    assert!(initial.source_concentrating);
+    assert!(initial.shield_of_faith_present);
+    assert_eq!(
+        initial.protocol,
+        ZeroHitPointMidResolutionProtocol::Init(vec![
+            ZeroHitPointMidResolutionHole::ZeroHitPointMidResolution,
+        ])
+    );
+
+    assert_eq!(
+        hit_points_after_damage(ZERO_HP_SOURCE_INITIAL_HIT_POINTS, ZERO_HP_SOURCE_DAMAGE),
+        0
+    );
+    assert_eq!(
+        hit_points_after_damage(
+            ZERO_HP_PROTECTED_TARGET_INITIAL_HIT_POINTS,
+            ZERO_HP_PROTECTED_TARGET_DAMAGE_AFTER_TEARDOWN,
+        ),
+        8
+    );
+
+    let resolved = resolve_eldritch_blast_zero_hit_point_mid_resolution();
+    assert_eq!(
+        resolved.scenario,
+        ZeroHitPointMidResolutionScenario::SpellAttackSequenceResolved
+    );
+    assert_eq!(resolved.source_hit_points, 0);
+    assert!(resolved.source_unconscious);
+    assert!(!resolved.source_concentrating);
+    assert!(!resolved.shield_of_faith_present);
+    assert_eq!(resolved.protected_target_hit_points, 8);
+    assert_eq!(resolved.source_damage, ZERO_HP_SOURCE_DAMAGE);
+    assert_eq!(
+        resolved.protected_target_damage,
+        ZERO_HP_PROTECTED_TARGET_DAMAGE_AFTER_TEARDOWN
+    );
+    assert_eq!(
+        resolved.protected_target_damage_if_shield_of_faith_remained,
+        0
+    );
+    assert!(resolved.zero_hit_points_applied_before_second_beam);
+    assert!(resolved.teardown_before_second_beam);
+    assert!(resolved.remainder_used_post_teardown_state);
+    assert_eq!(
+        resolved.protocol,
+        ZeroHitPointMidResolutionProtocol::Resolved
+    );
 }
 
 #[test]
