@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T037-battle-runtime-quickened-spell-governor.json",
+      "evidence": "tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T037"
+  "taskId": "T038"
 }

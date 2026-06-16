@@ -1,44 +1,69 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 11,
+      "addedEntries": 8,
       "owner": "production",
-      "reason": "added grouped Quickened Spell success and rejection projections for sorcery point spend, action conversion, same-turn spell-slot governor, and spell effect categories"
+      "reason": "added roll-modifier discovery and spell-cast projections for Bane, Bless, Guidance, Pass without Trace, and Enhance Ability"
+    },
+    {
+      "addedEntries": 8,
+      "owner": "production",
+      "reason": "added roll-modifier projections for per-target Enhance Ability, Enthrall, Thaumaturgy, concentration cleanup, and active-effect stutter"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_quickened_spell_governor.rs",
+      "path": "src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs",
       "quarantinedWitnessNames": [
-        "doResolveQuickenedRestoration",
-        "doResolveQuickenedSaveGatedCondition",
-        "doResolveQuickenedSaveGatedConditionImmunity",
-        "doResolveQuickenedDirectCondition",
-        "doResolveQuickenedRollModifier",
-        "doResolveQuickenedAfterMagicActionSpent",
-        "doRejectUnaffordable",
-        "doRejectUnknownOption",
-        "doRejectUnsupportedSecondOption",
-        "doRejectOnePerSpell",
-        "doRejectPriorLevelOnePlusSpell",
-        "ResolvedQuickenedRestoration",
-        "ResolvedQuickenedSaveGatedCondition",
-        "ResolvedQuickenedSaveGatedConditionImmunity",
-        "ResolvedQuickenedDirectCondition",
-        "ResolvedQuickenedRollModifier",
-        "ResolvedAfterMagicActionSpent",
-        "RejectedUnaffordable",
-        "RejectedUnknownOption",
-        "RejectedUnsupportedSecondOption",
-        "RejectedOnePerSpell",
-        "RejectedPriorLevelOnePlusSpell",
+        "doDiscoverBaneSave",
+        "doCastBaneFailed",
+        "doCastBless",
+        "doDiscoverGuidanceSkillChoice",
+        "doCastGuidanceStealth",
+        "doCastPassWithoutTrace",
+        "doDiscoverEnhanceAbilityChoice",
+        "doCastEnhanceDex",
+        "doDiscoverEnhanceTargetAbilityChoices",
+        "doCastEnhancePerTarget",
+        "doCastEnthrall",
+        "doDiscoverThaumaturgyCount",
+        "doCastThaumaturgyBoomingVoice",
+        "doCastThaumaturgyCancelled",
+        "doBreakConcentration",
+        "doStutter",
+        "NeedsBaneSave",
+        "BaneFailedTarget",
+        "BlessTarget",
+        "NeedsGuidanceSkill",
+        "GuidanceStealth",
+        "PassWithoutTraceStealth",
+        "NeedsEnhanceAbility",
+        "EnhanceDex",
+        "NeedsEnhanceTargetAbilities",
+        "EnhancePerTarget",
+        "EnthrallPerception",
+        "NeedsThaumaturgyCount",
+        "ThaumaturgyBoomingVoice",
+        "ThaumaturgyCancelled",
+        "ConcentrationBroken",
+        "SavingThrowOutcome",
+        "SkillChoice",
+        "AbilityChoice",
+        "TargetAbilityChoices",
+        "ThaumaturgyActiveOneMinuteEffectCount",
         "none",
-        "unaffordable",
-        "unknownOption",
-        "unsupportedSecondOption",
-        "onePerSpell",
-        "sameTurnLevelOnePlus",
+        "+1d4",
+        "-1d4",
+        "+10",
+        "-10",
+        "dex",
+        "wis",
+        "stealth",
+        "perception",
+        "normal",
+        "advantage",
         "init",
+        "needsHoles",
         "resolved",
         "mbt::actionTaken",
         "mbt::nondetPicks",
@@ -57,47 +82,52 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T037-battle-runtime-quickened-spell-governor.json"
+        "tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "resolve_quickened_roll_modifier",
+      "api": "cast_bane_failed",
       "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
-      "module": "src/rules/quickened_spell_governor.rs"
+      "module": "src/rules/roll_modifier_active_effects.rs"
     },
     {
-      "api": "resolve_quickened_save_gated_condition",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
-      "module": "src/rules/quickened_spell_governor.rs"
+      "api": "cast_bless",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
+      "module": "src/rules/roll_modifier_active_effects.rs"
     },
     {
-      "api": "reject_quickened_prior_level_one_plus_spell",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
-      "module": "src/rules/quickened_spell_governor.rs"
+      "api": "break_roll_modifier_concentration",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "module": "src/rules/roll_modifier_active_effects.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "quickened_spell_governor_initial_state",
-        "resolve_quickened_restoration",
-        "resolve_quickened_save_gated_condition",
-        "resolve_quickened_save_gated_condition_immunity",
-        "resolve_quickened_direct_condition",
-        "resolve_quickened_roll_modifier",
-        "resolve_quickened_after_magic_action_spent",
-        "reject_quickened_unaffordable",
-        "reject_quickened_unknown_option",
-        "reject_quickened_unsupported_second_option",
-        "reject_quickened_one_per_spell",
-        "reject_quickened_prior_level_one_plus_spell"
+        "roll_modifier_active_effects_initial_state",
+        "discover_bane_save",
+        "cast_bane_failed",
+        "cast_bless",
+        "discover_guidance_skill_choice",
+        "cast_guidance_stealth",
+        "cast_pass_without_trace",
+        "discover_enhance_ability_choice",
+        "cast_enhance_dex",
+        "discover_enhance_target_ability_choices",
+        "cast_enhance_per_target",
+        "cast_enthrall",
+        "discover_thaumaturgy_count",
+        "cast_thaumaturgy_booming_voice",
+        "cast_thaumaturgy_cancelled",
+        "break_roll_modifier_concentration",
+        "stutter_roll_modifier_active_effect"
       ],
-      "path": "src/rules/quickened_spell_governor.rs",
+      "path": "src/rules/roll_modifier_active_effects.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T037"
+  "taskId": "T038"
 }

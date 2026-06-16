@@ -46,6 +46,8 @@ mod battle_runtime_mage_armor_selected_identity;
 mod battle_runtime_magic_missile;
 #[path = "../qnt_adapters/battle_runtime_quickened_spell_governor.rs"]
 mod battle_runtime_quickened_spell_governor;
+#[path = "../qnt_adapters/battle_runtime_roll_modifier_active_effects.rs"]
+mod battle_runtime_roll_modifier_active_effects;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -234,6 +236,16 @@ use crate::rules::quickened_spell_governor::{
     resolve_quickened_save_gated_condition, resolve_quickened_save_gated_condition_immunity,
     QuickenedSpellInvalidKind, QuickenedSpellProtocol, QuickenedSpellScenarioOutcome,
 };
+use crate::rules::roll_modifier_active_effects::{
+    break_roll_modifier_concentration, cast_bane_failed, cast_bless, cast_enhance_dex,
+    cast_enhance_per_target, cast_enthrall, cast_guidance_stealth, cast_pass_without_trace,
+    cast_thaumaturgy_booming_voice, cast_thaumaturgy_cancelled, discover_bane_save,
+    discover_enhance_ability_choice, discover_enhance_target_ability_choices,
+    discover_guidance_skill_choice, discover_thaumaturgy_count,
+    roll_modifier_active_effects_initial_state, RollModifierChoice, RollModifierHole,
+    RollModifierProtocol, RollModifierRollMode, RollModifierScenarioOutcome, RollModifierSkill,
+    RollModifierValue,
+};
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
     fill_eldritch_blast_attack, fill_eldritch_blast_damage, fill_eldritch_blast_targets,
@@ -400,6 +412,12 @@ use battle_runtime_quickened_spell_governor::{
     projection_payload as quickened_spell_projection_payload,
     replay_observed_action as replay_quickened_spell_action,
     BRANCH_ACTIONS as QUICKENED_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_roll_modifier_active_effects::{
+    expected_witness as expected_roll_modifier_active_effects_witness,
+    projection_payload as roll_modifier_active_effects_projection_payload,
+    replay_observed_action as replay_roll_modifier_active_effects_action,
+    BRANCH_ACTIONS as ROLL_MODIFIER_ACTIVE_EFFECTS_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2527,6 +2545,139 @@ fn quickened_spell_governor_projects_successes_and_rejections() {
     );
     assert!(prior.level_one_plus_cast_this_turn);
     assert!(!prior.quickened_level_one_plus_cast_this_turn);
+}
+
+#[test]
+fn roll_modifier_active_effects_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-roll-modifier-active-effects.mbt.qnt; RAW:
+    // Bane, Bless, Guidance, Enhance Ability, Enthrall, Pass without Trace,
+    // and Thaumaturgy spell descriptions.
+    for action in ROLL_MODIFIER_ACTIVE_EFFECTS_BRANCH_ACTIONS {
+        let observed = replay_roll_modifier_active_effects_action(action);
+        assert_eq!(
+            observed,
+            expected_roll_modifier_active_effects_witness(action)
+        );
+        assert!(
+            roll_modifier_active_effects_projection_payload(&observed).contains("protocolResult=")
+        );
+    }
+}
+
+#[test]
+fn roll_modifier_active_effects_project_modifiers_holes_and_cleanup() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Bane" and "Bless"; Spells/Descriptions-E-L.md "Enhance Ability",
+    // "Enthrall", and "Guidance"; Spells/Descriptions-M-P.md
+    // "Pass without Trace"; Spells/Descriptions-S-Z.md "Thaumaturgy"; QNT:
+    // battle-runtime-roll-modifier-active-effects.mbt.qnt.
+    let initial = roll_modifier_active_effects_initial_state();
+    assert!(initial.action_available);
+    assert_eq!(initial.protocol, RollModifierProtocol::Init);
+
+    let bane_discovery = discover_bane_save();
+    assert_eq!(bane_discovery.protocol, RollModifierProtocol::NeedsHoles);
+    assert_eq!(
+        bane_discovery.protocol_holes,
+        vec![RollModifierHole::SavingThrowOutcome]
+    );
+    let bane = cast_bane_failed();
+    assert_eq!(bane.target_attack_modifier, RollModifierValue::MinusD4);
+    assert_eq!(
+        bane.target_saving_throw_modifier,
+        RollModifierValue::MinusD4
+    );
+    assert!(bane.caster_concentrating);
+
+    let bless = cast_bless();
+    assert_eq!(bless.target_attack_modifier, RollModifierValue::PlusD4);
+    assert_eq!(
+        bless.scenario_outcome,
+        RollModifierScenarioOutcome::BlessTarget
+    );
+
+    let guidance = discover_guidance_skill_choice();
+    assert_eq!(guidance.protocol_holes, vec![RollModifierHole::SkillChoice]);
+    let guided = cast_guidance_stealth();
+    assert_eq!(
+        guided.caster_ability_check_modifier,
+        RollModifierValue::PlusD4
+    );
+    assert_eq!(guided.caster_skill, RollModifierSkill::Stealth);
+
+    let traced = cast_pass_without_trace();
+    assert_eq!(
+        traced.caster_ability_check_modifier,
+        RollModifierValue::Plus10
+    );
+    assert_eq!(
+        traced.target_ability_check_modifier,
+        RollModifierValue::Plus10
+    );
+
+    let enhance_discovery = discover_enhance_ability_choice();
+    assert_eq!(
+        enhance_discovery.protocol_holes,
+        vec![RollModifierHole::AbilityChoice]
+    );
+    let enhanced = cast_enhance_dex();
+    assert_eq!(
+        enhanced.target_ability_choice,
+        RollModifierChoice::Dexterity
+    );
+    assert_eq!(
+        enhanced.target_ability_check_roll_mode,
+        RollModifierRollMode::Advantage
+    );
+
+    let per_target_discovery = discover_enhance_target_ability_choices();
+    assert_eq!(
+        per_target_discovery.protocol_holes,
+        vec![RollModifierHole::TargetAbilityChoices]
+    );
+    let per_target = cast_enhance_per_target();
+    assert_eq!(
+        per_target.second_target_ability_choice,
+        RollModifierChoice::Wisdom
+    );
+    assert_eq!(
+        per_target.second_target_ability_check_roll_mode,
+        RollModifierRollMode::Advantage
+    );
+
+    let enthrall = cast_enthrall();
+    assert_eq!(enthrall.target_skill, RollModifierSkill::Perception);
+    assert_eq!(
+        enthrall.target_ability_check_modifier,
+        RollModifierValue::Minus10
+    );
+    assert_eq!(enthrall.passive_perception_delta, -10);
+
+    let thaumaturgy_discovery = discover_thaumaturgy_count();
+    assert_eq!(
+        thaumaturgy_discovery.protocol_holes,
+        vec![RollModifierHole::ThaumaturgyActiveOneMinuteEffectCount]
+    );
+    let booming = cast_thaumaturgy_booming_voice();
+    assert!(booming.thaumaturgy_effect_active);
+    assert_eq!(
+        booming.thaumaturgy_intimidation_roll_mode,
+        RollModifierRollMode::Advantage
+    );
+    let cancelled = cast_thaumaturgy_cancelled();
+    assert!(cancelled.thaumaturgy_effect_active);
+    assert_eq!(
+        cancelled.thaumaturgy_intimidation_roll_mode,
+        RollModifierRollMode::Normal
+    );
+
+    let broken = break_roll_modifier_concentration();
+    assert!(!broken.caster_concentrating);
+    assert_eq!(
+        broken.scenario_outcome,
+        RollModifierScenarioOutcome::ConcentrationBroken
+    );
 }
 
 #[test]

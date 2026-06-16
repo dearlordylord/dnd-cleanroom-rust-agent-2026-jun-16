@@ -19,6 +19,7 @@ pub mod level_one_spell_effects;
 pub mod magic_missile;
 pub mod origin_feats;
 pub mod quickened_spell_governor;
+pub mod roll_modifier_active_effects;
 pub mod spell_shapes;
 pub mod spellbook_rituals;
 pub mod wild_shape;

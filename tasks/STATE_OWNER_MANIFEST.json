@@ -4,128 +4,152 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.quickened_cure_wounds_offered",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.action_available",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.color_spray_blinded",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.spell_available",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.calm_emotions_immunity",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.caster_concentrating",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.invisibility_active",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.target_attack_modifier",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.bless_active",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.target_saving_throw_modifier",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.magic_action_available",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.caster_ability_check_modifier",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.bonus_action_available",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.target_ability_check_modifier",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.sorcery_points_remaining",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.caster_skill",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.target_hit_points",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.target_skill",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.spell_slot_committed",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.target_ability_choice",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.level_one_plus_cast_this_turn",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.second_target_ability_choice",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.quickened_level_one_plus_cast_this_turn",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.target_ability_check_roll_mode",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.spell_slot_acts_available",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.second_target_ability_check_roll_mode",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.invalid_kind",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.thaumaturgy_intimidation_roll_mode",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.scenario_outcome",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.thaumaturgy_effect_active",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "QuickenedSpellGovernorState.protocol",
-      "introducedIn": "src/rules/quickened_spell_governor.rs",
+      "fieldPath": "RollModifierActiveEffectsState.passive_perception_delta",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "RollModifierActiveEffectsState.scenario_outcome",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "RollModifierActiveEffectsState.protocol",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "RollModifierActiveEffectsState.protocol_holes",
+      "introducedIn": "src/rules/roll_modifier_active_effects.rs",
       "owner": "battle-state"
     },
     {
@@ -134,10 +158,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_quickened_spell_governor.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T037"
+  "taskId": "T038"
 }

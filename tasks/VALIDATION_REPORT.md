@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt`
-- Next task id: `T038`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt`
+- Next task id: `T039`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,113 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T038: battle-runtime-roll-modifier-active-effects
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt`
+- Branch obligations:
+  - `step:doBreakConcentration`
+  - `step:doCastBaneFailed`
+  - `step:doCastBless`
+  - `step:doCastEnhanceDex`
+  - `step:doCastEnhancePerTarget`
+  - `step:doCastEnthrall`
+  - `step:doCastGuidanceStealth`
+  - `step:doCastPassWithoutTrace`
+  - `step:doCastThaumaturgyBoomingVoice`
+  - `step:doCastThaumaturgyCancelled`
+  - `step:doDiscoverBaneSave`
+  - `step:doDiscoverEnhanceAbilityChoice`
+  - `step:doDiscoverEnhanceTargetAbilityChoices`
+  - `step:doDiscoverGuidanceSkillChoice`
+  - `step:doDiscoverThaumaturgyCount`
+  - `step:doStutter`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/guidance/README.md`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/roll_modifier_active_effects.rs` with typed active-effect projections for Bane and Bless, Guidance and Pass without Trace, Enhance Ability, Enthrall, Thaumaturgy, concentration cleanup, and stutter replay.
+- Projected action and spell availability, concentration, attack and save modifiers, ability-check modifiers, selected skills and abilities, roll modes, passive Perception delta, protocol holes, and scenario outcomes from the QNT driver and cited spell descriptions.
+- Kept exact QNT action names, witness labels, protocol strings, and target replay projection strings quarantined in `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doDiscoverBaneSave` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-discover-bane-save#step:doDiscoverBaneSave` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastBaneFailed` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-cast-bane-failed#step:doCastBaneFailed` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastBless` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-cast-bless#step:doCastBless` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doDiscoverGuidanceSkillChoice` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-discover-guidance-skill-choice#step:doDiscoverGuidanceSkillChoice` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastGuidanceStealth` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-cast-guidance-stealth#step:doCastGuidanceStealth` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastPassWithoutTrace` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-cast-pass-without-trace#step:doCastPassWithoutTrace` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doDiscoverEnhanceAbilityChoice` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-discover-enhance-ability-choice#step:doDiscoverEnhanceAbilityChoice` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastEnhanceDex` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-cast-enhance-dex#step:doCastEnhanceDex` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doDiscoverEnhanceTargetAbilityChoices` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-discover-enhance-target-ability-choices#step:doDiscoverEnhanceTargetAbilityChoices` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastEnhancePerTarget` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-cast-enhance-per-target#step:doCastEnhancePerTarget` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastEnthrall` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-cast-enthrall#step:doCastEnthrall` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doDiscoverThaumaturgyCount` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-discover-thaumaturgy-count#step:doDiscoverThaumaturgyCount` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastThaumaturgyBoomingVoice` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-cast-thaumaturgy-booming-voice#step:doCastThaumaturgyBoomingVoice` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastThaumaturgyCancelled` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-cast-thaumaturgy-cancelled#step:doCastThaumaturgyCancelled` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doBreakConcentration` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-break-concentration#step:doBreakConcentration` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doStutter` | `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json#T038-stutter-bless#step:doStutter` | `src/tests/mod.rs::roll_modifier_active_effects_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T038-battle-runtime-roll-modifier-active-effects.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T038-discover-bane-save`
+- Reproduction seed or trace id: `T038-cast-bane-failed`
+- Reproduction seed or trace id: `T038-cast-bless`
+- Reproduction seed or trace id: `T038-discover-guidance-skill-choice`
+- Reproduction seed or trace id: `T038-cast-guidance-stealth`
+- Reproduction seed or trace id: `T038-cast-pass-without-trace`
+- Reproduction seed or trace id: `T038-discover-enhance-ability-choice`
+- Reproduction seed or trace id: `T038-cast-enhance-dex`
+- Reproduction seed or trace id: `T038-discover-enhance-target-ability-choices`
+- Reproduction seed or trace id: `T038-cast-enhance-per-target`
+- Reproduction seed or trace id: `T038-cast-enthrall`
+- Reproduction seed or trace id: `T038-discover-thaumaturgy-count`
+- Reproduction seed or trace id: `T038-cast-thaumaturgy-booming-voice`
+- Reproduction seed or trace id: `T038-cast-thaumaturgy-cancelled`
+- Reproduction seed or trace id: `T038-break-concentration`
+- Reproduction seed or trace id: `T038-stutter-bless`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::roll_modifier_active_effects_project_modifiers_holes_and_cleanup`
 
 Remaining gaps:
 

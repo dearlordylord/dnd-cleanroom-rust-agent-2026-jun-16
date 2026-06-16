@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T037",
-  "startHeadSha": "4c74fcc8e8496ff39e772ee89106e7434ef4d6c2",
+  "taskId": "T038",
+  "startHeadSha": "80eac4c54aab7c2b245ab60d6aafe8699e664861",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt"
     ]
   }
 }
