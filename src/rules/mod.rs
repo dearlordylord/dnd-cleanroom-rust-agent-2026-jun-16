@@ -23,6 +23,7 @@ pub mod roll_modifier_active_effects;
 pub mod roll_modifier_buff_selected_identity;
 pub mod sanctuary_selected_identity;
 pub mod save_gated_spell_ordering;
+pub mod scalar_buff_active_effects;
 pub mod spell_shapes;
 pub mod spellbook_rituals;
 pub mod wild_shape;

@@ -54,6 +54,8 @@ mod battle_runtime_roll_modifier_buff_selected_identity;
 mod battle_runtime_sanctuary_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_save_gated_spell_ordering.rs"]
 mod battle_runtime_save_gated_spell_ordering;
+#[path = "../qnt_adapters/battle_runtime_scalar_buff_active_effects.rs"]
+mod battle_runtime_scalar_buff_active_effects;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -276,6 +278,12 @@ use crate::rules::save_gated_spell_ordering::{
     SaveGatedSpellFillOrderingError, SaveGatedSpellFrontierStage, SaveGatedSpellHoleKind,
     SaveGatedSpellOrderingProtocol,
 };
+use crate::rules::scalar_buff_active_effects::{
+    resolve_aid_scalar_buff, resolve_false_life_scalar_buff, resolve_longstrider_scalar_buff,
+    resolve_shield_of_faith_scalar_buff, resolve_spider_climb_scalar_buff,
+    scalar_buff_active_effects_initial_state, stutter_scalar_buff_active_effect,
+    ScalarBuffProtocol, ScalarBuffScenarioResult,
+};
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
     fill_eldritch_blast_attack, fill_eldritch_blast_damage, fill_eldritch_blast_targets,
@@ -466,6 +474,12 @@ use battle_runtime_save_gated_spell_ordering::{
     projection_payload as save_gated_spell_ordering_projection_payload,
     replay_observed_action as replay_save_gated_spell_ordering_action,
     BRANCH_ACTIONS as SAVE_GATED_SPELL_ORDERING_BRANCH_ACTIONS,
+};
+use battle_runtime_scalar_buff_active_effects::{
+    expected_witness as expected_scalar_buff_active_effects_witness,
+    projection_payload as scalar_buff_active_effects_projection_payload,
+    replay_observed_action as replay_scalar_buff_active_effects_action,
+    BRANCH_ACTIONS as SCALAR_BUFF_ACTIVE_EFFECTS_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2946,6 +2960,62 @@ fn save_gated_spell_ordering_tracks_area_damage_and_condition_paths() {
         fill_condition_saving_throw().protocol,
         SaveGatedSpellOrderingProtocol::Resolved
     );
+}
+
+#[test]
+fn scalar_buff_active_effects_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-scalar-buff-active-effects.mbt.qnt; RAW: Aid,
+    // False Life, Longstrider, Shield of Faith, and Spider Climb.
+    for action in SCALAR_BUFF_ACTIVE_EFFECTS_BRANCH_ACTIONS {
+        let observed = replay_scalar_buff_active_effects_action(action);
+        assert_eq!(
+            observed,
+            expected_scalar_buff_active_effects_witness(action)
+        );
+        assert!(scalar_buff_active_effects_projection_payload(&observed)
+            .contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn scalar_buff_active_effects_project_spell_scalar_fields() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
+    // "Aid"; Spells/Descriptions-E-L.md "False Life" and "Longstrider";
+    // Spells/Descriptions-S-Z.md "Shield of Faith" and "Spider Climb";
+    // QNT: battle-runtime-scalar-buff-active-effects.mbt.qnt.
+    let initial = scalar_buff_active_effects_initial_state();
+    assert_eq!(initial.protocol, ScalarBuffProtocol::Init);
+    assert_eq!(initial.affected_armor_class, 10);
+
+    let shield = resolve_shield_of_faith_scalar_buff();
+    assert_eq!(shield.affected_armor_class, 12);
+    assert!(shield.armor_class_bonus_active);
+    assert!(shield.caster_concentrating);
+
+    let longstrider = resolve_longstrider_scalar_buff();
+    assert_eq!(longstrider.affected_speed_feet, 40);
+    assert!(longstrider.speed_delta_active);
+
+    let spider = resolve_spider_climb_scalar_buff();
+    assert_eq!(spider.affected_climb_speed_feet, 30);
+    assert!(spider.special_speed_grant_active);
+    assert!(spider.caster_concentrating);
+
+    let aid = resolve_aid_scalar_buff();
+    assert_eq!(aid.affected_hit_point_maximum, 17);
+    assert_eq!(aid.affected_hit_points, 17);
+    assert!(aid.hit_point_maximum_increase_active);
+
+    let false_life = resolve_false_life_scalar_buff();
+    assert_eq!(false_life.affected_temporary_hit_points, 9);
+    assert_eq!(
+        false_life.scenario_result,
+        ScalarBuffScenarioResult::FalseLife
+    );
+
+    let stutter = stutter_scalar_buff_active_effect();
+    assert_eq!(stutter, false_life);
 }
 
 #[test]

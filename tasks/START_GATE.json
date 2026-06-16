@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T041",
-  "startHeadSha": "60bcdf037fce523a0fe89063ec3d55744c295f29",
+  "taskId": "T042",
+  "startHeadSha": "924d50090df3775afab38372c92582be4b77c26e",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt"
     ]
   }
 }

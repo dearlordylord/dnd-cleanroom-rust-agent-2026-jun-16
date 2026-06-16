@@ -4,24 +4,104 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SaveGatedSpellOrderingState.stage",
-      "introducedIn": "src/rules/save_gated_spell_ordering.rs",
+      "fieldPath": "ScalarBuffActiveEffectsState.affected_armor_class",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SaveGatedSpellOrderingState.protocol",
-      "introducedIn": "src/rules/save_gated_spell_ordering.rs",
+      "fieldPath": "ScalarBuffActiveEffectsState.affected_speed_feet",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "SaveGatedSpellOrderingState.last_ordering_error",
-      "introducedIn": "src/rules/save_gated_spell_ordering.rs",
+      "fieldPath": "ScalarBuffActiveEffectsState.affected_climb_speed_feet",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ScalarBuffActiveEffectsState.affected_hit_point_maximum",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ScalarBuffActiveEffectsState.affected_hit_points",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ScalarBuffActiveEffectsState.affected_temporary_hit_points",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ScalarBuffActiveEffectsState.armor_class_bonus_active",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ScalarBuffActiveEffectsState.speed_delta_active",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ScalarBuffActiveEffectsState.special_speed_grant_active",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ScalarBuffActiveEffectsState.hit_point_maximum_increase_active",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ScalarBuffActiveEffectsState.caster_concentrating",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ScalarBuffActiveEffectsState.scenario_result",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "ScalarBuffActiveEffectsState.protocol",
+      "introducedIn": "src/rules/scalar_buff_active_effects.rs",
       "owner": "battle-state"
     },
     {
@@ -30,10 +110,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T041"
+  "taskId": "T042"
 }

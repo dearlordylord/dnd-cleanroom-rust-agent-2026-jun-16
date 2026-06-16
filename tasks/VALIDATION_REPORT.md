@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt`
-- Next task id: `T042`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt`
+- Next task id: `T043`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,84 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T042: battle-runtime-scalar-buff-active-effects
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt`
+- Branch obligations:
+  - `step:doCastAid`
+  - `step:doCastFalseLife`
+  - `step:doCastLongstrider`
+  - `step:doCastShieldOfFaith`
+  - `step:doCastSpiderClimb`
+  - `step:doStutter`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/guidance/README.md`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+
+Behavior implemented:
+
+- Added `src/rules/scalar_buff_active_effects.rs` with scalar buff active-effect projections for Aid, False Life, Longstrider, Shield of Faith, Spider Climb, and the stutter branch over False Life state.
+- Projected Armor Class, Speed, Climb Speed, Hit Point maximum/current, Temporary Hit Points, active effect flags, concentration, scenario result, and protocol result from the QNT driver and cited RAW spell/effect text.
+- Kept exact QNT action names, scenario labels, and protocol strings quarantined in `src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doCastAid` | `tasks/target-replay-evidence/T042-battle-runtime-scalar-buff-active-effects.json#T042-cast-aid#step:doCastAid` | `src/tests/mod.rs::scalar_buff_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doCastFalseLife` | `tasks/target-replay-evidence/T042-battle-runtime-scalar-buff-active-effects.json#T042-cast-false-life#step:doCastFalseLife` | `src/tests/mod.rs::scalar_buff_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doCastLongstrider` | `tasks/target-replay-evidence/T042-battle-runtime-scalar-buff-active-effects.json#T042-cast-longstrider#step:doCastLongstrider` | `src/tests/mod.rs::scalar_buff_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doCastShieldOfFaith` | `tasks/target-replay-evidence/T042-battle-runtime-scalar-buff-active-effects.json#T042-cast-shield-of-faith#step:doCastShieldOfFaith` | `src/tests/mod.rs::scalar_buff_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doCastSpiderClimb` | `tasks/target-replay-evidence/T042-battle-runtime-scalar-buff-active-effects.json#T042-cast-spider-climb#step:doCastSpiderClimb` | `src/tests/mod.rs::scalar_buff_active_effects_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doStutter` | `tasks/target-replay-evidence/T042-battle-runtime-scalar-buff-active-effects.json#T042-stutter-false-life#step:doStutter` | `src/tests/mod.rs::scalar_buff_active_effects_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T042-battle-runtime-scalar-buff-active-effects.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T042-cast-aid`
+- Reproduction seed or trace id: `T042-cast-false-life`
+- Reproduction seed or trace id: `T042-cast-longstrider`
+- Reproduction seed or trace id: `T042-cast-shield-of-faith`
+- Reproduction seed or trace id: `T042-cast-spider-climb`
+- Reproduction seed or trace id: `T042-stutter-false-life`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::scalar_buff_active_effects_project_spell_scalar_fields`
 
 Remaining gaps:
 
