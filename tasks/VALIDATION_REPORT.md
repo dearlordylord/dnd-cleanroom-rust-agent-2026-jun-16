@@ -6,9 +6,9 @@
 - Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt`
-- Next task id: `T068`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt`
+- Next task id: `T069`
 
 Completion rule: a queued branch set is complete only when this report has an
 entry that names the exact `.mbt.qnt` driver, records the current manifest
@@ -63,6 +63,76 @@ Harness artifacts:
 Diagnostic tests:
 
 - Focused target-language tests may be listed here as supplemental diagnostics.
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T068: creature-attack
+
+- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
+- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Driver: `cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt`
+- Branch obligations:
+  - `step:doAttackerAAttacks`
+  - `step:doAttackerBAttacks`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/creature-attack.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/hit-point-damage.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/guidance/README.md`
+  - `tasks/ACTIVE_WORK.json`
+  - `tasks/LEVEL_1_2_SCOPE.md`
+  - `scripts/check-cleanroom-harness.cjs`
+
+Behavior implemented:
+
+- Added `src/rules/creature_attack.rs` with a minimal creature-vs-creature attack projection where a caller-supplied hit verdict and damage amount resolve against the opposing creature.
+- Modeled misses as preserving both creatures' Hit Points, hits as applying nonnegative damage only to the defender, and Hit Points as clamped at 0.
+- Added `src/qnt_adapters/creature_attack_mbt.rs` to quarantine QNT action names, sampled input names, and projection field names while replaying deterministic sampled hit/damage values.
+- Updated the local cleanroom harness sampled-input allowlist so canonical domain terms `damage` and `hit` are not treated as witness-protocol leaks outside adapters; target replay evidence still records both sampled values for each branch.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt#step:doAttackerAAttacks` | `tasks/target-replay-evidence/T068-creature-attack.json#T068-attacker-a-attacks-hit-max-damage#step:doAttackerAAttacks` | `src/tests/mod.rs::creature_attack_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt#step:doAttackerBAttacks` | `tasks/target-replay-evidence/T068-creature-attack.json#T068-attacker-b-attacks-hit-max-damage#step:doAttackerBAttacks` | `src/tests/mod.rs::creature_attack_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T068-creature-attack.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T068-attacker-a-attacks-hit-max-damage` with `damage=6`, `hit=true`
+- Reproduction seed or trace id: `T068-attacker-b-attacks-hit-max-damage` with `damage=6`, `hit=true`
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+
+Diagnostic tests:
+
+- `src/tests/mod.rs::creature_attack_adapter_replays_all_branches`
+- `src/tests/mod.rs::creature_attack_applies_hit_damage_to_opposing_creature_only`
 
 Remaining gaps:
 

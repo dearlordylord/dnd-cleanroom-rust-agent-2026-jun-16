@@ -132,6 +132,8 @@ mod character_sheet_hp_rest_hit_dice;
 mod character_sheet_spellbook_ritual_selected_identity;
 #[path = "../qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs"]
 mod character_sheet_weapon_mastery_containers_selected_identity;
+#[path = "../qnt_adapters/creature_attack_mbt.rs"]
+mod creature_attack_mbt;
 
 use crate::rules::ability_checks::{
     ability_check_proficiency_bonus, AbilityCheckProficiencyBonusKind, AbilityCheckSkillTraining,
@@ -191,6 +193,11 @@ use crate::rules::concentration::{
     request_concentration_save_after_damage, voluntarily_end_concentration,
     ConcentrationBreakScenario, ConcentrationDamageFacts, ConcentrationProtocol,
     ConcentrationSavingThrowError, ConcentrationSavingThrowFacts,
+};
+use crate::rules::creature_attack::{
+    apply_damage_to_creature, creature_attack_initial_state, resolve_creature_attack,
+    CreatureAttackActor, CreatureAttackFills, CREATURE_ATTACK_INITIAL_HIT_POINTS,
+    CREATURE_ATTACK_MAX_DAMAGE_ROLL,
 };
 use crate::rules::creature_type_protection::{
     creature_type_protection_initial_state, discover_animal_friendship_target_admission,
@@ -871,6 +878,12 @@ use character_sheet_weapon_mastery_containers_selected_identity::{
     projection_payload as sheet_weapon_mastery_projection_payload,
     replay_observed_action as replay_sheet_weapon_mastery_action,
     BRANCH_ACTIONS as SHEET_WEAPON_MASTERY_BRANCH_ACTIONS,
+};
+use creature_attack_mbt::{
+    expected_witness as expected_creature_attack_witness,
+    projection_payload as creature_attack_projection_payload,
+    replay_observed_action as replay_creature_attack_action, replay_sampled_inputs,
+    BRANCH_ACTIONS as CREATURE_ATTACK_BRANCH_ACTIONS, REPLAY_DAMAGE_SAMPLE, REPLAY_HIT_SAMPLE,
 };
 
 #[test]
@@ -2005,6 +2018,89 @@ fn concentration_breaks_after_failed_save_voluntary_end_or_replacement() {
     );
     assert!(replacement.caster_concentrating);
     assert!(replacement.replacement_started_after_teardown);
+}
+
+#[test]
+fn creature_attack_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt and
+    // creature-attack.qnt; RAW: cleanroom-input/raw/srd-5.2.1/
+    // Playing-the-Game.md "Attack Rolls", "Making an Attack", "Hit Points",
+    // and "Damage Rolls"; Monsters/Overview.md "Attack Notation" and
+    // "Damage Notation".
+    let sampled = replay_sampled_inputs();
+    assert_eq!(sampled.damage, REPLAY_DAMAGE_SAMPLE);
+    assert_eq!(sampled.hit, REPLAY_HIT_SAMPLE);
+
+    for action in CREATURE_ATTACK_BRANCH_ACTIONS {
+        let observed = replay_creature_attack_action(action);
+        assert_eq!(observed, expected_creature_attack_witness(action));
+        assert!(creature_attack_projection_payload(&observed).contains("qCreatureAHp="));
+        assert!(creature_attack_projection_payload(&observed).contains("qCreatureBHp="));
+    }
+}
+
+#[test]
+fn creature_attack_applies_hit_damage_to_opposing_creature_only() {
+    // RAW/QNT citations match `creature_attack_adapter_replays_all_branches`.
+    let initial = creature_attack_initial_state();
+    assert_eq!(
+        initial.creature_a_hit_points,
+        CREATURE_ATTACK_INITIAL_HIT_POINTS
+    );
+    assert_eq!(
+        initial.creature_b_hit_points,
+        CREATURE_ATTACK_INITIAL_HIT_POINTS
+    );
+
+    let miss = resolve_creature_attack(
+        initial,
+        CreatureAttackActor::CreatureA,
+        CreatureAttackFills {
+            damage: CREATURE_ATTACK_MAX_DAMAGE_ROLL,
+            hit: false,
+        },
+    );
+    assert_eq!(miss, initial);
+
+    let a_hits = resolve_creature_attack(
+        initial,
+        CreatureAttackActor::CreatureA,
+        CreatureAttackFills {
+            damage: CREATURE_ATTACK_MAX_DAMAGE_ROLL,
+            hit: true,
+        },
+    );
+    assert_eq!(
+        a_hits.creature_a_hit_points,
+        CREATURE_ATTACK_INITIAL_HIT_POINTS
+    );
+    assert_eq!(
+        a_hits.creature_b_hit_points,
+        CREATURE_ATTACK_INITIAL_HIT_POINTS - CREATURE_ATTACK_MAX_DAMAGE_ROLL
+    );
+
+    let b_hits = resolve_creature_attack(
+        initial,
+        CreatureAttackActor::CreatureB,
+        CreatureAttackFills {
+            damage: CREATURE_ATTACK_MAX_DAMAGE_ROLL,
+            hit: true,
+        },
+    );
+    assert_eq!(
+        b_hits.creature_a_hit_points,
+        CREATURE_ATTACK_INITIAL_HIT_POINTS - CREATURE_ATTACK_MAX_DAMAGE_ROLL
+    );
+    assert_eq!(
+        b_hits.creature_b_hit_points,
+        CREATURE_ATTACK_INITIAL_HIT_POINTS
+    );
+
+    assert_eq!(
+        apply_damage_to_creature(3, CREATURE_ATTACK_MAX_DAMAGE_ROLL),
+        0
+    );
+    assert_eq!(apply_damage_to_creature(3, -2), 3);
 }
 
 #[test]

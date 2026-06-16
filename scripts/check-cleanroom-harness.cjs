@@ -80,7 +80,9 @@ const canonicalSampledInputNames = new Set([
   // These sampled MBT pick names are also Ubiquitous Language domain terms.
   // Evidence must still record them, but production rules may use the domain
   // vocabulary without being treated as a witness-protocol leak.
+  "damage",
   "damageType",
+  "hit",
   "roll",
   "slotLevel",
 ]);

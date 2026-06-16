@@ -3,34 +3,21 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added zero hit point mid-resolution battle projection"
+      "reason": "added minimal creature attack hit point projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_zero_hit_point_mid_resolution.rs",
+      "path": "src/qnt_adapters/creature_attack_mbt.rs",
       "quarantinedWitnessNames": [
-        "doResolveEldritchBlast",
-        "ZeroHitPointMidResolution",
-        "Init",
-        "SpellAttackSequenceResolved",
-        "init",
-        "resolved",
-        "qScenario",
-        "qSourceHp",
-        "qSourceUnconscious",
-        "qSourceConcentrating",
-        "qShieldOfFaithPresent",
-        "qProtectedTargetHp",
-        "qSourceDamage",
-        "qProtectedTargetDamage",
-        "qProtectedTargetDamageIfShieldOfFaithRemained",
-        "qZeroHpAppliedBeforeSecondBeam",
-        "qTeardownBeforeSecondBeam",
-        "qRemainderUsedPostTeardownState",
-        "qHoles",
-        "protocolResult",
-        "protocolHoles",
+        "doAttackerAAttacks",
+        "doAttackerBAttacks",
+        "damage",
+        "hit",
+        "AttackerA",
+        "AttackerB",
+        "qCreatureAHp",
+        "qCreatureBHp",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -48,33 +35,33 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T067-battle-runtime-zero-hit-point-mid-resolution.json"
+        "tasks/target-replay-evidence/T068-creature-attack.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "hit_points_after_damage",
-      "driver": "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt",
-      "module": "src/rules/zero_hit_point_mid_resolution.rs"
+      "api": "apply_damage_to_creature",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
+      "module": "src/rules/creature_attack.rs"
     },
     {
-      "api": "ZeroHitPointMidResolutionProtocol",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
-      "module": "src/rules/zero_hit_point_mid_resolution.rs"
+      "api": "CreatureAttackState",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+      "module": "src/rules/creature_attack.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "zero_hit_point_mid_resolution_initial_state",
-        "resolve_eldritch_blast_zero_hit_point_mid_resolution",
-        "hit_points_after_damage"
+        "creature_attack_initial_state",
+        "resolve_creature_attack",
+        "apply_damage_to_creature"
       ],
-      "path": "src/rules/zero_hit_point_mid_resolution.rs",
+      "path": "src/rules/creature_attack.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T067"
+  "taskId": "T068"
 }

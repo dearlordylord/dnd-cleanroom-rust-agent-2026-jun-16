@@ -6,6 +6,7 @@ pub mod character_creation;
 pub mod class_features;
 pub mod command_options;
 pub mod concentration;
+pub mod creature_attack;
 pub mod creature_type_protection;
 pub mod feature_resources;
 pub mod find_familiar;
