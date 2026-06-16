@@ -42,6 +42,8 @@ mod battle_runtime_level1_damage_spell_selected_identity;
 mod battle_runtime_level1_spatial_witness_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_mage_armor_selected_identity.rs"]
 mod battle_runtime_mage_armor_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_magic_missile.rs"]
+mod battle_runtime_magic_missile;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -212,6 +214,11 @@ use crate::rules::level_one_spell_effects::{
     shillelagh_damage_dice, true_strike_bonus_damage_dice, true_strike_weapon_attack_modifier,
     LevelOneSpell, LevelOneSpellEffectProtocol, LevelOneSpellEffectScenarioOutcome,
 };
+use crate::rules::magic_missile::{
+    magic_missile_force_damage, magic_missile_initial_state, project_magic_missile_damage_fill,
+    project_magic_missile_target_allocation, skeleton_hit_points_after_magic_missile_damage,
+    MagicMissileHole, MagicMissileProtocolResult,
+};
 use crate::rules::origin_feats::{
     criminal_origin_feat_projection, initiative_handoff_projection, AlertInitiativeState,
     Background, InitiativeHandoffFacts, OriginFeat,
@@ -369,6 +376,13 @@ use battle_runtime_mage_armor_selected_identity::{
     projection_payload as mage_armor_projection_payload,
     replay_observed_action as replay_mage_armor_action,
     BRANCH_ACTIONS as MAGE_ARMOR_BRANCH_ACTIONS,
+};
+use battle_runtime_magic_missile::{
+    expected_witness as expected_magic_missile_witness,
+    projection_payload as magic_missile_projection_payload, replay_magic_missile_damage,
+    replay_observed_action as replay_magic_missile_action,
+    BRANCH_ACTIONS as MAGIC_MISSILE_BRANCH_ACTIONS,
+    DAMAGE_SAMPLE_DART_ROLL_TOTALS as MAGIC_MISSILE_DAMAGE_SAMPLES,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -2351,6 +2365,64 @@ fn mage_armor_projects_base_armor_class_and_duration() {
     );
     assert_eq!(expired.level_one_slots_expended, 1);
     assert!(!expired.action_available);
+}
+
+#[test]
+fn magic_missile_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-magic-missile.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md
+    // "Magic Missile".
+    for action in MAGIC_MISSILE_BRANCH_ACTIONS {
+        let observed = replay_magic_missile_action(action);
+        assert_eq!(observed, expected_magic_missile_witness(action));
+        assert!(magic_missile_projection_payload(&observed).contains("protocolResult="));
+    }
+
+    let high_damage = replay_magic_missile_damage(MAGIC_MISSILE_DAMAGE_SAMPLES[1]);
+    assert_eq!(high_damage.skeleton_hit_points, 0);
+    assert!(high_damage.skeleton_dead);
+}
+
+#[test]
+fn magic_missile_projects_allocation_and_sampled_damage() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md
+    // "Magic Missile"; QNT: battle-runtime-magic-missile.mbt.qnt.
+    let initial = magic_missile_initial_state();
+    assert_eq!(initial.skeleton_hit_points, 13);
+    assert_eq!(initial.protocol_result, MagicMissileProtocolResult::Init);
+    assert_eq!(
+        initial.protocol_holes,
+        vec![MagicMissileHole::SpellTargetAllocation]
+    );
+
+    let allocation = project_magic_missile_target_allocation();
+    assert!(allocation.action_available);
+    assert_eq!(
+        allocation.protocol_result,
+        MagicMissileProtocolResult::NeedsHoles
+    );
+    assert_eq!(
+        allocation.protocol_holes,
+        vec![MagicMissileHole::SpellDamageRoll]
+    );
+
+    assert_eq!(magic_missile_force_damage(3), 6);
+    assert_eq!(skeleton_hit_points_after_magic_missile_damage(13, 3), 7);
+    let low_damage = project_magic_missile_damage_fill(3);
+    assert_eq!(low_damage.skeleton_hit_points, 7);
+    assert!(!low_damage.skeleton_dead);
+    assert!(!low_damage.action_available);
+    assert_eq!(low_damage.protocol_holes, Vec::new());
+
+    assert_eq!(magic_missile_force_damage(12), 15);
+    let high_damage = project_magic_missile_damage_fill(12);
+    assert_eq!(high_damage.skeleton_hit_points, 0);
+    assert!(high_damage.skeleton_dead);
+    assert_eq!(
+        high_damage.protocol_result,
+        MagicMissileProtocolResult::Resolved
+    );
 }
 
 #[test]

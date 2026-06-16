@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T035",
-  "startHeadSha": "5738556e823aa468008e14022d8591de91c51f23",
+  "taskId": "T036",
+  "startHeadSha": "64b8871cd91284800c969960178f21be367c1c4e",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt"
     ]
   }
 }

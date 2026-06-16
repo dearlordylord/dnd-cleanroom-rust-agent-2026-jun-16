@@ -1,24 +1,22 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 7,
+      "addedEntries": 5,
       "owner": "production",
-      "reason": "added Mage Armor state projection, AC totals, duration lifecycle, target admission, and armored-target rejection"
+      "reason": "added Magic Missile target allocation, sampled damage projection, force damage total, and target Hit Point reduction"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_magic_missile.rs",
       "quarantinedWitnessNames": [
-        "doDiscoverMageArmorUnarmoredSelfTarget",
-        "doExpireMageArmorDuration",
-        "doRejectMageArmorArmoredTarget",
-        "doResolveMageArmorBaseArmorClassProjection",
-        "Discovered",
-        "ArmoredRejected",
-        "Resolved",
-        "DurationExpired",
+        "doFillMagicMissileAllocation",
+        "doFillMagicMissileDamage",
+        "dartRollTotal",
+        "SpellTargetAllocation",
+        "SpellDamageRoll",
         "init",
+        "needsHoles",
         "resolved",
         "none",
         "mbt::actionTaken",
@@ -38,37 +36,35 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T035-battle-runtime-mage-armor-selected-identity.json"
+        "tasks/target-replay-evidence/T036-battle-runtime-magic-missile.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "mage_armor_armor_class",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt",
-      "module": "src/rules/level_one_armor_spells.rs"
+      "api": "magic_missile_force_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "module": "src/rules/magic_missile.rs"
     },
     {
-      "api": "resolve_mage_armor_base_armor_class",
-      "driver": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
-      "module": "src/rules/level_one_armor_spells.rs"
+      "api": "skeleton_hit_points_after_magic_missile_damage",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt",
+      "module": "src/rules/magic_missile.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "mage_armor_initial_state",
-        "discover_mage_armor_unarmored_self_target",
-        "reject_mage_armor_armored_target",
-        "resolve_mage_armor_base_armor_class",
-        "expire_mage_armor_duration",
-        "unarmored_armor_class",
-        "mage_armor_armor_class"
+        "magic_missile_initial_state",
+        "project_magic_missile_target_allocation",
+        "project_magic_missile_damage_fill",
+        "magic_missile_force_damage",
+        "skeleton_hit_points_after_magic_missile_damage"
       ],
-      "path": "src/rules/level_one_armor_spells.rs",
+      "path": "src/rules/magic_missile.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T035"
+  "taskId": "T036"
 }

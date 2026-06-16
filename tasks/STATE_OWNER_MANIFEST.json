@@ -4,88 +4,56 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MageArmorState.self_target_admitted",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
+      "fieldPath": "MagicMissileState.skeleton_hit_points",
+      "introducedIn": "src/rules/magic_missile.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MageArmorState.armored_target_rejected",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
+      "fieldPath": "MagicMissileState.skeleton_dead",
+      "introducedIn": "src/rules/magic_missile.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MageArmorState.mage_armor_effect_present",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
+      "fieldPath": "MagicMissileState.action_available",
+      "introducedIn": "src/rules/magic_missile.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MageArmorState.stored_armor_base_still_unarmored",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
+      "fieldPath": "MagicMissileState.multiattack_dispatches_available",
+      "introducedIn": "src/rules/magic_missile.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MageArmorState.projected_base_is_mage_armor",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
+      "fieldPath": "MagicMissileState.sneak_attack_used_this_turn",
+      "introducedIn": "src/rules/magic_missile.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MageArmorState.armor_class",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
+      "fieldPath": "MagicMissileState.protocol_holes",
+      "introducedIn": "src/rules/magic_missile.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "MageArmorState.mage_armor_duration_ticks",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "MageArmorState.level_one_slots_expended",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "MageArmorState.action_available",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "MageArmorState.scenario_outcome",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "MageArmorState.protocol",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
+      "fieldPath": "MagicMissileState.protocol_result",
+      "introducedIn": "src/rules/magic_missile.rs",
       "owner": "battle-state"
     },
     {
@@ -94,10 +62,19 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_magic_missile.rs",
+      "owner": "harness-witness-protocol"
+    },
+    {
+      "derivability": {
+        "tag": "harness-witness-protocol",
+        "witnessName": "mbt::nondetPicks"
+      },
+      "fieldPath": "TargetReplayEvidence.sampledInputs.dartRollTotal",
+      "introducedIn": "src/qnt_adapters/battle_runtime_magic_missile.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T035"
+  "taskId": "T036"
 }
