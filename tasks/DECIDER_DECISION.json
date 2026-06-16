@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T056-battle-runtime-sorcerer-metamagic-twinned-selected-identity.json",
+      "evidence": "tasks/target-replay-evidence/T057-battle-runtime-species-passive-trait-selected-identity.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,5 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T056"
+  "taskId": "T057"
 }

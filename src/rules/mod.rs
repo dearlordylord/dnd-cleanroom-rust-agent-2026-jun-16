@@ -27,6 +27,7 @@ pub mod scalar_buff;
 pub mod scalar_buff_active_effects;
 pub mod sleep_repeat_save;
 pub mod sorcerer_metamagic;
+pub mod species_passive_traits;
 pub mod spell_shapes;
 pub mod spellbook_rituals;
 pub mod wild_shape;

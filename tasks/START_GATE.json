@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T056",
-  "startHeadSha": "b0b79cc12c468ae5aacc3326ae650cb35eb6080b",
+  "taskId": "T057",
+  "startHeadSha": "9d282d20ab8f47d08bf294068daae95e801c60cf",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt"
     ]
   }
 }

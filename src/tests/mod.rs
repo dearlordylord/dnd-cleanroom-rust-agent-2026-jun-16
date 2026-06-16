@@ -84,6 +84,8 @@ mod battle_runtime_sorcerer_metamagic_subtle_selected_identity;
 mod battle_runtime_sorcerer_metamagic_transmuted_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_twinned_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_twinned_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs"]
+mod battle_runtime_species_passive_trait_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -346,6 +348,11 @@ use crate::rules::sorcerer_metamagic::{
     QuickenedMetamagicScenarioResult, SeekingSpellProtocol, SeekingSpellScenarioResult,
     SubtleSpellProtocol, SubtleSpellScenarioResult, TransmutedSpellProtocol,
     TransmutedSpellScenarioResult, TwinnedSpellProtocol, TwinnedSpellScenarioResult,
+};
+use crate::rules::species_passive_traits::{
+    project_dragonborn_damage_resistance, project_dwarven_resilience,
+    project_goliath_powerful_build, species_passive_traits_initial_state, SpeciesPassiveProtocol,
+    SpeciesPassiveRollMode, SpeciesPassiveScenarioResult,
 };
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
@@ -627,6 +634,12 @@ use battle_runtime_sorcerer_metamagic_twinned_selected_identity::{
     projection_payload as twinned_spell_projection_payload,
     replay_observed_action as replay_twinned_spell_action,
     BRANCH_ACTIONS as TWINNED_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_species_passive_trait_selected_identity::{
+    expected_witness as expected_species_passive_witness,
+    projection_payload as species_passive_projection_payload,
+    replay_observed_action as replay_species_passive_action,
+    BRANCH_ACTIONS as SPECIES_PASSIVE_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3822,6 +3835,67 @@ fn twinned_spell_projects_target_count_case() {
         TwinnedSpellScenarioResult::TwinnedTargetCount
     );
     assert_eq!(twinned.protocol, TwinnedSpellProtocol::Resolved);
+}
+
+#[test]
+fn species_passive_trait_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-species-passive-trait-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Origins.md
+    // "Dragonborn", "Dwarven Resilience", and "Powerful Build".
+    for action in SPECIES_PASSIVE_BRANCH_ACTIONS {
+        let observed = replay_species_passive_action(action);
+        assert_eq!(observed, expected_species_passive_witness(action));
+        assert!(species_passive_projection_payload(&observed).contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn species_passive_traits_project_selected_identity_cases() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Origins.md
+    // "Damage Resistance", "Dwarven Resilience", "Powerful Build"; QNT:
+    // battle-runtime-species-passive-trait-selected-identity.mbt.qnt.
+    let initial = species_passive_traits_initial_state();
+    assert_eq!(initial.dragonborn_fire_damage_after, 9);
+    assert_eq!(initial.dwarf_poison_damage_after, 9);
+    assert_eq!(
+        initial.goliath_escape_roll_mode,
+        SpeciesPassiveRollMode::Normal
+    );
+    assert_eq!(initial.protocol, SpeciesPassiveProtocol::Init);
+
+    let dragonborn = project_dragonborn_damage_resistance();
+    assert_eq!(dragonborn.dragonborn_fire_damage_after, 4);
+    assert_eq!(dragonborn.dragonborn_cold_damage_after, 9);
+    assert_eq!(
+        dragonborn.scenario_result,
+        SpeciesPassiveScenarioResult::DragonbornDamageResistance
+    );
+
+    let dwarf = project_dwarven_resilience();
+    assert_eq!(dwarf.dwarf_poison_damage_after, 4);
+    assert_eq!(dwarf.dwarf_fire_damage_after, 9);
+    assert!(dwarf.dwarf_poisoned_save_advantage);
+    assert!(!dwarf.dwarf_charmed_save_advantage);
+    assert_eq!(
+        dwarf.scenario_result,
+        SpeciesPassiveScenarioResult::DwarvenResilience
+    );
+
+    let goliath = project_goliath_powerful_build();
+    assert_eq!(
+        goliath.goliath_escape_roll_mode,
+        SpeciesPassiveRollMode::Advantage
+    );
+    assert_eq!(
+        goliath.goliath_poisoned_escape_roll_mode,
+        SpeciesPassiveRollMode::Normal
+    );
+    assert_eq!(
+        goliath.scenario_result,
+        SpeciesPassiveScenarioResult::GoliathPowerfulBuild
+    );
+    assert_eq!(goliath.protocol, SpeciesPassiveProtocol::Resolved);
 }
 
 #[test]

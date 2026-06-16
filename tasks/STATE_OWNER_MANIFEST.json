@@ -4,56 +4,80 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TwinnedSpellState.magic_action_available",
-      "introducedIn": "src/rules/sorcerer_metamagic.rs",
+      "fieldPath": "SpeciesPassiveTraitState.dragonborn_fire_damage_after",
+      "introducedIn": "src/rules/species_passive_traits.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TwinnedSpellState.bonus_action_available",
-      "introducedIn": "src/rules/sorcerer_metamagic.rs",
+      "fieldPath": "SpeciesPassiveTraitState.dragonborn_cold_damage_after",
+      "introducedIn": "src/rules/species_passive_traits.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TwinnedSpellState.sorcery_points_remaining",
-      "introducedIn": "src/rules/sorcerer_metamagic.rs",
+      "fieldPath": "SpeciesPassiveTraitState.dwarf_poison_damage_after",
+      "introducedIn": "src/rules/species_passive_traits.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TwinnedSpellState.target_hit_points",
-      "introducedIn": "src/rules/sorcerer_metamagic.rs",
+      "fieldPath": "SpeciesPassiveTraitState.dwarf_fire_damage_after",
+      "introducedIn": "src/rules/species_passive_traits.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TwinnedSpellState.target_active_effect_count",
-      "introducedIn": "src/rules/sorcerer_metamagic.rs",
+      "fieldPath": "SpeciesPassiveTraitState.dwarf_poisoned_save_advantage",
+      "introducedIn": "src/rules/species_passive_traits.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TwinnedSpellState.scenario_result",
-      "introducedIn": "src/rules/sorcerer_metamagic.rs",
+      "fieldPath": "SpeciesPassiveTraitState.dwarf_charmed_save_advantage",
+      "introducedIn": "src/rules/species_passive_traits.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "TwinnedSpellState.protocol",
-      "introducedIn": "src/rules/sorcerer_metamagic.rs",
+      "fieldPath": "SpeciesPassiveTraitState.goliath_escape_roll_mode",
+      "introducedIn": "src/rules/species_passive_traits.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "SpeciesPassiveTraitState.goliath_poisoned_escape_roll_mode",
+      "introducedIn": "src/rules/species_passive_traits.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "SpeciesPassiveTraitState.scenario_result",
+      "introducedIn": "src/rules/species_passive_traits.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "SpeciesPassiveTraitState.protocol",
+      "introducedIn": "src/rules/species_passive_traits.rs",
       "owner": "battle-state"
     },
     {
@@ -62,10 +86,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_twinned_selected_identity.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T056"
+  "taskId": "T057"
 }
