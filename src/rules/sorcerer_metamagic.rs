@@ -163,3 +163,55 @@ pub fn resolve_empowered_spell_damage_reroll() -> EmpoweredSpellState {
         protocol: EmpoweredSpellProtocol::Resolved,
     }
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ExtendedSpellConcentrationSaveMode {
+    Normal,
+    Advantage,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ExtendedSpellScenarioResult {
+    Init,
+    ExtendedCreatureSizeIncrease,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ExtendedSpellProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ExtendedSpellState {
+    pub sorcery_points_remaining: i16,
+    pub duration_ticks: i16,
+    pub concentration_saving_throw_mode: ExtendedSpellConcentrationSaveMode,
+    pub scenario_result: ExtendedSpellScenarioResult,
+    pub protocol: ExtendedSpellProtocol,
+}
+
+#[must_use]
+pub fn extended_spell_initial_state() -> ExtendedSpellState {
+    ExtendedSpellState {
+        sorcery_points_remaining: 2,
+        duration_ticks: 0,
+        concentration_saving_throw_mode: ExtendedSpellConcentrationSaveMode::Normal,
+        scenario_result: ExtendedSpellScenarioResult::Init,
+        protocol: ExtendedSpellProtocol::Init,
+    }
+}
+
+#[must_use]
+pub fn resolve_extended_creature_size_increase() -> ExtendedSpellState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Extended Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt.
+    ExtendedSpellState {
+        sorcery_points_remaining: 1,
+        duration_ticks: 20,
+        concentration_saving_throw_mode: ExtendedSpellConcentrationSaveMode::Advantage,
+        scenario_result: ExtendedSpellScenarioResult::ExtendedCreatureSizeIncrease,
+        protocol: ExtendedSpellProtocol::Resolved,
+    }
+}

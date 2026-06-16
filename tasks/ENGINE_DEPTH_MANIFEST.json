@@ -3,15 +3,17 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added Empowered Spell damage reroll projection"
+      "reason": "added Extended Spell creature-size duration and concentration-save projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_empowered_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_extended_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doResolveEmpoweredSpellDamageReroll",
-        "empoweredSpellDamageReroll",
+        "doResolveExtendedCreatureSizeIncrease",
+        "extendedCreatureSizeIncrease",
+        "normal",
+        "advantage",
         "init",
         "resolved",
         "mbt::actionTaken",
@@ -31,18 +33,18 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T047-battle-runtime-sorcerer-metamagic-empowered-selected-identity.json"
+        "tasks/target-replay-evidence/T048-battle-runtime-sorcerer-metamagic-extended-selected-identity.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "empowered_spell_initial_state",
+      "api": "extended_spell_initial_state",
       "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
       "module": "src/rules/sorcerer_metamagic.rs"
     },
     {
-      "api": "resolve_empowered_spell_damage_reroll",
+      "api": "resolve_extended_creature_size_increase",
       "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
       "module": "src/rules/sorcerer_metamagic.rs"
     }
@@ -50,13 +52,13 @@
   "productionModulesExtended": [
     {
       "domainApis": [
-        "empowered_spell_initial_state",
-        "resolve_empowered_spell_damage_reroll"
+        "extended_spell_initial_state",
+        "resolve_extended_creature_size_increase"
       ],
       "path": "src/rules/sorcerer_metamagic.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T047"
+  "taskId": "T048"
 }

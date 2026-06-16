@@ -66,6 +66,8 @@ mod battle_runtime_sorcerer_metamagic_careful_selected_identity;
 mod battle_runtime_sorcerer_metamagic_distant_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_empowered_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_empowered_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_extended_selected_identity.rs"]
+mod battle_runtime_sorcerer_metamagic_extended_selected_identity;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
@@ -309,10 +311,12 @@ use crate::rules::sleep_repeat_save::{
 };
 use crate::rules::sorcerer_metamagic::{
     careful_spell_initial_state, distant_spell_initial_state, empowered_spell_initial_state,
-    resolve_careful_save_gated_damage, resolve_careful_save_gated_no_effect,
-    resolve_distant_object_light, resolve_empowered_spell_damage_reroll, CarefulSpellProtocol,
-    CarefulSpellScenarioResult, DistantSpellProtocol, DistantSpellScenarioResult,
-    EmpoweredSpellProtocol, EmpoweredSpellScenarioResult,
+    extended_spell_initial_state, resolve_careful_save_gated_damage,
+    resolve_careful_save_gated_no_effect, resolve_distant_object_light,
+    resolve_empowered_spell_damage_reroll, resolve_extended_creature_size_increase,
+    CarefulSpellProtocol, CarefulSpellScenarioResult, DistantSpellProtocol,
+    DistantSpellScenarioResult, EmpoweredSpellProtocol, EmpoweredSpellScenarioResult,
+    ExtendedSpellConcentrationSaveMode, ExtendedSpellProtocol, ExtendedSpellScenarioResult,
 };
 use crate::rules::spell_shapes::{
     eldritch_blast_beam_count, eldritch_blast_damage_type, eldritch_blast_initial_state,
@@ -540,6 +544,12 @@ use battle_runtime_sorcerer_metamagic_empowered_selected_identity::{
     projection_payload as empowered_spell_projection_payload,
     replay_observed_action as replay_empowered_spell_action,
     BRANCH_ACTIONS as EMPOWERED_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_sorcerer_metamagic_extended_selected_identity::{
+    expected_witness as expected_extended_spell_witness,
+    projection_payload as extended_spell_projection_payload,
+    replay_observed_action as replay_extended_spell_action,
+    BRANCH_ACTIONS as EXTENDED_SPELL_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
@@ -3329,6 +3339,47 @@ fn empowered_spell_projects_damage_reroll_case() {
         EmpoweredSpellScenarioResult::EmpoweredSpellDamageReroll
     );
     assert_eq!(reroll.protocol, EmpoweredSpellProtocol::Resolved);
+}
+
+#[test]
+fn extended_spell_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Extended Spell".
+    for action in EXTENDED_SPELL_BRANCH_ACTIONS {
+        let observed = replay_extended_spell_action(action);
+        assert_eq!(observed, expected_extended_spell_witness(action));
+        assert!(extended_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn extended_spell_projects_creature_size_duration_and_concentration_mode() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Extended Spell"; QNT:
+    // battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt.
+    let initial = extended_spell_initial_state();
+    assert_eq!(initial.sorcery_points_remaining, 2);
+    assert_eq!(initial.duration_ticks, 0);
+    assert_eq!(
+        initial.concentration_saving_throw_mode,
+        ExtendedSpellConcentrationSaveMode::Normal
+    );
+    assert_eq!(initial.protocol, ExtendedSpellProtocol::Init);
+
+    let extended = resolve_extended_creature_size_increase();
+    assert_eq!(extended.sorcery_points_remaining, 1);
+    assert_eq!(extended.duration_ticks, 20);
+    assert_eq!(
+        extended.concentration_saving_throw_mode,
+        ExtendedSpellConcentrationSaveMode::Advantage
+    );
+    assert_eq!(
+        extended.scenario_result,
+        ExtendedSpellScenarioResult::ExtendedCreatureSizeIncrease
+    );
+    assert_eq!(extended.protocol, ExtendedSpellProtocol::Resolved);
 }
 
 #[test]
