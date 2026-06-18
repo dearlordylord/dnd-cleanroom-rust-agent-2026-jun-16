@@ -17,6 +17,8 @@ use crate::rules::weapon_attack_ordering::{
 pub enum Actor {
     Fighter,
     Goblin,
+    Rogue,
+    Skeleton,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -60,6 +62,8 @@ pub struct BattleState {
     pub initiative: Initiative,
     pub fighter: Combatant,
     pub goblin: Combatant,
+    pub rogue: Combatant,
+    pub skeleton: Combatant,
     pub action_available: bool,
     pub bonus_action_available: bool,
     pub attack_roll_made_this_turn: bool,
@@ -71,6 +75,7 @@ pub struct BattleState {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleSubjectKind {
     WeaponAttack,
+    Multiattack,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -79,6 +84,7 @@ pub struct BattleSubject {
     pub actor: Actor,
     pub target: Option<Actor>,
     pub stage: WeaponAttackFrontierStage,
+    pub damage_modifier: i16,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -98,6 +104,9 @@ pub enum BattleFill {
     TargetChoice(Actor),
     AttackRoll(AttackRollFacts),
     DamageRoll(i16),
+    SneakAttackDamageRoll(i16),
+    ResolveMultiattack,
+    SpendMultiattackDispatch,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -144,42 +153,129 @@ pub fn start_battle() -> BattleState {
                 waiting: vec![Actor::Goblin],
             },
         },
-        fighter: Combatant {
-            hp: 12,
-            max_hp: 12,
-            temporary_hp: 0,
-            armor_class: 10,
-            unconscious: false,
-            incapacitated: false,
-            lifecycle: CombatantLifecycle::UsesDeathSavingThrows,
-            reaction_available: true,
-            movement_spent_feet: 0,
-            sneak_attack_supported: false,
-            sneak_attack_used_this_turn: false,
-            multiattack_dispatches_remaining: 0,
-            recharge_available: false,
-        },
-        goblin: Combatant {
-            hp: 10,
-            max_hp: 10,
-            temporary_hp: 0,
-            armor_class: 15,
-            unconscious: false,
-            incapacitated: false,
-            lifecycle: CombatantLifecycle::DiesAtZeroHitPoints,
-            reaction_available: true,
-            movement_spent_feet: 0,
-            sneak_attack_supported: false,
-            sneak_attack_used_this_turn: false,
-            multiattack_dispatches_remaining: 0,
-            recharge_available: true,
-        },
+        fighter: fighter_combatant(),
+        goblin: goblin_combatant(),
+        rogue: rogue_combatant(),
+        skeleton: skeleton_combatant(),
         action_available: true,
         bonus_action_available: true,
         attack_roll_made_this_turn: false,
         dash_movement_bonus_feet: 0,
         disengaged: false,
         interrupt_stack_depth: 0,
+    }
+}
+
+#[must_use]
+pub fn start_skeleton_battle() -> BattleState {
+    // QNT: battle-runtime-weapon-attack-skeleton.mbt.qnt literal initial
+    // projection for the Rogue attacking a Skeleton.
+    BattleState {
+        initiative: Initiative {
+            round: 1,
+            already_acted: Vec::new(),
+            still_to_act: InitiativeStillToAct {
+                actor: Actor::Rogue,
+                waiting: vec![Actor::Skeleton],
+            },
+        },
+        fighter: fighter_combatant(),
+        goblin: goblin_combatant(),
+        rogue: rogue_combatant(),
+        skeleton: skeleton_combatant(),
+        action_available: true,
+        bonus_action_available: true,
+        attack_roll_made_this_turn: false,
+        dash_movement_bonus_feet: 0,
+        disengaged: false,
+        interrupt_stack_depth: 0,
+    }
+}
+
+#[must_use]
+pub fn start_skeleton_actor_turn() -> BattleState {
+    BattleState {
+        initiative: Initiative {
+            round: 1,
+            already_acted: vec![Actor::Rogue],
+            still_to_act: InitiativeStillToAct {
+                actor: Actor::Skeleton,
+                waiting: Vec::new(),
+            },
+        },
+        ..start_skeleton_battle()
+    }
+}
+
+fn fighter_combatant() -> Combatant {
+    Combatant {
+        hp: 12,
+        max_hp: 12,
+        temporary_hp: 0,
+        armor_class: 10,
+        unconscious: false,
+        incapacitated: false,
+        lifecycle: CombatantLifecycle::UsesDeathSavingThrows,
+        reaction_available: true,
+        movement_spent_feet: 0,
+        sneak_attack_supported: false,
+        sneak_attack_used_this_turn: false,
+        multiattack_dispatches_remaining: 0,
+        recharge_available: false,
+    }
+}
+
+fn goblin_combatant() -> Combatant {
+    Combatant {
+        hp: 10,
+        max_hp: 10,
+        temporary_hp: 0,
+        armor_class: 15,
+        unconscious: false,
+        incapacitated: false,
+        lifecycle: CombatantLifecycle::DiesAtZeroHitPoints,
+        reaction_available: true,
+        movement_spent_feet: 0,
+        sneak_attack_supported: false,
+        sneak_attack_used_this_turn: false,
+        multiattack_dispatches_remaining: 0,
+        recharge_available: true,
+    }
+}
+
+fn rogue_combatant() -> Combatant {
+    Combatant {
+        hp: 11,
+        max_hp: 11,
+        temporary_hp: 0,
+        armor_class: 14,
+        unconscious: false,
+        incapacitated: false,
+        lifecycle: CombatantLifecycle::UsesDeathSavingThrows,
+        reaction_available: true,
+        movement_spent_feet: 0,
+        sneak_attack_supported: true,
+        sneak_attack_used_this_turn: false,
+        multiattack_dispatches_remaining: 0,
+        recharge_available: false,
+    }
+}
+
+fn skeleton_combatant() -> Combatant {
+    Combatant {
+        hp: 13,
+        max_hp: 13,
+        temporary_hp: 0,
+        armor_class: 13,
+        unconscious: false,
+        incapacitated: false,
+        lifecycle: CombatantLifecycle::DiesAtZeroHitPoints,
+        reaction_available: true,
+        movement_spent_feet: 0,
+        sneak_attack_supported: false,
+        sneak_attack_used_this_turn: false,
+        multiattack_dispatches_remaining: 0,
+        recharge_available: false,
     }
 }
 
@@ -192,20 +288,35 @@ pub fn current_actor(state: &BattleState) -> Actor {
 #[must_use]
 pub fn discover_battle_acts(state: &BattleState) -> Vec<AvailableBattleAct> {
     // QNT: battle-runtime-combat-holes.qnt `combatOpenHoles`, narrowed to the
-    // Fighter weapon-attack path for this reducer-spine experiment.
-    if !current_actor_can_attack(state) {
-        return Vec::new();
+    // current weapon-attack and Skeleton multiattack paths for this
+    // reducer-spine experiment.
+    match current_actor(state) {
+        Actor::Fighter | Actor::Rogue if current_actor_can_attack(state) => {
+            vec![AvailableBattleAct {
+                subject: BattleSubject {
+                    kind: BattleSubjectKind::WeaponAttack,
+                    actor: current_actor(state),
+                    target: None,
+                    stage: WeaponAttackFrontierStage::TargetChoice,
+                    damage_modifier: weapon_damage_modifier_for(current_actor(state)),
+                },
+                holes: weapon_attack_hole_frontier(WeaponAttackFrontierStage::TargetChoice),
+            }]
+        }
+        Actor::Skeleton if state.action_available && state.skeleton.hp > 0 => {
+            vec![AvailableBattleAct {
+                subject: BattleSubject {
+                    kind: BattleSubjectKind::Multiattack,
+                    actor: Actor::Skeleton,
+                    target: None,
+                    stage: WeaponAttackFrontierStage::Resolved,
+                    damage_modifier: 0,
+                },
+                holes: Vec::new(),
+            }]
+        }
+        Actor::Fighter | Actor::Goblin | Actor::Rogue | Actor::Skeleton => Vec::new(),
     }
-
-    vec![AvailableBattleAct {
-        subject: BattleSubject {
-            kind: BattleSubjectKind::WeaponAttack,
-            actor: current_actor(state),
-            target: None,
-            stage: WeaponAttackFrontierStage::TargetChoice,
-        },
-        holes: weapon_attack_hole_frontier(WeaponAttackFrontierStage::TargetChoice),
-    }]
 }
 
 #[must_use]
@@ -222,18 +333,49 @@ pub fn resolve_battle_subject(
         );
     }
 
-    if !state.action_available || subject.stage == WeaponAttackFrontierStage::Resolved {
-        return invalid(
+    match (subject.kind, fill) {
+        (BattleSubjectKind::WeaponAttack, fill) => {
+            if !state.action_available {
+                return invalid(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    WeaponAttackFrontierStage::Resolved,
+                );
+            }
+            if subject.stage == WeaponAttackFrontierStage::Resolved {
+                return invalid(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    WeaponAttackFrontierStage::Resolved,
+                );
+            }
+            match fill {
+                BattleFill::TargetChoice(target) => resolve_target_choice(state, subject, target),
+                BattleFill::AttackRoll(roll) => resolve_attack_roll_fill(state, subject, roll),
+                BattleFill::DamageRoll(rolled_damage) => {
+                    resolve_damage_roll(state, subject, rolled_damage, false)
+                }
+                BattleFill::SneakAttackDamageRoll(rolled_damage) => {
+                    resolve_damage_roll(state, subject, rolled_damage, true)
+                }
+                BattleFill::ResolveMultiattack | BattleFill::SpendMultiattackDispatch => invalid(
+                    state,
+                    BattleResolutionInvalidReason::InvalidFill,
+                    subject.stage,
+                ),
+            }
+        }
+        (BattleSubjectKind::Multiattack, BattleFill::ResolveMultiattack) => {
+            resolve_multiattack(state, subject)
+        }
+        (BattleSubjectKind::Multiattack, BattleFill::SpendMultiattackDispatch) => {
+            spend_multiattack_dispatch(state, subject)
+        }
+        (BattleSubjectKind::Multiattack, _) => invalid(
             state,
-            BattleResolutionInvalidReason::StaleSubject,
+            BattleResolutionInvalidReason::InvalidFill,
             subject.stage,
-        );
-    }
-
-    match fill {
-        BattleFill::TargetChoice(target) => resolve_target_choice(state, subject, target),
-        BattleFill::AttackRoll(roll) => resolve_attack_roll_fill(state, subject, roll),
-        BattleFill::DamageRoll(rolled_damage) => resolve_damage_roll(state, subject, rolled_damage),
+        ),
     }
 }
 
@@ -253,6 +395,15 @@ fn current_actor_can_attack(state: &BattleState) -> bool {
     match current_actor(state) {
         Actor::Fighter => !state.fighter.unconscious && !state.fighter.incapacitated,
         Actor::Goblin => state.goblin.hp > 0,
+        Actor::Rogue => !state.rogue.unconscious && !state.rogue.incapacitated,
+        Actor::Skeleton => state.skeleton.hp > 0,
+    }
+}
+
+fn weapon_damage_modifier_for(actor: Actor) -> i16 {
+    match actor {
+        Actor::Rogue => 3,
+        Actor::Fighter | Actor::Goblin | Actor::Skeleton => 0,
     }
 }
 
@@ -342,6 +493,7 @@ fn resolve_damage_roll(
     state: BattleState,
     subject: BattleSubject,
     rolled_damage: i16,
+    use_sneak_attack: bool,
 ) -> BattleResolutionResult {
     let Some(target) = subject.target else {
         return invalid(
@@ -356,10 +508,68 @@ fn resolve_damage_roll(
         return invalid(state, reason, subject.stage);
     }
 
-    let state = with_damaged_target(state, target, rolled_damage);
+    let damage = rolled_damage + subject.damage_modifier;
+    let state = if use_sneak_attack {
+        with_sneak_attack_used(state, subject.actor)
+    } else {
+        state
+    };
+    let state = with_damaged_target(state, target, damage);
     BattleResolutionResult::Resolved {
         state: BattleState {
             action_available: false,
+            ..state
+        },
+    }
+}
+
+fn resolve_multiattack(state: BattleState, subject: BattleSubject) -> BattleResolutionResult {
+    if !state.action_available
+        || subject.actor != Actor::Skeleton
+        || current_actor(&state) != Actor::Skeleton
+        || state.skeleton.multiattack_dispatches_remaining > 0
+    {
+        return invalid(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            subject.stage,
+        );
+    }
+
+    BattleResolutionResult::Resolved {
+        state: BattleState {
+            action_available: false,
+            skeleton: Combatant {
+                multiattack_dispatches_remaining: 1,
+                ..state.skeleton
+            },
+            ..state
+        },
+    }
+}
+
+fn spend_multiattack_dispatch(
+    state: BattleState,
+    subject: BattleSubject,
+) -> BattleResolutionResult {
+    if subject.actor != Actor::Skeleton
+        || current_actor(&state) != Actor::Skeleton
+        || state.skeleton.multiattack_dispatches_remaining <= 0
+    {
+        return invalid(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            subject.stage,
+        );
+    }
+
+    BattleResolutionResult::Resolved {
+        state: BattleState {
+            skeleton: Combatant {
+                multiattack_dispatches_remaining: state.skeleton.multiattack_dispatches_remaining
+                    - 1,
+                ..state.skeleton
+            },
             ..state
         },
     }
@@ -412,6 +622,8 @@ fn armor_class_for(state: &BattleState, actor: Actor) -> i16 {
     match actor {
         Actor::Fighter => state.fighter.armor_class,
         Actor::Goblin => state.goblin.armor_class,
+        Actor::Rogue => state.rogue.armor_class,
+        Actor::Skeleton => state.skeleton.armor_class,
     }
 }
 
@@ -423,6 +635,18 @@ fn with_damaged_target(mut state: BattleState, target: Actor, damage: i16) -> Ba
     match target {
         Actor::Fighter => state.fighter = damaged,
         Actor::Goblin => state.goblin = damaged,
+        Actor::Rogue => state.rogue = damaged,
+        Actor::Skeleton => state.skeleton = damaged,
+    }
+    state
+}
+
+fn with_sneak_attack_used(mut state: BattleState, actor: Actor) -> BattleState {
+    match actor {
+        Actor::Fighter => state.fighter.sneak_attack_used_this_turn = true,
+        Actor::Goblin => state.goblin.sneak_attack_used_this_turn = true,
+        Actor::Rogue => state.rogue.sneak_attack_used_this_turn = true,
+        Actor::Skeleton => state.skeleton.sneak_attack_used_this_turn = true,
     }
     state
 }
@@ -431,6 +655,8 @@ fn combatant_for(state: &BattleState, actor: Actor) -> Combatant {
     match actor {
         Actor::Fighter => state.fighter,
         Actor::Goblin => state.goblin,
+        Actor::Rogue => state.rogue,
+        Actor::Skeleton => state.skeleton,
     }
 }
 

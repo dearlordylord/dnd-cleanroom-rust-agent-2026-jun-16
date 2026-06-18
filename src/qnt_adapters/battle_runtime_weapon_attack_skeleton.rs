@@ -1,3 +1,8 @@
+use crate::rules::battle_reducer_spine::{
+    discover_battle_acts, resolve_battle_subject, start_skeleton_actor_turn, start_skeleton_battle,
+    Actor, AttackRollFacts, BattleFill, BattleResolutionInvalidReason, BattleResolutionResult,
+    BattleSubject,
+};
 use crate::rules::weapon_attack_skeleton::{
     discover_skeleton_weapon_attack, fill_skeleton_weapon_attack_roll_hit,
     fill_skeleton_weapon_attack_roll_miss, fill_skeleton_weapon_attack_target,
@@ -27,6 +32,10 @@ pub const BRANCH_ACTIONS: [&str; 14] = [
 ];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> WeaponAttackSkeletonState {
+    replay_observed_action_through_spine(observed_action_taken)
+}
+
+pub fn expected_witness(observed_action_taken: &str) -> WeaponAttackSkeletonState {
     match observed_action_taken {
         "doDiscoverAttack" => discover_skeleton_weapon_attack(),
         "doFillTarget" => fill_skeleton_weapon_attack_target(),
@@ -46,8 +55,242 @@ pub fn replay_observed_action(observed_action_taken: &str) -> WeaponAttackSkelet
     }
 }
 
-pub fn expected_witness(observed_action_taken: &str) -> WeaponAttackSkeletonState {
-    replay_observed_action(observed_action_taken)
+fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAttackSkeletonState {
+    match observed_action_taken {
+        "doDiscoverAttack" => {
+            let state = start_skeleton_battle();
+            let act = discovered_weapon_attack_act(&state);
+            projection_from_spine(
+                &state,
+                WeaponAttackSkeletonProtocol::NeedsHoles(holes_from_spine(&act.holes)),
+            )
+        }
+        "doFillTarget" => {
+            let (state, _subject) = spine_after_target_choice();
+            projection_from_spine(
+                &state,
+                WeaponAttackSkeletonProtocol::NeedsHoles(vec![
+                    WeaponAttackSkeletonHole::AttackRoll,
+                ]),
+            )
+        }
+        "doRejectWrongTarget" => {
+            let state = start_skeleton_battle();
+            let act = discovered_weapon_attack_act(&state);
+            let result =
+                resolve_battle_subject(state, act.subject, BattleFill::TargetChoice(Actor::Rogue));
+            let (state, reason, _holes) = invalid_parts(result);
+            assert_eq!(reason, BattleResolutionInvalidReason::WrongTarget);
+            projection_from_spine(
+                &state,
+                WeaponAttackSkeletonProtocol::Invalid {
+                    holes: vec![WeaponAttackSkeletonHole::TargetChoice],
+                    reason: WeaponAttackSkeletonInvalidReason::InvalidFill,
+                },
+            )
+        }
+        "doFillAttackRollMiss" => {
+            let (state, subject) = spine_after_target_choice();
+            let result = resolve_battle_subject(
+                state,
+                subject,
+                BattleFill::AttackRoll(AttackRollFacts {
+                    total: 2,
+                    natural_d20: 1,
+                }),
+            );
+            let state = resolved_state(result);
+            projection_from_spine(&state, WeaponAttackSkeletonProtocol::Resolved)
+        }
+        "doFillAttackRollHit" => {
+            let (state, _subject) = spine_after_attack_roll_hit();
+            projection_from_spine(
+                &state,
+                WeaponAttackSkeletonProtocol::NeedsHoles(vec![
+                    WeaponAttackSkeletonHole::DamageRoll,
+                ]),
+            )
+        }
+        "doFillDamageLow" => replay_damage_roll(2, false),
+        "doFillDamageHigh" => replay_damage_roll(4, false),
+        "doFillDamageLowSneakAttack" => replay_damage_roll(4, true),
+        "doFillDamageHighSneakAttack" => replay_damage_roll(8, true),
+        "doRejectStaleAfterResolved" => {
+            let (state, subject) = spine_after_attack_roll_hit();
+            let result =
+                resolve_battle_subject(state, subject, BattleFill::SneakAttackDamageRoll(8));
+            let state = resolved_state(result);
+            let result = resolve_battle_subject(state, subject, BattleFill::DamageRoll(1));
+            let (state, reason, holes) = invalid_parts(result);
+            assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
+            assert!(holes.is_empty());
+            projection_from_spine(
+                &state,
+                WeaponAttackSkeletonProtocol::Invalid {
+                    holes: Vec::new(),
+                    reason: WeaponAttackSkeletonInvalidReason::StaleSubject,
+                },
+            )
+        }
+        "doStartSkeletonTurn" => {
+            let state = start_skeleton_actor_turn();
+            projection_from_spine(&state, WeaponAttackSkeletonProtocol::Resolved)
+        }
+        "doResolveSkeletonMultiattack" => {
+            let (state, _subject) = spine_after_multiattack_resolution();
+            projection_from_spine(&state, WeaponAttackSkeletonProtocol::Resolved)
+        }
+        "doRejectRecursiveSkeletonMultiattack" => {
+            let (state, subject) = spine_after_multiattack_resolution();
+            let result = resolve_battle_subject(state, subject, BattleFill::ResolveMultiattack);
+            let (state, reason, holes) = invalid_parts(result);
+            assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
+            assert!(holes.is_empty());
+            projection_from_spine(
+                &state,
+                WeaponAttackSkeletonProtocol::Invalid {
+                    holes: Vec::new(),
+                    reason: WeaponAttackSkeletonInvalidReason::StaleSubject,
+                },
+            )
+        }
+        "doSpendSkeletonMultiattackDispatch" => {
+            let (state, subject) = spine_after_multiattack_resolution();
+            let result =
+                resolve_battle_subject(state, subject, BattleFill::SpendMultiattackDispatch);
+            let state = resolved_state(result);
+            projection_from_spine(&state, WeaponAttackSkeletonProtocol::Resolved)
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn replay_damage_roll(rolled_damage: i16, use_sneak_attack: bool) -> WeaponAttackSkeletonState {
+    let (state, subject) = spine_after_attack_roll_hit();
+    let fill = if use_sneak_attack {
+        BattleFill::SneakAttackDamageRoll(rolled_damage)
+    } else {
+        BattleFill::DamageRoll(rolled_damage)
+    };
+    let state = resolved_state(resolve_battle_subject(state, subject, fill));
+    projection_from_spine(&state, WeaponAttackSkeletonProtocol::Resolved)
+}
+
+fn discovered_weapon_attack_act(
+    state: &crate::rules::battle_reducer_spine::BattleState,
+) -> crate::rules::battle_reducer_spine::AvailableBattleAct {
+    discover_battle_acts(state)
+        .into_iter()
+        .find(|act| act.subject.actor == Actor::Rogue)
+        .expect("QNT skeleton initial state should discover one Rogue weapon attack")
+}
+
+fn spine_after_target_choice() -> (
+    crate::rules::battle_reducer_spine::BattleState,
+    BattleSubject,
+) {
+    let state = start_skeleton_battle();
+    let act = discovered_weapon_attack_act(&state);
+    match resolve_battle_subject(
+        state,
+        act.subject,
+        BattleFill::TargetChoice(Actor::Skeleton),
+    ) {
+        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
+        other => panic!("target choice should need attack-roll holes, got {other:?}"),
+    }
+}
+
+fn spine_after_attack_roll_hit() -> (
+    crate::rules::battle_reducer_spine::BattleState,
+    BattleSubject,
+) {
+    let (state, subject) = spine_after_target_choice();
+    match resolve_battle_subject(
+        state,
+        subject,
+        BattleFill::AttackRoll(AttackRollFacts {
+            total: 16,
+            natural_d20: 12,
+        }),
+    ) {
+        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
+        other => panic!("attack roll hit should need damage holes, got {other:?}"),
+    }
+}
+
+fn spine_after_multiattack_resolution() -> (
+    crate::rules::battle_reducer_spine::BattleState,
+    BattleSubject,
+) {
+    let state = start_skeleton_actor_turn();
+    let act = discover_battle_acts(&state)
+        .into_iter()
+        .next()
+        .expect("Skeleton turn should discover one multiattack act");
+    match resolve_battle_subject(state, act.subject, BattleFill::ResolveMultiattack) {
+        BattleResolutionResult::Resolved { state } => (state, act.subject),
+        other => panic!("Skeleton multiattack should resolve, got {other:?}"),
+    }
+}
+
+fn resolved_state(
+    result: BattleResolutionResult,
+) -> crate::rules::battle_reducer_spine::BattleState {
+    match result {
+        BattleResolutionResult::Resolved { state } => state,
+        other => panic!("expected resolved reducer result, got {other:?}"),
+    }
+}
+
+fn invalid_parts(
+    result: BattleResolutionResult,
+) -> (
+    crate::rules::battle_reducer_spine::BattleState,
+    BattleResolutionInvalidReason,
+    Vec<crate::rules::weapon_attack_ordering::WeaponAttackHoleKind>,
+) {
+    match result {
+        BattleResolutionResult::Invalid {
+            state,
+            reason,
+            holes,
+        } => (state, reason, holes),
+        other => panic!("expected invalid reducer result, got {other:?}"),
+    }
+}
+
+fn projection_from_spine(
+    state: &crate::rules::battle_reducer_spine::BattleState,
+    protocol: WeaponAttackSkeletonProtocol,
+) -> WeaponAttackSkeletonState {
+    WeaponAttackSkeletonState {
+        skeleton_hp: state.skeleton.hp,
+        skeleton_dead: crate::rules::battle_reducer_spine::combatant_is_dead(state.skeleton),
+        action_available: state.action_available,
+        multiattack_dispatches_available: state.skeleton.multiattack_dispatches_remaining,
+        sneak_attack_used_this_turn: state.rogue.sneak_attack_used_this_turn,
+        protocol,
+    }
+}
+
+fn holes_from_spine(
+    holes: &[crate::rules::weapon_attack_ordering::WeaponAttackHoleKind],
+) -> Vec<WeaponAttackSkeletonHole> {
+    holes
+        .iter()
+        .map(|hole| match hole {
+            crate::rules::weapon_attack_ordering::WeaponAttackHoleKind::TargetChoice => {
+                WeaponAttackSkeletonHole::TargetChoice
+            }
+            crate::rules::weapon_attack_ordering::WeaponAttackHoleKind::AttackRoll => {
+                WeaponAttackSkeletonHole::AttackRoll
+            }
+            crate::rules::weapon_attack_ordering::WeaponAttackHoleKind::RolledDice => {
+                WeaponAttackSkeletonHole::DamageRoll
+            }
+        })
+        .collect()
 }
 
 pub fn projection_payload(state: &WeaponAttackSkeletonState) -> String {

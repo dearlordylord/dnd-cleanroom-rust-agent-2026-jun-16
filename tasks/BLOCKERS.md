@@ -14,7 +14,7 @@
   - `tasks/ACTIVE_WORK.json`
   - `tasks/LEVEL_1_2_SCOPE.md`
   - `tasks/target-replay-evidence/*.json`
-- Exact target gap: the handoff lane now has current replay evidence, but 73 non-handoff replay evidence files still reference source commit `04249edf345a7752de2f1551dd3d509a2fffc160` and source branch inventory SHA `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`, while the refreshed snapshot requires source commit `829aee6441d76a921c9d9c14a0d0221062975334` and inventory SHA `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`.
+- Exact target gap: the handoff lane plus T063/T064 now have current replay evidence, but 71 non-handoff replay evidence files still reference source commit `04249edf345a7752de2f1551dd3d509a2fffc160` and source branch inventory SHA `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`, while the refreshed snapshot requires source commit `829aee6441d76a921c9d9c14a0d0221062975334` and inventory SHA `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`.
 - Next action: re-run or regenerate replay evidence under the refreshed source snapshot for the remaining non-handoff drivers and append accepted tasks to the new run-ledger/history artifact model.
 
 ## B002: Newly Active Non-Handoff Drivers Have No Rust Replay Adapter Yet

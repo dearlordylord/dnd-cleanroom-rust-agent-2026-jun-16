@@ -253,19 +253,51 @@ node scripts/check-target-replay-evidence-file.cjs \
   --evidence tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json
 ```
 
+## Second Reducer-Spine Experiment
+
+`battle-runtime-weapon-attack-skeleton.mbt.qnt` is now also routed through the
+experimental reducer spine on the observed side.
+
+This is materially stronger than T063 because it checks durable battle state,
+not only ordering protocol shape:
+
+- target HP changes;
+- death projection from zero HP;
+- action availability is spent on miss or completed damage;
+- sneak attack use is marked on the attacking actor;
+- Skeleton multiattack creates and spends a dispatch;
+- stale resolved subjects are rejected with no open holes.
+
+Result:
+
+- `battle_runtime_weapon_attack_skeleton` observed replay uses
+  `start_skeleton_battle`, `start_skeleton_actor_turn`,
+  `discover_battle_acts`, and `resolve_battle_subject`.
+- The old focused helper remains the expected witness.
+- `tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json`
+  has current manifest and inventory hashes and records the spine replay
+  function.
+- `scripts/check-target-replay-evidence-file.cjs` validates all 14 T064 branch
+  obligations.
+
+This expands measured reducer-spine coverage from 7 T063 ordering obligations
+to 21 obligations across two battle drivers. It still does not solve global
+work-loop acceptance because the dirty evidence/adapter denominator remains
+global.
+
 ## Work-Loop Promotion Findings
 
-T063 cannot be promoted to repo-wide harness acceptance by adding only a T063
-ledger/history record in the current dirty repo.
+T063/T064 cannot be promoted to repo-wide harness acceptance by adding only
+driver-local ledger/history records in the current dirty repo.
 
 Measured denominator:
 
 - Active replayable obligations: 631 across 96 drivers.
 - Battle/rule-core replayable obligations: 502 across 73 drivers.
-- T063 obligations: 7.
+- T063 plus T064 reducer-spine obligations: 21.
 - Target replay evidence files under `tasks/target-replay-evidence`: 78.
-- Current-snapshot evidence files: 6.
-- Stale previous-snapshot evidence files: 72.
+- Current-snapshot evidence files: 7.
+- Stale previous-snapshot evidence files: 71.
 - Rust adapter files under `src/qnt_adapters`: 78.
 - `tasks/history` is absent, and `tasks/RUN_LEDGER.json` is absent.
 
@@ -273,14 +305,14 @@ Harness implication:
 
 - Without `tasks/RUN_LEDGER.json`, `check-cleanroom-harness.cjs` validates every
   evidence file under `tasks/target-replay-evidence` against the current rolling
-  task's declared evidence. A T063 rolling task would therefore still fail on
-  the other 77 evidence files.
+  task's declared evidence. A T063/T064 rolling task would therefore still fail
+  on the other evidence files.
 - With `tasks/RUN_LEDGER.json`, the harness requires every evidence file under
   `tasks/target-replay-evidence` to be accounted for by ledger entries. A
-  single-entry T063 ledger would still fail on the other 77 evidence files.
+  T063/T064-only ledger would still fail on the other evidence files.
 - The production source scan treats undeclared adapter files as production
-  source. A T063-only engine-depth manifest would therefore still scan the other
-  adapter modules and report witness-protocol/authored-identity findings.
+  source. A T063/T064-only engine-depth manifest would therefore still scan the
+  other adapter modules and report witness-protocol/authored-identity findings.
 
 This is not a QNT insufficiency. It is a dirty-repo acceptance-denominator
 problem.
@@ -300,7 +332,7 @@ Options from here:
    driver, then promote only after the dirty denominator is fixed.
 
 The best next reducer-specific experiment is Option 1 or Option 3, not a
-T063-only work-loop promotion inside the current dirty repo.
+T063/T064-only work-loop promotion inside the current dirty repo.
 
 ## Recommended Next Experiment
 
