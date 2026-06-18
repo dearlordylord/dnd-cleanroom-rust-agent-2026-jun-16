@@ -31,6 +31,66 @@ driver has passing evidence; it is whether the QNT states enough durable state,
 entrypoint, subject, fill, resource, and mutation facts to rebuild reducer
 behavior without importing TypeScript architecture by habit.
 
+Current correction: that audit question was an inference from the goal, not an
+explicit prior request. It should be treated as a diagnostic option, not as
+work already authorized. The current useful action is this measurement note:
+what the existing Rust target proves from copied QNT, what is still only
+replay, and where a source-side reducer witness would remove hidden inference.
+
+## Current Methodology
+
+This is a research artifact, not a PRD. It measures the state of the cleanroom
+experiment and records next decisions; it does not assign product requirements
+or acceptance scope.
+
+Method:
+
+1. Use the copied cleanroom corpus, Rust target code, target replay evidence,
+   and task artifacts in this repo. The cleanroom target must not use the
+   TypeScript source as implementation input.
+2. Derive the denominator from `tasks/ACTIVE_WORK.json`,
+   `tasks/LEVEL_1_2_SCOPE.md`, and
+   `cleanroom-input/branch-coverage/source-branch-inventory.json`.
+3. Count only current-manifest target replay evidence when measuring current
+   conformance. Older evidence remains useful history but is not current proof.
+4. Separate evidence that merely replays a focused QNT witness from evidence
+   whose observed side goes through `BattleState` and reducer-shaped
+   entrypoints.
+5. Treat any fact not traceable to copied QNT, RAW, domain language,
+   assumptions, or target-local Rust structure as a blocker candidate.
+
+Expectation:
+
+- If QNT is enough for the main goal, selected battle drivers should be
+  routable through reusable reducer entrypoints: initialize battle state,
+  discover acts, resolve subjects with typed fills, mutate durable combatant
+  state, own turn/action/spell/reaction resources, and project the focused QNT
+  witness from that state.
+- If QNT is not enough, the first failure should be identifiable as a missing
+  source fact: a reducer entrypoint, ownership rule, subject identity rule,
+  fill protocol, or state mutation that is visible in TypeScript but not in the
+  copied corpus.
+
+Current measurement:
+
+- Battle/rule-core level-1/2 denominator: 73 active drivers, 502 in-scope
+  obligations.
+- Current target replay evidence: 17 files, 106 runs.
+- Current battle/rule-core reducer-spine/control evidence: 12 files, 77
+  obligations.
+- Remaining battle/rule-core drivers not yet routed through a reducer-spine or
+  reusable control transition: 61 drivers, 425 obligations.
+- Historical stale evidence: 65 files, 386 runs. These show the Rust target
+  once replayed many focused witnesses, but they do not prove current reducer
+  reconstruction.
+
+The classification is useful because without it the repo can produce a false
+positive: 82 evidence files and 492 recorded runs look broad, while only 77
+current battle/rule-core obligations currently test reducer-shaped
+reconstruction. A full 73-driver semantic classification is not needed yet; the
+classification should be applied when a driver is selected for spine routing or
+when a passing replay could be mistaken for reducer evidence.
+
 ## Inputs
 
 - Cleanroom Rust repo HEAD at first measurement:
@@ -38,10 +98,11 @@ behavior without importing TypeScript architecture by habit.
 - Cleanroom manifest source commit: `829aee6441d76a921c9d9c14a0d0221062975334`
 - Cleanroom branch inventory SHA:
   `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
-- TypeScript exemplar HEAD read for architecture comparison:
+- Historical TypeScript exemplar comparison note:
   `455c720040752aad8a8060acf47d64ea92666420`
 
-The TypeScript source is comparison material only. It is not cleanroom input.
+The TypeScript source is comparison material only. It is not cleanroom input,
+and this current cleanroom measurement does not depend on rereading it.
 
 ## Measurement Frame
 
