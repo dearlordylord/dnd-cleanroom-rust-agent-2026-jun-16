@@ -14,13 +14,14 @@ separate three claims:
    discovery, subject resolution, turn resources, holes/fills, and durable
    combatant state.
 
-The current experiment strongly supports the first two claims. It does not yet
-prove the third, because the Rust target does not currently contain a generic
-battle reducer.
+The current experiment strongly supports the first two claims. A follow-up
+tracked reducer-spine experiment now supports the third claim for one narrow
+weapon-attack path, but not for the full battle reducer.
 
 ## Inputs
 
-- Cleanroom Rust repo HEAD: `b8da0923c1bea358f80f9024bfdaf73f348b00b1`
+- Cleanroom Rust repo HEAD at first measurement:
+  `b8da0923c1bea358f80f9024bfdaf73f348b00b1`
 - Cleanroom manifest source commit: `829aee6441d76a921c9d9c14a0d0221062975334`
 - Cleanroom branch inventory SHA:
   `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
@@ -78,10 +79,25 @@ define combatant addressing, open-hole projection, and turn advancement.
 The 5 current-manifest evidence files are the handoff lane. Their current
 obligation count is 26, not 24.
 
-Search result: the Rust target currently has no `BattleState`, `start_battle`,
-`discover_battle_acts`, or `resolve_battle_subject` equivalent. Its battle work
-is represented as per-slice states such as `WeaponAttackSkeletonState`,
-`MovementState`, and `MagicMissileState`.
+Search result at first measurement: the Rust target had no `BattleState`,
+`start_battle`, `discover_battle_acts`, or `resolve_battle_subject` equivalent.
+Its battle work was represented as per-slice states such as
+`WeaponAttackSkeletonState`, `MovementState`, and `MagicMissileState`.
+
+After the follow-up experiment, the Rust target has an explicitly experimental
+`src/rules/battle_reducer_spine.rs` module with:
+
+- `BattleState`
+- `start_battle`
+- `discover_battle_acts`
+- `resolve_battle_subject`
+
+That module is deliberately narrow: it derives a Fighter/Goblin initial state
+from `battle-runtime-model.qnt`, discovers one Fighter weapon attack from
+`battle-runtime-combat-holes.qnt`, orders target/attack-roll/damage fills using
+`battle-runtime-weapon-attack-ordering.qnt`, applies attack-roll hit logic from
+`shared-algebras/proofs/rule-core/attack-damage-composition.qnt`, and applies
+damage through the existing Rust HP helper derived from rule-core hit point QNT.
 
 ### TypeScript Exemplar
 
@@ -129,11 +145,23 @@ its imported rule-core QNT modules.
 This is strong evidence that focused rule-core and projection slices can be
 implemented from copied QNT plus RAW.
 
-### 3. The Reducer Spine Is Not Yet Measured
+### 3. The Reducer Spine Is Partially Measured
 
-The current Rust target does not have a generic battle state or public reducer
-entrypoints. Therefore it has not measured whether QNT alone is enough to derive
-the reducer-wide contract:
+The first measurement found no generic battle state or public reducer
+entrypoints. The follow-up code experiment adds the smallest useful version and
+measures one vertical path:
+
+- start battle from the QNT `initialState`;
+- discover current actor weapon attack;
+- fill target choice;
+- fill attack roll;
+- fill damage roll;
+- mutate durable target HP;
+- spend action on resolution;
+- reject an attack roll before target choice.
+
+This proves that copied QNT plus existing QNT-derived helpers are sufficient for
+one reducer-shaped path. It does not prove the full reducer-wide contract:
 
 - start/init boundary;
 - actor and combatant ownership model;
@@ -144,10 +172,11 @@ the reducer-wide contract:
 - interrupt stack and continuation behavior;
 - turn advancement and start/end-turn effects.
 
-Copied QNT contains many of these concepts, but the Rust implementation has not
-consumed them into one reducer. The current evidence cannot distinguish "QNT was
-enough" from "an implementer used prior TypeScript knowledge to know what shape
-to build," because that shape has not been built.
+Copied QNT contains many of these concepts. The experiment shows they can be
+assembled without TypeScript for a small slice. The remaining question is
+whether each broader reducer subsystem can be made to replay existing MBT
+drivers through the shared spine rather than through slice-specific adapter
+functions.
 
 ### 4. No Current Evidence Shows TS-Only Behavior Was Needed
 
@@ -165,27 +194,26 @@ source consultation and records every missing fact as a source-QNT blocker.
 Current Rust evidence can be recreated from QNT alone for focused replay and
 many local helper slices with high confidence.
 
-The existing Rust battle implementation cannot yet be counted as a QNT-only
-battle reducer reconstruction. Measured generic reducer coverage is effectively
-zero because no generic reducer exists in the Rust target. The QNT corpus may be
-close enough to derive one, but that remains unmeasured.
+The new reducer-spine experiment can also be recreated from copied QNT alone
+for one Fighter weapon-attack path. Measured generic reducer coverage is no
+longer zero, but it is still only a seed. The full cleanroom claim remains
+unproven until at least one existing battle MBT driver replays through the
+generic reducer entrypoints instead of a slice-specific adapter, and then that
+pattern expands across the level-1/2 battle queue.
 
 ## Recommended Next Experiment
 
-Run a narrow reducer-spine derivation experiment, not a full driver audit.
+Run a reducer-spine MBT integration experiment, not a full driver audit.
 
 Method:
 
 1. Use only `cleanroom-input/**` as implementation input.
-2. Build the smallest Rust reducer skeleton that has:
-   - `BattleState` or equivalent durable state;
-   - a start/init function;
-   - current-actor act discovery;
-   - subject resolution with holes/fills;
-   - one weapon/stat-block attack path.
-3. Target one vertical scenario first:
-   Skeleton `Shortsword` or the existing weapon-attack-skeleton witness against
-   a character or fighter combatant.
+2. Rework one battle MBT replay adapter so its observed action is checked by
+   driving `start_battle`, `discover_battle_acts`, and
+   `resolve_battle_subject` instead of calling a slice-specific witness helper.
+3. Prefer `battle-runtime-weapon-attack-ordering.mbt.qnt` or a deliberately
+   small new reducer-spine witness before attempting a broad driver such as
+   `battle-runtime-weapon-attack-skeleton.mbt.qnt`.
 4. Record every fact that cannot be derived from copied QNT, RAW, domain docs,
    or assumptions as a blocker.
 5. Compare the resulting public shape to TypeScript only after the experiment,
@@ -193,9 +221,9 @@ Method:
 
 Expected outcomes:
 
-- If the reducer spine can be built without blockers, QNT is likely sufficient
-  for the level-1/2 battle reducer architecture, and the next artifact should be
-  a PRD/task list for expanding driver coverage.
+- If an MBT replay can run through the generic spine without blockers, QNT is
+  likely sufficient for the first level-1/2 battle reducer architecture slice,
+  and the next artifact should be a PRD/task list for expanding driver coverage.
 - If blockers appear, update source QNT/guidance to make the missing reducer
   contract explicit before another cleanroom run.
 
@@ -211,5 +239,6 @@ Measurements for that experiment:
 ## Current Research Decision
 
 Do not produce a full PRD yet. The next artifact should follow the reducer-spine
-experiment, because that is the first step that directly measures the real goal:
-whether the cleanroom target can infer the battle reducer from QNT.
+MBT integration experiment, because that is the first step that measures whether
+the cleanroom target can use a QNT-derived reducer entrypoint as the parity
+surface.

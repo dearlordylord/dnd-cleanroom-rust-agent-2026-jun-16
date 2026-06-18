@@ -6359,3 +6359,100 @@ fn find_familiar_selected_identity_recasts_reappears_and_delivers_touch() {
         FindFamiliarCompanionScenarioOutcome::TouchDelivered
     );
 }
+
+#[test]
+fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
+    use crate::rules::battle_reducer_spine::{
+        combatant_is_dead, discover_battle_acts, resolve_battle_subject, start_battle, Actor,
+        AttackRollFacts, BattleFill, BattleResolutionResult,
+    };
+    use crate::rules::weapon_attack_ordering::WeaponAttackHoleKind;
+
+    let state = start_battle();
+    assert_eq!(state.fighter.hp, 12);
+    assert_eq!(state.goblin.hp, 10);
+
+    let acts = discover_battle_acts(&state);
+    assert_eq!(acts.len(), 1);
+    assert_eq!(acts[0].holes, vec![WeaponAttackHoleKind::TargetChoice]);
+
+    let BattleResolutionResult::NeedsHoles {
+        state,
+        subject,
+        holes,
+    } = resolve_battle_subject(
+        state,
+        acts[0].subject,
+        BattleFill::TargetChoice(Actor::Goblin),
+    )
+    else {
+        panic!("target choice should leave the weapon attack waiting for an attack roll");
+    };
+    assert_eq!(holes, vec![WeaponAttackHoleKind::AttackRoll]);
+    assert!(state.action_available);
+
+    let BattleResolutionResult::NeedsHoles {
+        state,
+        subject,
+        holes,
+    } = resolve_battle_subject(
+        state,
+        subject,
+        BattleFill::AttackRoll(AttackRollFacts {
+            total: 16,
+            natural_d20: 12,
+        }),
+    )
+    else {
+        panic!("a hit should leave the weapon attack waiting for damage");
+    };
+    assert_eq!(holes, vec![WeaponAttackHoleKind::RolledDice]);
+    assert!(state.attack_roll_made_this_turn);
+    assert!(state.action_available);
+
+    let BattleResolutionResult::Resolved { state } =
+        resolve_battle_subject(state, subject, BattleFill::DamageRoll(6))
+    else {
+        panic!("damage should resolve the weapon attack");
+    };
+    assert_eq!(state.goblin.hp, 4);
+    assert!(!combatant_is_dead(state.goblin));
+    assert!(!state.action_available);
+    assert!(discover_battle_acts(&state).is_empty());
+}
+
+#[test]
+fn experimental_qnt_spine_rejects_attack_roll_before_target_choice() {
+    use crate::rules::battle_reducer_spine::{
+        discover_battle_acts, resolve_battle_subject, start_battle, AttackRollFacts, BattleFill,
+        BattleResolutionInvalidReason, BattleResolutionResult,
+    };
+    use crate::rules::weapon_attack_ordering::WeaponAttackHoleKind;
+
+    let state = start_battle();
+    let act = discover_battle_acts(&state)
+        .into_iter()
+        .next()
+        .expect("fighter should have a weapon attack act");
+
+    let BattleResolutionResult::Invalid {
+        state,
+        reason,
+        holes,
+    } = resolve_battle_subject(
+        state,
+        act.subject,
+        BattleFill::AttackRoll(AttackRollFacts {
+            total: 16,
+            natural_d20: 12,
+        }),
+    )
+    else {
+        panic!("attack roll before target choice must be rejected");
+    };
+
+    assert_eq!(reason, BattleResolutionInvalidReason::InvalidFill);
+    assert_eq!(holes, vec![WeaponAttackHoleKind::TargetChoice]);
+    assert!(state.action_available);
+    assert!(!state.attack_roll_made_this_turn);
+}
