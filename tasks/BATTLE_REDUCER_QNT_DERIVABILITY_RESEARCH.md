@@ -74,11 +74,14 @@ define combatant addressing, open-hole projection, and turn advancement.
 - Rust battle/rule-core replay adapters in `src/qnt_adapters`: 61.
 - Target replay evidence files: 78.
 - Target replay runs recorded across those files: 480.
-- Current-manifest evidence files: 5.
-- Stale previous-manifest evidence files: 73.
+- Current-manifest evidence files: 8.
+- Current-manifest replay runs: 54.
+- Stale previous-manifest evidence files: 70.
+- Stale previous-manifest replay runs: 426.
 
-The 5 current-manifest evidence files are the handoff lane. Their current
-obligation count is 26, not 24.
+The current-manifest files are the five handoff-lane files plus the T063,
+T064, and T074 reducer-spine/control diagnostics. Their combined current run
+count is 54.
 
 Search result at first measurement: the Rust target had no `BattleState`,
 `start_battle`, `discover_battle_acts`, or `resolve_battle_subject` equivalent.
@@ -314,10 +317,36 @@ Result:
 
 This expands reducer-shaped evidence from 21 T063/T064 battle obligations to
 28 obligations across three drivers, while preserving the distinction between
-full battle-spine coverage and a reusable rule-core control component. The next
-technical question is whether the battle reducer spine should store
-primary/secondary dispatch state directly or project the existing per-combatant
-single dispatch count into this rule-core control shape.
+full battle-spine coverage and a reusable rule-core control component.
+
+## Fourth Reducer-Control Composition Experiment
+
+The battle reducer spine now stores `StatBlockControlState` directly in
+`BattleState` and removes the separate per-combatant Skeleton dispatch counter.
+
+Result:
+
+- `BattleState.stat_block_control` is initialized from
+  `stat_block_control_initial_state`.
+- Skeleton multiattack resolution calls
+  `start_stat_block_multiattack_from` with the Skeleton fixture profile.
+- Skeleton dispatch spending calls `resolve_stat_block_control_subject` with a
+  primary attack-slot dispatch subject.
+- The T064 Skeleton projection still exposes
+  `qMultiattackDispatchesAvailable`, but that value is now derived from
+  `BattleState.stat_block_control.pending_primary_dispatches +
+  pending_secondary_dispatches`.
+- Focused checks pass for both
+  `cargo test weapon_attack_skeleton -- --nocapture` and
+  `cargo test stat_block_controls -- --nocapture`.
+
+This keeps the measured obligation count at 28 across T063/T064/T074, but it
+improves the quality of that evidence: the T064 battle-spine path now reuses
+the T074 stat-block control component instead of carrying duplicate dispatch
+state. The remaining limitation is that this composition is still the Skeleton
+fixture path. General stat-block discovery, primary/secondary attack-slot
+selection, and end-turn control reset inside the full battle reducer are not
+implemented yet.
 
 ## Work-Loop Promotion Findings
 
@@ -330,6 +359,7 @@ Measured denominator:
 - Battle/rule-core replayable obligations: 502 across 73 drivers.
 - T063 plus T064 battle-spine obligations: 21.
 - T074 reducer-control obligations: 7.
+- T064/T074 composed obligations: still 21 + 7, now sharing one dispatch owner.
 - Target replay evidence files under `tasks/target-replay-evidence`: 78.
 - Current-snapshot evidence files: 8.
 - Stale previous-snapshot evidence files: 70.
@@ -372,8 +402,8 @@ T063/T064/T074-only work-loop promotion inside the current dirty repo.
 
 ## Recommended Next Experiment
 
-Integrate the T074 stat-block control transition into the battle reducer spine,
-or add a source-side reducer-spine witness before broadening to the next battle
+Broaden the composed T064/T074 path to a general stat-block battle driver, or
+add a source-side reducer-spine witness before broadening to the next battle
 driver. Do not start with a full driver audit.
 
 Method:
@@ -383,9 +413,9 @@ Method:
    work-loop tasks only after the dirty harness denominator is cleaned up.
 3. If the current harness must express "observed via reducer spine, expected
    via focused QNT witness", add a small source-side reducer-spine witness.
-   If the next code experiment continues in Rust first, make it bridge T074's
-   primary/secondary dispatch-slot model into the battle spine rather than adding
-   another one-off dispatch counter.
+   If the next code experiment continues in Rust first, use T074's
+   primary/secondary dispatch-slot model for a general stat-block battle path
+   rather than adding another one-off dispatch counter.
 4. Record every fact that cannot be derived from copied QNT, RAW, domain docs,
    or assumptions as a blocker.
 5. Compare the resulting public shape to TypeScript only after the experiment,

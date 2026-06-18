@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T074",
-  "startHeadSha": "132898a3ce16629f6680480f7f256bce464bc8bf",
+  "taskId": "T064-T074",
+  "startHeadSha": "e49e91edd3f3676a250a08bec5dc0f63f022207e",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -9,9 +9,9 @@
   },
   "taskScope": {
     "assignmentId": "level-1-2-full",
-    "laneId": "rules-core",
+    "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt"
     ]
   }
 }

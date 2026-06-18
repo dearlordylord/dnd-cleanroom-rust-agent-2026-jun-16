@@ -7,6 +7,12 @@
 use crate::rules::attack_damage_disposition::{
     apply_resolved_damage_to_positive_hit_points, CreatureKind, CreatureVitals,
 };
+use crate::rules::rule_core_stat_block_controls::{
+    resolve_stat_block_control_subject, start_stat_block_multiattack_from,
+    stat_block_control_initial_state, stat_block_multiattack_continuation_open,
+    StatBlockAttackSlot, StatBlockControlState, StatBlockDispatchSubject,
+    StatBlockMultiattackProfile,
+};
 use crate::rules::weapon_attack_ordering::{
     weapon_attack_fill_order_result, weapon_attack_hole_frontier, WeaponAttackFillKind,
     WeaponAttackFillOrderResult, WeaponAttackFillOrderingError, WeaponAttackFrontierStage,
@@ -40,7 +46,6 @@ pub struct Combatant {
     pub movement_spent_feet: i16,
     pub sneak_attack_supported: bool,
     pub sneak_attack_used_this_turn: bool,
-    pub multiattack_dispatches_remaining: i16,
     pub recharge_available: bool,
 }
 
@@ -64,6 +69,7 @@ pub struct BattleState {
     pub goblin: Combatant,
     pub rogue: Combatant,
     pub skeleton: Combatant,
+    pub stat_block_control: StatBlockControlState,
     pub action_available: bool,
     pub bonus_action_available: bool,
     pub attack_roll_made_this_turn: bool,
@@ -157,6 +163,7 @@ pub fn start_battle() -> BattleState {
         goblin: goblin_combatant(),
         rogue: rogue_combatant(),
         skeleton: skeleton_combatant(),
+        stat_block_control: stat_block_control_initial_state(),
         action_available: true,
         bonus_action_available: true,
         attack_roll_made_this_turn: false,
@@ -183,6 +190,7 @@ pub fn start_skeleton_battle() -> BattleState {
         goblin: goblin_combatant(),
         rogue: rogue_combatant(),
         skeleton: skeleton_combatant(),
+        stat_block_control: stat_block_control_initial_state(),
         action_available: true,
         bonus_action_available: true,
         attack_roll_made_this_turn: false,
@@ -220,7 +228,6 @@ fn fighter_combatant() -> Combatant {
         movement_spent_feet: 0,
         sneak_attack_supported: false,
         sneak_attack_used_this_turn: false,
-        multiattack_dispatches_remaining: 0,
         recharge_available: false,
     }
 }
@@ -238,7 +245,6 @@ fn goblin_combatant() -> Combatant {
         movement_spent_feet: 0,
         sneak_attack_supported: false,
         sneak_attack_used_this_turn: false,
-        multiattack_dispatches_remaining: 0,
         recharge_available: true,
     }
 }
@@ -256,7 +262,6 @@ fn rogue_combatant() -> Combatant {
         movement_spent_feet: 0,
         sneak_attack_supported: true,
         sneak_attack_used_this_turn: false,
-        multiattack_dispatches_remaining: 0,
         recharge_available: false,
     }
 }
@@ -274,7 +279,6 @@ fn skeleton_combatant() -> Combatant {
         movement_spent_feet: 0,
         sneak_attack_supported: false,
         sneak_attack_used_this_turn: false,
-        multiattack_dispatches_remaining: 0,
         recharge_available: false,
     }
 }
@@ -283,6 +287,12 @@ fn skeleton_combatant() -> Combatant {
 pub fn current_actor(state: &BattleState) -> Actor {
     // QNT: battle-runtime-turn-order.qnt `currentActor`.
     state.initiative.still_to_act.actor
+}
+
+#[must_use]
+pub fn stat_block_multiattack_dispatches_available(state: &BattleState) -> i16 {
+    state.stat_block_control.pending_primary_dispatches
+        + state.stat_block_control.pending_secondary_dispatches
 }
 
 #[must_use]
@@ -527,8 +537,18 @@ fn resolve_multiattack(state: BattleState, subject: BattleSubject) -> BattleReso
     if !state.action_available
         || subject.actor != Actor::Skeleton
         || current_actor(&state) != Actor::Skeleton
-        || state.skeleton.multiattack_dispatches_remaining > 0
+        || stat_block_multiattack_continuation_open(&state.stat_block_control)
     {
+        return invalid(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            subject.stage,
+        );
+    }
+
+    let stat_block_control =
+        start_stat_block_multiattack_from(state.stat_block_control.clone(), skeleton_profile());
+    if stat_block_control == state.stat_block_control {
         return invalid(
             state,
             BattleResolutionInvalidReason::StaleSubject,
@@ -538,11 +558,8 @@ fn resolve_multiattack(state: BattleState, subject: BattleSubject) -> BattleReso
 
     BattleResolutionResult::Resolved {
         state: BattleState {
-            action_available: false,
-            skeleton: Combatant {
-                multiattack_dispatches_remaining: 1,
-                ..state.skeleton
-            },
+            action_available: stat_block_control.attack_action_available,
+            stat_block_control,
             ..state
         },
     }
@@ -554,8 +571,20 @@ fn spend_multiattack_dispatch(
 ) -> BattleResolutionResult {
     if subject.actor != Actor::Skeleton
         || current_actor(&state) != Actor::Skeleton
-        || state.skeleton.multiattack_dispatches_remaining <= 0
+        || !stat_block_multiattack_continuation_open(&state.stat_block_control)
     {
+        return invalid(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            subject.stage,
+        );
+    }
+
+    let stat_block_control = resolve_stat_block_control_subject(
+        state.stat_block_control.clone(),
+        StatBlockDispatchSubject::PrimaryAttackSlot,
+    );
+    if stat_block_control == state.stat_block_control {
         return invalid(
             state,
             BattleResolutionInvalidReason::StaleSubject,
@@ -565,13 +594,17 @@ fn spend_multiattack_dispatch(
 
     BattleResolutionResult::Resolved {
         state: BattleState {
-            skeleton: Combatant {
-                multiattack_dispatches_remaining: state.skeleton.multiattack_dispatches_remaining
-                    - 1,
-                ..state.skeleton
-            },
+            stat_block_control,
             ..state
         },
+    }
+}
+
+fn skeleton_profile() -> StatBlockMultiattackProfile {
+    StatBlockMultiattackProfile {
+        first_attack_slot: StatBlockAttackSlot::Primary,
+        primary_attack_count: 2,
+        secondary_attack_count: 0,
     }
 }
 

@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json",
+      "evidence": "tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -44,5 +44,6 @@
   ],
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "taskId": "T074"
+  "scope": "diagnostic-local; repo-wide acceptance remains blocked by global accounting debt",
+  "taskId": "T064-T074"
 }

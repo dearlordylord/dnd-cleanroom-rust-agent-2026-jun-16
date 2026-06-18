@@ -40,16 +40,19 @@ it is still an experiment. The `battle_runtime_weapon_attack_ordering` and
 `battle_runtime_weapon_attack_skeleton` adapters now use the spine for observed
 replay and their prior focused helpers for expected projection. The T063 and
 T064 target replay evidence files now have current manifest and inventory
-metadata and record the spine replay functions in `generatedBy.name`, but the
-repo-wide work-loop artifacts do not yet select either driver as an accepted
-task.
+metadata and record the spine replay functions in `generatedBy.name`. The
+rolling start gate currently selects T064 for this diagnostic, but repo-wide
+work-loop acceptance still lacks the run-ledger/history denominator needed to
+accept it as a completed queued task.
 
-T074 now adds a reducer-control component rather than another battle-spine
-route: `rule_core_stat_block_controls_mbt` observes through
-`resolve_stat_block_control_subject` and
-`start_stat_block_multiattack_from`. This proves that the copied QNT supports a
-general stat-block continuation rule, but that component is not yet integrated
-into `BattleState`.
+T074 now supplies the reducer-control component used by the T064 Skeleton
+multiattack path. `BattleState` stores `StatBlockControlState`; Skeleton
+multiattack start calls `start_stat_block_multiattack_from`; dispatch spending
+calls `resolve_stat_block_control_subject`; and the T064 projection derives
+`qMultiattackDispatchesAvailable` from the stat-block control dispatch counts.
+This proves that the copied QNT supports a general stat-block continuation rule
+and that the battle spine can reuse it, but only for the Skeleton fixture path
+so far.
 
 ## How To Guide The Next Cleanroom Work
 
@@ -130,10 +133,10 @@ also includes the other evidence files and undeclared adapter modules.
 
 ### Option G: Factor Rule-Core Reducer Components First
 
-Started for `rule-core-stat-block-controls`. This is the right shape when a
-driver owns reusable reducer policy but is not itself a full battle state
-driver. The T074 transition API is now available for later battle-spine
-integration:
+Started for `rule-core-stat-block-controls` and now composed into the Skeleton
+battle-spine path. This is the right shape when a driver owns reusable reducer
+policy but is not itself a full battle state driver. The T074 transition API is
+available for broader stat-block battle integration:
 
 - `start_stat_block_multiattack_from`
 - `resolve_stat_block_control_subject`
@@ -153,13 +156,14 @@ branches.
   Rogue/Skeleton weapon-attack skeleton path.
 - It does not yet model:
   - stat-block action discovery for the Goblin;
-  - stat-block primary/secondary dispatches inside durable `BattleState`;
+  - general stat-block primary/secondary dispatch selection beyond the
+    Skeleton fixture profile;
   - initiative advancement;
   - bonus actions, reactions, movement, or spell slots;
   - interrupt stack continuations;
   - concentration, ongoing effects, and turn-boundary effects;
-  - general multiattack dispatch beyond the T074 rule-core component and the
-    Skeleton fixture path;
+  - general multiattack dispatch beyond the T074-composed Skeleton fixture
+    path;
   - character battle-init projection or settlement.
 
 ## Best Next Step

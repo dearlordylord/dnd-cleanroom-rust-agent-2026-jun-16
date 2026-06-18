@@ -3,34 +3,38 @@
     {
       "addedEntries": 1,
       "owner": "production",
-      "reason": "added rule-core stat-block multiattack control projection"
+      "reason": "stored stat-block control state in the battle reducer spine instead of a per-combatant dispatch counter"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+      "path": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
       "quarantinedWitnessNames": [
-        "doEndTurnClosesDispatches",
-        "doMoveDuringDispatch",
-        "doRejectBonusActionDuringDispatch",
-        "doRejectOrdinaryActionDuringDispatch",
-        "doResolvePrimaryDispatch",
-        "doResolveSecondaryDispatch",
-        "doStartMultiattack",
-        "Movement",
+        "doDiscoverAttack",
+        "doFillTarget",
+        "doRejectWrongTarget",
+        "doFillAttackRollMiss",
+        "doFillAttackRollHit",
+        "doFillDamageLow",
+        "doFillDamageHigh",
+        "doFillDamageLowSneakAttack",
+        "doFillDamageHighSneakAttack",
+        "doRejectStaleAfterResolved",
+        "doStartSkeletonTurn",
+        "doResolveSkeletonMultiattack",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
         "init",
         "needsHoles",
         "resolved",
         "invalid",
         "WInvalidFill",
         "WStaleSubject",
-        "qAttackActionAvailable",
-        "qBonusActionAvailable",
-        "qPendingPrimaryDispatches",
-        "qPendingSecondaryDispatches",
-        "qMovementSpentFeet",
-        "qMovementRemainingFeet",
-        "qMultiattackContinuationOpen",
+        "qSkeletonHp",
+        "qSkeletonDead",
+        "qActionAvailable",
+        "qMultiattackDispatchesAvailable",
+        "qSneakAttackUsedThisTurn",
         "qHoles",
         "protocolResult",
         "protocolInvalidReason",
@@ -52,18 +56,42 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json"
+        "tasks/target-replay-evidence/T064-battle-runtime-weapon-attack-skeleton.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "StatBlockControlState",
-      "driver": "_none_",
+      "api": "BattleState.stat_block_control",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "module": "src/rules/battle_reducer_spine.rs"
+    },
+    {
+      "api": "resolve_stat_block_control_subject",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt",
       "module": "src/rules/rule_core_stat_block_controls.rs"
     }
   ],
   "productionModulesExtended": [
+    {
+      "domainApis": [
+        "Actor",
+        "BattleFill",
+        "BattleResolutionResult",
+        "BattleState",
+        "BattleSubject",
+        "Combatant",
+        "current_actor",
+        "discover_battle_acts",
+        "resolve_battle_subject",
+        "start_battle",
+        "start_skeleton_actor_turn",
+        "start_skeleton_battle",
+        "stat_block_multiattack_dispatches_available"
+      ],
+      "path": "src/rules/battle_reducer_spine.rs",
+      "role": "domain-engine"
+    },
     {
       "domainApis": [
         "StatBlockControlHole",
@@ -94,5 +122,5 @@
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T074"
+  "taskId": "T064-T074"
 }

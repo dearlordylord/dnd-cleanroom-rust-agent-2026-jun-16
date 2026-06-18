@@ -1,7 +1,7 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts, resolve_battle_subject, start_skeleton_actor_turn, start_skeleton_battle,
-    Actor, AttackRollFacts, BattleFill, BattleResolutionInvalidReason, BattleResolutionResult,
-    BattleSubject,
+    stat_block_multiattack_dispatches_available, Actor, AttackRollFacts, BattleFill,
+    BattleResolutionInvalidReason, BattleResolutionResult, BattleSubject,
 };
 use crate::rules::weapon_attack_skeleton::{
     discover_skeleton_weapon_attack, fill_skeleton_weapon_attack_roll_hit,
@@ -268,7 +268,7 @@ fn projection_from_spine(
         skeleton_hp: state.skeleton.hp,
         skeleton_dead: crate::rules::battle_reducer_spine::combatant_is_dead(state.skeleton),
         action_available: state.action_available,
-        multiattack_dispatches_available: state.skeleton.multiattack_dispatches_remaining,
+        multiattack_dispatches_available: stat_block_multiattack_dispatches_available(state),
         sneak_attack_used_this_turn: state.rogue.sneak_attack_used_this_turn,
         protocol,
     }
