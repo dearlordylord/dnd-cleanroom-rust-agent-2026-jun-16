@@ -48,6 +48,8 @@ mod battle_runtime_magic_missile;
 mod battle_runtime_quickened_spell_governor;
 #[path = "../qnt_adapters/battle_runtime_reaction_casting_time.rs"]
 mod battle_runtime_reaction_casting_time;
+#[path = "../qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs"]
+mod battle_runtime_reaction_spell_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_roll_modifier_active_effects.rs"]
 mod battle_runtime_roll_modifier_active_effects;
 #[path = "../qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs"]
@@ -708,6 +710,12 @@ use battle_runtime_reaction_casting_time::{
     projection_payload as reaction_casting_time_projection_payload,
     replay_observed_action as replay_reaction_casting_time_action,
     BRANCH_ACTIONS as REACTION_CASTING_TIME_BRANCH_ACTIONS,
+};
+use battle_runtime_reaction_spell_selected_identity::{
+    expected_witness as expected_reaction_spell_selected_identity_witness,
+    projection_payload as reaction_spell_selected_identity_projection_payload,
+    replay_observed_action as replay_reaction_spell_selected_identity_action,
+    BRANCH_ACTIONS as REACTION_SPELL_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_roll_modifier_active_effects::{
     expected_witness as expected_roll_modifier_active_effects_witness,
@@ -3514,6 +3522,91 @@ fn experimental_qnt_spine_routes_hellish_rebuke_after_damage() {
     );
     assert_eq!(
         resolved.level_one_plus_spell_casters_this_turn,
+        vec![Actor::Fighter]
+    );
+}
+
+#[test]
+fn reaction_spell_selected_identity_adapter_replays_in_scope_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-reaction-spell-selected-identity.mbt.qnt. Counterspell is
+    // out of level 1-2 scope in the branch inventory; Shield and Hellish
+    // Rebuke are in scope.
+    for action in REACTION_SPELL_SELECTED_IDENTITY_BRANCH_ACTIONS {
+        let observed = replay_reaction_spell_selected_identity_action(action);
+        assert_eq!(
+            observed,
+            expected_reaction_spell_selected_identity_witness(action)
+        );
+        assert!(
+            reaction_spell_selected_identity_projection_payload(&observed)
+                .contains("protocolResult=resolved")
+        );
+    }
+}
+
+#[test]
+fn experimental_qnt_spine_routes_reaction_spell_selected_identity() {
+    use crate::rules::battle_reducer_spine::{
+        reaction_spell_selected_identity_projection_from_battle,
+        resolve_hellish_rebuke_failed_save_reaction_spell_battle,
+        resolve_shield_reaction_spell_hit_battle, start_reaction_spell_selected_identity_battle,
+        Actor, BattleReactionSpellSelectedIdentityOutcome, BattleTurnSpellSlotUse,
+    };
+
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Reactions";
+    // cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md
+    // "Reaction and Bonus Action Triggers" and "Spell Slots"; QNT:
+    // battle-runtime-reaction-spell-selected-identity.mbt.qnt plus
+    // battle-runtime-reaction-window.qnt `castShieldReactionSpell` and
+    // battle-runtime-reaction-resolution.qnt `resolveHellishRebukeAfterDamage`.
+    let initial = start_reaction_spell_selected_identity_battle();
+    assert_eq!(initial.fighter.hp, 12);
+    assert_eq!(initial.goblin.hp, 12);
+    assert_eq!(initial.fighter.armor_class, 10);
+    assert!(!initial.fighter.shield_armor_class_bonus_active);
+    assert!(initial.spell_slot_uses_this_turn.is_empty());
+
+    let shield = resolve_shield_reaction_spell_hit_battle(initial.clone());
+    let shield_projection = reaction_spell_selected_identity_projection_from_battle(
+        &shield,
+        BattleReactionSpellSelectedIdentityOutcome::ShieldReactionSpellHitResolved,
+    );
+    assert_eq!(shield_projection.reactor_hp, 12);
+    assert_eq!(shield_projection.trigger_creature_hp, 12);
+    assert_eq!(shield_projection.reactor_armor_class, 15);
+    assert!(!shield_projection.reactor_reaction_available);
+    assert_eq!(shield_projection.first_level_slots_expended, 1);
+    assert_eq!(shield_projection.second_level_slots_expended, 0);
+    assert_eq!(shield_projection.third_level_slots_expended, 0);
+    assert_eq!(
+        shield_projection.trigger_creature_first_level_slots_expended,
+        0
+    );
+    assert!(shield.fighter.shield_armor_class_bonus_active);
+    assert_eq!(
+        shield.spell_slot_uses_this_turn,
+        vec![BattleTurnSpellSlotUse::Committed(Actor::Fighter)]
+    );
+
+    let hellish = resolve_hellish_rebuke_failed_save_reaction_spell_battle(initial);
+    let hellish_projection = reaction_spell_selected_identity_projection_from_battle(
+        &hellish,
+        BattleReactionSpellSelectedIdentityOutcome::HellishRebukeFailedSaveResolved,
+    );
+    assert_eq!(hellish_projection.reactor_hp, 11);
+    assert_eq!(hellish_projection.trigger_creature_hp, 9);
+    assert_eq!(hellish_projection.reactor_armor_class, 10);
+    assert!(!hellish_projection.reactor_reaction_available);
+    assert_eq!(hellish_projection.first_level_slots_expended, 0);
+    assert_eq!(hellish_projection.second_level_slots_expended, 1);
+    assert_eq!(hellish_projection.third_level_slots_expended, 0);
+    assert_eq!(
+        hellish.spell_slot_uses_this_turn,
+        vec![BattleTurnSpellSlotUse::Committed(Actor::Fighter)]
+    );
+    assert_eq!(
+        hellish.level_one_plus_spell_casters_this_turn,
         vec![Actor::Fighter]
     );
 }

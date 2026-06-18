@@ -8,7 +8,7 @@
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
 - Last completed current-snapshot queued branch set:
-  `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt`
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt`
 - Next queued driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt`
 - Next task id: `T001`
 
@@ -19,6 +19,108 @@ allowed inputs used, renders branch coverage from harness-generated target
 replay evidence, and records verification results. Entries with older manifest
 source commit SHAs or inventory SHAs are historical unless they include a
 current-snapshot revalidation note.
+
+## T085: Reaction Spell Selected-Identity Battle-Spine Diagnostic
+
+- Manifest source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
+- Source branch inventory SHA: `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
+- Selected driver:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt`
+- Reused dependency drivers:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-window.qnt`,
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-resolution.qnt`,
+  and `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-invocation.qnt`
+- Branch obligations:
+  - `step:doResolveShieldReactionSpellHit`
+  - `step:doResolveHellishRebukeFailedSavingThrow`
+- Out-of-scope branches:
+  - `step:doResolveCounterspellMagicMissileCast` because Counterspell is level
+    3 in the copied inventory.
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-window.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-resolution.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-invocation.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+
+Behavior implemented:
+
+- `src/rules/battle_reducer_spine.rs` now exposes
+  `reaction_spell_selected_identity_projection_from_battle`.
+- `Combatant` now stores the narrow
+  `shield_armor_class_bonus_active` active-effect fact, and battle-spine AC
+  projection derives the Shield AC bonus from that fact.
+- `resolve_shield_reaction_spell_hit_battle` spends the Fighter reaction,
+  applies the Shield AC active effect, expends a first-level spell slot, and
+  commits the per-turn spell-slot use.
+- `resolve_hellish_rebuke_failed_save_reaction_spell_battle` reuses the T084
+  spell-slot owner for the selected-identity Hellish branch, applying the
+  trigger damage, failed-save damage, second-level spell-slot expenditure, and
+  per-turn spell-slot commit.
+- `src/qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs` keeps
+  the focused T085 helper as expected witness data, while observed replay uses
+  the battle spine.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt#step:doResolveShieldReactionSpellHit` | `tasks/target-replay-evidence/T085-battle-runtime-reaction-spell-selected-identity.json#T085-shield-reaction-spell-hit#step:doResolveShieldReactionSpellHit` | `cargo test reaction_spell_selected_identity -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt#step:doResolveHellishRebukeFailedSavingThrow` | `tasks/target-replay-evidence/T085-battle-runtime-reaction-spell-selected-identity.json#T085-hellish-rebuke-failed-saving-throw#step:doResolveHellishRebukeFailedSavingThrow` | `cargo test reaction_spell_selected_identity -- --nocapture` | `covered` |
+
+Target replay evidence:
+
+- Evidence file:
+  `tasks/target-replay-evidence/T085-battle-runtime-reaction-spell-selected-identity.json`
+- Target profile: `rust`
+- Target profile SHA-256:
+  `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json` is still missing; repo-wide acceptance
+  remains blocked by global accounting debt outside this diagnostic.
+
+Remaining gaps:
+
+- T085 proves only the in-scope Shield and Hellish Rebuke selected-identity
+  branches. It does not implement the out-of-scope Counterspell branch or a
+  general reaction spell catalog.
+- The next reducer-spine pressure test should route spell attack or save-gated
+  spell ordering through the same battle-owned spell-slot/action owner.
+- Repo-wide harness acceptance still fails on the known global denominator:
+  missing `tasks/RUN_LEDGER.json`, undeclared historical evidence files,
+  validation-report evidence rows that are not ledger-backed, witness-protocol
+  findings from undeclared adapters, and authored-identity scan findings
+  outside this change.
+
+Verification results:
+
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/T085-battle-runtime-reaction-spell-selected-identity.json` passed.
+- `cargo test reaction_spell_selected_identity -- --nocapture` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed with 168 tests.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed on known repo-wide
+  accounting debt outside this diagnostic: missing `tasks/RUN_LEDGER.json`, 81
+  undeclared historical evidence files, 155 witness-protocol findings from
+  undeclared adapters, 16 authored-identity scan findings, 15 validation-report
+  rows for prior diagnostic obligations that are not current selected work, and
+  2 prior diagnostic-evidence rows that are not ledger-backed target replay
+  evidence.
 
 ## T084: Reaction Casting-Time Battle-Spine Diagnostic
 
@@ -96,9 +198,10 @@ Remaining gaps:
 - T084 proves only the in-scope after-damage reaction spell timing branch. It
   does not implement the out-of-scope Counterspell branches or a general
   reaction spell catalog.
-- The T084 owner is intentionally narrow but should be reused by later spell
-  attack/save-gated ordering or reaction-spell selected-identity diagnostics
-  instead of adding slice-local spell resource state.
+- The T084 owner is intentionally narrow. T085 reuses it for reaction-spell
+  selected identity; later spell attack/save-gated ordering diagnostics should
+  keep reusing the same owner instead of adding slice-local spell resource
+  state.
 - Repo-wide harness acceptance still fails on the known global denominator:
   missing `tasks/RUN_LEDGER.json`, undeclared historical evidence files,
   validation-report evidence rows that are not ledger-backed, witness-protocol

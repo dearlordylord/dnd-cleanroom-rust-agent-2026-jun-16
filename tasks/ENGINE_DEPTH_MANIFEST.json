@@ -1,29 +1,26 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 4,
+      "addedEntries": 3,
       "owner": "production",
-      "reason": "added battle-owned spell-slot turn resources, per-combatant spell-slot ledgers, reaction casting-time state, and a Hellish Rebuke after-damage battle route"
+      "reason": "reused the T084 battle-owned spell-slot/reaction owner for two reaction spell selected-identity branches and added a narrow Shield armor-class active-effect projection"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_reaction_casting_time.rs",
+      "path": "src/qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doHellishRebukeAfterDamage",
-        "HellishRebukeAfterDamage",
-        "afterDamage",
-        "afterDamageResolved",
-        "qTriggerKind",
-        "qContinuationKind",
+        "doResolveShieldReactionSpellHit",
+        "doResolveHellishRebukeFailedSavingThrow",
+        "Resolved",
         "qReactorHp",
         "qTriggerCreatureHp",
+        "qReactorArmorClass",
         "qReactorReactionAvailable",
         "qTriggerCreatureFirstLevelSlotsExpended",
-        "qTriggerCreatureFourthLevelSlotsExpended",
-        "qReactorSecondLevelSlotsExpended",
-        "qReactorThirdLevelSlotsExpended",
-        "qReactionWindowCleared",
+        "qFirstLevelSlotsExpended",
+        "qSecondLevelSlotsExpended",
+        "qThirdLevelSlotsExpended",
         "qScenarioOutcome",
         "protocolResult",
         "protocolHoles",
@@ -44,7 +41,7 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T084-battle-runtime-reaction-casting-time.json"
+        "tasks/target-replay-evidence/T085-battle-runtime-reaction-spell-selected-identity.json"
       ]
     }
   ],
@@ -55,26 +52,25 @@
       "module": "src/rules/battle_reducer_spine.rs"
     },
     {
-      "api": "BattleReactionCastingTimeState",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt",
+      "api": "reaction_spell_selected_identity_projection_from_battle",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
       "module": "src/rules/battle_reducer_spine.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "BattleReactionCastingTimeProjection",
-        "BattleReactionCastingTimeState",
-        "BattleSpellSlotLedger",
-        "BattleTurnSpellSlotUse",
-        "reaction_casting_time_projection_from_battle",
-        "resolve_hellish_rebuke_after_damage_battle",
-        "start_reaction_casting_time_battle"
+        "BattleReactionSpellSelectedIdentityOutcome",
+        "BattleReactionSpellSelectedIdentityProjection",
+        "reaction_spell_selected_identity_projection_from_battle",
+        "resolve_hellish_rebuke_failed_save_reaction_spell_battle",
+        "resolve_shield_reaction_spell_hit_battle",
+        "start_reaction_spell_selected_identity_battle"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T084-reaction-casting-time"
+  "taskId": "T085-reaction-spell-selected-identity"
 }

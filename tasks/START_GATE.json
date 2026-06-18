@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T084-reaction-casting-time",
-  "startHeadSha": "d19354404eb0284bfe8a0c993eacddbd5ef965a7",
+  "taskId": "T085-reaction-spell-selected-identity",
+  "startHeadSha": "907868926daa94039540c6706af8cd9526691426",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt"
     ]
   }
 }

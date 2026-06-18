@@ -82,6 +82,7 @@ pub struct Combatant {
     pub max_hp: i16,
     pub temporary_hp: i16,
     pub armor_class: i16,
+    pub shield_armor_class_bonus_active: bool,
     pub unconscious: bool,
     pub incapacitated: bool,
     pub prone: bool,
@@ -154,11 +155,31 @@ pub enum BattleReactionCastingOutcome {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReactionSpellSelectedIdentityOutcome {
+    Init,
+    ShieldReactionSpellHitResolved,
+    HellishRebukeFailedSaveResolved,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct BattleReactionCastingTimeState {
     pub trigger: BattleReactionCastingTrigger,
     pub continuation: BattleReactionCastingContinuation,
     pub reaction_window_open: bool,
     pub outcome: BattleReactionCastingOutcome,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleReactionSpellSelectedIdentityProjection {
+    pub reactor_hp: i16,
+    pub trigger_creature_hp: i16,
+    pub reactor_armor_class: i16,
+    pub reactor_reaction_available: bool,
+    pub trigger_creature_first_level_slots_expended: i16,
+    pub first_level_slots_expended: i16,
+    pub second_level_slots_expended: i16,
+    pub third_level_slots_expended: i16,
+    pub outcome: BattleReactionSpellSelectedIdentityOutcome,
 }
 
 impl BattleReactionCastingTimeState {
@@ -512,6 +533,35 @@ pub fn start_reaction_casting_time_battle() -> BattleState {
 }
 
 #[must_use]
+pub fn start_reaction_spell_selected_identity_battle() -> BattleState {
+    // QNT: battle-runtime-reaction-spell-selected-identity.mbt.qnt `init`.
+    let mut state = start_battle();
+    state.goblin = Combatant {
+        hp: 12,
+        max_hp: 12,
+        ..state.goblin
+    };
+    state
+}
+
+#[must_use]
+pub fn resolve_shield_reaction_spell_hit_battle(state: BattleState) -> BattleState {
+    // QNT: battle-runtime-reaction-window.qnt `castShieldReactionSpell`;
+    // battle-runtime-reaction-resolution.qnt `resolveReactionOffer` AttackHit
+    // Shield branch.
+    if !can_actor_expend_spell_slot_this_turn(&state, Actor::Fighter)
+        || !state.fighter.reaction_available
+    {
+        return state;
+    }
+    let state = claim_pending_actor_spell_slot_use(state, Actor::Fighter);
+    let state = spend_reaction(state, Actor::Fighter);
+    let state = apply_shield_armor_class_bonus(state, Actor::Fighter);
+    let state = expend_combatant_spell_slot(state, Actor::Fighter, BattleSpellSlotLevel::First);
+    commit_actor_spell_slot_use(state, Actor::Fighter)
+}
+
+#[must_use]
 pub fn resolve_hellish_rebuke_after_damage_battle(state: BattleState) -> BattleState {
     // QNT: battle-runtime-reaction-casting-time.mbt.qnt in-scope after-damage
     // branch; battle-runtime-reaction-window.qnt
@@ -543,6 +593,42 @@ pub fn resolve_hellish_rebuke_after_damage_battle(state: BattleState) -> BattleS
             outcome: BattleReactionCastingOutcome::AfterDamageReactionResolved,
         },
         ..with_damaged_target(state, Actor::Goblin, 3)
+    }
+}
+
+#[must_use]
+pub fn resolve_hellish_rebuke_failed_save_reaction_spell_battle(state: BattleState) -> BattleState {
+    // QNT: battle-runtime-reaction-spell-selected-identity.mbt.qnt
+    // failed-save selected-identity branch; support QNT:
+    // battle-runtime-reaction-resolution.qnt `resolveHellishRebukeAfterDamage`.
+    let state = with_damaged_target(state, Actor::Fighter, 1);
+    if !can_actor_expend_spell_slot_this_turn(&state, Actor::Fighter)
+        || !state.fighter.reaction_available
+    {
+        return state;
+    }
+    let state = claim_pending_actor_spell_slot_use(state, Actor::Fighter);
+    let state = spend_reaction(state, Actor::Fighter);
+    let state = expend_combatant_spell_slot(state, Actor::Fighter, BattleSpellSlotLevel::Second);
+    let state = commit_actor_spell_slot_use(state, Actor::Fighter);
+    with_damaged_target(state, Actor::Goblin, 3)
+}
+
+#[must_use]
+pub fn reaction_spell_selected_identity_projection_from_battle(
+    state: &BattleState,
+    outcome: BattleReactionSpellSelectedIdentityOutcome,
+) -> BattleReactionSpellSelectedIdentityProjection {
+    BattleReactionSpellSelectedIdentityProjection {
+        reactor_hp: state.fighter.hp,
+        trigger_creature_hp: state.goblin.hp,
+        reactor_armor_class: armor_class_for(state, Actor::Fighter),
+        reactor_reaction_available: state.fighter.reaction_available,
+        trigger_creature_first_level_slots_expended: state.goblin.spell_slots.first_level_expended,
+        first_level_slots_expended: state.fighter.spell_slots.first_level_expended,
+        second_level_slots_expended: state.fighter.spell_slots.second_level_expended,
+        third_level_slots_expended: state.fighter.spell_slots.third_level_expended,
+        outcome,
     }
 }
 
@@ -684,6 +770,7 @@ fn fighter_combatant() -> Combatant {
         max_hp: 12,
         temporary_hp: 0,
         armor_class: 10,
+        shield_armor_class_bonus_active: false,
         unconscious: false,
         incapacitated: false,
         prone: false,
@@ -704,6 +791,7 @@ fn goblin_combatant() -> Combatant {
         max_hp: 10,
         temporary_hp: 0,
         armor_class: 15,
+        shield_armor_class_bonus_active: false,
         unconscious: false,
         incapacitated: false,
         prone: false,
@@ -724,6 +812,7 @@ fn rogue_combatant() -> Combatant {
         max_hp: 11,
         temporary_hp: 0,
         armor_class: 14,
+        shield_armor_class_bonus_active: false,
         unconscious: false,
         incapacitated: false,
         prone: false,
@@ -744,6 +833,7 @@ fn skeleton_combatant() -> Combatant {
         max_hp: 13,
         temporary_hp: 0,
         armor_class: 13,
+        shield_armor_class_bonus_active: false,
         unconscious: false,
         incapacitated: false,
         prone: false,
@@ -1809,12 +1899,29 @@ fn resolve_attack_roll(
 }
 
 fn armor_class_for(state: &BattleState, actor: Actor) -> i16 {
-    match actor {
+    let combatant = match actor {
         Actor::Fighter => state.fighter.armor_class,
         Actor::Goblin => state.goblin.armor_class,
         Actor::Rogue => state.rogue.armor_class,
         Actor::Skeleton => state.skeleton.armor_class,
+    };
+    let shield_bonus = if combatant_for(state, actor).shield_armor_class_bonus_active {
+        5
+    } else {
+        0
+    };
+    combatant + shield_bonus
+}
+
+fn apply_shield_armor_class_bonus(mut state: BattleState, actor: Actor) -> BattleState {
+    // QNT: battle-runtime-reaction-window.qnt `applyShieldReactionSpell`.
+    match actor {
+        Actor::Fighter => state.fighter.shield_armor_class_bonus_active = true,
+        Actor::Goblin => state.goblin.shield_armor_class_bonus_active = true,
+        Actor::Rogue => state.rogue.shield_armor_class_bonus_active = true,
+        Actor::Skeleton => state.skeleton.shield_armor_class_bonus_active = true,
     }
+    state
 }
 
 fn with_damaged_target(mut state: BattleState, target: Actor, damage: i16) -> BattleState {

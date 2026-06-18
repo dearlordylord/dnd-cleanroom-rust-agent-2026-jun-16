@@ -4,38 +4,6 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.reaction_casting_time.trigger",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.reaction_casting_time.continuation",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.reaction_casting_time.reaction_window_open",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.reaction_casting_time.outcome",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
       "fieldPath": "BattleState.fighter.hp",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
@@ -45,6 +13,22 @@
         "tag": "canonical-source"
       },
       "fieldPath": "BattleState.goblin.hp",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.armor_class",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.shield_armor_class_bonus_active",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
@@ -68,7 +52,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.goblin.spell_slots.fourth_level_expended",
+      "fieldPath": "BattleState.fighter.spell_slots.first_level_expended",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
@@ -106,11 +90,11 @@
     },
     {
       "derivability": {
-        "boundary": "reaction casting-time target replay projection",
-        "sourceField": "BattleState.reaction_casting_time.reaction_window_open",
+        "boundary": "reaction spell selected-identity target replay projection",
+        "sourceField": "BattleState.fighter.armor_class + BattleState.fighter.shield_armor_class_bonus_active",
         "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "reaction_casting_time_projection_from_battle.reaction_window_cleared",
+      "fieldPath": "reaction_spell_selected_identity_projection_from_battle.reactor_armor_class",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "executable-boundary-projection"
     },
@@ -120,10 +104,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_reaction_casting_time.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T084-reaction-casting-time"
+  "taskId": "T085-reaction-spell-selected-identity"
 }
