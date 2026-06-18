@@ -14,9 +14,10 @@ separate three claims:
    discovery, subject resolution, turn resources, holes/fills, and durable
    combatant state.
 
-The current experiment strongly supports the first two claims. A follow-up
-tracked reducer-spine experiment now supports the third claim for one narrow
-weapon-attack path, but not for the full battle reducer.
+The current experiment strongly supports the first two claims. Follow-up tracked
+reducer-spine experiments now support the third claim for one narrow
+weapon-attack path and one existing MBT adapter, but not for the full battle
+reducer.
 
 ## Inputs
 
@@ -99,6 +100,13 @@ from `battle-runtime-model.qnt`, discovers one Fighter weapon attack from
 `shared-algebras/proofs/rule-core/attack-damage-composition.qnt`, and applies
 damage through the existing Rust HP helper derived from rule-core hit point QNT.
 
+The `battle_runtime_weapon_attack_ordering` adapter now uses that reducer spine
+for observed replay and keeps the old focused helper as the expected witness.
+That is the first existing MBT adapter test routed through
+`start_battle`/`discover_battle_acts`/`resolve_battle_subject`. The JSON target
+replay evidence has not been regenerated, so this is tested code evidence, not
+accepted current-snapshot harness evidence.
+
 ### TypeScript Exemplar
 
 The TypeScript runtime exposes the reducer boundary directly:
@@ -161,7 +169,10 @@ measures one vertical path:
 - reject an attack roll before target choice.
 
 This proves that copied QNT plus existing QNT-derived helpers are sufficient for
-one reducer-shaped path. It does not prove the full reducer-wide contract:
+one reducer-shaped path. The adapter-routing experiment then proves that at
+least one existing MBT adapter can compare observed replay from that spine
+against the prior focused expected witness. It does not prove the full
+reducer-wide contract:
 
 - start/init boundary;
 - actor and combatant ownership model;
@@ -196,23 +207,26 @@ many local helper slices with high confidence.
 
 The new reducer-spine experiment can also be recreated from copied QNT alone
 for one Fighter weapon-attack path. Measured generic reducer coverage is no
-longer zero, but it is still only a seed. The full cleanroom claim remains
-unproven until at least one existing battle MBT driver replays through the
-generic reducer entrypoints instead of a slice-specific adapter, and then that
-pattern expands across the level-1/2 battle queue.
+longer zero, but it is still only a seed. One existing battle MBT adapter test
+now replays through the generic reducer entrypoints instead of a slice-specific
+observed helper. The full cleanroom claim remains unproven until that route
+produces current-snapshot target replay evidence and then expands across the
+level-1/2 battle queue.
 
 ## Recommended Next Experiment
 
-Run a reducer-spine MBT integration experiment, not a full driver audit.
+Run a current-snapshot reducer-spine evidence experiment, not a full driver
+audit.
 
 Method:
 
 1. Use only `cleanroom-input/**` as implementation input.
-2. Rework one battle MBT replay adapter so its observed action is checked by
-   driving `start_battle`, `discover_battle_acts`, and
-   `resolve_battle_subject` instead of calling a slice-specific witness helper.
-3. Prefer `battle-runtime-weapon-attack-ordering.mbt.qnt` or a deliberately
-   small new reducer-spine witness before attempting a broad driver such as
+2. Regenerate or write current-snapshot target replay evidence for
+   `battle-runtime-weapon-attack-ordering.mbt.qnt` with observed replay produced
+   through the reducer spine.
+3. If the current harness cannot express "observed via reducer spine, expected
+   via focused QNT witness", add a small source-side reducer-spine witness
+   before attempting a broad driver such as
    `battle-runtime-weapon-attack-skeleton.mbt.qnt`.
 4. Record every fact that cannot be derived from copied QNT, RAW, domain docs,
    or assumptions as a blocker.
@@ -221,9 +235,10 @@ Method:
 
 Expected outcomes:
 
-- If an MBT replay can run through the generic spine without blockers, QNT is
-  likely sufficient for the first level-1/2 battle reducer architecture slice,
-  and the next artifact should be a PRD/task list for expanding driver coverage.
+- If current target replay evidence can run through the generic spine without
+  blockers, QNT is likely sufficient for the first level-1/2 battle reducer
+  architecture slice, and the next artifact should be a PRD/task list for
+  expanding driver coverage.
 - If blockers appear, update source QNT/guidance to make the missing reducer
   contract explicit before another cleanroom run.
 
@@ -233,12 +248,13 @@ Measurements for that experiment:
 - Number derived from RAW or ubiquitous language.
 - Number blocked as unstated.
 - Number where the post-hoc TypeScript comparison reveals a behavior mismatch.
-- Whether the implementation can replay at least one existing battle MBT driver
-  through the generic reducer entrypoints rather than a slice-specific adapter.
+- Whether the implementation can produce accepted current evidence for at least
+  one existing battle MBT driver through the generic reducer entrypoints rather
+  than a slice-specific observed helper.
 
 ## Current Research Decision
 
-Do not produce a full PRD yet. The next artifact should follow the reducer-spine
-MBT integration experiment, because that is the first step that measures whether
-the cleanroom target can use a QNT-derived reducer entrypoint as the parity
-surface.
+Do not produce a full PRD yet. The next artifact should follow current-snapshot
+reducer-spine evidence, because that is the first step that measures whether
+the cleanroom target can use a QNT-derived reducer entrypoint as the accepted
+parity surface.

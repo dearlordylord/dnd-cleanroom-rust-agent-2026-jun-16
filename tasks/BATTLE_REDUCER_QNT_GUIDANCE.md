@@ -2,8 +2,9 @@
 
 ## Current Answer
 
-QNT is enough to derive a small reducer spine, but the cleanroom repo has not
-yet proven that QNT is enough to derive the full battle reducer.
+QNT is enough to derive a small reducer spine and route one existing MBT adapter
+test through it, but the cleanroom repo has not yet proven that QNT is enough to
+derive the full battle reducer.
 
 The tracked experiment in `src/rules/battle_reducer_spine.rs` proves a narrow
 path:
@@ -26,8 +27,10 @@ The experiment passes through reducer-shaped functions:
 - `resolve_battle_subject`
 
 That is materially closer to the main goal than per-driver replay adapters, but
-it is still an experiment. It does not yet close battle MBT evidence through the
-spine.
+it is still an experiment. The `battle_runtime_weapon_attack_ordering` adapter
+now uses the spine for observed replay and the prior focused helper for expected
+projection, but accepted target replay evidence has not been regenerated through
+that route.
 
 ## How To Guide The Next Cleanroom Work
 
@@ -90,11 +93,21 @@ on hidden architecture inference.
 Do this if adapting an existing MBT driver to the spine requires too much
 interpretation.
 
+### Option F: Route One Existing Adapter Through The Spine
+
+Done for `battle_runtime_weapon_attack_ordering`. This was the fastest way to
+test whether existing focused MBT projection can use reducer-shaped observed
+replay without changing source QNT.
+
+Result: it works for the ordering driver. The remaining issue is evidence
+production, not the core code path.
+
 ## What Is Still Missing
 
-- No target replay evidence currently uses `battle_reducer_spine.rs`.
-- No existing `.mbt.qnt` driver has been replayed through
-  `start_battle`/`discover_battle_acts`/`resolve_battle_subject`.
+- No accepted target replay evidence currently uses `battle_reducer_spine.rs`.
+- One existing `.mbt.qnt` adapter test has been replayed through
+  `start_battle`/`discover_battle_acts`/`resolve_battle_subject`, but the JSON
+  evidence remains stale.
 - The spine handles only a Fighter weapon attack against the Goblin-like QNT
   initial state.
 - It does not yet model:
@@ -108,16 +121,18 @@ interpretation.
 
 ## Best Next Step
 
-Make one MBT replay adapter use the generic spine. The preferred path is:
+Make accepted current-snapshot evidence use the generic spine. The preferred
+path is:
 
-1. Add a small source-side reducer-spine witness, or choose the smallest
-   existing weapon-attack driver that can be interpreted without hidden facts.
-2. In Rust, replay that witness by calling:
+1. Use `battle-runtime-weapon-attack-ordering.mbt.qnt`, because its Rust adapter
+   already routes observed replay through the spine.
+2. Regenerate or hand-author target replay evidence that records this route:
    - `start_battle`
    - `discover_battle_acts`
    - `resolve_battle_subject`
-3. Record branch evidence that names the generic reducer entrypoints as the
-   target harness surface.
+3. If the current evidence schema cannot identify the reducer-spine surface,
+   add a small source-side reducer-spine witness or evidence schema note before
+   broadening to more drivers.
 4. If a fact is missing, stop and improve source QNT/guidance rather than
    importing TypeScript knowledge.
 

@@ -1,9 +1,14 @@
+use crate::rules::battle_reducer_spine::{
+    discover_battle_acts, resolve_battle_subject, start_battle, Actor, AttackRollFacts, BattleFill,
+    BattleResolutionResult, BattleSubject,
+};
 use crate::rules::weapon_attack_ordering::{
     discover_weapon_attack, fill_weapon_attack_damage_dice, fill_weapon_attack_roll_hit,
     fill_weapon_attack_roll_miss, fill_weapon_attack_target_choice,
     reject_weapon_attack_roll_before_target_choice, reject_weapon_damage_before_attack_roll,
-    WeaponAttackFillOrderingError, WeaponAttackFrontierStage, WeaponAttackHoleKind,
-    WeaponAttackInvalidReason, WeaponAttackOrderingProtocol, WeaponAttackOrderingState,
+    weapon_attack_ordering_projection, WeaponAttackFillOrderingError, WeaponAttackFrontierStage,
+    WeaponAttackHoleKind, WeaponAttackInvalidReason, WeaponAttackOrderingProjectionFacts,
+    WeaponAttackOrderingProtocol, WeaponAttackOrderingState, WeaponAttackRuntimeResult,
 };
 
 pub const BRANCH_ACTIONS: [&str; 7] = [
@@ -17,6 +22,10 @@ pub const BRANCH_ACTIONS: [&str; 7] = [
 ];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> WeaponAttackOrderingState {
+    replay_observed_action_through_spine(observed_action_taken)
+}
+
+pub fn expected_witness(observed_action_taken: &str) -> WeaponAttackOrderingState {
     match observed_action_taken {
         "doDiscoverAttack" => discover_weapon_attack(),
         "doRejectAttackRollBeforeTargetChoice" => reject_weapon_attack_roll_before_target_choice(),
@@ -27,10 +36,6 @@ pub fn replay_observed_action(observed_action_taken: &str) -> WeaponAttackOrderi
         "doFillDamageDice" => fill_weapon_attack_damage_dice(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
-}
-
-pub fn expected_witness(observed_action_taken: &str) -> WeaponAttackOrderingState {
-    replay_observed_action(observed_action_taken)
 }
 
 pub fn projection_payload(state: &WeaponAttackOrderingState) -> String {
@@ -50,6 +55,150 @@ pub fn projection_payload(state: &WeaponAttackOrderingState) -> String {
         format!("protocolHoles={}", joined_or_none(&protocol_holes)),
     ]
     .join("\n")
+}
+
+fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAttackOrderingState {
+    match observed_action_taken {
+        "doDiscoverAttack" => {
+            let state = start_battle();
+            let act = discovered_weapon_attack_act(&state);
+            projection(
+                act.subject.stage,
+                WeaponAttackRuntimeResult::NeedsHoles,
+                None,
+            )
+        }
+        "doRejectAttackRollBeforeTargetChoice" => {
+            let state = start_battle();
+            let act = discovered_weapon_attack_act(&state);
+            let result = resolve_battle_subject(
+                state,
+                act.subject,
+                BattleFill::AttackRoll(AttackRollFacts {
+                    total: 16,
+                    natural_d20: 12,
+                }),
+            );
+            assert_invalid(result);
+            projection(
+                WeaponAttackFrontierStage::TargetChoice,
+                WeaponAttackRuntimeResult::Invalid,
+                Some(WeaponAttackFillOrderingError::TargetChoiceRequired),
+            )
+        }
+        "doFillTargetChoice" => {
+            let (state, subject) = spine_after_target_choice();
+            let _ = state;
+            projection(subject.stage, WeaponAttackRuntimeResult::NeedsHoles, None)
+        }
+        "doRejectDamageBeforeAttackRoll" => {
+            let (state, subject) = spine_after_target_choice();
+            let result = resolve_battle_subject(state, subject, BattleFill::DamageRoll(6));
+            assert_invalid(result);
+            projection(
+                WeaponAttackFrontierStage::AttackRoll,
+                WeaponAttackRuntimeResult::Invalid,
+                Some(WeaponAttackFillOrderingError::AttackRollRequired),
+            )
+        }
+        "doFillAttackRollMiss" => {
+            let (state, subject) = spine_after_target_choice();
+            let result = resolve_battle_subject(
+                state,
+                subject,
+                BattleFill::AttackRoll(AttackRollFacts {
+                    total: 2,
+                    natural_d20: 1,
+                }),
+            );
+            assert_resolved(result);
+            projection(
+                WeaponAttackFrontierStage::Resolved,
+                WeaponAttackRuntimeResult::Resolved,
+                None,
+            )
+        }
+        "doFillAttackRollHit" => {
+            let (_state, subject) = spine_after_attack_roll_hit();
+            projection(subject.stage, WeaponAttackRuntimeResult::NeedsHoles, None)
+        }
+        "doFillDamageDice" => {
+            let (state, subject) = spine_after_attack_roll_hit();
+            let result = resolve_battle_subject(state, subject, BattleFill::DamageRoll(6));
+            assert_resolved(result);
+            projection(
+                WeaponAttackFrontierStage::Resolved,
+                WeaponAttackRuntimeResult::Resolved,
+                None,
+            )
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn discovered_weapon_attack_act(
+    state: &crate::rules::battle_reducer_spine::BattleState,
+) -> crate::rules::battle_reducer_spine::AvailableBattleAct {
+    discover_battle_acts(state)
+        .into_iter()
+        .next()
+        .expect("QNT initialState should discover one Fighter weapon attack")
+}
+
+fn spine_after_target_choice() -> (
+    crate::rules::battle_reducer_spine::BattleState,
+    BattleSubject,
+) {
+    let state = start_battle();
+    let act = discovered_weapon_attack_act(&state);
+    match resolve_battle_subject(state, act.subject, BattleFill::TargetChoice(Actor::Goblin)) {
+        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
+        other => panic!("target choice should need attack-roll holes, got {other:?}"),
+    }
+}
+
+fn spine_after_attack_roll_hit() -> (
+    crate::rules::battle_reducer_spine::BattleState,
+    BattleSubject,
+) {
+    let (state, subject) = spine_after_target_choice();
+    match resolve_battle_subject(
+        state,
+        subject,
+        BattleFill::AttackRoll(AttackRollFacts {
+            total: 16,
+            natural_d20: 12,
+        }),
+    ) {
+        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
+        other => panic!("attack-roll hit should need damage holes, got {other:?}"),
+    }
+}
+
+fn assert_invalid(result: BattleResolutionResult) {
+    assert!(
+        matches!(result, BattleResolutionResult::Invalid { .. }),
+        "expected invalid reducer result, got {result:?}"
+    );
+}
+
+fn assert_resolved(result: BattleResolutionResult) {
+    assert!(
+        matches!(result, BattleResolutionResult::Resolved { .. }),
+        "expected resolved reducer result, got {result:?}"
+    );
+}
+
+fn projection(
+    stage: WeaponAttackFrontierStage,
+    runtime_result: WeaponAttackRuntimeResult,
+    last_ordering_error: Option<WeaponAttackFillOrderingError>,
+) -> WeaponAttackOrderingState {
+    weapon_attack_ordering_projection(WeaponAttackOrderingProjectionFacts {
+        stage,
+        runtime_result,
+        last_ordering_error,
+    })
 }
 
 fn stage_ref(stage: WeaponAttackFrontierStage) -> &'static str {
