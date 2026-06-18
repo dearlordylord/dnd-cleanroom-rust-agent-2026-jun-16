@@ -21,6 +21,13 @@ use crate::rules::rule_core_stat_block_controls::{
     StatBlockAttackSlot, StatBlockControlState, StatBlockDispatchSubject,
     StatBlockMultiattackProfile,
 };
+use crate::rules::spell_attack_ordering::{
+    spell_attack_fill_order_error, spell_attack_fill_order_result,
+    spell_attack_fill_order_runtime_result, spell_attack_ordering_initial_state,
+    spell_attack_ordering_projection, SpellAttackFillKind, SpellAttackFillOrderResult,
+    SpellAttackFillOrderingError, SpellAttackFrontierStage, SpellAttackOrderingProjectionFacts,
+    SpellAttackOrderingState, SpellAttackRuntimeResult,
+};
 use crate::rules::stat_block_action_ordering::{
     stat_block_action_fill_order_result, stat_block_action_hole_frontier,
     stat_block_action_ordering_projection, StatBlockActionFillKind, StatBlockActionFillOrderResult,
@@ -120,6 +127,7 @@ pub struct BattleState {
     pub turn_boundary_effects: TurnBoundaryEffects,
     pub interrupt_resume: BattleInterruptResumeState,
     pub reaction_casting_time: BattleReactionCastingTimeState,
+    pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
     pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -180,6 +188,29 @@ pub struct BattleReactionSpellSelectedIdentityProjection {
     pub second_level_slots_expended: i16,
     pub third_level_slots_expended: i16,
     pub outcome: BattleReactionSpellSelectedIdentityOutcome,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSpellAttackProcedure {
+    Inactive,
+    Active(BattleSpellAttackSubject),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleSpellAttackSubject {
+    pub actor: Actor,
+    pub target: Option<Actor>,
+    pub stage: SpellAttackFrontierStage,
+    pub requires_spell_slot: bool,
+    pub last_ordering_error: Option<SpellAttackFillOrderingError>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSpellAttackFill {
+    TargetChoice(Actor),
+    DamageTypeChoice,
+    AttackRoll(AttackRollFacts),
+    DamageRoll(i16),
 }
 
 impl BattleReactionCastingTimeState {
@@ -408,6 +439,7 @@ pub fn start_battle() -> BattleState {
         turn_boundary_effects: TurnBoundaryEffects::none(),
         interrupt_resume: BattleInterruptResumeState::none(),
         reaction_casting_time: BattleReactionCastingTimeState::none(),
+        spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
         spell_slot_uses_this_turn: Vec::new(),
         level_one_plus_spell_casters_this_turn: Vec::new(),
         quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
@@ -440,6 +472,7 @@ pub fn start_skeleton_battle() -> BattleState {
         turn_boundary_effects: TurnBoundaryEffects::none(),
         interrupt_resume: BattleInterruptResumeState::none(),
         reaction_casting_time: BattleReactionCastingTimeState::none(),
+        spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
         spell_slot_uses_this_turn: Vec::new(),
         level_one_plus_spell_casters_this_turn: Vec::new(),
         quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
@@ -542,6 +575,90 @@ pub fn start_reaction_spell_selected_identity_battle() -> BattleState {
         ..state.goblin
     };
     state
+}
+
+#[must_use]
+pub fn start_spell_attack_ordering_battle() -> BattleState {
+    start_battle()
+}
+
+#[must_use]
+pub fn discover_single_target_spell_attack_battle(state: BattleState) -> BattleState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Making an Attack"; QNT: battle-runtime-spell-attack-ordering.qnt
+    // `SpellAttackTargetChoiceStage`.
+    start_spell_attack_subject(state, false, SpellAttackFrontierStage::TargetChoice)
+}
+
+#[must_use]
+pub fn discover_typed_spell_attack_battle(state: BattleState) -> BattleState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md
+    // "Spell Slots"; support QNT: battle-runtime-spell-invocation.qnt
+    // `claimPendingActorSpellSlotUse`; ordering QNT:
+    // battle-runtime-spell-attack-ordering.qnt
+    // `SpellAttackDamageTypeAndTargetChoiceStage`.
+    let actor = current_actor(&state);
+    if !state.action_available || !can_actor_expend_spell_slot_this_turn(&state, actor) {
+        return state;
+    }
+    let state = claim_pending_actor_spell_slot_use(state, actor);
+    start_spell_attack_subject(
+        state,
+        true,
+        SpellAttackFrontierStage::DamageTypeAndTargetChoice,
+    )
+}
+
+#[must_use]
+pub fn resolve_spell_attack_subject(
+    state: BattleState,
+    fill: BattleSpellAttackFill,
+) -> BattleState {
+    let BattleSpellAttackProcedure::Active(subject) = state.spell_attack_procedure else {
+        return state;
+    };
+    if subject.actor != current_actor(&state) {
+        return state;
+    }
+    let fill_kind = spell_attack_fill_kind(fill);
+    let attack_roll_hits = spell_attack_fill_attack_hits(&state, &subject, fill);
+    let result = spell_attack_fill_order_result(subject.stage, fill_kind, attack_roll_hits);
+    let next_stage = spell_attack_result_stage(result);
+    let next_subject = BattleSpellAttackSubject {
+        target: spell_attack_target_after_fill(subject.target, fill, result),
+        stage: next_stage,
+        last_ordering_error: spell_attack_fill_order_error(result),
+        ..subject
+    };
+    let next_state = BattleState {
+        spell_attack_procedure: BattleSpellAttackProcedure::Active(next_subject),
+        ..state
+    };
+    if spell_attack_fill_order_runtime_result(result) == SpellAttackRuntimeResult::Resolved {
+        finalize_spell_attack_subject(next_state, next_subject)
+    } else {
+        next_state
+    }
+}
+
+#[must_use]
+pub fn spell_attack_ordering_projection_from_battle(
+    state: &BattleState,
+) -> SpellAttackOrderingState {
+    match state.spell_attack_procedure {
+        BattleSpellAttackProcedure::Inactive => spell_attack_ordering_initial_state(),
+        BattleSpellAttackProcedure::Active(subject) => {
+            spell_attack_ordering_projection(SpellAttackOrderingProjectionFacts {
+                stage: subject.stage,
+                runtime_result: if subject.stage == SpellAttackFrontierStage::Resolved {
+                    SpellAttackRuntimeResult::Resolved
+                } else {
+                    SpellAttackRuntimeResult::NeedsHoles
+                },
+                last_ordering_error: subject.last_ordering_error,
+            })
+        }
+    }
 }
 
 #[must_use]
@@ -1896,6 +2013,82 @@ fn resolve_attack_roll(
         hits: facts.natural_d20 != 1 && (critical || facts.total >= armor_class),
         critical,
     }
+}
+
+fn start_spell_attack_subject(
+    mut state: BattleState,
+    requires_spell_slot: bool,
+    stage: SpellAttackFrontierStage,
+) -> BattleState {
+    let actor = current_actor(&state);
+    if !state.action_available {
+        return state;
+    }
+    state.action_available = false;
+    state.spell_attack_procedure = BattleSpellAttackProcedure::Active(BattleSpellAttackSubject {
+        actor,
+        target: None,
+        stage,
+        requires_spell_slot,
+        last_ordering_error: None,
+    });
+    state
+}
+
+fn spell_attack_fill_kind(fill: BattleSpellAttackFill) -> SpellAttackFillKind {
+    match fill {
+        BattleSpellAttackFill::TargetChoice(_) => SpellAttackFillKind::TargetChoice,
+        BattleSpellAttackFill::DamageTypeChoice => SpellAttackFillKind::DamageTypeChoice,
+        BattleSpellAttackFill::AttackRoll(_) => SpellAttackFillKind::AttackRoll,
+        BattleSpellAttackFill::DamageRoll(_) => SpellAttackFillKind::RolledDice,
+    }
+}
+
+fn spell_attack_fill_attack_hits(
+    state: &BattleState,
+    subject: &BattleSpellAttackSubject,
+    fill: BattleSpellAttackFill,
+) -> bool {
+    let BattleSpellAttackFill::AttackRoll(facts) = fill else {
+        return true;
+    };
+    subject
+        .target
+        .map(|target| resolve_attack_roll(facts, armor_class_for(state, target), 20).hits)
+        .unwrap_or(true)
+}
+
+fn spell_attack_result_stage(result: SpellAttackFillOrderResult) -> SpellAttackFrontierStage {
+    match result {
+        SpellAttackFillOrderResult::Accepted(stage)
+        | SpellAttackFillOrderResult::RequestedEarlier { stage, .. }
+        | SpellAttackFillOrderResult::NotOrderingError(stage) => stage,
+    }
+}
+
+fn spell_attack_target_after_fill(
+    target: Option<Actor>,
+    fill: BattleSpellAttackFill,
+    result: SpellAttackFillOrderResult,
+) -> Option<Actor> {
+    match (fill, result) {
+        (
+            BattleSpellAttackFill::TargetChoice(selected),
+            SpellAttackFillOrderResult::Accepted(_),
+        ) => Some(selected),
+        _ => target,
+    }
+}
+
+fn finalize_spell_attack_subject(
+    state: BattleState,
+    subject: BattleSpellAttackSubject,
+) -> BattleState {
+    if !subject.requires_spell_slot {
+        return state;
+    }
+    let state = expend_combatant_spell_slot(state, subject.actor, BattleSpellSlotLevel::First);
+    commit_actor_spell_slot_use(state, subject.actor)
 }
 
 fn armor_class_for(state: &BattleState, actor: Actor) -> i16 {

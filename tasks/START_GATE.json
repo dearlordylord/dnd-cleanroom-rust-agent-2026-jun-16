@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T085-reaction-spell-selected-identity",
-  "startHeadSha": "907868926daa94039540c6706af8cd9526691426",
+  "taskId": "T058-spell-attack-ordering-spine",
+  "startHeadSha": "a226022a266a9b27026880808564c241e24265d3",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt"
     ]
   }
 }

@@ -1,49 +1,49 @@
 {
+  "schemaVersion": 1,
+  "taskId": "T058-spell-attack-ordering-spine",
+  "scope": "diagnostic-local; repo-wide acceptance remains blocked by global accounting debt",
   "decision": "accepted",
   "deterministicGates": [
     {
-      "evidence": "tasks/START_GATE.json",
       "gate": "start-gate",
-      "status": "pass"
+      "status": "pass",
+      "evidence": "tasks/START_GATE.json"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T085-battle-runtime-reaction-spell-selected-identity.json",
       "gate": "branch-coverage",
-      "status": "pass"
+      "status": "pass",
+      "evidence": "tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json"
     },
     {
-      "evidence": "tasks/ENGINE_DEPTH_MANIFEST.json",
       "gate": "adapter-quarantine",
-      "status": "pass"
+      "status": "pass",
+      "evidence": "tasks/ENGINE_DEPTH_MANIFEST.json"
     },
     {
-      "evidence": "tasks/ENGINE_DEPTH_MANIFEST.json",
       "gate": "engine-depth",
-      "status": "pass"
+      "status": "pass",
+      "evidence": "tasks/ENGINE_DEPTH_MANIFEST.json"
     },
     {
-      "evidence": "tasks/STATE_OWNER_MANIFEST.json",
       "gate": "state-owner-derivability",
-      "status": "pass"
+      "status": "pass",
+      "evidence": "tasks/STATE_OWNER_MANIFEST.json"
     },
     {
-      "evidence": "production source scan",
       "gate": "authored-identity-dispatch",
-      "status": "pass"
+      "status": "pass",
+      "evidence": "production source scan"
     },
     {
-      "evidence": "tasks/VALIDATION_REPORT.md",
       "gate": "report-honesty",
-      "status": "pass"
+      "status": "pass",
+      "evidence": "tasks/VALIDATION_REPORT.md"
     },
     {
-      "evidence": "tasks/REVIEW_LOOP.json",
       "gate": "reviewer-loop-convergence",
-      "status": "pass"
+      "status": "pass",
+      "evidence": "tasks/REVIEW_LOOP.json"
     }
   ],
-  "rejectedFindings": [],
-  "schemaVersion": 1,
-  "scope": "diagnostic-local; repo-wide acceptance remains blocked by global accounting debt",
-  "taskId": "T085-reaction-spell-selected-identity"
+  "rejectedFindings": []
 }

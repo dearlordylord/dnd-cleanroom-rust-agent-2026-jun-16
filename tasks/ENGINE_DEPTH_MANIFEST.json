@@ -1,27 +1,41 @@
 {
-  "accumulatorGrowth": [
+  "schemaVersion": 1,
+  "taskId": "T058-spell-attack-ordering-spine",
+  "productionModulesExtended": [
     {
-      "addedEntries": 3,
-      "owner": "production",
-      "reason": "reused the T084 battle-owned spell-slot/reaction owner for two reaction spell selected-identity branches and added a narrow Shield armor-class active-effect projection"
+      "path": "src/rules/battle_reducer_spine.rs",
+      "role": "domain-engine",
+      "domainApis": [
+        "BattleSpellAttackProcedure",
+        "BattleSpellAttackSubject",
+        "BattleSpellAttackFill",
+        "start_spell_attack_ordering_battle",
+        "discover_single_target_spell_attack_battle",
+        "discover_typed_spell_attack_battle",
+        "resolve_spell_attack_subject",
+        "spell_attack_ordering_projection_from_battle"
+      ]
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs",
+      "path": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
       "quarantinedWitnessNames": [
-        "doResolveShieldReactionSpellHit",
-        "doResolveHellishRebukeFailedSavingThrow",
-        "Resolved",
-        "qReactorHp",
-        "qTriggerCreatureHp",
-        "qReactorArmorClass",
-        "qReactorReactionAvailable",
-        "qTriggerCreatureFirstLevelSlotsExpended",
-        "qFirstLevelSlotsExpended",
-        "qSecondLevelSlotsExpended",
-        "qThirdLevelSlotsExpended",
-        "qScenarioOutcome",
+        "doDiscoverSingleTargetSpellAttack",
+        "doSubmitAttackRollBeforeTargetChoice",
+        "doFillTargetChoice",
+        "doSubmitDamageBeforeAttackRoll",
+        "doFillAttackRollMiss",
+        "doFillAttackRollHit",
+        "doFillDamageDice",
+        "doDiscoverTypedSpellAttack",
+        "doFillDamageTypeBeforeTargetChoice",
+        "doFillTargetChoiceBeforeDamageType",
+        "doFillDamageTypeAfterTargetChoice",
+        "doFillTargetChoiceAfterDamageType",
+        "qStage",
+        "qHoles",
+        "qLastOrderingError",
         "protocolResult",
         "protocolHoles",
         "mbt::actionTaken",
@@ -41,36 +55,27 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T085-battle-runtime-reaction-spell-selected-identity.json"
+        "tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json"
       ]
+    }
+  ],
+  "accumulatorGrowth": [
+    {
+      "owner": "production",
+      "addedEntries": 4,
+      "reason": "routed spell-attack ordering through a durable BattleState spell-attack procedure while reusing the T084/T085 action and spell-slot ownership substrate"
     }
   ],
   "expectedNextReuse": [
     {
+      "module": "src/rules/battle_reducer_spine.rs",
       "api": "BattleTurnSpellSlotUse",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
-      "module": "src/rules/battle_reducer_spine.rs"
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt"
     },
     {
-      "api": "reaction_spell_selected_identity_projection_from_battle",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
-      "module": "src/rules/battle_reducer_spine.rs"
+      "module": "src/rules/battle_reducer_spine.rs",
+      "api": "spell_attack_ordering_projection_from_battle",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt"
     }
-  ],
-  "productionModulesExtended": [
-    {
-      "domainApis": [
-        "BattleReactionSpellSelectedIdentityOutcome",
-        "BattleReactionSpellSelectedIdentityProjection",
-        "reaction_spell_selected_identity_projection_from_battle",
-        "resolve_hellish_rebuke_failed_save_reaction_spell_battle",
-        "resolve_shield_reaction_spell_hit_battle",
-        "start_reaction_spell_selected_identity_battle"
-      ],
-      "path": "src/rules/battle_reducer_spine.rs",
-      "role": "domain-engine"
-    }
-  ],
-  "schemaVersion": 1,
-  "taskId": "T085-reaction-spell-selected-identity"
+  ]
 }

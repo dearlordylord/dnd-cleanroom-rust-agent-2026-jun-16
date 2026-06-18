@@ -8,7 +8,7 @@
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
 - Last completed current-snapshot queued branch set:
-  `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt`
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt`
 - Next queued driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt`
 - Next task id: `T001`
 
@@ -19,6 +19,120 @@ allowed inputs used, renders branch coverage from harness-generated target
 replay evidence, and records verification results. Entries with older manifest
 source commit SHAs or inventory SHAs are historical unless they include a
 current-snapshot revalidation note.
+
+## T058: Spell Attack Ordering Battle-Spine Diagnostic
+
+- Manifest source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
+- Source branch inventory SHA: `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
+- Selected driver:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt`
+- Reused dependency drivers:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.qnt`
+  and `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-invocation.qnt`
+- Branch obligations:
+  - `step:doDiscoverSingleTargetSpellAttack`
+  - `step:doSubmitAttackRollBeforeTargetChoice`
+  - `step:doFillTargetChoice`
+  - `step:doSubmitDamageBeforeAttackRoll`
+  - `step:doFillAttackRollMiss`
+  - `step:doFillAttackRollHit`
+  - `step:doFillDamageDice`
+  - `step:doDiscoverTypedSpellAttack`
+  - `step:doFillDamageTypeBeforeTargetChoice`
+  - `step:doFillTargetChoiceBeforeDamageType`
+  - `step:doFillDamageTypeAfterTargetChoice`
+  - `step:doFillTargetChoiceAfterDamageType`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-invocation.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+
+Behavior implemented:
+
+- `src/rules/battle_reducer_spine.rs` now stores a durable
+  `BattleSpellAttackProcedure` on `BattleState`.
+- `discover_single_target_spell_attack_battle` spends the battle Magic action
+  and starts the single-target spell-attack target-choice frontier.
+- `discover_typed_spell_attack_battle` spends the battle Magic action, starts
+  the typed spell-attack damage-type/target-choice frontier, and reuses the
+  T084/T085 spell-slot owner by claiming a pending Fighter spell-slot use.
+- `resolve_spell_attack_subject` applies T058 ordering through
+  `spell_attack_fill_order_result` and keeps target choice on the active
+  battle procedure.
+- `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` keeps the focused
+  T058 helper as expected witness data, while observed replay uses the battle
+  spine and `spell_attack_ordering_projection_from_battle`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doDiscoverSingleTargetSpellAttack` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-discover-single-target-spell-attack#step:doDiscoverSingleTargetSpellAttack` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doSubmitAttackRollBeforeTargetChoice` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-submit-attack-roll-before-target-choice#step:doSubmitAttackRollBeforeTargetChoice` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-target-choice#step:doFillTargetChoice` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doSubmitDamageBeforeAttackRoll` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-submit-damage-before-attack-roll#step:doSubmitDamageBeforeAttackRoll` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-attack-roll-miss#step:doFillAttackRollMiss` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-attack-roll-hit#step:doFillAttackRollHit` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillDamageDice` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-damage-dice#step:doFillDamageDice` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doDiscoverTypedSpellAttack` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-discover-typed-spell-attack#step:doDiscoverTypedSpellAttack` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillDamageTypeBeforeTargetChoice` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-damage-type-before-target-choice#step:doFillDamageTypeBeforeTargetChoice` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillTargetChoiceBeforeDamageType` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-target-choice-before-damage-type#step:doFillTargetChoiceBeforeDamageType` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillDamageTypeAfterTargetChoice` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-damage-type-after-target-choice#step:doFillDamageTypeAfterTargetChoice` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillTargetChoiceAfterDamageType` | `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json#T058-fill-target-choice-after-damage-type#step:doFillTargetChoiceAfterDamageType` | `cargo test spell_attack_ordering -- --nocapture` | `covered` |
+
+Target replay evidence:
+
+- Evidence file:
+  `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json`
+- Target profile: `rust`
+- Target profile SHA-256:
+  `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json` is still missing; repo-wide acceptance
+  remains blocked by global accounting debt outside this diagnostic.
+
+Remaining gaps:
+
+- T058 proves spell attack ordering through battle state, not spell-specific
+  damage, chained attacks, save-gated spells, or a general spell catalog.
+- The next reducer-spine pressure test should route save-gated spell ordering
+  through the same battle-owned spell-slot/action owner.
+- Repo-wide harness acceptance still fails on the known global denominator:
+  missing `tasks/RUN_LEDGER.json`, undeclared historical evidence files,
+  validation-report evidence rows that are not ledger-backed, witness-protocol
+  findings from undeclared adapters, and authored-identity scan findings
+  outside this change.
+
+Verification results:
+
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt --evidence tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json` passed.
+- `cargo test spell_attack_ordering -- --nocapture` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed with 169 tests.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed on known repo-wide
+  accounting debt outside this diagnostic: missing `tasks/RUN_LEDGER.json`, 81
+  undeclared historical evidence files, 17 validation-report rows for prior
+  diagnostic obligations that are not current selected work, 2 diagnostic
+  evidence rows that are not ledger-backed target replay evidence, 173
+  witness-protocol findings from undeclared adapters, and 17 authored-identity
+  scan findings.
 
 ## T085: Reaction Spell Selected-Identity Battle-Spine Diagnostic
 
@@ -199,9 +313,9 @@ Remaining gaps:
   does not implement the out-of-scope Counterspell branches or a general
   reaction spell catalog.
 - The T084 owner is intentionally narrow. T085 reuses it for reaction-spell
-  selected identity; later spell attack/save-gated ordering diagnostics should
-  keep reusing the same owner instead of adding slice-local spell resource
-  state.
+  selected identity, and T058 reuses it for spell attack ordering; later
+  save-gated ordering diagnostics should keep reusing the same owner instead of
+  adding slice-local spell resource state.
 - Repo-wide harness acceptance still fails on the known global denominator:
   missing `tasks/RUN_LEDGER.json`, undeclared historical evidence files,
   validation-report evidence rows that are not ledger-backed, witness-protocol

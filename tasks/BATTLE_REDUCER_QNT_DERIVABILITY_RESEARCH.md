@@ -97,14 +97,14 @@ define combatant addressing, open-hole projection, and turn advancement.
 - Rust battle/rule-core replay adapters in `src/qnt_adapters`: 82.
 - Target replay evidence files: 82.
 - Target replay runs recorded across those files: 492.
-- Current-manifest evidence files: 16.
-- Current-manifest replay runs: 94.
-- Stale previous-manifest evidence files: 66.
-- Stale previous-manifest replay runs: 398.
+- Current-manifest evidence files: 17.
+- Current-manifest replay runs: 106.
+- Stale previous-manifest evidence files: 65.
+- Stale previous-manifest replay runs: 386.
 
 The current-manifest files are the five handoff-lane files plus the T060,
-T031, T062, T063, T064, T072, T074, T079, T080, T084, and T085
-reducer-spine/control diagnostics. Their combined current run count is 94.
+T031, T058, T062, T063, T064, T072, T074, T079, T080, T084, and T085
+reducer-spine/control diagnostics. Their combined current run count is 106.
 
 Search result at first measurement: the Rust target had no `BattleState`,
 `start_battle`, `discover_battle_acts`, or `resolve_battle_subject` equivalent.
@@ -244,12 +244,13 @@ fixture path, the Goblin stat-block action-ordering path, and the Goblin
 stat-block multi-damage and size-gated Prone-rider paths, plus the bounded
 nested interrupt-stack resume path, the in-scope Hellish Rebuke after-damage
 reaction casting-time path, and the in-scope Shield/Hellish Rebuke reaction
-spell selected-identity paths. Measured generic
-reducer coverage is no longer zero, but it is still a seed. Nine existing
+spell selected-identity paths, plus spell-attack ordering through battle-owned
+Magic action and pending spell-slot state. Measured generic
+reducer coverage is no longer zero, but it is still a seed. Ten existing
 battle MBT adapter tests now replay observed behavior through reducer-spine
 entrypoints instead of slice-specific observed helpers, and the
-T031/T060/T062/T063/T064/T079/T080/T084/T085 per-file target replay evidence is
-current and locally validator-clean. T074 supplies the reusable stat-block
+T031/T058/T060/T062/T063/T064/T079/T080/T084/T085 per-file target replay
+evidence is current and locally validator-clean. T074 supplies the reusable stat-block
 control component used by battle-spine paths, and T072 now supplies a reusable
 reaction transition component; both have current validator-clean evidence. The
 full cleanroom claim remains unproven until those routes are recorded as
@@ -779,9 +780,66 @@ catalog and does not implement the out-of-scope Counterspell branch. Its value
 is proving that the T084 owner can be reused by a second reaction-spell driver
 instead of staying isolated to one witness.
 
+### Fourteenth Spell Attack Ordering Spine Experiment
+
+Selected driver:
+`cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt`.
+
+Selected branches: all 12 T058 step branches are in scope.
+
+Measured QNT-derived facts:
+
+- single-target spell attacks enter `SpellAttackTargetChoiceStage`, then target
+  choice, attack roll, and damage dice advance the focused ordering frontier;
+- early attack-roll or damage fills preserve the current stage and report the
+  QNT ordering error;
+- typed spell attacks enter `SpellAttackDamageTypeAndTargetChoiceStage`, and
+  either target or damage-type choice can be filled first before reaching
+  `SpellAttackAttackRollStage`;
+- spell attack discovery spends the battle Magic action via
+  `BattleState.action_available`;
+- typed level-1 spell attack discovery reuses the T084/T085
+  `spellSlotUsesThisTurn` owner by claiming a pending Fighter spell-slot use.
+
+Rust change:
+
+- `BattleState` now stores a durable `BattleSpellAttackProcedure`.
+- `discover_single_target_spell_attack_battle` starts a cantrip-shaped
+  single-target spell attack and spends the Magic action.
+- `discover_typed_spell_attack_battle` starts a typed level-1 spell attack,
+  spends the Magic action, and claims a pending spell-slot use through
+  `claim_pending_actor_spell_slot_use`.
+- `resolve_spell_attack_subject` applies T058 fill ordering from
+  `spell_attack_fill_order_result` and projects state through
+  `spell_attack_ordering_projection_from_battle`.
+
+Result:
+
+- `battle_runtime_spell_attack_ordering` observed replay now uses
+  `start_spell_attack_ordering_battle`,
+  `discover_single_target_spell_attack_battle`,
+  `discover_typed_spell_attack_battle`, `resolve_spell_attack_subject`, and
+  `spell_attack_ordering_projection_from_battle`.
+- The expected witness remains the focused T058 ordering helper.
+- `tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json`
+  has current manifest and inventory hashes.
+- `scripts/check-target-replay-evidence-file.cjs` validates all 12 T058 branch
+  obligations.
+
+This expands reducer-shaped/control evidence from 65 obligations across
+T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 to 77 obligations
+across T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085. The
+battle-spine portion is now 59 obligations across ten battle drivers. Reusable
+reducer-control evidence remains 18 obligations across T072 reactions and T074
+stat-block controls.
+
+The important limitation is that this still proves ordering and resource
+ownership only. It does not prove spell-specific damage, chained spell attacks,
+save-gated spell effects, or a general spell catalog.
+
 ## Work-Loop Promotion Findings
 
-T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 cannot be promoted to repo-wide harness
+T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 cannot be promoted to repo-wide harness
 acceptance by adding only driver-local ledger/history records in the current
 dirty repo.
 
@@ -789,7 +847,7 @@ Measured denominator:
 
 - Active replayable obligations: 631 across 96 drivers.
 - Battle/rule-core replayable obligations: 502 across 73 drivers.
-- T031 plus T060 plus T062 plus T063 plus T064 plus T079 plus T080 plus T084 plus T085 battle-spine obligations: 47.
+- T031 plus T058 plus T060 plus T062 plus T063 plus T064 plus T079 plus T080 plus T084 plus T085 battle-spine obligations: 59.
 - T072 plus T074 reducer-control obligations: 18.
 - T060/T064/T074 composed obligations: 12 + 21 + 7, with T060 and T064 sharing
   the T074 stat-block control component.
@@ -805,9 +863,11 @@ Measured denominator:
   reaction casting-time spell-slot route.
 - T085 adds 2 selected branch obligations and tests selected-identity
   reaction spells through the same owner.
+- T058 adds 12 selected branch obligations and tests spell attack ordering
+  through the same action/spell-slot owner.
 - Target replay evidence files under `tasks/target-replay-evidence`: 82.
-- Current-snapshot evidence files: 16.
-- Stale previous-snapshot evidence files: 66.
+- Current-snapshot evidence files: 17.
+- Stale previous-snapshot evidence files: 65.
 - Rust adapter files under `src/qnt_adapters`: 82.
 - `tasks/history` is absent, and `tasks/RUN_LEDGER.json` is absent.
 
@@ -815,14 +875,14 @@ Harness implication:
 
 - Without `tasks/RUN_LEDGER.json`, `check-cleanroom-harness.cjs` validates every
   evidence file under `tasks/target-replay-evidence` against the current rolling
-  task's declared evidence. A T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 rolling task would
+  task's declared evidence. A T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 rolling task would
   therefore still fail on the other evidence files.
 - With `tasks/RUN_LEDGER.json`, the harness requires every evidence file under
   `tasks/target-replay-evidence` to be accounted for by ledger entries. A
-  T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085-only ledger would still fail on the other
+  T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085-only ledger would still fail on the other
   evidence files.
 - The production source scan treats undeclared adapter files as production
-  source. A T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085-only engine-depth manifest would
+  source. A T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085-only engine-depth manifest would
   therefore still scan the other adapter modules and report
   witness-protocol/authored identity findings.
 
@@ -844,7 +904,7 @@ Options from here:
    driver, then promote only after the dirty denominator is fixed.
 
 The best next reducer-specific experiment is Option 1 or Option 3, not a
-T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085-only work-loop promotion
+T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085-only work-loop promotion
 inside the current dirty repo.
 
 ## Recommended Next Experiment
@@ -854,12 +914,13 @@ first turn-boundary `end_turn` route, T072 covers the reusable reaction
 transition component, T031 covers nested interrupt-stack resume through
 `BattleState`, T084 covers the in-scope reaction casting-time branch with a
 minimal spell-slot/action-resource owner, and T085 proves that owner can support
-reaction spell selected identity. The next useful step is no longer
+reaction spell selected identity. T058 extends that owner to spell-attack
+ordering. The next useful step is no longer
 another Goblin stat-block micro-slice, another bounded turn-boundary fixture,
 another interrupt-stack fixture, or the already-covered reaction casting-time
 branch unless it introduces a different reducer subsystem. Prefer a source-side
-reducer-spine witness, or route spell attack/save-gated ordering only if it
-reuses the T084/T085 spell-slot owner. Do not start with a full driver audit.
+reducer-spine witness, or route save-gated ordering only if it reuses the
+T084/T085/T058 spell-slot owner. Do not start with a full driver audit.
 
 ## Eleventh Corpus Signal Scan
 
@@ -874,12 +935,12 @@ Measured input:
 - Battle/rule-core in-scope drivers: 73.
 - Battle/rule-core in-scope obligations: 502.
 - Current reducer-spine/control routed drivers:
-  T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 = 11.
-- Current reducer-spine/control routed obligations: 65.
+  T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 = 12.
+- Current reducer-spine/control routed obligations: 77.
 - Remaining battle/rule-core drivers not routed through the spine/control
-  transition path: 62.
+  transition path: 61.
 - Remaining battle/rule-core obligations not routed through the spine/control
-  transition path: 437.
+  transition path: 425.
 
 Coarse QNT signal counts in the 73 active battle/rule-core drivers:
 
@@ -887,7 +948,7 @@ Coarse QNT signal counts in the 73 active battle/rule-core drivers:
 | --- | ---: | --- |
 | Hole/frontier/subject/fill vocabulary | 68 | Most drivers can validate replay protocol, but this alone does not imply reusable reducer behavior. |
 | Turn-resource vocabulary | 45 | Many drivers touch shared action/bonus/reaction/turn state and should eventually route through battle state. |
-| Spell-slot/resource vocabulary | 11 | T084 starts this ownership substrate and T085 reuses it; spell attacks/save-gated spells still need to reuse it through battle state. |
+| Spell-slot/resource vocabulary | 11 | T084 starts this ownership substrate, T085 reuses it for reaction spells, and T058 reuses it for spell attacks; save-gated spells still need to reuse it through battle state. |
 | Interrupt/reaction-window vocabulary | 6 | T031/T072 cover part of this, T084 adds one reaction spell timing route, and T085 adds selected-identity reaction spell reuse. |
 | Stat-block vocabulary | 7 | The current stat-block route already covers the strongest adjacent stat-block cluster. |
 
@@ -936,9 +997,9 @@ the desired source witness contract:
 
 If source work is available, this witness should be added in the source repo
 and synced into `cleanroom-input`. If continuing only in this target repo, the
-highest-value next experiment is a spell attack or save-gated spell driver that
-reuses the T084/T085 owner rather than creating another slice-local spell
-resource helper.
+highest-value next experiment is a save-gated spell driver that reuses the
+T084/T085/T058 owner rather than creating another slice-local spell resource
+helper.
 
 ## Next Subsystem Candidate Scan
 
@@ -947,7 +1008,8 @@ driver would most improve or falsify the current "reducers from QNT" claim.
 
 | Candidate | Current obligations | Classification | What QNT gives | Existing Rust shape | Research decision |
 | --- | ---: | --- | --- | --- | --- |
-| `battle-runtime-spell-attack-ordering.mbt.qnt` plus `battle-runtime-save-gated-spell-ordering.mbt.qnt` | 22 | QNT local rule helper; weak reducer evidence by itself unless it reuses T084/T085 ownership | Closed spell hole-frontier stages, fill ordering, and ordering errors for spell attacks and save-gated spells. | `spell_attack_ordering.rs` and `save_gated_spell_ordering.rs` are local helpers/adapters, not `BattleState` reducer routes. T084/T085 now supply battle-owned spell-slot/action ownership. | Choose only if the route reuses T084/T085 ownership. Otherwise it mostly repeats the T060/T063 ordering result with spell-shaped holes. |
+| `battle-runtime-save-gated-spell-ordering.mbt.qnt` | 10 | QNT local rule helper; weak reducer evidence by itself unless it reuses T084/T085/T058 ownership | Closed save-gated spell hole-frontier stages, fill ordering, and ordering errors. | `save_gated_spell_ordering.rs` is still a local helper/adapter. T084/T085/T058 now supply battle-owned spell-slot/action ownership. | Choose only if the route reuses T084/T085/T058 ownership. Otherwise it mostly repeats the T058/T060/T063 ordering result with save-shaped holes. |
+| `battle-runtime-spell-attack-ordering.mbt.qnt` | 12 | QNT local rule helper promoted into a reducer-spine diagnostic | Closed spell attack hole-frontier stages, fill ordering, and ordering errors. | T058 now routes observed replay through `BattleState.spell_attack_procedure`, Magic action spending, and pending spell-slot ownership for typed level-1 spell attacks. | Done for current diagnostic depth. Follow-up should add spell-specific effects only when a selected driver requires them. |
 | `battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt` plus `battle-runtime-turn-advancement.qnt` | 2 | Reducer-spine required | `endTurn` advances initiative, resets action/bonus/spell-cast-per-turn state, resets attack/movement flags, refreshes reactions, runs start/end spell effects, expires ongoing features, ticks round duration, and clears readied holds. | T062 now routes through `start_turn_boundary_effect_lifecycle_battle` and `end_turn`, but only for the bounded source/target fixture. | Done for the bounded fixture. Follow-up should generalize active-effect storage only when a selected driver requires it. |
 | `rule-core-reactions.mbt.qnt` and `battle-runtime-interrupt-stack-resume.mbt.qnt` | 14 | Reducer-spine required, with a reusable rule-core component | Reaction windows, reaction decisions, readied movement, concentration damage DCs, nested window depth, resume holes, and replay-from-root equivalence. | T072 now has `resolve_rule_core_reaction_subject`; T031 now routes nested interrupt resume through `BattleState`. | Done for current diagnostic depth. Follow-up should consolidate the simple T072 reaction surface with the broader nested-window model only when a selected driver needs the shared substrate. |
 | `battle-runtime-reaction-casting-time.mbt.qnt` and `battle-runtime-reaction-spell-selected-identity.mbt.qnt` | 6 | Reducer-spine required, but branch-scoped by level | Counterspell/Shield/Hellish Rebuke reaction spell outcomes, reaction spending, reaction-window clearing, and spell-slot expenditure. | T084 covers the in-scope Hellish Rebuke casting-time branch; T085 covers in-scope Shield and Hellish Rebuke selected identity. Counterspell branches are out. | Done for current diagnostic depth. Follow-up should generalize only when a selected driver needs broader reaction-spell catalog behavior. |
@@ -959,19 +1021,19 @@ Decision:
    That would make `start_battle`, `discover_battle_acts`,
    `resolve_battle_subject`, and `end_turn` cleanroom-visible source facts
    instead of inferred architecture.
-2. If continuing only inside this Rust experiment, select a spell attack or
-   save-gated spell driver only when it reuses the T084/T085
-   spell-slot/action-resource owner; otherwise the next useful artifact is a
-   source-side reducer-spine witness.
-3. Decide whether the T084/T085 spell-slot/action-resource owner is strong enough to
-   route spell attack/save-gated ordering through the battle spine.
-4. Defer spell attack/save-gated ordering unless it is paired with the T084/T085
-   owner. Alone it is too similar to the already measured ordering slices.
+2. If continuing only inside this Rust experiment, select the save-gated spell
+   driver only when it reuses the T084/T085/T058 spell-slot/action-resource
+   owner; otherwise the next useful artifact is a source-side reducer-spine
+   witness.
+3. Decide whether the T084/T085/T058 spell-slot/action-resource owner is strong
+   enough to route save-gated ordering through the battle spine.
+4. Defer save-gated ordering unless it is paired with the T084/T085/T058 owner.
+   Alone it is too similar to the already measured ordering slices.
 
 Method:
 
 1. Use only `cleanroom-input/**` as implementation input.
-2. Promote the existing T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 transition evidence into
+2. Promote the existing T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 transition evidence into
    complete work-loop tasks only after the dirty harness denominator is cleaned
    up.
 3. If the current harness must express "observed via reducer spine, expected

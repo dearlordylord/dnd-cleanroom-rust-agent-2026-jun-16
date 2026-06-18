@@ -841,6 +841,7 @@ use battle_runtime_spell_attack_ordering::{
     expected_witness as expected_spell_attack_ordering_witness,
     projection_payload as spell_attack_ordering_projection_payload,
     replay_observed_action as replay_spell_attack_ordering_action,
+    replay_observed_battle_state as replay_spell_attack_ordering_battle_state,
     BRANCH_ACTIONS as SPELL_ATTACK_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_starry_wisp_object::{
@@ -4495,6 +4496,120 @@ fn spell_attack_ordering_tracks_single_target_and_typed_paths() {
     );
     assert_eq!(
         fill_damage_type_after_target_choice().stage,
+        SpellAttackFrontierStage::AttackRoll
+    );
+}
+
+#[test]
+fn experimental_qnt_spine_routes_spell_attack_ordering() {
+    use crate::rules::battle_reducer_spine::{
+        discover_single_target_spell_attack_battle, discover_typed_spell_attack_battle,
+        resolve_spell_attack_subject, spell_attack_ordering_projection_from_battle,
+        start_spell_attack_ordering_battle, Actor, AttackRollFacts, BattleSpellAttackFill,
+        BattleSpellAttackProcedure, BattleTurnSpellSlotUse,
+    };
+
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Making an Attack" and "Attack Rolls"; Spells/Gaining-and-Casting.md
+    // "Casting Time" and "Spell Slots"; QNT:
+    // battle-runtime-spell-attack-ordering.qnt plus
+    // battle-runtime-spell-invocation.qnt `claimPendingActorSpellSlotUse`.
+    let initial = start_spell_attack_ordering_battle();
+    assert!(initial.action_available);
+    assert_eq!(
+        spell_attack_ordering_projection_from_battle(&initial),
+        spell_attack_ordering_initial_state()
+    );
+
+    let single = discover_single_target_spell_attack_battle(initial.clone());
+    assert!(!single.action_available);
+    assert!(matches!(
+        single.spell_attack_procedure,
+        BattleSpellAttackProcedure::Active(_)
+    ));
+    assert_eq!(
+        spell_attack_ordering_projection_from_battle(&single).stage,
+        SpellAttackFrontierStage::TargetChoice
+    );
+    assert!(single.spell_slot_uses_this_turn.is_empty());
+
+    let premature_attack = resolve_spell_attack_subject(
+        single.clone(),
+        BattleSpellAttackFill::AttackRoll(AttackRollFacts {
+            total: 15,
+            natural_d20: 10,
+        }),
+    );
+    assert_eq!(
+        spell_attack_ordering_projection_from_battle(&premature_attack).last_ordering_error,
+        Some(SpellAttackFillOrderingError::TargetRequired)
+    );
+
+    let target_filled =
+        resolve_spell_attack_subject(single, BattleSpellAttackFill::TargetChoice(Actor::Goblin));
+    assert_eq!(
+        spell_attack_ordering_projection_from_battle(&target_filled).stage,
+        SpellAttackFrontierStage::AttackRoll
+    );
+    let hit = resolve_spell_attack_subject(
+        target_filled,
+        BattleSpellAttackFill::AttackRoll(AttackRollFacts {
+            total: 15,
+            natural_d20: 10,
+        }),
+    );
+    assert_eq!(
+        spell_attack_ordering_projection_from_battle(&hit).stage,
+        SpellAttackFrontierStage::DamageDice
+    );
+    let damage = resolve_spell_attack_subject(hit, BattleSpellAttackFill::DamageRoll(4));
+    assert_eq!(
+        spell_attack_ordering_projection_from_battle(&damage).protocol,
+        SpellAttackOrderingProtocol::Resolved
+    );
+
+    let typed = discover_typed_spell_attack_battle(initial);
+    assert!(!typed.action_available);
+    assert_eq!(
+        typed.spell_slot_uses_this_turn,
+        vec![BattleTurnSpellSlotUse::Pending(Actor::Fighter)]
+    );
+    assert!(typed.level_one_plus_spell_casters_this_turn.is_empty());
+    assert_eq!(
+        spell_attack_ordering_projection_from_battle(&typed).stage,
+        SpellAttackFrontierStage::DamageTypeAndTargetChoice
+    );
+
+    let mut no_action = start_spell_attack_ordering_battle();
+    no_action.action_available = false;
+    let rejected_typed = discover_typed_spell_attack_battle(no_action);
+    assert!(matches!(
+        rejected_typed.spell_attack_procedure,
+        BattleSpellAttackProcedure::Inactive
+    ));
+    assert!(rejected_typed.spell_slot_uses_this_turn.is_empty());
+
+    let typed_ready = resolve_spell_attack_subject(
+        resolve_spell_attack_subject(typed, BattleSpellAttackFill::DamageTypeChoice),
+        BattleSpellAttackFill::TargetChoice(Actor::Goblin),
+    );
+    assert_eq!(
+        spell_attack_ordering_projection_from_battle(&typed_ready).stage,
+        SpellAttackFrontierStage::AttackRoll
+    );
+    assert_eq!(
+        typed_ready.spell_slot_uses_this_turn,
+        vec![BattleTurnSpellSlotUse::Pending(Actor::Fighter)]
+    );
+
+    let replayed_typed =
+        replay_spell_attack_ordering_battle_state("doFillTargetChoiceAfterDamageType");
+    assert_eq!(
+        replayed_typed.spell_slot_uses_this_turn,
+        vec![BattleTurnSpellSlotUse::Pending(Actor::Fighter)]
+    );
+    assert_eq!(
+        spell_attack_ordering_projection_from_battle(&replayed_typed).stage,
         SpellAttackFrontierStage::AttackRoll
     );
 }

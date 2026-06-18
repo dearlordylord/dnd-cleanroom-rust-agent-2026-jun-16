@@ -1,3 +1,8 @@
+use crate::rules::battle_reducer_spine::{
+    discover_single_target_spell_attack_battle, discover_typed_spell_attack_battle,
+    resolve_spell_attack_subject, spell_attack_ordering_projection_from_battle,
+    start_spell_attack_ordering_battle, Actor, AttackRollFacts, BattleSpellAttackFill, BattleState,
+};
 use crate::rules::spell_attack_ordering::{
     discover_single_target_spell_attack, discover_typed_spell_attack, fill_attack_roll_hit,
     fill_attack_roll_miss, fill_damage_dice, fill_damage_type_after_target_choice,
@@ -24,6 +29,56 @@ pub const BRANCH_ACTIONS: [&str; 12] = [
 ];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> SpellAttackOrderingState {
+    spell_attack_ordering_projection_from_battle(&replay_observed_battle_state(
+        observed_action_taken,
+    ))
+}
+
+pub fn replay_observed_battle_state(observed_action_taken: &str) -> BattleState {
+    match observed_action_taken {
+        "doDiscoverSingleTargetSpellAttack" => single_target_discovered(),
+        "doSubmitAttackRollBeforeTargetChoice" => resolve_spell_attack_subject(
+            single_target_discovered(),
+            BattleSpellAttackFill::AttackRoll(hit_attack_roll()),
+        ),
+        "doFillTargetChoice" => {
+            resolve_spell_attack_subject(single_target_discovered(), target_choice())
+        }
+        "doSubmitDamageBeforeAttackRoll" => resolve_spell_attack_subject(
+            single_target_target_filled(),
+            BattleSpellAttackFill::DamageRoll(4),
+        ),
+        "doFillAttackRollMiss" => resolve_spell_attack_subject(
+            single_target_target_filled(),
+            BattleSpellAttackFill::AttackRoll(miss_attack_roll()),
+        ),
+        "doFillAttackRollHit" => resolve_spell_attack_subject(
+            single_target_target_filled(),
+            BattleSpellAttackFill::AttackRoll(hit_attack_roll()),
+        ),
+        "doFillDamageDice" => {
+            resolve_spell_attack_subject(single_target_hit(), BattleSpellAttackFill::DamageRoll(4))
+        }
+        "doDiscoverTypedSpellAttack" => typed_spell_attack_discovered(),
+        "doFillDamageTypeBeforeTargetChoice" => resolve_spell_attack_subject(
+            typed_spell_attack_discovered(),
+            BattleSpellAttackFill::DamageTypeChoice,
+        ),
+        "doFillTargetChoiceBeforeDamageType" => {
+            resolve_spell_attack_subject(typed_spell_attack_discovered(), target_choice())
+        }
+        "doFillDamageTypeAfterTargetChoice" => resolve_spell_attack_subject(
+            typed_target_filled(),
+            BattleSpellAttackFill::DamageTypeChoice,
+        ),
+        "doFillTargetChoiceAfterDamageType" => {
+            resolve_spell_attack_subject(typed_damage_type_filled(), target_choice())
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_witness(observed_action_taken: &str) -> SpellAttackOrderingState {
     match observed_action_taken {
         "doDiscoverSingleTargetSpellAttack" => discover_single_target_spell_attack(),
         "doSubmitAttackRollBeforeTargetChoice" => submit_attack_roll_before_target_choice(),
@@ -39,10 +94,6 @@ pub fn replay_observed_action(observed_action_taken: &str) -> SpellAttackOrderin
         "doFillTargetChoiceAfterDamageType" => fill_target_choice_after_damage_type(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
-}
-
-pub fn expected_witness(observed_action_taken: &str) -> SpellAttackOrderingState {
-    replay_observed_action(observed_action_taken)
 }
 
 pub fn projection_payload(state: &SpellAttackOrderingState) -> String {
@@ -120,5 +171,53 @@ fn joined_or_none(values: &[&str]) -> String {
         "none".to_string()
     } else {
         values.join(",")
+    }
+}
+
+fn single_target_discovered() -> BattleState {
+    discover_single_target_spell_attack_battle(start_spell_attack_ordering_battle())
+}
+
+fn single_target_target_filled() -> BattleState {
+    resolve_spell_attack_subject(single_target_discovered(), target_choice())
+}
+
+fn single_target_hit() -> BattleState {
+    resolve_spell_attack_subject(
+        single_target_target_filled(),
+        BattleSpellAttackFill::AttackRoll(hit_attack_roll()),
+    )
+}
+
+fn typed_spell_attack_discovered() -> BattleState {
+    discover_typed_spell_attack_battle(start_spell_attack_ordering_battle())
+}
+
+fn typed_target_filled() -> BattleState {
+    resolve_spell_attack_subject(typed_spell_attack_discovered(), target_choice())
+}
+
+fn typed_damage_type_filled() -> BattleState {
+    resolve_spell_attack_subject(
+        typed_spell_attack_discovered(),
+        BattleSpellAttackFill::DamageTypeChoice,
+    )
+}
+
+fn target_choice() -> BattleSpellAttackFill {
+    BattleSpellAttackFill::TargetChoice(Actor::Goblin)
+}
+
+fn hit_attack_roll() -> AttackRollFacts {
+    AttackRollFacts {
+        total: 15,
+        natural_d20: 10,
+    }
+}
+
+fn miss_attack_roll() -> AttackRollFacts {
+    AttackRollFacts {
+        total: 1,
+        natural_d20: 1,
     }
 }

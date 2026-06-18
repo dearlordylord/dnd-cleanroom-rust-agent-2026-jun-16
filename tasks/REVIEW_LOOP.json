@@ -1,7 +1,9 @@
 {
-  "findings": [],
+  "schemaVersion": 1,
+  "taskId": "T058-spell-attack-ordering-spine",
   "rounds": [
     {
+      "round": 1,
       "passes": [
         {
           "checklist": "raw-qnt-traceability",
@@ -43,10 +45,10 @@
           "checklist": "report-honesty",
           "status": "pass"
         }
-      ],
-      "round": 1
+      ]
     },
     {
+      "round": 2,
       "passes": [
         {
           "checklist": "raw-qnt-traceability",
@@ -88,10 +90,8 @@
           "checklist": "report-honesty",
           "status": "pass"
         }
-      ],
-      "round": 2
+      ]
     }
   ],
-  "schemaVersion": 1,
-  "taskId": "T085-reaction-spell-selected-identity"
+  "findings": []
 }

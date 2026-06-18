@@ -2,7 +2,7 @@
 
 ## Current Answer
 
-QNT is enough to derive a small reducer spine, route nine existing battle MBT
+QNT is enough to derive a small reducer spine, route ten existing battle MBT
 adapter tests through it, and derive two reusable rule-core reducer-control
 components, but the cleanroom repo has not yet proven that QNT is enough to
 derive the full battle reducer.
@@ -70,6 +70,13 @@ path:
   selected-identity route for the in-scope Shield and Hellish Rebuke branches:
   Shield AC projection, reaction spending, first/second-level slot expenditure,
   and failed-save damage through the same battle-owned spell-slot owner.
+- QNT `battle-runtime-spell-attack-ordering.mbt.qnt`,
+  `battle-runtime-spell-attack-ordering.qnt`, and
+  `battle-runtime-spell-invocation.qnt` provide the first Magic-action
+  spell-attack ordering route through durable battle state: single-target
+  spell attacks spend the Magic action, typed level-1 spell attacks claim the
+  same pending spell-slot owner as T084/T085, and the projected hole frontier
+  remains the focused T058 ordering witness.
 
 The experiment passes through reducer-shaped functions:
 
@@ -90,6 +97,11 @@ The experiment passes through reducer-shaped functions:
 - `resolve_shield_reaction_spell_hit_battle`
 - `resolve_hellish_rebuke_failed_save_reaction_spell_battle`
 - `reaction_spell_selected_identity_projection_from_battle`
+- `start_spell_attack_ordering_battle`
+- `discover_single_target_spell_attack_battle`
+- `discover_typed_spell_attack_battle`
+- `resolve_spell_attack_subject`
+- `spell_attack_ordering_projection_from_battle`
 
 That is materially closer to the main goal than per-driver replay adapters, but
 it is still an experiment. The `battle_runtime_weapon_attack_ordering` and
@@ -106,10 +118,13 @@ nested reaction-window/resume path. The
 `battle_runtime_reaction_casting_time` adapter now does the same for the
 in-scope after-damage reaction spell branch. The
 `battle_runtime_reaction_spell_selected_identity` adapter now does the same for
-the in-scope Shield and Hellish Rebuke selected-identity branches. The T031,
-T060, T062, T063, T064, T072, T074, T079, T080, T084, and T085 target replay
-evidence files now have current manifest and inventory metadata. The rolling
-start gate currently selects T085 for this
+the in-scope Shield and Hellish Rebuke selected-identity branches. The
+`battle_runtime_spell_attack_ordering` adapter now does the same for
+single-target and typed spell-attack ordering through battle-owned Magic action
+and spell-slot state. The T031, T058, T060, T062, T063, T064, T072, T074,
+T079, T080, T084, and T085 target replay evidence files now have current
+manifest and inventory metadata. The rolling start gate currently selects T058
+for this
 diagnostic, but repo-wide work-loop acceptance still lacks the
 run-ledger/history denominator needed to accept it as a completed queued task.
 
@@ -148,6 +163,13 @@ T085 reuses that owner for reaction-spell selected identity. It adds a narrow
 Shield AC active-effect projection and routes Shield plus Hellish Rebuke through
 the same `BattleState` spell-slot and reaction bookkeeping. Counterspell remains
 out of level 1-2 scope.
+
+T058 reuses the same action/spell-slot substrate for spell-attack ordering. It
+adds a durable `BattleSpellAttackProcedure` on `BattleState`; discovery spends
+the Magic action; typed spell attacks claim a pending first-level spell-slot
+use; and the adapter projects the existing T058 ordering witness from battle
+state rather than from a slice-local state. This still does not prove
+spell-specific damage, chained attacks, or a general spell catalog.
 
 ## How To Guide The Next Cleanroom Work
 
@@ -217,6 +239,7 @@ Done for `battle_runtime_weapon_attack_ordering`,
 `battle_runtime_interrupt_stack_resume`,
 `battle_runtime_reaction_casting_time`,
 `battle_runtime_reaction_spell_selected_identity`,
+`battle_runtime_spell_attack_ordering`,
 `battle_runtime_stat_block_action_ordering`,
 `battle_runtime_stat_block_multi_damage`,
 `battle_runtime_stat_block_size_gated_condition_rider`, and
@@ -227,16 +250,17 @@ observed replay without changing source QNT.
 Result: it works for the ordering driver and for the Skeleton weapon-attack
 driver, and for the Goblin stat-block action-ordering, multi-damage, and
 size-gated condition-rider drivers, for the in-scope reaction casting-time
-branch, and for the in-scope reaction spell selected-identity branches. The
-per-file evidence for T060, T063, T064, T079, T080, T084, and T085 is now
-current and validates cleanly when checked against each selected inventory
+branch, for the in-scope reaction spell selected-identity branches, and for
+the spell-attack ordering driver. The per-file evidence for T058, T060, T063,
+T064, T079, T080, T084, and T085 is now current and validates cleanly when
+checked against each selected inventory
 slice; T062 is also current and validates cleanly for its two turn-boundary
 obligations. T031 is current and validates cleanly for its three interrupt-stack
 obligations. T072 and T074 are current reusable rule-core components rather
 than full battle-spine routes. The remaining issue is
 work-loop acceptance:
 `tasks/RUN_LEDGER.json`, rolling artifacts, and history do not yet declare
-these drivers as accepted selected work. A T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085
+these drivers as accepted selected work. A T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085
 work-loop record would still not make this dirty repo pass
 `node scripts/check-cleanroom-harness.cjs`, because the harness denominator also
 includes the other evidence files and undeclared adapter modules.
@@ -262,23 +286,27 @@ branches.
 ## What Is Still Missing
 
 - No complete work-loop task currently accepts `battle_reducer_spine.rs`.
-- Nine existing battle `.mbt.qnt` adapter tests and two reusable rule-core
+- Ten existing battle `.mbt.qnt` adapter tests and two reusable rule-core
   component adapter tests have been replayed through reducer-shaped entrypoints
   or transition APIs, but the JSON evidence schema cannot independently prove
   that call graph.
 - The spine handles only the Fighter/Goblin weapon ordering path, the
-  Rogue/Skeleton weapon-attack skeleton path, and the Goblin stat-block
-  action-ordering/multi-damage/size-gated rider paths.
+  Rogue/Skeleton weapon-attack skeleton path, the Goblin stat-block
+  action-ordering/multi-damage/size-gated rider paths, and the T058
+  spell-attack ordering path.
 - It does not yet model:
   - general stat-block action discovery beyond the Goblin fixture route;
   - general stat-block primary/secondary dispatch selection beyond the Skeleton
     and Goblin fixture profiles;
   - general initiative advancement beyond the bounded Source/Target T062
     fixture;
-  - general bonus actions, movement, or spell slots beyond the T084 branch;
+  - general bonus actions, movement, or spell slots beyond the T084/T058
+    diagnostic routes;
   - general interrupt stack continuations beyond the bounded T031 witness;
   - reaction spell casting-time and selected identity beyond the in-scope
     T084/T085 branches;
+  - spell attack ordering beyond the T058 Magic-action and pending-slot
+    diagnostic route;
   - general concentration, ongoing effects, and turn-boundary effects;
   - general multiattack dispatch beyond the T074-composed Skeleton and Goblin
     fixture paths;
@@ -289,16 +317,16 @@ branches.
 Current measured position:
 
 - 73 active battle/rule-core drivers carry 502 in-scope obligations.
-- 11 drivers are currently reducer-spine/control routed:
-  T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085.
-- Those 11 drivers cover 65 obligations.
-- 62 battle/rule-core drivers and 437 obligations remain unrouted.
+- 12 drivers are currently reducer-spine/control routed:
+  T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085.
+- Those 12 drivers cover 77 obligations.
+- 61 battle/rule-core drivers and 425 obligations remain unrouted.
 - The copied support corpus already contains reducer-shaped source facts:
   50 support modules mention `BattleState`, 57 mention spell resource/slot
   ownership, 21 mention interrupt stack/reaction windows, and 77 mention turn
   advancement/resource reset.
 
-Do not try to promote T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 alone inside the current
+Do not try to promote T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 alone inside the current
 dirty repo. Use one of two paths:
 
 1. Add a source-side reducer-spine witness if the current evidence schema is not
@@ -354,6 +382,10 @@ node scripts/check-target-replay-evidence-file.cjs \
 node scripts/check-target-replay-evidence-file.cjs \
   --driver cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt \
   --evidence tasks/target-replay-evidence/T085-battle-runtime-reaction-spell-selected-identity.json
+
+node scripts/check-target-replay-evidence-file.cjs \
+  --driver cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt \
+  --evidence tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json
 ```
 
 This diagnostic command validates current per-file evidence but does not close
@@ -365,6 +397,7 @@ is:
 1. Use `battle-runtime-stat-block-action-ordering.mbt.qnt`,
    `battle-runtime-weapon-attack-ordering.mbt.qnt`,
    `battle-runtime-weapon-attack-skeleton.mbt.qnt`, and
+   `battle-runtime-spell-attack-ordering.mbt.qnt`, and
    `battle-runtime-stat-block-multi-damage.mbt.qnt`, plus
    `battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt`, plus
    `battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`, plus
@@ -375,7 +408,7 @@ is:
    `rule-core-stat-block-controls.mbt.qnt`, because they already route observed
    replay through reducer-shaped entrypoints and their per-file evidence is
    current.
-2. Build complete accepted T031/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 work-loop records:
+2. Build complete accepted T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085 work-loop records:
    `START_GATE`, engine depth, state ownership, review loop, decider decision,
    history, run ledger, and validation report.
 3. If the evidence schema must identify the reducer-spine surface more strongly,
@@ -390,15 +423,11 @@ T062 lifecycle fixture unless it tests a different reducer subsystem.
 
 Recommended sequence:
 
-1. **Spell attack ordering with the T084/T085 owner.** Route
-   `battle-runtime-spell-attack-ordering.mbt.qnt` only if the batch reuses the
-   T084/T085 spell-slot/action-resource owner. Alone, it mostly repeats the
-   already measured weapon/stat-block ordering result.
-2. **Save-gated spell ordering with the T084/T085 owner.** Route
+1. **Save-gated spell ordering with the T084/T085/T058 owner.** Route
    `battle-runtime-save-gated-spell-ordering.mbt.qnt` only if the route reuses
    the same battle-owned spell-slot/action owner. This should test spell
    protocol ordering without adding a new local resource owner.
-3. **Command next-turn options.** Defer
+2. **Command next-turn options.** Defer
    `battle-runtime-command-option-next-turn.mbt.qnt` until turn advancement,
    movement, and reaction-window substrate are present. Its QNT explicitly
    leaves route choice and held-object inventory as table-owned facts, so it is
@@ -415,9 +444,10 @@ traces can be copied into Rust.
   damage mutation, and size-gated condition riders through `BattleState`.
 - Another bounded turn-boundary fixture is low value unless it forces general
   active-effect storage; T062 already proves a first `end_turn` route.
-- More ordering-only spell drivers are low value unless they reuse the T084/T085
-  spell-slot/action owner; otherwise they repeat T060/T063 with different hole
-  names.
+- More ordering-only spell drivers are low value unless they reuse the
+  T084/T085/T058 spell-slot/action owner; otherwise they repeat T060/T063 with
+  different hole names. T058 now covers this for spell attacks; save-gated
+  ordering remains the useful adjacent pressure test.
 - A full 73-driver classification is not currently useful. Classify a driver
   when selected for spine routing or when a passing replay could be mistaken
   for reducer evidence.
