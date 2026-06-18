@@ -15,6 +15,7 @@ use crate::rules::interrupt_stack_resume::{
     InterruptStackResumeScenarioOutcome, InterruptStackResumeState, ReactionWindowOffer,
     ReactionWindowRole,
 };
+use crate::rules::magic_missile::magic_missile_force_damage;
 use crate::rules::rule_core_stat_block_controls::{
     resolve_stat_block_control_subject, start_stat_block_multiattack_from,
     stat_block_control_initial_state, stat_block_multiattack_continuation_open,
@@ -127,6 +128,7 @@ pub struct BattleState {
     pub turn_boundary_effects: TurnBoundaryEffects,
     pub interrupt_resume: BattleInterruptResumeState,
     pub reaction_casting_time: BattleReactionCastingTimeState,
+    pub slot_spell_procedure: BattleSlotSpellProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -167,6 +169,38 @@ pub enum BattleReactionSpellSelectedIdentityOutcome {
     Init,
     ShieldReactionSpellHitResolved,
     HellishRebukeFailedSaveResolved,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSlotSpellProcedure {
+    Inactive,
+    Active(BattleSlotSpellSubject),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleSlotSpellSubject {
+    pub actor: Actor,
+    pub target: Option<Actor>,
+    pub stage: BattleSlotSpellStage,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSlotSpellStage {
+    TargetAllocation,
+    DamageRoll,
+    Resolved,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSlotSpellHole {
+    SpellTargetAllocation,
+    RolledDice,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSlotSpellFill {
+    TargetAllocation(Actor),
+    DamageRoll(i16),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -439,6 +473,7 @@ pub fn start_battle() -> BattleState {
         turn_boundary_effects: TurnBoundaryEffects::none(),
         interrupt_resume: BattleInterruptResumeState::none(),
         reaction_casting_time: BattleReactionCastingTimeState::none(),
+        slot_spell_procedure: BattleSlotSpellProcedure::Inactive,
         spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
         spell_slot_uses_this_turn: Vec::new(),
         level_one_plus_spell_casters_this_turn: Vec::new(),
@@ -472,6 +507,7 @@ pub fn start_skeleton_battle() -> BattleState {
         turn_boundary_effects: TurnBoundaryEffects::none(),
         interrupt_resume: BattleInterruptResumeState::none(),
         reaction_casting_time: BattleReactionCastingTimeState::none(),
+        slot_spell_procedure: BattleSlotSpellProcedure::Inactive,
         spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
         spell_slot_uses_this_turn: Vec::new(),
         level_one_plus_spell_casters_this_turn: Vec::new(),
@@ -580,6 +616,91 @@ pub fn start_reaction_spell_selected_identity_battle() -> BattleState {
 #[must_use]
 pub fn start_spell_attack_ordering_battle() -> BattleState {
     start_battle()
+}
+
+#[must_use]
+pub fn start_fighter_skeleton_battle() -> BattleState {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-reducer-spine-contract.mbt.qnt start-battle projection.
+    BattleState {
+        initiative: Initiative {
+            round: 1,
+            already_acted: Vec::new(),
+            still_to_act: InitiativeStillToAct {
+                actor: Actor::Fighter,
+                waiting: vec![Actor::Skeleton],
+            },
+        },
+        ..start_battle()
+    }
+}
+
+#[must_use]
+pub fn discover_slot_spell_battle(mut state: BattleState) -> BattleState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md
+    // "Magic Missile"; support QNT: battle-runtime-magic-missile.mbt.qnt;
+    // composition witness:
+    // battle-runtime-reducer-spine-contract.mbt.qnt slot-spell discovery projection.
+    let actor = current_actor(&state);
+    if actor != Actor::Fighter
+        || !state.action_available
+        || !can_actor_expend_spell_slot_this_turn(&state, actor)
+    {
+        return state;
+    }
+
+    state.slot_spell_procedure = BattleSlotSpellProcedure::Active(BattleSlotSpellSubject {
+        actor,
+        target: None,
+        stage: BattleSlotSpellStage::TargetAllocation,
+    });
+    state
+}
+
+#[must_use]
+pub fn resolve_slot_spell_subject(state: BattleState, fill: BattleSlotSpellFill) -> BattleState {
+    let BattleSlotSpellProcedure::Active(subject) = state.slot_spell_procedure else {
+        return state;
+    };
+    if subject.actor != current_actor(&state) {
+        return state;
+    }
+
+    match (subject.stage, fill) {
+        (BattleSlotSpellStage::TargetAllocation, BattleSlotSpellFill::TargetAllocation(target)) => {
+            BattleState {
+                slot_spell_procedure: BattleSlotSpellProcedure::Active(BattleSlotSpellSubject {
+                    target: Some(target),
+                    stage: BattleSlotSpellStage::DamageRoll,
+                    ..subject
+                }),
+                ..state
+            }
+        }
+        (BattleSlotSpellStage::DamageRoll, BattleSlotSpellFill::DamageRoll(dart_pips_sum)) => {
+            finalize_slot_spell_damage(state, subject, dart_pips_sum)
+        }
+        _ => state,
+    }
+}
+
+#[must_use]
+pub fn slot_spell_holes_from_battle(state: &BattleState) -> Vec<BattleSlotSpellHole> {
+    match state.slot_spell_procedure {
+        BattleSlotSpellProcedure::Active(BattleSlotSpellSubject {
+            stage: BattleSlotSpellStage::TargetAllocation,
+            ..
+        }) => vec![BattleSlotSpellHole::SpellTargetAllocation],
+        BattleSlotSpellProcedure::Active(BattleSlotSpellSubject {
+            stage: BattleSlotSpellStage::DamageRoll,
+            ..
+        }) => vec![BattleSlotSpellHole::RolledDice],
+        BattleSlotSpellProcedure::Inactive
+        | BattleSlotSpellProcedure::Active(BattleSlotSpellSubject {
+            stage: BattleSlotSpellStage::Resolved,
+            ..
+        }) => Vec::new(),
+    }
 }
 
 #[must_use]
@@ -1123,16 +1244,28 @@ pub fn discover_battle_acts(state: &BattleState) -> Vec<AvailableBattleAct> {
             }]
         }
         Actor::Skeleton if state.action_available && state.skeleton.hp > 0 => {
-            vec![AvailableBattleAct {
-                subject: BattleSubject {
-                    kind: BattleSubjectKind::Multiattack,
-                    actor: Actor::Skeleton,
-                    target: None,
-                    stage: WeaponAttackFrontierStage::Resolved,
-                    damage_modifier: 0,
+            vec![
+                AvailableBattleAct {
+                    subject: BattleSubject {
+                        kind: BattleSubjectKind::Multiattack,
+                        actor: Actor::Skeleton,
+                        target: None,
+                        stage: WeaponAttackFrontierStage::Resolved,
+                        damage_modifier: 0,
+                    },
+                    holes: Vec::new(),
                 },
-                holes: Vec::new(),
-            }]
+                AvailableBattleAct {
+                    subject: BattleSubject {
+                        kind: BattleSubjectKind::WeaponAttack,
+                        actor: Actor::Skeleton,
+                        target: None,
+                        stage: WeaponAttackFrontierStage::TargetChoice,
+                        damage_modifier: weapon_damage_modifier_for(Actor::Skeleton),
+                    },
+                    holes: weapon_attack_hole_frontier(WeaponAttackFrontierStage::TargetChoice),
+                },
+            ]
         }
         Actor::Fighter | Actor::Goblin | Actor::Rogue | Actor::Skeleton => Vec::new(),
     }
@@ -1439,8 +1572,8 @@ fn current_actor_can_attack(state: &BattleState) -> bool {
 
 fn weapon_damage_modifier_for(actor: Actor) -> i16 {
     match actor {
-        Actor::Rogue => 3,
-        Actor::Fighter | Actor::Goblin | Actor::Skeleton => 0,
+        Actor::Rogue | Actor::Skeleton => 3,
+        Actor::Fighter | Actor::Goblin => 0,
     }
 }
 
@@ -2089,6 +2222,28 @@ fn finalize_spell_attack_subject(
     }
     let state = expend_combatant_spell_slot(state, subject.actor, BattleSpellSlotLevel::First);
     commit_actor_spell_slot_use(state, subject.actor)
+}
+
+fn finalize_slot_spell_damage(
+    state: BattleState,
+    subject: BattleSlotSpellSubject,
+    dart_pips_sum: i16,
+) -> BattleState {
+    let Some(target) = subject.target else {
+        return state;
+    };
+
+    let state = with_damaged_target(state, target, magic_missile_force_damage(dart_pips_sum));
+    let state = expend_combatant_spell_slot(state, subject.actor, BattleSpellSlotLevel::First);
+    let state = commit_actor_spell_slot_use(state, subject.actor);
+    BattleState {
+        action_available: false,
+        slot_spell_procedure: BattleSlotSpellProcedure::Active(BattleSlotSpellSubject {
+            stage: BattleSlotSpellStage::Resolved,
+            ..subject
+        }),
+        ..state
+    }
 }
 
 fn armor_class_for(state: &BattleState, actor: Actor) -> i16 {

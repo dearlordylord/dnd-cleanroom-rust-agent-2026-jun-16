@@ -1,7 +1,6 @@
 {
   "schemaVersion": 1,
-  "taskId": "T058-spell-attack-ordering-spine",
-  "scope": "diagnostic-local; repo-wide acceptance remains blocked by global accounting debt",
+  "taskId": "T086-battle-runtime-reducer-spine-contract",
   "decision": "accepted",
   "deterministicGates": [
     {
@@ -12,7 +11,7 @@
     {
       "gate": "branch-coverage",
       "status": "pass",
-      "evidence": "tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json"
+      "evidence": "tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json"
     },
     {
       "gate": "adapter-quarantine",

@@ -1,76 +1,53 @@
 {
   "schemaVersion": 1,
-  "taskId": "T058-spell-attack-ordering-spine",
+  "taskId": "T086-battle-runtime-reducer-spine-contract",
   "durableFields": [
     {
-      "fieldPath": "BattleState.spell_attack_procedure",
-      "owner": "battle-state",
+      "fieldPath": "BattleState.initiative.still_to_act.actor",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state",
       "derivability": {
         "tag": "canonical-source"
       }
     },
     {
       "fieldPath": "BattleState.action_available",
-      "owner": "battle-state",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state",
+      "derivability": {
+        "tag": "canonical-source"
+      }
+    },
+    {
+      "fieldPath": "BattleState.slot_spell_procedure",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state",
       "derivability": {
         "tag": "canonical-source"
       }
     },
     {
       "fieldPath": "BattleState.spell_slot_uses_this_turn",
-      "owner": "battle-state",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state",
       "derivability": {
         "tag": "canonical-source"
       }
     },
     {
-      "fieldPath": "BattleState.level_one_plus_spell_casters_this_turn",
-      "owner": "battle-state",
+      "fieldPath": "BattleState.fighter.hp",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state",
       "derivability": {
         "tag": "canonical-source"
       }
     },
     {
-      "fieldPath": "spell_attack_ordering_projection_from_battle.stage",
-      "owner": "executable-boundary-projection",
+      "fieldPath": "BattleState.skeleton.hp",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state",
       "derivability": {
-        "tag": "stored-executable-boundary-projection",
-        "sourceField": "BattleState.spell_attack_procedure.stage",
-        "boundary": "spell attack ordering target replay projection"
-      }
-    },
-    {
-      "fieldPath": "spell_attack_ordering_projection_from_battle.protocol",
-      "owner": "executable-boundary-projection",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "derivability": {
-        "tag": "stored-executable-boundary-projection",
-        "sourceField": "BattleState.spell_attack_procedure.stage",
-        "boundary": "spell attack ordering target replay projection"
-      }
-    },
-    {
-      "fieldPath": "spell_attack_ordering_projection_from_battle.last_ordering_error",
-      "owner": "executable-boundary-projection",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "derivability": {
-        "tag": "stored-executable-boundary-projection",
-        "sourceField": "BattleState.spell_attack_procedure.last_ordering_error",
-        "boundary": "spell attack ordering target replay projection"
-      }
-    },
-    {
-      "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "owner": "harness-witness-protocol",
-      "introducedIn": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
-      "derivability": {
-        "tag": "harness-witness-protocol",
-        "witnessName": "mbt::actionTaken"
+        "tag": "canonical-source"
       }
     }
   ]

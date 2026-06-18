@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "taskId": "T058-spell-attack-ordering-spine",
+  "taskId": "T086-battle-runtime-reducer-spine-contract",
   "rounds": [
     {
       "round": 1,

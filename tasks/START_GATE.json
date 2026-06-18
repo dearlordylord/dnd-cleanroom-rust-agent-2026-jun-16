@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T058-spell-attack-ordering-spine",
-  "startHeadSha": "a226022a266a9b27026880808564c241e24265d3",
+  "taskId": "T086-battle-runtime-reducer-spine-contract",
+  "startHeadSha": "f2aac4a1c62453a36a62faabf9364d1248746012",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt"
     ]
   }
 }

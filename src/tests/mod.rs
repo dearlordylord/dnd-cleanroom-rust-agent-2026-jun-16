@@ -50,6 +50,8 @@ mod battle_runtime_quickened_spell_governor;
 mod battle_runtime_reaction_casting_time;
 #[path = "../qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs"]
 mod battle_runtime_reaction_spell_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_reducer_spine_contract.rs"]
+mod battle_runtime_reducer_spine_contract;
 #[path = "../qnt_adapters/battle_runtime_roll_modifier_active_effects.rs"]
 mod battle_runtime_roll_modifier_active_effects;
 #[path = "../qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs"]
@@ -716,6 +718,13 @@ use battle_runtime_reaction_spell_selected_identity::{
     projection_payload as reaction_spell_selected_identity_projection_payload,
     replay_observed_action as replay_reaction_spell_selected_identity_action,
     BRANCH_ACTIONS as REACTION_SPELL_SELECTED_IDENTITY_BRANCH_ACTIONS,
+};
+use battle_runtime_reducer_spine_contract::{
+    expected_witness as expected_reducer_spine_contract_witness,
+    initial_witness_projection as reducer_spine_contract_initial_witness,
+    projection_payload as reducer_spine_contract_projection_payload,
+    replay_observed_action as replay_reducer_spine_contract_action,
+    BRANCH_ACTIONS as REDUCER_SPINE_CONTRACT_BRANCH_ACTIONS,
 };
 use battle_runtime_roll_modifier_active_effects::{
     expected_witness as expected_roll_modifier_active_effects_witness,
@@ -3957,6 +3966,24 @@ fn magic_missile_projects_allocation_and_sampled_damage() {
         high_damage.protocol_result,
         MagicMissileProtocolResult::Resolved
     );
+}
+
+#[test]
+fn reducer_spine_contract_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-reducer-spine-contract.mbt.qnt. Focused rule owners:
+    // battle-runtime-magic-missile.mbt.qnt, battle-runtime-turn-advancement.qnt,
+    // and battle-runtime-weapon-attack-skeleton.mbt.qnt.
+    assert!(
+        reducer_spine_contract_projection_payload(&reducer_spine_contract_initial_witness())
+            .contains("qStage=ReducerNotStarted")
+    );
+
+    for action in REDUCER_SPINE_CONTRACT_BRANCH_ACTIONS {
+        let observed = replay_reducer_spine_contract_action(action);
+        assert_eq!(observed, expected_reducer_spine_contract_witness(action));
+        assert!(reducer_spine_contract_projection_payload(&observed).contains("protocolResult="));
+    }
 }
 
 #[test]

@@ -1,43 +1,39 @@
 {
   "schemaVersion": 1,
-  "taskId": "T058-spell-attack-ordering-spine",
+  "taskId": "T086-battle-runtime-reducer-spine-contract",
   "productionModulesExtended": [
     {
       "path": "src/rules/battle_reducer_spine.rs",
       "role": "domain-engine",
       "domainApis": [
-        "BattleSpellAttackProcedure",
-        "BattleSpellAttackSubject",
-        "BattleSpellAttackFill",
-        "start_spell_attack_ordering_battle",
-        "discover_single_target_spell_attack_battle",
-        "discover_typed_spell_attack_battle",
-        "resolve_spell_attack_subject",
-        "spell_attack_ordering_projection_from_battle"
+        "BattleSlotSpellProcedure",
+        "BattleSlotSpellSubject",
+        "BattleSlotSpellStage",
+        "BattleSlotSpellHole",
+        "BattleSlotSpellFill",
+        "start_fighter_skeleton_battle",
+        "discover_slot_spell_battle",
+        "resolve_slot_spell_subject",
+        "slot_spell_holes_from_battle",
+        "discover_battle_acts",
+        "resolve_battle_subject",
+        "end_turn"
       ]
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "path": "src/qnt_adapters/battle_runtime_reducer_spine_contract.rs",
       "quarantinedWitnessNames": [
-        "doDiscoverSingleTargetSpellAttack",
-        "doSubmitAttackRollBeforeTargetChoice",
-        "doFillTargetChoice",
-        "doSubmitDamageBeforeAttackRoll",
-        "doFillAttackRollMiss",
-        "doFillAttackRollHit",
-        "doFillDamageDice",
-        "doDiscoverTypedSpellAttack",
-        "doFillDamageTypeBeforeTargetChoice",
-        "doFillTargetChoiceBeforeDamageType",
-        "doFillDamageTypeAfterTargetChoice",
-        "doFillTargetChoiceAfterDamageType",
-        "qStage",
-        "qHoles",
-        "qLastOrderingError",
-        "protocolResult",
-        "protocolHoles",
+        "doStartBattle",
+        "doDiscoverSlotSpell",
+        "doResolveSlotSpellTargets",
+        "doResolveSlotSpellDamage",
+        "doEndTurnToTarget",
+        "doDiscoverWeaponAttack",
+        "doResolveWeaponTarget",
+        "doResolveWeaponAttackHit",
+        "doResolveWeaponDamage",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -55,27 +51,27 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T058-battle-runtime-spell-attack-ordering.json"
+        "tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json"
       ]
     }
   ],
   "accumulatorGrowth": [
     {
       "owner": "production",
-      "addedEntries": 4,
-      "reason": "routed spell-attack ordering through a durable BattleState spell-attack procedure while reusing the T084/T085 action and spell-slot ownership substrate"
+      "addedEntries": 1,
+      "reason": "added one battle-owned slot-spell procedure so Magic Missile allocation and damage can route through durable BattleState before the same spine advances to a weapon attack"
     }
   ],
   "expectedNextReuse": [
     {
       "module": "src/rules/battle_reducer_spine.rs",
-      "api": "BattleTurnSpellSlotUse",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt"
+      "api": "BattleSlotSpellProcedure",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt"
     },
     {
       "module": "src/rules/battle_reducer_spine.rs",
-      "api": "spell_attack_ordering_projection_from_battle",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt"
+      "api": "discover_battle_acts",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt"
     }
   ]
 }
