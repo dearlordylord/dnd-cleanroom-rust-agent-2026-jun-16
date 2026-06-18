@@ -238,9 +238,9 @@ many local helper slices with high confidence.
 The reducer-spine experiments can also be recreated from copied QNT alone for
 the Fighter weapon-attack ordering path, the Rogue/Skeleton weapon-attack
 fixture path, the Goblin stat-block action-ordering path, and the Goblin
-stat-block multi-damage path, and the Goblin stat-block size-gated Prone-rider
-path. Measured generic reducer coverage is no longer zero, but it is still a
-seed. Five existing battle MBT adapter tests now replay observed behavior
+stat-block multi-damage and size-gated Prone-rider paths. Measured generic
+reducer coverage is no longer zero, but it is still a seed. Five existing
+battle MBT adapter tests now replay observed behavior
 through reducer-spine entrypoints instead of slice-specific observed helpers,
 and the T060/T063/T064/T079/T080 per-file target replay evidence is current and
 locally validator-clean. T074 supplies the reusable stat-block control component
@@ -582,6 +582,37 @@ step is no longer another Goblin stat-block micro-slice unless it introduces a
 different reducer subsystem. Prefer a source-side reducer-spine witness, or pick
 one non-stat-block subsystem such as turn advancement, reactions/interrupts, or
 spell-slot/action-resource spending. Do not start with a full driver audit.
+
+## Next Subsystem Candidate Scan
+
+This scan is deliberately narrower than a 73-driver audit. It asks which next
+driver would most improve or falsify the current "reducers from QNT" claim.
+
+| Candidate | Current obligations | Classification | What QNT gives | Existing Rust shape | Research decision |
+| --- | ---: | --- | --- | --- | --- |
+| `battle-runtime-spell-attack-ordering.mbt.qnt` plus `battle-runtime-save-gated-spell-ordering.mbt.qnt` | 22 | QNT local rule helper; weak reducer evidence by itself | Closed spell hole-frontier stages, fill ordering, and ordering errors for spell attacks and save-gated spells. | `spell_attack_ordering.rs` and `save_gated_spell_ordering.rs` are local helpers/adapters, not `BattleState` reducer routes. | Do not choose next. It would mostly repeat the T060/T063 ordering result with spell-shaped holes, unless paired with spell-slot/action-resource ownership. |
+| `battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt` plus `battle-runtime-turn-advancement.qnt` | 2 | Reducer-spine required | `endTurn` advances initiative, resets action/bonus/spell-cast-per-turn state, resets attack/movement flags, refreshes reactions, runs start/end spell effects, expires ongoing features, ticks round duration, and clears readied holds. | `turn_boundary_effect_lifecycle.rs` is a literal projection helper. `battle_reducer_spine.rs` currently has initiative data but no general `end_turn` entrypoint. | Best next manageable Rust diagnostic. It has few MBT obligations but high reducer-state value because it tests shared lifecycle resets that every action path relies on. |
+| `rule-core-reactions.mbt.qnt` and `battle-runtime-interrupt-stack-resume.mbt.qnt` | 14 | Reducer-spine required, with a reusable rule-core component | Reaction windows, reaction decisions, readied movement, concentration damage DCs, nested window depth, resume holes, and replay-from-root equivalence. | `rule_core_reactions.rs` and `interrupt_stack_resume.rs` are local helper modules. `battle_reducer_spine.rs` has combatant reactions but no interrupt stack or continuation replay. | Strongest falsification candidate after turn advancement. It will expose whether QNT is sufficient for continuation/resume architecture, but it is larger than T062. |
+| `battle-runtime-reaction-casting-time.mbt.qnt` and `battle-runtime-reaction-spell-selected-identity.mbt.qnt` | 6 | Reducer-spine required, but depends on reactions plus spell slots | Counterspell/Shield/Hellish Rebuke reaction spell outcomes, reaction spending, reaction-window clearing, and spell-slot expenditure. | Rust has reaction/spell local slices but no battle-spine spell-slot owner or reaction window. | Do after the reaction-window/interrupt substrate exists. Otherwise it would import too many missing reducer facts at once. |
+| `battle-runtime-command-option-next-turn.mbt.qnt` | 15 | QNT plus RAW fill-in; reducer-spine required for next-turn effects | Pending next-turn option, action/bonus suppression, movement continuation/rejection, reaction-window opening, and cleanup. The QNT file explicitly says route choice and held-object inventory are table-owned facts. | `command_options.rs` is a literal scenario helper. | Do later. It is valuable integration evidence, but it combines turn advancement, movement, reaction windows, and spell-specific pending effects, so it should follow those substrate tests. |
+
+Decision:
+
+1. If source changes are allowed, add a source-side reducer-spine witness first.
+   That would make `start_battle`, `discover_battle_acts`,
+   `resolve_battle_subject`, and `end_turn` cleanroom-visible source facts
+   instead of inferred architecture.
+2. If continuing only inside this Rust experiment, select
+   `battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt` next and route its
+   observed side through a real `BattleState` `end_turn` path. The blocker to
+   record is any `endTurn` fact from `battle-runtime-turn-advancement.qnt` that
+   cannot be represented without TypeScript memory.
+3. After T062, select `rule-core-reactions.mbt.qnt` as a reusable rule-core
+   component and then `battle-runtime-interrupt-stack-resume.mbt.qnt` as the
+   battle-spine integration test.
+4. Defer spell attack/save-gated ordering unless it is paired with real
+   spell-slot/action-resource ownership. Alone it is too similar to the already
+   measured ordering slices.
 
 Method:
 

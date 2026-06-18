@@ -257,8 +257,37 @@ is:
 
 The next useful Rust diagnostic, if continuing before a source-side witness,
 should leave the already-covered Goblin stat-block attack path unless it tests
-a different reducer subsystem. Good candidates are turn advancement,
-reactions/interrupt continuations, or spell-slot/action-resource spending.
+a different reducer subsystem.
+
+Recommended sequence:
+
+1. **Turn advancement / boundary effects.** Route
+   `battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt` through a real
+   `BattleState` `end_turn` path. This is the smallest high-value next test:
+   only two MBT obligations, but it forces shared reducer state for initiative,
+   action/bonus reset, reaction refresh, per-turn spell-use cleanup,
+   start/end-turn effects, round-duration ticking, readied holds, and ongoing
+   feature expiry.
+2. **Reaction substrate.** Route `rule-core-reactions.mbt.qnt` through a
+   reusable reaction component, then route
+   `battle-runtime-interrupt-stack-resume.mbt.qnt` through the battle spine.
+   This is the strongest next falsification test for QNT-derived reducer
+   architecture because it requires reaction windows, interrupt stack depth,
+   continuation resume, and replay-from-root equivalence.
+3. **Reaction spell casting time.** Route
+   `battle-runtime-reaction-casting-time.mbt.qnt` only after the reaction and
+   interrupt substrate exists, because it also needs spell-slot ownership and
+   reaction-window clearing.
+4. **Spell attack/save-gated ordering.** Defer
+   `battle-runtime-spell-attack-ordering.mbt.qnt` and
+   `battle-runtime-save-gated-spell-ordering.mbt.qnt` unless the batch also
+   introduces real spell-slot/action-resource ownership. Alone, they mostly
+   repeat the already measured weapon/stat-block ordering result.
+5. **Command next-turn options.** Defer
+   `battle-runtime-command-option-next-turn.mbt.qnt` until turn advancement,
+   movement, and reaction-window substrate are present. Its QNT explicitly
+   leaves route choice and held-object inventory as table-owned facts, so it is
+   an integration test, not the first substrate test.
 
 This is the first experiment that directly measures the goal: whether battle
 reducer behavior can be reconstructed from QNT, not merely whether focused QNT
