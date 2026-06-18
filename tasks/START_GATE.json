@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T082-T072",
-  "startHeadSha": "3be932a0e08c7883a78b29160e160ff8fb6aed2e",
+  "taskId": "T083-T031",
+  "startHeadSha": "1397e880a058105873e1d26dc9371d117edb973c",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -9,9 +9,9 @@
   },
   "taskScope": {
     "assignmentId": "level-1-2-full",
-    "laneId": "rules-core",
+    "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt"
     ]
   }
 }

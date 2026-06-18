@@ -8,6 +8,13 @@ use crate::rules::attack_damage_disposition::{
     apply_resolved_damage_to_positive_hit_points, CreatureKind, CreatureVitals,
 };
 use crate::rules::creature_size::CreatureSize;
+use crate::rules::interrupt_stack_resume::{
+    decline_reaction_window, interrupt_stack_resume_projection, offer_reaction_window,
+    reaction_window_depth, recorded_attack_replay_from_root_equivalent, take_matching_reaction,
+    InterruptPendingTrigger, InterruptResumeHole, InterruptStackResumeProjectionFacts,
+    InterruptStackResumeScenarioOutcome, InterruptStackResumeState, ReactionWindowOffer,
+    ReactionWindowRole,
+};
 use crate::rules::rule_core_stat_block_controls::{
     resolve_stat_block_control_subject, start_stat_block_multiattack_from,
     stat_block_control_initial_state, stat_block_multiattack_continuation_open,
@@ -81,12 +88,38 @@ pub struct BattleState {
     pub skeleton: Combatant,
     pub stat_block_control: StatBlockControlState,
     pub turn_boundary_effects: TurnBoundaryEffects,
+    pub interrupt_resume: BattleInterruptResumeState,
     pub action_available: bool,
     pub bonus_action_available: bool,
     pub attack_roll_made_this_turn: bool,
     pub dash_movement_bonus_feet: i16,
     pub disengaged: bool,
-    pub interrupt_stack_depth: usize,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleInterruptResumeState {
+    pub reaction_window: ReactionWindowOffer,
+    pub max_stack_depth_observed: u8,
+    pub pending_trigger: InterruptPendingTrigger,
+    pub resumed_hole: InterruptResumeHole,
+    pub active_effect_mutation_seen_on_resume: bool,
+    pub replay_from_root_equivalent: bool,
+    pub scenario_outcome: InterruptStackResumeScenarioOutcome,
+}
+
+impl BattleInterruptResumeState {
+    #[must_use]
+    pub fn none() -> Self {
+        Self {
+            reaction_window: ReactionWindowOffer::Closed,
+            max_stack_depth_observed: 0,
+            pending_trigger: InterruptPendingTrigger::NoPendingTrigger,
+            resumed_hole: InterruptResumeHole::NoResumedHole,
+            active_effect_mutation_seen_on_resume: false,
+            replay_from_root_equivalent: false,
+            scenario_outcome: InterruptStackResumeScenarioOutcome::Init,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -275,12 +308,12 @@ pub fn start_battle() -> BattleState {
         skeleton: skeleton_combatant(),
         stat_block_control: stat_block_control_initial_state(),
         turn_boundary_effects: TurnBoundaryEffects::none(),
+        interrupt_resume: BattleInterruptResumeState::none(),
         action_available: true,
         bonus_action_available: true,
         attack_roll_made_this_turn: false,
         dash_movement_bonus_feet: 0,
         disengaged: false,
-        interrupt_stack_depth: 0,
     }
 }
 
@@ -303,12 +336,12 @@ pub fn start_skeleton_battle() -> BattleState {
         skeleton: skeleton_combatant(),
         stat_block_control: stat_block_control_initial_state(),
         turn_boundary_effects: TurnBoundaryEffects::none(),
+        interrupt_resume: BattleInterruptResumeState::none(),
         action_available: true,
         bonus_action_available: true,
         attack_roll_made_this_turn: false,
         dash_movement_bonus_feet: 0,
         disengaged: false,
-        interrupt_stack_depth: 0,
     }
 }
 
@@ -366,6 +399,109 @@ pub fn start_turn_boundary_effect_lifecycle_battle() -> BattleState {
         turn_boundary_effects: TurnBoundaryEffects::lifecycle_witness_fixture(),
         ..start_battle()
     }
+}
+
+#[must_use]
+pub fn start_interrupt_stack_resume_battle() -> BattleState {
+    // QNT: battle-runtime-interrupt-stack-resume.mbt.qnt `init`. The
+    // interrupted target is the Fighter because the witness projects target HP
+    // from 12 through the nested/replay cases.
+    start_goblin_stat_block_battle()
+}
+
+#[must_use]
+pub fn resolve_nested_interrupt_decline_battle(state: BattleState) -> BattleState {
+    // QNT: battle-runtime-interrupt-stack-resume.mbt.qnt
+    // nested decline branch; rule-core: reactions-continuations-concentration.qnt
+    // `offerReactionWindow` and `declineReactionWindow`; assumption A45 bounds
+    // active+suspended depth.
+    let outer = offer_reaction_window(
+        ReactionWindowOffer::Closed,
+        ReactionWindowRole::AttackHitInterruption,
+    );
+    let inner = offer_reaction_window(outer, ReactionWindowRole::AttackHitInterruption);
+    let resumed = decline_reaction_window(inner);
+    let state = with_damaged_target(state, Actor::Fighter, 2);
+    BattleState {
+        interrupt_resume: BattleInterruptResumeState {
+            reaction_window: resumed,
+            max_stack_depth_observed: reaction_window_depth(inner),
+            pending_trigger: InterruptPendingTrigger::AttackHit,
+            resumed_hole: InterruptResumeHole::RolledDice,
+            active_effect_mutation_seen_on_resume: false,
+            replay_from_root_equivalent: false,
+            scenario_outcome: InterruptStackResumeScenarioOutcome::NestedDeclineResumedOuter,
+        },
+        ..state
+    }
+}
+
+#[must_use]
+pub fn resolve_interrupted_attack_after_reaction_mutation_battle(
+    state: BattleState,
+) -> BattleState {
+    // QNT: battle-runtime-interrupt-stack-resume.mbt.qnt
+    // active-effect mutation branch; RAW: Rules-Glossary.md "Reaction";
+    // assumption A45.
+    let offered = offer_reaction_window(
+        ReactionWindowOffer::Closed,
+        ReactionWindowRole::AttackHitInterruption,
+    );
+    let (resumed, responder_reaction_available) =
+        take_matching_reaction(offered, state.fighter.reaction_available);
+    let mut state = state;
+    state.fighter.reaction_available = responder_reaction_available;
+    BattleState {
+        interrupt_resume: BattleInterruptResumeState {
+            reaction_window: resumed,
+            max_stack_depth_observed: reaction_window_depth(offered),
+            pending_trigger: InterruptPendingTrigger::NoPendingTrigger,
+            resumed_hole: InterruptResumeHole::NoResumedHole,
+            active_effect_mutation_seen_on_resume: true,
+            replay_from_root_equivalent: false,
+            scenario_outcome: InterruptStackResumeScenarioOutcome::ActiveEffectMutationResumed,
+        },
+        ..state
+    }
+}
+
+#[must_use]
+pub fn resolve_recorded_attack_replay_from_root_battle(state: BattleState) -> BattleState {
+    // QNT: battle-runtime-interrupt-stack-resume.mbt.qnt
+    // recorded attack replay branch; replay vocabulary:
+    // battle-runtime-replay-equivalence.qnt.
+    let state = with_damaged_target(state, Actor::Fighter, 9);
+    BattleState {
+        interrupt_resume: BattleInterruptResumeState {
+            reaction_window: ReactionWindowOffer::Closed,
+            max_stack_depth_observed: 0,
+            pending_trigger: InterruptPendingTrigger::NoPendingTrigger,
+            resumed_hole: InterruptResumeHole::NoResumedHole,
+            active_effect_mutation_seen_on_resume: false,
+            replay_from_root_equivalent: recorded_attack_replay_from_root_equivalent(12, 3),
+            scenario_outcome: InterruptStackResumeScenarioOutcome::ReplayFromRootResolved,
+        },
+        ..state
+    }
+}
+
+#[must_use]
+pub fn interrupt_stack_resume_projection_from_battle(
+    state: &BattleState,
+) -> InterruptStackResumeState {
+    interrupt_stack_resume_projection(InterruptStackResumeProjectionFacts {
+        max_stack_depth_observed: state.interrupt_resume.max_stack_depth_observed,
+        final_stack_depth: reaction_window_depth(state.interrupt_resume.reaction_window),
+        pending_trigger: state.interrupt_resume.pending_trigger,
+        resumed_hole: state.interrupt_resume.resumed_hole,
+        active_effect_mutation_seen_on_resume: state
+            .interrupt_resume
+            .active_effect_mutation_seen_on_resume,
+        replay_from_root_equivalent: state.interrupt_resume.replay_from_root_equivalent,
+        responder_reaction_available: state.fighter.reaction_available,
+        target_hit_points: state.fighter.hp,
+        scenario_outcome: state.interrupt_resume.scenario_outcome,
+    })
 }
 
 fn fighter_combatant() -> Combatant {

@@ -1,3 +1,9 @@
+use crate::rules::battle_reducer_spine::{
+    interrupt_stack_resume_projection_from_battle,
+    resolve_interrupted_attack_after_reaction_mutation_battle,
+    resolve_nested_interrupt_decline_battle, resolve_recorded_attack_replay_from_root_battle,
+    start_interrupt_stack_resume_battle,
+};
 use crate::rules::interrupt_stack_resume::{
     interrupt_stack_resume_initial_state, resolve_interrupted_attack_after_reaction_mutation,
     resolve_nested_interrupt_decline, resolve_recorded_attack_replay_from_root,
@@ -27,6 +33,10 @@ pub const BRANCH_ACTIONS: [&str; 3] = [
 ];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> InterruptStackResumeWitness {
+    replay_observed_action_through_battle_spine(observed_action_taken)
+}
+
+pub fn expected_witness(observed_action_taken: &str) -> InterruptStackResumeWitness {
     match observed_action_taken {
         "doNestedDeclineResumesOuterInterrupt" => witness_from_state(
             resolve_nested_interrupt_decline(interrupt_stack_resume_initial_state()),
@@ -43,8 +53,21 @@ pub fn replay_observed_action(observed_action_taken: &str) -> InterruptStackResu
     }
 }
 
-pub fn expected_witness(observed_action_taken: &str) -> InterruptStackResumeWitness {
-    replay_observed_action(observed_action_taken)
+fn replay_observed_action_through_battle_spine(
+    observed_action_taken: &str,
+) -> InterruptStackResumeWitness {
+    let initial = start_interrupt_stack_resume_battle();
+    let state = match observed_action_taken {
+        "doNestedDeclineResumesOuterInterrupt" => resolve_nested_interrupt_decline_battle(initial),
+        "doReplayRecordedProcedureFromRoot" => {
+            resolve_recorded_attack_replay_from_root_battle(initial)
+        }
+        "doShieldMutationResumesInterruptedAttack" => {
+            resolve_interrupted_attack_after_reaction_mutation_battle(initial)
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    };
+    witness_from_state(interrupt_stack_resume_projection_from_battle(&state))
 }
 
 pub fn projection_payload(witness: &InterruptStackResumeWitness) -> String {

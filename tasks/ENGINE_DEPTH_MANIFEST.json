@@ -1,45 +1,35 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 3,
+      "addedEntries": 1,
       "owner": "production",
-      "reason": "added a reusable reaction subject/decision transition API so T072 replay is driven by explicit state transitions instead of only per-branch final-state helpers"
+      "reason": "added a battle-owned interrupt resume state bundle so T031 replay is driven by BattleState instead of only the focused interrupt-stack helper state"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "path": "src/qnt_adapters/battle_runtime_interrupt_stack_resume.rs",
       "quarantinedWitnessNames": [
-        "doBreakReactorConcentrationAfterLargeDamage",
-        "doDeclineOpportunityAttack",
-        "doDeclineReadiedMovement",
-        "doHoldReactorConcentrationAfterSmallDamage",
-        "doOfferOpportunityAttack",
-        "doOfferReadiedMovement",
-        "doReadyMovementFixture",
-        "doRejectReadiedMovementZero",
-        "doStartReactorConcentrationFixture",
-        "doTakeReadiedMovementFill",
-        "doTakeReadiedMovementShort",
-        "NoReactionWindow",
-        "OfferedOpportunityAttackWindow",
-        "OfferedReadiedMovementWindow",
-        "ReactionDecision",
-        "DamageRoll",
-        "WInvalidFill",
-        "qInterruptedMovementSpentFeet",
-        "qReactorReactionAvailable",
-        "qReactorReadiedMovementHeld",
-        "qReactorReadiedSpellHeld",
-        "qReactorMovementSpentFeet",
-        "qInterruptedConcentration",
-        "qReactorConcentration",
-        "qReactionWindow",
+        "doNestedDeclineResumesOuterInterrupt",
+        "doReplayRecordedProcedureFromRoot",
+        "doShieldMutationResumesInterruptedAttack",
+        "Init",
+        "NestedDeclineResumedOuter",
+        "ActiveEffectMutationResumed",
+        "ReplayFromRootResolved",
+        "none",
+        "attackHit",
+        "rolledDice",
+        "qMaxStackDepthObserved",
+        "qFinalStackDepth",
         "qPendingTrigger",
-        "qHoles",
-        "qLastConcentrationSaveDc",
+        "qResumedHole",
+        "qActiveEffectMutationSeenOnResume",
+        "qReplayFromRootEquivalent",
+        "qResponderReactionAvailable",
+        "qTargetHp",
+        "qScenarioOutcome",
         "protocolResult",
-        "protocolInvalidReason",
         "protocolHoles",
         "mbt::actionTaken",
         "mbt::nondetPicks",
@@ -58,35 +48,36 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T072-rule-core-reactions.json"
+        "tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "resolve_rule_core_reaction_subject",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt",
-      "module": "src/rules/rule_core_reactions.rs"
+      "api": "BattleInterruptResumeState",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt",
+      "module": "src/rules/battle_reducer_spine.rs"
     },
     {
-      "api": "RuleCoreReactionSubject",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt",
-      "module": "src/rules/rule_core_reactions.rs"
+      "api": "interrupt_stack_resume_projection_from_battle",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "module": "src/rules/battle_reducer_spine.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "RuleCoreReactionDecision",
-        "RuleCoreReactionState",
-        "RuleCoreReactionSubject",
-        "resolve_rule_core_reaction_subject",
-        "rule_core_reactions_initial_state"
+        "BattleInterruptResumeState",
+        "interrupt_stack_resume_projection_from_battle",
+        "resolve_interrupted_attack_after_reaction_mutation_battle",
+        "resolve_nested_interrupt_decline_battle",
+        "resolve_recorded_attack_replay_from_root_battle",
+        "start_interrupt_stack_resume_battle"
       ],
-      "path": "src/rules/rule_core_reactions.rs",
-      "role": "rule-facts"
+      "path": "src/rules/battle_reducer_spine.rs",
+      "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T082-T072"
+  "taskId": "T083-T031"
 }

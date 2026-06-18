@@ -3400,6 +3400,51 @@ fn interrupt_stack_resume_declines_spends_and_replays_from_root() {
 }
 
 #[test]
+fn experimental_qnt_spine_routes_interrupt_stack_resume() {
+    use crate::rules::battle_reducer_spine::{
+        interrupt_stack_resume_projection_from_battle,
+        resolve_interrupted_attack_after_reaction_mutation_battle,
+        resolve_nested_interrupt_decline_battle, resolve_recorded_attack_replay_from_root_battle,
+        start_interrupt_stack_resume_battle,
+    };
+
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-interrupt-stack-resume.mbt.qnt; rule-core:
+    // cleanroom-input/qnt/shared-algebras/proofs/rule-core/
+    // reactions-continuations-concentration.qnt; assumption:
+    // cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md A45.
+    let initial = start_interrupt_stack_resume_battle();
+    assert_eq!(initial.fighter.hp, 12);
+    assert!(initial.fighter.reaction_available);
+
+    let nested = resolve_nested_interrupt_decline_battle(initial.clone());
+    let nested_projection = interrupt_stack_resume_projection_from_battle(&nested);
+    assert_eq!(nested_projection.max_stack_depth_observed, 2);
+    assert_eq!(nested_projection.final_stack_depth, 1);
+    assert_eq!(
+        nested_projection.pending_trigger,
+        InterruptPendingTrigger::AttackHit
+    );
+    assert_eq!(
+        nested_projection.resumed_hole,
+        InterruptResumeHole::RolledDice
+    );
+    assert_eq!(nested_projection.target_hit_points, 10);
+
+    let mutation = resolve_interrupted_attack_after_reaction_mutation_battle(initial.clone());
+    let mutation_projection = interrupt_stack_resume_projection_from_battle(&mutation);
+    assert_eq!(mutation_projection.final_stack_depth, 0);
+    assert!(mutation_projection.active_effect_mutation_seen_on_resume);
+    assert!(!mutation_projection.responder_reaction_available);
+    assert_eq!(mutation_projection.target_hit_points, 12);
+
+    let replay = resolve_recorded_attack_replay_from_root_battle(initial);
+    let replay_projection = interrupt_stack_resume_projection_from_battle(&replay);
+    assert!(replay_projection.replay_from_root_equivalent);
+    assert_eq!(replay_projection.target_hit_points, 3);
+}
+
+#[test]
 fn level1_buff_mark_smite_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt; RAW:

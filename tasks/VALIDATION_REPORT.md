@@ -8,7 +8,7 @@
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
 - Last completed current-snapshot queued branch set:
-  `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt`
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt`
 - Next queued driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt`
 - Next task id: `T001`
 
@@ -19,6 +19,100 @@ allowed inputs used, renders branch coverage from harness-generated target
 replay evidence, and records verification results. Entries with older manifest
 source commit SHAs or inventory SHAs are historical unless they include a
 current-snapshot revalidation note.
+
+## T083-T031: Interrupt-Stack Resume Battle-Spine Diagnostic
+
+- Manifest source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
+- Source branch inventory SHA: `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
+- Selected driver:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt`
+- Reused dependency drivers:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-replay-equivalence.qnt`
+  and
+  `cleanroom-input/qnt/shared-algebras/proofs/rule-core/reactions-continuations-concentration.qnt`
+- Branch obligations:
+  - `step:doNestedDeclineResumesOuterInterrupt`
+  - `step:doReplayRecordedProcedureFromRoot`
+  - `step:doShieldMutationResumesInterruptedAttack`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-replay-equivalence.qnt`
+  - `cleanroom-input/qnt/shared-algebras/proofs/rule-core/reactions-continuations-concentration.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+
+Behavior implemented:
+
+- `src/rules/battle_reducer_spine.rs` now stores
+  `BattleInterruptResumeState` on `BattleState`.
+- `start_interrupt_stack_resume_battle` seeds the T031 target-HP-12 fixture
+  through battle state.
+- `resolve_nested_interrupt_decline_battle`,
+  `resolve_interrupted_attack_after_reaction_mutation_battle`, and
+  `resolve_recorded_attack_replay_from_root_battle` mutate battle-owned
+  interrupt/reaction facts and Fighter HP/reaction availability.
+- `src/qnt_adapters/battle_runtime_interrupt_stack_resume.rs` keeps the focused
+  T031 helper as expected witness data, while observed replay uses the battle
+  spine and `interrupt_stack_resume_projection_from_battle`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt#step:doNestedDeclineResumesOuterInterrupt` | `tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json#T031-nested-decline-resumes-outer-interrupt#step:doNestedDeclineResumesOuterInterrupt` | `cargo test interrupt_stack -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt#step:doReplayRecordedProcedureFromRoot` | `tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json#T031-replay-recorded-procedure-from-root#step:doReplayRecordedProcedureFromRoot` | `cargo test interrupt_stack -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt#step:doShieldMutationResumesInterruptedAttack` | `tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json#T031-shield-mutation-resumes-interrupted-attack#step:doShieldMutationResumesInterruptedAttack` | `cargo test interrupt_stack -- --nocapture` | `covered` |
+
+Target replay evidence:
+
+- Evidence file:
+  `tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json`
+- Target profile: `rust`
+- Target profile SHA-256:
+  `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json` is still missing; repo-wide acceptance
+  remains blocked by global accounting debt outside this diagnostic.
+
+Remaining gaps:
+
+- T031 proves only the bounded interrupt-stack witness. It does not implement a
+  general reaction trigger catalog, all reaction spell effects, all readied
+  action cases, or spell-slot ownership.
+- T031 also shows T072's simple reaction transition API is not the whole nested
+  reaction-window substrate; future work should consolidate those reaction
+  surfaces when a selected driver needs the shared model.
+- Repo-wide harness acceptance still fails on the known global denominator:
+  missing `tasks/RUN_LEDGER.json`, undeclared historical evidence files,
+  validation-report evidence rows that are not ledger-backed, witness-protocol
+  findings from undeclared adapters, and authored-identity scan findings outside
+  this change.
+
+Verification results:
+
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt --evidence tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json` passed.
+- `cargo test interrupt_stack -- --nocapture` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed on known repo-wide
+  accounting debt outside this diagnostic: missing `tasks/RUN_LEDGER.json`, 2
+  validation-report rows using diagnostic evidence as target replay evidence,
+  79 undeclared historical evidence files, 158 witness-protocol findings from
+  undeclared adapters, and 17 authored-identity scan findings.
 
 ## T082-T072: Rule-Core Reactions Transition Diagnostic
 
@@ -100,8 +194,8 @@ Harness artifacts:
 Remaining gaps:
 
 - T072 is a reusable rule-core reaction component, not yet a full `BattleState`
-  interrupt-stack route. The next reducer-specific diagnostic is T031
-  `battle-runtime-interrupt-stack-resume.mbt.qnt`.
+  interrupt-stack route. T083/T031 subsequently adds the first bounded
+  battle-spine interrupt-stack route.
 - Repo-wide harness acceptance still fails on the known global denominator:
   missing `tasks/RUN_LEDGER.json`, undeclared historical evidence files,
   validation-report evidence rows that are not ledger-backed, witness-protocol
