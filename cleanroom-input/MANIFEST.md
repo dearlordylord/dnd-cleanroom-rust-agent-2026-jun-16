@@ -5,9 +5,9 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: 829aee6441d76a921c9d9c14a0d0221062975334
-- Copy date: 2026-06-18T02:58:05.262Z
-- Files: 423
+- Source commit SHA: 1da73ecc2a230aecf2bf43d5c1669e557d47c5b3
+- Copy date: 2026-06-18T20:33:42.711Z
+- Files: 424
 
 Cleanroom tasks must declare which source commit SHA they implement
 against (the `Source commit SHA` recorded here at task start).
@@ -41,7 +41,7 @@ instead of guessing.
 - `domain/CLEANROOM_ASSUMPTIONS.md`: 1
 - `branch-coverage/source-branch-inventory.json`: 1
 - `guidance/README.md`: 1
-- `qnt/battle-runtime`: 257
+- `qnt/battle-runtime`: 258
 - `qnt/character-creation-runtime`: 12
 - `qnt/character-sheet-runtime`: 12
 - `qnt/character-battle-runtime`: 5
@@ -92,7 +92,7 @@ instead of guessing.
 | `raw/srd-5.2.1/Spells/Gaining-and-Casting.md` | `fc36dfa2fb45157289d90b1ae9b09e36211bc92c7ef4bd0c8f8af4a65cda9403` | `.references/srd-5.2.1/Spells/Gaining-and-Casting.md` |
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
-| `branch-coverage/source-branch-inventory.json` | `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
+| `branch-coverage/source-branch-inventory.json` | `7317a1acf0dce82ff0cf62330081ced4d8d77460134527048c7beb9a60b83beb` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
 | `guidance/README.md` | `5bbd879503a8e351981897a3a01ebcee9dc62cde5f882c7e31cf7b66b1e0938d` | `plans/cleanroom-guidance/README.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` | `03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` |
@@ -252,6 +252,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` | `5a8cbb07d27648b97bb7e94baec51fcbdba1f97ceeb02b6780bb4f7407815959` | `packages/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window-tests.qnt` | `4ce834fb0929cec617e79abf7a4cfcbacdc10718041c774f0f092ae434b76159` | `packages/battle-runtime/battle-runtime-reaction-window-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window.qnt` | `f557bce899edff541e53cfd081a0a0a4db84364c355aa1605e438b6015ef383e` | `packages/battle-runtime/battle-runtime-reaction-window.qnt` |
+| `qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` | `5b7fe7a06d31dda4e32625ede181289efe9c2b9ddb8fe6e42df87d826b88e565` | `packages/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` | `0b0e39e7cd765f7203dedd77221d12b7724e3083cd67be5573b65b46ced46967` | `packages/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` | `fca72ca4bb400a1de697f0fa4786210eb57a8a0130ee7531c9f9226a0997d43e` | `packages/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-selected-identity.mbt.qnt` | `080543b05fae52b5c17d5f1d1f5ac914245368c1781b5d77a9585387a8b0b21a` | `packages/battle-runtime/battle-runtime-remarkable-athlete-selected-identity.mbt.qnt` |
@@ -354,7 +355,7 @@ instead of guessing.
 | `qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt` | `62ed08830ecf7b7847fff40c677f3a040f04fe974b5d931c2c21be7167b7f961` | `packages/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt` |
 | `qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt` | `3cc7db2fee7df77e5565cbc92fd6a692fa434431aeafc1263f190d79ba71ddb4` | `packages/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt` |
 | `qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt` | `dcf7621b5ace3a2e9120eb30c292661bfd734e2abb816a9dd7971f0aa8384890` | `packages/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt` |
-| `qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt` | `e9b2ce51a7bcff3477b01220be328e5f9283f6ddf36fb62312d933d1222e10d6` | `packages/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt` |
+| `qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt` | `ae0579d4ce4650b29b1fbc393bd2a823b95a0324585305e9aaea6be456e1165b` | `packages/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt` |
 | `qnt/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt` | `c67dc1d9dca85764f7ca5756c74d6e494c4521741054349df557b2fdc9e9d23b` | `packages/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt` |
 | `qnt/character-creation-runtime/character-creation-runtime-slice-tests.qnt` | `65134815bb0799bf0af25a88a7ce2cc022c61f21a7d6fd0f0319c1103045e474` | `packages/character-creation-runtime/character-creation-runtime-slice-tests.qnt` |
 | `qnt/character-creation-runtime/character-creation-runtime-slice.qnt` | `7525f4ffec7ab59c585701f1b33cb804249616bd81a45ca7c22821aeadd1db8a` | `packages/character-creation-runtime/character-creation-runtime-slice.qnt` |
