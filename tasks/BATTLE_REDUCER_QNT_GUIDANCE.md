@@ -321,6 +321,8 @@ Current measured position:
   T031/T058/T060/T062/T063/T064/T072/T074/T079/T080/T084/T085.
 - Those 12 drivers cover 77 obligations.
 - 61 battle/rule-core drivers and 425 obligations remain unrouted.
+- The current remaining-driver action map is
+  `tasks/BATTLE_REDUCER_QNT_REMAINING_DRIVER_TRIAGE.md`.
 - The copied support corpus already contains reducer-shaped source facts:
   50 support modules mention `BattleState`, 57 mention spell resource/slot
   ownership, 21 mention interrupt stack/reaction windows, and 77 mention turn

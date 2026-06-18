@@ -84,6 +84,12 @@ Current measurement:
   once replayed many focused witnesses, but they do not prove current reducer
   reconstruction.
 
+The remaining-driver action map is now recorded in
+`tasks/BATTLE_REDUCER_QNT_REMAINING_DRIVER_TRIAGE.md`. That file gives one
+coarse next action for each of the 61 unrouted battle/rule-core drivers and
+separates immediate reducer-spine candidates from component-first,
+substrate-first, catalog-after-substrate, and replay-refresh-only work.
+
 The classification is useful because without it the repo can produce a false
 positive: 82 evidence files and 492 recorded runs look broad, while only 77
 current battle/rule-core obligations currently test reducer-shaped
