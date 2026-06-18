@@ -2,7 +2,7 @@
 
 ## Current Answer
 
-QNT is enough to derive a small reducer spine and route three existing battle
+QNT is enough to derive a small reducer spine and route four existing battle
 MBT adapter tests through it, but the cleanroom repo has not yet proven that
 QNT is enough to derive the full battle reducer.
 
@@ -31,6 +31,10 @@ path:
   `battle-runtime-stat-block-bridge.qnt` provide stat-block attack-control
   ordering for rolled/static damage, recharge-gated actions, and Goblin
   multiattack dispatch projection.
+- QNT `battle-runtime-stat-block-multi-damage.mbt.qnt` provides the adjacent
+  stat-block damage-mode projection: rolled hit waits for a damage roll, rolled
+  damage changes target HP from 12 to 10, and static hit changes target HP from
+  12 to 9 without opening a damage-roll hole.
 
 The experiment passes through reducer-shaped functions:
 
@@ -45,13 +49,13 @@ That is materially closer to the main goal than per-driver replay adapters, but
 it is still an experiment. The `battle_runtime_weapon_attack_ordering` and
 `battle_runtime_weapon_attack_skeleton` adapters now use the spine for observed
 replay and their prior focused helpers for expected projection. The
-`battle_runtime_stat_block_action_ordering` adapter now does the same for the
-Goblin stat-block action-ordering path. The T060, T063, and T064 target replay
-evidence files now have current manifest and inventory metadata and record the
-spine replay functions in `generatedBy.name`. The rolling start gate currently
-selects T060 for this diagnostic, but repo-wide work-loop acceptance still
-lacks the run-ledger/history denominator needed to accept it as a completed
-queued task.
+`battle_runtime_stat_block_action_ordering` and
+`battle_runtime_stat_block_multi_damage` adapters now do the same for Goblin
+stat-block action paths. The T060, T063, T064, and T079 target replay evidence
+files now have current manifest and inventory metadata. The rolling start gate
+currently selects T079 for this diagnostic, but repo-wide work-loop acceptance
+still lacks the run-ledger/history denominator needed to accept it as a
+completed queued task.
 
 T074 now supplies the reducer-control component used by the T064 Skeleton
 multiattack path. `BattleState` stores `StatBlockControlState`; Skeleton
@@ -60,8 +64,10 @@ calls `resolve_stat_block_control_subject`; and the T064 projection derives
 `qMultiattackDispatchesAvailable` from the stat-block control dispatch counts.
 This proves that the copied QNT supports a general stat-block continuation rule
 and that the battle spine can reuse it for both the Skeleton fixture path and
-the Goblin stat-block action-ordering path. It still does not prove a general
-stat-block action catalog or full stat-block damage/rider semantics.
+the Goblin stat-block action-ordering path. T079 then proves static and rolled
+stat-block damage can mutate durable `BattleState` HP through the same
+stat-block subject/fill entrypoint. It still does not prove a general
+stat-block action catalog or full stat-block rider semantics.
 
 ## How To Guide The Next Cleanroom Work
 
@@ -126,19 +132,21 @@ interpretation.
 
 ### Option F: Route Existing Adapters Through The Spine
 
-Done for `battle_runtime_weapon_attack_ordering` and
-`battle_runtime_weapon_attack_skeleton`; now also done for
-`battle_runtime_stat_block_action_ordering`. This was the fastest way to test
+Done for `battle_runtime_weapon_attack_ordering`,
+`battle_runtime_weapon_attack_skeleton`,
+`battle_runtime_stat_block_action_ordering`, and
+`battle_runtime_stat_block_multi_damage`. This was the fastest way to test
 whether existing focused MBT projection can use reducer-shaped observed replay
 without changing source QNT.
 
 Result: it works for the ordering driver and for the Skeleton weapon-attack
-driver, and for the Goblin stat-block action-ordering driver. The per-file
-evidence for T060, T063, and T064 is now current and validates cleanly when
-checked against each selected inventory slice. The remaining issue is
-work-loop acceptance: `tasks/RUN_LEDGER.json`, rolling artifacts, and history do
-not yet declare these drivers as accepted selected work. A T060/T063/T064-only
-work-loop record would still not make this dirty repo pass
+driver, and for the Goblin stat-block action-ordering and multi-damage drivers.
+The per-file evidence for T060, T063, T064, and T079 is now current and
+validates cleanly when checked against each selected inventory slice. The
+remaining issue is work-loop acceptance: `tasks/RUN_LEDGER.json`, rolling
+artifacts, and history do not yet declare these drivers as accepted selected
+work. A T060/T063/T064/T079-only work-loop record would still not make this
+dirty repo pass
 `node scripts/check-cleanroom-harness.cjs`, because the harness denominator also
 includes the other evidence files and undeclared adapter modules.
 
@@ -160,14 +168,15 @@ branches.
 ## What Is Still Missing
 
 - No complete work-loop task currently accepts `battle_reducer_spine.rs`.
-- Three existing battle `.mbt.qnt` adapter tests and per-file evidence files have been
+- Four existing battle `.mbt.qnt` adapter tests and per-file evidence files have been
   replayed through reducer-shaped entrypoints, but the JSON evidence schema
   cannot independently prove that call graph.
 - The spine handles only the Fighter/Goblin weapon ordering path, the
   Rogue/Skeleton weapon-attack skeleton path, and the Goblin stat-block
-  action-ordering path.
+  action-ordering/multi-damage paths.
 - It does not yet model:
   - general stat-block action discovery beyond the Goblin fixture route;
+  - size-gated stat-block condition riders;
   - general stat-block primary/secondary dispatch selection beyond the
     Skeleton and Goblin fixture profiles;
   - initiative advancement;
@@ -180,7 +189,7 @@ branches.
 
 ## Best Next Step
 
-Do not try to promote T060/T063/T064/T074 alone inside the current dirty repo. Use
+Do not try to promote T060/T063/T064/T074/T079 alone inside the current dirty repo. Use
 one of two paths:
 
 1. Add a source-side reducer-spine witness if the current evidence schema is not
@@ -206,6 +215,10 @@ node scripts/check-target-replay-evidence-file.cjs \
 node scripts/check-target-replay-evidence-file.cjs \
   --driver cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt \
   --evidence tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json
+
+node scripts/check-target-replay-evidence-file.cjs \
+  --driver cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt \
+  --evidence tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json
 ```
 
 This diagnostic command validates current per-file evidence but does not close
@@ -217,12 +230,13 @@ is:
 1. Use `battle-runtime-stat-block-action-ordering.mbt.qnt`,
    `battle-runtime-weapon-attack-ordering.mbt.qnt`,
    `battle-runtime-weapon-attack-skeleton.mbt.qnt`, and
+   `battle-runtime-stat-block-multi-damage.mbt.qnt`, plus
    `rule-core-stat-block-controls.mbt.qnt`, because they already route observed
    replay through reducer-shaped entrypoints and their per-file evidence is
    current.
-2. Build complete accepted T060/T063/T064/T074 work-loop records: `START_GATE`,
-   engine depth, state ownership, review loop, decider decision, history, run
-   ledger, and validation report.
+2. Build complete accepted T060/T063/T064/T074/T079 work-loop records:
+   `START_GATE`, engine depth, state ownership, review loop, decider decision,
+   history, run ledger, and validation report.
 3. If the evidence schema must identify the reducer-spine surface more strongly,
    add a small source-side reducer-spine witness or evidence schema note before
    broadening to more drivers.
@@ -230,11 +244,9 @@ is:
    importing TypeScript knowledge.
 
 The next useful Rust diagnostic, if continuing before a source-side witness, is
-`battle-runtime-stat-block-multi-damage.mbt.qnt` or
-`battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt`. Both are close
-to the T060 stat-block action path and should show whether the copied QNT can
-drive stat-block damage and rider resolution through the same reducer-spine
-subject.
+`battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt`. It is close to
+the T060/T079 stat-block action path and should show whether the copied QNT can
+drive condition rider resolution through the same reducer-spine subject.
 
 This is the first experiment that directly measures the goal: whether battle
 reducer behavior can be reconstructed from QNT, not merely whether focused QNT

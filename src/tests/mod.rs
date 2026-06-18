@@ -92,6 +92,8 @@ mod battle_runtime_spell_attack_ordering;
 mod battle_runtime_starry_wisp_object;
 #[path = "../qnt_adapters/battle_runtime_stat_block_action_ordering.rs"]
 mod battle_runtime_stat_block_action_ordering;
+#[path = "../qnt_adapters/battle_runtime_stat_block_multi_damage.rs"]
+mod battle_runtime_stat_block_multi_damage;
 #[path = "../qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs"]
 mod battle_runtime_thaumaturgy_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs"]
@@ -832,6 +834,14 @@ use battle_runtime_stat_block_action_ordering::{
     projection_payload as stat_block_action_ordering_projection_payload,
     replay_observed_action as replay_stat_block_action_ordering_action,
     BRANCH_ACTIONS as STAT_BLOCK_ACTION_ORDERING_BRANCH_ACTIONS,
+};
+use battle_runtime_stat_block_multi_damage::{
+    expected_static_hit_attack_roll as expected_stat_block_multi_damage_static_hit,
+    expected_witness as expected_stat_block_multi_damage_witness,
+    projection_payload as stat_block_multi_damage_projection_payload,
+    replay_observed_action as replay_stat_block_multi_damage_action,
+    replay_observed_static_hit_attack_roll as replay_stat_block_multi_damage_static_hit,
+    BRANCH_ACTIONS as STAT_BLOCK_MULTI_DAMAGE_BRANCH_ACTIONS,
 };
 use battle_runtime_thaumaturgy_selected_identity::{
     expected_witness as expected_thaumaturgy_selected_identity_witness,
@@ -4359,6 +4369,29 @@ fn stat_block_action_ordering_tracks_multiattack_damage_and_recharge_paths() {
         StatBlockActionOrderingProtocol::Resolved
     );
     assert!(recharge_filled.recharge_action_available);
+}
+
+#[test]
+fn stat_block_multi_damage_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-stat-block-multi-damage.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md
+    // "Damage Notation" and cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Damage Rolls" and "Hit Points".
+    for action in STAT_BLOCK_MULTI_DAMAGE_BRANCH_ACTIONS {
+        let observed = replay_stat_block_multi_damage_action(action);
+        assert_eq!(observed, expected_stat_block_multi_damage_witness(action));
+        assert!(stat_block_multi_damage_projection_payload(&observed).contains("qTargetHp="));
+    }
+}
+
+#[test]
+fn stat_block_multi_damage_static_hit_spends_static_damage() {
+    // QNT: battle-runtime-stat-block-multi-damage.mbt.qnt
+    // `doFillHitAttackRoll`; RAW: Monsters/Overview.md "Damage Notation".
+    let observed = replay_stat_block_multi_damage_static_hit();
+    assert_eq!(observed, expected_stat_block_multi_damage_static_hit());
+    assert!(stat_block_multi_damage_projection_payload(&observed).contains("StaticDamageMode"));
 }
 
 #[test]

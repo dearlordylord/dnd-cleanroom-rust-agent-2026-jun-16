@@ -19,6 +19,95 @@ replay evidence, and records verification results. Entries with older manifest
 source commit SHAs or inventory SHAs are historical unless they include a
 current-snapshot revalidation note.
 
+## T079-T060: Stat-Block Multi-Damage Battle-Spine Diagnostic
+
+- Manifest source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
+- Source branch inventory SHA: `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
+- Selected driver:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt`
+- Reused dependency driver:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt`
+- Branch obligations:
+  - `step:doFillHitAttackRoll`
+  - `step:doFillTargetChoice`
+  - `step:doResolveRolledDamage`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+
+Behavior implemented:
+
+- `src/rules/battle_reducer_spine.rs` now represents stat-block attack damage
+  mode as `StatBlockActionDamageMode::Rolled` or
+  `StatBlockActionDamageMode::Static { damage }` instead of a bare rolled
+  boolean.
+- Rolled stat-block hit resolution still opens a damage-roll hole; resolving
+  that damage roll mutates the durable target HP through `BattleState`.
+- Static stat-block hit resolution now applies the static hit damage directly
+  during the attack-roll fill and resolves without a damage-roll hole.
+- `src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs` keeps the T079
+  QNT literals as the expected witness, while the observed replay uses
+  `start_goblin_stat_block_battle` and `resolve_stat_block_action_subject`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doFillHitAttackRoll` | `tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json#T079-fill-hit-attack-roll-static#step:doFillHitAttackRoll` | `cargo test stat_block` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json#T079-fill-target-choice-rolled#step:doFillTargetChoice` | `cargo test stat_block` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doResolveRolledDamage` | `tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json#T079-resolve-rolled-damage#step:doResolveRolledDamage` | `cargo test stat_block` | `covered` |
+
+Target replay evidence:
+
+- Evidence file:
+  `tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json`
+- Target profile: `rust`
+- Target profile SHA-256:
+  `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Additional target replay trace:
+  `T079-fill-hit-attack-roll-rolled` records the rolled branch of
+  `doFillHitAttackRoll`; the coverage row above cites the static branch because
+  static damage application is the new reducer behavior.
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json` is still missing; repo-wide acceptance
+  remains blocked by global accounting debt outside this combined diagnostic.
+
+Remaining gaps:
+
+- T079 proves rolled/static stat-block damage through the battle spine for the
+  Goblin fixture route, but not size-gated condition riders.
+- General stat-block action catalog admission remains future work.
+- Repo-wide harness acceptance still fails on the known global denominator:
+  missing run ledger, 78 undeclared historical evidence files, 159 witness
+  protocol leak findings from undeclared adapters, and 17 authored-identity
+  scan findings outside this change.
+
+Verification results:
+
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt --evidence tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json` passed.
+- `cargo test stat_block -- --nocapture` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed on known repo-wide
+  accounting debt outside this combined diagnostic: missing
+  `tasks/RUN_LEDGER.json`, 78 undeclared evidence files, 159 adapter quarantine
+  findings from undeclared adapters, and 17 authored-identity scan findings.
+
 ## T060-T074: Stat-Block Action Ordering Battle-Spine Diagnostic
 
 - Manifest source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
@@ -72,18 +161,18 @@ Generated branch coverage:
 
 | Obligation | Target replay evidence | Diagnostic tests | Status |
 | --- | --- | --- | --- |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doDiscoverRolledActionAttackControl` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-discover-rolled-action-attack-control#step:doDiscoverRolledActionAttackControl` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doDiscoverStaticActionAttackControl` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-discover-static-action-attack-control#step:doDiscoverStaticActionAttackControl` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-attack-roll-miss#step:doFillAttackRollMiss` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillDamageDice` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-damage-dice#step:doFillDamageDice` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillRechargeRoll` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-recharge-roll#step:doFillRechargeRoll` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillRolledAttackRollHit` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-rolled-attack-roll-hit#step:doFillRolledAttackRollHit` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillStaticAttackRollHit` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-static-attack-roll-hit#step:doFillStaticAttackRollHit` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-target-choice#step:doFillTargetChoice` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doRejectAttackRollBeforeTargetChoice` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-reject-attack-roll-before-target-choice#step:doRejectAttackRollBeforeTargetChoice` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doRejectDamageBeforeAttackRoll` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-reject-damage-before-attack-roll#step:doRejectDamageBeforeAttackRoll` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doSpendRechargeGatedRolledAttack` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-spend-recharge-gated-rolled-attack#step:doSpendRechargeGatedRolledAttack` | `cargo test stat_block_action_ordering` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doStartMultiattackControl` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-start-multiattack-control#step:doStartMultiattackControl` | `cargo test stat_block_action_ordering` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doDiscoverRolledActionAttackControl` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-discover-rolled-action-attack-control#step:doDiscoverRolledActionAttackControl` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doDiscoverStaticActionAttackControl` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-discover-static-action-attack-control#step:doDiscoverStaticActionAttackControl` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-attack-roll-miss#step:doFillAttackRollMiss` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillDamageDice` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-damage-dice#step:doFillDamageDice` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillRechargeRoll` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-recharge-roll#step:doFillRechargeRoll` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillRolledAttackRollHit` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-rolled-attack-roll-hit#step:doFillRolledAttackRollHit` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillStaticAttackRollHit` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-static-attack-roll-hit#step:doFillStaticAttackRollHit` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-fill-target-choice#step:doFillTargetChoice` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doRejectAttackRollBeforeTargetChoice` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-reject-attack-roll-before-target-choice#step:doRejectAttackRollBeforeTargetChoice` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doRejectDamageBeforeAttackRoll` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-reject-damage-before-attack-roll#step:doRejectDamageBeforeAttackRoll` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doSpendRechargeGatedRolledAttack` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-spend-recharge-gated-rolled-attack#step:doSpendRechargeGatedRolledAttack` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doStartMultiattackControl` | `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json#T060-start-multiattack-control#step:doStartMultiattackControl` | `cargo test stat_block_action_ordering` | `prior diagnostic` |
 
 Target replay evidence:
 

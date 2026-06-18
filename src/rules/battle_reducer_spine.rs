@@ -152,8 +152,14 @@ pub struct StatBlockActionSubject {
     pub actor: Actor,
     pub target: Option<Actor>,
     pub stage: StatBlockActionFrontierStage,
-    pub uses_rolled_damage: bool,
+    pub damage_mode: StatBlockActionDamageMode,
     pub recharge_action_available: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum StatBlockActionDamageMode {
+    Rolled,
+    Static { damage: i16 },
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -471,7 +477,7 @@ pub fn start_goblin_multiattack_control(state: BattleState) -> StatBlockActionRe
             initial_stat_block_action_subject(
                 Actor::Goblin,
                 StatBlockActionFrontierStage::ActSelection,
-                true,
+                StatBlockActionDamageMode::Rolled,
                 false,
             ),
             StatBlockActionResolutionInvalidReason::StaleSubject,
@@ -487,7 +493,7 @@ pub fn start_goblin_multiattack_control(state: BattleState) -> StatBlockActionRe
             initial_stat_block_action_subject(
                 Actor::Goblin,
                 StatBlockActionFrontierStage::ActSelection,
-                true,
+                StatBlockActionDamageMode::Rolled,
                 false,
             ),
             StatBlockActionResolutionInvalidReason::StaleSubject,
@@ -503,7 +509,7 @@ pub fn start_goblin_multiattack_control(state: BattleState) -> StatBlockActionRe
     let subject = initial_stat_block_action_subject(
         Actor::Goblin,
         StatBlockActionFrontierStage::AttackTargetChoice,
-        true,
+        StatBlockActionDamageMode::Rolled,
         false,
     );
     StatBlockActionResolutionResult::NeedsHoles {
@@ -517,14 +523,20 @@ pub fn start_goblin_multiattack_control(state: BattleState) -> StatBlockActionRe
 pub fn discover_goblin_rolled_action_attack_control(
     state: BattleState,
 ) -> StatBlockActionResolutionResult {
-    discover_goblin_stat_block_attack_control(state, true, true)
+    discover_goblin_stat_block_attack_control(state, StatBlockActionDamageMode::Rolled, true)
 }
 
 #[must_use]
 pub fn discover_goblin_static_action_attack_control(
     state: BattleState,
 ) -> StatBlockActionResolutionResult {
-    discover_goblin_stat_block_attack_control(state, false, false)
+    // QNT: battle-runtime-stat-block-multi-damage.mbt.qnt
+    // `targetInitialHp` 12 -> `targetHpAfterStaticPiercingOnly` 9.
+    discover_goblin_stat_block_attack_control(
+        state,
+        StatBlockActionDamageMode::Static { damage: 3 },
+        false,
+    )
 }
 
 #[must_use]
@@ -541,7 +553,7 @@ pub fn spend_goblin_recharge_gated_rolled_attack(
             initial_stat_block_action_subject(
                 Actor::Goblin,
                 StatBlockActionFrontierStage::ActSelection,
-                true,
+                StatBlockActionDamageMode::Rolled,
                 false,
             ),
             StatBlockActionResolutionInvalidReason::StaleSubject,
@@ -559,7 +571,7 @@ pub fn spend_goblin_recharge_gated_rolled_attack(
     let subject = initial_stat_block_action_subject(
         Actor::Goblin,
         StatBlockActionFrontierStage::RechargeRoll,
-        true,
+        StatBlockActionDamageMode::Rolled,
         false,
     );
     StatBlockActionResolutionResult::NeedsHoles {
@@ -633,7 +645,7 @@ pub fn stat_block_action_projection_from_result(
         last_ordering_error,
         multiattack_dispatches_available: stat_block_multiattack_dispatches_available(state),
         recharge_action_available: subject.recharge_action_available,
-        uses_rolled_damage: subject.uses_rolled_damage,
+        uses_rolled_damage: stat_block_subject_uses_rolled_damage(subject),
     })
 }
 
@@ -850,7 +862,7 @@ fn spend_multiattack_dispatch(
 
 fn discover_goblin_stat_block_attack_control(
     state: BattleState,
-    uses_rolled_damage: bool,
+    damage_mode: StatBlockActionDamageMode,
     recharge_action_available: bool,
 ) -> StatBlockActionResolutionResult {
     if current_actor(&state) != Actor::Goblin || !state.action_available || state.goblin.hp <= 0 {
@@ -859,7 +871,7 @@ fn discover_goblin_stat_block_attack_control(
             initial_stat_block_action_subject(
                 Actor::Goblin,
                 StatBlockActionFrontierStage::ActSelection,
-                uses_rolled_damage,
+                damage_mode,
                 recharge_action_available,
             ),
             StatBlockActionResolutionInvalidReason::StaleSubject,
@@ -870,7 +882,7 @@ fn discover_goblin_stat_block_attack_control(
     let subject = initial_stat_block_action_subject(
         Actor::Goblin,
         StatBlockActionFrontierStage::AttackTargetChoice,
-        uses_rolled_damage,
+        damage_mode,
         recharge_action_available,
     );
     StatBlockActionResolutionResult::NeedsHoles {
@@ -889,7 +901,7 @@ fn resolve_stat_block_target_choice(
         subject.stage,
         StatBlockActionFillKind::TargetChoice,
         false,
-        subject.uses_rolled_damage,
+        stat_block_subject_uses_rolled_damage(&subject),
     );
     let next_stage = match stat_block_order_transition(order) {
         StatBlockOrderTransition::Accepted(stage) => stage,
@@ -939,7 +951,7 @@ fn resolve_stat_block_attack_roll_fill(
         subject.stage,
         StatBlockActionFillKind::AttackRoll,
         attack_roll_hits,
-        subject.uses_rolled_damage,
+        stat_block_subject_uses_rolled_damage(&subject),
     );
     let next_stage = match stat_block_order_transition(order) {
         StatBlockOrderTransition::Accepted(stage) => stage,
@@ -959,14 +971,14 @@ fn resolve_stat_block_attack_roll_fill(
         }
     };
 
-    if subject.target.is_none() {
+    let Some(target) = subject.target else {
         return invalid_stat_block_action(
             state,
             subject,
             StatBlockActionResolutionInvalidReason::InvalidFill,
             None,
         );
-    }
+    };
 
     let state = BattleState {
         attack_roll_made_this_turn: true,
@@ -983,6 +995,13 @@ fn resolve_stat_block_attack_roll_fill(
     };
 
     if next_stage == StatBlockActionFrontierStage::Resolved {
+        let state = match subject.damage_mode {
+            StatBlockActionDamageMode::Rolled => state,
+            StatBlockActionDamageMode::Static { damage } if attack_roll_hits => {
+                with_damaged_target(state, target, damage)
+            }
+            StatBlockActionDamageMode::Static { .. } => state,
+        };
         return StatBlockActionResolutionResult::Resolved {
             state: BattleState {
                 action_available: false,
@@ -1004,7 +1023,7 @@ fn resolve_stat_block_damage_dice(
         subject.stage,
         StatBlockActionFillKind::RolledDice,
         true,
-        subject.uses_rolled_damage,
+        stat_block_subject_uses_rolled_damage(&subject),
     );
     let next_stage = match stat_block_order_transition(order) {
         StatBlockOrderTransition::Accepted(stage) => stage,
@@ -1151,16 +1170,20 @@ fn invalid(
 fn initial_stat_block_action_subject(
     actor: Actor,
     stage: StatBlockActionFrontierStage,
-    uses_rolled_damage: bool,
+    damage_mode: StatBlockActionDamageMode,
     recharge_action_available: bool,
 ) -> StatBlockActionSubject {
     StatBlockActionSubject {
         actor,
         target: None,
         stage,
-        uses_rolled_damage,
+        damage_mode,
         recharge_action_available,
     }
+}
+
+fn stat_block_subject_uses_rolled_damage(subject: &StatBlockActionSubject) -> bool {
+    subject.damage_mode == StatBlockActionDamageMode::Rolled
 }
 
 fn stat_block_action_needs_holes(

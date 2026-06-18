@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json",
+      "evidence": "tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -45,5 +45,5 @@
   "rejectedFindings": [],
   "schemaVersion": 1,
   "scope": "diagnostic-local; repo-wide acceptance remains blocked by global accounting debt",
-  "taskId": "T060-T074"
+  "taskId": "T079-T060"
 }

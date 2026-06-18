@@ -1,41 +1,31 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 0,
+      "addedEntries": 1,
       "owner": "production",
-      "reason": "reused BattleState, Combatant recharge state, and StatBlockControlState; no production witness table was added"
+      "reason": "replaced the stat-block action subject's rolled-damage boolean with a typed damage mode so static hit damage is executable in the reducer spine"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "path": "src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs",
       "quarantinedWitnessNames": [
-        "doDiscoverRolledActionAttackControl",
-        "doDiscoverStaticActionAttackControl",
-        "doFillAttackRollMiss",
-        "doFillDamageDice",
-        "doFillRechargeRoll",
-        "doFillRolledAttackRollHit",
-        "doFillStaticAttackRollHit",
         "doFillTargetChoice",
-        "doRejectAttackRollBeforeTargetChoice",
-        "doRejectDamageBeforeAttackRoll",
-        "doSpendRechargeGatedRolledAttack",
-        "doStartMultiattackControl",
-        "init",
+        "doFillHitAttackRoll",
+        "doResolveRolledDamage",
+        "initRolled",
+        "initStatic",
+        "RolledDamageMode",
+        "StaticDamageMode",
+        "TargetChoice",
+        "AttackRoll",
+        "DamageRoll",
+        "qTargetHp",
+        "qDamageMode",
+        "qProtocol",
+        "qHoles",
         "needsHoles",
         "resolved",
-        "invalid",
-        "WInvalidFill",
-        "qStage",
-        "qProtocol",
-        "qLastOrderingError",
-        "qMultiattackDispatchesAvailable",
-        "qRechargeActionAvailable",
-        "qUsesRolledDamage",
-        "protocolResult",
-        "protocolInvalidReason",
-        "protocolHoles",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -53,25 +43,20 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json"
+        "tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "resolve_stat_block_action_subject",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt",
-      "module": "src/rules/battle_reducer_spine.rs"
-    },
-    {
-      "api": "stat_block_action_projection_from_result",
+      "api": "StatBlockActionDamageMode",
       "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
       "module": "src/rules/battle_reducer_spine.rs"
     },
     {
-      "api": "resolve_stat_block_control_subject",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt",
-      "module": "src/rules/rule_core_stat_block_controls.rs"
+      "api": "resolve_stat_block_action_subject",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "module": "src/rules/battle_reducer_spine.rs"
     }
   ],
   "productionModulesExtended": [
@@ -81,18 +66,14 @@
         "AttackRollFacts",
         "BattleState",
         "Combatant",
+        "StatBlockActionDamageMode",
         "StatBlockActionFill",
         "StatBlockActionResolutionResult",
         "StatBlockActionSubject",
-        "current_actor",
         "discover_goblin_rolled_action_attack_control",
         "discover_goblin_static_action_attack_control",
         "resolve_stat_block_action_subject",
-        "spend_goblin_recharge_gated_rolled_attack",
-        "start_goblin_multiattack_control",
-        "start_goblin_stat_block_battle",
-        "stat_block_action_projection_from_result",
-        "stat_block_multiattack_dispatches_available"
+        "start_goblin_stat_block_battle"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
       "role": "domain-engine"
@@ -101,34 +82,13 @@
       "domainApis": [
         "StatBlockActionFillKind",
         "StatBlockActionFillOrderResult",
-        "StatBlockActionFillOrderingError",
         "StatBlockActionFrontierStage",
-        "StatBlockActionHoleKind",
-        "StatBlockActionOrderingProjectionFacts",
-        "StatBlockActionOrderingState",
-        "StatBlockActionRuntimeResult",
-        "stat_block_action_fill_order_result",
-        "stat_block_action_hole_frontier",
-        "stat_block_action_ordering_projection"
+        "stat_block_action_fill_order_result"
       ],
       "path": "src/rules/stat_block_action_ordering.rs",
       "role": "rule-facts"
-    },
-    {
-      "domainApis": [
-        "StatBlockAttackSlot",
-        "StatBlockControlState",
-        "StatBlockDispatchSubject",
-        "StatBlockMultiattackProfile",
-        "resolve_stat_block_control_subject",
-        "start_stat_block_multiattack_from",
-        "stat_block_control_initial_state",
-        "stat_block_multiattack_continuation_open"
-      ],
-      "path": "src/rules/rule_core_stat_block_controls.rs",
-      "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T060-T074"
+  "taskId": "T079-T060"
 }

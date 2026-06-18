@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T060-T074",
-  "startHeadSha": "008e85a18e87a1aba25fb6298201ba7852ca9eec",
+  "taskId": "T079-T060",
+  "startHeadSha": "b5cbf92cdf8d5af0c92c0bd4d6cd5f1c3a9ff581",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt"
     ]
   }
 }
