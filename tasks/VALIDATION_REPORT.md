@@ -7,7 +7,8 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `<none>`
+- Last completed current-snapshot queued branch set:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
 - Next queued driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt`
 - Next task id: `T001`
 
@@ -18,6 +19,93 @@ allowed inputs used, renders branch coverage from harness-generated target
 replay evidence, and records verification results. Entries with older manifest
 source commit SHAs or inventory SHAs are historical unless they include a
 current-snapshot revalidation note.
+
+## T081-T062: Turn-Boundary Lifecycle Battle-Spine Diagnostic
+
+- Manifest source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
+- Source branch inventory SHA: `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
+- Selected driver:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
+- Reused dependency drivers:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-advancement.qnt`,
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-order.qnt`, and
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-model.qnt`
+- Branch obligations:
+  - `step:doResolveSourceNextTurn`
+  - `step:doResolveTargetStartTurn`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-advancement.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-order.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-model.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+
+Behavior implemented:
+
+- `src/rules/battle_reducer_spine.rs` now stores bounded
+  `TurnBoundaryEffects` facts on `BattleState`.
+- `start_turn_boundary_effect_lifecycle_battle` seeds the T062 Source/Target
+  fixture from the QNT initial projection.
+- `end_turn` advances initiative through the shared battle spine, resets
+  action/bonus-action/attack-roll/reaction/movement turn resources for the next
+  actor, applies target start-turn and end-turn damage, and expires the
+  fixture's source next-turn effects.
+- `src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs` keeps
+  the T062 QNT literals as expected witness data, while observed replay uses
+  `start_turn_boundary_effect_lifecycle_battle` and `end_turn`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt#step:doResolveSourceNextTurn` | `tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json#T062-resolve-source-next-turn#step:doResolveSourceNextTurn` | `cargo test turn_boundary -- --nocapture` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt#step:doResolveTargetStartTurn` | `tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json#T062-resolve-target-start-turn#step:doResolveTargetStartTurn` | `cargo test turn_boundary -- --nocapture` | `covered` |
+
+Target replay evidence:
+
+- Evidence file:
+  `tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json`
+- Target profile: `rust`
+- Target profile SHA-256:
+  `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json` is still missing; repo-wide acceptance
+  remains blocked by global accounting debt outside this diagnostic.
+
+Remaining gaps:
+
+- T062 proves only the bounded Source/Target turn-boundary fixture. It does not
+  implement general active-effect storage, all spell-effect timing, readied
+  spell/movement cleanup, death-save start-turn behavior, or arbitrary combatant
+  initiative lists.
+- Repo-wide harness acceptance still fails on the known global denominator:
+  missing `tasks/RUN_LEDGER.json`, 79 undeclared historical evidence files, 158
+  witness-protocol findings from undeclared adapters, and 17 authored-identity
+  scan findings outside this change.
+
+Verification results:
+
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt --evidence tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json` passed.
+- `cargo test turn_boundary -- --nocapture` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed on known repo-wide
+  accounting debt outside this diagnostic: missing `tasks/RUN_LEDGER.json`, 79
+  undeclared historical evidence files, 158 witness-protocol findings from
+  undeclared adapters, and 17 authored-identity scan findings.
 
 ## T080-T060-T079: Stat-Block Size-Gated Condition Rider Battle-Spine Diagnostic
 
@@ -64,9 +152,9 @@ Generated branch coverage:
 
 | Obligation | Target replay evidence | Diagnostic tests | Status |
 | --- | --- | --- | --- |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doFillHitAttackRoll` | `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json#T080-fill-hit-attack-roll-medium#step:doFillHitAttackRoll` | `cargo test stat_block` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json#T080-fill-target-choice-medium#step:doFillTargetChoice` | `cargo test stat_block` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doResolveDamage` | `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json#T080-resolve-damage-medium#step:doResolveDamage` | `cargo test stat_block` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doFillHitAttackRoll` | `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json#T080-fill-hit-attack-roll-medium#step:doFillHitAttackRoll` | `cargo test stat_block` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json#T080-fill-target-choice-medium#step:doFillTargetChoice` | `cargo test stat_block` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doResolveDamage` | `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json#T080-resolve-damage-medium#step:doResolveDamage` | `cargo test stat_block` | `prior diagnostic` |
 
 Target replay evidence:
 

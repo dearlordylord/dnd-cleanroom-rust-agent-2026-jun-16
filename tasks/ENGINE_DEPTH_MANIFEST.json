@@ -1,34 +1,43 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 4,
+      "addedEntries": 2,
       "owner": "production",
-      "reason": "added a shared creature-size value type, durable prone and creature-size facts to combatants, plus a typed stat-block prone-on-hit rider, so size-gated condition riders are executable in the reducer spine"
+      "reason": "added bounded turn-boundary effect facts to BattleState and a shared end_turn entrypoint, so T062 lifecycle replay advances initiative and mutates durable battle state instead of using only a literal helper"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "path": "src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs",
       "quarantinedWitnessNames": [
-        "doFillTargetChoice",
-        "doFillHitAttackRoll",
-        "doResolveDamage",
-        "initMediumOrSmallerTarget",
-        "initLargerTarget",
-        "initMediumOrSmallerProneImmuneTarget",
-        "MediumOrSmallerTarget",
-        "LargerTarget",
-        "MediumOrSmallerProneImmuneTarget",
-        "TargetChoice",
-        "AttackRoll",
-        "DamageRoll",
+        "doResolveTargetStartTurn",
+        "doResolveSourceNextTurn",
+        "Init",
+        "TargetStartTurnResolved",
+        "SourceNextTurnResolved",
+        "SourceTurn",
+        "TargetTurn",
+        "NoBoundaryHoles",
+        "TurnStartDamageThenSave",
+        "TurnEndDamageOnly",
+        "qScenario",
+        "qActor",
+        "qRound",
         "qTargetHp",
-        "qTargetProne",
-        "qTargetSizeGate",
-        "qProtocol",
-        "qHoles",
-        "needsHoles",
-        "resolved",
+        "qTurnStartDamageActive",
+        "qTurnEndDamageActive",
+        "qUntilNextTurnActive",
+        "qStartTurnOngoingFeatureActive",
+        "qEndTurnOngoingFeatureActive",
+        "qTurnStartDamageAppliedBeforeEndDamage",
+        "qTurnEndDamageAppliedBeforeExpiry",
+        "qEndTurnOngoingExpiredAtTargetEnd",
+        "qUntilNextTurnExpiredAtSourceStart",
+        "qStartTurnOngoingExpiredAtSourceStart",
+        "qTurnStartDurationExpiredAfterRoundTick",
+        "qLastHoleOrder",
+        "protocolResult",
+        "protocolHoles",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -46,62 +55,35 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json"
+        "tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "StatBlockProneOnHitRider",
-      "driver": "source-side reducer-spine witness or next reducer subsystem",
+      "api": "end_turn",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
       "module": "src/rules/battle_reducer_spine.rs"
     },
     {
-      "api": "resolve_stat_block_action_subject",
-      "driver": "source-side reducer-spine witness or next reducer subsystem",
+      "api": "TurnBoundaryEffects",
+      "driver": "source-side reducer-spine witness or reaction/interrupt substrate",
       "module": "src/rules/battle_reducer_spine.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "Actor",
-        "AttackRollFacts",
         "BattleState",
-        "Combatant",
-        "StatBlockActionDamageMode",
-        "StatBlockActionFill",
-        "StatBlockActionResolutionResult",
-        "StatBlockActionSubject",
-        "StatBlockProneOnHitRider",
-        "discover_goblin_prone_rider_attack_control",
-        "discover_goblin_rolled_action_attack_control",
-        "discover_goblin_static_action_attack_control",
-        "resolve_stat_block_action_subject",
-        "start_goblin_prone_rider_battle",
-        "start_goblin_stat_block_battle"
+        "TurnBoundaryEffects",
+        "current_actor",
+        "end_turn",
+        "start_turn_boundary_effect_lifecycle_battle"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
       "role": "domain-engine"
-    },
-    {
-      "domainApis": [
-        "CreatureSize"
-      ],
-      "path": "src/rules/creature_size.rs",
-      "role": "domain-api"
-    },
-    {
-      "domainApis": [
-        "StatBlockActionFillKind",
-        "StatBlockActionFillOrderResult",
-        "StatBlockActionFrontierStage",
-        "stat_block_action_fill_order_result"
-      ],
-      "path": "src/rules/stat_block_action_ordering.rs",
-      "role": "rule-facts"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T080-T060-T079"
+  "taskId": "T081-T062"
 }

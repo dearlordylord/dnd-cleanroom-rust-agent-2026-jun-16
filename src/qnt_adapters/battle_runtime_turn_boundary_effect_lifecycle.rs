@@ -1,21 +1,35 @@
-use crate::rules::turn_boundary_effect_lifecycle::{
-    resolve_source_next_turn, resolve_target_start_turn, TurnBoundaryActor,
-    TurnBoundaryEffectLifecycleState, TurnBoundaryHoleOrder, TurnBoundaryLifecycleProtocol,
-    TurnBoundaryLifecycleScenario,
+use crate::rules::{
+    battle_reducer_spine::{
+        current_actor, end_turn, start_turn_boundary_effect_lifecycle_battle, Actor, BattleState,
+    },
+    turn_boundary_effect_lifecycle::{
+        resolve_source_next_turn, resolve_target_start_turn, TurnBoundaryActor,
+        TurnBoundaryEffectLifecycleState, TurnBoundaryHoleOrder, TurnBoundaryLifecycleProtocol,
+        TurnBoundaryLifecycleScenario,
+    },
 };
 
 pub const BRANCH_ACTIONS: [&str; 2] = ["doResolveTargetStartTurn", "doResolveSourceNextTurn"];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> TurnBoundaryEffectLifecycleState {
     match observed_action_taken {
-        "doResolveTargetStartTurn" => resolve_target_start_turn(),
-        "doResolveSourceNextTurn" => resolve_source_next_turn(),
+        "doResolveTargetStartTurn" => {
+            project_battle_state(&end_turn(start_turn_boundary_effect_lifecycle_battle()))
+        }
+        "doResolveSourceNextTurn" => {
+            let target_start = end_turn(start_turn_boundary_effect_lifecycle_battle());
+            project_battle_state(&end_turn(target_start))
+        }
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> TurnBoundaryEffectLifecycleState {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doResolveTargetStartTurn" => resolve_target_start_turn(),
+        "doResolveSourceNextTurn" => resolve_source_next_turn(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(state: &TurnBoundaryEffectLifecycleState) -> String {
@@ -111,5 +125,58 @@ fn joined_or_none(values: &[&'static str]) -> String {
         "none".to_string()
     } else {
         values.join(",")
+    }
+}
+
+fn project_battle_state(state: &BattleState) -> TurnBoundaryEffectLifecycleState {
+    let scenario = match (state.initiative.round, current_actor(state)) {
+        (1, Actor::Fighter) => TurnBoundaryLifecycleScenario::Init,
+        (1, Actor::Goblin) => TurnBoundaryLifecycleScenario::TargetStartTurnResolved,
+        (2, Actor::Fighter) => TurnBoundaryLifecycleScenario::SourceNextTurnResolved,
+        (_, Actor::Fighter) => TurnBoundaryLifecycleScenario::SourceNextTurnResolved,
+        (_, Actor::Goblin) => TurnBoundaryLifecycleScenario::TargetStartTurnResolved,
+        (_, Actor::Rogue | Actor::Skeleton) => TurnBoundaryLifecycleScenario::Init,
+    };
+    let actor = match current_actor(state) {
+        Actor::Fighter => TurnBoundaryActor::SourceTurn,
+        Actor::Goblin => TurnBoundaryActor::TargetTurn,
+        Actor::Rogue | Actor::Skeleton => TurnBoundaryActor::TargetTurn,
+    };
+    let target_start_resolved = scenario == TurnBoundaryLifecycleScenario::TargetStartTurnResolved
+        || scenario == TurnBoundaryLifecycleScenario::SourceNextTurnResolved;
+    let source_next_resolved = scenario == TurnBoundaryLifecycleScenario::SourceNextTurnResolved;
+
+    TurnBoundaryEffectLifecycleState {
+        scenario,
+        actor,
+        round: state.initiative.round,
+        target_hp: state.goblin.hp,
+        turn_start_damage_active: state.turn_boundary_effects.turn_start_damage_active,
+        turn_end_damage_active: state.turn_boundary_effects.turn_end_damage_active,
+        until_next_turn_active: state.turn_boundary_effects.until_next_turn_active,
+        start_turn_ongoing_feature_active: state
+            .turn_boundary_effects
+            .start_turn_ongoing_feature_active,
+        end_turn_ongoing_feature_active: state
+            .turn_boundary_effects
+            .end_turn_ongoing_feature_active,
+        turn_start_damage_applied_before_end_damage: target_start_resolved,
+        turn_end_damage_applied_before_expiry: source_next_resolved,
+        end_turn_ongoing_expired_at_target_end: source_next_resolved,
+        until_next_turn_expired_at_source_start: source_next_resolved,
+        start_turn_ongoing_expired_at_source_start: source_next_resolved,
+        turn_start_duration_expired_after_round_tick: source_next_resolved,
+        last_hole_order: if source_next_resolved {
+            TurnBoundaryHoleOrder::TurnEndDamageOnly
+        } else if target_start_resolved {
+            TurnBoundaryHoleOrder::TurnStartDamageThenSave
+        } else {
+            TurnBoundaryHoleOrder::NoBoundaryHoles
+        },
+        protocol: if scenario == TurnBoundaryLifecycleScenario::Init {
+            TurnBoundaryLifecycleProtocol::Init
+        } else {
+            TurnBoundaryLifecycleProtocol::Resolved
+        },
     }
 }

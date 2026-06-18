@@ -4601,6 +4601,82 @@ fn turn_boundary_effect_lifecycle_orders_start_end_and_source_expiry() {
 }
 
 #[test]
+fn experimental_qnt_spine_advances_turn_boundary_lifecycle() {
+    use crate::rules::battle_reducer_spine::{
+        current_actor, end_turn, start_turn_boundary_effect_lifecycle_battle, Actor,
+    };
+
+    let mut source_turn = start_turn_boundary_effect_lifecycle_battle();
+    source_turn.action_available = false;
+    source_turn.bonus_action_available = false;
+    source_turn.attack_roll_made_this_turn = true;
+    source_turn.goblin.reaction_available = false;
+    source_turn.goblin.movement_spent_feet = 10;
+
+    let mut target_turn = end_turn(source_turn);
+    assert_eq!(current_actor(&target_turn), Actor::Goblin);
+    assert_eq!(target_turn.initiative.round, 1);
+    assert_eq!(target_turn.goblin.hp, 8);
+    assert!(target_turn.action_available);
+    assert!(target_turn.bonus_action_available);
+    assert!(!target_turn.attack_roll_made_this_turn);
+    assert!(target_turn.goblin.reaction_available);
+    assert_eq!(target_turn.goblin.movement_spent_feet, 0);
+    assert!(target_turn.turn_boundary_effects.turn_start_damage_active);
+    assert!(target_turn.turn_boundary_effects.turn_end_damage_active);
+    assert!(target_turn.turn_boundary_effects.until_next_turn_active);
+    assert!(
+        target_turn
+            .turn_boundary_effects
+            .start_turn_ongoing_feature_active
+    );
+    assert!(
+        target_turn
+            .turn_boundary_effects
+            .end_turn_ongoing_feature_active
+    );
+
+    target_turn.action_available = false;
+    target_turn.bonus_action_available = false;
+    target_turn.fighter.reaction_available = false;
+    target_turn.fighter.movement_spent_feet = 15;
+
+    let source_next_turn = end_turn(target_turn);
+    assert_eq!(current_actor(&source_next_turn), Actor::Fighter);
+    assert_eq!(source_next_turn.initiative.round, 2);
+    assert_eq!(source_next_turn.goblin.hp, 5);
+    assert!(source_next_turn.action_available);
+    assert!(source_next_turn.bonus_action_available);
+    assert!(source_next_turn.fighter.reaction_available);
+    assert_eq!(source_next_turn.fighter.movement_spent_feet, 0);
+    assert!(
+        !source_next_turn
+            .turn_boundary_effects
+            .turn_start_damage_active
+    );
+    assert!(
+        !source_next_turn
+            .turn_boundary_effects
+            .turn_end_damage_active
+    );
+    assert!(
+        !source_next_turn
+            .turn_boundary_effects
+            .until_next_turn_active
+    );
+    assert!(
+        !source_next_turn
+            .turn_boundary_effects
+            .start_turn_ongoing_feature_active
+    );
+    assert!(
+        !source_next_turn
+            .turn_boundary_effects
+            .end_turn_ongoing_feature_active
+    );
+}
+
+#[test]
 fn weapon_attack_ordering_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-weapon-attack-ordering.mbt.qnt and

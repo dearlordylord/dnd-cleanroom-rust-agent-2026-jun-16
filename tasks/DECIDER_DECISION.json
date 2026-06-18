@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json",
+      "evidence": "tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -45,5 +45,5 @@
   "rejectedFindings": [],
   "schemaVersion": 1,
   "scope": "diagnostic-local; repo-wide acceptance remains blocked by global accounting debt",
-  "taskId": "T080-T060-T079"
+  "taskId": "T081-T062"
 }

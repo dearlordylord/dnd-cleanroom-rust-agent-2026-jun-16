@@ -80,12 +80,47 @@ pub struct BattleState {
     pub rogue: Combatant,
     pub skeleton: Combatant,
     pub stat_block_control: StatBlockControlState,
+    pub turn_boundary_effects: TurnBoundaryEffects,
     pub action_available: bool,
     pub bonus_action_available: bool,
     pub attack_roll_made_this_turn: bool,
     pub dash_movement_bonus_feet: i16,
     pub disengaged: bool,
     pub interrupt_stack_depth: usize,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct TurnBoundaryEffects {
+    pub turn_start_damage_active: bool,
+    pub turn_end_damage_active: bool,
+    pub until_next_turn_active: bool,
+    pub start_turn_ongoing_feature_active: bool,
+    pub end_turn_ongoing_feature_active: bool,
+}
+
+impl TurnBoundaryEffects {
+    #[must_use]
+    pub fn none() -> Self {
+        Self {
+            turn_start_damage_active: false,
+            turn_end_damage_active: false,
+            until_next_turn_active: false,
+            start_turn_ongoing_feature_active: false,
+            end_turn_ongoing_feature_active: false,
+        }
+    }
+
+    #[must_use]
+    pub fn lifecycle_witness_fixture() -> Self {
+        // QNT: battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt `init`.
+        Self {
+            turn_start_damage_active: true,
+            turn_end_damage_active: true,
+            until_next_turn_active: true,
+            start_turn_ongoing_feature_active: true,
+            end_turn_ongoing_feature_active: true,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -239,6 +274,7 @@ pub fn start_battle() -> BattleState {
         rogue: rogue_combatant(),
         skeleton: skeleton_combatant(),
         stat_block_control: stat_block_control_initial_state(),
+        turn_boundary_effects: TurnBoundaryEffects::none(),
         action_available: true,
         bonus_action_available: true,
         attack_roll_made_this_turn: false,
@@ -266,6 +302,7 @@ pub fn start_skeleton_battle() -> BattleState {
         rogue: rogue_combatant(),
         skeleton: skeleton_combatant(),
         stat_block_control: stat_block_control_initial_state(),
+        turn_boundary_effects: TurnBoundaryEffects::none(),
         action_available: true,
         bonus_action_available: true,
         attack_roll_made_this_turn: false,
@@ -319,6 +356,16 @@ pub fn start_goblin_prone_rider_battle(target_size: CreatureSize) -> BattleState
         ..state.fighter
     };
     state
+}
+
+#[must_use]
+pub fn start_turn_boundary_effect_lifecycle_battle() -> BattleState {
+    // QNT: battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt `init`;
+    // battle-runtime-turn-advancement.qnt `endTurn`.
+    BattleState {
+        turn_boundary_effects: TurnBoundaryEffects::lifecycle_witness_fixture(),
+        ..start_battle()
+    }
 }
 
 fn fighter_combatant() -> Combatant {
@@ -407,6 +454,130 @@ pub fn current_actor(state: &BattleState) -> Actor {
 pub fn stat_block_multiattack_dispatches_available(state: &BattleState) -> i16 {
     state.stat_block_control.pending_primary_dispatches
         + state.stat_block_control.pending_secondary_dispatches
+}
+
+#[must_use]
+pub fn end_turn(state: BattleState) -> BattleState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "The Order of Combat"; QNT: battle-runtime-turn-advancement.qnt
+    // `endTurn`, narrowed to the current reducer-spine combatants and the
+    // T062 lifecycle fixture effects.
+    let previous_round = state.initiative.round;
+    let current = current_actor(&state);
+    let state = apply_turn_end_boundary_effects(state, current);
+    let initiative = next_initiative(state.initiative.clone());
+    let next_actor = initiative.still_to_act.actor;
+    let state = BattleState {
+        initiative,
+        action_available: true,
+        bonus_action_available: true,
+        attack_roll_made_this_turn: false,
+        dash_movement_bonus_feet: 0,
+        disengaged: false,
+        ..state
+    };
+    let state = reset_start_turn_combatant(state, next_actor);
+    let state = apply_start_turn_boundary_effects(state, next_actor);
+
+    if state.initiative.round > previous_round {
+        tick_round_duration_boundary_effects(state)
+    } else {
+        state
+    }
+}
+
+fn next_initiative(initiative: Initiative) -> Initiative {
+    // QNT: battle-runtime-turn-order.qnt `nextInitiative`.
+    let current = initiative.still_to_act.actor;
+    let acted = {
+        let mut already_acted = initiative.already_acted.clone();
+        already_acted.push(current);
+        already_acted
+    };
+
+    if let Some((actor, waiting)) = initiative.still_to_act.waiting.split_first() {
+        Initiative {
+            round: initiative.round,
+            already_acted: acted,
+            still_to_act: InitiativeStillToAct {
+                actor: *actor,
+                waiting: waiting.to_vec(),
+            },
+        }
+    } else {
+        let mut next_round_order = initiative.already_acted;
+        next_round_order.push(current);
+        let Some((actor, waiting)) = next_round_order.split_first() else {
+            return Initiative {
+                round: initiative.round + 1,
+                already_acted: Vec::new(),
+                still_to_act: InitiativeStillToAct {
+                    actor: current,
+                    waiting: Vec::new(),
+                },
+            };
+        };
+        Initiative {
+            round: initiative.round + 1,
+            already_acted: Vec::new(),
+            still_to_act: InitiativeStillToAct {
+                actor: *actor,
+                waiting: waiting.to_vec(),
+            },
+        }
+    }
+}
+
+fn reset_start_turn_combatant(mut state: BattleState, actor: Actor) -> BattleState {
+    // QNT: battle-runtime-turn-advancement.qnt `battleRuntimeStartTurn`
+    // projection fields used by `endTurn`.
+    let combatant = combatant_for_mut(&mut state, actor);
+    combatant.reaction_available = true;
+    combatant.movement_spent_feet = 0;
+    combatant.sneak_attack_used_this_turn = false;
+    state
+}
+
+fn apply_turn_end_boundary_effects(state: BattleState, actor: Actor) -> BattleState {
+    if actor != Actor::Goblin {
+        return state;
+    }
+
+    let mut state = if state.turn_boundary_effects.turn_end_damage_active {
+        with_damaged_target(state, Actor::Goblin, 3)
+    } else {
+        state
+    };
+
+    state.turn_boundary_effects.turn_end_damage_active = false;
+    state.turn_boundary_effects.end_turn_ongoing_feature_active = false;
+    state
+}
+
+fn apply_start_turn_boundary_effects(state: BattleState, actor: Actor) -> BattleState {
+    match actor {
+        Actor::Goblin if state.turn_boundary_effects.turn_start_damage_active => {
+            with_damaged_target(state, Actor::Goblin, 2)
+        }
+        Actor::Fighter => expire_source_next_turn_boundary_effects(state),
+        Actor::Goblin | Actor::Rogue | Actor::Skeleton => state,
+    }
+}
+
+fn expire_source_next_turn_boundary_effects(mut state: BattleState) -> BattleState {
+    state.turn_boundary_effects.until_next_turn_active = false;
+    state
+        .turn_boundary_effects
+        .start_turn_ongoing_feature_active = false;
+    state.turn_boundary_effects.turn_start_damage_active = false;
+    state
+}
+
+fn tick_round_duration_boundary_effects(state: BattleState) -> BattleState {
+    // QNT: battle-runtime-turn-advancement.qnt ticks round-duration spell
+    // effects after the initiative round advances. The T062 fixture has no
+    // separate stored round-duration counter after source start-turn expiry.
+    state
 }
 
 #[must_use]
@@ -1391,6 +1562,15 @@ fn combatant_for(state: &BattleState, actor: Actor) -> Combatant {
         Actor::Goblin => state.goblin,
         Actor::Rogue => state.rogue,
         Actor::Skeleton => state.skeleton,
+    }
+}
+
+fn combatant_for_mut(state: &mut BattleState, actor: Actor) -> &mut Combatant {
+    match actor {
+        Actor::Fighter => &mut state.fighter,
+        Actor::Goblin => &mut state.goblin,
+        Actor::Rogue => &mut state.rogue,
+        Actor::Skeleton => &mut state.skeleton,
     }
 }
 

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T080-T060-T079",
-  "startHeadSha": "829ded8eac36835e60b937bfebb1f44d21524680",
+  "taskId": "T081-T062",
+  "startHeadSha": "fabc842c15f55cd72df99ca36ecc83fae6c19917",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt"
     ]
   }
 }
