@@ -4,120 +4,88 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.initiative.round",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.interrupted_movement_spent_feet",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.initiative.still_to_act.actor",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.reactor_reaction_available",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.goblin.hp",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.reactor_readied_movement_held",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.turn_boundary_effects.turn_start_damage_active",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.reactor_readied_spell_held",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.turn_boundary_effects.turn_end_damage_active",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.reactor_movement_spent_feet",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.turn_boundary_effects.until_next_turn_active",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.interrupted_concentration",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.turn_boundary_effects.start_turn_ongoing_feature_active",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.reactor_concentration",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.turn_boundary_effects.end_turn_ongoing_feature_active",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.reaction_window",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.action_available",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.pending_trigger",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.bonus_action_available",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.protocol",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.attack_roll_made_this_turn",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.fighter.reaction_available",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.goblin.reaction_available",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.fighter.movement_spent_feet",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.goblin.movement_spent_feet",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "fieldPath": "RuleCoreReactionState.last_concentration_save_dc",
+      "introducedIn": "src/rules/rule_core_reactions.rs",
       "owner": "battle-state"
     },
     {
@@ -126,10 +94,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs",
+      "introducedIn": "src/qnt_adapters/rule_core_reactions_mbt.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T081-T062"
+  "taskId": "T082-T072"
 }

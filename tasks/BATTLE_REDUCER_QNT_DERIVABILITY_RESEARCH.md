@@ -18,8 +18,9 @@ The current experiment strongly supports the first two claims. Follow-up tracked
 reducer-spine experiments now support the third claim for several narrow paths:
 weapon attack ordering, the Skeleton weapon-attack fixture, Goblin stat-block
 action ordering, Goblin stat-block multi-damage, Goblin stat-block size-gated
-Prone riders, turn-boundary lifecycle advancement, and the reusable stat-block
-control component. That is still not proof for the full battle reducer.
+Prone riders, turn-boundary lifecycle advancement, the reusable stat-block
+control component, and the reusable reaction component. That is still not proof
+for the full battle reducer.
 
 The "audit battle reducer QNT drivers" question came up because the main goal
 is stronger than replaying focused traces. If the target must reconstruct a
@@ -94,14 +95,14 @@ define combatant addressing, open-hole projection, and turn advancement.
 - Rust battle/rule-core replay adapters in `src/qnt_adapters`: 80.
 - Target replay evidence files: 80.
 - Target replay runs recorded across those files: 489.
-- Current-manifest evidence files: 12.
-- Current-manifest replay runs: 77.
-- Stale previous-manifest evidence files: 68.
-- Stale previous-manifest replay runs: 412.
+- Current-manifest evidence files: 13.
+- Current-manifest replay runs: 88.
+- Stale previous-manifest evidence files: 67.
+- Stale previous-manifest replay runs: 401.
 
 The current-manifest files are the five handoff-lane files plus the T060,
-T062, T063, T064, T074, T079, and T080 reducer-spine/control diagnostics. Their
-combined current run count is 77.
+T062, T063, T064, T072, T074, T079, and T080 reducer-spine/control diagnostics.
+Their combined current run count is 88.
 
 Search result at first measurement: the Rust target had no `BattleState`,
 `start_battle`, `discover_battle_acts`, or `resolve_battle_subject` equivalent.
@@ -239,14 +240,15 @@ The reducer-spine experiments can also be recreated from copied QNT alone for
 the Fighter weapon-attack ordering path, the Rogue/Skeleton weapon-attack
 fixture path, the Goblin stat-block action-ordering path, and the Goblin
 stat-block multi-damage and size-gated Prone-rider paths. Measured generic
-reducer coverage is no longer zero, but it is still a seed. Six existing
-battle MBT adapter tests now replay observed behavior
-through reducer-spine entrypoints instead of slice-specific observed helpers,
-and the T060/T062/T063/T064/T079/T080 per-file target replay evidence is current
-and locally validator-clean. T074 supplies the reusable stat-block control
-component used by battle-spine paths. The full cleanroom claim remains unproven until
-those routes are recorded as complete work-loop tasks and then expanded across
-the level-1/2 battle queue.
+reducer coverage is no longer zero, but it is still a seed. Six existing battle
+MBT adapter tests now replay observed behavior through reducer-spine entrypoints
+instead of slice-specific observed helpers, and the
+T060/T062/T063/T064/T079/T080 per-file target replay evidence is current and
+locally validator-clean. T074 supplies the reusable stat-block control component
+used by battle-spine paths, and T072 now supplies a reusable reaction transition
+component; both have current validator-clean evidence. The full cleanroom claim
+remains unproven until those routes are recorded as complete work-loop tasks
+and then expanded across the level-1/2 battle queue.
 
 ## Completed Follow-Up Experiment
 
@@ -557,9 +559,56 @@ surface and turn-boundary mutation route, but not the complete set of spell
 effect, feature, readied-response, or death-save start-turn cases in
 `battle-runtime-turn-advancement.qnt`.
 
+## Ninth Reaction Transition Component Experiment
+
+`rule-core-reactions.mbt.qnt` is now routed through a reusable reaction
+transition API on the observed side.
+
+This is the reaction analogue of the T074 stat-block control component: it is
+not yet a full battle `BattleState` interrupt route, but it provides reusable
+state transitions the battle reducer needs for T031 and reaction-spell work.
+
+Measured QNT-derived facts:
+
+- opportunity-attack offer opens a reaction decision hole;
+- declining that opportunity attack clears the reaction window and resumes
+  interrupted movement;
+- readied movement setup, offer, decline, take, and invalid zero-distance take
+  are all state transitions over one reaction state;
+- concentration after damage records the SRD/QNT save DC and resulting
+  concentration state.
+
+Rust change:
+
+- `RuleCoreReactionSubject` and `RuleCoreReactionDecision` define the transition
+  subjects/fills.
+- `resolve_rule_core_reaction_subject` applies those transitions to an explicit
+  `RuleCoreReactionState`.
+- `rule_core_reactions_mbt` observed replay uses that transition surface while
+  expected projection remains the focused T072 witness.
+
+Result:
+
+- `tasks/target-replay-evidence/T072-rule-core-reactions.json` has current
+  manifest and inventory hashes.
+- `scripts/check-target-replay-evidence-file.cjs` validates all 11 T072 branch
+  obligations.
+
+This expands reducer-shaped/control evidence from 48 obligations across
+T060/T062/T063/T064/T074/T079/T080 to 59 obligations across
+T060/T062/T063/T064/T072/T074/T079/T080. The battle-spine portion remains 41
+obligations across six battle drivers. Reusable reducer-control evidence is now
+18 obligations across T072 reactions and T074 stat-block controls.
+
+The important limitation is that T072 is still a rule-core component. The next
+falsification step is to compose it into `battle-runtime-interrupt-stack-resume`
+or an equivalent battle-spine path, because that is where nested reaction
+windows, suspended continuations, resumed holes, and replay-from-root
+equivalence must meet durable `BattleState`.
+
 ## Work-Loop Promotion Findings
 
-T060/T062/T063/T064/T074/T079/T080 cannot be promoted to repo-wide harness
+T060/T062/T063/T064/T072/T074/T079/T080 cannot be promoted to repo-wide harness
 acceptance by adding only driver-local ledger/history records in the current
 dirty repo.
 
@@ -568,16 +617,18 @@ Measured denominator:
 - Active replayable obligations: 631 across 96 drivers.
 - Battle/rule-core replayable obligations: 502 across 73 drivers.
 - T060 plus T062 plus T063 plus T064 plus T079 plus T080 battle-spine obligations: 41.
-- T074 reducer-control obligations: 7.
+- T072 plus T074 reducer-control obligations: 18.
 - T060/T064/T074 composed obligations: 12 + 21 + 7, with T060 and T064 sharing
   the T074 stat-block control component.
 - T079 adds 3 selected branch obligations and one extra static-mode replay run.
 - T080 adds 3 selected branch obligations and two extra hit-mode replay runs.
 - T062 adds 2 selected branch obligations and tests the first shared `end_turn`
   route.
+- T072 adds 11 selected branch obligations and tests a reusable reaction
+  transition surface.
 - Target replay evidence files under `tasks/target-replay-evidence`: 80.
-- Current-snapshot evidence files: 12.
-- Stale previous-snapshot evidence files: 68.
+- Current-snapshot evidence files: 13.
+- Stale previous-snapshot evidence files: 67.
 - Rust adapter files under `src/qnt_adapters`: 80.
 - `tasks/history` is absent, and `tasks/RUN_LEDGER.json` is absent.
 
@@ -585,14 +636,14 @@ Harness implication:
 
 - Without `tasks/RUN_LEDGER.json`, `check-cleanroom-harness.cjs` validates every
   evidence file under `tasks/target-replay-evidence` against the current rolling
-  task's declared evidence. A T060/T062/T063/T064/T074/T079/T080 rolling task would
+  task's declared evidence. A T060/T062/T063/T064/T072/T074/T079/T080 rolling task would
   therefore still fail on the other evidence files.
 - With `tasks/RUN_LEDGER.json`, the harness requires every evidence file under
   `tasks/target-replay-evidence` to be accounted for by ledger entries. A
-  T060/T062/T063/T064/T074/T079/T080-only ledger would still fail on the other
+  T060/T062/T063/T064/T072/T074/T079/T080-only ledger would still fail on the other
   evidence files.
 - The production source scan treats undeclared adapter files as production
-  source. A T060/T062/T063/T064/T074/T079/T080-only engine-depth manifest would
+  source. A T060/T062/T063/T064/T072/T074/T079/T080-only engine-depth manifest would
   therefore still scan the other adapter modules and report
   witness-protocol/authored identity findings.
 
@@ -614,17 +665,18 @@ Options from here:
    driver, then promote only after the dirty denominator is fixed.
 
 The best next reducer-specific experiment is Option 1 or Option 3, not a
-T060/T062/T063/T064/T074/T079/T080-only work-loop promotion inside the current
-dirty repo.
+T060/T062/T063/T064/T072/T074/T079/T080-only work-loop promotion inside the
+current dirty repo.
 
 ## Recommended Next Experiment
 
 The adjacent stat-block route now covers T060, T079, and T080, and T062 now
-covers the first turn-boundary `end_turn` route. The next useful step is no
+covers the first turn-boundary `end_turn` route, and T072 covers the reusable
+reaction transition component. The next useful step is no
 longer another Goblin stat-block micro-slice or another bounded turn-boundary
 fixture unless it introduces a different reducer subsystem. Prefer a source-side
-reducer-spine witness, or pick reactions/interrupts or spell-slot/action-resource
-spending. Do not start with a full driver audit.
+reducer-spine witness, or route interrupt-stack resume through the battle spine.
+Do not start with a full driver audit.
 
 ## Next Subsystem Candidate Scan
 
@@ -635,7 +687,7 @@ driver would most improve or falsify the current "reducers from QNT" claim.
 | --- | ---: | --- | --- | --- | --- |
 | `battle-runtime-spell-attack-ordering.mbt.qnt` plus `battle-runtime-save-gated-spell-ordering.mbt.qnt` | 22 | QNT local rule helper; weak reducer evidence by itself | Closed spell hole-frontier stages, fill ordering, and ordering errors for spell attacks and save-gated spells. | `spell_attack_ordering.rs` and `save_gated_spell_ordering.rs` are local helpers/adapters, not `BattleState` reducer routes. | Do not choose next. It would mostly repeat the T060/T063 ordering result with spell-shaped holes, unless paired with spell-slot/action-resource ownership. |
 | `battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt` plus `battle-runtime-turn-advancement.qnt` | 2 | Reducer-spine required | `endTurn` advances initiative, resets action/bonus/spell-cast-per-turn state, resets attack/movement flags, refreshes reactions, runs start/end spell effects, expires ongoing features, ticks round duration, and clears readied holds. | T062 now routes through `start_turn_boundary_effect_lifecycle_battle` and `end_turn`, but only for the bounded source/target fixture. | Done for the bounded fixture. Follow-up should generalize active-effect storage only when a selected driver requires it. |
-| `rule-core-reactions.mbt.qnt` and `battle-runtime-interrupt-stack-resume.mbt.qnt` | 14 | Reducer-spine required, with a reusable rule-core component | Reaction windows, reaction decisions, readied movement, concentration damage DCs, nested window depth, resume holes, and replay-from-root equivalence. | `rule_core_reactions.rs` and `interrupt_stack_resume.rs` are local helper modules. `battle_reducer_spine.rs` has combatant reactions but no interrupt stack or continuation replay. | Strongest falsification candidate after turn advancement. It will expose whether QNT is sufficient for continuation/resume architecture, but it is larger than T062. |
+| `rule-core-reactions.mbt.qnt` and `battle-runtime-interrupt-stack-resume.mbt.qnt` | 14 | Reducer-spine required, with a reusable rule-core component | Reaction windows, reaction decisions, readied movement, concentration damage DCs, nested window depth, resume holes, and replay-from-root equivalence. | T072 now has `resolve_rule_core_reaction_subject`; `interrupt_stack_resume.rs` is still a local helper and `battle_reducer_spine.rs` has no interrupt-stack continuation replay. | T072 component done. Next choose T031 battle-spine integration to test nested windows, resumed holes, active-effect mutation, and replay-from-root equivalence. |
 | `battle-runtime-reaction-casting-time.mbt.qnt` and `battle-runtime-reaction-spell-selected-identity.mbt.qnt` | 6 | Reducer-spine required, but depends on reactions plus spell slots | Counterspell/Shield/Hellish Rebuke reaction spell outcomes, reaction spending, reaction-window clearing, and spell-slot expenditure. | Rust has reaction/spell local slices but no battle-spine spell-slot owner or reaction window. | Do after the reaction-window/interrupt substrate exists. Otherwise it would import too many missing reducer facts at once. |
 | `battle-runtime-command-option-next-turn.mbt.qnt` | 15 | QNT plus RAW fill-in; reducer-spine required for next-turn effects | Pending next-turn option, action/bonus suppression, movement continuation/rejection, reaction-window opening, and cleanup. The QNT file explicitly says route choice and held-object inventory are table-owned facts. | `command_options.rs` is a literal scenario helper. | Do later. It is valuable integration evidence, but it combines turn advancement, movement, reaction windows, and spell-specific pending effects, so it should follow those substrate tests. |
 
@@ -646,10 +698,9 @@ Decision:
    `resolve_battle_subject`, and `end_turn` cleanroom-visible source facts
    instead of inferred architecture.
 2. If continuing only inside this Rust experiment, select
-   `rule-core-reactions.mbt.qnt` as a reusable rule-core component and then
    `battle-runtime-interrupt-stack-resume.mbt.qnt` as the battle-spine
-   integration test.
-3. After reactions/interrupts, decide whether spell-slot/action-resource
+   integration test for the completed T072 reaction component.
+3. After interrupt-stack resume, decide whether spell-slot/action-resource
    ownership is now ready for reaction casting-time or spell attack/save-gated
    routing.
 4. Defer spell attack/save-gated ordering unless it is paired with real
@@ -659,7 +710,7 @@ Decision:
 Method:
 
 1. Use only `cleanroom-input/**` as implementation input.
-2. Promote the existing T060/T062/T063/T064/T074/T079/T080 transition evidence into
+2. Promote the existing T060/T062/T063/T064/T072/T074/T079/T080 transition evidence into
    complete work-loop tasks only after the dirty harness denominator is cleaned
    up.
 3. If the current harness must express "observed via reducer spine, expected

@@ -1,11 +1,14 @@
+use crate::rules::rule_core_movement::{MOVEMENT_FILL_COST_FEET, MOVEMENT_SHORT_COST_FEET};
 use crate::rules::rule_core_reactions::{
     break_reactor_concentration_after_large_damage, decline_reaction_opportunity_attack,
     decline_readied_movement_reaction, hold_reactor_concentration_after_small_damage,
     offer_reaction_opportunity_attack, offer_readied_movement_reaction,
-    ready_reaction_movement_fixture, reject_readied_movement_zero, start_reactor_concentration,
-    take_readied_movement_fill, take_readied_movement_short, RuleCorePendingTrigger,
-    RuleCoreReactionHole, RuleCoreReactionInvalidReason, RuleCoreReactionProtocol,
-    RuleCoreReactionState, RuleCoreReactionWindow,
+    ready_reaction_movement_fixture, reject_readied_movement_zero,
+    resolve_rule_core_reaction_subject, rule_core_reactions_initial_state,
+    start_reactor_concentration, take_readied_movement_fill, take_readied_movement_short,
+    RuleCorePendingTrigger, RuleCoreReactionDecision, RuleCoreReactionHole,
+    RuleCoreReactionInvalidReason, RuleCoreReactionProtocol, RuleCoreReactionState,
+    RuleCoreReactionSubject, RuleCoreReactionWindow,
 };
 
 pub const BRANCH_ACTIONS: [&str; 11] = [
@@ -23,6 +26,10 @@ pub const BRANCH_ACTIONS: [&str; 11] = [
 ];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> RuleCoreReactionState {
+    replay_observed_action_through_reaction_transition(observed_action_taken)
+}
+
+pub fn expected_witness(observed_action_taken: &str) -> RuleCoreReactionState {
     match observed_action_taken {
         "doBreakReactorConcentrationAfterLargeDamage" => {
             break_reactor_concentration_after_large_damage()
@@ -43,8 +50,84 @@ pub fn replay_observed_action(observed_action_taken: &str) -> RuleCoreReactionSt
     }
 }
 
-pub fn expected_witness(observed_action_taken: &str) -> RuleCoreReactionState {
-    replay_observed_action(observed_action_taken)
+fn replay_observed_action_through_reaction_transition(
+    observed_action_taken: &str,
+) -> RuleCoreReactionState {
+    match observed_action_taken {
+        "doBreakReactorConcentrationAfterLargeDamage" => resolve_rule_core_reaction_subject(
+            rule_core_reactions_initial_state(),
+            RuleCoreReactionSubject::ResolveReactorConcentrationAfterDamage {
+                damage_taken: 22,
+                save_succeeded: false,
+            },
+        ),
+        "doDeclineOpportunityAttack" => resolve_rule_core_reaction_subject(
+            offered_opportunity_attack_state(),
+            RuleCoreReactionSubject::ReactionDecision(RuleCoreReactionDecision::Decline),
+        ),
+        "doDeclineReadiedMovement" => resolve_rule_core_reaction_subject(
+            offered_readied_movement_state(),
+            RuleCoreReactionSubject::ReactionDecision(RuleCoreReactionDecision::Decline),
+        ),
+        "doHoldReactorConcentrationAfterSmallDamage" => resolve_rule_core_reaction_subject(
+            rule_core_reactions_initial_state(),
+            RuleCoreReactionSubject::ResolveReactorConcentrationAfterDamage {
+                damage_taken: 8,
+                save_succeeded: true,
+            },
+        ),
+        "doOfferOpportunityAttack" => offered_opportunity_attack_state(),
+        "doOfferReadiedMovement" => offered_readied_movement_state(),
+        "doReadyMovementFixture" => ready_movement_state(),
+        "doRejectReadiedMovementZero" => resolve_rule_core_reaction_subject(
+            offered_readied_movement_state(),
+            RuleCoreReactionSubject::ReactionDecision(
+                RuleCoreReactionDecision::TakeReadiedMovement { distance_feet: 0 },
+            ),
+        ),
+        "doStartReactorConcentrationFixture" => resolve_rule_core_reaction_subject(
+            rule_core_reactions_initial_state(),
+            RuleCoreReactionSubject::StartReactorConcentration,
+        ),
+        "doTakeReadiedMovementFill" => resolve_rule_core_reaction_subject(
+            offered_readied_movement_state(),
+            RuleCoreReactionSubject::ReactionDecision(
+                RuleCoreReactionDecision::TakeReadiedMovement {
+                    distance_feet: MOVEMENT_FILL_COST_FEET,
+                },
+            ),
+        ),
+        "doTakeReadiedMovementShort" => resolve_rule_core_reaction_subject(
+            offered_readied_movement_state(),
+            RuleCoreReactionSubject::ReactionDecision(
+                RuleCoreReactionDecision::TakeReadiedMovement {
+                    distance_feet: MOVEMENT_SHORT_COST_FEET,
+                },
+            ),
+        ),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn offered_opportunity_attack_state() -> RuleCoreReactionState {
+    resolve_rule_core_reaction_subject(
+        rule_core_reactions_initial_state(),
+        RuleCoreReactionSubject::OfferOpportunityAttack,
+    )
+}
+
+fn ready_movement_state() -> RuleCoreReactionState {
+    resolve_rule_core_reaction_subject(
+        rule_core_reactions_initial_state(),
+        RuleCoreReactionSubject::ReadyMovementFixture,
+    )
+}
+
+fn offered_readied_movement_state() -> RuleCoreReactionState {
+    resolve_rule_core_reaction_subject(
+        ready_movement_state(),
+        RuleCoreReactionSubject::OfferReadiedMovement,
+    )
 }
 
 pub fn projection_payload(state: &RuleCoreReactionState) -> String {

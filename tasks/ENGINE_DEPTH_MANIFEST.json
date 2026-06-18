@@ -1,42 +1,45 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 2,
+      "addedEntries": 3,
       "owner": "production",
-      "reason": "added bounded turn-boundary effect facts to BattleState and a shared end_turn entrypoint, so T062 lifecycle replay advances initiative and mutates durable battle state instead of using only a literal helper"
+      "reason": "added a reusable reaction subject/decision transition API so T072 replay is driven by explicit state transitions instead of only per-branch final-state helpers"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs",
+      "path": "src/qnt_adapters/rule_core_reactions_mbt.rs",
       "quarantinedWitnessNames": [
-        "doResolveTargetStartTurn",
-        "doResolveSourceNextTurn",
-        "Init",
-        "TargetStartTurnResolved",
-        "SourceNextTurnResolved",
-        "SourceTurn",
-        "TargetTurn",
-        "NoBoundaryHoles",
-        "TurnStartDamageThenSave",
-        "TurnEndDamageOnly",
-        "qScenario",
-        "qActor",
-        "qRound",
-        "qTargetHp",
-        "qTurnStartDamageActive",
-        "qTurnEndDamageActive",
-        "qUntilNextTurnActive",
-        "qStartTurnOngoingFeatureActive",
-        "qEndTurnOngoingFeatureActive",
-        "qTurnStartDamageAppliedBeforeEndDamage",
-        "qTurnEndDamageAppliedBeforeExpiry",
-        "qEndTurnOngoingExpiredAtTargetEnd",
-        "qUntilNextTurnExpiredAtSourceStart",
-        "qStartTurnOngoingExpiredAtSourceStart",
-        "qTurnStartDurationExpiredAfterRoundTick",
-        "qLastHoleOrder",
+        "doBreakReactorConcentrationAfterLargeDamage",
+        "doDeclineOpportunityAttack",
+        "doDeclineReadiedMovement",
+        "doHoldReactorConcentrationAfterSmallDamage",
+        "doOfferOpportunityAttack",
+        "doOfferReadiedMovement",
+        "doReadyMovementFixture",
+        "doRejectReadiedMovementZero",
+        "doStartReactorConcentrationFixture",
+        "doTakeReadiedMovementFill",
+        "doTakeReadiedMovementShort",
+        "NoReactionWindow",
+        "OfferedOpportunityAttackWindow",
+        "OfferedReadiedMovementWindow",
+        "ReactionDecision",
+        "DamageRoll",
+        "WInvalidFill",
+        "qInterruptedMovementSpentFeet",
+        "qReactorReactionAvailable",
+        "qReactorReadiedMovementHeld",
+        "qReactorReadiedSpellHeld",
+        "qReactorMovementSpentFeet",
+        "qInterruptedConcentration",
+        "qReactorConcentration",
+        "qReactionWindow",
+        "qPendingTrigger",
+        "qHoles",
+        "qLastConcentrationSaveDc",
         "protocolResult",
+        "protocolInvalidReason",
         "protocolHoles",
         "mbt::actionTaken",
         "mbt::nondetPicks",
@@ -55,35 +58,35 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T062-battle-runtime-turn-boundary-effect-lifecycle.json"
+        "tasks/target-replay-evidence/T072-rule-core-reactions.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "end_turn",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
-      "module": "src/rules/battle_reducer_spine.rs"
+      "api": "resolve_rule_core_reaction_subject",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt",
+      "module": "src/rules/rule_core_reactions.rs"
     },
     {
-      "api": "TurnBoundaryEffects",
-      "driver": "source-side reducer-spine witness or reaction/interrupt substrate",
-      "module": "src/rules/battle_reducer_spine.rs"
+      "api": "RuleCoreReactionSubject",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt",
+      "module": "src/rules/rule_core_reactions.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "BattleState",
-        "TurnBoundaryEffects",
-        "current_actor",
-        "end_turn",
-        "start_turn_boundary_effect_lifecycle_battle"
+        "RuleCoreReactionDecision",
+        "RuleCoreReactionState",
+        "RuleCoreReactionSubject",
+        "resolve_rule_core_reaction_subject",
+        "rule_core_reactions_initial_state"
       ],
-      "path": "src/rules/battle_reducer_spine.rs",
-      "role": "domain-engine"
+      "path": "src/rules/rule_core_reactions.rs",
+      "role": "rule-facts"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T081-T062"
+  "taskId": "T082-T072"
 }

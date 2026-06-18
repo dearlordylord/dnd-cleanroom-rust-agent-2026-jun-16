@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T081-T062",
-  "startHeadSha": "fabc842c15f55cd72df99ca36ecc83fae6c19917",
+  "taskId": "T082-T072",
+  "startHeadSha": "3be932a0e08c7883a78b29160e160ff8fb6aed2e",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -9,9 +9,9 @@
   },
   "taskScope": {
     "assignmentId": "level-1-2-full",
-    "laneId": "battle",
+    "laneId": "rules-core",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt"
     ]
   }
 }

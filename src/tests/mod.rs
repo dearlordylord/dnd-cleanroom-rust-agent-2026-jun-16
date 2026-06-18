@@ -369,9 +369,11 @@ use crate::rules::rule_core_reactions::{
     break_reactor_concentration_after_large_damage, decline_reaction_opportunity_attack,
     decline_readied_movement_reaction, hold_reactor_concentration_after_small_damage,
     offer_reaction_opportunity_attack, offer_readied_movement_reaction,
-    ready_reaction_movement_fixture, reject_readied_movement_zero, start_reactor_concentration,
-    take_readied_movement_fill, take_readied_movement_short, RuleCorePendingTrigger,
-    RuleCoreReactionHole, RuleCoreReactionInvalidReason, RuleCoreReactionProtocol,
+    ready_reaction_movement_fixture, reject_readied_movement_zero,
+    resolve_rule_core_reaction_subject, rule_core_reactions_initial_state,
+    start_reactor_concentration, take_readied_movement_fill, take_readied_movement_short,
+    RuleCorePendingTrigger, RuleCoreReactionDecision, RuleCoreReactionHole,
+    RuleCoreReactionInvalidReason, RuleCoreReactionProtocol, RuleCoreReactionSubject,
     RuleCoreReactionWindow,
 };
 use crate::rules::rule_core_shove_outcome::{
@@ -2684,6 +2686,52 @@ fn reactions_project_opportunity_ready_movement_and_concentration() {
     let broken = break_reactor_concentration_after_large_damage();
     assert!(!broken.reactor_concentration);
     assert_eq!(broken.last_concentration_save_dc, 11);
+}
+
+#[test]
+fn reactions_transition_api_resolves_offer_decline_and_readied_movement() {
+    // QNT: rule-core-reactions.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Reactions" and
+    // "Ready".
+    let offered = resolve_rule_core_reaction_subject(
+        rule_core_reactions_initial_state(),
+        RuleCoreReactionSubject::OfferOpportunityAttack,
+    );
+    assert_eq!(
+        offered.reaction_window,
+        RuleCoreReactionWindow::OfferedOpportunityAttackWindow
+    );
+
+    let declined = resolve_rule_core_reaction_subject(
+        offered,
+        RuleCoreReactionSubject::ReactionDecision(RuleCoreReactionDecision::Decline),
+    );
+    assert_eq!(
+        declined.interrupted_movement_spent_feet,
+        MOVEMENT_FILL_COST_FEET
+    );
+    assert_eq!(declined.pending_trigger, RuleCorePendingTrigger::None);
+    assert_eq!(declined.protocol, RuleCoreReactionProtocol::Resolved);
+
+    let readied = resolve_rule_core_reaction_subject(
+        rule_core_reactions_initial_state(),
+        RuleCoreReactionSubject::ReadyMovementFixture,
+    );
+    let readied_offered =
+        resolve_rule_core_reaction_subject(readied, RuleCoreReactionSubject::OfferReadiedMovement);
+    let moved = resolve_rule_core_reaction_subject(
+        readied_offered,
+        RuleCoreReactionSubject::ReactionDecision(RuleCoreReactionDecision::TakeReadiedMovement {
+            distance_feet: MOVEMENT_SHORT_COST_FEET,
+        }),
+    );
+    assert!(!moved.reactor_reaction_available);
+    assert!(!moved.reactor_readied_movement_held);
+    assert_eq!(moved.reactor_movement_spent_feet, MOVEMENT_SHORT_COST_FEET);
+    assert_eq!(
+        moved.protocol,
+        RuleCoreReactionProtocol::NeedsHoles(vec![RuleCoreReactionHole::DamageRoll])
+    );
 }
 
 #[test]
