@@ -106,8 +106,12 @@ mod battle_runtime_weapon_hosted_attack_and_riders;
 mod battle_runtime_weapon_mastery_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_zero_hit_point_mid_resolution.rs"]
 mod battle_runtime_zero_hit_point_mid_resolution;
+#[path = "../qnt_adapters/character_battle_init_projection.rs"]
+mod character_battle_init_projection;
 #[path = "../qnt_adapters/character_battle_origin_feat_selected_identity.rs"]
 mod character_battle_origin_feat_selected_identity;
+#[path = "../qnt_adapters/character_battle_settlement.rs"]
+mod character_battle_settlement;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
 mod character_creation_class_feature_projections;
 #[path = "../qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs"]
@@ -118,10 +122,14 @@ mod character_creation_fighter_fighting_style_selected_identity;
 mod character_creation_runtime;
 #[path = "../qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs"]
 mod character_creation_weapon_mastery_containers_selected_identity;
+#[path = "../qnt_adapters/character_layer_projection_lifecycle.rs"]
+mod character_layer_projection_lifecycle;
 #[path = "../qnt_adapters/character_sheet_ability_check_proficiency_bonus.rs"]
 mod character_sheet_ability_check_proficiency_bonus;
 #[path = "../qnt_adapters/character_sheet_armor_class_base_selected_identity.rs"]
 mod character_sheet_armor_class_base_selected_identity;
+#[path = "../qnt_adapters/character_sheet_feature_resources.rs"]
+mod character_sheet_feature_resources;
 #[path = "../qnt_adapters/character_sheet_healing_resource_selected_identity.rs"]
 mod character_sheet_healing_resource_selected_identity;
 #[path = "../qnt_adapters/character_sheet_hit_point_maximum.rs"]
@@ -234,8 +242,8 @@ use crate::rules::creature_type_protection::{
     SaveGatedConditionSpell,
 };
 use crate::rules::feature_resources::{
-    apply_lay_on_hands_resource, apply_temporary_hit_points, FeatureResourceHitPoints,
-    ResourcePoolError, ResourcePoolFacts,
+    apply_lay_on_hands_resource, apply_temporary_hit_points, apply_uncanny_metabolism,
+    FeatureResourceHitPoints, ResourcePoolError, ResourcePoolFacts,
 };
 use crate::rules::find_familiar::{
     create_find_familiar_companion, deliver_find_familiar_touch_spell,
@@ -868,11 +876,23 @@ use battle_runtime_zero_hit_point_mid_resolution::{
     replay_observed_action as replay_zero_hit_point_mid_resolution_action,
     BRANCH_ACTIONS as ZERO_HIT_POINT_MID_RESOLUTION_BRANCH_ACTIONS,
 };
+use character_battle_init_projection::{
+    expected_witness as expected_battle_init_projection_witness,
+    projection_payload as battle_init_projection_payload,
+    replay_observed_action as replay_battle_init_projection_action,
+    BRANCH_ACTIONS as BATTLE_INIT_PROJECTION_BRANCH_ACTIONS,
+};
 use character_battle_origin_feat_selected_identity::{
     expected_witness as expected_origin_feat_witness,
     projection_payload as origin_feat_projection_payload,
     replay_observed_action as replay_origin_feat_action,
     BRANCH_ACTIONS as ORIGIN_FEAT_BRANCH_ACTIONS,
+};
+use character_battle_settlement::{
+    expected_witness as expected_battle_settlement_witness,
+    projection_payload as battle_settlement_projection_payload,
+    replay_observed_action as replay_battle_settlement_action,
+    BRANCH_ACTIONS as BATTLE_SETTLEMENT_BRANCH_ACTIONS,
 };
 use character_creation_class_feature_projections::{
     expected_monk_witness, expected_sorcerer_witness, projection_payload, replay_observed_action,
@@ -897,6 +917,11 @@ use character_creation_weapon_mastery_containers_selected_identity::{
     projection_payload as weapon_mastery_projection_payload,
     replay_observed_action as replay_weapon_mastery_action,
 };
+use character_layer_projection_lifecycle::{
+    expected_witness as expected_lifecycle_witness,
+    projection_payload as lifecycle_projection_payload,
+    replay_observed_action as replay_lifecycle_action, BRANCH_ACTIONS as LIFECYCLE_BRANCH_ACTIONS,
+};
 use character_sheet_ability_check_proficiency_bonus::{
     expected_expertise_witness, expected_jack_of_all_trades_level_two_witness,
     expected_jack_of_all_trades_rounded_down_witness, expected_missing_bard_level_two_witness,
@@ -910,6 +935,12 @@ use character_sheet_armor_class_base_selected_identity::{
     expected_light_armor_witness, expected_medium_armor_dex_cap_witness,
     expected_monk_unarmored_defense_witness, projection_payload as armor_class_projection_payload,
     replay_observed_action as replay_armor_class_action,
+};
+use character_sheet_feature_resources::{
+    expected_witness as expected_sheet_feature_resource_witness,
+    projection_payload as sheet_feature_resource_projection_payload,
+    replay_observed_action as replay_sheet_feature_resource_action,
+    BRANCH_ACTIONS as SHEET_FEATURE_RESOURCE_BRANCH_ACTIONS,
 };
 use character_sheet_healing_resource_selected_identity::{
     expected_lay_on_hands_witness, projection_payload as healing_resource_projection_payload,
@@ -1593,6 +1624,112 @@ fn origin_feat_adapter_replays_all_branches() {
         assert_eq!(observed, expected_origin_feat_witness(action));
         assert!(origin_feat_projection_payload(&observed).contains("originFeatUnitId=alert"));
     }
+}
+
+#[test]
+fn battle_init_projection_adapter_replays_all_driver_branches() {
+    // QNT: cleanroom-input/qnt/character-battle-runtime/
+    // character-battle-init-projection.mbt.qnt.
+    const IN_SCOPE_ACTIONS: [&str; 3] = [
+        "doProjectSheetHitPointsArmorClassConditionsAndProfiles",
+        "doRejectBuildMaximumAboveBuildMaximum",
+        "doRejectStableRecoveryProgressDuringInit",
+    ];
+
+    assert_eq!(BATTLE_INIT_PROJECTION_BRANCH_ACTIONS.len(), 4);
+    assert_eq!(IN_SCOPE_ACTIONS.len(), 3);
+    for action in BATTLE_INIT_PROJECTION_BRANCH_ACTIONS {
+        let observed = replay_battle_init_projection_action(action);
+        assert_eq!(observed, expected_battle_init_projection_witness(action));
+        assert!(battle_init_projection_payload(&observed).contains("replayIndex="));
+    }
+}
+
+#[test]
+fn battle_settlement_adapter_replays_all_driver_branches() {
+    // QNT: cleanroom-input/qnt/character-battle-runtime/
+    // character-battle-settlement.mbt.qnt.
+    const IN_SCOPE_ACTIONS: [&str; 7] = [
+        "doSettleHitPointsConditionsSlotsAndPreservedSheetState",
+        "doSettleFeatureResourceExpenditure",
+        "doRejectMismatchedCharacterIdentity",
+        "doRejectMaximumHpDrift",
+        "doRejectActiveWildShapeHandoff",
+        "doRejectStableRecoveryProgressHandoff",
+        "doSettleZeroHpStableLifecycle",
+    ];
+
+    assert_eq!(BATTLE_SETTLEMENT_BRANCH_ACTIONS.len(), 8);
+    assert_eq!(IN_SCOPE_ACTIONS.len(), 7);
+    for action in BATTLE_SETTLEMENT_BRANCH_ACTIONS {
+        let observed = replay_battle_settlement_action(action);
+        assert_eq!(observed, expected_battle_settlement_witness(action));
+        assert!(battle_settlement_projection_payload(&observed).contains("replayIndex="));
+    }
+}
+
+#[test]
+fn lifecycle_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/character-battle-runtime/
+    // character-layer-projection-lifecycle.mbt.qnt.
+    for action in LIFECYCLE_BRANCH_ACTIONS {
+        let observed = replay_lifecycle_action(action);
+        assert_eq!(observed, expected_lifecycle_witness(action));
+        assert!(lifecycle_projection_payload(&observed).contains("qReplayIndex="));
+    }
+}
+
+#[test]
+fn sheet_feature_resources_adapter_replays_all_driver_branches() {
+    // QNT: cleanroom-input/qnt/character-battle-runtime/
+    // character-sheet-feature-resources.mbt.qnt.
+    const IN_SCOPE_ACTIONS: [&str; 9] = [
+        "doLayOnHandsRestoresHpAndRemovesPoisoned",
+        "doRejectLayOnHandsOverspend",
+        "doLongRestClearsLayOnHandsPool",
+        "doShortRestRecoversUseCountPools",
+        "doLongRestClearsPointPoolAndUseState",
+        "doShortRestPreservesUncannyUseState",
+        "doLongRestClearsUncannyUseState",
+        "doUncannyMetabolismRecoversFocusAndHeals",
+        "doRejectUncannyMetabolismRepeatUse",
+    ];
+
+    assert_eq!(SHEET_FEATURE_RESOURCE_BRANCH_ACTIONS.len(), 14);
+    assert_eq!(IN_SCOPE_ACTIONS.len(), 9);
+    for action in SHEET_FEATURE_RESOURCE_BRANCH_ACTIONS {
+        let observed = replay_sheet_feature_resource_action(action);
+        assert_eq!(observed, expected_sheet_feature_resource_witness(action));
+        assert!(sheet_feature_resource_projection_payload(&observed).contains("replayIndex="));
+    }
+}
+
+#[test]
+fn uncanny_metabolism_use_gate_is_enforced_by_operation() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Monk.md
+    // "Level 2: Uncanny Metabolism"; QNT: cleanroom-input/qnt/shared-algebras/
+    // proofs/rule-core/uncanny-metabolism-resource.qnt.
+    let focus_points = ResourcePoolFacts {
+        capacity: 2,
+        expended: 2,
+    };
+    let hit_points = FeatureResourceHitPoints {
+        current_hit_points: 8,
+        hit_point_maximum: 15,
+        temporary_hit_points: 3,
+    };
+
+    let applied = apply_uncanny_metabolism(false, focus_points, hit_points, 2, 4)
+        .expect("first Uncanny Metabolism use since a Long Rest is legal");
+
+    assert_eq!(applied.focus_points.expended, 0);
+    assert_eq!(applied.hit_points.current_hit_points, 14);
+    assert_eq!(applied.hit_points.temporary_hit_points, 3);
+    assert!(applied.used_since_long_rest);
+    assert_eq!(
+        apply_uncanny_metabolism(true, focus_points, hit_points, 2, 4),
+        Err(ResourcePoolError::UncannyMetabolismAlreadyUsed)
+    );
 }
 
 #[test]

@@ -1,0 +1,243 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/character_battle_settlement.rs"
+  },
+  "cleanroomManifestSourceCommitSha": "829aee6441d76a921c9d9c14a0d0221062975334",
+  "sourceBranchInventorySha256": "0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "18feaf2412ff3cef5cc7a162b98331ddaa42c62cc906528368cea302c43b9619",
+      "branchFamily": "step",
+      "branchAction": "doSettleHitPointsConditionsSlotsAndPreservedSheetState",
+      "observedActionTaken": "doSettleHitPointsConditionsSlotsAndPreservedSheetState",
+      "harnessTestPath": "src/qnt_adapters/character_battle_settlement.rs",
+      "traceId": "T076-settle-hit-points-conditions-slots-and-preserved-sheet-state",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CharacterBattleSettlementWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "33ead538ea5ff079c19814844e26baca8e06e2231ce912c8e39a5739e4f16cfd",
+        "observedProjectionSha256": "33ead538ea5ff079c19814844e26baca8e06e2231ce912c8e39a5739e4f16cfd",
+        "checkedTargetStateFields": [
+          "BattleSettlementFacts.current_hp",
+          "BattleSettlementFacts.temporary_hit_points",
+          "BattleSettlementFacts.poisoned",
+          "BattleSettlementFacts.prone",
+          "BattleSettlementFacts.spell_level_1_expended",
+          "BattleSettlementFacts.pact_slots_expended",
+          "BattleSettlementFacts.feature_resource_expended",
+          "BattleSettlementFacts.zero_hp_lifecycle",
+          "CharacterBattleSettlement.accepted",
+          "CharacterBattleSettlement.message"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "18feaf2412ff3cef5cc7a162b98331ddaa42c62cc906528368cea302c43b9619",
+      "branchFamily": "step",
+      "branchAction": "doSettleFeatureResourceExpenditure",
+      "observedActionTaken": "doSettleFeatureResourceExpenditure",
+      "harnessTestPath": "src/qnt_adapters/character_battle_settlement.rs",
+      "traceId": "T076-settle-feature-resource-expenditure",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CharacterBattleSettlementWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "f1489a78d0f19eeddf1673b07bbb728aef5b043a7e9a517cb6a66bc699ca2c7e",
+        "observedProjectionSha256": "f1489a78d0f19eeddf1673b07bbb728aef5b043a7e9a517cb6a66bc699ca2c7e",
+        "checkedTargetStateFields": [
+          "BattleSettlementFacts.current_hp",
+          "BattleSettlementFacts.temporary_hit_points",
+          "BattleSettlementFacts.poisoned",
+          "BattleSettlementFacts.prone",
+          "BattleSettlementFacts.spell_level_1_expended",
+          "BattleSettlementFacts.pact_slots_expended",
+          "BattleSettlementFacts.feature_resource_expended",
+          "BattleSettlementFacts.zero_hp_lifecycle",
+          "CharacterBattleSettlement.accepted",
+          "CharacterBattleSettlement.message"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "18feaf2412ff3cef5cc7a162b98331ddaa42c62cc906528368cea302c43b9619",
+      "branchFamily": "step",
+      "branchAction": "doRejectMismatchedCharacterIdentity",
+      "observedActionTaken": "doRejectMismatchedCharacterIdentity",
+      "harnessTestPath": "src/qnt_adapters/character_battle_settlement.rs",
+      "traceId": "T076-reject-mismatched-character-identity",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CharacterBattleSettlementWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "643da2c946b8aa961b46d78587b18bb2e66b7127e28be1b6d39fe6d6ef885087",
+        "observedProjectionSha256": "643da2c946b8aa961b46d78587b18bb2e66b7127e28be1b6d39fe6d6ef885087",
+        "checkedTargetStateFields": [
+          "BattleSettlementFacts.current_hp",
+          "BattleSettlementFacts.temporary_hit_points",
+          "BattleSettlementFacts.poisoned",
+          "BattleSettlementFacts.prone",
+          "BattleSettlementFacts.spell_level_1_expended",
+          "BattleSettlementFacts.pact_slots_expended",
+          "BattleSettlementFacts.feature_resource_expended",
+          "BattleSettlementFacts.zero_hp_lifecycle",
+          "CharacterBattleSettlement.accepted",
+          "CharacterBattleSettlement.message"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "18feaf2412ff3cef5cc7a162b98331ddaa42c62cc906528368cea302c43b9619",
+      "branchFamily": "step",
+      "branchAction": "doRejectMaximumHpDrift",
+      "observedActionTaken": "doRejectMaximumHpDrift",
+      "harnessTestPath": "src/qnt_adapters/character_battle_settlement.rs",
+      "traceId": "T076-reject-maximum-hp-drift",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CharacterBattleSettlementWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "06d801dc082dc996062c28df267cbb0f42a75af6cd5366c2839661577a7e6d21",
+        "observedProjectionSha256": "06d801dc082dc996062c28df267cbb0f42a75af6cd5366c2839661577a7e6d21",
+        "checkedTargetStateFields": [
+          "BattleSettlementFacts.current_hp",
+          "BattleSettlementFacts.temporary_hit_points",
+          "BattleSettlementFacts.poisoned",
+          "BattleSettlementFacts.prone",
+          "BattleSettlementFacts.spell_level_1_expended",
+          "BattleSettlementFacts.pact_slots_expended",
+          "BattleSettlementFacts.feature_resource_expended",
+          "BattleSettlementFacts.zero_hp_lifecycle",
+          "CharacterBattleSettlement.accepted",
+          "CharacterBattleSettlement.message"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "18feaf2412ff3cef5cc7a162b98331ddaa42c62cc906528368cea302c43b9619",
+      "branchFamily": "step",
+      "branchAction": "doRejectActiveWildShapeHandoff",
+      "observedActionTaken": "doRejectActiveWildShapeHandoff",
+      "harnessTestPath": "src/qnt_adapters/character_battle_settlement.rs",
+      "traceId": "T076-reject-active-wild-shape-handoff",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CharacterBattleSettlementWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "9a72fdf2e193ed77b46e9738c279156f35a73fe8113fe19323d4dc501f12d17e",
+        "observedProjectionSha256": "9a72fdf2e193ed77b46e9738c279156f35a73fe8113fe19323d4dc501f12d17e",
+        "checkedTargetStateFields": [
+          "BattleSettlementFacts.current_hp",
+          "BattleSettlementFacts.temporary_hit_points",
+          "BattleSettlementFacts.poisoned",
+          "BattleSettlementFacts.prone",
+          "BattleSettlementFacts.spell_level_1_expended",
+          "BattleSettlementFacts.pact_slots_expended",
+          "BattleSettlementFacts.feature_resource_expended",
+          "BattleSettlementFacts.zero_hp_lifecycle",
+          "CharacterBattleSettlement.accepted",
+          "CharacterBattleSettlement.message"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "18feaf2412ff3cef5cc7a162b98331ddaa42c62cc906528368cea302c43b9619",
+      "branchFamily": "step",
+      "branchAction": "doRejectStableRecoveryProgressHandoff",
+      "observedActionTaken": "doRejectStableRecoveryProgressHandoff",
+      "harnessTestPath": "src/qnt_adapters/character_battle_settlement.rs",
+      "traceId": "T076-reject-stable-recovery-progress-handoff",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CharacterBattleSettlementWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "f8312e618b8a4fcddc70a51e50adc97608dfa1cdf9c727371e679d72667a7d7f",
+        "observedProjectionSha256": "f8312e618b8a4fcddc70a51e50adc97608dfa1cdf9c727371e679d72667a7d7f",
+        "checkedTargetStateFields": [
+          "BattleSettlementFacts.current_hp",
+          "BattleSettlementFacts.temporary_hit_points",
+          "BattleSettlementFacts.poisoned",
+          "BattleSettlementFacts.prone",
+          "BattleSettlementFacts.spell_level_1_expended",
+          "BattleSettlementFacts.pact_slots_expended",
+          "BattleSettlementFacts.feature_resource_expended",
+          "BattleSettlementFacts.zero_hp_lifecycle",
+          "CharacterBattleSettlement.accepted",
+          "CharacterBattleSettlement.message"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "18feaf2412ff3cef5cc7a162b98331ddaa42c62cc906528368cea302c43b9619",
+      "branchFamily": "step",
+      "branchAction": "doSettleZeroHpStableLifecycle",
+      "observedActionTaken": "doSettleZeroHpStableLifecycle",
+      "harnessTestPath": "src/qnt_adapters/character_battle_settlement.rs",
+      "traceId": "T076-settle-zero-hp-stable-lifecycle",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "CharacterBattleSettlementWitness",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "f5b0494765bebbfd01ca69278ac1459ae5bb8239f8914c9a60cb29613728a9e1",
+        "observedProjectionSha256": "f5b0494765bebbfd01ca69278ac1459ae5bb8239f8914c9a60cb29613728a9e1",
+        "checkedTargetStateFields": [
+          "BattleSettlementFacts.current_hp",
+          "BattleSettlementFacts.temporary_hit_points",
+          "BattleSettlementFacts.poisoned",
+          "BattleSettlementFacts.prone",
+          "BattleSettlementFacts.spell_level_1_expended",
+          "BattleSettlementFacts.pact_slots_expended",
+          "BattleSettlementFacts.feature_resource_expended",
+          "BattleSettlementFacts.zero_hp_lifecycle",
+          "CharacterBattleSettlement.accepted",
+          "CharacterBattleSettlement.message"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}
