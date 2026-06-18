@@ -7,7 +7,7 @@ This repo has been refreshed from the source cleanroom corpus for all five
 - Source branch inventory SHA: `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
 - Active queue: 96 drivers, 684 replayable in-scope branch obligations
 - Existing Rust adapters/evidence before refresh: 74 drivers
-- Current handoff evidence: 5 drivers, 24 replayable in-scope branch obligations
+- Current handoff evidence: 5 drivers, 26 replayable in-scope branch obligations
 - Current evidence status: partial; handoff evidence now references source commit `829aee6441d76a921c9d9c14a0d0221062975334`, while 73 non-handoff existing evidence files still reference source commit `04249edf345a7752de2f1551dd3d509a2fffc160`
 - Artifact-model status: stale; this repo has rolling latest artifacts only, with no `tasks/RUN_LEDGER.json` or `tasks/history/<taskId>/*.json`
 
