@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T064-T074",
-  "startHeadSha": "e49e91edd3f3676a250a08bec5dc0f63f022207e",
+  "taskId": "T060-T074",
+  "startHeadSha": "008e85a18e87a1aba25fb6298201ba7852ca9eec",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt"
     ]
   }
 }

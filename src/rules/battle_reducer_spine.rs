@@ -13,6 +13,13 @@ use crate::rules::rule_core_stat_block_controls::{
     StatBlockAttackSlot, StatBlockControlState, StatBlockDispatchSubject,
     StatBlockMultiattackProfile,
 };
+use crate::rules::stat_block_action_ordering::{
+    stat_block_action_fill_order_result, stat_block_action_hole_frontier,
+    stat_block_action_ordering_projection, StatBlockActionFillKind, StatBlockActionFillOrderResult,
+    StatBlockActionFillOrderingError, StatBlockActionFrontierStage, StatBlockActionHoleKind,
+    StatBlockActionOrderingProjectionFacts, StatBlockActionOrderingState,
+    StatBlockActionRuntimeResult,
+};
 use crate::rules::weapon_attack_ordering::{
     weapon_attack_fill_order_result, weapon_attack_hole_frontier, WeaponAttackFillKind,
     WeaponAttackFillOrderResult, WeaponAttackFillOrderingError, WeaponAttackFrontierStage,
@@ -141,9 +148,61 @@ pub enum BattleResolutionResult {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct StatBlockActionSubject {
+    pub actor: Actor,
+    pub target: Option<Actor>,
+    pub stage: StatBlockActionFrontierStage,
+    pub uses_rolled_damage: bool,
+    pub recharge_action_available: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum StatBlockActionFill {
+    TargetChoice(Actor),
+    AttackRoll(AttackRollFacts),
+    DamageDice(i16),
+    RechargeRoll(i16),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum StatBlockActionResolutionInvalidReason {
+    InvalidFill,
+    StaleSubject,
+    WrongActor,
+    WrongTarget,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum StatBlockActionResolutionResult {
+    NeedsHoles {
+        state: BattleState,
+        subject: StatBlockActionSubject,
+        holes: Vec<StatBlockActionHoleKind>,
+    },
+    Resolved {
+        state: BattleState,
+        subject: StatBlockActionSubject,
+    },
+    Invalid {
+        state: BattleState,
+        subject: StatBlockActionSubject,
+        reason: StatBlockActionResolutionInvalidReason,
+        holes: Vec<StatBlockActionHoleKind>,
+        last_ordering_error: Option<StatBlockActionFillOrderingError>,
+    },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 struct AttackRollOutcome {
     hits: bool,
     critical: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum StatBlockOrderTransition {
+    Accepted(StatBlockActionFrontierStage),
+    Rejected(StatBlockActionFillOrderingError),
+    NotOrdering(StatBlockActionFrontierStage),
 }
 
 #[must_use]
@@ -212,6 +271,21 @@ pub fn start_skeleton_actor_turn() -> BattleState {
             },
         },
         ..start_skeleton_battle()
+    }
+}
+
+#[must_use]
+pub fn start_goblin_stat_block_battle() -> BattleState {
+    BattleState {
+        initiative: Initiative {
+            round: 1,
+            already_acted: vec![Actor::Fighter],
+            still_to_act: InitiativeStillToAct {
+                actor: Actor::Goblin,
+                waiting: Vec::new(),
+            },
+        },
+        ..start_battle()
     }
 }
 
@@ -387,6 +461,180 @@ pub fn resolve_battle_subject(
             subject.stage,
         ),
     }
+}
+
+#[must_use]
+pub fn start_goblin_multiattack_control(state: BattleState) -> StatBlockActionResolutionResult {
+    if current_actor(&state) != Actor::Goblin || !state.action_available || state.goblin.hp <= 0 {
+        return invalid_stat_block_action(
+            state,
+            initial_stat_block_action_subject(
+                Actor::Goblin,
+                StatBlockActionFrontierStage::ActSelection,
+                true,
+                false,
+            ),
+            StatBlockActionResolutionInvalidReason::StaleSubject,
+            None,
+        );
+    }
+
+    let stat_block_control =
+        start_stat_block_multiattack_from(state.stat_block_control.clone(), goblin_profile());
+    if stat_block_control == state.stat_block_control {
+        return invalid_stat_block_action(
+            state,
+            initial_stat_block_action_subject(
+                Actor::Goblin,
+                StatBlockActionFrontierStage::ActSelection,
+                true,
+                false,
+            ),
+            StatBlockActionResolutionInvalidReason::StaleSubject,
+            None,
+        );
+    }
+
+    let state = BattleState {
+        action_available: stat_block_control.attack_action_available,
+        stat_block_control,
+        ..state
+    };
+    let subject = initial_stat_block_action_subject(
+        Actor::Goblin,
+        StatBlockActionFrontierStage::AttackTargetChoice,
+        true,
+        false,
+    );
+    StatBlockActionResolutionResult::NeedsHoles {
+        state,
+        subject,
+        holes: stat_block_action_hole_frontier(subject.stage),
+    }
+}
+
+#[must_use]
+pub fn discover_goblin_rolled_action_attack_control(
+    state: BattleState,
+) -> StatBlockActionResolutionResult {
+    discover_goblin_stat_block_attack_control(state, true, true)
+}
+
+#[must_use]
+pub fn discover_goblin_static_action_attack_control(
+    state: BattleState,
+) -> StatBlockActionResolutionResult {
+    discover_goblin_stat_block_attack_control(state, false, false)
+}
+
+#[must_use]
+pub fn spend_goblin_recharge_gated_rolled_attack(
+    state: BattleState,
+) -> StatBlockActionResolutionResult {
+    if current_actor(&state) != Actor::Goblin
+        || !state.action_available
+        || !state.goblin.recharge_available
+        || state.goblin.hp <= 0
+    {
+        return invalid_stat_block_action(
+            state,
+            initial_stat_block_action_subject(
+                Actor::Goblin,
+                StatBlockActionFrontierStage::ActSelection,
+                true,
+                false,
+            ),
+            StatBlockActionResolutionInvalidReason::StaleSubject,
+            None,
+        );
+    }
+
+    let mut goblin = state.goblin;
+    goblin.recharge_available = false;
+    let state = BattleState {
+        goblin,
+        action_available: false,
+        ..state
+    };
+    let subject = initial_stat_block_action_subject(
+        Actor::Goblin,
+        StatBlockActionFrontierStage::RechargeRoll,
+        true,
+        false,
+    );
+    StatBlockActionResolutionResult::NeedsHoles {
+        state,
+        subject,
+        holes: stat_block_action_hole_frontier(subject.stage),
+    }
+}
+
+#[must_use]
+pub fn resolve_stat_block_action_subject(
+    state: BattleState,
+    subject: StatBlockActionSubject,
+    fill: StatBlockActionFill,
+) -> StatBlockActionResolutionResult {
+    if subject.actor != current_actor(&state) {
+        return invalid_stat_block_action(
+            state,
+            subject,
+            StatBlockActionResolutionInvalidReason::WrongActor,
+            None,
+        );
+    }
+
+    match fill {
+        StatBlockActionFill::TargetChoice(target) => {
+            resolve_stat_block_target_choice(state, subject, target)
+        }
+        StatBlockActionFill::AttackRoll(roll) => {
+            resolve_stat_block_attack_roll_fill(state, subject, roll)
+        }
+        StatBlockActionFill::DamageDice(rolled_damage) => {
+            resolve_stat_block_damage_dice(state, subject, rolled_damage)
+        }
+        StatBlockActionFill::RechargeRoll(roll) => {
+            resolve_stat_block_recharge_roll(state, subject, roll)
+        }
+    }
+}
+
+#[must_use]
+pub fn stat_block_action_projection_from_result(
+    result: &StatBlockActionResolutionResult,
+) -> StatBlockActionOrderingState {
+    let (state, subject, runtime_result, last_ordering_error) = match result {
+        StatBlockActionResolutionResult::NeedsHoles { state, subject, .. } => (
+            state,
+            subject,
+            StatBlockActionRuntimeResult::NeedsHoles,
+            None,
+        ),
+        StatBlockActionResolutionResult::Resolved { state, subject } => {
+            (state, subject, StatBlockActionRuntimeResult::Resolved, None)
+        }
+        StatBlockActionResolutionResult::Invalid {
+            state,
+            subject,
+            last_ordering_error,
+            ..
+        } => (
+            state,
+            subject,
+            StatBlockActionRuntimeResult::Invalid,
+            *last_ordering_error,
+        ),
+    };
+
+    stat_block_action_ordering_projection(StatBlockActionOrderingProjectionFacts {
+        stage: subject.stage,
+        runtime_result,
+        last_ordering_error,
+        multiattack_dispatches_available: stat_block_multiattack_dispatches_available(state),
+        recharge_action_available: subject.recharge_action_available,
+        uses_rolled_damage: subject.uses_rolled_damage,
+    })
 }
 
 #[must_use]
@@ -600,10 +848,259 @@ fn spend_multiattack_dispatch(
     }
 }
 
+fn discover_goblin_stat_block_attack_control(
+    state: BattleState,
+    uses_rolled_damage: bool,
+    recharge_action_available: bool,
+) -> StatBlockActionResolutionResult {
+    if current_actor(&state) != Actor::Goblin || !state.action_available || state.goblin.hp <= 0 {
+        return invalid_stat_block_action(
+            state,
+            initial_stat_block_action_subject(
+                Actor::Goblin,
+                StatBlockActionFrontierStage::ActSelection,
+                uses_rolled_damage,
+                recharge_action_available,
+            ),
+            StatBlockActionResolutionInvalidReason::StaleSubject,
+            None,
+        );
+    }
+
+    let subject = initial_stat_block_action_subject(
+        Actor::Goblin,
+        StatBlockActionFrontierStage::AttackTargetChoice,
+        uses_rolled_damage,
+        recharge_action_available,
+    );
+    StatBlockActionResolutionResult::NeedsHoles {
+        state,
+        subject,
+        holes: stat_block_action_hole_frontier(subject.stage),
+    }
+}
+
+fn resolve_stat_block_target_choice(
+    state: BattleState,
+    subject: StatBlockActionSubject,
+    target: Actor,
+) -> StatBlockActionResolutionResult {
+    let order = stat_block_action_fill_order_result(
+        subject.stage,
+        StatBlockActionFillKind::TargetChoice,
+        false,
+        subject.uses_rolled_damage,
+    );
+    let next_stage = match stat_block_order_transition(order) {
+        StatBlockOrderTransition::Accepted(stage) => stage,
+        StatBlockOrderTransition::Rejected(error) => {
+            return invalid_stat_block_action(
+                state,
+                subject,
+                StatBlockActionResolutionInvalidReason::InvalidFill,
+                Some(error),
+            );
+        }
+        StatBlockOrderTransition::NotOrdering(stage) => {
+            return stat_block_action_needs_holes(
+                state,
+                StatBlockActionSubject { stage, ..subject },
+            );
+        }
+    };
+
+    if target == subject.actor {
+        return invalid_stat_block_action(
+            state,
+            subject,
+            StatBlockActionResolutionInvalidReason::WrongTarget,
+            None,
+        );
+    }
+
+    let subject = StatBlockActionSubject {
+        target: Some(target),
+        stage: next_stage,
+        ..subject
+    };
+    stat_block_action_needs_holes(state, subject)
+}
+
+fn resolve_stat_block_attack_roll_fill(
+    state: BattleState,
+    subject: StatBlockActionSubject,
+    roll: AttackRollFacts,
+) -> StatBlockActionResolutionResult {
+    let attack_roll_hits = subject
+        .target
+        .map(|target| resolve_attack_roll(roll, armor_class_for(&state, target), 20).hits)
+        .unwrap_or(true);
+    let order = stat_block_action_fill_order_result(
+        subject.stage,
+        StatBlockActionFillKind::AttackRoll,
+        attack_roll_hits,
+        subject.uses_rolled_damage,
+    );
+    let next_stage = match stat_block_order_transition(order) {
+        StatBlockOrderTransition::Accepted(stage) => stage,
+        StatBlockOrderTransition::Rejected(error) => {
+            return invalid_stat_block_action(
+                state,
+                subject,
+                StatBlockActionResolutionInvalidReason::InvalidFill,
+                Some(error),
+            );
+        }
+        StatBlockOrderTransition::NotOrdering(stage) => {
+            return stat_block_action_needs_holes(
+                state,
+                StatBlockActionSubject { stage, ..subject },
+            );
+        }
+    };
+
+    if subject.target.is_none() {
+        return invalid_stat_block_action(
+            state,
+            subject,
+            StatBlockActionResolutionInvalidReason::InvalidFill,
+            None,
+        );
+    }
+
+    let state = BattleState {
+        attack_roll_made_this_turn: true,
+        ..state
+    };
+    let subject = StatBlockActionSubject {
+        stage: next_stage,
+        recharge_action_available: if next_stage == StatBlockActionFrontierStage::Resolved {
+            false
+        } else {
+            subject.recharge_action_available
+        },
+        ..subject
+    };
+
+    if next_stage == StatBlockActionFrontierStage::Resolved {
+        return StatBlockActionResolutionResult::Resolved {
+            state: BattleState {
+                action_available: false,
+                ..state
+            },
+            subject,
+        };
+    }
+
+    stat_block_action_needs_holes(state, subject)
+}
+
+fn resolve_stat_block_damage_dice(
+    state: BattleState,
+    subject: StatBlockActionSubject,
+    rolled_damage: i16,
+) -> StatBlockActionResolutionResult {
+    let order = stat_block_action_fill_order_result(
+        subject.stage,
+        StatBlockActionFillKind::RolledDice,
+        true,
+        subject.uses_rolled_damage,
+    );
+    let next_stage = match stat_block_order_transition(order) {
+        StatBlockOrderTransition::Accepted(stage) => stage,
+        StatBlockOrderTransition::Rejected(error) => {
+            return invalid_stat_block_action(
+                state,
+                subject,
+                StatBlockActionResolutionInvalidReason::InvalidFill,
+                Some(error),
+            );
+        }
+        StatBlockOrderTransition::NotOrdering(stage) => {
+            return stat_block_action_needs_holes(
+                state,
+                StatBlockActionSubject { stage, ..subject },
+            );
+        }
+    };
+
+    let Some(target) = subject.target else {
+        return invalid_stat_block_action(
+            state,
+            subject,
+            StatBlockActionResolutionInvalidReason::InvalidFill,
+            None,
+        );
+    };
+
+    let state = with_damaged_target(state, target, rolled_damage);
+    StatBlockActionResolutionResult::Resolved {
+        state: BattleState {
+            action_available: false,
+            ..state
+        },
+        subject: StatBlockActionSubject {
+            stage: next_stage,
+            recharge_action_available: false,
+            ..subject
+        },
+    }
+}
+
+fn resolve_stat_block_recharge_roll(
+    state: BattleState,
+    subject: StatBlockActionSubject,
+    roll: i16,
+) -> StatBlockActionResolutionResult {
+    let order = stat_block_action_fill_order_result(
+        subject.stage,
+        StatBlockActionFillKind::StatBlockRechargeRoll,
+        false,
+        false,
+    );
+    let next_stage = match stat_block_order_transition(order) {
+        StatBlockOrderTransition::Accepted(stage) => stage,
+        StatBlockOrderTransition::Rejected(error) => {
+            return invalid_stat_block_action(
+                state,
+                subject,
+                StatBlockActionResolutionInvalidReason::InvalidFill,
+                Some(error),
+            );
+        }
+        StatBlockOrderTransition::NotOrdering(stage) => {
+            return stat_block_action_needs_holes(
+                state,
+                StatBlockActionSubject { stage, ..subject },
+            );
+        }
+    };
+
+    let recharged = roll >= 5;
+    let mut goblin = state.goblin;
+    goblin.recharge_available = recharged;
+    StatBlockActionResolutionResult::Resolved {
+        state: BattleState { goblin, ..state },
+        subject: StatBlockActionSubject {
+            stage: next_stage,
+            recharge_action_available: recharged,
+            ..subject
+        },
+    }
+}
+
 fn skeleton_profile() -> StatBlockMultiattackProfile {
     StatBlockMultiattackProfile {
         first_attack_slot: StatBlockAttackSlot::Primary,
         primary_attack_count: 2,
+        secondary_attack_count: 0,
+    }
+}
+
+fn goblin_profile() -> StatBlockMultiattackProfile {
+    StatBlockMultiattackProfile {
+        first_attack_slot: StatBlockAttackSlot::Primary,
+        primary_attack_count: 3,
         secondary_attack_count: 0,
     }
 }
@@ -625,6 +1122,20 @@ fn accepted_stage(
     }
 }
 
+fn stat_block_order_transition(result: StatBlockActionFillOrderResult) -> StatBlockOrderTransition {
+    match result {
+        StatBlockActionFillOrderResult::Accepted(stage) => {
+            StatBlockOrderTransition::Accepted(stage)
+        }
+        StatBlockActionFillOrderResult::Rejected(error) => {
+            StatBlockOrderTransition::Rejected(error)
+        }
+        StatBlockActionFillOrderResult::NotOrderingError(stage) => {
+            StatBlockOrderTransition::NotOrdering(stage)
+        }
+    }
+}
+
 fn invalid(
     state: BattleState,
     reason: BattleResolutionInvalidReason,
@@ -634,6 +1145,47 @@ fn invalid(
         state,
         reason,
         holes: weapon_attack_hole_frontier(stage),
+    }
+}
+
+fn initial_stat_block_action_subject(
+    actor: Actor,
+    stage: StatBlockActionFrontierStage,
+    uses_rolled_damage: bool,
+    recharge_action_available: bool,
+) -> StatBlockActionSubject {
+    StatBlockActionSubject {
+        actor,
+        target: None,
+        stage,
+        uses_rolled_damage,
+        recharge_action_available,
+    }
+}
+
+fn stat_block_action_needs_holes(
+    state: BattleState,
+    subject: StatBlockActionSubject,
+) -> StatBlockActionResolutionResult {
+    StatBlockActionResolutionResult::NeedsHoles {
+        state,
+        subject,
+        holes: stat_block_action_hole_frontier(subject.stage),
+    }
+}
+
+fn invalid_stat_block_action(
+    state: BattleState,
+    subject: StatBlockActionSubject,
+    reason: StatBlockActionResolutionInvalidReason,
+    last_ordering_error: Option<StatBlockActionFillOrderingError>,
+) -> StatBlockActionResolutionResult {
+    StatBlockActionResolutionResult::Invalid {
+        state,
+        subject,
+        reason,
+        holes: stat_block_action_hole_frontier(subject.stage),
+        last_ordering_error,
     }
 }
 

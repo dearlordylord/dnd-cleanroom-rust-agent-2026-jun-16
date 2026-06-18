@@ -74,14 +74,14 @@ define combatant addressing, open-hole projection, and turn advancement.
 - Rust battle/rule-core replay adapters in `src/qnt_adapters`: 61.
 - Target replay evidence files: 78.
 - Target replay runs recorded across those files: 480.
-- Current-manifest evidence files: 8.
-- Current-manifest replay runs: 54.
-- Stale previous-manifest evidence files: 70.
-- Stale previous-manifest replay runs: 426.
+- Current-manifest evidence files: 9.
+- Current-manifest replay runs: 66.
+- Stale previous-manifest evidence files: 69.
+- Stale previous-manifest replay runs: 414.
 
-The current-manifest files are the five handoff-lane files plus the T063,
-T064, and T074 reducer-spine/control diagnostics. Their combined current run
-count is 54.
+The current-manifest files are the five handoff-lane files plus the T060,
+T063, T064, and T074 reducer-spine/control diagnostics. Their combined current
+run count is 66.
 
 Search result at first measurement: the Rust target had no `BattleState`,
 `start_battle`, `discover_battle_acts`, or `resolve_battle_subject` equivalent.
@@ -215,14 +215,15 @@ source consultation and records every missing fact as a source-QNT blocker.
 Current Rust evidence can be recreated from QNT alone for focused replay and
 many local helper slices with high confidence.
 
-The new reducer-spine experiment can also be recreated from copied QNT alone
-for one Fighter weapon-attack path. Measured generic reducer coverage is no
-longer zero, but it is still only a seed. One existing battle MBT adapter test
-now replays through the generic reducer entrypoints instead of a slice-specific
-observed helper, and the corresponding per-file T063 target replay evidence is
-current and locally validator-clean. The full cleanroom claim remains unproven
-until that route is recorded as a complete work-loop task and then expanded
-across the level-1/2 battle queue.
+The reducer-spine experiments can also be recreated from copied QNT alone for
+the Fighter weapon-attack ordering path, the Rogue/Skeleton weapon-attack
+fixture path, and the Goblin stat-block action-ordering path. Measured generic
+reducer coverage is no longer zero, but it is still a seed. Three existing
+battle MBT adapter tests now replay observed behavior through reducer-spine
+entrypoints instead of slice-specific observed helpers, and the T060/T063/T064
+per-file target replay evidence is current and locally validator-clean. The
+full cleanroom claim remains unproven until those routes are recorded as
+complete work-loop tasks and then expanded across the level-1/2 battle queue.
 
 ## Completed Follow-Up Experiment
 
@@ -348,21 +349,61 @@ fixture path. General stat-block discovery, primary/secondary attack-slot
 selection, and end-turn control reset inside the full battle reducer are not
 implemented yet.
 
+## Fifth Stat-Block Action-Ordering Spine Experiment
+
+`battle-runtime-stat-block-action-ordering.mbt.qnt` is now routed through the
+experimental reducer spine on the observed side.
+
+This measures a broader stat-block protocol than the Skeleton fixture:
+
+- Goblin stat-block action discovery for rolled damage and static damage;
+- target-choice, attack-roll, damage-dice, and recharge-roll frontier stages;
+- ordering rejection for attack rolls before target choice;
+- ordering rejection for damage dice before attack roll;
+- static-hit resolution without a rolled-damage hole;
+- rolled-hit continuation into the damage-dice hole;
+- recharge-gated action spending and recharge roll completion;
+- Goblin multiattack dispatch count derived from the T074 stat-block control
+  profile instead of an adapter literal.
+
+Result:
+
+- `battle_runtime_stat_block_action_ordering` observed replay uses
+  `start_goblin_stat_block_battle`, `start_goblin_multiattack_control`,
+  `discover_goblin_rolled_action_attack_control`,
+  `discover_goblin_static_action_attack_control`,
+  `spend_goblin_recharge_gated_rolled_attack`, and
+  `resolve_stat_block_action_subject`.
+- The old focused helper remains the expected witness.
+- `tasks/target-replay-evidence/T060-battle-runtime-stat-block-action-ordering.json`
+  has current manifest and inventory hashes and records the spine replay
+  function.
+- `scripts/check-target-replay-evidence-file.cjs` validates all 12 T060 branch
+  obligations.
+
+This expands reducer-shaped evidence from 28 obligations across T063/T064/T074
+to 40 obligations across T060/T063/T064/T074. The battle-spine portion is now
+33 obligations across three battle drivers, plus 7 reusable T074 stat-block
+control obligations. The remaining limitation is still important: T060 proves
+stat-block protocol ordering and projection through `BattleState`, not full
+general stat-block damage semantics or a general stat-block action catalog.
+
 ## Work-Loop Promotion Findings
 
-T063/T064/T074 cannot be promoted to repo-wide harness acceptance by adding
-only driver-local ledger/history records in the current dirty repo.
+T060/T063/T064/T074 cannot be promoted to repo-wide harness acceptance by
+adding only driver-local ledger/history records in the current dirty repo.
 
 Measured denominator:
 
 - Active replayable obligations: 631 across 96 drivers.
 - Battle/rule-core replayable obligations: 502 across 73 drivers.
-- T063 plus T064 battle-spine obligations: 21.
+- T060 plus T063 plus T064 battle-spine obligations: 33.
 - T074 reducer-control obligations: 7.
-- T064/T074 composed obligations: still 21 + 7, now sharing one dispatch owner.
+- T060/T064/T074 composed obligations: 12 + 21 + 7, with T060 and T064 sharing
+  the T074 stat-block control component.
 - Target replay evidence files under `tasks/target-replay-evidence`: 78.
-- Current-snapshot evidence files: 8.
-- Stale previous-snapshot evidence files: 70.
+- Current-snapshot evidence files: 9.
+- Stale previous-snapshot evidence files: 69.
 - Rust adapter files under `src/qnt_adapters`: 78.
 - `tasks/history` is absent, and `tasks/RUN_LEDGER.json` is absent.
 
@@ -370,13 +411,13 @@ Harness implication:
 
 - Without `tasks/RUN_LEDGER.json`, `check-cleanroom-harness.cjs` validates every
   evidence file under `tasks/target-replay-evidence` against the current rolling
-  task's declared evidence. A T063/T064/T074 rolling task would therefore still
-  fail on the other evidence files.
+  task's declared evidence. A T060/T063/T064/T074 rolling task would therefore
+  still fail on the other evidence files.
 - With `tasks/RUN_LEDGER.json`, the harness requires every evidence file under
   `tasks/target-replay-evidence` to be accounted for by ledger entries. A
-  T063/T064/T074-only ledger would still fail on the other evidence files.
+  T060/T063/T064/T074-only ledger would still fail on the other evidence files.
 - The production source scan treats undeclared adapter files as production
-  source. A T063/T064/T074-only engine-depth manifest would therefore still
+  source. A T060/T063/T064/T074-only engine-depth manifest would therefore still
   scan the other adapter modules and report witness-protocol/authored-identity
   findings.
 
@@ -398,24 +439,26 @@ Options from here:
    driver, then promote only after the dirty denominator is fixed.
 
 The best next reducer-specific experiment is Option 1 or Option 3, not a
-T063/T064/T074-only work-loop promotion inside the current dirty repo.
+T060/T063/T064/T074-only work-loop promotion inside the current dirty repo.
 
 ## Recommended Next Experiment
 
-Broaden the composed T064/T074 path to a general stat-block battle driver, or
-add a source-side reducer-spine witness before broadening to the next battle
-driver. Do not start with a full driver audit.
+Use the T060 stat-block action-ordering spine route as the base for one of the
+two adjacent stat-block battle drivers, or add a source-side reducer-spine
+witness before broadening again. Do not start with a full driver audit.
 
 Method:
 
 1. Use only `cleanroom-input/**` as implementation input.
-2. Promote the existing T063/T064/T074 transition evidence into complete
+2. Promote the existing T060/T063/T064/T074 transition evidence into complete
    work-loop tasks only after the dirty harness denominator is cleaned up.
 3. If the current harness must express "observed via reducer spine, expected
    via focused QNT witness", add a small source-side reducer-spine witness.
-   If the next code experiment continues in Rust first, use T074's
-   primary/secondary dispatch-slot model for a general stat-block battle path
-   rather than adding another one-off dispatch counter.
+   If the next code experiment continues in Rust first, prefer
+   `battle-runtime-stat-block-multi-damage.mbt.qnt` or
+   `battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt` because they
+   build directly on the stat-block attack path T060 now routes through the
+   spine.
 4. Record every fact that cannot be derived from copied QNT, RAW, domain docs,
    or assumptions as a blocker.
 5. Compare the resulting public shape to TypeScript only after the experiment,
