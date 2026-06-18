@@ -1,0 +1,157 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs::replay_observed_action"
+  },
+  "cleanroomManifestSourceCommitSha": "829aee6441d76a921c9d9c14a0d0221062975334",
+  "sourceBranchInventorySha256": "0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "qntFileSha256": "2a25a972e1ad121a6464b8bb44edffb194d0605ccb240c909df2f03c7ccae971",
+      "branchFamily": "step",
+      "branchAction": "doFillTargetChoice",
+      "observedActionTaken": "doFillTargetChoice",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "traceId": "T080-fill-target-choice-medium",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StatBlockSizeGatedConditionRiderState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "43b5f01c2ccb335f708f987de73ca17c41fb4da992cca45c68e70526863daad4",
+        "observedProjectionSha256": "43b5f01c2ccb335f708f987de73ca17c41fb4da992cca45c68e70526863daad4",
+        "checkedTargetStateFields": [
+          "BattleState.fighter.hp",
+          "BattleState.fighter.prone",
+          "BattleState.fighter.creature_size",
+          "StatBlockActionSubject.prone_on_hit_rider",
+          "StatBlockActionSubject.stage",
+          "StatBlockActionResolutionResult"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "qntFileSha256": "2a25a972e1ad121a6464b8bb44edffb194d0605ccb240c909df2f03c7ccae971",
+      "branchFamily": "step",
+      "branchAction": "doFillHitAttackRoll",
+      "observedActionTaken": "doFillHitAttackRoll",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "traceId": "T080-fill-hit-attack-roll-medium",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StatBlockSizeGatedConditionRiderState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "63b4aab773a977dfd6d491608e2e4ca31ea1cb07e955f1d37953a41eb1f90c20",
+        "observedProjectionSha256": "63b4aab773a977dfd6d491608e2e4ca31ea1cb07e955f1d37953a41eb1f90c20",
+        "checkedTargetStateFields": [
+          "BattleState.fighter.hp",
+          "BattleState.fighter.prone",
+          "BattleState.fighter.creature_size",
+          "StatBlockActionSubject.prone_on_hit_rider",
+          "StatBlockActionSubject.stage",
+          "StatBlockActionResolutionResult"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "qntFileSha256": "2a25a972e1ad121a6464b8bb44edffb194d0605ccb240c909df2f03c7ccae971",
+      "branchFamily": "step",
+      "branchAction": "doFillHitAttackRoll",
+      "observedActionTaken": "doFillHitAttackRoll",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "traceId": "T080-fill-hit-attack-roll-larger",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StatBlockSizeGatedConditionRiderState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "a112e754de2230cdc61a4656c5480156178e9e338543102ca24d31899a4bf52c",
+        "observedProjectionSha256": "a112e754de2230cdc61a4656c5480156178e9e338543102ca24d31899a4bf52c",
+        "checkedTargetStateFields": [
+          "BattleState.fighter.hp",
+          "BattleState.fighter.prone",
+          "BattleState.fighter.creature_size",
+          "StatBlockActionSubject.prone_on_hit_rider",
+          "StatBlockActionSubject.stage",
+          "StatBlockActionResolutionResult"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "qntFileSha256": "2a25a972e1ad121a6464b8bb44edffb194d0605ccb240c909df2f03c7ccae971",
+      "branchFamily": "step",
+      "branchAction": "doFillHitAttackRoll",
+      "observedActionTaken": "doFillHitAttackRoll",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "traceId": "T080-fill-hit-attack-roll-prone-immune",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StatBlockSizeGatedConditionRiderState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "8681b9df98b5358ff4be72dd7fc069c0ca11b3a52df1189aab77c1616429339d",
+        "observedProjectionSha256": "8681b9df98b5358ff4be72dd7fc069c0ca11b3a52df1189aab77c1616429339d",
+        "checkedTargetStateFields": [
+          "BattleState.fighter.hp",
+          "BattleState.fighter.prone",
+          "BattleState.fighter.creature_size",
+          "StatBlockActionSubject.prone_on_hit_rider",
+          "StatBlockActionSubject.stage",
+          "StatBlockActionResolutionResult"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "qntFileSha256": "2a25a972e1ad121a6464b8bb44edffb194d0605ccb240c909df2f03c7ccae971",
+      "branchFamily": "step",
+      "branchAction": "doResolveDamage",
+      "observedActionTaken": "doResolveDamage",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "traceId": "T080-resolve-damage-medium",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "StatBlockSizeGatedConditionRiderState",
+        "comparator": "sha256:projection-payload-v1",
+        "expectedProjectionSha256": "84ce22e202a7aaa1d1b758e9341989731851a6d65dd4bf4ca138892801ce99b8",
+        "observedProjectionSha256": "84ce22e202a7aaa1d1b758e9341989731851a6d65dd4bf4ca138892801ce99b8",
+        "checkedTargetStateFields": [
+          "BattleState.fighter.hp",
+          "BattleState.fighter.prone",
+          "BattleState.fighter.creature_size",
+          "StatBlockActionSubject.prone_on_hit_rider",
+          "StatBlockActionSubject.stage",
+          "StatBlockActionResolutionResult"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}

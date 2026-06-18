@@ -94,6 +94,8 @@ mod battle_runtime_starry_wisp_object;
 mod battle_runtime_stat_block_action_ordering;
 #[path = "../qnt_adapters/battle_runtime_stat_block_multi_damage.rs"]
 mod battle_runtime_stat_block_multi_damage;
+#[path = "../qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs"]
+mod battle_runtime_stat_block_size_gated_condition_rider;
 #[path = "../qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs"]
 mod battle_runtime_thaumaturgy_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs"]
@@ -842,6 +844,16 @@ use battle_runtime_stat_block_multi_damage::{
     replay_observed_action as replay_stat_block_multi_damage_action,
     replay_observed_static_hit_attack_roll as replay_stat_block_multi_damage_static_hit,
     BRANCH_ACTIONS as STAT_BLOCK_MULTI_DAMAGE_BRANCH_ACTIONS,
+};
+use battle_runtime_stat_block_size_gated_condition_rider::{
+    expected_larger_hit_attack_roll as expected_stat_block_size_gated_larger_hit,
+    expected_prone_immune_hit_attack_roll as expected_stat_block_size_gated_prone_immune_hit,
+    expected_witness as expected_stat_block_size_gated_witness,
+    projection_payload as stat_block_size_gated_projection_payload,
+    replay_observed_action as replay_stat_block_size_gated_action,
+    replay_observed_larger_hit_attack_roll as replay_stat_block_size_gated_larger_hit,
+    replay_observed_prone_immune_hit_attack_roll as replay_stat_block_size_gated_prone_immune_hit,
+    BRANCH_ACTIONS as STAT_BLOCK_SIZE_GATED_BRANCH_ACTIONS,
 };
 use battle_runtime_thaumaturgy_selected_identity::{
     expected_witness as expected_thaumaturgy_selected_identity_witness,
@@ -4392,6 +4404,33 @@ fn stat_block_multi_damage_static_hit_spends_static_damage() {
     let observed = replay_stat_block_multi_damage_static_hit();
     assert_eq!(observed, expected_stat_block_multi_damage_static_hit());
     assert!(stat_block_multi_damage_projection_payload(&observed).contains("StaticDamageMode"));
+}
+
+#[test]
+fn stat_block_size_gated_condition_rider_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Monsters/Monsters-C-D.md "Chimera"
+    // "Ram", Rules-Glossary.md "Prone [Condition]" and "Immunity".
+    for action in STAT_BLOCK_SIZE_GATED_BRANCH_ACTIONS {
+        let observed = replay_stat_block_size_gated_action(action);
+        assert_eq!(observed, expected_stat_block_size_gated_witness(action));
+        assert!(stat_block_size_gated_projection_payload(&observed).contains("qTargetProne="));
+    }
+}
+
+#[test]
+fn stat_block_size_gated_condition_rider_blocks_larger_and_immune_targets() {
+    // QNT: battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt
+    // `doFillHitAttackRoll`; RAW: Rules-Glossary.md "Immunity".
+    let larger = replay_stat_block_size_gated_larger_hit();
+    assert_eq!(larger, expected_stat_block_size_gated_larger_hit());
+    assert!(stat_block_size_gated_projection_payload(&larger).contains("LargerTarget"));
+
+    let immune = replay_stat_block_size_gated_prone_immune_hit();
+    assert_eq!(immune, expected_stat_block_size_gated_prone_immune_hit());
+    assert!(stat_block_size_gated_projection_payload(&immune)
+        .contains("MediumOrSmallerProneImmuneTarget"));
 }
 
 #[test]

@@ -7,6 +7,7 @@
 use crate::rules::attack_damage_disposition::{
     apply_resolved_damage_to_positive_hit_points, CreatureKind, CreatureVitals,
 };
+use crate::rules::creature_size::CreatureSize;
 use crate::rules::rule_core_stat_block_controls::{
     resolve_stat_block_control_subject, start_stat_block_multiattack_from,
     stat_block_control_initial_state, stat_block_multiattack_continuation_open,
@@ -48,6 +49,8 @@ pub struct Combatant {
     pub armor_class: i16,
     pub unconscious: bool,
     pub incapacitated: bool,
+    pub prone: bool,
+    pub creature_size: CreatureSize,
     pub lifecycle: CombatantLifecycle,
     pub reaction_available: bool,
     pub movement_spent_feet: i16,
@@ -153,6 +156,7 @@ pub struct StatBlockActionSubject {
     pub target: Option<Actor>,
     pub stage: StatBlockActionFrontierStage,
     pub damage_mode: StatBlockActionDamageMode,
+    pub prone_on_hit_rider: StatBlockProneOnHitRider,
     pub recharge_action_available: bool,
 }
 
@@ -160,6 +164,12 @@ pub struct StatBlockActionSubject {
 pub enum StatBlockActionDamageMode {
     Rolled,
     Static { damage: i16 },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum StatBlockProneOnHitRider {
+    NoProneRider,
+    MediumOrSmaller { target_prone_condition_immune: bool },
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -295,6 +305,22 @@ pub fn start_goblin_stat_block_battle() -> BattleState {
     }
 }
 
+#[must_use]
+pub fn start_goblin_prone_rider_battle(target_size: CreatureSize) -> BattleState {
+    // QNT: battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt
+    // uses a target with 20 HP and a size/condition-immunity gate for a Prone
+    // on-hit rider.
+    let mut state = start_goblin_stat_block_battle();
+    state.fighter = Combatant {
+        hp: 20,
+        max_hp: 20,
+        prone: false,
+        creature_size: target_size,
+        ..state.fighter
+    };
+    state
+}
+
 fn fighter_combatant() -> Combatant {
     Combatant {
         hp: 12,
@@ -303,6 +329,8 @@ fn fighter_combatant() -> Combatant {
         armor_class: 10,
         unconscious: false,
         incapacitated: false,
+        prone: false,
+        creature_size: CreatureSize::Medium,
         lifecycle: CombatantLifecycle::UsesDeathSavingThrows,
         reaction_available: true,
         movement_spent_feet: 0,
@@ -320,6 +348,8 @@ fn goblin_combatant() -> Combatant {
         armor_class: 15,
         unconscious: false,
         incapacitated: false,
+        prone: false,
+        creature_size: CreatureSize::Small,
         lifecycle: CombatantLifecycle::DiesAtZeroHitPoints,
         reaction_available: true,
         movement_spent_feet: 0,
@@ -337,6 +367,8 @@ fn rogue_combatant() -> Combatant {
         armor_class: 14,
         unconscious: false,
         incapacitated: false,
+        prone: false,
+        creature_size: CreatureSize::Medium,
         lifecycle: CombatantLifecycle::UsesDeathSavingThrows,
         reaction_available: true,
         movement_spent_feet: 0,
@@ -354,6 +386,8 @@ fn skeleton_combatant() -> Combatant {
         armor_class: 13,
         unconscious: false,
         incapacitated: false,
+        prone: false,
+        creature_size: CreatureSize::Medium,
         lifecycle: CombatantLifecycle::DiesAtZeroHitPoints,
         reaction_available: true,
         movement_spent_feet: 0,
@@ -537,6 +571,44 @@ pub fn discover_goblin_static_action_attack_control(
         StatBlockActionDamageMode::Static { damage: 3 },
         false,
     )
+}
+
+#[must_use]
+pub fn discover_goblin_prone_rider_attack_control(
+    state: BattleState,
+    target_prone_condition_immune: bool,
+) -> StatBlockActionResolutionResult {
+    if current_actor(&state) != Actor::Goblin || !state.action_available || state.goblin.hp <= 0 {
+        return invalid_stat_block_action(
+            state,
+            initial_stat_block_action_subject_with_prone_rider(
+                Actor::Goblin,
+                StatBlockActionFrontierStage::ActSelection,
+                StatBlockActionDamageMode::Rolled,
+                false,
+                StatBlockProneOnHitRider::MediumOrSmaller {
+                    target_prone_condition_immune,
+                },
+            ),
+            StatBlockActionResolutionInvalidReason::StaleSubject,
+            None,
+        );
+    }
+
+    let subject = initial_stat_block_action_subject_with_prone_rider(
+        Actor::Goblin,
+        StatBlockActionFrontierStage::AttackTargetChoice,
+        StatBlockActionDamageMode::Rolled,
+        false,
+        StatBlockProneOnHitRider::MediumOrSmaller {
+            target_prone_condition_immune,
+        },
+    );
+    StatBlockActionResolutionResult::NeedsHoles {
+        state,
+        subject,
+        holes: stat_block_action_hole_frontier(subject.stage),
+    }
 }
 
 #[must_use]
@@ -984,6 +1056,11 @@ fn resolve_stat_block_attack_roll_fill(
         attack_roll_made_this_turn: true,
         ..state
     };
+    let state = if attack_roll_hits {
+        with_stat_block_prone_on_hit_rider(state, target, subject.prone_on_hit_rider)
+    } else {
+        state
+    };
     let subject = StatBlockActionSubject {
         stage: next_stage,
         recharge_action_available: if next_stage == StatBlockActionFrontierStage::Resolved {
@@ -1173,11 +1250,28 @@ fn initial_stat_block_action_subject(
     damage_mode: StatBlockActionDamageMode,
     recharge_action_available: bool,
 ) -> StatBlockActionSubject {
+    initial_stat_block_action_subject_with_prone_rider(
+        actor,
+        stage,
+        damage_mode,
+        recharge_action_available,
+        StatBlockProneOnHitRider::NoProneRider,
+    )
+}
+
+fn initial_stat_block_action_subject_with_prone_rider(
+    actor: Actor,
+    stage: StatBlockActionFrontierStage,
+    damage_mode: StatBlockActionDamageMode,
+    recharge_action_available: bool,
+    prone_on_hit_rider: StatBlockProneOnHitRider,
+) -> StatBlockActionSubject {
     StatBlockActionSubject {
         actor,
         target: None,
         stage,
         damage_mode,
+        prone_on_hit_rider,
         recharge_action_available,
     }
 }
@@ -1245,6 +1339,38 @@ fn with_damaged_target(mut state: BattleState, target: Actor, damage: i16) -> Ba
         Actor::Goblin => state.goblin = damaged,
         Actor::Rogue => state.rogue = damaged,
         Actor::Skeleton => state.skeleton = damaged,
+    }
+    state
+}
+
+fn with_stat_block_prone_on_hit_rider(
+    state: BattleState,
+    target: Actor,
+    rider: StatBlockProneOnHitRider,
+) -> BattleState {
+    match rider {
+        StatBlockProneOnHitRider::NoProneRider => state,
+        StatBlockProneOnHitRider::MediumOrSmaller {
+            target_prone_condition_immune: true,
+        } => state,
+        StatBlockProneOnHitRider::MediumOrSmaller {
+            target_prone_condition_immune: false,
+        } if combatant_for(&state, target)
+            .creature_size
+            .is_medium_or_smaller() =>
+        {
+            with_prone_target(state, target)
+        }
+        StatBlockProneOnHitRider::MediumOrSmaller { .. } => state,
+    }
+}
+
+fn with_prone_target(mut state: BattleState, target: Actor) -> BattleState {
+    match target {
+        Actor::Fighter => state.fighter.prone = true,
+        Actor::Goblin => state.goblin.prone = true,
+        Actor::Rogue => state.rogue.prone = true,
+        Actor::Skeleton => state.skeleton.prone = true,
     }
     state
 }

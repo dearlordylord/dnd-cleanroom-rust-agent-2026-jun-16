@@ -138,8 +138,11 @@ fn active_form_ref(form: WildShapeForm) -> &'static str {
 fn creature_size_ref(size: WildShapeCreatureSize) -> &'static str {
     match size {
         WildShapeCreatureSize::Tiny => "tiny",
+        WildShapeCreatureSize::Small => "small",
         WildShapeCreatureSize::Medium => "medium",
         WildShapeCreatureSize::Large => "large",
+        WildShapeCreatureSize::Huge => "huge",
+        WildShapeCreatureSize::Gargantuan => "gargantuan",
     }
 }
 

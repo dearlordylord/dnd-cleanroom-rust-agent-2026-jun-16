@@ -19,6 +19,100 @@ replay evidence, and records verification results. Entries with older manifest
 source commit SHAs or inventory SHAs are historical unless they include a
 current-snapshot revalidation note.
 
+## T080-T060-T079: Stat-Block Size-Gated Condition Rider Battle-Spine Diagnostic
+
+- Manifest source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
+- Source branch inventory SHA: `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
+- Selected driver:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt`
+- Reused dependency drivers:
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt`
+  and `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt`
+- Branch obligations:
+  - `step:doFillHitAttackRoll`
+  - `step:doFillTargetChoice`
+  - `step:doResolveDamage`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-model.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Monsters/Monsters-C-D.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+
+Behavior implemented:
+
+- `src/rules/creature_size.rs` now provides the shared `CreatureSize` value
+  type, and `src/rules/battle_reducer_spine.rs` stores `prone` and
+  `creature_size` on battle combatants.
+- Stat-block attack subjects now carry `StatBlockProneOnHitRider`, so a hit
+  can apply Prone only when the target is Medium or smaller and not immune to
+  the Prone condition.
+- `resolve_stat_block_action_subject` applies the rider on a hit before the
+  damage-roll continuation or final static-damage resolution.
+- `src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs`
+  keeps the T080 QNT literals as the expected witness, while the observed
+  replay uses `start_goblin_prone_rider_battle`,
+  `discover_goblin_prone_rider_attack_control`, and
+  `resolve_stat_block_action_subject`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doFillHitAttackRoll` | `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json#T080-fill-hit-attack-roll-medium#step:doFillHitAttackRoll` | `cargo test stat_block` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json#T080-fill-target-choice-medium#step:doFillTargetChoice` | `cargo test stat_block` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doResolveDamage` | `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json#T080-resolve-damage-medium#step:doResolveDamage` | `cargo test stat_block` | `covered` |
+
+Target replay evidence:
+
+- Evidence file:
+  `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json`
+- Target profile: `rust`
+- Target profile SHA-256:
+  `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Additional target replay traces:
+  `T080-fill-hit-attack-roll-larger` proves a larger target is not knocked
+  Prone, and `T080-fill-hit-attack-roll-prone-immune` proves condition
+  immunity preserves the target's Prone state.
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json` is still missing; repo-wide acceptance
+  remains blocked by global accounting debt outside this combined diagnostic.
+
+Remaining gaps:
+
+- T080 proves size-gated Prone rider application through the Goblin fixture
+  route, but not a general stat-block action catalog or arbitrary authored
+  stat-block profile selection.
+- Repo-wide harness acceptance still fails on the known global denominator:
+  missing run ledger, 79 undeclared historical evidence files, 163
+  witness-protocol findings from undeclared adapters, and 17 authored-identity
+  scan findings outside this change.
+
+Verification results:
+
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt --evidence tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json` passed.
+- `cargo test stat_block -- --nocapture` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed on known repo-wide
+  accounting debt outside this combined diagnostic: missing
+  `tasks/RUN_LEDGER.json`, 79 undeclared evidence files, 163 adapter quarantine
+  findings from undeclared adapters, and 17 authored-identity scan findings.
+
 ## T079-T060: Stat-Block Multi-Damage Battle-Spine Diagnostic
 
 - Manifest source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
@@ -59,9 +153,9 @@ Generated branch coverage:
 
 | Obligation | Target replay evidence | Diagnostic tests | Status |
 | --- | --- | --- | --- |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doFillHitAttackRoll` | `tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json#T079-fill-hit-attack-roll-static#step:doFillHitAttackRoll` | `cargo test stat_block` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json#T079-fill-target-choice-rolled#step:doFillTargetChoice` | `cargo test stat_block` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doResolveRolledDamage` | `tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json#T079-resolve-rolled-damage#step:doResolveRolledDamage` | `cargo test stat_block` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doFillHitAttackRoll` | `tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json#T079-fill-hit-attack-roll-static#step:doFillHitAttackRoll` | `cargo test stat_block` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json#T079-fill-target-choice-rolled#step:doFillTargetChoice` | `cargo test stat_block` | `prior diagnostic` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doResolveRolledDamage` | `tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json#T079-resolve-rolled-damage#step:doResolveRolledDamage` | `cargo test stat_block` | `prior diagnostic` |
 
 Target replay evidence:
 

@@ -17,8 +17,9 @@ separate three claims:
 The current experiment strongly supports the first two claims. Follow-up tracked
 reducer-spine experiments now support the third claim for several narrow paths:
 weapon attack ordering, the Skeleton weapon-attack fixture, Goblin stat-block
-action ordering, Goblin stat-block multi-damage, and the reusable stat-block
-control component. That is still not proof for the full battle reducer.
+action ordering, Goblin stat-block multi-damage, Goblin stat-block size-gated
+Prone riders, and the reusable stat-block control component. That is still not
+proof for the full battle reducer.
 
 The "audit battle reducer QNT drivers" question came up because the main goal
 is stronger than replaying focused traces. If the target must reconstruct a
@@ -89,18 +90,18 @@ define combatant addressing, open-hole projection, and turn advancement.
 
 ### Rust Experiment
 
-- Rust rule modules in `src/rules`: 52.
-- Rust battle/rule-core replay adapters in `src/qnt_adapters`: 62.
-- Target replay evidence files: 79.
-- Target replay runs recorded across those files: 484.
-- Current-manifest evidence files: 10.
-- Current-manifest replay runs: 70.
+- Rust rule modules in `src/rules`: 54.
+- Rust battle/rule-core replay adapters in `src/qnt_adapters`: 80.
+- Target replay evidence files: 80.
+- Target replay runs recorded across those files: 489.
+- Current-manifest evidence files: 11.
+- Current-manifest replay runs: 75.
 - Stale previous-manifest evidence files: 69.
 - Stale previous-manifest replay runs: 414.
 
 The current-manifest files are the five handoff-lane files plus the T060,
-T063, T064, T074, and T079 reducer-spine/control diagnostics. Their combined
-current run count is 70.
+T063, T064, T074, T079, and T080 reducer-spine/control diagnostics. Their
+combined current run count is 75.
 
 Search result at first measurement: the Rust target had no `BattleState`,
 `start_battle`, `discover_battle_acts`, or `resolve_battle_subject` equivalent.
@@ -237,14 +238,15 @@ many local helper slices with high confidence.
 The reducer-spine experiments can also be recreated from copied QNT alone for
 the Fighter weapon-attack ordering path, the Rogue/Skeleton weapon-attack
 fixture path, the Goblin stat-block action-ordering path, and the Goblin
-stat-block multi-damage path. Measured generic reducer coverage is no longer
-zero, but it is still a seed. Four existing battle MBT adapter tests now replay
-observed behavior through reducer-spine entrypoints instead of slice-specific
-observed helpers, and the T060/T063/T064/T079 per-file target replay evidence is
-current and locally validator-clean. T074 supplies the reusable stat-block
-control component used by battle-spine paths. The full cleanroom claim remains
-unproven until those routes are recorded as complete work-loop tasks and then
-expanded across the level-1/2 battle queue.
+stat-block multi-damage path, and the Goblin stat-block size-gated Prone-rider
+path. Measured generic reducer coverage is no longer zero, but it is still a
+seed. Five existing battle MBT adapter tests now replay observed behavior
+through reducer-spine entrypoints instead of slice-specific observed helpers,
+and the T060/T063/T064/T079/T080 per-file target replay evidence is current and
+locally validator-clean. T074 supplies the reusable stat-block control component
+used by battle-spine paths. The full cleanroom claim remains unproven until
+those routes are recorded as complete work-loop tasks and then expanded across
+the level-1/2 battle queue.
 
 ## Completed Follow-Up Experiment
 
@@ -461,40 +463,96 @@ ordering and stat-block damage modes in a Goblin fixture path, but not yet
 size-gated condition riders, a general stat-block action catalog, or arbitrary
 stat-block profile selection.
 
+## Seventh Stat-Block Size-Gated Condition Rider Spine Experiment
+
+`battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt` is now routed
+through the experimental reducer spine on the observed side.
+
+This tests the next reducer fact after T060 ordering and T079 damage modes: a
+successful stat-block hit can apply a condition rider, but only when target
+facts admit it.
+
+Measured QNT-derived facts:
+
+- `TargetSizeGate` has closed variants for Medium-or-smaller, larger, and
+  Medium-or-smaller but Prone-immune targets.
+- Target HP starts at 20.
+- A hit against a Medium-or-smaller target sets `qTargetProne = true` and opens
+  the damage-roll hole.
+- A hit against a larger target preserves `qTargetProne = false`.
+- A hit against a Prone-immune target preserves `qTargetProne = false`.
+- Damage resolution projects target HP 17 and preserves the Prone result.
+
+Rust change:
+
+- `BattleState` combatants now store durable `prone` and `creature_size` facts,
+  using the shared `CreatureSize` value type.
+- `StatBlockActionSubject` stores a typed `StatBlockProneOnHitRider`.
+- `resolve_stat_block_action_subject` applies the rider on a hit before either
+  opening the damage-roll continuation or resolving static damage.
+
+Result:
+
+- `battle_runtime_stat_block_size_gated_condition_rider` observed replay uses
+  `start_goblin_prone_rider_battle`,
+  `discover_goblin_prone_rider_attack_control`, and
+  `resolve_stat_block_action_subject`.
+- The expected witness remains literal QNT projection from
+  `battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt`.
+- `tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json`
+  has current manifest and inventory hashes.
+- `scripts/check-target-replay-evidence-file.cjs` validates all 3 T080 branch
+  obligations. The evidence records 5 runs because `doFillHitAttackRoll` is
+  checked for Medium-or-smaller, larger, and Prone-immune targets.
+
+This expands reducer-shaped evidence from 43 obligations across
+T060/T063/T064/T074/T079 to 46 obligations across
+T060/T063/T064/T074/T079/T080. The battle-spine portion is now 39 obligations
+across five battle drivers, plus 7 reusable T074 stat-block control
+obligations.
+
+The remaining stat-block limitation is now narrower: QNT has proven enough for
+ordering, damage mode, damage mutation, and a size-gated condition rider in
+Goblin fixture paths. It still has not proven a general stat-block action
+catalog, arbitrary stat-block profile selection, or a generic catalog-to-action
+runtime admission boundary.
+
 ## Work-Loop Promotion Findings
 
-T060/T063/T064/T074/T079 cannot be promoted to repo-wide harness acceptance by
-adding only driver-local ledger/history records in the current dirty repo.
+T060/T063/T064/T074/T079/T080 cannot be promoted to repo-wide harness
+acceptance by adding only driver-local ledger/history records in the current
+dirty repo.
 
 Measured denominator:
 
 - Active replayable obligations: 631 across 96 drivers.
 - Battle/rule-core replayable obligations: 502 across 73 drivers.
-- T060 plus T063 plus T064 plus T079 battle-spine obligations: 36.
+- T060 plus T063 plus T064 plus T079 plus T080 battle-spine obligations: 39.
 - T074 reducer-control obligations: 7.
 - T060/T064/T074 composed obligations: 12 + 21 + 7, with T060 and T064 sharing
   the T074 stat-block control component.
 - T079 adds 3 selected branch obligations and one extra static-mode replay run.
-- Target replay evidence files under `tasks/target-replay-evidence`: 79.
-- Current-snapshot evidence files: 10.
+- T080 adds 3 selected branch obligations and two extra hit-mode replay runs.
+- Target replay evidence files under `tasks/target-replay-evidence`: 80.
+- Current-snapshot evidence files: 11.
 - Stale previous-snapshot evidence files: 69.
-- Rust adapter files under `src/qnt_adapters`: 79.
+- Rust adapter files under `src/qnt_adapters`: 80.
 - `tasks/history` is absent, and `tasks/RUN_LEDGER.json` is absent.
 
 Harness implication:
 
 - Without `tasks/RUN_LEDGER.json`, `check-cleanroom-harness.cjs` validates every
   evidence file under `tasks/target-replay-evidence` against the current rolling
-  task's declared evidence. A T060/T063/T064/T074/T079 rolling task would
+  task's declared evidence. A T060/T063/T064/T074/T079/T080 rolling task would
   therefore still fail on the other evidence files.
 - With `tasks/RUN_LEDGER.json`, the harness requires every evidence file under
   `tasks/target-replay-evidence` to be accounted for by ledger entries. A
-  T060/T063/T064/T074/T079-only ledger would still fail on the other evidence
-  files.
+  T060/T063/T064/T074/T079/T080-only ledger would still fail on the other
+  evidence files.
 - The production source scan treats undeclared adapter files as production
-  source. A T060/T063/T064/T074/T079-only engine-depth manifest would therefore
-  still scan the other adapter modules and report witness-protocol/authored
-  identity findings.
+  source. A T060/T063/T064/T074/T079/T080-only engine-depth manifest would
+  therefore still scan the other adapter modules and report
+  witness-protocol/authored identity findings.
 
 This is not a QNT insufficiency. It is a dirty-repo acceptance-denominator
 problem.
@@ -514,27 +572,28 @@ Options from here:
    driver, then promote only after the dirty denominator is fixed.
 
 The best next reducer-specific experiment is Option 1 or Option 3, not a
-T060/T063/T064/T074/T079-only work-loop promotion inside the current dirty
+T060/T063/T064/T074/T079/T080-only work-loop promotion inside the current dirty
 repo.
 
 ## Recommended Next Experiment
 
-Use the T060/T079 stat-block action route as the base for the adjacent
-size-gated condition rider, or add a source-side reducer-spine witness before
-broadening again. Do not start with a full driver audit.
+The adjacent stat-block route now covers T060, T079, and T080. The next useful
+step is no longer another Goblin stat-block micro-slice unless it introduces a
+different reducer subsystem. Prefer a source-side reducer-spine witness, or pick
+one non-stat-block subsystem such as turn advancement, reactions/interrupts, or
+spell-slot/action-resource spending. Do not start with a full driver audit.
 
 Method:
 
 1. Use only `cleanroom-input/**` as implementation input.
-2. Promote the existing T060/T063/T064/T074/T079 transition evidence into
+2. Promote the existing T060/T063/T064/T074/T079/T080 transition evidence into
    complete work-loop tasks only after the dirty harness denominator is cleaned
    up.
 3. If the current harness must express "observed via reducer spine, expected
    via focused QNT witness", add a small source-side reducer-spine witness.
-   If the next code experiment continues in Rust first, prefer
-   `battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt` because it
-   builds directly on the stat-block attack path T060 and T079 now route
-   through the spine.
+   If the next code experiment continues in Rust first, prefer a reducer
+   subsystem whose lifecycle is not already represented by the stat-block attack
+   path, so the measurement says something new about the full reducer.
 4. Record every fact that cannot be derived from copied QNT, RAW, domain docs,
    or assumptions as a blocker.
 5. Compare the resulting public shape to TypeScript only after the experiment,

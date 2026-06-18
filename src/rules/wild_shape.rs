@@ -1,15 +1,10 @@
+pub use crate::rules::creature_size::CreatureSize as WildShapeCreatureSize;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum WildShapeForm {
     TrueForm,
     RidingHorse,
     Cat,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum WildShapeCreatureSize {
-    Tiny,
-    Medium,
-    Large,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

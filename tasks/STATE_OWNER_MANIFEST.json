@@ -10,6 +10,22 @@
     },
     {
       "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.prone",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.creature_size",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
         "boundary": "stat-block action subject",
         "sourceField": "battle-runtime-stat-block-multi-damage DamageMode",
         "tag": "stored-executable-boundary-projection"
@@ -30,7 +46,17 @@
     },
     {
       "derivability": {
-        "boundary": "battle-runtime-stat-block-multi-damage projection",
+        "boundary": "stat-block action subject",
+        "sourceField": "battle-runtime-stat-block-size-gated-condition-rider TargetSizeGate",
+        "tag": "stored-executable-boundary-projection"
+      },
+      "fieldPath": "StatBlockActionSubject.prone_on_hit_rider",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "derivability": {
+        "boundary": "battle-runtime-stat-block-size-gated-condition-rider projection",
         "sourceField": "StatBlockActionResolutionResult",
         "tag": "stored-executable-boundary-projection"
       },
@@ -44,10 +70,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T079-T060"
+  "taskId": "T080-T060-T079"
 }

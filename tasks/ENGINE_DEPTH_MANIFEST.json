@@ -1,27 +1,30 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 1,
+      "addedEntries": 4,
       "owner": "production",
-      "reason": "replaced the stat-block action subject's rolled-damage boolean with a typed damage mode so static hit damage is executable in the reducer spine"
+      "reason": "added a shared creature-size value type, durable prone and creature-size facts to combatants, plus a typed stat-block prone-on-hit rider, so size-gated condition riders are executable in the reducer spine"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs",
+      "path": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
       "quarantinedWitnessNames": [
         "doFillTargetChoice",
         "doFillHitAttackRoll",
-        "doResolveRolledDamage",
-        "initRolled",
-        "initStatic",
-        "RolledDamageMode",
-        "StaticDamageMode",
+        "doResolveDamage",
+        "initMediumOrSmallerTarget",
+        "initLargerTarget",
+        "initMediumOrSmallerProneImmuneTarget",
+        "MediumOrSmallerTarget",
+        "LargerTarget",
+        "MediumOrSmallerProneImmuneTarget",
         "TargetChoice",
         "AttackRoll",
         "DamageRoll",
         "qTargetHp",
-        "qDamageMode",
+        "qTargetProne",
+        "qTargetSizeGate",
         "qProtocol",
         "qHoles",
         "needsHoles",
@@ -43,19 +46,19 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T079-battle-runtime-stat-block-multi-damage.json"
+        "tasks/target-replay-evidence/T080-battle-runtime-stat-block-size-gated-condition-rider.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "StatBlockActionDamageMode",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "api": "StatBlockProneOnHitRider",
+      "driver": "source-side reducer-spine witness or next reducer subsystem",
       "module": "src/rules/battle_reducer_spine.rs"
     },
     {
       "api": "resolve_stat_block_action_subject",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "driver": "source-side reducer-spine witness or next reducer subsystem",
       "module": "src/rules/battle_reducer_spine.rs"
     }
   ],
@@ -70,13 +73,23 @@
         "StatBlockActionFill",
         "StatBlockActionResolutionResult",
         "StatBlockActionSubject",
+        "StatBlockProneOnHitRider",
+        "discover_goblin_prone_rider_attack_control",
         "discover_goblin_rolled_action_attack_control",
         "discover_goblin_static_action_attack_control",
         "resolve_stat_block_action_subject",
+        "start_goblin_prone_rider_battle",
         "start_goblin_stat_block_battle"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
       "role": "domain-engine"
+    },
+    {
+      "domainApis": [
+        "CreatureSize"
+      ],
+      "path": "src/rules/creature_size.rs",
+      "role": "domain-api"
     },
     {
       "domainApis": [
@@ -90,5 +103,5 @@
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T079-T060"
+  "taskId": "T080-T060-T079"
 }
