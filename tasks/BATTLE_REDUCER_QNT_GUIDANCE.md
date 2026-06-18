@@ -29,8 +29,10 @@ The experiment passes through reducer-shaped functions:
 That is materially closer to the main goal than per-driver replay adapters, but
 it is still an experiment. The `battle_runtime_weapon_attack_ordering` adapter
 now uses the spine for observed replay and the prior focused helper for expected
-projection, but accepted target replay evidence has not been regenerated through
-that route.
+projection. The T063 target replay evidence file now has current manifest and
+inventory metadata and records the spine replay function in `generatedBy.name`,
+but the repo-wide work-loop artifacts do not yet select T063 as an accepted
+task.
 
 ## How To Guide The Next Cleanroom Work
 
@@ -99,15 +101,19 @@ Done for `battle_runtime_weapon_attack_ordering`. This was the fastest way to
 test whether existing focused MBT projection can use reducer-shaped observed
 replay without changing source QNT.
 
-Result: it works for the ordering driver. The remaining issue is evidence
-production, not the core code path.
+Result: it works for the ordering driver. The per-file evidence for T063 is now
+current and validates cleanly when checked against the selected T063 inventory
+slice. The remaining issue is work-loop acceptance: `tasks/RUN_LEDGER.json`,
+rolling artifacts, and history do not yet declare T063 as the accepted selected
+driver.
 
 ## What Is Still Missing
 
-- No accepted target replay evidence currently uses `battle_reducer_spine.rs`.
-- One existing `.mbt.qnt` adapter test has been replayed through
+- No complete work-loop task currently accepts `battle_reducer_spine.rs`.
+- One existing `.mbt.qnt` adapter test and per-file evidence have been replayed
+  through
   `start_battle`/`discover_battle_acts`/`resolve_battle_subject`, but the JSON
-  evidence remains stale.
+  evidence schema cannot independently prove that call graph.
 - The spine handles only a Fighter weapon attack against the Goblin-like QNT
   initial state.
 - It does not yet model:
@@ -121,16 +127,17 @@ production, not the core code path.
 
 ## Best Next Step
 
-Make accepted current-snapshot evidence use the generic spine. The preferred
-path is:
+Promote the T063 spine route into a complete work-loop task, or add a
+source-side reducer-spine witness if the current evidence schema is not strong
+enough. The preferred path is:
 
 1. Use `battle-runtime-weapon-attack-ordering.mbt.qnt`, because its Rust adapter
-   already routes observed replay through the spine.
-2. Regenerate or hand-author target replay evidence that records this route:
-   - `start_battle`
-   - `discover_battle_acts`
-   - `resolve_battle_subject`
-3. If the current evidence schema cannot identify the reducer-spine surface,
+   already routes observed replay through the spine and its per-file evidence is
+   current.
+2. Build a complete accepted T063 work-loop record: `START_GATE`, engine depth,
+   state ownership, review loop, decider decision, history, run ledger, and
+   validation report.
+3. If the evidence schema must identify the reducer-spine surface more strongly,
    add a small source-side reducer-spine witness or evidence schema note before
    broadening to more drivers.
 4. If a fact is missing, stop and improve source QNT/guidance rather than

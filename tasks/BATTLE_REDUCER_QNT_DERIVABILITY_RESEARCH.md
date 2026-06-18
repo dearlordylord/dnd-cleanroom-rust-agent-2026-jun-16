@@ -103,9 +103,16 @@ damage through the existing Rust HP helper derived from rule-core hit point QNT.
 The `battle_runtime_weapon_attack_ordering` adapter now uses that reducer spine
 for observed replay and keeps the old focused helper as the expected witness.
 That is the first existing MBT adapter test routed through
-`start_battle`/`discover_battle_acts`/`resolve_battle_subject`. The JSON target
-replay evidence has not been regenerated, so this is tested code evidence, not
-accepted current-snapshot harness evidence.
+`start_battle`/`discover_battle_acts`/`resolve_battle_subject`.
+
+`tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json`
+now also references the current cleanroom manifest and source branch inventory,
+and its `generatedBy.name` records the spine replay function. The per-file
+evidence validates cleanly against the selected T063 inventory slice and covers
+all seven T063 branch obligations. This is still not repo-wide cleanroom
+acceptance: the rolling task artifacts and ledger do not select T063 as the
+active accepted work-loop task, and the evidence schema records the harness
+function by name rather than independently proving the Rust call graph.
 
 ### TypeScript Exemplar
 
@@ -209,22 +216,44 @@ The new reducer-spine experiment can also be recreated from copied QNT alone
 for one Fighter weapon-attack path. Measured generic reducer coverage is no
 longer zero, but it is still only a seed. One existing battle MBT adapter test
 now replays through the generic reducer entrypoints instead of a slice-specific
-observed helper. The full cleanroom claim remains unproven until that route
-produces current-snapshot target replay evidence and then expands across the
-level-1/2 battle queue.
+observed helper, and the corresponding per-file T063 target replay evidence is
+current and locally validator-clean. The full cleanroom claim remains unproven
+until that route is recorded as a complete work-loop task and then expanded
+across the level-1/2 battle queue.
+
+## Completed Follow-Up Experiment
+
+The recommended current-snapshot reducer-spine evidence experiment has now been
+run for T063 at the per-file evidence level.
+
+Result:
+
+- The existing Rust test path can replay observed T063 actions through
+  `battle_reducer_spine.rs`.
+- The T063 replay evidence has current manifest and inventory hashes.
+- A selected-driver validation of the T063 evidence reports zero issues and
+  seven covered obligations.
+- The existing evidence schema cannot enforce "observed replay used reducer
+  spine" beyond the generated harness name and target source path. That fact is
+  therefore code-reviewed evidence, not a machine-checked harness property.
+- `node scripts/check-cleanroom-harness.cjs` still fails at repo scope. The
+  remaining failures are structural and not specific to T063: missing
+  `tasks/RUN_LEDGER.json`, undeclared historical evidence files including T063,
+  stale selected T074 evidence, missing T074 validation-report rows, and the
+  existing adapter-quarantine/authored-identity scan findings.
 
 ## Recommended Next Experiment
 
-Run a current-snapshot reducer-spine evidence experiment, not a full driver
-audit.
+Run a complete work-loop reducer-spine task for T063 or add a source-side
+reducer-spine witness before broadening to the next battle driver. Do not start
+with a full driver audit.
 
 Method:
 
 1. Use only `cleanroom-input/**` as implementation input.
-2. Regenerate or write current-snapshot target replay evidence for
-   `battle-runtime-weapon-attack-ordering.mbt.qnt` with observed replay produced
-   through the reducer spine.
-3. If the current harness cannot express "observed via reducer spine, expected
+2. Promote `battle-runtime-weapon-attack-ordering.mbt.qnt` into a complete
+   work-loop task whose rolling artifacts and ledger declare the T063 evidence.
+3. If the current harness must express "observed via reducer spine, expected
    via focused QNT witness", add a small source-side reducer-spine witness
    before attempting a broad driver such as
    `battle-runtime-weapon-attack-skeleton.mbt.qnt`.
