@@ -241,6 +241,66 @@ Result:
   `tasks/RUN_LEDGER.json`, undeclared historical evidence files including T063,
   stale selected T074 evidence, missing T074 validation-report rows, and the
   existing adapter-quarantine/authored-identity scan findings.
+- `scripts/check-target-replay-evidence-file.cjs` now captures the per-driver
+  evidence check as a repeatable diagnostic command. It is intentionally not a
+  work-loop acceptance gate.
+
+Diagnostic command:
+
+```bash
+node scripts/check-target-replay-evidence-file.cjs \
+  --driver cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt \
+  --evidence tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json
+```
+
+## Work-Loop Promotion Findings
+
+T063 cannot be promoted to repo-wide harness acceptance by adding only a T063
+ledger/history record in the current dirty repo.
+
+Measured denominator:
+
+- Active replayable obligations: 631 across 96 drivers.
+- Battle/rule-core replayable obligations: 502 across 73 drivers.
+- T063 obligations: 7.
+- Target replay evidence files under `tasks/target-replay-evidence`: 78.
+- Current-snapshot evidence files: 6.
+- Stale previous-snapshot evidence files: 72.
+- Rust adapter files under `src/qnt_adapters`: 78.
+- `tasks/history` is absent, and `tasks/RUN_LEDGER.json` is absent.
+
+Harness implication:
+
+- Without `tasks/RUN_LEDGER.json`, `check-cleanroom-harness.cjs` validates every
+  evidence file under `tasks/target-replay-evidence` against the current rolling
+  task's declared evidence. A T063 rolling task would therefore still fail on
+  the other 77 evidence files.
+- With `tasks/RUN_LEDGER.json`, the harness requires every evidence file under
+  `tasks/target-replay-evidence` to be accounted for by ledger entries. A
+  single-entry T063 ledger would still fail on the other 77 evidence files.
+- The production source scan treats undeclared adapter files as production
+  source. A T063-only engine-depth manifest would therefore still scan the other
+  adapter modules and report witness-protocol/authored-identity findings.
+
+This is not a QNT insufficiency. It is a dirty-repo acceptance-denominator
+problem.
+
+Options from here:
+
+1. **Source-side reducer-spine witness first.** Add a source QNT/MBT witness
+   that explicitly names the reducer contract (`start_battle`,
+   `discover_battle_acts`, `resolve_battle_subject`) so future cleanroom runs
+   do not rely on generated-by strings as call-graph evidence.
+2. **Dirty-repo cleanup first.** Move stale historical evidence/adapters out of
+   the harness denominator or create proper ledger/history entries for them.
+   This makes the cleanroom harness useful again but is broader than the reducer
+   question.
+3. **Continue per-file reducer-spine diagnostics.** Use
+   `check-target-replay-evidence-file.cjs` while expanding the spine to another
+   driver, then promote only after the dirty denominator is fixed.
+
+The best next reducer-specific experiment is Option 1 or Option 3, not a
+T063-only work-loop promotion inside the current dirty repo.
 
 ## Recommended Next Experiment
 

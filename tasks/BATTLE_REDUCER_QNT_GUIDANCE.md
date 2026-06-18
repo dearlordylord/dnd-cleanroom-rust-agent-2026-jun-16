@@ -105,7 +105,9 @@ Result: it works for the ordering driver. The per-file evidence for T063 is now
 current and validates cleanly when checked against the selected T063 inventory
 slice. The remaining issue is work-loop acceptance: `tasks/RUN_LEDGER.json`,
 rolling artifacts, and history do not yet declare T063 as the accepted selected
-driver.
+driver. A T063-only work-loop record would still not make this dirty repo pass
+`node scripts/check-cleanroom-harness.cjs`, because the harness denominator
+also includes the other 77 evidence files and undeclared adapter modules.
 
 ## What Is Still Missing
 
@@ -127,9 +129,27 @@ driver.
 
 ## Best Next Step
 
-Promote the T063 spine route into a complete work-loop task, or add a
-source-side reducer-spine witness if the current evidence schema is not strong
-enough. The preferred path is:
+Do not try to promote T063 alone inside the current dirty repo. Use one of two
+paths:
+
+1. Add a source-side reducer-spine witness if the current evidence schema is not
+   strong enough. This is the cleanest reducer-specific next step because it
+   makes `start_battle` / `discover_battle_acts` / `resolve_battle_subject`
+   explicit source input for future cleanroom runs.
+2. Continue per-file reducer-spine diagnostics in this repo while expanding the
+   spine to another driver. Use:
+
+```bash
+node scripts/check-target-replay-evidence-file.cjs \
+  --driver cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt \
+  --evidence tasks/target-replay-evidence/T063-battle-runtime-weapon-attack-ordering.json
+```
+
+This diagnostic command validates current per-file evidence but does not close
+work-loop acceptance.
+
+When the dirty harness denominator is cleaned up, the preferred work-loop path
+is:
 
 1. Use `battle-runtime-weapon-attack-ordering.mbt.qnt`, because its Rust adapter
    already routes observed replay through the spine and its per-file evidence is
