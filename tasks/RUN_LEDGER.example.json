@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "manifestSourceCommitSha": "829aee6441d76a921c9d9c14a0d0221062975334",
+  "sourceBranchInventorySha256": "0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248",
+  "entries": [
+    {
+      "taskId": "T001",
+      "assignmentId": "level-1-2-full",
+      "laneId": "creation",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt"
+      ],
+      "manifestSourceCommitSha": "829aee6441d76a921c9d9c14a0d0221062975334",
+      "sourceBranchInventorySha256": "0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248",
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/T001/START_GATE.json",
+          "sha256": "<sha256>"
+        },
+        "engineDepth": {
+          "path": "tasks/history/T001/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "<sha256>"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/T001/STATE_OWNER_MANIFEST.json",
+          "sha256": "<sha256>"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/T001/REVIEW_LOOP.json",
+          "sha256": "<sha256>"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/T001/DECIDER_DECISION.json",
+          "sha256": "<sha256>"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/T001-<driver>.json",
+          "sha256": "<sha256>",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T001-<driver>.json#<trace id>#<branch family>:<branch action>"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}

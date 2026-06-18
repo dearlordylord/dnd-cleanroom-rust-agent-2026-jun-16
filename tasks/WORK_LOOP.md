@@ -29,11 +29,12 @@ none is named, stop and record a bootstrap blocker rather than choosing.
 Only drivers in the selected assignment's lane queues are eligible. Drivers in
 future queues, or drivers marked `out` or `flagged` in
 `tasks/LEVEL_1_2_SCOPE.md`, are not Work Loop tasks until the source-owned
-active work file, scope file, and source branch inventory are revised together.
+`branch-scope.jsonl` selects them and regenerates the cleanroom queue artifacts.
 
 Do not reorder or edit `tasks/LEVEL_1_2_SCOPE.md` in the target repo. It is a
 source-owned snapshot; if the queue is wrong, record a blocker and have the
-source repo update the scope snapshot and branch inventory together.
+source repo update `plans/cleanroom-branch-coverage/branch-scope.jsonl` and run
+the branch-coverage write path.
 
 `cleanroom-input/branch-coverage/source-branch-inventory.json` is the branch
 denominator. A queued driver is complete only when every in-scope replayable
@@ -77,8 +78,8 @@ To select work:
 
 ## Current Cursor
 
-- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
-- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Manifest source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
+- Source branch inventory SHA: `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
 - Last completed current-snapshot queued branch set: `<none>`
 - Active assignment: `level-1-2-full`
 - Next queued driver: `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt`
@@ -131,8 +132,8 @@ blocked implementation task. Use this shape:
 ```md
 ## TNNN: <driver basename or short behavior name>
 
-- Manifest source commit SHA: `04249edf345a7752de2f1551dd3d509a2fffc160`
-- Source branch inventory SHA: `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d`
+- Manifest source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
+- Source branch inventory SHA: `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
 - Driver: `<exact queued .mbt.qnt path>`
 - Branch obligations:
   - `<branch family>:<branch action>`

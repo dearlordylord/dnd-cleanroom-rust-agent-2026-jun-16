@@ -5,12 +5,14 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: 04249edf345a7752de2f1551dd3d509a2fffc160
-- Copy date: 2026-06-15T16:51:55.224Z
-- Files: 411
+- Source commit SHA: 829aee6441d76a921c9d9c14a0d0221062975334
+- Copy date: 2026-06-18T02:58:05.262Z
+- Files: 423
 
 Cleanroom tasks must declare which source commit SHA they implement
 against (the `Source commit SHA` recorded here at task start).
+Source-side rechecks must resolve validators from this source commit and
+compare target-local copied validators against the hashes below.
 
 ## Included
 
@@ -39,11 +41,11 @@ instead of guessing.
 - `domain/CLEANROOM_ASSUMPTIONS.md`: 1
 - `branch-coverage/source-branch-inventory.json`: 1
 - `guidance/README.md`: 1
-- `qnt/battle-runtime`: 251
+- `qnt/battle-runtime`: 257
 - `qnt/character-creation-runtime`: 12
 - `qnt/character-sheet-runtime`: 12
-- `qnt/character-battle-runtime`: 4
-- `qnt/shared-algebras`: 89
+- `qnt/character-battle-runtime`: 5
+- `qnt/shared-algebras`: 94
 
 ## Per-File Inventory
 
@@ -90,10 +92,10 @@ instead of guessing.
 | `raw/srd-5.2.1/Spells/Gaining-and-Casting.md` | `fc36dfa2fb45157289d90b1ae9b09e36211bc92c7ef4bd0c8f8af4a65cda9403` | `.references/srd-5.2.1/Spells/Gaining-and-Casting.md` |
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
-| `branch-coverage/source-branch-inventory.json` | `b4e7e101def7969fc420563dc4da020c22e700f0dc0cc1d27accad6e8631225d` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
+| `branch-coverage/source-branch-inventory.json` | `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
 | `guidance/README.md` | `5bbd879503a8e351981897a3a01ebcee9dc62cde5f882c7e31cf7b66b1e0938d` | `plans/cleanroom-guidance/README.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
-| `qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` | `d16e58a52c6d0ed74fa3cbc729a89a9e03183cf6679f50e983878145886a44bb` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` | `03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-search-tests.qnt` | `fc8b35a8d76aeb5639e2ebb06b45ad7d7bd71aea700918ae98d33a0b0e92cabe` | `packages/battle-runtime/battle-runtime-ability-check-search-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-search.qnt` | `8199aa82ef37ec925ba953715e3c2e6b5022bf6689c5e7d4a9e6800561df853b` | `packages/battle-runtime/battle-runtime-ability-check-search.qnt` |
 | `qnt/battle-runtime/battle-runtime-acid-arrow-timing.mbt.qnt` | `5dbd26c2990380b8b57c3b8b24eab87d1796ab3a8e829730cd6da6c75950b929` | `packages/battle-runtime/battle-runtime-acid-arrow-timing.mbt.qnt` |
@@ -129,7 +131,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-condition-removal-protection-selected-identity.mbt.qnt` | `5f3d05208d12d81e9c3764b7cc88b6c023f3fd9ef8b27c6cb95c83e3bd730888` | `packages/battle-runtime/battle-runtime-condition-removal-protection-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt` | `eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7` | `packages/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-condition-spell-resolution.qnt` | `24c40d74c029854617018d0f6f7579d2eceb8dcd5267ea69b2bc615bb8e78145` | `packages/battle-runtime/battle-runtime-condition-spell-resolution.qnt` |
-| `qnt/battle-runtime/battle-runtime-core-combat-tests.qnt` | `f3df296c439bfcb99fca9f70f7baf7a5f0b325a873c51e551d735c86e5efad09` | `packages/battle-runtime/battle-runtime-core-combat-tests.qnt` |
+| `qnt/battle-runtime/battle-runtime-core-combat-tests.qnt` | `da2b1eec2f57dc6a9ca62cf4065262af16d9d2fde2db74eb89accd98990e3f32` | `packages/battle-runtime/battle-runtime-core-combat-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-creature-size-change-lifecycle.mbt.qnt` | `d0ee13886dcb36dbf7d6a9342022443258181244e76d2b612e0a8746441675f0` | `packages/battle-runtime/battle-runtime-creature-size-change-lifecycle.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-creature-size-change.qnt` | `b5f9dbbfc920d4cf8c16fb8c9f40ec3d7e48318cb3aa9f3e7996d16df2e72396` | `packages/battle-runtime/battle-runtime-creature-size-change.qnt` |
 | `qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt` | `a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0` | `packages/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt` |
@@ -152,8 +154,8 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-dragons-breath.qnt` | `114d629ec6400b394f05e7f6bae3fe05ba4284c5268455d430a3d8c50297bd1e` | `packages/battle-runtime/battle-runtime-dragons-breath.qnt` |
 | `qnt/battle-runtime/battle-runtime-druid-lands-aid.mbt.qnt` | `61c59cf196b9cbe06cf203428cd40436468b9d244ec988da431c1f725998e9a9` | `packages/battle-runtime/battle-runtime-druid-lands-aid.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt` | `424d2d278b1d0b86d4e26d488778a0bf2cf513f1f7a7181c2b89bcb489e2599e` | `packages/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt` |
-| `qnt/battle-runtime/battle-runtime-druid-wild-shape-tests.qnt` | `4ea55d673d00e24a908b7f2946c4e6768650bf580f6858aae12aeea0acac3e4e` | `packages/battle-runtime/battle-runtime-druid-wild-shape-tests.qnt` |
-| `qnt/battle-runtime/battle-runtime-druid-wild-shape.qnt` | `0a204926433ee4219d303901ae7b5ecd102b422d69e1877d08d2fa3269836581` | `packages/battle-runtime/battle-runtime-druid-wild-shape.qnt` |
+| `qnt/battle-runtime/battle-runtime-druid-wild-shape-tests.qnt` | `58dc220328b4186146b684276cf899dd7609603662b74bb5757c087f4b9aec2f` | `packages/battle-runtime/battle-runtime-druid-wild-shape-tests.qnt` |
+| `qnt/battle-runtime/battle-runtime-druid-wild-shape.qnt` | `201ef6d6fa3bec733de71234ebbd55d7b253742ab070269c63177cd60662185d` | `packages/battle-runtime/battle-runtime-druid-wild-shape.qnt` |
 | `qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt` | `b3344012c4fb2fbf99ebb303e5b20470c5cc0ca7a919d4782b78d48cb45d39cd` | `packages/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-extra-attack.mbt.qnt` | `9b567d3e12715aaff11fe25612a4bc3e3cdd0d0814ecc5666dfaa0ce95efe9ee` | `packages/battle-runtime/battle-runtime-extra-attack.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-feather-fall.qnt` | `ad0ecd0824929698ce5687e5291da92ba709b21a9b50a63a01f5f3d0fc123880` | `packages/battle-runtime/battle-runtime-feather-fall.qnt` |
@@ -169,11 +171,13 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-fireball-selected-identity.mbt.qnt` | `a730ac260f3c9950a7674534f39c1170bdc7f566c4d9c7f5f249c220b1476a7c` | `packages/battle-runtime/battle-runtime-fireball-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-flaming-sphere-hazard-ram.mbt.qnt` | `245f5ca367324d4a327aeed431d9b7fccf9bbf0e0256d80700da9f762dce15b5` | `packages/battle-runtime/battle-runtime-flaming-sphere-hazard-ram.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-flaming-sphere-hazard-ram.qnt` | `beb37ba589d28a28a2e22abeed57fa2f20cf17b42a0573bb98675073818ac4f2` | `packages/battle-runtime/battle-runtime-flaming-sphere-hazard-ram.qnt` |
+| `qnt/battle-runtime/battle-runtime-grappler-selected-identity.mbt.qnt` | `6a86ea6e7cf570062b2762f5f7953ef4c9e7821ad56badef316f6f23cf16af8d` | `packages/battle-runtime/battle-runtime-grappler-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ground-command-tests.qnt` | `383f7e1eeec896f2b5686b86eb3190170aa6b3249a00b8fa15e42c142a80d2c0` | `packages/battle-runtime/battle-runtime-ground-command-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-ground-command.qnt` | `a6920c25b4c028114b997d4d249c026cfa58b2157f9595d8a32a8f89dc806737` | `packages/battle-runtime/battle-runtime-ground-command.qnt` |
 | `qnt/battle-runtime/battle-runtime-gust-of-wind-line-lifecycle.mbt.qnt` | `84255dcedc911d20be0517daa0305aa40759708b1fa9bc91dbe0c4d3f8c6909d` | `packages/battle-runtime/battle-runtime-gust-of-wind-line-lifecycle.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-gust-of-wind-tests.qnt` | `d78b45d538fdae161c151e25be51a911fb59effcf8573ba4924575314e9c9aa9` | `packages/battle-runtime/battle-runtime-gust-of-wind-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-gust-of-wind.qnt` | `02728ebd4047d283f168d72e99c1a31366ada3c5188b338c13b9f846f6c856ab` | `packages/battle-runtime/battle-runtime-gust-of-wind.qnt` |
+| `qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt` | `b4bd4fba541023b243878758d2d91b0b701b3fbfebbce6b52a7ae99bd929c86e` | `packages/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt` | `ae9644c3ba29c4ac59f9b23fac37cff84ee358962d841175a6d94aaab3714e35` | `packages/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-heat-metal-object-contact.mbt.qnt` | `9556faca6ffe303d75472ae6a3fe121e310039dffd285747cdedd47b37858fb7` | `packages/battle-runtime/battle-runtime-heat-metal-object-contact.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-hidden.qnt` | `1aa38fe3b2aad8f4458c1fc7f42dd12ded5f93f9b122cbbdf1ae83791a5df7de` | `packages/battle-runtime/battle-runtime-hidden.qnt` |
@@ -222,9 +226,9 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-moonbeam-movable-zone.mbt.qnt` | `e59471170050ff5080613aa92ed1392fdb5c9ffb7332ab12660c73ca647fe5d2` | `packages/battle-runtime/battle-runtime-moonbeam-movable-zone.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-moonbeam-movable-zone.qnt` | `3f21096f93a931ed6f8d6dcd121b40a68d13d7cd2e61cbbe3fd2f27811ff008b` | `packages/battle-runtime/battle-runtime-moonbeam-movable-zone.qnt` |
 | `qnt/battle-runtime/battle-runtime-movement-bridge-examples.qnt` | `c14c32859c701f8cd19caaa68d694b92dd54a2708bfea2f001b788253d7dc0ae` | `packages/battle-runtime/battle-runtime-movement-bridge-examples.qnt` |
-| `qnt/battle-runtime/battle-runtime-movement-bridge.qnt` | `a9e757d076e55f3a1c6e21aa008623b7a9542a9de066ad244c1fdd59ad2c6ab8` | `packages/battle-runtime/battle-runtime-movement-bridge.qnt` |
+| `qnt/battle-runtime/battle-runtime-movement-bridge.qnt` | `5108ac28d85262f8fe556ef444257e8052882688954010a40c52bb55a0bcda0d` | `packages/battle-runtime/battle-runtime-movement-bridge.qnt` |
 | `qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt` | `a607bfc96909cfdd19fbe41767280b4c1d427882e4f7a5a2aa486582de417e87` | `packages/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt` |
-| `qnt/battle-runtime/battle-runtime-movement.qnt` | `7925cbd2927f15e1d2b3dcd7391733141df21b4941f923a5ddd1e8e2c591e203` | `packages/battle-runtime/battle-runtime-movement.qnt` |
+| `qnt/battle-runtime/battle-runtime-movement.qnt` | `7c2d347d7c08a883f2fb693cdf4d6b977751fad7f84f600edb43399f0131558b` | `packages/battle-runtime/battle-runtime-movement.qnt` |
 | `qnt/battle-runtime/battle-runtime-mycelium-step-feature-selected-identity.mbt.qnt` | `d9d2ea599d18e7282f591e4b1643bf2637f364ce2d606600d1d2e2b9ca87277b` | `packages/battle-runtime/battle-runtime-mycelium-step-feature-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-object-contact-damage-tests.qnt` | `8c542f895a224da2692f966237fe7e39b4f8a45825d4510cf96a5234a4afc82f` | `packages/battle-runtime/battle-runtime-object-contact-damage-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-object-contact-damage.qnt` | `fdf1e81a29a8e93811fdbdaa64e0ef22f64aff07c9eb23e1630d94e1754d63ed` | `packages/battle-runtime/battle-runtime-object-contact-damage.qnt` |
@@ -278,6 +282,8 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-shining-smite-selected-identity.mbt.qnt` | `54add924300a7f2514131d9c3dfc63e6b0506cd1844b0276c4fe690b891baf82` | `packages/battle-runtime/battle-runtime-shining-smite-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-sleep-hideous-laughter.qnt` | `38093a9ed497dede3690d2d85560523ac5783d7e5004e56bcad760e993346908` | `packages/battle-runtime/battle-runtime-sleep-hideous-laughter.qnt` |
 | `qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt` | `9e42d259271ffcd600df8d7436d281d7f95043cab520a705f7c578df5934866f` | `packages/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-slow-fall-selected-identity.mbt.qnt` | `68efa968e236b2cad81fc6da18b7fefbd74ec9adff92ee2369edb75154fb906a` | `packages/battle-runtime/battle-runtime-slow-fall-selected-identity.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-slow-fall.qnt` | `dbac1759e1abfe4a0981245e920b3bdd74ffd9350ff03b0056bd3b9452f04235` | `packages/battle-runtime/battle-runtime-slow-fall.qnt` |
 | `qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt` | `e54b4f8aa5ddffbdb1854db7394f2f425795ae30a8c968e632367c28d2afc924` | `packages/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt` | `f8ddb55f37fec74ba20db3a4883942fd69c923302db38b9cb16a7e64892b2e6f` | `packages/battle-runtime/battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt` | `b12fca4b2695b8ade69b21607b7d17b07d53bd2ede09d866b4882d9bf84bda1b` | `packages/battle-runtime/battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt` |
@@ -291,7 +297,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt` | `ac8052a6081e4e3416cc388f2f4276235cee6571e4080ff38a79756bf8e245aa` | `packages/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt` | `ccb954fe692a73132a44315ef10afee1d18aa9e27e58347e2de00205b48da52d` | `packages/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-sorcerous-burst-damage-choice.qnt` | `bfccbd161f63464bbf6cfd5f698c5579f90c3885c54447b0f6cb2cdc7a5bcb8e` | `packages/battle-runtime/battle-runtime-sorcerous-burst-damage-choice.qnt` |
-| `qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt` | `4157e719db75f7ce204fc5d8568ca0f45ef30a4947c714a1e894a53e70229ac0` | `packages/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt` | `da0b947fcae7b69923aa4e468b2a4d5bad4e2e35c0c31fd5d8a5aa3415a2fa51` | `packages/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt` | `0ab1ace05614f143fba29df2e3eff6881c2b816a02cdbf65e2317c0e2654ecc7` | `packages/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-attack-ordering.qnt` | `91b322edb6eb34187bd1936e1858ea8025cfb0add59c972cc0c35b6b0ee20fce` | `packages/battle-runtime/battle-runtime-spell-attack-ordering.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-attack-tests.qnt` | `7bf6ed4c7b2de7923c4c9cc667af12f6a9c93c868718e4b0d8f7e40bb4f0af85` | `packages/battle-runtime/battle-runtime-spell-attack-tests.qnt` |
@@ -310,6 +316,8 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-stat-block-action-ordering.qnt` | `89f6ac657b1b85204ce38b99fd2ddb2a533e5aac640613d3962afeb5fd171562` | `packages/battle-runtime/battle-runtime-stat-block-action-ordering.qnt` |
 | `qnt/battle-runtime/battle-runtime-stat-block-bridge-examples.qnt` | `f1ef1896b52ded5c0717779de9b8bd7798694dfe7bf49943971e8ad95e0615e1` | `packages/battle-runtime/battle-runtime-stat-block-bridge-examples.qnt` |
 | `qnt/battle-runtime/battle-runtime-stat-block-bridge.qnt` | `54d57ee32401baa55ddbcf95097c539bec2f2714c50e221f50a062b2f9c38f0d` | `packages/battle-runtime/battle-runtime-stat-block-bridge.qnt` |
+| `qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt` | `424f8fd9c296b14da092181ea4ffac59c00ef0dffc16516a9adadbbc0f9f0d0b` | `packages/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt` | `2a25a972e1ad121a6464b8bb44edffb194d0605ccb240c909df2f03c7ccae971` | `packages/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-subject-kinds.qnt` | `f271e80093d536a9149c241df68f587e2f49eba93d7c69fc9b48cc25b90663c4` | `packages/battle-runtime/battle-runtime-subject-kinds.qnt` |
 | `qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt` | `0e41b8241560942d88f5a6954cddf8d6eeb877d04ddf048991e6bb3328ebcd01` | `packages/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-thaumaturgy.qnt` | `ed028fabfdb11fb073804d072b0a47d9844b7a5d61bf5502a1c7b79a1156e8ec` | `packages/battle-runtime/battle-runtime-thaumaturgy.qnt` |
@@ -334,7 +342,7 @@ instead of guessing.
 | `qnt/battle-runtime/creature-attack.mbt.qnt` | `8ac93028e7d3486795f932528dbe9cb90a3275fb50e2b095287f8102ac5a9437` | `packages/battle-runtime/creature-attack.mbt.qnt` |
 | `qnt/battle-runtime/creature-attack.qnt` | `23cea8df63ce93da4c807677b35fcf0250b9ae93de50856d759dc3e1abdc63c6` | `packages/battle-runtime/creature-attack.qnt` |
 | `qnt/battle-runtime/monk-martial-arts-selected-identity.mbt.qnt` | `c99d24d7997aa10a5950cdd4da549b1735a2a9d4e8a7261bc62dbc4ebe5e1388` | `packages/battle-runtime/monk-martial-arts-selected-identity.mbt.qnt` |
-| `qnt/battle-runtime/rule-core-ability-skill-command.mbt.qnt` | `0b12abe812819f4cd0678568a2b6dfe0da5295495b75fcbc466be867f198cb70` | `packages/battle-runtime/rule-core-ability-skill-command.mbt.qnt` |
+| `qnt/battle-runtime/rule-core-ability-skill-command.mbt.qnt` | `cc44aa6908280105e5fc03e9ca3c8312a025525c9d2bceab4f09b93060f5d0ff` | `packages/battle-runtime/rule-core-ability-skill-command.mbt.qnt` |
 | `qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt` | `6662c39d0b1316223964d57de7bc90178c623c073c03500e1833940d54c08451` | `packages/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt` |
 | `qnt/battle-runtime/rule-core-features.mbt.qnt` | `2f0bfa94e320b203e0173a88fa3461b58b9e16c6f95bc89784a74abf77537f28` | `packages/battle-runtime/rule-core-features.mbt.qnt` |
 | `qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt` | `8db6c0a1f49686ea6de39fc9b16f48a0fac940584267aea4cd07445a49213a5e` | `packages/battle-runtime/rule-core-hit-point-damage.mbt.qnt` |
@@ -370,15 +378,17 @@ instead of guessing.
 | `qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt` | `9d151305d14189a8ac25c47743760c476422a54c9ab718a72e682142f8c08dec` | `packages/character-battle-runtime/character-battle-init-projection.mbt.qnt` |
 | `qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt` | `bdf8076e5624156d748e70260ca804ea4b0f980c9b3278b040948e42a52ec494` | `packages/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt` |
 | `qnt/character-battle-runtime/character-battle-settlement.mbt.qnt` | `18feaf2412ff3cef5cc7a162b98331ddaa42c62cc906528368cea302c43b9619` | `packages/character-battle-runtime/character-battle-settlement.mbt.qnt` |
+| `qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt` | `a2db8e8512717dff0f0a3c5aa97e72328adb8820a2449249ddae447f5957f905` | `packages/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt` |
 | `qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt` | `ce9de0b0a69687a88b0d46bb37b9cbd7062c32b14145da37518758eea40d4b10` | `packages/character-battle-runtime/character-sheet-feature-resources.mbt.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/ability-check-proficiency-bonus.qnt` | `f20ad22c11c064586d53eb94c3e267afd2cd1f4f39f17350a7f20cad7739a659` | `packages/shared-algebras/proofs/rule-core/ability-check-proficiency-bonus.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/action-turn-procedures-inductive.qnt` | `14e81ea824e8d00ed107bbf0c62b2c76223ac9a94e86744a891f6aa523710ecf` | `packages/shared-algebras/proofs/rule-core/action-turn-procedures-inductive.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/action-turn-procedures.qnt` | `33594eb061bfbce280b2c47dbdedc968978aac2264e3080c7db487f45ed292f1` | `packages/shared-algebras/proofs/rule-core/action-turn-procedures.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/armor-class-base.qnt` | `ad30fef4c2f2e7c34076f398c04d6a8dc03a49aba4080625bc946791b6366e4a` | `packages/shared-algebras/proofs/rule-core/armor-class-base.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/attack-action-additional-attacks.qnt` | `b7ce77f6e9f74e8d1dd17246d11b094dc14295a5ae20efa84f6c35c46891f4b4` | `packages/shared-algebras/proofs/rule-core/attack-action-additional-attacks.qnt` |
-| `qnt/shared-algebras/proofs/rule-core/attack-damage-composition-examples.qnt` | `077c374f33c5b118a795cb21f9b3e96a834a8313445cbecaa824637851bb41fd` | `packages/shared-algebras/proofs/rule-core/attack-damage-composition-examples.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/attack-damage-composition-examples.qnt` | `45739c3a7eb44334ad3ab965c845a2f6087ffe88dcb03ecfa574c4ef9460dbc0` | `packages/shared-algebras/proofs/rule-core/attack-damage-composition-examples.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/attack-damage-composition-inductive.qnt` | `6a424626c639898e2857866bf3f5fe359dffb421e2d5ba6bb0202f87fac74e95` | `packages/shared-algebras/proofs/rule-core/attack-damage-composition-inductive.qnt` |
-| `qnt/shared-algebras/proofs/rule-core/attack-damage-composition.qnt` | `55c389c7eeef98809d8ff0251044f85e4c3edd5f6ea41f7ef919e199eb3376dc` | `packages/shared-algebras/proofs/rule-core/attack-damage-composition.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/attack-damage-composition.qnt` | `151b37ba1c564d1766b9d2a9ddf4445893042d6fba51c348b73eab7941b30dc3` | `packages/shared-algebras/proofs/rule-core/attack-damage-composition.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/creature-size-order.qnt` | `47ff8c9cfb2cc3e5d259ac5cf2f29a941eb2a91acbe0d54d385d40a09977ffa1` | `packages/shared-algebras/proofs/rule-core/creature-size-order.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/damage-component-adjustments-examples.qnt` | `041cb3c1196a9d1dcae767a01e0eea47d76d265bf77b850a3a5c6adceb91e7e8` | `packages/shared-algebras/proofs/rule-core/damage-component-adjustments-examples.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/damage-component-adjustments-inductive.qnt` | `991c9af6b99cbc8c3e8acac4a48e6a060d4e398f3370e7fec4a6a39be6ad22de` | `packages/shared-algebras/proofs/rule-core/damage-component-adjustments-inductive.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/damage-component-adjustments.qnt` | `a51608275e54badf5b24d478ac20f3dbf57fabe0d05682491c4a3459aadb3575` | `packages/shared-algebras/proofs/rule-core/damage-component-adjustments.qnt` |
@@ -392,8 +402,8 @@ instead of guessing.
 | `qnt/shared-algebras/proofs/rule-core/hit-point-recovery-inductive.qnt` | `e9f50567b434d86850479484e18882c0aa82d54fdc105f81be954e8ef9daad79` | `packages/shared-algebras/proofs/rule-core/hit-point-recovery-inductive.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/hit-point-recovery.qnt` | `f6b010c645171c34147dbec9067889d79a253e2bd5ca4b18825917b8e8604e96` | `packages/shared-algebras/proofs/rule-core/hit-point-recovery.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/lay-on-hands-resource.qnt` | `f72ee6009011c957e7ab3f18f95a6fcc2ca5f9268545d4651e191b55da7d132b` | `packages/shared-algebras/proofs/rule-core/lay-on-hands-resource.qnt` |
-| `qnt/shared-algebras/proofs/rule-core/movement-spatial-grapple-inductive.qnt` | `45523c38e7defb89b433de68c8dd72e3b44bd5d2434d753127525eb2d2342c38` | `packages/shared-algebras/proofs/rule-core/movement-spatial-grapple-inductive.qnt` |
-| `qnt/shared-algebras/proofs/rule-core/movement-spatial-grapple.qnt` | `50fb8e2f15d97418d88ddfec983955ef47e203316e33dab3ddcb47394afda6ef` | `packages/shared-algebras/proofs/rule-core/movement-spatial-grapple.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/movement-spatial-grapple-inductive.qnt` | `af78d9ccb13060cd85e00469f024e3fbe84b151125ba84d1b152598a6a98e0fb` | `packages/shared-algebras/proofs/rule-core/movement-spatial-grapple-inductive.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/movement-spatial-grapple.qnt` | `f89695122c55adaad16872dca21e06ae8bd9cd9782fd3a06198113df1dcd0925` | `packages/shared-algebras/proofs/rule-core/movement-spatial-grapple.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/reactions-continuations-concentration-examples.qnt` | `753dac06f9314d305aca0b2ae70467b1717e63b5785b91b6a0ec0a6ad2edc314` | `packages/shared-algebras/proofs/rule-core/reactions-continuations-concentration-examples.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/reactions-continuations-concentration-inductive.qnt` | `91a75f6a263418e13df084b143c12e4538b2be36ae1fb1d63d8727285cf273f9` | `packages/shared-algebras/proofs/rule-core/reactions-continuations-concentration-inductive.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/reactions-continuations-concentration.qnt` | `5dafb0e2dba14571d298518b7b36dd04761a926f0b5ea0ea704ff19699a6e7af` | `packages/shared-algebras/proofs/rule-core/reactions-continuations-concentration.qnt` |
@@ -434,8 +444,12 @@ instead of guessing.
 | `qnt/shared-algebras/proofs/rule-core/uncanny-metabolism-resource.qnt` | `39c68a726fe9a3472a828c69cee9f4acf5e36562db6ab2bc17d062b319322cd2` | `packages/shared-algebras/proofs/rule-core/uncanny-metabolism-resource.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-action-count-core-examples.qnt` | `f47bfc12c608fec80bdc6e4bb2f4992b503dff0b75f5f66050f5953a97d47234` | `packages/shared-algebras/proofs/rule-core/unit-feature-action-count-core-examples.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-action-count-core.qnt` | `61eb5a42523f1d647164af3636189eca5f271cba8448d2e34a6864a77334f356` | `packages/shared-algebras/proofs/rule-core/unit-feature-action-count-core.qnt` |
-| `qnt/shared-algebras/proofs/rule-core/unit-feature-attack-rider-core-examples.qnt` | `7c9786f44804b663bf9151504cd0399fef03b1363b26034bb74889ee6fff79d7` | `packages/shared-algebras/proofs/rule-core/unit-feature-attack-rider-core-examples.qnt` |
-| `qnt/shared-algebras/proofs/rule-core/unit-feature-attack-rider-core.qnt` | `871ce8a43becb207eaba00772fc312db5e645ea52daffb6957c10e995e89afa2` | `packages/shared-algebras/proofs/rule-core/unit-feature-attack-rider-core.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/unit-feature-attack-rider-core-examples.qnt` | `660bc2bd191202e73abf03bbbe471a8171cb0ab28f04362e9ecb02ef01b3a16a` | `packages/shared-algebras/proofs/rule-core/unit-feature-attack-rider-core-examples.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/unit-feature-attack-rider-core.qnt` | `4727f4ad869f64cc996bc18fc40d5733086f776432f15ed41128800b22160d0f` | `packages/shared-algebras/proofs/rule-core/unit-feature-attack-rider-core.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/unit-feature-d20-test-natural-one-reroll-core-examples.qnt` | `7c0f8a2926a6fa01a20b4054a202ccc164509d6e5c07586642ab7127a4e948ef` | `packages/shared-algebras/proofs/rule-core/unit-feature-d20-test-natural-one-reroll-core-examples.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/unit-feature-d20-test-natural-one-reroll-core.qnt` | `dee992436a26a159c334454e4105647e4d7e635999454ce423dff995f7cf9517` | `packages/shared-algebras/proofs/rule-core/unit-feature-d20-test-natural-one-reroll-core.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/unit-feature-hide-obscurement-permission-core-examples.qnt` | `70668434096ff0caa2d3b85a37056dae6d4a150aa90706193487024a31980af5` | `packages/shared-algebras/proofs/rule-core/unit-feature-hide-obscurement-permission-core-examples.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/unit-feature-hide-obscurement-permission-core.qnt` | `28120e88a135b241b52e2aedc4e8db7eeef7a75d1602df564770eaeaca12a0d8` | `packages/shared-algebras/proofs/rule-core/unit-feature-hide-obscurement-permission-core.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-martial-arts-core-examples.qnt` | `367721cda0a738df6f15fce0aad8544db72997c79c2e0e2270ff83f7e6ec4082` | `packages/shared-algebras/proofs/rule-core/unit-feature-martial-arts-core-examples.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-martial-arts-core.qnt` | `6eeff57e0daa842c6e8536bf6262f1a6f4c04aef7322436999387b4ca4cf7ff5` | `packages/shared-algebras/proofs/rule-core/unit-feature-martial-arts-core.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-metamagic-option-fact-core-examples.qnt` | `d523989bc4e0e7b1ff058828e49678cba06f614856cb0b689df4599f4069dc59` | `packages/shared-algebras/proofs/rule-core/unit-feature-metamagic-option-fact-core-examples.qnt` |
@@ -451,8 +465,8 @@ instead of guessing.
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-quickened-action-spell-procedure-support-core.qnt` | `4281ac445a1b6491c94f7f30105832e60346bd40ec9b85f2456f570887da174d` | `packages/shared-algebras/proofs/rule-core/unit-feature-quickened-action-spell-procedure-support-core.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-rage-reckless-core-examples.qnt` | `7f14c86a71261a20d67d0e7b1db8b7bb6e7bd3f3c82826cbb4e64d1505c72207` | `packages/shared-algebras/proofs/rule-core/unit-feature-rage-reckless-core-examples.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-rage-reckless-core.qnt` | `40d3d17d35bd62bf842b9bccc5928142ce4849448869c1623a3e41118fc0ba2e` | `packages/shared-algebras/proofs/rule-core/unit-feature-rage-reckless-core.qnt` |
-| `qnt/shared-algebras/proofs/rule-core/unit-feature-reaction-reduction-core-examples.qnt` | `3c305e5309052447f683d0314a6768f7001ff2ea28ecaa1b2fa8cd9ac7ccbce5` | `packages/shared-algebras/proofs/rule-core/unit-feature-reaction-reduction-core-examples.qnt` |
-| `qnt/shared-algebras/proofs/rule-core/unit-feature-reaction-reduction-core.qnt` | `5b8d70263db644b985206216f216878488173e7168126411affba7518eeea443` | `packages/shared-algebras/proofs/rule-core/unit-feature-reaction-reduction-core.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/unit-feature-reaction-reduction-core-examples.qnt` | `5772450ad24de2c039857c2ae23283976b4a3d046f01d64d181e51acaa5e4373` | `packages/shared-algebras/proofs/rule-core/unit-feature-reaction-reduction-core-examples.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/unit-feature-reaction-reduction-core.qnt` | `a71688959518afc5944984398845a002e64596c5f45c78ffe033df6d61fcdbd8` | `packages/shared-algebras/proofs/rule-core/unit-feature-reaction-reduction-core.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-save-damage-core-examples.qnt` | `c616539ea3786d10dfcf84224723e07abeef86c8902e8bcd68c928aae45ed22b` | `packages/shared-algebras/proofs/rule-core/unit-feature-save-damage-core-examples.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-save-damage-core.qnt` | `79f5c328dcd75de71b9afbad5e2aecea9b02ebe65dd47b8d4c15fed5bf776090` | `packages/shared-algebras/proofs/rule-core/unit-feature-save-damage-core.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/unit-feature-zero-hit-point-core-examples.qnt` | `4c71e33cde6a6c6828f6bf34164effa4af37f43887ca189081dd3f21a478bb16` | `packages/shared-algebras/proofs/rule-core/unit-feature-zero-hit-point-core-examples.qnt` |
@@ -460,3 +474,10 @@ instead of guessing.
 | `qnt/shared-algebras/proofs/rule-core/weapon-mastery-reselection.qnt` | `1d85fa9bf6ee9bdd28680bc60eef07acc632279605e3f9eeedb515745872dc81` | `packages/shared-algebras/proofs/rule-core/weapon-mastery-reselection.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/zero-hit-point-lifecycle-inductive.qnt` | `d11e40f93961fd0dd886790c6ee85430c669e0f0cd0b553a449276b5bb08e42a` | `packages/shared-algebras/proofs/rule-core/zero-hit-point-lifecycle-inductive.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/zero-hit-point-lifecycle.qnt` | `4cefd38d5f5a99d54f6603fe4364a8b952c1414b8cc25f0f46ec052bc1cc68c9` | `packages/shared-algebras/proofs/rule-core/zero-hit-point-lifecycle.qnt` |
+
+## Validator Snapshot
+
+| File | sha256 |
+| --- | --- |
+| `scripts/check-cleanroom-harness.cjs` | `1e7fe48cffa693df8e5405f7cc9d876a582593d90796622cbe8c394b874b999e` |
+| `scripts/cleanroom-branch-coverage-check.cjs` | `cf5b8b31db8743db359f2c06b1e081f6e26cc7a93e1376acfb856101385e7376` |

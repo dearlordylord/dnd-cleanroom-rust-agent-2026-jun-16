@@ -1,6 +1,7 @@
 // -*- mode: Bluespec; -*-
 
 // KERNEL-COVERAGE: qnt-owner BATTLE.DAMAGE.ATTACK_BRANCHES BATTLE.DAMAGE.DISPOSITION_AND_ZERO_HP
+// UNIT-PROFILE-COVERAGE: qnt-owner unit-feature.light-extra-attack-damage-ability-modifier
 
 module attackDamageComposition {
   import hitPointDamage.* from "./hit-point-damage"
@@ -90,11 +91,67 @@ module attackDamageComposition {
   ): bool =
     filledDiceCount == criticalDamageDiceCount(baseDice, critical)
 
-  pure def lightPropertyExtraAttackDamageModifier(abilityModifier: int): int =
-    if (abilityModifier < 0) abilityModifier else 0
+  type LightExtraAttackDamageAbilityModifierFact =
+    | LightExtraAttackNoExistingDamageAbilityModifier
+    | LightExtraAttackExistingDamageAbilityModifier(int)
 
-  pure def lightPropertyExtraAttackDamageAmount(rolledDamage: int, abilityModifier: int): int =
-    adjustedDamageRollAmount(rolledDamage, lightPropertyExtraAttackDamageModifier(abilityModifier))
+  type LightExtraAttackDamageAbilityModifierChoice =
+    | ApplyLightExtraAttackDamageAbilityModifier
+    | DeclineLightExtraAttackDamageAbilityModifier
+
+  pure def lightPropertyExtraAttackDamageAbilityModifierChoiceRequired(
+    abilityModifier: int,
+    damageAbilityModifier: LightExtraAttackDamageAbilityModifierFact,
+    twoWeaponFightingSelected: bool
+  ): bool =
+    match damageAbilityModifier {
+      | LightExtraAttackNoExistingDamageAbilityModifier =>
+          twoWeaponFightingSelected and abilityModifier > 0
+      | LightExtraAttackExistingDamageAbilityModifier(_) => false
+    }
+
+  pure def lightPropertyExtraAttackDamageModifier(
+    abilityModifier: int,
+    damageAbilityModifier: LightExtraAttackDamageAbilityModifierFact,
+    twoWeaponFightingSelected: bool,
+    choice: LightExtraAttackDamageAbilityModifierChoice
+  ): int = {
+    val appliedDamageAbilityModifier =
+      match damageAbilityModifier {
+        | LightExtraAttackNoExistingDamageAbilityModifier => abilityModifier
+        | LightExtraAttackExistingDamageAbilityModifier(modifier) => modifier
+      }
+    if (lightPropertyExtraAttackDamageAbilityModifierChoiceRequired(
+      abilityModifier,
+      damageAbilityModifier,
+      twoWeaponFightingSelected
+    ))
+      if (choice == ApplyLightExtraAttackDamageAbilityModifier)
+        appliedDamageAbilityModifier
+      else
+        0
+    else if (twoWeaponFightingSelected or appliedDamageAbilityModifier < 0)
+      appliedDamageAbilityModifier
+    else
+      0
+  }
+
+  pure def lightPropertyExtraAttackDamageAmount(
+    rolledDamage: int,
+    abilityModifier: int,
+    damageAbilityModifier: LightExtraAttackDamageAbilityModifierFact,
+    twoWeaponFightingSelected: bool,
+    choice: LightExtraAttackDamageAbilityModifierChoice
+  ): int =
+    adjustedDamageRollAmount(
+      rolledDamage,
+      lightPropertyExtraAttackDamageModifier(
+        abilityModifier,
+        damageAbilityModifier,
+        twoWeaponFightingSelected,
+        choice
+      )
+    )
 
   pure def spendActionQuota(quota: ActionQuota): ActionQuota =
     ActionSpent
