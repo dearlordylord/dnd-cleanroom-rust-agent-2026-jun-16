@@ -7,7 +7,7 @@
       "status": "pass"
     },
     {
-      "evidence": "tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json",
+      "evidence": "tasks/target-replay-evidence/T084-battle-runtime-reaction-casting-time.json",
       "gate": "branch-coverage",
       "status": "pass"
     },
@@ -45,5 +45,5 @@
   "rejectedFindings": [],
   "schemaVersion": 1,
   "scope": "diagnostic-local; repo-wide acceptance remains blocked by global accounting debt",
-  "taskId": "T083-T031"
+  "taskId": "T084-reaction-casting-time"
 }

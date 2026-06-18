@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "taskId": "T083-T031",
-  "startHeadSha": "1397e880a058105873e1d26dc9371d117edb973c",
+  "taskId": "T084-reaction-casting-time",
+  "startHeadSha": "d19354404eb0284bfe8a0c993eacddbd5ef965a7",
   "preImplementationStatus": {
     "command": "git status --short",
     "result": "clean",
@@ -11,7 +11,7 @@
     "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt"
     ]
   }
 }

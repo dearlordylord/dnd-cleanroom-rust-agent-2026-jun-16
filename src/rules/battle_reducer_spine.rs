@@ -49,6 +49,34 @@ pub enum CombatantLifecycle {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSpellSlotLevel {
+    First,
+    Second,
+    Third,
+    Fourth,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleSpellSlotLedger {
+    pub first_level_expended: i16,
+    pub second_level_expended: i16,
+    pub third_level_expended: i16,
+    pub fourth_level_expended: i16,
+}
+
+impl BattleSpellSlotLedger {
+    #[must_use]
+    pub fn none() -> Self {
+        Self {
+            first_level_expended: 0,
+            second_level_expended: 0,
+            third_level_expended: 0,
+            fourth_level_expended: 0,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Combatant {
     pub hp: i16,
     pub max_hp: i16,
@@ -64,6 +92,7 @@ pub struct Combatant {
     pub sneak_attack_supported: bool,
     pub sneak_attack_used_this_turn: bool,
     pub recharge_available: bool,
+    pub spell_slots: BattleSpellSlotLedger,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -89,11 +118,59 @@ pub struct BattleState {
     pub stat_block_control: StatBlockControlState,
     pub turn_boundary_effects: TurnBoundaryEffects,
     pub interrupt_resume: BattleInterruptResumeState,
+    pub reaction_casting_time: BattleReactionCastingTimeState,
+    pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
+    pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
+    pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
     pub action_available: bool,
     pub bonus_action_available: bool,
     pub attack_roll_made_this_turn: bool,
     pub dash_movement_bonus_feet: i16,
     pub disengaged: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleTurnSpellSlotUse {
+    Pending(Actor),
+    Committed(Actor),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReactionCastingTrigger {
+    None,
+    AfterDamage,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReactionCastingContinuation {
+    None,
+    AfterDamageResolved,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReactionCastingOutcome {
+    Init,
+    AfterDamageReactionResolved,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleReactionCastingTimeState {
+    pub trigger: BattleReactionCastingTrigger,
+    pub continuation: BattleReactionCastingContinuation,
+    pub reaction_window_open: bool,
+    pub outcome: BattleReactionCastingOutcome,
+}
+
+impl BattleReactionCastingTimeState {
+    #[must_use]
+    pub fn none() -> Self {
+        Self {
+            trigger: BattleReactionCastingTrigger::None,
+            continuation: BattleReactionCastingContinuation::None,
+            reaction_window_open: false,
+            outcome: BattleReactionCastingOutcome::Init,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -309,6 +386,10 @@ pub fn start_battle() -> BattleState {
         stat_block_control: stat_block_control_initial_state(),
         turn_boundary_effects: TurnBoundaryEffects::none(),
         interrupt_resume: BattleInterruptResumeState::none(),
+        reaction_casting_time: BattleReactionCastingTimeState::none(),
+        spell_slot_uses_this_turn: Vec::new(),
+        level_one_plus_spell_casters_this_turn: Vec::new(),
+        quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
         action_available: true,
         bonus_action_available: true,
         attack_roll_made_this_turn: false,
@@ -337,6 +418,10 @@ pub fn start_skeleton_battle() -> BattleState {
         stat_block_control: stat_block_control_initial_state(),
         turn_boundary_effects: TurnBoundaryEffects::none(),
         interrupt_resume: BattleInterruptResumeState::none(),
+        reaction_casting_time: BattleReactionCastingTimeState::none(),
+        spell_slot_uses_this_turn: Vec::new(),
+        level_one_plus_spell_casters_this_turn: Vec::new(),
+        quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
         action_available: true,
         bonus_action_available: true,
         attack_roll_made_this_turn: false,
@@ -407,6 +492,95 @@ pub fn start_interrupt_stack_resume_battle() -> BattleState {
     // interrupted target is the Fighter because the witness projects target HP
     // from 12 through the nested/replay cases.
     start_goblin_stat_block_battle()
+}
+
+#[must_use]
+pub fn start_reaction_casting_time_battle() -> BattleState {
+    // QNT: battle-runtime-reaction-casting-time.mbt.qnt `initialHp`.
+    let mut state = start_goblin_stat_block_battle();
+    state.fighter = Combatant {
+        hp: 30,
+        max_hp: 30,
+        ..state.fighter
+    };
+    state.goblin = Combatant {
+        hp: 30,
+        max_hp: 30,
+        ..state.goblin
+    };
+    state
+}
+
+#[must_use]
+pub fn resolve_hellish_rebuke_after_damage_battle(state: BattleState) -> BattleState {
+    // QNT: battle-runtime-reaction-casting-time.mbt.qnt in-scope after-damage
+    // branch; battle-runtime-reaction-window.qnt
+    // `openHellishRebukeAfterDamageReactionWindow`; battle-runtime-
+    // reaction-resolution.qnt `resolveHellishRebukeAfterDamage`.
+    let state = BattleState {
+        reaction_casting_time: BattleReactionCastingTimeState {
+            trigger: BattleReactionCastingTrigger::AfterDamage,
+            continuation: BattleReactionCastingContinuation::AfterDamageResolved,
+            reaction_window_open: true,
+            outcome: BattleReactionCastingOutcome::Init,
+        },
+        ..with_damaged_target(state, Actor::Fighter, 1)
+    };
+    if !can_actor_expend_spell_slot_this_turn(&state, Actor::Fighter)
+        || !state.fighter.reaction_available
+    {
+        return state;
+    }
+    let state = claim_pending_actor_spell_slot_use(state, Actor::Fighter);
+    let state = spend_reaction(state, Actor::Fighter);
+    let state = expend_combatant_spell_slot(state, Actor::Fighter, BattleSpellSlotLevel::Second);
+    let state = commit_actor_spell_slot_use(state, Actor::Fighter);
+    BattleState {
+        reaction_casting_time: BattleReactionCastingTimeState {
+            trigger: BattleReactionCastingTrigger::AfterDamage,
+            continuation: BattleReactionCastingContinuation::AfterDamageResolved,
+            reaction_window_open: false,
+            outcome: BattleReactionCastingOutcome::AfterDamageReactionResolved,
+        },
+        ..with_damaged_target(state, Actor::Goblin, 3)
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleReactionCastingTimeProjection {
+    pub trigger: BattleReactionCastingTrigger,
+    pub continuation: BattleReactionCastingContinuation,
+    pub reactor_hp: i16,
+    pub trigger_creature_hp: i16,
+    pub reactor_reaction_available: bool,
+    pub trigger_creature_first_level_slots_expended: i16,
+    pub trigger_creature_fourth_level_slots_expended: i16,
+    pub reactor_second_level_slots_expended: i16,
+    pub reactor_third_level_slots_expended: i16,
+    pub reaction_window_cleared: bool,
+    pub outcome: BattleReactionCastingOutcome,
+}
+
+#[must_use]
+pub fn reaction_casting_time_projection_from_battle(
+    state: &BattleState,
+) -> BattleReactionCastingTimeProjection {
+    BattleReactionCastingTimeProjection {
+        trigger: state.reaction_casting_time.trigger,
+        continuation: state.reaction_casting_time.continuation,
+        reactor_hp: state.fighter.hp,
+        trigger_creature_hp: state.goblin.hp,
+        reactor_reaction_available: state.fighter.reaction_available,
+        trigger_creature_first_level_slots_expended: state.goblin.spell_slots.first_level_expended,
+        trigger_creature_fourth_level_slots_expended: state
+            .goblin
+            .spell_slots
+            .fourth_level_expended,
+        reactor_second_level_slots_expended: state.fighter.spell_slots.second_level_expended,
+        reactor_third_level_slots_expended: state.fighter.spell_slots.third_level_expended,
+        reaction_window_cleared: !state.reaction_casting_time.reaction_window_open,
+        outcome: state.reaction_casting_time.outcome,
+    }
 }
 
 #[must_use]
@@ -520,6 +694,7 @@ fn fighter_combatant() -> Combatant {
         sneak_attack_supported: false,
         sneak_attack_used_this_turn: false,
         recharge_available: false,
+        spell_slots: BattleSpellSlotLedger::none(),
     }
 }
 
@@ -539,6 +714,7 @@ fn goblin_combatant() -> Combatant {
         sneak_attack_supported: false,
         sneak_attack_used_this_turn: false,
         recharge_available: true,
+        spell_slots: BattleSpellSlotLedger::none(),
     }
 }
 
@@ -558,6 +734,7 @@ fn rogue_combatant() -> Combatant {
         sneak_attack_supported: true,
         sneak_attack_used_this_turn: false,
         recharge_available: false,
+        spell_slots: BattleSpellSlotLedger::none(),
     }
 }
 
@@ -577,6 +754,7 @@ fn skeleton_combatant() -> Combatant {
         sneak_attack_supported: false,
         sneak_attack_used_this_turn: false,
         recharge_available: false,
+        spell_slots: BattleSpellSlotLedger::none(),
     }
 }
 
@@ -607,6 +785,9 @@ pub fn end_turn(state: BattleState) -> BattleState {
         initiative,
         action_available: true,
         bonus_action_available: true,
+        spell_slot_uses_this_turn: Vec::new(),
+        level_one_plus_spell_casters_this_turn: Vec::new(),
+        quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
         attack_roll_made_this_turn: false,
         dash_movement_bonus_feet: 0,
         disengaged: false,
@@ -1646,6 +1827,80 @@ fn with_damaged_target(mut state: BattleState, target: Actor, damage: i16) -> Ba
         Actor::Goblin => state.goblin = damaged,
         Actor::Rogue => state.rogue = damaged,
         Actor::Skeleton => state.skeleton = damaged,
+    }
+    state
+}
+
+fn spend_reaction(mut state: BattleState, actor: Actor) -> BattleState {
+    combatant_for_mut(&mut state, actor).reaction_available = false;
+    state
+}
+
+fn can_actor_expend_spell_slot_this_turn(state: &BattleState, actor: Actor) -> bool {
+    !state
+        .spell_slot_uses_this_turn
+        .iter()
+        .any(|slot_use| battle_turn_spell_slot_use_actor(*slot_use) == actor)
+}
+
+fn battle_turn_spell_slot_use_actor(slot_use: BattleTurnSpellSlotUse) -> Actor {
+    match slot_use {
+        BattleTurnSpellSlotUse::Pending(actor) | BattleTurnSpellSlotUse::Committed(actor) => actor,
+    }
+}
+
+fn claim_pending_actor_spell_slot_use(mut state: BattleState, actor: Actor) -> BattleState {
+    // QNT: battle-runtime-spell-invocation.qnt
+    // `claimPendingActorSpellSlotUse`.
+    if can_actor_expend_spell_slot_this_turn(&state, actor) {
+        state
+            .spell_slot_uses_this_turn
+            .push(BattleTurnSpellSlotUse::Pending(actor));
+    }
+    state
+}
+
+fn release_pending_actor_spell_slot_use(mut state: BattleState, actor: Actor) -> BattleState {
+    // QNT: battle-runtime-spell-invocation.qnt
+    // `releasePendingActorSpellSlotUse`.
+    state
+        .spell_slot_uses_this_turn
+        .retain(|slot_use| *slot_use != BattleTurnSpellSlotUse::Pending(actor));
+    state
+}
+
+fn commit_actor_spell_slot_use(state: BattleState, actor: Actor) -> BattleState {
+    // QNT: battle-runtime-spell-invocation.qnt `commitActorSpellSlotUse`.
+    if state
+        .spell_slot_uses_this_turn
+        .contains(&BattleTurnSpellSlotUse::Committed(actor))
+    {
+        return state;
+    }
+    let mut state = release_pending_actor_spell_slot_use(state, actor);
+    state
+        .spell_slot_uses_this_turn
+        .push(BattleTurnSpellSlotUse::Committed(actor));
+    if !state
+        .level_one_plus_spell_casters_this_turn
+        .contains(&actor)
+    {
+        state.level_one_plus_spell_casters_this_turn.push(actor);
+    }
+    state
+}
+
+fn expend_combatant_spell_slot(
+    mut state: BattleState,
+    actor: Actor,
+    slot_level: BattleSpellSlotLevel,
+) -> BattleState {
+    let ledger = &mut combatant_for_mut(&mut state, actor).spell_slots;
+    match slot_level {
+        BattleSpellSlotLevel::First => ledger.first_level_expended += 1,
+        BattleSpellSlotLevel::Second => ledger.second_level_expended += 1,
+        BattleSpellSlotLevel::Third => ledger.third_level_expended += 1,
+        BattleSpellSlotLevel::Fourth => ledger.fourth_level_expended += 1,
     }
     state
 }

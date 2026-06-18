@@ -1,33 +1,29 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 1,
+      "addedEntries": 4,
       "owner": "production",
-      "reason": "added a battle-owned interrupt resume state bundle so T031 replay is driven by BattleState instead of only the focused interrupt-stack helper state"
+      "reason": "added battle-owned spell-slot turn resources, per-combatant spell-slot ledgers, reaction casting-time state, and a Hellish Rebuke after-damage battle route"
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/battle_runtime_interrupt_stack_resume.rs",
+      "path": "src/qnt_adapters/battle_runtime_reaction_casting_time.rs",
       "quarantinedWitnessNames": [
-        "doNestedDeclineResumesOuterInterrupt",
-        "doReplayRecordedProcedureFromRoot",
-        "doShieldMutationResumesInterruptedAttack",
-        "Init",
-        "NestedDeclineResumedOuter",
-        "ActiveEffectMutationResumed",
-        "ReplayFromRootResolved",
-        "none",
-        "attackHit",
-        "rolledDice",
-        "qMaxStackDepthObserved",
-        "qFinalStackDepth",
-        "qPendingTrigger",
-        "qResumedHole",
-        "qActiveEffectMutationSeenOnResume",
-        "qReplayFromRootEquivalent",
-        "qResponderReactionAvailable",
-        "qTargetHp",
+        "doHellishRebukeAfterDamage",
+        "HellishRebukeAfterDamage",
+        "afterDamage",
+        "afterDamageResolved",
+        "qTriggerKind",
+        "qContinuationKind",
+        "qReactorHp",
+        "qTriggerCreatureHp",
+        "qReactorReactionAvailable",
+        "qTriggerCreatureFirstLevelSlotsExpended",
+        "qTriggerCreatureFourthLevelSlotsExpended",
+        "qReactorSecondLevelSlotsExpended",
+        "qReactorThirdLevelSlotsExpended",
+        "qReactionWindowCleared",
         "qScenarioOutcome",
         "protocolResult",
         "protocolHoles",
@@ -48,36 +44,37 @@
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T031-battle-runtime-interrupt-stack-resume.json"
+        "tasks/target-replay-evidence/T084-battle-runtime-reaction-casting-time.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "BattleInterruptResumeState",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt",
+      "api": "BattleTurnSpellSlotUse",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
       "module": "src/rules/battle_reducer_spine.rs"
     },
     {
-      "api": "interrupt_stack_resume_projection_from_battle",
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "api": "BattleReactionCastingTimeState",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt",
       "module": "src/rules/battle_reducer_spine.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "BattleInterruptResumeState",
-        "interrupt_stack_resume_projection_from_battle",
-        "resolve_interrupted_attack_after_reaction_mutation_battle",
-        "resolve_nested_interrupt_decline_battle",
-        "resolve_recorded_attack_replay_from_root_battle",
-        "start_interrupt_stack_resume_battle"
+        "BattleReactionCastingTimeProjection",
+        "BattleReactionCastingTimeState",
+        "BattleSpellSlotLedger",
+        "BattleTurnSpellSlotUse",
+        "reaction_casting_time_projection_from_battle",
+        "resolve_hellish_rebuke_after_damage_battle",
+        "start_reaction_casting_time_battle"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
       "role": "domain-engine"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T083-T031"
+  "taskId": "T084-reaction-casting-time"
 }

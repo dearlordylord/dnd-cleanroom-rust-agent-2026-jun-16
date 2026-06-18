@@ -4,7 +4,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.interrupt_resume.reaction_window",
+      "fieldPath": "BattleState.reaction_casting_time.trigger",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
@@ -12,7 +12,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.interrupt_resume.max_stack_depth_observed",
+      "fieldPath": "BattleState.reaction_casting_time.continuation",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
@@ -20,7 +20,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.interrupt_resume.pending_trigger",
+      "fieldPath": "BattleState.reaction_casting_time.reaction_window_open",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
@@ -28,31 +28,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.interrupt_resume.resumed_hole",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.interrupt_resume.active_effect_mutation_seen_on_resume",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.interrupt_resume.replay_from_root_equivalent",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.interrupt_resume.scenario_outcome",
+      "fieldPath": "BattleState.reaction_casting_time.outcome",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
@@ -68,17 +44,73 @@
       "derivability": {
         "tag": "canonical-source"
       },
+      "fieldPath": "BattleState.goblin.hp",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.fighter.reaction_available",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "interrupt-stack-resume target replay projection",
-        "sourceField": "BattleState.interrupt_resume.scenario_outcome",
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.goblin.spell_slots.first_level_expended",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.goblin.spell_slots.fourth_level_expended",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.spell_slots.second_level_expended",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.spell_slots.third_level_expended",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.spell_slot_uses_this_turn",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.level_one_plus_spell_casters_this_turn",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "boundary": "reaction casting-time target replay projection",
+        "sourceField": "BattleState.reaction_casting_time.reaction_window_open",
         "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "interrupt_stack_resume_projection_from_battle.protocol",
+      "fieldPath": "reaction_casting_time_projection_from_battle.reaction_window_cleared",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "executable-boundary-projection"
     },
@@ -88,10 +120,10 @@
         "witnessName": "mbt::actionTaken"
       },
       "fieldPath": "TargetReplayEvidence.observedActionTaken",
-      "introducedIn": "src/qnt_adapters/battle_runtime_interrupt_stack_resume.rs",
+      "introducedIn": "src/qnt_adapters/battle_runtime_reaction_casting_time.rs",
       "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "T083-T031"
+  "taskId": "T084-reaction-casting-time"
 }

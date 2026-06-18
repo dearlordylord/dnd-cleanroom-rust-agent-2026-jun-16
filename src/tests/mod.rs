@@ -46,6 +46,8 @@ mod battle_runtime_mage_armor_selected_identity;
 mod battle_runtime_magic_missile;
 #[path = "../qnt_adapters/battle_runtime_quickened_spell_governor.rs"]
 mod battle_runtime_quickened_spell_governor;
+#[path = "../qnt_adapters/battle_runtime_reaction_casting_time.rs"]
+mod battle_runtime_reaction_casting_time;
 #[path = "../qnt_adapters/battle_runtime_roll_modifier_active_effects.rs"]
 mod battle_runtime_roll_modifier_active_effects;
 #[path = "../qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs"]
@@ -700,6 +702,12 @@ use battle_runtime_quickened_spell_governor::{
     projection_payload as quickened_spell_projection_payload,
     replay_observed_action as replay_quickened_spell_action,
     BRANCH_ACTIONS as QUICKENED_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_reaction_casting_time::{
+    expected_witness as expected_reaction_casting_time_witness,
+    projection_payload as reaction_casting_time_projection_payload,
+    replay_observed_action as replay_reaction_casting_time_action,
+    BRANCH_ACTIONS as REACTION_CASTING_TIME_BRANCH_ACTIONS,
 };
 use battle_runtime_roll_modifier_active_effects::{
     expected_witness as expected_roll_modifier_active_effects_witness,
@@ -3442,6 +3450,72 @@ fn experimental_qnt_spine_routes_interrupt_stack_resume() {
     let replay_projection = interrupt_stack_resume_projection_from_battle(&replay);
     assert!(replay_projection.replay_from_root_equivalent);
     assert_eq!(replay_projection.target_hit_points, 3);
+}
+
+#[test]
+fn reaction_casting_time_adapter_replays_in_scope_branch() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-reaction-casting-time.mbt.qnt
+    // `doHellishRebukeAfterDamage`; support QNT:
+    // battle-runtime-reaction-window.qnt and
+    // battle-runtime-reaction-resolution.qnt. Counterspell branches in this
+    // driver are out of scope for level 1-2 in the branch inventory.
+    for action in REACTION_CASTING_TIME_BRANCH_ACTIONS {
+        let observed = replay_reaction_casting_time_action(action);
+        assert_eq!(observed, expected_reaction_casting_time_witness(action));
+        assert!(
+            reaction_casting_time_projection_payload(&observed).contains("protocolResult=resolved")
+        );
+    }
+}
+
+#[test]
+fn experimental_qnt_spine_routes_hellish_rebuke_after_damage() {
+    use crate::rules::battle_reducer_spine::{
+        reaction_casting_time_projection_from_battle, resolve_hellish_rebuke_after_damage_battle,
+        start_reaction_casting_time_battle, Actor, BattleReactionCastingContinuation,
+        BattleReactionCastingOutcome, BattleReactionCastingTrigger, BattleTurnSpellSlotUse,
+    };
+
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Reactions";
+    // cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md
+    // "Spell Slots"; QNT: battle-runtime-reaction-casting-time.mbt.qnt.
+    let initial = start_reaction_casting_time_battle();
+    assert_eq!(initial.fighter.hp, 30);
+    assert_eq!(initial.goblin.hp, 30);
+    assert!(initial.fighter.reaction_available);
+    assert!(initial.spell_slot_uses_this_turn.is_empty());
+
+    let resolved = resolve_hellish_rebuke_after_damage_battle(initial);
+    let projection = reaction_casting_time_projection_from_battle(&resolved);
+    assert_eq!(
+        projection.trigger,
+        BattleReactionCastingTrigger::AfterDamage
+    );
+    assert_eq!(
+        projection.continuation,
+        BattleReactionCastingContinuation::AfterDamageResolved
+    );
+    assert_eq!(projection.reactor_hp, 29);
+    assert_eq!(projection.trigger_creature_hp, 27);
+    assert!(!projection.reactor_reaction_available);
+    assert_eq!(projection.reactor_second_level_slots_expended, 1);
+    assert_eq!(projection.reactor_third_level_slots_expended, 0);
+    assert_eq!(projection.trigger_creature_first_level_slots_expended, 0);
+    assert_eq!(projection.trigger_creature_fourth_level_slots_expended, 0);
+    assert!(projection.reaction_window_cleared);
+    assert_eq!(
+        projection.outcome,
+        BattleReactionCastingOutcome::AfterDamageReactionResolved
+    );
+    assert_eq!(
+        resolved.spell_slot_uses_this_turn,
+        vec![BattleTurnSpellSlotUse::Committed(Actor::Fighter)]
+    );
+    assert_eq!(
+        resolved.level_one_plus_spell_casters_this_turn,
+        vec![Actor::Fighter]
+    );
 }
 
 #[test]
