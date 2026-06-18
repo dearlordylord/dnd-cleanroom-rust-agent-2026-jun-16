@@ -2,8 +2,10 @@ use crate::rules::rule_core_stat_block_controls::{
     end_turn_closes_stat_block_dispatches, move_during_stat_block_dispatch,
     reject_bonus_action_during_dispatch, reject_ordinary_action_during_dispatch,
     resolve_primary_stat_block_dispatch, resolve_secondary_stat_block_dispatch,
-    start_stat_block_multiattack, StatBlockControlHole, StatBlockControlInvalidReason,
-    StatBlockControlProtocol, StatBlockControlState,
+    resolve_stat_block_control_subject, start_stat_block_multiattack,
+    start_stat_block_multiattack_from, stat_block_control_initial_state, StatBlockAttackSlot,
+    StatBlockControlHole, StatBlockControlInvalidReason, StatBlockControlProtocol,
+    StatBlockControlState, StatBlockDispatchSubject, StatBlockMultiattackProfile,
 };
 
 pub const BRANCH_ACTIONS: [&str; 7] = [
@@ -17,6 +19,10 @@ pub const BRANCH_ACTIONS: [&str; 7] = [
 ];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> StatBlockControlState {
+    replay_observed_action_through_control_transition(observed_action_taken)
+}
+
+pub fn expected_witness(observed_action_taken: &str) -> StatBlockControlState {
     match observed_action_taken {
         "doEndTurnClosesDispatches" => end_turn_closes_stat_block_dispatches(),
         "doMoveDuringDispatch" => move_during_stat_block_dispatch(),
@@ -29,8 +35,49 @@ pub fn replay_observed_action(observed_action_taken: &str) -> StatBlockControlSt
     }
 }
 
-pub fn expected_witness(observed_action_taken: &str) -> StatBlockControlState {
-    replay_observed_action(observed_action_taken)
+fn replay_observed_action_through_control_transition(
+    observed_action_taken: &str,
+) -> StatBlockControlState {
+    match observed_action_taken {
+        "doEndTurnClosesDispatches" => resolve_stat_block_control_subject(
+            started_multiattack_control_state(),
+            StatBlockDispatchSubject::EndTurn,
+        ),
+        "doMoveDuringDispatch" => resolve_stat_block_control_subject(
+            started_multiattack_control_state(),
+            StatBlockDispatchSubject::Movement,
+        ),
+        "doRejectBonusActionDuringDispatch" => resolve_stat_block_control_subject(
+            started_multiattack_control_state(),
+            StatBlockDispatchSubject::BonusAction,
+        ),
+        "doRejectOrdinaryActionDuringDispatch" => resolve_stat_block_control_subject(
+            started_multiattack_control_state(),
+            StatBlockDispatchSubject::OrdinaryAction,
+        ),
+        "doResolvePrimaryDispatch" => resolve_stat_block_control_subject(
+            started_multiattack_control_state(),
+            StatBlockDispatchSubject::PrimaryAttackSlot,
+        ),
+        "doResolveSecondaryDispatch" => resolve_stat_block_control_subject(
+            started_multiattack_control_state(),
+            StatBlockDispatchSubject::SecondaryAttackSlot,
+        ),
+        "doStartMultiattack" => started_multiattack_control_state(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn started_multiattack_control_state() -> StatBlockControlState {
+    start_stat_block_multiattack_from(stat_block_control_initial_state(), fixture_profile())
+}
+
+fn fixture_profile() -> StatBlockMultiattackProfile {
+    StatBlockMultiattackProfile {
+        first_attack_slot: StatBlockAttackSlot::Primary,
+        primary_attack_count: 2,
+        secondary_attack_count: 1,
+    }
 }
 
 pub fn projection_payload(state: &StatBlockControlState) -> String {

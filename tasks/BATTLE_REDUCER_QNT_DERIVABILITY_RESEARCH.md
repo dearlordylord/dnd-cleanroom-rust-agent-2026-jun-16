@@ -285,19 +285,54 @@ to 21 obligations across two battle drivers. It still does not solve global
 work-loop acceptance because the dirty evidence/adapter denominator remains
 global.
 
+## Third Reducer-Control Experiment
+
+`rule-core-stat-block-controls.mbt.qnt` is now routed through a state-transition
+control API on the observed side.
+
+This is not a full battle `BattleState` reducer route yet. It is the reusable
+rule-core component the battle reducer needs for general stat-block
+multiattack:
+
+- explicit `StatBlockMultiattackProfile`;
+- `start_stat_block_multiattack_from(state, profile)`;
+- `resolve_stat_block_control_subject(state, subject)`;
+- dispatch decrement by primary/secondary attack slot;
+- movement and end-turn interleaving while a continuation is open;
+- stale-subject rejection for bonus and ordinary actions during dispatch.
+
+Result:
+
+- `rule_core_stat_block_controls_mbt` observed replay uses
+  `replay_observed_action_through_control_transition`.
+- The per-branch wrapper witness remains available as the expected projection.
+- `tasks/target-replay-evidence/T074-rule-core-stat-block-controls.json` has
+  current manifest and inventory hashes and records the transition replay
+  function.
+- `scripts/check-target-replay-evidence-file.cjs` validates all 7 T074 branch
+  obligations.
+
+This expands reducer-shaped evidence from 21 T063/T064 battle obligations to
+28 obligations across three drivers, while preserving the distinction between
+full battle-spine coverage and a reusable rule-core control component. The next
+technical question is whether the battle reducer spine should store
+primary/secondary dispatch state directly or project the existing per-combatant
+single dispatch count into this rule-core control shape.
+
 ## Work-Loop Promotion Findings
 
-T063/T064 cannot be promoted to repo-wide harness acceptance by adding only
-driver-local ledger/history records in the current dirty repo.
+T063/T064/T074 cannot be promoted to repo-wide harness acceptance by adding
+only driver-local ledger/history records in the current dirty repo.
 
 Measured denominator:
 
 - Active replayable obligations: 631 across 96 drivers.
 - Battle/rule-core replayable obligations: 502 across 73 drivers.
-- T063 plus T064 reducer-spine obligations: 21.
+- T063 plus T064 battle-spine obligations: 21.
+- T074 reducer-control obligations: 7.
 - Target replay evidence files under `tasks/target-replay-evidence`: 78.
-- Current-snapshot evidence files: 7.
-- Stale previous-snapshot evidence files: 71.
+- Current-snapshot evidence files: 8.
+- Stale previous-snapshot evidence files: 70.
 - Rust adapter files under `src/qnt_adapters`: 78.
 - `tasks/history` is absent, and `tasks/RUN_LEDGER.json` is absent.
 
@@ -305,14 +340,15 @@ Harness implication:
 
 - Without `tasks/RUN_LEDGER.json`, `check-cleanroom-harness.cjs` validates every
   evidence file under `tasks/target-replay-evidence` against the current rolling
-  task's declared evidence. A T063/T064 rolling task would therefore still fail
-  on the other evidence files.
+  task's declared evidence. A T063/T064/T074 rolling task would therefore still
+  fail on the other evidence files.
 - With `tasks/RUN_LEDGER.json`, the harness requires every evidence file under
   `tasks/target-replay-evidence` to be accounted for by ledger entries. A
-  T063/T064-only ledger would still fail on the other evidence files.
+  T063/T064/T074-only ledger would still fail on the other evidence files.
 - The production source scan treats undeclared adapter files as production
-  source. A T063/T064-only engine-depth manifest would therefore still scan the
-  other adapter modules and report witness-protocol/authored-identity findings.
+  source. A T063/T064/T074-only engine-depth manifest would therefore still
+  scan the other adapter modules and report witness-protocol/authored-identity
+  findings.
 
 This is not a QNT insufficiency. It is a dirty-repo acceptance-denominator
 problem.
@@ -332,23 +368,24 @@ Options from here:
    driver, then promote only after the dirty denominator is fixed.
 
 The best next reducer-specific experiment is Option 1 or Option 3, not a
-T063/T064-only work-loop promotion inside the current dirty repo.
+T063/T064/T074-only work-loop promotion inside the current dirty repo.
 
 ## Recommended Next Experiment
 
-Run a complete work-loop reducer-spine task for T063 or add a source-side
-reducer-spine witness before broadening to the next battle driver. Do not start
-with a full driver audit.
+Integrate the T074 stat-block control transition into the battle reducer spine,
+or add a source-side reducer-spine witness before broadening to the next battle
+driver. Do not start with a full driver audit.
 
 Method:
 
 1. Use only `cleanroom-input/**` as implementation input.
-2. Promote `battle-runtime-weapon-attack-ordering.mbt.qnt` into a complete
-   work-loop task whose rolling artifacts and ledger declare the T063 evidence.
+2. Promote the existing T063/T064/T074 transition evidence into complete
+   work-loop tasks only after the dirty harness denominator is cleaned up.
 3. If the current harness must express "observed via reducer spine, expected
-   via focused QNT witness", add a small source-side reducer-spine witness
-   before attempting a broad driver such as
-   `battle-runtime-weapon-attack-skeleton.mbt.qnt`.
+   via focused QNT witness", add a small source-side reducer-spine witness.
+   If the next code experiment continues in Rust first, make it bridge T074's
+   primary/secondary dispatch-slot model into the battle spine rather than adding
+   another one-off dispatch counter.
 4. Record every fact that cannot be derived from copied QNT, RAW, domain docs,
    or assumptions as a blocker.
 5. Compare the resulting public shape to TypeScript only after the experiment,

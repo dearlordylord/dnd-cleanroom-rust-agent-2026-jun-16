@@ -2785,11 +2785,11 @@ fn stat_block_controls_project_dispatch_interleaving_and_rejections() {
     ));
     assert!(multiattack_dispatch_subject_permitted(
         &started,
-        StatBlockDispatchSubject::PrimaryAttack
+        StatBlockDispatchSubject::PrimaryAttackSlot
     ));
     assert!(multiattack_dispatch_subject_permitted(
         &started,
-        StatBlockDispatchSubject::SecondaryAttack
+        StatBlockDispatchSubject::SecondaryAttackSlot
     ));
     assert!(!multiattack_dispatch_subject_permitted(
         &started,
