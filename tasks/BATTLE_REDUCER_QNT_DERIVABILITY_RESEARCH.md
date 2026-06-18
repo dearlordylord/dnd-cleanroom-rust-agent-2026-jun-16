@@ -731,6 +731,84 @@ fixture unless it introduces a different reducer subsystem. Prefer a
 source-side reducer-spine witness, or route reaction casting-time only with a
 minimal spell-slot/action-resource owner. Do not start with a full driver audit.
 
+## Eleventh Corpus Signal Scan
+
+This was a no-code scan of the copied cleanroom corpus after the T031 route. It
+does not prove semantic readiness for each driver; it is a search-backed
+triage of where reducer-shaped facts are already present.
+
+Measured input:
+
+- In-scope drivers: 96.
+- In-scope obligations: 631.
+- Battle/rule-core in-scope drivers: 73.
+- Battle/rule-core in-scope obligations: 502.
+- Current reducer-spine/control routed drivers:
+  T031/T060/T062/T063/T064/T072/T074/T079/T080 = 9.
+- Current reducer-spine/control routed obligations: 62.
+- Remaining battle/rule-core drivers not routed through the spine/control
+  transition path: 64.
+- Remaining battle/rule-core obligations not routed through the spine/control
+  transition path: 440.
+
+Coarse QNT signal counts in the 73 active battle/rule-core drivers:
+
+| Signal | Driver count | Interpretation |
+| --- | ---: | --- |
+| Hole/frontier/subject/fill vocabulary | 68 | Most drivers can validate replay protocol, but this alone does not imply reusable reducer behavior. |
+| Turn-resource vocabulary | 45 | Many drivers touch shared action/bonus/reaction/turn state and should eventually route through battle state. |
+| Spell-slot/resource vocabulary | 11 | This is the next unreduced ownership substrate after HP/actions/reactions. |
+| Interrupt/reaction-window vocabulary | 6 | T031/T072 cover part of this, but reaction spells still need battle-level slot ownership. |
+| Stat-block vocabulary | 7 | The current stat-block route already covers the strongest adjacent stat-block cluster. |
+
+Coarse QNT signal counts in `cleanroom-input/qnt/battle-runtime` support
+modules:
+
+| Signal | Support-module count | Important modules |
+| --- | ---: | --- |
+| `BattleState` | 50 | `battle-runtime-model.qnt` and executable bridge/rule modules. |
+| Spell resource / slot ownership | 57 | `battle-runtime-spell-invocation.qnt`, `spell-invocation-resource-core.qnt`, and spell-specific battle modules. |
+| Interrupt stack / reaction window | 21 | `battle-runtime-reaction-window.qnt`, `battle-runtime-reaction-resolution.qnt`, and interrupt bridge modules. |
+| Turn advancement/resource reset | 77 | `battle-runtime-turn-advancement.qnt`, turn order, movement, and spell modules. |
+| Hole/frontier/subject/fill | 28 | Combat holes, ordering bridges, and protocol modules. |
+
+The important result is that the copied QNT already contains the next substrate
+facts. `battle-runtime-model.qnt` defines `BattleState.spellSlotUsesThisTurn`,
+`levelOnePlusSpellCastsThisTurn`, `quickenedLevelOnePlusSpellCastsThisTurn`,
+and `interruptStack`. `battle-runtime-spell-invocation.qnt` defines pending
+slot claims, committed slot use, release of pending slot use, and the one
+level-1-plus spell-slot cast per turn rule. `battle-runtime-reaction-window.qnt`
+defines opening reaction windows, trigger/procedure matching, Counterspell slot
+claiming, reaction spending, and reaction-window projection from the interrupt
+stack. `battle-runtime-reaction-resolution.qnt` defines Hellish Rebuke
+after-damage resolution, Counterspell spell-ending/resume behavior, and
+reaction-offer resolution through `BattleState`.
+
+That makes `battle-runtime-reaction-casting-time.mbt.qnt` a useful next Rust
+diagnostic. It would not be another ordering replay. It would force the
+experimental reducer spine to add a battle-owned spell-slot/reaction resource
+owner and then test whether Counterspell and Hellish Rebuke can be derived from
+QNT-owned state transitions.
+
+The source-side reducer-spine witness remains useful, but in this cleanroom
+repo it is not directly implementable because `cleanroom-input/**` is copied
+source input and must not be edited. The cleanroom-side action is to specify
+the desired source witness contract:
+
+- initialize a battle from `BattleState`;
+- discover at least one action from durable state;
+- resolve a subject through typed fills;
+- expose action/bonus/reaction/spell-slot ownership changes;
+- expose an interrupt-stack reaction path;
+- expose a turn-advancement path;
+- project only high-signal reducer facts, not every existing slice-specific
+  field.
+
+If source work is available, this witness should be added in the source repo
+and synced into `cleanroom-input`. If continuing only in this target repo,
+reaction casting-time with a minimal spell-slot/action-resource owner is the
+highest-value next experiment.
+
 ## Next Subsystem Candidate Scan
 
 This scan is deliberately narrower than a 73-driver audit. It asks which next

@@ -244,13 +244,27 @@ branches.
 
 ## Best Next Step
 
+Current measured position:
+
+- 73 active battle/rule-core drivers carry 502 in-scope obligations.
+- 9 drivers are currently reducer-spine/control routed:
+  T031/T060/T062/T063/T064/T072/T074/T079/T080.
+- Those 9 drivers cover 62 obligations.
+- 64 battle/rule-core drivers and 440 obligations remain unrouted.
+- The copied support corpus already contains reducer-shaped source facts:
+  50 support modules mention `BattleState`, 57 mention spell resource/slot
+  ownership, 21 mention interrupt stack/reaction windows, and 77 mention turn
+  advancement/resource reset.
+
 Do not try to promote T031/T060/T062/T063/T064/T072/T074/T079/T080 alone inside the current
 dirty repo. Use one of two paths:
 
 1. Add a source-side reducer-spine witness if the current evidence schema is not
    strong enough. This is the cleanest reducer-specific next step because it
    makes `start_battle` / `discover_battle_acts` / `resolve_battle_subject`
-   explicit source input for future cleanroom runs.
+   explicit source input for future cleanroom runs. This is source-repo work,
+   not something this cleanroom target may implement by editing
+   `cleanroom-input/**`.
 2. Continue per-file reducer-spine diagnostics in this repo while expanding the
    spine to another driver. Current focused checks:
 
@@ -325,9 +339,15 @@ T062 lifecycle fixture unless it tests a different reducer subsystem.
 Recommended sequence:
 
 1. **Reaction spell casting time.** Route
-   `battle-runtime-reaction-casting-time.mbt.qnt` only after the reaction and
-   interrupt substrate exists, because it also needs spell-slot ownership and
-   reaction-window clearing.
+   `battle-runtime-reaction-casting-time.mbt.qnt` with a minimal battle-owned
+   spell-slot/action-resource owner. The copied QNT already specifies the
+   needed substrate in `battle-runtime-model.qnt`,
+   `battle-runtime-spell-invocation.qnt`,
+   `battle-runtime-reaction-window.qnt`, and
+   `battle-runtime-reaction-resolution.qnt`: pending slot claims, committed
+   slot use, pending-slot release, Counterspell spell-ending/resume behavior,
+   reaction spending, reaction-window clearing, and Hellish Rebuke after-damage
+   resolution.
 2. **Spell attack/save-gated ordering.** Defer
    `battle-runtime-spell-attack-ordering.mbt.qnt` and
    `battle-runtime-save-gated-spell-ordering.mbt.qnt` unless the batch also
@@ -342,3 +362,22 @@ Recommended sequence:
 This is the first experiment that directly measures the goal: whether battle
 reducer behavior can be reconstructed from QNT, not merely whether focused QNT
 traces can be copied into Rust.
+
+## Exhausted Options For Now
+
+- More Goblin stat-block micro-slices are low value until a new stat-block
+  subsystem appears; T060/T079/T080 already cover ordering, rolled/static
+  damage mutation, and size-gated condition riders through `BattleState`.
+- Another bounded turn-boundary fixture is low value unless it forces general
+  active-effect storage; T062 already proves a first `end_turn` route.
+- More ordering-only spell drivers are low value until spell-slot/action
+  ownership exists; otherwise they repeat T060/T063 with different hole names.
+- A full 73-driver classification is not currently useful. Classify a driver
+  when selected for spine routing or when a passing replay could be mistaken
+  for reducer evidence.
+- Directly mirroring TypeScript architecture would answer a different question.
+  The cleanroom reducer claim must be driven from copied QNT/RAW/domain input,
+  with TypeScript used only as post-hoc comparison outside the cleanroom run.
+- Work-loop promotion is blocked by dirty denominator accounting, not by QNT:
+  missing `tasks/RUN_LEDGER.json`, 79 undeclared historical evidence files, and
+  undeclared adapter scan findings keep repo-wide harness acceptance red.
