@@ -1,6 +1,6 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts, resolve_battle_subject_test_fill, start_battle, Actor, AttackRollFacts,
-    BattleFill, BattleResolutionResult, BattleSubject, BattleSubjectKind,
+    BattleFill, BattleResolutionResult, BattleSetup, BattleSubject, BattleSubjectKind,
 };
 use crate::rules::weapon_attack_ordering::{
     discover_weapon_attack, fill_weapon_attack_damage_dice, fill_weapon_attack_roll_hit,
@@ -60,7 +60,7 @@ pub fn projection_payload(state: &WeaponAttackOrderingState) -> String {
 fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAttackOrderingState {
     match observed_action_taken {
         "doDiscoverAttack" => {
-            let state = start_battle();
+            let state = standard_battle_state();
             let act = discovered_weapon_attack_act(&state);
             projection(
                 act.subject.stage,
@@ -69,7 +69,7 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
             )
         }
         "doRejectAttackRollBeforeTargetChoice" => {
-            let state = start_battle();
+            let state = standard_battle_state();
             let act = discovered_weapon_attack_act(&state);
             let result = resolve_battle_subject_test_fill(
                 state,
@@ -151,7 +151,7 @@ fn spine_after_target_choice() -> (
     crate::rules::battle_reducer_spine::BattleState,
     BattleSubject,
 ) {
-    let state = start_battle();
+    let state = standard_battle_state();
     let act = discovered_weapon_attack_act(&state);
     match resolve_battle_subject_test_fill(
         state,
@@ -161,6 +161,10 @@ fn spine_after_target_choice() -> (
         BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
         other => panic!("target choice should need attack-roll holes, got {other:?}"),
     }
+}
+
+fn standard_battle_state() -> crate::rules::battle_reducer_spine::BattleState {
+    start_battle(BattleSetup::standard()).state
 }
 
 fn spine_after_attack_roll_hit() -> (

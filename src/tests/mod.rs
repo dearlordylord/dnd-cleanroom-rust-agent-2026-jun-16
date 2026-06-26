@@ -5299,6 +5299,36 @@ fn weapon_attack_skeleton_resolves_damage_sneak_and_multiattack_dispatch() {
 }
 
 #[test]
+fn multiattack_resolution_uses_subject_combatant_profile() {
+    use crate::rules::battle_reducer_spine::{
+        discover_battle_acts, primary_stat_block_multiattack_profile,
+        resolve_battle_subject_test_fill, start_stat_block_actor_battle, Actor, BattleFill,
+        BattleResolutionResult, BattleSubjectKind,
+    };
+
+    // RAW: cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md "Multiattack";
+    // QNT: rule-core/stat-block-controls.qnt `startStatBlockMultiattack`.
+    let mut state = start_stat_block_actor_battle(Actor::Rogue);
+    state.rogue.multiattack_profile = Some(primary_stat_block_multiattack_profile(3));
+
+    let subject = discover_battle_acts(&state)
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::Multiattack)
+        .expect("combatant profile should make multiattack discoverable")
+        .subject;
+    assert_eq!(subject.actor, Actor::Rogue);
+
+    let BattleResolutionResult::Resolved { state } =
+        resolve_battle_subject_test_fill(state, subject, BattleFill::ResolveMultiattack)
+    else {
+        panic!("subject combatant profile should resolve multiattack");
+    };
+    assert!(!state.action_available);
+    assert!(state.stat_block_control.multiattack_continuation_open);
+    assert_eq!(state.stat_block_control.pending_primary_dispatches, 2);
+}
+
+#[test]
 fn weapon_hosted_attack_and_riders_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt; RAW:
@@ -7113,11 +7143,11 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
 fn reducer_entrypoint_contract_consumes_typed_resolution_requests() {
     use crate::rules::battle_reducer_spine::{
         discover_battle_acts, resolve_battle_subject, start_battle, Actor, BattleResolutionRequest,
-        BattleResolutionRequestError, BattleResolutionResult, BattleSubjectKind,
+        BattleResolutionRequestError, BattleResolutionResult, BattleSetup, BattleSubjectKind,
         BattleWeaponAttackFill,
     };
 
-    let state = start_battle();
+    let state = start_battle(BattleSetup::standard()).state;
     let weapon_act = discover_battle_acts(&state)
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::WeaponAttack)
@@ -7152,11 +7182,11 @@ fn reducer_entrypoint_contract_observes_public_entrypoint_sequence() {
         advance_turn_observed, discover_battle_acts_observed, resolve_battle_subject_observed,
         start_battle_observed, Actor, BattleEntrypointEvent, BattleEntrypointKind,
         BattleEntrypointTrace, BattleResolutionOutcome, BattleResolutionRequest,
-        BattleResolutionResult, BattleSubjectKind, BattleWeaponAttackFill,
+        BattleResolutionResult, BattleSetup, BattleSubjectKind, BattleWeaponAttackFill,
     };
 
     let mut trace = BattleEntrypointTrace::default();
-    let state = start_battle_observed(&mut trace);
+    let state = start_battle_observed(BattleSetup::standard(), &mut trace).state;
     let weapon_act = discover_battle_acts_observed(&state, &mut trace)
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::WeaponAttack)
@@ -7208,10 +7238,10 @@ fn reducer_entrypoint_contract_observes_public_entrypoint_sequence() {
 fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
     use crate::rules::battle_reducer_spine::{
         combatant_is_dead, discover_battle_acts, resolve_battle_subject_test_fill, start_battle,
-        Actor, AttackRollFacts, BattleFill, BattleHoleKind, BattleResolutionResult,
+        Actor, AttackRollFacts, BattleFill, BattleHoleKind, BattleResolutionResult, BattleSetup,
     };
 
-    let state = start_battle();
+    let state = start_battle(BattleSetup::standard()).state;
     assert_eq!(state.fighter.hp, 12);
     assert_eq!(state.goblin.hp, 10);
 
@@ -7273,9 +7303,10 @@ fn experimental_qnt_spine_rejects_attack_roll_before_target_choice() {
     use crate::rules::battle_reducer_spine::{
         discover_battle_acts, resolve_battle_subject_test_fill, start_battle, AttackRollFacts,
         BattleFill, BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionResult,
+        BattleSetup,
     };
 
-    let state = start_battle();
+    let state = start_battle(BattleSetup::standard()).state;
     let act = discover_battle_acts(&state)
         .into_iter()
         .find(|act| {
