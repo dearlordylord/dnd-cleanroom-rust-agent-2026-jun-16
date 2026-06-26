@@ -2,7 +2,7 @@ use crate::rules::battle_reducer_spine::{
     advance_turn, discover_battle_acts, discover_slot_spell_battle,
     resolve_battle_subject_test_fill, resolve_slot_spell_subject, slot_spell_holes_from_battle,
     start_fighter_skeleton_battle, Actor, AttackRollFacts, BattleFill, BattleHoleKind,
-    BattleResolutionResult, BattleSlotSpellFill, BattleSlotSpellHole, BattleState, BattleSubject,
+    BattleResolutionOutcome, BattleSlotSpellFill, BattleSlotSpellHole, BattleState, BattleSubject,
     BattleSubjectKind, BattleTurnAdvanceResult, BattleTurnSpellSlotUse,
 };
 
@@ -508,45 +508,43 @@ fn discovered_skeleton_weapon_attack(
 fn weapon_target_resolved() -> (BattleState, BattleSubject, Vec<BattleHoleKind>) {
     let state = end_turn_to_target_state();
     let act = discovered_skeleton_weapon_attack(&state);
-    match resolve_battle_subject_test_fill(
+    let result = resolve_battle_subject_test_fill(
         state,
         act.subject,
         BattleFill::TargetChoice(Actor::Fighter),
-    ) {
-        BattleResolutionResult::NeedsHoles {
-            state,
-            subject,
-            holes,
-        } => (state, subject, holes),
-        other => panic!("weapon target choice should need attack-roll holes, got {other:?}"),
-    }
+    );
+    let outcome = result.outcome();
+    let needs_holes = result.into_needs_holes().unwrap_or_else(|| {
+        panic!("weapon target choice should need attack-roll holes, got {outcome:?}")
+    });
+    (needs_holes.state, needs_holes.subject, needs_holes.holes)
 }
 
 fn weapon_attack_hit_resolved() -> (BattleState, BattleSubject, Vec<BattleHoleKind>) {
     let (state, subject, _holes) = weapon_target_resolved();
-    match resolve_battle_subject_test_fill(
+    let result = resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::AttackRoll(AttackRollFacts {
             total: 18,
             natural_d20: 14,
         }),
-    ) {
-        BattleResolutionResult::NeedsHoles {
-            state,
-            subject,
-            holes,
-        } => (state, subject, holes),
-        other => panic!("weapon attack hit should need damage holes, got {other:?}"),
-    }
+    );
+    let outcome = result.outcome();
+    let needs_holes = result
+        .into_needs_holes()
+        .unwrap_or_else(|| panic!("weapon attack hit should need damage holes, got {outcome:?}"));
+    (needs_holes.state, needs_holes.subject, needs_holes.holes)
 }
 
 fn weapon_damage_resolved() -> BattleState {
     let (state, subject, _holes) = weapon_attack_hit_resolved();
-    match resolve_battle_subject_test_fill(state, subject, BattleFill::DamageRoll(3)) {
-        BattleResolutionResult::Resolved { state } => state,
-        other => panic!("weapon damage should resolve, got {other:?}"),
+    let result = resolve_battle_subject_test_fill(state, subject, BattleFill::DamageRoll(3));
+    let outcome = result.outcome();
+    if outcome != BattleResolutionOutcome::Resolved {
+        panic!("weapon damage should resolve, got {outcome:?}");
     }
+    result.into_state()
 }
 
 fn actor_from_battle(actor: Actor) -> ReducerSpineActor {

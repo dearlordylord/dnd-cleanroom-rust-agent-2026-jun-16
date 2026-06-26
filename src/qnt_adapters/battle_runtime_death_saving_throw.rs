@@ -1,8 +1,8 @@
 use crate::rules::battle_reducer_spine::{
     death_saving_throw_state_from_combatant, discover_battle_acts,
     resolve_battle_subject_test_fill, start_death_saving_throw_battle, Actor, BattleFill,
-    BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionResult, BattleState,
-    BattleSubject, BattleSubjectKind,
+    BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionOutcome, BattleResolutionResult,
+    BattleState, BattleSubject, BattleSubjectKind,
 };
 use crate::rules::hit_points::{
     death_saving_throw_initial_state, discover_death_saving_throw, fill_death_saving_throw,
@@ -148,7 +148,7 @@ fn death_saving_throw_fill_result(
         subject,
         BattleFill::DeathSavingThrow(DeathSavingThrowFacts { natural_d20 }),
     );
-    let holes = result_holes(&result);
+    let holes = result.requested_holes().unwrap_or(&[]).to_vec();
     route.push(route_resolve_battle_subject(
         ReducerRouteSubjectFamily::DeathSavingThrow,
         ReducerRouteFillKind::DeathSavingThrow,
@@ -160,9 +160,11 @@ fn death_saving_throw_fill_result(
 
 fn reject_wrong_actor_battle_result() -> (BattleResolutionResult, Vec<ReducerRouteEvent>) {
     let (result, mut route) = death_saving_throw_fill_result(20);
-    let BattleResolutionResult::Resolved { state } = result else {
-        panic!("natural 20 death saving throw should resolve before wrong-actor rejection")
-    };
+    let outcome = result.outcome();
+    if outcome != BattleResolutionOutcome::Resolved {
+        panic!("natural 20 death saving throw should resolve before wrong-actor rejection, got {outcome:?}");
+    }
+    let state = result.into_state();
     let stale_subject = BattleSubject {
         kind: BattleSubjectKind::DeathSavingThrow,
         actor: Actor::Fighter,
@@ -178,7 +180,7 @@ fn reject_wrong_actor_battle_result() -> (BattleResolutionResult, Vec<ReducerRou
     route.push(route_resolve_battle_subject(
         ReducerRouteSubjectFamily::DeathSavingThrow,
         ReducerRouteFillKind::DeathSavingThrow,
-        result_holes(&result),
+        result.requested_holes().unwrap_or(&[]).to_vec(),
         ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
     ));
     (result, route)
@@ -213,28 +215,18 @@ fn discovered_death_saving_throw_subject(state: &BattleState) -> BattleSubject {
     discovered_death_saving_throw_act(state).subject
 }
 
-fn result_holes(result: &BattleResolutionResult) -> Vec<BattleHoleKind> {
-    match result {
-        BattleResolutionResult::NeedsHoles { holes, .. }
-        | BattleResolutionResult::Invalid { holes, .. } => holes.clone(),
-        BattleResolutionResult::Resolved { .. } => Vec::new(),
-    }
-}
-
 fn witness_from_death_saving_throw_result(
     result: BattleResolutionResult,
 ) -> DeathSavingThrowWitness {
-    match result {
-        BattleResolutionResult::Resolved { state } => witness_from_battle_state(&state),
-        BattleResolutionResult::Invalid { state, reason, .. } => {
-            witness_from_battle_state_with_protocol(&state, invalid_protocol(reason))
+    match result.outcome() {
+        BattleResolutionOutcome::Resolved => witness_from_battle_state(result.state()),
+        BattleResolutionOutcome::Invalid(reason) => {
+            witness_from_battle_state_with_protocol(result.state(), invalid_protocol(reason))
         }
-        BattleResolutionResult::NeedsHoles { state, .. } => {
-            witness_from_battle_state_with_protocol(
-                &state,
-                DeathSavingThrowProtocol::NeedsSavingThrow,
-            )
-        }
+        BattleResolutionOutcome::NeedsHoles => witness_from_battle_state_with_protocol(
+            result.state(),
+            DeathSavingThrowProtocol::NeedsSavingThrow,
+        ),
     }
 }
 

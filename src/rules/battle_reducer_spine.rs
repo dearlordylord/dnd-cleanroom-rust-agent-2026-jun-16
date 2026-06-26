@@ -836,6 +836,201 @@ pub enum BattleResolutionResult {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleResolutionNeedsHoles<'a> {
+    state: &'a BattleState,
+    subject: BattleSubject,
+    holes: &'a [BattleHoleKind],
+}
+
+impl<'a> BattleResolutionNeedsHoles<'a> {
+    #[must_use]
+    pub const fn state(&self) -> &'a BattleState {
+        self.state
+    }
+
+    #[must_use]
+    pub const fn subject(&self) -> BattleSubject {
+        self.subject
+    }
+
+    #[must_use]
+    pub const fn holes(&self) -> &'a [BattleHoleKind] {
+        self.holes
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct BattleResolutionNeedsHolesParts {
+    pub state: BattleState,
+    pub subject: BattleSubject,
+    pub holes: Vec<BattleHoleKind>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleResolutionInvalid<'a> {
+    state: &'a BattleState,
+    reason: BattleResolutionInvalidReason,
+    holes: &'a [BattleHoleKind],
+}
+
+impl<'a> BattleResolutionInvalid<'a> {
+    #[must_use]
+    pub const fn state(&self) -> &'a BattleState {
+        self.state
+    }
+
+    #[must_use]
+    pub const fn reason(&self) -> BattleResolutionInvalidReason {
+        self.reason
+    }
+
+    #[must_use]
+    pub const fn holes(&self) -> &'a [BattleHoleKind] {
+        self.holes
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct BattleResolutionInvalidParts {
+    pub state: BattleState,
+    pub reason: BattleResolutionInvalidReason,
+    pub holes: Vec<BattleHoleKind>,
+}
+
+impl BattleResolutionResult {
+    #[must_use]
+    pub const fn outcome(&self) -> BattleResolutionOutcome {
+        match self {
+            Self::NeedsHoles { .. } => BattleResolutionOutcome::NeedsHoles,
+            Self::Resolved { .. } => BattleResolutionOutcome::Resolved,
+            Self::Invalid { reason, .. } => BattleResolutionOutcome::Invalid(*reason),
+        }
+    }
+
+    #[must_use]
+    pub const fn state(&self) -> &BattleState {
+        match self {
+            Self::NeedsHoles { state, .. }
+            | Self::Resolved { state }
+            | Self::Invalid { state, .. } => state,
+        }
+    }
+
+    #[must_use]
+    pub fn into_state(self) -> BattleState {
+        match self {
+            Self::NeedsHoles { state, .. }
+            | Self::Resolved { state }
+            | Self::Invalid { state, .. } => state,
+        }
+    }
+
+    #[must_use]
+    pub const fn resolved_state(&self) -> Option<&BattleState> {
+        match self {
+            Self::Resolved { state } => Some(state),
+            Self::NeedsHoles { .. } | Self::Invalid { .. } => None,
+        }
+    }
+
+    #[must_use]
+    pub fn into_resolved_state(self) -> Option<BattleState> {
+        match self {
+            Self::Resolved { state } => Some(state),
+            Self::NeedsHoles { .. } | Self::Invalid { .. } => None,
+        }
+    }
+
+    #[must_use]
+    pub fn needs_holes(&self) -> Option<BattleResolutionNeedsHoles<'_>> {
+        match self {
+            Self::NeedsHoles {
+                state,
+                subject,
+                holes,
+            } => Some(BattleResolutionNeedsHoles {
+                state,
+                subject: *subject,
+                holes,
+            }),
+            Self::Resolved { .. } | Self::Invalid { .. } => None,
+        }
+    }
+
+    #[must_use]
+    pub fn into_needs_holes(self) -> Option<BattleResolutionNeedsHolesParts> {
+        match self {
+            Self::NeedsHoles {
+                state,
+                subject,
+                holes,
+            } => Some(BattleResolutionNeedsHolesParts {
+                state,
+                subject,
+                holes,
+            }),
+            Self::Resolved { .. } | Self::Invalid { .. } => None,
+        }
+    }
+
+    #[must_use]
+    pub const fn continuing_subject(&self) -> Option<BattleSubject> {
+        match self {
+            Self::NeedsHoles { subject, .. } => Some(*subject),
+            Self::Resolved { .. } | Self::Invalid { .. } => None,
+        }
+    }
+
+    #[must_use]
+    pub fn requested_holes(&self) -> Option<&[BattleHoleKind]> {
+        match self {
+            Self::NeedsHoles { holes, .. } | Self::Invalid { holes, .. } => Some(holes),
+            Self::Resolved { .. } => None,
+        }
+    }
+
+    #[must_use]
+    pub fn invalid(&self) -> Option<BattleResolutionInvalid<'_>> {
+        match self {
+            Self::Invalid {
+                state,
+                reason,
+                holes,
+            } => Some(BattleResolutionInvalid {
+                state,
+                reason: *reason,
+                holes,
+            }),
+            Self::NeedsHoles { .. } | Self::Resolved { .. } => None,
+        }
+    }
+
+    #[must_use]
+    pub fn into_invalid(self) -> Option<BattleResolutionInvalidParts> {
+        match self {
+            Self::Invalid {
+                state,
+                reason,
+                holes,
+            } => Some(BattleResolutionInvalidParts {
+                state,
+                reason,
+                holes,
+            }),
+            Self::NeedsHoles { .. } | Self::Resolved { .. } => None,
+        }
+    }
+
+    #[must_use]
+    pub const fn invalid_reason(&self) -> Option<BattleResolutionInvalidReason> {
+        match self {
+            Self::Invalid { reason, .. } => Some(*reason),
+            Self::NeedsHoles { .. } | Self::Resolved { .. } => None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleEntrypointKind {
     StartBattle,
     DiscoverBattleActs,
@@ -2180,17 +2375,9 @@ pub fn resolve_battle_subject_observed(
     let result = resolve_battle_subject(state, request);
     observer.observe_battle_entrypoint(BattleEntrypointEvent::ResolveBattleSubject {
         subject,
-        outcome: battle_resolution_outcome(&result),
+        outcome: result.outcome(),
     });
     result
-}
-
-fn battle_resolution_outcome(result: &BattleResolutionResult) -> BattleResolutionOutcome {
-    match result {
-        BattleResolutionResult::NeedsHoles { .. } => BattleResolutionOutcome::NeedsHoles,
-        BattleResolutionResult::Resolved { .. } => BattleResolutionOutcome::Resolved,
-        BattleResolutionResult::Invalid { reason, .. } => BattleResolutionOutcome::Invalid(*reason),
-    }
 }
 
 fn resolve_battle_subject_unchecked(

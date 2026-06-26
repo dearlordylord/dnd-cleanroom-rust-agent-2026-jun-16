@@ -2,7 +2,7 @@ use crate::rules::battle_reducer_spine::{
     combatant_is_dead, discover_battle_acts, resolve_battle_subject_test_fill,
     slot_spell_holes_from_battle, start_fighter_skeleton_battle,
     stat_block_multiattack_dispatches_available, Actor, BattleFill, BattleHoleKind,
-    BattleResolutionResult, BattleSlotSpellFill, BattleSlotSpellHole, BattleState,
+    BattleResolutionOutcome, BattleSlotSpellFill, BattleSlotSpellHole, BattleState,
     BattleSubjectKind,
 };
 use crate::rules::magic_missile::{
@@ -133,22 +133,22 @@ fn slot_spell_targets_resolved_with_route() -> (BattleState, Vec<ReducerRouteEve
         act.holes.clone(),
         ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
     ));
-    match resolve_battle_subject_test_fill(
+    let result = resolve_battle_subject_test_fill(
         state,
         act.subject,
         BattleFill::SlotSpell(BattleSlotSpellFill::TargetAllocation(Actor::Skeleton)),
-    ) {
-        BattleResolutionResult::NeedsHoles { state, holes, .. } => {
-            route.push(route_resolve_battle_subject(
-                ReducerRouteSubjectFamily::SlotSpell,
-                ReducerRouteFillKind::SpellTargetAllocation,
-                holes,
-                ReducerRouteOwnerGroup::HoleFrontier,
-            ));
-            (state, route)
-        }
-        other => panic!("Magic Missile target allocation should need damage holes, got {other:?}"),
-    }
+    );
+    let outcome = result.outcome();
+    let needs_holes = result.into_needs_holes().unwrap_or_else(|| {
+        panic!("Magic Missile target allocation should need damage holes, got {outcome:?}")
+    });
+    route.push(route_resolve_battle_subject(
+        ReducerRouteSubjectFamily::SlotSpell,
+        ReducerRouteFillKind::SpellTargetAllocation,
+        needs_holes.holes,
+        ReducerRouteOwnerGroup::HoleFrontier,
+    ));
+    (needs_holes.state, route)
 }
 
 fn slot_spell_damage_resolved(dart_roll_total: i16) -> BattleState {
@@ -160,22 +160,23 @@ fn slot_spell_damage_resolved_with_route(
 ) -> (BattleState, Vec<ReducerRouteEvent>) {
     let (state, mut route) = slot_spell_targets_resolved_with_route();
     let act = discovered_slot_spell_subject_from_state(&state);
-    match resolve_battle_subject_test_fill(
+    let result = resolve_battle_subject_test_fill(
         state,
         act,
         BattleFill::SlotSpell(BattleSlotSpellFill::DamageRoll(dart_roll_total)),
-    ) {
-        BattleResolutionResult::Resolved { state } => {
-            route.push(route_resolve_battle_subject(
-                ReducerRouteSubjectFamily::SlotSpell,
-                ReducerRouteFillKind::RolledDice,
-                Vec::new(),
-                ReducerRouteOwnerGroup::HitPoint,
-            ));
-            (state, route)
-        }
-        other => panic!("Magic Missile damage should resolve through reducer, got {other:?}"),
+    );
+    let outcome = result.outcome();
+    if outcome != BattleResolutionOutcome::Resolved {
+        panic!("Magic Missile damage should resolve through reducer, got {outcome:?}");
     }
+    let state = result.into_state();
+    route.push(route_resolve_battle_subject(
+        ReducerRouteSubjectFamily::SlotSpell,
+        ReducerRouteFillKind::RolledDice,
+        Vec::new(),
+        ReducerRouteOwnerGroup::HitPoint,
+    ));
+    (state, route)
 }
 
 fn initial_magic_missile_route() -> Vec<ReducerRouteEvent> {

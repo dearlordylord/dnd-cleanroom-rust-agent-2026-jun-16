@@ -601,11 +601,7 @@ fn resolve_restoration_with_route(
 ) -> (BattleResolutionResult, Vec<ReducerRouteEvent>) {
     let result =
         resolve_battle_subject_test_fill(state, subject, BattleFill::HitPointRestoration(fill));
-    let holes = match &result {
-        BattleResolutionResult::NeedsHoles { holes, .. }
-        | BattleResolutionResult::Invalid { holes, .. } => holes.clone(),
-        BattleResolutionResult::Resolved { .. } => Vec::new(),
-    };
+    let holes = result.requested_holes().unwrap_or(&[]).to_vec();
     route.push(route_resolve_battle_subject(
         ReducerRouteSubjectFamily::HitPointRestoration,
         route_fill,
@@ -664,17 +660,21 @@ fn reducer_state_after_restoration_fill(
     fill: BattleHitPointRestorationFill,
 ) -> (BattleState, BattleSubject) {
     let subject = discovered_restoration_act(&state, kind).subject;
-    match resolve_battle_subject_test_fill(state, subject, BattleFill::HitPointRestoration(fill)) {
-        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
-        other => panic!("restoration reducer branch should need holes, got {other:?}"),
-    }
+    let result =
+        resolve_battle_subject_test_fill(state, subject, BattleFill::HitPointRestoration(fill));
+    let outcome = result.outcome();
+    let needs_holes = result
+        .into_needs_holes()
+        .unwrap_or_else(|| panic!("restoration reducer branch should need holes, got {outcome:?}"));
+    (needs_holes.state, needs_holes.subject)
 }
 
 fn needs_holes(result: BattleResolutionResult) -> (BattleState, BattleSubject) {
-    match result {
-        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
-        other => panic!("restoration reducer branch should need holes, got {other:?}"),
-    }
+    let outcome = result.outcome();
+    let needs_holes = result
+        .into_needs_holes()
+        .unwrap_or_else(|| panic!("restoration reducer branch should need holes, got {outcome:?}"));
+    (needs_holes.state, needs_holes.subject)
 }
 
 fn discovered_restoration_act(
@@ -689,11 +689,5 @@ fn discovered_restoration_act(
 }
 
 fn project_restoration_result(result: BattleResolutionResult) -> HitPointRestorationState {
-    match result {
-        BattleResolutionResult::NeedsHoles { state, .. }
-        | BattleResolutionResult::Resolved { state }
-        | BattleResolutionResult::Invalid { state, .. } => {
-            hit_point_restoration_from_battle(&state)
-        }
-    }
+    hit_point_restoration_from_battle(result.state())
 }

@@ -1,7 +1,7 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts, resolve_battle_subject_test_fill, start_skeleton_actor_turn,
     start_skeleton_battle, stat_block_multiattack_dispatches_available, Actor, AttackRollFacts,
-    BattleFill, BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionResult,
+    BattleFill, BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionOutcome,
     BattleSubject, BattleSubjectKind,
 };
 use crate::rules::weapon_attack_skeleton::{
@@ -83,10 +83,13 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
                 act.subject,
                 BattleFill::TargetChoice(Actor::Rogue),
             );
-            let (state, reason, _holes) = invalid_parts(result);
-            assert_eq!(reason, BattleResolutionInvalidReason::WrongTarget);
+            let outcome = result.outcome();
+            let invalid = result
+                .into_invalid()
+                .unwrap_or_else(|| panic!("expected invalid reducer result, got {outcome:?}"));
+            assert_eq!(invalid.reason, BattleResolutionInvalidReason::WrongTarget);
             projection_from_spine(
-                &state,
+                &invalid.state,
                 WeaponAttackSkeletonProtocol::Invalid {
                     holes: vec![WeaponAttackSkeletonHole::TargetChoice],
                     reason: WeaponAttackSkeletonInvalidReason::InvalidFill,
@@ -103,7 +106,10 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
                     natural_d20: 1,
                 }),
             );
-            let state = resolved_state(result);
+            let outcome = result.outcome();
+            let state = result
+                .into_resolved_state()
+                .unwrap_or_else(|| panic!("expected resolved reducer result, got {outcome:?}"));
             projection_from_spine(&state, WeaponAttackSkeletonProtocol::Resolved)
         }
         "doFillAttackRollHit" => {
@@ -126,14 +132,20 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
                 subject,
                 BattleFill::SneakAttackDamageRoll(8),
             );
-            let state = resolved_state(result);
+            let outcome = result.outcome();
+            let state = result
+                .into_resolved_state()
+                .unwrap_or_else(|| panic!("expected resolved reducer result, got {outcome:?}"));
             let result =
                 resolve_battle_subject_test_fill(state, subject, BattleFill::DamageRoll(1));
-            let (state, reason, holes) = invalid_parts(result);
-            assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
-            assert!(holes.is_empty());
+            let outcome = result.outcome();
+            let invalid = result
+                .into_invalid()
+                .unwrap_or_else(|| panic!("expected invalid reducer result, got {outcome:?}"));
+            assert_eq!(invalid.reason, BattleResolutionInvalidReason::StaleSubject);
+            assert!(invalid.holes.is_empty());
             projection_from_spine(
-                &state,
+                &invalid.state,
                 WeaponAttackSkeletonProtocol::Invalid {
                     holes: Vec::new(),
                     reason: WeaponAttackSkeletonInvalidReason::StaleSubject,
@@ -152,11 +164,14 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
             let (state, subject) = spine_after_multiattack_resolution();
             let result =
                 resolve_battle_subject_test_fill(state, subject, BattleFill::ResolveMultiattack);
-            let (state, reason, holes) = invalid_parts(result);
-            assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
-            assert!(holes.is_empty());
+            let outcome = result.outcome();
+            let invalid = result
+                .into_invalid()
+                .unwrap_or_else(|| panic!("expected invalid reducer result, got {outcome:?}"));
+            assert_eq!(invalid.reason, BattleResolutionInvalidReason::StaleSubject);
+            assert!(invalid.holes.is_empty());
             projection_from_spine(
-                &state,
+                &invalid.state,
                 WeaponAttackSkeletonProtocol::Invalid {
                     holes: Vec::new(),
                     reason: WeaponAttackSkeletonInvalidReason::StaleSubject,
@@ -170,7 +185,10 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
                 subject,
                 BattleFill::SpendMultiattackDispatch,
             );
-            let state = resolved_state(result);
+            let outcome = result.outcome();
+            let state = result
+                .into_resolved_state()
+                .unwrap_or_else(|| panic!("expected resolved reducer result, got {outcome:?}"));
             projection_from_spine(&state, WeaponAttackSkeletonProtocol::Resolved)
         }
         action => panic!("unsupported mbt::actionTaken {action}"),
@@ -184,7 +202,11 @@ fn replay_damage_roll(rolled_damage: i16, use_sneak_attack: bool) -> WeaponAttac
     } else {
         BattleFill::DamageRoll(rolled_damage)
     };
-    let state = resolved_state(resolve_battle_subject_test_fill(state, subject, fill));
+    let result = resolve_battle_subject_test_fill(state, subject, fill);
+    let outcome = result.outcome();
+    let state = result
+        .into_resolved_state()
+        .unwrap_or_else(|| panic!("expected resolved reducer result, got {outcome:?}"));
     projection_from_spine(&state, WeaponAttackSkeletonProtocol::Resolved)
 }
 
@@ -206,14 +228,16 @@ fn spine_after_target_choice() -> (
 ) {
     let state = start_skeleton_battle();
     let act = discovered_weapon_attack_act(&state);
-    match resolve_battle_subject_test_fill(
+    let result = resolve_battle_subject_test_fill(
         state,
         act.subject,
         BattleFill::TargetChoice(Actor::Skeleton),
-    ) {
-        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
-        other => panic!("target choice should need attack-roll holes, got {other:?}"),
-    }
+    );
+    let outcome = result.outcome();
+    let needs_holes = result
+        .into_needs_holes()
+        .unwrap_or_else(|| panic!("target choice should need attack-roll holes, got {outcome:?}"));
+    (needs_holes.state, needs_holes.subject)
 }
 
 fn spine_after_attack_roll_hit() -> (
@@ -221,17 +245,19 @@ fn spine_after_attack_roll_hit() -> (
     BattleSubject,
 ) {
     let (state, subject) = spine_after_target_choice();
-    match resolve_battle_subject_test_fill(
+    let result = resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::AttackRoll(AttackRollFacts {
             total: 16,
             natural_d20: 12,
         }),
-    ) {
-        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
-        other => panic!("attack roll hit should need damage holes, got {other:?}"),
-    }
+    );
+    let outcome = result.outcome();
+    let needs_holes = result
+        .into_needs_holes()
+        .unwrap_or_else(|| panic!("attack roll hit should need damage holes, got {outcome:?}"));
+    (needs_holes.state, needs_holes.subject)
 }
 
 fn spine_after_multiattack_resolution() -> (
@@ -244,36 +270,13 @@ fn spine_after_multiattack_resolution() -> (
         .into_iter()
         .next()
         .expect("Skeleton turn should discover one multiattack act");
-    match resolve_battle_subject_test_fill(state, act.subject, BattleFill::ResolveMultiattack) {
-        BattleResolutionResult::Resolved { state } => (state, act.subject),
-        other => panic!("Skeleton multiattack should resolve, got {other:?}"),
+    let result =
+        resolve_battle_subject_test_fill(state, act.subject, BattleFill::ResolveMultiattack);
+    let outcome = result.outcome();
+    if outcome != BattleResolutionOutcome::Resolved {
+        panic!("Skeleton multiattack should resolve, got {outcome:?}");
     }
-}
-
-fn resolved_state(
-    result: BattleResolutionResult,
-) -> crate::rules::battle_reducer_spine::BattleState {
-    match result {
-        BattleResolutionResult::Resolved { state } => state,
-        other => panic!("expected resolved reducer result, got {other:?}"),
-    }
-}
-
-fn invalid_parts(
-    result: BattleResolutionResult,
-) -> (
-    crate::rules::battle_reducer_spine::BattleState,
-    BattleResolutionInvalidReason,
-    Vec<BattleHoleKind>,
-) {
-    match result {
-        BattleResolutionResult::Invalid {
-            state,
-            reason,
-            holes,
-        } => (state, reason, holes),
-        other => panic!("expected invalid reducer result, got {other:?}"),
-    }
+    (result.into_state(), act.subject)
 }
 
 fn projection_from_spine(

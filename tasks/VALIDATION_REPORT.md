@@ -7,7 +7,7 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `RRCONV-19D-RUST-TURN-ADVANCE-RESULT`
+- Last completed current-snapshot queued branch set: `RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT`
 - Next queued driver: `<none for reducer-spine-diagnostic-battle>`
 - Next task id: `T006`
 
@@ -548,15 +548,15 @@ Generated branch coverage:
 
 | Obligation | Target replay evidence | Harness adapter check | Status |
 | --- | --- | --- | --- |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doStartBattle` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doStartBattle#step:doStartBattle` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doDiscoverSlotSpell` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveSlotSpellTargets` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveSlotSpellDamage` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doEndTurnToTarget` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doEndTurnToTarget#step:doEndTurnToTarget` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doDiscoverWeaponAttack` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponTarget` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponTarget#step:doResolveWeaponTarget` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponAttackHit` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponDamage` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponDamage#step:doResolveWeaponDamage` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doStartBattle` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doStartBattle#step:doStartBattle` | `reducer_spine_contract_adapter_replays_all_branches` | `historical` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doDiscoverSlotSpell` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell` | `reducer_spine_contract_adapter_replays_all_branches` | `historical` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveSlotSpellTargets` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets` | `reducer_spine_contract_adapter_replays_all_branches` | `historical` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveSlotSpellDamage` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage` | `reducer_spine_contract_adapter_replays_all_branches` | `historical` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doEndTurnToTarget` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doEndTurnToTarget#step:doEndTurnToTarget` | `reducer_spine_contract_adapter_replays_all_branches` | `historical` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doDiscoverWeaponAttack` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack` | `reducer_spine_contract_adapter_replays_all_branches` | `historical` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponTarget` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponTarget#step:doResolveWeaponTarget` | `reducer_spine_contract_adapter_replays_all_branches` | `historical` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponAttackHit` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit` | `reducer_spine_contract_adapter_replays_all_branches` | `historical` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponDamage` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponDamage#step:doResolveWeaponDamage` | `reducer_spine_contract_adapter_replays_all_branches` | `historical` |
 
 Supplemental dirty diagnostics:
 
@@ -593,3 +593,109 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check 1c805870c08b6632dba560019c2c7a75dc5ed991...HEAD` passed.
+
+## RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT: Resolution Result Contract
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverSlotSpell`
+  - `step:doDiscoverWeaponAttack`
+  - `step:doEndTurnToTarget`
+  - `step:doResolveSlotSpellDamage`
+  - `step:doResolveSlotSpellTargets`
+  - `step:doResolveWeaponAttackHit`
+  - `step:doResolveWeaponDamage`
+  - `step:doResolveWeaponTarget`
+  - `step:doStartBattle`
+- Allowed inputs used:
+  - `AGENTS.md`
+  - `tasks/WORK_LOOP.md`
+  - `tasks/IMPLEMENTER_TASK.md`
+  - `tasks/VALIDATION_REPORT.md`
+  - `tasks/TARGET_REPLAY_EVIDENCE.example.json`
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt`
+  - `cleanroom-input/guidance/README.md`
+  - `cleanroom-input/guidance/reducer-spine.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `src/rules/battle_reducer_spine.rs`
+  - `src/qnt_adapters/battle_runtime_reducer_spine_contract.rs`
+  - `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs`
+  - `src/qnt_adapters/battle_runtime_magic_missile.rs`
+  - `src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs`
+  - `src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs`
+  - `src/qnt_adapters/battle_runtime_death_saving_throw.rs`
+  - `src/qnt_adapters/battle_runtime_concentration_break_teardown.rs`
+  - `src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs`
+
+Behavior implemented:
+
+- Added typed `BattleResolutionResult` accessors/conversions for outcome, state, resolved state, requested holes, continuing subject, and invalid details.
+- Updated focused reducer-route adapters to consume reducer-result facts through the shared production surface instead of reconstructing enum variants locally.
+- No durable `BattleState` fields were added or changed; existing reducer result payloads remain the single source for these facts.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doDiscoverSlotSpell` | `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doDiscoverWeaponAttack` | `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doEndTurnToTarget` | `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doEndTurnToTarget#step:doEndTurnToTarget` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveSlotSpellDamage` | `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveSlotSpellTargets` | `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponAttackHit` | `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponDamage` | `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponDamage#step:doResolveWeaponDamage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponTarget` | `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponTarget#step:doResolveWeaponTarget` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doStartBattle` | `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doStartBattle#step:doStartBattle` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay`
+- Evidence refs:
+  - `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell`
+  - `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack`
+  - `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doEndTurnToTarget#step:doEndTurnToTarget`
+  - `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage`
+  - `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets`
+  - `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit`
+  - `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponDamage#step:doResolveWeaponDamage`
+  - `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponTarget#step:doResolveWeaponTarget`
+  - `tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doStartBattle#step:doStartBattle`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/START_GATE.json`
+- Engine depth: `tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test reducer_entrypoint_contract` passed.
+- `cargo test reducer_spine_contract_adapter_replays_all_branches` passed.
+- `cargo test magic_missile_adapter_replays_all_branches` passed.
+- `cargo test save_gated_spell_ordering_adapter_replays_all_branches` passed.
+- `cargo test hit_point_restoration_ordering_adapter_replays_all_branches` passed.
+- `cargo test death_saving_throw_adapter_replays_all_branches` passed.
+- `cargo test concentration_break_teardown_adapter_replays_all_branches` passed.
+- `cargo test weapon_attack_skeleton_adapter_replays_all_branches` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 6dc146b9c4a5bf7894b9ad4ae206bc4ef04e222d...HEAD` passed.
