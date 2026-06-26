@@ -180,6 +180,11 @@
       "reviewStatus": "findings",
       "fixerAgent": "019f05c2-3d45-7df1-a113-3cabbef9d667",
       "fixerName": "Pascal",
+      "fixCommit": "155ca2bed52639f3de011a2a22de2b0f63d6c318",
+      "fixStatus": "committed",
+      "rereviewStatus": "running",
+      "rereviewAgent": "019f05c9-aaa6-7f30-bfb9-5b275afe2440",
+      "rereviewName": "Kepler",
       "reviewFindings": [
         "tasks/ENGINE_DEPTH_MANIFEST.json and history manifest classify src/rules/battle_reducer_spine.rs inconsistently as adapter module and production domain engine."
       ]
