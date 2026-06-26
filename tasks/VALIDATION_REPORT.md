@@ -83,6 +83,53 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 
+## RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT: Battle Setup Entrypoint
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Driver used for rolling harness acceptance: `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+- Task artifacts: `tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/`
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt`
+- `cleanroom-input/guidance/reducer-spine.md`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- Repo-local `src/**`, `tasks/**`, and Rust/Cargo tooling
+
+Behavior implemented:
+
+- Added typed `BattleSetup` setup facts and typed `BattleStartResult` as the public `start_battle(setup)` entrypoint result.
+- Kept scenario helpers as setup conveniences that build `BattleSetup` and call `start_battle(setup)` before returning `BattleState`.
+- Moved weapon and multiattack discovery off fixture-role dispatch by adding combatant capability facts for weapon attack support, damage modifier, and multiattack support.
+- Preserved the existing reducer-route replay surface and tests.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doCastConcentrationSpell` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doCastConcentrationSpell#step:doCastConcentrationSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doCastReplacementConcentrationSpell` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doCastReplacementConcentrationSpell#step:doCastReplacementConcentrationSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doDamageRequestsConcentrationSave` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doDamageRequestsConcentrationSave#step:doDamageRequestsConcentrationSave` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doFailConcentrationSave` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doFailConcentrationSave#step:doFailConcentrationSave` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doVoluntaryEndConcentration` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doVoluntaryEndConcentration#step:doVoluntaryEndConcentration` | `src/tests/mod.rs` | `covered` |
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+Remaining gaps:
+
+- `_none_`
+
 ## T002: Save-Gated Spell Ordering
 
 - Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`

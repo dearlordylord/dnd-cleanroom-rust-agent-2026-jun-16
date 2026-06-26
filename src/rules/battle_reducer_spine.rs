@@ -189,6 +189,9 @@ pub struct Combatant {
     pub lifecycle: CombatantLifecycle,
     pub reaction_available: bool,
     pub movement_spent_feet: i16,
+    pub weapon_attack_supported: bool,
+    pub weapon_damage_modifier: i16,
+    pub multiattack_supported: bool,
     pub sneak_attack_supported: bool,
     pub sneak_attack_used_this_turn: bool,
     pub recharge_available: bool,
@@ -232,6 +235,77 @@ pub struct BattleState {
     pub attack_roll_made_this_turn: bool,
     pub dash_movement_bonus_feet: i16,
     pub disengaged: bool,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct BattleSetup {
+    pub initiative: Initiative,
+    pub fighter: Combatant,
+    pub goblin: Combatant,
+    pub rogue: Combatant,
+    pub skeleton: Combatant,
+    pub stat_block_control: StatBlockControlState,
+    pub turn_boundary_effects: TurnBoundaryEffects,
+    pub interrupt_resume: BattleInterruptResumeState,
+    pub reaction_casting_time: BattleReactionCastingTimeState,
+    pub concentration: ConcentrationState,
+    pub slot_spell_procedure: BattleSlotSpellProcedure,
+    pub save_gated_spell_procedure: BattleSaveGatedSpellProcedure,
+    pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
+    pub spell_attack_procedure: BattleSpellAttackProcedure,
+    pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
+    pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
+    pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
+    pub action_available: bool,
+    pub bonus_action_available: bool,
+    pub attack_roll_made_this_turn: bool,
+    pub dash_movement_bonus_feet: i16,
+    pub disengaged: bool,
+}
+
+impl BattleSetup {
+    #[must_use]
+    pub fn standard() -> Self {
+        // QNT: cleanroom-input/qnt/battle-runtime/battle-runtime-model.qnt
+        // `initialState`; setup facts are data inputs to the public battle
+        // start entrypoint, not reducer dispatch rules.
+        Self {
+            initiative: Initiative {
+                round: 1,
+                already_acted: Vec::new(),
+                still_to_act: InitiativeStillToAct {
+                    actor: Actor::Fighter,
+                    waiting: vec![Actor::Goblin],
+                },
+            },
+            fighter: fighter_combatant(),
+            goblin: goblin_combatant(),
+            rogue: rogue_combatant(),
+            skeleton: skeleton_combatant(),
+            stat_block_control: stat_block_control_initial_state(),
+            turn_boundary_effects: TurnBoundaryEffects::none(),
+            interrupt_resume: BattleInterruptResumeState::none(),
+            reaction_casting_time: BattleReactionCastingTimeState::none(),
+            concentration: concentration_initial_state(),
+            slot_spell_procedure: BattleSlotSpellProcedure::Inactive,
+            save_gated_spell_procedure: BattleSaveGatedSpellProcedure::Inactive,
+            hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Inactive,
+            spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
+            spell_slot_uses_this_turn: Vec::new(),
+            level_one_plus_spell_casters_this_turn: Vec::new(),
+            quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
+            action_available: true,
+            bonus_action_available: true,
+            attack_roll_made_this_turn: false,
+            dash_movement_bonus_feet: 0,
+            disengaged: false,
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct BattleStartResult {
+    pub state: BattleState,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -844,53 +918,55 @@ enum StatBlockOrderTransition {
 }
 
 #[must_use]
-pub fn start_battle() -> BattleState {
-    // QNT: cleanroom-input/qnt/battle-runtime/battle-runtime-model.qnt
-    // `initialState`.
-    BattleState {
-        initiative: Initiative {
-            round: 1,
-            already_acted: Vec::new(),
-            still_to_act: InitiativeStillToAct {
-                actor: Actor::Fighter,
-                waiting: vec![Actor::Goblin],
-            },
+pub fn start_battle(setup: BattleSetup) -> BattleStartResult {
+    BattleStartResult {
+        state: BattleState {
+            initiative: setup.initiative,
+            fighter: setup.fighter,
+            goblin: setup.goblin,
+            rogue: setup.rogue,
+            skeleton: setup.skeleton,
+            stat_block_control: setup.stat_block_control,
+            turn_boundary_effects: setup.turn_boundary_effects,
+            interrupt_resume: setup.interrupt_resume,
+            reaction_casting_time: setup.reaction_casting_time,
+            concentration: setup.concentration,
+            slot_spell_procedure: setup.slot_spell_procedure,
+            save_gated_spell_procedure: setup.save_gated_spell_procedure,
+            hit_point_restoration_procedure: setup.hit_point_restoration_procedure,
+            spell_attack_procedure: setup.spell_attack_procedure,
+            spell_slot_uses_this_turn: setup.spell_slot_uses_this_turn,
+            level_one_plus_spell_casters_this_turn: setup.level_one_plus_spell_casters_this_turn,
+            quickened_level_one_plus_spell_casters_this_turn: setup
+                .quickened_level_one_plus_spell_casters_this_turn,
+            action_available: setup.action_available,
+            bonus_action_available: setup.bonus_action_available,
+            attack_roll_made_this_turn: setup.attack_roll_made_this_turn,
+            dash_movement_bonus_feet: setup.dash_movement_bonus_feet,
+            disengaged: setup.disengaged,
         },
-        fighter: fighter_combatant(),
-        goblin: goblin_combatant(),
-        rogue: rogue_combatant(),
-        skeleton: skeleton_combatant(),
-        stat_block_control: stat_block_control_initial_state(),
-        turn_boundary_effects: TurnBoundaryEffects::none(),
-        interrupt_resume: BattleInterruptResumeState::none(),
-        reaction_casting_time: BattleReactionCastingTimeState::none(),
-        concentration: concentration_initial_state(),
-        slot_spell_procedure: BattleSlotSpellProcedure::Inactive,
-        save_gated_spell_procedure: BattleSaveGatedSpellProcedure::Inactive,
-        hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Inactive,
-        spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
-        spell_slot_uses_this_turn: Vec::new(),
-        level_one_plus_spell_casters_this_turn: Vec::new(),
-        quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
-        action_available: true,
-        bonus_action_available: true,
-        attack_roll_made_this_turn: false,
-        dash_movement_bonus_feet: 0,
-        disengaged: false,
     }
 }
 
 #[must_use]
-pub fn start_battle_observed(observer: &mut impl BattleEntrypointObserver) -> BattleState {
+pub fn start_battle_observed(
+    setup: BattleSetup,
+    observer: &mut impl BattleEntrypointObserver,
+) -> BattleStartResult {
     observer.observe_battle_entrypoint(BattleEntrypointEvent::StartBattle);
-    start_battle()
+    start_battle(setup)
+}
+
+#[must_use]
+pub fn start_standard_battle() -> BattleState {
+    start_battle(BattleSetup::standard()).state
 }
 
 #[must_use]
 pub fn start_skeleton_battle() -> BattleState {
     // QNT: battle-runtime-weapon-attack-skeleton.mbt.qnt literal initial
     // projection for the Rogue attacking a Skeleton.
-    BattleState {
+    start_battle(BattleSetup {
         initiative: Initiative {
             round: 1,
             already_acted: Vec::new(),
@@ -899,33 +975,14 @@ pub fn start_skeleton_battle() -> BattleState {
                 waiting: vec![Actor::Skeleton],
             },
         },
-        fighter: fighter_combatant(),
-        goblin: goblin_combatant(),
-        rogue: rogue_combatant(),
-        skeleton: skeleton_combatant(),
-        stat_block_control: stat_block_control_initial_state(),
-        turn_boundary_effects: TurnBoundaryEffects::none(),
-        interrupt_resume: BattleInterruptResumeState::none(),
-        reaction_casting_time: BattleReactionCastingTimeState::none(),
-        concentration: concentration_initial_state(),
-        slot_spell_procedure: BattleSlotSpellProcedure::Inactive,
-        save_gated_spell_procedure: BattleSaveGatedSpellProcedure::Inactive,
-        hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Inactive,
-        spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
-        spell_slot_uses_this_turn: Vec::new(),
-        level_one_plus_spell_casters_this_turn: Vec::new(),
-        quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
-        action_available: true,
-        bonus_action_available: true,
-        attack_roll_made_this_turn: false,
-        dash_movement_bonus_feet: 0,
-        disengaged: false,
-    }
+        ..BattleSetup::standard()
+    })
+    .state
 }
 
 #[must_use]
 pub fn start_skeleton_actor_turn() -> BattleState {
-    BattleState {
+    start_battle(BattleSetup {
         initiative: Initiative {
             round: 1,
             already_acted: vec![Actor::Rogue],
@@ -934,13 +991,14 @@ pub fn start_skeleton_actor_turn() -> BattleState {
                 waiting: Vec::new(),
             },
         },
-        ..start_skeleton_battle()
-    }
+        ..BattleSetup::standard()
+    })
+    .state
 }
 
 #[must_use]
 pub fn start_stat_block_actor_battle(actor: Actor) -> BattleState {
-    BattleState {
+    start_battle(BattleSetup {
         initiative: Initiative {
             round: 1,
             already_acted: vec![Actor::Fighter],
@@ -949,8 +1007,9 @@ pub fn start_stat_block_actor_battle(actor: Actor) -> BattleState {
                 waiting: Vec::new(),
             },
         },
-        ..start_battle()
-    }
+        ..BattleSetup::standard()
+    })
+    .state
 }
 
 #[must_use]
@@ -973,10 +1032,11 @@ pub fn start_prone_rider_stat_block_battle(actor: Actor, target_size: CreatureSi
 pub fn start_turn_boundary_effect_lifecycle_battle() -> BattleState {
     // QNT: battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt `init`;
     // battle-runtime-turn-advancement.qnt `endTurn`.
-    BattleState {
+    start_battle(BattleSetup {
         turn_boundary_effects: TurnBoundaryEffects::lifecycle_witness_fixture(),
-        ..start_battle()
-    }
+        ..BattleSetup::standard()
+    })
+    .state
 }
 
 #[must_use]
@@ -1007,25 +1067,25 @@ pub fn start_reaction_casting_time_battle() -> BattleState {
 #[must_use]
 pub fn start_reaction_spell_selected_identity_battle() -> BattleState {
     // QNT: battle-runtime-reaction-spell-selected-identity.mbt.qnt `init`.
-    let mut state = start_battle();
-    state.goblin = Combatant {
+    let mut setup = BattleSetup::standard();
+    setup.goblin = Combatant {
         hp: 12,
         max_hp: 12,
-        ..state.goblin
+        ..setup.goblin
     };
-    state
+    start_battle(setup).state
 }
 
 #[must_use]
 pub fn start_spell_attack_ordering_battle() -> BattleState {
-    start_battle()
+    start_standard_battle()
 }
 
 #[must_use]
 pub fn start_fighter_skeleton_battle() -> BattleState {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-reducer-spine-contract.mbt.qnt start-battle projection.
-    BattleState {
+    start_battle(BattleSetup {
         initiative: Initiative {
             round: 1,
             already_acted: Vec::new(),
@@ -1034,8 +1094,9 @@ pub fn start_fighter_skeleton_battle() -> BattleState {
                 waiting: vec![Actor::Skeleton],
             },
         },
-        ..start_battle()
-    }
+        ..BattleSetup::standard()
+    })
+    .state
 }
 
 #[must_use]
@@ -1459,6 +1520,9 @@ fn fighter_combatant() -> Combatant {
         lifecycle: CombatantLifecycle::UsesDeathSavingThrows(DeathSavingThrowLifecycle::fresh()),
         reaction_available: true,
         movement_spent_feet: 0,
+        weapon_attack_supported: true,
+        weapon_damage_modifier: 0,
+        multiattack_supported: false,
         sneak_attack_supported: false,
         sneak_attack_used_this_turn: false,
         recharge_available: false,
@@ -1480,6 +1544,9 @@ fn goblin_combatant() -> Combatant {
         lifecycle: CombatantLifecycle::DiesAtZeroHitPoints,
         reaction_available: true,
         movement_spent_feet: 0,
+        weapon_attack_supported: false,
+        weapon_damage_modifier: 0,
+        multiattack_supported: false,
         sneak_attack_supported: false,
         sneak_attack_used_this_turn: false,
         recharge_available: true,
@@ -1501,6 +1568,9 @@ fn rogue_combatant() -> Combatant {
         lifecycle: CombatantLifecycle::UsesDeathSavingThrows(DeathSavingThrowLifecycle::fresh()),
         reaction_available: true,
         movement_spent_feet: 0,
+        weapon_attack_supported: true,
+        weapon_damage_modifier: 3,
+        multiattack_supported: false,
         sneak_attack_supported: true,
         sneak_attack_used_this_turn: false,
         recharge_available: false,
@@ -1522,6 +1592,9 @@ fn skeleton_combatant() -> Combatant {
         lifecycle: CombatantLifecycle::DiesAtZeroHitPoints,
         reaction_available: true,
         movement_spent_feet: 0,
+        weapon_attack_supported: true,
+        weapon_damage_modifier: 3,
+        multiattack_supported: true,
         sneak_attack_supported: false,
         sneak_attack_used_this_turn: false,
         recharge_available: false,
@@ -1731,7 +1804,7 @@ pub fn discover_battle_acts(state: &BattleState) -> Vec<AvailableBattleAct> {
     let actor = current_actor(state);
     let mut acts = Vec::new();
     push_reducer_spine_diagnostic_acts(state, actor, &mut acts);
-    push_legacy_fixture_weapon_acts(state, actor, &mut acts);
+    push_capability_weapon_acts(state, actor, &mut acts);
     acts
 }
 
@@ -1973,48 +2046,39 @@ fn hit_point_restoration_subject_kind_matches(
     )
 }
 
-fn push_legacy_fixture_weapon_acts(
+fn push_capability_weapon_acts(
     state: &BattleState,
     actor: Actor,
     acts: &mut Vec<AvailableBattleAct>,
 ) {
-    match actor {
-        Actor::Fighter | Actor::Rogue if current_actor_can_attack(state) => {
-            acts.push(AvailableBattleAct {
-                subject: BattleSubject {
-                    kind: BattleSubjectKind::WeaponAttack,
-                    actor,
-                    target: None,
-                    stage: WeaponAttackFrontierStage::TargetChoice,
-                    damage_modifier: weapon_damage_modifier_for(actor),
-                },
-                holes: weapon_hole_kinds(WeaponAttackFrontierStage::TargetChoice),
-            });
-        }
-        Actor::Skeleton if state.skeleton.hp > 0 => {
-            acts.push(AvailableBattleAct {
-                subject: BattleSubject {
-                    kind: BattleSubjectKind::Multiattack,
-                    actor,
-                    target: None,
-                    stage: WeaponAttackFrontierStage::Resolved,
-                    damage_modifier: 0,
-                },
-                holes: Vec::new(),
-            });
-            acts.push(AvailableBattleAct {
-                subject: BattleSubject {
-                    kind: BattleSubjectKind::WeaponAttack,
-                    actor,
-                    target: None,
-                    stage: WeaponAttackFrontierStage::TargetChoice,
-                    damage_modifier: weapon_damage_modifier_for(actor),
-                },
-                holes: weapon_hole_kinds(WeaponAttackFrontierStage::TargetChoice),
-            });
-        }
-        Actor::Fighter | Actor::Goblin | Actor::Rogue | Actor::Skeleton => {}
+    let combatant = combatant_for(state, actor);
+    if !current_actor_can_attack(state) {
+        return;
     }
+
+    if combatant.multiattack_supported {
+        acts.push(AvailableBattleAct {
+            subject: BattleSubject {
+                kind: BattleSubjectKind::Multiattack,
+                actor,
+                target: None,
+                stage: WeaponAttackFrontierStage::Resolved,
+                damage_modifier: 0,
+            },
+            holes: Vec::new(),
+        });
+    }
+
+    acts.push(AvailableBattleAct {
+        subject: BattleSubject {
+            kind: BattleSubjectKind::WeaponAttack,
+            actor,
+            target: None,
+            stage: WeaponAttackFrontierStage::TargetChoice,
+            damage_modifier: combatant.weapon_damage_modifier,
+        },
+        holes: weapon_hole_kinds(WeaponAttackFrontierStage::TargetChoice),
+    });
 }
 
 #[must_use]
@@ -2894,19 +2958,14 @@ fn current_actor_can_attack(state: &BattleState) -> bool {
         return false;
     }
 
-    match current_actor(state) {
-        Actor::Fighter => !state.fighter.unconscious && !state.fighter.incapacitated,
-        Actor::Goblin => state.goblin.hp > 0,
-        Actor::Rogue => !state.rogue.unconscious && !state.rogue.incapacitated,
-        Actor::Skeleton => state.skeleton.hp > 0,
-    }
+    combatant_can_attack(combatant_for(state, current_actor(state)))
 }
 
-fn weapon_damage_modifier_for(actor: Actor) -> i16 {
-    match actor {
-        Actor::Rogue | Actor::Skeleton => 3,
-        Actor::Fighter | Actor::Goblin => 0,
-    }
+fn combatant_can_attack(combatant: Combatant) -> bool {
+    combatant.weapon_attack_supported
+        && combatant.hp > 0
+        && !combatant.unconscious
+        && !combatant.incapacitated
 }
 
 fn resolve_target_choice(
