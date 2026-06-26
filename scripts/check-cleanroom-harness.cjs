@@ -1264,6 +1264,15 @@ function forbiddenWitnessNamesForSelection(selected) {
   ).sort();
 }
 
+function forbiddenProductionSourceWitnessNamesForSelection(selected) {
+  return Array.from(
+    new Set([
+      ...protocolNamesForObligations(selected),
+      ...harnessWitnessProtocolNames,
+    ]),
+  ).sort();
+}
+
 function validateManifestPath({
   relativePath,
   context,
@@ -1349,7 +1358,7 @@ function validateEngineDepth({
     );
   }
 
-  const witnessNames = forbiddenWitnessNamesForSelection(selected);
+  const witnessNames = forbiddenProductionSourceWitnessNamesForSelection(selected);
   for (const [index, moduleRow] of productionModules.entries()) {
     const context = `tasks/ENGINE_DEPTH_MANIFEST.json productionModulesExtended[${index}]`;
     if (!isRecord(moduleRow)) {
@@ -2065,7 +2074,7 @@ function validateProductionSourceScan({
       .map((entry) => entry.path)
       .filter((entry) => typeof entry === "string"),
   );
-  const witnessNames = forbiddenWitnessNamesForSelection(selected);
+  const witnessNames = forbiddenProductionSourceWitnessNamesForSelection(selected);
   const adapterNeedles = adapterImportNeedles(adapterPaths);
   const adapterTargets = adapterImportTargets(adapterPaths);
   const sourceFiles = listFiles(enginePath, (filePath) =>
