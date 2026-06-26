@@ -265,7 +265,13 @@
         "Command next-turn evidence records literal projection witness status paired with the command ordering route connector.",
         "doApproachMovementContinues and doFollowGrovel expectations were aligned to copied route connector terminal events."
       ],
-      "fourthRereviewStatus": "pending"
+      "fourthRereviewStatus": "findings",
+      "fourthRereviewAgent": "019f0657-e797-7193-b7e9-b34489d88ca0",
+      "fourthRereviewName": "Helmholtz",
+      "fourthRereviewFindings": [
+        "Route examples align with copied connector, but tests still compare observed replay to Rust-local expected routes and do not mechanically check against battle-runtime-command-ordering.route.mbt.qnt.",
+        "Evidence rows still claim qRoute/routeConnectorPath/routeEvidenceBasis without a mechanical connector check, so Rust expected tables could drift from copied connector."
+      ]
     }
   ],
   "completedLaneWorktrees": [
