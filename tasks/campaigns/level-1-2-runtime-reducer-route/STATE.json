@@ -193,6 +193,12 @@
       "rereviewStatus": "running",
       "rereviewAgent": "019f05d8-0d76-7a42-ab94-4a3a716a0695",
       "rereviewName": "Hegel",
+      "rereviewFindings": [
+        "Stat-block routes still bypass the shared BattleResolutionResult surface via parallel StatBlockActionResolutionResult and resolve_stat_block_action_subject path.",
+        "RR05 route expectations remain self-referential for creature, spell, stat-block, and weapon adapters; supplemental literal checks do not cover all route families.",
+        "scripts/check-cleanroom-harness.cjs weakened sampled-input quarantine and conflicts semantically with RR03 sampled-pick quarantine restoration.",
+        "RR05 branch does not contain RR03 merge and has textual conflicts in harness, manifest, and rolling task artifacts."
+      ],
       "reviewFindings": [
         "RR05 branch coverage evidence is missing/stale: no RR05 target-replay evidence, ledger rows, validation report, decider decision, or state-owner artifacts.",
         "creature-attack.mbt.qnt remains an adapter-local replay island using standalone creature_attack path instead of BattleState/discover/resolve/BattleResolutionResult.",
