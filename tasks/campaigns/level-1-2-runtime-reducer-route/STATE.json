@@ -239,7 +239,17 @@
         "Command projection still derives current-role through fixture actor identity by mapping Goblin to Target and every other actor to Caster.",
         "Command option next-turn expected route still reuses reducer helper paths used by replay_observed_route.",
         "Command option next-turn adapter still manufactures Fighter/Goblin command subjects when continuing subject or discovery is missing."
-      ]
+      ],
+      "thirdFixerAgent": "019f063c-d520-7bc3-b09e-a431c12e698e",
+      "thirdFixerName": "Faraday",
+      "thirdFixStatus": "committed",
+      "thirdFixCommit": "dd616f0d1d94ad0a5bfb78c1a830aef0bc8a6074",
+      "thirdFixerResolution": [
+        "Command projection derives Caster/Target from active command subject and current battle actor, with absent role represented as None/invalid evidence.",
+        "Command option next-turn expected routes use independent literal route-event construction instead of replay helper reuse.",
+        "Missing continuation/discovery no longer manufactures Fighter/Goblin subjects; stale follow attempts report explicit StaleSubject evidence."
+      ],
+      "thirdRereviewStatus": "pending"
     }
   ],
   "completedLaneWorktrees": [
