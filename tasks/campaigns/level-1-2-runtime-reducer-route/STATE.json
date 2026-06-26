@@ -195,8 +195,16 @@
       "commit": "76e8bd99e1d705cb31e9180bf831fd1625410ed5",
       "reviewAgent": "019f05c2-759e-7892-87f5-384db29ab630",
       "reviewName": "James",
-      "reviewStatus": "running",
-      "blockerNote": "Executable route evidence exists, but no new target-replay ledger refs were added because current cleanroom harness active assignment rejects RR05 ledger rows."
+      "reviewStatus": "findings",
+      "fixerAgent": "019f05c7-37c3-7d30-bb5d-a62b6d1c3c3a",
+      "fixerName": "Parfit",
+      "reviewFindings": [
+        "RR05 branch coverage evidence is missing/stale: no RR05 target-replay evidence, ledger rows, validation report, decider decision, or state-owner artifacts.",
+        "creature-attack.mbt.qnt remains an adapter-local replay island using standalone creature_attack path instead of BattleState/discover/resolve/BattleResolutionResult.",
+        "spell attack routes bypass the shared resolve_battle_subject -> BattleResolutionResult surface.",
+        "route assertions are self-referential and weak because expected_route is derived from replay_observed_route."
+      ],
+      "blockerNote": "Worker reported executable route evidence exists, but reviewer rejected that as insufficient branch coverage because campaign done criteria require target replay evidence and ledger/report updates."
     }
   ],
   "operatorNotes": [
