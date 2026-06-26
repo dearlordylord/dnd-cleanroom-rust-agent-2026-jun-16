@@ -1177,7 +1177,7 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/STATE_OWNER_MANIFEST.json",
-          "sha256": "3fc1a7dfc4c3efa6fbb9d4341957d18480716e7c141935c7042ebfca0e69ebfe"
+          "sha256": "734488a30a4af617f30018eec98118b31c099983499196fd13e0c29980b64d01"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",

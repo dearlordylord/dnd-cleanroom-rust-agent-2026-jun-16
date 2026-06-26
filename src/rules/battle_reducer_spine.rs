@@ -1863,15 +1863,16 @@ pub fn command_ordering_projection_from_battle(state: &BattleState) -> CommandOr
     match state.command_effect_procedure {
         BattleCommandEffectProcedure::Inactive => command_ordering_initial_state(),
         BattleCommandEffectProcedure::Active(subject) => {
+            let target = command_target_combatant(state, subject);
             command_ordering_projection(CommandOrderingProjectionFacts {
                 stage: subject.stage,
                 runtime_result: command_runtime_result_from_subject(subject),
                 last_ordering_error: subject.last_ordering_error,
                 pending_option: subject.pending_option,
-                target_prone: command_target_combatant(state, subject).prone,
+                target_prone: target.is_some_and(|combatant| combatant.prone),
                 dropped_object_count: subject.dropped_object_count,
                 halt_suppressed: subject.halt_suppressed,
-                movement_spent_feet: command_target_combatant(state, subject).movement_spent_feet,
+                movement_spent_feet: target.map_or(0, |combatant| combatant.movement_spent_feet),
                 current_actor: command_actor_for_battle_actor(current_actor(state)),
                 reaction_window_open: command_reaction_window_open(state),
             })
@@ -1886,10 +1887,11 @@ pub fn command_next_turn_projection_from_battle(
     let Some(subject) = active_command_subject(state) else {
         return command_next_turn_initial_state();
     };
+    let target = command_target_combatant(state, subject);
     crate::rules::command_options::CommandNextTurnState {
         scenario: subject.scenario,
         protocol: command_next_turn_protocol_from_battle(state, subject),
-        target_prone: command_target_combatant(state, subject).prone,
+        target_prone: target.is_some_and(|combatant| combatant.prone),
         target_effect_count: if subject.pending_option.is_some() {
             1
         } else {
@@ -1897,7 +1899,7 @@ pub fn command_next_turn_projection_from_battle(
         },
         action_available: state.action_available,
         bonus_action_available: state.bonus_action_available,
-        movement_spent_feet: command_target_combatant(state, subject).movement_spent_feet,
+        movement_spent_feet: target.map_or(0, |combatant| combatant.movement_spent_feet),
         current_actor: command_actor_for_battle_actor(current_actor(state)),
         pending_option: subject.pending_option,
         dropped_object_count: subject.dropped_object_count,
@@ -2125,9 +2127,16 @@ fn resolve_command_movement_fill(
             holes: command_hole_kinds(next_subject.stage),
         };
     }
+    let Some(command_actor) = current_actor_for_command(active, option) else {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::InvalidFill,
+            command_hole_kinds(active.stage),
+        );
+    };
     let mut next_state = state;
-    combatant_for_mut(&mut next_state, current_actor_for_command(active, option))
-        .movement_spent_feet = movement_spent_feet.max(0);
+    combatant_for_mut(&mut next_state, command_actor).movement_spent_feet =
+        movement_spent_feet.max(0);
     if opened_opportunity_attack {
         next_state.interrupt_resume.reaction_window = offer_reaction_window(
             next_state.interrupt_resume.reaction_window,
@@ -2165,6 +2174,13 @@ fn resolve_command_follow(
     active: BattleCommandEffectSubject,
     follow: CommandPendingOptionFollow,
 ) -> BattleResolutionResult {
+    let Some(target) = command_target_actor(active) else {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::InvalidFill,
+            command_hole_kinds(active.stage),
+        );
+    };
     let mut next_state = state;
     let mut next_subject = BattleCommandEffectSubject {
         stage: CommandFrontierStage::Resolved,
@@ -2174,7 +2190,7 @@ fn resolve_command_follow(
     };
     match follow {
         CommandPendingOptionFollow::Grovel => {
-            combatant_for_mut(&mut next_state, command_target_actor(active)).prone = true;
+            combatant_for_mut(&mut next_state, target).prone = true;
             next_subject.scenario = CommandNextTurnScenario::FollowGrovel;
         }
         CommandPendingOptionFollow::Drop {
@@ -2188,7 +2204,7 @@ fn resolve_command_follow(
         } => {
             next_state.action_available = false;
             next_state.bonus_action_available = false;
-            combatant_for_mut(&mut next_state, command_target_actor(active)).movement_spent_feet =
+            combatant_for_mut(&mut next_state, target).movement_spent_feet =
                 movement_spent_feet.max(0);
             next_subject.pending_option = Some(CommandNextTurnOption::Halt);
             next_subject.halt_suppressed = true;
@@ -2197,14 +2213,14 @@ fn resolve_command_follow(
         CommandPendingOptionFollow::Approach {
             movement_spent_feet,
         } => {
-            combatant_for_mut(&mut next_state, command_target_actor(active)).movement_spent_feet =
+            combatant_for_mut(&mut next_state, target).movement_spent_feet =
                 movement_spent_feet.max(0);
             next_subject.scenario = CommandNextTurnScenario::ApproachContinues;
         }
         CommandPendingOptionFollow::Flee {
             movement_spent_feet,
         } => {
-            combatant_for_mut(&mut next_state, command_target_actor(active)).movement_spent_feet =
+            combatant_for_mut(&mut next_state, target).movement_spent_feet =
                 movement_spent_feet.max(0);
             next_subject.scenario = CommandNextTurnScenario::FleeFullMovementEndsTurn;
         }
@@ -2221,7 +2237,7 @@ fn resolve_command_follow(
         } => {
             next_state.interrupt_resume.reaction_window =
                 decline_reaction_window(next_state.interrupt_resume.reaction_window);
-            combatant_for_mut(&mut next_state, command_target_actor(active)).movement_spent_feet =
+            combatant_for_mut(&mut next_state, target).movement_spent_feet =
                 movement_spent_feet.max(0);
             next_subject.scenario =
                 CommandNextTurnScenario::FleeOpportunityAttackDeclinedContinuation;
@@ -2330,15 +2346,15 @@ fn command_reaction_window_open(state: &BattleState) -> bool {
     state.interrupt_resume.reaction_window != ReactionWindowOffer::Closed
 }
 
-fn command_target_combatant(state: &BattleState, active: BattleCommandEffectSubject) -> Combatant {
-    combatant_for(state, command_target_actor(active))
+fn command_target_combatant(
+    state: &BattleState,
+    active: BattleCommandEffectSubject,
+) -> Option<Combatant> {
+    active.target.map(|target| combatant_for(state, target))
 }
 
-const fn command_target_actor(active: BattleCommandEffectSubject) -> Actor {
-    match active.target {
-        Some(target) => target,
-        None => battle_actor_for_command_actor(CommandTurnActor::Target),
-    }
+const fn command_target_actor(active: BattleCommandEffectSubject) -> Option<Actor> {
+    active.target
 }
 
 const fn battle_actor_for_command_actor(actor: CommandTurnActor) -> Actor {
@@ -2358,14 +2374,14 @@ const fn command_actor_for_battle_actor(actor: Actor) -> CommandTurnActor {
 const fn current_actor_for_command(
     active: BattleCommandEffectSubject,
     option: CommandNextTurnOption,
-) -> Actor {
+) -> Option<Actor> {
     match option {
         CommandNextTurnOption::Approach | CommandNextTurnOption::Flee => {
             command_target_actor(active)
         }
         CommandNextTurnOption::Drop
         | CommandNextTurnOption::Grovel
-        | CommandNextTurnOption::Halt => active.actor,
+        | CommandNextTurnOption::Halt => Some(active.actor),
     }
 }
 

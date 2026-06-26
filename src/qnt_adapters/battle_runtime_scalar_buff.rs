@@ -9,8 +9,10 @@ use crate::rules::scalar_buff::{
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts, route_resolve_battle_subject_from_result, route_start_battle,
-    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
+    route_discover_battle_acts, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_result, route_resolve_battle_subject_from_route_result,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome, ReducerRouteResolveConnector,
     ReducerRouteResolveFill, ReducerRouteSubjectFamily,
 };
 
@@ -50,7 +52,23 @@ fn scalar_buff_route_from_obligation(observed_action_taken: &str) -> Vec<Reducer
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    scalar_buff_route_from_obligation(observed_action_taken)
+    match observed_action_taken {
+        "doFillLongstriderTarget" => expected_fill_longstrider_target_route(),
+        "doRejectStaleAfterResolved" => {
+            let mut route = expected_fill_longstrider_target_route();
+            route.push(route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::ScalarBuff,
+                ReducerRouteFillKind::TargetChoice,
+                ReducerRouteResolutionOutcome::Invalid(
+                    crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::StaleSubject,
+                ),
+                Vec::new(),
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(state: &ScalarBuffTargetState) -> String {
@@ -87,6 +105,24 @@ fn fill_longstrider_target_route() -> (BattleState, BattleSubject, Vec<ReducerRo
     let result = resolve_scalar_buff_target(state, subject);
     route.push(scalar_buff_route_event(&result));
     (result.into_state(), subject, route)
+}
+
+fn expected_fill_longstrider_target_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::ScalarBuff,
+            vec![ReducerRouteHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        ),
+        route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::ScalarBuff,
+            ReducerRouteFillKind::TargetChoice,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::ActiveEffect,
+        ),
+    ]
 }
 
 fn fill_longstrider_target_result() -> crate::rules::battle_reducer_spine::BattleResolutionResult {

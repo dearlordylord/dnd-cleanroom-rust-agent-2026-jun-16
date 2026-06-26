@@ -12,9 +12,12 @@ use crate::rules::command_options::{
 
 use super::battle_runtime_reducer_route::{
     battle_resolution_continuation, route_discover_battle_acts,
-    route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
-    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
-    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
+    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_result,
+    route_resolve_battle_subject_from_route_result,
+    route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
+    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteResolveConnector, ReducerRouteResolveFill,
+    ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -299,7 +302,182 @@ fn command_ordering_route_from_obligation(observed_action_taken: &str) -> Vec<Re
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    command_ordering_route_from_obligation(observed_action_taken)
+    expected_command_ordering_route(observed_action_taken)
+}
+
+fn expected_command_ordering_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doDiscoverCommand" => expected_command_discovery_route(),
+        "doSubmitOptionBeforeTargetList" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_fill(
+                ReducerRouteFillKind::CommandOptionChoice,
+                ReducerRouteResolutionOutcome::NeedsHoles,
+                vec![ReducerRouteHoleKind::SpellTargetList],
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
+        "doFillTargetList" => expected_command_target_list_route(),
+        "doSubmitSavingThrowBeforeOption" => {
+            let mut route = expected_command_target_list_route();
+            route.push(expected_command_fill(
+                ReducerRouteFillKind::SavingThrowOutcome,
+                ReducerRouteResolutionOutcome::NeedsHoles,
+                vec![ReducerRouteHoleKind::CommandOptionChoice],
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
+        "doFillGrovelOption" => expected_command_grovel_option_route(),
+        "doFillFailedGrovelSavingThrow" => expected_command_failed_grovel_save_route(),
+        "doFollowGrovel" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_without_fill(
+                ReducerRouteResolutionOutcome::Invalid(
+                    crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
+                ),
+                vec![
+                    ReducerRouteHoleKind::CommandOptionChoice,
+                    ReducerRouteHoleKind::SpellTargetList,
+                ],
+                ReducerRouteOwnerGroup::ConditionLifecycle,
+            ));
+            route
+        }
+        "doDropNeedsHeldObjectFacts" => {
+            let mut route = expected_command_target_list_route();
+            route.push(expected_command_fill(
+                ReducerRouteFillKind::SavingThrowOutcome,
+                ReducerRouteResolutionOutcome::NeedsHoles,
+                vec![ReducerRouteHoleKind::CommandOptionChoice],
+                ReducerRouteOwnerGroup::ActiveEffect,
+            ));
+            route
+        }
+        "doFillDropHeldObjectFacts" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_without_fill(
+                ReducerRouteResolutionOutcome::Resolved,
+                Vec::new(),
+                ReducerRouteOwnerGroup::ActiveEffect,
+            ));
+            route
+        }
+        "doHaltSuppresses" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_without_fill(
+                ReducerRouteResolutionOutcome::Invalid(
+                    crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
+                ),
+                vec![
+                    ReducerRouteHoleKind::CommandOptionChoice,
+                    ReducerRouteHoleKind::SpellTargetList,
+                ],
+                ReducerRouteOwnerGroup::ActiveEffect,
+            ));
+            route
+        }
+        "doApproachMovementContinues" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_fill(
+                ReducerRouteFillKind::SavingThrowOutcome,
+                ReducerRouteResolutionOutcome::NeedsHoles,
+                vec![ReducerRouteHoleKind::SpellTargetList],
+                ReducerRouteOwnerGroup::ActiveEffect,
+            ));
+            route
+        }
+        "doFillApproachMovementContinues" | "doFillApproachMovementWithinFive" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_fill(
+                ReducerRouteFillKind::Movement,
+                ReducerRouteResolutionOutcome::Invalid(
+                    crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
+                ),
+                vec![
+                    ReducerRouteHoleKind::CommandOptionChoice,
+                    ReducerRouteHoleKind::SpellTargetList,
+                ],
+                ReducerRouteOwnerGroup::MovementResource,
+            ));
+            route
+        }
+        "doApproachNoMovement" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_without_fill(
+                ReducerRouteResolutionOutcome::Resolved,
+                Vec::new(),
+                ReducerRouteOwnerGroup::MovementResource,
+            ));
+            route
+        }
+        "doFleeMovement" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_fill(
+                ReducerRouteFillKind::SavingThrowOutcome,
+                ReducerRouteResolutionOutcome::NeedsHoles,
+                vec![ReducerRouteHoleKind::SpellTargetList],
+                ReducerRouteOwnerGroup::ActiveEffect,
+            ));
+            route
+        }
+        "doFillFleeMovement" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_fill(
+                ReducerRouteFillKind::Movement,
+                ReducerRouteResolutionOutcome::Invalid(
+                    crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
+                ),
+                vec![
+                    ReducerRouteHoleKind::CommandOptionChoice,
+                    ReducerRouteHoleKind::SpellTargetList,
+                ],
+                ReducerRouteOwnerGroup::MovementResource,
+            ));
+            route
+        }
+        "doRejectFleePartialMovement" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_fill(
+                ReducerRouteFillKind::Movement,
+                ReducerRouteResolutionOutcome::Invalid(
+                    crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
+                ),
+                vec![
+                    ReducerRouteHoleKind::CommandOptionChoice,
+                    ReducerRouteHoleKind::SpellTargetList,
+                ],
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
+        "doFleeNoMovement" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_without_fill(
+                ReducerRouteResolutionOutcome::Resolved,
+                Vec::new(),
+                ReducerRouteOwnerGroup::MovementResource,
+            ));
+            route
+        }
+        "doFleeOpportunityAttack" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_fill(
+                ReducerRouteFillKind::Movement,
+                ReducerRouteResolutionOutcome::Invalid(
+                    crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
+                ),
+                vec![
+                    ReducerRouteHoleKind::CommandOptionChoice,
+                    ReducerRouteHoleKind::SpellTargetList,
+                ],
+                ReducerRouteOwnerGroup::InterruptStack,
+            ));
+            route
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 fn command_route_from_start(
@@ -356,6 +534,81 @@ fn command_after_grovel_option_route() -> (BattleState, BattleSubject, Vec<Reduc
     );
     let (state, subject) = battle_resolution_continuation(result, "command option choice");
     (state, subject, route)
+}
+
+fn expected_command_discovery_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::CommandSpell,
+            vec![
+                ReducerRouteHoleKind::CommandOptionChoice,
+                ReducerRouteHoleKind::SpellTargetList,
+            ],
+            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        ),
+    ]
+}
+
+fn expected_command_target_list_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_command_discovery_route();
+    route.push(expected_command_fill(
+        ReducerRouteFillKind::SpellTargetList,
+        ReducerRouteResolutionOutcome::NeedsHoles,
+        vec![ReducerRouteHoleKind::CommandOptionChoice],
+        ReducerRouteOwnerGroup::HoleFrontier,
+    ));
+    route
+}
+
+fn expected_command_grovel_option_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_command_target_list_route();
+    route.push(expected_command_fill(
+        ReducerRouteFillKind::CommandOptionChoice,
+        ReducerRouteResolutionOutcome::NeedsHoles,
+        vec![ReducerRouteHoleKind::SavingThrowOutcome],
+        ReducerRouteOwnerGroup::HoleFrontier,
+    ));
+    route
+}
+
+fn expected_command_failed_grovel_save_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_command_grovel_option_route();
+    route.push(expected_command_fill(
+        ReducerRouteFillKind::SavingThrowOutcome,
+        ReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route
+}
+
+fn expected_command_fill(
+    fill: ReducerRouteFillKind,
+    outcome: ReducerRouteResolutionOutcome,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_from_route_result(
+        ReducerRouteSubjectFamily::CommandSpell,
+        fill,
+        outcome,
+        holes,
+        owner,
+    )
+}
+
+fn expected_command_without_fill(
+    outcome: ReducerRouteResolutionOutcome,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_without_fill_from_route_result(
+        ReducerRouteSubjectFamily::CommandSpell,
+        outcome,
+        holes,
+        owner,
+    )
 }
 
 fn append_command_route(

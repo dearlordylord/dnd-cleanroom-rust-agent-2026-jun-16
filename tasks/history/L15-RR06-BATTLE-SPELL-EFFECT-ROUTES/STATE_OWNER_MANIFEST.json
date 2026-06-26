@@ -18,11 +18,13 @@
     },
     {
       "derivability": {
-        "tag": "canonical-source"
+        "boundary": "fixture-named battle-state projection",
+        "sourceField": "Combatant.speed_feet",
+        "tag": "stored-executable-boundary-projection"
       },
       "fieldPath": "BattleState.goblin.speed_feet",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+      "owner": "executable-boundary-projection"
     },
     {
       "derivability": {
@@ -77,7 +79,7 @@
       "owner": "battle-state"
     }
   ],
-  "durableFieldsReason": "RR06 adds two battle-owned durable facts. BattleState.command_effect_procedure owns the command spell's staged target/option/save/movement frontier from battle-runtime-command-ordering.qnt, and Combatant.speed_feet owns scalar movement speed so battle-runtime-scalar-buff.mbt.qnt does not require a driver-local speed table.",
+  "durableFieldsReason": "RR06 adds two battle-owned durable facts. BattleState.command_effect_procedure owns the command spell's staged target/option/save/movement frontier from battle-runtime-command-ordering.qnt, and Combatant.speed_feet owns scalar movement speed so battle-runtime-scalar-buff.mbt.qnt does not require a driver-local speed table. Fixture-named paths such as BattleState.goblin.speed_feet are projections of the Combatant field, not separate durable owners.",
   "schemaVersion": 1,
   "taskId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES"
 }

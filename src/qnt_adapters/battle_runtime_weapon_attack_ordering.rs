@@ -1,7 +1,7 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts, resolve_battle_subject_test_fill, start_battle, Actor, AttackRollFacts,
-    BattleFill, BattleHoleKind, BattleResolutionOutcome, BattleSetup, BattleSubject,
-    BattleSubjectKind,
+    BattleFill, BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionOutcome,
+    BattleSetup, BattleSubject, BattleSubjectKind,
 };
 use crate::rules::weapon_attack_ordering::{
     discover_weapon_attack, fill_weapon_attack_damage_dice, fill_weapon_attack_roll_hit,
@@ -13,9 +13,11 @@ use crate::rules::weapon_attack_ordering::{
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts, route_resolve_battle_subject_from_result, route_start_battle,
-    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
-    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
+    route_discover_battle_acts, route_resolve_battle_subject_from_result,
+    route_resolve_battle_subject_from_route_result, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteResolveConnector, ReducerRouteResolveFill,
+    ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 7] = [
@@ -113,28 +115,37 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
         "doDiscoverAttack" => expected_weapon_discovery_route(),
-        "doRejectAttackRollBeforeTargetChoice" => expected_weapon_route(&[(
-            ReducerRouteFillKind::AttackRoll,
-            vec![BattleHoleKind::TargetChoice],
-            ReducerRouteOwnerGroup::HoleFrontier,
-        )]),
+        "doRejectAttackRollBeforeTargetChoice" => {
+            let mut route = expected_weapon_discovery_route();
+            route.push(route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::WeaponAttack,
+                ReducerRouteFillKind::AttackRoll,
+                ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill),
+                vec![ReducerRouteHoleKind::TargetChoice],
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
         "doFillTargetChoice" => expected_weapon_route(&[(
             ReducerRouteFillKind::TargetChoice,
             vec![BattleHoleKind::AttackRoll],
             ReducerRouteOwnerGroup::TargetSelection,
         )]),
-        "doRejectDamageBeforeAttackRoll" => expected_weapon_route(&[
-            (
+        "doRejectDamageBeforeAttackRoll" => {
+            let mut route = expected_weapon_route(&[(
                 ReducerRouteFillKind::TargetChoice,
                 vec![BattleHoleKind::AttackRoll],
                 ReducerRouteOwnerGroup::TargetSelection,
-            ),
-            (
+            )]);
+            route.push(route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::WeaponAttack,
                 ReducerRouteFillKind::RolledDice,
-                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill),
+                vec![ReducerRouteHoleKind::AttackRoll],
                 ReducerRouteOwnerGroup::HoleFrontier,
-            ),
-        ]),
+            ));
+            route
+        }
         "doFillAttackRollMiss" => expected_weapon_route(&[
             (
                 ReducerRouteFillKind::TargetChoice,

@@ -143,38 +143,40 @@ impl PartialEq for ReducerRouteEvent {
                 Self::ResolveBattleSubject {
                     subject: left_subject,
                     fill: left_fill,
+                    outcome: left_outcome,
                     holes: left_holes,
                     owner: left_owner,
-                    ..
                 },
                 Self::ResolveBattleSubject {
                     subject: right_subject,
                     fill: right_fill,
+                    outcome: right_outcome,
                     holes: right_holes,
                     owner: right_owner,
-                    ..
                 },
             ) => {
                 left_subject == right_subject
                     && left_fill == right_fill
+                    && left_outcome == right_outcome
                     && left_holes == right_holes
                     && left_owner == right_owner
             }
             (
                 Self::ResolveBattleSubjectWithoutFill {
                     subject: left_subject,
+                    outcome: left_outcome,
                     holes: left_holes,
                     owner: left_owner,
-                    ..
                 },
                 Self::ResolveBattleSubjectWithoutFill {
                     subject: right_subject,
+                    outcome: right_outcome,
                     holes: right_holes,
                     owner: right_owner,
-                    ..
                 },
             ) => {
                 left_subject == right_subject
+                    && left_outcome == right_outcome
                     && left_holes == right_holes
                     && left_owner == right_owner
             }

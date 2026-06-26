@@ -7,9 +7,9 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES`
+- Last completed current-snapshot queued branch set: `L15-RR06-BATTLE-SPELL-EFFECT-ROUTES`
 - Next queued driver: `<none for reducer-spine-diagnostic-battle>`
-- Next task id: `<none for RR05 fixer scope>`
+- Next task id: `<none for RR06 re-review fixer scope>`
 
 Completion rule: a queued branch set is complete only when this report has an entry that names the exact `.mbt.qnt` driver, records the current manifest source commit SHA, records the current source branch inventory SHA, lists the allowed inputs used, renders branch coverage from harness-generated target replay evidence, and records verification results.
 
@@ -1101,3 +1101,7 @@ Verification results:
 - `cargo test command_option_next_turn_adapter_replays_all_branches` passed.
 - `cargo test command_ordering_adapter_replays_all_branches` passed.
 - `cargo test scalar_buff_adapter_replays_all_branches` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.

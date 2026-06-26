@@ -135,19 +135,22 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             ReducerRouteResolveFill::Fill(ReducerRouteFillKind::SavingThrowOutcome),
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
-        "doFollowGrovel" => command_route_from_start(
+        "doFollowGrovel" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Grovel,
             BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Grovel),
             ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::ConditionLifecycle,
         ),
-        "doFollowDrop" => command_route_from_start(
+        "doFollowDrop" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Drop,
             BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Drop {
                 dropped_object_count: 1,
             }),
             ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
-        "doHaltSuppresses" => command_route_from_start(
+        "doHaltSuppresses" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Halt,
             BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Halt {
                 movement_spent_feet: 30,
             }),
@@ -159,7 +162,8 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
-        "doApproachContinues" => command_route_from_start(
+        "doApproachContinues" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Approach,
             BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Approach {
                 movement_spent_feet: 10,
             }),
@@ -189,7 +193,8 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::MovementResource,
         ),
-        "doFleeFullMovementEndsTurn" => command_route_from_start(
+        "doFleeFullMovementEndsTurn" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Flee,
             BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Flee {
                 movement_spent_feet: 30,
             }),
@@ -219,7 +224,8 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             0,
             ReducerRouteOwnerGroup::InterruptStack,
         ),
-        "doFleeOpportunityAttackDeclinedContinuation" => command_route_from_start(
+        "doFleeOpportunityAttackDeclinedContinuation" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Flee,
             BattleCommandEffectFill::FollowPendingOption(
                 CommandPendingOptionFollow::FleeOpportunityAttackDeclined {
                     movement_spent_feet: 30,
@@ -253,19 +259,22 @@ fn expected_command_option_next_turn_route(observed_action_taken: &str) -> Vec<R
             ReducerRouteResolveFill::Fill(ReducerRouteFillKind::SavingThrowOutcome),
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
-        "doFollowGrovel" => command_route_from_start(
+        "doFollowGrovel" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Grovel,
             BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Grovel),
             ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::ConditionLifecycle,
         ),
-        "doFollowDrop" => command_route_from_start(
+        "doFollowDrop" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Drop,
             BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Drop {
                 dropped_object_count: 1,
             }),
             ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
-        "doHaltSuppresses" => command_route_from_start(
+        "doHaltSuppresses" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Halt,
             BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Halt {
                 movement_spent_feet: 30,
             }),
@@ -277,7 +286,8 @@ fn expected_command_option_next_turn_route(observed_action_taken: &str) -> Vec<R
             ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
-        "doApproachContinues" => command_route_from_start(
+        "doApproachContinues" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Approach,
             BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Approach {
                 movement_spent_feet: 10,
             }),
@@ -307,7 +317,8 @@ fn expected_command_option_next_turn_route(observed_action_taken: &str) -> Vec<R
             ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::MovementResource,
         ),
-        "doFleeFullMovementEndsTurn" => command_route_from_start(
+        "doFleeFullMovementEndsTurn" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Flee,
             BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Flee {
                 movement_spent_feet: 30,
             }),
@@ -337,7 +348,8 @@ fn expected_command_option_next_turn_route(observed_action_taken: &str) -> Vec<R
             0,
             ReducerRouteOwnerGroup::InterruptStack,
         ),
-        "doFleeOpportunityAttackDeclinedContinuation" => command_route_from_start(
+        "doFleeOpportunityAttackDeclinedContinuation" => command_follow_route_from_failed_save(
+            CommandNextTurnOption::Flee,
             BattleCommandEffectFill::FollowPendingOption(
                 CommandPendingOptionFollow::FleeOpportunityAttackDeclined {
                     movement_spent_feet: 30,
@@ -417,6 +429,16 @@ fn command_movement_route_from_failed_save(
     .1
 }
 
+fn command_follow_route_from_failed_save(
+    option: CommandNextTurnOption,
+    fill: BattleCommandEffectFill,
+    route_fill: ReducerRouteResolveFill,
+    owner: ReducerRouteOwnerGroup,
+) -> Vec<ReducerRouteEvent> {
+    let (state, subject, route) = command_after_failed_save_route(option);
+    append_command_route(state, subject, fill, route_fill, owner, route).1
+}
+
 fn command_after_failed_save_route(
     option: CommandNextTurnOption,
 ) -> (BattleState, BattleSubject, Vec<ReducerRouteEvent>) {
@@ -466,8 +488,24 @@ fn command_after_failed_save_route(
         ReducerRouteOwnerGroup::ActiveEffect,
         route,
     );
-    let (state, subject) = battle_resolution_continuation(save_result, "command failed save");
-    (state, subject, route)
+    match save_result.continuing_subject() {
+        Some(_) => {
+            let (state, subject) =
+                battle_resolution_continuation(save_result, "command failed save");
+            (state, subject, route)
+        }
+        None => {
+            let state = save_result.into_state();
+            let subject = BattleSubject {
+                kind: BattleSubjectKind::CommandSpell,
+                actor: Actor::Fighter,
+                target: Some(Actor::Goblin),
+                stage: crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage::Resolved,
+                damage_modifier: 0,
+            };
+            (state, subject, route)
+        }
+    }
 }
 
 fn append_command_route(
