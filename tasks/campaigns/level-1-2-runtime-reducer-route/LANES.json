@@ -40,7 +40,7 @@
     {
       "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
       "checkpointId": "CP1",
-      "status": "implemented",
+      "status": "merged",
       "parallelGroup": "cp1-battle-core",
       "routeTaskId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
       "routeClasses": [
@@ -75,7 +75,7 @@
     {
       "laneId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
       "checkpointId": "CP1",
-      "status": "held",
+      "status": "ready",
       "parallelGroup": "cp1-battle-core",
       "routeTaskId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
       "routeClasses": [

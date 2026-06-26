@@ -17,7 +17,7 @@ Campaign: `level-1-2-runtime-reducer-route`
 | Checkpoint | Status | Notes |
 | --- | --- | --- |
 | CP0 Bootstrap | complete | Source baseline pinned at `6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0`; campaign-control files live on the integration branch. |
-| CP1 Battle Reducer Core Expansion | running | `L15-RR03` merged; `L15-RR05` fixer running; `L15-RR06` held until RR05 outcome is known. |
+| CP1 Battle Reducer Core Expansion | ready | `L15-RR03` and `L15-RR05` merged; `L15-RR06` is ready. |
 | CP2 Rule-Core Component Connectors | blocked-on-checkpoint | Depends on CP1. Must split `L15-RR04` before execution. |
 | CP3 Character Creation, Sheet, And Handoff | blocked-on-checkpoint | Depends on CP2. Creation and sheet can run in parallel; handoff merges after both. |
 | CP4 Feature And Catalog Substrates | blocked-on-checkpoint | Depends on CP2 and CP3. Split large FU lanes before execution. |
@@ -26,20 +26,21 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Last Known Verification
 
-At `4c7e12d7645360adb7ab23af61144ceb243c13fe`:
+At `a235602664bbae19c3bfac5e38b85b1bbc4c23a5`:
 
 - `cargo fmt --check`: pass
-- `cargo test`: pass, `181 passed`
+- `cargo test`: pass, `183 passed`
 - `cargo clippy --all-targets -- -D warnings`: pass
 - `node scripts/check-cleanroom-harness.cjs`: pass
 - `git diff --check HEAD~1...HEAD`: pass
 - JSON parse for `STATE.json` and `LANES.json`: pass
 - JSON parse for `tasks/ENGINE_DEPTH_MANIFEST.json` and `tasks/RUN_LEDGER.json`: pass
+- `cargo test adapter_replays_all_branches --quiet`: pass, `70 passed`
 
 ## Active Work
 
 - `L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE` merged at `4c7e12d7645360adb7ab23af61144ceb243c13fe`. Lane head `7ef32d308d51fb54d1032d01b937d168fa63bb64` includes reducer-route evidence for death saving throw and concentration teardown plus the harness quarantine fix.
-- `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` implemented at `76e8bd99e1d705cb31e9180bf831fd1625410ed5`, fixed at `4256dd5e7cdb0d0693a32125b1ec3cf41befbf32`, and second-fixed at `97acec8abd003763e71346e789e6699a432e41df` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05`; final re-review found stat-block result contract and discovery-evidence issues. Third fixer pending.
+- `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` merged at `a235602664bbae19c3bfac5e38b85b1bbc4c23a5`. Lane head `1b928b16bfed2c87ad95efb6aae0a5d384fdb903` covers seven RR05 drivers and 53 route obligations.
 
 ## Coverage Delta Log
 
@@ -72,3 +73,15 @@ Template:
 - Integration verification: `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, `node scripts/check-cleanroom-harness.cjs`, JSON parse checks, and `git diff --check HEAD~1...HEAD` passed.
 - Review/fixer notes: first review found `battle_reducer_spine.rs` incorrectly listed as an adapter/quarantine module; first fix removed that inconsistency; re-review found sampled-pick adapter quarantine enforcement weakened; second fix restored full adapter-quarantine enforcement.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03`
+
+### L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES
+
+- Merge commit: `a235602664bbae19c3bfac5e38b85b1bbc4c23a5`
+- Lane commit(s): `76e8bd99e1d705cb31e9180bf831fd1625410ed5`, `4256dd5e7cdb0d0693a32125b1ec3cf41befbf32`, `97acec8abd003763e71346e789e6699a432e41df`, `1b928b16bfed2c87ad95efb6aae0a5d384fdb903`
+- Drivers added: `6` net-new unique drivers; `battle-runtime-weapon-attack-skeleton.mbt.qnt` was already counted.
+- Obligations added: `39` net-new counted obligations; total accepted obligations moved from `52` to `91`.
+- New total driver coverage: `13 / 97 = 13.4%`
+- New total obligation coverage: `91 / 668 = 13.6%`
+- Integration verification: `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, `node scripts/check-cleanroom-harness.cjs`, `cargo test adapter_replays_all_branches --quiet`, JSON parse checks, and `git diff --check HEAD~1...HEAD` passed.
+- Review/fixer notes: review loop fixed missing RR05 evidence, creature/spell/stat-block reducer routing gaps, self-referential route expectations, sampled-pick quarantine regression, RR03 artifact integration, and stat-block `BattleResolutionResult` needs-holes/discovery-route contract issues.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05`

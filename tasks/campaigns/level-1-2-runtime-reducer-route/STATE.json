@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
+    "lastVerifiedIntegrationHead": "a235602664bbae19c3bfac5e38b85b1bbc4c23a5",
     "lastMergedLane": {
-      "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
-      "mergeCommit": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
-      "laneHead": "7ef32d308d51fb54d1032d01b937d168fa63bb64"
+      "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
+      "mergeCommit": "a235602664bbae19c3bfac5e38b85b1bbc4c23a5",
+      "laneHead": "1b928b16bfed2c87ad95efb6aae0a5d384fdb903"
     }
   },
   "denominator": {
@@ -31,6 +31,14 @@
     "acceptedObligationCoveragePercent": 7.8,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers",
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
+  },
+  "coverageCurrent": {
+    "acceptedUniqueDrivers": 13,
+    "acceptedDriverCoveragePercent": 13.4,
+    "acceptedObligations": 91,
+    "acceptedObligationCoveragePercent": 13.6,
+    "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers",
+    "acceptedObligationsSource": "cleanroom-input/branch-coverage/reducer-route-inventory.json obligations for unique selected drivers"
   },
   "completedBeforeCampaign": [
     "T001",
@@ -56,11 +64,8 @@
     {
       "checkpointId": "CP1",
       "name": "Battle Reducer Core Expansion",
-      "status": "running",
-      "runningLaneIds": [
-        "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES"
-      ],
-      "heldLaneIds": [
+      "status": "ready",
+      "readyLaneIds": [
         "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES"
       ]
     },
@@ -114,8 +119,8 @@
   ],
   "laneStatuses": {
     "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "merged",
-    "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "implemented",
-    "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "held",
+    "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
+    "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "ready",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "blocked-on-checkpoint",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "blocked-on-checkpoint",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "blocked-on-checkpoint",
@@ -140,7 +145,7 @@
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint"
   },
   "lastIntegrationVerification": {
-    "head": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
+    "head": "a235602664bbae19c3bfac5e38b85b1bbc4c23a5",
     "commands": [
       {
         "command": "cargo fmt --check",
@@ -149,7 +154,7 @@
       {
         "command": "cargo test",
         "status": "pass",
-        "note": "181 passed"
+        "note": "183 passed"
       },
       {
         "command": "cargo clippy --all-targets -- -D warnings",
@@ -170,16 +175,22 @@
       {
         "command": "JSON parse tasks/ENGINE_DEPTH_MANIFEST.json and tasks/RUN_LEDGER.json",
         "status": "pass"
+      },
+      {
+        "command": "cargo test adapter_replays_all_branches --quiet",
+        "status": "pass",
+        "note": "70 passed"
       }
     ]
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05",
       "branch": "ralph/l15-rr05-attack-statblock",
       "baseSha": "72f81250789a4e7bc6216503f2a93abac6771852",
-      "status": "implemented",
+      "status": "removable-after-operator-confirms-no-local-use",
       "workerAgent": "019f05b4-6ea8-7f00-bdb1-264528b3ee63",
       "workerName": "Ampere",
       "commit": "76e8bd99e1d705cb31e9180bf831fd1625410ed5",
@@ -212,7 +223,9 @@
       ],
       "thirdFixerAgent": "019f05f4-e9d1-7121-93c9-1aa9336e4980",
       "thirdFixerName": "Hypatia",
-      "thirdFixStatus": "running",
+      "thirdFixStatus": "committed",
+      "thirdFixCommit": "1b928b16bfed2c87ad95efb6aae0a5d384fdb903",
+      "mergeCommit": "a235602664bbae19c3bfac5e38b85b1bbc4c23a5",
       "reviewFindings": [
         "RR05 branch coverage evidence is missing/stale: no RR05 target-replay evidence, ledger rows, validation report, decider decision, or state-owner artifacts.",
         "creature-attack.mbt.qnt remains an adapter-local replay island using standalone creature_attack path instead of BattleState/discover/resolve/BattleResolutionResult.",
@@ -226,9 +239,7 @@
         "RR03 sampled-pick adapter quarantine semantics are restored in scripts/check-cleanroom-harness.cjs.",
         "RR03 integration artifacts and target replay evidence are merged and accounted for in RUN_LEDGER/VALIDATION_REPORT."
       ]
-    }
-  ],
-  "completedLaneWorktrees": [
+    },
     {
       "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03",

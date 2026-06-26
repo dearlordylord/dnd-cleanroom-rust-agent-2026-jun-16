@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05` | `ralph/l15-rr05-attack-statblock` | `72f81250789a4e7bc6216503f2a93abac6771852` | `019f05b4-6ea8-7f00-bdb1-264528b3ee63` Ampere; reviewer `019f05c2-759e-7892-87f5-384db29ab630` James; fixer `019f05c7-37c3-7d30-bb5d-a62b6d1c3c3a` Parfit; re-reviewer `019f05d8-0d76-7a42-ab94-4a3a716a0695` Hegel; second fixer `019f05dd-57d7-7c90-86a7-12d85a9c5f8c` Confucius; final reviewer `019f05f0-c34d-7a73-ba32-111cb108a6b8` Goodall; third fixer `019f05f4-e9d1-7121-93c9-1aa9336e4980` Hypatia | final re-review findings; third fixer running |
+_none_
 
 ## Historical RRCONV-19 Worktrees
 
@@ -45,3 +45,4 @@ When launching a lane:
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
 | L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03` | `ralph/l15-rr03-diagnostic-queue` | `7ef32d308d51fb54d1032d01b937d168fa63bb64` | `4c7e12d7645360adb7ab23af61144ceb243c13fe` | removable-after-operator-confirms-no-local-use |
+| L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05` | `ralph/l15-rr05-attack-statblock` | `1b928b16bfed2c87ad95efb6aae0a5d384fdb903` | `a235602664bbae19c3bfac5e38b85b1bbc4c23a5` | removable-after-operator-confirms-no-local-use |
