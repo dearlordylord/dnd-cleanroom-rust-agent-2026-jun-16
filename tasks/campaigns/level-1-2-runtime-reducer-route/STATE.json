@@ -190,7 +190,9 @@
       "fixerName": "Parfit",
       "fixCommit": "4256dd5e7cdb0d0693a32125b1ec3cf41befbf32",
       "fixStatus": "committed",
-      "rereviewStatus": "pending",
+      "rereviewStatus": "running",
+      "rereviewAgent": "019f05d8-0d76-7a42-ab94-4a3a716a0695",
+      "rereviewName": "Hegel",
       "reviewFindings": [
         "RR05 branch coverage evidence is missing/stale: no RR05 target-replay evidence, ledger rows, validation report, decider decision, or state-owner artifacts.",
         "creature-attack.mbt.qnt remains an adapter-local replay island using standalone creature_attack path instead of BattleState/discover/resolve/BattleResolutionResult.",

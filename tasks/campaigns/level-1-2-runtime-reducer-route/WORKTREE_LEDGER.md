@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05` | `ralph/l15-rr05-attack-statblock` | `72f81250789a4e7bc6216503f2a93abac6771852` | `019f05b4-6ea8-7f00-bdb1-264528b3ee63` Ampere; reviewer `019f05c2-759e-7892-87f5-384db29ab630` James; fixer `019f05c7-37c3-7d30-bb5d-a62b6d1c3c3a` Parfit | fix committed at `4256dd5e7cdb0d0693a32125b1ec3cf41befbf32`; re-review pending; branch does not yet contain RR03 merge |
+| L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05` | `ralph/l15-rr05-attack-statblock` | `72f81250789a4e7bc6216503f2a93abac6771852` | `019f05b4-6ea8-7f00-bdb1-264528b3ee63` Ampere; reviewer `019f05c2-759e-7892-87f5-384db29ab630` James; fixer `019f05c7-37c3-7d30-bb5d-a62b6d1c3c3a` Parfit; re-reviewer `019f05d8-0d76-7a42-ab94-4a3a716a0695` Hegel | fix committed at `4256dd5e7cdb0d0693a32125b1ec3cf41befbf32`; re-review running; branch does not yet contain RR03 merge |
 
 ## Historical RRCONV-19 Worktrees
 
