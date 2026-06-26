@@ -8,7 +8,12 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "72f81250789a4e7bc6216503f2a93abac6771852"
+    "lastVerifiedIntegrationHead": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
+    "lastMergedLane": {
+      "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "mergeCommit": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
+      "laneHead": "7ef32d308d51fb54d1032d01b937d168fa63bb64"
+    }
   },
   "denominator": {
     "source": "cleanroom-input/branch-coverage/reducer-route-inventory.json",
@@ -53,7 +58,6 @@
       "name": "Battle Reducer Core Expansion",
       "status": "running",
       "runningLaneIds": [
-        "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
         "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES"
       ],
       "heldLaneIds": [
@@ -109,7 +113,7 @@
     }
   ],
   "laneStatuses": {
-    "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "implemented",
+    "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "merged",
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "implemented",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "held",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "blocked-on-checkpoint",
@@ -136,7 +140,7 @@
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint"
   },
   "lastIntegrationVerification": {
-    "head": "72f81250789a4e7bc6216503f2a93abac6771852",
+    "head": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
     "commands": [
       {
         "command": "cargo fmt --check",
@@ -162,39 +166,14 @@
       {
         "command": "JSON parse STATE.json and LANES.json",
         "status": "pass"
+      },
+      {
+        "command": "JSON parse tasks/ENGINE_DEPTH_MANIFEST.json and tasks/RUN_LEDGER.json",
+        "status": "pass"
       }
     ]
   },
   "activeLaneWorktrees": [
-    {
-      "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03",
-      "branch": "ralph/l15-rr03-diagnostic-queue",
-      "baseSha": "72f81250789a4e7bc6216503f2a93abac6771852",
-      "status": "implemented",
-      "workerAgent": "019f05b4-136b-7923-a639-a86f819ac526",
-      "workerName": "Aquinas",
-      "commit": "7b0997b0ad8f76a99d0a905a0e68ef679eecccde",
-      "reviewAgent": "019f05bd-f0c9-7152-bd5d-dd8fcb75d9e9",
-      "reviewName": "McClintock",
-      "reviewStatus": "findings",
-      "fixerAgent": "019f05c2-3d45-7df1-a113-3cabbef9d667",
-      "fixerName": "Pascal",
-      "fixCommit": "155ca2bed52639f3de011a2a22de2b0f63d6c318",
-      "fixStatus": "committed",
-      "rereviewStatus": "running",
-      "rereviewAgent": "019f05c9-aaa6-7f30-bfb9-5b275afe2440",
-      "rereviewName": "Kepler",
-      "rereviewFindings": [
-        "scripts/check-cleanroom-harness.cjs now uses the reduced production-source witness-name set for adapter-quarantine completeness, so sampled QNT pick names could be omitted from adapterModules[].quarantinedWitnessNames while the harness still passes."
-      ],
-      "secondFixerAgent": "019f05cd-2521-7332-a606-180452c29ea0",
-      "secondFixerName": "Gibbs",
-      "secondFixStatus": "running",
-      "reviewFindings": [
-        "tasks/ENGINE_DEPTH_MANIFEST.json and history manifest classify src/rules/battle_reducer_spine.rs inconsistently as adapter module and production domain engine."
-      ]
-    },
     {
       "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05",
@@ -216,6 +195,21 @@
         "route assertions are self-referential and weak because expected_route is derived from replay_observed_route."
       ],
       "blockerNote": "Worker reported executable route evidence exists, but reviewer rejected that as insufficient branch coverage because campaign done criteria require target replay evidence and ledger/report updates."
+    }
+  ],
+  "completedLaneWorktrees": [
+    {
+      "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03",
+      "branch": "ralph/l15-rr03-diagnostic-queue",
+      "baseSha": "72f81250789a4e7bc6216503f2a93abac6771852",
+      "workerAgent": "019f05b4-136b-7923-a639-a86f819ac526",
+      "workerName": "Aquinas",
+      "commit": "7b0997b0ad8f76a99d0a905a0e68ef679eecccde",
+      "fixCommit": "155ca2bed52639f3de011a2a22de2b0f63d6c318",
+      "secondFixCommit": "7ef32d308d51fb54d1032d01b937d168fa63bb64",
+      "mergeCommit": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
+      "status": "removable-after-operator-confirms-no-local-use"
     }
   ],
   "operatorNotes": [

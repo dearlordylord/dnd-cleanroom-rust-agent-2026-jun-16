@@ -11,7 +11,7 @@
     {
       "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
       "checkpointId": "CP1",
-      "status": "implemented",
+      "status": "merged",
       "parallelGroup": "cp1-battle-core",
       "routeTaskId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
       "routeClasses": [
