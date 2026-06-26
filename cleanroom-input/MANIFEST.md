@@ -5,8 +5,8 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: 0e024f089687526c6bc4b9e6f9c7e640414f6486
-- Copy date: 2026-06-22T19:55:27.102Z
+- Source commit SHA: 564376fd95218a209bb9eae5c9ccb54ca3e04a52
+- Copy date: 2026-06-26T02:42:30.497Z
 - Files: 511
 
 Cleanroom tasks must declare which source commit SHA they implement
@@ -95,10 +95,10 @@ instead of guessing.
 | `raw/srd-5.2.1/Spells/Gaining-and-Casting.md` | `fc36dfa2fb45157289d90b1ae9b09e36211bc92c7ef4bd0c8f8af4a65cda9403` | `.references/srd-5.2.1/Spells/Gaining-and-Casting.md` |
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
-| `branch-coverage/source-branch-inventory.json` | `47b0589f442c0aaff2a814c19384fcaed7a6dbe3e7a78b5d0df8b011f56e7eae` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
-| `branch-coverage/reducer-route-inventory.json` | `f19710f4cbc4d09208d38568c04375f0df4e2a738bbadc76c19f0f7161ffd733` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
-| `guidance/README.md` | `c47e1f6458acfbece43673394e5d62793ca53043a77e565e77aa8d51ef1f89ac` | `plans/cleanroom-guidance/README.md` |
-| `guidance/reducer-spine.md` | `38ab70943b58d602ac6691e95430da1bbb7075a3f546eb108beace16c46e9a16` | `plans/cleanroom-guidance/reducer-spine.md` |
+| `branch-coverage/source-branch-inventory.json` | `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
+| `branch-coverage/reducer-route-inventory.json` | `31d7903835ad66051c3a351fd28eaa0bc4e148498eabb2034cc2866a5662b301` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
+| `guidance/README.md` | `d62a834399e1469186bc931f2d27bdf696b9a67c9c9e21c15982ee722ed5384b` | `plans/cleanroom-guidance/README.md` |
+| `guidance/reducer-spine.md` | `0421042330a8d30ec3fc832cfcf987d7c666c020f2c0f48e4f79d1ee605d88be` | `plans/cleanroom-guidance/reducer-spine.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` | `03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` | `b580cb0cd090fbc3fec41a853e54b7ec3cfbede676a5252e61405475d0b15c4b` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` |
@@ -447,7 +447,7 @@ instead of guessing.
 | `qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.route.mbt.qnt` | `2b6a7becb4685b01d19f5f65c8991e10f488b51eda94fef5ed8cd49095c9e439` | `packages/character-sheet-runtime/character-sheet-healing-resource-selected-identity.route.mbt.qnt` |
 | `qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt` | `31e707aaa6c05cf90b58786cb5366a189ea6d4b457b068b7b820f73a05653cb2` | `packages/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt` |
 | `qnt/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt` | `a67a7160ce506cbf3f2d796cbb1b4184f839ad9bac6f1b7157c4ead9c31fe3f2` | `packages/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt` |
-| `qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt` | `040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17` | `packages/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt` |
+| `qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt` | `febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff` | `packages/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt` |
 | `qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.route.mbt.qnt` | `eaadfb466000867eee2f96beb7811625877ece6757259599bcec3cbf211911f9` | `packages/character-sheet-runtime/character-sheet-hp-rest-hit-dice.route.mbt.qnt` |
 | `qnt/character-sheet-runtime/character-sheet-reducer-route.qnt` | `a53bdb2c8e4c3d6133b7e4767acd2b1f03c5ebc9d1b0f348e9db0f37353f4548` | `packages/character-sheet-runtime/character-sheet-reducer-route.qnt` |
 | `qnt/character-sheet-runtime/character-sheet-spell-rest-benefit-application.mbt.qnt` | `3c91ede99eb5066263a84c924201c4e8877e78f8b1010f8f595f7c9afb893864` | `packages/character-sheet-runtime/character-sheet-spell-rest-benefit-application.mbt.qnt` |
@@ -458,7 +458,7 @@ instead of guessing.
 | `qnt/character-sheet-runtime/character-sheet-weapon-mastery-class-level-reselection.mbt.qnt` | `7e7d908628096d709ef3f64752ed8b348d477bd7accdfe74cf193bc6d31d5020` | `packages/character-sheet-runtime/character-sheet-weapon-mastery-class-level-reselection.mbt.qnt` |
 | `qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt` | `7bbd5f0e229f1646877193707d28fc62d691a1aecd7ecee55fc57fe3a345e561` | `packages/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt` |
 | `qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.route.mbt.qnt` | `93b537789e2953c642747d4d12903da5ad22a557841bd36f33d043344e2e1952` | `packages/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.route.mbt.qnt` |
-| `qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt` | `a1414e2e2a74e5376e544c4447c89371655d932a52d3830fd0f8d0a209d6bc91` | `packages/character-battle-runtime/character-battle-init-projection.mbt.qnt` |
+| `qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt` | `e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786` | `packages/character-battle-runtime/character-battle-init-projection.mbt.qnt` |
 | `qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt` | `6fce9e7fb4fcb372353e4144e78e2ce844e71e539ffd0e615c0f24d7e3a88133` | `packages/character-battle-runtime/character-battle-init-projection.route.mbt.qnt` |
 | `qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt` | `2484aafcef6ad5e232d83453df17e2446793355cef8194de454bfbbf05db9511` | `packages/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt` |
 | `qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.route.mbt.qnt` | `db190a930645ad255dc39e095268a053a5bd95863c5aa053dd9b7d2513121b45` | `packages/character-battle-runtime/character-battle-origin-feat-selected-identity.route.mbt.qnt` |
@@ -467,7 +467,7 @@ instead of guessing.
 | `qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt` | `4eff39b022690f32278d7615d44178324d3e6f8a91c3f1053382163c10dbb370` | `packages/character-battle-runtime/character-battle-settlement.route.mbt.qnt` |
 | `qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt` | `a2db8e8512717dff0f0a3c5aa97e72328adb8820a2449249ddae447f5957f905` | `packages/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt` |
 | `qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt` | `e459ef343ee2ba3adabeedc6326c2a6f5177cf6ee6d2fb8a1e5610c176740b96` | `packages/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt` |
-| `qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt` | `444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346` | `packages/character-battle-runtime/character-sheet-feature-resources.mbt.qnt` |
+| `qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt` | `43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd` | `packages/character-battle-runtime/character-sheet-feature-resources.mbt.qnt` |
 | `qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt` | `33f5ad8c9f536c4ec57fd9b9019b783a4fb5c63b1ceec90df837da9b61814367` | `packages/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/ability-check-proficiency-bonus.qnt` | `f20ad22c11c064586d53eb94c3e267afd2cd1f4f39f17350a7f20cad7739a659` | `packages/shared-algebras/proofs/rule-core/ability-check-proficiency-bonus.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/action-turn-procedures-inductive.qnt` | `14e81ea824e8d00ed107bbf0c62b2c76223ac9a94e86744a891f6aa523710ecf` | `packages/shared-algebras/proofs/rule-core/action-turn-procedures-inductive.qnt` |
@@ -570,5 +570,5 @@ instead of guessing.
 
 | File | sha256 |
 | --- | --- |
-| `scripts/check-cleanroom-harness.cjs` | `1e7fe48cffa693df8e5405f7cc9d876a582593d90796622cbe8c394b874b999e` |
-| `scripts/cleanroom-branch-coverage-check.cjs` | `6bcf51e27a078ea1130bf9ed189f6e3d9fb12b5e5e30360ccd8e705f2a47eeab` |
+| `scripts/check-cleanroom-harness.cjs` | `4d83d92868178c32c924948e5f0b2c462d94be87d7c9f4a2f21653db59e25616` |
+| `scripts/cleanroom-branch-coverage-check.cjs` | `d2eead89a5d3f5f783a0d17827c854948368f26505185f1d0420f1262c05c954` |

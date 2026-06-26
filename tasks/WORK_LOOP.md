@@ -42,9 +42,14 @@ denominator. A queued driver is complete only when every in-scope replayable
 branch obligation for that driver has passing harness-generated target replay
 evidence.
 
-`cleanroom-input/branch-coverage/reducer-route-inventory.json` is the reducer
-diagnostic route source. If the selected assignment id appears there, follow
-its ordered batch and route class before using the broader level-1/2 queue.
+`cleanroom-input/branch-coverage/reducer-route-inventory.json` is the route
+authority copied into the fresh package. Read the
+`level-1-5-cleanroom-route-v1.freshCleanroomPackageGate` record, then match the
+selected driver against `branchDecisionClasses` first and
+`driverRouteAssignments` second. The matched route row tells whether the target
+must use copied `qRoute` connector evidence, copied `qComponentRoute` component
+evidence, replay-refresh evidence, catalog-after-substrate facts, or an explicit
+blocker. Follow that row before using the broader level-1/2 queue.
 
 `tasks/VALIDATION_REPORT.md` is the completion ledger. A queued branch set is
 complete only when that report contains an entry that:
@@ -83,8 +88,8 @@ To select work:
 
 ## Current Cursor
 
-- Manifest source commit SHA: `0a9f139b2af181db3bdfb1879b92b7d2fb942ffd`
-- Source branch inventory SHA: `7317a1acf0dce82ff0cf62330081ced4d8d77460134527048c7beb9a60b83beb`
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
 - Last completed current-snapshot queued branch set: `<none>`
 - Active assignment: `reducer-spine-diagnostic-battle`
 - Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
@@ -103,8 +108,16 @@ For the selected branch set:
 3. Read the relevant RAW from `cleanroom-input/raw/srd-5.2.1/**`.
 4. Check `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`.
 5. Check `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`.
-6. Check `cleanroom-input/branch-coverage/reducer-route-inventory.json` when
-   the selected assignment is reducer-routed or substrate-first.
+6. Check `cleanroom-input/branch-coverage/reducer-route-inventory.json` for the
+   selected branch set. Match a branch-specific route row before the driver-level
+   row. For `routeConnectorPath` or `routeConnectorPaths`, read the copied route
+   connector and use its `qRoute` projection with the route event-list
+   comparator as executable evidence. For `componentConnectorPath` or
+   `component-first`, read the copied component connector and use its
+   `qComponentRoute` projection with the component route event-list comparator.
+   For `catalog-after-substrate`, `replay-refresh-only`, or explicit blockers,
+   follow the row's stated substrate, replay, or blocker evidence instead of
+   inventing a target-local substitute.
 7. Check the relevant guidance files in `cleanroom-input/guidance/**`.
 8. Implement the smallest Rust slice in `src` that makes
    the branch set conform.
@@ -139,8 +152,8 @@ blocked implementation task. Use this shape:
 ```md
 ## TNNN: <driver basename or short behavior name>
 
-- Manifest source commit SHA: `0a9f139b2af181db3bdfb1879b92b7d2fb942ffd`
-- Source branch inventory SHA: `7317a1acf0dce82ff0cf62330081ced4d8d77460134527048c7beb9a60b83beb`
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
 - Driver: `<exact queued .mbt.qnt path>`
 - Branch obligations:
   - `<branch family>:<branch action>`

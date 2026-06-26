@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "manifestSourceCommitSha": "0a9f139b2af181db3bdfb1879b92b7d2fb942ffd",
-  "sourceBranchInventorySha256": "7317a1acf0dce82ff0cf62330081ced4d8d77460134527048c7beb9a60b83beb",
+  "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
   "entries": [
     {
       "taskId": "T001",
@@ -10,8 +10,8 @@
       "selectedDrivers": [
         "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt"
       ],
-      "manifestSourceCommitSha": "0a9f139b2af181db3bdfb1879b92b7d2fb942ffd",
-      "sourceBranchInventorySha256": "7317a1acf0dce82ff0cf62330081ced4d8d77460134527048c7beb9a60b83beb",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
       "artifacts": {
         "startGate": {
           "path": "tasks/history/T001/START_GATE.json",

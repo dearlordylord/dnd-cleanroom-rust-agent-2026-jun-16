@@ -10404,7 +10404,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doProjectPurePactMagicSlot",
-      "qntFileSha256": "a1414e2e2a74e5376e544c4447c89371655d932a52d3830fd0f8d0a209d6bc91",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -10423,7 +10423,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doProjectSheetHitPointsArmorClassConditionsAndProfiles",
-      "qntFileSha256": "a1414e2e2a74e5376e544c4447c89371655d932a52d3830fd0f8d0a209d6bc91",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -10442,7 +10442,7 @@
       "decisionSource": "branch-decision",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doProjectSheetSpellcastingAndMetamagic",
-      "qntFileSha256": "a1414e2e2a74e5376e544c4447c89371655d932a52d3830fd0f8d0a209d6bc91",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
       "replay": {
         "reason": "The sequential driver traverses this higher-capacity projection to reach later level-1/2 init rejection branches.",
         "reviewedBy": "codex-2026-06-17",
@@ -10464,7 +10464,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doRejectBuildMaximumAboveBuildMaximum",
-      "qntFileSha256": "a1414e2e2a74e5376e544c4447c89371655d932a52d3830fd0f8d0a209d6bc91",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -10483,7 +10483,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doRejectMixedSpellAndPactSlotInit",
-      "qntFileSha256": "a1414e2e2a74e5376e544c4447c89371655d932a52d3830fd0f8d0a209d6bc91",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -10502,7 +10502,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doRejectStableRecoveryProgressDuringInit",
-      "qntFileSha256": "a1414e2e2a74e5376e544c4447c89371655d932a52d3830fd0f8d0a209d6bc91",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -10866,7 +10866,7 @@
       "decisionSource": "branch-decision",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doFontOfMagicPointsToSlot",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "reason": "The sequential driver traverses this higher-slot creation to reach later level-1/2 feature-resource branches.",
         "reviewedBy": "codex-2026-06-17",
@@ -10888,7 +10888,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doFontOfMagicSlotToPoints",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -10907,7 +10907,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doLayOnHandsRestoresHpAndRemovesPoisoned",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -10926,7 +10926,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doLongRestClearsLayOnHandsPool",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -10945,7 +10945,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doLongRestClearsPointPoolAndUseState",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -10964,7 +10964,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doLongRestClearsUncannyUseState",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -10983,7 +10983,7 @@
       "decisionSource": "branch-decision",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doMetamagicBridgeUsesSharedPointPool",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -11004,7 +11004,7 @@
       "decisionSource": "branch-decision",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doRejectFontOfMagicAmbiguousSlotSource",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "reason": "The sequential driver traverses this higher-slot rejection to reach later level-1/2 feature-resource branches.",
         "reviewedBy": "codex-2026-06-17",
@@ -11026,7 +11026,7 @@
       "decisionSource": "branch-decision",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doRejectFontOfMagicInsufficientPoints",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "reason": "The sequential driver traverses this higher-slot rejection to reach later level-1/2 feature-resource branches.",
         "reviewedBy": "codex-2026-06-17",
@@ -11048,7 +11048,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doRejectLayOnHandsOverspend",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -11067,7 +11067,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doRejectUncannyMetabolismRepeatUse",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -11086,7 +11086,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doShortRestPreservesUncannyUseState",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -11105,7 +11105,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doShortRestRecoversUseCountPools",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -11124,7 +11124,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doUncannyMetabolismRecoversFocusAndHeals",
-      "qntFileSha256": "444674c7064ce635e3442b719c5b03f4997f88b99940993ae647c7dc125ee346",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12762,7 +12762,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doCompleteLongRestRestoresHpHitPointDiceAndMaximum",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12781,7 +12781,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doInterruptLongRestBeforeOneHourNoBenefit",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12800,7 +12800,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doInterruptLongRestWithShortRestBenefits",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12819,7 +12819,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doInterruptShortRestNoBenefit",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12838,7 +12838,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestBeforeSixteenHourWait",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12857,7 +12857,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestDurationTooShort",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12876,7 +12876,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestInterruptionAtRequiredDuration",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12895,7 +12895,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestPhysicalExertionTooShort",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12914,7 +12914,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestStartAtZeroHp",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12933,7 +12933,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectShortRestDurationTooShort",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12952,7 +12952,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectShortRestStartAtZeroHp",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12971,7 +12971,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doSpendShortRestHitPointDiceSequentially",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -12990,7 +12990,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doSpendShortRestHitPointDie",
-      "qntFileSha256": "040f2adf855432f54a4efccd580e187ffef6591a01771581fcaebc64de579f17",
+      "qntFileSha256": "febe329d138e18eb6cb50ddef6df0948427fc82c82646c4c3a7a0655497fbeff",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"

@@ -2,8 +2,8 @@
 
 ## Work Loop Status
 
-- Current manifest source commit SHA: `0e024f089687526c6bc4b9e6f9c7e640414f6486`
-- Source branch inventory SHA: `47b0589f442c0aaff2a814c19384fcaed7a6dbe3e7a78b5d0df8b011f56e7eae`
+- Current manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
@@ -19,37 +19,10 @@ replay evidence, and records verification results. Entries with older manifest
 source commit SHAs or inventory SHAs are historical unless they include a
 current-snapshot revalidation note.
 
-## Dirty Reducer-Spine Rehearsal
-
-This target is currently a dirty rehearsal, not an accepted cleanroom evidence
-run. Current status is recorded in `tasks/DIRTY_REHEARSAL_STATUS.md`.
-
-Reducer-routed diagnostic tests now pass for:
-
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
-
-Verification results for the dirty reducer-spine batch:
-
-- `cargo fmt --check` passed.
-- `cargo test` passed: 173 tests.
-- `cargo clippy --all-targets -- -D warnings` passed.
-- `node scripts/check-cleanroom-harness.cjs` failed because current-snapshot
-  ledger/history/evidence artifacts and historical dirty report rows are
-  missing or stale in this dirty target.
-
-These passing tests do not close branch coverage until replay evidence,
-`tasks/RUN_LEDGER.json`, history artifacts, and covered validation rows are
-regenerated for manifest
-`0e024f089687526c6bc4b9e6f9c7e640414f6486`.
-
 ## T000: Report Shape Example Only
 
-- Manifest source commit SHA: `0e024f089687526c6bc4b9e6f9c7e640414f6486`
-- Source branch inventory SHA: `47b0589f442c0aaff2a814c19384fcaed7a6dbe3e7a78b5d0df8b011f56e7eae`
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
 - Driver: `cleanroom-input/qnt/<package>/<driver>.mbt.qnt`
 - Branch obligations:
   - `step:<branch action>`

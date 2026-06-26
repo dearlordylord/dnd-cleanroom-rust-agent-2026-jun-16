@@ -3,8 +3,8 @@
     "tag": "target-harness",
     "name": "<target harness or adapter name>"
   },
-  "cleanroomManifestSourceCommitSha": "0a9f139b2af181db3bdfb1879b92b7d2fb942ffd",
-  "sourceBranchInventorySha256": "7317a1acf0dce82ff0cf62330081ced4d8d77460134527048c7beb9a60b83beb",
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
   "targetProfile": "rust",
   "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
   "runs": [
@@ -25,12 +25,12 @@
       ],
       "stateCheck": {
         "tag": "state-match",
-        "projection": "<projection name>",
-        "comparator": "<comparator id>",
+        "projection": "<qRoute, qComponentRoute, or source-driver projection name>",
+        "comparator": "<route-event-list, component-route-event-list, or projection comparator id>",
         "expectedProjectionSha256": "<sha256 hex>",
         "observedProjectionSha256": "<same sha256 hex on pass>",
         "checkedTargetStateFields": [
-          "<TargetState.field>"
+          "<TargetState.field or harness projection field>"
         ]
       },
       "result": {
