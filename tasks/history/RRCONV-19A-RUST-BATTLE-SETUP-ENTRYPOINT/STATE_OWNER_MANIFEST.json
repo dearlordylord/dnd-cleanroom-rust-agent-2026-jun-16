@@ -11,7 +11,7 @@
       }
     },
     {
-      "fieldPath": "BattleState.fighter.multiattack_supported",
+      "fieldPath": "BattleState.fighter.multiattack_profile",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state",
       "derivability": {
@@ -43,7 +43,7 @@
       }
     },
     {
-      "fieldPath": "BattleState.goblin.multiattack_supported",
+      "fieldPath": "BattleState.goblin.multiattack_profile",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state",
       "derivability": {
@@ -67,7 +67,7 @@
       }
     },
     {
-      "fieldPath": "BattleState.rogue.multiattack_supported",
+      "fieldPath": "BattleState.rogue.multiattack_profile",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state",
       "derivability": {
@@ -91,7 +91,7 @@
       }
     },
     {
-      "fieldPath": "BattleState.skeleton.multiattack_supported",
+      "fieldPath": "BattleState.skeleton.multiattack_profile",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state",
       "derivability": {

@@ -339,7 +339,7 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/STATE_OWNER_MANIFEST.json",
-          "sha256": "04d793fcef1276c97f424bbf50ef33ea0d511d060acbdb1e6143e0a9b10791cc"
+          "sha256": "6ced2915ef9952bc4f9b4dfdc6ed7d85482e619522aee2d93ac4790b92734cb9"
         },
         "reviewLoop": {
           "path": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/REVIEW_LOOP.json",

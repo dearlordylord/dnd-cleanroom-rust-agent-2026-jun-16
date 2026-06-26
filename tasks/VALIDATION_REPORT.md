@@ -106,7 +106,7 @@ Behavior implemented:
 
 - Added typed `BattleSetup` setup facts and typed `BattleStartResult` as the public `start_battle(setup)` entrypoint result.
 - Kept scenario helpers as setup conveniences that build `BattleSetup` and call `start_battle(setup)` before returning `BattleState`.
-- Moved weapon and multiattack discovery off fixture-role dispatch by adding combatant capability facts for weapon attack support, damage modifier, and multiattack support.
+- Moved weapon and multiattack discovery/resolution off fixture-role dispatch by adding combatant capability facts for weapon attack support, damage modifier, and multiattack profile.
 - Preserved the existing reducer-route replay surface and tests.
 
 Generated branch coverage:

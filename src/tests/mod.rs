@@ -5299,6 +5299,36 @@ fn weapon_attack_skeleton_resolves_damage_sneak_and_multiattack_dispatch() {
 }
 
 #[test]
+fn multiattack_resolution_uses_subject_combatant_profile() {
+    use crate::rules::battle_reducer_spine::{
+        discover_battle_acts, primary_stat_block_multiattack_profile,
+        resolve_battle_subject_test_fill, start_stat_block_actor_battle, Actor, BattleFill,
+        BattleResolutionResult, BattleSubjectKind,
+    };
+
+    // RAW: cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md "Multiattack";
+    // QNT: rule-core/stat-block-controls.qnt `startStatBlockMultiattack`.
+    let mut state = start_stat_block_actor_battle(Actor::Rogue);
+    state.rogue.multiattack_profile = Some(primary_stat_block_multiattack_profile(3));
+
+    let subject = discover_battle_acts(&state)
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::Multiattack)
+        .expect("combatant profile should make multiattack discoverable")
+        .subject;
+    assert_eq!(subject.actor, Actor::Rogue);
+
+    let BattleResolutionResult::Resolved { state } =
+        resolve_battle_subject_test_fill(state, subject, BattleFill::ResolveMultiattack)
+    else {
+        panic!("subject combatant profile should resolve multiattack");
+    };
+    assert!(!state.action_available);
+    assert!(state.stat_block_control.multiattack_continuation_open);
+    assert_eq!(state.stat_block_control.pending_primary_dispatches, 2);
+}
+
+#[test]
 fn weapon_hosted_attack_and_riders_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt; RAW:
