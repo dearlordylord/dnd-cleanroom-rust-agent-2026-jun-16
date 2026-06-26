@@ -5312,6 +5312,7 @@ fn multiattack_resolution_uses_subject_combatant_profile() {
     state.rogue.multiattack_profile = Some(primary_stat_block_multiattack_profile(3));
 
     let subject = discover_battle_acts(&state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::Multiattack)
         .expect("combatant profile should make multiattack discoverable")
@@ -6993,7 +6994,8 @@ fn hit_point_restoration_rejects_raw_dead_monster_targets() {
     raw_dead_monster.skeleton.hp = 0;
     assert!(combatant_is_dead(raw_dead_monster.skeleton));
     assert!(discover_battle_acts(&raw_dead_monster)
-        .into_iter()
+        .available_acts()
+        .iter()
         .all(|act| !matches!(
             act.subject.kind,
             BattleSubjectKind::HitPointRestorationSingleTargetSpell
@@ -7026,6 +7028,7 @@ fn hit_point_restoration_rejects_raw_dead_monster_targets() {
             .expect("rogue uses death saving throws");
     mixed_targets.skeleton.hp = 0;
     let feature_subject = discover_battle_acts(&mixed_targets)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::HitPointRestorationFeatureHealingPool)
         .expect("rogue should be the restorable zero-HP target")
@@ -7068,6 +7071,7 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
 
     let slot_state = start_fighter_skeleton_battle();
     let slot_subject = discover_battle_acts(&slot_state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::SlotSpell)
         .expect("slot spell route should be discoverable")
@@ -7082,6 +7086,7 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
 
     let save_state = start_fighter_skeleton_battle();
     let save_subject = discover_battle_acts(&save_state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::SaveGatedAreaDamage)
         .expect("save-gated route should be discoverable")
@@ -7098,6 +7103,7 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
         with_zero_hit_point_lifecycle(start_fighter_skeleton_battle(), Actor::Rogue)
             .expect("rogue uses death saving throws");
     let restoration_subject = discover_battle_acts(&restoration_state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::HitPointRestorationSingleTargetSpell)
         .expect("Hit Point restoration route should be discoverable")
@@ -7112,6 +7118,7 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
 
     let concentration_state = start_fighter_skeleton_battle();
     let concentration_subject = discover_battle_acts(&concentration_state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::ConcentrationTeardown)
         .expect("concentration teardown route should be discoverable")
@@ -7126,6 +7133,7 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
 
     let concentration_state = start_fighter_skeleton_battle();
     let concentration_subject = discover_battle_acts(&concentration_state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::ConcentrationTeardown)
         .expect("concentration teardown route should be discoverable")
@@ -7142,13 +7150,19 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
 #[test]
 fn reducer_entrypoint_contract_consumes_typed_resolution_requests() {
     use crate::rules::battle_reducer_spine::{
-        discover_battle_acts, resolve_battle_subject, start_battle, Actor, BattleResolutionRequest,
-        BattleResolutionRequestError, BattleResolutionResult, BattleSetup, BattleSubjectKind,
-        BattleWeaponAttackFill,
+        discover_battle_acts, resolve_battle_subject, start_battle, Actor,
+        BattleActDiscoveryResult, BattleResolutionRequest, BattleResolutionRequestError,
+        BattleResolutionResult, BattleSetup, BattleSubjectKind, BattleWeaponAttackFill,
     };
 
     let state = start_battle(BattleSetup::standard()).state;
-    let weapon_act = discover_battle_acts(&state)
+    let discovery: BattleActDiscoveryResult = discover_battle_acts(&state);
+    assert_eq!(discovery.current_actor(), Actor::Fighter);
+    assert!(discovery.action_available());
+    assert!(!discovery.available_acts().is_empty());
+
+    let weapon_act = discovery
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::WeaponAttack)
         .expect("fighter should have one weapon attack act");
@@ -7180,14 +7194,20 @@ fn reducer_entrypoint_contract_consumes_typed_resolution_requests() {
 fn reducer_entrypoint_contract_observes_public_entrypoint_sequence() {
     use crate::rules::battle_reducer_spine::{
         advance_turn_observed, discover_battle_acts_observed, resolve_battle_subject_observed,
-        start_battle_observed, Actor, BattleEntrypointEvent, BattleEntrypointKind,
-        BattleEntrypointTrace, BattleResolutionOutcome, BattleResolutionRequest,
-        BattleResolutionResult, BattleSetup, BattleSubjectKind, BattleWeaponAttackFill,
+        start_battle_observed, Actor, BattleActDiscoveryResult, BattleEntrypointEvent,
+        BattleEntrypointKind, BattleEntrypointTrace, BattleResolutionOutcome,
+        BattleResolutionRequest, BattleResolutionResult, BattleSetup, BattleSubjectKind,
+        BattleWeaponAttackFill,
     };
 
     let mut trace = BattleEntrypointTrace::default();
     let state = start_battle_observed(BattleSetup::standard(), &mut trace).state;
-    let weapon_act = discover_battle_acts_observed(&state, &mut trace)
+    let discovery: BattleActDiscoveryResult = discover_battle_acts_observed(&state, &mut trace);
+    assert_eq!(discovery.current_actor(), Actor::Fighter);
+    assert!(discovery.action_available());
+
+    let weapon_act = discovery
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::WeaponAttack)
         .expect("fighter should have one weapon attack act");
@@ -7246,6 +7266,7 @@ fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
     assert_eq!(state.goblin.hp, 10);
 
     let weapon_act = discover_battle_acts(&state)
+        .into_available_acts()
         .into_iter()
         .find(|act| {
             act.subject.kind == crate::rules::battle_reducer_spine::BattleSubjectKind::WeaponAttack
@@ -7308,6 +7329,7 @@ fn experimental_qnt_spine_rejects_attack_roll_before_target_choice() {
 
     let state = start_battle(BattleSetup::standard()).state;
     let act = discover_battle_acts(&state)
+        .into_available_acts()
         .into_iter()
         .find(|act| {
             act.subject.kind == crate::rules::battle_reducer_spine::BattleSubjectKind::WeaponAttack

@@ -682,6 +682,7 @@ fn discovered_restoration_act(
     kind: BattleSubjectKind,
 ) -> crate::rules::battle_reducer_spine::AvailableBattleAct {
     discover_battle_acts(state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == kind)
         .expect("restoration diagnostic act should be discovered through reducer")

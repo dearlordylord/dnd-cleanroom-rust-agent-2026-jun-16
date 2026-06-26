@@ -203,6 +203,7 @@ fn discovered_death_saving_throw_act(
     state: &BattleState,
 ) -> crate::rules::battle_reducer_spine::AvailableBattleAct {
     discover_battle_acts(state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::DeathSavingThrow)
         .expect("death saving throw route should discover one death-save act")
@@ -273,6 +274,7 @@ fn fighter_death_saving_throw_state(state: &BattleState) -> DeathSavingThrowStat
 
 fn death_saving_throw_route_holes(state: &BattleState) -> Vec<BattleHoleKind> {
     discover_battle_acts(state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::DeathSavingThrow)
         .map(|act| act.holes)

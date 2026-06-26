@@ -115,20 +115,20 @@ Generated branch coverage:
 
 | Obligation | Target replay evidence | Harness adapter check | Status |
 | --- | --- | --- | --- |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doDiscoverAttack` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doDiscoverAttack#step:doDiscoverAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillAttackRollHit#step:doFillAttackRollHit` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillAttackRollMiss#step:doFillAttackRollMiss` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHigh` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageHigh#step:doFillDamageHigh` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHighSneakAttack` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageHighSneakAttack#step:doFillDamageHighSneakAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLow` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageLow#step:doFillDamageLow` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLowSneakAttack` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageLowSneakAttack#step:doFillDamageLowSneakAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillTarget` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillTarget#step:doFillTarget` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectRecursiveSkeletonMultiattack` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doRejectRecursiveSkeletonMultiattack#step:doRejectRecursiveSkeletonMultiattack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectStaleAfterResolved` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectWrongTarget` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doRejectWrongTarget#step:doRejectWrongTarget` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doResolveSkeletonMultiattack` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doSpendSkeletonMultiattackDispatch` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doStartSkeletonTurn` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doStartSkeletonTurn#step:doStartSkeletonTurn` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doDiscoverAttack` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doDiscoverAttack#step:doDiscoverAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillAttackRollHit#step:doFillAttackRollHit` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillAttackRollMiss#step:doFillAttackRollMiss` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHigh` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageHigh#step:doFillDamageHigh` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHighSneakAttack` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageHighSneakAttack#step:doFillDamageHighSneakAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLow` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageLow#step:doFillDamageLow` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLowSneakAttack` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageLowSneakAttack#step:doFillDamageLowSneakAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillTarget` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillTarget#step:doFillTarget` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectRecursiveSkeletonMultiattack` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectRecursiveSkeletonMultiattack#step:doRejectRecursiveSkeletonMultiattack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectStaleAfterResolved` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectWrongTarget` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectWrongTarget#step:doRejectWrongTarget` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doResolveSkeletonMultiattack` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doSpendSkeletonMultiattackDispatch` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doStartSkeletonTurn` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doStartSkeletonTurn#step:doStartSkeletonTurn` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
 
 Target replay evidence:
 
@@ -452,3 +452,86 @@ Verification results:
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
+
+## RRCONV-19B: Act Discovery Contract
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Driver used for dirty replay evidence: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+- Task artifacts: `tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/`
+- Cleanroom freshness: dirty cleanroom acceleration evidence only; this does not claim fresh package acceptance.
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.route.mbt.qnt`
+- `cleanroom-input/guidance/reducer-spine.md`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- Repo-local `src/**`, `tasks/**`, and Rust/Cargo tooling
+
+Behavior implemented:
+
+- Added `BattleActDiscoveryResult` as the typed public result returned by `discover_battle_acts` and `discover_battle_acts_observed`.
+- Kept discovered acts owned by the result and exposed intentional `available_acts` / `into_available_acts` accessors plus derivable current-actor and action-availability metadata.
+- Updated cleanroom adapters and reducer-entrypoint tests to consume the typed discovery result through the shared reducer entrypoint.
+- Added no durable `BattleState` fields for this task.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Harness adapter check | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doDiscoverAttack` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doDiscoverAttack#step:doDiscoverAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillAttackRollHit#step:doFillAttackRollHit` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillAttackRollMiss#step:doFillAttackRollMiss` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHigh` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageHigh#step:doFillDamageHigh` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHighSneakAttack` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageHighSneakAttack#step:doFillDamageHighSneakAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLow` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageLow#step:doFillDamageLow` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLowSneakAttack` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageLowSneakAttack#step:doFillDamageLowSneakAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillTarget` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillTarget#step:doFillTarget` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectRecursiveSkeletonMultiattack` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectRecursiveSkeletonMultiattack#step:doRejectRecursiveSkeletonMultiattack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectStaleAfterResolved` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectWrongTarget` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectWrongTarget#step:doRejectWrongTarget` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doResolveSkeletonMultiattack` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doSpendSkeletonMultiattackDispatch` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doStartSkeletonTurn` | `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doStartSkeletonTurn#step:doStartSkeletonTurn` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction trace id prefix: `RRCONV-19B dirty replay action=`
+- Checked route projection: `qRoute` with `route-event-list` comparator
+
+Supplemental dirty diagnostics:
+
+- `cargo test reducer_entrypoint_contract` asserts that callers receive `BattleActDiscoveryResult` from the shared discovery entrypoint and consume it intentionally.
+- `cargo test experimental_qnt_spine` exercises reducer-spine weapon attack checks.
+- `cargo test weapon_attack_skeleton_adapter_replays_all_branches` replays the selected weapon skeleton branch set through the adapter.
+
+Harness artifacts:
+
+- Start gate: `tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/START_GATE.json`
+- Engine depth: `tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- Fresh cleanroom package acceptance is not claimed by RRCONV-19B; this remains dirty cleanroom acceleration evidence.
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test reducer_entrypoint_contract` passed.
+- `cargo test experimental_qnt_spine` passed.
+- `cargo test weapon_attack_skeleton_adapter_replays_all_branches` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 1c805870c08b6632dba560019c2c7a75dc5ed991...HEAD` passed.

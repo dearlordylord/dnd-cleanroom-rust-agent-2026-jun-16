@@ -284,6 +284,7 @@ fn discovered_concentration_teardown_act(
     state: &BattleState,
 ) -> crate::rules::battle_reducer_spine::AvailableBattleAct {
     discover_battle_acts(state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::ConcentrationTeardown)
         .expect("concentration route should discover one teardown act")

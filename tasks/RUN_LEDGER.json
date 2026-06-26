@@ -398,6 +398,86 @@
         }
       ],
       "taskId": "RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
+    },
+    {
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/START_GATE.json",
+          "sha256": "c719d953a9d85f55721ab31ebd7be9936aabda3675c42d6a3f2ef8f94cfc5f1a"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "a9988b97370d0b4a2d93bdcf08e07b70d233e60ccbb6c9176af7598a0de48831"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/STATE_OWNER_MANIFEST.json",
+          "sha256": "5d3b6ecc1629802efbf26254127245f20461e9c5efa356c761d5073ac164718f"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/REVIEW_LOOP.json",
+          "sha256": "1332e3d4ceb2e7b6a87a995f8cbd0c971c3e9d31b5b44dffd40bea982f4a4b41"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/DECIDER_DECISION.json",
+          "sha256": "2bf97061e113d4e039c7fc181505111054990b0bc6e69afdc0d7763f176b0c07"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_entrypoint_contract",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test experimental_qnt_spine",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test weapon_attack_skeleton_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 1c805870c08b6632dba560019c2c7a75dc5ed991...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json",
+          "sha256": "b55669c41913df311137a48883eacdc1281e34d0524f82c58f46873526c4dbeb",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doDiscoverAttack#step:doDiscoverAttack",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillAttackRollHit#step:doFillAttackRollHit",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageHigh#step:doFillDamageHigh",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageHighSneakAttack#step:doFillDamageHighSneakAttack",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageLow#step:doFillDamageLow",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageLowSneakAttack#step:doFillDamageLowSneakAttack",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillTarget#step:doFillTarget",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectRecursiveSkeletonMultiattack#step:doRejectRecursiveSkeletonMultiattack",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectWrongTarget#step:doRejectWrongTarget",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doStartSkeletonTurn#step:doStartSkeletonTurn"
+          ]
+        }
+      ],
+      "taskId": "RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
