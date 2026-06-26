@@ -8,10 +8,10 @@ use crate::rules::creature_size::CreatureSize;
 use crate::rules::stat_block_action_ordering::StatBlockActionFrontierStage;
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts, route_discover_battle_acts_from_route_holes,
+    route_discover_battle_acts, route_discover_battle_acts_from_result,
     route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
-    ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
-    ReducerRouteResolveConnector, ReducerRouteResolveFill, ReducerRouteSubjectFamily,
+    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
+    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -230,7 +230,7 @@ fn medium_subject_route() -> (BattleState, StatBlockActionSubject, Vec<ReducerRo
         Actor::Goblin,
         false,
     );
-    let route = initial_stat_block_route();
+    let route = initial_stat_block_route(&result);
     let (state, subject) = expect_needs_holes(result);
     (state, subject, route)
 }
@@ -352,12 +352,12 @@ fn expect_needs_holes(result: BattleResolutionResult) -> (BattleState, StatBlock
     }
 }
 
-fn initial_stat_block_route() -> Vec<ReducerRouteEvent> {
+fn initial_stat_block_route(result: &BattleResolutionResult) -> Vec<ReducerRouteEvent> {
     vec![
         route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-        route_discover_battle_acts_from_route_holes(
+        route_discover_battle_acts_from_result(
             ReducerRouteSubjectFamily::StatBlockAction,
-            vec![ReducerRouteHoleKind::TargetChoice],
+            result,
             ReducerRouteOwnerGroup::StatBlockAction,
         ),
     ]

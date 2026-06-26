@@ -126,6 +126,15 @@ pub fn route_discover_battle_acts_from_route_holes(
 }
 
 #[must_use]
+pub fn route_discover_battle_acts_from_result(
+    subject: ReducerRouteSubjectFamily,
+    result: &BattleResolutionResult,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_discover_battle_acts_from_route_holes(subject, reducer_route_result_holes(result), owner)
+}
+
+#[must_use]
 pub fn route_resolve_battle_subject(
     subject: ReducerRouteSubjectFamily,
     fill: ReducerRouteFillKind,
@@ -402,12 +411,14 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
 #[cfg(test)]
 mod tests {
     use super::{
+        battle_resolution_continuation, route_discover_battle_acts_from_result,
         route_resolve_battle_subject_from_result, ReducerRouteEvent, ReducerRouteFillKind,
         ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
         ReducerRouteResolveFill, ReducerRouteSubjectFamily,
     };
     use crate::rules::battle_reducer_spine::{
-        start_fighter_skeleton_battle, Actor, BattleHoleKind, BattleResolutionInvalidReason,
+        discover_rolled_stat_block_attack_control, start_fighter_skeleton_battle,
+        start_stat_block_actor_battle, Actor, BattleHoleKind, BattleResolutionInvalidReason,
         BattleResolutionResult, BattleSubject, BattleSubjectKind,
     };
     use crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage;
@@ -491,6 +502,49 @@ mod tests {
                 owner: ReducerRouteOwnerGroup::Concentration,
             }
         );
+    }
+
+    #[test]
+    fn discovery_route_event_reads_stat_block_holes_from_resolution_result() {
+        let result = discover_rolled_stat_block_attack_control(
+            start_stat_block_actor_battle(Actor::Goblin),
+            Actor::Goblin,
+        );
+
+        let event = route_discover_battle_acts_from_result(
+            ReducerRouteSubjectFamily::StatBlockAction,
+            &result,
+            ReducerRouteOwnerGroup::StatBlockAction,
+        );
+
+        assert_eq!(
+            event,
+            ReducerRouteEvent::DiscoverBattleActs {
+                subject: ReducerRouteSubjectFamily::StatBlockAction,
+                holes: vec![ReducerRouteHoleKind::TargetChoice],
+                owner: ReducerRouteOwnerGroup::StatBlockAction,
+            }
+        );
+    }
+
+    #[test]
+    fn continuation_helper_consumes_stat_block_needs_holes_result() {
+        let result = discover_rolled_stat_block_attack_control(
+            start_stat_block_actor_battle(Actor::Goblin),
+            Actor::Goblin,
+        );
+        let borrowed = result
+            .needs_holes()
+            .expect("stat-block needs-holes result should expose generic holes");
+        let continuing_subject = result
+            .continuing_subject()
+            .expect("stat-block needs-holes result should expose a continuing subject");
+
+        assert_eq!(borrowed.holes(), &[BattleHoleKind::TargetChoice]);
+        assert_eq!(borrowed.subject(), continuing_subject);
+
+        let (_, subject) = battle_resolution_continuation(result, "stat-block test continuation");
+        assert_eq!(subject, continuing_subject);
     }
 
     fn route_test_subject(kind: BattleSubjectKind) -> BattleSubject {

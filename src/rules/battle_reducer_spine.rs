@@ -1075,10 +1075,18 @@ impl BattleResolutionResult {
                 subject: *subject,
                 holes,
             }),
+            Self::StatBlockNeedsHoles {
+                state,
+                subject,
+                holes,
+            } => Some(BattleResolutionNeedsHoles {
+                state,
+                subject: battle_subject_from_stat_block_action_subject(*subject),
+                holes,
+            }),
             Self::Resolved { .. }
             | Self::TurnAdvanced { .. }
             | Self::Invalid { .. }
-            | Self::StatBlockNeedsHoles { .. }
             | Self::StatBlockResolved { .. }
             | Self::StatBlockInvalid { .. } => None,
         }
@@ -1096,10 +1104,18 @@ impl BattleResolutionResult {
                 subject,
                 holes,
             }),
+            Self::StatBlockNeedsHoles {
+                state,
+                subject,
+                holes,
+            } => Some(BattleResolutionNeedsHolesParts {
+                state,
+                subject: battle_subject_from_stat_block_action_subject(subject),
+                holes,
+            }),
             Self::Resolved { .. }
             | Self::TurnAdvanced { .. }
             | Self::Invalid { .. }
-            | Self::StatBlockNeedsHoles { .. }
             | Self::StatBlockResolved { .. }
             | Self::StatBlockInvalid { .. } => None,
         }
