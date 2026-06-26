@@ -201,7 +201,17 @@
         "Command reducer still dispatches through fixture Actor::Goblin/Actor::Fighter instead of reducer-owned subject/target/current-actor state.",
         "Route evidence is self-referential and too shallow: expected routes call observed routes and comparator discards most BattleResolutionResult outcome data.",
         "Lane artifacts disagree on assignment identity between START_GATE.json and RUN_LEDGER.json."
-      ]
+      ],
+      "fixerAgent": "019f0615-ccf7-70c3-a241-9784c8cedcae",
+      "fixerName": "Sartre",
+      "fixStatus": "committed",
+      "fixCommit": "0b1dbfb3d7ace478fcf389d076870c9907e7ff27",
+      "fixerResolution": [
+        "Command target/prone/movement routing now derives from BattleCommandEffectSubject target/actor state instead of fixture actors.",
+        "RR06 expected route evidence no longer calls observed replay entrypoints and includes reducer outcome/state facts.",
+        "RUN_LEDGER assignment identity now matches level-1-2-runtime-reducer-route."
+      ],
+      "rereviewStatus": "pending"
     }
   ],
   "completedLaneWorktrees": [
