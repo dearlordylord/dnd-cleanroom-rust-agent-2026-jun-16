@@ -1,0 +1,460 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-quint-connect-weapon-attack-skeleton-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doDiscoverAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doDiscoverAttack",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9177197ea15778703fffa4a0a40ad681c7dda624cd5840bcee59b77f55f46db7",
+        "observedProjectionSha256": "9177197ea15778703fffa4a0a40ad681c7dda624cd5840bcee59b77f55f46db7",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doDiscoverAttack"
+    },
+    {
+      "branchAction": "doFillAttackRollHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillAttackRollHit",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "43f6ebb499c7dc4f5fec948fc8a4e70cf7e2334821f4569414fa37db953d4dcb",
+        "observedProjectionSha256": "43f6ebb499c7dc4f5fec948fc8a4e70cf7e2334821f4569414fa37db953d4dcb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doFillAttackRollHit"
+    },
+    {
+      "branchAction": "doFillAttackRollMiss",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillAttackRollMiss",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "49f5ae328430569a19560cbf5362068013f82e6e3b3a1b01a902a3fc2a78e7f9",
+        "observedProjectionSha256": "49f5ae328430569a19560cbf5362068013f82e6e3b3a1b01a902a3fc2a78e7f9",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doFillAttackRollMiss"
+    },
+    {
+      "branchAction": "doFillDamageHigh",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillDamageHigh",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0ccfad98aca36f751542663ec379596fc904565fdba0fb21019b9794b1dd2dbe",
+        "observedProjectionSha256": "0ccfad98aca36f751542663ec379596fc904565fdba0fb21019b9794b1dd2dbe",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doFillDamageHigh"
+    },
+    {
+      "branchAction": "doFillDamageHighSneakAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillDamageHighSneakAttack",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0ccfad98aca36f751542663ec379596fc904565fdba0fb21019b9794b1dd2dbe",
+        "observedProjectionSha256": "0ccfad98aca36f751542663ec379596fc904565fdba0fb21019b9794b1dd2dbe",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doFillDamageHighSneakAttack"
+    },
+    {
+      "branchAction": "doFillDamageLow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillDamageLow",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0ccfad98aca36f751542663ec379596fc904565fdba0fb21019b9794b1dd2dbe",
+        "observedProjectionSha256": "0ccfad98aca36f751542663ec379596fc904565fdba0fb21019b9794b1dd2dbe",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doFillDamageLow"
+    },
+    {
+      "branchAction": "doFillDamageLowSneakAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillDamageLowSneakAttack",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0ccfad98aca36f751542663ec379596fc904565fdba0fb21019b9794b1dd2dbe",
+        "observedProjectionSha256": "0ccfad98aca36f751542663ec379596fc904565fdba0fb21019b9794b1dd2dbe",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doFillDamageLowSneakAttack"
+    },
+    {
+      "branchAction": "doFillTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillTarget",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "46131caff189cbd756a53b9a75279f0e1db5496140506c5c1859688b46d2c765",
+        "observedProjectionSha256": "46131caff189cbd756a53b9a75279f0e1db5496140506c5c1859688b46d2c765",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doFillTarget"
+    },
+    {
+      "branchAction": "doRejectRecursiveSkeletonMultiattack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doRejectRecursiveSkeletonMultiattack",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a513fde3945aee54d5d550d82d9035f5a4bb4b6b80f8caa91f291239391b1968",
+        "observedProjectionSha256": "a513fde3945aee54d5d550d82d9035f5a4bb4b6b80f8caa91f291239391b1968",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doRejectRecursiveSkeletonMultiattack"
+    },
+    {
+      "branchAction": "doRejectStaleAfterResolved",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doRejectStaleAfterResolved",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "be80a2cb7ef44e3a97a4778eeec7981c4e24bae07949615bb16b7585785c86ec",
+        "observedProjectionSha256": "be80a2cb7ef44e3a97a4778eeec7981c4e24bae07949615bb16b7585785c86ec",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doRejectStaleAfterResolved"
+    },
+    {
+      "branchAction": "doRejectWrongTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doRejectWrongTarget",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5eca037c805192ca701e615fb50b03cb908fd19aa5d55aabb738028e8cf70b0d",
+        "observedProjectionSha256": "5eca037c805192ca701e615fb50b03cb908fd19aa5d55aabb738028e8cf70b0d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doRejectWrongTarget"
+    },
+    {
+      "branchAction": "doResolveSkeletonMultiattack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doResolveSkeletonMultiattack",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ec629461a7c58c764e3d454ac646eadf47b8c427ce3d568f5b476dea7c7f916a",
+        "observedProjectionSha256": "ec629461a7c58c764e3d454ac646eadf47b8c427ce3d568f5b476dea7c7f916a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doResolveSkeletonMultiattack"
+    },
+    {
+      "branchAction": "doSpendSkeletonMultiattackDispatch",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doSpendSkeletonMultiattackDispatch",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d5bf2121793d955a37695d6752df43015cd08dcd561286034653585c0e1bc05e",
+        "observedProjectionSha256": "d5bf2121793d955a37695d6752df43015cd08dcd561286034653585c0e1bc05e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doSpendSkeletonMultiattackDispatch"
+    },
+    {
+      "branchAction": "doStartSkeletonTurn",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doStartSkeletonTurn",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.rogue.sneak_attack_used_this_turn",
+          "BattleState.rogue.weapon_attack_supported",
+          "BattleState.rogue.weapon_damage_modifier",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.lifecycle",
+          "BattleState.skeleton.multiattack_profile",
+          "BattleState.stat_block_control.multiattack_continuation_open",
+          "BattleState.stat_block_control.pending_primary_dispatches"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "81756570000b2b718be18508c60254967dfce6cc99effef2d35bb7172b637654",
+        "observedProjectionSha256": "81756570000b2b718be18508c60254967dfce6cc99effef2d35bb7172b637654",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19A dirty replay action=doStartSkeletonTurn"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

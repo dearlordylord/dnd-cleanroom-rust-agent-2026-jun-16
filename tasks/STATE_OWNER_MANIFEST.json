@@ -1,126 +1,182 @@
 {
-  "schemaVersion": 1,
-  "taskId": "RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
   "durableFields": [
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.action_available",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.attack_roll_made_this_turn",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.concentration",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.fighter.multiattack_profile",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.fighter.spell_slots.first_level_expended",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.fighter.weapon_attack_supported",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.fighter.weapon_damage_modifier",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.goblin.multiattack_profile",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.goblin.weapon_attack_supported",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.goblin.weapon_damage_modifier",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.rogue.multiattack_profile",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.rogue.sneak_attack_used_this_turn",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.rogue.weapon_attack_supported",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.rogue.weapon_damage_modifier",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.skeleton.hp",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.skeleton.lifecycle",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.skeleton.multiattack_profile",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.skeleton.weapon_attack_supported",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.skeleton.weapon_damage_modifier",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source"
-      }
+      "owner": "battle-state"
     },
     {
-      "fieldPath": "BattleState.slot_spell_procedure",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
       "derivability": {
         "tag": "canonical-source"
-      }
+      },
+      "fieldPath": "BattleState.slot_spell_procedure",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.stat_block_control.multiattack_continuation_open",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.stat_block_control.pending_primary_dispatches",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
     }
-  ]
+  ],
+  "schemaVersion": 1,
+  "taskId": "RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
 }

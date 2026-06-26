@@ -1,48 +1,48 @@
 {
-  "schemaVersion": 1,
-  "taskId": "RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
   "decision": "accepted",
   "deterministicGates": [
     {
+      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
       "gate": "start-gate",
-      "status": "pass",
-      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json",
       "gate": "branch-coverage",
-      "status": "pass",
-      "evidence": "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
       "gate": "adapter-quarantine",
-      "status": "pass",
-      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
       "gate": "engine-depth",
-      "status": "pass",
-      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
       "gate": "state-owner-derivability",
-      "status": "pass",
-      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
       "gate": "authored-identity-dispatch",
-      "status": "pass",
-      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/VALIDATION_REPORT.md",
       "gate": "report-honesty",
-      "status": "pass",
-      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
+      "status": "pass"
     },
     {
+      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
       "gate": "reviewer-loop-convergence",
-      "status": "pass",
-      "evidence": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
+      "status": "pass"
     }
   ],
-  "rejectedFindings": []
+  "rejectedFindings": [],
+  "schemaVersion": 1,
+  "taskId": "RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
 }

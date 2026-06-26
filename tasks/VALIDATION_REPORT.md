@@ -7,7 +7,7 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
 - Next queued driver: `<none for reducer-spine-diagnostic-battle>`
 - Next task id: `T006`
 
@@ -87,17 +87,18 @@ Verification results:
 
 - Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Driver used for rolling harness acceptance: `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
+- Driver used for rolling harness acceptance: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
 - Task artifacts: `tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/`
+- Cleanroom freshness: dirty cleanroom evidence only; this does not claim fresh package acceptance.
 
 Allowed inputs used:
 
 - `cleanroom-input/MANIFEST.md`
 - `cleanroom-input/branch-coverage/source-branch-inventory.json`
 - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.route.mbt.qnt`
 - `cleanroom-input/guidance/reducer-spine.md`
 - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
 - Repo-local `src/**`, `tasks/**`, and Rust/Cargo tooling
@@ -105,30 +106,66 @@ Allowed inputs used:
 Behavior implemented:
 
 - Added typed `BattleSetup` setup facts and typed `BattleStartResult` as the public `start_battle(setup)` entrypoint result.
-- Kept scenario helpers as setup conveniences that build `BattleSetup` and call `start_battle(setup)` before returning `BattleState`.
-- Moved weapon and multiattack discovery/resolution off fixture-role dispatch by adding combatant capability facts for weapon attack support, damage modifier, and multiattack profile.
-- Preserved the existing reducer-route replay surface and tests.
+- Kept scenario helpers as setup conveniences that build `BattleSetup`, call `start_battle(setup)`, and return `BattleState`.
+- Recorded the public reducer entrypoint observer sequence through `start_battle_observed`, `discover_battle_acts_observed`, `resolve_battle_subject_observed`, and `advance_turn_observed`.
+- Replaced fixture-role multiattack routing with combatant capability facts; multiattack discovery and resolution use `Combatant.multiattack_profile` on the subject combatant.
+- Rebased RRCONV-19A branch evidence on the weapon-attack skeleton route, which exercises weapon attack discovery/resolution and stat-block multiattack dispatch through the reducer spine.
 
 Generated branch coverage:
 
-| Obligation | Target replay evidence | Diagnostic tests | Status |
+| Obligation | Target replay evidence | Harness adapter check | Status |
 | --- | --- | --- | --- |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doCastConcentrationSpell` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doCastConcentrationSpell#step:doCastConcentrationSpell` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doCastReplacementConcentrationSpell` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doCastReplacementConcentrationSpell#step:doCastReplacementConcentrationSpell` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doDamageRequestsConcentrationSave` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doDamageRequestsConcentrationSave#step:doDamageRequestsConcentrationSave` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doFailConcentrationSave` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doFailConcentrationSave#step:doFailConcentrationSave` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doVoluntaryEndConcentration` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doVoluntaryEndConcentration#step:doVoluntaryEndConcentration` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doDiscoverAttack` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doDiscoverAttack#step:doDiscoverAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillAttackRollHit#step:doFillAttackRollHit` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillAttackRollMiss#step:doFillAttackRollMiss` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHigh` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageHigh#step:doFillDamageHigh` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHighSneakAttack` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageHighSneakAttack#step:doFillDamageHighSneakAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLow` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageLow#step:doFillDamageLow` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLowSneakAttack` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageLowSneakAttack#step:doFillDamageLowSneakAttack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillTarget` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillTarget#step:doFillTarget` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectRecursiveSkeletonMultiattack` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doRejectRecursiveSkeletonMultiattack#step:doRejectRecursiveSkeletonMultiattack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectStaleAfterResolved` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectWrongTarget` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doRejectWrongTarget#step:doRejectWrongTarget` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doResolveSkeletonMultiattack` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doSpendSkeletonMultiattackDispatch` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doStartSkeletonTurn` | `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doStartSkeletonTurn#step:doStartSkeletonTurn` | `weapon_attack_skeleton_adapter_replays_all_branches` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction trace id prefix: `RRCONV-19A dirty replay action=`
+- Checked route projection: `qRoute` with `route-event-list` comparator
+
+Supplemental dirty diagnostics:
+
+- `cargo test reducer_entrypoint_contract` exercises typed `BattleResolutionRequest`, `BattleSetup`, `BattleStartResult`, and the public observer sequence.
+- `cargo test multiattack_resolution_uses_subject_combatant_profile` exercises multiattack discovery and resolution from the acting combatant's `multiattack_profile`.
+- `cargo test experimental_qnt_spine` exercises the existing reducer-spine weapon attack checks.
+
+Harness artifacts:
+
+- Start gate: `tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/START_GATE.json`
+- Engine depth: `tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- Fresh cleanroom package acceptance is not claimed by RRCONV-19A; this remains dirty cleanroom evidence.
 
 Verification results:
 
 - `cargo fmt --check` passed.
-- `cargo test` passed.
-- `cargo clippy --all-targets -- -D warnings` passed.
+- `cargo test reducer_entrypoint_contract` passed.
+- `cargo test multiattack_resolution_uses_subject_combatant_profile` passed.
+- `cargo test experimental_qnt_spine` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
-
-Remaining gaps:
-
-- `_none_`
+- `git diff --check 1313b305906f85462c65bca4b281da7d8e82e429...HEAD` passed.
 
 ## T002: Save-Gated Spell Ordering
 

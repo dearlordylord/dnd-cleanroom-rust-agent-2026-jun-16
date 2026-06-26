@@ -8,10 +8,10 @@
   "startHeadSha": "1313b305906f85462c65bca4b281da7d8e82e429",
   "taskId": "RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
   "taskScope": {
-    "assignmentId": "reducer-spine-diagnostic-battle",
+    "assignmentId": "level-1-2-full",
     "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt"
     ]
   }
 }

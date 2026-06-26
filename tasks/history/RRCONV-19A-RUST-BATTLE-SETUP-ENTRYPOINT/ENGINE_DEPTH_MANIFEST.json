@@ -1,17 +1,9 @@
 {
-  "schemaVersion": 1,
-  "taskId": "RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
-  "productionModulesExtended": [
+  "accumulatorGrowth": [
     {
-      "path": "src/rules/battle_reducer_spine.rs",
-      "role": "domain-engine",
-      "domainApis": [
-        "BattleSetup",
-        "BattleStartResult",
-        "start_battle",
-        "start_standard_battle",
-        "discover_battle_acts"
-      ]
+      "addedEntries": 14,
+      "owner": "adapter",
+      "reason": "target-replay-evidence-for-existing-weapon-skeleton-branches"
     }
   ],
   "adapterModules": [
@@ -21,12 +13,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -34,7 +34,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -42,7 +41,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -51,12 +50,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -64,7 +71,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -72,7 +78,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -81,12 +87,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -94,7 +108,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -102,7 +115,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -111,12 +124,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -124,7 +145,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -132,7 +152,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -141,12 +161,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -154,7 +182,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -162,7 +189,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -171,12 +198,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -184,7 +219,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -192,7 +226,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -201,12 +235,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -214,7 +256,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -222,7 +263,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -231,12 +272,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -244,7 +293,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -252,7 +300,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -261,12 +309,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -274,7 +330,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -282,7 +337,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -291,12 +346,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -304,7 +367,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -312,7 +374,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -321,12 +383,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -334,7 +404,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -342,7 +411,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -351,12 +420,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -364,7 +441,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -372,7 +448,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -381,12 +457,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -394,7 +478,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -402,7 +485,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -411,12 +494,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -424,7 +515,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -432,7 +522,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -441,12 +531,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -454,7 +552,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -462,7 +559,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -471,12 +568,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -484,7 +589,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -492,7 +596,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -501,12 +605,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -514,7 +626,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -522,7 +633,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -531,12 +642,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -544,7 +663,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -552,7 +670,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -561,12 +679,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -574,7 +700,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -582,7 +707,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -591,12 +716,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -604,7 +737,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -612,7 +744,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -621,12 +753,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -634,7 +774,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -642,7 +781,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -651,12 +790,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -664,7 +811,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -672,7 +818,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -681,12 +827,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -694,7 +848,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -702,7 +855,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -711,12 +864,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -724,7 +885,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -732,7 +892,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -741,12 +901,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -754,7 +922,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -762,7 +929,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -771,12 +938,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -784,7 +959,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -792,7 +966,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -801,12 +975,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -814,7 +996,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -822,7 +1003,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -831,12 +1012,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -844,7 +1033,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -852,7 +1040,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -861,12 +1049,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -874,7 +1070,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -882,7 +1077,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -891,12 +1086,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -904,7 +1107,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -912,7 +1114,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -921,12 +1123,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -934,7 +1144,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -942,7 +1151,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -951,12 +1160,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -964,7 +1181,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -972,7 +1188,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -981,12 +1197,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -994,7 +1218,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1002,7 +1225,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1011,12 +1234,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1024,7 +1255,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1032,7 +1262,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1041,12 +1271,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1054,7 +1292,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1062,7 +1299,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1071,12 +1308,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1084,7 +1329,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1092,7 +1336,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1101,12 +1345,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1114,7 +1366,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1122,7 +1373,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1131,12 +1382,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1144,7 +1403,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1152,7 +1410,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1161,12 +1419,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1174,7 +1440,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1182,7 +1447,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1191,12 +1456,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1204,7 +1477,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1212,7 +1484,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1221,12 +1493,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1234,7 +1514,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1242,7 +1521,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1251,12 +1530,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1264,7 +1551,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1272,7 +1558,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1281,12 +1567,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1294,7 +1588,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1302,7 +1595,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1311,12 +1604,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1324,7 +1625,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1332,7 +1632,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1341,12 +1641,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1354,7 +1662,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1362,7 +1669,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1371,12 +1678,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1384,7 +1699,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1392,7 +1706,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1401,12 +1715,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1414,7 +1736,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1422,7 +1743,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1431,12 +1752,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1444,7 +1773,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1452,7 +1780,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1461,12 +1789,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1474,7 +1810,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1482,7 +1817,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1491,12 +1826,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1504,7 +1847,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1512,7 +1854,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1521,12 +1863,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1534,7 +1884,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1542,7 +1891,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1551,12 +1900,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1564,7 +1921,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1572,7 +1928,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1581,12 +1937,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1594,7 +1958,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1602,7 +1965,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1611,12 +1974,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1624,7 +1995,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1632,7 +2002,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1641,12 +2011,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1654,7 +2032,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1662,7 +2039,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1671,12 +2048,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1684,7 +2069,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1692,7 +2076,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1701,12 +2085,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1714,7 +2106,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1722,7 +2113,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1731,12 +2122,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1744,7 +2143,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1752,7 +2150,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1761,12 +2159,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1774,7 +2180,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1782,7 +2187,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1791,12 +2196,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1804,7 +2217,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1812,7 +2224,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1821,12 +2233,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1834,7 +2254,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1842,7 +2261,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1851,12 +2270,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1864,7 +2291,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1872,7 +2298,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1881,12 +2307,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1894,7 +2328,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1902,7 +2335,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1911,12 +2344,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1924,7 +2365,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1932,7 +2372,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1941,12 +2381,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1954,7 +2402,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1962,7 +2409,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -1971,12 +2418,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -1984,7 +2439,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -1992,7 +2446,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2001,12 +2455,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2014,7 +2476,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2022,7 +2483,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2031,12 +2492,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2044,7 +2513,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2052,7 +2520,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2061,12 +2529,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2074,7 +2550,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2082,7 +2557,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2091,12 +2566,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2104,7 +2587,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2112,7 +2594,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2121,12 +2603,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2134,7 +2624,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2142,7 +2631,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2151,12 +2640,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2164,7 +2661,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2172,7 +2668,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2181,12 +2677,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2194,7 +2698,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2202,7 +2705,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2211,12 +2714,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2224,7 +2735,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2232,7 +2742,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2241,12 +2751,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2254,7 +2772,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2262,7 +2779,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2271,12 +2788,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2284,7 +2809,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2292,7 +2816,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2301,12 +2825,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2314,7 +2846,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2322,7 +2853,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2331,12 +2862,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2344,7 +2883,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2352,7 +2890,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2361,12 +2899,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2374,7 +2920,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2382,7 +2927,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2391,12 +2936,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2404,7 +2957,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2412,7 +2964,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2421,12 +2973,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2434,7 +2994,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2442,7 +3001,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2451,12 +3010,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2464,7 +3031,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2472,7 +3038,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2481,12 +3047,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2494,7 +3068,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2502,7 +3075,7 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
     },
     {
@@ -2511,12 +3084,20 @@
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
-        "damageDiePip",
-        "doCastConcentrationSpell",
-        "doCastReplacementConcentrationSpell",
-        "doDamageRequestsConcentrationSave",
-        "doFailConcentrationSave",
-        "doVoluntaryEndConcentration",
+        "doDiscoverAttack",
+        "doFillAttackRollHit",
+        "doFillAttackRollMiss",
+        "doFillDamageHigh",
+        "doFillDamageHighSneakAttack",
+        "doFillDamageLow",
+        "doFillDamageLowSneakAttack",
+        "doFillTarget",
+        "doRejectRecursiveSkeletonMultiattack",
+        "doRejectStaleAfterResolved",
+        "doRejectWrongTarget",
+        "doResolveSkeletonMultiattack",
+        "doSpendSkeletonMultiattackDispatch",
+        "doStartSkeletonTurn",
         "expectedProjectionSha256",
         "harnessTestPath",
         "mbt::actionTaken",
@@ -2524,7 +3105,6 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qntFileSha256",
-        "saveRollTotal",
         "sourceBranchInventorySha256",
         "stateCheck",
         "targetProfile",
@@ -2532,32 +3112,37 @@
         "traceId"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json"
+        "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json"
       ]
-    }
-  ],
-  "accumulatorGrowth": [
-    {
-      "owner": "production",
-      "addedEntries": 3,
-      "reason": "typed battle setup capability fields"
-    },
-    {
-      "owner": "adapter",
-      "addedEntries": 0,
-      "reason": "preserved existing concentration route replay evidence"
     }
   ],
   "expectedNextReuse": [
     {
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt",
-      "module": "src/rules/battle_reducer_spine.rs",
-      "api": "start_battle"
+      "api": "BattleSetup",
+      "expectedReuse": "Scenario helpers construct typed setup facts and call start_battle(setup) before returning BattleState."
     },
     {
-      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
-      "module": "src/rules/battle_reducer_spine.rs",
-      "api": "BattleSetup"
+      "api": "Combatant.multiattack_profile",
+      "expectedReuse": "Stat-block multiattack discovery and resolution route by the acting combatant profile instead of fixture identity."
     }
-  ]
+  ],
+  "productionModulesExtended": [
+    {
+      "domainApis": [
+        "BattleSetup",
+        "BattleStartResult",
+        "start_battle",
+        "start_battle_observed",
+        "start_standard_battle",
+        "start_skeleton_battle",
+        "start_stat_block_actor_battle",
+        "discover_battle_acts",
+        "resolve_battle_subject"
+      ],
+      "path": "src/rules/battle_reducer_spine.rs",
+      "role": "domain-engine"
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
 }
