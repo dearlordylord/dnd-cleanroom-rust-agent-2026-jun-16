@@ -249,7 +249,13 @@
         "Command option next-turn expected routes use independent literal route-event construction instead of replay helper reuse.",
         "Missing continuation/discovery no longer manufactures Fighter/Goblin subjects; stale follow attempts report explicit StaleSubject evidence."
       ],
-      "thirdRereviewStatus": "pending"
+      "thirdRereviewStatus": "findings",
+      "thirdRereviewAgent": "019f0647-4cc2-79d1-b803-62640dd3f79c",
+      "thirdRereviewName": "Ohm",
+      "thirdRereviewFindings": [
+        "Command route evidence is not checked against copied route connector battle-runtime-command-ordering.route.mbt.qnt; evidence records non-route driver while claiming qRoute.",
+        "Command next-turn evidence also claims qRoute over a literal projection witness, and local Rust follow expectations diverge from copied command route connector follow routes."
+      ]
     }
   ],
   "completedLaneWorktrees": [
