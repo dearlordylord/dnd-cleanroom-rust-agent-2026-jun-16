@@ -7269,6 +7269,54 @@ fn reducer_entrypoint_contract_observes_public_entrypoint_sequence() {
 }
 
 #[test]
+fn reducer_entrypoint_contract_observes_end_turn_as_subject_resolution() {
+    use crate::rules::battle_reducer_spine::{
+        discover_slot_spell_battle, end_turn_subject, resolve_battle_subject_observed,
+        resolve_slot_spell_subject, start_fighter_skeleton_battle, Actor, BattleEntrypointEvent,
+        BattleEntrypointKind, BattleEntrypointTrace, BattleResolutionOutcome,
+        BattleResolutionRequest, BattleSlotSpellFill, BattleSubjectKind,
+    };
+
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-reducer-spine-contract.mbt.qnt `doEndTurnToTarget`.
+    let state = discover_slot_spell_battle(start_fighter_skeleton_battle());
+    let state = resolve_slot_spell_subject(
+        state,
+        BattleSlotSpellFill::TargetAllocation(Actor::Skeleton),
+    );
+    let state = resolve_slot_spell_subject(state, BattleSlotSpellFill::DamageRoll(3));
+    let request = BattleResolutionRequest::end_turn(end_turn_subject(&state))
+        .expect("end turn subject should accept end turn requests");
+
+    let mut trace = BattleEntrypointTrace::default();
+    let result = resolve_battle_subject_observed(state, request, &mut trace);
+    let turn_advance = result
+        .turn_advance()
+        .expect("end turn resolution should expose turn advancement metadata");
+
+    assert_eq!(
+        trace
+            .events()
+            .iter()
+            .map(BattleEntrypointEvent::kind)
+            .collect::<Vec<_>>(),
+        vec![BattleEntrypointKind::ResolveBattleSubject]
+    );
+    assert!(matches!(
+        trace.events().first(),
+        Some(BattleEntrypointEvent::ResolveBattleSubject {
+            subject: BattleSubjectKind::EndTurn,
+            outcome: BattleResolutionOutcome::Resolved,
+        })
+    ));
+    assert_eq!(turn_advance.previous_actor, Actor::Fighter);
+    assert_eq!(turn_advance.next_actor, Actor::Skeleton);
+    assert_eq!(turn_advance.round, 1);
+    assert!(turn_advance.state.action_available);
+    assert!(turn_advance.state.bonus_action_available);
+}
+
+#[test]
 fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
     use crate::rules::battle_reducer_spine::{
         combatant_is_dead, discover_battle_acts, resolve_battle_subject_test_fill, start_battle,

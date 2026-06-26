@@ -1934,6 +1934,9 @@ function validateLedgerReportHonesty({
 
 function isProductionSource(relativePath, adapterPaths) {
   if (adapterPaths.has(relativePath)) return false;
+  if (/(^|\/)(?:qnt_adapters|qnt-adapters|adapters)(?:\/|$)/i.test(relativePath)) {
+    return false;
+  }
   return !/(^|\/)(?:test|tests|fixture|fixtures|catalog|selection)(?:\/|$)/i.test(
     relativePath,
   );

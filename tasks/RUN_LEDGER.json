@@ -656,6 +656,101 @@
         }
       ],
       "taskId": "RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION/DECIDER_DECISION.json",
+          "sha256": "fb9ff032a16a6edd8e6fa1bdb66f4e1fa8944552bfe4199412af13837f8cb157"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "7606ce1f8662332e9e46fe22dc73e3c73f4a460fdca74fa3eeb6860863d6cd94"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION/REVIEW_LOOP.json",
+          "sha256": "05e672010ea5840f7aa5c15ba09d068e5a85df8d720fb8b85ffabfef7993a8d8"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION/START_GATE.json",
+          "sha256": "818aa577d94b1665926ed506d494acdda3dfdc849940802738e4acbdc87f5651"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION/STATE_OWNER_MANIFEST.json",
+          "sha256": "ac32b8187af09ecf80bf869ef995a0fef56cc73f192d82acdf9e1a07517f101b"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "git rev-parse HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "git status --short",
+          "status": "pass"
+        },
+        {
+          "command": "git merge-base --is-ancestor 277f0cf58516d3463267546f578b648f45331a06 HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_entrypoint_contract",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_spine_contract_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test experimental_qnt_spine_advances_turn_boundary_lifecycle",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 277f0cf58516d3463267546f578b648f45331a06...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doEndTurnToTarget#step:doEndTurnToTarget",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doResolveWeaponDamage#step:doResolveWeaponDamage",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doResolveWeaponTarget#step:doResolveWeaponTarget",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doStartBattle#step:doStartBattle"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json",
+          "sha256": "58c33c9c6292a1d55b55e2c415a7fd30dd5c3580832c6a56ad579253288728a0"
+        }
+      ],
+      "taskId": "RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
