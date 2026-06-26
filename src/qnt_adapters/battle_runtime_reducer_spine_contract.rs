@@ -1,9 +1,9 @@
 use crate::rules::battle_reducer_spine::{
-    advance_turn, discover_battle_acts, discover_slot_spell_battle,
+    discover_battle_acts, discover_slot_spell_battle, end_turn_subject, resolve_battle_subject,
     resolve_battle_subject_test_fill, resolve_slot_spell_subject, slot_spell_holes_from_battle,
     start_fighter_skeleton_battle, Actor, AttackRollFacts, BattleFill, BattleHoleKind,
-    BattleResolutionOutcome, BattleSlotSpellFill, BattleSlotSpellHole, BattleState, BattleSubject,
-    BattleSubjectKind, BattleTurnAdvanceResult, BattleTurnSpellSlotUse,
+    BattleResolutionOutcome, BattleResolutionRequest, BattleSlotSpellFill, BattleSlotSpellHole,
+    BattleState, BattleSubject, BattleSubjectKind, BattleTurnAdvanceResult, BattleTurnSpellSlotUse,
 };
 
 pub const BRANCH_ACTIONS: [&str; 9] = [
@@ -485,7 +485,14 @@ fn slot_spell_damage_resolved() -> BattleState {
 }
 
 fn end_turn_to_target() -> BattleTurnAdvanceResult {
-    advance_turn(slot_spell_damage_resolved())
+    let state = slot_spell_damage_resolved();
+    let request = BattleResolutionRequest::end_turn(end_turn_subject(&state))
+        .expect("end turn subject should accept the no-fill end-turn request");
+    let result = resolve_battle_subject(state, request);
+    let outcome = result.outcome();
+    result
+        .into_turn_advance()
+        .unwrap_or_else(|| panic!("end turn should advance the turn, got {outcome:?}"))
 }
 
 fn end_turn_to_target_state() -> BattleState {

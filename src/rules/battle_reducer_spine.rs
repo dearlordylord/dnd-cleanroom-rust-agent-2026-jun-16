@@ -548,6 +548,7 @@ impl TurnBoundaryEffects {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleSubjectKind {
+    EndTurn,
     WeaponAttack,
     Multiattack,
     SlotSpell,
@@ -630,6 +631,7 @@ pub struct AttackRollFacts {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleFill {
+    NoFill,
     TargetChoice(Actor),
     AttackRoll(AttackRollFacts),
     DamageRoll(i16),
@@ -672,6 +674,16 @@ impl BattleResolutionRequest {
     #[must_use]
     pub fn subject(&self) -> BattleSubject {
         self.subject
+    }
+
+    pub fn end_turn(subject: BattleSubject) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::EndTurn {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::NoFill,
+        })
     }
 
     pub fn weapon_attack(
@@ -828,6 +840,9 @@ pub enum BattleResolutionResult {
     Resolved {
         state: BattleState,
     },
+    TurnAdvanced {
+        turn_advance: BattleTurnAdvanceResult,
+    },
     Invalid {
         state: BattleState,
         reason: BattleResolutionInvalidReason,
@@ -902,7 +917,7 @@ impl BattleResolutionResult {
     pub const fn outcome(&self) -> BattleResolutionOutcome {
         match self {
             Self::NeedsHoles { .. } => BattleResolutionOutcome::NeedsHoles,
-            Self::Resolved { .. } => BattleResolutionOutcome::Resolved,
+            Self::Resolved { .. } | Self::TurnAdvanced { .. } => BattleResolutionOutcome::Resolved,
             Self::Invalid { reason, .. } => BattleResolutionOutcome::Invalid(*reason),
         }
     }
@@ -912,6 +927,9 @@ impl BattleResolutionResult {
         match self {
             Self::NeedsHoles { state, .. }
             | Self::Resolved { state }
+            | Self::TurnAdvanced {
+                turn_advance: BattleTurnAdvanceResult { state, .. },
+            }
             | Self::Invalid { state, .. } => state,
         }
     }
@@ -921,6 +939,9 @@ impl BattleResolutionResult {
         match self {
             Self::NeedsHoles { state, .. }
             | Self::Resolved { state }
+            | Self::TurnAdvanced {
+                turn_advance: BattleTurnAdvanceResult { state, .. },
+            }
             | Self::Invalid { state, .. } => state,
         }
     }
@@ -928,7 +949,10 @@ impl BattleResolutionResult {
     #[must_use]
     pub const fn resolved_state(&self) -> Option<&BattleState> {
         match self {
-            Self::Resolved { state } => Some(state),
+            Self::Resolved { state }
+            | Self::TurnAdvanced {
+                turn_advance: BattleTurnAdvanceResult { state, .. },
+            } => Some(state),
             Self::NeedsHoles { .. } | Self::Invalid { .. } => None,
         }
     }
@@ -936,8 +960,27 @@ impl BattleResolutionResult {
     #[must_use]
     pub fn into_resolved_state(self) -> Option<BattleState> {
         match self {
-            Self::Resolved { state } => Some(state),
+            Self::Resolved { state }
+            | Self::TurnAdvanced {
+                turn_advance: BattleTurnAdvanceResult { state, .. },
+            } => Some(state),
             Self::NeedsHoles { .. } | Self::Invalid { .. } => None,
+        }
+    }
+
+    #[must_use]
+    pub const fn turn_advance(&self) -> Option<&BattleTurnAdvanceResult> {
+        match self {
+            Self::TurnAdvanced { turn_advance } => Some(turn_advance),
+            Self::NeedsHoles { .. } | Self::Resolved { .. } | Self::Invalid { .. } => None,
+        }
+    }
+
+    #[must_use]
+    pub fn into_turn_advance(self) -> Option<BattleTurnAdvanceResult> {
+        match self {
+            Self::TurnAdvanced { turn_advance } => Some(turn_advance),
+            Self::NeedsHoles { .. } | Self::Resolved { .. } | Self::Invalid { .. } => None,
         }
     }
 
@@ -953,7 +996,7 @@ impl BattleResolutionResult {
                 subject: *subject,
                 holes,
             }),
-            Self::Resolved { .. } | Self::Invalid { .. } => None,
+            Self::Resolved { .. } | Self::TurnAdvanced { .. } | Self::Invalid { .. } => None,
         }
     }
 
@@ -969,7 +1012,7 @@ impl BattleResolutionResult {
                 subject,
                 holes,
             }),
-            Self::Resolved { .. } | Self::Invalid { .. } => None,
+            Self::Resolved { .. } | Self::TurnAdvanced { .. } | Self::Invalid { .. } => None,
         }
     }
 
@@ -977,7 +1020,7 @@ impl BattleResolutionResult {
     pub const fn continuing_subject(&self) -> Option<BattleSubject> {
         match self {
             Self::NeedsHoles { subject, .. } => Some(*subject),
-            Self::Resolved { .. } | Self::Invalid { .. } => None,
+            Self::Resolved { .. } | Self::TurnAdvanced { .. } | Self::Invalid { .. } => None,
         }
     }
 
@@ -985,7 +1028,7 @@ impl BattleResolutionResult {
     pub fn requested_holes(&self) -> Option<&[BattleHoleKind]> {
         match self {
             Self::NeedsHoles { holes, .. } | Self::Invalid { holes, .. } => Some(holes),
-            Self::Resolved { .. } => None,
+            Self::Resolved { .. } | Self::TurnAdvanced { .. } => None,
         }
     }
 
@@ -1001,7 +1044,7 @@ impl BattleResolutionResult {
                 reason: *reason,
                 holes,
             }),
-            Self::NeedsHoles { .. } | Self::Resolved { .. } => None,
+            Self::NeedsHoles { .. } | Self::Resolved { .. } | Self::TurnAdvanced { .. } => None,
         }
     }
 
@@ -1017,7 +1060,7 @@ impl BattleResolutionResult {
                 reason,
                 holes,
             }),
-            Self::NeedsHoles { .. } | Self::Resolved { .. } => None,
+            Self::NeedsHoles { .. } | Self::Resolved { .. } | Self::TurnAdvanced { .. } => None,
         }
     }
 
@@ -1025,7 +1068,7 @@ impl BattleResolutionResult {
     pub const fn invalid_reason(&self) -> Option<BattleResolutionInvalidReason> {
         match self {
             Self::Invalid { reason, .. } => Some(*reason),
-            Self::NeedsHoles { .. } | Self::Resolved { .. } => None,
+            Self::NeedsHoles { .. } | Self::Resolved { .. } | Self::TurnAdvanced { .. } => None,
         }
     }
 }
@@ -1941,6 +1984,14 @@ pub fn end_turn(state: BattleState) -> BattleTurnAdvanceResult {
 }
 
 #[must_use]
+pub fn end_turn_subject(state: &BattleState) -> BattleSubject {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-reducer-spine-contract.mbt.qnt End Turn subject branch.
+    // End Turn is a runtime command subject with no table-supplied fill.
+    diagnostic_subject(BattleSubjectKind::EndTurn, current_actor(state), None)
+}
+
+#[must_use]
 pub fn advance_turn_state(state: BattleState) -> BattleState {
     advance_turn(state).state
 }
@@ -2248,7 +2299,8 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::HitPointRestorationTargetListSpell
         | BattleSubjectKind::HitPointRestorationFeatureHealingPool
         | BattleSubjectKind::DeathSavingThrow
-        | BattleSubjectKind::ConcentrationTeardown => false,
+        | BattleSubjectKind::ConcentrationTeardown
+        | BattleSubjectKind::EndTurn => false,
     }
 }
 
@@ -2446,6 +2498,18 @@ fn resolve_battle_subject_unchecked(
             }
             resolve_concentration_teardown_battle_subject(state, subject, fill)
         }
+        (BattleSubjectKind::EndTurn, BattleFill::NoFill) => {
+            if !diagnostic_subject_shape_matches(subject, BattleSubjectKind::EndTurn, None) {
+                return invalid(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    subject.stage,
+                );
+            }
+            BattleResolutionResult::TurnAdvanced {
+                turn_advance: advance_turn(state),
+            }
+        }
         (BattleSubjectKind::WeaponAttack, fill) => {
             if !state.action_available {
                 return invalid(
@@ -2470,12 +2534,10 @@ fn resolve_battle_subject_unchecked(
                 BattleFill::SneakAttackDamageRoll(rolled_damage) => {
                     resolve_damage_roll(state, subject, rolled_damage, true)
                 }
-                BattleFill::ResolveMultiattack | BattleFill::SpendMultiattackDispatch => invalid(
-                    state,
-                    BattleResolutionInvalidReason::InvalidFill,
-                    subject.stage,
-                ),
-                BattleFill::SlotSpell(_)
+                BattleFill::NoFill
+                | BattleFill::ResolveMultiattack
+                | BattleFill::SpendMultiattackDispatch
+                | BattleFill::SlotSpell(_)
                 | BattleFill::SaveGatedSpell(_)
                 | BattleFill::HitPointRestoration(_)
                 | BattleFill::DeathSavingThrow(_)
@@ -2505,7 +2567,8 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::HitPointRestorationTargetListSpell
             | BattleSubjectKind::HitPointRestorationFeatureHealingPool
             | BattleSubjectKind::DeathSavingThrow
-            | BattleSubjectKind::ConcentrationTeardown,
+            | BattleSubjectKind::ConcentrationTeardown
+            | BattleSubjectKind::EndTurn,
             _,
         ) => invalid(
             state,
