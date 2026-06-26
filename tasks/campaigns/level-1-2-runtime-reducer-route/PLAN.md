@@ -2,7 +2,9 @@
 
 ## Purpose
 
-Drive the dirty Rust cleanroom toward full level-1/2 runtime coverage through the copied QNT route architecture.
+Prove and refine a QNT-driven architecture where focused `.qnt` slices and curated cleanroom input define enough reducer-shaped semantics for an independent character/battle runtime to be built without TypeScript implementation knowledge or production authored-identity dispatch.
+
+This campaign uses the dirty Rust cleanroom only as a rehearsal and evidence target to save time. The Rust reducer-spine implementation is not the final product. It is a diagnostic place to show which QNT slices can route through shared reducer-shaped semantics and which facts are still missing from the cleanroom input package.
 
 The goal is not to make local replay helpers pass tests. The goal is to make each accepted driver consume the shared reducer-shaped substrate appropriate to its route:
 
@@ -12,6 +14,10 @@ The goal is not to make local replay helpers pass tests. The goal is to make eac
 - replay-refresh-only routes refresh evidence over already-established substrate.
 
 This is a dirty cleanroom rehearsal. It is allowed to reuse the existing Rust cleanroom implementation to save time, but evidence must stay honest about that. Do not claim fresh cleanroom acceptance from this campaign.
+
+## Agent Role Boundary
+
+A resumed lead agent is the campaign orchestrator unless the user explicitly asks for direct implementation. Its job is to keep the campaign files consistent, launch Ralph/Codex lane workers from the lane definitions, review their work, request fixes, merge accepted lanes, run integration gates, and record checkpoint status. It should not collapse the campaign into a single personal implementation pass.
 
 ## Recovery Instructions
 
