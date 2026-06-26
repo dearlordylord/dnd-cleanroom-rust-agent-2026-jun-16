@@ -1,5 +1,18 @@
 {
-  "findings": [],
+  "findings": [
+    {
+      "id": "RR06-review-command-ordering-route-connector",
+      "status": "fixed",
+      "resolution": "Updated command ordering route replay and tests so doApproachMovementContinues is checked as the copied route connector's ActiveEffect discover route.",
+      "summary": "Command ordering route evidence now records the copied command-ordering route connector and focused tests assert the connector terminal route for doApproachMovementContinues."
+    },
+    {
+      "id": "RR06-review-command-next-turn-literal-driver",
+      "status": "fixed",
+      "resolution": "Updated command next-turn route replay and evidence metadata so doFollowGrovel is checked against the paired copied route connector while the driver remains identified as a literal projection witness.",
+      "summary": "Command next-turn evidence now records that the driver is a literal projection witness paired with the copied command-ordering route connector; doFollowGrovel terminal route resolves under the condition-lifecycle owner."
+    }
+  ],
   "rounds": [
     {
       "passes": [

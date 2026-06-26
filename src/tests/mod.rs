@@ -2094,7 +2094,10 @@ fn command_option_next_turn_adapter_replays_all_branches() {
             "doFollowGrovel" => {
                 assert!(observed.target_prone);
                 assert!(route_payload.contains("BattleConditionLifecycleOwner"));
-                assert!(route_payload.contains("outcome=resolved"));
+                let terminal_event = route_payload.lines().last().unwrap_or_default();
+                assert!(terminal_event.contains("resolve_battle_subject_without_fill"));
+                assert!(terminal_event.contains("BattleConditionLifecycleOwner"));
+                assert!(terminal_event.contains("outcome=resolved"));
             }
             "doFleePartialMovementRejected" => {
                 assert_eq!(observed.protocol_result, "invalid");
@@ -2197,7 +2200,13 @@ fn command_ordering_adapter_replays_all_branches() {
             "doFillFailedGrovelSavingThrow" => {
                 assert_eq!(observed.pending_command_option, "grovel");
                 assert!(route_payload.contains("BattleActiveEffectOwner"));
-                assert!(route_payload.contains("outcome=needsHoles"));
+                assert!(route_payload.contains("outcome=resolved"));
+            }
+            "doApproachMovementContinues" => {
+                let terminal_event = route_payload.lines().last().unwrap_or_default();
+                assert!(terminal_event.contains("discover_battle_acts"));
+                assert!(terminal_event.contains("MovementHoleKind"));
+                assert!(terminal_event.contains("BattleActiveEffectOwner"));
             }
             "doFillApproachMovementContinues" => {
                 assert_eq!(observed.movement_spent_feet, 10);

@@ -29,7 +29,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFailedSaveRecordsPending"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFailedSaveRecordsPending",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doFollowGrovel",
@@ -55,7 +58,11 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check",
+      "reviewFix": "terminal route event is copied connector resolve_battle_subject_without_fill resolved under BattleConditionLifecycleOwner"
     },
     {
       "branchAction": "doFollowDrop",
@@ -81,7 +88,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowDrop"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowDrop",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doHaltSuppresses",
@@ -107,7 +117,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doHaltEndTurnCleanup",
@@ -133,7 +146,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltEndTurnCleanup"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltEndTurnCleanup",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doApproachContinues",
@@ -159,7 +175,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachContinues"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachContinues",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doApproachWithinFiveEndsTurn",
@@ -185,7 +204,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachWithinFiveEndsTurn"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachWithinFiveEndsTurn",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doApproachMovementRejected",
@@ -211,7 +233,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementRejected"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementRejected",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doApproachNoMovementCleanup",
@@ -237,7 +262,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovementCleanup"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovementCleanup",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doFleeFullMovementEndsTurn",
@@ -263,7 +291,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeFullMovementEndsTurn"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeFullMovementEndsTurn",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doFleePartialMovementRejected",
@@ -289,7 +320,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleePartialMovementRejected"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleePartialMovementRejected",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doFleeNoMovementCleanup",
@@ -315,7 +349,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovementCleanup"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovementCleanup",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doFleeOpportunityAttackWindow",
@@ -341,7 +378,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackWindow"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackWindow",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doFleeOpportunityAttackDeclinedContinuation",
@@ -367,7 +407,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackDeclinedContinuation"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackDeclinedContinuation",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doComplete",
@@ -393,7 +436,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doComplete"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doComplete",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
     },
     {
       "branchAction": "doDiscoverCommand",
@@ -418,7 +464,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDiscoverCommand"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDiscoverCommand",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doSubmitOptionBeforeTargetList",
@@ -443,7 +491,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitOptionBeforeTargetList"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitOptionBeforeTargetList",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFillTargetList",
@@ -468,7 +518,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillTargetList"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillTargetList",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doSubmitSavingThrowBeforeOption",
@@ -493,7 +545,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitSavingThrowBeforeOption"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitSavingThrowBeforeOption",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFillGrovelOption",
@@ -518,7 +572,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillGrovelOption"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillGrovelOption",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFillFailedGrovelSavingThrow",
@@ -543,7 +599,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFailedGrovelSavingThrow"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFailedGrovelSavingThrow",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFollowGrovel",
@@ -568,7 +626,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doDropNeedsHeldObjectFacts",
@@ -593,7 +653,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDropNeedsHeldObjectFacts"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDropNeedsHeldObjectFacts",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFillDropHeldObjectFacts",
@@ -618,7 +680,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillDropHeldObjectFacts"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillDropHeldObjectFacts",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doHaltSuppresses",
@@ -643,7 +707,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doApproachMovementContinues",
@@ -668,7 +734,10 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementContinues"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementContinues",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute",
+      "reviewFix": "terminal route event is copied connector discover_battle_acts for CommandApproachMovementStage under BattleActiveEffectOwner"
     },
     {
       "branchAction": "doFillApproachMovementContinues",
@@ -693,7 +762,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementContinues"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementContinues",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFillApproachMovementWithinFive",
@@ -718,7 +789,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementWithinFive"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementWithinFive",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doApproachNoMovement",
@@ -743,7 +816,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovement"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovement",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFleeMovement",
@@ -768,7 +843,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeMovement"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeMovement",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFillFleeMovement",
@@ -793,7 +870,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFleeMovement"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFleeMovement",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doRejectFleePartialMovement",
@@ -818,7 +897,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectFleePartialMovement"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectFleePartialMovement",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFleeNoMovement",
@@ -843,7 +924,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovement"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovement",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFleeOpportunityAttack",
@@ -868,7 +951,9 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttack"
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttack",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
     },
     {
       "branchAction": "doFillLongstriderTarget",

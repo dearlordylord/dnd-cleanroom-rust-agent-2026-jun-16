@@ -1041,7 +1041,9 @@ Verification results:
 
 Behavior implemented:
 
-- Command next-turn and command ordering route through `BattleState.command_effect_procedure`, `discover_battle_acts`, typed command fills, and `resolve_battle_subject`.
+- Command ordering route evidence is checked against `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt`, including `doApproachMovementContinues` as a terminal `discover_battle_acts` route for `CommandApproachMovementStage` under `BattleActiveEffectOwner`.
+- Command next-turn remains a literal projection witness driver. Its evidence rows keep the harness-required `qRoute` projection because the reducer-route inventory pairs the driver with `battle-runtime-command-ordering.route.mbt.qnt`, and each row now records that paired connector path; `doFollowGrovel` is checked as a resolved `resolve_battle_subject_without_fill` route under `BattleConditionLifecycleOwner`.
+- The Rust reducer now keeps resolved Command subjects with pending next-turn work live for follow resolution and exposes active Command frontiers through `discover_battle_acts`.
 - Scalar buff target routing uses `Combatant.speed_feet`, typed scalar target choice, and stale-subject results from the shared reducer surface.
 
 Generated branch coverage:
@@ -1094,7 +1096,7 @@ Target replay evidence:
 
 Remaining gaps:
 
-- `_none_`
+- `_none_` for the two re-review findings. The dirty rehearsal still distinguishes literal command next-turn projection evidence from copied route-connector parity in the evidence metadata.
 
 Verification results:
 

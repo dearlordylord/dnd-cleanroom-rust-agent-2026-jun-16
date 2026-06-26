@@ -769,6 +769,7 @@ fn holes_from_spine(holes: &[BattleHoleKind]) -> Vec<WeaponAttackSkeletonHole> {
             | BattleHoleKind::ConcentrationSavingThrow
             | BattleHoleKind::StatBlockRechargeRoll
             | BattleHoleKind::CommandOptionChoice
+            | BattleHoleKind::InterruptDecision
             | BattleHoleKind::Movement => {
                 panic!("weapon projection received non-weapon reducer hole {hole:?}")
             }

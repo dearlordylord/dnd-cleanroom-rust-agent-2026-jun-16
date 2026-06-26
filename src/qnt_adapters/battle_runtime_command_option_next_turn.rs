@@ -345,18 +345,11 @@ fn expected_command_follow_route_from_failed_save(
     owner: ReducerRouteOwnerGroup,
 ) -> Vec<ReducerRouteEvent> {
     let mut route = expected_command_failed_save_route(option);
-    let (outcome, holes) = match option {
-        CommandNextTurnOption::Drop
-        | CommandNextTurnOption::Grovel
-        | CommandNextTurnOption::Halt => (
-            ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::StaleSubject),
-            Vec::new(),
-        ),
-        CommandNextTurnOption::Approach | CommandNextTurnOption::Flee => {
-            (ReducerRouteResolutionOutcome::Resolved, Vec::new())
-        }
-    };
-    route.push(expected_command_without_fill(outcome, holes, owner));
+    route.push(expected_command_without_fill(
+        ReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        owner,
+    ));
     route
 }
 

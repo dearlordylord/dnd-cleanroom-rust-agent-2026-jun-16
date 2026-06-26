@@ -602,6 +602,7 @@ fn weapon_holes(holes: Vec<BattleHoleKind>) -> Vec<ReducerSpineHole> {
             | BattleHoleKind::ConcentrationSavingThrow
             | BattleHoleKind::StatBlockRechargeRoll
             | BattleHoleKind::CommandOptionChoice
+            | BattleHoleKind::InterruptDecision
             | BattleHoleKind::Movement => {
                 panic!("weapon projection received non-weapon reducer hole {hole:?}")
             }

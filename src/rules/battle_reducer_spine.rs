@@ -958,6 +958,7 @@ pub enum BattleHoleKind {
     ConcentrationSavingThrow,
     StatBlockRechargeRoll,
     CommandOptionChoice,
+    InterruptDecision,
     Movement,
 }
 
@@ -3031,6 +3032,15 @@ fn push_reducer_spine_diagnostic_acts(
         });
     }
 
+    if let BattleCommandEffectProcedure::Active(active) = state.command_effect_procedure {
+        if active.actor == actor && active.stage != CommandFrontierStage::Resolved {
+            acts.push(AvailableBattleAct {
+                subject: diagnostic_subject(BattleSubjectKind::CommandSpell, actor, active.target),
+                holes: command_hole_kinds(active.stage),
+            });
+        }
+    }
+
     if can_actor_expend_spell_slot_this_turn(state, actor) && first_waiting_actor(state).is_some() {
         acts.push(AvailableBattleAct {
             subject: diagnostic_subject(BattleSubjectKind::SingleTargetSpellAttack, actor, None),
@@ -3230,7 +3240,9 @@ fn command_effect_route_subject_is_live(state: &BattleState, subject: BattleSubj
         }
         BattleCommandEffectProcedure::Active(active) => {
             active.actor == subject.actor
-                && active.stage != CommandFrontierStage::Resolved
+                && (active.stage != CommandFrontierStage::Resolved
+                    || active.pending_option.is_some()
+                    || active.scenario == CommandNextTurnScenario::FleeOpportunityAttackWindow)
                 && diagnostic_subject_shape_matches(
                     subject,
                     BattleSubjectKind::CommandSpell,

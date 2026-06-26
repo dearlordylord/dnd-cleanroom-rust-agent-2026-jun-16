@@ -11,6 +11,7 @@ pub enum ReducerRouteHoleKind {
     DamageTypeChoice,
     DeathSavingThrow,
     HitPointHealingDistribution,
+    InterruptDecision,
     CommandOptionChoice,
     Movement,
     RolledDice,
@@ -421,6 +422,7 @@ fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
         BattleHoleKind::HitPointHealingDistribution => {
             ReducerRouteHoleKind::HitPointHealingDistribution
         }
+        BattleHoleKind::InterruptDecision => ReducerRouteHoleKind::InterruptDecision,
         BattleHoleKind::CommandOptionChoice => ReducerRouteHoleKind::CommandOptionChoice,
         BattleHoleKind::Movement => ReducerRouteHoleKind::Movement,
         BattleHoleKind::RolledDice => ReducerRouteHoleKind::RolledDice,
@@ -496,6 +498,7 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
         ReducerRouteHoleKind::DamageTypeChoice => "DamageTypeChoiceHoleKind",
         ReducerRouteHoleKind::DeathSavingThrow => "DeathSavingThrowHoleKind",
         ReducerRouteHoleKind::HitPointHealingDistribution => "HitPointHealingDistributionHoleKind",
+        ReducerRouteHoleKind::InterruptDecision => "InterruptDecisionHoleKind",
         ReducerRouteHoleKind::CommandOptionChoice => "CommandOptionChoiceHoleKind",
         ReducerRouteHoleKind::Movement => "MovementHoleKind",
         ReducerRouteHoleKind::RolledDice => "RolledDiceHoleKind",

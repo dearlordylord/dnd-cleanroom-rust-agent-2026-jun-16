@@ -1165,11 +1165,11 @@
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "e4760e19ab5c70602ea434a454294cff1116a0fbb2f99fb347ecb4f72ee47fcc"
+          "sha256": "a40bc664c49a59742be29c0a640b3fb1af713c60ead6ee6c54103f07e4a69070"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/REVIEW_LOOP.json",
-          "sha256": "37faa7be2d52be0077acbad99f6930e7a2fe6d2edf320060013c767faac34248"
+          "sha256": "34524632c3f686a21e360600366d20928bbffe3b505d08b2f1724a9b97b2190d"
         },
         "startGate": {
           "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/START_GATE.json",
@@ -1260,7 +1260,7 @@
             "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved"
           ],
           "path": "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json",
-          "sha256": "7a18c56230c95312da1d8832fb32a91122bf5c2f2aca913600a4f56629cbc9a5"
+          "sha256": "6349cedd7dd73748fe3e31e98953c602a4f17e59107733d35d4f48676dc2468d"
         }
       ],
       "taskId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES"
