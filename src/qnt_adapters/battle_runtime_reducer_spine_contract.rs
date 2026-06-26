@@ -594,6 +594,7 @@ fn weapon_holes(holes: Vec<BattleHoleKind>) -> Vec<ReducerSpineHole> {
             BattleHoleKind::RolledDice => ReducerSpineHole::RolledDice,
             BattleHoleKind::SpellTargetAllocation
             | BattleHoleKind::SpellTargetList
+            | BattleHoleKind::DamageTypeChoice
             | BattleHoleKind::ConditionChoice
             | BattleHoleKind::SavingThrowOutcome
             | BattleHoleKind::HitPointHealingDistribution

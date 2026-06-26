@@ -956,6 +956,127 @@
         }
       ],
       "taskId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/DECIDER_DECISION.json",
+          "sha256": "57097c74f2233ffe68a91217bb62ed7fc657d59ca8164444edf80d3394dceaa9"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "2b21025f502ff9b2f03bdb4292bd63e99d3bf72e848dbfa6fb5ef80824047bac"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/REVIEW_LOOP.json",
+          "sha256": "c18db3e3769520fcb6a448733daebfd79e57ce6b8eeb6f10a1c67f44000fe079"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/START_GATE.json",
+          "sha256": "6e8602c0ede58d8ef08830a751ba282eaee8732133c7a3f6e017789239784ba0"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "aed1ccb1cabc414cde1ef4369fc586227b33f5993c37eddf281afe4116be9eef"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo test adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverSingleTargetSpellAttack#step:doDiscoverSingleTargetSpellAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverTypedSpellAttack#step:doDiscoverTypedSpellAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit#step:doFillAttackRollHit",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice#step:doFillDamageDice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageTypeAfterTargetChoice#step:doFillDamageTypeAfterTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageTypeBeforeTargetChoice#step:doFillDamageTypeBeforeTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoiceAfterDamageType#step:doFillTargetChoiceAfterDamageType",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoiceBeforeDamageType#step:doFillTargetChoiceBeforeDamageType",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSubmitAttackRollBeforeTargetChoice#step:doSubmitAttackRollBeforeTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSubmitDamageBeforeAttackRoll#step:doSubmitDamageBeforeAttackRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverRolledActionAttackControl#step:doDiscoverRolledActionAttackControl",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverStaticActionAttackControl#step:doDiscoverStaticActionAttackControl",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice#step:doFillDamageDice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillRechargeRoll#step:doFillRechargeRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillRolledAttackRollHit#step:doFillRolledAttackRollHit",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillStaticAttackRollHit#step:doFillStaticAttackRollHit",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectAttackRollBeforeTargetChoice#step:doRejectAttackRollBeforeTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectDamageBeforeAttackRoll#step:doRejectDamageBeforeAttackRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSpendRechargeGatedRolledAttack#step:doSpendRechargeGatedRolledAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doStartMultiattackControl#step:doStartMultiattackControl",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillHitAttackRoll#step:doFillHitAttackRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveRolledDamage#step:doResolveRolledDamage",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillHitAttackRoll#step:doFillHitAttackRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveDamage#step:doResolveDamage",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverAttack#step:doDiscoverAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit#step:doFillAttackRollHit",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice#step:doFillDamageDice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectAttackRollBeforeTargetChoice#step:doRejectAttackRollBeforeTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectDamageBeforeAttackRoll#step:doRejectDamageBeforeAttackRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverAttack#step:doDiscoverAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit#step:doFillAttackRollHit",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageHigh#step:doFillDamageHigh",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageHighSneakAttack#step:doFillDamageHighSneakAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageLow#step:doFillDamageLow",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageLowSneakAttack#step:doFillDamageLowSneakAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTarget#step:doFillTarget",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectRecursiveSkeletonMultiattack#step:doRejectRecursiveSkeletonMultiattack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectWrongTarget#step:doRejectWrongTarget",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doStartSkeletonTurn#step:doStartSkeletonTurn",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doAttackerAAttacks#step:doAttackerAAttacks",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doAttackerBAttacks#step:doAttackerBAttacks"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json",
+          "sha256": "1d90a9a57ed0442107d639d7247552bd2697f77b3c54022095664abdc361a1cd"
+        }
+      ],
+      "taskId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

@@ -1,0 +1,1451 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-quint-connect-rr05-attack-statblock-route-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doDiscoverSingleTargetSpellAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doDiscoverSingleTargetSpellAttack",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "245bb361a8e467d92f1f0c4ba82474fe0421ec8acee29716a9cbe81f28d3dfe8",
+        "observedProjectionSha256": "245bb361a8e467d92f1f0c4ba82474fe0421ec8acee29716a9cbe81f28d3dfe8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverSingleTargetSpellAttack"
+    },
+    {
+      "branchAction": "doDiscoverTypedSpellAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doDiscoverTypedSpellAttack",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "dfab276c938fba74452cf3a736c9da5b2b3db0eb14a3f219196a11ecd2940433",
+        "observedProjectionSha256": "dfab276c938fba74452cf3a736c9da5b2b3db0eb14a3f219196a11ecd2940433",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverTypedSpellAttack"
+    },
+    {
+      "branchAction": "doFillAttackRollHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doFillAttackRollHit",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b1365699df55d00daaf2093fa47ca2715856dd329d1d4e6eeff33bdf0078c0b1",
+        "observedProjectionSha256": "b1365699df55d00daaf2093fa47ca2715856dd329d1d4e6eeff33bdf0078c0b1",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit"
+    },
+    {
+      "branchAction": "doFillAttackRollMiss",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doFillAttackRollMiss",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "49781514b3a5f174795ff84fc618fff8583a470cc369a9e499b5f680390a2bfc",
+        "observedProjectionSha256": "49781514b3a5f174795ff84fc618fff8583a470cc369a9e499b5f680390a2bfc",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss"
+    },
+    {
+      "branchAction": "doFillDamageDice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doFillDamageDice",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "3a55ddcee5f280c11cd4a35792bf4ae9ce468cb28c7b2dac6ea764f6f5780ee5",
+        "observedProjectionSha256": "3a55ddcee5f280c11cd4a35792bf4ae9ce468cb28c7b2dac6ea764f6f5780ee5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice"
+    },
+    {
+      "branchAction": "doFillDamageTypeAfterTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doFillDamageTypeAfterTargetChoice",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "33c891385f7c4af4803b3b178d6f62c0e42187996489f67cf359eca439028395",
+        "observedProjectionSha256": "33c891385f7c4af4803b3b178d6f62c0e42187996489f67cf359eca439028395",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageTypeAfterTargetChoice"
+    },
+    {
+      "branchAction": "doFillDamageTypeBeforeTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doFillDamageTypeBeforeTargetChoice",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "156220de4210cd4a6ade71938cb01b604c444fa7de7911360277d96ee41dfce2",
+        "observedProjectionSha256": "156220de4210cd4a6ade71938cb01b604c444fa7de7911360277d96ee41dfce2",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageTypeBeforeTargetChoice"
+    },
+    {
+      "branchAction": "doFillTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doFillTargetChoice",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8a3f60c05938a5a736ba112aca97c2f0f24fe49d335945007e9047d9ed1f138d",
+        "observedProjectionSha256": "8a3f60c05938a5a736ba112aca97c2f0f24fe49d335945007e9047d9ed1f138d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice"
+    },
+    {
+      "branchAction": "doFillTargetChoiceAfterDamageType",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doFillTargetChoiceAfterDamageType",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "51b300b0fa46aa9e5ee97abd9635074668cb7a38425af85b252643c95fe8e528",
+        "observedProjectionSha256": "51b300b0fa46aa9e5ee97abd9635074668cb7a38425af85b252643c95fe8e528",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoiceAfterDamageType"
+    },
+    {
+      "branchAction": "doFillTargetChoiceBeforeDamageType",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doFillTargetChoiceBeforeDamageType",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "fdac0e4cef7b4bd1f2fca01528bc2072f644bd64db95ecdd2806a069411f8b17",
+        "observedProjectionSha256": "fdac0e4cef7b4bd1f2fca01528bc2072f644bd64db95ecdd2806a069411f8b17",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoiceBeforeDamageType"
+    },
+    {
+      "branchAction": "doSubmitAttackRollBeforeTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doSubmitAttackRollBeforeTargetChoice",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "94d1d6ca2c9acead4978a40b02bec0c5b9428f7679ba07834bdbee3b685c2a7b",
+        "observedProjectionSha256": "94d1d6ca2c9acead4978a40b02bec0c5b9428f7679ba07834bdbee3b685c2a7b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSubmitAttackRollBeforeTargetChoice"
+    },
+    {
+      "branchAction": "doSubmitDamageBeforeAttackRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "observedActionTaken": "doSubmitDamageBeforeAttackRoll",
+      "qntFileSha256": "4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.spell_slot_uses_this_turn"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9454585d0e8dd28f0d59e1403a7f06b8b6506f19b644c9c7e7b20043d425a41e",
+        "observedProjectionSha256": "9454585d0e8dd28f0d59e1403a7f06b8b6506f19b644c9c7e7b20043d425a41e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSubmitDamageBeforeAttackRoll"
+    },
+    {
+      "branchAction": "doDiscoverRolledActionAttackControl",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doDiscoverRolledActionAttackControl",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ebb59a82ca8a92b846fdff6d5deec82b8a5b1b3a3ad66b52a4de7547c02f56cd",
+        "observedProjectionSha256": "ebb59a82ca8a92b846fdff6d5deec82b8a5b1b3a3ad66b52a4de7547c02f56cd",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverRolledActionAttackControl"
+    },
+    {
+      "branchAction": "doDiscoverStaticActionAttackControl",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doDiscoverStaticActionAttackControl",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5e47946f18aec073642a9aa82ec76f17a2b35f0bc3055f88c886daf5248d5a47",
+        "observedProjectionSha256": "5e47946f18aec073642a9aa82ec76f17a2b35f0bc3055f88c886daf5248d5a47",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverStaticActionAttackControl"
+    },
+    {
+      "branchAction": "doFillAttackRollMiss",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doFillAttackRollMiss",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "63e50c5712e138b9f97116c08450bb83cb195a0dbd652f75e88ce6b1d8a05dc8",
+        "observedProjectionSha256": "63e50c5712e138b9f97116c08450bb83cb195a0dbd652f75e88ce6b1d8a05dc8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss"
+    },
+    {
+      "branchAction": "doFillDamageDice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doFillDamageDice",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6cb1ad3b65cabd060da3b757bb07ab2b26e169190bf669a3a123e787cea83335",
+        "observedProjectionSha256": "6cb1ad3b65cabd060da3b757bb07ab2b26e169190bf669a3a123e787cea83335",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice"
+    },
+    {
+      "branchAction": "doFillRechargeRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doFillRechargeRoll",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "faa9ac06d53d41494974a995d603dac3751afd5f9b8229927c48aabeb0910d63",
+        "observedProjectionSha256": "faa9ac06d53d41494974a995d603dac3751afd5f9b8229927c48aabeb0910d63",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillRechargeRoll"
+    },
+    {
+      "branchAction": "doFillRolledAttackRollHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doFillRolledAttackRollHit",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f15311308bc53eedf6ca8d10916c2dbd3f85a6926b5228db3704ee2f68fc5695",
+        "observedProjectionSha256": "f15311308bc53eedf6ca8d10916c2dbd3f85a6926b5228db3704ee2f68fc5695",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillRolledAttackRollHit"
+    },
+    {
+      "branchAction": "doFillStaticAttackRollHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doFillStaticAttackRollHit",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c832a7b7fa751c61b03b76122a5872ba6f71281b8471256dcc51da30c8bb93ac",
+        "observedProjectionSha256": "c832a7b7fa751c61b03b76122a5872ba6f71281b8471256dcc51da30c8bb93ac",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillStaticAttackRollHit"
+    },
+    {
+      "branchAction": "doFillTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doFillTargetChoice",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a2d38c6baeaf66ca4afcb067c7a597723c5b055a8b05cec5db2198abab48b1f9",
+        "observedProjectionSha256": "a2d38c6baeaf66ca4afcb067c7a597723c5b055a8b05cec5db2198abab48b1f9",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice"
+    },
+    {
+      "branchAction": "doRejectAttackRollBeforeTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doRejectAttackRollBeforeTargetChoice",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e97fe8b29294c4224549e1529fede52a8e815e360982c011b4557b898b5b8d12",
+        "observedProjectionSha256": "e97fe8b29294c4224549e1529fede52a8e815e360982c011b4557b898b5b8d12",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectAttackRollBeforeTargetChoice"
+    },
+    {
+      "branchAction": "doRejectDamageBeforeAttackRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doRejectDamageBeforeAttackRoll",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e6c8b662f62d86114b5c0bf27cfb1b2cc29441e5fa68900630e4cb05828ddeaf",
+        "observedProjectionSha256": "e6c8b662f62d86114b5c0bf27cfb1b2cc29441e5fa68900630e4cb05828ddeaf",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectDamageBeforeAttackRoll"
+    },
+    {
+      "branchAction": "doSpendRechargeGatedRolledAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doSpendRechargeGatedRolledAttack",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "31581d6f24677ddb80be9c01d09e6f46a33d56b3273634c2d140f7b12c8f70bc",
+        "observedProjectionSha256": "31581d6f24677ddb80be9c01d09e6f46a33d56b3273634c2d140f7b12c8f70bc",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSpendRechargeGatedRolledAttack"
+    },
+    {
+      "branchAction": "doStartMultiattackControl",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "observedActionTaken": "doStartMultiattackControl",
+      "qntFileSha256": "894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "fec4da8908f21d9ad42c1f07aaca58c0557ee3c8623f8faa223b6fd6ce07975f",
+        "observedProjectionSha256": "fec4da8908f21d9ad42c1f07aaca58c0557ee3c8623f8faa223b6fd6ce07975f",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doStartMultiattackControl"
+    },
+    {
+      "branchAction": "doFillHitAttackRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs",
+      "observedActionTaken": "doFillHitAttackRoll",
+      "qntFileSha256": "1d3e5de3bbda66b7c47e3d885a377dc5ceb66a249c24cd3738dcaacef274eb18",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "986865ceb0a99970f651907be3e470c12031ed3337b3a2633cdaca9389975150",
+        "observedProjectionSha256": "986865ceb0a99970f651907be3e470c12031ed3337b3a2633cdaca9389975150",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillHitAttackRoll"
+    },
+    {
+      "branchAction": "doFillTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs",
+      "observedActionTaken": "doFillTargetChoice",
+      "qntFileSha256": "1d3e5de3bbda66b7c47e3d885a377dc5ceb66a249c24cd3738dcaacef274eb18",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ddb7a1a8c9ab2cc4f1ce9a1ba11d94cf99693484bff21f8961ed83901e1a123b",
+        "observedProjectionSha256": "ddb7a1a8c9ab2cc4f1ce9a1ba11d94cf99693484bff21f8961ed83901e1a123b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice"
+    },
+    {
+      "branchAction": "doResolveRolledDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs",
+      "observedActionTaken": "doResolveRolledDamage",
+      "qntFileSha256": "1d3e5de3bbda66b7c47e3d885a377dc5ceb66a249c24cd3738dcaacef274eb18",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "26ac3439672419bf0beddc6bf815abe2d666f35b2efb79c9e3ce458b20c169b8",
+        "observedProjectionSha256": "26ac3439672419bf0beddc6bf815abe2d666f35b2efb79c9e3ce458b20c169b8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveRolledDamage"
+    },
+    {
+      "branchAction": "doFillHitAttackRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "observedActionTaken": "doFillHitAttackRoll",
+      "qntFileSha256": "09ddc3ddc0b16e1d00b652a74b9f6505adce577904203c0cfa0c0bf40072c331",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "95dfee3f2051a45b5dde3ad2ad6847bfef27d9a94a1aafa0ab169fb92fd916fe",
+        "observedProjectionSha256": "95dfee3f2051a45b5dde3ad2ad6847bfef27d9a94a1aafa0ab169fb92fd916fe",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillHitAttackRoll"
+    },
+    {
+      "branchAction": "doFillTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "observedActionTaken": "doFillTargetChoice",
+      "qntFileSha256": "09ddc3ddc0b16e1d00b652a74b9f6505adce577904203c0cfa0c0bf40072c331",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4a90fa63167176dd6a5c71f90bc9237631478137099e4708fd1b408e27c5f205",
+        "observedProjectionSha256": "4a90fa63167176dd6a5c71f90bc9237631478137099e4708fd1b408e27c5f205",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice"
+    },
+    {
+      "branchAction": "doResolveDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "observedActionTaken": "doResolveDamage",
+      "qntFileSha256": "09ddc3ddc0b16e1d00b652a74b9f6505adce577904203c0cfa0c0bf40072c331",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.stat_block_control",
+          "StatBlockActionResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "45712c67bc6ada774540c7edf59c26d15ee8274a1d065143417f09f6f97eba4c",
+        "observedProjectionSha256": "45712c67bc6ada774540c7edf59c26d15ee8274a1d065143417f09f6f97eba4c",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveDamage"
+    },
+    {
+      "branchAction": "doDiscoverAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "observedActionTaken": "doDiscoverAttack",
+      "qntFileSha256": "8ee8f3d49af502c11b82883d825e1054a57ba7c37fd15c927ccb40784f69f8bc",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2baf012d625fd1dd077ed6e115f421bdbd8962ea1e4a4562d6defcb3eda29fd5",
+        "observedProjectionSha256": "2baf012d625fd1dd077ed6e115f421bdbd8962ea1e4a4562d6defcb3eda29fd5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverAttack"
+    },
+    {
+      "branchAction": "doFillAttackRollHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "observedActionTaken": "doFillAttackRollHit",
+      "qntFileSha256": "8ee8f3d49af502c11b82883d825e1054a57ba7c37fd15c927ccb40784f69f8bc",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7d0ec22199a435439d39c3366ea6b4f2824bd64a691d437c7b36c9db0ec71f86",
+        "observedProjectionSha256": "7d0ec22199a435439d39c3366ea6b4f2824bd64a691d437c7b36c9db0ec71f86",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit"
+    },
+    {
+      "branchAction": "doFillAttackRollMiss",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "observedActionTaken": "doFillAttackRollMiss",
+      "qntFileSha256": "8ee8f3d49af502c11b82883d825e1054a57ba7c37fd15c927ccb40784f69f8bc",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c75ab3bb31fcde184f3f7eb06bab36ad42ac0e7c13f1465b841cc097fe46ac84",
+        "observedProjectionSha256": "c75ab3bb31fcde184f3f7eb06bab36ad42ac0e7c13f1465b841cc097fe46ac84",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss"
+    },
+    {
+      "branchAction": "doFillDamageDice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "observedActionTaken": "doFillDamageDice",
+      "qntFileSha256": "8ee8f3d49af502c11b82883d825e1054a57ba7c37fd15c927ccb40784f69f8bc",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "81928b24deed043762bef266a45688ba93b37bd4af2289d3598711ff8e0c5cde",
+        "observedProjectionSha256": "81928b24deed043762bef266a45688ba93b37bd4af2289d3598711ff8e0c5cde",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice"
+    },
+    {
+      "branchAction": "doFillTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "observedActionTaken": "doFillTargetChoice",
+      "qntFileSha256": "8ee8f3d49af502c11b82883d825e1054a57ba7c37fd15c927ccb40784f69f8bc",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e12704b54d04457a9a11bbb8f7aa01b70119233e1954ab94ed3fc6384bb1e2b3",
+        "observedProjectionSha256": "e12704b54d04457a9a11bbb8f7aa01b70119233e1954ab94ed3fc6384bb1e2b3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice"
+    },
+    {
+      "branchAction": "doRejectAttackRollBeforeTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "observedActionTaken": "doRejectAttackRollBeforeTargetChoice",
+      "qntFileSha256": "8ee8f3d49af502c11b82883d825e1054a57ba7c37fd15c927ccb40784f69f8bc",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "24e027650051e0eba4887af048d644735acad5f02f8caf19eee629488cd5838f",
+        "observedProjectionSha256": "24e027650051e0eba4887af048d644735acad5f02f8caf19eee629488cd5838f",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectAttackRollBeforeTargetChoice"
+    },
+    {
+      "branchAction": "doRejectDamageBeforeAttackRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "observedActionTaken": "doRejectDamageBeforeAttackRoll",
+      "qntFileSha256": "8ee8f3d49af502c11b82883d825e1054a57ba7c37fd15c927ccb40784f69f8bc",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d3c94405fc2d996d66dbb5d35fe3d62a7e66ab552d6c4bce682be8c05b2b3a4c",
+        "observedProjectionSha256": "d3c94405fc2d996d66dbb5d35fe3d62a7e66ab552d6c4bce682be8c05b2b3a4c",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectDamageBeforeAttackRoll"
+    },
+    {
+      "branchAction": "doDiscoverAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doDiscoverAttack",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "803d2bc15b310b31325bb999c0277c08443b5d76f71d05d05c69d57c70476b3e",
+        "observedProjectionSha256": "803d2bc15b310b31325bb999c0277c08443b5d76f71d05d05c69d57c70476b3e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverAttack"
+    },
+    {
+      "branchAction": "doFillAttackRollHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillAttackRollHit",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4060f046b1ea7300eaf110728ec947640be04b2f29a58951430074e0db4ad006",
+        "observedProjectionSha256": "4060f046b1ea7300eaf110728ec947640be04b2f29a58951430074e0db4ad006",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit"
+    },
+    {
+      "branchAction": "doFillAttackRollMiss",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillAttackRollMiss",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9935607a06d403361370dbc5030d3f5f2d23a460f24568c8c5b6ffbb4c831007",
+        "observedProjectionSha256": "9935607a06d403361370dbc5030d3f5f2d23a460f24568c8c5b6ffbb4c831007",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss"
+    },
+    {
+      "branchAction": "doFillDamageHigh",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillDamageHigh",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "69f06871ec63249cff3615e114bc8576f018203c3410b50e1d68cdc103dcfceb",
+        "observedProjectionSha256": "69f06871ec63249cff3615e114bc8576f018203c3410b50e1d68cdc103dcfceb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageHigh"
+    },
+    {
+      "branchAction": "doFillDamageHighSneakAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillDamageHighSneakAttack",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "56157d372e639c525d19559c3b90d7a1c618ca7f0c6876fe17b786c65b7e1e01",
+        "observedProjectionSha256": "56157d372e639c525d19559c3b90d7a1c618ca7f0c6876fe17b786c65b7e1e01",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageHighSneakAttack"
+    },
+    {
+      "branchAction": "doFillDamageLow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillDamageLow",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "44a590ba4a443664b9de387301f78020b2774a0d3aab45f3f302220cc31ed44f",
+        "observedProjectionSha256": "44a590ba4a443664b9de387301f78020b2774a0d3aab45f3f302220cc31ed44f",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageLow"
+    },
+    {
+      "branchAction": "doFillDamageLowSneakAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillDamageLowSneakAttack",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "df002c32b244066ee3ea95fa9a90b3141458c7c52a27c60dbef0835804e1f3ac",
+        "observedProjectionSha256": "df002c32b244066ee3ea95fa9a90b3141458c7c52a27c60dbef0835804e1f3ac",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageLowSneakAttack"
+    },
+    {
+      "branchAction": "doFillTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doFillTarget",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "26fe7ec29d57c8dcf9c8ce0c7ceee641ca39960248c785464e3153637629f249",
+        "observedProjectionSha256": "26fe7ec29d57c8dcf9c8ce0c7ceee641ca39960248c785464e3153637629f249",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTarget"
+    },
+    {
+      "branchAction": "doRejectRecursiveSkeletonMultiattack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doRejectRecursiveSkeletonMultiattack",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "3c6cfe59208c88803a410e0cab45535c6d167f1bbc1411fe997790c3af956f1d",
+        "observedProjectionSha256": "3c6cfe59208c88803a410e0cab45535c6d167f1bbc1411fe997790c3af956f1d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectRecursiveSkeletonMultiattack"
+    },
+    {
+      "branchAction": "doRejectStaleAfterResolved",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doRejectStaleAfterResolved",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "818067b9a1069091a6e6efff76494e2f00802d7184a18f11fcd55b253916a903",
+        "observedProjectionSha256": "818067b9a1069091a6e6efff76494e2f00802d7184a18f11fcd55b253916a903",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectStaleAfterResolved"
+    },
+    {
+      "branchAction": "doRejectWrongTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doRejectWrongTarget",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c9d7ca6b14aecf66a4890f1f86eb15ec5addc2f814b2e9404dcbca27a153a14d",
+        "observedProjectionSha256": "c9d7ca6b14aecf66a4890f1f86eb15ec5addc2f814b2e9404dcbca27a153a14d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectWrongTarget"
+    },
+    {
+      "branchAction": "doResolveSkeletonMultiattack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doResolveSkeletonMultiattack",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "23a5939fbf07a13e7e4a10506265c0e2e1afc341156ca9de01487265f26f945e",
+        "observedProjectionSha256": "23a5939fbf07a13e7e4a10506265c0e2e1afc341156ca9de01487265f26f945e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveSkeletonMultiattack"
+    },
+    {
+      "branchAction": "doSpendSkeletonMultiattackDispatch",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doSpendSkeletonMultiattackDispatch",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e03e547052f23c8df03288c4415b25e9c9ac986ad0021d2bc5a55183fdec7f9d",
+        "observedProjectionSha256": "e03e547052f23c8df03288c4415b25e9c9ac986ad0021d2bc5a55183fdec7f9d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSpendSkeletonMultiattackDispatch"
+    },
+    {
+      "branchAction": "doStartSkeletonTurn",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "observedActionTaken": "doStartSkeletonTurn",
+      "qntFileSha256": "5a11ba9ce2e3fcc8b030993adfd4b7950923edb728064a6d3ca6e0f2060daa11",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.attack_roll_made_this_turn",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "72ecd52a0fc41b7ee51567593293342626afc2e8b37d3048ec1ce23cb0b2a2bc",
+        "observedProjectionSha256": "72ecd52a0fc41b7ee51567593293342626afc2e8b37d3048ec1ce23cb0b2a2bc",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doStartSkeletonTurn"
+    },
+    {
+      "branchAction": "doAttackerAAttacks",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/creature_attack_mbt.rs",
+      "observedActionTaken": "doAttackerAAttacks",
+      "qntFileSha256": "8ac93028e7d3486795f932528dbe9cb90a3275fb50e2b095287f8102ac5a9437",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [
+        {
+          "pickName": "damage",
+          "value": 6
+        },
+        {
+          "pickName": "hit",
+          "value": true
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.fighter.hp",
+          "BattleState.goblin.hp",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5b126d20b1248e468e48ee7b5d496ee27e1c9714cd67000ef31d33db192212f0",
+        "observedProjectionSha256": "5b126d20b1248e468e48ee7b5d496ee27e1c9714cd67000ef31d33db192212f0",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doAttackerAAttacks"
+    },
+    {
+      "branchAction": "doAttackerBAttacks",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/creature_attack_mbt.rs",
+      "observedActionTaken": "doAttackerBAttacks",
+      "qntFileSha256": "8ac93028e7d3486795f932528dbe9cb90a3275fb50e2b095287f8102ac5a9437",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [
+        {
+          "pickName": "damage",
+          "value": 6
+        },
+        {
+          "pickName": "hit",
+          "value": true
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubject.kind",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.fighter.hp",
+          "BattleState.goblin.hp",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "295d00aafb709d1c1788429525d922c57f85a6070cc181b497a3ce3c0bc8671a",
+        "observedProjectionSha256": "295d00aafb709d1c1788429525d922c57f85a6070cc181b497a3ce3c0bc8671a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doAttackerBAttacks"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

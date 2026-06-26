@@ -1252,13 +1252,9 @@ function protocolNamesForObligations(selected) {
 }
 
 function forbiddenWitnessNamesForSelection(selected) {
-  const sampledInputNames = (selected.sampledInputs ?? []).map(
-    (input) => input.pickName,
-  );
   return Array.from(
     new Set([
       ...protocolNamesForObligations(selected),
-      ...sampledInputNames,
       ...harnessWitnessProtocolNames,
     ]),
   ).sort();

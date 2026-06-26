@@ -285,6 +285,7 @@ fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
         BattleHoleKind::ConcentrationSavingThrow => ReducerRouteHoleKind::ConcentrationSavingThrow,
         BattleHoleKind::ConditionChoice => ReducerRouteHoleKind::ConditionChoice,
         BattleHoleKind::DeathSavingThrow => ReducerRouteHoleKind::DeathSavingThrow,
+        BattleHoleKind::DamageTypeChoice => ReducerRouteHoleKind::DamageTypeChoice,
         BattleHoleKind::HitPointHealingDistribution => {
             ReducerRouteHoleKind::HitPointHealingDistribution
         }

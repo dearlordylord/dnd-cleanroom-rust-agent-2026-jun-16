@@ -551,6 +551,8 @@ pub enum BattleSubjectKind {
     EndTurn,
     WeaponAttack,
     Multiattack,
+    SingleTargetSpellAttack,
+    TypedSpellAttack,
     SlotSpell,
     SaveGatedAreaDamage,
     SaveGatedTargetListConditionChoice,
@@ -638,6 +640,7 @@ pub enum BattleFill {
     SneakAttackDamageRoll(i16),
     ResolveMultiattack,
     SpendMultiattackDispatch,
+    SpellAttack(BattleSpellAttackFill),
     SlotSpell(BattleSlotSpellFill),
     SaveGatedSpell(BattleSaveGatedSpellFill),
     HitPointRestoration(BattleHitPointRestorationFill),
@@ -737,6 +740,22 @@ impl BattleResolutionRequest {
         })
     }
 
+    pub fn spell_attack(
+        subject: BattleSubject,
+        fill: BattleSpellAttackFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if !matches!(
+            subject.kind,
+            BattleSubjectKind::SingleTargetSpellAttack | BattleSubjectKind::TypedSpellAttack
+        ) {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::SpellAttack(fill),
+        })
+    }
+
     pub fn save_gated_spell(
         subject: BattleSubject,
         fill: BattleSaveGatedSpellFill,
@@ -805,6 +824,7 @@ pub enum BattleHoleKind {
     SpellTargetAllocation,
     AttackRoll,
     RolledDice,
+    DamageTypeChoice,
     SpellTargetList,
     ConditionChoice,
     SavingThrowOutcome,
@@ -2150,6 +2170,14 @@ fn push_reducer_spine_diagnostic_acts(
 
     if can_actor_expend_spell_slot_this_turn(state, actor) && first_waiting_actor(state).is_some() {
         acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::SingleTargetSpellAttack, actor, None),
+            holes: spell_attack_hole_kinds(SpellAttackFrontierStage::TargetChoice),
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::TypedSpellAttack, actor, None),
+            holes: spell_attack_hole_kinds(SpellAttackFrontierStage::DamageTypeAndTargetChoice),
+        });
+        acts.push(AvailableBattleAct {
             subject: diagnostic_subject(BattleSubjectKind::SlotSpell, actor, None),
             holes: vec![BattleHoleKind::SpellTargetAllocation],
         });
@@ -2294,6 +2322,8 @@ fn save_gated_spell_subject_kind_matches(
         BattleSubjectKind::SaveGatedTargetListConditionChoice => !subject.damage_dice_required,
         BattleSubjectKind::WeaponAttack
         | BattleSubjectKind::Multiattack
+        | BattleSubjectKind::SingleTargetSpellAttack
+        | BattleSubjectKind::TypedSpellAttack
         | BattleSubjectKind::SlotSpell
         | BattleSubjectKind::HitPointRestorationSingleTargetSpell
         | BattleSubjectKind::HitPointRestorationTargetListSpell
@@ -2311,6 +2341,39 @@ fn concentration_teardown_route_subject_is_live(
     state.action_available
         && diagnostic_subject_shape_matches(subject, BattleSubjectKind::ConcentrationTeardown, None)
         && route_subject_discoverable_now(state, subject)
+}
+
+fn spell_attack_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
+    if !matches!(
+        subject.kind,
+        BattleSubjectKind::SingleTargetSpellAttack | BattleSubjectKind::TypedSpellAttack
+    ) {
+        return false;
+    }
+
+    match state.spell_attack_procedure {
+        BattleSpellAttackProcedure::Inactive => {
+            state.action_available
+                && diagnostic_subject_shape_matches(subject, subject.kind, None)
+                && route_subject_discoverable_now(state, subject)
+        }
+        BattleSpellAttackProcedure::Active(active) => {
+            active.actor == subject.actor
+                && active.stage != SpellAttackFrontierStage::Resolved
+                && spell_attack_subject_kind_matches(subject.kind, active)
+        }
+    }
+}
+
+fn spell_attack_subject_kind_matches(
+    kind: BattleSubjectKind,
+    subject: BattleSpellAttackSubject,
+) -> bool {
+    matches!(
+        (kind, subject.requires_spell_slot),
+        (BattleSubjectKind::SingleTargetSpellAttack, false)
+            | (BattleSubjectKind::TypedSpellAttack, true)
+    )
 }
 
 fn hit_point_restoration_route_subject_is_live(
@@ -2457,6 +2520,19 @@ fn resolve_battle_subject_unchecked(
             resolve_slot_spell_battle_subject_result(state, subject, fill)
         }
         (
+            BattleSubjectKind::SingleTargetSpellAttack | BattleSubjectKind::TypedSpellAttack,
+            BattleFill::SpellAttack(fill),
+        ) => {
+            if !spell_attack_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_spell_attack_battle_subject_result(state, subject, fill)
+        }
+        (
             BattleSubjectKind::SaveGatedAreaDamage
             | BattleSubjectKind::SaveGatedTargetListConditionChoice,
             BattleFill::SaveGatedSpell(fill),
@@ -2537,6 +2613,7 @@ fn resolve_battle_subject_unchecked(
                 BattleFill::NoFill
                 | BattleFill::ResolveMultiattack
                 | BattleFill::SpendMultiattackDispatch
+                | BattleFill::SpellAttack(_)
                 | BattleFill::SlotSpell(_)
                 | BattleFill::SaveGatedSpell(_)
                 | BattleFill::HitPointRestoration(_)
@@ -2561,6 +2638,8 @@ fn resolve_battle_subject_unchecked(
         ),
         (
             BattleSubjectKind::SlotSpell
+            | BattleSubjectKind::SingleTargetSpellAttack
+            | BattleSubjectKind::TypedSpellAttack
             | BattleSubjectKind::SaveGatedAreaDamage
             | BattleSubjectKind::SaveGatedTargetListConditionChoice
             | BattleSubjectKind::HitPointRestorationSingleTargetSpell
@@ -2668,6 +2747,49 @@ fn resolve_slot_spell_battle_subject_result(
             state,
             subject,
             holes,
+        }
+    }
+}
+
+fn resolve_spell_attack_battle_subject_result(
+    state: BattleState,
+    subject: BattleSubject,
+    fill: BattleSpellAttackFill,
+) -> BattleResolutionResult {
+    let BattleSpellAttackProcedure::Active(active) = state.spell_attack_procedure else {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            Vec::new(),
+        );
+    };
+    let fill_kind = spell_attack_fill_kind(fill);
+    let attack_roll_hits = spell_attack_fill_attack_hits(&state, &active, fill);
+    let result = spell_attack_fill_order_result(active.stage, fill_kind, attack_roll_hits);
+    let next_stage = spell_attack_result_stage(result);
+    let next_active = BattleSpellAttackSubject {
+        target: spell_attack_target_after_fill(active.target, fill, result),
+        stage: next_stage,
+        last_ordering_error: spell_attack_fill_order_error(result),
+        ..active
+    };
+    let next_subject = BattleSubject {
+        target: next_active.target,
+        ..subject
+    };
+    let next_state = BattleState {
+        spell_attack_procedure: BattleSpellAttackProcedure::Active(next_active),
+        ..state
+    };
+    if spell_attack_fill_order_runtime_result(result) == SpellAttackRuntimeResult::Resolved {
+        BattleResolutionResult::Resolved {
+            state: finalize_spell_attack_subject(next_state, next_active),
+        }
+    } else {
+        BattleResolutionResult::NeedsHoles {
+            state: next_state,
+            subject: next_subject,
+            holes: spell_attack_hole_kinds(next_stage),
         }
     }
 }
@@ -3785,10 +3907,18 @@ fn invalid(
     reason: BattleResolutionInvalidReason,
     stage: WeaponAttackFrontierStage,
 ) -> BattleResolutionResult {
+    invalid_with_holes(state, reason, weapon_hole_kinds(stage))
+}
+
+fn invalid_with_holes(
+    state: BattleState,
+    reason: BattleResolutionInvalidReason,
+    holes: Vec<BattleHoleKind>,
+) -> BattleResolutionResult {
     BattleResolutionResult::Invalid {
         state,
         reason,
-        holes: weapon_hole_kinds(stage),
+        holes,
     }
 }
 
@@ -3801,6 +3931,26 @@ fn weapon_hole_kinds(stage: WeaponAttackFrontierStage) -> Vec<BattleHoleKind> {
             WeaponAttackHoleKind::RolledDice => BattleHoleKind::RolledDice,
         })
         .collect()
+}
+
+fn spell_attack_hole_kinds(stage: SpellAttackFrontierStage) -> Vec<BattleHoleKind> {
+    match stage {
+        SpellAttackFrontierStage::ActSelection | SpellAttackFrontierStage::Resolved => Vec::new(),
+        SpellAttackFrontierStage::TargetChoice | SpellAttackFrontierStage::TypedTargetChoice => {
+            vec![BattleHoleKind::TargetChoice]
+        }
+        SpellAttackFrontierStage::TargetList => vec![BattleHoleKind::SpellTargetList],
+        SpellAttackFrontierStage::TargetAllocation => vec![BattleHoleKind::SpellTargetAllocation],
+        SpellAttackFrontierStage::DamageTypeAndTargetChoice => {
+            vec![
+                BattleHoleKind::DamageTypeChoice,
+                BattleHoleKind::TargetChoice,
+            ]
+        }
+        SpellAttackFrontierStage::DamageTypeChoice => vec![BattleHoleKind::DamageTypeChoice],
+        SpellAttackFrontierStage::AttackRoll => vec![BattleHoleKind::AttackRoll],
+        SpellAttackFrontierStage::DamageDice => vec![BattleHoleKind::RolledDice],
+    }
 }
 
 fn slot_spell_hole_kinds(state: &BattleState) -> Vec<BattleHoleKind> {
