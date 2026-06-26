@@ -583,15 +583,19 @@ use battle_runtime_chained_attack_sequence::{
     BRANCH_ACTIONS as CHAINED_ATTACK_SEQUENCE_BRANCH_ACTIONS,
 };
 use battle_runtime_command_option_next_turn::{
+    expected_route as expected_command_option_next_turn_route,
     expected_witness as expected_command_option_next_turn_witness,
     projection_payload as command_option_next_turn_projection_payload,
     replay_observed_action as replay_command_option_next_turn_action,
+    replay_observed_route as replay_command_option_next_turn_route,
     BRANCH_ACTIONS as COMMAND_OPTION_NEXT_TURN_BRANCH_ACTIONS,
 };
 use battle_runtime_command_ordering::{
+    expected_route as expected_command_ordering_route,
     expected_witness as expected_command_ordering_witness,
     projection_payload as command_ordering_projection_payload,
     replay_observed_action as replay_command_ordering_action,
+    replay_observed_route as replay_command_ordering_route,
     BRANCH_ACTIONS as COMMAND_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_concentration_break_teardown::{
@@ -764,9 +768,10 @@ use battle_runtime_save_gated_spell_ordering::{
     BRANCH_ACTIONS as SAVE_GATED_SPELL_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_scalar_buff::{
-    expected_witness as expected_scalar_buff_witness,
+    expected_route as expected_scalar_buff_route, expected_witness as expected_scalar_buff_witness,
     projection_payload as scalar_buff_projection_payload,
     replay_observed_action as replay_scalar_buff_action,
+    replay_observed_route as replay_scalar_buff_route,
     BRANCH_ACTIONS as SCALAR_BUFF_BRANCH_ACTIONS,
 };
 use battle_runtime_scalar_buff_active_effects::{
@@ -2080,6 +2085,9 @@ fn command_option_next_turn_adapter_replays_all_branches() {
         let observed = replay_command_option_next_turn_action(action);
         assert_eq!(observed, expected_command_option_next_turn_witness(action));
         assert!(command_option_next_turn_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_command_option_next_turn_route(action);
+        assert_eq!(route, expected_command_option_next_turn_route(action));
+        assert!(reducer_route_payload(&route).contains("CommandSpellRouteSubject"));
     }
 }
 
@@ -2158,6 +2166,9 @@ fn command_ordering_adapter_replays_all_branches() {
         let observed = replay_command_ordering_action(action);
         assert_eq!(observed, expected_command_ordering_witness(action));
         assert!(command_ordering_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_command_ordering_route(action);
+        assert_eq!(route, expected_command_ordering_route(action));
+        assert!(reducer_route_payload(&route).contains("CommandSpellRouteSubject"));
     }
 }
 
@@ -5764,6 +5775,9 @@ fn scalar_buff_adapter_replays_all_branches() {
         let observed = replay_scalar_buff_action(action);
         assert_eq!(observed, expected_scalar_buff_witness(action));
         assert!(scalar_buff_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_scalar_buff_route(action);
+        assert_eq!(route, expected_scalar_buff_route(action));
+        assert!(reducer_route_payload(&route).contains("ScalarBuffRouteSubject"));
     }
 }
 

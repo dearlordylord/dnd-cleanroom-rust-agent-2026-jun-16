@@ -1156,6 +1156,114 @@
         }
       ],
       "taskId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/DECIDER_DECISION.json",
+          "sha256": "300400f3534f2dffd7c079397d5fe394d9e17bd8ab4eda7bd22d3cf386511d82"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "e4760e19ab5c70602ea434a454294cff1116a0fbb2f99fb347ecb4f72ee47fcc"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/REVIEW_LOOP.json",
+          "sha256": "37faa7be2d52be0077acbad99f6930e7a2fe6d2edf320060013c767faac34248"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/START_GATE.json",
+          "sha256": "ceb9ae7c4c2d78c717460bf755666364d1442d2ce53a7cc0f8184719c774ba77"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "3fc1a7dfc4c3efa6fbb9d4341957d18480716e7c141935c7042ebfca0e69ebfe"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo test command_option_next_turn_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test command_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test scalar_buff_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFailedSaveRecordsPending#step:doFailedSaveRecordsPending",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel#step:doFollowGrovel",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowDrop#step:doFollowDrop",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses#step:doHaltSuppresses",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltEndTurnCleanup#step:doHaltEndTurnCleanup",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachContinues#step:doApproachContinues",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachWithinFiveEndsTurn#step:doApproachWithinFiveEndsTurn",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementRejected#step:doApproachMovementRejected",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovementCleanup#step:doApproachNoMovementCleanup",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeFullMovementEndsTurn#step:doFleeFullMovementEndsTurn",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleePartialMovementRejected#step:doFleePartialMovementRejected",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovementCleanup#step:doFleeNoMovementCleanup",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackWindow#step:doFleeOpportunityAttackWindow",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackDeclinedContinuation#step:doFleeOpportunityAttackDeclinedContinuation",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doComplete#step:doComplete",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDiscoverCommand#step:doDiscoverCommand",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitOptionBeforeTargetList#step:doSubmitOptionBeforeTargetList",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillTargetList#step:doFillTargetList",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitSavingThrowBeforeOption#step:doSubmitSavingThrowBeforeOption",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillGrovelOption#step:doFillGrovelOption",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFailedGrovelSavingThrow#step:doFillFailedGrovelSavingThrow",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel#step:doFollowGrovel",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDropNeedsHeldObjectFacts#step:doDropNeedsHeldObjectFacts",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillDropHeldObjectFacts#step:doFillDropHeldObjectFacts",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses#step:doHaltSuppresses",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementContinues#step:doApproachMovementContinues",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementContinues#step:doFillApproachMovementContinues",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementWithinFive#step:doFillApproachMovementWithinFive",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovement#step:doApproachNoMovement",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeMovement#step:doFleeMovement",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFleeMovement#step:doFillFleeMovement",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectFleePartialMovement#step:doRejectFleePartialMovement",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovement#step:doFleeNoMovement",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttack#step:doFleeOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillLongstriderTarget#step:doFillLongstriderTarget",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json",
+          "sha256": "7a18c56230c95312da1d8832fb32a91122bf5c2f2aca913600a4f56629cbc9a5"
+        }
+      ],
+      "taskId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

@@ -10,6 +10,8 @@ pub enum ReducerRouteHoleKind {
     DamageTypeChoice,
     DeathSavingThrow,
     HitPointHealingDistribution,
+    CommandOptionChoice,
+    Movement,
     RolledDice,
     SavingThrowOutcome,
     SpellTargetAllocation,
@@ -26,6 +28,8 @@ pub enum ReducerRouteFillKind {
     DamageTypeChoice,
     DeathSavingThrow,
     HitPointHealingDistribution,
+    CommandOptionChoice,
+    Movement,
     RolledDice,
     SavingThrowOutcome,
     SpellTargetAllocation,
@@ -43,6 +47,7 @@ pub enum ReducerRouteResolveFill {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReducerRouteSubjectFamily {
     ConcentrationTeardown,
+    CommandSpell,
     CreatureAttack,
     BattleAction,
     DeathSavingThrow,
@@ -50,6 +55,7 @@ pub enum ReducerRouteSubjectFamily {
     SaveGatedSpell,
     SlotSpell,
     SpellAttack,
+    ScalarBuff,
     StatBlockAction,
     WeaponAttack,
 }
@@ -59,11 +65,13 @@ pub enum ReducerRouteOwnerGroup {
     ActionEconomy,
     AttackRoll,
     Concentration,
+    CommandEffect,
     ConditionLifecycle,
     HitPointAndZeroHpLifecycle,
     HitPoint,
     HoleFrontier,
     SpellSlotAndActionEconomy,
+    ScalarBuff,
     StatBlockAction,
     TargetSelection,
 }
@@ -281,6 +289,8 @@ fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
         BattleHoleKind::HitPointHealingDistribution => {
             ReducerRouteHoleKind::HitPointHealingDistribution
         }
+        BattleHoleKind::CommandOptionChoice => ReducerRouteHoleKind::CommandOptionChoice,
+        BattleHoleKind::Movement => ReducerRouteHoleKind::Movement,
         BattleHoleKind::RolledDice => ReducerRouteHoleKind::RolledDice,
         BattleHoleKind::SavingThrowOutcome => ReducerRouteHoleKind::SavingThrowOutcome,
         BattleHoleKind::SpellTargetAllocation => ReducerRouteHoleKind::SpellTargetAllocation,
@@ -350,6 +360,8 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
         ReducerRouteHoleKind::DamageTypeChoice => "DamageTypeChoiceHoleKind",
         ReducerRouteHoleKind::DeathSavingThrow => "DeathSavingThrowHoleKind",
         ReducerRouteHoleKind::HitPointHealingDistribution => "HitPointHealingDistributionHoleKind",
+        ReducerRouteHoleKind::CommandOptionChoice => "CommandOptionChoiceHoleKind",
+        ReducerRouteHoleKind::Movement => "MovementHoleKind",
         ReducerRouteHoleKind::RolledDice => "RolledDiceHoleKind",
         ReducerRouteHoleKind::SavingThrowOutcome => "SavingThrowOutcomeHoleKind",
         ReducerRouteHoleKind::SpellTargetAllocation => "SpellTargetAllocationHoleKind",
@@ -367,6 +379,8 @@ fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
         ReducerRouteFillKind::DamageTypeChoice => "DamageTypeChoiceFillKind",
         ReducerRouteFillKind::DeathSavingThrow => "DeathSavingThrowFillKind",
         ReducerRouteFillKind::HitPointHealingDistribution => "HitPointHealingDistributionFillKind",
+        ReducerRouteFillKind::CommandOptionChoice => "CommandOptionChoiceFillKind",
+        ReducerRouteFillKind::Movement => "MovementFillKind",
         ReducerRouteFillKind::RolledDice => "RolledDiceFillKind",
         ReducerRouteFillKind::SavingThrowOutcome => "SavingThrowOutcomeFillKind",
         ReducerRouteFillKind::SpellTargetAllocation => "SpellTargetAllocationFillKind",
@@ -381,6 +395,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::ActionEconomy => "BattleActionEconomyOwner",
         ReducerRouteOwnerGroup::AttackRoll => "BattleAttackRollOwner",
         ReducerRouteOwnerGroup::Concentration => "BattleConcentrationOwner",
+        ReducerRouteOwnerGroup::CommandEffect => "BattleCommandEffectOwner",
         ReducerRouteOwnerGroup::ConditionLifecycle => "BattleConditionLifecycleOwner",
         ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle => {
             "BattleHitPointAndZeroHpLifecycleOwner"
@@ -388,6 +403,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::HitPoint => "BattleHitPointOwner",
         ReducerRouteOwnerGroup::HoleFrontier => "BattleHoleFrontierOwner",
         ReducerRouteOwnerGroup::SpellSlotAndActionEconomy => "BattleSpellSlotAndActionEconomyOwner",
+        ReducerRouteOwnerGroup::ScalarBuff => "BattleScalarBuffOwner",
         ReducerRouteOwnerGroup::StatBlockAction => "BattleStatBlockActionOwner",
         ReducerRouteOwnerGroup::TargetSelection => "BattleTargetSelectionOwner",
     }
@@ -397,12 +413,14 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
     match subject {
         ReducerRouteSubjectFamily::BattleAction => "BattleActionRouteSubject",
         ReducerRouteSubjectFamily::ConcentrationTeardown => "ConcentrationTeardownRouteSubject",
+        ReducerRouteSubjectFamily::CommandSpell => "CommandSpellRouteSubject",
         ReducerRouteSubjectFamily::CreatureAttack => "CreatureAttackRouteSubject",
         ReducerRouteSubjectFamily::DeathSavingThrow => "DeathSavingThrowRouteSubject",
         ReducerRouteSubjectFamily::HitPointRestoration => "HitPointRestorationRouteSubject",
         ReducerRouteSubjectFamily::SaveGatedSpell => "SaveGatedSpellRouteSubject",
         ReducerRouteSubjectFamily::SlotSpell => "SlotSpellRouteSubject",
         ReducerRouteSubjectFamily::SpellAttack => "SpellAttackRouteSubject",
+        ReducerRouteSubjectFamily::ScalarBuff => "ScalarBuffRouteSubject",
         ReducerRouteSubjectFamily::StatBlockAction => "StatBlockActionRouteSubject",
         ReducerRouteSubjectFamily::WeaponAttack => "WeaponAttackRouteSubject",
     }

@@ -7,6 +7,15 @@
 use crate::rules::attack_damage_disposition::{
     apply_resolved_damage_to_positive_hit_points, CreatureKind, CreatureVitals,
 };
+use crate::rules::command_options::{
+    command_fill_order_accepted_stage, command_fill_order_error, command_fill_order_result,
+    command_fill_order_runtime_result, command_hole_frontier, command_next_turn_initial_state,
+    command_ordering_initial_state, command_ordering_projection, CommandFillKind,
+    CommandFillOrderingError, CommandFrontierStage, CommandHoleKind, CommandNextTurnInvalidReason,
+    CommandNextTurnOption, CommandNextTurnProtocol, CommandNextTurnScenario,
+    CommandOrderingFillFacts, CommandOrderingProjectionFacts, CommandOrderingRuntimeResult,
+    CommandOrderingState, CommandTurnActor,
+};
 use crate::rules::concentration::{
     cast_concentration_spell, cast_replacement_concentration_spell, concentration_initial_state,
     fail_concentration_saving_throw, request_concentration_save_after_damage,
@@ -49,6 +58,10 @@ use crate::rules::save_gated_spell_ordering::{
     SaveGatedSpellFillOrderingError, SaveGatedSpellFrontierStage, SaveGatedSpellHoleKind,
     SaveGatedSpellOrderingProjectionFacts, SaveGatedSpellOrderingState,
     SaveGatedSpellRuntimeResult,
+};
+use crate::rules::scalar_buff::{
+    ScalarBuffTargetHole, ScalarBuffTargetInvalidReason, ScalarBuffTargetProtocol,
+    ScalarBuffTargetState,
 };
 use crate::rules::spell_attack_ordering::{
     spell_attack_fill_order_error, spell_attack_fill_order_result,
@@ -181,6 +194,7 @@ pub struct Combatant {
     pub max_hp: i16,
     pub temporary_hp: i16,
     pub armor_class: i16,
+    pub speed_feet: i16,
     pub shield_armor_class_bonus_active: bool,
     pub unconscious: bool,
     pub incapacitated: bool,
@@ -227,6 +241,7 @@ pub struct BattleState {
     pub save_gated_spell_procedure: BattleSaveGatedSpellProcedure,
     pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
+    pub command_effect_procedure: BattleCommandEffectProcedure,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
     pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -253,6 +268,7 @@ pub struct BattleSetup {
     pub save_gated_spell_procedure: BattleSaveGatedSpellProcedure,
     pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
+    pub command_effect_procedure: BattleCommandEffectProcedure,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
     pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -291,6 +307,7 @@ impl BattleSetup {
             save_gated_spell_procedure: BattleSaveGatedSpellProcedure::Inactive,
             hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Inactive,
             spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
+            command_effect_procedure: BattleCommandEffectProcedure::Inactive,
             spell_slot_uses_this_turn: Vec::new(),
             level_one_plus_spell_casters_this_turn: Vec::new(),
             quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
@@ -474,6 +491,72 @@ pub enum BattleSpellAttackFill {
     DamageRoll(i16),
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleCommandEffectProcedure {
+    Inactive,
+    Active(BattleCommandEffectSubject),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleCommandEffectSubject {
+    pub actor: Actor,
+    pub target: Option<Actor>,
+    pub stage: CommandFrontierStage,
+    pub pending_option: Option<CommandNextTurnOption>,
+    pub last_ordering_error: Option<CommandFillOrderingError>,
+    pub scenario: CommandNextTurnScenario,
+    pub dropped_object_count: i16,
+    pub halt_suppressed: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleCommandEffectFill {
+    SpellTargetList(Actor),
+    CommandOptionChoice(CommandNextTurnOption),
+    SavingThrowOutcome {
+        option: CommandNextTurnOption,
+        failed: bool,
+        movement_available: bool,
+        held_object_facts_required: bool,
+    },
+    DropHeldObjectFacts {
+        dropped_object_count: i16,
+    },
+    Movement {
+        option: CommandNextTurnOption,
+        movement_available: bool,
+        moved_within_five_feet_of_caster: bool,
+        opened_opportunity_attack: bool,
+        movement_spent_feet: i16,
+    },
+    FollowPendingOption(CommandPendingOptionFollow),
+    CleanupPendingOption(CommandPendingOptionCleanup),
+    Complete,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum CommandPendingOptionFollow {
+    Grovel,
+    Drop { dropped_object_count: i16 },
+    Halt { movement_spent_feet: i16 },
+    Approach { movement_spent_feet: i16 },
+    Flee { movement_spent_feet: i16 },
+    FleeOpportunityAttackWindow,
+    FleeOpportunityAttackDeclined { movement_spent_feet: i16 },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum CommandPendingOptionCleanup {
+    Halt,
+    ApproachNoMovement,
+    FleeNoMovement,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleScalarBuffFill {
+    TargetChoice(Actor),
+}
+
 impl BattleReactionCastingTimeState {
     #[must_use]
     pub fn none() -> Self {
@@ -562,6 +645,8 @@ pub enum BattleSubjectKind {
     DeathSavingThrow,
     ConcentrationTeardown,
     StatBlockAction,
+    CommandSpell,
+    ScalarBuffTargetSpell,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -647,6 +732,8 @@ pub enum BattleFill {
     HitPointRestoration(BattleHitPointRestorationFill),
     DeathSavingThrow(DeathSavingThrowFacts),
     Concentration(BattleConcentrationFill),
+    CommandEffect(BattleCommandEffectFill),
+    ScalarBuff(BattleScalarBuffFill),
     StatBlockAction {
         subject: StatBlockActionSubject,
         fill: StatBlockActionFill,
@@ -822,6 +909,32 @@ impl BattleResolutionRequest {
         })
     }
 
+    pub fn command_effect(
+        subject: BattleSubject,
+        fill: BattleCommandEffectFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::CommandSpell {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::CommandEffect(fill),
+        })
+    }
+
+    pub fn scalar_buff(
+        subject: BattleSubject,
+        fill: BattleScalarBuffFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::ScalarBuffTargetSpell {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::ScalarBuff(fill),
+        })
+    }
+
     pub fn stat_block_action(subject: StatBlockActionSubject, fill: StatBlockActionFill) -> Self {
         Self {
             subject: battle_subject_from_stat_block_action_subject(subject),
@@ -844,6 +957,8 @@ pub enum BattleHoleKind {
     DeathSavingThrow,
     ConcentrationSavingThrow,
     StatBlockRechargeRoll,
+    CommandOptionChoice,
+    Movement,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1349,6 +1464,7 @@ pub fn start_battle(setup: BattleSetup) -> BattleStartResult {
             save_gated_spell_procedure: setup.save_gated_spell_procedure,
             hit_point_restoration_procedure: setup.hit_point_restoration_procedure,
             spell_attack_procedure: setup.spell_attack_procedure,
+            command_effect_procedure: setup.command_effect_procedure,
             spell_slot_uses_this_turn: setup.spell_slot_uses_this_turn,
             level_one_plus_spell_casters_this_turn: setup.level_one_plus_spell_casters_this_turn,
             quickened_level_one_plus_spell_casters_this_turn: setup
@@ -1701,6 +1817,598 @@ pub fn spell_attack_ordering_projection_from_battle(
 }
 
 #[must_use]
+pub fn discover_command_effect_battle(mut state: BattleState) -> BattleState {
+    if !state.action_available || first_waiting_actor(&state).is_none() {
+        return state;
+    }
+    let actor = current_actor(&state);
+    state.command_effect_procedure =
+        BattleCommandEffectProcedure::Active(BattleCommandEffectSubject {
+            actor,
+            target: None,
+            stage: CommandFrontierStage::TargetListAndOptionChoice,
+            pending_option: None,
+            last_ordering_error: None,
+            scenario: CommandNextTurnScenario::Init,
+            dropped_object_count: 0,
+            halt_suppressed: false,
+        });
+    state
+}
+
+#[must_use]
+pub fn start_command_effect_battle_at_actor(actor: CommandTurnActor) -> BattleState {
+    start_battle(BattleSetup {
+        initiative: Initiative {
+            round: 1,
+            already_acted: match actor {
+                CommandTurnActor::Caster => Vec::new(),
+                CommandTurnActor::Target => vec![Actor::Fighter],
+            },
+            still_to_act: InitiativeStillToAct {
+                actor: battle_actor_for_command_actor(actor),
+                waiting: match actor {
+                    CommandTurnActor::Caster => vec![Actor::Goblin],
+                    CommandTurnActor::Target => Vec::new(),
+                },
+            },
+        },
+        ..BattleSetup::standard()
+    })
+    .state
+}
+
+#[must_use]
+pub fn command_ordering_projection_from_battle(state: &BattleState) -> CommandOrderingState {
+    match state.command_effect_procedure {
+        BattleCommandEffectProcedure::Inactive => command_ordering_initial_state(),
+        BattleCommandEffectProcedure::Active(subject) => {
+            command_ordering_projection(CommandOrderingProjectionFacts {
+                stage: subject.stage,
+                runtime_result: command_runtime_result_from_subject(subject),
+                last_ordering_error: subject.last_ordering_error,
+                pending_option: subject.pending_option,
+                target_prone: combatant_for(state, Actor::Goblin).prone,
+                dropped_object_count: subject.dropped_object_count,
+                halt_suppressed: subject.halt_suppressed,
+                movement_spent_feet: combatant_for(state, current_actor(state)).movement_spent_feet,
+                current_actor: command_actor_for_battle_actor(current_actor(state)),
+                reaction_window_open: command_reaction_window_open(state),
+            })
+        }
+    }
+}
+
+#[must_use]
+pub fn command_next_turn_projection_from_battle(
+    state: &BattleState,
+) -> crate::rules::command_options::CommandNextTurnState {
+    let Some(subject) = active_command_subject(state) else {
+        return command_next_turn_initial_state();
+    };
+    crate::rules::command_options::CommandNextTurnState {
+        scenario: subject.scenario,
+        protocol: command_next_turn_protocol_from_battle(state, subject),
+        target_prone: combatant_for(state, Actor::Goblin).prone,
+        target_effect_count: if subject.pending_option.is_some() {
+            1
+        } else {
+            0
+        },
+        action_available: state.action_available,
+        bonus_action_available: state.bonus_action_available,
+        movement_spent_feet: combatant_for(state, current_actor(state)).movement_spent_feet,
+        current_actor: command_actor_for_battle_actor(current_actor(state)),
+        pending_option: subject.pending_option,
+        dropped_object_count: subject.dropped_object_count,
+        reaction_window_open: command_reaction_window_open(state),
+        halt_suppressed: subject.halt_suppressed,
+    }
+}
+
+fn resolve_command_effect_battle_subject(
+    state: BattleState,
+    subject: BattleSubject,
+    fill: BattleCommandEffectFill,
+) -> BattleResolutionResult {
+    let state = if matches!(
+        state.command_effect_procedure,
+        BattleCommandEffectProcedure::Inactive
+    ) {
+        discover_command_effect_battle(state)
+    } else {
+        state
+    };
+    let BattleCommandEffectProcedure::Active(active) = state.command_effect_procedure else {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            Vec::new(),
+        );
+    };
+    if active.actor != subject.actor {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            Vec::new(),
+        );
+    }
+
+    match fill {
+        BattleCommandEffectFill::SpellTargetList(target) => resolve_command_ordered_fill(
+            state,
+            active,
+            CommandOrderingFillFacts {
+                fill_kind: CommandFillKind::SpellTargetList,
+                option: active
+                    .pending_option
+                    .unwrap_or(CommandNextTurnOption::Grovel),
+                failed_saving_throw: true,
+                movement_available: false,
+                held_object_facts_required: false,
+                moved_within_five_feet_of_caster: false,
+                opened_opportunity_attack: false,
+            },
+            |next| BattleCommandEffectSubject {
+                target: Some(target),
+                ..next
+            },
+        ),
+        BattleCommandEffectFill::CommandOptionChoice(option) => resolve_command_ordered_fill(
+            state,
+            active,
+            CommandOrderingFillFacts {
+                fill_kind: CommandFillKind::CommandOptionChoice,
+                option,
+                failed_saving_throw: true,
+                movement_available: false,
+                held_object_facts_required: false,
+                moved_within_five_feet_of_caster: false,
+                opened_opportunity_attack: false,
+            },
+            |next| BattleCommandEffectSubject { ..next },
+        ),
+        BattleCommandEffectFill::SavingThrowOutcome {
+            option,
+            failed,
+            movement_available,
+            held_object_facts_required,
+        } => resolve_command_ordered_fill(
+            state,
+            active,
+            CommandOrderingFillFacts {
+                fill_kind: CommandFillKind::SavingThrowOutcome,
+                option,
+                failed_saving_throw: failed,
+                movement_available,
+                held_object_facts_required,
+                moved_within_five_feet_of_caster: false,
+                opened_opportunity_attack: false,
+            },
+            |next| {
+                if failed {
+                    BattleCommandEffectSubject {
+                        pending_option: Some(option),
+                        scenario: CommandNextTurnScenario::FailedSaveRecordsPending,
+                        ..next
+                    }
+                } else {
+                    BattleCommandEffectSubject {
+                        pending_option: None,
+                        ..next
+                    }
+                }
+            },
+        ),
+        BattleCommandEffectFill::DropHeldObjectFacts {
+            dropped_object_count,
+        } => resolve_command_effect_result(
+            command_effect_state(
+                state,
+                BattleCommandEffectSubject {
+                    stage: CommandFrontierStage::Resolved,
+                    pending_option: None,
+                    dropped_object_count: dropped_object_count.max(0),
+                    scenario: CommandNextTurnScenario::FollowDrop,
+                    ..active
+                },
+            ),
+            BattleCommandEffectSubject {
+                stage: CommandFrontierStage::Resolved,
+                pending_option: None,
+                dropped_object_count: dropped_object_count.max(0),
+                scenario: CommandNextTurnScenario::FollowDrop,
+                ..active
+            },
+        ),
+        BattleCommandEffectFill::Movement {
+            option,
+            movement_available,
+            moved_within_five_feet_of_caster,
+            opened_opportunity_attack,
+            movement_spent_feet,
+        } => resolve_command_movement_fill(
+            state,
+            active,
+            option,
+            movement_available,
+            moved_within_five_feet_of_caster,
+            opened_opportunity_attack,
+            movement_spent_feet,
+        ),
+        BattleCommandEffectFill::FollowPendingOption(follow) => {
+            resolve_command_follow(state, active, follow)
+        }
+        BattleCommandEffectFill::CleanupPendingOption(cleanup) => {
+            resolve_command_cleanup(state, active, cleanup)
+        }
+        BattleCommandEffectFill::Complete => resolve_command_effect_result(state, active),
+    }
+}
+
+fn resolve_command_ordered_fill(
+    state: BattleState,
+    active: BattleCommandEffectSubject,
+    facts: CommandOrderingFillFacts,
+    update_subject: impl FnOnce(BattleCommandEffectSubject) -> BattleCommandEffectSubject,
+) -> BattleResolutionResult {
+    let result = command_fill_order_result(active.stage, facts);
+    let next_stage = command_fill_order_accepted_stage(result, active.stage);
+    let next_subject = update_subject(BattleCommandEffectSubject {
+        stage: next_stage,
+        last_ordering_error: command_fill_order_error(result),
+        ..active
+    });
+    let next_state = command_effect_state(state, next_subject);
+    match command_fill_order_runtime_result(result) {
+        CommandOrderingRuntimeResult::Invalid => BattleResolutionResult::Invalid {
+            state: next_state,
+            reason: BattleResolutionInvalidReason::InvalidFill,
+            holes: command_hole_kinds(next_subject.stage),
+        },
+        CommandOrderingRuntimeResult::Resolved => {
+            BattleResolutionResult::Resolved { state: next_state }
+        }
+        CommandOrderingRuntimeResult::Init | CommandOrderingRuntimeResult::NeedsHoles => {
+            BattleResolutionResult::NeedsHoles {
+                state: next_state,
+                subject: diagnostic_subject(
+                    BattleSubjectKind::CommandSpell,
+                    next_subject.actor,
+                    next_subject.target,
+                ),
+                holes: command_hole_kinds(next_subject.stage),
+            }
+        }
+    }
+}
+
+fn resolve_command_movement_fill(
+    state: BattleState,
+    active: BattleCommandEffectSubject,
+    option: CommandNextTurnOption,
+    movement_available: bool,
+    moved_within_five_feet_of_caster: bool,
+    opened_opportunity_attack: bool,
+    movement_spent_feet: i16,
+) -> BattleResolutionResult {
+    let result = command_fill_order_result(
+        active.stage,
+        CommandOrderingFillFacts {
+            fill_kind: CommandFillKind::Movement,
+            option,
+            failed_saving_throw: true,
+            movement_available,
+            held_object_facts_required: false,
+            moved_within_five_feet_of_caster,
+            opened_opportunity_attack,
+        },
+    );
+    if command_fill_order_runtime_result(result) == CommandOrderingRuntimeResult::Invalid {
+        let next_subject = BattleCommandEffectSubject {
+            last_ordering_error: command_fill_order_error(result),
+            pending_option: Some(option),
+            scenario: match option {
+                CommandNextTurnOption::Approach => {
+                    CommandNextTurnScenario::ApproachMovementRejected
+                }
+                CommandNextTurnOption::Flee => CommandNextTurnScenario::FleePartialMovementRejected,
+                CommandNextTurnOption::Drop
+                | CommandNextTurnOption::Grovel
+                | CommandNextTurnOption::Halt => active.scenario,
+            },
+            ..active
+        };
+        return BattleResolutionResult::Invalid {
+            state: command_effect_state(state, next_subject),
+            reason: BattleResolutionInvalidReason::InvalidFill,
+            holes: command_hole_kinds(next_subject.stage),
+        };
+    }
+    let mut next_state = state;
+    combatant_for_mut(&mut next_state, current_actor_for_command(active, option))
+        .movement_spent_feet = movement_spent_feet.max(0);
+    if opened_opportunity_attack {
+        next_state.interrupt_resume.reaction_window = offer_reaction_window(
+            next_state.interrupt_resume.reaction_window,
+            ReactionWindowRole::AttackHitInterruption,
+        );
+    }
+    let next_subject = BattleCommandEffectSubject {
+        stage: command_fill_order_accepted_stage(result, active.stage),
+        last_ordering_error: command_fill_order_error(result),
+        pending_option: if opened_opportunity_attack {
+            Some(option)
+        } else {
+            None
+        },
+        scenario: match option {
+            CommandNextTurnOption::Approach if moved_within_five_feet_of_caster => {
+                CommandNextTurnScenario::ApproachWithinFiveEndsTurn
+            }
+            CommandNextTurnOption::Approach => CommandNextTurnScenario::ApproachContinues,
+            CommandNextTurnOption::Flee if opened_opportunity_attack => {
+                CommandNextTurnScenario::FleeOpportunityAttackWindow
+            }
+            CommandNextTurnOption::Flee => CommandNextTurnScenario::FleeFullMovementEndsTurn,
+            CommandNextTurnOption::Drop
+            | CommandNextTurnOption::Grovel
+            | CommandNextTurnOption::Halt => active.scenario,
+        },
+        ..active
+    };
+    resolve_command_effect_result(command_effect_state(next_state, next_subject), next_subject)
+}
+
+fn resolve_command_follow(
+    state: BattleState,
+    active: BattleCommandEffectSubject,
+    follow: CommandPendingOptionFollow,
+) -> BattleResolutionResult {
+    let mut next_state = state;
+    let mut next_subject = BattleCommandEffectSubject {
+        stage: CommandFrontierStage::Resolved,
+        pending_option: None,
+        last_ordering_error: None,
+        ..active
+    };
+    match follow {
+        CommandPendingOptionFollow::Grovel => {
+            combatant_for_mut(&mut next_state, Actor::Goblin).prone = true;
+            next_subject.scenario = CommandNextTurnScenario::FollowGrovel;
+        }
+        CommandPendingOptionFollow::Drop {
+            dropped_object_count,
+        } => {
+            next_subject.dropped_object_count = dropped_object_count.max(0);
+            next_subject.scenario = CommandNextTurnScenario::FollowDrop;
+        }
+        CommandPendingOptionFollow::Halt {
+            movement_spent_feet,
+        } => {
+            next_state.action_available = false;
+            next_state.bonus_action_available = false;
+            combatant_for_mut(&mut next_state, Actor::Goblin).movement_spent_feet =
+                movement_spent_feet.max(0);
+            next_subject.pending_option = Some(CommandNextTurnOption::Halt);
+            next_subject.halt_suppressed = true;
+            next_subject.scenario = CommandNextTurnScenario::HaltSuppresses;
+        }
+        CommandPendingOptionFollow::Approach {
+            movement_spent_feet,
+        } => {
+            combatant_for_mut(&mut next_state, Actor::Goblin).movement_spent_feet =
+                movement_spent_feet.max(0);
+            next_subject.scenario = CommandNextTurnScenario::ApproachContinues;
+        }
+        CommandPendingOptionFollow::Flee {
+            movement_spent_feet,
+        } => {
+            combatant_for_mut(&mut next_state, Actor::Goblin).movement_spent_feet =
+                movement_spent_feet.max(0);
+            next_subject.scenario = CommandNextTurnScenario::FleeFullMovementEndsTurn;
+        }
+        CommandPendingOptionFollow::FleeOpportunityAttackWindow => {
+            next_state.interrupt_resume.reaction_window = offer_reaction_window(
+                next_state.interrupt_resume.reaction_window,
+                ReactionWindowRole::AttackHitInterruption,
+            );
+            next_subject.pending_option = Some(CommandNextTurnOption::Flee);
+            next_subject.scenario = CommandNextTurnScenario::FleeOpportunityAttackWindow;
+        }
+        CommandPendingOptionFollow::FleeOpportunityAttackDeclined {
+            movement_spent_feet,
+        } => {
+            next_state.interrupt_resume.reaction_window =
+                decline_reaction_window(next_state.interrupt_resume.reaction_window);
+            combatant_for_mut(&mut next_state, Actor::Fighter).movement_spent_feet =
+                movement_spent_feet.max(0);
+            next_subject.scenario =
+                CommandNextTurnScenario::FleeOpportunityAttackDeclinedContinuation;
+        }
+    }
+    resolve_command_effect_result(command_effect_state(next_state, next_subject), next_subject)
+}
+
+fn resolve_command_cleanup(
+    state: BattleState,
+    active: BattleCommandEffectSubject,
+    cleanup: CommandPendingOptionCleanup,
+) -> BattleResolutionResult {
+    let mut next_state = state;
+    let next_subject = match cleanup {
+        CommandPendingOptionCleanup::Halt => {
+            next_state.action_available = true;
+            next_state.bonus_action_available = true;
+            BattleCommandEffectSubject {
+                stage: CommandFrontierStage::Resolved,
+                pending_option: None,
+                halt_suppressed: false,
+                scenario: CommandNextTurnScenario::HaltEndTurnCleanup,
+                ..active
+            }
+        }
+        CommandPendingOptionCleanup::ApproachNoMovement => BattleCommandEffectSubject {
+            stage: CommandFrontierStage::Resolved,
+            pending_option: None,
+            scenario: CommandNextTurnScenario::ApproachNoMovementCleanup,
+            ..active
+        },
+        CommandPendingOptionCleanup::FleeNoMovement => BattleCommandEffectSubject {
+            stage: CommandFrontierStage::Resolved,
+            pending_option: None,
+            scenario: CommandNextTurnScenario::FleeNoMovementCleanup,
+            ..active
+        },
+    };
+    resolve_command_effect_result(command_effect_state(next_state, next_subject), next_subject)
+}
+
+fn resolve_command_effect_result(
+    state: BattleState,
+    subject: BattleCommandEffectSubject,
+) -> BattleResolutionResult {
+    if subject.stage == CommandFrontierStage::Resolved {
+        BattleResolutionResult::Resolved { state }
+    } else {
+        BattleResolutionResult::NeedsHoles {
+            state,
+            subject: diagnostic_subject(
+                BattleSubjectKind::CommandSpell,
+                subject.actor,
+                subject.target,
+            ),
+            holes: command_hole_kinds(subject.stage),
+        }
+    }
+}
+
+fn command_effect_state(state: BattleState, subject: BattleCommandEffectSubject) -> BattleState {
+    BattleState {
+        command_effect_procedure: BattleCommandEffectProcedure::Active(subject),
+        ..state
+    }
+}
+
+fn active_command_subject(state: &BattleState) -> Option<BattleCommandEffectSubject> {
+    match state.command_effect_procedure {
+        BattleCommandEffectProcedure::Inactive => None,
+        BattleCommandEffectProcedure::Active(subject) => Some(subject),
+    }
+}
+
+fn command_runtime_result_from_subject(
+    subject: BattleCommandEffectSubject,
+) -> CommandOrderingRuntimeResult {
+    if subject.last_ordering_error.is_some() {
+        return CommandOrderingRuntimeResult::Invalid;
+    }
+    if subject.stage == CommandFrontierStage::Resolved {
+        CommandOrderingRuntimeResult::Resolved
+    } else {
+        CommandOrderingRuntimeResult::NeedsHoles
+    }
+}
+
+fn command_next_turn_protocol_from_battle(
+    state: &BattleState,
+    subject: BattleCommandEffectSubject,
+) -> CommandNextTurnProtocol {
+    if subject.last_ordering_error.is_some() {
+        return CommandNextTurnProtocol::Invalid(CommandNextTurnInvalidReason::InvalidFill);
+    }
+    if command_reaction_window_open(state) {
+        CommandNextTurnProtocol::NeedsInterruptDecision
+    } else if subject.scenario == CommandNextTurnScenario::Init {
+        CommandNextTurnProtocol::Init
+    } else {
+        CommandNextTurnProtocol::Resolved
+    }
+}
+
+fn command_reaction_window_open(state: &BattleState) -> bool {
+    state.interrupt_resume.reaction_window != ReactionWindowOffer::Closed
+}
+
+const fn battle_actor_for_command_actor(actor: CommandTurnActor) -> Actor {
+    match actor {
+        CommandTurnActor::Caster => Actor::Fighter,
+        CommandTurnActor::Target => Actor::Goblin,
+    }
+}
+
+const fn command_actor_for_battle_actor(actor: Actor) -> CommandTurnActor {
+    match actor {
+        Actor::Goblin => CommandTurnActor::Target,
+        Actor::Fighter | Actor::Rogue | Actor::Skeleton => CommandTurnActor::Caster,
+    }
+}
+
+const fn current_actor_for_command(
+    active: BattleCommandEffectSubject,
+    option: CommandNextTurnOption,
+) -> Actor {
+    match option {
+        CommandNextTurnOption::Approach | CommandNextTurnOption::Flee => Actor::Goblin,
+        CommandNextTurnOption::Drop
+        | CommandNextTurnOption::Grovel
+        | CommandNextTurnOption::Halt => active.actor,
+    }
+}
+
+#[must_use]
+pub fn scalar_buff_target_projection_from_battle_result(
+    result: &BattleResolutionResult,
+) -> ScalarBuffTargetState {
+    let state = result.state();
+    ScalarBuffTargetState {
+        fighter_speed_feet: state.fighter.speed_feet,
+        goblin_speed_feet: state.goblin.speed_feet,
+        action_available: state.action_available,
+        protocol: scalar_buff_protocol_from_result(result),
+        protocol_holes: scalar_buff_holes_from_result(result),
+    }
+}
+
+fn resolve_scalar_buff_battle_subject(
+    state: BattleState,
+    fill: BattleScalarBuffFill,
+) -> BattleResolutionResult {
+    match fill {
+        BattleScalarBuffFill::TargetChoice(target) => {
+            let mut next_state = state;
+            combatant_for_mut(&mut next_state, target).speed_feet += 10;
+            next_state.action_available = false;
+            BattleResolutionResult::Resolved { state: next_state }
+        }
+    }
+}
+
+fn scalar_buff_protocol_from_result(result: &BattleResolutionResult) -> ScalarBuffTargetProtocol {
+    match result.outcome() {
+        BattleResolutionOutcome::NeedsHoles => ScalarBuffTargetProtocol::Init,
+        BattleResolutionOutcome::Resolved => ScalarBuffTargetProtocol::Resolved,
+        BattleResolutionOutcome::Invalid(BattleResolutionInvalidReason::StaleSubject) => {
+            ScalarBuffTargetProtocol::Invalid(ScalarBuffTargetInvalidReason::StaleSubject)
+        }
+        BattleResolutionOutcome::Invalid(
+            BattleResolutionInvalidReason::InvalidFill
+            | BattleResolutionInvalidReason::WrongActor
+            | BattleResolutionInvalidReason::WrongTarget,
+        ) => ScalarBuffTargetProtocol::Invalid(ScalarBuffTargetInvalidReason::StaleSubject),
+    }
+}
+
+fn scalar_buff_holes_from_result(result: &BattleResolutionResult) -> Vec<ScalarBuffTargetHole> {
+    match result.requested_holes() {
+        Some(holes) if holes.contains(&BattleHoleKind::TargetChoice) => {
+            vec![ScalarBuffTargetHole::TargetChoice]
+        }
+        Some(_) | None => Vec::new(),
+    }
+}
+
+#[must_use]
 pub fn resolve_shield_reaction_spell_hit_battle(state: BattleState) -> BattleState {
     // QNT: battle-runtime-reaction-window.qnt `castShieldReactionSpell`;
     // battle-runtime-reaction-resolution.qnt `resolveReactionOffer` AttackHit
@@ -1926,6 +2634,7 @@ fn fighter_combatant() -> Combatant {
         max_hp: 12,
         temporary_hp: 0,
         armor_class: 10,
+        speed_feet: 30,
         shield_armor_class_bonus_active: false,
         unconscious: false,
         incapacitated: false,
@@ -1950,6 +2659,7 @@ fn goblin_combatant() -> Combatant {
         max_hp: 10,
         temporary_hp: 0,
         armor_class: 15,
+        speed_feet: 30,
         shield_armor_class_bonus_active: false,
         unconscious: false,
         incapacitated: false,
@@ -1974,6 +2684,7 @@ fn rogue_combatant() -> Combatant {
         max_hp: 11,
         temporary_hp: 0,
         armor_class: 14,
+        speed_feet: 30,
         shield_armor_class_bonus_active: false,
         unconscious: false,
         incapacitated: false,
@@ -1998,6 +2709,7 @@ fn skeleton_combatant() -> Combatant {
         max_hp: 13,
         temporary_hp: 0,
         armor_class: 13,
+        speed_feet: 30,
         shield_armor_class_bonus_active: false,
         unconscious: false,
         incapacitated: false,
@@ -2283,6 +2995,14 @@ fn push_reducer_spine_diagnostic_acts(
             holes: vec![BattleHoleKind::SpellTargetAllocation],
         });
         acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::CommandSpell, actor, None),
+            holes: command_hole_kinds(CommandFrontierStage::TargetListAndOptionChoice),
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::ScalarBuffTargetSpell, actor, None),
+            holes: vec![BattleHoleKind::TargetChoice],
+        });
+        acts.push(AvailableBattleAct {
             subject: diagnostic_subject(BattleSubjectKind::ConcentrationTeardown, actor, None),
             holes: Vec::new(),
         });
@@ -2432,6 +3152,8 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::DeathSavingThrow
         | BattleSubjectKind::ConcentrationTeardown
         | BattleSubjectKind::StatBlockAction
+        | BattleSubjectKind::CommandSpell
+        | BattleSubjectKind::ScalarBuffTargetSpell
         | BattleSubjectKind::EndTurn => false,
     }
 }
@@ -2442,6 +3164,35 @@ fn concentration_teardown_route_subject_is_live(
 ) -> bool {
     state.action_available
         && diagnostic_subject_shape_matches(subject, BattleSubjectKind::ConcentrationTeardown, None)
+        && route_subject_discoverable_now(state, subject)
+}
+
+fn command_effect_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
+    if subject.kind != BattleSubjectKind::CommandSpell {
+        return false;
+    }
+
+    match state.command_effect_procedure {
+        BattleCommandEffectProcedure::Inactive => {
+            state.action_available
+                && diagnostic_subject_shape_matches(subject, BattleSubjectKind::CommandSpell, None)
+                && route_subject_discoverable_now(state, subject)
+        }
+        BattleCommandEffectProcedure::Active(active) => {
+            active.actor == subject.actor
+                && active.stage != CommandFrontierStage::Resolved
+                && diagnostic_subject_shape_matches(
+                    subject,
+                    BattleSubjectKind::CommandSpell,
+                    active.target,
+                )
+        }
+    }
+}
+
+fn scalar_buff_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
+    state.action_available
+        && diagnostic_subject_shape_matches(subject, BattleSubjectKind::ScalarBuffTargetSpell, None)
         && route_subject_discoverable_now(state, subject)
 }
 
@@ -2676,6 +3427,26 @@ fn resolve_battle_subject_unchecked(
             }
             resolve_concentration_teardown_battle_subject(state, subject, fill)
         }
+        (BattleSubjectKind::CommandSpell, BattleFill::CommandEffect(fill)) => {
+            if !command_effect_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_command_effect_battle_subject(state, subject, fill)
+        }
+        (BattleSubjectKind::ScalarBuffTargetSpell, BattleFill::ScalarBuff(fill)) => {
+            if !scalar_buff_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_scalar_buff_battle_subject(state, fill)
+        }
         (
             BattleSubjectKind::StatBlockAction,
             BattleFill::StatBlockAction {
@@ -2728,6 +3499,8 @@ fn resolve_battle_subject_unchecked(
                 | BattleFill::HitPointRestoration(_)
                 | BattleFill::DeathSavingThrow(_)
                 | BattleFill::Concentration(_)
+                | BattleFill::CommandEffect(_)
+                | BattleFill::ScalarBuff(_)
                 | BattleFill::StatBlockAction { .. } => invalid(
                     state,
                     BattleResolutionInvalidReason::InvalidFill,
@@ -2757,6 +3530,8 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::HitPointRestorationFeatureHealingPool
             | BattleSubjectKind::DeathSavingThrow
             | BattleSubjectKind::ConcentrationTeardown
+            | BattleSubjectKind::CommandSpell
+            | BattleSubjectKind::ScalarBuffTargetSpell
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,
@@ -4098,6 +4873,19 @@ fn hit_point_restoration_hole_kinds(
             HitPointRestorationHoleKind::HitPointHealingDistribution => {
                 BattleHoleKind::HitPointHealingDistribution
             }
+        })
+        .collect()
+}
+
+fn command_hole_kinds(stage: CommandFrontierStage) -> Vec<BattleHoleKind> {
+    command_hole_frontier(stage)
+        .into_iter()
+        .map(|hole| match hole {
+            CommandHoleKind::TargetChoice => BattleHoleKind::TargetChoice,
+            CommandHoleKind::SpellTargetList => BattleHoleKind::SpellTargetList,
+            CommandHoleKind::CommandOptionChoice => BattleHoleKind::CommandOptionChoice,
+            CommandHoleKind::SavingThrowOutcome => BattleHoleKind::SavingThrowOutcome,
+            CommandHoleKind::Movement => BattleHoleKind::Movement,
         })
         .collect()
 }

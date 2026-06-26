@@ -236,6 +236,7 @@ fn creature_attack_combatant() -> Combatant {
         max_hp: 20,
         temporary_hp: 0,
         armor_class: 10,
+        speed_feet: 30,
         shield_armor_class_bonus_active: false,
         unconscious: false,
         incapacitated: false,

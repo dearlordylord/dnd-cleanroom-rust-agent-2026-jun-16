@@ -1,9 +1,20 @@
+use crate::rules::battle_reducer_spine::{
+    discover_battle_acts, resolve_battle_subject, start_standard_battle, BattleCommandEffectFill,
+    BattleResolutionRequest, BattleState, BattleSubject, BattleSubjectKind,
+};
 use crate::rules::command_options::{
     command_fill_order_accepted_stage, command_fill_order_error, command_fill_order_result,
     command_fill_order_runtime_result, command_ordering_projection, CommandFillKind,
     CommandFillOrderingError, CommandFrontierStage, CommandHoleKind, CommandNextTurnOption,
     CommandOrderingFillFacts, CommandOrderingProjectionFacts, CommandOrderingProtocol,
     CommandOrderingRuntimeResult, CommandOrderingState, CommandTurnActor,
+};
+
+use super::battle_runtime_reducer_route::{
+    battle_resolution_continuation, route_discover_battle_acts,
+    route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
+    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -95,6 +106,288 @@ pub fn projection_payload(witness: &CommandOrderingWitness) -> String {
         format!("reactionWindowOpen={}", witness.reaction_window_open),
     ]
     .join("\n")
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doDiscoverCommand" => command_discovery_route().2,
+        "doSubmitOptionBeforeTargetList" => command_route_from_start(
+            BattleCommandEffectFill::CommandOptionChoice(CommandNextTurnOption::Grovel),
+            ReducerRouteFillKind::CommandOptionChoice,
+            ReducerRouteOwnerGroup::HoleFrontier,
+        ),
+        "doFillTargetList" => command_route_from_start(
+            BattleCommandEffectFill::SpellTargetList(
+                crate::rules::battle_reducer_spine::Actor::Goblin,
+            ),
+            ReducerRouteFillKind::SpellTargetList,
+            ReducerRouteOwnerGroup::TargetSelection,
+        ),
+        "doSubmitSavingThrowBeforeOption" => {
+            let (state, subject, route) = command_after_target_list_route();
+            append_command_route(
+                state,
+                subject,
+                BattleCommandEffectFill::SavingThrowOutcome {
+                    option: CommandNextTurnOption::Grovel,
+                    failed: true,
+                    movement_available: false,
+                    held_object_facts_required: false,
+                },
+                ReducerRouteFillKind::SavingThrowOutcome,
+                ReducerRouteOwnerGroup::HoleFrontier,
+                route,
+            )
+            .1
+        }
+        "doFillGrovelOption" => {
+            let (state, subject, route) = command_after_target_list_route();
+            append_command_route(
+                state,
+                subject,
+                BattleCommandEffectFill::CommandOptionChoice(CommandNextTurnOption::Grovel),
+                ReducerRouteFillKind::CommandOptionChoice,
+                ReducerRouteOwnerGroup::CommandEffect,
+                route,
+            )
+            .1
+        }
+        "doFillFailedGrovelSavingThrow" => {
+            let (state, subject, route) = command_after_grovel_option_route();
+            append_command_route(
+                state,
+                subject,
+                BattleCommandEffectFill::SavingThrowOutcome {
+                    option: CommandNextTurnOption::Grovel,
+                    failed: true,
+                    movement_available: false,
+                    held_object_facts_required: false,
+                },
+                ReducerRouteFillKind::SavingThrowOutcome,
+                ReducerRouteOwnerGroup::CommandEffect,
+                route,
+            )
+            .1
+        }
+        "doFollowGrovel" => command_route_from_start(
+            BattleCommandEffectFill::FollowPendingOption(
+                crate::rules::battle_reducer_spine::CommandPendingOptionFollow::Grovel,
+            ),
+            ReducerRouteFillKind::SavingThrowOutcome,
+            ReducerRouteOwnerGroup::CommandEffect,
+        ),
+        "doDropNeedsHeldObjectFacts" => {
+            let (state, subject, route) = command_after_target_list_route();
+            append_command_route(
+                state,
+                subject,
+                BattleCommandEffectFill::SavingThrowOutcome {
+                    option: CommandNextTurnOption::Drop,
+                    failed: true,
+                    movement_available: false,
+                    held_object_facts_required: true,
+                },
+                ReducerRouteFillKind::SavingThrowOutcome,
+                ReducerRouteOwnerGroup::CommandEffect,
+                route,
+            )
+            .1
+        }
+        "doFillDropHeldObjectFacts" => command_route_from_start(
+            BattleCommandEffectFill::DropHeldObjectFacts {
+                dropped_object_count: 2,
+            },
+            ReducerRouteFillKind::CommandOptionChoice,
+            ReducerRouteOwnerGroup::CommandEffect,
+        ),
+        "doHaltSuppresses" => command_route_from_start(
+            BattleCommandEffectFill::FollowPendingOption(
+                crate::rules::battle_reducer_spine::CommandPendingOptionFollow::Halt {
+                    movement_spent_feet: 30,
+                },
+            ),
+            ReducerRouteFillKind::SavingThrowOutcome,
+            ReducerRouteOwnerGroup::CommandEffect,
+        ),
+        "doApproachMovementContinues" => command_route_from_start(
+            BattleCommandEffectFill::SavingThrowOutcome {
+                option: CommandNextTurnOption::Approach,
+                failed: true,
+                movement_available: true,
+                held_object_facts_required: false,
+            },
+            ReducerRouteFillKind::SavingThrowOutcome,
+            ReducerRouteOwnerGroup::CommandEffect,
+        ),
+        "doFillApproachMovementContinues" | "doFillApproachMovementWithinFive" => {
+            command_route_from_start(
+                BattleCommandEffectFill::Movement {
+                    option: CommandNextTurnOption::Approach,
+                    movement_available: true,
+                    moved_within_five_feet_of_caster: observed_action_taken
+                        == "doFillApproachMovementWithinFive",
+                    opened_opportunity_attack: false,
+                    movement_spent_feet: 10,
+                },
+                ReducerRouteFillKind::Movement,
+                ReducerRouteOwnerGroup::CommandEffect,
+            )
+        }
+        "doApproachNoMovement" => command_route_from_start(
+            BattleCommandEffectFill::CleanupPendingOption(
+                crate::rules::battle_reducer_spine::CommandPendingOptionCleanup::ApproachNoMovement,
+            ),
+            ReducerRouteFillKind::Movement,
+            ReducerRouteOwnerGroup::CommandEffect,
+        ),
+        "doFleeMovement" => command_route_from_start(
+            BattleCommandEffectFill::SavingThrowOutcome {
+                option: CommandNextTurnOption::Flee,
+                failed: true,
+                movement_available: true,
+                held_object_facts_required: false,
+            },
+            ReducerRouteFillKind::SavingThrowOutcome,
+            ReducerRouteOwnerGroup::CommandEffect,
+        ),
+        "doFillFleeMovement" => command_route_from_start(
+            BattleCommandEffectFill::Movement {
+                option: CommandNextTurnOption::Flee,
+                movement_available: true,
+                moved_within_five_feet_of_caster: false,
+                opened_opportunity_attack: false,
+                movement_spent_feet: 30,
+            },
+            ReducerRouteFillKind::Movement,
+            ReducerRouteOwnerGroup::CommandEffect,
+        ),
+        "doRejectFleePartialMovement" => command_route_from_start(
+            BattleCommandEffectFill::Movement {
+                option: CommandNextTurnOption::Flee,
+                movement_available: false,
+                moved_within_five_feet_of_caster: false,
+                opened_opportunity_attack: false,
+                movement_spent_feet: 0,
+            },
+            ReducerRouteFillKind::Movement,
+            ReducerRouteOwnerGroup::HoleFrontier,
+        ),
+        "doFleeNoMovement" => command_route_from_start(
+            BattleCommandEffectFill::CleanupPendingOption(
+                crate::rules::battle_reducer_spine::CommandPendingOptionCleanup::FleeNoMovement,
+            ),
+            ReducerRouteFillKind::Movement,
+            ReducerRouteOwnerGroup::CommandEffect,
+        ),
+        "doFleeOpportunityAttack" => command_route_from_start(
+            BattleCommandEffectFill::Movement {
+                option: CommandNextTurnOption::Flee,
+                movement_available: true,
+                moved_within_five_feet_of_caster: false,
+                opened_opportunity_attack: true,
+                movement_spent_feet: 0,
+            },
+            ReducerRouteFillKind::Movement,
+            ReducerRouteOwnerGroup::CommandEffect,
+        ),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    replay_observed_route(observed_action_taken)
+}
+
+fn command_route_from_start(
+    fill: BattleCommandEffectFill,
+    route_fill: ReducerRouteFillKind,
+    owner: ReducerRouteOwnerGroup,
+) -> Vec<ReducerRouteEvent> {
+    let (state, subject, route) = command_discovery_route();
+    append_command_route(state, subject, fill, route_fill, owner, route).1
+}
+
+fn command_discovery_route() -> (BattleState, BattleSubject, Vec<ReducerRouteEvent>) {
+    let state = start_standard_battle();
+    let mut route = vec![route_start_battle(ReducerRouteOwnerGroup::CommandEffect)];
+    let subject = command_subject(&state);
+    let discovery = discover_battle_acts(&state);
+    let holes = discovery
+        .available_acts()
+        .iter()
+        .find(|act| act.subject == subject)
+        .map(|act| act.holes.clone())
+        .expect("command act should be discoverable");
+    route.push(route_discover_battle_acts(
+        ReducerRouteSubjectFamily::CommandSpell,
+        holes,
+        ReducerRouteOwnerGroup::CommandEffect,
+    ));
+    (state, subject, route)
+}
+
+fn command_after_target_list_route() -> (BattleState, BattleSubject, Vec<ReducerRouteEvent>) {
+    let (state, subject, route) = command_discovery_route();
+    let (result, route) = append_command_route(
+        state,
+        subject,
+        BattleCommandEffectFill::SpellTargetList(crate::rules::battle_reducer_spine::Actor::Goblin),
+        ReducerRouteFillKind::SpellTargetList,
+        ReducerRouteOwnerGroup::TargetSelection,
+        route,
+    );
+    let (state, subject) = battle_resolution_continuation(result, "command target list");
+    (state, subject, route)
+}
+
+fn command_after_grovel_option_route() -> (BattleState, BattleSubject, Vec<ReducerRouteEvent>) {
+    let (state, subject, route) = command_after_target_list_route();
+    let (result, route) = append_command_route(
+        state,
+        subject,
+        BattleCommandEffectFill::CommandOptionChoice(CommandNextTurnOption::Grovel),
+        ReducerRouteFillKind::CommandOptionChoice,
+        ReducerRouteOwnerGroup::CommandEffect,
+        route,
+    );
+    let (state, subject) = battle_resolution_continuation(result, "command option choice");
+    (state, subject, route)
+}
+
+fn append_command_route(
+    state: BattleState,
+    subject: BattleSubject,
+    fill: BattleCommandEffectFill,
+    route_fill: ReducerRouteFillKind,
+    owner: ReducerRouteOwnerGroup,
+    mut route: Vec<ReducerRouteEvent>,
+) -> (
+    crate::rules::battle_reducer_spine::BattleResolutionResult,
+    Vec<ReducerRouteEvent>,
+) {
+    let result = resolve_battle_subject(
+        state,
+        BattleResolutionRequest::command_effect(subject, fill)
+            .expect("command subject kind should match command request"),
+    );
+    route.push(route_resolve_battle_subject_from_result(
+        ReducerRouteResolveConnector {
+            subject: ReducerRouteSubjectFamily::CommandSpell,
+            fill: ReducerRouteResolveFill::Fill(route_fill),
+            owner,
+        },
+        &result,
+    ));
+    (result, route)
+}
+
+fn command_subject(state: &BattleState) -> BattleSubject {
+    discover_battle_acts(state)
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == BattleSubjectKind::CommandSpell)
+        .expect("command subject should be discoverable from standard battle")
 }
 
 fn discover_command() -> CommandOrderingState {

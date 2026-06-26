@@ -1029,3 +1029,75 @@ Verification results:
 - State ownership: `tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/STATE_OWNER_MANIFEST.json`
 - Reviewer loop: `tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/REVIEW_LOOP.json`
 - Decider decision: `tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/DECIDER_DECISION.json`
+
+## L15-RR06-BATTLE-SPELL-EFFECT-ROUTES: Battle Spell Effect Routes
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Drivers:
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt`
+
+Behavior implemented:
+
+- Command next-turn and command ordering route through `BattleState.command_effect_procedure`, `discover_battle_acts`, typed command fills, and `resolve_battle_subject`.
+- Scalar buff target routing uses `Combatant.speed_feet`, typed scalar target choice, and stale-subject results from the shared reducer surface.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFailedSaveRecordsPending` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFailedSaveRecordsPending#step:doFailedSaveRecordsPending` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFollowGrovel` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel#step:doFollowGrovel` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFollowDrop` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowDrop#step:doFollowDrop` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doHaltSuppresses` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses#step:doHaltSuppresses` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doHaltEndTurnCleanup` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltEndTurnCleanup#step:doHaltEndTurnCleanup` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doApproachContinues` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachContinues#step:doApproachContinues` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doApproachWithinFiveEndsTurn` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachWithinFiveEndsTurn#step:doApproachWithinFiveEndsTurn` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doApproachMovementRejected` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementRejected#step:doApproachMovementRejected` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doApproachNoMovementCleanup` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovementCleanup#step:doApproachNoMovementCleanup` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFleeFullMovementEndsTurn` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeFullMovementEndsTurn#step:doFleeFullMovementEndsTurn` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFleePartialMovementRejected` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleePartialMovementRejected#step:doFleePartialMovementRejected` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFleeNoMovementCleanup` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovementCleanup#step:doFleeNoMovementCleanup` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFleeOpportunityAttackWindow` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackWindow#step:doFleeOpportunityAttackWindow` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFleeOpportunityAttackDeclinedContinuation` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackDeclinedContinuation#step:doFleeOpportunityAttackDeclinedContinuation` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doComplete` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doComplete#step:doComplete` | `src/qnt_adapters/battle_runtime_command_option_next_turn.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doDiscoverCommand` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDiscoverCommand#step:doDiscoverCommand` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doSubmitOptionBeforeTargetList` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitOptionBeforeTargetList#step:doSubmitOptionBeforeTargetList` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillTargetList` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillTargetList#step:doFillTargetList` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doSubmitSavingThrowBeforeOption` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitSavingThrowBeforeOption#step:doSubmitSavingThrowBeforeOption` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillGrovelOption` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillGrovelOption#step:doFillGrovelOption` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillFailedGrovelSavingThrow` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFailedGrovelSavingThrow#step:doFillFailedGrovelSavingThrow` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFollowGrovel` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel#step:doFollowGrovel` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doDropNeedsHeldObjectFacts` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDropNeedsHeldObjectFacts#step:doDropNeedsHeldObjectFacts` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillDropHeldObjectFacts` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillDropHeldObjectFacts#step:doFillDropHeldObjectFacts` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doHaltSuppresses` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses#step:doHaltSuppresses` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doApproachMovementContinues` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementContinues#step:doApproachMovementContinues` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillApproachMovementContinues` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementContinues#step:doFillApproachMovementContinues` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillApproachMovementWithinFive` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementWithinFive#step:doFillApproachMovementWithinFive` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doApproachNoMovement` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovement#step:doApproachNoMovement` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFleeMovement` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeMovement#step:doFleeMovement` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFillFleeMovement` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFleeMovement#step:doFillFleeMovement` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doRejectFleePartialMovement` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectFleePartialMovement#step:doRejectFleePartialMovement` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFleeNoMovement` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovement#step:doFleeNoMovement` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFleeOpportunityAttack` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttack#step:doFleeOpportunityAttack` | `src/qnt_adapters/battle_runtime_command_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt#step:doFillLongstriderTarget` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillLongstriderTarget#step:doFillLongstriderTarget` | `src/qnt_adapters/battle_runtime_scalar_buff.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt#step:doRejectStaleAfterResolved` | `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved` | `src/qnt_adapters/battle_runtime_scalar_buff.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo test command_option_next_turn_adapter_replays_all_branches` passed.
+- `cargo test command_ordering_adapter_replays_all_branches` passed.
+- `cargo test scalar_buff_adapter_replays_all_branches` passed.
