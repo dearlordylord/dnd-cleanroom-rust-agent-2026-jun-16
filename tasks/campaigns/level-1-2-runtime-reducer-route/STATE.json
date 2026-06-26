@@ -193,7 +193,15 @@
       "status": "implemented-pending-review",
       "workerAgent": "019f0600-b370-7d41-8886-aa5750bdcf84",
       "workerName": "Laplace",
-      "commit": "f0e6057dedc100f253a5bec4d34f13bd3c2ca8da"
+      "commit": "f0e6057dedc100f253a5bec4d34f13bd3c2ca8da",
+      "reviewAgent": "019f0611-dad6-7373-9249-296531f5716f",
+      "reviewName": "Dirac",
+      "reviewStatus": "findings",
+      "reviewFindings": [
+        "Command reducer still dispatches through fixture Actor::Goblin/Actor::Fighter instead of reducer-owned subject/target/current-actor state.",
+        "Route evidence is self-referential and too shallow: expected routes call observed routes and comparator discards most BattleResolutionResult outcome data.",
+        "Lane artifacts disagree on assignment identity between START_GATE.json and RUN_LEDGER.json."
+      ]
     }
   ],
   "completedLaneWorktrees": [
