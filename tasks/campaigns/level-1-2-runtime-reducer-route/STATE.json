@@ -199,6 +199,9 @@
         "scripts/check-cleanroom-harness.cjs weakened sampled-input quarantine and conflicts semantically with RR03 sampled-pick quarantine restoration.",
         "RR05 branch does not contain RR03 merge and has textual conflicts in harness, manifest, and rolling task artifacts."
       ],
+      "secondFixerAgent": "019f05dd-57d7-7c90-86a7-12d85a9c5f8c",
+      "secondFixerName": "Confucius",
+      "secondFixStatus": "running",
       "reviewFindings": [
         "RR05 branch coverage evidence is missing/stale: no RR05 target-replay evidence, ledger rows, validation report, decider decision, or state-owner artifacts.",
         "creature-attack.mbt.qnt remains an adapter-local replay island using standalone creature_attack path instead of BattleState/discover/resolve/BattleResolutionResult.",
