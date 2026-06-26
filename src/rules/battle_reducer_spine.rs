@@ -308,6 +308,14 @@ pub struct BattleStartResult {
     pub state: BattleState,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct BattleTurnAdvanceResult {
+    pub state: BattleState,
+    pub previous_actor: Actor,
+    pub next_actor: Actor,
+    pub round: i16,
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleTurnSpellSlotUse {
     Pending(Actor),
@@ -1646,14 +1654,14 @@ pub fn stat_block_multiattack_dispatches_available(state: &BattleState) -> i16 {
 }
 
 #[must_use]
-pub fn end_turn(state: BattleState) -> BattleState {
+pub fn advance_turn(state: BattleState) -> BattleTurnAdvanceResult {
     // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
     // "The Order of Combat"; QNT: battle-runtime-turn-advancement.qnt
     // `endTurn`, narrowed to the current reducer-spine combatants and the
     // T062 lifecycle fixture effects.
     let previous_round = state.initiative.round;
-    let current = current_actor(&state);
-    let state = apply_turn_end_boundary_effects(state, current);
+    let previous_actor = current_actor(&state);
+    let state = apply_turn_end_boundary_effects(state, previous_actor);
     let initiative = next_initiative(state.initiative.clone());
     let next_actor = initiative.still_to_act.actor;
     let state = BattleState {
@@ -1671,31 +1679,42 @@ pub fn end_turn(state: BattleState) -> BattleState {
     let state = reset_start_turn_combatant(state, next_actor);
     let state = apply_start_turn_boundary_effects(state, next_actor);
 
-    if state.initiative.round > previous_round {
+    let state = if state.initiative.round > previous_round {
         tick_round_duration_boundary_effects(state)
     } else {
         state
+    };
+
+    BattleTurnAdvanceResult {
+        round: state.initiative.round,
+        state,
+        previous_actor,
+        next_actor,
     }
 }
 
 #[must_use]
-pub fn advance_turn(state: BattleState) -> BattleState {
-    end_turn(state)
+pub fn end_turn(state: BattleState) -> BattleTurnAdvanceResult {
+    advance_turn(state)
+}
+
+#[must_use]
+pub fn advance_turn_state(state: BattleState) -> BattleState {
+    advance_turn(state).state
 }
 
 #[must_use]
 pub fn advance_turn_observed(
     state: BattleState,
     observer: &mut impl BattleEntrypointObserver,
-) -> BattleState {
-    let previous_actor = current_actor(&state);
-    let state = advance_turn(state);
+) -> BattleTurnAdvanceResult {
+    let result = advance_turn(state);
     observer.observe_battle_entrypoint(BattleEntrypointEvent::AdvanceTurn {
-        previous_actor,
-        next_actor: current_actor(&state),
-        round: state.initiative.round,
+        previous_actor: result.previous_actor,
+        next_actor: result.next_actor,
+        round: result.round,
     });
-    state
+    result
 }
 
 fn next_initiative(initiative: Initiative) -> Initiative {
@@ -2477,7 +2496,7 @@ fn resolve_death_saving_throw_battle_subject(
     };
     *combatant_for_mut(&mut state, target) = combatant;
     BattleResolutionResult::Resolved {
-        state: end_turn(state),
+        state: advance_turn_state(state),
     }
 }
 

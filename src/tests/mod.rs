@@ -5033,7 +5033,7 @@ fn turn_boundary_effect_lifecycle_orders_start_end_and_source_expiry() {
 #[test]
 fn experimental_qnt_spine_advances_turn_boundary_lifecycle() {
     use crate::rules::battle_reducer_spine::{
-        current_actor, end_turn, start_turn_boundary_effect_lifecycle_battle, Actor,
+        advance_turn, current_actor, start_turn_boundary_effect_lifecycle_battle, Actor,
     };
 
     let mut source_turn = start_turn_boundary_effect_lifecycle_battle();
@@ -5043,7 +5043,11 @@ fn experimental_qnt_spine_advances_turn_boundary_lifecycle() {
     source_turn.goblin.reaction_available = false;
     source_turn.goblin.movement_spent_feet = 10;
 
-    let mut target_turn = end_turn(source_turn);
+    let target_turn_result = advance_turn(source_turn);
+    assert_eq!(target_turn_result.previous_actor, Actor::Fighter);
+    assert_eq!(target_turn_result.next_actor, Actor::Goblin);
+    assert_eq!(target_turn_result.round, 1);
+    let mut target_turn = target_turn_result.state;
     assert_eq!(current_actor(&target_turn), Actor::Goblin);
     assert_eq!(target_turn.initiative.round, 1);
     assert_eq!(target_turn.goblin.hp, 8);
@@ -5071,7 +5075,11 @@ fn experimental_qnt_spine_advances_turn_boundary_lifecycle() {
     target_turn.fighter.reaction_available = false;
     target_turn.fighter.movement_spent_feet = 15;
 
-    let source_next_turn = end_turn(target_turn);
+    let source_next_turn_result = advance_turn(target_turn);
+    assert_eq!(source_next_turn_result.previous_actor, Actor::Goblin);
+    assert_eq!(source_next_turn_result.next_actor, Actor::Fighter);
+    assert_eq!(source_next_turn_result.round, 2);
+    let source_next_turn = source_next_turn_result.state;
     assert_eq!(current_actor(&source_next_turn), Actor::Fighter);
     assert_eq!(source_next_turn.initiative.round, 2);
     assert_eq!(source_next_turn.goblin.hp, 5);
@@ -7201,7 +7209,7 @@ fn reducer_entrypoint_contract_observes_public_entrypoint_sequence() {
     else {
         panic!("target choice should leave the weapon attack waiting for an attack roll");
     };
-    let state = advance_turn_observed(state, &mut trace);
+    let turn_advance = advance_turn_observed(state, &mut trace);
 
     assert_eq!(
         trace
@@ -7231,7 +7239,13 @@ fn reducer_entrypoint_contract_observes_public_entrypoint_sequence() {
             round: 1,
         })
     ));
-    assert_eq!(state.initiative.still_to_act.actor, Actor::Goblin);
+    assert_eq!(turn_advance.previous_actor, Actor::Fighter);
+    assert_eq!(turn_advance.next_actor, Actor::Goblin);
+    assert_eq!(turn_advance.round, 1);
+    assert_eq!(
+        turn_advance.state.initiative.still_to_act.actor,
+        Actor::Goblin
+    );
 }
 
 #[test]

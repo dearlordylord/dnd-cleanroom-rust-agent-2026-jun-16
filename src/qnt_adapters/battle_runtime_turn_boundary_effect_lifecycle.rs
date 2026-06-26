@@ -1,6 +1,7 @@
 use crate::rules::{
     battle_reducer_spine::{
-        current_actor, end_turn, start_turn_boundary_effect_lifecycle_battle, Actor, BattleState,
+        advance_turn, current_actor, start_turn_boundary_effect_lifecycle_battle, Actor,
+        BattleState,
     },
     turn_boundary_effect_lifecycle::{
         resolve_source_next_turn, resolve_target_start_turn, TurnBoundaryActor,
@@ -14,11 +15,19 @@ pub const BRANCH_ACTIONS: [&str; 2] = ["doResolveTargetStartTurn", "doResolveSou
 pub fn replay_observed_action(observed_action_taken: &str) -> TurnBoundaryEffectLifecycleState {
     match observed_action_taken {
         "doResolveTargetStartTurn" => {
-            project_battle_state(&end_turn(start_turn_boundary_effect_lifecycle_battle()))
+            let result = advance_turn(start_turn_boundary_effect_lifecycle_battle());
+            assert_eq!(result.previous_actor, Actor::Fighter);
+            assert_eq!(result.next_actor, Actor::Goblin);
+            assert_eq!(result.round, 1);
+            project_battle_state(&result.state)
         }
         "doResolveSourceNextTurn" => {
-            let target_start = end_turn(start_turn_boundary_effect_lifecycle_battle());
-            project_battle_state(&end_turn(target_start))
+            let target_start = advance_turn(start_turn_boundary_effect_lifecycle_battle());
+            let source_next = advance_turn(target_start.state);
+            assert_eq!(source_next.previous_actor, Actor::Goblin);
+            assert_eq!(source_next.next_actor, Actor::Fighter);
+            assert_eq!(source_next.round, 2);
+            project_battle_state(&source_next.state)
         }
         action => panic!("unsupported mbt::actionTaken {action}"),
     }

@@ -1,8 +1,9 @@
 use crate::rules::battle_reducer_spine::{
-    discover_battle_acts, discover_slot_spell_battle, end_turn, resolve_battle_subject_test_fill,
-    resolve_slot_spell_subject, slot_spell_holes_from_battle, start_fighter_skeleton_battle, Actor,
-    AttackRollFacts, BattleFill, BattleHoleKind, BattleResolutionResult, BattleSlotSpellFill,
-    BattleSlotSpellHole, BattleState, BattleSubject, BattleSubjectKind, BattleTurnSpellSlotUse,
+    advance_turn, discover_battle_acts, discover_slot_spell_battle,
+    resolve_battle_subject_test_fill, resolve_slot_spell_subject, slot_spell_holes_from_battle,
+    start_fighter_skeleton_battle, Actor, AttackRollFacts, BattleFill, BattleHoleKind,
+    BattleResolutionResult, BattleSlotSpellFill, BattleSlotSpellHole, BattleState, BattleSubject,
+    BattleSubjectKind, BattleTurnSpellSlotUse,
 };
 
 pub const BRANCH_ACTIONS: [&str; 9] = [
@@ -439,7 +440,11 @@ fn slot_spell_damage_resolved() -> BattleState {
 }
 
 fn end_turn_to_target() -> BattleState {
-    end_turn(slot_spell_damage_resolved())
+    let result = advance_turn(slot_spell_damage_resolved());
+    assert_eq!(result.previous_actor, Actor::Fighter);
+    assert_eq!(result.next_actor, Actor::Skeleton);
+    assert_eq!(result.round, 1);
+    result.state
 }
 
 fn discovered_skeleton_weapon_attack(
