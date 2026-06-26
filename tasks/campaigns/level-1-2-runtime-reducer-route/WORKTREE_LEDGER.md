@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR06-BATTLE-SPELL-EFFECT-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr06` | `ralph/l15-rr06-spell-effect-routes` | `d7ec2d7957660673aaea3799787dc3224344b3d8` | Laplace `019f0600-b370-7d41-8886-aa5750bdcf84`; reviewer Dirac `019f0611-dad6-7373-9249-296531f5716f`; fixer Sartre `019f0615-ccf7-70c3-a241-9784c8cedcae`; re-reviewer Singer `019f0625-ebf0-7cf3-b37e-080a70023cc3` | rereview-findings, lane head `0b1dbfb3d7ace478fcf389d076870c9907e7ff27` |
+| L15-RR06-BATTLE-SPELL-EFFECT-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr06` | `ralph/l15-rr06-spell-effect-routes` | `d7ec2d7957660673aaea3799787dc3224344b3d8` | Laplace `019f0600-b370-7d41-8886-aa5750bdcf84`; reviewer Dirac `019f0611-dad6-7373-9249-296531f5716f`; fixer Sartre `019f0615-ccf7-70c3-a241-9784c8cedcae`; re-reviewer Singer `019f0625-ebf0-7cf3-b37e-080a70023cc3`; fixer Gauss `019f0629-dbd6-7603-a63d-3205d2ebb315` | second-fix-committed-pending-rereview, lane head `0bc81aa0ffdf97f36ff2f054751afd299ad6c7f5` |
 
 ## Historical RRCONV-19 Worktrees
 

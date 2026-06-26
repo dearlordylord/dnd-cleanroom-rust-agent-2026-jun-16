@@ -220,7 +220,19 @@
         "Command ordering and scalar buff expected routes still share helpers with observed replay routes.",
         "State-owner evidence overstates BattleState.goblin.speed_feet fixture projection as a canonical source alongside Combatant.speed_feet.",
         "VALIDATION_REPORT.md remains stale/incomplete for RR06 verification."
-      ]
+      ],
+      "secondFixerAgent": "019f0629-dbd6-7603-a63d-3205d2ebb315",
+      "secondFixerName": "Gauss",
+      "secondFixStatus": "committed",
+      "secondFixCommit": "0bc81aa0ffdf97f36ff2f054751afd299ad6c7f5",
+      "secondFixerResolution": [
+        "Removed command reducer fixture-target fallback; targetless command follow/movement returns typed invalid shape.",
+        "Route equality includes BattleResolutionResult outcome.",
+        "Command ordering and scalar buff expected routes no longer reuse observed replay helpers.",
+        "State-owner evidence marks fixture-named speed as projection of Combatant.speed_feet.",
+        "VALIDATION_REPORT.md top summary and RR06 verification list are current."
+      ],
+      "secondRereviewStatus": "pending"
     }
   ],
   "completedLaneWorktrees": [
