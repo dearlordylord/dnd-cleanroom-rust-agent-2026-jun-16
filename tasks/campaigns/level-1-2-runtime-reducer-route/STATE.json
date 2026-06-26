@@ -210,6 +210,9 @@
         "BattleResolutionResult stat-block NeedsHoles variants report NeedsHoles outcome and continuing subject but needs_holes()/into_needs_holes() return None.",
         "Stat-block discovery route evidence still accepts caller-supplied or hardcoded route holes instead of deriving them from BattleResolutionResult requested holes/discovery."
       ],
+      "thirdFixerAgent": "019f05f4-e9d1-7121-93c9-1aa9336e4980",
+      "thirdFixerName": "Hypatia",
+      "thirdFixStatus": "running",
       "reviewFindings": [
         "RR05 branch coverage evidence is missing/stale: no RR05 target-replay evidence, ledger rows, validation report, decider decision, or state-owner artifacts.",
         "creature-attack.mbt.qnt remains an adapter-local replay island using standalone creature_attack path instead of BattleState/discover/resolve/BattleResolutionResult.",
