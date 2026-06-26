@@ -11,7 +11,7 @@
     {
       "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
       "checkpointId": "CP1",
-      "status": "ready",
+      "status": "merged",
       "parallelGroup": "cp1-battle-core",
       "routeTaskId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
       "routeClasses": [
@@ -40,7 +40,7 @@
     {
       "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
       "checkpointId": "CP1",
-      "status": "ready",
+      "status": "implemented",
       "parallelGroup": "cp1-battle-core",
       "routeTaskId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
       "routeClasses": [

@@ -8,7 +8,12 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0"
+    "lastVerifiedIntegrationHead": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
+    "lastMergedLane": {
+      "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "mergeCommit": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
+      "laneHead": "7ef32d308d51fb54d1032d01b937d168fa63bb64"
+    }
   },
   "denominator": {
     "source": "cleanroom-input/branch-coverage/reducer-route-inventory.json",
@@ -51,9 +56,8 @@
     {
       "checkpointId": "CP1",
       "name": "Battle Reducer Core Expansion",
-      "status": "ready",
-      "readyLaneIds": [
-        "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "status": "running",
+      "runningLaneIds": [
         "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES"
       ],
       "heldLaneIds": [
@@ -109,8 +113,8 @@
     }
   ],
   "laneStatuses": {
-    "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "ready",
-    "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "ready",
+    "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "merged",
+    "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "implemented",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "held",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "blocked-on-checkpoint",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "blocked-on-checkpoint",
@@ -136,7 +140,7 @@
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint"
   },
   "lastIntegrationVerification": {
-    "head": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
+    "head": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
     "commands": [
       {
         "command": "cargo fmt --check",
@@ -158,9 +162,73 @@
       {
         "command": "git diff --check HEAD~1...HEAD",
         "status": "pass"
+      },
+      {
+        "command": "JSON parse STATE.json and LANES.json",
+        "status": "pass"
+      },
+      {
+        "command": "JSON parse tasks/ENGINE_DEPTH_MANIFEST.json and tasks/RUN_LEDGER.json",
+        "status": "pass"
       }
     ]
   },
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05",
+      "branch": "ralph/l15-rr05-attack-statblock",
+      "baseSha": "72f81250789a4e7bc6216503f2a93abac6771852",
+      "status": "implemented",
+      "workerAgent": "019f05b4-6ea8-7f00-bdb1-264528b3ee63",
+      "workerName": "Ampere",
+      "commit": "76e8bd99e1d705cb31e9180bf831fd1625410ed5",
+      "reviewAgent": "019f05c2-759e-7892-87f5-384db29ab630",
+      "reviewName": "James",
+      "reviewStatus": "findings",
+      "fixerAgent": "019f05c7-37c3-7d30-bb5d-a62b6d1c3c3a",
+      "fixerName": "Parfit",
+      "fixCommit": "4256dd5e7cdb0d0693a32125b1ec3cf41befbf32",
+      "fixStatus": "committed",
+      "rereviewStatus": "fixes-applied-pending-rereview",
+      "rereviewAgent": "019f05d8-0d76-7a42-ab94-4a3a716a0695",
+      "rereviewName": "Hegel",
+      "rereviewFindings": [
+        "Stat-block routes still bypass the shared BattleResolutionResult surface via parallel StatBlockActionResolutionResult and resolve_stat_block_action_subject path.",
+        "RR05 route expectations remain self-referential for creature, spell, stat-block, and weapon adapters; supplemental literal checks do not cover all route families.",
+        "scripts/check-cleanroom-harness.cjs weakened sampled-input quarantine and conflicts semantically with RR03 sampled-pick quarantine restoration.",
+        "RR05 branch does not contain RR03 merge and has textual conflicts in harness, manifest, and rolling task artifacts."
+      ],
+      "reviewFindings": [
+        "RR05 branch coverage evidence is missing/stale: no RR05 target-replay evidence, ledger rows, validation report, decider decision, or state-owner artifacts.",
+        "creature-attack.mbt.qnt remains an adapter-local replay island using standalone creature_attack path instead of BattleState/discover/resolve/BattleResolutionResult.",
+        "spell attack routes bypass the shared resolve_battle_subject -> BattleResolutionResult surface.",
+        "route assertions are self-referential and weak because expected_route is derived from replay_observed_route."
+      ],
+      "blockerNote": "Worker reported executable route evidence exists, but reviewer rejected that as insufficient branch coverage because campaign done criteria require target replay evidence and ledger/report updates.",
+      "fixerResolution": [
+        "Stat-block route fills now enter through resolve_battle_subject and shared BattleResolutionResult variants.",
+        "RR05 route expectations are literal/QNT-derived across creature, spell, stat-block, and weapon route families.",
+        "RR03 sampled-pick adapter quarantine semantics are restored in scripts/check-cleanroom-harness.cjs.",
+        "RR03 integration artifacts and target replay evidence are merged and accounted for in RUN_LEDGER/VALIDATION_REPORT."
+      ]
+    }
+  ],
+  "completedLaneWorktrees": [
+    {
+      "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03",
+      "branch": "ralph/l15-rr03-diagnostic-queue",
+      "baseSha": "72f81250789a4e7bc6216503f2a93abac6771852",
+      "workerAgent": "019f05b4-136b-7923-a639-a86f819ac526",
+      "workerName": "Aquinas",
+      "commit": "7b0997b0ad8f76a99d0a905a0e68ef679eecccde",
+      "fixCommit": "155ca2bed52639f3de011a2a22de2b0f63d6c318",
+      "secondFixCommit": "7ef32d308d51fb54d1032d01b937d168fa63bb64",
+      "mergeCommit": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
+      "status": "removable-after-operator-confirms-no-local-use"
+    }
+  ],
   "operatorNotes": [
     "Update this file after every lane status change, merge, checkpoint transition, and integration verification.",
     "Resolve each lane base from the integration worktree HEAD at launch time.",

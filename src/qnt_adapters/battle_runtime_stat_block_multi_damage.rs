@@ -1,16 +1,16 @@
 use crate::rules::battle_reducer_spine::{
     discover_rolled_stat_block_attack_control, discover_static_stat_block_attack_control,
-    resolve_stat_block_action_subject, start_stat_block_actor_battle, Actor, AttackRollFacts,
-    BattleState, StatBlockActionDamageMode, StatBlockActionFill, StatBlockActionResolutionResult,
-    StatBlockActionSubject,
+    resolve_battle_subject, start_stat_block_actor_battle, Actor, AttackRollFacts, BattleHoleKind,
+    BattleResolutionRequest, BattleResolutionResult, BattleState, StatBlockActionDamageMode,
+    StatBlockActionFill, StatBlockActionSubject,
 };
 use crate::rules::stat_block_action_ordering::StatBlockActionFrontierStage;
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts_from_route_holes, route_resolve_stat_block_action_from_result,
-    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
-    ReducerRouteOwnerGroup, ReducerRouteResolveConnector, ReducerRouteResolveFill,
-    ReducerRouteSubjectFamily,
+    route_discover_battle_acts, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolveConnector, ReducerRouteResolveFill, ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -98,11 +98,8 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
         "doFillHitAttackRoll" => rolled_hit_attack_roll_route().2,
         "doResolveRolledDamage" => {
             let (state, subject, mut route) = rolled_hit_attack_roll_route();
-            let result = resolve_stat_block_action_subject(
-                state,
-                subject,
-                StatBlockActionFill::DamageDice(2),
-            );
+            let result =
+                resolve_stat_block_action(state, subject, StatBlockActionFill::DamageDice(2));
             route.push(stat_block_route_event(
                 ReducerRouteFillKind::RolledDice,
                 ReducerRouteOwnerGroup::HitPoint,
@@ -115,7 +112,71 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doFillTargetChoice" => expected_stat_block_multi_damage_route(&[(
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::TargetSelection,
+        )]),
+        "doFillHitAttackRoll" => expected_stat_block_multi_damage_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                vec![BattleHoleKind::RolledDice],
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+        ]),
+        "doResolveRolledDamage" => expected_stat_block_multi_damage_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                vec![BattleHoleKind::RolledDice],
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+            (
+                ReducerRouteFillKind::RolledDice,
+                Vec::new(),
+                ReducerRouteOwnerGroup::HitPoint,
+            ),
+        ]),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn expected_stat_block_multi_damage_route(
+    steps: &[(
+        ReducerRouteFillKind,
+        Vec<BattleHoleKind>,
+        ReducerRouteOwnerGroup,
+    )],
+) -> Vec<ReducerRouteEvent> {
+    let mut route = vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts(
+            ReducerRouteSubjectFamily::StatBlockAction,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::StatBlockAction,
+        ),
+    ];
+    for (fill, holes, owner) in steps {
+        route.push(
+            super::battle_runtime_reducer_route::route_resolve_battle_subject(
+                ReducerRouteSubjectFamily::StatBlockAction,
+                *fill,
+                holes.clone(),
+                *owner,
+            ),
+        );
+    }
+    route
 }
 
 pub fn projection_payload(state: &StatBlockMultiDamageState) -> String {
@@ -157,9 +218,9 @@ fn static_subject() -> (BattleState, StatBlockActionSubject) {
     ))
 }
 
-fn rolled_target_choice() -> StatBlockActionResolutionResult {
+fn rolled_target_choice() -> BattleResolutionResult {
     let (state, subject) = rolled_subject();
-    resolve_stat_block_action_subject(
+    resolve_stat_block_action(
         state,
         subject,
         StatBlockActionFill::TargetChoice(Actor::Fighter),
@@ -168,7 +229,7 @@ fn rolled_target_choice() -> StatBlockActionResolutionResult {
 
 fn rolled_target_choice_route() -> (BattleState, StatBlockActionSubject, Vec<ReducerRouteEvent>) {
     let (state, subject, mut route) = rolled_subject_route();
-    let result = resolve_stat_block_action_subject(
+    let result = resolve_stat_block_action(
         state,
         subject,
         StatBlockActionFill::TargetChoice(Actor::Fighter),
@@ -188,25 +249,22 @@ fn rolled_target_chosen_subject() -> (BattleState, StatBlockActionSubject) {
 
 fn static_target_chosen_subject() -> (BattleState, StatBlockActionSubject) {
     let (state, subject) = static_subject();
-    expect_needs_holes(resolve_stat_block_action_subject(
+    expect_needs_holes(resolve_stat_block_action(
         state,
         subject,
         StatBlockActionFill::TargetChoice(Actor::Fighter),
     ))
 }
 
-fn rolled_hit_attack_roll() -> StatBlockActionResolutionResult {
+fn rolled_hit_attack_roll() -> BattleResolutionResult {
     let (state, subject) = rolled_target_chosen_subject();
-    resolve_stat_block_action_subject(state, subject, StatBlockActionFill::AttackRoll(hit_roll()))
+    resolve_stat_block_action(state, subject, StatBlockActionFill::AttackRoll(hit_roll()))
 }
 
 fn rolled_hit_attack_roll_route() -> (BattleState, StatBlockActionSubject, Vec<ReducerRouteEvent>) {
     let (state, subject, mut route) = rolled_target_choice_route();
-    let result = resolve_stat_block_action_subject(
-        state,
-        subject,
-        StatBlockActionFill::AttackRoll(hit_roll()),
-    );
+    let result =
+        resolve_stat_block_action(state, subject, StatBlockActionFill::AttackRoll(hit_roll()));
     route.push(stat_block_route_event(
         ReducerRouteFillKind::AttackRoll,
         ReducerRouteOwnerGroup::AttackRoll,
@@ -216,21 +274,19 @@ fn rolled_hit_attack_roll_route() -> (BattleState, StatBlockActionSubject, Vec<R
     (state, subject, route)
 }
 
-fn static_hit_attack_roll() -> StatBlockActionResolutionResult {
+fn static_hit_attack_roll() -> BattleResolutionResult {
     let (state, subject) = static_target_chosen_subject();
-    resolve_stat_block_action_subject(state, subject, StatBlockActionFill::AttackRoll(hit_roll()))
+    resolve_stat_block_action(state, subject, StatBlockActionFill::AttackRoll(hit_roll()))
 }
 
-fn resolve_rolled_damage() -> StatBlockActionResolutionResult {
+fn resolve_rolled_damage() -> BattleResolutionResult {
     let (state, subject) = expect_needs_holes(rolled_hit_attack_roll());
-    resolve_stat_block_action_subject(state, subject, StatBlockActionFill::DamageDice(2))
+    resolve_stat_block_action(state, subject, StatBlockActionFill::DamageDice(2))
 }
 
-fn expect_needs_holes(
-    result: StatBlockActionResolutionResult,
-) -> (BattleState, StatBlockActionSubject) {
+fn expect_needs_holes(result: BattleResolutionResult) -> (BattleState, StatBlockActionSubject) {
     match result {
-        StatBlockActionResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
+        BattleResolutionResult::StatBlockNeedsHoles { state, subject, .. } => (state, subject),
         other => panic!("expected stat-block action subject with holes, got {other:?}"),
     }
 }
@@ -249,9 +305,9 @@ fn initial_stat_block_route() -> Vec<ReducerRouteEvent> {
 fn stat_block_route_event(
     fill: ReducerRouteFillKind,
     owner: ReducerRouteOwnerGroup,
-    result: &StatBlockActionResolutionResult,
+    result: &BattleResolutionResult,
 ) -> ReducerRouteEvent {
-    route_resolve_stat_block_action_from_result(
+    route_resolve_battle_subject_from_result(
         ReducerRouteResolveConnector {
             subject: ReducerRouteSubjectFamily::StatBlockAction,
             fill: ReducerRouteResolveFill::Fill(fill),
@@ -261,21 +317,33 @@ fn stat_block_route_event(
     )
 }
 
-fn project(result: StatBlockActionResolutionResult) -> StatBlockMultiDamageState {
+fn resolve_stat_block_action(
+    state: BattleState,
+    subject: StatBlockActionSubject,
+    fill: StatBlockActionFill,
+) -> BattleResolutionResult {
+    resolve_battle_subject(
+        state,
+        BattleResolutionRequest::stat_block_action(subject, fill),
+    )
+}
+
+fn project(result: BattleResolutionResult) -> StatBlockMultiDamageState {
     let (state, subject, protocol_result) = match result {
-        StatBlockActionResolutionResult::NeedsHoles { state, subject, .. } => (
+        BattleResolutionResult::StatBlockNeedsHoles { state, subject, .. } => (
             state,
             subject,
             StatBlockMultiDamageProtocolResult::NeedsHoles,
         ),
-        StatBlockActionResolutionResult::Resolved { state, subject } => {
+        BattleResolutionResult::StatBlockResolved { state, subject } => {
             (state, subject, StatBlockMultiDamageProtocolResult::Resolved)
         }
-        StatBlockActionResolutionResult::Invalid { state, subject, .. } => (
+        BattleResolutionResult::StatBlockInvalid { state, subject, .. } => (
             state,
             subject,
             StatBlockMultiDamageProtocolResult::NeedsHoles,
         ),
+        other => panic!("expected stat-block multi-damage result, got {other:?}"),
     };
 
     StatBlockMultiDamageState {

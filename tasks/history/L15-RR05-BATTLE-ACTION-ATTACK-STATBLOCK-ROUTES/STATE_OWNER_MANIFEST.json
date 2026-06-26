@@ -68,11 +68,11 @@
     },
     {
       "derivability": {
-        "boundary": "route_resolve_stat_block_action_from_result",
-        "sourceField": "StatBlockActionResolutionResult",
+        "boundary": "route_resolve_battle_subject_from_result",
+        "sourceField": "BattleResolutionResult",
         "tag": "stored-executable-boundary-projection"
       },
-      "fieldPath": "StatBlockActionResolutionResult.requested_holes",
+      "fieldPath": "BattleResolutionResult.requested_holes",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "executable-boundary-projection"
     },

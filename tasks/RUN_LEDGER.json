@@ -960,12 +960,91 @@
     {
       "artifacts": {
         "deciderDecision": {
+          "path": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/DECIDER_DECISION.json",
+          "sha256": "d9a963b2fc80ec3bfda0759dccb70b9ab7b466619ad704aaad974949b0f90621"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "a3cca278b2c60f5ae72eb0a8ba98b8ed5266284e68bbbe8acdf218c2a9f22206"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/REVIEW_LOOP.json",
+          "sha256": "b5b4eb19ac49e2f17c0fe9953e66909b9dbb156ce502c49aefa4378c17eac542"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/START_GATE.json",
+          "sha256": "3eaf048ef26ee45a915cd6b5b4c2d80fb0c71abcd2791a332527858bf60f2457"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/STATE_OWNER_MANIFEST.json",
+          "sha256": "64e651d23f72f0c92abf99286298dced6e9f99404bc3a852aa9edc4589491379"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo test death_saving_throw_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test concentration_break_teardown_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 72f81250789a4e7bc6216503f2a93abac6771852...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doCastConcentrationSpell#step:doCastConcentrationSpell",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doCastReplacementConcentrationSpell#step:doCastReplacementConcentrationSpell",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doDamageRequestsConcentrationSave#step:doDamageRequestsConcentrationSave",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doFailConcentrationSave#step:doFailConcentrationSave",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doVoluntaryEndConcentration#step:doVoluntaryEndConcentration",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doDiscoverEndTurnDeathSavingThrow#step:doDiscoverEndTurnDeathSavingThrow",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doFillDeathSavingThrow#step:doFillDeathSavingThrow",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doRejectWrongActorEndTurnAfterResolved#step:doRejectWrongActorEndTurnAfterResolved"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR03-reducer-route.json",
+          "sha256": "dab4e9c67f4cd1fdfa486c9dfc4aeec0c3e9c0c6ca61905bb20f9bd2d922bec0"
+        }
+      ],
+      "taskId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
           "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/DECIDER_DECISION.json",
           "sha256": "57097c74f2233ffe68a91217bb62ed7fc657d59ca8164444edf80d3394dceaa9"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "2b21025f502ff9b2f03bdb4292bd63e99d3bf72e848dbfa6fb5ef80824047bac"
+          "sha256": "37eb9586286192d063ea38ef100868188035db351d34468558737b42c270e245"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/REVIEW_LOOP.json",
@@ -977,7 +1056,7 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/STATE_OWNER_MANIFEST.json",
-          "sha256": "aed1ccb1cabc414cde1ef4369fc586227b33f5993c37eddf281afe4116be9eef"
+          "sha256": "89dd6eb97530f6ad10a13176796dbd2181c9c6ed3449f0647300e4fa54c46964"
         }
       },
       "assignmentId": "level-1-2-full",
@@ -1073,7 +1152,7 @@
             "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doAttackerBAttacks#step:doAttackerBAttacks"
           ],
           "path": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json",
-          "sha256": "1d90a9a57ed0442107d639d7247552bd2697f77b3c54022095664abdc361a1cd"
+          "sha256": "d9b846e463d07cc131e3daafd5320f30eb4a3ce37a77eb2ebac4ad667c525759"
         }
       ],
       "taskId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES"

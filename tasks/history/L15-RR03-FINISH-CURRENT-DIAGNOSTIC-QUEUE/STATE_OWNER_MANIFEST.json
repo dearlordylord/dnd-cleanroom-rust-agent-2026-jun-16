@@ -1,0 +1,77 @@
+{
+  "durableFields": [
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.action_available",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.concentration",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.hp",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.lifecycle",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.spell_slots.first_level_expended",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.unconscious",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.initiative.still_to_act.actor",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    }
+  ],
+  "nonDurableBoundaryApiSurface": [
+    {
+      "apiPath": "BattleResolutionRequest::death_saving_throw",
+      "boundary": "typed reducer request constructor",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-reducer-spine"
+    },
+    {
+      "apiPath": "BattleResolutionRequest::concentration",
+      "boundary": "typed reducer request constructor",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-reducer-spine"
+    }
+  ],
+  "noNewDurableFieldsReason": "L15-RR03 reuses existing BattleState HP/death-save lifecycle and concentration owners; it adds no durable runtime fields.",
+  "schemaVersion": 1,
+  "taskId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE"
+}

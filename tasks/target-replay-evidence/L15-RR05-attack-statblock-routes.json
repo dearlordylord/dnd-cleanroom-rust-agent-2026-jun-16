@@ -331,7 +331,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -358,7 +358,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -385,7 +385,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -412,7 +412,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -439,7 +439,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -466,7 +466,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -493,7 +493,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -520,7 +520,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -547,7 +547,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -574,7 +574,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -601,7 +601,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -628,7 +628,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -655,7 +655,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -682,7 +682,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -709,7 +709,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -736,7 +736,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -763,7 +763,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"
@@ -790,7 +790,7 @@
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.stat_block_control",
-          "StatBlockActionResolutionResult.requested_holes",
+          "BattleResolutionResult.requested_holes",
           "BattleState.action_available",
           "BattleState.goblin.hp",
           "BattleState.fighter.hp"

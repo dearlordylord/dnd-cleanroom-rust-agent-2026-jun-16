@@ -561,6 +561,7 @@ pub enum BattleSubjectKind {
     HitPointRestorationFeatureHealingPool,
     DeathSavingThrow,
     ConcentrationTeardown,
+    StatBlockAction,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -646,6 +647,10 @@ pub enum BattleFill {
     HitPointRestoration(BattleHitPointRestorationFill),
     DeathSavingThrow(DeathSavingThrowFacts),
     Concentration(BattleConcentrationFill),
+    StatBlockAction {
+        subject: StatBlockActionSubject,
+        fill: StatBlockActionFill,
+    },
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -816,6 +821,13 @@ impl BattleResolutionRequest {
             fill: BattleFill::Concentration(fill),
         })
     }
+
+    pub fn stat_block_action(subject: StatBlockActionSubject, fill: StatBlockActionFill) -> Self {
+        Self {
+            subject: battle_subject_from_stat_block_action_subject(subject),
+            fill: BattleFill::StatBlockAction { subject, fill },
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -831,6 +843,7 @@ pub enum BattleHoleKind {
     HitPointHealingDistribution,
     DeathSavingThrow,
     ConcentrationSavingThrow,
+    StatBlockRechargeRoll,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -867,6 +880,22 @@ pub enum BattleResolutionResult {
         state: BattleState,
         reason: BattleResolutionInvalidReason,
         holes: Vec<BattleHoleKind>,
+    },
+    StatBlockNeedsHoles {
+        state: BattleState,
+        subject: StatBlockActionSubject,
+        holes: Vec<BattleHoleKind>,
+    },
+    StatBlockResolved {
+        state: BattleState,
+        subject: StatBlockActionSubject,
+    },
+    StatBlockInvalid {
+        state: BattleState,
+        subject: StatBlockActionSubject,
+        reason: BattleResolutionInvalidReason,
+        holes: Vec<BattleHoleKind>,
+        last_ordering_error: Option<StatBlockActionFillOrderingError>,
     },
 }
 
@@ -936,9 +965,15 @@ impl BattleResolutionResult {
     #[must_use]
     pub const fn outcome(&self) -> BattleResolutionOutcome {
         match self {
-            Self::NeedsHoles { .. } => BattleResolutionOutcome::NeedsHoles,
-            Self::Resolved { .. } | Self::TurnAdvanced { .. } => BattleResolutionOutcome::Resolved,
-            Self::Invalid { reason, .. } => BattleResolutionOutcome::Invalid(*reason),
+            Self::NeedsHoles { .. } | Self::StatBlockNeedsHoles { .. } => {
+                BattleResolutionOutcome::NeedsHoles
+            }
+            Self::Resolved { .. } | Self::TurnAdvanced { .. } | Self::StatBlockResolved { .. } => {
+                BattleResolutionOutcome::Resolved
+            }
+            Self::Invalid { reason, .. } | Self::StatBlockInvalid { reason, .. } => {
+                BattleResolutionOutcome::Invalid(*reason)
+            }
         }
     }
 
@@ -950,7 +985,10 @@ impl BattleResolutionResult {
             | Self::TurnAdvanced {
                 turn_advance: BattleTurnAdvanceResult { state, .. },
             }
-            | Self::Invalid { state, .. } => state,
+            | Self::Invalid { state, .. }
+            | Self::StatBlockNeedsHoles { state, .. }
+            | Self::StatBlockResolved { state, .. }
+            | Self::StatBlockInvalid { state, .. } => state,
         }
     }
 
@@ -962,7 +1000,10 @@ impl BattleResolutionResult {
             | Self::TurnAdvanced {
                 turn_advance: BattleTurnAdvanceResult { state, .. },
             }
-            | Self::Invalid { state, .. } => state,
+            | Self::Invalid { state, .. }
+            | Self::StatBlockNeedsHoles { state, .. }
+            | Self::StatBlockResolved { state, .. }
+            | Self::StatBlockInvalid { state, .. } => state,
         }
     }
 
@@ -972,8 +1013,12 @@ impl BattleResolutionResult {
             Self::Resolved { state }
             | Self::TurnAdvanced {
                 turn_advance: BattleTurnAdvanceResult { state, .. },
-            } => Some(state),
-            Self::NeedsHoles { .. } | Self::Invalid { .. } => None,
+            }
+            | Self::StatBlockResolved { state, .. } => Some(state),
+            Self::NeedsHoles { .. }
+            | Self::Invalid { .. }
+            | Self::StatBlockNeedsHoles { .. }
+            | Self::StatBlockInvalid { .. } => None,
         }
     }
 
@@ -983,8 +1028,12 @@ impl BattleResolutionResult {
             Self::Resolved { state }
             | Self::TurnAdvanced {
                 turn_advance: BattleTurnAdvanceResult { state, .. },
-            } => Some(state),
-            Self::NeedsHoles { .. } | Self::Invalid { .. } => None,
+            }
+            | Self::StatBlockResolved { state, .. } => Some(state),
+            Self::NeedsHoles { .. }
+            | Self::Invalid { .. }
+            | Self::StatBlockNeedsHoles { .. }
+            | Self::StatBlockInvalid { .. } => None,
         }
     }
 
@@ -992,7 +1041,12 @@ impl BattleResolutionResult {
     pub const fn turn_advance(&self) -> Option<&BattleTurnAdvanceResult> {
         match self {
             Self::TurnAdvanced { turn_advance } => Some(turn_advance),
-            Self::NeedsHoles { .. } | Self::Resolved { .. } | Self::Invalid { .. } => None,
+            Self::NeedsHoles { .. }
+            | Self::Resolved { .. }
+            | Self::Invalid { .. }
+            | Self::StatBlockNeedsHoles { .. }
+            | Self::StatBlockResolved { .. }
+            | Self::StatBlockInvalid { .. } => None,
         }
     }
 
@@ -1000,7 +1054,12 @@ impl BattleResolutionResult {
     pub fn into_turn_advance(self) -> Option<BattleTurnAdvanceResult> {
         match self {
             Self::TurnAdvanced { turn_advance } => Some(turn_advance),
-            Self::NeedsHoles { .. } | Self::Resolved { .. } | Self::Invalid { .. } => None,
+            Self::NeedsHoles { .. }
+            | Self::Resolved { .. }
+            | Self::Invalid { .. }
+            | Self::StatBlockNeedsHoles { .. }
+            | Self::StatBlockResolved { .. }
+            | Self::StatBlockInvalid { .. } => None,
         }
     }
 
@@ -1016,7 +1075,12 @@ impl BattleResolutionResult {
                 subject: *subject,
                 holes,
             }),
-            Self::Resolved { .. } | Self::TurnAdvanced { .. } | Self::Invalid { .. } => None,
+            Self::Resolved { .. }
+            | Self::TurnAdvanced { .. }
+            | Self::Invalid { .. }
+            | Self::StatBlockNeedsHoles { .. }
+            | Self::StatBlockResolved { .. }
+            | Self::StatBlockInvalid { .. } => None,
         }
     }
 
@@ -1032,7 +1096,12 @@ impl BattleResolutionResult {
                 subject,
                 holes,
             }),
-            Self::Resolved { .. } | Self::TurnAdvanced { .. } | Self::Invalid { .. } => None,
+            Self::Resolved { .. }
+            | Self::TurnAdvanced { .. }
+            | Self::Invalid { .. }
+            | Self::StatBlockNeedsHoles { .. }
+            | Self::StatBlockResolved { .. }
+            | Self::StatBlockInvalid { .. } => None,
         }
     }
 
@@ -1040,15 +1109,27 @@ impl BattleResolutionResult {
     pub const fn continuing_subject(&self) -> Option<BattleSubject> {
         match self {
             Self::NeedsHoles { subject, .. } => Some(*subject),
-            Self::Resolved { .. } | Self::TurnAdvanced { .. } | Self::Invalid { .. } => None,
+            Self::StatBlockNeedsHoles { subject, .. } => {
+                Some(battle_subject_from_stat_block_action_subject(*subject))
+            }
+            Self::Resolved { .. }
+            | Self::TurnAdvanced { .. }
+            | Self::Invalid { .. }
+            | Self::StatBlockResolved { .. }
+            | Self::StatBlockInvalid { .. } => None,
         }
     }
 
     #[must_use]
     pub fn requested_holes(&self) -> Option<&[BattleHoleKind]> {
         match self {
-            Self::NeedsHoles { holes, .. } | Self::Invalid { holes, .. } => Some(holes),
-            Self::Resolved { .. } | Self::TurnAdvanced { .. } => None,
+            Self::NeedsHoles { holes, .. }
+            | Self::Invalid { holes, .. }
+            | Self::StatBlockNeedsHoles { holes, .. }
+            | Self::StatBlockInvalid { holes, .. } => Some(holes),
+            Self::Resolved { .. } | Self::TurnAdvanced { .. } | Self::StatBlockResolved { .. } => {
+                None
+            }
         }
     }
 
@@ -1064,7 +1145,21 @@ impl BattleResolutionResult {
                 reason: *reason,
                 holes,
             }),
-            Self::NeedsHoles { .. } | Self::Resolved { .. } | Self::TurnAdvanced { .. } => None,
+            Self::StatBlockInvalid {
+                state,
+                reason,
+                holes,
+                ..
+            } => Some(BattleResolutionInvalid {
+                state,
+                reason: *reason,
+                holes,
+            }),
+            Self::NeedsHoles { .. }
+            | Self::Resolved { .. }
+            | Self::TurnAdvanced { .. }
+            | Self::StatBlockNeedsHoles { .. }
+            | Self::StatBlockResolved { .. } => None,
         }
     }
 
@@ -1080,15 +1175,33 @@ impl BattleResolutionResult {
                 reason,
                 holes,
             }),
-            Self::NeedsHoles { .. } | Self::Resolved { .. } | Self::TurnAdvanced { .. } => None,
+            Self::StatBlockInvalid {
+                state,
+                reason,
+                holes,
+                ..
+            } => Some(BattleResolutionInvalidParts {
+                state,
+                reason,
+                holes,
+            }),
+            Self::NeedsHoles { .. }
+            | Self::Resolved { .. }
+            | Self::TurnAdvanced { .. }
+            | Self::StatBlockNeedsHoles { .. }
+            | Self::StatBlockResolved { .. } => None,
         }
     }
 
     #[must_use]
     pub const fn invalid_reason(&self) -> Option<BattleResolutionInvalidReason> {
         match self {
-            Self::Invalid { reason, .. } => Some(*reason),
-            Self::NeedsHoles { .. } | Self::Resolved { .. } | Self::TurnAdvanced { .. } => None,
+            Self::Invalid { reason, .. } | Self::StatBlockInvalid { reason, .. } => Some(*reason),
+            Self::NeedsHoles { .. }
+            | Self::Resolved { .. }
+            | Self::TurnAdvanced { .. }
+            | Self::StatBlockNeedsHoles { .. }
+            | Self::StatBlockResolved { .. } => None,
         }
     }
 }
@@ -1187,34 +1300,6 @@ pub enum StatBlockActionFill {
     AttackRoll(AttackRollFacts),
     DamageDice(i16),
     RechargeRoll(i16),
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum StatBlockActionResolutionInvalidReason {
-    InvalidFill,
-    StaleSubject,
-    WrongActor,
-    WrongTarget,
-}
-
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub enum StatBlockActionResolutionResult {
-    NeedsHoles {
-        state: BattleState,
-        subject: StatBlockActionSubject,
-        holes: Vec<StatBlockActionHoleKind>,
-    },
-    Resolved {
-        state: BattleState,
-        subject: StatBlockActionSubject,
-    },
-    Invalid {
-        state: BattleState,
-        subject: StatBlockActionSubject,
-        reason: StatBlockActionResolutionInvalidReason,
-        holes: Vec<StatBlockActionHoleKind>,
-        last_ordering_error: Option<StatBlockActionFillOrderingError>,
-    },
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -2330,6 +2415,7 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::HitPointRestorationFeatureHealingPool
         | BattleSubjectKind::DeathSavingThrow
         | BattleSubjectKind::ConcentrationTeardown
+        | BattleSubjectKind::StatBlockAction
         | BattleSubjectKind::EndTurn => false,
     }
 }
@@ -2574,6 +2660,13 @@ fn resolve_battle_subject_unchecked(
             }
             resolve_concentration_teardown_battle_subject(state, subject, fill)
         }
+        (
+            BattleSubjectKind::StatBlockAction,
+            BattleFill::StatBlockAction {
+                subject: stat_block_subject,
+                fill,
+            },
+        ) => resolve_stat_block_action_result(state, stat_block_subject, fill),
         (BattleSubjectKind::EndTurn, BattleFill::NoFill) => {
             if !diagnostic_subject_shape_matches(subject, BattleSubjectKind::EndTurn, None) {
                 return invalid(
@@ -2618,7 +2711,8 @@ fn resolve_battle_subject_unchecked(
                 | BattleFill::SaveGatedSpell(_)
                 | BattleFill::HitPointRestoration(_)
                 | BattleFill::DeathSavingThrow(_)
-                | BattleFill::Concentration(_) => invalid(
+                | BattleFill::Concentration(_)
+                | BattleFill::StatBlockAction { .. } => invalid(
                     state,
                     BattleResolutionInvalidReason::InvalidFill,
                     subject.stage,
@@ -2647,6 +2741,7 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::HitPointRestorationFeatureHealingPool
             | BattleSubjectKind::DeathSavingThrow
             | BattleSubjectKind::ConcentrationTeardown
+            | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,
         ) => invalid(
@@ -3156,7 +3251,7 @@ pub fn start_stat_block_multiattack_control(
     state: BattleState,
     actor: Actor,
     profile: StatBlockMultiattackProfile,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     if current_actor(&state) != actor
         || !state.action_available
         || combatant_for(&state, actor).hp <= 0
@@ -3169,7 +3264,7 @@ pub fn start_stat_block_multiattack_control(
                 StatBlockActionDamageMode::Rolled,
                 false,
             ),
-            StatBlockActionResolutionInvalidReason::StaleSubject,
+            BattleResolutionInvalidReason::StaleSubject,
             None,
         );
     }
@@ -3185,7 +3280,7 @@ pub fn start_stat_block_multiattack_control(
                 StatBlockActionDamageMode::Rolled,
                 false,
             ),
-            StatBlockActionResolutionInvalidReason::StaleSubject,
+            BattleResolutionInvalidReason::StaleSubject,
             None,
         );
     }
@@ -3201,10 +3296,10 @@ pub fn start_stat_block_multiattack_control(
         StatBlockActionDamageMode::Rolled,
         false,
     );
-    StatBlockActionResolutionResult::NeedsHoles {
+    BattleResolutionResult::StatBlockNeedsHoles {
         state,
         subject,
-        holes: stat_block_action_hole_frontier(subject.stage),
+        holes: stat_block_action_hole_kinds(subject.stage),
     }
 }
 
@@ -3212,7 +3307,7 @@ pub fn start_stat_block_multiattack_control(
 pub fn discover_rolled_stat_block_attack_control(
     state: BattleState,
     actor: Actor,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     discover_stat_block_attack_control(state, actor, StatBlockActionDamageMode::Rolled, true)
 }
 
@@ -3221,7 +3316,7 @@ pub fn discover_static_stat_block_attack_control(
     state: BattleState,
     actor: Actor,
     damage: i16,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     // QNT: battle-runtime-stat-block-multi-damage.mbt.qnt
     // `targetInitialHp` 12 -> `targetHpAfterStaticPiercingOnly` 9.
     discover_stat_block_attack_control(
@@ -3237,7 +3332,7 @@ pub fn discover_prone_rider_stat_block_attack_control(
     state: BattleState,
     actor: Actor,
     target_prone_condition_immune: bool,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     if current_actor(&state) != actor
         || !state.action_available
         || combatant_for(&state, actor).hp <= 0
@@ -3253,7 +3348,7 @@ pub fn discover_prone_rider_stat_block_attack_control(
                     target_prone_condition_immune,
                 },
             ),
-            StatBlockActionResolutionInvalidReason::StaleSubject,
+            BattleResolutionInvalidReason::StaleSubject,
             None,
         );
     }
@@ -3267,10 +3362,10 @@ pub fn discover_prone_rider_stat_block_attack_control(
             target_prone_condition_immune,
         },
     );
-    StatBlockActionResolutionResult::NeedsHoles {
+    BattleResolutionResult::StatBlockNeedsHoles {
         state,
         subject,
-        holes: stat_block_action_hole_frontier(subject.stage),
+        holes: stat_block_action_hole_kinds(subject.stage),
     }
 }
 
@@ -3278,7 +3373,7 @@ pub fn discover_prone_rider_stat_block_attack_control(
 pub fn spend_recharge_gated_rolled_stat_block_attack(
     state: BattleState,
     actor: Actor,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     if current_actor(&state) != actor
         || !state.action_available
         || !combatant_for(&state, actor).recharge_available
@@ -3292,7 +3387,7 @@ pub fn spend_recharge_gated_rolled_stat_block_attack(
                 StatBlockActionDamageMode::Rolled,
                 false,
             ),
-            StatBlockActionResolutionInvalidReason::StaleSubject,
+            BattleResolutionInvalidReason::StaleSubject,
             None,
         );
     }
@@ -3309,24 +3404,23 @@ pub fn spend_recharge_gated_rolled_stat_block_attack(
         StatBlockActionDamageMode::Rolled,
         false,
     );
-    StatBlockActionResolutionResult::NeedsHoles {
+    BattleResolutionResult::StatBlockNeedsHoles {
         state,
         subject,
-        holes: stat_block_action_hole_frontier(subject.stage),
+        holes: stat_block_action_hole_kinds(subject.stage),
     }
 }
 
-#[must_use]
-pub fn resolve_stat_block_action_subject(
+fn resolve_stat_block_action_result(
     state: BattleState,
     subject: StatBlockActionSubject,
     fill: StatBlockActionFill,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     if subject.actor != current_actor(&state) {
         return invalid_stat_block_action(
             state,
             subject,
-            StatBlockActionResolutionInvalidReason::WrongActor,
+            BattleResolutionInvalidReason::WrongActor,
             None,
         );
     }
@@ -3349,19 +3443,19 @@ pub fn resolve_stat_block_action_subject(
 
 #[must_use]
 pub fn stat_block_action_projection_from_result(
-    result: &StatBlockActionResolutionResult,
+    result: &BattleResolutionResult,
 ) -> StatBlockActionOrderingState {
     let (state, subject, runtime_result, last_ordering_error) = match result {
-        StatBlockActionResolutionResult::NeedsHoles { state, subject, .. } => (
+        BattleResolutionResult::StatBlockNeedsHoles { state, subject, .. } => (
             state,
             subject,
             StatBlockActionRuntimeResult::NeedsHoles,
             None,
         ),
-        StatBlockActionResolutionResult::Resolved { state, subject } => {
+        BattleResolutionResult::StatBlockResolved { state, subject } => {
             (state, subject, StatBlockActionRuntimeResult::Resolved, None)
         }
-        StatBlockActionResolutionResult::Invalid {
+        BattleResolutionResult::StatBlockInvalid {
             state,
             subject,
             last_ordering_error,
@@ -3372,6 +3466,7 @@ pub fn stat_block_action_projection_from_result(
             StatBlockActionRuntimeResult::Invalid,
             *last_ordering_error,
         ),
+        other => panic!("expected stat-block action result, got {other:?}"),
     };
 
     stat_block_action_ordering_projection(StatBlockActionOrderingProjectionFacts {
@@ -3608,7 +3703,7 @@ fn discover_stat_block_attack_control(
     actor: Actor,
     damage_mode: StatBlockActionDamageMode,
     recharge_action_available: bool,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     if current_actor(&state) != actor
         || !state.action_available
         || combatant_for(&state, actor).hp <= 0
@@ -3621,7 +3716,7 @@ fn discover_stat_block_attack_control(
                 damage_mode,
                 recharge_action_available,
             ),
-            StatBlockActionResolutionInvalidReason::StaleSubject,
+            BattleResolutionInvalidReason::StaleSubject,
             None,
         );
     }
@@ -3632,10 +3727,10 @@ fn discover_stat_block_attack_control(
         damage_mode,
         recharge_action_available,
     );
-    StatBlockActionResolutionResult::NeedsHoles {
+    BattleResolutionResult::StatBlockNeedsHoles {
         state,
         subject,
-        holes: stat_block_action_hole_frontier(subject.stage),
+        holes: stat_block_action_hole_kinds(subject.stage),
     }
 }
 
@@ -3643,7 +3738,7 @@ fn resolve_stat_block_target_choice(
     state: BattleState,
     subject: StatBlockActionSubject,
     target: Actor,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     let order = stat_block_action_fill_order_result(
         subject.stage,
         StatBlockActionFillKind::TargetChoice,
@@ -3656,7 +3751,7 @@ fn resolve_stat_block_target_choice(
             return invalid_stat_block_action(
                 state,
                 subject,
-                StatBlockActionResolutionInvalidReason::InvalidFill,
+                BattleResolutionInvalidReason::InvalidFill,
                 Some(error),
             );
         }
@@ -3672,7 +3767,7 @@ fn resolve_stat_block_target_choice(
         return invalid_stat_block_action(
             state,
             subject,
-            StatBlockActionResolutionInvalidReason::WrongTarget,
+            BattleResolutionInvalidReason::WrongTarget,
             None,
         );
     }
@@ -3689,7 +3784,7 @@ fn resolve_stat_block_attack_roll_fill(
     state: BattleState,
     subject: StatBlockActionSubject,
     roll: AttackRollFacts,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     let attack_roll_hits = subject
         .target
         .map(|target| resolve_attack_roll(roll, armor_class_for(&state, target), 20).hits)
@@ -3706,7 +3801,7 @@ fn resolve_stat_block_attack_roll_fill(
             return invalid_stat_block_action(
                 state,
                 subject,
-                StatBlockActionResolutionInvalidReason::InvalidFill,
+                BattleResolutionInvalidReason::InvalidFill,
                 Some(error),
             );
         }
@@ -3722,7 +3817,7 @@ fn resolve_stat_block_attack_roll_fill(
         return invalid_stat_block_action(
             state,
             subject,
-            StatBlockActionResolutionInvalidReason::InvalidFill,
+            BattleResolutionInvalidReason::InvalidFill,
             None,
         );
     };
@@ -3754,7 +3849,7 @@ fn resolve_stat_block_attack_roll_fill(
             }
             StatBlockActionDamageMode::Static { .. } => state,
         };
-        return StatBlockActionResolutionResult::Resolved {
+        return BattleResolutionResult::StatBlockResolved {
             state: BattleState {
                 action_available: false,
                 ..state
@@ -3770,7 +3865,7 @@ fn resolve_stat_block_damage_dice(
     state: BattleState,
     subject: StatBlockActionSubject,
     rolled_damage: i16,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     let order = stat_block_action_fill_order_result(
         subject.stage,
         StatBlockActionFillKind::RolledDice,
@@ -3783,7 +3878,7 @@ fn resolve_stat_block_damage_dice(
             return invalid_stat_block_action(
                 state,
                 subject,
-                StatBlockActionResolutionInvalidReason::InvalidFill,
+                BattleResolutionInvalidReason::InvalidFill,
                 Some(error),
             );
         }
@@ -3799,13 +3894,13 @@ fn resolve_stat_block_damage_dice(
         return invalid_stat_block_action(
             state,
             subject,
-            StatBlockActionResolutionInvalidReason::InvalidFill,
+            BattleResolutionInvalidReason::InvalidFill,
             None,
         );
     };
 
     let state = with_damaged_target(state, target, rolled_damage);
-    StatBlockActionResolutionResult::Resolved {
+    BattleResolutionResult::StatBlockResolved {
         state: BattleState {
             action_available: false,
             ..state
@@ -3822,7 +3917,7 @@ fn resolve_stat_block_recharge_roll(
     state: BattleState,
     subject: StatBlockActionSubject,
     roll: i16,
-) -> StatBlockActionResolutionResult {
+) -> BattleResolutionResult {
     let order = stat_block_action_fill_order_result(
         subject.stage,
         StatBlockActionFillKind::StatBlockRechargeRoll,
@@ -3835,7 +3930,7 @@ fn resolve_stat_block_recharge_roll(
             return invalid_stat_block_action(
                 state,
                 subject,
-                StatBlockActionResolutionInvalidReason::InvalidFill,
+                BattleResolutionInvalidReason::InvalidFill,
                 Some(error),
             );
         }
@@ -3850,7 +3945,7 @@ fn resolve_stat_block_recharge_roll(
     let recharged = roll >= 5;
     let mut state = state;
     combatant_for_mut(&mut state, subject.actor).recharge_available = recharged;
-    StatBlockActionResolutionResult::Resolved {
+    BattleResolutionResult::StatBlockResolved {
         state,
         subject: StatBlockActionSubject {
             stage: next_stage,
@@ -3991,6 +4086,30 @@ fn hit_point_restoration_hole_kinds(
         .collect()
 }
 
+fn stat_block_action_hole_kinds(stage: StatBlockActionFrontierStage) -> Vec<BattleHoleKind> {
+    stat_block_action_hole_frontier(stage)
+        .into_iter()
+        .map(|hole| match hole {
+            StatBlockActionHoleKind::TargetChoice => BattleHoleKind::TargetChoice,
+            StatBlockActionHoleKind::AttackRoll => BattleHoleKind::AttackRoll,
+            StatBlockActionHoleKind::RolledDice => BattleHoleKind::RolledDice,
+            StatBlockActionHoleKind::StatBlockRechargeRoll => BattleHoleKind::StatBlockRechargeRoll,
+        })
+        .collect()
+}
+
+const fn battle_subject_from_stat_block_action_subject(
+    subject: StatBlockActionSubject,
+) -> BattleSubject {
+    BattleSubject {
+        kind: BattleSubjectKind::StatBlockAction,
+        actor: subject.actor,
+        target: subject.target,
+        stage: WeaponAttackFrontierStage::ActSelection,
+        damage_modifier: 0,
+    }
+}
+
 fn concentration_holes(state: &ConcentrationState) -> Vec<BattleHoleKind> {
     match state.protocol {
         ConcentrationProtocol::NeedsSavingThrow => {
@@ -4089,25 +4208,25 @@ fn stat_block_subject_uses_rolled_damage(subject: &StatBlockActionSubject) -> bo
 fn stat_block_action_needs_holes(
     state: BattleState,
     subject: StatBlockActionSubject,
-) -> StatBlockActionResolutionResult {
-    StatBlockActionResolutionResult::NeedsHoles {
+) -> BattleResolutionResult {
+    BattleResolutionResult::StatBlockNeedsHoles {
         state,
         subject,
-        holes: stat_block_action_hole_frontier(subject.stage),
+        holes: stat_block_action_hole_kinds(subject.stage),
     }
 }
 
 fn invalid_stat_block_action(
     state: BattleState,
     subject: StatBlockActionSubject,
-    reason: StatBlockActionResolutionInvalidReason,
+    reason: BattleResolutionInvalidReason,
     last_ordering_error: Option<StatBlockActionFillOrderingError>,
-) -> StatBlockActionResolutionResult {
-    StatBlockActionResolutionResult::Invalid {
+) -> BattleResolutionResult {
+    BattleResolutionResult::StatBlockInvalid {
         state,
         subject,
         reason,
-        holes: stat_block_action_hole_frontier(subject.stage),
+        holes: stat_block_action_hole_kinds(subject.stage),
         last_ordering_error,
     }
 }

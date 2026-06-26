@@ -1,6 +1,7 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts, resolve_battle_subject_test_fill, start_battle, Actor, AttackRollFacts,
-    BattleFill, BattleResolutionOutcome, BattleSetup, BattleSubject, BattleSubjectKind,
+    BattleFill, BattleHoleKind, BattleResolutionOutcome, BattleSetup, BattleSubject,
+    BattleSubjectKind,
 };
 use crate::rules::weapon_attack_ordering::{
     discover_weapon_attack, fill_weapon_attack_damage_dice, fill_weapon_attack_roll_hit,
@@ -110,7 +111,105 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doDiscoverAttack" => expected_weapon_discovery_route(),
+        "doRejectAttackRollBeforeTargetChoice" => expected_weapon_route(&[(
+            ReducerRouteFillKind::AttackRoll,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::HoleFrontier,
+        )]),
+        "doFillTargetChoice" => expected_weapon_route(&[(
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::TargetSelection,
+        )]),
+        "doRejectDamageBeforeAttackRoll" => expected_weapon_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::RolledDice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ),
+        ]),
+        "doFillAttackRollMiss" => expected_weapon_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                Vec::new(),
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+        ]),
+        "doFillAttackRollHit" => expected_weapon_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                vec![BattleHoleKind::RolledDice],
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+        ]),
+        "doFillDamageDice" => expected_weapon_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                vec![BattleHoleKind::RolledDice],
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+            (
+                ReducerRouteFillKind::RolledDice,
+                Vec::new(),
+                ReducerRouteOwnerGroup::HitPoint,
+            ),
+        ]),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn expected_weapon_route(
+    steps: &[(
+        ReducerRouteFillKind,
+        Vec<BattleHoleKind>,
+        ReducerRouteOwnerGroup,
+    )],
+) -> Vec<ReducerRouteEvent> {
+    let mut route = expected_weapon_discovery_route();
+    for (fill, holes, owner) in steps {
+        route.push(
+            super::battle_runtime_reducer_route::route_resolve_battle_subject(
+                ReducerRouteSubjectFamily::WeaponAttack,
+                *fill,
+                holes.clone(),
+                *owner,
+            ),
+        );
+    }
+    route
+}
+
+fn expected_weapon_discovery_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts(
+            ReducerRouteSubjectFamily::WeaponAttack,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::ActionEconomy,
+        ),
+    ]
 }
 
 pub fn projection_payload(state: &WeaponAttackOrderingState) -> String {

@@ -950,6 +950,15 @@ Verification results:
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check be336582921801cd06995121db38e34ca6f4e275...HEAD` passed.
 
+## L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE: Integrated Reducer-Route Diagnostic Queue
+
+- Merged from `ralph/rrconv-19-cleanroom` during the RR05 fixer pass.
+- Evidence file: `tasks/target-replay-evidence/L15-RR03-reducer-route.json`
+- Historical artifacts: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/`
+- Run ledger: `tasks/RUN_LEDGER.json`
+- Scope: concentration break teardown and death saving throw reducer-route diagnostics.
+- Status: integrated as completed historical coverage; RR05 remains the active latest task entry.
+
 
 ## L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES: Battle Action Attack / Stat-Block Routes
 

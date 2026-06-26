@@ -175,7 +175,181 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doDiscoverAttack" => expected_skeleton_weapon_discovery_route(),
+        "doFillTarget" => expected_skeleton_weapon_route(&[(
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::TargetSelection,
+        )]),
+        "doRejectWrongTarget" => expected_skeleton_weapon_route(&[(
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::TargetSelection,
+        )]),
+        "doFillAttackRollMiss" => expected_skeleton_weapon_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                Vec::new(),
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+        ]),
+        "doFillAttackRollHit" => expected_skeleton_weapon_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                vec![BattleHoleKind::RolledDice],
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+        ]),
+        "doFillDamageLow"
+        | "doFillDamageHigh"
+        | "doFillDamageLowSneakAttack"
+        | "doFillDamageHighSneakAttack" => expected_skeleton_weapon_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                vec![BattleHoleKind::RolledDice],
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+            (
+                ReducerRouteFillKind::RolledDice,
+                Vec::new(),
+                ReducerRouteOwnerGroup::HitPoint,
+            ),
+        ]),
+        "doRejectStaleAfterResolved" => {
+            let mut route = expected_skeleton_weapon_route(&[
+                (
+                    ReducerRouteFillKind::TargetChoice,
+                    vec![BattleHoleKind::AttackRoll],
+                    ReducerRouteOwnerGroup::TargetSelection,
+                ),
+                (
+                    ReducerRouteFillKind::AttackRoll,
+                    vec![BattleHoleKind::RolledDice],
+                    ReducerRouteOwnerGroup::AttackRoll,
+                ),
+                (
+                    ReducerRouteFillKind::RolledDice,
+                    Vec::new(),
+                    ReducerRouteOwnerGroup::HitPoint,
+                ),
+            ]);
+            route.push(route_resolve_battle_subject_without_fill(
+                ReducerRouteSubjectFamily::WeaponAttack,
+                Vec::new(),
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
+        "doStartSkeletonTurn" => {
+            let mut route = expected_skeleton_weapon_discovery_route();
+            route.push(route_resolve_battle_subject_without_fill(
+                ReducerRouteSubjectFamily::BattleAction,
+                Vec::new(),
+                ReducerRouteOwnerGroup::ActionEconomy,
+            ));
+            route
+        }
+        "doResolveSkeletonMultiattack" => {
+            let mut route = expected_skeleton_multiattack_discovery_route();
+            route.push(route_resolve_battle_subject_without_fill(
+                ReducerRouteSubjectFamily::StatBlockAction,
+                Vec::new(),
+                ReducerRouteOwnerGroup::StatBlockAction,
+            ));
+            route
+        }
+        "doRejectRecursiveSkeletonMultiattack" => {
+            let mut route = expected_skeleton_multiattack_resolved_route();
+            route.push(route_resolve_battle_subject_without_fill(
+                ReducerRouteSubjectFamily::StatBlockAction,
+                Vec::new(),
+                ReducerRouteOwnerGroup::StatBlockAction,
+            ));
+            route
+        }
+        "doSpendSkeletonMultiattackDispatch" => {
+            let mut route = expected_skeleton_multiattack_resolved_route();
+            route.push(
+                super::battle_runtime_reducer_route::route_resolve_battle_subject(
+                    ReducerRouteSubjectFamily::StatBlockAction,
+                    ReducerRouteFillKind::TargetChoice,
+                    Vec::new(),
+                    ReducerRouteOwnerGroup::StatBlockAction,
+                ),
+            );
+            route
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn expected_skeleton_weapon_route(
+    steps: &[(
+        ReducerRouteFillKind,
+        Vec<BattleHoleKind>,
+        ReducerRouteOwnerGroup,
+    )],
+) -> Vec<ReducerRouteEvent> {
+    let mut route = expected_skeleton_weapon_discovery_route();
+    for (fill, holes, owner) in steps {
+        route.push(
+            super::battle_runtime_reducer_route::route_resolve_battle_subject(
+                ReducerRouteSubjectFamily::WeaponAttack,
+                *fill,
+                holes.clone(),
+                *owner,
+            ),
+        );
+    }
+    route
+}
+
+fn expected_skeleton_weapon_discovery_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts(
+            ReducerRouteSubjectFamily::WeaponAttack,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::ActionEconomy,
+        ),
+    ]
+}
+
+fn expected_skeleton_multiattack_resolved_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_skeleton_multiattack_discovery_route();
+    route.push(route_resolve_battle_subject_without_fill(
+        ReducerRouteSubjectFamily::StatBlockAction,
+        Vec::new(),
+        ReducerRouteOwnerGroup::StatBlockAction,
+    ));
+    route
+}
+
+fn expected_skeleton_multiattack_discovery_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts(
+            ReducerRouteSubjectFamily::StatBlockAction,
+            Vec::new(),
+            ReducerRouteOwnerGroup::StatBlockAction,
+        ),
+    ]
 }
 
 fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAttackSkeletonState {
@@ -580,7 +754,8 @@ fn holes_from_spine(holes: &[BattleHoleKind]) -> Vec<WeaponAttackSkeletonHole> {
             | BattleHoleKind::SavingThrowOutcome
             | BattleHoleKind::HitPointHealingDistribution
             | BattleHoleKind::DeathSavingThrow
-            | BattleHoleKind::ConcentrationSavingThrow => {
+            | BattleHoleKind::ConcentrationSavingThrow
+            | BattleHoleKind::StatBlockRechargeRoll => {
                 panic!("weapon projection received non-weapon reducer hole {hole:?}")
             }
         })

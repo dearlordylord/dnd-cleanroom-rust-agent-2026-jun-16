@@ -1,0 +1,18 @@
+{
+  "preImplementationStatus": {
+    "command": "git status --short",
+    "output": "",
+    "result": "clean"
+  },
+  "schemaVersion": 1,
+  "startHeadSha": "72f81250789a4e7bc6216503f2a93abac6771852",
+  "taskId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+  "taskScope": {
+    "assignmentId": "reducer-spine-diagnostic-battle",
+    "laneId": "battle",
+    "selectedDrivers": [
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt"
+    ]
+  }
+}

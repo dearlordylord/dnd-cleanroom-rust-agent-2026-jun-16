@@ -2,8 +2,8 @@ use crate::rules::battle_reducer_spine::{
     discover_battle_acts, discover_single_target_spell_attack_battle,
     discover_typed_spell_attack_battle, resolve_battle_subject,
     spell_attack_ordering_projection_from_battle, start_spell_attack_ordering_battle, Actor,
-    AttackRollFacts, BattleResolutionRequest, BattleResolutionResult, BattleSpellAttackFill,
-    BattleState, BattleSubject, BattleSubjectKind,
+    AttackRollFacts, BattleHoleKind, BattleResolutionRequest, BattleResolutionResult,
+    BattleSpellAttackFill, BattleState, BattleSubject, BattleSubjectKind,
 };
 use crate::rules::spell_attack_ordering::{
     discover_single_target_spell_attack, discover_typed_spell_attack, fill_attack_roll_hit,
@@ -232,7 +232,176 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doDiscoverSingleTargetSpellAttack" => {
+            expected_spell_discovery_route(vec![BattleHoleKind::TargetChoice])
+        }
+        "doSubmitAttackRollBeforeTargetChoice" => expected_single_target_route(&[(
+            ReducerRouteFillKind::AttackRoll,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::HoleFrontier,
+        )]),
+        "doFillTargetChoice" => expected_single_target_route(&[(
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::TargetSelection,
+        )]),
+        "doSubmitDamageBeforeAttackRoll" => expected_single_target_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::RolledDice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ),
+        ]),
+        "doFillAttackRollMiss" => expected_single_target_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                Vec::new(),
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+        ]),
+        "doFillAttackRollHit" => expected_single_target_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                vec![BattleHoleKind::RolledDice],
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+        ]),
+        "doFillDamageDice" => expected_single_target_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::AttackRoll,
+                vec![BattleHoleKind::RolledDice],
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+            (
+                ReducerRouteFillKind::RolledDice,
+                Vec::new(),
+                ReducerRouteOwnerGroup::HitPoint,
+            ),
+        ]),
+        "doDiscoverTypedSpellAttack" => expected_typed_discovery_route(),
+        "doFillDamageTypeBeforeTargetChoice" => expected_typed_route(&[(
+            ReducerRouteFillKind::DamageTypeChoice,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::HoleFrontier,
+        )]),
+        "doFillTargetChoiceBeforeDamageType" => expected_typed_route(&[(
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::DamageTypeChoice],
+            ReducerRouteOwnerGroup::TargetSelection,
+        )]),
+        "doFillDamageTypeAfterTargetChoice" => expected_typed_route(&[
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::DamageTypeChoice],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+            (
+                ReducerRouteFillKind::DamageTypeChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ),
+        ]),
+        "doFillTargetChoiceAfterDamageType" => expected_typed_route(&[
+            (
+                ReducerRouteFillKind::DamageTypeChoice,
+                vec![BattleHoleKind::TargetChoice],
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ),
+            (
+                ReducerRouteFillKind::TargetChoice,
+                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ),
+        ]),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn expected_single_target_route(
+    steps: &[(
+        ReducerRouteFillKind,
+        Vec<BattleHoleKind>,
+        ReducerRouteOwnerGroup,
+    )],
+) -> Vec<ReducerRouteEvent> {
+    expected_spell_route(vec![BattleHoleKind::TargetChoice], steps)
+}
+
+fn expected_typed_discovery_route() -> Vec<ReducerRouteEvent> {
+    expected_spell_discovery_route(vec![
+        BattleHoleKind::DamageTypeChoice,
+        BattleHoleKind::TargetChoice,
+    ])
+}
+
+fn expected_typed_route(
+    steps: &[(
+        ReducerRouteFillKind,
+        Vec<BattleHoleKind>,
+        ReducerRouteOwnerGroup,
+    )],
+) -> Vec<ReducerRouteEvent> {
+    expected_spell_route(
+        vec![
+            BattleHoleKind::DamageTypeChoice,
+            BattleHoleKind::TargetChoice,
+        ],
+        steps,
+    )
+}
+
+fn expected_spell_route(
+    discovery_holes: Vec<BattleHoleKind>,
+    steps: &[(
+        ReducerRouteFillKind,
+        Vec<BattleHoleKind>,
+        ReducerRouteOwnerGroup,
+    )],
+) -> Vec<ReducerRouteEvent> {
+    let mut route = expected_spell_discovery_route(discovery_holes);
+    for (fill, holes, owner) in steps {
+        route.push(
+            super::battle_runtime_reducer_route::route_resolve_battle_subject(
+                ReducerRouteSubjectFamily::SpellAttack,
+                *fill,
+                holes.clone(),
+                *owner,
+            ),
+        );
+    }
+    route
+}
+
+fn expected_spell_discovery_route(discovery_holes: Vec<BattleHoleKind>) -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts(
+            ReducerRouteSubjectFamily::SpellAttack,
+            discovery_holes,
+            ReducerRouteOwnerGroup::ActionEconomy,
+        ),
+    ]
 }
 
 pub fn projection_payload(state: &SpellAttackOrderingState) -> String {

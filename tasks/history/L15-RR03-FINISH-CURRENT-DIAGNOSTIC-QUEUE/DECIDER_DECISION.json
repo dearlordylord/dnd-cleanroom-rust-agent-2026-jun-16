@@ -1,0 +1,48 @@
+{
+  "decision": "accepted",
+  "deterministicGates": [
+    {
+      "evidence": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "gate": "start-gate",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/target-replay-evidence/L15-RR03-reducer-route.json",
+      "gate": "branch-coverage",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "gate": "adapter-quarantine",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "gate": "engine-depth",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "gate": "state-owner-derivability",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "gate": "authored-identity-dispatch",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "gate": "report-honesty",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "gate": "reviewer-loop-convergence",
+      "status": "pass"
+    }
+  ],
+  "rejectedFindings": [],
+  "schemaVersion": 1,
+  "taskId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE"
+}

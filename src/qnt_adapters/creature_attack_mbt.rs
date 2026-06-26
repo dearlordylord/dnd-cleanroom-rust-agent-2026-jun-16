@@ -1,7 +1,8 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts, resolve_battle_subject, start_battle, Actor, AttackRollFacts,
-    BattleResolutionRequest, BattleSetup, BattleState, BattleSubject, BattleSubjectKind,
-    BattleWeaponAttackFill, Combatant, CombatantLifecycle, Initiative, InitiativeStillToAct,
+    BattleHoleKind, BattleResolutionRequest, BattleSetup, BattleState, BattleSubject,
+    BattleSubjectKind, BattleWeaponAttackFill, Combatant, CombatantLifecycle, Initiative,
+    InitiativeStillToAct,
 };
 use crate::rules::creature_attack::{
     creature_attack_initial_state, resolve_creature_attack, CreatureAttackActor,
@@ -45,7 +46,48 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doAttackerAAttacks" | "doAttackerBAttacks" => expected_creature_attack_route(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn expected_creature_attack_route() -> Vec<ReducerRouteEvent> {
+    let mut route = vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts(
+            ReducerRouteSubjectFamily::CreatureAttack,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::TargetSelection,
+        ),
+    ];
+    for (fill, holes, owner) in [
+        (
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::TargetSelection,
+        ),
+        (
+            ReducerRouteFillKind::AttackRoll,
+            vec![BattleHoleKind::RolledDice],
+            ReducerRouteOwnerGroup::AttackRoll,
+        ),
+        (
+            ReducerRouteFillKind::RolledDice,
+            Vec::new(),
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+    ] {
+        route.push(
+            super::battle_runtime_reducer_route::route_resolve_battle_subject(
+                ReducerRouteSubjectFamily::CreatureAttack,
+                fill,
+                holes,
+                owner,
+            ),
+        );
+    }
+    route
 }
 
 pub fn projection_payload(state: &CreatureAttackState) -> String {

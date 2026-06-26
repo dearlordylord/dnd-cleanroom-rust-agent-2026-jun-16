@@ -1,8 +1,6 @@
 use crate::rules::battle_reducer_spine::{
     BattleHoleKind, BattleResolutionOutcome, BattleResolutionResult, BattleState, BattleSubject,
-    StatBlockActionResolutionResult,
 };
-use crate::rules::stat_block_action_ordering::StatBlockActionHoleKind;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum ReducerRouteHoleKind {
@@ -187,21 +185,6 @@ pub fn route_resolve_battle_subject_from_result(
     route_resolve_battle_subject_from_result_holes(connector, holes)
 }
 
-#[must_use]
-pub fn route_resolve_stat_block_action_from_result(
-    connector: ReducerRouteResolveConnector,
-    result: &StatBlockActionResolutionResult,
-) -> ReducerRouteEvent {
-    let holes = match result {
-        StatBlockActionResolutionResult::NeedsHoles { holes, .. }
-        | StatBlockActionResolutionResult::Invalid { holes, .. } => {
-            stat_block_action_route_holes(holes)
-        }
-        StatBlockActionResolutionResult::Resolved { .. } => Vec::new(),
-    };
-    route_resolve_battle_subject_from_result_holes(connector, holes)
-}
-
 fn route_resolve_battle_subject_from_result_holes(
     connector: ReducerRouteResolveConnector,
     holes: Vec<ReducerRouteHoleKind>,
@@ -293,25 +276,10 @@ fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
         BattleHoleKind::SavingThrowOutcome => ReducerRouteHoleKind::SavingThrowOutcome,
         BattleHoleKind::SpellTargetAllocation => ReducerRouteHoleKind::SpellTargetAllocation,
         BattleHoleKind::SpellTargetList => ReducerRouteHoleKind::SpellTargetList,
+        BattleHoleKind::StatBlockRechargeRoll => ReducerRouteHoleKind::StatBlockRechargeRoll,
         BattleHoleKind::TargetChoice => ReducerRouteHoleKind::TargetChoice,
         BattleHoleKind::AttackRoll => ReducerRouteHoleKind::AttackRoll,
     }
-}
-
-fn stat_block_action_route_holes(holes: &[StatBlockActionHoleKind]) -> Vec<ReducerRouteHoleKind> {
-    sorted_route_holes(
-        holes
-            .iter()
-            .map(|hole| match hole {
-                StatBlockActionHoleKind::TargetChoice => ReducerRouteHoleKind::TargetChoice,
-                StatBlockActionHoleKind::AttackRoll => ReducerRouteHoleKind::AttackRoll,
-                StatBlockActionHoleKind::RolledDice => ReducerRouteHoleKind::RolledDice,
-                StatBlockActionHoleKind::StatBlockRechargeRoll => {
-                    ReducerRouteHoleKind::StatBlockRechargeRoll
-                }
-            })
-            .collect(),
-    )
 }
 
 fn route_event_ref(event: &ReducerRouteEvent) -> String {
