@@ -751,6 +751,113 @@
         }
       ],
       "taskId": "RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/DECIDER_DECISION.json",
+          "sha256": "df5107f0350628f1bdacd5414f0e8715fd177c40543fe0c28f04376011516656"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "a2b6fb1621a2dc05cb320011ddfee3acbd42cf66d37fe40e5175a04a0bfbcf7f"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/REVIEW_LOOP.json",
+          "sha256": "ce4c662dc8181f89e738c9d37a058ec5e6cc735016fdc8b0aea67e4491b5845b"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/START_GATE.json",
+          "sha256": "477ab2b0206ea00e249ddc75f223e653105b41b8904821cf5ad89e411353ec19"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/STATE_OWNER_MANIFEST.json",
+          "sha256": "4bc1da91a717a075b6c7f5052dc375f13dcea69818f5478aae4852a182a6a48d"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "git rev-parse HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "git status --short",
+          "status": "pass"
+        },
+        {
+          "command": "git merge-base --is-ancestor aa3996e4b32e2502b3c3ee5cca051db66157269b HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test resolve_route_event_reads_holes_from_resolution_result",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test route_event",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test magic_missile_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test save_gated_spell_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_spine_contract_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check aa3996e4b32e2502b3c3ee5cca051db66157269b...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doDiscoverAreaSaveDamage#step:doDiscoverAreaSaveDamage",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doDiscoverTargetListConditionChoice#step:doDiscoverTargetListConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillAreaDamageDice#step:doFillAreaDamageDice",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillAreaSaveFailed#step:doFillAreaSaveFailed",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillConditionChoiceAfterTargetList#step:doFillConditionChoiceAfterTargetList",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillConditionChoiceBeforeTargetList#step:doFillConditionChoiceBeforeTargetList",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillConditionSavingThrow#step:doFillConditionSavingThrow",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillMagicMissileAllocation#step:doFillMagicMissileAllocation",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillMagicMissileDamage#step:doFillMagicMissileDamage",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillTargetListAfterConditionChoice#step:doFillTargetListAfterConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillTargetListBeforeConditionChoice#step:doFillTargetListBeforeConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doSubmitDamageBeforeSavingThrow#step:doSubmitDamageBeforeSavingThrow"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json",
+          "sha256": "b672f928594babb75fe6fa752e18d17d7841d84e11268a5eaee7193c127300c5"
+        }
+      ],
+      "taskId": "RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

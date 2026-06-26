@@ -10,8 +10,10 @@ use crate::rules::magic_missile::{
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts, route_resolve_battle_subject, route_start_battle,
-    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+    route_discover_battle_acts, route_resolve_battle_subject,
+    route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
+    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 2] = ["doFillMagicMissileAllocation", "doFillMagicMissileDamage"];
@@ -138,16 +140,18 @@ fn slot_spell_targets_resolved_with_route() -> (BattleState, Vec<ReducerRouteEve
         act.subject,
         BattleFill::SlotSpell(BattleSlotSpellFill::TargetAllocation(Actor::Skeleton)),
     );
+    route.push(route_resolve_battle_subject_from_result(
+        ReducerRouteResolveConnector {
+            subject: ReducerRouteSubjectFamily::SlotSpell,
+            fill: ReducerRouteResolveFill::Fill(ReducerRouteFillKind::SpellTargetAllocation),
+            owner: ReducerRouteOwnerGroup::HoleFrontier,
+        },
+        &result,
+    ));
     let outcome = result.outcome();
     let needs_holes = result.into_needs_holes().unwrap_or_else(|| {
         panic!("Magic Missile target allocation should need damage holes, got {outcome:?}")
     });
-    route.push(route_resolve_battle_subject(
-        ReducerRouteSubjectFamily::SlotSpell,
-        ReducerRouteFillKind::SpellTargetAllocation,
-        needs_holes.holes,
-        ReducerRouteOwnerGroup::HoleFrontier,
-    ));
     (needs_holes.state, route)
 }
 
@@ -165,17 +169,19 @@ fn slot_spell_damage_resolved_with_route(
         act,
         BattleFill::SlotSpell(BattleSlotSpellFill::DamageRoll(dart_roll_total)),
     );
+    route.push(route_resolve_battle_subject_from_result(
+        ReducerRouteResolveConnector {
+            subject: ReducerRouteSubjectFamily::SlotSpell,
+            fill: ReducerRouteResolveFill::Fill(ReducerRouteFillKind::RolledDice),
+            owner: ReducerRouteOwnerGroup::HitPoint,
+        },
+        &result,
+    ));
     let outcome = result.outcome();
     if outcome != BattleResolutionOutcome::Resolved {
         panic!("Magic Missile damage should resolve through reducer, got {outcome:?}");
     }
     let state = result.into_state();
-    route.push(route_resolve_battle_subject(
-        ReducerRouteSubjectFamily::SlotSpell,
-        ReducerRouteFillKind::RolledDice,
-        Vec::new(),
-        ReducerRouteOwnerGroup::HitPoint,
-    ));
     (state, route)
 }
 

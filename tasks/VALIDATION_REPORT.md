@@ -7,9 +7,9 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION`
+- Last completed current-snapshot queued branch set: `RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT`
 - Next queued driver: `<none for reducer-spine-diagnostic-battle>`
-- Next task id: `T006`
+- Next task id: `<none for RRCONV-19F focused architecture lane>`
 
 Completion rule: a queued branch set is complete only when this report has an entry that names the exact `.mbt.qnt` driver, records the current manifest source commit SHA, records the current source branch inventory SHA, lists the allowed inputs used, renders branch coverage from harness-generated target replay evidence, and records verification results.
 
@@ -769,3 +769,77 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check 277f0cf58516d3463267546f578b648f45331a06...HEAD` passed.
+
+## RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT: Route Event From Reducer Result
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Drivers:
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+
+Allowed inputs used:
+
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.route.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt`
+- Repo-local `src/**`, `tasks/**`, `scripts/**`, and Rust/Cargo tooling in this cleanroom worktree
+
+Behavior implemented:
+
+- Added adapter-side `ReducerRouteResolveConnector`, `ReducerRouteResolveFill`, and `route_resolve_battle_subject_from_result` so resolve route events consume `BattleResolutionResult` holes and outcome metadata.
+- Updated Magic Missile and Save-Gated Spell Ordering observed route adapters to use the shared result-based helper. Literal expected-route witnesses remain independent route expectations.
+- Made the cleanroom harness accept multi-driver selected scopes and repeated-driver evidence refs so this architecture lane can honestly declare both changed and replayed drivers in one latest ledger entry.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt#step:doFillMagicMissileAllocation` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillMagicMissileAllocation#step:doFillMagicMissileAllocation` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt#step:doFillMagicMissileDamage` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillMagicMissileDamage#step:doFillMagicMissileDamage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doDiscoverAreaSaveDamage` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doDiscoverAreaSaveDamage#step:doDiscoverAreaSaveDamage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doDiscoverTargetListConditionChoice` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doDiscoverTargetListConditionChoice#step:doDiscoverTargetListConditionChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillAreaDamageDice` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillAreaDamageDice#step:doFillAreaDamageDice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillAreaSaveFailed` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillAreaSaveFailed#step:doFillAreaSaveFailed` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionChoiceAfterTargetList` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillConditionChoiceAfterTargetList#step:doFillConditionChoiceAfterTargetList` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionChoiceBeforeTargetList` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillConditionChoiceBeforeTargetList#step:doFillConditionChoiceBeforeTargetList` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionSavingThrow` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillConditionSavingThrow#step:doFillConditionSavingThrow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillTargetListAfterConditionChoice` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillTargetListAfterConditionChoice#step:doFillTargetListAfterConditionChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillTargetListBeforeConditionChoice` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillTargetListBeforeConditionChoice#step:doFillTargetListBeforeConditionChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doSubmitDamageBeforeSavingThrow` | `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doSubmitDamageBeforeSavingThrow#step:doSubmitDamageBeforeSavingThrow` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Reproduction seed or trace id: `RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=<branchAction>`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/START_GATE.json`
+- Engine depth: `tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- This is a focused architecture hardening lane; it does not claim every reducer-routed adapter has been converted to result-based route-event construction.
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test route_event` passed.
+- `cargo test magic_missile_adapter_replays_all_branches` passed.
+- `cargo test save_gated_spell_ordering_adapter_replays_all_branches` passed.
+- `cargo test reducer_spine_contract_adapter_replays_all_branches` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check aa3996e4b32e2502b3c3ee5cca051db66157269b...HEAD` passed.

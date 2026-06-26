@@ -1,4 +1,6 @@
-use crate::rules::battle_reducer_spine::BattleHoleKind;
+use crate::rules::battle_reducer_spine::{
+    BattleHoleKind, BattleResolutionOutcome, BattleResolutionResult,
+};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum ReducerRouteHoleKind {
@@ -27,6 +29,12 @@ pub enum ReducerRouteFillKind {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ReducerRouteResolveFill {
+    Fill(ReducerRouteFillKind),
+    WithoutFill,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReducerRouteSubjectFamily {
     ConcentrationTeardown,
     DeathSavingThrow,
@@ -43,6 +51,13 @@ pub enum ReducerRouteOwnerGroup {
     HitPoint,
     HoleFrontier,
     SpellSlotAndActionEconomy,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ReducerRouteResolveConnector {
+    pub subject: ReducerRouteSubjectFamily,
+    pub fill: ReducerRouteResolveFill,
+    pub owner: ReducerRouteOwnerGroup,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -115,6 +130,29 @@ pub fn route_resolve_battle_subject_without_fill(
 }
 
 #[must_use]
+pub fn route_resolve_battle_subject_from_result(
+    connector: ReducerRouteResolveConnector,
+    result: &BattleResolutionResult,
+) -> ReducerRouteEvent {
+    let holes = reducer_route_result_holes(result);
+    match connector.fill {
+        ReducerRouteResolveFill::Fill(fill) => ReducerRouteEvent::ResolveBattleSubject {
+            subject: connector.subject,
+            fill,
+            holes,
+            owner: connector.owner,
+        },
+        ReducerRouteResolveFill::WithoutFill => {
+            ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+                subject: connector.subject,
+                holes,
+                owner: connector.owner,
+            }
+        }
+    }
+}
+
+#[must_use]
 pub fn reducer_route_payload(route: &[ReducerRouteEvent]) -> String {
     route
         .iter()
@@ -123,9 +161,24 @@ pub fn reducer_route_payload(route: &[ReducerRouteEvent]) -> String {
         .join("\n")
 }
 
+fn reducer_route_result_holes(result: &BattleResolutionResult) -> Vec<ReducerRouteHoleKind> {
+    let holes = match result.outcome() {
+        BattleResolutionOutcome::NeedsHoles | BattleResolutionOutcome::Invalid(_) => result
+            .requested_holes()
+            .expect("non-resolved battle resolution result should carry requested holes"),
+        BattleResolutionOutcome::Resolved => &[],
+    };
+    reducer_route_holes_from_slice(holes)
+}
+
 fn reducer_route_holes(holes: Vec<BattleHoleKind>) -> Vec<ReducerRouteHoleKind> {
+    reducer_route_holes_from_slice(&holes)
+}
+
+fn reducer_route_holes_from_slice(holes: &[BattleHoleKind]) -> Vec<ReducerRouteHoleKind> {
     let mut route_holes = holes
-        .into_iter()
+        .iter()
+        .copied()
         .map(reducer_route_hole)
         .collect::<Vec<_>>();
     route_holes.sort();
@@ -250,5 +303,110 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::HitPointRestoration => "HitPointRestorationRouteSubject",
         ReducerRouteSubjectFamily::SaveGatedSpell => "SaveGatedSpellRouteSubject",
         ReducerRouteSubjectFamily::SlotSpell => "SlotSpellRouteSubject",
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{
+        route_resolve_battle_subject_from_result, ReducerRouteEvent, ReducerRouteFillKind,
+        ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
+        ReducerRouteResolveFill, ReducerRouteSubjectFamily,
+    };
+    use crate::rules::battle_reducer_spine::{
+        start_fighter_skeleton_battle, Actor, BattleHoleKind, BattleResolutionInvalidReason,
+        BattleResolutionResult, BattleSubject, BattleSubjectKind,
+    };
+    use crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage;
+
+    #[test]
+    fn resolve_route_event_reads_holes_from_resolution_result() {
+        let result = BattleResolutionResult::NeedsHoles {
+            state: start_fighter_skeleton_battle(),
+            subject: route_test_subject(BattleSubjectKind::SlotSpell),
+            holes: vec![BattleHoleKind::RolledDice],
+        };
+
+        let event = route_resolve_battle_subject_from_result(
+            ReducerRouteResolveConnector {
+                subject: ReducerRouteSubjectFamily::SlotSpell,
+                fill: ReducerRouteResolveFill::Fill(ReducerRouteFillKind::SpellTargetAllocation),
+                owner: ReducerRouteOwnerGroup::HoleFrontier,
+            },
+            &result,
+        );
+
+        assert_eq!(
+            event,
+            ReducerRouteEvent::ResolveBattleSubject {
+                subject: ReducerRouteSubjectFamily::SlotSpell,
+                fill: ReducerRouteFillKind::SpellTargetAllocation,
+                holes: vec![ReducerRouteHoleKind::RolledDice],
+                owner: ReducerRouteOwnerGroup::HoleFrontier,
+            }
+        );
+    }
+
+    #[test]
+    fn resolved_route_event_uses_empty_holes_from_result_outcome() {
+        let result = BattleResolutionResult::Resolved {
+            state: start_fighter_skeleton_battle(),
+        };
+
+        let event = route_resolve_battle_subject_from_result(
+            ReducerRouteResolveConnector {
+                subject: ReducerRouteSubjectFamily::SaveGatedSpell,
+                fill: ReducerRouteResolveFill::Fill(ReducerRouteFillKind::RolledDice),
+                owner: ReducerRouteOwnerGroup::HitPoint,
+            },
+            &result,
+        );
+
+        assert_eq!(
+            event,
+            ReducerRouteEvent::ResolveBattleSubject {
+                subject: ReducerRouteSubjectFamily::SaveGatedSpell,
+                fill: ReducerRouteFillKind::RolledDice,
+                holes: Vec::new(),
+                owner: ReducerRouteOwnerGroup::HitPoint,
+            }
+        );
+    }
+
+    #[test]
+    fn no_fill_route_event_reads_invalid_result_holes() {
+        let result = BattleResolutionResult::Invalid {
+            state: start_fighter_skeleton_battle(),
+            reason: BattleResolutionInvalidReason::WrongActor,
+            holes: vec![BattleHoleKind::ConcentrationSavingThrow],
+        };
+
+        let event = route_resolve_battle_subject_from_result(
+            ReducerRouteResolveConnector {
+                subject: ReducerRouteSubjectFamily::ConcentrationTeardown,
+                fill: ReducerRouteResolveFill::WithoutFill,
+                owner: ReducerRouteOwnerGroup::Concentration,
+            },
+            &result,
+        );
+
+        assert_eq!(
+            event,
+            ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+                subject: ReducerRouteSubjectFamily::ConcentrationTeardown,
+                holes: vec![ReducerRouteHoleKind::ConcentrationSavingThrow],
+                owner: ReducerRouteOwnerGroup::Concentration,
+            }
+        );
+    }
+
+    fn route_test_subject(kind: BattleSubjectKind) -> BattleSubject {
+        BattleSubject {
+            kind,
+            actor: Actor::Fighter,
+            target: Some(Actor::Skeleton),
+            stage: WeaponAttackFrontierStage::ActSelection,
+            damage_modifier: 0,
+        }
     }
 }
