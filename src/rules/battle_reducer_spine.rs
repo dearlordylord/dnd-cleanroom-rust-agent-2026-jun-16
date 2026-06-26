@@ -1868,10 +1868,10 @@ pub fn command_ordering_projection_from_battle(state: &BattleState) -> CommandOr
                 runtime_result: command_runtime_result_from_subject(subject),
                 last_ordering_error: subject.last_ordering_error,
                 pending_option: subject.pending_option,
-                target_prone: combatant_for(state, Actor::Goblin).prone,
+                target_prone: command_target_combatant(state, subject).prone,
                 dropped_object_count: subject.dropped_object_count,
                 halt_suppressed: subject.halt_suppressed,
-                movement_spent_feet: combatant_for(state, current_actor(state)).movement_spent_feet,
+                movement_spent_feet: command_target_combatant(state, subject).movement_spent_feet,
                 current_actor: command_actor_for_battle_actor(current_actor(state)),
                 reaction_window_open: command_reaction_window_open(state),
             })
@@ -1889,7 +1889,7 @@ pub fn command_next_turn_projection_from_battle(
     crate::rules::command_options::CommandNextTurnState {
         scenario: subject.scenario,
         protocol: command_next_turn_protocol_from_battle(state, subject),
-        target_prone: combatant_for(state, Actor::Goblin).prone,
+        target_prone: command_target_combatant(state, subject).prone,
         target_effect_count: if subject.pending_option.is_some() {
             1
         } else {
@@ -1897,7 +1897,7 @@ pub fn command_next_turn_projection_from_battle(
         },
         action_available: state.action_available,
         bonus_action_available: state.bonus_action_available,
-        movement_spent_feet: combatant_for(state, current_actor(state)).movement_spent_feet,
+        movement_spent_feet: command_target_combatant(state, subject).movement_spent_feet,
         current_actor: command_actor_for_battle_actor(current_actor(state)),
         pending_option: subject.pending_option,
         dropped_object_count: subject.dropped_object_count,
@@ -2174,7 +2174,7 @@ fn resolve_command_follow(
     };
     match follow {
         CommandPendingOptionFollow::Grovel => {
-            combatant_for_mut(&mut next_state, Actor::Goblin).prone = true;
+            combatant_for_mut(&mut next_state, command_target_actor(active)).prone = true;
             next_subject.scenario = CommandNextTurnScenario::FollowGrovel;
         }
         CommandPendingOptionFollow::Drop {
@@ -2188,7 +2188,7 @@ fn resolve_command_follow(
         } => {
             next_state.action_available = false;
             next_state.bonus_action_available = false;
-            combatant_for_mut(&mut next_state, Actor::Goblin).movement_spent_feet =
+            combatant_for_mut(&mut next_state, command_target_actor(active)).movement_spent_feet =
                 movement_spent_feet.max(0);
             next_subject.pending_option = Some(CommandNextTurnOption::Halt);
             next_subject.halt_suppressed = true;
@@ -2197,14 +2197,14 @@ fn resolve_command_follow(
         CommandPendingOptionFollow::Approach {
             movement_spent_feet,
         } => {
-            combatant_for_mut(&mut next_state, Actor::Goblin).movement_spent_feet =
+            combatant_for_mut(&mut next_state, command_target_actor(active)).movement_spent_feet =
                 movement_spent_feet.max(0);
             next_subject.scenario = CommandNextTurnScenario::ApproachContinues;
         }
         CommandPendingOptionFollow::Flee {
             movement_spent_feet,
         } => {
-            combatant_for_mut(&mut next_state, Actor::Goblin).movement_spent_feet =
+            combatant_for_mut(&mut next_state, command_target_actor(active)).movement_spent_feet =
                 movement_spent_feet.max(0);
             next_subject.scenario = CommandNextTurnScenario::FleeFullMovementEndsTurn;
         }
@@ -2221,7 +2221,7 @@ fn resolve_command_follow(
         } => {
             next_state.interrupt_resume.reaction_window =
                 decline_reaction_window(next_state.interrupt_resume.reaction_window);
-            combatant_for_mut(&mut next_state, Actor::Fighter).movement_spent_feet =
+            combatant_for_mut(&mut next_state, command_target_actor(active)).movement_spent_feet =
                 movement_spent_feet.max(0);
             next_subject.scenario =
                 CommandNextTurnScenario::FleeOpportunityAttackDeclinedContinuation;
@@ -2330,6 +2330,17 @@ fn command_reaction_window_open(state: &BattleState) -> bool {
     state.interrupt_resume.reaction_window != ReactionWindowOffer::Closed
 }
 
+fn command_target_combatant(state: &BattleState, active: BattleCommandEffectSubject) -> Combatant {
+    combatant_for(state, command_target_actor(active))
+}
+
+const fn command_target_actor(active: BattleCommandEffectSubject) -> Actor {
+    match active.target {
+        Some(target) => target,
+        None => battle_actor_for_command_actor(CommandTurnActor::Target),
+    }
+}
+
 const fn battle_actor_for_command_actor(actor: CommandTurnActor) -> Actor {
     match actor {
         CommandTurnActor::Caster => Actor::Fighter,
@@ -2349,7 +2360,9 @@ const fn current_actor_for_command(
     option: CommandNextTurnOption,
 ) -> Actor {
     match option {
-        CommandNextTurnOption::Approach | CommandNextTurnOption::Flee => Actor::Goblin,
+        CommandNextTurnOption::Approach | CommandNextTurnOption::Flee => {
+            command_target_actor(active)
+        }
         CommandNextTurnOption::Drop
         | CommandNextTurnOption::Grovel
         | CommandNextTurnOption::Halt => active.actor,

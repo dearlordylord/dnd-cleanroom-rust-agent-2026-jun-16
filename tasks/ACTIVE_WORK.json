@@ -144,6 +144,19 @@
       ]
     },
     {
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "lanes": [
+        {
+          "laneId": "battle",
+          "queue": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt"
+          ]
+        }
+      ]
+    },
+    {
       "assignmentId": "level-1-2-creation",
       "lanes": [
         {

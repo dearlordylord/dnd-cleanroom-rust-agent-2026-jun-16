@@ -33,6 +33,10 @@ pub fn expected_witness(observed_action_taken: &str) -> ScalarBuffTargetState {
 }
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    scalar_buff_route_from_obligation(observed_action_taken)
+}
+
+fn scalar_buff_route_from_obligation(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
         "doFillLongstriderTarget" => fill_longstrider_target_route().2,
         "doRejectStaleAfterResolved" => {
@@ -46,7 +50,7 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    scalar_buff_route_from_obligation(observed_action_taken)
 }
 
 pub fn projection_payload(state: &ScalarBuffTargetState) -> String {
@@ -66,7 +70,7 @@ pub fn projection_payload(state: &ScalarBuffTargetState) -> String {
 
 fn fill_longstrider_target_route() -> (BattleState, BattleSubject, Vec<ReducerRouteEvent>) {
     let state = start_standard_battle();
-    let mut route = vec![route_start_battle(ReducerRouteOwnerGroup::ScalarBuff)];
+    let mut route = vec![route_start_battle(ReducerRouteOwnerGroup::ActionEconomy)];
     let subject = scalar_buff_subject(&state);
     let discovery = discover_battle_acts(&state);
     let holes = discovery
@@ -78,7 +82,7 @@ fn fill_longstrider_target_route() -> (BattleState, BattleSubject, Vec<ReducerRo
     route.push(route_discover_battle_acts(
         ReducerRouteSubjectFamily::ScalarBuff,
         holes,
-        ReducerRouteOwnerGroup::ScalarBuff,
+        ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
     ));
     let result = resolve_scalar_buff_target(state, subject);
     route.push(scalar_buff_route_event(&result));
@@ -133,10 +137,23 @@ fn scalar_buff_route_event(
         ReducerRouteResolveConnector {
             subject: ReducerRouteSubjectFamily::ScalarBuff,
             fill: ReducerRouteResolveFill::Fill(ReducerRouteFillKind::TargetChoice),
-            owner: ReducerRouteOwnerGroup::ScalarBuff,
+            owner: scalar_buff_route_owner(result),
         },
         result,
     )
+}
+
+fn scalar_buff_route_owner(
+    result: &crate::rules::battle_reducer_spine::BattleResolutionResult,
+) -> ReducerRouteOwnerGroup {
+    if matches!(
+        result.outcome(),
+        crate::rules::battle_reducer_spine::BattleResolutionOutcome::Invalid(_)
+    ) {
+        ReducerRouteOwnerGroup::HoleFrontier
+    } else {
+        ReducerRouteOwnerGroup::ActiveEffect
+    }
 }
 
 fn protocol_ref(protocol: ScalarBuffTargetProtocol) -> &'static str {

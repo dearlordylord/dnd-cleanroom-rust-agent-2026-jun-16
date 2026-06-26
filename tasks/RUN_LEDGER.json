@@ -1180,7 +1180,7 @@
           "sha256": "3fc1a7dfc4c3efa6fbb9d4341957d18480716e7c141935c7042ebfca0e69ebfe"
         }
       },
-      "assignmentId": "level-1-2-full",
+      "assignmentId": "level-1-2-runtime-reducer-route",
       "commandResults": [
         {
           "command": "cargo test command_option_next_turn_adapter_replays_all_branches",

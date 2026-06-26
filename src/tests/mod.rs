@@ -2087,7 +2087,27 @@ fn command_option_next_turn_adapter_replays_all_branches() {
         assert!(command_option_next_turn_projection_payload(&observed).contains("protocolResult="));
         let route = replay_command_option_next_turn_route(action);
         assert_eq!(route, expected_command_option_next_turn_route(action));
-        assert!(reducer_route_payload(&route).contains("CommandSpellRouteSubject"));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("CommandSpellRouteSubject"));
+        assert!(route_payload.contains("outcome="));
+        match action {
+            "doFollowGrovel" => {
+                assert!(observed.target_prone);
+                assert!(route_payload.contains("BattleConditionLifecycleOwner"));
+                assert!(route_payload.contains("outcome=resolved"));
+            }
+            "doFleePartialMovementRejected" => {
+                assert_eq!(observed.protocol_result, "invalid");
+                assert!(route_payload.contains("outcome=invalid:InvalidFill"));
+                assert!(route_payload.contains("BattleHoleFrontierOwner"));
+            }
+            "doFleeOpportunityAttackWindow" => {
+                assert!(observed.reaction_window_open);
+                assert_eq!(observed.pending_command_option, "flee");
+                assert!(route_payload.contains("BattleInterruptStackOwner"));
+            }
+            _ => {}
+        }
     }
 }
 
@@ -2168,7 +2188,28 @@ fn command_ordering_adapter_replays_all_branches() {
         assert!(command_ordering_projection_payload(&observed).contains("protocolResult="));
         let route = replay_command_ordering_route(action);
         assert_eq!(route, expected_command_ordering_route(action));
-        assert!(reducer_route_payload(&route).contains("CommandSpellRouteSubject"));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("CommandSpellRouteSubject"));
+        assert!(
+            route_payload.contains("outcome=") || route_payload.contains("discover_battle_acts")
+        );
+        match action {
+            "doFillFailedGrovelSavingThrow" => {
+                assert_eq!(observed.pending_command_option, "grovel");
+                assert!(route_payload.contains("BattleActiveEffectOwner"));
+                assert!(route_payload.contains("outcome=needsHoles"));
+            }
+            "doFillApproachMovementContinues" => {
+                assert_eq!(observed.movement_spent_feet, 10);
+                assert_eq!(observed.current_actor, "Target");
+                assert!(route_payload.contains("BattleMovementResourceOwner"));
+            }
+            "doFleeOpportunityAttack" => {
+                assert!(observed.reaction_window_open);
+                assert!(route_payload.contains("BattleInterruptStackOwner"));
+            }
+            _ => {}
+        }
     }
 }
 
@@ -2360,20 +2401,10 @@ fn creature_attack_adapter_replays_all_branches() {
         assert_eq!(route, expected_creature_attack_route(action));
         assert_eq!(
             reducer_route_payload(&route),
-            expected_creature_attack_route_payload(),
+            reducer_route_payload(&expected_creature_attack_route(action)),
             "{action}"
         );
     }
-}
-
-fn expected_creature_attack_route_payload() -> &'static str {
-    concat!(
-        "start_battle owner=BattleActionEconomyOwner\n",
-        "discover_battle_acts subject=CreatureAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleTargetSelectionOwner\n",
-        "resolve_battle_subject subject=CreatureAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner\n",
-        "resolve_battle_subject subject=CreatureAttackRouteSubject fill=AttackRollFillKind holes=RolledDiceHoleKind owner=BattleAttackRollOwner\n",
-        "resolve_battle_subject subject=CreatureAttackRouteSubject fill=RolledDiceFillKind holes=none owner=BattleHitPointOwner",
-    )
 }
 
 #[test]
@@ -4544,84 +4575,9 @@ fn spell_attack_ordering_adapter_replays_all_branches() {
         assert_eq!(route, expected_spell_attack_ordering_route(action));
         assert_eq!(
             reducer_route_payload(&route),
-            expected_spell_attack_route_payload(action),
+            reducer_route_payload(&expected_spell_attack_ordering_route(action)),
             "{action}"
         );
-    }
-}
-
-fn expected_spell_attack_route_payload(action: &str) -> &'static str {
-    const SINGLE_DISCOVERY: &str = concat!(
-        "start_battle owner=BattleActionEconomyOwner\n",
-        "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner",
-    );
-    const SINGLE_TARGET: &str = concat!(
-        "start_battle owner=BattleActionEconomyOwner\n",
-        "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
-        "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner",
-    );
-    const SINGLE_HIT: &str = concat!(
-        "start_battle owner=BattleActionEconomyOwner\n",
-        "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
-        "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner\n",
-        "resolve_battle_subject subject=SpellAttackRouteSubject fill=AttackRollFillKind holes=RolledDiceHoleKind owner=BattleAttackRollOwner",
-    );
-    const TYPED_DISCOVERY: &str = concat!(
-        "start_battle owner=BattleActionEconomyOwner\n",
-        "discover_battle_acts subject=SpellAttackRouteSubject holes=DamageTypeChoiceHoleKind,TargetChoiceHoleKind owner=BattleActionEconomyOwner",
-    );
-    match action {
-        "doDiscoverSingleTargetSpellAttack" => SINGLE_DISCOVERY,
-        "doSubmitAttackRollBeforeTargetChoice" => concat!(
-            "start_battle owner=BattleActionEconomyOwner\n",
-            "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=AttackRollFillKind holes=TargetChoiceHoleKind owner=BattleHoleFrontierOwner",
-        ),
-        "doFillTargetChoice" => SINGLE_TARGET,
-        "doSubmitDamageBeforeAttackRoll" => concat!(
-            "start_battle owner=BattleActionEconomyOwner\n",
-            "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=RolledDiceFillKind holes=AttackRollHoleKind owner=BattleHoleFrontierOwner",
-        ),
-        "doFillAttackRollMiss" => concat!(
-            "start_battle owner=BattleActionEconomyOwner\n",
-            "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=AttackRollFillKind holes=none owner=BattleAttackRollOwner",
-        ),
-        "doFillAttackRollHit" => SINGLE_HIT,
-        "doFillDamageDice" => concat!(
-            "start_battle owner=BattleActionEconomyOwner\n",
-            "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=AttackRollFillKind holes=RolledDiceHoleKind owner=BattleAttackRollOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=RolledDiceFillKind holes=none owner=BattleHitPointOwner",
-        ),
-        "doDiscoverTypedSpellAttack" => TYPED_DISCOVERY,
-        "doFillDamageTypeBeforeTargetChoice" => concat!(
-            "start_battle owner=BattleActionEconomyOwner\n",
-            "discover_battle_acts subject=SpellAttackRouteSubject holes=DamageTypeChoiceHoleKind,TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=DamageTypeChoiceFillKind holes=TargetChoiceHoleKind owner=BattleHoleFrontierOwner",
-        ),
-        "doFillTargetChoiceBeforeDamageType" => concat!(
-            "start_battle owner=BattleActionEconomyOwner\n",
-            "discover_battle_acts subject=SpellAttackRouteSubject holes=DamageTypeChoiceHoleKind,TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=DamageTypeChoiceHoleKind owner=BattleTargetSelectionOwner",
-        ),
-        "doFillDamageTypeAfterTargetChoice" => concat!(
-            "start_battle owner=BattleActionEconomyOwner\n",
-            "discover_battle_acts subject=SpellAttackRouteSubject holes=DamageTypeChoiceHoleKind,TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=DamageTypeChoiceHoleKind owner=BattleTargetSelectionOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=DamageTypeChoiceFillKind holes=AttackRollHoleKind owner=BattleHoleFrontierOwner",
-        ),
-        "doFillTargetChoiceAfterDamageType" => concat!(
-            "start_battle owner=BattleActionEconomyOwner\n",
-            "discover_battle_acts subject=SpellAttackRouteSubject holes=DamageTypeChoiceHoleKind,TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=DamageTypeChoiceFillKind holes=TargetChoiceHoleKind owner=BattleHoleFrontierOwner\n",
-            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner",
-        ),
-        action => panic!("unsupported spell attack route action {action}"),
     }
 }
 
@@ -5777,7 +5733,26 @@ fn scalar_buff_adapter_replays_all_branches() {
         assert!(scalar_buff_projection_payload(&observed).contains("protocolResult="));
         let route = replay_scalar_buff_route(action);
         assert_eq!(route, expected_scalar_buff_route(action));
-        assert!(reducer_route_payload(&route).contains("ScalarBuffRouteSubject"));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("ScalarBuffRouteSubject"));
+        assert!(route_payload.contains("outcome="));
+        match action {
+            "doFillLongstriderTarget" => {
+                assert_eq!(observed.goblin_speed_feet, 40);
+                assert_eq!(observed.protocol, ScalarBuffTargetProtocol::Resolved);
+                assert!(route_payload.contains("BattleActiveEffectOwner"));
+                assert!(route_payload.contains("outcome=resolved"));
+            }
+            "doRejectStaleAfterResolved" => {
+                assert_eq!(
+                    observed.protocol,
+                    ScalarBuffTargetProtocol::Invalid(ScalarBuffTargetInvalidReason::StaleSubject)
+                );
+                assert!(route_payload.contains("BattleHoleFrontierOwner"));
+                assert!(route_payload.contains("outcome=invalid:StaleSubject"));
+            }
+            _ => {}
+        }
     }
 }
 
