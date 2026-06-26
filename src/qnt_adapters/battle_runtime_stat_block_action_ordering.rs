@@ -11,6 +11,13 @@ use crate::rules::stat_block_action_ordering::{
     StatBlockActionInvalidReason, StatBlockActionOrderingProtocol, StatBlockActionOrderingState,
 };
 
+use super::battle_runtime_reducer_route::{
+    route_discover_battle_acts_from_route_holes, route_resolve_stat_block_action_from_result,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteResolveConnector, ReducerRouteResolveFill,
+    ReducerRouteSubjectFamily,
+};
+
 pub const BRANCH_ACTIONS: [&str; 12] = [
     "doStartMultiattackControl",
     "doDiscoverRolledActionAttackControl",
@@ -148,6 +155,144 @@ pub fn expected_witness(observed_action_taken: &str) -> StatBlockActionOrderingS
     }
 }
 
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doStartMultiattackControl" => {
+            let result = start_stat_block_multiattack_control(
+                start_stat_block_actor_battle(Actor::Goblin),
+                Actor::Goblin,
+                primary_stat_block_multiattack_profile(3),
+            );
+            stat_block_discovery_route_from_result(
+                &result,
+                vec![ReducerRouteHoleKind::TargetChoice],
+            )
+        }
+        "doDiscoverRolledActionAttackControl" => {
+            let result = discover_rolled_stat_block_attack_control(
+                start_stat_block_actor_battle(Actor::Goblin),
+                Actor::Goblin,
+            );
+            stat_block_discovery_route_from_result(
+                &result,
+                vec![ReducerRouteHoleKind::TargetChoice],
+            )
+        }
+        "doDiscoverStaticActionAttackControl" => {
+            let result = discover_static_stat_block_attack_control(
+                start_stat_block_actor_battle(Actor::Goblin),
+                Actor::Goblin,
+                3,
+            );
+            stat_block_discovery_route_from_result(
+                &result,
+                vec![ReducerRouteHoleKind::TargetChoice],
+            )
+        }
+        "doRejectAttackRollBeforeTargetChoice" => {
+            let (state, subject, mut route) = rolled_action_subject_route();
+            let result = resolve_stat_block_action_subject(
+                state,
+                subject,
+                StatBlockActionFill::AttackRoll(hit_roll()),
+            );
+            route.push(stat_block_route_event(
+                ReducerRouteFillKind::AttackRoll,
+                ReducerRouteOwnerGroup::HoleFrontier,
+                &result,
+            ));
+            route
+        }
+        "doFillTargetChoice" => rolled_action_target_chosen_route().2,
+        "doRejectDamageBeforeAttackRoll" => {
+            let (state, subject, mut route) = rolled_action_target_chosen_route();
+            let result = resolve_stat_block_action_subject(
+                state,
+                subject,
+                StatBlockActionFill::DamageDice(4),
+            );
+            route.push(stat_block_route_event(
+                ReducerRouteFillKind::RolledDice,
+                ReducerRouteOwnerGroup::HoleFrontier,
+                &result,
+            ));
+            route
+        }
+        "doFillAttackRollMiss" => {
+            let (state, subject, mut route) = rolled_action_target_chosen_route();
+            let result = resolve_stat_block_action_subject(
+                state,
+                subject,
+                StatBlockActionFill::AttackRoll(miss_roll()),
+            );
+            route.push(stat_block_route_event(
+                ReducerRouteFillKind::AttackRoll,
+                ReducerRouteOwnerGroup::AttackRoll,
+                &result,
+            ));
+            route
+        }
+        "doFillRolledAttackRollHit" => rolled_action_attack_hit_route().2,
+        "doFillStaticAttackRollHit" => {
+            let (state, subject, mut route) = static_action_target_chosen_route();
+            let result = resolve_stat_block_action_subject(
+                state,
+                subject,
+                StatBlockActionFill::AttackRoll(hit_roll()),
+            );
+            route.push(stat_block_route_event(
+                ReducerRouteFillKind::AttackRoll,
+                ReducerRouteOwnerGroup::HitPoint,
+                &result,
+            ));
+            route
+        }
+        "doFillDamageDice" => {
+            let (state, subject, mut route) = rolled_action_attack_hit_route();
+            let result = resolve_stat_block_action_subject(
+                state,
+                subject,
+                StatBlockActionFill::DamageDice(4),
+            );
+            route.push(stat_block_route_event(
+                ReducerRouteFillKind::RolledDice,
+                ReducerRouteOwnerGroup::HitPoint,
+                &result,
+            ));
+            route
+        }
+        "doSpendRechargeGatedRolledAttack" => {
+            let result = spend_recharge_gated_rolled_stat_block_attack(
+                start_stat_block_actor_battle(Actor::Goblin),
+                Actor::Goblin,
+            );
+            stat_block_discovery_route_from_result(
+                &result,
+                vec![ReducerRouteHoleKind::StatBlockRechargeRoll],
+            )
+        }
+        "doFillRechargeRoll" => {
+            let (state, subject, mut route) = recharge_roll_subject_route();
+            let result = resolve_stat_block_action_subject(
+                state,
+                subject,
+                StatBlockActionFill::RechargeRoll(5),
+            );
+            route.push(stat_block_route_event(
+                ReducerRouteFillKind::StatBlockRechargeRoll,
+                ReducerRouteOwnerGroup::StatBlockAction,
+                &result,
+            ));
+            route
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    replay_observed_route(observed_action_taken)
+}
+
 fn project(result: StatBlockActionResolutionResult) -> StatBlockActionOrderingState {
     stat_block_action_projection_from_result(&result)
 }
@@ -159,12 +304,35 @@ fn rolled_action_subject() -> (BattleState, StatBlockActionSubject) {
     ))
 }
 
+fn rolled_action_subject_route() -> (BattleState, StatBlockActionSubject, Vec<ReducerRouteEvent>) {
+    let result = discover_rolled_stat_block_attack_control(
+        start_stat_block_actor_battle(Actor::Goblin),
+        Actor::Goblin,
+    );
+    let route =
+        stat_block_discovery_route_from_result(&result, vec![ReducerRouteHoleKind::TargetChoice]);
+    let (state, subject) = expect_needs_holes(result);
+    (state, subject, route)
+}
+
 fn static_action_subject() -> (BattleState, StatBlockActionSubject) {
     expect_needs_holes(discover_static_stat_block_attack_control(
         start_stat_block_actor_battle(Actor::Goblin),
         Actor::Goblin,
         3,
     ))
+}
+
+fn static_action_subject_route() -> (BattleState, StatBlockActionSubject, Vec<ReducerRouteEvent>) {
+    let result = discover_static_stat_block_attack_control(
+        start_stat_block_actor_battle(Actor::Goblin),
+        Actor::Goblin,
+        3,
+    );
+    let route =
+        stat_block_discovery_route_from_result(&result, vec![ReducerRouteHoleKind::TargetChoice]);
+    let (state, subject) = expect_needs_holes(result);
+    (state, subject, route)
 }
 
 fn rolled_action_target_chosen_subject() -> (BattleState, StatBlockActionSubject) {
@@ -176,6 +344,23 @@ fn rolled_action_target_chosen_subject() -> (BattleState, StatBlockActionSubject
     ))
 }
 
+fn rolled_action_target_chosen_route(
+) -> (BattleState, StatBlockActionSubject, Vec<ReducerRouteEvent>) {
+    let (state, subject, mut route) = rolled_action_subject_route();
+    let result = resolve_stat_block_action_subject(
+        state,
+        subject,
+        StatBlockActionFill::TargetChoice(Actor::Fighter),
+    );
+    route.push(stat_block_route_event(
+        ReducerRouteFillKind::TargetChoice,
+        ReducerRouteOwnerGroup::TargetSelection,
+        &result,
+    ));
+    let (state, subject) = expect_needs_holes(result);
+    (state, subject, route)
+}
+
 fn static_action_target_chosen_subject() -> (BattleState, StatBlockActionSubject) {
     let (state, subject) = static_action_subject();
     expect_needs_holes(resolve_stat_block_action_subject(
@@ -183,6 +368,23 @@ fn static_action_target_chosen_subject() -> (BattleState, StatBlockActionSubject
         subject,
         StatBlockActionFill::TargetChoice(Actor::Fighter),
     ))
+}
+
+fn static_action_target_chosen_route(
+) -> (BattleState, StatBlockActionSubject, Vec<ReducerRouteEvent>) {
+    let (state, subject, mut route) = static_action_subject_route();
+    let result = resolve_stat_block_action_subject(
+        state,
+        subject,
+        StatBlockActionFill::TargetChoice(Actor::Fighter),
+    );
+    route.push(stat_block_route_event(
+        ReducerRouteFillKind::TargetChoice,
+        ReducerRouteOwnerGroup::TargetSelection,
+        &result,
+    ));
+    let (state, subject) = expect_needs_holes(result);
+    (state, subject, route)
 }
 
 fn rolled_action_attack_hit_subject() -> (BattleState, StatBlockActionSubject) {
@@ -194,11 +396,74 @@ fn rolled_action_attack_hit_subject() -> (BattleState, StatBlockActionSubject) {
     ))
 }
 
+fn rolled_action_attack_hit_route() -> (BattleState, StatBlockActionSubject, Vec<ReducerRouteEvent>)
+{
+    let (state, subject, mut route) = rolled_action_target_chosen_route();
+    let result = resolve_stat_block_action_subject(
+        state,
+        subject,
+        StatBlockActionFill::AttackRoll(hit_roll()),
+    );
+    route.push(stat_block_route_event(
+        ReducerRouteFillKind::AttackRoll,
+        ReducerRouteOwnerGroup::AttackRoll,
+        &result,
+    ));
+    let (state, subject) = expect_needs_holes(result);
+    (state, subject, route)
+}
+
 fn recharge_roll_subject() -> (BattleState, StatBlockActionSubject) {
     expect_needs_holes(spend_recharge_gated_rolled_stat_block_attack(
         start_stat_block_actor_battle(Actor::Goblin),
         Actor::Goblin,
     ))
+}
+
+fn recharge_roll_subject_route() -> (BattleState, StatBlockActionSubject, Vec<ReducerRouteEvent>) {
+    let result = spend_recharge_gated_rolled_stat_block_attack(
+        start_stat_block_actor_battle(Actor::Goblin),
+        Actor::Goblin,
+    );
+    let route = stat_block_discovery_route_from_result(
+        &result,
+        vec![ReducerRouteHoleKind::StatBlockRechargeRoll],
+    );
+    let (state, subject) = expect_needs_holes(result);
+    (state, subject, route)
+}
+
+fn stat_block_discovery_route_from_result(
+    result: &StatBlockActionResolutionResult,
+    holes: Vec<ReducerRouteHoleKind>,
+) -> Vec<ReducerRouteEvent> {
+    assert!(
+        matches!(result, StatBlockActionResolutionResult::NeedsHoles { .. }),
+        "stat-block discovery should need holes, got {result:?}"
+    );
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::StatBlockAction,
+            holes,
+            ReducerRouteOwnerGroup::StatBlockAction,
+        ),
+    ]
+}
+
+fn stat_block_route_event(
+    fill: ReducerRouteFillKind,
+    owner: ReducerRouteOwnerGroup,
+    result: &StatBlockActionResolutionResult,
+) -> ReducerRouteEvent {
+    route_resolve_stat_block_action_from_result(
+        ReducerRouteResolveConnector {
+            subject: ReducerRouteSubjectFamily::StatBlockAction,
+            fill: ReducerRouteResolveFill::Fill(fill),
+            owner,
+        },
+        result,
+    )
 }
 
 fn expect_needs_holes(

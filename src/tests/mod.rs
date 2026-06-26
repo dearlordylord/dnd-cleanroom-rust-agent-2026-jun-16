@@ -860,10 +860,12 @@ use battle_runtime_species_passive_trait_selected_identity::{
     BRANCH_ACTIONS as SPECIES_PASSIVE_BRANCH_ACTIONS,
 };
 use battle_runtime_spell_attack_ordering::{
+    expected_route as expected_spell_attack_ordering_route,
     expected_witness as expected_spell_attack_ordering_witness,
     projection_payload as spell_attack_ordering_projection_payload,
     replay_observed_action as replay_spell_attack_ordering_action,
     replay_observed_battle_state as replay_spell_attack_ordering_battle_state,
+    replay_observed_route as replay_spell_attack_ordering_route,
     BRANCH_ACTIONS as SPELL_ATTACK_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_starry_wisp_object::{
@@ -873,27 +875,33 @@ use battle_runtime_starry_wisp_object::{
     BRANCH_ACTIONS as STARRY_WISP_OBJECT_BRANCH_ACTIONS,
 };
 use battle_runtime_stat_block_action_ordering::{
+    expected_route as expected_stat_block_action_ordering_route,
     expected_witness as expected_stat_block_action_ordering_witness,
     projection_payload as stat_block_action_ordering_projection_payload,
     replay_observed_action as replay_stat_block_action_ordering_action,
+    replay_observed_route as replay_stat_block_action_ordering_route,
     BRANCH_ACTIONS as STAT_BLOCK_ACTION_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_stat_block_multi_damage::{
+    expected_route as expected_stat_block_multi_damage_route,
     expected_static_hit_attack_roll as expected_stat_block_multi_damage_static_hit,
     expected_witness as expected_stat_block_multi_damage_witness,
     projection_payload as stat_block_multi_damage_projection_payload,
     replay_observed_action as replay_stat_block_multi_damage_action,
+    replay_observed_route as replay_stat_block_multi_damage_route,
     replay_observed_static_hit_attack_roll as replay_stat_block_multi_damage_static_hit,
     BRANCH_ACTIONS as STAT_BLOCK_MULTI_DAMAGE_BRANCH_ACTIONS,
 };
 use battle_runtime_stat_block_size_gated_condition_rider::{
     expected_larger_hit_attack_roll as expected_stat_block_size_gated_larger_hit,
     expected_prone_immune_hit_attack_roll as expected_stat_block_size_gated_prone_immune_hit,
+    expected_route as expected_stat_block_size_gated_route,
     expected_witness as expected_stat_block_size_gated_witness,
     projection_payload as stat_block_size_gated_projection_payload,
     replay_observed_action as replay_stat_block_size_gated_action,
     replay_observed_larger_hit_attack_roll as replay_stat_block_size_gated_larger_hit,
     replay_observed_prone_immune_hit_attack_roll as replay_stat_block_size_gated_prone_immune_hit,
+    replay_observed_route as replay_stat_block_size_gated_route,
     BRANCH_ACTIONS as STAT_BLOCK_SIZE_GATED_BRANCH_ACTIONS,
 };
 use battle_runtime_thaumaturgy_selected_identity::{
@@ -909,15 +917,19 @@ use battle_runtime_turn_boundary_effect_lifecycle::{
     BRANCH_ACTIONS as TURN_BOUNDARY_EFFECT_LIFECYCLE_BRANCH_ACTIONS,
 };
 use battle_runtime_weapon_attack_ordering::{
+    expected_route as expected_weapon_attack_ordering_route,
     expected_witness as expected_weapon_attack_ordering_witness,
     projection_payload as weapon_attack_ordering_projection_payload,
     replay_observed_action as replay_weapon_attack_ordering_action,
+    replay_observed_route as replay_weapon_attack_ordering_route,
     BRANCH_ACTIONS as WEAPON_ATTACK_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_weapon_attack_skeleton::{
+    expected_route as expected_weapon_attack_skeleton_route,
     expected_witness as expected_weapon_attack_skeleton_witness,
     projection_payload as weapon_attack_skeleton_projection_payload,
     replay_observed_action as replay_weapon_attack_skeleton_action,
+    replay_observed_route as replay_weapon_attack_skeleton_route,
     BRANCH_ACTIONS as WEAPON_ATTACK_SKELETON_BRANCH_ACTIONS,
 };
 use battle_runtime_weapon_hosted_attack_and_riders::{
@@ -1034,9 +1046,11 @@ use character_sheet_weapon_mastery_containers_selected_identity::{
     BRANCH_ACTIONS as SHEET_WEAPON_MASTERY_BRANCH_ACTIONS,
 };
 use creature_attack_mbt::{
+    expected_route as expected_creature_attack_route,
     expected_witness as expected_creature_attack_witness,
     projection_payload as creature_attack_projection_payload,
-    replay_observed_action as replay_creature_attack_action, replay_sampled_inputs,
+    replay_observed_action as replay_creature_attack_action,
+    replay_observed_route as replay_creature_attack_route, replay_sampled_inputs,
     BRANCH_ACTIONS as CREATURE_ATTACK_BRANCH_ACTIONS, REPLAY_DAMAGE_SAMPLE, REPLAY_HIT_SAMPLE,
 };
 use rule_core_attack_damage_disposition::{
@@ -2331,6 +2345,9 @@ fn creature_attack_adapter_replays_all_branches() {
         assert_eq!(observed, expected_creature_attack_witness(action));
         assert!(creature_attack_projection_payload(&observed).contains("qCreatureAHp="));
         assert!(creature_attack_projection_payload(&observed).contains("qCreatureBHp="));
+        let route = replay_creature_attack_route(action);
+        assert_eq!(route, expected_creature_attack_route(action));
+        assert!(reducer_route_payload(&route).contains("CreatureAttackRouteSubject"));
     }
 }
 
@@ -4494,6 +4511,9 @@ fn spell_attack_ordering_adapter_replays_all_branches() {
         let observed = replay_spell_attack_ordering_action(action);
         assert_eq!(observed, expected_spell_attack_ordering_witness(action));
         assert!(spell_attack_ordering_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_spell_attack_ordering_route(action);
+        assert_eq!(route, expected_spell_attack_ordering_route(action));
+        assert!(reducer_route_payload(&route).contains("SpellAttackRouteSubject"));
     }
 }
 
@@ -4712,6 +4732,9 @@ fn stat_block_action_ordering_adapter_replays_all_branches() {
         assert!(
             stat_block_action_ordering_projection_payload(&observed).contains("protocolResult=")
         );
+        let route = replay_stat_block_action_ordering_route(action);
+        assert_eq!(route, expected_stat_block_action_ordering_route(action));
+        assert!(reducer_route_payload(&route).contains("StatBlockActionRouteSubject"));
     }
 }
 
@@ -4851,6 +4874,9 @@ fn stat_block_multi_damage_adapter_replays_all_branches() {
         let observed = replay_stat_block_multi_damage_action(action);
         assert_eq!(observed, expected_stat_block_multi_damage_witness(action));
         assert!(stat_block_multi_damage_projection_payload(&observed).contains("qTargetHp="));
+        let route = replay_stat_block_multi_damage_route(action);
+        assert_eq!(route, expected_stat_block_multi_damage_route(action));
+        assert!(reducer_route_payload(&route).contains("StatBlockActionRouteSubject"));
     }
 }
 
@@ -4873,6 +4899,9 @@ fn stat_block_size_gated_condition_rider_adapter_replays_all_branches() {
         let observed = replay_stat_block_size_gated_action(action);
         assert_eq!(observed, expected_stat_block_size_gated_witness(action));
         assert!(stat_block_size_gated_projection_payload(&observed).contains("qTargetProne="));
+        let route = replay_stat_block_size_gated_route(action);
+        assert_eq!(route, expected_stat_block_size_gated_route(action));
+        assert!(reducer_route_payload(&route).contains("StatBlockActionRouteSubject"));
     }
 }
 
@@ -5153,6 +5182,9 @@ fn weapon_attack_ordering_adapter_replays_all_branches() {
         let observed = replay_weapon_attack_ordering_action(action);
         assert_eq!(observed, expected_weapon_attack_ordering_witness(action));
         assert!(weapon_attack_ordering_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_weapon_attack_ordering_route(action);
+        assert_eq!(route, expected_weapon_attack_ordering_route(action));
+        assert!(reducer_route_payload(&route).contains("WeaponAttackRouteSubject"));
     }
 }
 
@@ -5232,6 +5264,12 @@ fn weapon_attack_skeleton_adapter_replays_all_branches() {
         let observed = replay_weapon_attack_skeleton_action(action);
         assert_eq!(observed, expected_weapon_attack_skeleton_witness(action));
         assert!(weapon_attack_skeleton_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_weapon_attack_skeleton_route(action);
+        assert_eq!(route, expected_weapon_attack_skeleton_route(action));
+        assert!(
+            reducer_route_payload(&route).contains("WeaponAttackRouteSubject")
+                || reducer_route_payload(&route).contains("StatBlockActionRouteSubject")
+        );
     }
 }
 

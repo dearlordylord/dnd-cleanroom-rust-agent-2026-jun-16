@@ -13,6 +13,12 @@ use crate::rules::spell_attack_ordering::{
     SpellAttackOrderingProtocol, SpellAttackOrderingState,
 };
 
+use super::battle_runtime_reducer_route::{
+    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_route_holes,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+};
+
 pub const BRANCH_ACTIONS: [&str; 12] = [
     "doDiscoverSingleTargetSpellAttack",
     "doSubmitAttackRollBeforeTargetChoice",
@@ -94,6 +100,114 @@ pub fn expected_witness(observed_action_taken: &str) -> SpellAttackOrderingState
         "doFillTargetChoiceAfterDamageType" => fill_target_choice_after_damage_type(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doDiscoverSingleTargetSpellAttack" => single_target_discovery_route().1,
+        "doSubmitAttackRollBeforeTargetChoice" => {
+            let (state, mut route) = single_target_discovery_route();
+            let state = resolve_spell_attack_subject(
+                state,
+                BattleSpellAttackFill::AttackRoll(hit_attack_roll()),
+            );
+            route.push(spell_attack_route_event(
+                ReducerRouteFillKind::AttackRoll,
+                &state,
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
+        "doFillTargetChoice" => {
+            let (_state, route) = single_target_target_choice_route();
+            route
+        }
+        "doSubmitDamageBeforeAttackRoll" => {
+            let (state, mut route) = single_target_target_choice_route();
+            let state = resolve_spell_attack_subject(state, BattleSpellAttackFill::DamageRoll(4));
+            route.push(spell_attack_route_event(
+                ReducerRouteFillKind::RolledDice,
+                &state,
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
+        "doFillAttackRollMiss" => {
+            let (state, mut route) = single_target_target_choice_route();
+            let state = resolve_spell_attack_subject(
+                state,
+                BattleSpellAttackFill::AttackRoll(miss_attack_roll()),
+            );
+            route.push(spell_attack_route_event(
+                ReducerRouteFillKind::AttackRoll,
+                &state,
+                ReducerRouteOwnerGroup::AttackRoll,
+            ));
+            route
+        }
+        "doFillAttackRollHit" => {
+            let (_state, route) = single_target_attack_hit_route();
+            route
+        }
+        "doFillDamageDice" => {
+            let (state, mut route) = single_target_attack_hit_route();
+            let state = resolve_spell_attack_subject(state, BattleSpellAttackFill::DamageRoll(4));
+            route.push(spell_attack_route_event(
+                ReducerRouteFillKind::RolledDice,
+                &state,
+                ReducerRouteOwnerGroup::HitPoint,
+            ));
+            route
+        }
+        "doDiscoverTypedSpellAttack" => typed_spell_attack_discovery_route().1,
+        "doFillDamageTypeBeforeTargetChoice" => {
+            let (state, mut route) = typed_spell_attack_discovery_route();
+            let state =
+                resolve_spell_attack_subject(state, BattleSpellAttackFill::DamageTypeChoice);
+            route.push(spell_attack_route_event(
+                ReducerRouteFillKind::DamageTypeChoice,
+                &state,
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
+        "doFillTargetChoiceBeforeDamageType" => {
+            let (state, mut route) = typed_spell_attack_discovery_route();
+            let state = resolve_spell_attack_subject(state, target_choice());
+            route.push(spell_attack_route_event(
+                ReducerRouteFillKind::TargetChoice,
+                &state,
+                ReducerRouteOwnerGroup::TargetSelection,
+            ));
+            route
+        }
+        "doFillDamageTypeAfterTargetChoice" => {
+            let (state, mut route) = typed_target_choice_route();
+            let state =
+                resolve_spell_attack_subject(state, BattleSpellAttackFill::DamageTypeChoice);
+            route.push(spell_attack_route_event(
+                ReducerRouteFillKind::DamageTypeChoice,
+                &state,
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
+        "doFillTargetChoiceAfterDamageType" => {
+            let (state, mut route) = typed_damage_type_route();
+            let state = resolve_spell_attack_subject(state, target_choice());
+            route.push(spell_attack_route_event(
+                ReducerRouteFillKind::TargetChoice,
+                &state,
+                ReducerRouteOwnerGroup::TargetSelection,
+            ));
+            route
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    replay_observed_route(observed_action_taken)
 }
 
 pub fn projection_payload(state: &SpellAttackOrderingState) -> String {
@@ -178,8 +292,34 @@ fn single_target_discovered() -> BattleState {
     discover_single_target_spell_attack_battle(start_spell_attack_ordering_battle())
 }
 
+fn initial_route() -> Vec<ReducerRouteEvent> {
+    vec![route_start_battle(ReducerRouteOwnerGroup::ActionEconomy)]
+}
+
+fn single_target_discovery_route() -> (BattleState, Vec<ReducerRouteEvent>) {
+    let state = single_target_discovered();
+    let mut route = initial_route();
+    route.push(route_discover_battle_acts_from_route_holes(
+        ReducerRouteSubjectFamily::SpellAttack,
+        spell_attack_route_holes(&state),
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    (state, route)
+}
+
 fn single_target_target_filled() -> BattleState {
     resolve_spell_attack_subject(single_target_discovered(), target_choice())
+}
+
+fn single_target_target_choice_route() -> (BattleState, Vec<ReducerRouteEvent>) {
+    let (state, mut route) = single_target_discovery_route();
+    let state = resolve_spell_attack_subject(state, target_choice());
+    route.push(spell_attack_route_event(
+        ReducerRouteFillKind::TargetChoice,
+        &state,
+        ReducerRouteOwnerGroup::TargetSelection,
+    ));
+    (state, route)
 }
 
 fn single_target_hit() -> BattleState {
@@ -189,12 +329,46 @@ fn single_target_hit() -> BattleState {
     )
 }
 
+fn single_target_attack_hit_route() -> (BattleState, Vec<ReducerRouteEvent>) {
+    let (state, mut route) = single_target_target_choice_route();
+    let state =
+        resolve_spell_attack_subject(state, BattleSpellAttackFill::AttackRoll(hit_attack_roll()));
+    route.push(spell_attack_route_event(
+        ReducerRouteFillKind::AttackRoll,
+        &state,
+        ReducerRouteOwnerGroup::AttackRoll,
+    ));
+    (state, route)
+}
+
 fn typed_spell_attack_discovered() -> BattleState {
     discover_typed_spell_attack_battle(start_spell_attack_ordering_battle())
 }
 
+fn typed_spell_attack_discovery_route() -> (BattleState, Vec<ReducerRouteEvent>) {
+    let state = typed_spell_attack_discovered();
+    let mut route = initial_route();
+    route.push(route_discover_battle_acts_from_route_holes(
+        ReducerRouteSubjectFamily::SpellAttack,
+        spell_attack_route_holes(&state),
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    (state, route)
+}
+
 fn typed_target_filled() -> BattleState {
     resolve_spell_attack_subject(typed_spell_attack_discovered(), target_choice())
+}
+
+fn typed_target_choice_route() -> (BattleState, Vec<ReducerRouteEvent>) {
+    let (state, mut route) = typed_spell_attack_discovery_route();
+    let state = resolve_spell_attack_subject(state, target_choice());
+    route.push(spell_attack_route_event(
+        ReducerRouteFillKind::TargetChoice,
+        &state,
+        ReducerRouteOwnerGroup::TargetSelection,
+    ));
+    (state, route)
 }
 
 fn typed_damage_type_filled() -> BattleState {
@@ -202,6 +376,52 @@ fn typed_damage_type_filled() -> BattleState {
         typed_spell_attack_discovered(),
         BattleSpellAttackFill::DamageTypeChoice,
     )
+}
+
+fn typed_damage_type_route() -> (BattleState, Vec<ReducerRouteEvent>) {
+    let (state, mut route) = typed_spell_attack_discovery_route();
+    let state = resolve_spell_attack_subject(state, BattleSpellAttackFill::DamageTypeChoice);
+    route.push(spell_attack_route_event(
+        ReducerRouteFillKind::DamageTypeChoice,
+        &state,
+        ReducerRouteOwnerGroup::HoleFrontier,
+    ));
+    (state, route)
+}
+
+fn spell_attack_route_event(
+    fill: ReducerRouteFillKind,
+    state: &BattleState,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::SpellAttack,
+        fill,
+        spell_attack_route_holes(state),
+        owner,
+    )
+}
+
+fn spell_attack_route_holes(state: &BattleState) -> Vec<ReducerRouteHoleKind> {
+    match spell_attack_ordering_projection_from_battle(state).stage {
+        SpellAttackFrontierStage::ActSelection | SpellAttackFrontierStage::Resolved => Vec::new(),
+        SpellAttackFrontierStage::TargetChoice | SpellAttackFrontierStage::TypedTargetChoice => {
+            vec![ReducerRouteHoleKind::TargetChoice]
+        }
+        SpellAttackFrontierStage::TargetList => vec![ReducerRouteHoleKind::SpellTargetList],
+        SpellAttackFrontierStage::TargetAllocation => {
+            vec![ReducerRouteHoleKind::SpellTargetAllocation]
+        }
+        SpellAttackFrontierStage::DamageTypeAndTargetChoice => vec![
+            ReducerRouteHoleKind::DamageTypeChoice,
+            ReducerRouteHoleKind::TargetChoice,
+        ],
+        SpellAttackFrontierStage::DamageTypeChoice => {
+            vec![ReducerRouteHoleKind::DamageTypeChoice]
+        }
+        SpellAttackFrontierStage::AttackRoll => vec![ReducerRouteHoleKind::AttackRoll],
+        SpellAttackFrontierStage::DamageDice => vec![ReducerRouteHoleKind::RolledDice],
+    }
 }
 
 fn target_choice() -> BattleSpellAttackFill {
