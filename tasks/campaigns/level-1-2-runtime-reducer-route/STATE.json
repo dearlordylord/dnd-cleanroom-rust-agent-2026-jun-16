@@ -232,7 +232,14 @@
         "State-owner evidence marks fixture-named speed as projection of Combatant.speed_feet.",
         "VALIDATION_REPORT.md top summary and RR06 verification list are current."
       ],
-      "secondRereviewStatus": "pending"
+      "secondRereviewStatus": "findings",
+      "secondRereviewAgent": "019f0638-1d0f-76f3-b15a-ef7e7aa7d188",
+      "secondRereviewName": "Lorentz",
+      "secondRereviewFindings": [
+        "Command projection still derives current-role through fixture actor identity by mapping Goblin to Target and every other actor to Caster.",
+        "Command option next-turn expected route still reuses reducer helper paths used by replay_observed_route.",
+        "Command option next-turn adapter still manufactures Fighter/Goblin command subjects when continuing subject or discovery is missing."
+      ]
     }
   ],
   "completedLaneWorktrees": [
