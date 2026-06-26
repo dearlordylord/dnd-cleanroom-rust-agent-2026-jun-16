@@ -949,3 +949,66 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check be336582921801cd06995121db38e34ca6f4e275...HEAD` passed.
+
+## L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE: Finish Current Reducer Route Queue
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Drivers:
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt`
+- Allowed inputs used:
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt`
+  - Repo-local `src/**`, `tasks/**`, `scripts/**`, and Rust/Cargo tooling
+
+Behavior implemented:
+
+- Death Saving Throw replay now builds `BattleResolutionRequest::death_saving_throw` and resolves through `resolve_battle_subject`; route evidence reads holes from `BattleResolutionResult`.
+- Concentration teardown replay now builds `BattleResolutionRequest::concentration`, carries the `NeedsHoles` continuation subject into the saving-throw fill, and reads route holes from `BattleResolutionResult`.
+- No driver-local HP, death-save, or concentration ledger was added; existing `BattleState` combatant lifecycle and concentration fields remain the durable owners.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doCastConcentrationSpell` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doCastConcentrationSpell#step:doCastConcentrationSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doCastReplacementConcentrationSpell` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doCastReplacementConcentrationSpell#step:doCastReplacementConcentrationSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doDamageRequestsConcentrationSave` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doDamageRequestsConcentrationSave#step:doDamageRequestsConcentrationSave` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doFailConcentrationSave` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doFailConcentrationSave#step:doFailConcentrationSave` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doVoluntaryEndConcentration` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doVoluntaryEndConcentration#step:doVoluntaryEndConcentration` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt#step:doDiscoverEndTurnDeathSavingThrow` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doDiscoverEndTurnDeathSavingThrow#step:doDiscoverEndTurnDeathSavingThrow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt#step:doFillDeathSavingThrow` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doFillDeathSavingThrow#step:doFillDeathSavingThrow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt#step:doRejectWrongActorEndTurnAfterResolved` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doRejectWrongActorEndTurnAfterResolved#step:doRejectWrongActorEndTurnAfterResolved` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR03-reducer-route.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Reproduction trace id: `L15-RR03 route action=<branchAction>`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo test death_saving_throw_adapter_replays_all_branches` passed.
+- `cargo test concentration_break_teardown_adapter_replays_all_branches` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 72f81250789a4e7bc6216503f2a93abac6771852...HEAD` passed.

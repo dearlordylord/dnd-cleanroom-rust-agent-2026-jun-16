@@ -1,0 +1,233 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-reducer-route-lane-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doCastConcentrationSpell",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "observedActionTaken": "doCastConcentrationSpell",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.concentration",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "22fa483b47af359b3d4553c84e9eb3925ba10ba06f05d5b5dbb4386d8d41ddc2",
+        "observedProjectionSha256": "22fa483b47af359b3d4553c84e9eb3925ba10ba06f05d5b5dbb4386d8d41ddc2",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR03 route action=doCastConcentrationSpell"
+    },
+    {
+      "branchAction": "doCastReplacementConcentrationSpell",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "observedActionTaken": "doCastReplacementConcentrationSpell",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.concentration",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "588df572a082ae0d1a7297c529b195d2efa6c9bd1d125cb1e0d6a22f56aae13b",
+        "observedProjectionSha256": "588df572a082ae0d1a7297c529b195d2efa6c9bd1d125cb1e0d6a22f56aae13b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR03 route action=doCastReplacementConcentrationSpell"
+    },
+    {
+      "branchAction": "doDamageRequestsConcentrationSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "observedActionTaken": "doDamageRequestsConcentrationSave",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [
+        {
+          "pickName": "damageDiePip",
+          "value": 4
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.concentration",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9bf09d628f72f57e76baff2f4d918e89551f389709b9a9c5eaa4605eebfa3f1b",
+        "observedProjectionSha256": "9bf09d628f72f57e76baff2f4d918e89551f389709b9a9c5eaa4605eebfa3f1b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR03 route action=doDamageRequestsConcentrationSave"
+    },
+    {
+      "branchAction": "doFailConcentrationSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "observedActionTaken": "doFailConcentrationSave",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [
+        {
+          "pickName": "saveRollTotal",
+          "value": 9
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.concentration",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "70988b5d93e79816fe80882928dd2717d62eb242bc738fc90e27500276bb40f3",
+        "observedProjectionSha256": "70988b5d93e79816fe80882928dd2717d62eb242bc738fc90e27500276bb40f3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR03 route action=doFailConcentrationSave"
+    },
+    {
+      "branchAction": "doVoluntaryEndConcentration",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "observedActionTaken": "doVoluntaryEndConcentration",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.concentration",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6357726f812fed1bbe3edc9aa387d851f4317deda97e0420a788667fb4b331be",
+        "observedProjectionSha256": "6357726f812fed1bbe3edc9aa387d851f4317deda97e0420a788667fb4b331be",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR03 route action=doVoluntaryEndConcentration"
+    },
+    {
+      "branchAction": "doDiscoverEndTurnDeathSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_death_saving_throw.rs",
+      "observedActionTaken": "doDiscoverEndTurnDeathSavingThrow",
+      "qntFileSha256": "0d21761fe794347b45990f88719540e3a7ab740484d77de11715e3e3625a08cf",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.initiative.still_to_act.actor",
+          "BattleState.fighter.hp",
+          "BattleState.fighter.unconscious",
+          "BattleState.fighter.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e72267711915b39ee3754dade52af21c366356d2336f4f6ad82d3cba8c91b67d",
+        "observedProjectionSha256": "e72267711915b39ee3754dade52af21c366356d2336f4f6ad82d3cba8c91b67d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR03 route action=doDiscoverEndTurnDeathSavingThrow"
+    },
+    {
+      "branchAction": "doFillDeathSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_death_saving_throw.rs",
+      "observedActionTaken": "doFillDeathSavingThrow",
+      "qntFileSha256": "0d21761fe794347b45990f88719540e3a7ab740484d77de11715e3e3625a08cf",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [
+        {
+          "pickName": "roll",
+          "value": 10
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.initiative.still_to_act.actor",
+          "BattleState.fighter.hp",
+          "BattleState.fighter.unconscious",
+          "BattleState.fighter.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c00eec36d25a897fbdd1def7fbf9bad2a75e14d6746fb0eaa06f741f3fbb01cf",
+        "observedProjectionSha256": "c00eec36d25a897fbdd1def7fbf9bad2a75e14d6746fb0eaa06f741f3fbb01cf",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR03 route action=doFillDeathSavingThrow"
+    },
+    {
+      "branchAction": "doRejectWrongActorEndTurnAfterResolved",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_death_saving_throw.rs",
+      "observedActionTaken": "doRejectWrongActorEndTurnAfterResolved",
+      "qntFileSha256": "0d21761fe794347b45990f88719540e3a7ab740484d77de11715e3e3625a08cf",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.initiative.still_to_act.actor",
+          "BattleState.fighter.hp",
+          "BattleState.fighter.unconscious",
+          "BattleState.fighter.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4a23584262ed5e1bcd509feace513c6f483c9bd3882ca0a7742bba677cc2ddd3",
+        "observedProjectionSha256": "4a23584262ed5e1bcd509feace513c6f483c9bd3882ca0a7742bba677cc2ddd3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR03 route action=doRejectWrongActorEndTurnAfterResolved"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
