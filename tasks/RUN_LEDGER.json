@@ -1,0 +1,326 @@
+{
+  "entries": [
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/T001/DECIDER_DECISION.json",
+          "sha256": "863c14d6d13943203bd54e7d1944cfbc6142ef59b29567831a961b8a79022013"
+        },
+        "engineDepth": {
+          "path": "tasks/history/T001/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "e0e3685492bb93297e71c763d695b23501488eb753746bae0bfadb71c09029bc"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/T001/REVIEW_LOOP.json",
+          "sha256": "f8cd56ed127610d792aca6db9509be833a03e19a41d3dba1769ce26fc02c5ab5"
+        },
+        "startGate": {
+          "path": "tasks/history/T001/START_GATE.json",
+          "sha256": "1c5fa5cd4c2b0d18ba1cd0c14cb7e029cc57cc30d5561d8184c512b6580123aa"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/T001/STATE_OWNER_MANIFEST.json",
+          "sha256": "9e82190d61d6c039b32a5030027b1c002bf3f1720f9a27643f93301d1cbda3d9"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T001-battle-runtime-magic-missile.json#T001 seed=1 action=doFillMagicMissileAllocation#step:doFillMagicMissileAllocation",
+            "tasks/target-replay-evidence/T001-battle-runtime-magic-missile.json#T001 seed=1 action=doFillMagicMissileDamage#step:doFillMagicMissileDamage"
+          ],
+          "path": "tasks/target-replay-evidence/T001-battle-runtime-magic-missile.json",
+          "sha256": "0a77cdcaef21d43d60b8d11582bad04661dc5f3fa60e21854847c0ce7884818c"
+        }
+      ],
+      "taskId": "T001"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/T002/DECIDER_DECISION.json",
+          "sha256": "7a684c1eb02622f865aa37dea40644bb1200a9d35af4782e09e52783865a783d"
+        },
+        "engineDepth": {
+          "path": "tasks/history/T002/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "bfda3370b80449abeadcf689c38c5ee74884ae51c817ba840c86981314e5e3d2"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/T002/REVIEW_LOOP.json",
+          "sha256": "a11152a51d0f061740618d8b0c366cddc850361c99efc324244d8586606b07c5"
+        },
+        "startGate": {
+          "path": "tasks/history/T002/START_GATE.json",
+          "sha256": "5e4a9a283d80e60be9c2f9d8df3da97d81272ffb265b15497b2974db30647bfc"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/T002/STATE_OWNER_MANIFEST.json",
+          "sha256": "2c05709e8fa33cb50a89bc901e98fd45418185d1bbeeab33bc09f2ff9287e3cd"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doDiscoverAreaSaveDamage#step:doDiscoverAreaSaveDamage",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doDiscoverTargetListConditionChoice#step:doDiscoverTargetListConditionChoice",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillAreaDamageDice#step:doFillAreaDamageDice",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillAreaSaveFailed#step:doFillAreaSaveFailed",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillConditionChoiceAfterTargetList#step:doFillConditionChoiceAfterTargetList",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillConditionChoiceBeforeTargetList#step:doFillConditionChoiceBeforeTargetList",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillConditionSavingThrow#step:doFillConditionSavingThrow",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillTargetListAfterConditionChoice#step:doFillTargetListAfterConditionChoice",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillTargetListBeforeConditionChoice#step:doFillTargetListBeforeConditionChoice",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doSubmitDamageBeforeSavingThrow#step:doSubmitDamageBeforeSavingThrow"
+          ],
+          "path": "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json",
+          "sha256": "71f2eed1ef989bbf51d4f182c644a6970d60103b937dce176fd46b0bd7ce8dba"
+        }
+      ],
+      "taskId": "T002"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/T003/DECIDER_DECISION.json",
+          "sha256": "9c382bbe46c33ea59624d31e676841214b29abb65f3a1a570d29604e3e1a3c5d"
+        },
+        "engineDepth": {
+          "path": "tasks/history/T003/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "332ecfe655f6799846c2357d2dcb0c300bd49a1092dbd4503d772a5e8116409e"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/T003/REVIEW_LOOP.json",
+          "sha256": "6ed9467d0b5b0e1b8f8c68181aadae89107df668b398e9cbbbf258e4935aa357"
+        },
+        "startGate": {
+          "path": "tasks/history/T003/START_GATE.json",
+          "sha256": "0f9072ad89ca964e0635a5340aae0411f86ea7004ce61b87ab3ded7de5295400"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/T003/STATE_OWNER_MANIFEST.json",
+          "sha256": "b80a9174b4339ffaa17bccfd576334fa35127b1365aabb58a84d211fd2c38582"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doDiscoverFeatureHealingPool#step:doDiscoverFeatureHealingPool",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doDiscoverSingleTargetSpellHealing#step:doDiscoverSingleTargetSpellHealing",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doDiscoverTargetListSpellHealing#step:doDiscoverTargetListSpellHealing",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillFeatureHealingDistribution#step:doFillFeatureHealingDistribution",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillSpellHealingRoll#step:doFillSpellHealingRoll",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillSpellHealingTargetChoice#step:doFillSpellHealingTargetChoice",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillSpellHealingTargetList#step:doFillSpellHealingTargetList",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doSubmitHealingRollBeforeTargetChoice#step:doSubmitHealingRollBeforeTargetChoice",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doSubmitHealingRollBeforeTargetList#step:doSubmitHealingRollBeforeTargetList"
+          ],
+          "path": "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json",
+          "sha256": "ed5edc22b8fe08fd5dce2331848ee0dea3d29405a9060c7629a59f75155eb162"
+        }
+      ],
+      "taskId": "T003"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/T004/DECIDER_DECISION.json",
+          "sha256": "0ce5527a918ac8da19bab9a985956dbb8af420b6f042d3b96afc24064b529305"
+        },
+        "engineDepth": {
+          "path": "tasks/history/T004/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "46a8ac2d20fb6c7c2ccfd1f66683bf10d3c18c32b865bd354bfb9b6e0d3517b5"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/T004/REVIEW_LOOP.json",
+          "sha256": "d11fba70459f439b728b10332c704ba62b0ba24afd3182a3d69d2f9ae1c28485"
+        },
+        "startGate": {
+          "path": "tasks/history/T004/START_GATE.json",
+          "sha256": "67ed5148c1ece70d69f4dfefb07e6e334baa225720ff089da529505e110bebf1"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/T004/STATE_OWNER_MANIFEST.json",
+          "sha256": "7ca84785185d2ced1fb8929b9a26656437d4dd8eaf3e8c8c4efbdf85547ffbb7"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json#T004 seed=1 action=doDiscoverEndTurnDeathSavingThrow#step:doDiscoverEndTurnDeathSavingThrow",
+            "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json#T004 seed=1 action=doFillDeathSavingThrow#step:doFillDeathSavingThrow",
+            "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json#T004 seed=1 action=doRejectWrongActorEndTurnAfterResolved#step:doRejectWrongActorEndTurnAfterResolved"
+          ],
+          "path": "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json",
+          "sha256": "ae3d1b14dccbc63d2c9b18543a0c0b1911088bca5e2ebfbee47e5a3c48821f60"
+        }
+      ],
+      "taskId": "T004"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/T005/DECIDER_DECISION.json",
+          "sha256": "f1b64e57e9dcda49483c59e3916f4e21824b047f9888343bb8f02b091dcd29a1"
+        },
+        "engineDepth": {
+          "path": "tasks/history/T005/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "977fa70e1d8a314688ca54f2ed23dfed27897fbc2a23fc832f10255759097c8e"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/T005/REVIEW_LOOP.json",
+          "sha256": "268d0f29ea058c9a932885be0e6be2c3834de8e7bb2558a16ec249ed71bf2496"
+        },
+        "startGate": {
+          "path": "tasks/history/T005/START_GATE.json",
+          "sha256": "d14d1b1d5ff48cad032725e6b2c4b842d1b0fbe078cc96354de02053da7ac088"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/T005/STATE_OWNER_MANIFEST.json",
+          "sha256": "71b1dacb2bc1e00d7ba89cfc6470163e2ef2154e80e55ed08f2a70ccb6383cb4"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doCastConcentrationSpell#step:doCastConcentrationSpell",
+            "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doCastReplacementConcentrationSpell#step:doCastReplacementConcentrationSpell",
+            "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doDamageRequestsConcentrationSave#step:doDamageRequestsConcentrationSave",
+            "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doFailConcentrationSave#step:doFailConcentrationSave",
+            "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doVoluntaryEndConcentration#step:doVoluntaryEndConcentration"
+          ],
+          "path": "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json",
+          "sha256": "ab636fe7b0ff575f60f5693311c4c2bba0a96d0a9d8f6273ba0be0bd6f4edfef"
+        }
+      ],
+      "taskId": "T005"
+    }
+  ],
+  "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "schemaVersion": 1,
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32"
+}

@@ -1,0 +1,48 @@
+{
+  "decision": "accepted",
+  "deterministicGates": [
+    {
+      "evidence": "tasks/history/T005",
+      "gate": "start-gate",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json",
+      "gate": "branch-coverage",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T005",
+      "gate": "adapter-quarantine",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T005",
+      "gate": "engine-depth",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T005",
+      "gate": "state-owner-derivability",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T005",
+      "gate": "authored-identity-dispatch",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T005",
+      "gate": "report-honesty",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T005",
+      "gate": "reviewer-loop-convergence",
+      "status": "pass"
+    }
+  ],
+  "rejectedFindings": [],
+  "schemaVersion": 1,
+  "taskId": "T005"
+}

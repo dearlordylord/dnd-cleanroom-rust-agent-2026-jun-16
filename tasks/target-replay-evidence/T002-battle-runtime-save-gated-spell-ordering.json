@@ -1,0 +1,262 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-quint-connect-reducer-route-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doDiscoverAreaSaveDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doDiscoverAreaSaveDamage",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4f9a6cce54724826b02df96b1675be29f3ea19e728b6e32864fe452f0a0be621",
+        "observedProjectionSha256": "4f9a6cce54724826b02df96b1675be29f3ea19e728b6e32864fe452f0a0be621",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T002 seed=1 action=doDiscoverAreaSaveDamage"
+    },
+    {
+      "branchAction": "doDiscoverTargetListConditionChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doDiscoverTargetListConditionChoice",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "14f9edc8ca0ccb39db28344dfbc9ef3629caa99b84eb9db8ff9fe7366b32662d",
+        "observedProjectionSha256": "14f9edc8ca0ccb39db28344dfbc9ef3629caa99b84eb9db8ff9fe7366b32662d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T002 seed=1 action=doDiscoverTargetListConditionChoice"
+    },
+    {
+      "branchAction": "doFillAreaDamageDice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillAreaDamageDice",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "3c2e43218787843493e996d275c7281ee4832b7719cfd7dcc2d4db5d461dd19b",
+        "observedProjectionSha256": "3c2e43218787843493e996d275c7281ee4832b7719cfd7dcc2d4db5d461dd19b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T002 seed=1 action=doFillAreaDamageDice"
+    },
+    {
+      "branchAction": "doFillAreaSaveFailed",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillAreaSaveFailed",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "07b8c14df32235628e24aeebc469af1d4ea451616e2e0db4f1979386b307fae4",
+        "observedProjectionSha256": "07b8c14df32235628e24aeebc469af1d4ea451616e2e0db4f1979386b307fae4",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T002 seed=1 action=doFillAreaSaveFailed"
+    },
+    {
+      "branchAction": "doFillConditionChoiceAfterTargetList",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillConditionChoiceAfterTargetList",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "95835450d8c254b34da3c55321008c24c0531420701a8c19861e692a2e94e8a3",
+        "observedProjectionSha256": "95835450d8c254b34da3c55321008c24c0531420701a8c19861e692a2e94e8a3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T002 seed=1 action=doFillConditionChoiceAfterTargetList"
+    },
+    {
+      "branchAction": "doFillConditionChoiceBeforeTargetList",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillConditionChoiceBeforeTargetList",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f1c45b0f015b7c885c554f0da699b6e6a94d5344db62771cbd3600ab430d0656",
+        "observedProjectionSha256": "f1c45b0f015b7c885c554f0da699b6e6a94d5344db62771cbd3600ab430d0656",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T002 seed=1 action=doFillConditionChoiceBeforeTargetList"
+    },
+    {
+      "branchAction": "doFillConditionSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillConditionSavingThrow",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4df561346575a1f314aba00cab08317acf995a13dc64da8637fb93d0bc03cdfb",
+        "observedProjectionSha256": "4df561346575a1f314aba00cab08317acf995a13dc64da8637fb93d0bc03cdfb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T002 seed=1 action=doFillConditionSavingThrow"
+    },
+    {
+      "branchAction": "doFillTargetListAfterConditionChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillTargetListAfterConditionChoice",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "1d03a399cc1afffd135c47a6b2b3b4905e398d614e31446ff08db6e4c7f8e9a3",
+        "observedProjectionSha256": "1d03a399cc1afffd135c47a6b2b3b4905e398d614e31446ff08db6e4c7f8e9a3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T002 seed=1 action=doFillTargetListAfterConditionChoice"
+    },
+    {
+      "branchAction": "doFillTargetListBeforeConditionChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillTargetListBeforeConditionChoice",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "bcf514678db5c73fa5093288740c9257f0d3694c76c4353cae9f77051bd7d9e5",
+        "observedProjectionSha256": "bcf514678db5c73fa5093288740c9257f0d3694c76c4353cae9f77051bd7d9e5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T002 seed=1 action=doFillTargetListBeforeConditionChoice"
+    },
+    {
+      "branchAction": "doSubmitDamageBeforeSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doSubmitDamageBeforeSavingThrow",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0b833be9d96d86fa5dfbc5615a498cbd17264be6cfe00bb9e34748dc5894e407",
+        "observedProjectionSha256": "0b833be9d96d86fa5dfbc5615a498cbd17264be6cfe00bb9e34748dc5894e407",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T002 seed=1 action=doSubmitDamageBeforeSavingThrow"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

@@ -316,7 +316,7 @@ impl RejectedCharacterBattleSettlement {
     pub const fn message(&self) -> &'static str {
         match self.reason {
             CharacterBattleSettlementRejection::AmbiguousCreatedSpellSlotSource => {
-                "Battle handoff Spell Slot expenditure is source-ambiguous for level 3."
+                "Battle handoff Spell Slot expenditure has ambiguous origin for level 3."
             }
             CharacterBattleSettlementRejection::MismatchedCharacterIdentity => {
                 "Battle handoff character identity does not match Character Sheet."

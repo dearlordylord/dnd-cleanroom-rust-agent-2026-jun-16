@@ -1,0 +1,46 @@
+{
+  "durableFields": [
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.action_available",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.slot_spell_procedure",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.skeleton.hp",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.skeleton.lifecycle",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.fighter.spell_slots.first_level_expended",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "T001"
+}

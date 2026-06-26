@@ -1,0 +1,48 @@
+{
+  "decision": "accepted",
+  "deterministicGates": [
+    {
+      "evidence": "tasks/history/T003",
+      "gate": "start-gate",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json",
+      "gate": "branch-coverage",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T003",
+      "gate": "adapter-quarantine",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T003",
+      "gate": "engine-depth",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T003",
+      "gate": "state-owner-derivability",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T003",
+      "gate": "authored-identity-dispatch",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T003",
+      "gate": "report-honesty",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T003",
+      "gate": "reviewer-loop-convergence",
+      "status": "pass"
+    }
+  ],
+  "rejectedFindings": [],
+  "schemaVersion": 1,
+  "taskId": "T003"
+}

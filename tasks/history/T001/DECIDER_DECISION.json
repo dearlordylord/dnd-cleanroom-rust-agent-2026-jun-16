@@ -1,0 +1,48 @@
+{
+  "decision": "accepted",
+  "deterministicGates": [
+    {
+      "evidence": "tasks/history/T001",
+      "gate": "start-gate",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/target-replay-evidence/T001-battle-runtime-magic-missile.json",
+      "gate": "branch-coverage",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T001",
+      "gate": "adapter-quarantine",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T001",
+      "gate": "engine-depth",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T001",
+      "gate": "state-owner-derivability",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T001",
+      "gate": "authored-identity-dispatch",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T001",
+      "gate": "report-honesty",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T001",
+      "gate": "reviewer-loop-convergence",
+      "status": "pass"
+    }
+  ],
+  "rejectedFindings": [],
+  "schemaVersion": 1,
+  "taskId": "T001"
+}

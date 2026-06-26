@@ -1,0 +1,149 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-quint-connect-reducer-route-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doCastConcentrationSpell",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "observedActionTaken": "doCastConcentrationSpell",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.concentration",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.slot_spell_procedure"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c7884f0ba3911f007a1fc69cb0a46e285a2ce835164b796eb3e9e4c6fd743e15",
+        "observedProjectionSha256": "c7884f0ba3911f007a1fc69cb0a46e285a2ce835164b796eb3e9e4c6fd743e15",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T005 seed=1 action=doCastConcentrationSpell"
+    },
+    {
+      "branchAction": "doCastReplacementConcentrationSpell",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "observedActionTaken": "doCastReplacementConcentrationSpell",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.concentration",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.slot_spell_procedure"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "94c20fb28b622721771f592cf6118613d03c315f6a4a947b75f90b8b56234590",
+        "observedProjectionSha256": "94c20fb28b622721771f592cf6118613d03c315f6a4a947b75f90b8b56234590",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T005 seed=1 action=doCastReplacementConcentrationSpell"
+    },
+    {
+      "branchAction": "doDamageRequestsConcentrationSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "observedActionTaken": "doDamageRequestsConcentrationSave",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [
+        {
+          "pickName": "damageDiePip",
+          "value": 4
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.concentration",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.slot_spell_procedure"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7c1d22ef8a7d78452287ccedaeb2a7f1a3f098182f552c9421e5b590bd197e1d",
+        "observedProjectionSha256": "7c1d22ef8a7d78452287ccedaeb2a7f1a3f098182f552c9421e5b590bd197e1d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T005 seed=1 action=doDamageRequestsConcentrationSave"
+    },
+    {
+      "branchAction": "doFailConcentrationSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "observedActionTaken": "doFailConcentrationSave",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [
+        {
+          "pickName": "saveRollTotal",
+          "value": 9
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.concentration",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.slot_spell_procedure"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "86a96c9f50a52bf7e0778c021a594d957c8a6411f5ecc3a5d5c3bc8ce85dca6e",
+        "observedProjectionSha256": "86a96c9f50a52bf7e0778c021a594d957c8a6411f5ecc3a5d5c3bc8ce85dca6e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T005 seed=1 action=doFailConcentrationSave"
+    },
+    {
+      "branchAction": "doVoluntaryEndConcentration",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "observedActionTaken": "doVoluntaryEndConcentration",
+      "qntFileSha256": "23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.concentration",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.slot_spell_procedure"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "836f642e0c07af7e62a14e7acf943c2a85b2bc40cad4add54eef3b6b3edb0290",
+        "observedProjectionSha256": "836f642e0c07af7e62a14e7acf943c2a85b2bc40cad4add54eef3b6b3edb0290",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T005 seed=1 action=doVoluntaryEndConcentration"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

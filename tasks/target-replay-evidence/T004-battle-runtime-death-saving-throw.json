@@ -1,0 +1,96 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-quint-connect-reducer-route-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doDiscoverEndTurnDeathSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_death_saving_throw.rs",
+      "observedActionTaken": "doDiscoverEndTurnDeathSavingThrow",
+      "qntFileSha256": "0d21761fe794347b45990f88719540e3a7ab740484d77de11715e3e3625a08cf",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.initiative.still_to_act.actor",
+          "BattleState.fighter.hp",
+          "BattleState.fighter.unconscious",
+          "BattleState.fighter.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "aace1f9ec8a5f899f5001ba0a6fddb21c1218bba98927c3a19e67916c721797f",
+        "observedProjectionSha256": "aace1f9ec8a5f899f5001ba0a6fddb21c1218bba98927c3a19e67916c721797f",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T004 seed=1 action=doDiscoverEndTurnDeathSavingThrow"
+    },
+    {
+      "branchAction": "doFillDeathSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_death_saving_throw.rs",
+      "observedActionTaken": "doFillDeathSavingThrow",
+      "qntFileSha256": "0d21761fe794347b45990f88719540e3a7ab740484d77de11715e3e3625a08cf",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [
+        {
+          "pickName": "roll",
+          "value": 10
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.initiative.still_to_act.actor",
+          "BattleState.fighter.hp",
+          "BattleState.fighter.unconscious",
+          "BattleState.fighter.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ec1a22d2a3dfecab88ec19aa44792fd96b76f3225ea86bde38429535e8478c5a",
+        "observedProjectionSha256": "ec1a22d2a3dfecab88ec19aa44792fd96b76f3225ea86bde38429535e8478c5a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T004 seed=1 action=doFillDeathSavingThrow"
+    },
+    {
+      "branchAction": "doRejectWrongActorEndTurnAfterResolved",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_death_saving_throw.rs",
+      "observedActionTaken": "doRejectWrongActorEndTurnAfterResolved",
+      "qntFileSha256": "0d21761fe794347b45990f88719540e3a7ab740484d77de11715e3e3625a08cf",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.initiative.still_to_act.actor",
+          "BattleState.fighter.hp",
+          "BattleState.fighter.unconscious",
+          "BattleState.fighter.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "138bb6e9f56f0a9f05cd0daeb508e8d8e7934cd51394106d0024ba74bae99c03",
+        "observedProjectionSha256": "138bb6e9f56f0a9f05cd0daeb508e8d8e7934cd51394106d0024ba74bae99c03",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "T004 seed=1 action=doRejectWrongActorEndTurnAfterResolved"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

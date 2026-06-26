@@ -1,0 +1,17 @@
+{
+  "preImplementationStatus": {
+    "command": "git status --short",
+    "output": "",
+    "result": "clean"
+  },
+  "schemaVersion": 1,
+  "startHeadSha": "d4748e445d39f577fe21a66e529fd306ae0d8d21",
+  "taskId": "T004",
+  "taskScope": {
+    "assignmentId": "reducer-spine-diagnostic-battle",
+    "laneId": "battle",
+    "selectedDrivers": [
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt"
+    ]
+  }
+}

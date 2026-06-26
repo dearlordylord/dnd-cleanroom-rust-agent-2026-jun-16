@@ -1,0 +1,48 @@
+{
+  "decision": "accepted",
+  "deterministicGates": [
+    {
+      "evidence": "tasks/history/T004",
+      "gate": "start-gate",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json",
+      "gate": "branch-coverage",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T004",
+      "gate": "adapter-quarantine",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T004",
+      "gate": "engine-depth",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T004",
+      "gate": "state-owner-derivability",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T004",
+      "gate": "authored-identity-dispatch",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T004",
+      "gate": "report-honesty",
+      "status": "pass"
+    },
+    {
+      "evidence": "tasks/history/T004",
+      "gate": "reviewer-loop-convergence",
+      "status": "pass"
+    }
+  ],
+  "rejectedFindings": [],
+  "schemaVersion": 1,
+  "taskId": "T004"
+}

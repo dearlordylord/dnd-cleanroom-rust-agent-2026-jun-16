@@ -1,0 +1,3792 @@
+{
+  "accumulatorGrowth": [
+    {
+      "addedEntries": 3,
+      "owner": "adapter",
+      "reason": "target-replay-evidence"
+    }
+  ],
+  "adapterModules": [
+    {
+      "path": "src/qnt_adapters/battle_runtime_adrenaline_rush.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_death_saving_throw.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_feature_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_interrupt_stack_resume.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_magic_missile.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_quickened_spell_governor.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_reaction_casting_time.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_reducer_route.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_reducer_spine_contract.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_scalar_buff.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sleep_repeat_save.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_distant_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_empowered_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_extended_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_seeking_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_subtle_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_transmuted_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_twinned_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/battle_runtime_zero_hit_point_mid_resolution.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_battle_init_projection.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_battle_origin_feat_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_battle_settlement.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_creation_class_feature_projections.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_creation_runtime.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_layer_projection_lifecycle.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_ability_check_proficiency_bonus.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_armor_class_base_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_feature_resources.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_healing_resource_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_hit_point_maximum.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_hp_rest_hit_dice.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/creature_attack_mbt.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/rule_core_attack_damage_disposition.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/ability_checks.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/armor_class.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/attack_damage_disposition.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/battle_features.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/battle_reducer_spine.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/chained_spell_attacks.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/character_battle_handoff.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/character_creation.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/character_lifecycle.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/class_features.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/command_options.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/concentration.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/creature_attack.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/creature_size.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/creature_type_protection.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/feature_resources.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/find_familiar.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/hit_point_restoration_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/hit_points.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/interrupt_stack_resume.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/level_one_armor_spells.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/level_one_damage_spells.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/level_one_spatial_spells.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/level_one_spell_effects.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/magic_missile.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/mod.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/origin_feats.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/quickened_spell_governor.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/roll_modifier_active_effects.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/roll_modifier_buff_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/rule_core_hit_point_damage.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/rule_core_movement.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/rule_core_reactions.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/rule_core_shove_outcome.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/rule_core_stat_block_controls.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/sanctuary_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/save_gated_spell_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/scalar_buff.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/scalar_buff_active_effects.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/sleep_repeat_save.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/sorcerer_metamagic.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/species_passive_traits.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/spell_attack_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/spell_shapes.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/spellbook_rituals.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/stat_block_action_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/thaumaturgy_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/turn_boundary_effect_lifecycle.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/weapon_attack_ordering.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/weapon_attack_skeleton.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/weapon_hosted_attack_and_riders.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/weapon_mastery_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/wild_shape.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/rules/zero_hit_point_mid_resolution.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    },
+    {
+      "path": "src/lib.rs",
+      "quarantinedWitnessNames": [
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "comparator",
+        "doDiscoverEndTurnDeathSavingThrow",
+        "doFillDeathSavingThrow",
+        "doRejectWrongActorEndTurnAfterResolved",
+        "expectedProjectionSha256",
+        "harnessTestPath",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "roll",
+        "sourceBranchInventorySha256",
+        "stateCheck",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json"
+      ]
+    }
+  ],
+  "expectedNextReuse": [
+    {
+      "api": "concentration break teardown",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt",
+      "module": "src/rules/battle_reducer_spine.rs"
+    }
+  ],
+  "productionModulesExtended": [
+    {
+      "domainApis": [
+        "start_death_saving_throw_battle",
+        "discover_battle_acts",
+        "resolve_battle_subject"
+      ],
+      "path": "src/rules/battle_reducer_spine.rs",
+      "role": "domain-engine"
+    },
+    {
+      "domainApis": [
+        "discover_death_saving_throw",
+        "fill_death_saving_throw"
+      ],
+      "path": "src/rules/hit_points.rs",
+      "role": "domain-engine"
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "T004"
+}

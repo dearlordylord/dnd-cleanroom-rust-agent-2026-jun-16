@@ -7,66 +7,349 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `<none>`
-- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
-- Next task id: `T001`
+- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
+- Next queued driver: `<none for reducer-spine-diagnostic-battle>`
+- Next task id: `T006`
 
-Completion rule: a queued branch set is complete only when this report has an
-entry that names the exact `.mbt.qnt` driver, records the current manifest
-source commit SHA, records the current source branch inventory SHA, lists the
-allowed inputs used, renders branch coverage from harness-generated target
-replay evidence, and records verification results. Entries with older manifest
-source commit SHAs or inventory SHAs are historical unless they include a
-current-snapshot revalidation note.
+Completion rule: a queued branch set is complete only when this report has an entry that names the exact `.mbt.qnt` driver, records the current manifest source commit SHA, records the current source branch inventory SHA, lists the allowed inputs used, renders branch coverage from harness-generated target replay evidence, and records verification results.
 
-## T000: Report Shape Example Only
+## T001: Magic Missile
 
 - Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Driver: `cleanroom-input/qnt/<package>/<driver>.mbt.qnt`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
 - Branch obligations:
-  - `step:<branch action>`
+  - `step:doFillMagicMissileAllocation`
+  - `step:doFillMagicMissileDamage`
 - Allowed inputs used:
   - `cleanroom-input/MANIFEST.md`
   - `cleanroom-input/branch-coverage/source-branch-inventory.json`
-  - `cleanroom-input/qnt/<package>/<driver>.mbt.qnt`
-  - `cleanroom-input/raw/srd-5.2.1/<file>.md`
+  - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.route.mbt.qnt`
+  - `cleanroom-input/guidance/README.md`
+  - `cleanroom-input/guidance/reducer-spine.md`
   - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md`
 
 Behavior implemented:
 
-- Describe the domain behavior implemented in `src`.
-- Cite the QNT and RAW source files that define the behavior.
+- Replayed `Magic Missile` through the shared BattleState reducer surface using `start_battle`, `discover_battle_acts`, and `resolve_battle_subject` route events from the copied qRoute connector.
+- Durable state remains battle-owned; QNT action names, sampled picks, trace ids, and projection hashes are quarantined in the adapter and target replay evidence.
 
 Generated branch coverage:
 
 | Obligation | Target replay evidence | Diagnostic tests | Status |
 | --- | --- | --- | --- |
-| `cleanroom-input/qnt/<package>/<driver>.mbt.qnt#<branch family>:<branch action>` | `_pending_` | `_none_` | `pending` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt#step:doFillMagicMissileAllocation` | `tasks/target-replay-evidence/T001-battle-runtime-magic-missile.json#T001 seed=1 action=doFillMagicMissileAllocation#step:doFillMagicMissileAllocation` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt#step:doFillMagicMissileDamage` | `tasks/target-replay-evidence/T001-battle-runtime-magic-missile.json#T001 seed=1 action=doFillMagicMissileDamage#step:doFillMagicMissileDamage` | `src/tests/mod.rs` | `covered` |
 
 Target replay evidence:
 
-- Evidence file: `tasks/target-replay-evidence/<file>.json`
+- Evidence file: `tasks/target-replay-evidence/T001-battle-runtime-magic-missile.json`
 - Target profile: `rust`
 - Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
 - Quint binding: Rust quint-connect harness
-- Reproduction seed or trace id: `<seed or trace id>`
-- Accepted evidence refs use `tasks/target-replay-evidence/<file>.json#<trace id>#<branch family>:<branch action>`.
+- Reproduction seed or trace id: `T001 seed=1`
 
 Harness artifacts:
 
-- Start gate: `tasks/START_GATE.json`
-- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
-- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
-- Reviewer loop: `tasks/REVIEW_LOOP.json`
-- Decider decision: `tasks/DECIDER_DECISION.json`
-- Immutable history: `tasks/history/<taskId>/`
+- Start gate: `tasks/history/T001/START_GATE.json`
+- Engine depth: `tasks/history/T001/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/T001/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/T001/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/T001/DECIDER_DECISION.json`
 - Run ledger: `tasks/RUN_LEDGER.json`
 
-Diagnostic tests:
+Remaining gaps:
 
-- Focused target-language tests may be listed here, but they do not close
-  branch coverage.
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T002: Save-Gated Spell Ordering
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverAreaSaveDamage`
+  - `step:doDiscoverTargetListConditionChoice`
+  - `step:doFillAreaDamageDice`
+  - `step:doFillAreaSaveFailed`
+  - `step:doFillConditionChoiceAfterTargetList`
+  - `step:doFillConditionChoiceBeforeTargetList`
+  - `step:doFillConditionSavingThrow`
+  - `step:doFillTargetListAfterConditionChoice`
+  - `step:doFillTargetListBeforeConditionChoice`
+  - `step:doSubmitDamageBeforeSavingThrow`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt`
+  - `cleanroom-input/guidance/README.md`
+  - `cleanroom-input/guidance/reducer-spine.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+
+Behavior implemented:
+
+- Replayed `Save-Gated Spell Ordering` through the shared BattleState reducer surface using `start_battle`, `discover_battle_acts`, and `resolve_battle_subject` route events from the copied qRoute connector.
+- Durable state remains battle-owned; QNT action names, sampled picks, trace ids, and projection hashes are quarantined in the adapter and target replay evidence.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doDiscoverAreaSaveDamage` | `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doDiscoverAreaSaveDamage#step:doDiscoverAreaSaveDamage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doDiscoverTargetListConditionChoice` | `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doDiscoverTargetListConditionChoice#step:doDiscoverTargetListConditionChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillAreaDamageDice` | `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillAreaDamageDice#step:doFillAreaDamageDice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillAreaSaveFailed` | `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillAreaSaveFailed#step:doFillAreaSaveFailed` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionChoiceAfterTargetList` | `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillConditionChoiceAfterTargetList#step:doFillConditionChoiceAfterTargetList` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionChoiceBeforeTargetList` | `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillConditionChoiceBeforeTargetList#step:doFillConditionChoiceBeforeTargetList` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionSavingThrow` | `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillConditionSavingThrow#step:doFillConditionSavingThrow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillTargetListAfterConditionChoice` | `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillTargetListAfterConditionChoice#step:doFillTargetListAfterConditionChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillTargetListBeforeConditionChoice` | `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillTargetListBeforeConditionChoice#step:doFillTargetListBeforeConditionChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doSubmitDamageBeforeSavingThrow` | `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doSubmitDamageBeforeSavingThrow#step:doSubmitDamageBeforeSavingThrow` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T002 seed=1`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/T002/START_GATE.json`
+- Engine depth: `tasks/history/T002/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/T002/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/T002/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/T002/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T003: Hit-Point Restoration Ordering
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverFeatureHealingPool`
+  - `step:doDiscoverSingleTargetSpellHealing`
+  - `step:doDiscoverTargetListSpellHealing`
+  - `step:doFillFeatureHealingDistribution`
+  - `step:doFillSpellHealingRoll`
+  - `step:doFillSpellHealingTargetChoice`
+  - `step:doFillSpellHealingTargetList`
+  - `step:doSubmitHealingRollBeforeTargetChoice`
+  - `step:doSubmitHealingRollBeforeTargetList`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.route.mbt.qnt`
+  - `cleanroom-input/guidance/README.md`
+  - `cleanroom-input/guidance/reducer-spine.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+
+Behavior implemented:
+
+- Replayed `Hit-Point Restoration Ordering` through the shared BattleState reducer surface using `start_battle`, `discover_battle_acts`, and `resolve_battle_subject` route events from the copied qRoute connector.
+- Durable state remains battle-owned; QNT action names, sampled picks, trace ids, and projection hashes are quarantined in the adapter and target replay evidence.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doDiscoverFeatureHealingPool` | `tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doDiscoverFeatureHealingPool#step:doDiscoverFeatureHealingPool` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doDiscoverSingleTargetSpellHealing` | `tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doDiscoverSingleTargetSpellHealing#step:doDiscoverSingleTargetSpellHealing` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doDiscoverTargetListSpellHealing` | `tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doDiscoverTargetListSpellHealing#step:doDiscoverTargetListSpellHealing` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doFillFeatureHealingDistribution` | `tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillFeatureHealingDistribution#step:doFillFeatureHealingDistribution` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doFillSpellHealingRoll` | `tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillSpellHealingRoll#step:doFillSpellHealingRoll` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doFillSpellHealingTargetChoice` | `tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillSpellHealingTargetChoice#step:doFillSpellHealingTargetChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doFillSpellHealingTargetList` | `tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillSpellHealingTargetList#step:doFillSpellHealingTargetList` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doSubmitHealingRollBeforeTargetChoice` | `tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doSubmitHealingRollBeforeTargetChoice#step:doSubmitHealingRollBeforeTargetChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doSubmitHealingRollBeforeTargetList` | `tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doSubmitHealingRollBeforeTargetList#step:doSubmitHealingRollBeforeTargetList` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T003 seed=1`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/T003/START_GATE.json`
+- Engine depth: `tasks/history/T003/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/T003/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/T003/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/T003/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T004: Death Saving Throw
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverEndTurnDeathSavingThrow`
+  - `step:doFillDeathSavingThrow`
+  - `step:doRejectWrongActorEndTurnAfterResolved`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.route.mbt.qnt`
+  - `cleanroom-input/guidance/README.md`
+  - `cleanroom-input/guidance/reducer-spine.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+
+Behavior implemented:
+
+- Replayed `Death Saving Throw` through the shared BattleState reducer surface using `start_battle`, `discover_battle_acts`, and `resolve_battle_subject` route events from the copied qRoute connector.
+- Durable state remains battle-owned; QNT action names, sampled picks, trace ids, and projection hashes are quarantined in the adapter and target replay evidence.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt#step:doDiscoverEndTurnDeathSavingThrow` | `tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json#T004 seed=1 action=doDiscoverEndTurnDeathSavingThrow#step:doDiscoverEndTurnDeathSavingThrow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt#step:doFillDeathSavingThrow` | `tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json#T004 seed=1 action=doFillDeathSavingThrow#step:doFillDeathSavingThrow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt#step:doRejectWrongActorEndTurnAfterResolved` | `tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json#T004 seed=1 action=doRejectWrongActorEndTurnAfterResolved#step:doRejectWrongActorEndTurnAfterResolved` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T004 seed=1`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/T004/START_GATE.json`
+- Engine depth: `tasks/history/T004/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/T004/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/T004/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/T004/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+
+## T005: Concentration Break Teardown
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
+- Branch obligations:
+  - `step:doCastConcentrationSpell`
+  - `step:doCastReplacementConcentrationSpell`
+  - `step:doDamageRequestsConcentrationSave`
+  - `step:doFailConcentrationSave`
+  - `step:doVoluntaryEndConcentration`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt`
+  - `cleanroom-input/guidance/README.md`
+  - `cleanroom-input/guidance/reducer-spine.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+
+Behavior implemented:
+
+- Replayed `Concentration Break Teardown` through the shared BattleState reducer surface using `start_battle`, `discover_battle_acts`, and `resolve_battle_subject` route events from the copied qRoute connector.
+- Durable state remains battle-owned; QNT action names, sampled picks, trace ids, and projection hashes are quarantined in the adapter and target replay evidence.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doCastConcentrationSpell` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doCastConcentrationSpell#step:doCastConcentrationSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doCastReplacementConcentrationSpell` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doCastReplacementConcentrationSpell#step:doCastReplacementConcentrationSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doDamageRequestsConcentrationSave` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doDamageRequestsConcentrationSave#step:doDamageRequestsConcentrationSave` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doFailConcentrationSave` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doFailConcentrationSave#step:doFailConcentrationSave` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doVoluntaryEndConcentration` | `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doVoluntaryEndConcentration#step:doVoluntaryEndConcentration` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `T005 seed=1`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/T005/START_GATE.json`
+- Engine depth: `tasks/history/T005/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/T005/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/T005/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/T005/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
 
 Remaining gaps:
 

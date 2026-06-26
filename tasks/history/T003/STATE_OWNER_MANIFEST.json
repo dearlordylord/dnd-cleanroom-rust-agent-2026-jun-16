@@ -1,0 +1,38 @@
+{
+  "durableFields": [
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.hit_point_restoration_procedure",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.rogue.hp",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.rogue.unconscious",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.rogue.lifecycle",
+      "introducedIn": "src/cleanroom_state_owner.rs",
+      "owner": "battle-state"
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "T003"
+}
