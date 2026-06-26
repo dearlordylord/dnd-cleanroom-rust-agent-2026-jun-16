@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "level-1-2-runtime-reducer-route",
+  "sourceOfTruth": "cleanroom-input/branch-coverage/reducer-route-inventory.json levelDenominators[0].driverRouteAssignments",
+  "laneSizingPolicy": {
+    "recommendedMaxDrivers": 10,
+    "recommendedMaxBranchObligations": 70,
+    "splitRequiredWhen": "A routeTaskId exceeds the recommended maximum or mixes blocker/catalog/substrate work that should not share a write scope."
+  },
+  "lanes": [
+    {
+      "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "checkpointId": "CP1",
+      "status": "ready",
+      "parallelGroup": "cp1-battle-core",
+      "routeTaskId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 2,
+      "branchObligations": 8,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt"
+      ],
+      "purpose": "Finish the two remaining focused reducer-spine diagnostic drivers using existing HP lifecycle and concentration owners.",
+      "dependencies": [
+        "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/qnt_adapters/battle_runtime_death_saving_throw.rs",
+        "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Death Saving Throw and Concentration teardown replay through reducer entrypoints and shared owners, with no driver-local HP/concentration ledger."
+    },
+    {
+      "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
+      "checkpointId": "CP1",
+      "status": "ready",
+      "parallelGroup": "cp1-battle-core",
+      "routeTaskId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 7,
+      "branchObligations": 53,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt"
+      ],
+      "purpose": "Route common weapon, spell attack, creature attack, and stat-block action procedures through the reducer subject/fill/result surface.",
+      "dependencies": [
+        "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/qnt_adapters/battle_runtime_*attack*.rs",
+        "src/qnt_adapters/battle_runtime_stat_block_*.rs",
+        "src/qnt_adapters/creature_attack_mbt.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Route evidence shows attack and stat-block action branches consume shared reducer state, not fixture identity or adapter-local action ordering."
+    },
+    {
+      "laneId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
+      "checkpointId": "CP1",
+      "status": "held",
+      "parallelGroup": "cp1-battle-core",
+      "routeTaskId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
+      "routeClasses": [
+        "reducer-routed",
+        "replay-refresh-only"
+      ],
+      "driverCount": 3,
+      "branchObligations": 36,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt"
+      ],
+      "purpose": "Route Command/scalar spell-effect frontier behavior through battle spell-effect owners and refresh the next-turn command option evidence.",
+      "dependencies": [
+        "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE or L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES merged"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/qnt_adapters/battle_runtime_command_*.rs",
+        "src/qnt_adapters/battle_runtime_scalar_buff.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Command and scalar buff routes reuse spell/action-effect substrate and do not create a local ordering island."
+    },
+    {
+      "laneId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
+      "checkpointId": "CP2",
+      "status": "blocked-on-checkpoint",
+      "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
+      "routeClasses": [
+        "component-first"
+      ],
+      "driverCount": 9,
+      "branchObligations": 140,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/rule-core-ability-skill-command.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt"
+      ],
+      "splitRecommendation": "Split into 3 sublanes before execution: HP/damage/stat-block, movement/reactions/shove, spells/features/ability-skill.",
+      "purpose": "Prove reusable rule-core components before later battle and character routes depend on them.",
+      "dependencies": [
+        "CP1 complete"
+      ],
+      "acceptanceSummary": "Component route evidence exists without turning rule-core witnesses into production battle-state owners."
+    },
+    {
+      "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
+      "checkpointId": "CP3",
+      "status": "blocked-on-checkpoint",
+      "routeTaskId": "L15-RR08-CHARACTER-CREATION-ROUTES",
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 8,
+      "branchObligations": 55,
+      "drivers": [
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Route level-1/2 character creation choices through character-owned creation state and support admission, not identity dispatch.",
+      "dependencies": [
+        "CP2 complete"
+      ],
+      "acceptanceSummary": "Character creation evidence records durable character-state ownership and keeps authored identity at selection/catalog boundaries."
+    },
+    {
+      "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
+      "checkpointId": "CP3",
+      "status": "blocked-on-checkpoint",
+      "routeTaskId": "L15-RR09-CHARACTER-SHEET-ROUTES",
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 10,
+      "branchObligations": 67,
+      "drivers": [
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-arcane-recovery-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Route level-1/2 sheet projections through sheet-owned state and reusable component facts.",
+      "dependencies": [
+        "CP2 complete"
+      ],
+      "acceptanceSummary": "Sheet evidence records source fields and derived projections without duplicate runtime state."
+    },
+    {
+      "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
+      "checkpointId": "CP3",
+      "status": "blocked-on-checkpoint",
+      "routeTaskId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 5,
+      "branchObligations": 33,
+      "drivers": [
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt"
+      ],
+      "purpose": "Route character-to-battle handoff and settlement through character/sheet/battle owners.",
+      "dependencies": [
+        "L15-RR08-CHARACTER-CREATION-ROUTES",
+        "L15-RR09-CHARACTER-SHEET-ROUTES"
+      ],
+      "acceptanceSummary": "Battle handoff evidence consumes character and sheet substrates instead of restating them in battle adapters."
+    },
+    {
+      "laneId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "blocked-on-checkpoint",
+      "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+      "routeClasses": [
+        "source-qnt-corpus-blocker",
+        "catalog-after-substrate"
+      ],
+      "driverCount": 11,
+      "branchObligations": 75,
+      "splitRecommendation": "Split before execution into blocker-resolution and catalog-after-substrate sublanes.",
+      "purpose": "Resolve level-1 spell selected-identity substrate blockers and keep spell identity outside production dispatch.",
+      "dependencies": [
+        "CP2 complete",
+        "CP3 complete"
+      ],
+      "driversSource": "See reducer-route-inventory.json routeTaskId L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES"
+    },
+    {
+      "laneId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "blocked-on-checkpoint",
+      "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 13,
+      "branchObligations": 30,
+      "splitRecommendation": "Split before execution into governor/core and option-specific sublanes.",
+      "purpose": "Route Sorcery Point, casting-time, same-turn spell, and metamagic option substrates without selected-identity dispatch.",
+      "dependencies": [
+        "CP2 complete",
+        "CP3 complete"
+      ],
+      "driversSource": "See reducer-route-inventory.json routeTaskId L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES"
+    },
+    {
+      "laneId": "CP4-SMALL-FEATURE-SUBSTRATE-BATCH",
+      "checkpointId": "CP4",
+      "status": "blocked-on-checkpoint",
+      "routeTaskIds": [
+        "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES",
+        "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
+        "L15-RR07-FU03-CONDITION-AND-ROLL-MODIFIER-FEATURE-SUBSTRATES",
+        "L15-RR07-FU04-ZERO-HP-STABILIZATION-SUBSTRATE",
+        "L15-RR07-FU05-FEATURE-MOVEMENT-AND-FORM-SUBSTRATES",
+        "L15-RR07-FU06-WEAPON-MASTERY-PROPERTY-SUBSTRATES",
+        "L15-RR07-FU07-DRAGONBORN-BREATH-WEAPON-SUBSTRATE",
+        "L15-RR07-FU09-INNATE-SPELL-BENEFIT-FEATURE-SUBSTRATE"
+      ],
+      "driverCount": 11,
+      "branchObligations": 42,
+      "splitRecommendation": "Can run as two or three small lanes based on write scope.",
+      "purpose": "Cover smaller feature/species/movement/form/weapon-mastery substrates after core component and character substrates exist.",
+      "dependencies": [
+        "CP2 complete",
+        "CP3 complete"
+      ],
+      "driversSource": "See listed routeTaskIds in reducer-route-inventory.json"
+    },
+    {
+      "laneId": "CP5-REMAINING-BATTLE-FAMILIES",
+      "checkpointId": "CP5",
+      "status": "blocked-on-checkpoint",
+      "routeTaskIds": [
+        "L15-RR15-AFTER-HIT-RIDER-OWNER-SPLIT",
+        "L15-RR16-CHAINED-ATTACK-PROCEDURE-ROUTES",
+        "L15-RR17-WEAPON-HOSTED-RIDER-ROUTES",
+        "L15-RR18-BATTLE-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
+        "L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES",
+        "L15-RR20-BATTLE-COMPANION-OBJECT-BOUNDARY-ROUTES",
+        "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES",
+        "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES"
+      ],
+      "driverCount": 14,
+      "branchObligations": 130,
+      "splitRecommendation": "Split into 4-6 lanes: riders, active effects, reactions, companion/object, ability/search, independent spell attack.",
+      "purpose": "Finish remaining battle families after generic feature/catalog substrates exist.",
+      "dependencies": [
+        "CP1 complete",
+        "CP2 complete",
+        "CP4 complete"
+      ],
+      "driversSource": "See listed routeTaskIds in reducer-route-inventory.json"
+    }
+  ],
+  "standardVerification": [
+    "cargo fmt --check",
+    "focused cargo tests for selected drivers",
+    "cargo test reducer_spine_contract_adapter_replays_all_branches when battle reducer substrate is touched",
+    "cargo test",
+    "cargo clippy --all-targets -- -D warnings",
+    "node scripts/check-cleanroom-harness.cjs",
+    "git diff --check <base>...HEAD"
+  ]
+}

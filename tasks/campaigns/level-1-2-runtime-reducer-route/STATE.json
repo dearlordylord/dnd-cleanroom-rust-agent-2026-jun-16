@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "level-1-2-runtime-reducer-route",
+  "status": "ready",
+  "dirtyCleanroomOnly": true,
+  "integration": {
+    "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
+    "branch": "ralph/rrconv-19-cleanroom",
+    "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
+    "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
+    "lastVerifiedIntegrationHead": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0"
+  },
+  "denominator": {
+    "source": "cleanroom-input/branch-coverage/reducer-route-inventory.json",
+    "denominatorId": "level-1-5-cleanroom-route-v1",
+    "levelScopeFile": "tasks/LEVEL_1_2_SCOPE.md",
+    "driverFiles": 97,
+    "canonicalInScopeBranchObligations": 668,
+    "routeAssignmentObligationSumBeforeScopeExclusions": 699,
+    "currentOutOfScopeBranchObligations": 36
+  },
+  "coverageAtBootstrap": {
+    "acceptedUniqueDrivers": 7,
+    "acceptedDriverCoveragePercent": 7.2,
+    "acceptedObligations": 52,
+    "acceptedObligationCoveragePercent": 7.8,
+    "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers",
+    "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
+  },
+  "completedBeforeCampaign": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT",
+    "RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT",
+    "RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT",
+    "RRCONV-19D-RUST-TURN-ADVANCE-RESULT",
+    "RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION",
+    "RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT",
+    "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
+  ],
+  "activeCheckpoint": "CP1",
+  "checkpoints": [
+    {
+      "checkpointId": "CP0",
+      "name": "Bootstrap",
+      "status": "complete"
+    },
+    {
+      "checkpointId": "CP1",
+      "name": "Battle Reducer Core Expansion",
+      "status": "ready",
+      "readyLaneIds": [
+        "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+        "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES"
+      ],
+      "heldLaneIds": [
+        "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES"
+      ]
+    },
+    {
+      "checkpointId": "CP2",
+      "name": "Rule-Core Component Connectors",
+      "status": "blocked-on-checkpoint",
+      "dependsOn": [
+        "CP1"
+      ]
+    },
+    {
+      "checkpointId": "CP3",
+      "name": "Character Creation, Sheet, And Handoff",
+      "status": "blocked-on-checkpoint",
+      "dependsOn": [
+        "CP2"
+      ]
+    },
+    {
+      "checkpointId": "CP4",
+      "name": "Feature And Catalog Substrates",
+      "status": "blocked-on-checkpoint",
+      "dependsOn": [
+        "CP2",
+        "CP3"
+      ]
+    },
+    {
+      "checkpointId": "CP5",
+      "name": "Remaining Battle Families",
+      "status": "blocked-on-checkpoint",
+      "dependsOn": [
+        "CP1",
+        "CP2",
+        "CP4"
+      ]
+    },
+    {
+      "checkpointId": "CP6",
+      "name": "Closure Sweep",
+      "status": "blocked-on-checkpoint",
+      "dependsOn": [
+        "CP1",
+        "CP2",
+        "CP3",
+        "CP4",
+        "CP5"
+      ]
+    }
+  ],
+  "laneStatuses": {
+    "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "ready",
+    "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "ready",
+    "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "held",
+    "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "blocked-on-checkpoint",
+    "L15-RR08-CHARACTER-CREATION-ROUTES": "blocked-on-checkpoint",
+    "L15-RR09-CHARACTER-SHEET-ROUTES": "blocked-on-checkpoint",
+    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "blocked-on-checkpoint",
+    "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
+    "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
+    "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES": "blocked-on-checkpoint",
+    "L15-RR07-FU03-CONDITION-AND-ROLL-MODIFIER-FEATURE-SUBSTRATES": "blocked-on-checkpoint",
+    "L15-RR07-FU04-ZERO-HP-STABILIZATION-SUBSTRATE": "blocked-on-checkpoint",
+    "L15-RR07-FU05-FEATURE-MOVEMENT-AND-FORM-SUBSTRATES": "blocked-on-checkpoint",
+    "L15-RR07-FU06-WEAPON-MASTERY-PROPERTY-SUBSTRATES": "blocked-on-checkpoint",
+    "L15-RR07-FU07-DRAGONBORN-BREATH-WEAPON-SUBSTRATE": "blocked-on-checkpoint",
+    "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES": "blocked-on-checkpoint",
+    "L15-RR07-FU09-INNATE-SPELL-BENEFIT-FEATURE-SUBSTRATE": "blocked-on-checkpoint",
+    "L15-RR15-AFTER-HIT-RIDER-OWNER-SPLIT": "blocked-on-checkpoint",
+    "L15-RR16-CHAINED-ATTACK-PROCEDURE-ROUTES": "blocked-on-checkpoint",
+    "L15-RR17-WEAPON-HOSTED-RIDER-ROUTES": "blocked-on-checkpoint",
+    "L15-RR18-BATTLE-ACTIVE-EFFECT-LIFECYCLE-ROUTES": "blocked-on-checkpoint",
+    "L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES": "blocked-on-checkpoint",
+    "L15-RR20-BATTLE-COMPANION-OBJECT-BOUNDARY-ROUTES": "blocked-on-checkpoint",
+    "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES": "blocked-on-checkpoint",
+    "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint"
+  },
+  "lastIntegrationVerification": {
+    "head": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
+    "commands": [
+      {
+        "command": "cargo fmt --check",
+        "status": "pass"
+      },
+      {
+        "command": "cargo test",
+        "status": "pass",
+        "note": "181 passed"
+      },
+      {
+        "command": "cargo clippy --all-targets -- -D warnings",
+        "status": "pass"
+      },
+      {
+        "command": "node scripts/check-cleanroom-harness.cjs",
+        "status": "pass"
+      },
+      {
+        "command": "git diff --check HEAD~1...HEAD",
+        "status": "pass"
+      }
+    ]
+  },
+  "operatorNotes": [
+    "Update this file after every lane status change, merge, checkpoint transition, and integration verification.",
+    "Resolve each lane base from the integration worktree HEAD at launch time.",
+    "If the integration HEAD changes outside this campaign, stop and reconcile before launching more Ralph workers."
+  ]
+}
