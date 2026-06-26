@@ -8,12 +8,13 @@
     {
       "addedEntries": 14,
       "owner": "adapter",
-      "reason": "dirty-target-replay-evidence-for-existing-weapon-skeleton-branches"
+      "reason": "dirty-target-replay-evidence-for-weapon-attack-skeleton-branch-set"
     }
   ],
   "adapterModules": [
     {
       "path": "src/qnt_adapters/battle_runtime_adrenaline_rush.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -47,10 +48,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -84,10 +87,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -121,10 +126,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -158,10 +165,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -195,10 +204,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_concentration_break_teardown.rs",
+      "adapterScope": "rrconv-19b-mechanical-typed-discovery-api-consumer; not replay-evidence coverage for this task",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -232,10 +243,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -269,10 +282,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -306,10 +321,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_death_saving_throw.rs",
+      "adapterScope": "rrconv-19b-mechanical-typed-discovery-api-consumer; not replay-evidence coverage for this task",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -343,10 +360,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -380,10 +399,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -417,10 +438,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -454,10 +477,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_feature_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -491,10 +516,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -528,10 +555,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -565,10 +594,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -602,10 +633,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "adapterScope": "rrconv-19b-mechanical-typed-discovery-api-consumer; not replay-evidence coverage for this task",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -639,10 +672,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_interrupt_stack_resume.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -676,10 +711,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -713,10 +750,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -750,10 +789,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -787,10 +828,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -824,10 +867,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_magic_missile.rs",
+      "adapterScope": "rrconv-19b-mechanical-typed-discovery-api-consumer; not replay-evidence coverage for this task",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -861,10 +906,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_quickened_spell_governor.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -898,10 +945,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_reaction_casting_time.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -935,10 +984,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -972,10 +1023,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_reducer_route.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1009,10 +1062,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_reducer_spine_contract.rs",
+      "adapterScope": "rrconv-19b-mechanical-typed-discovery-api-consumer; not replay-evidence coverage for this task",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1046,10 +1101,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1083,10 +1140,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1120,10 +1179,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1157,10 +1218,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "adapterScope": "rrconv-19b-mechanical-typed-discovery-api-consumer; not replay-evidence coverage for this task",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1194,10 +1257,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_scalar_buff.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1231,10 +1296,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1268,10 +1335,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sleep_repeat_save.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1305,10 +1374,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1342,10 +1413,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_distant_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1379,10 +1452,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_empowered_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1416,10 +1491,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_extended_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1453,10 +1530,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1490,10 +1569,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_seeking_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1527,10 +1608,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1564,10 +1647,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1601,10 +1686,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1638,10 +1725,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_subtle_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1675,10 +1764,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_transmuted_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1712,10 +1803,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_twinned_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1749,10 +1842,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1786,10 +1881,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_spell_attack_ordering.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1823,10 +1920,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1860,10 +1959,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1897,10 +1998,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1934,10 +2037,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -1971,10 +2076,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2008,10 +2115,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2045,10 +2154,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs",
+      "adapterScope": "rrconv-19b-mechanical-typed-discovery-api-consumer; not replay-evidence coverage for this task",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2082,10 +2193,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs",
+      "adapterScope": "rrconv-19b-target-replay-adapter",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2119,10 +2232,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "RRCONV-19B branch replay evidence"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2156,10 +2271,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2193,10 +2310,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/battle_runtime_zero_hit_point_mid_resolution.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2230,10 +2349,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_battle_init_projection.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2267,10 +2388,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_battle_origin_feat_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2304,10 +2427,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_battle_settlement.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2341,10 +2466,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_creation_class_feature_projections.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2378,10 +2505,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2415,10 +2544,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2452,10 +2583,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_creation_runtime.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2489,10 +2622,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2526,10 +2661,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_layer_projection_lifecycle.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2563,10 +2700,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_sheet_ability_check_proficiency_bonus.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2600,10 +2739,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_sheet_armor_class_base_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2637,10 +2778,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_sheet_feature_resources.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2674,10 +2817,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_sheet_healing_resource_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2711,10 +2856,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_sheet_hit_point_maximum.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2748,10 +2895,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_sheet_hp_rest_hit_dice.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2785,10 +2934,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2822,10 +2973,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2859,10 +3012,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/creature_attack_mbt.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2896,10 +3051,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/rule_core_attack_damage_disposition.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2933,10 +3090,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -2970,10 +3129,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -3007,10 +3168,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -3044,10 +3207,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -3081,10 +3246,12 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     },
     {
       "path": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+      "adapterScope": "legacy-dirty-adapter-quarantine-only; not touched or replayed by RRCONV-19B",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
@@ -3118,26 +3285,20 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json"
-      ]
+      ],
+      "targetReplayEvidenceUse": "validator-required adapter quarantine reference only; not a replay-coverage claim for this adapter"
     }
   ],
   "expectedNextReuse": [
-    "Battle observers and QNT adapters consume BattleActDiscoveryResult instead of treating discovery as a local raw-vector replay helper."
+    "Battle observers and QNT adapters consume BattleActDiscoveryResult instead of treating discovery as a local raw-vector replay helper.",
+    "adapterModules includes legacy dirty adapter quarantine rows required by the local harness scanner; RRCONV-19B target replay coverage is claimed only for src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs."
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
         "BattleActDiscoveryResult",
-        "BattleSetup",
-        "BattleStartResult",
         "discover_battle_acts",
-        "discover_battle_acts_observed",
-        "resolve_battle_subject",
-        "start_battle",
-        "start_battle_observed",
-        "start_skeleton_battle",
-        "start_standard_battle",
-        "start_stat_block_actor_battle"
+        "discover_battle_acts_observed"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
       "role": "domain-engine"

@@ -407,7 +407,7 @@
         },
         "engineDepth": {
           "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "a9988b97370d0b4a2d93bdcf08e07b70d233e60ccbb6c9176af7598a0de48831"
+          "sha256": "c67945ab79ef75477a6a78f95875b81918577c49e56d8da66cbf4f0457ecedd1"
         },
         "stateOwnerManifest": {
           "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/STATE_OWNER_MANIFEST.json",
