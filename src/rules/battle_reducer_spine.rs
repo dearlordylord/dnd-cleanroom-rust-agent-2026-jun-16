@@ -1864,6 +1864,7 @@ pub fn command_ordering_projection_from_battle(state: &BattleState) -> CommandOr
         BattleCommandEffectProcedure::Inactive => command_ordering_initial_state(),
         BattleCommandEffectProcedure::Active(subject) => {
             let target = command_target_combatant(state, subject);
+            let current_actor = command_current_turn_actor_from_subject(state, subject);
             command_ordering_projection(CommandOrderingProjectionFacts {
                 stage: subject.stage,
                 runtime_result: command_runtime_result_from_subject(subject),
@@ -1873,7 +1874,7 @@ pub fn command_ordering_projection_from_battle(state: &BattleState) -> CommandOr
                 dropped_object_count: subject.dropped_object_count,
                 halt_suppressed: subject.halt_suppressed,
                 movement_spent_feet: target.map_or(0, |combatant| combatant.movement_spent_feet),
-                current_actor: command_actor_for_battle_actor(current_actor(state)),
+                current_actor,
                 reaction_window_open: command_reaction_window_open(state),
             })
         }
@@ -1888,9 +1889,10 @@ pub fn command_next_turn_projection_from_battle(
         return command_next_turn_initial_state();
     };
     let target = command_target_combatant(state, subject);
+    let current_actor = command_current_turn_actor_from_subject(state, subject);
     crate::rules::command_options::CommandNextTurnState {
         scenario: subject.scenario,
-        protocol: command_next_turn_protocol_from_battle(state, subject),
+        protocol: command_next_turn_protocol_from_battle(state, subject, current_actor),
         target_prone: target.is_some_and(|combatant| combatant.prone),
         target_effect_count: if subject.pending_option.is_some() {
             1
@@ -1900,7 +1902,7 @@ pub fn command_next_turn_projection_from_battle(
         action_available: state.action_available,
         bonus_action_available: state.bonus_action_available,
         movement_spent_feet: target.map_or(0, |combatant| combatant.movement_spent_feet),
-        current_actor: command_actor_for_battle_actor(current_actor(state)),
+        current_actor,
         pending_option: subject.pending_option,
         dropped_object_count: subject.dropped_object_count,
         reaction_window_open: command_reaction_window_open(state),
@@ -2313,6 +2315,17 @@ fn active_command_subject(state: &BattleState) -> Option<BattleCommandEffectSubj
     }
 }
 
+#[must_use]
+pub fn active_command_battle_subject(state: &BattleState) -> Option<BattleSubject> {
+    active_command_subject(state).map(|subject| {
+        diagnostic_subject(
+            BattleSubjectKind::CommandSpell,
+            subject.actor,
+            subject.target,
+        )
+    })
+}
+
 fn command_runtime_result_from_subject(
     subject: BattleCommandEffectSubject,
 ) -> CommandOrderingRuntimeResult {
@@ -2329,8 +2342,9 @@ fn command_runtime_result_from_subject(
 fn command_next_turn_protocol_from_battle(
     state: &BattleState,
     subject: BattleCommandEffectSubject,
+    current_actor: Option<CommandTurnActor>,
 ) -> CommandNextTurnProtocol {
-    if subject.last_ordering_error.is_some() {
+    if subject.last_ordering_error.is_some() || current_actor.is_none() {
         return CommandNextTurnProtocol::Invalid(CommandNextTurnInvalidReason::InvalidFill);
     }
     if command_reaction_window_open(state) {
@@ -2364,10 +2378,17 @@ const fn battle_actor_for_command_actor(actor: CommandTurnActor) -> Actor {
     }
 }
 
-const fn command_actor_for_battle_actor(actor: Actor) -> CommandTurnActor {
-    match actor {
-        Actor::Goblin => CommandTurnActor::Target,
-        Actor::Fighter | Actor::Rogue | Actor::Skeleton => CommandTurnActor::Caster,
+fn command_current_turn_actor_from_subject(
+    state: &BattleState,
+    active: BattleCommandEffectSubject,
+) -> Option<CommandTurnActor> {
+    let actor = current_actor(state);
+    if actor == active.actor {
+        Some(CommandTurnActor::Caster)
+    } else if Some(actor) == active.target {
+        Some(CommandTurnActor::Target)
+    } else {
+        None
     }
 }
 

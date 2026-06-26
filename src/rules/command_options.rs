@@ -54,7 +54,7 @@ pub struct CommandNextTurnState {
     pub action_available: bool,
     pub bonus_action_available: bool,
     pub movement_spent_feet: i16,
-    pub current_actor: CommandTurnActor,
+    pub current_actor: Option<CommandTurnActor>,
     pub pending_option: Option<CommandNextTurnOption>,
     pub dropped_object_count: i16,
     pub reaction_window_open: bool,
@@ -71,7 +71,7 @@ pub fn command_next_turn_initial_state() -> CommandNextTurnState {
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: 0,
-        current_actor: CommandTurnActor::Caster,
+        current_actor: Some(CommandTurnActor::Caster),
         pending_option: None,
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -94,7 +94,7 @@ pub fn record_command_failed_save_pending(
         action_available: false,
         bonus_action_available: true,
         movement_spent_feet: 0,
-        current_actor: CommandTurnActor::Caster,
+        current_actor: Some(CommandTurnActor::Caster),
         pending_option: Some(option),
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -112,7 +112,7 @@ pub fn follow_command_grovel(_state: CommandNextTurnState) -> CommandNextTurnSta
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: 0,
-        current_actor: CommandTurnActor::Caster,
+        current_actor: Some(CommandTurnActor::Caster),
         pending_option: None,
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -133,7 +133,7 @@ pub fn follow_command_drop(
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: 0,
-        current_actor: CommandTurnActor::Caster,
+        current_actor: Some(CommandTurnActor::Caster),
         pending_option: None,
         dropped_object_count: dropped_object_count.max(0),
         reaction_window_open: false,
@@ -154,7 +154,7 @@ pub fn suppress_command_halt(
         action_available: false,
         bonus_action_available: false,
         movement_spent_feet: movement_spent_feet.max(0),
-        current_actor: CommandTurnActor::Target,
+        current_actor: Some(CommandTurnActor::Target),
         pending_option: Some(CommandNextTurnOption::Halt),
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -172,7 +172,7 @@ pub fn cleanup_command_halt_turn(_state: CommandNextTurnState) -> CommandNextTur
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: 30,
-        current_actor: CommandTurnActor::Caster,
+        current_actor: Some(CommandTurnActor::Caster),
         pending_option: None,
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -193,7 +193,7 @@ pub fn continue_command_approach(
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: movement_spent_feet.max(0),
-        current_actor: CommandTurnActor::Target,
+        current_actor: Some(CommandTurnActor::Target),
         pending_option: None,
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -206,7 +206,7 @@ pub fn end_command_approach_within_five_feet(
     mut state: CommandNextTurnState,
 ) -> CommandNextTurnState {
     state.scenario = CommandNextTurnScenario::ApproachWithinFiveEndsTurn;
-    state.current_actor = CommandTurnActor::Caster;
+    state.current_actor = Some(CommandTurnActor::Caster);
     state.protocol = CommandNextTurnProtocol::Resolved;
     state
 }
@@ -221,7 +221,7 @@ pub fn reject_command_approach_movement(_state: CommandNextTurnState) -> Command
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: 0,
-        current_actor: CommandTurnActor::Target,
+        current_actor: Some(CommandTurnActor::Target),
         pending_option: Some(CommandNextTurnOption::Approach),
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -239,7 +239,7 @@ pub fn cleanup_command_approach_no_movement(_state: CommandNextTurnState) -> Com
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: 0,
-        current_actor: CommandTurnActor::Target,
+        current_actor: Some(CommandTurnActor::Target),
         pending_option: None,
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -260,7 +260,7 @@ pub fn resolve_command_flee_full_movement(
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: movement_spent_feet.max(0),
-        current_actor: CommandTurnActor::Caster,
+        current_actor: Some(CommandTurnActor::Caster),
         pending_option: None,
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -278,7 +278,7 @@ pub fn reject_command_flee_partial_movement(_state: CommandNextTurnState) -> Com
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: 0,
-        current_actor: CommandTurnActor::Target,
+        current_actor: Some(CommandTurnActor::Target),
         pending_option: Some(CommandNextTurnOption::Flee),
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -296,7 +296,7 @@ pub fn cleanup_command_flee_no_movement(_state: CommandNextTurnState) -> Command
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: 0,
-        current_actor: CommandTurnActor::Caster,
+        current_actor: Some(CommandTurnActor::Caster),
         pending_option: None,
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -318,7 +318,7 @@ pub fn open_command_flee_opportunity_attack_window(
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: 0,
-        current_actor: CommandTurnActor::Target,
+        current_actor: Some(CommandTurnActor::Target),
         pending_option: Some(CommandNextTurnOption::Flee),
         dropped_object_count: 0,
         reaction_window_open: true,
@@ -339,7 +339,7 @@ pub fn decline_command_flee_opportunity_attack(
         action_available: true,
         bonus_action_available: true,
         movement_spent_feet: movement_spent_feet.max(0),
-        current_actor: CommandTurnActor::Caster,
+        current_actor: Some(CommandTurnActor::Caster),
         pending_option: None,
         dropped_object_count: 0,
         reaction_window_open: false,
@@ -424,7 +424,7 @@ pub struct CommandOrderingState {
     pub dropped_object_count: i16,
     pub halt_suppressed: bool,
     pub movement_spent_feet: i16,
-    pub current_actor: CommandTurnActor,
+    pub current_actor: Option<CommandTurnActor>,
     pub reaction_window_open: bool,
 }
 
@@ -450,7 +450,7 @@ pub fn command_ordering_initial_state() -> CommandOrderingState {
         dropped_object_count: 0,
         halt_suppressed: false,
         movement_spent_feet: 0,
-        current_actor: CommandTurnActor::Caster,
+        current_actor: Some(CommandTurnActor::Caster),
         reaction_window_open: false,
     })
 }
@@ -580,12 +580,14 @@ pub fn command_fill_order_result(
             CommandFillOrderResult::NotOrderingError(CommandFrontierStage::DropHeldObjectFacts)
         }
         CommandFrontierStage::ApproachMovement => {
-            if facts.fill_kind == CommandFillKind::Movement {
+            if facts.fill_kind == CommandFillKind::Movement && facts.movement_available {
                 CommandFillOrderResult::Accepted(command_after_movement_stage(
                     facts.option,
                     facts.moved_within_five_feet_of_caster,
                     facts.opened_opportunity_attack,
                 ))
+            } else if facts.fill_kind == CommandFillKind::Movement {
+                CommandFillOrderResult::Rejected(CommandFillOrderingError::MovementRequired)
             } else {
                 CommandFillOrderResult::NotOrderingError(CommandFrontierStage::ApproachMovement)
             }
@@ -666,16 +668,21 @@ pub struct CommandOrderingProjectionFacts {
     pub dropped_object_count: i16,
     pub halt_suppressed: bool,
     pub movement_spent_feet: i16,
-    pub current_actor: CommandTurnActor,
+    pub current_actor: Option<CommandTurnActor>,
     pub reaction_window_open: bool,
 }
 
 #[must_use]
 pub fn command_ordering_projection(facts: CommandOrderingProjectionFacts) -> CommandOrderingState {
     let holes = command_hole_frontier(facts.stage);
+    let runtime_result = if facts.current_actor.is_some() {
+        facts.runtime_result
+    } else {
+        CommandOrderingRuntimeResult::Invalid
+    };
     CommandOrderingState {
         stage: facts.stage,
-        protocol: command_ordering_protocol(holes, facts.runtime_result),
+        protocol: command_ordering_protocol(holes, runtime_result),
         table_fact_frontier_open: command_hole_frontier_includes_table_facts(facts.stage),
         last_ordering_error: facts.last_ordering_error,
         pending_option: facts.pending_option,

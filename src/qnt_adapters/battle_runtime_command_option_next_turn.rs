@@ -1,7 +1,8 @@
 use crate::rules::battle_reducer_spine::{
-    discover_battle_acts, resolve_battle_subject, start_standard_battle, Actor,
-    BattleCommandEffectFill, BattleResolutionRequest, BattleState, BattleSubject,
-    BattleSubjectKind, CommandPendingOptionCleanup, CommandPendingOptionFollow,
+    active_command_battle_subject, discover_battle_acts, resolve_battle_subject,
+    start_standard_battle, Actor, BattleCommandEffectFill, BattleResolutionInvalidReason,
+    BattleResolutionRequest, BattleState, BattleSubject, BattleSubjectKind,
+    CommandPendingOptionCleanup, CommandPendingOptionFollow,
 };
 use crate::rules::command_options::{
     cleanup_command_approach_no_movement, cleanup_command_flee_no_movement,
@@ -17,9 +18,12 @@ use crate::rules::command_options::{
 
 use super::battle_runtime_reducer_route::{
     battle_resolution_continuation, route_discover_battle_acts,
-    route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
-    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
-    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
+    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_result,
+    route_resolve_battle_subject_from_route_result,
+    route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
+    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteResolveConnector, ReducerRouteResolveFill,
+    ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -249,122 +253,221 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
 
 fn expected_command_option_next_turn_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
-        "doFailedSaveRecordsPending" => command_route_from_start(
-            BattleCommandEffectFill::SavingThrowOutcome {
-                option: CommandNextTurnOption::Grovel,
-                failed: true,
-                movement_available: false,
-                held_object_facts_required: false,
-            },
-            ReducerRouteResolveFill::Fill(ReducerRouteFillKind::SavingThrowOutcome),
-            ReducerRouteOwnerGroup::ActiveEffect,
-        ),
-        "doFollowGrovel" => command_follow_route_from_failed_save(
+        "doFailedSaveRecordsPending" => {
+            let mut route = expected_command_discovery_route();
+            route.push(expected_command_fill(
+                ReducerRouteFillKind::SavingThrowOutcome,
+                ReducerRouteResolutionOutcome::NeedsHoles,
+                vec![ReducerRouteHoleKind::SpellTargetList],
+                ReducerRouteOwnerGroup::ActiveEffect,
+            ));
+            route
+        }
+        "doFollowGrovel" => expected_command_follow_route_from_failed_save(
             CommandNextTurnOption::Grovel,
-            BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Grovel),
-            ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::ConditionLifecycle,
         ),
-        "doFollowDrop" => command_follow_route_from_failed_save(
+        "doFollowDrop" => expected_command_follow_route_from_failed_save(
             CommandNextTurnOption::Drop,
-            BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Drop {
-                dropped_object_count: 1,
-            }),
-            ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
-        "doHaltSuppresses" => command_follow_route_from_failed_save(
+        "doHaltSuppresses" => expected_command_follow_route_from_failed_save(
             CommandNextTurnOption::Halt,
-            BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Halt {
-                movement_spent_feet: 30,
-            }),
-            ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
-        "doHaltEndTurnCleanup" => command_route_from_start(
-            BattleCommandEffectFill::CleanupPendingOption(CommandPendingOptionCleanup::Halt),
-            ReducerRouteResolveFill::WithoutFill,
+        "doHaltEndTurnCleanup" => expected_command_without_fill_from_start(
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
-        "doApproachContinues" => command_follow_route_from_failed_save(
+        "doApproachContinues" => expected_command_follow_route_from_failed_save(
             CommandNextTurnOption::Approach,
-            BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Approach {
-                movement_spent_feet: 10,
-            }),
-            ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::MovementResource,
         ),
-        "doApproachWithinFiveEndsTurn" => command_movement_route_from_failed_save(
+        "doApproachWithinFiveEndsTurn" => expected_command_movement_route_from_failed_save(
             CommandNextTurnOption::Approach,
-            true,
-            true,
-            false,
-            10,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
             ReducerRouteOwnerGroup::MovementResource,
         ),
-        "doApproachMovementRejected" => command_movement_route_from_failed_save(
+        "doApproachMovementRejected" => expected_command_movement_route_from_failed_save(
             CommandNextTurnOption::Approach,
-            false,
-            false,
-            false,
-            0,
+            ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill),
+            vec![ReducerRouteHoleKind::Movement],
             ReducerRouteOwnerGroup::HoleFrontier,
         ),
-        "doApproachNoMovementCleanup" => command_route_from_start(
-            BattleCommandEffectFill::CleanupPendingOption(
-                CommandPendingOptionCleanup::ApproachNoMovement,
-            ),
-            ReducerRouteResolveFill::WithoutFill,
+        "doApproachNoMovementCleanup" => expected_command_without_fill_from_start(
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
             ReducerRouteOwnerGroup::MovementResource,
         ),
-        "doFleeFullMovementEndsTurn" => command_follow_route_from_failed_save(
+        "doFleeFullMovementEndsTurn" => expected_command_follow_route_from_failed_save(
             CommandNextTurnOption::Flee,
-            BattleCommandEffectFill::FollowPendingOption(CommandPendingOptionFollow::Flee {
-                movement_spent_feet: 30,
-            }),
-            ReducerRouteResolveFill::WithoutFill,
             ReducerRouteOwnerGroup::MovementResource,
         ),
-        "doFleePartialMovementRejected" => command_movement_route_from_failed_save(
+        "doFleePartialMovementRejected" => expected_command_movement_route_from_failed_save(
             CommandNextTurnOption::Flee,
-            false,
-            false,
-            false,
-            0,
+            ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill),
+            vec![ReducerRouteHoleKind::Movement],
             ReducerRouteOwnerGroup::HoleFrontier,
         ),
-        "doFleeNoMovementCleanup" => command_route_from_start(
-            BattleCommandEffectFill::CleanupPendingOption(
-                CommandPendingOptionCleanup::FleeNoMovement,
-            ),
-            ReducerRouteResolveFill::WithoutFill,
+        "doFleeNoMovementCleanup" => expected_command_without_fill_from_start(
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
             ReducerRouteOwnerGroup::MovementResource,
         ),
-        "doFleeOpportunityAttackWindow" => command_movement_route_from_failed_save(
+        "doFleeOpportunityAttackWindow" => expected_command_movement_route_from_failed_save(
             CommandNextTurnOption::Flee,
-            true,
-            false,
-            true,
-            0,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
             ReducerRouteOwnerGroup::InterruptStack,
         ),
-        "doFleeOpportunityAttackDeclinedContinuation" => command_follow_route_from_failed_save(
-            CommandNextTurnOption::Flee,
-            BattleCommandEffectFill::FollowPendingOption(
-                CommandPendingOptionFollow::FleeOpportunityAttackDeclined {
-                    movement_spent_feet: 30,
-                },
-            ),
-            ReducerRouteResolveFill::WithoutFill,
-            ReducerRouteOwnerGroup::MovementResource,
-        ),
-        "doComplete" => command_route_from_start(
-            BattleCommandEffectFill::Complete,
-            ReducerRouteResolveFill::WithoutFill,
+        "doFleeOpportunityAttackDeclinedContinuation" => {
+            expected_command_follow_route_from_failed_save(
+                CommandNextTurnOption::Flee,
+                ReducerRouteOwnerGroup::MovementResource,
+            )
+        }
+        "doComplete" => expected_command_without_fill_from_start(
+            ReducerRouteResolutionOutcome::NeedsHoles,
+            vec![
+                ReducerRouteHoleKind::CommandOptionChoice,
+                ReducerRouteHoleKind::SpellTargetList,
+            ],
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
+}
+
+fn expected_command_follow_route_from_failed_save(
+    option: CommandNextTurnOption,
+    owner: ReducerRouteOwnerGroup,
+) -> Vec<ReducerRouteEvent> {
+    let mut route = expected_command_failed_save_route(option);
+    let (outcome, holes) = match option {
+        CommandNextTurnOption::Drop
+        | CommandNextTurnOption::Grovel
+        | CommandNextTurnOption::Halt => (
+            ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::StaleSubject),
+            Vec::new(),
+        ),
+        CommandNextTurnOption::Approach | CommandNextTurnOption::Flee => {
+            (ReducerRouteResolutionOutcome::Resolved, Vec::new())
+        }
+    };
+    route.push(expected_command_without_fill(outcome, holes, owner));
+    route
+}
+
+fn expected_command_movement_route_from_failed_save(
+    option: CommandNextTurnOption,
+    outcome: ReducerRouteResolutionOutcome,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> Vec<ReducerRouteEvent> {
+    let mut route = expected_command_failed_save_route(option);
+    route.push(expected_command_fill(
+        ReducerRouteFillKind::Movement,
+        outcome,
+        holes,
+        owner,
+    ));
+    route
+}
+
+fn expected_command_failed_save_route(option: CommandNextTurnOption) -> Vec<ReducerRouteEvent> {
+    let mut route = expected_command_option_choice_route();
+    let (outcome, holes) = match option {
+        CommandNextTurnOption::Approach | CommandNextTurnOption::Flee => (
+            ReducerRouteResolutionOutcome::NeedsHoles,
+            vec![ReducerRouteHoleKind::Movement],
+        ),
+        CommandNextTurnOption::Drop
+        | CommandNextTurnOption::Grovel
+        | CommandNextTurnOption::Halt => (ReducerRouteResolutionOutcome::Resolved, Vec::new()),
+    };
+    route.push(expected_command_fill(
+        ReducerRouteFillKind::SavingThrowOutcome,
+        outcome,
+        holes,
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route
+}
+
+fn expected_command_option_choice_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_command_target_list_route();
+    route.push(expected_command_fill(
+        ReducerRouteFillKind::CommandOptionChoice,
+        ReducerRouteResolutionOutcome::NeedsHoles,
+        vec![ReducerRouteHoleKind::SavingThrowOutcome],
+        ReducerRouteOwnerGroup::HoleFrontier,
+    ));
+    route
+}
+
+fn expected_command_target_list_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_command_discovery_route();
+    route.push(expected_command_fill(
+        ReducerRouteFillKind::SpellTargetList,
+        ReducerRouteResolutionOutcome::NeedsHoles,
+        vec![ReducerRouteHoleKind::CommandOptionChoice],
+        ReducerRouteOwnerGroup::HoleFrontier,
+    ));
+    route
+}
+
+fn expected_command_without_fill_from_start(
+    outcome: ReducerRouteResolutionOutcome,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> Vec<ReducerRouteEvent> {
+    let mut route = expected_command_discovery_route();
+    route.push(expected_command_without_fill(outcome, holes, owner));
+    route
+}
+
+fn expected_command_discovery_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::CommandSpell,
+            vec![
+                ReducerRouteHoleKind::CommandOptionChoice,
+                ReducerRouteHoleKind::SpellTargetList,
+            ],
+            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        ),
+    ]
+}
+
+fn expected_command_fill(
+    fill: ReducerRouteFillKind,
+    outcome: ReducerRouteResolutionOutcome,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_from_route_result(
+        ReducerRouteSubjectFamily::CommandSpell,
+        fill,
+        outcome,
+        holes,
+        owner,
+    )
+}
+
+fn expected_command_without_fill(
+    outcome: ReducerRouteResolutionOutcome,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_without_fill_from_route_result(
+        ReducerRouteSubjectFamily::CommandSpell,
+        outcome,
+        holes,
+        owner,
+    )
 }
 
 fn command_route_from_start(
@@ -496,13 +599,7 @@ fn command_after_failed_save_route(
         }
         None => {
             let state = save_result.into_state();
-            let subject = BattleSubject {
-                kind: BattleSubjectKind::CommandSpell,
-                actor: Actor::Fighter,
-                target: Some(Actor::Goblin),
-                stage: crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage::Resolved,
-                damage_modifier: 0,
-            };
+            let subject = command_subject_from_active_state(&state, "command failed save");
             (state, subject, route)
         }
     }
@@ -541,13 +638,12 @@ fn command_subject(state: &BattleState) -> BattleSubject {
         .iter()
         .map(|act| act.subject)
         .find(|subject| subject.kind == BattleSubjectKind::CommandSpell)
-        .unwrap_or(BattleSubject {
-            kind: BattleSubjectKind::CommandSpell,
-            actor: Actor::Fighter,
-            target: None,
-            stage: crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage::Resolved,
-            damage_modifier: 0,
-        })
+        .expect("command subject should be discoverable from standard battle")
+}
+
+fn command_subject_from_active_state(state: &BattleState, context: &str) -> BattleSubject {
+    active_command_battle_subject(state)
+        .unwrap_or_else(|| panic!("{context} should leave an active command subject in state"))
 }
 
 fn failed_save(option: CommandNextTurnOption) -> CommandNextTurnState {
@@ -652,10 +748,11 @@ fn invalid_reason_ref(protocol: CommandNextTurnProtocol) -> &'static str {
     }
 }
 
-fn actor_ref(actor: CommandTurnActor) -> &'static str {
+fn actor_ref(actor: Option<CommandTurnActor>) -> &'static str {
     match actor {
-        CommandTurnActor::Caster => "Fighter",
-        CommandTurnActor::Target => "Goblin",
+        Some(CommandTurnActor::Caster) => "Fighter",
+        Some(CommandTurnActor::Target) => "Goblin",
+        None => "none",
     }
 }
 

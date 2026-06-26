@@ -1038,7 +1038,7 @@ fn projection(
         dropped_object_count,
         halt_suppressed,
         movement_spent_feet,
-        current_actor,
+        current_actor: Some(current_actor),
         reaction_window_open,
     })
 }
@@ -1125,10 +1125,11 @@ fn option_ref(option: Option<CommandNextTurnOption>) -> &'static str {
     }
 }
 
-fn actor_ref(actor: CommandTurnActor) -> &'static str {
+fn actor_ref(actor: Option<CommandTurnActor>) -> &'static str {
     match actor {
-        CommandTurnActor::Caster => "Caster",
-        CommandTurnActor::Target => "Target",
+        Some(CommandTurnActor::Caster) => "Caster",
+        Some(CommandTurnActor::Target) => "Target",
+        None => "none",
     }
 }
 

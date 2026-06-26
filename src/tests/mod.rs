@@ -2155,7 +2155,7 @@ fn command_options_project_next_turn_effects_and_cleanup() {
     assert!(!halt.action_available);
     assert!(!halt.bonus_action_available);
     assert!(halt.halt_suppressed);
-    assert_eq!(halt_cleanup.current_actor, CommandTurnActor::Caster);
+    assert_eq!(halt_cleanup.current_actor, Some(CommandTurnActor::Caster));
     assert!(!halt_cleanup.halt_suppressed);
 
     assert_eq!(
@@ -2174,7 +2174,7 @@ fn command_options_project_next_turn_effects_and_cleanup() {
     assert!(flee_window.reaction_window_open);
     assert_eq!(flee_continues.movement_spent_feet, 30);
     assert!(!flee_continues.reaction_window_open);
-    assert_eq!(flee_continues.current_actor, CommandTurnActor::Caster);
+    assert_eq!(flee_continues.current_actor, Some(CommandTurnActor::Caster));
 }
 
 #[test]
