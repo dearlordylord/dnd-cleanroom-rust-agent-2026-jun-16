@@ -1,7 +1,8 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts, resolve_battle_subject, start_skeleton_actor_turn, start_skeleton_battle,
     stat_block_multiattack_dispatches_available, Actor, AttackRollFacts, BattleFill,
-    BattleResolutionInvalidReason, BattleResolutionResult, BattleSubject,
+    BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionResult, BattleSubject,
+    BattleSubjectKind,
 };
 use crate::rules::weapon_attack_skeleton::{
     discover_skeleton_weapon_attack, fill_skeleton_weapon_attack_roll_hit,
@@ -181,7 +182,9 @@ fn discovered_weapon_attack_act(
 ) -> crate::rules::battle_reducer_spine::AvailableBattleAct {
     discover_battle_acts(state)
         .into_iter()
-        .find(|act| act.subject.actor == Actor::Rogue)
+        .find(|act| {
+            act.subject.kind == BattleSubjectKind::WeaponAttack && act.subject.actor == Actor::Rogue
+        })
         .expect("QNT skeleton initial state should discover one Rogue weapon attack")
 }
 
@@ -248,7 +251,7 @@ fn invalid_parts(
 ) -> (
     crate::rules::battle_reducer_spine::BattleState,
     BattleResolutionInvalidReason,
-    Vec<crate::rules::weapon_attack_ordering::WeaponAttackHoleKind>,
+    Vec<BattleHoleKind>,
 ) {
     match result {
         BattleResolutionResult::Invalid {
@@ -274,20 +277,21 @@ fn projection_from_spine(
     }
 }
 
-fn holes_from_spine(
-    holes: &[crate::rules::weapon_attack_ordering::WeaponAttackHoleKind],
-) -> Vec<WeaponAttackSkeletonHole> {
+fn holes_from_spine(holes: &[BattleHoleKind]) -> Vec<WeaponAttackSkeletonHole> {
     holes
         .iter()
         .map(|hole| match hole {
-            crate::rules::weapon_attack_ordering::WeaponAttackHoleKind::TargetChoice => {
-                WeaponAttackSkeletonHole::TargetChoice
-            }
-            crate::rules::weapon_attack_ordering::WeaponAttackHoleKind::AttackRoll => {
-                WeaponAttackSkeletonHole::AttackRoll
-            }
-            crate::rules::weapon_attack_ordering::WeaponAttackHoleKind::RolledDice => {
-                WeaponAttackSkeletonHole::DamageRoll
+            BattleHoleKind::TargetChoice => WeaponAttackSkeletonHole::TargetChoice,
+            BattleHoleKind::AttackRoll => WeaponAttackSkeletonHole::AttackRoll,
+            BattleHoleKind::RolledDice => WeaponAttackSkeletonHole::DamageRoll,
+            BattleHoleKind::SpellTargetAllocation
+            | BattleHoleKind::SpellTargetList
+            | BattleHoleKind::ConditionChoice
+            | BattleHoleKind::SavingThrowOutcome
+            | BattleHoleKind::HitPointHealingDistribution
+            | BattleHoleKind::DeathSavingThrow
+            | BattleHoleKind::ConcentrationSavingThrow => {
+                panic!("weapon projection received non-weapon reducer hole {hole:?}")
             }
         })
         .collect()

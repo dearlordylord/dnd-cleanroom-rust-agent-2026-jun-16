@@ -8,10 +8,10 @@
     "output": ""
   },
   "taskScope": {
-    "assignmentId": "level-1-2-full",
-    "laneId": "creation",
+    "assignmentId": "reducer-spine-diagnostic-battle",
+    "laneId": "battle",
     "selectedDrivers": [
-      "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt"
     ]
   }
 }

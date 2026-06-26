@@ -1,98 +1,122 @@
 # Dirty Rehearsal Status
 
-This repo has been refreshed from the source cleanroom corpus for all five
-`level-1-2-full` lanes.
+This repo is being used as the dirty reducer-spine rehearsal target. It is not
+a clean evidentiary run: the worktree had prior implementation and replay
+evidence before this batch, and the historical ledger/artifact model remains
+incomplete.
 
-- Source commit SHA: `829aee6441d76a921c9d9c14a0d0221062975334`
-- Source branch inventory SHA: `0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248`
-- Active queue: 96 drivers, 684 replayable in-scope branch obligations
-- Existing Rust adapters/evidence before refresh: 74 drivers
-- Current handoff evidence: 5 drivers, 26 replayable in-scope branch obligations
-- Current evidence status: partial; handoff evidence now references source commit `829aee6441d76a921c9d9c14a0d0221062975334`, while 73 non-handoff existing evidence files still reference source commit `04249edf345a7752de2f1551dd3d509a2fffc160`
-- Artifact-model status: stale; this repo has rolling latest artifacts only, with no `tasks/RUN_LEDGER.json` or `tasks/history/<taskId>/*.json`
+- Current manifest source commit SHA: `0e024f089687526c6bc4b9e6f9c7e640414f6486`
+- Current source branch inventory SHA: `47b0589f442c0aaff2a814c19384fcaed7a6dbe3e7a78b5d0df8b011f56e7eae`
+- Current reducer-route inventory SHA: `f19710f4cbc4d09208d38568c04375f0df4e2a738bbadc76c19f0f7161ffd733`
+- Source guidance commits used:
+  - `80fd9f9b1a65ebd18142fd62ac920af6f914fc3b` reducer-spine routing package
+  - `0a9f139b2af181db3bdfb1879b92b7d2fb942ffd` identity-dispatch boundary guidance
+  - `665a9b4ad3cc11c8c16f92126b2a2567355cbcc9` QNT reducer-route connectors
+  - `0e024f089687526c6bc4b9e6f9c7e640414f6486` level-5 reducer-route package
+- Active assignment: `reducer-spine-diagnostic-battle`
+- Diagnostic queue length: 5 drivers
 
-## Lane Accounting
+## Reducer-Spine Diagnostic Queue
 
-| Lane | Active Drivers | Newly Active Drivers | Newly Active Obligations |
-| --- | ---: | ---: | ---: |
-| creation | 8 | 3 | 15 |
-| sheet | 10 | 3 | 14 |
-| handoff | 5 | 4 | 24 |
-| battle | 64 | 9 | 52 |
-| rules-core | 9 | 3 | 73 |
-| total | 96 | 22 | 178 |
+| Order | Driver | Current dirty-target status |
+| ---: | --- | --- |
+| 1 | `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt` | Observed adapter replay matches `battle-runtime-magic-missile.route.mbt.qnt` route events through `discover_battle_acts` and `resolve_battle_subject` with battle-owned slot-spell state. |
+| 2 | `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt` | Observed adapter replay matches `battle-runtime-save-gated-spell-ordering.route.mbt.qnt` route events for area damage and target-list/condition paths through the shared reducer. |
+| 3 | `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt` | Observed adapter replay matches `battle-runtime-hit-point-restoration-ordering.route.mbt.qnt` route events for single-target spell, target-list spell, and feature healing pool through the shared reducer. |
+| 4 | `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt` | Observed adapter replay now matches `battle-runtime-death-saving-throw.route.mbt.qnt` route events through `discover_battle_acts` and `resolve_battle_subject` with battle-owned Hit Point, Stable, Dead, and death-save counter state. |
+| 5 | `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt` | Observed adapter replay now matches `battle-runtime-concentration-break-teardown.route.mbt.qnt` route events through `discover_battle_acts`, fill-less subject resolution, damage-save request, and saving-throw fill using a battle-owned Concentration owner. |
 
-## Newly Active Driver Work
+The earlier "three additional focused battle drivers" threshold was a success
+criterion from the source plan, not the count of available drivers. The current
+reducer-spine diagnostic queue has five drivers. The broader level-1/2 battle
+lane has 65 battle drivers in `tasks/ACTIVE_WORK.json`.
 
-| Lane | Driver | Replayable obligations |
-| --- | --- | ---: |
-| creation | `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt` | 11 |
-| creation | `cleanroom-input/qnt/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt` | 1 |
-| creation | `cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt` | 3 |
-| sheet | `cleanroom-input/qnt/character-sheet-runtime/character-sheet-arcane-recovery-selected-identity.mbt.qnt` | 2 |
-| sheet | `cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt` | 3 |
-| sheet | `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt` | 9 |
-| handoff | `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt` | 3 |
-| handoff | `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt` | 7 |
-| handoff | `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt` | 9 |
-| handoff | `cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt` | 5 |
-| battle | `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` | 9 |
-| battle | `cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt` | 22 |
-| battle | `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt` | 4 |
-| battle | `cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt` | 4 |
-| battle | `cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt` | 4 |
-| battle | `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt` | 1 |
-| battle | `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` | 2 |
-| battle | `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt` | 3 |
-| battle | `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt` | 3 |
-| rules-core | `cleanroom-input/qnt/battle-runtime/rule-core-ability-skill-command.mbt.qnt` | 31 |
-| rules-core | `cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt` | 18 |
-| rules-core | `cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt` | 24 |
+## Boundary Correction
 
-## Current Handoff Replays
+The copied guidance now records the cleanroom rule that reading unapproved
+source code and dispatching production reducer behavior on authored or fixture
+identity are the same cleanroom-boundary violation class. Production reducer
+behavior must route by runtime shape, typed facts, capabilities, procedure
+state, and battle-owned state. Fixture names and QNT action names belong in
+adapters, tests, evidence, catalog/selection boundaries, or documented
+support-profile admission.
 
-The dirty rehearsal now has current-snapshot Rust adapters and replay evidence
-for every `level-1-2-handoff` driver:
+Target code was adjusted for the called-out stat-block helper family: the
+production reducer no longer exposes named-creature stat-block control helpers
+such as `start_goblin_multiattack_control`. The adapter supplies fixture actor
+handles and profile facts; production functions route on the current actor,
+combatant state, subject, and profile shape.
 
-| Driver | In-scope replay evidence |
-| --- | ---: |
-| `cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt` | 2 |
-| `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt` | 3 |
-| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt` | 7 |
-| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt` | 9 |
-| `cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt` | 5 |
+Remaining dirty-target identity debt still exists outside this focused
+correction, especially because this target's existing `Actor` enum and many
+older adapters use fixture names. That is not accepted as cleanroom evidence;
+it is tolerated here only because this is a dirty rehearsal target.
 
-Out-of-scope/transit actions remain present in the adapter modules only so the
-copied QNT driver shape is visible; they are not claimed as current replay
-evidence for the level-1/2 handoff lane.
+## State-Owner Notes
 
-## Reviewer Notes
-
-- Fixed: `apply_uncanny_metabolism` now takes the Long Rest use-state and
-  rejects repeat use through `ResourcePoolError::UncannyMetabolismAlreadyUsed`.
-- Fixed: handoff adapter tests replay every copied driver action, including
-  transit/out-of-scope actions, while replay evidence remains limited to
-  inventory in-scope obligations.
-- Rejected: Font of Magic helpers expose the SRD table for slots above level 2.
-  Reason: these helpers implement the copied shared rule-core QNT
-  `font-of-magic-resource.qnt`; level-1/2 scope is enforced at evidence
-  selection, not by narrowing the reusable rule helper.
+- `CombatantLifecycle::UsesDeathSavingThrows` owns the dirty target's
+  battle-owned zero-Hit-Point lifecycle facts for the Death Saving Throw
+  diagnostic route. Active death-save success/failure counts, Stable, and Dead
+  are separate variants, so stable-and-dead or stable-with-counter states cannot
+  be represented. Combatants with `DiesAtZeroHitPoints` cannot carry those
+  facts, and the zero-Hit-Point helper does not rewrite monster lifecycles.
+- `BattleState.save_gated_spell_procedure` is the dirty target's battle-owned
+  route owner for save-gated spell area-damage and target-list/condition-choice
+  ordering.
+- `BattleState.hit_point_restoration_procedure` is the dirty target's
+  battle-owned route owner for single-target spell restoration, target-list
+  spell restoration, and feature healing-pool ordering. Its stored subject uses
+  a mode-specific targeting variant so spell and feature targets cannot coexist.
+  Discovery and resolution both require a death-save-capable zero-Hit-Point
+  target; RAW-dead monsters with `DiesAtZeroHitPoints` are not ordinary
+  restoration targets.
+- `BattleState.concentration` is the dirty target's battle-owned Concentration
+  teardown owner for concentration cast, damage-save request, failed save,
+  voluntary end, and replacement Concentration paths.
+- Slot-spell, save-gated spell, Hit Point restoration, and Concentration
+  teardown diagnostic subjects now reject stale caller-supplied subjects when
+  the subject is no longer discoverable from the current state or, for
+  procedure-backed routes, no longer matches active procedure state.
+- The adapter-owned route vocabulary remains quarantined under
+  `src/qnt_adapters/battle_runtime_reducer_route.rs`.
 
 ## Verification
 
 - `cargo fmt --check` passed.
-- `cargo test` passed: 155 tests.
+- `cargo test stale_action_unavailable` passed: focused stale diagnostic subject
+  coverage now includes Concentration teardown `CastSpell` and
+  `CastReplacementSpell` when action availability is gone.
+- `cargo test concentration_break_teardown_adapter_replays_all_branches` passed:
+  valid Concentration teardown route subjects still replay through the
+  connector surface.
+- `cargo test adapter_replays_all_branches` passed: 70 filtered adapter tests with route checks for all five diagnostic drivers.
+- `cargo test` passed: 173 tests.
 - `cargo clippy --all-targets -- -D warnings` passed.
-- `node scripts/check-cleanroom-harness.cjs` failed as expected for this dirty partial refresh:
-  - missing `tasks/RUN_LEDGER.json`;
-  - no `tasks/history/<taskId>/*.json` artifact history;
-  - 73 non-handoff replay evidence files reference the previous source snapshot;
-  - newly active non-handoff drivers have no current Rust adapter/evidence yet.
+- `node scripts/check-cleanroom-harness.cjs` failed.
+
+Harness failure is repository-artifact debt, not a failing Rust reducer test.
+For manifest source SHA `0e024f089687526c6bc4b9e6f9c7e640414f6486`, the
+main blockers reported were:
+
+- missing `tasks/RUN_LEDGER.json`;
+- `tasks/LEVEL_1_2_SCOPE.md` mismatch with the source-owned snapshot;
+- stale or undeclared historical `tasks/target-replay-evidence/*.json`;
+- selected reducer-spine diagnostic evidence not current for manifest
+  `0e024f089687526c6bc4b9e6f9c7e640414f6486`;
+- broad pre-existing adapter quarantine/static-gate findings in older dirty
+  target files;
+- `tasks/VALIDATION_REPORT.md` missing current manifest/source-inventory rows
+  and selected reducer-spine-contract covered rows.
+
+Current branch coverage evidence JSON for the five routed drivers is still
+stale relative to the manifest. The passing adapter tests prove dirty target
+behavior through the copied route connector surfaces, but accepted cleanroom
+evidence still requires regenerated replay evidence, ledger entries, history
+artifacts, and validation report rows.
 
 ## Next Useful Step
 
-Do not fabricate ledger entries for the stale evidence. Either recover the old
-accepted task artifacts from git history and migrate them, or faster for this
-dirty experiment, revalidate current-snapshot evidence as each driver is touched.
-The handoff lane is the first current lane; the next useful cleanroom-usefulness
-step is to make the newly active battle drivers current.
+For this dirty rehearsal, the next useful source-planning step is to treat the
+five-driver route surface as proven by dirty target tests and decide whether
+Task 14 should require fresh evidence regeneration from a clean target rather
+than trying to repair this target's stale historical ledger.

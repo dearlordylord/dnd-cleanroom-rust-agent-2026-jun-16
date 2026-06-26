@@ -50,6 +50,8 @@ mod battle_runtime_quickened_spell_governor;
 mod battle_runtime_reaction_casting_time;
 #[path = "../qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs"]
 mod battle_runtime_reaction_spell_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_reducer_route.rs"]
+mod battle_runtime_reducer_route;
 #[path = "../qnt_adapters/battle_runtime_reducer_spine_contract.rs"]
 mod battle_runtime_reducer_spine_contract;
 #[path = "../qnt_adapters/battle_runtime_roll_modifier_active_effects.rs"]
@@ -593,9 +595,11 @@ use battle_runtime_command_ordering::{
     BRANCH_ACTIONS as COMMAND_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_concentration_break_teardown::{
+    expected_route as expected_concentration_break_teardown_route,
     expected_witness as expected_concentration_break_teardown_witness,
     projection_payload as concentration_break_teardown_projection_payload,
-    replay_observed_action as replay_concentration_break_teardown_action, sampled_damage_total,
+    replay_observed_action as replay_concentration_break_teardown_action,
+    replay_observed_route as replay_concentration_break_teardown_route, sampled_damage_total,
     BRANCH_ACTIONS as CONCENTRATION_BREAK_TEARDOWN_BRANCH_ACTIONS,
 };
 use battle_runtime_creature_type_protection_and_charm_selected_identity::{
@@ -611,9 +615,11 @@ use battle_runtime_danger_sense_selected_identity::{
     BRANCH_ACTIONS as DANGER_SENSE_BRANCH_ACTIONS,
 };
 use battle_runtime_death_saving_throw::{
+    expected_route as expected_death_saving_throw_route,
     expected_witness as expected_death_saving_throw_witness,
     projection_payload as death_saving_throw_projection_payload, replay_fill_death_saving_throw,
     replay_observed_action as replay_death_saving_throw_action,
+    replay_observed_route as replay_death_saving_throw_route,
     BRANCH_ACTIONS as DEATH_SAVING_THROW_BRANCH_ACTIONS, FILL_SAMPLE_NATURAL_D20S,
 };
 use battle_runtime_dragonborn_breath_weapon::{
@@ -659,9 +665,11 @@ use battle_runtime_healing_stabilization_selected_identity::{
     BRANCH_ACTIONS as HEALING_STABILIZATION_BRANCH_ACTIONS,
 };
 use battle_runtime_hit_point_restoration_ordering::{
+    expected_route as expected_hit_point_restoration_ordering_route,
     expected_witness as expected_hit_point_restoration_ordering_witness,
     projection_payload as hit_point_restoration_ordering_projection_payload,
     replay_observed_action as replay_hit_point_restoration_ordering_action,
+    replay_observed_route as replay_hit_point_restoration_ordering_route,
     BRANCH_ACTIONS as HIT_POINT_RESTORATION_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_interrupt_stack_resume::{
@@ -695,9 +703,11 @@ use battle_runtime_mage_armor_selected_identity::{
     BRANCH_ACTIONS as MAGE_ARMOR_BRANCH_ACTIONS,
 };
 use battle_runtime_magic_missile::{
+    expected_route as expected_magic_missile_route,
     expected_witness as expected_magic_missile_witness,
     projection_payload as magic_missile_projection_payload, replay_magic_missile_damage,
     replay_observed_action as replay_magic_missile_action,
+    replay_observed_route as replay_magic_missile_route,
     BRANCH_ACTIONS as MAGIC_MISSILE_BRANCH_ACTIONS,
     DAMAGE_SAMPLE_DART_ROLL_TOTALS as MAGIC_MISSILE_DAMAGE_SAMPLES,
 };
@@ -719,6 +729,7 @@ use battle_runtime_reaction_spell_selected_identity::{
     replay_observed_action as replay_reaction_spell_selected_identity_action,
     BRANCH_ACTIONS as REACTION_SPELL_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
+use battle_runtime_reducer_route::reducer_route_payload;
 use battle_runtime_reducer_spine_contract::{
     expected_witness as expected_reducer_spine_contract_witness,
     initial_witness_projection as reducer_spine_contract_initial_witness,
@@ -745,9 +756,11 @@ use battle_runtime_sanctuary_selected_identity::{
     BRANCH_ACTIONS as SANCTUARY_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_save_gated_spell_ordering::{
+    expected_route as expected_save_gated_spell_ordering_route,
     expected_witness as expected_save_gated_spell_ordering_witness,
     projection_payload as save_gated_spell_ordering_projection_payload,
     replay_observed_action as replay_save_gated_spell_ordering_action,
+    replay_observed_route as replay_save_gated_spell_ordering_route,
     BRANCH_ACTIONS as SAVE_GATED_SPELL_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_scalar_buff::{
@@ -2226,6 +2239,9 @@ fn concentration_break_teardown_adapter_replays_all_branches() {
         assert!(
             concentration_break_teardown_projection_payload(&observed).contains("protocolResult=")
         );
+        let route = replay_concentration_break_teardown_route(action);
+        assert_eq!(route, expected_concentration_break_teardown_route(action));
+        assert!(reducer_route_payload(&route).contains("ConcentrationTeardownRouteSubject"));
     }
 }
 
@@ -3132,6 +3148,9 @@ fn death_saving_throw_adapter_replays_all_branches() {
         let observed = replay_death_saving_throw_action(action);
         assert_eq!(observed, expected_death_saving_throw_witness(action));
         assert!(death_saving_throw_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_death_saving_throw_route(action);
+        assert_eq!(route, expected_death_saving_throw_route(action));
+        assert!(reducer_route_payload(&route).contains("DeathSavingThrowRouteSubject"));
     }
 
     for natural_d20 in FILL_SAMPLE_NATURAL_D20S {
@@ -3270,6 +3289,9 @@ fn hit_point_restoration_ordering_adapter_replays_all_branches() {
         );
         assert!(hit_point_restoration_ordering_projection_payload(&observed)
             .contains("protocolResult="));
+        let route = replay_hit_point_restoration_ordering_route(action);
+        assert_eq!(route, expected_hit_point_restoration_ordering_route(action));
+        assert!(reducer_route_payload(&route).contains("discover_battle_acts"));
     }
 }
 
@@ -3920,6 +3942,9 @@ fn magic_missile_adapter_replays_all_branches() {
         let observed = replay_magic_missile_action(action);
         assert_eq!(observed, expected_magic_missile_witness(action));
         assert!(magic_missile_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_magic_missile_route(action);
+        assert_eq!(route, expected_magic_missile_route(action));
+        assert!(reducer_route_payload(&route).contains("resolve_battle_subject"));
     }
 
     let high_damage = replay_magic_missile_damage(MAGIC_MISSILE_DAMAGE_SAMPLES[1]);
@@ -4352,6 +4377,9 @@ fn save_gated_spell_ordering_adapter_replays_all_branches() {
         let observed = replay_save_gated_spell_ordering_action(action);
         assert_eq!(observed, expected_save_gated_spell_ordering_witness(action));
         assert!(save_gated_spell_ordering_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_save_gated_spell_ordering_route(action);
+        assert_eq!(route, expected_save_gated_spell_ordering_route(action));
+        assert!(reducer_route_payload(&route).contains("discover_battle_acts"));
     }
 }
 
@@ -6911,20 +6939,194 @@ fn find_familiar_selected_identity_recasts_reappears_and_delivers_touch() {
 }
 
 #[test]
+fn zero_hit_point_lifecycle_rejects_monster_targets() {
+    use crate::rules::battle_reducer_spine::{
+        start_fighter_skeleton_battle, with_zero_hit_point_lifecycle, Actor,
+    };
+
+    assert!(
+        with_zero_hit_point_lifecycle(start_fighter_skeleton_battle(), Actor::Skeleton).is_none()
+    );
+}
+
+#[test]
+fn hit_point_restoration_rejects_raw_dead_monster_targets() {
+    use crate::rules::battle_reducer_spine::{
+        combatant_is_dead, discover_battle_acts, resolve_battle_subject,
+        start_fighter_skeleton_battle, with_zero_hit_point_lifecycle, Actor, BattleFill,
+        BattleHitPointRestorationFill, BattleResolutionInvalidReason, BattleResolutionResult,
+        BattleSubject, BattleSubjectKind,
+    };
+    use crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage;
+
+    let mut raw_dead_monster = start_fighter_skeleton_battle();
+    raw_dead_monster.skeleton.hp = 0;
+    assert!(combatant_is_dead(raw_dead_monster.skeleton));
+    assert!(discover_battle_acts(&raw_dead_monster)
+        .into_iter()
+        .all(|act| !matches!(
+            act.subject.kind,
+            BattleSubjectKind::HitPointRestorationSingleTargetSpell
+                | BattleSubjectKind::HitPointRestorationTargetListSpell
+                | BattleSubjectKind::HitPointRestorationFeatureHealingPool
+        )));
+
+    let stale_subject = BattleSubject {
+        kind: BattleSubjectKind::HitPointRestorationSingleTargetSpell,
+        actor: Actor::Fighter,
+        target: Some(Actor::Skeleton),
+        stage: WeaponAttackFrontierStage::Resolved,
+        damage_modifier: 0,
+    };
+    let BattleResolutionResult::Invalid { reason, state, .. } = resolve_battle_subject(
+        raw_dead_monster,
+        stale_subject,
+        BattleFill::HitPointRestoration(BattleHitPointRestorationFill::TargetChoice(
+            Actor::Skeleton,
+        )),
+    ) else {
+        panic!("RAW-dead monster restoration subject must be rejected");
+    };
+    assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
+    assert_eq!(state.skeleton.hp, 0);
+    assert!(combatant_is_dead(state.skeleton));
+
+    let mut mixed_targets =
+        with_zero_hit_point_lifecycle(start_fighter_skeleton_battle(), Actor::Rogue)
+            .expect("rogue uses death saving throws");
+    mixed_targets.skeleton.hp = 0;
+    let feature_subject = discover_battle_acts(&mixed_targets)
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::HitPointRestorationFeatureHealingPool)
+        .expect("rogue should be the restorable zero-HP target")
+        .subject;
+    assert_eq!(feature_subject.target, Some(Actor::Rogue));
+
+    let BattleResolutionResult::Invalid { reason, state, .. } = resolve_battle_subject(
+        mixed_targets,
+        feature_subject,
+        BattleFill::HitPointRestoration(
+            BattleHitPointRestorationFill::HitPointHealingDistribution {
+                target: Actor::Skeleton,
+                amount: 5,
+            },
+        ),
+    ) else {
+        panic!("feature healing distribution must reject RAW-dead monsters");
+    };
+    assert_eq!(reason, BattleResolutionInvalidReason::WrongTarget);
+    assert_eq!(state.skeleton.hp, 0);
+    assert!(combatant_is_dead(state.skeleton));
+}
+
+#[test]
+fn diagnostic_route_subjects_reject_stale_action_unavailable() {
+    use crate::rules::battle_reducer_spine::{
+        discover_battle_acts, resolve_battle_subject, start_fighter_skeleton_battle,
+        with_zero_hit_point_lifecycle, Actor, BattleConcentrationFill, BattleFill,
+        BattleHitPointRestorationFill, BattleResolutionInvalidReason, BattleResolutionResult,
+        BattleSaveGatedSpellFill, BattleSlotSpellFill, BattleSubjectKind,
+    };
+
+    fn assert_stale_subject(result: BattleResolutionResult) {
+        let BattleResolutionResult::Invalid { reason, state, .. } = result else {
+            panic!("stale diagnostic subject must be rejected");
+        };
+        assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
+        assert!(!state.action_available);
+    }
+
+    let slot_state = start_fighter_skeleton_battle();
+    let slot_subject = discover_battle_acts(&slot_state)
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::SlotSpell)
+        .expect("slot spell route should be discoverable")
+        .subject;
+    let mut no_action = slot_state;
+    no_action.action_available = false;
+    assert_stale_subject(resolve_battle_subject(
+        no_action,
+        slot_subject,
+        BattleFill::SlotSpell(BattleSlotSpellFill::TargetAllocation(Actor::Skeleton)),
+    ));
+
+    let save_state = start_fighter_skeleton_battle();
+    let save_subject = discover_battle_acts(&save_state)
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::SaveGatedAreaDamage)
+        .expect("save-gated route should be discoverable")
+        .subject;
+    let mut no_action = save_state;
+    no_action.action_available = false;
+    assert_stale_subject(resolve_battle_subject(
+        no_action,
+        save_subject,
+        BattleFill::SaveGatedSpell(BattleSaveGatedSpellFill::SavingThrowOutcome),
+    ));
+
+    let restoration_state =
+        with_zero_hit_point_lifecycle(start_fighter_skeleton_battle(), Actor::Rogue)
+            .expect("rogue uses death saving throws");
+    let restoration_subject = discover_battle_acts(&restoration_state)
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::HitPointRestorationSingleTargetSpell)
+        .expect("Hit Point restoration route should be discoverable")
+        .subject;
+    let mut no_action = restoration_state;
+    no_action.action_available = false;
+    assert_stale_subject(resolve_battle_subject(
+        no_action,
+        restoration_subject,
+        BattleFill::HitPointRestoration(BattleHitPointRestorationFill::TargetChoice(Actor::Rogue)),
+    ));
+
+    let concentration_state = start_fighter_skeleton_battle();
+    let concentration_subject = discover_battle_acts(&concentration_state)
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::ConcentrationTeardown)
+        .expect("concentration teardown route should be discoverable")
+        .subject;
+    let mut no_action = concentration_state;
+    no_action.action_available = false;
+    assert_stale_subject(resolve_battle_subject(
+        no_action,
+        concentration_subject,
+        BattleFill::Concentration(BattleConcentrationFill::CastSpell),
+    ));
+
+    let concentration_state = start_fighter_skeleton_battle();
+    let concentration_subject = discover_battle_acts(&concentration_state)
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::ConcentrationTeardown)
+        .expect("concentration teardown route should be discoverable")
+        .subject;
+    let mut no_action = concentration_state;
+    no_action.action_available = false;
+    assert_stale_subject(resolve_battle_subject(
+        no_action,
+        concentration_subject,
+        BattleFill::Concentration(BattleConcentrationFill::CastReplacementSpell),
+    ));
+}
+
+#[test]
 fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
     use crate::rules::battle_reducer_spine::{
         combatant_is_dead, discover_battle_acts, resolve_battle_subject, start_battle, Actor,
-        AttackRollFacts, BattleFill, BattleResolutionResult,
+        AttackRollFacts, BattleFill, BattleHoleKind, BattleResolutionResult,
     };
-    use crate::rules::weapon_attack_ordering::WeaponAttackHoleKind;
 
     let state = start_battle();
     assert_eq!(state.fighter.hp, 12);
     assert_eq!(state.goblin.hp, 10);
 
-    let acts = discover_battle_acts(&state);
-    assert_eq!(acts.len(), 1);
-    assert_eq!(acts[0].holes, vec![WeaponAttackHoleKind::TargetChoice]);
+    let weapon_act = discover_battle_acts(&state)
+        .into_iter()
+        .find(|act| {
+            act.subject.kind == crate::rules::battle_reducer_spine::BattleSubjectKind::WeaponAttack
+        })
+        .expect("fighter should have one weapon attack act");
+    assert_eq!(weapon_act.holes, vec![BattleHoleKind::TargetChoice]);
 
     let BattleResolutionResult::NeedsHoles {
         state,
@@ -6932,13 +7134,13 @@ fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
         holes,
     } = resolve_battle_subject(
         state,
-        acts[0].subject,
+        weapon_act.subject,
         BattleFill::TargetChoice(Actor::Goblin),
     )
     else {
         panic!("target choice should leave the weapon attack waiting for an attack roll");
     };
-    assert_eq!(holes, vec![WeaponAttackHoleKind::AttackRoll]);
+    assert_eq!(holes, vec![BattleHoleKind::AttackRoll]);
     assert!(state.action_available);
 
     let BattleResolutionResult::NeedsHoles {
@@ -6956,7 +7158,7 @@ fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
     else {
         panic!("a hit should leave the weapon attack waiting for damage");
     };
-    assert_eq!(holes, vec![WeaponAttackHoleKind::RolledDice]);
+    assert_eq!(holes, vec![BattleHoleKind::RolledDice]);
     assert!(state.attack_roll_made_this_turn);
     assert!(state.action_available);
 
@@ -6975,14 +7177,15 @@ fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
 fn experimental_qnt_spine_rejects_attack_roll_before_target_choice() {
     use crate::rules::battle_reducer_spine::{
         discover_battle_acts, resolve_battle_subject, start_battle, AttackRollFacts, BattleFill,
-        BattleResolutionInvalidReason, BattleResolutionResult,
+        BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionResult,
     };
-    use crate::rules::weapon_attack_ordering::WeaponAttackHoleKind;
 
     let state = start_battle();
     let act = discover_battle_acts(&state)
         .into_iter()
-        .next()
+        .find(|act| {
+            act.subject.kind == crate::rules::battle_reducer_spine::BattleSubjectKind::WeaponAttack
+        })
         .expect("fighter should have a weapon attack act");
 
     let BattleResolutionResult::Invalid {
@@ -7002,7 +7205,7 @@ fn experimental_qnt_spine_rejects_attack_roll_before_target_choice() {
     };
 
     assert_eq!(reason, BattleResolutionInvalidReason::InvalidFill);
-    assert_eq!(holes, vec![WeaponAttackHoleKind::TargetChoice]);
+    assert_eq!(holes, vec![BattleHoleKind::TargetChoice]);
     assert!(state.action_available);
     assert!(!state.attack_roll_made_this_turn);
 }

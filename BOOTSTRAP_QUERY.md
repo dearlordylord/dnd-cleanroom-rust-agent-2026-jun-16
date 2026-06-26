@@ -23,7 +23,7 @@ Read AGENTS.md and tasks/WORK_LOOP.md, then keep implementing queued in-scope
 branch sets from the selected tasks/ACTIVE_WORK.json assignment following the
 Work Loop.
 
-Use assignmentId `level-1-2-full` from tasks/ACTIVE_WORK.json unless I
+Use assignmentId `reducer-spine-diagnostic-battle` from tasks/ACTIVE_WORK.json unless I
 explicitly name a different assignmentId.
 
 Use only cleanroom-input/**, tasks/**, scripts/**, target-profile.json, README.md,

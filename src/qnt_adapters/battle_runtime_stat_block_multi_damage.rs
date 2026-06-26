@@ -1,6 +1,6 @@
 use crate::rules::battle_reducer_spine::{
-    discover_goblin_rolled_action_attack_control, discover_goblin_static_action_attack_control,
-    resolve_stat_block_action_subject, start_goblin_stat_block_battle, Actor, AttackRollFacts,
+    discover_rolled_stat_block_attack_control, discover_static_stat_block_attack_control,
+    resolve_stat_block_action_subject, start_stat_block_actor_battle, Actor, AttackRollFacts,
     BattleState, StatBlockActionDamageMode, StatBlockActionFill, StatBlockActionResolutionResult,
     StatBlockActionSubject,
 };
@@ -100,14 +100,17 @@ pub fn projection_payload(state: &StatBlockMultiDamageState) -> String {
 }
 
 fn rolled_subject() -> (BattleState, StatBlockActionSubject) {
-    expect_needs_holes(discover_goblin_rolled_action_attack_control(
-        start_goblin_stat_block_battle(),
+    expect_needs_holes(discover_rolled_stat_block_attack_control(
+        start_stat_block_actor_battle(Actor::Goblin),
+        Actor::Goblin,
     ))
 }
 
 fn static_subject() -> (BattleState, StatBlockActionSubject) {
-    expect_needs_holes(discover_goblin_static_action_attack_control(
-        start_goblin_stat_block_battle(),
+    expect_needs_holes(discover_static_stat_block_attack_control(
+        start_stat_block_actor_battle(Actor::Goblin),
+        Actor::Goblin,
+        3,
     ))
 }
 

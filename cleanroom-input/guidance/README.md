@@ -3,12 +3,27 @@
 This is the current source-side guidance root copied into future cleanroom
 repositories as `cleanroom-input/guidance/**`.
 
-The full curated guidance pack is a later implementation phase. Until that
-phase lands, this root is intentionally minimal:
+Use this pack with the copied RAW, QNT, source branch inventory, reducer-route
+inventory, domain language, and assumptions. Those files are the cleanroom
+authority; production TypeScript code and previous cleanroom attempts are not
+inputs.
 
-- Treat the copied RAW, QNT, source branch inventory, domain language, and
-  assumptions as the executable authority.
+Core rules:
+
+- Treat copied `.qnt` files as formal rule statements and `.mbt.qnt` files as
+  conformance specifications.
+- Use copied `*.route.mbt.qnt` connectors as the executable reducer-route
+  contract when the selected assignment is a reducer-spine diagnostic
+  assignment. For a `reducer-routed` row, target replay evidence must match the
+  connector's `qRoute`; the reducer-route inventory selects and orders tasks
+  and is never a substitute for route evidence.
 - Keep QNT/MBT replay adapters quarantined from production modules.
+- Treat forbidden source-code reads and production reducer dispatch on
+  authored or fixture identity as the same cleanroom-boundary violation class.
+  Production behavior routes by runtime shape, typed facts, capabilities,
+  procedures, and battle-owned state; fixture identity belongs only in
+  adapters, tests, evidence, catalog/selection boundaries, or documented
+  support-profile admission.
 - Do not dispatch production runtime behavior on authored ids, names, slugs,
   provenance headings, page references, or official catalog labels.
 - Do not store derivable facts beside their owners unless the duplicate is an
@@ -16,4 +31,8 @@ phase lands, this root is intentionally minimal:
 - Record missing architecture guidance as a `source-qnt-corpus` blocker instead
   of guessing.
 
-Do not treat this file as completion of the full guidance-pack phase.
+Guidance files:
+
+- `reducer-spine.md` defines the cleanroom reducer surface, subject/fill
+  lifecycle, durable state ownership rules, adapter quarantine rules, and
+  reducer-spine diagnostic constraints.

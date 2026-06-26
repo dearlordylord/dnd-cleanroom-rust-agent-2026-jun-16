@@ -1,6 +1,6 @@
 use crate::rules::battle_reducer_spine::{
-    discover_goblin_prone_rider_attack_control, resolve_stat_block_action_subject,
-    start_goblin_prone_rider_battle, Actor, AttackRollFacts, BattleState, StatBlockActionFill,
+    discover_prone_rider_stat_block_attack_control, resolve_stat_block_action_subject,
+    start_prone_rider_stat_block_battle, Actor, AttackRollFacts, BattleState, StatBlockActionFill,
     StatBlockActionResolutionResult, StatBlockActionSubject, StatBlockProneOnHitRider,
 };
 use crate::rules::creature_size::CreatureSize;
@@ -141,8 +141,9 @@ fn rider_subject(
     target_size: CreatureSize,
     target_prone_condition_immune: bool,
 ) -> (BattleState, StatBlockActionSubject) {
-    expect_needs_holes(discover_goblin_prone_rider_attack_control(
-        start_goblin_prone_rider_battle(target_size),
+    expect_needs_holes(discover_prone_rider_stat_block_attack_control(
+        start_prone_rider_stat_block_battle(Actor::Goblin, target_size),
+        Actor::Goblin,
         target_prone_condition_immune,
     ))
 }

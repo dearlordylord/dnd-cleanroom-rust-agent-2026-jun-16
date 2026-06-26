@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "manifestSourceCommitSha": "829aee6441d76a921c9d9c14a0d0221062975334",
-  "sourceBranchInventorySha256": "0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248",
+  "manifestSourceCommitSha": "0a9f139b2af181db3bdfb1879b92b7d2fb942ffd",
+  "sourceBranchInventorySha256": "7317a1acf0dce82ff0cf62330081ced4d8d77460134527048c7beb9a60b83beb",
   "entries": [
     {
       "taskId": "T001",
-      "assignmentId": "level-1-2-full",
-      "laneId": "creation",
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "laneId": "battle",
       "selectedDrivers": [
-        "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt"
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt"
       ],
-      "manifestSourceCommitSha": "829aee6441d76a921c9d9c14a0d0221062975334",
-      "sourceBranchInventorySha256": "0a5eaa1f6f79fddbe441dc94500a0dac5644ba7fc392fc6baa3d44da1f2e3248",
+      "manifestSourceCommitSha": "0a9f139b2af181db3bdfb1879b92b7d2fb942ffd",
+      "sourceBranchInventorySha256": "7317a1acf0dce82ff0cf62330081ced4d8d77460134527048c7beb9a60b83beb",
       "artifacts": {
         "startGate": {
           "path": "tasks/history/T001/START_GATE.json",

@@ -1,9 +1,10 @@
 use crate::rules::battle_reducer_spine::{
-    discover_goblin_rolled_action_attack_control, discover_goblin_static_action_attack_control,
-    resolve_stat_block_action_subject, spend_goblin_recharge_gated_rolled_attack,
-    start_goblin_multiattack_control, start_goblin_stat_block_battle,
-    stat_block_action_projection_from_result, Actor, AttackRollFacts, BattleState,
-    StatBlockActionFill, StatBlockActionResolutionResult, StatBlockActionSubject,
+    discover_rolled_stat_block_attack_control, discover_static_stat_block_attack_control,
+    primary_stat_block_multiattack_profile, resolve_stat_block_action_subject,
+    spend_recharge_gated_rolled_stat_block_attack, start_stat_block_actor_battle,
+    start_stat_block_multiattack_control, stat_block_action_projection_from_result, Actor,
+    AttackRollFacts, BattleState, StatBlockActionFill, StatBlockActionResolutionResult,
+    StatBlockActionSubject,
 };
 use crate::rules::stat_block_action_ordering::{
     self, StatBlockActionFillOrderingError, StatBlockActionFrontierStage, StatBlockActionHoleKind,
@@ -27,15 +28,24 @@ pub const BRANCH_ACTIONS: [&str; 12] = [
 
 pub fn replay_observed_action(observed_action_taken: &str) -> StatBlockActionOrderingState {
     match observed_action_taken {
-        "doStartMultiattackControl" => project(start_goblin_multiattack_control(
-            start_goblin_stat_block_battle(),
+        "doStartMultiattackControl" => project(start_stat_block_multiattack_control(
+            start_stat_block_actor_battle(Actor::Goblin),
+            Actor::Goblin,
+            primary_stat_block_multiattack_profile(3),
         )),
-        "doDiscoverRolledActionAttackControl" => project(
-            discover_goblin_rolled_action_attack_control(start_goblin_stat_block_battle()),
-        ),
-        "doDiscoverStaticActionAttackControl" => project(
-            discover_goblin_static_action_attack_control(start_goblin_stat_block_battle()),
-        ),
+        "doDiscoverRolledActionAttackControl" => {
+            project(discover_rolled_stat_block_attack_control(
+                start_stat_block_actor_battle(Actor::Goblin),
+                Actor::Goblin,
+            ))
+        }
+        "doDiscoverStaticActionAttackControl" => {
+            project(discover_static_stat_block_attack_control(
+                start_stat_block_actor_battle(Actor::Goblin),
+                Actor::Goblin,
+                3,
+            ))
+        }
         "doRejectAttackRollBeforeTargetChoice" => {
             let (state, subject) = rolled_action_subject();
             project(resolve_stat_block_action_subject(
@@ -92,9 +102,12 @@ pub fn replay_observed_action(observed_action_taken: &str) -> StatBlockActionOrd
                 StatBlockActionFill::DamageDice(4),
             ))
         }
-        "doSpendRechargeGatedRolledAttack" => project(spend_goblin_recharge_gated_rolled_attack(
-            start_goblin_stat_block_battle(),
-        )),
+        "doSpendRechargeGatedRolledAttack" => {
+            project(spend_recharge_gated_rolled_stat_block_attack(
+                start_stat_block_actor_battle(Actor::Goblin),
+                Actor::Goblin,
+            ))
+        }
         "doFillRechargeRoll" => {
             let (state, subject) = recharge_roll_subject();
             project(resolve_stat_block_action_subject(
@@ -140,14 +153,17 @@ fn project(result: StatBlockActionResolutionResult) -> StatBlockActionOrderingSt
 }
 
 fn rolled_action_subject() -> (BattleState, StatBlockActionSubject) {
-    expect_needs_holes(discover_goblin_rolled_action_attack_control(
-        start_goblin_stat_block_battle(),
+    expect_needs_holes(discover_rolled_stat_block_attack_control(
+        start_stat_block_actor_battle(Actor::Goblin),
+        Actor::Goblin,
     ))
 }
 
 fn static_action_subject() -> (BattleState, StatBlockActionSubject) {
-    expect_needs_holes(discover_goblin_static_action_attack_control(
-        start_goblin_stat_block_battle(),
+    expect_needs_holes(discover_static_stat_block_attack_control(
+        start_stat_block_actor_battle(Actor::Goblin),
+        Actor::Goblin,
+        3,
     ))
 }
 
@@ -179,8 +195,9 @@ fn rolled_action_attack_hit_subject() -> (BattleState, StatBlockActionSubject) {
 }
 
 fn recharge_roll_subject() -> (BattleState, StatBlockActionSubject) {
-    expect_needs_holes(spend_goblin_recharge_gated_rolled_attack(
-        start_goblin_stat_block_battle(),
+    expect_needs_holes(spend_recharge_gated_rolled_stat_block_attack(
+        start_stat_block_actor_battle(Actor::Goblin),
+        Actor::Goblin,
     ))
 }
 

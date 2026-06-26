@@ -1,6 +1,7 @@
 // -*- mode: Bluespec; -*-
 
 module battleRuntimeMagicMissileMbt {
+  import battleRuntimeMagicMissileFacts.* from "./battle-runtime-magic-missile-facts"
   import battleRuntimeWitnessProtocol.* from "./battle-runtime-witness-protocol"
 
   // Self-contained literal projection witness for the Magic Missile selected
@@ -23,17 +24,7 @@ module battleRuntimeMagicMissileMbt {
 
   pure def qSkeletonHp: int = qState.qSkeletonHp
   pure def qActionAvailable: bool = qState.qActionAvailable
-  pure def qHoles: Set[Hole] = qState.protocol.holes
-
-  pure val skeletonInitialHp: int = 13
-
-  pure def skeletonHpAfterMagicMissileDamage(
-    hp: int,
-    dartRollTotal: int,
-  ): int = {
-    val damage = dartRollTotal + 3
-    if (hp - damage < 0) 0 else hp - damage
-  }
+  pure def openHoles: Set[Hole] = qState.protocol.holes
 
   pure def magicMissileProtocol(
     holes: Set[Hole],
@@ -74,7 +65,7 @@ module battleRuntimeMagicMissileMbt {
 
   action doFillMagicMissileAllocation = all {
     qActionAvailable,
-    qHoles == Set(SpellTargetAllocation),
+    openHoles == Set(SpellTargetAllocation),
     recordMagicMissileState(
       qSkeletonHp,
       qState.qSkeletonDead,
@@ -91,7 +82,7 @@ module battleRuntimeMagicMissileMbt {
     nondet dartRollTotal = Set(3, 12).oneOf()
     all {
       qActionAvailable,
-      qHoles == Set(SpellDamageRoll),
+      openHoles == Set(SpellDamageRoll),
       recordMagicMissileState(
         skeletonHpAfterMagicMissileDamage(qSkeletonHp, dartRollTotal),
         skeletonHpAfterMagicMissileDamage(qSkeletonHp, dartRollTotal) == 0,

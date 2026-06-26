@@ -1,77 +1,107 @@
-# Validation Report - T086 Battle Runtime Reducer Spine Contract
+# Validation Report
 
-- Manifest source commit SHA: `1da73ecc2a230aecf2bf43d5c1669e557d47c5b3`
-- Source branch inventory SHA: `7317a1acf0dce82ff0cf62330081ced4d8d77460134527048c7beb9a60b83beb`
+## Work Loop Status
+
+- Current manifest source commit SHA: `0e024f089687526c6bc4b9e6f9c7e640414f6486`
+- Source branch inventory SHA: `47b0589f442c0aaff2a814c19384fcaed7a6dbe3e7a78b5d0df8b011f56e7eae`
+- Scope file: `tasks/LEVEL_1_2_SCOPE.md`
+- Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Selected driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt`
-- Target replay evidence: `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json`
+- Last completed current-snapshot queued branch set: `<none>`
+- Next queued driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
+- Next task id: `T001`
 
-## Allowed Inputs Used
+Completion rule: a queued branch set is complete only when this report has an
+entry that names the exact `.mbt.qnt` driver, records the current manifest
+source commit SHA, records the current source branch inventory SHA, lists the
+allowed inputs used, renders branch coverage from harness-generated target
+replay evidence, and records verification results. Entries with older manifest
+source commit SHAs or inventory SHAs are historical unless they include a
+current-snapshot revalidation note.
 
-Allowed inputs used:
+## Dirty Reducer-Spine Rehearsal
 
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt`
+This target is currently a dirty rehearsal, not an accepted cleanroom evidence
+run. Current status is recorded in `tasks/DIRTY_REHEARSAL_STATUS.md`.
+
+Reducer-routed diagnostic tests now pass for:
+
 - `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-advancement.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-hole-kinds.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-witness-protocol.qnt`
-- `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md`
-- `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
-- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
 
-## Behavior Implemented
+Verification results for the dirty reducer-spine batch:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed: 173 tests.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed because current-snapshot
+  ledger/history/evidence artifacts and historical dirty report rows are
+  missing or stale in this dirty target.
+
+These passing tests do not close branch coverage until replay evidence,
+`tasks/RUN_LEDGER.json`, history artifacts, and covered validation rows are
+regenerated for manifest
+`0e024f089687526c6bc4b9e6f9c7e640414f6486`.
+
+## T000: Report Shape Example Only
+
+- Manifest source commit SHA: `0e024f089687526c6bc4b9e6f9c7e640414f6486`
+- Source branch inventory SHA: `47b0589f442c0aaff2a814c19384fcaed7a6dbe3e7a78b5d0df8b011f56e7eae`
+- Driver: `cleanroom-input/qnt/<package>/<driver>.mbt.qnt`
+- Branch obligations:
+  - `step:<branch action>`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/qnt/<package>/<driver>.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/<file>.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
 
 Behavior implemented:
 
-The Rust battle spine now routes the copied reducer-spine witness sequence:
-`start battle -> discover Magic Missile -> fill target allocation -> fill damage -> end turn -> discover Skeleton weapon attack -> fill target -> fill attack roll -> fill damage`.
-
-The new production state is `BattleState.slot_spell_procedure`, a battle-owned slot-spell frontier used to carry Magic Missile allocation and damage through durable reducer state. The adapter maps this domain state into the QNT witness vocabulary; QNT stage, entrypoint, and protocol names remain quarantined in `src/qnt_adapters/battle_runtime_reducer_spine_contract.rs`.
-
-## Branch Coverage
+- Describe the domain behavior implemented in `src`.
+- Cite the QNT and RAW source files that define the behavior.
 
 Generated branch coverage:
 
 | Obligation | Target replay evidence | Diagnostic tests | Status |
 | --- | --- | --- | --- |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doStartBattle` | `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json#T086-do-start-battle#step:doStartBattle` | `cargo test reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doDiscoverSlotSpell` | `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json#T086-do-discover-slot-spell#step:doDiscoverSlotSpell` | `cargo test reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveSlotSpellTargets` | `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json#T086-do-resolve-slot-spell-targets#step:doResolveSlotSpellTargets` | `cargo test reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveSlotSpellDamage` | `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json#T086-do-resolve-slot-spell-damage#step:doResolveSlotSpellDamage` | `cargo test reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doEndTurnToTarget` | `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json#T086-do-end-turn-to-target#step:doEndTurnToTarget` | `cargo test reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doDiscoverWeaponAttack` | `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json#T086-do-discover-weapon-attack#step:doDiscoverWeaponAttack` | `cargo test reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponTarget` | `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json#T086-do-resolve-weapon-target#step:doResolveWeaponTarget` | `cargo test reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponAttackHit` | `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json#T086-do-resolve-weapon-attack-hit#step:doResolveWeaponAttackHit` | `cargo test reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponDamage` | `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json#T086-do-resolve-weapon-damage#step:doResolveWeaponDamage` | `cargo test reducer_spine_contract_adapter_replays_all_branches` | `covered` |
-
-## Harness Artifacts
-
-Harness artifacts:
-
-- `tasks/START_GATE.json`
-- `tasks/ENGINE_DEPTH_MANIFEST.json`
-- `tasks/STATE_OWNER_MANIFEST.json`
-- `tasks/REVIEW_LOOP.json`
-- `tasks/DECIDER_DECISION.json`
-- `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json`
+| `cleanroom-input/qnt/<package>/<driver>.mbt.qnt#<branch family>:<branch action>` | `_pending_` | `_none_` | `pending` |
 
 Target replay evidence:
 
-- Evidence file: `tasks/target-replay-evidence/T086-battle-runtime-reducer-spine-contract.json`
+- Evidence file: `tasks/target-replay-evidence/<file>.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `<seed or trace id>`
+- Accepted evidence refs use `tasks/target-replay-evidence/<file>.json#<trace id>#<branch family>:<branch action>`.
 
-## Verification Results
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+- Immutable history: `tasks/history/<taskId>/`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Diagnostic tests:
+
+- Focused target-language tests may be listed here, but they do not close
+  branch coverage.
+
+Remaining gaps:
+
+- `_none_`
 
 Verification results:
 
 - `cargo fmt --check` passed.
-- `cargo test` passed: 170 tests.
+- `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
-- `node scripts/check-cleanroom-harness.cjs` still fails repo-wide because this dirty rehearsal repo has pre-existing accounting debt: `tasks/RUN_LEDGER.json` and `tasks/history/<taskId>/*.json` are absent, historical evidence files are not ledger-accounted, and the stale historical adapter/source-scan denominator is outside this task. This task does not fabricate ledger entries for stale historical evidence; see `tasks/DIRTY_REHEARSAL_STATUS.md`.
-
-## Remaining Gaps
-
-Remaining gaps:
-
-- The selected reducer-spine contract driver has task-local replay evidence for all nine in-scope branches.
-- Repo-wide cleanroom harness acceptance still requires the separate ledger/history and historical adapter-denominator repair documented in `tasks/DIRTY_REHEARSAL_STATUS.md`.
+- `node scripts/check-cleanroom-harness.cjs` passed.

@@ -2,6 +2,21 @@
   "schemaVersion": 1,
   "assignments": [
     {
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "lanes": [
+        {
+          "laneId": "battle",
+          "queue": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt"
+          ]
+        }
+      ]
+    },
+    {
       "assignmentId": "level-1-2-full",
       "lanes": [
         {
@@ -72,8 +87,8 @@
             "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt",
-            "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt",
@@ -214,8 +229,8 @@
             "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt",
-            "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt",

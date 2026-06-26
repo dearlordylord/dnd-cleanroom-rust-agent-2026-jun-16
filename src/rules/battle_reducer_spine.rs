@@ -7,7 +7,27 @@
 use crate::rules::attack_damage_disposition::{
     apply_resolved_damage_to_positive_hit_points, CreatureKind, CreatureVitals,
 };
+use crate::rules::concentration::{
+    cast_concentration_spell, cast_replacement_concentration_spell, concentration_initial_state,
+    fail_concentration_saving_throw, request_concentration_save_after_damage,
+    voluntarily_end_concentration, ConcentrationDamageFacts, ConcentrationProtocol,
+    ConcentrationSavingThrowFacts, ConcentrationState,
+};
 use crate::rules::creature_size::CreatureSize;
+use crate::rules::hit_point_restoration_ordering::{
+    hit_point_restoration_fill_order_accepted_stage, hit_point_restoration_fill_order_error,
+    hit_point_restoration_fill_order_result, hit_point_restoration_fill_order_runtime_result,
+    hit_point_restoration_hole_frontier, hit_point_restoration_projection,
+    HitPointRestorationFillKind, HitPointRestorationFillOrderResult,
+    HitPointRestorationFillOrderingError, HitPointRestorationFrontierStage,
+    HitPointRestorationHoleKind, HitPointRestorationProjectionFacts,
+    HitPointRestorationRuntimeResult, HitPointRestorationState,
+};
+use crate::rules::hit_points::{
+    death_saving_throw_initial_state, discover_death_saving_throw, fill_death_saving_throw,
+    DeathSavingThrowFacts, DeathSavingThrowInvalidReason, DeathSavingThrowProtocol,
+    DeathSavingThrowState, DeathSavingThrowTurnRole,
+};
 use crate::rules::interrupt_stack_resume::{
     decline_reaction_window, interrupt_stack_resume_projection, offer_reaction_window,
     reaction_window_depth, recorded_attack_replay_from_root_equivalent, take_matching_reaction,
@@ -21,6 +41,14 @@ use crate::rules::rule_core_stat_block_controls::{
     stat_block_control_initial_state, stat_block_multiattack_continuation_open,
     StatBlockAttackSlot, StatBlockControlState, StatBlockDispatchSubject,
     StatBlockMultiattackProfile,
+};
+use crate::rules::save_gated_spell_ordering::{
+    save_gated_spell_fill_order_accepted_stage, save_gated_spell_fill_order_error,
+    save_gated_spell_fill_order_result, save_gated_spell_fill_order_runtime_result,
+    save_gated_spell_hole_frontier, save_gated_spell_ordering_projection, SaveGatedSpellFillKind,
+    SaveGatedSpellFillOrderingError, SaveGatedSpellFrontierStage, SaveGatedSpellHoleKind,
+    SaveGatedSpellOrderingProjectionFacts, SaveGatedSpellOrderingState,
+    SaveGatedSpellRuntimeResult,
 };
 use crate::rules::spell_attack_ordering::{
     spell_attack_fill_order_error, spell_attack_fill_order_result,
@@ -50,9 +78,72 @@ pub enum Actor {
     Skeleton,
 }
 
+const BATTLE_ACTORS: [Actor; 4] = [Actor::Fighter, Actor::Goblin, Actor::Rogue, Actor::Skeleton];
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DeathSavingThrowCount {
+    Zero,
+    One,
+    Two,
+}
+
+impl DeathSavingThrowCount {
+    #[must_use]
+    pub const fn from_unresolved_count(count: i16) -> Self {
+        match count {
+            i16::MIN..=0 => Self::Zero,
+            1 => Self::One,
+            _ => Self::Two,
+        }
+    }
+
+    #[must_use]
+    pub const fn as_i16(self) -> i16 {
+        match self {
+            Self::Zero => 0,
+            Self::One => 1,
+            Self::Two => 2,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DeathSavingThrowLifecycle {
+    MakingDeathSavingThrows {
+        successes: DeathSavingThrowCount,
+        failures: DeathSavingThrowCount,
+    },
+    Stable,
+    Dead,
+}
+
+impl DeathSavingThrowLifecycle {
+    #[must_use]
+    pub const fn fresh() -> Self {
+        Self::MakingDeathSavingThrows {
+            successes: DeathSavingThrowCount::Zero,
+            failures: DeathSavingThrowCount::Zero,
+        }
+    }
+
+    #[must_use]
+    pub const fn from_state(state: DeathSavingThrowState) -> Self {
+        if state.target_dead {
+            return Self::Dead;
+        }
+        if state.target_stable {
+            return Self::Stable;
+        }
+        Self::MakingDeathSavingThrows {
+            successes: DeathSavingThrowCount::from_unresolved_count(state.target_death_successes),
+            failures: DeathSavingThrowCount::from_unresolved_count(state.target_death_failures),
+        }
+    }
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CombatantLifecycle {
-    UsesDeathSavingThrows,
+    UsesDeathSavingThrows(DeathSavingThrowLifecycle),
     DiesAtZeroHitPoints,
 }
 
@@ -128,7 +219,10 @@ pub struct BattleState {
     pub turn_boundary_effects: TurnBoundaryEffects,
     pub interrupt_resume: BattleInterruptResumeState,
     pub reaction_casting_time: BattleReactionCastingTimeState,
+    pub concentration: ConcentrationState,
     pub slot_spell_procedure: BattleSlotSpellProcedure,
+    pub save_gated_spell_procedure: BattleSaveGatedSpellProcedure,
+    pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -201,6 +295,57 @@ pub enum BattleSlotSpellHole {
 pub enum BattleSlotSpellFill {
     TargetAllocation(Actor),
     DamageRoll(i16),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSaveGatedSpellProcedure {
+    Inactive,
+    Active(BattleSaveGatedSpellSubject),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleSaveGatedSpellSubject {
+    pub actor: Actor,
+    pub stage: SaveGatedSpellFrontierStage,
+    pub damage_dice_required: bool,
+    pub last_ordering_error: Option<SaveGatedSpellFillOrderingError>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSaveGatedSpellFill {
+    SpellTargetList,
+    ConditionChoice,
+    SavingThrowOutcome,
+    DamageRoll,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleHitPointRestorationProcedure {
+    Inactive,
+    Active(BattleHitPointRestorationSubject),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleHitPointRestorationSubject {
+    pub actor: Actor,
+    pub stage: HitPointRestorationFrontierStage,
+    pub targeting: BattleHitPointRestorationTargeting,
+    pub last_ordering_error: Option<HitPointRestorationFillOrderingError>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleHitPointRestorationTargeting {
+    SingleTargetSpell { target: Option<Actor> },
+    TargetListSpell { target: Option<Actor> },
+    FeatureHealingPool { target: Option<Actor> },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleHitPointRestorationFill {
+    TargetChoice(Actor),
+    SpellTargetList(Actor),
+    HealingRoll(i16),
+    HitPointHealingDistribution { target: Actor, amount: i16 },
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -323,6 +468,14 @@ impl TurnBoundaryEffects {
 pub enum BattleSubjectKind {
     WeaponAttack,
     Multiattack,
+    SlotSpell,
+    SaveGatedAreaDamage,
+    SaveGatedTargetListConditionChoice,
+    HitPointRestorationSingleTargetSpell,
+    HitPointRestorationTargetListSpell,
+    HitPointRestorationFeatureHealingPool,
+    DeathSavingThrow,
+    ConcentrationTeardown,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -337,7 +490,7 @@ pub struct BattleSubject {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AvailableBattleAct {
     pub subject: BattleSubject,
-    pub holes: Vec<WeaponAttackHoleKind>,
+    pub holes: Vec<BattleHoleKind>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -354,6 +507,34 @@ pub enum BattleFill {
     SneakAttackDamageRoll(i16),
     ResolveMultiattack,
     SpendMultiattackDispatch,
+    SlotSpell(BattleSlotSpellFill),
+    SaveGatedSpell(BattleSaveGatedSpellFill),
+    HitPointRestoration(BattleHitPointRestorationFill),
+    DeathSavingThrow(DeathSavingThrowFacts),
+    Concentration(BattleConcentrationFill),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleHoleKind {
+    TargetChoice,
+    SpellTargetAllocation,
+    AttackRoll,
+    RolledDice,
+    SpellTargetList,
+    ConditionChoice,
+    SavingThrowOutcome,
+    HitPointHealingDistribution,
+    DeathSavingThrow,
+    ConcentrationSavingThrow,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleConcentrationFill {
+    CastSpell,
+    DamageTaken(ConcentrationDamageFacts),
+    SavingThrow(ConcentrationSavingThrowFacts),
+    VoluntaryEnd,
+    CastReplacementSpell,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -369,7 +550,7 @@ pub enum BattleResolutionResult {
     NeedsHoles {
         state: BattleState,
         subject: BattleSubject,
-        holes: Vec<WeaponAttackHoleKind>,
+        holes: Vec<BattleHoleKind>,
     },
     Resolved {
         state: BattleState,
@@ -377,7 +558,7 @@ pub enum BattleResolutionResult {
     Invalid {
         state: BattleState,
         reason: BattleResolutionInvalidReason,
-        holes: Vec<WeaponAttackHoleKind>,
+        holes: Vec<BattleHoleKind>,
     },
 }
 
@@ -473,7 +654,10 @@ pub fn start_battle() -> BattleState {
         turn_boundary_effects: TurnBoundaryEffects::none(),
         interrupt_resume: BattleInterruptResumeState::none(),
         reaction_casting_time: BattleReactionCastingTimeState::none(),
+        concentration: concentration_initial_state(),
         slot_spell_procedure: BattleSlotSpellProcedure::Inactive,
+        save_gated_spell_procedure: BattleSaveGatedSpellProcedure::Inactive,
+        hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Inactive,
         spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
         spell_slot_uses_this_turn: Vec::new(),
         level_one_plus_spell_casters_this_turn: Vec::new(),
@@ -507,7 +691,10 @@ pub fn start_skeleton_battle() -> BattleState {
         turn_boundary_effects: TurnBoundaryEffects::none(),
         interrupt_resume: BattleInterruptResumeState::none(),
         reaction_casting_time: BattleReactionCastingTimeState::none(),
+        concentration: concentration_initial_state(),
         slot_spell_procedure: BattleSlotSpellProcedure::Inactive,
+        save_gated_spell_procedure: BattleSaveGatedSpellProcedure::Inactive,
+        hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Inactive,
         spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
         spell_slot_uses_this_turn: Vec::new(),
         level_one_plus_spell_casters_this_turn: Vec::new(),
@@ -536,13 +723,13 @@ pub fn start_skeleton_actor_turn() -> BattleState {
 }
 
 #[must_use]
-pub fn start_goblin_stat_block_battle() -> BattleState {
+pub fn start_stat_block_actor_battle(actor: Actor) -> BattleState {
     BattleState {
         initiative: Initiative {
             round: 1,
             already_acted: vec![Actor::Fighter],
             still_to_act: InitiativeStillToAct {
-                actor: Actor::Goblin,
+                actor,
                 waiting: Vec::new(),
             },
         },
@@ -551,11 +738,11 @@ pub fn start_goblin_stat_block_battle() -> BattleState {
 }
 
 #[must_use]
-pub fn start_goblin_prone_rider_battle(target_size: CreatureSize) -> BattleState {
+pub fn start_prone_rider_stat_block_battle(actor: Actor, target_size: CreatureSize) -> BattleState {
     // QNT: battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt
     // uses a target with 20 HP and a size/condition-immunity gate for a Prone
     // on-hit rider.
-    let mut state = start_goblin_stat_block_battle();
+    let mut state = start_stat_block_actor_battle(actor);
     state.fighter = Combatant {
         hp: 20,
         max_hp: 20,
@@ -581,13 +768,13 @@ pub fn start_interrupt_stack_resume_battle() -> BattleState {
     // QNT: battle-runtime-interrupt-stack-resume.mbt.qnt `init`. The
     // interrupted target is the Fighter because the witness projects target HP
     // from 12 through the nested/replay cases.
-    start_goblin_stat_block_battle()
+    start_stat_block_actor_battle(Actor::Goblin)
 }
 
 #[must_use]
 pub fn start_reaction_casting_time_battle() -> BattleState {
     // QNT: battle-runtime-reaction-casting-time.mbt.qnt `initialHp`.
-    let mut state = start_goblin_stat_block_battle();
+    let mut state = start_stat_block_actor_battle(Actor::Goblin);
     state.fighter = Combatant {
         hp: 30,
         max_hp: 30,
@@ -636,16 +823,56 @@ pub fn start_fighter_skeleton_battle() -> BattleState {
 }
 
 #[must_use]
+pub fn start_death_saving_throw_battle() -> BattleState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Death Saving Throws"; QNT:
+    // battle-runtime-death-saving-throw.route.mbt.qnt `init`.
+    let mut state = start_fighter_skeleton_battle();
+    let death_save = death_saving_throw_initial_state();
+    state.fighter = Combatant {
+        hp: death_save.target_hp,
+        unconscious: death_save.target_unconscious,
+        incapacitated: death_save.target_unconscious,
+        prone: death_save.target_unconscious,
+        lifecycle: CombatantLifecycle::UsesDeathSavingThrows(
+            DeathSavingThrowLifecycle::from_state(death_save),
+        ),
+        ..state.fighter
+    };
+    state
+}
+
+#[must_use]
+pub fn with_zero_hit_point_lifecycle(mut state: BattleState, target: Actor) -> Option<BattleState> {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Dropping to 0 Hit Points"; Ubiquitous Language "Hit Points and Death".
+    let combatant = combatant_for(&state, target);
+    if !matches!(
+        combatant.lifecycle,
+        CombatantLifecycle::UsesDeathSavingThrows(_)
+    ) {
+        return None;
+    }
+    let zero_hit_point_combatant = Combatant {
+        hp: 0,
+        unconscious: true,
+        incapacitated: true,
+        prone: true,
+        lifecycle: CombatantLifecycle::UsesDeathSavingThrows(DeathSavingThrowLifecycle::fresh()),
+        ..combatant
+    };
+    *combatant_for_mut(&mut state, target) = zero_hit_point_combatant;
+    Some(state)
+}
+
+#[must_use]
 pub fn discover_slot_spell_battle(mut state: BattleState) -> BattleState {
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md
     // "Magic Missile"; support QNT: battle-runtime-magic-missile.mbt.qnt;
     // composition witness:
     // battle-runtime-reducer-spine-contract.mbt.qnt slot-spell discovery projection.
     let actor = current_actor(&state);
-    if actor != Actor::Fighter
-        || !state.action_available
-        || !can_actor_expend_spell_slot_this_turn(&state, actor)
-    {
+    if !state.action_available || !can_actor_expend_spell_slot_this_turn(&state, actor) {
         return state;
     }
 
@@ -1013,7 +1240,7 @@ fn fighter_combatant() -> Combatant {
         incapacitated: false,
         prone: false,
         creature_size: CreatureSize::Medium,
-        lifecycle: CombatantLifecycle::UsesDeathSavingThrows,
+        lifecycle: CombatantLifecycle::UsesDeathSavingThrows(DeathSavingThrowLifecycle::fresh()),
         reaction_available: true,
         movement_spent_feet: 0,
         sneak_attack_supported: false,
@@ -1055,7 +1282,7 @@ fn rogue_combatant() -> Combatant {
         incapacitated: false,
         prone: false,
         creature_size: CreatureSize::Medium,
-        lifecycle: CombatantLifecycle::UsesDeathSavingThrows,
+        lifecycle: CombatantLifecycle::UsesDeathSavingThrows(DeathSavingThrowLifecycle::fresh()),
         reaction_available: true,
         movement_spent_feet: 0,
         sneak_attack_supported: true,
@@ -1090,6 +1317,37 @@ fn skeleton_combatant() -> Combatant {
 pub fn current_actor(state: &BattleState) -> Actor {
     // QNT: battle-runtime-turn-order.qnt `currentActor`.
     state.initiative.still_to_act.actor
+}
+
+#[must_use]
+pub fn first_waiting_actor(state: &BattleState) -> Option<Actor> {
+    state.initiative.still_to_act.waiting.first().copied()
+}
+
+fn ordinary_zero_hit_point_restoration_target(combatant: Combatant) -> bool {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Healing" and "Dropping to 0 Hit Points". Ordinary Hit Point
+    // restoration can wake a creature that is making Death Saving Throws or is
+    // Stable at 0 HP. It does not model the GM exception that lets a monster be
+    // treated like a character after dropping to 0 HP.
+    combatant.hp == 0
+        && matches!(
+            combatant.lifecycle,
+            CombatantLifecycle::UsesDeathSavingThrows(
+                DeathSavingThrowLifecycle::MakingDeathSavingThrows { .. }
+                    | DeathSavingThrowLifecycle::Stable
+            )
+        )
+}
+
+fn first_zero_hit_point_restoration_target_except(
+    state: &BattleState,
+    actor: Actor,
+) -> Option<Actor> {
+    BATTLE_ACTORS.into_iter().find(|candidate| {
+        *candidate != actor
+            && ordinary_zero_hit_point_restoration_target(combatant_for(state, *candidate))
+    })
 }
 
 #[must_use]
@@ -1227,47 +1485,287 @@ fn tick_round_duration_boundary_effects(state: BattleState) -> BattleState {
 
 #[must_use]
 pub fn discover_battle_acts(state: &BattleState) -> Vec<AvailableBattleAct> {
-    // QNT: battle-runtime-combat-holes.qnt `combatOpenHoles`, narrowed to the
-    // current weapon-attack and Skeleton multiattack paths for this
-    // reducer-spine experiment.
-    match current_actor(state) {
+    // QNT: battle-runtime-combat-holes.qnt `combatOpenHoles`, plus the copied
+    // reducer-spine diagnostic guidance for slot-spell, save-gated spell, and
+    // Hit Point restoration subject families.
+    if !state.action_available {
+        return Vec::new();
+    }
+
+    let actor = current_actor(state);
+    let mut acts = Vec::new();
+    push_reducer_spine_diagnostic_acts(state, actor, &mut acts);
+    push_legacy_fixture_weapon_acts(state, actor, &mut acts);
+    acts
+}
+
+fn push_reducer_spine_diagnostic_acts(
+    state: &BattleState,
+    actor: Actor,
+    acts: &mut Vec<AvailableBattleAct>,
+) {
+    if death_saving_throw_available(combatant_for(state, actor)) {
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::DeathSavingThrow, actor, Some(actor)),
+            holes: vec![BattleHoleKind::DeathSavingThrow],
+        });
+    }
+
+    if can_actor_expend_spell_slot_this_turn(state, actor) && first_waiting_actor(state).is_some() {
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::SlotSpell, actor, None),
+            holes: vec![BattleHoleKind::SpellTargetAllocation],
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::ConcentrationTeardown, actor, None),
+            holes: Vec::new(),
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::SaveGatedAreaDamage, actor, None),
+            holes: save_gated_spell_hole_kinds(
+                SaveGatedSpellFrontierStage::DamageSavingThrowOutcome,
+            ),
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(
+                BattleSubjectKind::SaveGatedTargetListConditionChoice,
+                actor,
+                None,
+            ),
+            holes: save_gated_spell_hole_kinds(
+                SaveGatedSpellFrontierStage::TargetListAndConditionChoice,
+            ),
+        });
+    }
+
+    if let Some(target) = first_zero_hit_point_restoration_target_except(state, actor) {
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(
+                BattleSubjectKind::HitPointRestorationSingleTargetSpell,
+                actor,
+                Some(target),
+            ),
+            holes: hit_point_restoration_hole_kinds(
+                HitPointRestorationFrontierStage::SpellHealingTargetChoice,
+            ),
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(
+                BattleSubjectKind::HitPointRestorationTargetListSpell,
+                actor,
+                Some(target),
+            ),
+            holes: hit_point_restoration_hole_kinds(
+                HitPointRestorationFrontierStage::SpellHealingTargetList,
+            ),
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(
+                BattleSubjectKind::HitPointRestorationFeatureHealingPool,
+                actor,
+                Some(target),
+            ),
+            holes: hit_point_restoration_hole_kinds(
+                HitPointRestorationFrontierStage::FeatureHealingPoolDistribution,
+            ),
+        });
+    }
+}
+
+fn diagnostic_subject(
+    kind: BattleSubjectKind,
+    actor: Actor,
+    target: Option<Actor>,
+) -> BattleSubject {
+    BattleSubject {
+        kind,
+        actor,
+        target,
+        stage: WeaponAttackFrontierStage::Resolved,
+        damage_modifier: 0,
+    }
+}
+
+fn diagnostic_subject_shape_matches(
+    subject: BattleSubject,
+    kind: BattleSubjectKind,
+    target: Option<Actor>,
+) -> bool {
+    subject.kind == kind
+        && subject.target == target
+        && subject.stage == WeaponAttackFrontierStage::Resolved
+        && subject.damage_modifier == 0
+}
+
+fn route_subject_discoverable_now(state: &BattleState, subject: BattleSubject) -> bool {
+    discover_battle_acts(state)
+        .into_iter()
+        .any(|act| act.subject == subject)
+}
+
+fn slot_spell_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
+    if !state.action_available || subject.kind != BattleSubjectKind::SlotSpell {
+        return false;
+    }
+
+    match state.slot_spell_procedure {
+        BattleSlotSpellProcedure::Inactive => {
+            diagnostic_subject_shape_matches(subject, BattleSubjectKind::SlotSpell, None)
+                && route_subject_discoverable_now(state, subject)
+        }
+        BattleSlotSpellProcedure::Active(active) => {
+            active.actor == subject.actor
+                && active.stage != BattleSlotSpellStage::Resolved
+                && diagnostic_subject_shape_matches(
+                    subject,
+                    BattleSubjectKind::SlotSpell,
+                    active.target,
+                )
+        }
+    }
+}
+
+fn save_gated_spell_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
+    if !state.action_available
+        || !matches!(
+            subject.kind,
+            BattleSubjectKind::SaveGatedAreaDamage
+                | BattleSubjectKind::SaveGatedTargetListConditionChoice
+        )
+        || !diagnostic_subject_shape_matches(subject, subject.kind, None)
+    {
+        return false;
+    }
+
+    match state.save_gated_spell_procedure {
+        BattleSaveGatedSpellProcedure::Inactive => route_subject_discoverable_now(state, subject),
+        BattleSaveGatedSpellProcedure::Active(active) => {
+            active.actor == subject.actor
+                && active.stage != SaveGatedSpellFrontierStage::Resolved
+                && save_gated_spell_subject_kind_matches(subject.kind, active)
+        }
+    }
+}
+
+fn save_gated_spell_subject_kind_matches(
+    kind: BattleSubjectKind,
+    subject: BattleSaveGatedSpellSubject,
+) -> bool {
+    match kind {
+        BattleSubjectKind::SaveGatedAreaDamage => subject.damage_dice_required,
+        BattleSubjectKind::SaveGatedTargetListConditionChoice => !subject.damage_dice_required,
+        BattleSubjectKind::WeaponAttack
+        | BattleSubjectKind::Multiattack
+        | BattleSubjectKind::SlotSpell
+        | BattleSubjectKind::HitPointRestorationSingleTargetSpell
+        | BattleSubjectKind::HitPointRestorationTargetListSpell
+        | BattleSubjectKind::HitPointRestorationFeatureHealingPool
+        | BattleSubjectKind::DeathSavingThrow
+        | BattleSubjectKind::ConcentrationTeardown => false,
+    }
+}
+
+fn concentration_teardown_route_subject_is_live(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> bool {
+    state.action_available
+        && diagnostic_subject_shape_matches(subject, BattleSubjectKind::ConcentrationTeardown, None)
+        && route_subject_discoverable_now(state, subject)
+}
+
+fn hit_point_restoration_route_subject_is_live(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> bool {
+    let Some(target) = subject.target else {
+        return false;
+    };
+    if !state.action_available
+        || !matches!(
+            subject.kind,
+            BattleSubjectKind::HitPointRestorationSingleTargetSpell
+                | BattleSubjectKind::HitPointRestorationTargetListSpell
+                | BattleSubjectKind::HitPointRestorationFeatureHealingPool
+        )
+        || !diagnostic_subject_shape_matches(subject, subject.kind, Some(target))
+        || !ordinary_zero_hit_point_restoration_target(combatant_for(state, target))
+    {
+        return false;
+    }
+
+    match state.hit_point_restoration_procedure {
+        BattleHitPointRestorationProcedure::Inactive => {
+            route_subject_discoverable_now(state, subject)
+        }
+        BattleHitPointRestorationProcedure::Active(active) => {
+            active.actor == subject.actor
+                && active.stage != HitPointRestorationFrontierStage::Resolved
+                && hit_point_restoration_subject_kind_matches(subject.kind, active.targeting)
+        }
+    }
+}
+
+fn hit_point_restoration_subject_kind_matches(
+    kind: BattleSubjectKind,
+    targeting: BattleHitPointRestorationTargeting,
+) -> bool {
+    matches!(
+        (kind, targeting),
+        (
+            BattleSubjectKind::HitPointRestorationSingleTargetSpell,
+            BattleHitPointRestorationTargeting::SingleTargetSpell { .. }
+        ) | (
+            BattleSubjectKind::HitPointRestorationTargetListSpell,
+            BattleHitPointRestorationTargeting::TargetListSpell { .. }
+        ) | (
+            BattleSubjectKind::HitPointRestorationFeatureHealingPool,
+            BattleHitPointRestorationTargeting::FeatureHealingPool { .. }
+        )
+    )
+}
+
+fn push_legacy_fixture_weapon_acts(
+    state: &BattleState,
+    actor: Actor,
+    acts: &mut Vec<AvailableBattleAct>,
+) {
+    match actor {
         Actor::Fighter | Actor::Rogue if current_actor_can_attack(state) => {
-            vec![AvailableBattleAct {
+            acts.push(AvailableBattleAct {
                 subject: BattleSubject {
                     kind: BattleSubjectKind::WeaponAttack,
-                    actor: current_actor(state),
+                    actor,
                     target: None,
                     stage: WeaponAttackFrontierStage::TargetChoice,
-                    damage_modifier: weapon_damage_modifier_for(current_actor(state)),
+                    damage_modifier: weapon_damage_modifier_for(actor),
                 },
-                holes: weapon_attack_hole_frontier(WeaponAttackFrontierStage::TargetChoice),
-            }]
+                holes: weapon_hole_kinds(WeaponAttackFrontierStage::TargetChoice),
+            });
         }
-        Actor::Skeleton if state.action_available && state.skeleton.hp > 0 => {
-            vec![
-                AvailableBattleAct {
-                    subject: BattleSubject {
-                        kind: BattleSubjectKind::Multiattack,
-                        actor: Actor::Skeleton,
-                        target: None,
-                        stage: WeaponAttackFrontierStage::Resolved,
-                        damage_modifier: 0,
-                    },
-                    holes: Vec::new(),
+        Actor::Skeleton if state.skeleton.hp > 0 => {
+            acts.push(AvailableBattleAct {
+                subject: BattleSubject {
+                    kind: BattleSubjectKind::Multiattack,
+                    actor,
+                    target: None,
+                    stage: WeaponAttackFrontierStage::Resolved,
+                    damage_modifier: 0,
                 },
-                AvailableBattleAct {
-                    subject: BattleSubject {
-                        kind: BattleSubjectKind::WeaponAttack,
-                        actor: Actor::Skeleton,
-                        target: None,
-                        stage: WeaponAttackFrontierStage::TargetChoice,
-                        damage_modifier: weapon_damage_modifier_for(Actor::Skeleton),
-                    },
-                    holes: weapon_attack_hole_frontier(WeaponAttackFrontierStage::TargetChoice),
+                holes: Vec::new(),
+            });
+            acts.push(AvailableBattleAct {
+                subject: BattleSubject {
+                    kind: BattleSubjectKind::WeaponAttack,
+                    actor,
+                    target: None,
+                    stage: WeaponAttackFrontierStage::TargetChoice,
+                    damage_modifier: weapon_damage_modifier_for(actor),
                 },
-            ]
+                holes: weapon_hole_kinds(WeaponAttackFrontierStage::TargetChoice),
+            });
         }
-        Actor::Fighter | Actor::Goblin | Actor::Rogue | Actor::Skeleton => Vec::new(),
+        Actor::Fighter | Actor::Goblin | Actor::Rogue | Actor::Skeleton => {}
     }
 }
 
@@ -1286,6 +1784,58 @@ pub fn resolve_battle_subject(
     }
 
     match (subject.kind, fill) {
+        (BattleSubjectKind::SlotSpell, BattleFill::SlotSpell(fill)) => {
+            if !slot_spell_route_subject_is_live(&state, subject) {
+                return invalid(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    subject.stage,
+                );
+            }
+            resolve_slot_spell_battle_subject_result(state, subject, fill)
+        }
+        (
+            BattleSubjectKind::SaveGatedAreaDamage
+            | BattleSubjectKind::SaveGatedTargetListConditionChoice,
+            BattleFill::SaveGatedSpell(fill),
+        ) => {
+            if !save_gated_spell_route_subject_is_live(&state, subject) {
+                return invalid(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    subject.stage,
+                );
+            }
+            resolve_save_gated_spell_battle_subject(state, subject, fill)
+        }
+        (
+            BattleSubjectKind::HitPointRestorationSingleTargetSpell
+            | BattleSubjectKind::HitPointRestorationTargetListSpell
+            | BattleSubjectKind::HitPointRestorationFeatureHealingPool,
+            BattleFill::HitPointRestoration(fill),
+        ) => {
+            if !hit_point_restoration_route_subject_is_live(&state, subject) {
+                return invalid(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    subject.stage,
+                );
+            }
+            resolve_hit_point_restoration_battle_subject(state, subject, fill)
+        }
+        (BattleSubjectKind::DeathSavingThrow, BattleFill::DeathSavingThrow(facts)) => {
+            resolve_death_saving_throw_battle_subject(state, subject, facts)
+        }
+        (BattleSubjectKind::ConcentrationTeardown, BattleFill::Concentration(fill)) => {
+            if !concentration_teardown_route_subject_is_live(&state, subject) {
+                return invalid(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    subject.stage,
+                );
+            }
+            resolve_concentration_teardown_battle_subject(state, subject, fill)
+        }
         (BattleSubjectKind::WeaponAttack, fill) => {
             if !state.action_available {
                 return invalid(
@@ -1315,6 +1865,15 @@ pub fn resolve_battle_subject(
                     BattleResolutionInvalidReason::InvalidFill,
                     subject.stage,
                 ),
+                BattleFill::SlotSpell(_)
+                | BattleFill::SaveGatedSpell(_)
+                | BattleFill::HitPointRestoration(_)
+                | BattleFill::DeathSavingThrow(_)
+                | BattleFill::Concentration(_) => invalid(
+                    state,
+                    BattleResolutionInvalidReason::InvalidFill,
+                    subject.stage,
+                ),
             }
         }
         (BattleSubjectKind::Multiattack, BattleFill::ResolveMultiattack) => {
@@ -1328,16 +1887,489 @@ pub fn resolve_battle_subject(
             BattleResolutionInvalidReason::InvalidFill,
             subject.stage,
         ),
+        (
+            BattleSubjectKind::SlotSpell
+            | BattleSubjectKind::SaveGatedAreaDamage
+            | BattleSubjectKind::SaveGatedTargetListConditionChoice
+            | BattleSubjectKind::HitPointRestorationSingleTargetSpell
+            | BattleSubjectKind::HitPointRestorationTargetListSpell
+            | BattleSubjectKind::HitPointRestorationFeatureHealingPool
+            | BattleSubjectKind::DeathSavingThrow
+            | BattleSubjectKind::ConcentrationTeardown,
+            _,
+        ) => invalid(
+            state,
+            BattleResolutionInvalidReason::InvalidFill,
+            subject.stage,
+        ),
     }
 }
 
 #[must_use]
-pub fn start_goblin_multiattack_control(state: BattleState) -> StatBlockActionResolutionResult {
-    if current_actor(&state) != Actor::Goblin || !state.action_available || state.goblin.hp <= 0 {
+pub fn save_gated_spell_ordering_from_battle(state: &BattleState) -> SaveGatedSpellOrderingState {
+    match state.save_gated_spell_procedure {
+        BattleSaveGatedSpellProcedure::Inactive => {
+            save_gated_spell_ordering_projection(SaveGatedSpellOrderingProjectionFacts {
+                stage: SaveGatedSpellFrontierStage::ActSelection,
+                runtime_result: SaveGatedSpellRuntimeResult::Init,
+                last_ordering_error: None,
+            })
+        }
+        BattleSaveGatedSpellProcedure::Active(subject) => {
+            save_gated_spell_ordering_projection(SaveGatedSpellOrderingProjectionFacts {
+                stage: subject.stage,
+                runtime_result: if subject.stage == SaveGatedSpellFrontierStage::Resolved {
+                    SaveGatedSpellRuntimeResult::Resolved
+                } else {
+                    SaveGatedSpellRuntimeResult::NeedsHoles
+                },
+                last_ordering_error: subject.last_ordering_error,
+            })
+        }
+    }
+}
+
+#[must_use]
+pub fn hit_point_restoration_from_battle(state: &BattleState) -> HitPointRestorationState {
+    match state.hit_point_restoration_procedure {
+        BattleHitPointRestorationProcedure::Inactive => {
+            hit_point_restoration_projection(HitPointRestorationProjectionFacts {
+                stage: HitPointRestorationFrontierStage::ActSelection,
+                runtime_result: HitPointRestorationRuntimeResult::Init,
+                last_ordering_error: None,
+                spell_target_hit_points: 0,
+                spell_target_zero_hit_point_lifecycle_cleared: false,
+                feature_target_hit_points: 0,
+                feature_target_zero_hit_point_lifecycle_cleared: false,
+            })
+        }
+        BattleHitPointRestorationProcedure::Active(subject) => {
+            let spell_target = hit_point_restoration_spell_target(subject);
+            let feature_target = hit_point_restoration_feature_target(subject);
+            let spell_target_hit_points = spell_target
+                .map(|actor| combatant_for(state, actor).hp)
+                .unwrap_or(0);
+            let feature_target_hit_points = feature_target
+                .map(|actor| combatant_for(state, actor).hp)
+                .unwrap_or(0);
+            hit_point_restoration_projection(HitPointRestorationProjectionFacts {
+                stage: subject.stage,
+                runtime_result: if subject.stage == HitPointRestorationFrontierStage::Resolved {
+                    HitPointRestorationRuntimeResult::Resolved
+                } else {
+                    HitPointRestorationRuntimeResult::NeedsHoles
+                },
+                last_ordering_error: subject.last_ordering_error,
+                spell_target_hit_points,
+                spell_target_zero_hit_point_lifecycle_cleared: spell_target
+                    .map(|actor| zero_hit_point_lifecycle_cleared(combatant_for(state, actor)))
+                    .unwrap_or(false),
+                feature_target_hit_points,
+                feature_target_zero_hit_point_lifecycle_cleared: feature_target
+                    .map(|actor| zero_hit_point_lifecycle_cleared(combatant_for(state, actor)))
+                    .unwrap_or(false),
+            })
+        }
+    }
+}
+
+fn resolve_slot_spell_battle_subject_result(
+    state: BattleState,
+    subject: BattleSubject,
+    fill: BattleSlotSpellFill,
+) -> BattleResolutionResult {
+    let state = if matches!(
+        state.slot_spell_procedure,
+        BattleSlotSpellProcedure::Inactive
+    ) {
+        discover_slot_spell_battle(state)
+    } else {
+        state
+    };
+    let state = resolve_slot_spell_subject(state, fill);
+    let holes = slot_spell_hole_kinds(&state);
+    if holes.is_empty() {
+        BattleResolutionResult::Resolved { state }
+    } else {
+        BattleResolutionResult::NeedsHoles {
+            state,
+            subject,
+            holes,
+        }
+    }
+}
+
+fn resolve_save_gated_spell_battle_subject(
+    state: BattleState,
+    subject: BattleSubject,
+    fill: BattleSaveGatedSpellFill,
+) -> BattleResolutionResult {
+    let current_subject = active_or_initial_save_gated_subject(&state, subject);
+    let fill_kind = save_gated_spell_fill_kind(fill);
+    let result = save_gated_spell_fill_order_result(
+        current_subject.stage,
+        fill_kind,
+        current_subject.damage_dice_required,
+    );
+    let next_stage = save_gated_spell_fill_order_accepted_stage(result, current_subject.stage);
+    let next_subject = BattleSaveGatedSpellSubject {
+        stage: next_stage,
+        last_ordering_error: save_gated_spell_fill_order_error(result),
+        ..current_subject
+    };
+    let state = BattleState {
+        save_gated_spell_procedure: BattleSaveGatedSpellProcedure::Active(next_subject),
+        ..state
+    };
+    if save_gated_spell_fill_order_runtime_result(result) == SaveGatedSpellRuntimeResult::Resolved {
+        BattleResolutionResult::Resolved { state }
+    } else {
+        BattleResolutionResult::NeedsHoles {
+            state,
+            subject,
+            holes: save_gated_spell_hole_kinds(next_stage),
+        }
+    }
+}
+
+fn resolve_hit_point_restoration_battle_subject(
+    state: BattleState,
+    subject: BattleSubject,
+    fill: BattleHitPointRestorationFill,
+) -> BattleResolutionResult {
+    let current_subject = active_or_initial_hit_point_restoration_subject(&state, subject);
+    let fill_kind = hit_point_restoration_fill_kind(fill);
+    let result = hit_point_restoration_fill_order_result(current_subject.stage, fill_kind);
+    if matches!(result, HitPointRestorationFillOrderResult::Accepted(_)) {
+        if let Some(target) = hit_point_restoration_fill_target(current_subject, fill) {
+            if !ordinary_zero_hit_point_restoration_target(combatant_for(&state, target)) {
+                return invalid(
+                    state,
+                    BattleResolutionInvalidReason::WrongTarget,
+                    subject.stage,
+                );
+            }
+        } else {
+            return invalid(
+                state,
+                BattleResolutionInvalidReason::InvalidFill,
+                subject.stage,
+            );
+        }
+    }
+    let next_stage = hit_point_restoration_fill_order_accepted_stage(result);
+    let mut next_subject = BattleHitPointRestorationSubject {
+        stage: next_stage,
+        last_ordering_error: hit_point_restoration_fill_order_error(result),
+        ..current_subject
+    };
+    next_subject = hit_point_restoration_target_after_fill(next_subject, fill);
+    let mut state = BattleState {
+        hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Active(next_subject),
+        ..state
+    };
+    if hit_point_restoration_fill_order_runtime_result(result)
+        == HitPointRestorationRuntimeResult::Resolved
+    {
+        state = apply_hit_point_restoration_fill(state, next_subject, fill);
+        BattleResolutionResult::Resolved { state }
+    } else {
+        BattleResolutionResult::NeedsHoles {
+            state,
+            subject,
+            holes: hit_point_restoration_hole_kinds(next_stage),
+        }
+    }
+}
+
+fn resolve_death_saving_throw_battle_subject(
+    state: BattleState,
+    subject: BattleSubject,
+    facts: DeathSavingThrowFacts,
+) -> BattleResolutionResult {
+    let target = subject.target.unwrap_or(subject.actor);
+    let Some(death_save_state) =
+        death_saving_throw_state_from_combatant(combatant_for(&state, target))
+    else {
+        return BattleResolutionResult::Invalid {
+            state,
+            reason: BattleResolutionInvalidReason::WrongTarget,
+            holes: Vec::new(),
+        };
+    };
+    let discovered = if death_save_state.protocol == DeathSavingThrowProtocol::NeedsSavingThrow {
+        death_save_state
+    } else {
+        discover_death_saving_throw(death_save_state)
+    };
+    let filled = fill_death_saving_throw(discovered, facts);
+    if let DeathSavingThrowProtocol::Invalid(DeathSavingThrowInvalidReason::InvalidFill) =
+        filled.protocol
+    {
+        return BattleResolutionResult::Invalid {
+            state,
+            reason: BattleResolutionInvalidReason::InvalidFill,
+            holes: vec![BattleHoleKind::DeathSavingThrow],
+        };
+    }
+
+    let mut state = state;
+    let Some(combatant) =
+        combatant_from_death_saving_throw_state(combatant_for(&state, target), filled)
+    else {
+        return BattleResolutionResult::Invalid {
+            state,
+            reason: BattleResolutionInvalidReason::WrongTarget,
+            holes: Vec::new(),
+        };
+    };
+    *combatant_for_mut(&mut state, target) = combatant;
+    BattleResolutionResult::Resolved {
+        state: end_turn(state),
+    }
+}
+
+fn resolve_concentration_teardown_battle_subject(
+    state: BattleState,
+    _subject: BattleSubject,
+    fill: BattleConcentrationFill,
+) -> BattleResolutionResult {
+    let concentration = match fill {
+        BattleConcentrationFill::CastSpell => cast_concentration_spell(state.concentration.clone()),
+        BattleConcentrationFill::DamageTaken(facts) => {
+            request_concentration_save_after_damage(state.concentration.clone(), facts)
+        }
+        BattleConcentrationFill::SavingThrow(facts) => {
+            match fail_concentration_saving_throw(state.concentration.clone(), facts) {
+                Ok(next) => next,
+                Err(_error) => {
+                    return BattleResolutionResult::Invalid {
+                        state,
+                        reason: BattleResolutionInvalidReason::InvalidFill,
+                        holes: vec![BattleHoleKind::ConcentrationSavingThrow],
+                    };
+                }
+            }
+        }
+        BattleConcentrationFill::VoluntaryEnd => {
+            voluntarily_end_concentration(state.concentration.clone())
+        }
+        BattleConcentrationFill::CastReplacementSpell => {
+            cast_replacement_concentration_spell(state.concentration.clone())
+        }
+    };
+    let holes = concentration_holes(&concentration);
+    let state = BattleState {
+        concentration,
+        ..state
+    };
+    if holes.is_empty() {
+        BattleResolutionResult::Resolved { state }
+    } else {
+        BattleResolutionResult::NeedsHoles {
+            state,
+            subject: _subject,
+            holes,
+        }
+    }
+}
+
+fn active_or_initial_save_gated_subject(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> BattleSaveGatedSpellSubject {
+    match state.save_gated_spell_procedure {
+        BattleSaveGatedSpellProcedure::Active(active) => active,
+        BattleSaveGatedSpellProcedure::Inactive => match subject.kind {
+            BattleSubjectKind::SaveGatedAreaDamage => BattleSaveGatedSpellSubject {
+                actor: subject.actor,
+                stage: SaveGatedSpellFrontierStage::DamageSavingThrowOutcome,
+                damage_dice_required: true,
+                last_ordering_error: None,
+            },
+            BattleSubjectKind::SaveGatedTargetListConditionChoice => BattleSaveGatedSpellSubject {
+                actor: subject.actor,
+                stage: SaveGatedSpellFrontierStage::TargetListAndConditionChoice,
+                damage_dice_required: false,
+                last_ordering_error: None,
+            },
+            _ => BattleSaveGatedSpellSubject {
+                actor: subject.actor,
+                stage: SaveGatedSpellFrontierStage::ActSelection,
+                damage_dice_required: false,
+                last_ordering_error: None,
+            },
+        },
+    }
+}
+
+fn active_or_initial_hit_point_restoration_subject(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> BattleHitPointRestorationSubject {
+    match state.hit_point_restoration_procedure {
+        BattleHitPointRestorationProcedure::Active(active) => active,
+        BattleHitPointRestorationProcedure::Inactive => match subject.kind {
+            BattleSubjectKind::HitPointRestorationSingleTargetSpell => {
+                BattleHitPointRestorationSubject {
+                    actor: subject.actor,
+                    stage: HitPointRestorationFrontierStage::SpellHealingTargetChoice,
+                    targeting: BattleHitPointRestorationTargeting::SingleTargetSpell {
+                        target: None,
+                    },
+                    last_ordering_error: None,
+                }
+            }
+            BattleSubjectKind::HitPointRestorationTargetListSpell => {
+                BattleHitPointRestorationSubject {
+                    actor: subject.actor,
+                    stage: HitPointRestorationFrontierStage::SpellHealingTargetList,
+                    targeting: BattleHitPointRestorationTargeting::TargetListSpell { target: None },
+                    last_ordering_error: None,
+                }
+            }
+            BattleSubjectKind::HitPointRestorationFeatureHealingPool => {
+                BattleHitPointRestorationSubject {
+                    actor: subject.actor,
+                    stage: HitPointRestorationFrontierStage::FeatureHealingPoolDistribution,
+                    targeting: BattleHitPointRestorationTargeting::FeatureHealingPool {
+                        target: None,
+                    },
+                    last_ordering_error: None,
+                }
+            }
+            _ => BattleHitPointRestorationSubject {
+                actor: subject.actor,
+                stage: HitPointRestorationFrontierStage::ActSelection,
+                targeting: BattleHitPointRestorationTargeting::SingleTargetSpell { target: None },
+                last_ordering_error: None,
+            },
+        },
+    }
+}
+
+fn save_gated_spell_fill_kind(fill: BattleSaveGatedSpellFill) -> SaveGatedSpellFillKind {
+    match fill {
+        BattleSaveGatedSpellFill::SpellTargetList => SaveGatedSpellFillKind::SpellTargetList,
+        BattleSaveGatedSpellFill::ConditionChoice => SaveGatedSpellFillKind::ConditionChoice,
+        BattleSaveGatedSpellFill::SavingThrowOutcome => SaveGatedSpellFillKind::SavingThrowOutcome,
+        BattleSaveGatedSpellFill::DamageRoll => SaveGatedSpellFillKind::RolledDice,
+    }
+}
+
+fn hit_point_restoration_fill_kind(
+    fill: BattleHitPointRestorationFill,
+) -> HitPointRestorationFillKind {
+    match fill {
+        BattleHitPointRestorationFill::TargetChoice(_) => HitPointRestorationFillKind::TargetChoice,
+        BattleHitPointRestorationFill::SpellTargetList(_) => {
+            HitPointRestorationFillKind::SpellTargetList
+        }
+        BattleHitPointRestorationFill::HealingRoll(_) => HitPointRestorationFillKind::RolledDice,
+        BattleHitPointRestorationFill::HitPointHealingDistribution { .. } => {
+            HitPointRestorationFillKind::HitPointHealingDistribution
+        }
+    }
+}
+
+fn hit_point_restoration_target_after_fill(
+    subject: BattleHitPointRestorationSubject,
+    fill: BattleHitPointRestorationFill,
+) -> BattleHitPointRestorationSubject {
+    let targeting = match (subject.targeting, fill) {
+        (
+            BattleHitPointRestorationTargeting::SingleTargetSpell { .. },
+            BattleHitPointRestorationFill::TargetChoice(target),
+        ) => BattleHitPointRestorationTargeting::SingleTargetSpell {
+            target: Some(target),
+        },
+        (
+            BattleHitPointRestorationTargeting::TargetListSpell { .. },
+            BattleHitPointRestorationFill::SpellTargetList(target),
+        ) => BattleHitPointRestorationTargeting::TargetListSpell {
+            target: Some(target),
+        },
+        (
+            BattleHitPointRestorationTargeting::FeatureHealingPool { .. },
+            BattleHitPointRestorationFill::HitPointHealingDistribution { target, .. },
+        ) => BattleHitPointRestorationTargeting::FeatureHealingPool {
+            target: Some(target),
+        },
+        (targeting, _) => targeting,
+    };
+    BattleHitPointRestorationSubject {
+        targeting,
+        ..subject
+    }
+}
+
+fn hit_point_restoration_spell_target(subject: BattleHitPointRestorationSubject) -> Option<Actor> {
+    match subject.targeting {
+        BattleHitPointRestorationTargeting::SingleTargetSpell { target }
+        | BattleHitPointRestorationTargeting::TargetListSpell { target } => target,
+        BattleHitPointRestorationTargeting::FeatureHealingPool { .. } => None,
+    }
+}
+
+fn hit_point_restoration_feature_target(
+    subject: BattleHitPointRestorationSubject,
+) -> Option<Actor> {
+    match subject.targeting {
+        BattleHitPointRestorationTargeting::FeatureHealingPool { target } => target,
+        BattleHitPointRestorationTargeting::SingleTargetSpell { .. }
+        | BattleHitPointRestorationTargeting::TargetListSpell { .. } => None,
+    }
+}
+
+fn hit_point_restoration_fill_target(
+    subject: BattleHitPointRestorationSubject,
+    fill: BattleHitPointRestorationFill,
+) -> Option<Actor> {
+    match fill {
+        BattleHitPointRestorationFill::TargetChoice(target)
+        | BattleHitPointRestorationFill::SpellTargetList(target)
+        | BattleHitPointRestorationFill::HitPointHealingDistribution { target, .. } => Some(target),
+        BattleHitPointRestorationFill::HealingRoll(_) => {
+            hit_point_restoration_spell_target(subject)
+        }
+    }
+}
+
+fn apply_hit_point_restoration_fill(
+    state: BattleState,
+    subject: BattleHitPointRestorationSubject,
+    fill: BattleHitPointRestorationFill,
+) -> BattleState {
+    match fill {
+        BattleHitPointRestorationFill::HealingRoll(amount) => {
+            if let Some(target) = hit_point_restoration_spell_target(subject) {
+                with_healed_target(state, target, amount)
+            } else {
+                state
+            }
+        }
+        BattleHitPointRestorationFill::HitPointHealingDistribution { target, amount } => {
+            with_healed_target(state, target, amount)
+        }
+        BattleHitPointRestorationFill::TargetChoice(_)
+        | BattleHitPointRestorationFill::SpellTargetList(_) => state,
+    }
+}
+
+#[must_use]
+pub fn start_stat_block_multiattack_control(
+    state: BattleState,
+    actor: Actor,
+    profile: StatBlockMultiattackProfile,
+) -> StatBlockActionResolutionResult {
+    if current_actor(&state) != actor
+        || !state.action_available
+        || combatant_for(&state, actor).hp <= 0
+    {
         return invalid_stat_block_action(
             state,
             initial_stat_block_action_subject(
-                Actor::Goblin,
+                actor,
                 StatBlockActionFrontierStage::ActSelection,
                 StatBlockActionDamageMode::Rolled,
                 false,
@@ -1348,12 +2380,12 @@ pub fn start_goblin_multiattack_control(state: BattleState) -> StatBlockActionRe
     }
 
     let stat_block_control =
-        start_stat_block_multiattack_from(state.stat_block_control.clone(), goblin_profile());
+        start_stat_block_multiattack_from(state.stat_block_control.clone(), profile);
     if stat_block_control == state.stat_block_control {
         return invalid_stat_block_action(
             state,
             initial_stat_block_action_subject(
-                Actor::Goblin,
+                actor,
                 StatBlockActionFrontierStage::ActSelection,
                 StatBlockActionDamageMode::Rolled,
                 false,
@@ -1369,7 +2401,7 @@ pub fn start_goblin_multiattack_control(state: BattleState) -> StatBlockActionRe
         ..state
     };
     let subject = initial_stat_block_action_subject(
-        Actor::Goblin,
+        actor,
         StatBlockActionFrontierStage::AttackTargetChoice,
         StatBlockActionDamageMode::Rolled,
         false,
@@ -1382,35 +2414,43 @@ pub fn start_goblin_multiattack_control(state: BattleState) -> StatBlockActionRe
 }
 
 #[must_use]
-pub fn discover_goblin_rolled_action_attack_control(
+pub fn discover_rolled_stat_block_attack_control(
     state: BattleState,
+    actor: Actor,
 ) -> StatBlockActionResolutionResult {
-    discover_goblin_stat_block_attack_control(state, StatBlockActionDamageMode::Rolled, true)
+    discover_stat_block_attack_control(state, actor, StatBlockActionDamageMode::Rolled, true)
 }
 
 #[must_use]
-pub fn discover_goblin_static_action_attack_control(
+pub fn discover_static_stat_block_attack_control(
     state: BattleState,
+    actor: Actor,
+    damage: i16,
 ) -> StatBlockActionResolutionResult {
     // QNT: battle-runtime-stat-block-multi-damage.mbt.qnt
     // `targetInitialHp` 12 -> `targetHpAfterStaticPiercingOnly` 9.
-    discover_goblin_stat_block_attack_control(
+    discover_stat_block_attack_control(
         state,
-        StatBlockActionDamageMode::Static { damage: 3 },
+        actor,
+        StatBlockActionDamageMode::Static { damage },
         false,
     )
 }
 
 #[must_use]
-pub fn discover_goblin_prone_rider_attack_control(
+pub fn discover_prone_rider_stat_block_attack_control(
     state: BattleState,
+    actor: Actor,
     target_prone_condition_immune: bool,
 ) -> StatBlockActionResolutionResult {
-    if current_actor(&state) != Actor::Goblin || !state.action_available || state.goblin.hp <= 0 {
+    if current_actor(&state) != actor
+        || !state.action_available
+        || combatant_for(&state, actor).hp <= 0
+    {
         return invalid_stat_block_action(
             state,
             initial_stat_block_action_subject_with_prone_rider(
-                Actor::Goblin,
+                actor,
                 StatBlockActionFrontierStage::ActSelection,
                 StatBlockActionDamageMode::Rolled,
                 false,
@@ -1424,7 +2464,7 @@ pub fn discover_goblin_prone_rider_attack_control(
     }
 
     let subject = initial_stat_block_action_subject_with_prone_rider(
-        Actor::Goblin,
+        actor,
         StatBlockActionFrontierStage::AttackTargetChoice,
         StatBlockActionDamageMode::Rolled,
         false,
@@ -1440,18 +2480,19 @@ pub fn discover_goblin_prone_rider_attack_control(
 }
 
 #[must_use]
-pub fn spend_goblin_recharge_gated_rolled_attack(
+pub fn spend_recharge_gated_rolled_stat_block_attack(
     state: BattleState,
+    actor: Actor,
 ) -> StatBlockActionResolutionResult {
-    if current_actor(&state) != Actor::Goblin
+    if current_actor(&state) != actor
         || !state.action_available
-        || !state.goblin.recharge_available
-        || state.goblin.hp <= 0
+        || !combatant_for(&state, actor).recharge_available
+        || combatant_for(&state, actor).hp <= 0
     {
         return invalid_stat_block_action(
             state,
             initial_stat_block_action_subject(
-                Actor::Goblin,
+                actor,
                 StatBlockActionFrontierStage::ActSelection,
                 StatBlockActionDamageMode::Rolled,
                 false,
@@ -1461,15 +2502,14 @@ pub fn spend_goblin_recharge_gated_rolled_attack(
         );
     }
 
-    let mut goblin = state.goblin;
-    goblin.recharge_available = false;
+    let mut state = state;
+    combatant_for_mut(&mut state, actor).recharge_available = false;
     let state = BattleState {
-        goblin,
         action_available: false,
         ..state
     };
     let subject = initial_stat_block_action_subject(
-        Actor::Goblin,
+        actor,
         StatBlockActionFrontierStage::RechargeRoll,
         StatBlockActionDamageMode::Rolled,
         false,
@@ -1553,7 +2593,11 @@ pub fn stat_block_action_projection_from_result(
 pub fn combatant_is_dead(combatant: Combatant) -> bool {
     match combatant.lifecycle {
         CombatantLifecycle::DiesAtZeroHitPoints => combatant.hp == 0,
-        CombatantLifecycle::UsesDeathSavingThrows => false,
+        CombatantLifecycle::UsesDeathSavingThrows(DeathSavingThrowLifecycle::Dead) => true,
+        CombatantLifecycle::UsesDeathSavingThrows(
+            DeathSavingThrowLifecycle::MakingDeathSavingThrows { .. }
+            | DeathSavingThrowLifecycle::Stable,
+        ) => false,
     }
 }
 
@@ -1606,7 +2650,7 @@ fn resolve_target_choice(
     BattleResolutionResult::NeedsHoles {
         state,
         subject,
-        holes: weapon_attack_hole_frontier(next_stage),
+        holes: weapon_hole_kinds(next_stage),
     }
 }
 
@@ -1655,7 +2699,7 @@ fn resolve_attack_roll_fill(
     BattleResolutionResult::NeedsHoles {
         state,
         subject,
-        holes: weapon_attack_hole_frontier(next_stage),
+        holes: weapon_hole_kinds(next_stage),
     }
 }
 
@@ -1760,16 +2804,20 @@ fn spend_multiattack_dispatch(
     }
 }
 
-fn discover_goblin_stat_block_attack_control(
+fn discover_stat_block_attack_control(
     state: BattleState,
+    actor: Actor,
     damage_mode: StatBlockActionDamageMode,
     recharge_action_available: bool,
 ) -> StatBlockActionResolutionResult {
-    if current_actor(&state) != Actor::Goblin || !state.action_available || state.goblin.hp <= 0 {
+    if current_actor(&state) != actor
+        || !state.action_available
+        || combatant_for(&state, actor).hp <= 0
+    {
         return invalid_stat_block_action(
             state,
             initial_stat_block_action_subject(
-                Actor::Goblin,
+                actor,
                 StatBlockActionFrontierStage::ActSelection,
                 damage_mode,
                 recharge_action_available,
@@ -1780,7 +2828,7 @@ fn discover_goblin_stat_block_attack_control(
     }
 
     let subject = initial_stat_block_action_subject(
-        Actor::Goblin,
+        actor,
         StatBlockActionFrontierStage::AttackTargetChoice,
         damage_mode,
         recharge_action_available,
@@ -2001,10 +3049,10 @@ fn resolve_stat_block_recharge_roll(
     };
 
     let recharged = roll >= 5;
-    let mut goblin = state.goblin;
-    goblin.recharge_available = recharged;
+    let mut state = state;
+    combatant_for_mut(&mut state, subject.actor).recharge_available = recharged;
     StatBlockActionResolutionResult::Resolved {
-        state: BattleState { goblin, ..state },
+        state,
         subject: StatBlockActionSubject {
             stage: next_stage,
             recharge_action_available: recharged,
@@ -2021,10 +3069,13 @@ fn skeleton_profile() -> StatBlockMultiattackProfile {
     }
 }
 
-fn goblin_profile() -> StatBlockMultiattackProfile {
+#[must_use]
+pub fn primary_stat_block_multiattack_profile(
+    primary_attack_count: i16,
+) -> StatBlockMultiattackProfile {
     StatBlockMultiattackProfile {
         first_attack_slot: StatBlockAttackSlot::Primary,
-        primary_attack_count: 3,
+        primary_attack_count,
         secondary_attack_count: 0,
     }
 }
@@ -2068,8 +3119,116 @@ fn invalid(
     BattleResolutionResult::Invalid {
         state,
         reason,
-        holes: weapon_attack_hole_frontier(stage),
+        holes: weapon_hole_kinds(stage),
     }
+}
+
+fn weapon_hole_kinds(stage: WeaponAttackFrontierStage) -> Vec<BattleHoleKind> {
+    weapon_attack_hole_frontier(stage)
+        .into_iter()
+        .map(|hole| match hole {
+            WeaponAttackHoleKind::TargetChoice => BattleHoleKind::TargetChoice,
+            WeaponAttackHoleKind::AttackRoll => BattleHoleKind::AttackRoll,
+            WeaponAttackHoleKind::RolledDice => BattleHoleKind::RolledDice,
+        })
+        .collect()
+}
+
+fn slot_spell_hole_kinds(state: &BattleState) -> Vec<BattleHoleKind> {
+    slot_spell_holes_from_battle(state)
+        .into_iter()
+        .map(|hole| match hole {
+            BattleSlotSpellHole::SpellTargetAllocation => BattleHoleKind::SpellTargetAllocation,
+            BattleSlotSpellHole::RolledDice => BattleHoleKind::RolledDice,
+        })
+        .collect()
+}
+
+fn save_gated_spell_hole_kinds(stage: SaveGatedSpellFrontierStage) -> Vec<BattleHoleKind> {
+    save_gated_spell_hole_frontier(stage)
+        .into_iter()
+        .map(|hole| match hole {
+            SaveGatedSpellHoleKind::SpellTargetList => BattleHoleKind::SpellTargetList,
+            SaveGatedSpellHoleKind::ConditionChoice => BattleHoleKind::ConditionChoice,
+            SaveGatedSpellHoleKind::SavingThrowOutcome => BattleHoleKind::SavingThrowOutcome,
+            SaveGatedSpellHoleKind::RolledDice => BattleHoleKind::RolledDice,
+        })
+        .collect()
+}
+
+fn hit_point_restoration_hole_kinds(
+    stage: HitPointRestorationFrontierStage,
+) -> Vec<BattleHoleKind> {
+    hit_point_restoration_hole_frontier(stage)
+        .into_iter()
+        .map(|hole| match hole {
+            HitPointRestorationHoleKind::TargetChoice => BattleHoleKind::TargetChoice,
+            HitPointRestorationHoleKind::SpellTargetList => BattleHoleKind::SpellTargetList,
+            HitPointRestorationHoleKind::RolledDice => BattleHoleKind::RolledDice,
+            HitPointRestorationHoleKind::HitPointHealingDistribution => {
+                BattleHoleKind::HitPointHealingDistribution
+            }
+        })
+        .collect()
+}
+
+fn concentration_holes(state: &ConcentrationState) -> Vec<BattleHoleKind> {
+    match state.protocol {
+        ConcentrationProtocol::NeedsSavingThrow => {
+            vec![BattleHoleKind::ConcentrationSavingThrow]
+        }
+        ConcentrationProtocol::Init | ConcentrationProtocol::Resolved => Vec::new(),
+    }
+}
+
+fn death_saving_throw_available(combatant: Combatant) -> bool {
+    let CombatantLifecycle::UsesDeathSavingThrows(death_save) = combatant.lifecycle else {
+        return false;
+    };
+    combatant.hp == 0
+        && combatant.unconscious
+        && matches!(
+            death_save,
+            DeathSavingThrowLifecycle::MakingDeathSavingThrows { .. }
+        )
+}
+
+#[must_use]
+pub fn death_saving_throw_state_from_combatant(
+    combatant: Combatant,
+) -> Option<DeathSavingThrowState> {
+    let CombatantLifecycle::UsesDeathSavingThrows(death_save) = combatant.lifecycle else {
+        return None;
+    };
+    Some(DeathSavingThrowState {
+        current_turn_role: DeathSavingThrowTurnRole::Actor,
+        target_hp: combatant.hp,
+        target_unconscious: combatant.unconscious,
+        target_stable: matches!(death_save, DeathSavingThrowLifecycle::Stable),
+        target_dead: matches!(death_save, DeathSavingThrowLifecycle::Dead),
+        target_death_successes: death_saving_throw_successes(death_save),
+        target_death_failures: death_saving_throw_failures(death_save),
+        protocol: DeathSavingThrowProtocol::Init,
+    })
+}
+
+fn combatant_from_death_saving_throw_state(
+    combatant: Combatant,
+    death_save: DeathSavingThrowState,
+) -> Option<Combatant> {
+    let CombatantLifecycle::UsesDeathSavingThrows(_) = combatant.lifecycle else {
+        return None;
+    };
+    Some(Combatant {
+        hp: death_save.target_hp,
+        unconscious: death_save.target_unconscious,
+        incapacitated: death_save.target_unconscious,
+        prone: death_save.target_unconscious,
+        lifecycle: CombatantLifecycle::UsesDeathSavingThrows(
+            DeathSavingThrowLifecycle::from_state(death_save),
+        ),
+        ..combatant
+    })
 }
 
 fn initial_stat_block_action_subject(
@@ -2286,6 +3445,40 @@ fn with_damaged_target(mut state: BattleState, target: Actor, damage: i16) -> Ba
     state
 }
 
+fn with_healed_target(mut state: BattleState, target: Actor, healing: i16) -> BattleState {
+    let target_combatant = combatant_for(&state, target);
+    if !ordinary_zero_hit_point_restoration_target(target_combatant) {
+        return state;
+    }
+    let new_hp = (target_combatant.hp + healing.max(0)).min(target_combatant.max_hp);
+    let healed = if new_hp > 0 {
+        Combatant {
+            hp: new_hp,
+            unconscious: false,
+            incapacitated: false,
+            prone: false,
+            lifecycle: healed_lifecycle(target_combatant.lifecycle),
+            ..target_combatant
+        }
+    } else {
+        Combatant {
+            hp: new_hp,
+            ..target_combatant
+        }
+    };
+    match target {
+        Actor::Fighter => state.fighter = healed,
+        Actor::Goblin => state.goblin = healed,
+        Actor::Rogue => state.rogue = healed,
+        Actor::Skeleton => state.skeleton = healed,
+    }
+    state
+}
+
+fn zero_hit_point_lifecycle_cleared(combatant: Combatant) -> bool {
+    combatant.hp > 0 && !combatant.unconscious && !combatant.incapacitated && !combatant.prone
+}
+
 fn spend_reaction(mut state: BattleState, actor: Actor) -> BattleState {
     combatant_for_mut(&mut state, actor).reaction_available = false;
     state
@@ -2423,7 +3616,7 @@ fn combatant_for_mut(state: &mut BattleState, actor: Actor) -> &mut Combatant {
 fn combatant_vitals(combatant: Combatant) -> CreatureVitals {
     CreatureVitals {
         kind: match combatant.lifecycle {
-            CombatantLifecycle::UsesDeathSavingThrows => CreatureKind::PlayerCharacter,
+            CombatantLifecycle::UsesDeathSavingThrows(_) => CreatureKind::PlayerCharacter,
             CombatantLifecycle::DiesAtZeroHitPoints => CreatureKind::Monster,
         },
         hit_points: combatant.hp,
@@ -2439,6 +3632,43 @@ fn with_vitals(combatant: Combatant, vitals: CreatureVitals) -> Combatant {
         hp: vitals.hit_points,
         temporary_hp: vitals.temporary_hit_points,
         unconscious: vitals.unconscious,
+        lifecycle: with_lifecycle_dead(combatant.lifecycle, vitals.dead),
         ..combatant
+    }
+}
+
+fn healed_lifecycle(lifecycle: CombatantLifecycle) -> CombatantLifecycle {
+    match lifecycle {
+        CombatantLifecycle::UsesDeathSavingThrows(_) => {
+            CombatantLifecycle::UsesDeathSavingThrows(DeathSavingThrowLifecycle::fresh())
+        }
+        CombatantLifecycle::DiesAtZeroHitPoints => CombatantLifecycle::DiesAtZeroHitPoints,
+    }
+}
+
+fn with_lifecycle_dead(lifecycle: CombatantLifecycle, dead: bool) -> CombatantLifecycle {
+    match lifecycle {
+        CombatantLifecycle::UsesDeathSavingThrows(_) if dead => {
+            CombatantLifecycle::UsesDeathSavingThrows(DeathSavingThrowLifecycle::Dead)
+        }
+        CombatantLifecycle::UsesDeathSavingThrows(death_save) => {
+            CombatantLifecycle::UsesDeathSavingThrows(death_save)
+        }
+        CombatantLifecycle::DiesAtZeroHitPoints => CombatantLifecycle::DiesAtZeroHitPoints,
+    }
+}
+
+fn death_saving_throw_successes(lifecycle: DeathSavingThrowLifecycle) -> i16 {
+    match lifecycle {
+        DeathSavingThrowLifecycle::MakingDeathSavingThrows { successes, .. } => successes.as_i16(),
+        DeathSavingThrowLifecycle::Stable | DeathSavingThrowLifecycle::Dead => 0,
+    }
+}
+
+fn death_saving_throw_failures(lifecycle: DeathSavingThrowLifecycle) -> i16 {
+    match lifecycle {
+        DeathSavingThrowLifecycle::MakingDeathSavingThrows { failures, .. } => failures.as_i16(),
+        DeathSavingThrowLifecycle::Stable => 0,
+        DeathSavingThrowLifecycle::Dead => 3,
     }
 }

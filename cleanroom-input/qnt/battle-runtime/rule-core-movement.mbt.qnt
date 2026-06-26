@@ -1,6 +1,7 @@
 // -*- mode: Bluespec; -*-
 
 module ruleCoreMovementMbt {
+  import ruleCoreComponentRoute.* from "./rule-core-component-route"
   import attackDamageComposition.* from "../shared-algebras/proofs/rule-core/attack-damage-composition"
   import movementSpatialGrapple.* from "../shared-algebras/proofs/rule-core/movement-spatial-grapple"
   import actionTurnProcedures.* from "../shared-algebras/proofs/rule-core/action-turn-procedures"
@@ -16,8 +17,12 @@ module ruleCoreMovementMbt {
   var qGrappleEscapeDc: int
   var qProtocol: WitnessProtocol[str]
   var qPendingOpportunityAttack: bool
+  var qComponentRoute: List[RuleCoreComponentRouteEvent]
 
-  pure def qHoles: Set[str] = qProtocol.holes
+  pure def openHoles: Set[str] = qProtocol.holes
+
+  pure def componentRouteEvidence: List[RuleCoreComponentRouteEvent] =
+    ruleCoreComponentRoute(RuleCoreMovementGrappleOwner)
 
   pure def fighterActor: str = "Fighter"
   pure def grappledTargetActor: str = "GrappledTarget"
@@ -28,19 +33,11 @@ module ruleCoreMovementMbt {
   pure def movementOverspendCostFeet: int = 35
   pure def runtimeGrappleEscapeDc: int = 10
 
-  pure def witnessInvalidReasonForProjection(reason: str): WitnessInvalidReason =
-    if (reason == "staleSubject") WStaleSubject else WInvalidFill
-
   pure def witnessProtocolForProjection(
     holes: Set[str],
-    result: str,
-    invalidReason: str,
+    result: WitnessResult,
   ): WitnessProtocol[str] =
-    if (result == "init") witnessInit("Movement")
-    else if (result == "invalid")
-      witnessInvalidWithHoles(holes, witnessInvalidReasonForProjection(invalidReason))
-    else if (holes != Set()) witnessNeedsHoles(holes)
-    else witnessResolved("Movement")
+    witnessProtocolFromResult(holes, "Movement", result)
 
   pure def qTurnState: TurnProcedureState =
     initialTurnProcedureState
@@ -70,9 +67,10 @@ module ruleCoreMovementMbt {
   pure def qActionStateAfter(turn: TurnProcedureState): bool =
     turn.actionQuota == ActionAvailable
 
-  action clearSuccessfulHoles(result: str): bool = all {
-    qProtocol' = witnessProtocolForProjection(Set(), result, "none"),
+  action clearSuccessfulHoles(result: WitnessResult): bool = all {
+    qProtocol' = witnessProtocolForProjection(Set(), result),
     qPendingOpportunityAttack' = false,
+    qComponentRoute' = componentRouteEvidence,
   }
 
   action recordFighterMovementState(state: MovementGrappleState): bool = all {
@@ -84,7 +82,7 @@ module ruleCoreMovementMbt {
     qCurrentActor' = qCurrentActor,
     qGrappleActive' = qGrappleActive,
     qGrappleEscapeDc' = qGrappleEscapeDc,
-    clearSuccessfulHoles("resolved"),
+    clearSuccessfulHoles(WResolved),
   }
 
   action recordTurnState(turn: TurnProcedureState): bool = all {
@@ -96,7 +94,7 @@ module ruleCoreMovementMbt {
     qCurrentActor' = qCurrentActor,
     qGrappleActive' = qGrappleActive,
     qGrappleEscapeDc' = qGrappleEscapeDc,
-    clearSuccessfulHoles("resolved"),
+    clearSuccessfulHoles(WResolved),
   }
 
   action recordGrappleState(active: bool, escapeDc: int, actionAvailable: bool): bool = all {
@@ -108,10 +106,10 @@ module ruleCoreMovementMbt {
     qCurrentActor' = qCurrentActor,
     qGrappleActive' = active,
     qGrappleEscapeDc' = escapeDc,
-    clearSuccessfulHoles("resolved"),
+    clearSuccessfulHoles(WResolved),
   }
 
-  action recordInvalid(reason: str): bool = all {
+  action recordInvalid(reason: WitnessInvalidReason): bool = all {
     qMovementSpentFeet' = qMovementSpentFeet,
     qDashBonusFeet' = qDashBonusFeet,
     qProne' = qProne,
@@ -120,8 +118,9 @@ module ruleCoreMovementMbt {
     qCurrentActor' = qCurrentActor,
     qGrappleActive' = qGrappleActive,
     qGrappleEscapeDc' = qGrappleEscapeDc,
-    qProtocol' = witnessProtocolForProjection(qHoles, "invalid", reason),
+    qProtocol' = witnessProtocolForProjection(openHoles, WInvalid(reason)),
     qPendingOpportunityAttack' = qPendingOpportunityAttack,
+    qComponentRoute' = componentRouteEvidence,
   }
 
   action init = all {
@@ -133,13 +132,14 @@ module ruleCoreMovementMbt {
     qActionAvailable' = true,
     qGrappleActive' = false,
     qGrappleEscapeDc' = 0,
-    qProtocol' = witnessProtocolForProjection(Set(), "init", "none"),
+    qProtocol' = witnessProtocolForProjection(Set(), WInit),
     qPendingOpportunityAttack' = false,
+    qComponentRoute' = componentRouteEvidence,
   }
 
   action doDiscoverMovement = all {
     qCurrentActor == fighterActor,
-    qHoles == Set(),
+    openHoles == Set(),
     qMovementRemainingFeet > 0,
     qMovementSpentFeet' = qMovementSpentFeet,
     qDashBonusFeet' = qDashBonusFeet,
@@ -149,12 +149,13 @@ module ruleCoreMovementMbt {
     qCurrentActor' = qCurrentActor,
     qGrappleActive' = qGrappleActive,
     qGrappleEscapeDc' = qGrappleEscapeDc,
-    qProtocol' = witnessProtocolForProjection(Set("Movement"), "needsHoles", "none"),
+    qProtocol' = witnessProtocolForProjection(Set("Movement"), WNeedsHoles),
     qPendingOpportunityAttack' = false,
+    qComponentRoute' = componentRouteEvidence,
   }
 
   action doSpendMovement = all {
-    qHoles == Set("Movement"),
+    openHoles == Set("Movement"),
     canSpendMovement(qFighterMovementState, {
       distanceFeet: movementFillCostFeet,
       extraCostFeet: 0,
@@ -166,7 +167,7 @@ module ruleCoreMovementMbt {
   }
 
   action doSpendShortMovement = all {
-    qHoles == Set("Movement"),
+    openHoles == Set("Movement"),
     canSpendMovement(qFighterMovementState, {
       distanceFeet: movementShortCostFeet,
       extraCostFeet: 0,
@@ -178,7 +179,7 @@ module ruleCoreMovementMbt {
   }
 
   action doSpendFullMovement = all {
-    qHoles == Set("Movement"),
+    openHoles == Set("Movement"),
     canSpendMovement(qFighterMovementState, {
       distanceFeet: movementFullCostFeet,
       extraCostFeet: 0,
@@ -190,7 +191,7 @@ module ruleCoreMovementMbt {
   }
 
   action doMoveProvokesOpportunityAttack = all {
-    qHoles == Set("Movement"),
+    openHoles == Set("Movement"),
     canSpendMovement(qFighterMovementState, {
       distanceFeet: movementFillCostFeet,
       extraCostFeet: 0,
@@ -209,12 +210,13 @@ module ruleCoreMovementMbt {
     qCurrentActor' = qCurrentActor,
     qGrappleActive' = qGrappleActive,
     qGrappleEscapeDc' = qGrappleEscapeDc,
-    qProtocol' = witnessProtocolForProjection(Set("ReactionDecision"), "needsHoles", "none"),
+    qProtocol' = witnessProtocolForProjection(Set("ReactionDecision"), WNeedsHoles),
     qPendingOpportunityAttack' = true,
+    qComponentRoute' = componentRouteEvidence,
   }
 
   action doMoveThreatSuppressedByDisengage = all {
-    qHoles == Set("Movement"),
+    openHoles == Set("Movement"),
     canSpendMovement(qFighterMovementState, {
       distanceFeet: movementFillCostFeet,
       extraCostFeet: 0,
@@ -232,7 +234,7 @@ module ruleCoreMovementMbt {
   }
 
   action doDeclineOpportunityAttack = all {
-    qHoles == Set("ReactionDecision"),
+    openHoles == Set("ReactionDecision"),
     qPendingOpportunityAttack,
     recordFighterMovementState(spendMovement(qFighterMovementState, {
       distanceFeet: movementFillCostFeet,
@@ -241,35 +243,35 @@ module ruleCoreMovementMbt {
   }
 
   action doRejectMovementOverspend = all {
-    qHoles == Set("Movement"),
+    openHoles == Set("Movement"),
     qMovementRemainingFeet < movementOverspendCostFeet,
-    recordInvalid("invalidFill"),
+    recordInvalid(WInvalidFill),
   }
 
   action doDash = all {
     qCurrentActor == fighterActor,
-    qHoles == Set(),
+    openHoles == Set(),
     qActionAvailable,
     recordTurnState(resolveDash(qTurnState, movementSpeedFeet, StandardActionCost(DashAction))),
   }
 
   action doDisengage = all {
     qCurrentActor == fighterActor,
-    qHoles == Set(),
+    openHoles == Set(),
     qActionAvailable,
     recordTurnState(resolveDisengage(qTurnState, StandardActionCost(DisengageAction))),
   }
 
   action doRejectDashAfterActionSpent = all {
     qCurrentActor == fighterActor,
-    qHoles == Set(),
+    openHoles == Set(),
     not(qActionAvailable),
-    recordInvalid("staleSubject"),
+    recordInvalid(WStaleSubject),
   }
 
   action doStandFromProne = all {
     qCurrentActor == fighterActor,
-    qHoles == Set(),
+    openHoles == Set(),
     qProne,
     qFighterMovementState.speedFeet / 2 > 0,
     qMovementRemainingFeet >= qFighterMovementState.speedFeet / 2,
@@ -278,7 +280,7 @@ module ruleCoreMovementMbt {
 
   action doDiscoverGrapple = all {
     qCurrentActor == fighterActor,
-    qHoles == Set(),
+    openHoles == Set(),
     qActionAvailable,
     not(qGrappleActive),
     qMovementSpentFeet' = qMovementSpentFeet,
@@ -289,12 +291,13 @@ module ruleCoreMovementMbt {
     qCurrentActor' = qCurrentActor,
     qGrappleActive' = qGrappleActive,
     qGrappleEscapeDc' = qGrappleEscapeDc,
-    qProtocol' = witnessProtocolForProjection(Set("TargetChoice"), "needsHoles", "none"),
+    qProtocol' = witnessProtocolForProjection(Set("TargetChoice"), WNeedsHoles),
     qPendingOpportunityAttack' = false,
+    qComponentRoute' = componentRouteEvidence,
   }
 
   action doSelectGrappleTarget = all {
-    qHoles == Set("TargetChoice"),
+    openHoles == Set("TargetChoice"),
     qMovementSpentFeet' = qMovementSpentFeet,
     qDashBonusFeet' = qDashBonusFeet,
     qProne' = qProne,
@@ -303,25 +306,26 @@ module ruleCoreMovementMbt {
     qCurrentActor' = qCurrentActor,
     qGrappleActive' = qGrappleActive,
     qGrappleEscapeDc' = qGrappleEscapeDc,
-    qProtocol' = witnessProtocolForProjection(Set("GrappleOutcome"), "needsHoles", "none"),
+    qProtocol' = witnessProtocolForProjection(Set("GrappleOutcome"), WNeedsHoles),
     qPendingOpportunityAttack' = false,
+    qComponentRoute' = componentRouteEvidence,
   }
 
   action doResolveGrappleSuccess = all {
-    qHoles == Set("GrappleOutcome"),
+    openHoles == Set("GrappleOutcome"),
     qActionAvailable,
     recordGrappleState(true, runtimeGrappleEscapeDc, false),
   }
 
   action doResolveGrappleFailure = all {
-    qHoles == Set("GrappleOutcome"),
+    openHoles == Set("GrappleOutcome"),
     qActionAvailable,
     recordGrappleState(false, 0, false),
   }
 
   action doStartGrappledTargetTurn = all {
     qCurrentActor == fighterActor,
-    qHoles == Set(),
+    openHoles == Set(),
     qGrappleActive,
     qCurrentActor' = grappledTargetActor,
     qMovementSpentFeet' = qMovementSpentFeet,
@@ -331,13 +335,14 @@ module ruleCoreMovementMbt {
     qActionAvailable' = true,
     qGrappleActive' = qGrappleActive,
     qGrappleEscapeDc' = qGrappleEscapeDc,
-    qProtocol' = witnessProtocolForProjection(Set(), "resolved", "none"),
+    qProtocol' = witnessProtocolForProjection(Set(), WResolved),
     qPendingOpportunityAttack' = false,
+    qComponentRoute' = componentRouteEvidence,
   }
 
   action doDiscoverEscapeGrapple = all {
     qCurrentActor == grappledTargetActor,
-    qHoles == Set(),
+    openHoles == Set(),
     qGrappleActive,
     qActionAvailable,
     qMovementSpentFeet' = qMovementSpentFeet,
@@ -348,13 +353,14 @@ module ruleCoreMovementMbt {
     qCurrentActor' = qCurrentActor,
     qGrappleActive' = qGrappleActive,
     qGrappleEscapeDc' = qGrappleEscapeDc,
-    qProtocol' = witnessProtocolForProjection(Set("GrappleOutcome"), "needsHoles", "none"),
+    qProtocol' = witnessProtocolForProjection(Set("GrappleOutcome"), WNeedsHoles),
     qPendingOpportunityAttack' = false,
+    qComponentRoute' = componentRouteEvidence,
   }
 
   action doResolveEscapeSuccess = all {
     qCurrentActor == grappledTargetActor,
-    qHoles == Set("GrappleOutcome"),
+    openHoles == Set("GrappleOutcome"),
     qGrappleActive,
     qActionAvailable,
     val escaped = escapeGrapple(qTurnState, qGrappledTargetState.grapple, qGrappleEscapeDc)
@@ -363,7 +369,7 @@ module ruleCoreMovementMbt {
 
   action doResolveEscapeFailure = all {
     qCurrentActor == grappledTargetActor,
-    qHoles == Set("GrappleOutcome"),
+    openHoles == Set("GrappleOutcome"),
     qGrappleActive,
     qActionAvailable,
     val escaped = escapeGrapple(qTurnState, qGrappledTargetState.grapple, qGrappleEscapeDc - 1)
@@ -371,7 +377,7 @@ module ruleCoreMovementMbt {
   }
 
   action doReleaseGrapple = all {
-    qHoles == Set(),
+    openHoles == Set(),
     qGrappleActive,
     recordGrappleState(activeGrapple(releaseGrapple(qGrappledTargetState.grapple)), 0, qActionAvailable),
   }

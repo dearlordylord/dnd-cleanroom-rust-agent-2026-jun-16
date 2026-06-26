@@ -1,6 +1,6 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts, resolve_battle_subject, start_battle, Actor, AttackRollFacts, BattleFill,
-    BattleResolutionResult, BattleSubject,
+    BattleResolutionResult, BattleSubject, BattleSubjectKind,
 };
 use crate::rules::weapon_attack_ordering::{
     discover_weapon_attack, fill_weapon_attack_damage_dice, fill_weapon_attack_roll_hit,
@@ -141,7 +141,7 @@ fn discovered_weapon_attack_act(
 ) -> crate::rules::battle_reducer_spine::AvailableBattleAct {
     discover_battle_acts(state)
         .into_iter()
-        .next()
+        .find(|act| act.subject.kind == BattleSubjectKind::WeaponAttack)
         .expect("QNT initialState should discover one Fighter weapon attack")
 }
 
