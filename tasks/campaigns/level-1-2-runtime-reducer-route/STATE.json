@@ -211,7 +211,16 @@
         "RR06 expected route evidence no longer calls observed replay entrypoints and includes reducer outcome/state facts.",
         "RUN_LEDGER assignment identity now matches level-1-2-runtime-reducer-route."
       ],
-      "rereviewStatus": "pending"
+      "rereviewStatus": "findings",
+      "rereviewAgent": "019f0625-ebf0-7cf3-b37e-080a70023cc3",
+      "rereviewName": "Singer",
+      "rereviewFindings": [
+        "Command reducer still uses fixture actor fallback for missing command targets/current-role mapping.",
+        "Route equality still ignores BattleResolutionResult outcome, so route tests can pass with wrong outcome.",
+        "Command ordering and scalar buff expected routes still share helpers with observed replay routes.",
+        "State-owner evidence overstates BattleState.goblin.speed_feet fixture projection as a canonical source alongside Combatant.speed_feet.",
+        "VALIDATION_REPORT.md remains stale/incomplete for RR06 verification."
+      ]
     }
   ],
   "completedLaneWorktrees": [
