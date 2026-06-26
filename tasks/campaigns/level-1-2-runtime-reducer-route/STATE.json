@@ -203,7 +203,9 @@
       "secondFixerName": "Confucius",
       "secondFixStatus": "committed",
       "secondFixCommit": "97acec8abd003763e71346e789e6699a432e41df",
-      "finalRereviewStatus": "pending",
+      "finalRereviewStatus": "running",
+      "finalRereviewAgent": "019f05f0-c34d-7a73-ba32-111cb108a6b8",
+      "finalRereviewName": "Goodall",
       "reviewFindings": [
         "RR05 branch coverage evidence is missing/stale: no RR05 target-replay evidence, ledger rows, validation report, decider decision, or state-owner artifacts.",
         "creature-attack.mbt.qnt remains an adapter-local replay island using standalone creature_attack path instead of BattleState/discover/resolve/BattleResolutionResult.",
