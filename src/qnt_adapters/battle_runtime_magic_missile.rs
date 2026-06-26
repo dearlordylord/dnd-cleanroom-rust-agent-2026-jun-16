@@ -193,6 +193,7 @@ fn discovered_slot_spell_act(
     state: &BattleState,
 ) -> crate::rules::battle_reducer_spine::AvailableBattleAct {
     discover_battle_acts(state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::SlotSpell)
         .expect("Magic Missile reducer route should discover one slot-spell act")

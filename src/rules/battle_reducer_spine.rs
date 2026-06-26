@@ -567,6 +567,53 @@ pub struct AvailableBattleAct {
     pub holes: Vec<BattleHoleKind>,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct BattleActDiscoveryResult {
+    available_acts: Vec<AvailableBattleAct>,
+    current_actor: Actor,
+    action_available: bool,
+}
+
+impl BattleActDiscoveryResult {
+    #[must_use]
+    pub fn available_acts(&self) -> &[AvailableBattleAct] {
+        &self.available_acts
+    }
+
+    #[must_use]
+    pub fn into_available_acts(self) -> Vec<AvailableBattleAct> {
+        self.available_acts
+    }
+
+    #[must_use]
+    pub fn current_actor(&self) -> Actor {
+        self.current_actor
+    }
+
+    #[must_use]
+    pub fn action_available(&self) -> bool {
+        self.action_available
+    }
+
+    #[must_use]
+    pub fn is_empty(&self) -> bool {
+        self.available_acts.is_empty()
+    }
+
+    #[must_use]
+    pub fn len(&self) -> usize {
+        self.available_acts.len()
+    }
+
+    fn from_state(state: &BattleState, available_acts: Vec<AvailableBattleAct>) -> Self {
+        Self {
+            available_acts,
+            current_actor: current_actor(state),
+            action_available: state.action_available,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct AttackRollFacts {
     pub total: i16,
@@ -1793,31 +1840,35 @@ fn tick_round_duration_boundary_effects(state: BattleState) -> BattleState {
 }
 
 #[must_use]
-pub fn discover_battle_acts(state: &BattleState) -> Vec<AvailableBattleAct> {
+pub fn discover_battle_acts(state: &BattleState) -> BattleActDiscoveryResult {
     // QNT: battle-runtime-combat-holes.qnt `combatOpenHoles`, plus the copied
     // reducer-spine diagnostic guidance for slot-spell, save-gated spell, and
     // Hit Point restoration subject families.
     if !state.action_available {
-        return Vec::new();
+        return BattleActDiscoveryResult::from_state(state, Vec::new());
     }
 
     let actor = current_actor(state);
     let mut acts = Vec::new();
     push_reducer_spine_diagnostic_acts(state, actor, &mut acts);
     push_capability_weapon_acts(state, actor, &mut acts);
-    acts
+    BattleActDiscoveryResult::from_state(state, acts)
 }
 
 #[must_use]
 pub fn discover_battle_acts_observed(
     state: &BattleState,
     observer: &mut impl BattleEntrypointObserver,
-) -> Vec<AvailableBattleAct> {
-    let acts = discover_battle_acts(state);
+) -> BattleActDiscoveryResult {
+    let discovery = discover_battle_acts(state);
     observer.observe_battle_entrypoint(BattleEntrypointEvent::DiscoverBattleActs {
-        available_subjects: acts.iter().map(|act| act.subject.kind).collect(),
+        available_subjects: discovery
+            .available_acts()
+            .iter()
+            .map(|act| act.subject.kind)
+            .collect(),
     });
-    acts
+    discovery
 }
 
 fn push_reducer_spine_diagnostic_acts(
@@ -1920,7 +1971,8 @@ fn diagnostic_subject_shape_matches(
 
 fn route_subject_discoverable_now(state: &BattleState, subject: BattleSubject) -> bool {
     discover_battle_acts(state)
-        .into_iter()
+        .available_acts()
+        .iter()
         .any(|act| act.subject == subject)
 }
 

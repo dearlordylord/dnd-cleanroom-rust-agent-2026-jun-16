@@ -192,6 +192,7 @@ fn discovered_weapon_attack_act(
     state: &crate::rules::battle_reducer_spine::BattleState,
 ) -> crate::rules::battle_reducer_spine::AvailableBattleAct {
     discover_battle_acts(state)
+        .into_available_acts()
         .into_iter()
         .find(|act| {
             act.subject.kind == BattleSubjectKind::WeaponAttack && act.subject.actor == Actor::Rogue
@@ -239,6 +240,7 @@ fn spine_after_multiattack_resolution() -> (
 ) {
     let state = start_skeleton_actor_turn();
     let act = discover_battle_acts(&state)
+        .into_available_acts()
         .into_iter()
         .next()
         .expect("Skeleton turn should discover one multiattack act");

@@ -142,6 +142,7 @@ fn discovered_weapon_attack_act(
     state: &crate::rules::battle_reducer_spine::BattleState,
 ) -> crate::rules::battle_reducer_spine::AvailableBattleAct {
     discover_battle_acts(state)
+        .into_available_acts()
         .into_iter()
         .find(|act| act.subject.kind == BattleSubjectKind::WeaponAttack)
         .expect("QNT initialState should discover one Fighter weapon attack")
