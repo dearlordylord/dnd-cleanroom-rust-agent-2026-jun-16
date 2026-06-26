@@ -110,7 +110,7 @@
   ],
   "laneStatuses": {
     "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "implemented",
-    "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "running",
+    "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "implemented",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "held",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "blocked-on-checkpoint",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "blocked-on-checkpoint",
@@ -174,14 +174,29 @@
       "status": "implemented",
       "workerAgent": "019f05b4-136b-7923-a639-a86f819ac526",
       "workerName": "Aquinas",
-      "commit": "7b0997b0ad8f76a99d0a905a0e68ef679eecccde"
+      "commit": "7b0997b0ad8f76a99d0a905a0e68ef679eecccde",
+      "reviewAgent": "019f05bd-f0c9-7152-bd5d-dd8fcb75d9e9",
+      "reviewName": "McClintock",
+      "reviewStatus": "findings",
+      "fixerAgent": "019f05c2-3d45-7df1-a113-3cabbef9d667",
+      "fixerName": "Pascal",
+      "reviewFindings": [
+        "tasks/ENGINE_DEPTH_MANIFEST.json and history manifest classify src/rules/battle_reducer_spine.rs inconsistently as adapter module and production domain engine."
+      ]
     },
     {
       "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05",
       "branch": "ralph/l15-rr05-attack-statblock",
       "baseSha": "72f81250789a4e7bc6216503f2a93abac6771852",
-      "status": "running"
+      "status": "implemented",
+      "workerAgent": "019f05b4-6ea8-7f00-bdb1-264528b3ee63",
+      "workerName": "Ampere",
+      "commit": "76e8bd99e1d705cb31e9180bf831fd1625410ed5",
+      "reviewAgent": "019f05c2-759e-7892-87f5-384db29ab630",
+      "reviewName": "James",
+      "reviewStatus": "running",
+      "blockerNote": "Executable route evidence exists, but no new target-replay ledger refs were added because current cleanroom harness active assignment rejects RR05 ledger rows."
     }
   ],
   "operatorNotes": [

@@ -37,8 +37,8 @@ At `72f81250789a4e7bc6216503f2a93abac6771852`:
 
 ## Active Work
 
-- `L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE` implemented at `7b0997b0ad8f76a99d0a905a0e68ef679eecccde` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03`; review pending.
-- `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` running from base `72f81250789a4e7bc6216503f2a93abac6771852` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05`.
+- `L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE` implemented at `7b0997b0ad8f76a99d0a905a0e68ef679eecccde` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03`; review found artifact inconsistency in engine-depth manifest; fixer pending.
+- `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` implemented at `76e8bd99e1d705cb31e9180bf831fd1625410ed5` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05`; review pending. Worker reported a ledger-scope blocker: executable route evidence exists, but current harness active assignment rejects RR05 target-replay ledger rows.
 
 ## Coverage Delta Log
 
