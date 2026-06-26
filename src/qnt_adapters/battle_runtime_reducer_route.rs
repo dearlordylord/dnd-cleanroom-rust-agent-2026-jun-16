@@ -1,5 +1,5 @@
 use crate::rules::battle_reducer_spine::{
-    BattleHoleKind, BattleResolutionOutcome, BattleResolutionResult,
+    BattleHoleKind, BattleResolutionOutcome, BattleResolutionResult, BattleState, BattleSubject,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -150,6 +150,25 @@ pub fn route_resolve_battle_subject_from_result(
             }
         }
     }
+}
+
+#[must_use]
+pub fn battle_resolution_continuation(
+    result: BattleResolutionResult,
+    context: &str,
+) -> (BattleState, BattleSubject) {
+    let outcome = result.outcome();
+    let continuing_subject = result
+        .continuing_subject()
+        .unwrap_or_else(|| panic!("{context} should continue from NeedsHoles, got {outcome:?}"));
+    let needs_holes = result
+        .into_needs_holes()
+        .unwrap_or_else(|| panic!("{context} should continue from NeedsHoles, got {outcome:?}"));
+    assert_eq!(
+        needs_holes.subject, continuing_subject,
+        "{context} continuing_subject() and into_needs_holes() disagreed"
+    );
+    (needs_holes.state, needs_holes.subject)
 }
 
 #[must_use]

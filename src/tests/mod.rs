@@ -729,7 +729,7 @@ use battle_runtime_reaction_spell_selected_identity::{
     replay_observed_action as replay_reaction_spell_selected_identity_action,
     BRANCH_ACTIONS as REACTION_SPELL_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
-use battle_runtime_reducer_route::reducer_route_payload;
+use battle_runtime_reducer_route::{battle_resolution_continuation, reducer_route_payload};
 use battle_runtime_reducer_spine_contract::{
     expected_witness as expected_reducer_spine_contract_witness,
     initial_witness_projection as reducer_spine_contract_initial_witness,
@@ -4009,6 +4009,33 @@ fn reducer_spine_contract_adapter_replays_all_branches() {
         assert_eq!(observed, expected_reducer_spine_contract_witness(action));
         assert!(reducer_spine_contract_projection_payload(&observed).contains("protocolResult="));
     }
+}
+
+#[test]
+fn reducer_route_continuation_helper_consumes_result_subject() {
+    use crate::rules::battle_reducer_spine::{
+        start_fighter_skeleton_battle, Actor, BattleHoleKind, BattleResolutionResult,
+        BattleSubject, BattleSubjectKind,
+    };
+
+    let result_subject = BattleSubject {
+        kind: BattleSubjectKind::HitPointRestorationTargetListSpell,
+        actor: Actor::Fighter,
+        target: Some(Actor::Rogue),
+        stage: WeaponAttackFrontierStage::Resolved,
+        damage_modifier: 0,
+    };
+
+    let (_, subject) = battle_resolution_continuation(
+        BattleResolutionResult::NeedsHoles {
+            state: start_fighter_skeleton_battle(),
+            subject: result_subject,
+            holes: vec![BattleHoleKind::RolledDice],
+        },
+        "test continuation subject",
+    );
+
+    assert_eq!(subject, result_subject);
 }
 
 #[test]
