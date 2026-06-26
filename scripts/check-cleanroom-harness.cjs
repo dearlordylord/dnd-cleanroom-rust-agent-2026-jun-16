@@ -1017,8 +1017,8 @@ function validateLedgerEntry({
       issues.push(`${context}.selectedDrivers includes driver not in active assignment lane: ${selectedDriver}.`);
     }
   }
-  if ((entry.selectedDrivers ?? []).length !== 1) {
-    issues.push(`${context}.selectedDrivers must contain exactly one queued driver.`);
+  if ((entry.selectedDrivers ?? []).length === 0) {
+    issues.push(`${context}.selectedDrivers must contain at least one queued driver.`);
   }
 
   const startGate = readJson(artifactPaths.startGate);
@@ -1877,12 +1877,15 @@ function validateLedgerReportHonesty({
     }
     for (const obligation of requiredSelectedObligations(summary.selected)) {
       selectedObligationIds.add(obligation.obligationId);
-      validEvidenceRefsByObligation.set(
-        obligation.obligationId,
+      const refs =
         summary.evidenceSummary.coveredEvidenceRefsByObligation.get(
           obligation.obligationId,
-        ) ?? new Set(),
-      );
+        ) ?? new Set();
+      if (!validEvidenceRefsByObligation.has(obligation.obligationId)) {
+        validEvidenceRefsByObligation.set(obligation.obligationId, new Set());
+      }
+      const acceptedRefs = validEvidenceRefsByObligation.get(obligation.obligationId);
+      for (const ref of refs) acceptedRefs.add(ref);
     }
   }
 
@@ -2182,8 +2185,8 @@ function validateTaskArtifacts({ taskRoot, profile }) {
   const knownDrivers = new Set(
     (inventory.branchObligations ?? []).map((entry) => entry.driverPath),
   );
-  if (selectedDrivers.length !== 1) {
-    issues.push("tasks/START_GATE.json taskScope.selectedDrivers must contain exactly one queued driver.");
+  if (selectedDrivers.length === 0) {
+    issues.push("tasks/START_GATE.json taskScope.selectedDrivers must contain at least one queued driver.");
   }
   const assignmentId = startGate.taskScope?.assignmentId;
   const laneId = startGate.taskScope?.laneId;

@@ -14,8 +14,10 @@ use crate::rules::save_gated_spell_ordering::{
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts, route_resolve_battle_subject, route_start_battle,
-    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+    route_discover_battle_acts, route_resolve_battle_subject,
+    route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
+    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 10] = [
@@ -415,12 +417,13 @@ fn resolve_with_route(
     mut route: Vec<ReducerRouteEvent>,
 ) -> (BattleResolutionResult, Vec<ReducerRouteEvent>) {
     let result = resolve_battle_subject_test_fill(state, subject, BattleFill::SaveGatedSpell(fill));
-    let holes = result.requested_holes().unwrap_or(&[]).to_vec();
-    route.push(route_resolve_battle_subject(
-        ReducerRouteSubjectFamily::SaveGatedSpell,
-        route_fill,
-        holes,
-        owner,
+    route.push(route_resolve_battle_subject_from_result(
+        ReducerRouteResolveConnector {
+            subject: ReducerRouteSubjectFamily::SaveGatedSpell,
+            fill: ReducerRouteResolveFill::Fill(route_fill),
+            owner,
+        },
+        &result,
     ));
     (result, route)
 }
