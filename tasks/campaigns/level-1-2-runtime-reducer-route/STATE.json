@@ -185,6 +185,12 @@
       "rereviewStatus": "running",
       "rereviewAgent": "019f05c9-aaa6-7f30-bfb9-5b275afe2440",
       "rereviewName": "Kepler",
+      "rereviewFindings": [
+        "scripts/check-cleanroom-harness.cjs now uses the reduced production-source witness-name set for adapter-quarantine completeness, so sampled QNT pick names could be omitted from adapterModules[].quarantinedWitnessNames while the harness still passes."
+      ],
+      "secondFixerAgent": "019f05cd-2521-7332-a606-180452c29ea0",
+      "secondFixerName": "Gibbs",
+      "secondFixStatus": "running",
       "reviewFindings": [
         "tasks/ENGINE_DEPTH_MANIFEST.json and history manifest classify src/rules/battle_reducer_spine.rs inconsistently as adapter module and production domain engine."
       ]
