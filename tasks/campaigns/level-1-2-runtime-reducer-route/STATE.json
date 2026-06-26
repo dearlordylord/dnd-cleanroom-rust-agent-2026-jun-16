@@ -255,7 +255,17 @@
       "thirdRereviewFindings": [
         "Command route evidence is not checked against copied route connector battle-runtime-command-ordering.route.mbt.qnt; evidence records non-route driver while claiming qRoute.",
         "Command next-turn evidence also claims qRoute over a literal projection witness, and local Rust follow expectations diverge from copied command route connector follow routes."
-      ]
+      ],
+      "fourthFixerAgent": "019f064c-4200-7663-9cb3-525119462d4c",
+      "fourthFixerName": "Maxwell",
+      "fourthFixStatus": "committed",
+      "fourthFixCommit": "729cf31d8b1e02a33b897f24288e58f64aff4bb2",
+      "fourthFixerResolution": [
+        "Command ordering route evidence checks copied battle-runtime-command-ordering.route.mbt.qnt route connector.",
+        "Command next-turn evidence records literal projection witness status paired with the command ordering route connector.",
+        "doApproachMovementContinues and doFollowGrovel expectations were aligned to copied route connector terminal events."
+      ],
+      "fourthRereviewStatus": "pending"
     }
   ],
   "completedLaneWorktrees": [
