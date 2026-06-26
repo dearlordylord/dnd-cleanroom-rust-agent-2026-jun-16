@@ -1,6 +1,6 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts, resolve_battle_subject_test_fill, start_fighter_skeleton_battle,
-    BattleConcentrationFill, BattleFill, BattleHoleKind, BattleResolutionResult, BattleState,
+    BattleConcentrationFill, BattleFill, BattleHoleKind, BattleResolutionOutcome, BattleState,
     BattleSubject, BattleSubjectKind,
 };
 use crate::rules::concentration::{
@@ -191,7 +191,10 @@ fn voluntary_end_concentration_route() -> (BattleState, Vec<ReducerRouteEvent>) 
         subject,
         BattleFill::Concentration(BattleConcentrationFill::VoluntaryEnd),
     );
-    let state = resolved_state(result);
+    let outcome = result.outcome();
+    let state = result
+        .into_resolved_state()
+        .unwrap_or_else(|| panic!("concentration route should resolve, got {outcome:?}"));
     route.push(route_resolve_battle_subject_without_fill(
         ReducerRouteSubjectFamily::ConcentrationTeardown,
         Vec::new(),
@@ -208,8 +211,12 @@ fn damage_requests_concentration_save_route() -> (BattleState, Vec<ReducerRouteE
         subject,
         BattleFill::Concentration(BattleConcentrationFill::DamageTaken(sampled_damage_facts())),
     );
-    let holes = result_holes(&result);
-    let state = needs_holes_or_resolved_state(result);
+    let holes = result.requested_holes().unwrap_or(&[]).to_vec();
+    let outcome = result.outcome();
+    if matches!(outcome, BattleResolutionOutcome::Invalid(_)) {
+        panic!("concentration route should not reject, got {outcome:?}");
+    }
+    let state = result.into_state();
     route.push(route_resolve_battle_subject(
         ReducerRouteSubjectFamily::ConcentrationTeardown,
         ReducerRouteFillKind::RolledDice,
@@ -231,8 +238,11 @@ fn fail_concentration_save_route() -> (BattleState, Vec<ReducerRouteEvent>) {
             },
         )),
     );
-    let holes = result_holes(&result);
-    let state = resolved_state(result);
+    let holes = result.requested_holes().unwrap_or(&[]).to_vec();
+    let outcome = result.outcome();
+    let state = result
+        .into_resolved_state()
+        .unwrap_or_else(|| panic!("concentration route should resolve, got {outcome:?}"));
     route.push(route_resolve_battle_subject(
         ReducerRouteSubjectFamily::ConcentrationTeardown,
         ReducerRouteFillKind::ConcentrationSavingThrow,
@@ -255,7 +265,10 @@ fn resolve_concentration_without_fill(
     ));
     let result =
         resolve_battle_subject_test_fill(state, act.subject, BattleFill::Concentration(fill));
-    let state = resolved_state(result);
+    let outcome = result.outcome();
+    let state = result
+        .into_resolved_state()
+        .unwrap_or_else(|| panic!("concentration route should resolve, got {outcome:?}"));
     route.push(route_resolve_battle_subject_without_fill(
         ReducerRouteSubjectFamily::ConcentrationTeardown,
         Vec::new(),
@@ -297,29 +310,6 @@ fn concentration_teardown_subject() -> BattleSubject {
         target: None,
         stage: crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage::Resolved,
         damage_modifier: 0,
-    }
-}
-
-fn result_holes(result: &BattleResolutionResult) -> Vec<BattleHoleKind> {
-    match result {
-        BattleResolutionResult::NeedsHoles { holes, .. }
-        | BattleResolutionResult::Invalid { holes, .. } => holes.clone(),
-        BattleResolutionResult::Resolved { .. } => Vec::new(),
-    }
-}
-
-fn resolved_state(result: BattleResolutionResult) -> BattleState {
-    match result {
-        BattleResolutionResult::Resolved { state } => state,
-        other => panic!("concentration route should resolve, got {other:?}"),
-    }
-}
-
-fn needs_holes_or_resolved_state(result: BattleResolutionResult) -> BattleState {
-    match result {
-        BattleResolutionResult::NeedsHoles { state, .. }
-        | BattleResolutionResult::Resolved { state } => state,
-        other => panic!("concentration route should not reject, got {other:?}"),
     }
 }
 

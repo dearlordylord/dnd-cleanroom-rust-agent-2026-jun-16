@@ -1,6 +1,6 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts, resolve_battle_subject_test_fill, start_battle, Actor, AttackRollFacts,
-    BattleFill, BattleResolutionResult, BattleSetup, BattleSubject, BattleSubjectKind,
+    BattleFill, BattleResolutionOutcome, BattleSetup, BattleSubject, BattleSubjectKind,
 };
 use crate::rules::weapon_attack_ordering::{
     discover_weapon_attack, fill_weapon_attack_damage_dice, fill_weapon_attack_roll_hit,
@@ -154,14 +154,16 @@ fn spine_after_target_choice() -> (
 ) {
     let state = standard_battle_state();
     let act = discovered_weapon_attack_act(&state);
-    match resolve_battle_subject_test_fill(
+    let result = resolve_battle_subject_test_fill(
         state,
         act.subject,
         BattleFill::TargetChoice(Actor::Goblin),
-    ) {
-        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
-        other => panic!("target choice should need attack-roll holes, got {other:?}"),
-    }
+    );
+    let outcome = result.outcome();
+    let needs_holes = result
+        .into_needs_holes()
+        .unwrap_or_else(|| panic!("target choice should need attack-roll holes, got {outcome:?}"));
+    (needs_holes.state, needs_holes.subject)
 }
 
 fn standard_battle_state() -> crate::rules::battle_reducer_spine::BattleState {
@@ -173,30 +175,34 @@ fn spine_after_attack_roll_hit() -> (
     BattleSubject,
 ) {
     let (state, subject) = spine_after_target_choice();
-    match resolve_battle_subject_test_fill(
+    let result = resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::AttackRoll(AttackRollFacts {
             total: 16,
             natural_d20: 12,
         }),
-    ) {
-        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
-        other => panic!("attack-roll hit should need damage holes, got {other:?}"),
-    }
+    );
+    let outcome = result.outcome();
+    let needs_holes = result
+        .into_needs_holes()
+        .unwrap_or_else(|| panic!("attack-roll hit should need damage holes, got {outcome:?}"));
+    (needs_holes.state, needs_holes.subject)
 }
 
-fn assert_invalid(result: BattleResolutionResult) {
+fn assert_invalid(result: crate::rules::battle_reducer_spine::BattleResolutionResult) {
+    let outcome = result.outcome();
     assert!(
-        matches!(result, BattleResolutionResult::Invalid { .. }),
-        "expected invalid reducer result, got {result:?}"
+        matches!(outcome, BattleResolutionOutcome::Invalid(_)),
+        "expected invalid reducer result, got {outcome:?}"
     );
 }
 
-fn assert_resolved(result: BattleResolutionResult) {
+fn assert_resolved(result: crate::rules::battle_reducer_spine::BattleResolutionResult) {
+    let outcome = result.outcome();
     assert!(
-        matches!(result, BattleResolutionResult::Resolved { .. }),
-        "expected resolved reducer result, got {result:?}"
+        outcome == BattleResolutionOutcome::Resolved,
+        "expected resolved reducer result, got {outcome:?}"
     );
 }
 

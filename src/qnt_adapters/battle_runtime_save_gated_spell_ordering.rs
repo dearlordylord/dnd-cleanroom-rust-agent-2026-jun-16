@@ -415,11 +415,7 @@ fn resolve_with_route(
     mut route: Vec<ReducerRouteEvent>,
 ) -> (BattleResolutionResult, Vec<ReducerRouteEvent>) {
     let result = resolve_battle_subject_test_fill(state, subject, BattleFill::SaveGatedSpell(fill));
-    let holes = match &result {
-        BattleResolutionResult::NeedsHoles { holes, .. }
-        | BattleResolutionResult::Invalid { holes, .. } => holes.clone(),
-        BattleResolutionResult::Resolved { .. } => Vec::new(),
-    };
+    let holes = result.requested_holes().unwrap_or(&[]).to_vec();
     route.push(route_resolve_battle_subject(
         ReducerRouteSubjectFamily::SaveGatedSpell,
         route_fill,
@@ -570,18 +566,13 @@ fn discovered_save_gated_act(
 }
 
 fn needs_holes(result: BattleResolutionResult) -> (BattleState, BattleSubject) {
-    match result {
-        BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
-        other => panic!("save-gated reducer branch should need holes, got {other:?}"),
-    }
+    let outcome = result.outcome();
+    let needs_holes = result
+        .into_needs_holes()
+        .unwrap_or_else(|| panic!("save-gated reducer branch should need holes, got {outcome:?}"));
+    (needs_holes.state, needs_holes.subject)
 }
 
 fn project_save_gated_result(result: BattleResolutionResult) -> SaveGatedSpellOrderingState {
-    match result {
-        BattleResolutionResult::NeedsHoles { state, .. }
-        | BattleResolutionResult::Resolved { state }
-        | BattleResolutionResult::Invalid { state, .. } => {
-            save_gated_spell_ordering_from_battle(&state)
-        }
-    }
+    save_gated_spell_ordering_from_battle(result.state())
 }

@@ -401,25 +401,25 @@
     },
     {
       "artifacts": {
-        "startGate": {
-          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/START_GATE.json",
-          "sha256": "c719d953a9d85f55721ab31ebd7be9936aabda3675c42d6a3f2ef8f94cfc5f1a"
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/DECIDER_DECISION.json",
+          "sha256": "2bf97061e113d4e039c7fc181505111054990b0bc6e69afdc0d7763f176b0c07"
         },
         "engineDepth": {
           "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/ENGINE_DEPTH_MANIFEST.json",
           "sha256": "c67945ab79ef75477a6a78f95875b81918577c49e56d8da66cbf4f0457ecedd1"
         },
-        "stateOwnerManifest": {
-          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/STATE_OWNER_MANIFEST.json",
-          "sha256": "5d3b6ecc1629802efbf26254127245f20461e9c5efa356c761d5073ac164718f"
-        },
         "reviewLoop": {
           "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/REVIEW_LOOP.json",
           "sha256": "1332e3d4ceb2e7b6a87a995f8cbd0c971c3e9d31b5b44dffd40bea982f4a4b41"
         },
-        "deciderDecision": {
-          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/DECIDER_DECISION.json",
-          "sha256": "2bf97061e113d4e039c7fc181505111054990b0bc6e69afdc0d7763f176b0c07"
+        "startGate": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/START_GATE.json",
+          "sha256": "c719d953a9d85f55721ab31ebd7be9936aabda3675c42d6a3f2ef8f94cfc5f1a"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/STATE_OWNER_MANIFEST.json",
+          "sha256": "5d3b6ecc1629802efbf26254127245f20461e9c5efa356c761d5073ac164718f"
         }
       },
       "assignmentId": "level-1-2-full",
@@ -457,8 +457,6 @@
       "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
       "targetReplayEvidence": [
         {
-          "path": "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json",
-          "sha256": "b55669c41913df311137a48883eacdc1281e34d0524f82c58f46873526c4dbeb",
           "evidenceRefs": [
             "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doDiscoverAttack#step:doDiscoverAttack",
             "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillAttackRollHit#step:doFillAttackRollHit",
@@ -474,7 +472,9 @@
             "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack",
             "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch",
             "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doStartSkeletonTurn#step:doStartSkeletonTurn"
-          ]
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json",
+          "sha256": "b55669c41913df311137a48883eacdc1281e34d0524f82c58f46873526c4dbeb"
         }
       ],
       "taskId": "RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT"
@@ -553,6 +553,109 @@
         }
       ],
       "taskId": "RRCONV-19D-RUST-TURN-ADVANCE-RESULT"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/DECIDER_DECISION.json",
+          "sha256": "92234ecf822c5aec23cc09ede25db42e9ba7d0f477e70af38dd225daf9a88e8a"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "dea12b406adf711e2a4e865efa5becab08cbee6c4574277d2e90c15992424072"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/REVIEW_LOOP.json",
+          "sha256": "8b21b3ff30d330f1fa4b73ae08caf2056404fb4b0764c3c2031f15a253ad924e"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/START_GATE.json",
+          "sha256": "f83ecfa8ce4922540db51503cb0f6e6367e7cfc6764f1354f31ec26556af5e19"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/STATE_OWNER_MANIFEST.json",
+          "sha256": "69ed27c426f00220af3e621a0cb306e364a4ddfb6da7efb420d0f692470e0c03"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_entrypoint_contract",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_spine_contract_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test magic_missile_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test save_gated_spell_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test hit_point_restoration_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test death_saving_throw_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test concentration_break_teardown_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test weapon_attack_skeleton_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 6dc146b9c4a5bf7894b9ad4ae206bc4ef04e222d...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doEndTurnToTarget#step:doEndTurnToTarget",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponDamage#step:doResolveWeaponDamage",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponTarget#step:doResolveWeaponTarget",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doStartBattle#step:doStartBattle"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json",
+          "sha256": "9724ea3f33400555280188cfb5365777d997bad933da7453d9f2ab1bc121ed11"
+        }
+      ],
+      "taskId": "RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
