@@ -26,13 +26,19 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Last Known Verification
 
-At `6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0`:
+At `72f81250789a4e7bc6216503f2a93abac6771852`:
 
 - `cargo fmt --check`: pass
 - `cargo test`: pass, `181 passed`
 - `cargo clippy --all-targets -- -D warnings`: pass
 - `node scripts/check-cleanroom-harness.cjs`: pass
 - `git diff --check HEAD~1...HEAD`: pass
+- JSON parse for `STATE.json` and `LANES.json`: pass
+
+## Active Work
+
+- `L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE` running from base `72f81250789a4e7bc6216503f2a93abac6771852` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03`.
+- `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` running from base `72f81250789a4e7bc6216503f2a93abac6771852` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05`.
 
 ## Coverage Delta Log
 

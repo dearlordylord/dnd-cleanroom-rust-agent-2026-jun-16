@@ -8,7 +8,7 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0"
+    "lastVerifiedIntegrationHead": "72f81250789a4e7bc6216503f2a93abac6771852"
   },
   "denominator": {
     "source": "cleanroom-input/branch-coverage/reducer-route-inventory.json",
@@ -51,8 +51,8 @@
     {
       "checkpointId": "CP1",
       "name": "Battle Reducer Core Expansion",
-      "status": "ready",
-      "readyLaneIds": [
+      "status": "running",
+      "runningLaneIds": [
         "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
         "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES"
       ],
@@ -109,8 +109,8 @@
     }
   ],
   "laneStatuses": {
-    "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "ready",
-    "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "ready",
+    "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "running",
+    "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "running",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "held",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "blocked-on-checkpoint",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "blocked-on-checkpoint",
@@ -136,7 +136,7 @@
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint"
   },
   "lastIntegrationVerification": {
-    "head": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
+    "head": "72f81250789a4e7bc6216503f2a93abac6771852",
     "commands": [
       {
         "command": "cargo fmt --check",
@@ -158,9 +158,29 @@
       {
         "command": "git diff --check HEAD~1...HEAD",
         "status": "pass"
+      },
+      {
+        "command": "JSON parse STATE.json and LANES.json",
+        "status": "pass"
       }
     ]
   },
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03",
+      "branch": "ralph/l15-rr03-diagnostic-queue",
+      "baseSha": "72f81250789a4e7bc6216503f2a93abac6771852",
+      "status": "running"
+    },
+    {
+      "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05",
+      "branch": "ralph/l15-rr05-attack-statblock",
+      "baseSha": "72f81250789a4e7bc6216503f2a93abac6771852",
+      "status": "running"
+    }
+  ],
   "operatorNotes": [
     "Update this file after every lane status change, merge, checkpoint transition, and integration verification.",
     "Resolve each lane base from the integration worktree HEAD at launch time.",
