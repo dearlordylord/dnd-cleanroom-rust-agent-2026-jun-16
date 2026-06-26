@@ -39,7 +39,7 @@ At `4c7e12d7645360adb7ab23af61144ceb243c13fe`:
 ## Active Work
 
 - `L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE` merged at `4c7e12d7645360adb7ab23af61144ceb243c13fe`. Lane head `7ef32d308d51fb54d1032d01b937d168fa63bb64` includes reducer-route evidence for death saving throw and concentration teardown plus the harness quarantine fix.
-- `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` implemented at `76e8bd99e1d705cb31e9180bf831fd1625410ed5` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05`; review found missing branch-coverage evidence, local creature-attack replay island, spell-attack bypass of shared result surface, and weak self-referential assertions; fixer pending.
+- `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` implemented at `76e8bd99e1d705cb31e9180bf831fd1625410ed5` and fixed at `4256dd5e7cdb0d0693a32125b1ec3cf41befbf32` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05`; re-review pending. Branch does not yet contain the RR03 merge commit.
 
 ## Coverage Delta Log
 
