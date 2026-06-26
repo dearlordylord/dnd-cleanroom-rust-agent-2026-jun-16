@@ -1,6 +1,7 @@
 use crate::rules::{
     battle_reducer_spine::{
-        current_actor, end_turn, start_turn_boundary_effect_lifecycle_battle, Actor, BattleState,
+        advance_turn, start_turn_boundary_effect_lifecycle_battle, Actor, BattleState,
+        BattleTurnAdvanceResult,
     },
     turn_boundary_effect_lifecycle::{
         resolve_source_next_turn, resolve_target_start_turn, TurnBoundaryActor,
@@ -14,11 +15,19 @@ pub const BRANCH_ACTIONS: [&str; 2] = ["doResolveTargetStartTurn", "doResolveSou
 pub fn replay_observed_action(observed_action_taken: &str) -> TurnBoundaryEffectLifecycleState {
     match observed_action_taken {
         "doResolveTargetStartTurn" => {
-            project_battle_state(&end_turn(start_turn_boundary_effect_lifecycle_battle()))
+            let result = advance_turn(start_turn_boundary_effect_lifecycle_battle());
+            assert_eq!(result.previous_actor, Actor::Fighter);
+            assert_eq!(result.next_actor, Actor::Goblin);
+            assert_eq!(result.round, 1);
+            project_turn_advance(&result)
         }
         "doResolveSourceNextTurn" => {
-            let target_start = end_turn(start_turn_boundary_effect_lifecycle_battle());
-            project_battle_state(&end_turn(target_start))
+            let target_start = advance_turn(start_turn_boundary_effect_lifecycle_battle());
+            let source_next = advance_turn(target_start.state);
+            assert_eq!(source_next.previous_actor, Actor::Goblin);
+            assert_eq!(source_next.next_actor, Actor::Fighter);
+            assert_eq!(source_next.round, 2);
+            project_turn_advance(&source_next)
         }
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
@@ -128,20 +137,30 @@ fn joined_or_none(values: &[&'static str]) -> String {
     }
 }
 
-fn project_battle_state(state: &BattleState) -> TurnBoundaryEffectLifecycleState {
-    let scenario = match (state.initiative.round, current_actor(state)) {
-        (1, Actor::Fighter) => TurnBoundaryLifecycleScenario::Init,
-        (1, Actor::Goblin) => TurnBoundaryLifecycleScenario::TargetStartTurnResolved,
-        (2, Actor::Fighter) => TurnBoundaryLifecycleScenario::SourceNextTurnResolved,
-        (_, Actor::Fighter) => TurnBoundaryLifecycleScenario::SourceNextTurnResolved,
-        (_, Actor::Goblin) => TurnBoundaryLifecycleScenario::TargetStartTurnResolved,
-        (_, Actor::Rogue | Actor::Skeleton) => TurnBoundaryLifecycleScenario::Init,
+fn project_turn_advance(result: &BattleTurnAdvanceResult) -> TurnBoundaryEffectLifecycleState {
+    let scenario = match (result.previous_actor, result.next_actor, result.round) {
+        (Actor::Fighter, Actor::Goblin, 1) => {
+            TurnBoundaryLifecycleScenario::TargetStartTurnResolved
+        }
+        (Actor::Goblin, Actor::Fighter, 2) => TurnBoundaryLifecycleScenario::SourceNextTurnResolved,
+        (previous_actor, next_actor, round) => panic!(
+            "unsupported turn-boundary advance metadata {previous_actor:?}->{next_actor:?} round {round}"
+        ),
     };
-    let actor = match current_actor(state) {
+    let actor = match result.next_actor {
         Actor::Fighter => TurnBoundaryActor::SourceTurn,
         Actor::Goblin => TurnBoundaryActor::TargetTurn,
         Actor::Rogue | Actor::Skeleton => TurnBoundaryActor::TargetTurn,
     };
+    project_battle_state_after_turn_advance(&result.state, scenario, actor, result.round)
+}
+
+fn project_battle_state_after_turn_advance(
+    state: &BattleState,
+    scenario: TurnBoundaryLifecycleScenario,
+    actor: TurnBoundaryActor,
+    round: i16,
+) -> TurnBoundaryEffectLifecycleState {
     let target_start_resolved = scenario == TurnBoundaryLifecycleScenario::TargetStartTurnResolved
         || scenario == TurnBoundaryLifecycleScenario::SourceNextTurnResolved;
     let source_next_resolved = scenario == TurnBoundaryLifecycleScenario::SourceNextTurnResolved;
@@ -149,7 +168,7 @@ fn project_battle_state(state: &BattleState) -> TurnBoundaryEffectLifecycleState
     TurnBoundaryEffectLifecycleState {
         scenario,
         actor,
-        round: state.initiative.round,
+        round,
         target_hp: state.goblin.hp,
         turn_start_damage_active: state.turn_boundary_effects.turn_start_damage_active,
         turn_end_damage_active: state.turn_boundary_effects.turn_end_damage_active,

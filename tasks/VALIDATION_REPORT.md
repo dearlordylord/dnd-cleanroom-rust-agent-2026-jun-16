@@ -7,7 +7,7 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt`
+- Last completed current-snapshot queued branch set: `RRCONV-19D-RUST-TURN-ADVANCE-RESULT`
 - Next queued driver: `<none for reducer-spine-diagnostic-battle>`
 - Next task id: `T006`
 
@@ -83,7 +83,7 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 
-## Historical RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT: Battle Setup Entrypoint
+## RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT: Battle Setup Entrypoint
 
 - Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
@@ -91,7 +91,6 @@ Verification results:
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
 - Task artifacts: `tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/`
 - Cleanroom freshness: dirty cleanroom evidence only; this does not claim fresh package acceptance.
-- Scope note: this section is retained as historical RRCONV-19A reporting and cites only RRCONV-19A artifacts. RRCONV-19B replay evidence is reported in the RRCONV-19B section below.
 
 Allowed inputs used:
 
@@ -110,7 +109,7 @@ Behavior implemented:
 - Kept scenario helpers as setup conveniences that build `BattleSetup`, call `start_battle(setup)`, and return `BattleState`.
 - Recorded the public reducer entrypoint observer sequence through `start_battle_observed`, `discover_battle_acts_observed`, `resolve_battle_subject_observed`, and `advance_turn_observed`.
 - Replaced fixture-role multiattack routing with combatant capability facts; multiattack discovery and resolution use `Combatant.multiattack_profile` on the subject combatant.
-- Rebased RRCONV-19A branch evidence on the weapon-attack skeleton route, which exercises weapon attack discovery/resolution and stat-block multiattack dispatch through the reducer spine.
+- Rebased RRCONV-19A branch evidence on the weapon-attack skeleton route during its historical run; current accepted refs for that selected driver are reported in the RRCONV-19B section below.
 
 Historical dirty target replay evidence:
 
@@ -512,5 +511,85 @@ Verification results:
 - `cargo test reducer_entrypoint_contract` passed.
 - `cargo test experimental_qnt_spine` passed.
 - `cargo test weapon_attack_skeleton_adapter_replays_all_branches` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 1c805870c08b6632dba560019c2c7a75dc5ed991...HEAD` passed.
+
+## RRCONV-19D-RUST-TURN-ADVANCE-RESULT: Turn Advance Result
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt`
+- Supplemental exercised driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+- Task artifacts: `tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/`
+- Cleanroom freshness: dirty cleanroom evidence only; this does not claim fresh package acceptance. RRCONV-19D fixer ran in a worktree with a pre-existing untracked final report file preserved outside committed artifacts.
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-order.qnt`
+- `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+- Repo-local `src/**`, `tasks/**`, and Rust/Cargo tooling
+
+Behavior implemented:
+
+- Added typed `BattleTurnAdvanceResult` with next `BattleState`, previous actor, next actor, and resulting round.
+- Changed public `advance_turn` and `advance_turn_observed` to return the typed result; `advance_turn_state` is the explicit state-only compatibility helper.
+- Fixer note: the original RRCONV-19D artifact claim was too broad. This patch changes `doEndTurnToTarget` and the turn-boundary lifecycle adapter projections so `qCurrentActor`, `qActor`, and `qRound` for turn advancement are sourced from `BattleTurnAdvanceResult.previous_actor`, `BattleTurnAdvanceResult.next_actor`, and `BattleTurnAdvanceResult.round`; `BattleState` remains the source for non-advancement state fields.
+- No new durable `BattleState` fields were added.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Harness adapter check | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doStartBattle` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doStartBattle#step:doStartBattle` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doDiscoverSlotSpell` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveSlotSpellTargets` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveSlotSpellDamage` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doEndTurnToTarget` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doEndTurnToTarget#step:doEndTurnToTarget` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doDiscoverWeaponAttack` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponTarget` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponTarget#step:doResolveWeaponTarget` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponAttackHit` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponDamage` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponDamage#step:doResolveWeaponDamage` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
+
+Supplemental dirty diagnostics:
+
+- `cargo test experimental_qnt_spine_advances_turn_boundary_lifecycle` exercises `battle_runtime_turn_boundary_effect_lifecycle.rs` with `BattleTurnAdvanceResult` metadata as the projection input for `qActor` and `qRound`; this is not recorded as ledger-closing target replay evidence for the RRCONV-19D selected driver.
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction trace id prefix: `RRCONV-19D dirty replay action=`
+- Checked route projection: `qRoute` with `route-event-list` comparator; the turn-advance rows name `BattleTurnAdvanceResult` fields as checked projection inputs.
+
+Harness artifacts:
+
+- Start gate: `tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/START_GATE.json`
+- Engine depth: `tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- Fresh cleanroom package acceptance is not claimed by RRCONV-19D; this remains dirty cleanroom acceleration evidence.
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test reducer_entrypoint_contract` passed.
+- `cargo test experimental_qnt_spine_advances_turn_boundary_lifecycle` passed.
+- `cargo test experimental_qnt_spine` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check 1c805870c08b6632dba560019c2c7a75dc5ed991...HEAD` passed.

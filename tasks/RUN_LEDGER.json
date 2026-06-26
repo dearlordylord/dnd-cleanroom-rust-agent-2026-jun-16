@@ -478,6 +478,81 @@
         }
       ],
       "taskId": "RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/DECIDER_DECISION.json",
+          "sha256": "f369d365b0dd57ecb9a948e6fe56ac380b5bb7d4a347e5da932801d337c06294"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "e3ecdd7c819ee49c73206b3a8689d1cd033bba6d333c1e3493106cbd956280c2"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/REVIEW_LOOP.json",
+          "sha256": "06cafe576727fa90b99d6c54a27449c7d0c817b3b43566175e86073fb6b0787b"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/START_GATE.json",
+          "sha256": "1d1048ce2cf3b83894434ffdad6a82faa833bd0050befd016df70dd2ee0df684"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/STATE_OWNER_MANIFEST.json",
+          "sha256": "59ce719f8c7b96c26d0c2872a9b3df9ef5a53a9f4e7a509806435320c5ccd8b7"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_entrypoint_contract",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test experimental_qnt_spine_advances_turn_boundary_lifecycle",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test experimental_qnt_spine",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 1c805870c08b6632dba560019c2c7a75dc5ed991...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doStartBattle#step:doStartBattle",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doEndTurnToTarget#step:doEndTurnToTarget",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponTarget#step:doResolveWeaponTarget",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponDamage#step:doResolveWeaponDamage"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json",
+          "sha256": "8e49deae4fc74dc80ddbfe4a2561b28d3aa0379915e11e24de93efaa34c76a2b"
+        }
+      ],
+      "taskId": "RRCONV-19D-RUST-TURN-ADVANCE-RESULT"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
