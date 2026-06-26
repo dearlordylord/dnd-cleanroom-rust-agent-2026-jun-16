@@ -39,7 +39,7 @@ At `4c7e12d7645360adb7ab23af61144ceb243c13fe`:
 ## Active Work
 
 - `L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE` merged at `4c7e12d7645360adb7ab23af61144ceb243c13fe`. Lane head `7ef32d308d51fb54d1032d01b937d168fa63bb64` includes reducer-route evidence for death saving throw and concentration teardown plus the harness quarantine fix.
-- `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` implemented at `76e8bd99e1d705cb31e9180bf831fd1625410ed5` and fixed at `4256dd5e7cdb0d0693a32125b1ec3cf41befbf32` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05`; re-review found remaining stat-block result bypass, self-referential expectations, sampled-pick quarantine regression, and RR03 integration conflicts. Second fixer running.
+- `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` implemented at `76e8bd99e1d705cb31e9180bf831fd1625410ed5`, fixed at `4256dd5e7cdb0d0693a32125b1ec3cf41befbf32`, and second-fixed at `97acec8abd003763e71346e789e6699a432e41df` in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05`; final re-review pending.
 
 ## Coverage Delta Log
 
