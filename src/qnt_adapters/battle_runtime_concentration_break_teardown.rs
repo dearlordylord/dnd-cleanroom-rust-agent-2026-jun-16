@@ -1,7 +1,7 @@
 use crate::rules::battle_reducer_spine::{
-    discover_battle_acts, resolve_battle_subject_test_fill, start_fighter_skeleton_battle,
-    BattleConcentrationFill, BattleFill, BattleHoleKind, BattleResolutionOutcome, BattleState,
-    BattleSubject, BattleSubjectKind,
+    discover_battle_acts, resolve_battle_subject, start_fighter_skeleton_battle,
+    BattleConcentrationFill, BattleHoleKind, BattleResolutionOutcome, BattleResolutionRequest,
+    BattleResolutionResult, BattleState, BattleSubject, BattleSubjectKind,
 };
 use crate::rules::concentration::{
     cast_concentration_spell, cast_replacement_concentration_spell, concentration_damage_total,
@@ -12,9 +12,10 @@ use crate::rules::concentration::{
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts, route_resolve_battle_subject,
-    route_resolve_battle_subject_without_fill, route_start_battle, ReducerRouteEvent,
-    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+    battle_resolution_continuation, route_discover_battle_acts, route_resolve_battle_subject,
+    route_resolve_battle_subject_from_result, route_resolve_battle_subject_without_fill,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolveConnector, ReducerRouteResolveFill, ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -77,7 +78,7 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
     match observed_action_taken {
         "doCastConcentrationSpell" => cast_concentration_spell_route().1,
         "doCastReplacementConcentrationSpell" => cast_replacement_concentration_spell_route().1,
-        "doDamageRequestsConcentrationSave" => damage_requests_concentration_save_route().1,
+        "doDamageRequestsConcentrationSave" => damage_requests_concentration_save_route().2,
         "doFailConcentrationSave" => fail_concentration_save_route().1,
         "doVoluntaryEndConcentration" => voluntary_end_concentration_route().1,
         action => panic!("unsupported mbt::actionTaken {action}"),
@@ -186,69 +187,55 @@ fn cast_replacement_concentration_spell_route() -> (BattleState, Vec<ReducerRout
 fn voluntary_end_concentration_route() -> (BattleState, Vec<ReducerRouteEvent>) {
     let (state, mut route) = cast_concentration_spell_route();
     let subject = concentration_teardown_subject();
-    let result = resolve_battle_subject_test_fill(
-        state,
-        subject,
-        BattleFill::Concentration(BattleConcentrationFill::VoluntaryEnd),
-    );
+    let result =
+        resolve_concentration_subject(state, subject, BattleConcentrationFill::VoluntaryEnd);
     let outcome = result.outcome();
+    route.push(concentration_teardown_route_event_without_fill(&result));
     let state = result
         .into_resolved_state()
         .unwrap_or_else(|| panic!("concentration route should resolve, got {outcome:?}"));
-    route.push(route_resolve_battle_subject_without_fill(
-        ReducerRouteSubjectFamily::ConcentrationTeardown,
-        Vec::new(),
-        ReducerRouteOwnerGroup::Concentration,
-    ));
     (state, route)
 }
 
-fn damage_requests_concentration_save_route() -> (BattleState, Vec<ReducerRouteEvent>) {
+fn damage_requests_concentration_save_route() -> (BattleState, BattleSubject, Vec<ReducerRouteEvent>)
+{
     let (state, mut route) = cast_concentration_spell_route();
     let subject = concentration_teardown_subject();
-    let result = resolve_battle_subject_test_fill(
+    let result = resolve_concentration_subject(
         state,
         subject,
-        BattleFill::Concentration(BattleConcentrationFill::DamageTaken(sampled_damage_facts())),
+        BattleConcentrationFill::DamageTaken(sampled_damage_facts()),
     );
-    let holes = result.requested_holes().unwrap_or(&[]).to_vec();
     let outcome = result.outcome();
     if matches!(outcome, BattleResolutionOutcome::Invalid(_)) {
         panic!("concentration route should not reject, got {outcome:?}");
     }
-    let state = result.into_state();
-    route.push(route_resolve_battle_subject(
-        ReducerRouteSubjectFamily::ConcentrationTeardown,
+    route.push(concentration_teardown_route_event(
         ReducerRouteFillKind::RolledDice,
-        holes,
-        ReducerRouteOwnerGroup::Concentration,
+        &result,
     ));
-    (state, route)
+    let (state, continuing_subject) =
+        battle_resolution_continuation(result, "concentration damage save request");
+    (state, continuing_subject, route)
 }
 
 fn fail_concentration_save_route() -> (BattleState, Vec<ReducerRouteEvent>) {
-    let (state, mut route) = damage_requests_concentration_save_route();
-    let subject = concentration_teardown_subject();
-    let result = resolve_battle_subject_test_fill(
+    let (state, subject, mut route) = damage_requests_concentration_save_route();
+    let result = resolve_concentration_subject(
         state,
         subject,
-        BattleFill::Concentration(BattleConcentrationFill::SavingThrow(
-            ConcentrationSavingThrowFacts {
-                saving_throw_total: 9,
-            },
-        )),
+        BattleConcentrationFill::SavingThrow(ConcentrationSavingThrowFacts {
+            saving_throw_total: 9,
+        }),
     );
-    let holes = result.requested_holes().unwrap_or(&[]).to_vec();
     let outcome = result.outcome();
+    route.push(concentration_teardown_route_event(
+        ReducerRouteFillKind::ConcentrationSavingThrow,
+        &result,
+    ));
     let state = result
         .into_resolved_state()
         .unwrap_or_else(|| panic!("concentration route should resolve, got {outcome:?}"));
-    route.push(route_resolve_battle_subject(
-        ReducerRouteSubjectFamily::ConcentrationTeardown,
-        ReducerRouteFillKind::ConcentrationSavingThrow,
-        holes,
-        ReducerRouteOwnerGroup::Concentration,
-    ));
     (state, route)
 }
 
@@ -263,17 +250,12 @@ fn resolve_concentration_without_fill(
         act.holes,
         ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
     ));
-    let result =
-        resolve_battle_subject_test_fill(state, act.subject, BattleFill::Concentration(fill));
+    let result = resolve_concentration_subject(state, act.subject, fill);
     let outcome = result.outcome();
+    route.push(concentration_teardown_route_event_without_fill(&result));
     let state = result
         .into_resolved_state()
         .unwrap_or_else(|| panic!("concentration route should resolve, got {outcome:?}"));
-    route.push(route_resolve_battle_subject_without_fill(
-        ReducerRouteSubjectFamily::ConcentrationTeardown,
-        Vec::new(),
-        ReducerRouteOwnerGroup::Concentration,
-    ));
     (state, route)
 }
 
@@ -311,6 +293,43 @@ fn concentration_teardown_subject() -> BattleSubject {
         stage: crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage::Resolved,
         damage_modifier: 0,
     }
+}
+
+fn resolve_concentration_subject(
+    state: BattleState,
+    subject: BattleSubject,
+    fill: BattleConcentrationFill,
+) -> BattleResolutionResult {
+    let request = BattleResolutionRequest::concentration(subject, fill)
+        .expect("concentration adapter should build a matching typed request");
+    resolve_battle_subject(state, request)
+}
+
+fn concentration_teardown_route_event(
+    fill: ReducerRouteFillKind,
+    result: &BattleResolutionResult,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_from_result(
+        ReducerRouteResolveConnector {
+            subject: ReducerRouteSubjectFamily::ConcentrationTeardown,
+            fill: ReducerRouteResolveFill::Fill(fill),
+            owner: ReducerRouteOwnerGroup::Concentration,
+        },
+        result,
+    )
+}
+
+fn concentration_teardown_route_event_without_fill(
+    result: &BattleResolutionResult,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_from_result(
+        ReducerRouteResolveConnector {
+            subject: ReducerRouteSubjectFamily::ConcentrationTeardown,
+            fill: ReducerRouteResolveFill::WithoutFill,
+            owner: ReducerRouteOwnerGroup::Concentration,
+        },
+        result,
+    )
 }
 
 fn witness_from_battle_state(state: &BattleState) -> ConcentrationBreakTeardownWitness {

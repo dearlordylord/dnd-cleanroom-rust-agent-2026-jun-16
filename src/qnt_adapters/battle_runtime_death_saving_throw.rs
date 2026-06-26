@@ -1,8 +1,8 @@
 use crate::rules::battle_reducer_spine::{
-    death_saving_throw_state_from_combatant, discover_battle_acts,
-    resolve_battle_subject_test_fill, start_death_saving_throw_battle, Actor, BattleFill,
-    BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionOutcome, BattleResolutionResult,
-    BattleState, BattleSubject, BattleSubjectKind,
+    death_saving_throw_state_from_combatant, discover_battle_acts, resolve_battle_subject,
+    start_death_saving_throw_battle, Actor, BattleHoleKind, BattleResolutionInvalidReason,
+    BattleResolutionOutcome, BattleResolutionRequest, BattleResolutionResult, BattleState,
+    BattleSubject, BattleSubjectKind,
 };
 use crate::rules::hit_points::{
     death_saving_throw_initial_state, discover_death_saving_throw, fill_death_saving_throw,
@@ -11,8 +11,10 @@ use crate::rules::hit_points::{
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts, route_resolve_battle_subject, route_start_battle,
-    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+    route_discover_battle_acts, route_resolve_battle_subject,
+    route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
+    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -143,18 +145,9 @@ fn death_saving_throw_fill_result(
 ) -> (BattleResolutionResult, Vec<ReducerRouteEvent>) {
     let (state, mut route) = discovered_death_saving_throw_battle();
     let subject = discovered_death_saving_throw_subject(&state);
-    let result = resolve_battle_subject_test_fill(
-        state,
-        subject,
-        BattleFill::DeathSavingThrow(DeathSavingThrowFacts { natural_d20 }),
-    );
-    let holes = result.requested_holes().unwrap_or(&[]).to_vec();
-    route.push(route_resolve_battle_subject(
-        ReducerRouteSubjectFamily::DeathSavingThrow,
-        ReducerRouteFillKind::DeathSavingThrow,
-        holes,
-        ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
-    ));
+    let result =
+        resolve_death_saving_throw_subject(state, subject, DeathSavingThrowFacts { natural_d20 });
+    route.push(death_saving_throw_route_event(&result));
     (result, route)
 }
 
@@ -172,18 +165,34 @@ fn reject_wrong_actor_battle_result() -> (BattleResolutionResult, Vec<ReducerRou
         stage: crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage::Resolved,
         damage_modifier: 0,
     };
-    let result = resolve_battle_subject_test_fill(
+    let result = resolve_death_saving_throw_subject(
         state,
         stale_subject,
-        BattleFill::DeathSavingThrow(DeathSavingThrowFacts { natural_d20: 10 }),
+        DeathSavingThrowFacts { natural_d20: 10 },
     );
-    route.push(route_resolve_battle_subject(
-        ReducerRouteSubjectFamily::DeathSavingThrow,
-        ReducerRouteFillKind::DeathSavingThrow,
-        result.requested_holes().unwrap_or(&[]).to_vec(),
-        ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
-    ));
+    route.push(death_saving_throw_route_event(&result));
     (result, route)
+}
+
+fn resolve_death_saving_throw_subject(
+    state: BattleState,
+    subject: BattleSubject,
+    facts: DeathSavingThrowFacts,
+) -> BattleResolutionResult {
+    let request = BattleResolutionRequest::death_saving_throw(subject, facts)
+        .expect("death-saving-throw adapter should build a matching typed request");
+    resolve_battle_subject(state, request)
+}
+
+fn death_saving_throw_route_event(result: &BattleResolutionResult) -> ReducerRouteEvent {
+    route_resolve_battle_subject_from_result(
+        ReducerRouteResolveConnector {
+            subject: ReducerRouteSubjectFamily::DeathSavingThrow,
+            fill: ReducerRouteResolveFill::Fill(ReducerRouteFillKind::DeathSavingThrow),
+            owner: ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
+        },
+        result,
+    )
 }
 
 fn replay_reject_wrong_actor_after_resolved() -> DeathSavingThrowWitness {

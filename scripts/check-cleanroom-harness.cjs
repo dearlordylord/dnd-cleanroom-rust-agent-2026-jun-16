@@ -1264,6 +1264,15 @@ function forbiddenWitnessNamesForSelection(selected) {
   ).sort();
 }
 
+function forbiddenProductionSourceWitnessNamesForSelection(selected) {
+  return Array.from(
+    new Set([
+      ...protocolNamesForObligations(selected),
+      ...harnessWitnessProtocolNames,
+    ]),
+  ).sort();
+}
+
 function validateManifestPath({
   relativePath,
   context,
@@ -1349,7 +1358,10 @@ function validateEngineDepth({
     );
   }
 
-  const witnessNames = forbiddenWitnessNamesForSelection(selected);
+  const productionWitnessNames =
+    forbiddenProductionSourceWitnessNamesForSelection(selected);
+  const adapterQuarantineWitnessNames =
+    forbiddenWitnessNamesForSelection(selected);
   for (const [index, moduleRow] of productionModules.entries()) {
     const context = `tasks/ENGINE_DEPTH_MANIFEST.json productionModulesExtended[${index}]`;
     if (!isRecord(moduleRow)) {
@@ -1382,7 +1394,7 @@ function validateEngineDepth({
     ) {
       issues.push(`${context}.path looks like an adapter or witness path.`);
     }
-    for (const witnessName of witnessNames) {
+    for (const witnessName of productionWitnessNames) {
       if (containsProtocolName(moduleRow.path, witnessName)) {
         issues.push(`${context}.path leaks witness protocol name ${witnessName}.`);
       }
@@ -1434,7 +1446,7 @@ function validateEngineDepth({
       quarantined.add(name);
     }
   }
-  for (const witnessName of witnessNames) {
+  for (const witnessName of adapterQuarantineWitnessNames) {
     if (!quarantined.has(witnessName)) {
       issues.push(`adapter quarantine is missing witness protocol name ${witnessName}.`);
     }
@@ -2065,7 +2077,7 @@ function validateProductionSourceScan({
       .map((entry) => entry.path)
       .filter((entry) => typeof entry === "string"),
   );
-  const witnessNames = forbiddenWitnessNamesForSelection(selected);
+  const witnessNames = forbiddenProductionSourceWitnessNamesForSelection(selected);
   const adapterNeedles = adapterImportNeedles(adapterPaths);
   const adapterTargets = adapterImportTargets(adapterPaths);
   const sourceFiles = listFiles(enginePath, (filePath) =>
@@ -2946,14 +2958,16 @@ function runSelfTest() {
     expectFailure(
       validRoot,
       profile,
-      "sampled-input-leak",
+      "missing-sampled-input-quarantine",
       (rootPath) => {
-        fs.appendFileSync(
-          path.join(rootPath, "engine/rules/force_projectiles.aster"),
-          "fn leakedPick(dartRollTotal) = dartRollTotal\n",
-        );
+        updateFixtureLedgerArtifact(rootPath, "engineDepth", (manifest) => {
+          manifest.adapterModules[0].quarantinedWitnessNames =
+            manifest.adapterModules[0].quarantinedWitnessNames.filter(
+              (name) => name !== "dartRollTotal",
+            );
+        });
       },
-      "leaks witness protocol name dartRollTotal",
+      "adapter quarantine is missing witness protocol name dartRollTotal",
     );
     expectFailure(
       validRoot,
