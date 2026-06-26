@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-_none_
+| L15-RR06-BATTLE-SPELL-EFFECT-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr06` | `ralph/l15-rr06-spell-effect-routes` | `d7ec2d7957660673aaea3799787dc3224344b3d8` | Laplace `019f0600-b370-7d41-8886-aa5750bdcf84` | running |
 
 ## Historical RRCONV-19 Worktrees
 
