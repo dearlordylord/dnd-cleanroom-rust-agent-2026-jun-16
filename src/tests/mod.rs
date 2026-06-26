@@ -6952,7 +6952,7 @@ fn zero_hit_point_lifecycle_rejects_monster_targets() {
 #[test]
 fn hit_point_restoration_rejects_raw_dead_monster_targets() {
     use crate::rules::battle_reducer_spine::{
-        combatant_is_dead, discover_battle_acts, resolve_battle_subject,
+        combatant_is_dead, discover_battle_acts, resolve_battle_subject_test_fill,
         start_fighter_skeleton_battle, with_zero_hit_point_lifecycle, Actor, BattleFill,
         BattleHitPointRestorationFill, BattleResolutionInvalidReason, BattleResolutionResult,
         BattleSubject, BattleSubjectKind,
@@ -6978,7 +6978,7 @@ fn hit_point_restoration_rejects_raw_dead_monster_targets() {
         stage: WeaponAttackFrontierStage::Resolved,
         damage_modifier: 0,
     };
-    let BattleResolutionResult::Invalid { reason, state, .. } = resolve_battle_subject(
+    let BattleResolutionResult::Invalid { reason, state, .. } = resolve_battle_subject_test_fill(
         raw_dead_monster,
         stale_subject,
         BattleFill::HitPointRestoration(BattleHitPointRestorationFill::TargetChoice(
@@ -7002,7 +7002,7 @@ fn hit_point_restoration_rejects_raw_dead_monster_targets() {
         .subject;
     assert_eq!(feature_subject.target, Some(Actor::Rogue));
 
-    let BattleResolutionResult::Invalid { reason, state, .. } = resolve_battle_subject(
+    let BattleResolutionResult::Invalid { reason, state, .. } = resolve_battle_subject_test_fill(
         mixed_targets,
         feature_subject,
         BattleFill::HitPointRestoration(
@@ -7022,7 +7022,7 @@ fn hit_point_restoration_rejects_raw_dead_monster_targets() {
 #[test]
 fn diagnostic_route_subjects_reject_stale_action_unavailable() {
     use crate::rules::battle_reducer_spine::{
-        discover_battle_acts, resolve_battle_subject, start_fighter_skeleton_battle,
+        discover_battle_acts, resolve_battle_subject_test_fill, start_fighter_skeleton_battle,
         with_zero_hit_point_lifecycle, Actor, BattleConcentrationFill, BattleFill,
         BattleHitPointRestorationFill, BattleResolutionInvalidReason, BattleResolutionResult,
         BattleSaveGatedSpellFill, BattleSlotSpellFill, BattleSubjectKind,
@@ -7044,7 +7044,7 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
         .subject;
     let mut no_action = slot_state;
     no_action.action_available = false;
-    assert_stale_subject(resolve_battle_subject(
+    assert_stale_subject(resolve_battle_subject_test_fill(
         no_action,
         slot_subject,
         BattleFill::SlotSpell(BattleSlotSpellFill::TargetAllocation(Actor::Skeleton)),
@@ -7058,7 +7058,7 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
         .subject;
     let mut no_action = save_state;
     no_action.action_available = false;
-    assert_stale_subject(resolve_battle_subject(
+    assert_stale_subject(resolve_battle_subject_test_fill(
         no_action,
         save_subject,
         BattleFill::SaveGatedSpell(BattleSaveGatedSpellFill::SavingThrowOutcome),
@@ -7074,7 +7074,7 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
         .subject;
     let mut no_action = restoration_state;
     no_action.action_available = false;
-    assert_stale_subject(resolve_battle_subject(
+    assert_stale_subject(resolve_battle_subject_test_fill(
         no_action,
         restoration_subject,
         BattleFill::HitPointRestoration(BattleHitPointRestorationFill::TargetChoice(Actor::Rogue)),
@@ -7088,7 +7088,7 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
         .subject;
     let mut no_action = concentration_state;
     no_action.action_available = false;
-    assert_stale_subject(resolve_battle_subject(
+    assert_stale_subject(resolve_battle_subject_test_fill(
         no_action,
         concentration_subject,
         BattleFill::Concentration(BattleConcentrationFill::CastSpell),
@@ -7102,7 +7102,7 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
         .subject;
     let mut no_action = concentration_state;
     no_action.action_available = false;
-    assert_stale_subject(resolve_battle_subject(
+    assert_stale_subject(resolve_battle_subject_test_fill(
         no_action,
         concentration_subject,
         BattleFill::Concentration(BattleConcentrationFill::CastReplacementSpell),
@@ -7110,10 +7110,105 @@ fn diagnostic_route_subjects_reject_stale_action_unavailable() {
 }
 
 #[test]
+fn reducer_entrypoint_contract_consumes_typed_resolution_requests() {
+    use crate::rules::battle_reducer_spine::{
+        discover_battle_acts, resolve_battle_subject, start_battle, Actor, BattleResolutionRequest,
+        BattleResolutionRequestError, BattleResolutionResult, BattleSubjectKind,
+        BattleWeaponAttackFill,
+    };
+
+    let state = start_battle();
+    let weapon_act = discover_battle_acts(&state)
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::WeaponAttack)
+        .expect("fighter should have one weapon attack act");
+
+    assert_eq!(
+        BattleResolutionRequest::slot_spell(
+            weapon_act.subject,
+            crate::rules::battle_reducer_spine::BattleSlotSpellFill::DamageRoll(3),
+        ),
+        Err(BattleResolutionRequestError::SubjectKindMismatch)
+    );
+
+    let request = BattleResolutionRequest::weapon_attack(
+        weapon_act.subject,
+        BattleWeaponAttackFill::TargetChoice(Actor::Goblin),
+    )
+    .expect("weapon act should accept weapon attack fills");
+
+    let BattleResolutionResult::NeedsHoles { subject, .. } = resolve_battle_subject(state, request)
+    else {
+        panic!("target choice should leave the weapon attack waiting for an attack roll");
+    };
+
+    assert_eq!(subject.kind, BattleSubjectKind::WeaponAttack);
+    assert_eq!(subject.target, Some(Actor::Goblin));
+}
+
+#[test]
+fn reducer_entrypoint_contract_observes_public_entrypoint_sequence() {
+    use crate::rules::battle_reducer_spine::{
+        advance_turn_observed, discover_battle_acts_observed, resolve_battle_subject_observed,
+        start_battle_observed, Actor, BattleEntrypointEvent, BattleEntrypointKind,
+        BattleEntrypointTrace, BattleResolutionOutcome, BattleResolutionRequest,
+        BattleResolutionResult, BattleSubjectKind, BattleWeaponAttackFill,
+    };
+
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start_battle_observed(&mut trace);
+    let weapon_act = discover_battle_acts_observed(&state, &mut trace)
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::WeaponAttack)
+        .expect("fighter should have one weapon attack act");
+    let request = BattleResolutionRequest::weapon_attack(
+        weapon_act.subject,
+        BattleWeaponAttackFill::TargetChoice(Actor::Goblin),
+    )
+    .expect("weapon act should accept weapon attack fills");
+    let BattleResolutionResult::NeedsHoles { state, .. } =
+        resolve_battle_subject_observed(state, request, &mut trace)
+    else {
+        panic!("target choice should leave the weapon attack waiting for an attack roll");
+    };
+    let state = advance_turn_observed(state, &mut trace);
+
+    assert_eq!(
+        trace
+            .events()
+            .iter()
+            .map(BattleEntrypointEvent::kind)
+            .collect::<Vec<_>>(),
+        vec![
+            BattleEntrypointKind::StartBattle,
+            BattleEntrypointKind::DiscoverBattleActs,
+            BattleEntrypointKind::ResolveBattleSubject,
+            BattleEntrypointKind::AdvanceTurn,
+        ]
+    );
+    assert!(matches!(
+        &trace.events()[2],
+        BattleEntrypointEvent::ResolveBattleSubject {
+            subject: BattleSubjectKind::WeaponAttack,
+            outcome: BattleResolutionOutcome::NeedsHoles,
+        }
+    ));
+    assert!(matches!(
+        trace.events().last(),
+        Some(BattleEntrypointEvent::AdvanceTurn {
+            previous_actor: Actor::Fighter,
+            next_actor: Actor::Goblin,
+            round: 1,
+        })
+    ));
+    assert_eq!(state.initiative.still_to_act.actor, Actor::Goblin);
+}
+
+#[test]
 fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
     use crate::rules::battle_reducer_spine::{
-        combatant_is_dead, discover_battle_acts, resolve_battle_subject, start_battle, Actor,
-        AttackRollFacts, BattleFill, BattleHoleKind, BattleResolutionResult,
+        combatant_is_dead, discover_battle_acts, resolve_battle_subject_test_fill, start_battle,
+        Actor, AttackRollFacts, BattleFill, BattleHoleKind, BattleResolutionResult,
     };
 
     let state = start_battle();
@@ -7132,7 +7227,7 @@ fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
         state,
         subject,
         holes,
-    } = resolve_battle_subject(
+    } = resolve_battle_subject_test_fill(
         state,
         weapon_act.subject,
         BattleFill::TargetChoice(Actor::Goblin),
@@ -7147,7 +7242,7 @@ fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
         state,
         subject,
         holes,
-    } = resolve_battle_subject(
+    } = resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::AttackRoll(AttackRollFacts {
@@ -7163,7 +7258,7 @@ fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
     assert!(state.action_available);
 
     let BattleResolutionResult::Resolved { state } =
-        resolve_battle_subject(state, subject, BattleFill::DamageRoll(6))
+        resolve_battle_subject_test_fill(state, subject, BattleFill::DamageRoll(6))
     else {
         panic!("damage should resolve the weapon attack");
     };
@@ -7176,8 +7271,8 @@ fn experimental_qnt_spine_discovers_and_resolves_weapon_attack() {
 #[test]
 fn experimental_qnt_spine_rejects_attack_roll_before_target_choice() {
     use crate::rules::battle_reducer_spine::{
-        discover_battle_acts, resolve_battle_subject, start_battle, AttackRollFacts, BattleFill,
-        BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionResult,
+        discover_battle_acts, resolve_battle_subject_test_fill, start_battle, AttackRollFacts,
+        BattleFill, BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionResult,
     };
 
     let state = start_battle();
@@ -7192,7 +7287,7 @@ fn experimental_qnt_spine_rejects_attack_roll_before_target_choice() {
         state,
         reason,
         holes,
-    } = resolve_battle_subject(
+    } = resolve_battle_subject_test_fill(
         state,
         act.subject,
         BattleFill::AttackRoll(AttackRollFacts {

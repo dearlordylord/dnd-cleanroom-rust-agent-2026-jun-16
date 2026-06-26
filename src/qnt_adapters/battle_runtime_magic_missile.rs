@@ -1,7 +1,8 @@
 use crate::rules::battle_reducer_spine::{
-    combatant_is_dead, discover_battle_acts, resolve_battle_subject, slot_spell_holes_from_battle,
-    start_fighter_skeleton_battle, stat_block_multiattack_dispatches_available, Actor, BattleFill,
-    BattleHoleKind, BattleResolutionResult, BattleSlotSpellFill, BattleSlotSpellHole, BattleState,
+    combatant_is_dead, discover_battle_acts, resolve_battle_subject_test_fill,
+    slot_spell_holes_from_battle, start_fighter_skeleton_battle,
+    stat_block_multiattack_dispatches_available, Actor, BattleFill, BattleHoleKind,
+    BattleResolutionResult, BattleSlotSpellFill, BattleSlotSpellHole, BattleState,
     BattleSubjectKind,
 };
 use crate::rules::magic_missile::{
@@ -132,7 +133,7 @@ fn slot_spell_targets_resolved_with_route() -> (BattleState, Vec<ReducerRouteEve
         act.holes.clone(),
         ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
     ));
-    match resolve_battle_subject(
+    match resolve_battle_subject_test_fill(
         state,
         act.subject,
         BattleFill::SlotSpell(BattleSlotSpellFill::TargetAllocation(Actor::Skeleton)),
@@ -159,7 +160,7 @@ fn slot_spell_damage_resolved_with_route(
 ) -> (BattleState, Vec<ReducerRouteEvent>) {
     let (state, mut route) = slot_spell_targets_resolved_with_route();
     let act = discovered_slot_spell_subject_from_state(&state);
-    match resolve_battle_subject(
+    match resolve_battle_subject_test_fill(
         state,
         act,
         BattleFill::SlotSpell(BattleSlotSpellFill::DamageRoll(dart_roll_total)),

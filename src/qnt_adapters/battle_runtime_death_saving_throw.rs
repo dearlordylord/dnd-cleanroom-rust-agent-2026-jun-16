@@ -1,8 +1,8 @@
 use crate::rules::battle_reducer_spine::{
-    death_saving_throw_state_from_combatant, discover_battle_acts, resolve_battle_subject,
-    start_death_saving_throw_battle, Actor, BattleFill, BattleHoleKind,
-    BattleResolutionInvalidReason, BattleResolutionResult, BattleState, BattleSubject,
-    BattleSubjectKind,
+    death_saving_throw_state_from_combatant, discover_battle_acts,
+    resolve_battle_subject_test_fill, start_death_saving_throw_battle, Actor, BattleFill,
+    BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionResult, BattleState,
+    BattleSubject, BattleSubjectKind,
 };
 use crate::rules::hit_points::{
     death_saving_throw_initial_state, discover_death_saving_throw, fill_death_saving_throw,
@@ -143,7 +143,7 @@ fn death_saving_throw_fill_result(
 ) -> (BattleResolutionResult, Vec<ReducerRouteEvent>) {
     let (state, mut route) = discovered_death_saving_throw_battle();
     let subject = discovered_death_saving_throw_subject(&state);
-    let result = resolve_battle_subject(
+    let result = resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::DeathSavingThrow(DeathSavingThrowFacts { natural_d20 }),
@@ -170,7 +170,7 @@ fn reject_wrong_actor_battle_result() -> (BattleResolutionResult, Vec<ReducerRou
         stage: crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage::Resolved,
         damage_modifier: 0,
     };
-    let result = resolve_battle_subject(
+    let result = resolve_battle_subject_test_fill(
         state,
         stale_subject,
         BattleFill::DeathSavingThrow(DeathSavingThrowFacts { natural_d20: 10 }),

@@ -1,5 +1,5 @@
 use crate::rules::battle_reducer_spine::{
-    discover_battle_acts, discover_slot_spell_battle, end_turn, resolve_battle_subject,
+    discover_battle_acts, discover_slot_spell_battle, end_turn, resolve_battle_subject_test_fill,
     resolve_slot_spell_subject, slot_spell_holes_from_battle, start_fighter_skeleton_battle, Actor,
     AttackRollFacts, BattleFill, BattleHoleKind, BattleResolutionResult, BattleSlotSpellFill,
     BattleSlotSpellHole, BattleState, BattleSubject, BattleSubjectKind, BattleTurnSpellSlotUse,
@@ -457,7 +457,11 @@ fn discovered_skeleton_weapon_attack(
 fn weapon_target_resolved() -> (BattleState, BattleSubject, Vec<BattleHoleKind>) {
     let state = end_turn_to_target();
     let act = discovered_skeleton_weapon_attack(&state);
-    match resolve_battle_subject(state, act.subject, BattleFill::TargetChoice(Actor::Fighter)) {
+    match resolve_battle_subject_test_fill(
+        state,
+        act.subject,
+        BattleFill::TargetChoice(Actor::Fighter),
+    ) {
         BattleResolutionResult::NeedsHoles {
             state,
             subject,
@@ -469,7 +473,7 @@ fn weapon_target_resolved() -> (BattleState, BattleSubject, Vec<BattleHoleKind>)
 
 fn weapon_attack_hit_resolved() -> (BattleState, BattleSubject, Vec<BattleHoleKind>) {
     let (state, subject, _holes) = weapon_target_resolved();
-    match resolve_battle_subject(
+    match resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::AttackRoll(AttackRollFacts {
@@ -488,7 +492,7 @@ fn weapon_attack_hit_resolved() -> (BattleState, BattleSubject, Vec<BattleHoleKi
 
 fn weapon_damage_resolved() -> BattleState {
     let (state, subject, _holes) = weapon_attack_hit_resolved();
-    match resolve_battle_subject(state, subject, BattleFill::DamageRoll(3)) {
+    match resolve_battle_subject_test_fill(state, subject, BattleFill::DamageRoll(3)) {
         BattleResolutionResult::Resolved { state } => state,
         other => panic!("weapon damage should resolve, got {other:?}"),
     }

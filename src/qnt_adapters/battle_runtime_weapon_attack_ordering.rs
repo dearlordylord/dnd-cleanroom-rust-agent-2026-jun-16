@@ -1,6 +1,6 @@
 use crate::rules::battle_reducer_spine::{
-    discover_battle_acts, resolve_battle_subject, start_battle, Actor, AttackRollFacts, BattleFill,
-    BattleResolutionResult, BattleSubject, BattleSubjectKind,
+    discover_battle_acts, resolve_battle_subject_test_fill, start_battle, Actor, AttackRollFacts,
+    BattleFill, BattleResolutionResult, BattleSubject, BattleSubjectKind,
 };
 use crate::rules::weapon_attack_ordering::{
     discover_weapon_attack, fill_weapon_attack_damage_dice, fill_weapon_attack_roll_hit,
@@ -71,7 +71,7 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
         "doRejectAttackRollBeforeTargetChoice" => {
             let state = start_battle();
             let act = discovered_weapon_attack_act(&state);
-            let result = resolve_battle_subject(
+            let result = resolve_battle_subject_test_fill(
                 state,
                 act.subject,
                 BattleFill::AttackRoll(AttackRollFacts {
@@ -93,7 +93,8 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
         }
         "doRejectDamageBeforeAttackRoll" => {
             let (state, subject) = spine_after_target_choice();
-            let result = resolve_battle_subject(state, subject, BattleFill::DamageRoll(6));
+            let result =
+                resolve_battle_subject_test_fill(state, subject, BattleFill::DamageRoll(6));
             assert_invalid(result);
             projection(
                 WeaponAttackFrontierStage::AttackRoll,
@@ -103,7 +104,7 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
         }
         "doFillAttackRollMiss" => {
             let (state, subject) = spine_after_target_choice();
-            let result = resolve_battle_subject(
+            let result = resolve_battle_subject_test_fill(
                 state,
                 subject,
                 BattleFill::AttackRoll(AttackRollFacts {
@@ -124,7 +125,8 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
         }
         "doFillDamageDice" => {
             let (state, subject) = spine_after_attack_roll_hit();
-            let result = resolve_battle_subject(state, subject, BattleFill::DamageRoll(6));
+            let result =
+                resolve_battle_subject_test_fill(state, subject, BattleFill::DamageRoll(6));
             assert_resolved(result);
             projection(
                 WeaponAttackFrontierStage::Resolved,
@@ -151,7 +153,11 @@ fn spine_after_target_choice() -> (
 ) {
     let state = start_battle();
     let act = discovered_weapon_attack_act(&state);
-    match resolve_battle_subject(state, act.subject, BattleFill::TargetChoice(Actor::Goblin)) {
+    match resolve_battle_subject_test_fill(
+        state,
+        act.subject,
+        BattleFill::TargetChoice(Actor::Goblin),
+    ) {
         BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
         other => panic!("target choice should need attack-roll holes, got {other:?}"),
     }
@@ -162,7 +168,7 @@ fn spine_after_attack_roll_hit() -> (
     BattleSubject,
 ) {
     let (state, subject) = spine_after_target_choice();
-    match resolve_battle_subject(
+    match resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::AttackRoll(AttackRollFacts {

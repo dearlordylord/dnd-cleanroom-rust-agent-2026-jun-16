@@ -1,5 +1,5 @@
 use crate::rules::battle_reducer_spine::{
-    discover_battle_acts, hit_point_restoration_from_battle, resolve_battle_subject,
+    discover_battle_acts, hit_point_restoration_from_battle, resolve_battle_subject_test_fill,
     start_fighter_skeleton_battle, with_zero_hit_point_lifecycle, Actor, BattleFill,
     BattleHitPointRestorationFill, BattleHoleKind, BattleResolutionResult, BattleState,
     BattleSubject, BattleSubjectKind,
@@ -503,7 +503,7 @@ fn state_after_spell_fill(
 ) -> HitPointRestorationState {
     let state = restoration_fixture();
     let subject = discovered_restoration_act(&state, kind).subject;
-    project_restoration_result(resolve_battle_subject(
+    project_restoration_result(resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::HitPointRestoration(fill),
@@ -599,7 +599,8 @@ fn resolve_restoration_with_route(
     owner: ReducerRouteOwnerGroup,
     mut route: Vec<ReducerRouteEvent>,
 ) -> (BattleResolutionResult, Vec<ReducerRouteEvent>) {
-    let result = resolve_battle_subject(state, subject, BattleFill::HitPointRestoration(fill));
+    let result =
+        resolve_battle_subject_test_fill(state, subject, BattleFill::HitPointRestoration(fill));
     let holes = match &result {
         BattleResolutionResult::NeedsHoles { holes, .. }
         | BattleResolutionResult::Invalid { holes, .. } => holes.clone(),
@@ -631,7 +632,7 @@ fn state_after_spell_healing_roll() -> HitPointRestorationState {
         BattleSubjectKind::HitPointRestorationSingleTargetSpell,
         BattleHitPointRestorationFill::TargetChoice(Actor::Rogue),
     );
-    project_restoration_result(resolve_battle_subject(
+    project_restoration_result(resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::HitPointRestoration(BattleHitPointRestorationFill::HealingRoll(5)),
@@ -645,7 +646,7 @@ fn state_after_feature_distribution() -> HitPointRestorationState {
         BattleSubjectKind::HitPointRestorationFeatureHealingPool,
     )
     .subject;
-    project_restoration_result(resolve_battle_subject(
+    project_restoration_result(resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::HitPointRestoration(
@@ -663,7 +664,7 @@ fn reducer_state_after_restoration_fill(
     fill: BattleHitPointRestorationFill,
 ) -> (BattleState, BattleSubject) {
     let subject = discovered_restoration_act(&state, kind).subject;
-    match resolve_battle_subject(state, subject, BattleFill::HitPointRestoration(fill)) {
+    match resolve_battle_subject_test_fill(state, subject, BattleFill::HitPointRestoration(fill)) {
         BattleResolutionResult::NeedsHoles { state, subject, .. } => (state, subject),
         other => panic!("restoration reducer branch should need holes, got {other:?}"),
     }

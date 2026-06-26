@@ -1,8 +1,8 @@
 use crate::rules::battle_reducer_spine::{
-    discover_battle_acts, resolve_battle_subject, start_skeleton_actor_turn, start_skeleton_battle,
-    stat_block_multiattack_dispatches_available, Actor, AttackRollFacts, BattleFill,
-    BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionResult, BattleSubject,
-    BattleSubjectKind,
+    discover_battle_acts, resolve_battle_subject_test_fill, start_skeleton_actor_turn,
+    start_skeleton_battle, stat_block_multiattack_dispatches_available, Actor, AttackRollFacts,
+    BattleFill, BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionResult,
+    BattleSubject, BattleSubjectKind,
 };
 use crate::rules::weapon_attack_skeleton::{
     discover_skeleton_weapon_attack, fill_skeleton_weapon_attack_roll_hit,
@@ -78,8 +78,11 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
         "doRejectWrongTarget" => {
             let state = start_skeleton_battle();
             let act = discovered_weapon_attack_act(&state);
-            let result =
-                resolve_battle_subject(state, act.subject, BattleFill::TargetChoice(Actor::Rogue));
+            let result = resolve_battle_subject_test_fill(
+                state,
+                act.subject,
+                BattleFill::TargetChoice(Actor::Rogue),
+            );
             let (state, reason, _holes) = invalid_parts(result);
             assert_eq!(reason, BattleResolutionInvalidReason::WrongTarget);
             projection_from_spine(
@@ -92,7 +95,7 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
         }
         "doFillAttackRollMiss" => {
             let (state, subject) = spine_after_target_choice();
-            let result = resolve_battle_subject(
+            let result = resolve_battle_subject_test_fill(
                 state,
                 subject,
                 BattleFill::AttackRoll(AttackRollFacts {
@@ -118,10 +121,14 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
         "doFillDamageHighSneakAttack" => replay_damage_roll(8, true),
         "doRejectStaleAfterResolved" => {
             let (state, subject) = spine_after_attack_roll_hit();
-            let result =
-                resolve_battle_subject(state, subject, BattleFill::SneakAttackDamageRoll(8));
+            let result = resolve_battle_subject_test_fill(
+                state,
+                subject,
+                BattleFill::SneakAttackDamageRoll(8),
+            );
             let state = resolved_state(result);
-            let result = resolve_battle_subject(state, subject, BattleFill::DamageRoll(1));
+            let result =
+                resolve_battle_subject_test_fill(state, subject, BattleFill::DamageRoll(1));
             let (state, reason, holes) = invalid_parts(result);
             assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
             assert!(holes.is_empty());
@@ -143,7 +150,8 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
         }
         "doRejectRecursiveSkeletonMultiattack" => {
             let (state, subject) = spine_after_multiattack_resolution();
-            let result = resolve_battle_subject(state, subject, BattleFill::ResolveMultiattack);
+            let result =
+                resolve_battle_subject_test_fill(state, subject, BattleFill::ResolveMultiattack);
             let (state, reason, holes) = invalid_parts(result);
             assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
             assert!(holes.is_empty());
@@ -157,8 +165,11 @@ fn replay_observed_action_through_spine(observed_action_taken: &str) -> WeaponAt
         }
         "doSpendSkeletonMultiattackDispatch" => {
             let (state, subject) = spine_after_multiattack_resolution();
-            let result =
-                resolve_battle_subject(state, subject, BattleFill::SpendMultiattackDispatch);
+            let result = resolve_battle_subject_test_fill(
+                state,
+                subject,
+                BattleFill::SpendMultiattackDispatch,
+            );
             let state = resolved_state(result);
             projection_from_spine(&state, WeaponAttackSkeletonProtocol::Resolved)
         }
@@ -173,7 +184,7 @@ fn replay_damage_roll(rolled_damage: i16, use_sneak_attack: bool) -> WeaponAttac
     } else {
         BattleFill::DamageRoll(rolled_damage)
     };
-    let state = resolved_state(resolve_battle_subject(state, subject, fill));
+    let state = resolved_state(resolve_battle_subject_test_fill(state, subject, fill));
     projection_from_spine(&state, WeaponAttackSkeletonProtocol::Resolved)
 }
 
@@ -194,7 +205,7 @@ fn spine_after_target_choice() -> (
 ) {
     let state = start_skeleton_battle();
     let act = discovered_weapon_attack_act(&state);
-    match resolve_battle_subject(
+    match resolve_battle_subject_test_fill(
         state,
         act.subject,
         BattleFill::TargetChoice(Actor::Skeleton),
@@ -209,7 +220,7 @@ fn spine_after_attack_roll_hit() -> (
     BattleSubject,
 ) {
     let (state, subject) = spine_after_target_choice();
-    match resolve_battle_subject(
+    match resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::AttackRoll(AttackRollFacts {
@@ -231,7 +242,7 @@ fn spine_after_multiattack_resolution() -> (
         .into_iter()
         .next()
         .expect("Skeleton turn should discover one multiattack act");
-    match resolve_battle_subject(state, act.subject, BattleFill::ResolveMultiattack) {
+    match resolve_battle_subject_test_fill(state, act.subject, BattleFill::ResolveMultiattack) {
         BattleResolutionResult::Resolved { state } => (state, act.subject),
         other => panic!("Skeleton multiattack should resolve, got {other:?}"),
     }

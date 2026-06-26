@@ -1,5 +1,5 @@
 use crate::rules::battle_reducer_spine::{
-    discover_battle_acts, resolve_battle_subject, start_fighter_skeleton_battle,
+    discover_battle_acts, resolve_battle_subject_test_fill, start_fighter_skeleton_battle,
     BattleConcentrationFill, BattleFill, BattleHoleKind, BattleResolutionResult, BattleState,
     BattleSubject, BattleSubjectKind,
 };
@@ -186,7 +186,7 @@ fn cast_replacement_concentration_spell_route() -> (BattleState, Vec<ReducerRout
 fn voluntary_end_concentration_route() -> (BattleState, Vec<ReducerRouteEvent>) {
     let (state, mut route) = cast_concentration_spell_route();
     let subject = concentration_teardown_subject();
-    let result = resolve_battle_subject(
+    let result = resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::Concentration(BattleConcentrationFill::VoluntaryEnd),
@@ -203,7 +203,7 @@ fn voluntary_end_concentration_route() -> (BattleState, Vec<ReducerRouteEvent>) 
 fn damage_requests_concentration_save_route() -> (BattleState, Vec<ReducerRouteEvent>) {
     let (state, mut route) = cast_concentration_spell_route();
     let subject = concentration_teardown_subject();
-    let result = resolve_battle_subject(
+    let result = resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::Concentration(BattleConcentrationFill::DamageTaken(sampled_damage_facts())),
@@ -222,7 +222,7 @@ fn damage_requests_concentration_save_route() -> (BattleState, Vec<ReducerRouteE
 fn fail_concentration_save_route() -> (BattleState, Vec<ReducerRouteEvent>) {
     let (state, mut route) = damage_requests_concentration_save_route();
     let subject = concentration_teardown_subject();
-    let result = resolve_battle_subject(
+    let result = resolve_battle_subject_test_fill(
         state,
         subject,
         BattleFill::Concentration(BattleConcentrationFill::SavingThrow(
@@ -253,7 +253,8 @@ fn resolve_concentration_without_fill(
         act.holes,
         ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
     ));
-    let result = resolve_battle_subject(state, act.subject, BattleFill::Concentration(fill));
+    let result =
+        resolve_battle_subject_test_fill(state, act.subject, BattleFill::Concentration(fill));
     let state = resolved_state(result);
     route.push(route_resolve_battle_subject_without_fill(
         ReducerRouteSubjectFamily::ConcentrationTeardown,

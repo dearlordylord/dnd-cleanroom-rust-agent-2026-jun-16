@@ -515,6 +515,150 @@ pub enum BattleFill {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleWeaponAttackFill {
+    TargetChoice(Actor),
+    AttackRoll(AttackRollFacts),
+    DamageRoll(i16),
+    SneakAttackDamageRoll(i16),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleMultiattackFill {
+    ResolveMultiattack,
+    SpendMultiattackDispatch,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleResolutionRequestError {
+    SubjectKindMismatch,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleResolutionRequest {
+    subject: BattleSubject,
+    fill: BattleFill,
+}
+
+impl BattleResolutionRequest {
+    #[must_use]
+    pub fn subject(&self) -> BattleSubject {
+        self.subject
+    }
+
+    pub fn weapon_attack(
+        subject: BattleSubject,
+        fill: BattleWeaponAttackFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::WeaponAttack {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: match fill {
+                BattleWeaponAttackFill::TargetChoice(target) => BattleFill::TargetChoice(target),
+                BattleWeaponAttackFill::AttackRoll(roll) => BattleFill::AttackRoll(roll),
+                BattleWeaponAttackFill::DamageRoll(damage) => BattleFill::DamageRoll(damage),
+                BattleWeaponAttackFill::SneakAttackDamageRoll(damage) => {
+                    BattleFill::SneakAttackDamageRoll(damage)
+                }
+            },
+        })
+    }
+
+    pub fn multiattack(
+        subject: BattleSubject,
+        fill: BattleMultiattackFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::Multiattack {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: match fill {
+                BattleMultiattackFill::ResolveMultiattack => BattleFill::ResolveMultiattack,
+                BattleMultiattackFill::SpendMultiattackDispatch => {
+                    BattleFill::SpendMultiattackDispatch
+                }
+            },
+        })
+    }
+
+    pub fn slot_spell(
+        subject: BattleSubject,
+        fill: BattleSlotSpellFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::SlotSpell {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::SlotSpell(fill),
+        })
+    }
+
+    pub fn save_gated_spell(
+        subject: BattleSubject,
+        fill: BattleSaveGatedSpellFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if !matches!(
+            subject.kind,
+            BattleSubjectKind::SaveGatedAreaDamage
+                | BattleSubjectKind::SaveGatedTargetListConditionChoice
+        ) {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::SaveGatedSpell(fill),
+        })
+    }
+
+    pub fn hit_point_restoration(
+        subject: BattleSubject,
+        fill: BattleHitPointRestorationFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if !matches!(
+            subject.kind,
+            BattleSubjectKind::HitPointRestorationSingleTargetSpell
+                | BattleSubjectKind::HitPointRestorationTargetListSpell
+                | BattleSubjectKind::HitPointRestorationFeatureHealingPool
+        ) {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::HitPointRestoration(fill),
+        })
+    }
+
+    pub fn death_saving_throw(
+        subject: BattleSubject,
+        facts: DeathSavingThrowFacts,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::DeathSavingThrow {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::DeathSavingThrow(facts),
+        })
+    }
+
+    pub fn concentration(
+        subject: BattleSubject,
+        fill: BattleConcentrationFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::ConcentrationTeardown {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::Concentration(fill),
+        })
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleHoleKind {
     TargetChoice,
     SpellTargetAllocation,
@@ -560,6 +704,72 @@ pub enum BattleResolutionResult {
         reason: BattleResolutionInvalidReason,
         holes: Vec<BattleHoleKind>,
     },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleEntrypointKind {
+    StartBattle,
+    DiscoverBattleActs,
+    ResolveBattleSubject,
+    AdvanceTurn,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleResolutionOutcome {
+    NeedsHoles,
+    Resolved,
+    Invalid(BattleResolutionInvalidReason),
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum BattleEntrypointEvent {
+    StartBattle,
+    DiscoverBattleActs {
+        available_subjects: Vec<BattleSubjectKind>,
+    },
+    ResolveBattleSubject {
+        subject: BattleSubjectKind,
+        outcome: BattleResolutionOutcome,
+    },
+    AdvanceTurn {
+        previous_actor: Actor,
+        next_actor: Actor,
+        round: i16,
+    },
+}
+
+impl BattleEntrypointEvent {
+    #[must_use]
+    pub const fn kind(&self) -> BattleEntrypointKind {
+        match self {
+            Self::StartBattle => BattleEntrypointKind::StartBattle,
+            Self::DiscoverBattleActs { .. } => BattleEntrypointKind::DiscoverBattleActs,
+            Self::ResolveBattleSubject { .. } => BattleEntrypointKind::ResolveBattleSubject,
+            Self::AdvanceTurn { .. } => BattleEntrypointKind::AdvanceTurn,
+        }
+    }
+}
+
+pub trait BattleEntrypointObserver {
+    fn observe_battle_entrypoint(&mut self, event: BattleEntrypointEvent);
+}
+
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
+pub struct BattleEntrypointTrace {
+    events: Vec<BattleEntrypointEvent>,
+}
+
+impl BattleEntrypointTrace {
+    #[must_use]
+    pub fn events(&self) -> &[BattleEntrypointEvent] {
+        &self.events
+    }
+}
+
+impl BattleEntrypointObserver for BattleEntrypointTrace {
+    fn observe_battle_entrypoint(&mut self, event: BattleEntrypointEvent) {
+        self.events.push(event);
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -668,6 +878,12 @@ pub fn start_battle() -> BattleState {
         dash_movement_bonus_feet: 0,
         disengaged: false,
     }
+}
+
+#[must_use]
+pub fn start_battle_observed(observer: &mut impl BattleEntrypointObserver) -> BattleState {
+    observer.observe_battle_entrypoint(BattleEntrypointEvent::StartBattle);
+    start_battle()
 }
 
 #[must_use]
@@ -1389,6 +1605,26 @@ pub fn end_turn(state: BattleState) -> BattleState {
     }
 }
 
+#[must_use]
+pub fn advance_turn(state: BattleState) -> BattleState {
+    end_turn(state)
+}
+
+#[must_use]
+pub fn advance_turn_observed(
+    state: BattleState,
+    observer: &mut impl BattleEntrypointObserver,
+) -> BattleState {
+    let previous_actor = current_actor(&state);
+    let state = advance_turn(state);
+    observer.observe_battle_entrypoint(BattleEntrypointEvent::AdvanceTurn {
+        previous_actor,
+        next_actor: current_actor(&state),
+        round: state.initiative.round,
+    });
+    state
+}
+
 fn next_initiative(initiative: Initiative) -> Initiative {
     // QNT: battle-runtime-turn-order.qnt `nextInitiative`.
     let current = initiative.still_to_act.actor;
@@ -1496,6 +1732,18 @@ pub fn discover_battle_acts(state: &BattleState) -> Vec<AvailableBattleAct> {
     let mut acts = Vec::new();
     push_reducer_spine_diagnostic_acts(state, actor, &mut acts);
     push_legacy_fixture_weapon_acts(state, actor, &mut acts);
+    acts
+}
+
+#[must_use]
+pub fn discover_battle_acts_observed(
+    state: &BattleState,
+    observer: &mut impl BattleEntrypointObserver,
+) -> Vec<AvailableBattleAct> {
+    let acts = discover_battle_acts(state);
+    observer.observe_battle_entrypoint(BattleEntrypointEvent::DiscoverBattleActs {
+        available_subjects: acts.iter().map(|act| act.subject.kind).collect(),
+    });
     acts
 }
 
@@ -1771,6 +2019,46 @@ fn push_legacy_fixture_weapon_acts(
 
 #[must_use]
 pub fn resolve_battle_subject(
+    state: BattleState,
+    request: BattleResolutionRequest,
+) -> BattleResolutionResult {
+    resolve_battle_subject_unchecked(state, request.subject, request.fill)
+}
+
+#[cfg(test)]
+#[must_use]
+pub fn resolve_battle_subject_test_fill(
+    state: BattleState,
+    subject: BattleSubject,
+    fill: BattleFill,
+) -> BattleResolutionResult {
+    resolve_battle_subject_unchecked(state, subject, fill)
+}
+
+#[must_use]
+pub fn resolve_battle_subject_observed(
+    state: BattleState,
+    request: BattleResolutionRequest,
+    observer: &mut impl BattleEntrypointObserver,
+) -> BattleResolutionResult {
+    let subject = request.subject().kind;
+    let result = resolve_battle_subject(state, request);
+    observer.observe_battle_entrypoint(BattleEntrypointEvent::ResolveBattleSubject {
+        subject,
+        outcome: battle_resolution_outcome(&result),
+    });
+    result
+}
+
+fn battle_resolution_outcome(result: &BattleResolutionResult) -> BattleResolutionOutcome {
+    match result {
+        BattleResolutionResult::NeedsHoles { .. } => BattleResolutionOutcome::NeedsHoles,
+        BattleResolutionResult::Resolved { .. } => BattleResolutionOutcome::Resolved,
+        BattleResolutionResult::Invalid { reason, .. } => BattleResolutionOutcome::Invalid(*reason),
+    }
+}
+
+fn resolve_battle_subject_unchecked(
     state: BattleState,
     subject: BattleSubject,
     fill: BattleFill,
