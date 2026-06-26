@@ -64,9 +64,9 @@
     {
       "checkpointId": "CP1",
       "name": "Battle Reducer Core Expansion",
-      "status": "running",
+      "status": "reviewing",
       "readyLaneIds": [],
-      "runningLaneIds": [
+      "reviewingLaneIds": [
         "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES"
       ]
     },
@@ -121,7 +121,7 @@
   "laneStatuses": {
     "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "merged",
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
-    "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "running",
+    "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "implemented",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "blocked-on-checkpoint",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "blocked-on-checkpoint",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "blocked-on-checkpoint",
@@ -190,9 +190,10 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr06",
       "branch": "ralph/l15-rr06-spell-effect-routes",
       "baseSha": "d7ec2d7957660673aaea3799787dc3224344b3d8",
-      "status": "running",
+      "status": "implemented-pending-review",
       "workerAgent": "019f0600-b370-7d41-8886-aa5750bdcf84",
-      "workerName": "Laplace"
+      "workerName": "Laplace",
+      "commit": "f0e6057dedc100f253a5bec4d34f13bd3c2ca8da"
     }
   ],
   "completedLaneWorktrees": [
