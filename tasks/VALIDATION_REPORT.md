@@ -7,9 +7,9 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE`
+- Last completed current-snapshot queued branch set: `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES`
 - Next queued driver: `<none for reducer-spine-diagnostic-battle>`
-- Next task id: `<none for RRCONV-19G focused architecture lane>`
+- Next task id: `<none for RR05 fixer scope>`
 
 Completion rule: a queued branch set is complete only when this report has an entry that names the exact `.mbt.qnt` driver, records the current manifest source commit SHA, records the current source branch inventory SHA, lists the allowed inputs used, renders branch coverage from harness-generated target replay evidence, and records verification results.
 
@@ -950,65 +950,82 @@ Verification results:
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check be336582921801cd06995121db38e34ca6f4e275...HEAD` passed.
 
-## L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE: Finish Current Reducer Route Queue
+## L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE: Integrated Reducer-Route Diagnostic Queue
 
-- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
-- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Drivers:
-  - `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
-  - `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt`
-- Allowed inputs used:
-  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
-  - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
-  - `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt`
-  - `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt`
-  - Repo-local `src/**`, `tasks/**`, `scripts/**`, and Rust/Cargo tooling
-
-Behavior implemented:
-
-- Death Saving Throw replay now builds `BattleResolutionRequest::death_saving_throw` and resolves through `resolve_battle_subject`; route evidence reads holes from `BattleResolutionResult`.
-- Concentration teardown replay now builds `BattleResolutionRequest::concentration`, carries the `NeedsHoles` continuation subject into the saving-throw fill, and reads route holes from `BattleResolutionResult`.
-- No driver-local HP, death-save, or concentration ledger was added; existing `BattleState` combatant lifecycle and concentration fields remain the durable owners.
-
-Generated branch coverage:
-
-| Obligation | Target replay evidence | Diagnostic tests | Status |
-| --- | --- | --- | --- |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doCastConcentrationSpell` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doCastConcentrationSpell#step:doCastConcentrationSpell` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doCastReplacementConcentrationSpell` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doCastReplacementConcentrationSpell#step:doCastReplacementConcentrationSpell` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doDamageRequestsConcentrationSave` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doDamageRequestsConcentrationSave#step:doDamageRequestsConcentrationSave` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doFailConcentrationSave` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doFailConcentrationSave#step:doFailConcentrationSave` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt#step:doVoluntaryEndConcentration` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doVoluntaryEndConcentration#step:doVoluntaryEndConcentration` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt#step:doDiscoverEndTurnDeathSavingThrow` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doDiscoverEndTurnDeathSavingThrow#step:doDiscoverEndTurnDeathSavingThrow` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt#step:doFillDeathSavingThrow` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doFillDeathSavingThrow#step:doFillDeathSavingThrow` | `src/tests/mod.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt#step:doRejectWrongActorEndTurnAfterResolved` | `tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doRejectWrongActorEndTurnAfterResolved#step:doRejectWrongActorEndTurnAfterResolved` | `src/tests/mod.rs` | `covered` |
-
-Target replay evidence:
-
+- Merged from `ralph/rrconv-19-cleanroom` during the RR05 fixer pass.
 - Evidence file: `tasks/target-replay-evidence/L15-RR03-reducer-route.json`
-- Target profile: `rust`
-- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
-- Reproduction trace id: `L15-RR03 route action=<branchAction>`
-
-Harness artifacts:
-
-- Start gate: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/START_GATE.json`
-- Engine depth: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/ENGINE_DEPTH_MANIFEST.json`
-- State ownership: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/STATE_OWNER_MANIFEST.json`
-- Reviewer loop: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/REVIEW_LOOP.json`
-- Decider decision: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/DECIDER_DECISION.json`
+- Historical artifacts: `tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/`
 - Run ledger: `tasks/RUN_LEDGER.json`
+- Scope: concentration break teardown and death saving throw reducer-route diagnostics.
+- Status: integrated as completed historical coverage; RR05 remains the active latest task entry.
 
-Remaining gaps:
 
-- `_none_`
+## L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES: Battle Action Attack / Stat-Block Routes
 
-Verification results:
+- Lane drivers: 7
+- Branch obligations: 53
+- Evidence file: `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+- Route assertion hardening: spell attack and creature attack route tests assert exact fill/hole payloads from shared reducer results.
 
-- `cargo test death_saving_throw_adapter_replays_all_branches` passed.
-- `cargo test concentration_break_teardown_adapter_replays_all_branches` passed.
-- `cargo fmt --check` passed.
-- `cargo test` passed.
-- `cargo clippy --all-targets -- -D warnings` passed.
-- `node scripts/check-cleanroom-harness.cjs` passed.
-- `git diff --check 72f81250789a4e7bc6216503f2a93abac6771852...HEAD` passed.
+| Obligation | Evidence | Harness test | Status |
+|---|---|---|---|
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doDiscoverSingleTargetSpellAttack` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverSingleTargetSpellAttack#step:doDiscoverSingleTargetSpellAttack` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doDiscoverTypedSpellAttack` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverTypedSpellAttack#step:doDiscoverTypedSpellAttack` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit#step:doFillAttackRollHit` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillDamageDice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice#step:doFillDamageDice` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillDamageTypeAfterTargetChoice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageTypeAfterTargetChoice#step:doFillDamageTypeAfterTargetChoice` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillDamageTypeBeforeTargetChoice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageTypeBeforeTargetChoice#step:doFillDamageTypeBeforeTargetChoice` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillTargetChoiceAfterDamageType` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoiceAfterDamageType#step:doFillTargetChoiceAfterDamageType` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillTargetChoiceBeforeDamageType` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoiceBeforeDamageType#step:doFillTargetChoiceBeforeDamageType` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doSubmitAttackRollBeforeTargetChoice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSubmitAttackRollBeforeTargetChoice#step:doSubmitAttackRollBeforeTargetChoice` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doSubmitDamageBeforeAttackRoll` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSubmitDamageBeforeAttackRoll#step:doSubmitDamageBeforeAttackRoll` | `src/qnt_adapters/battle_runtime_spell_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doDiscoverRolledActionAttackControl` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverRolledActionAttackControl#step:doDiscoverRolledActionAttackControl` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doDiscoverStaticActionAttackControl` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverStaticActionAttackControl#step:doDiscoverStaticActionAttackControl` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillDamageDice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice#step:doFillDamageDice` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillRechargeRoll` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillRechargeRoll#step:doFillRechargeRoll` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillRolledAttackRollHit` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillRolledAttackRollHit#step:doFillRolledAttackRollHit` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillStaticAttackRollHit` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillStaticAttackRollHit#step:doFillStaticAttackRollHit` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doRejectAttackRollBeforeTargetChoice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectAttackRollBeforeTargetChoice#step:doRejectAttackRollBeforeTargetChoice` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doRejectDamageBeforeAttackRoll` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectDamageBeforeAttackRoll#step:doRejectDamageBeforeAttackRoll` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doSpendRechargeGatedRolledAttack` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSpendRechargeGatedRolledAttack#step:doSpendRechargeGatedRolledAttack` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doStartMultiattackControl` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doStartMultiattackControl#step:doStartMultiattackControl` | `src/qnt_adapters/battle_runtime_stat_block_action_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doFillHitAttackRoll` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillHitAttackRoll#step:doFillHitAttackRoll` | `src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice` | `src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doResolveRolledDamage` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveRolledDamage#step:doResolveRolledDamage` | `src/qnt_adapters/battle_runtime_stat_block_multi_damage.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doFillHitAttackRoll` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillHitAttackRoll#step:doFillHitAttackRoll` | `src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice` | `src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doResolveDamage` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveDamage#step:doResolveDamage` | `src/qnt_adapters/battle_runtime_stat_block_size_gated_condition_rider.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doDiscoverAttack` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverAttack#step:doDiscoverAttack` | `src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit#step:doFillAttackRollHit` | `src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss` | `src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillDamageDice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice#step:doFillDamageDice` | `src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillTargetChoice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice` | `src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doRejectAttackRollBeforeTargetChoice` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectAttackRollBeforeTargetChoice#step:doRejectAttackRollBeforeTargetChoice` | `src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doRejectDamageBeforeAttackRoll` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectDamageBeforeAttackRoll#step:doRejectDamageBeforeAttackRoll` | `src/qnt_adapters/battle_runtime_weapon_attack_ordering.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doDiscoverAttack` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverAttack#step:doDiscoverAttack` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollHit` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit#step:doFillAttackRollHit` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollMiss` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHigh` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageHigh#step:doFillDamageHigh` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageHighSneakAttack` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageHighSneakAttack#step:doFillDamageHighSneakAttack` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLow` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageLow#step:doFillDamageLow` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillDamageLowSneakAttack` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageLowSneakAttack#step:doFillDamageLowSneakAttack` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillTarget` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTarget#step:doFillTarget` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectRecursiveSkeletonMultiattack` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectRecursiveSkeletonMultiattack#step:doRejectRecursiveSkeletonMultiattack` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectStaleAfterResolved` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doRejectWrongTarget` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectWrongTarget#step:doRejectWrongTarget` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doResolveSkeletonMultiattack` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doSpendSkeletonMultiattackDispatch` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doStartSkeletonTurn` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doStartSkeletonTurn#step:doStartSkeletonTurn` | `src/qnt_adapters/battle_runtime_weapon_attack_skeleton.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt#step:doAttackerAAttacks` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doAttackerAAttacks#step:doAttackerAAttacks` | `src/qnt_adapters/creature_attack_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt#step:doAttackerBAttacks` | `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doAttackerBAttacks#step:doAttackerBAttacks` | `src/qnt_adapters/creature_attack_mbt.rs` | `covered` |
+
+- Start gate: `tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/DECIDER_DECISION.json`

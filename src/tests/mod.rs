@@ -860,10 +860,12 @@ use battle_runtime_species_passive_trait_selected_identity::{
     BRANCH_ACTIONS as SPECIES_PASSIVE_BRANCH_ACTIONS,
 };
 use battle_runtime_spell_attack_ordering::{
+    expected_route as expected_spell_attack_ordering_route,
     expected_witness as expected_spell_attack_ordering_witness,
     projection_payload as spell_attack_ordering_projection_payload,
     replay_observed_action as replay_spell_attack_ordering_action,
     replay_observed_battle_state as replay_spell_attack_ordering_battle_state,
+    replay_observed_route as replay_spell_attack_ordering_route,
     BRANCH_ACTIONS as SPELL_ATTACK_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_starry_wisp_object::{
@@ -873,27 +875,33 @@ use battle_runtime_starry_wisp_object::{
     BRANCH_ACTIONS as STARRY_WISP_OBJECT_BRANCH_ACTIONS,
 };
 use battle_runtime_stat_block_action_ordering::{
+    expected_route as expected_stat_block_action_ordering_route,
     expected_witness as expected_stat_block_action_ordering_witness,
     projection_payload as stat_block_action_ordering_projection_payload,
     replay_observed_action as replay_stat_block_action_ordering_action,
+    replay_observed_route as replay_stat_block_action_ordering_route,
     BRANCH_ACTIONS as STAT_BLOCK_ACTION_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_stat_block_multi_damage::{
+    expected_route as expected_stat_block_multi_damage_route,
     expected_static_hit_attack_roll as expected_stat_block_multi_damage_static_hit,
     expected_witness as expected_stat_block_multi_damage_witness,
     projection_payload as stat_block_multi_damage_projection_payload,
     replay_observed_action as replay_stat_block_multi_damage_action,
+    replay_observed_route as replay_stat_block_multi_damage_route,
     replay_observed_static_hit_attack_roll as replay_stat_block_multi_damage_static_hit,
     BRANCH_ACTIONS as STAT_BLOCK_MULTI_DAMAGE_BRANCH_ACTIONS,
 };
 use battle_runtime_stat_block_size_gated_condition_rider::{
     expected_larger_hit_attack_roll as expected_stat_block_size_gated_larger_hit,
     expected_prone_immune_hit_attack_roll as expected_stat_block_size_gated_prone_immune_hit,
+    expected_route as expected_stat_block_size_gated_route,
     expected_witness as expected_stat_block_size_gated_witness,
     projection_payload as stat_block_size_gated_projection_payload,
     replay_observed_action as replay_stat_block_size_gated_action,
     replay_observed_larger_hit_attack_roll as replay_stat_block_size_gated_larger_hit,
     replay_observed_prone_immune_hit_attack_roll as replay_stat_block_size_gated_prone_immune_hit,
+    replay_observed_route as replay_stat_block_size_gated_route,
     BRANCH_ACTIONS as STAT_BLOCK_SIZE_GATED_BRANCH_ACTIONS,
 };
 use battle_runtime_thaumaturgy_selected_identity::{
@@ -909,15 +917,19 @@ use battle_runtime_turn_boundary_effect_lifecycle::{
     BRANCH_ACTIONS as TURN_BOUNDARY_EFFECT_LIFECYCLE_BRANCH_ACTIONS,
 };
 use battle_runtime_weapon_attack_ordering::{
+    expected_route as expected_weapon_attack_ordering_route,
     expected_witness as expected_weapon_attack_ordering_witness,
     projection_payload as weapon_attack_ordering_projection_payload,
     replay_observed_action as replay_weapon_attack_ordering_action,
+    replay_observed_route as replay_weapon_attack_ordering_route,
     BRANCH_ACTIONS as WEAPON_ATTACK_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_weapon_attack_skeleton::{
+    expected_route as expected_weapon_attack_skeleton_route,
     expected_witness as expected_weapon_attack_skeleton_witness,
     projection_payload as weapon_attack_skeleton_projection_payload,
     replay_observed_action as replay_weapon_attack_skeleton_action,
+    replay_observed_route as replay_weapon_attack_skeleton_route,
     BRANCH_ACTIONS as WEAPON_ATTACK_SKELETON_BRANCH_ACTIONS,
 };
 use battle_runtime_weapon_hosted_attack_and_riders::{
@@ -1034,9 +1046,11 @@ use character_sheet_weapon_mastery_containers_selected_identity::{
     BRANCH_ACTIONS as SHEET_WEAPON_MASTERY_BRANCH_ACTIONS,
 };
 use creature_attack_mbt::{
+    expected_route as expected_creature_attack_route,
     expected_witness as expected_creature_attack_witness,
     projection_payload as creature_attack_projection_payload,
-    replay_observed_action as replay_creature_attack_action, replay_sampled_inputs,
+    replay_observed_action as replay_creature_attack_action,
+    replay_observed_route as replay_creature_attack_route, replay_sampled_inputs,
     BRANCH_ACTIONS as CREATURE_ATTACK_BRANCH_ACTIONS, REPLAY_DAMAGE_SAMPLE, REPLAY_HIT_SAMPLE,
 };
 use rule_core_attack_damage_disposition::{
@@ -2331,7 +2345,24 @@ fn creature_attack_adapter_replays_all_branches() {
         assert_eq!(observed, expected_creature_attack_witness(action));
         assert!(creature_attack_projection_payload(&observed).contains("qCreatureAHp="));
         assert!(creature_attack_projection_payload(&observed).contains("qCreatureBHp="));
+        let route = replay_creature_attack_route(action);
+        assert_eq!(route, expected_creature_attack_route(action));
+        assert_eq!(
+            reducer_route_payload(&route),
+            expected_creature_attack_route_payload(),
+            "{action}"
+        );
     }
+}
+
+fn expected_creature_attack_route_payload() -> &'static str {
+    concat!(
+        "start_battle owner=BattleActionEconomyOwner\n",
+        "discover_battle_acts subject=CreatureAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleTargetSelectionOwner\n",
+        "resolve_battle_subject subject=CreatureAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner\n",
+        "resolve_battle_subject subject=CreatureAttackRouteSubject fill=AttackRollFillKind holes=RolledDiceHoleKind owner=BattleAttackRollOwner\n",
+        "resolve_battle_subject subject=CreatureAttackRouteSubject fill=RolledDiceFillKind holes=none owner=BattleHitPointOwner",
+    )
 }
 
 #[test]
@@ -4492,8 +4523,94 @@ fn spell_attack_ordering_adapter_replays_all_branches() {
     // Spells/Gaining-and-Casting.md "Targets" and "Attack Rolls".
     for action in SPELL_ATTACK_ORDERING_BRANCH_ACTIONS {
         let observed = replay_spell_attack_ordering_action(action);
-        assert_eq!(observed, expected_spell_attack_ordering_witness(action));
+        assert_eq!(
+            observed,
+            expected_spell_attack_ordering_witness(action),
+            "{action}"
+        );
         assert!(spell_attack_ordering_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_spell_attack_ordering_route(action);
+        assert_eq!(route, expected_spell_attack_ordering_route(action));
+        assert_eq!(
+            reducer_route_payload(&route),
+            expected_spell_attack_route_payload(action),
+            "{action}"
+        );
+    }
+}
+
+fn expected_spell_attack_route_payload(action: &str) -> &'static str {
+    const SINGLE_DISCOVERY: &str = concat!(
+        "start_battle owner=BattleActionEconomyOwner\n",
+        "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner",
+    );
+    const SINGLE_TARGET: &str = concat!(
+        "start_battle owner=BattleActionEconomyOwner\n",
+        "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
+        "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner",
+    );
+    const SINGLE_HIT: &str = concat!(
+        "start_battle owner=BattleActionEconomyOwner\n",
+        "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
+        "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner\n",
+        "resolve_battle_subject subject=SpellAttackRouteSubject fill=AttackRollFillKind holes=RolledDiceHoleKind owner=BattleAttackRollOwner",
+    );
+    const TYPED_DISCOVERY: &str = concat!(
+        "start_battle owner=BattleActionEconomyOwner\n",
+        "discover_battle_acts subject=SpellAttackRouteSubject holes=DamageTypeChoiceHoleKind,TargetChoiceHoleKind owner=BattleActionEconomyOwner",
+    );
+    match action {
+        "doDiscoverSingleTargetSpellAttack" => SINGLE_DISCOVERY,
+        "doSubmitAttackRollBeforeTargetChoice" => concat!(
+            "start_battle owner=BattleActionEconomyOwner\n",
+            "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=AttackRollFillKind holes=TargetChoiceHoleKind owner=BattleHoleFrontierOwner",
+        ),
+        "doFillTargetChoice" => SINGLE_TARGET,
+        "doSubmitDamageBeforeAttackRoll" => concat!(
+            "start_battle owner=BattleActionEconomyOwner\n",
+            "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=RolledDiceFillKind holes=AttackRollHoleKind owner=BattleHoleFrontierOwner",
+        ),
+        "doFillAttackRollMiss" => concat!(
+            "start_battle owner=BattleActionEconomyOwner\n",
+            "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=AttackRollFillKind holes=none owner=BattleAttackRollOwner",
+        ),
+        "doFillAttackRollHit" => SINGLE_HIT,
+        "doFillDamageDice" => concat!(
+            "start_battle owner=BattleActionEconomyOwner\n",
+            "discover_battle_acts subject=SpellAttackRouteSubject holes=TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=AttackRollFillKind holes=RolledDiceHoleKind owner=BattleAttackRollOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=RolledDiceFillKind holes=none owner=BattleHitPointOwner",
+        ),
+        "doDiscoverTypedSpellAttack" => TYPED_DISCOVERY,
+        "doFillDamageTypeBeforeTargetChoice" => concat!(
+            "start_battle owner=BattleActionEconomyOwner\n",
+            "discover_battle_acts subject=SpellAttackRouteSubject holes=DamageTypeChoiceHoleKind,TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=DamageTypeChoiceFillKind holes=TargetChoiceHoleKind owner=BattleHoleFrontierOwner",
+        ),
+        "doFillTargetChoiceBeforeDamageType" => concat!(
+            "start_battle owner=BattleActionEconomyOwner\n",
+            "discover_battle_acts subject=SpellAttackRouteSubject holes=DamageTypeChoiceHoleKind,TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=DamageTypeChoiceHoleKind owner=BattleTargetSelectionOwner",
+        ),
+        "doFillDamageTypeAfterTargetChoice" => concat!(
+            "start_battle owner=BattleActionEconomyOwner\n",
+            "discover_battle_acts subject=SpellAttackRouteSubject holes=DamageTypeChoiceHoleKind,TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=DamageTypeChoiceHoleKind owner=BattleTargetSelectionOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=DamageTypeChoiceFillKind holes=AttackRollHoleKind owner=BattleHoleFrontierOwner",
+        ),
+        "doFillTargetChoiceAfterDamageType" => concat!(
+            "start_battle owner=BattleActionEconomyOwner\n",
+            "discover_battle_acts subject=SpellAttackRouteSubject holes=DamageTypeChoiceHoleKind,TargetChoiceHoleKind owner=BattleActionEconomyOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=DamageTypeChoiceFillKind holes=TargetChoiceHoleKind owner=BattleHoleFrontierOwner\n",
+            "resolve_battle_subject subject=SpellAttackRouteSubject fill=TargetChoiceFillKind holes=AttackRollHoleKind owner=BattleTargetSelectionOwner",
+        ),
+        action => panic!("unsupported spell attack route action {action}"),
     }
 }
 
@@ -4712,6 +4829,9 @@ fn stat_block_action_ordering_adapter_replays_all_branches() {
         assert!(
             stat_block_action_ordering_projection_payload(&observed).contains("protocolResult=")
         );
+        let route = replay_stat_block_action_ordering_route(action);
+        assert_eq!(route, expected_stat_block_action_ordering_route(action));
+        assert!(reducer_route_payload(&route).contains("StatBlockActionRouteSubject"));
     }
 }
 
@@ -4851,6 +4971,9 @@ fn stat_block_multi_damage_adapter_replays_all_branches() {
         let observed = replay_stat_block_multi_damage_action(action);
         assert_eq!(observed, expected_stat_block_multi_damage_witness(action));
         assert!(stat_block_multi_damage_projection_payload(&observed).contains("qTargetHp="));
+        let route = replay_stat_block_multi_damage_route(action);
+        assert_eq!(route, expected_stat_block_multi_damage_route(action));
+        assert!(reducer_route_payload(&route).contains("StatBlockActionRouteSubject"));
     }
 }
 
@@ -4873,6 +4996,9 @@ fn stat_block_size_gated_condition_rider_adapter_replays_all_branches() {
         let observed = replay_stat_block_size_gated_action(action);
         assert_eq!(observed, expected_stat_block_size_gated_witness(action));
         assert!(stat_block_size_gated_projection_payload(&observed).contains("qTargetProne="));
+        let route = replay_stat_block_size_gated_route(action);
+        assert_eq!(route, expected_stat_block_size_gated_route(action));
+        assert!(reducer_route_payload(&route).contains("StatBlockActionRouteSubject"));
     }
 }
 
@@ -5153,6 +5279,9 @@ fn weapon_attack_ordering_adapter_replays_all_branches() {
         let observed = replay_weapon_attack_ordering_action(action);
         assert_eq!(observed, expected_weapon_attack_ordering_witness(action));
         assert!(weapon_attack_ordering_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_weapon_attack_ordering_route(action);
+        assert_eq!(route, expected_weapon_attack_ordering_route(action));
+        assert!(reducer_route_payload(&route).contains("WeaponAttackRouteSubject"));
     }
 }
 
@@ -5232,6 +5361,12 @@ fn weapon_attack_skeleton_adapter_replays_all_branches() {
         let observed = replay_weapon_attack_skeleton_action(action);
         assert_eq!(observed, expected_weapon_attack_skeleton_witness(action));
         assert!(weapon_attack_skeleton_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_weapon_attack_skeleton_route(action);
+        assert_eq!(route, expected_weapon_attack_skeleton_route(action));
+        assert!(
+            reducer_route_payload(&route).contains("WeaponAttackRouteSubject")
+                || reducer_route_payload(&route).contains("StatBlockActionRouteSubject")
+        );
     }
 }
 

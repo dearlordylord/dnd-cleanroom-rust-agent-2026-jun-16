@@ -190,7 +190,7 @@
       "fixerName": "Parfit",
       "fixCommit": "4256dd5e7cdb0d0693a32125b1ec3cf41befbf32",
       "fixStatus": "committed",
-      "rereviewStatus": "running",
+      "rereviewStatus": "fixes-applied-pending-rereview",
       "rereviewAgent": "019f05d8-0d76-7a42-ab94-4a3a716a0695",
       "rereviewName": "Hegel",
       "rereviewFindings": [
@@ -219,7 +219,13 @@
         "spell attack routes bypass the shared resolve_battle_subject -> BattleResolutionResult surface.",
         "route assertions are self-referential and weak because expected_route is derived from replay_observed_route."
       ],
-      "blockerNote": "Worker reported executable route evidence exists, but reviewer rejected that as insufficient branch coverage because campaign done criteria require target replay evidence and ledger/report updates."
+      "blockerNote": "Worker reported executable route evidence exists, but reviewer rejected that as insufficient branch coverage because campaign done criteria require target replay evidence and ledger/report updates.",
+      "fixerResolution": [
+        "Stat-block route fills now enter through resolve_battle_subject and shared BattleResolutionResult variants.",
+        "RR05 route expectations are literal/QNT-derived across creature, spell, stat-block, and weapon route families.",
+        "RR03 sampled-pick adapter quarantine semantics are restored in scripts/check-cleanroom-harness.cjs.",
+        "RR03 integration artifacts and target replay evidence are merged and accounted for in RUN_LEDGER/VALIDATION_REPORT."
+      ]
     }
   ],
   "completedLaneWorktrees": [

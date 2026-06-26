@@ -594,11 +594,13 @@ fn weapon_holes(holes: Vec<BattleHoleKind>) -> Vec<ReducerSpineHole> {
             BattleHoleKind::RolledDice => ReducerSpineHole::RolledDice,
             BattleHoleKind::SpellTargetAllocation
             | BattleHoleKind::SpellTargetList
+            | BattleHoleKind::DamageTypeChoice
             | BattleHoleKind::ConditionChoice
             | BattleHoleKind::SavingThrowOutcome
             | BattleHoleKind::HitPointHealingDistribution
             | BattleHoleKind::DeathSavingThrow
-            | BattleHoleKind::ConcentrationSavingThrow => {
+            | BattleHoleKind::ConcentrationSavingThrow
+            | BattleHoleKind::StatBlockRechargeRoll => {
                 panic!("weapon projection received non-weapon reducer hole {hole:?}")
             }
         })
