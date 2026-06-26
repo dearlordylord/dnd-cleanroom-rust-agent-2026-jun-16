@@ -14,7 +14,7 @@ use crate::rules::save_gated_spell_ordering::{
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts, route_resolve_battle_subject,
+    battle_resolution_continuation, route_discover_battle_acts, route_resolve_battle_subject,
     route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
     ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
     ReducerRouteResolveFill, ReducerRouteSubjectFamily,
@@ -345,7 +345,8 @@ fn condition_route_after_fill(
 
 fn area_damage_dice_route() -> Vec<ReducerRouteEvent> {
     let (result, route) = area_route_after_fill(BattleSaveGatedSpellFill::SavingThrowOutcome);
-    let (state, subject) = needs_holes(result);
+    let (state, subject) =
+        battle_resolution_continuation(result, "save-gated area damage dice route");
     resolve_with_route(
         state,
         subject,
@@ -359,7 +360,8 @@ fn area_damage_dice_route() -> Vec<ReducerRouteEvent> {
 
 fn target_list_then_condition_route() -> Vec<ReducerRouteEvent> {
     let (result, route) = condition_route_after_fill(BattleSaveGatedSpellFill::SpellTargetList);
-    let (state, subject) = needs_holes(result);
+    let (state, subject) =
+        battle_resolution_continuation(result, "save-gated target-list condition route");
     resolve_with_route(
         state,
         subject,
@@ -373,7 +375,8 @@ fn target_list_then_condition_route() -> Vec<ReducerRouteEvent> {
 
 fn condition_then_target_list_route() -> Vec<ReducerRouteEvent> {
     let (result, route) = condition_route_after_fill(BattleSaveGatedSpellFill::ConditionChoice);
-    let (state, subject) = needs_holes(result);
+    let (state, subject) =
+        battle_resolution_continuation(result, "save-gated condition target-list route");
     resolve_with_route(
         state,
         subject,
@@ -387,7 +390,8 @@ fn condition_then_target_list_route() -> Vec<ReducerRouteEvent> {
 
 fn condition_saving_throw_route() -> Vec<ReducerRouteEvent> {
     let (result, route) = condition_route_after_fill(BattleSaveGatedSpellFill::ConditionChoice);
-    let (state, subject) = needs_holes(result);
+    let (state, subject) =
+        battle_resolution_continuation(result, "save-gated condition saving throw first fill");
     let (result, route) = resolve_with_route(
         state,
         subject,
@@ -396,7 +400,8 @@ fn condition_saving_throw_route() -> Vec<ReducerRouteEvent> {
         ReducerRouteOwnerGroup::HoleFrontier,
         route,
     );
-    let (state, subject) = needs_holes(result);
+    let (state, subject) =
+        battle_resolution_continuation(result, "save-gated condition saving throw continuation");
     resolve_with_route(
         state,
         subject,
@@ -519,11 +524,14 @@ fn state_after_condition_choice_then_target_list() -> SaveGatedSpellOrderingStat
 fn state_after_condition_saving_throw() -> SaveGatedSpellOrderingState {
     let (state, subject) =
         reducer_state_after_condition_path_fill(BattleSaveGatedSpellFill::ConditionChoice);
-    let (state, subject) = needs_holes(resolve_battle_subject_test_fill(
-        state,
-        subject,
-        BattleFill::SaveGatedSpell(BattleSaveGatedSpellFill::SpellTargetList),
-    ));
+    let (state, subject) = battle_resolution_continuation(
+        resolve_battle_subject_test_fill(
+            state,
+            subject,
+            BattleFill::SaveGatedSpell(BattleSaveGatedSpellFill::SpellTargetList),
+        ),
+        "save-gated condition saving throw state",
+    );
     project_save_gated_result(resolve_battle_subject_test_fill(
         state,
         subject,
@@ -534,11 +542,10 @@ fn state_after_condition_saving_throw() -> SaveGatedSpellOrderingState {
 fn reducer_state_after_area_fill(fill: BattleSaveGatedSpellFill) -> (BattleState, BattleSubject) {
     let state = start_fighter_skeleton_battle();
     let subject = discovered_save_gated_act(&state, BattleSubjectKind::SaveGatedAreaDamage).subject;
-    needs_holes(resolve_battle_subject_test_fill(
-        state,
-        subject,
-        BattleFill::SaveGatedSpell(fill),
-    ))
+    battle_resolution_continuation(
+        resolve_battle_subject_test_fill(state, subject, BattleFill::SaveGatedSpell(fill)),
+        "save-gated area fill state",
+    )
 }
 
 fn reducer_state_after_condition_path_fill(
@@ -550,11 +557,10 @@ fn reducer_state_after_condition_path_fill(
         BattleSubjectKind::SaveGatedTargetListConditionChoice,
     )
     .subject;
-    needs_holes(resolve_battle_subject_test_fill(
-        state,
-        subject,
-        BattleFill::SaveGatedSpell(fill),
-    ))
+    battle_resolution_continuation(
+        resolve_battle_subject_test_fill(state, subject, BattleFill::SaveGatedSpell(fill)),
+        "save-gated condition path fill state",
+    )
 }
 
 fn discovered_save_gated_act(
@@ -566,14 +572,6 @@ fn discovered_save_gated_act(
         .into_iter()
         .find(|act| act.subject.kind == kind)
         .expect("save-gated diagnostic act should be discovered through reducer")
-}
-
-fn needs_holes(result: BattleResolutionResult) -> (BattleState, BattleSubject) {
-    let outcome = result.outcome();
-    let needs_holes = result
-        .into_needs_holes()
-        .unwrap_or_else(|| panic!("save-gated reducer branch should need holes, got {outcome:?}"));
-    (needs_holes.state, needs_holes.subject)
 }
 
 fn project_save_gated_result(result: BattleResolutionResult) -> SaveGatedSpellOrderingState {

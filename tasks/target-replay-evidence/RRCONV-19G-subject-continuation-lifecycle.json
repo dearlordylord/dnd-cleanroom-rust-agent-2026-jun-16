@@ -1,0 +1,496 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-quint-connect-subject-continuation-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doDiscoverAreaSaveDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doDiscoverAreaSaveDamage",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "dd067db0d2caa102e169229c8d2b59d58b149d94a38017cbc41187f687c7301e",
+        "observedProjectionSha256": "dd067db0d2caa102e169229c8d2b59d58b149d94a38017cbc41187f687c7301e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverAreaSaveDamage"
+    },
+    {
+      "branchAction": "doDiscoverTargetListConditionChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doDiscoverTargetListConditionChoice",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6a26ac80017259017a2dc780f5e1111fd0574a01041a2d47b54db3ace85f0fac",
+        "observedProjectionSha256": "6a26ac80017259017a2dc780f5e1111fd0574a01041a2d47b54db3ace85f0fac",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverTargetListConditionChoice"
+    },
+    {
+      "branchAction": "doFillAreaDamageDice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillAreaDamageDice",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "adf9775d1bb916aff3b0e71e47e279ccb28c350d38ddd32d93ec6cf35d44f386",
+        "observedProjectionSha256": "adf9775d1bb916aff3b0e71e47e279ccb28c350d38ddd32d93ec6cf35d44f386",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillAreaDamageDice"
+    },
+    {
+      "branchAction": "doFillAreaSaveFailed",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillAreaSaveFailed",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "bb9f5f73a3d1a3a84f499245b414fed9ab1e28a251ec5ade7e9d3cdc96e0756b",
+        "observedProjectionSha256": "bb9f5f73a3d1a3a84f499245b414fed9ab1e28a251ec5ade7e9d3cdc96e0756b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillAreaSaveFailed"
+    },
+    {
+      "branchAction": "doFillConditionChoiceAfterTargetList",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillConditionChoiceAfterTargetList",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b766843e9ee324b7ee2ad74af60fb290d4780fd5a4a00d66570ae860fb5c6935",
+        "observedProjectionSha256": "b766843e9ee324b7ee2ad74af60fb290d4780fd5a4a00d66570ae860fb5c6935",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionChoiceAfterTargetList"
+    },
+    {
+      "branchAction": "doFillConditionChoiceBeforeTargetList",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillConditionChoiceBeforeTargetList",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f9656a4e13da2eee1ba038cfe89ccd5faf3f33b719dae7a2c7a598ea8750f74d",
+        "observedProjectionSha256": "f9656a4e13da2eee1ba038cfe89ccd5faf3f33b719dae7a2c7a598ea8750f74d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionChoiceBeforeTargetList"
+    },
+    {
+      "branchAction": "doFillConditionSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillConditionSavingThrow",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e51ee317072aaf97c4a61a668430c5507cb6414ce9a8421826176b7d8e08c988",
+        "observedProjectionSha256": "e51ee317072aaf97c4a61a668430c5507cb6414ce9a8421826176b7d8e08c988",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionSavingThrow"
+    },
+    {
+      "branchAction": "doFillTargetListAfterConditionChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillTargetListAfterConditionChoice",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "230b81fc334cd359a5d8636189a827ec32d148dee610cdcbc6b1b338a092414a",
+        "observedProjectionSha256": "230b81fc334cd359a5d8636189a827ec32d148dee610cdcbc6b1b338a092414a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillTargetListAfterConditionChoice"
+    },
+    {
+      "branchAction": "doFillTargetListBeforeConditionChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doFillTargetListBeforeConditionChoice",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "10bea02fd8600a02bddbc6c29bf902f1d34cf13c0ea9cd7709e88f7f6f0a9376",
+        "observedProjectionSha256": "10bea02fd8600a02bddbc6c29bf902f1d34cf13c0ea9cd7709e88f7f6f0a9376",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillTargetListBeforeConditionChoice"
+    },
+    {
+      "branchAction": "doSubmitDamageBeforeSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_save_gated_spell_ordering.rs",
+      "observedActionTaken": "doSubmitDamageBeforeSavingThrow",
+      "qntFileSha256": "8c826af1bb70f38d6499cfbef6d16e3491198e1251382850b0181895dec3074c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f9f027a31b6bb7501b632dfbf2ad772a297080c5303cc6463c5b6c705bd939b6",
+        "observedProjectionSha256": "f9f027a31b6bb7501b632dfbf2ad772a297080c5303cc6463c5b6c705bd939b6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitDamageBeforeSavingThrow"
+    },
+    {
+      "branchAction": "doDiscoverFeatureHealingPool",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "observedActionTaken": "doDiscoverFeatureHealingPool",
+      "qntFileSha256": "e0cb261cd46b2791a7aeccb4b3d458c47d94059a9a6130b8f791cf03f9543c60",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.hit_point_restoration_procedure",
+          "BattleState.rogue.hp",
+          "BattleState.rogue.unconscious",
+          "BattleState.rogue.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8206b00c8178add13f74aaac5930e5abc545964951f075059e7f8f675ce9c75b",
+        "observedProjectionSha256": "8206b00c8178add13f74aaac5930e5abc545964951f075059e7f8f675ce9c75b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverFeatureHealingPool"
+    },
+    {
+      "branchAction": "doDiscoverSingleTargetSpellHealing",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "observedActionTaken": "doDiscoverSingleTargetSpellHealing",
+      "qntFileSha256": "e0cb261cd46b2791a7aeccb4b3d458c47d94059a9a6130b8f791cf03f9543c60",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.hit_point_restoration_procedure",
+          "BattleState.rogue.hp",
+          "BattleState.rogue.unconscious",
+          "BattleState.rogue.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e50caac94d040a75bb801a74c3c186b163f371e037cb4350234fef9681d8dca1",
+        "observedProjectionSha256": "e50caac94d040a75bb801a74c3c186b163f371e037cb4350234fef9681d8dca1",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverSingleTargetSpellHealing"
+    },
+    {
+      "branchAction": "doDiscoverTargetListSpellHealing",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "observedActionTaken": "doDiscoverTargetListSpellHealing",
+      "qntFileSha256": "e0cb261cd46b2791a7aeccb4b3d458c47d94059a9a6130b8f791cf03f9543c60",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.hit_point_restoration_procedure",
+          "BattleState.rogue.hp",
+          "BattleState.rogue.unconscious",
+          "BattleState.rogue.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8999046fa070f4b529e1edee4c073961ab34b4cb6ddbe9a01fb8d359d7331168",
+        "observedProjectionSha256": "8999046fa070f4b529e1edee4c073961ab34b4cb6ddbe9a01fb8d359d7331168",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverTargetListSpellHealing"
+    },
+    {
+      "branchAction": "doFillFeatureHealingDistribution",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "observedActionTaken": "doFillFeatureHealingDistribution",
+      "qntFileSha256": "e0cb261cd46b2791a7aeccb4b3d458c47d94059a9a6130b8f791cf03f9543c60",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.hit_point_restoration_procedure",
+          "BattleState.rogue.hp",
+          "BattleState.rogue.unconscious",
+          "BattleState.rogue.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "64ba8bb6eb7b3238e779e261e659b53ff492f4b68c3e08208f11852a21d0cc5c",
+        "observedProjectionSha256": "64ba8bb6eb7b3238e779e261e659b53ff492f4b68c3e08208f11852a21d0cc5c",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillFeatureHealingDistribution"
+    },
+    {
+      "branchAction": "doFillSpellHealingRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "observedActionTaken": "doFillSpellHealingRoll",
+      "qntFileSha256": "e0cb261cd46b2791a7aeccb4b3d458c47d94059a9a6130b8f791cf03f9543c60",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.hit_point_restoration_procedure",
+          "BattleState.rogue.hp",
+          "BattleState.rogue.unconscious",
+          "BattleState.rogue.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "90e6042b664c1196ac0d2b137d181a4178190384731521aa0d71ffaed3b9dc65",
+        "observedProjectionSha256": "90e6042b664c1196ac0d2b137d181a4178190384731521aa0d71ffaed3b9dc65",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingRoll"
+    },
+    {
+      "branchAction": "doFillSpellHealingTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "observedActionTaken": "doFillSpellHealingTargetChoice",
+      "qntFileSha256": "e0cb261cd46b2791a7aeccb4b3d458c47d94059a9a6130b8f791cf03f9543c60",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.hit_point_restoration_procedure",
+          "BattleState.rogue.hp",
+          "BattleState.rogue.unconscious",
+          "BattleState.rogue.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e064eff2a73d98fe42b52f6ce8bacfc77d31d2e9cf4676b136810c6bbd320902",
+        "observedProjectionSha256": "e064eff2a73d98fe42b52f6ce8bacfc77d31d2e9cf4676b136810c6bbd320902",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingTargetChoice"
+    },
+    {
+      "branchAction": "doFillSpellHealingTargetList",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "observedActionTaken": "doFillSpellHealingTargetList",
+      "qntFileSha256": "e0cb261cd46b2791a7aeccb4b3d458c47d94059a9a6130b8f791cf03f9543c60",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.hit_point_restoration_procedure",
+          "BattleState.rogue.hp",
+          "BattleState.rogue.unconscious",
+          "BattleState.rogue.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "075ea08dea9699832a9a795589023b856649008f966e5cca1a1e9e2fbee0e60d",
+        "observedProjectionSha256": "075ea08dea9699832a9a795589023b856649008f966e5cca1a1e9e2fbee0e60d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingTargetList"
+    },
+    {
+      "branchAction": "doSubmitHealingRollBeforeTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "observedActionTaken": "doSubmitHealingRollBeforeTargetChoice",
+      "qntFileSha256": "e0cb261cd46b2791a7aeccb4b3d458c47d94059a9a6130b8f791cf03f9543c60",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.hit_point_restoration_procedure",
+          "BattleState.rogue.hp",
+          "BattleState.rogue.unconscious",
+          "BattleState.rogue.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f7c12024db65e2ead8da0439d8f03d8b2b3cc9e6e98d894587d154a4342328f9",
+        "observedProjectionSha256": "f7c12024db65e2ead8da0439d8f03d8b2b3cc9e6e98d894587d154a4342328f9",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitHealingRollBeforeTargetChoice"
+    },
+    {
+      "branchAction": "doSubmitHealingRollBeforeTargetList",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs",
+      "observedActionTaken": "doSubmitHealingRollBeforeTargetList",
+      "qntFileSha256": "e0cb261cd46b2791a7aeccb4b3d458c47d94059a9a6130b8f791cf03f9543c60",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.hit_point_restoration_procedure",
+          "BattleState.rogue.hp",
+          "BattleState.rogue.unconscious",
+          "BattleState.rogue.lifecycle"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c9d381d5f4538b4ffdf9deec71f99cab91a57c342dc0d10813533d41377180e9",
+        "observedProjectionSha256": "c9d381d5f4538b4ffdf9deec71f99cab91a57c342dc0d10813533d41377180e9",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitHealingRollBeforeTargetList"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

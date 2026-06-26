@@ -14,8 +14,10 @@ use crate::rules::hit_point_restoration_ordering::{
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts, route_resolve_battle_subject, route_start_battle,
-    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+    battle_resolution_continuation, route_discover_battle_acts, route_resolve_battle_subject,
+    route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
+    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -563,7 +565,8 @@ fn spell_healing_roll_route() -> Vec<ReducerRouteEvent> {
         BattleSubjectKind::HitPointRestorationSingleTargetSpell,
         BattleHitPointRestorationFill::TargetChoice(Actor::Rogue),
     );
-    let (state, subject) = needs_holes(result);
+    let (state, subject) =
+        battle_resolution_continuation(result, "hit point restoration spell healing roll route");
     resolve_restoration_with_route(
         state,
         subject,
@@ -601,12 +604,13 @@ fn resolve_restoration_with_route(
 ) -> (BattleResolutionResult, Vec<ReducerRouteEvent>) {
     let result =
         resolve_battle_subject_test_fill(state, subject, BattleFill::HitPointRestoration(fill));
-    let holes = result.requested_holes().unwrap_or(&[]).to_vec();
-    route.push(route_resolve_battle_subject(
-        ReducerRouteSubjectFamily::HitPointRestoration,
-        route_fill,
-        holes,
-        owner,
+    route.push(route_resolve_battle_subject_from_result(
+        ReducerRouteResolveConnector {
+            subject: ReducerRouteSubjectFamily::HitPointRestoration,
+            fill: ReducerRouteResolveFill::Fill(route_fill),
+            owner,
+        },
+        &result,
     ));
     (result, route)
 }
@@ -662,19 +666,7 @@ fn reducer_state_after_restoration_fill(
     let subject = discovered_restoration_act(&state, kind).subject;
     let result =
         resolve_battle_subject_test_fill(state, subject, BattleFill::HitPointRestoration(fill));
-    let outcome = result.outcome();
-    let needs_holes = result
-        .into_needs_holes()
-        .unwrap_or_else(|| panic!("restoration reducer branch should need holes, got {outcome:?}"));
-    (needs_holes.state, needs_holes.subject)
-}
-
-fn needs_holes(result: BattleResolutionResult) -> (BattleState, BattleSubject) {
-    let outcome = result.outcome();
-    let needs_holes = result
-        .into_needs_holes()
-        .unwrap_or_else(|| panic!("restoration reducer branch should need holes, got {outcome:?}"));
-    (needs_holes.state, needs_holes.subject)
+    battle_resolution_continuation(result, "hit point restoration state after fill")
 }
 
 fn discovered_restoration_act(

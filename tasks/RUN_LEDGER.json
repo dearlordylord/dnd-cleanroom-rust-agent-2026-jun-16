@@ -858,6 +858,104 @@
         }
       ],
       "taskId": "RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/DECIDER_DECISION.json",
+          "sha256": "a5c9b8f8d598430ef19bc1bcea238f6c1ccf8512d4526ac1ecb7450687df4863"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "21318201abf24a096834b1348d7b27aa3b4679f67dfec52a1236e661112b4986"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/REVIEW_LOOP.json",
+          "sha256": "e97d922eda7a23f785ffe8bcd2ed44b91eeea6f24e4a92daa6348cffcd5368f9"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/START_GATE.json",
+          "sha256": "92e6418464ebc71a4e8235cc34299f65d6e1de92e5d9aee6691b8659b3f186af"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/STATE_OWNER_MANIFEST.json",
+          "sha256": "ad7676edcbb5aa21ca7604ce685d27ff0afd311ae601a3888bf739c5de90fc1a"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test continuation",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test save_gated_spell_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test hit_point_restoration_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_spine_contract_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check be336582921801cd06995121db38e34ca6f4e275...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverAreaSaveDamage#step:doDiscoverAreaSaveDamage",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverTargetListConditionChoice#step:doDiscoverTargetListConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillAreaDamageDice#step:doFillAreaDamageDice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillAreaSaveFailed#step:doFillAreaSaveFailed",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionChoiceAfterTargetList#step:doFillConditionChoiceAfterTargetList",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionChoiceBeforeTargetList#step:doFillConditionChoiceBeforeTargetList",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionSavingThrow#step:doFillConditionSavingThrow",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillTargetListAfterConditionChoice#step:doFillTargetListAfterConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillTargetListBeforeConditionChoice#step:doFillTargetListBeforeConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitDamageBeforeSavingThrow#step:doSubmitDamageBeforeSavingThrow",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverFeatureHealingPool#step:doDiscoverFeatureHealingPool",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverSingleTargetSpellHealing#step:doDiscoverSingleTargetSpellHealing",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverTargetListSpellHealing#step:doDiscoverTargetListSpellHealing",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillFeatureHealingDistribution#step:doFillFeatureHealingDistribution",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingRoll#step:doFillSpellHealingRoll",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingTargetChoice#step:doFillSpellHealingTargetChoice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingTargetList#step:doFillSpellHealingTargetList",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitHealingRollBeforeTargetChoice#step:doSubmitHealingRollBeforeTargetChoice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitHealingRollBeforeTargetList#step:doSubmitHealingRollBeforeTargetList"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json",
+          "sha256": "4df2e02ca93e388fe6cd4d95c34f8262f1a0e327d05e126e34e327058b364181"
+        }
+      ],
+      "taskId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

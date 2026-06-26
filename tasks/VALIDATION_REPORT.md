@@ -7,9 +7,9 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT`
+- Last completed current-snapshot queued branch set: `RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE`
 - Next queued driver: `<none for reducer-spine-diagnostic-battle>`
-- Next task id: `<none for RRCONV-19F focused architecture lane>`
+- Next task id: `<none for RRCONV-19G focused architecture lane>`
 
 Completion rule: a queued branch set is complete only when this report has an entry that names the exact `.mbt.qnt` driver, records the current manifest source commit SHA, records the current source branch inventory SHA, lists the allowed inputs used, renders branch coverage from harness-generated target replay evidence, and records verification results.
 
@@ -843,3 +843,109 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check aa3996e4b32e2502b3c3ee5cca051db66157269b...HEAD` passed.
+
+## RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE: Subject Continuation Lifecycle
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Drivers:
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt`
+- Branch obligations:
+  - `step:doDiscoverAreaSaveDamage`
+  - `step:doDiscoverTargetListConditionChoice`
+  - `step:doFillAreaDamageDice`
+  - `step:doFillAreaSaveFailed`
+  - `step:doFillConditionChoiceAfterTargetList`
+  - `step:doFillConditionChoiceBeforeTargetList`
+  - `step:doFillConditionSavingThrow`
+  - `step:doFillTargetListAfterConditionChoice`
+  - `step:doFillTargetListBeforeConditionChoice`
+  - `step:doSubmitDamageBeforeSavingThrow`
+  - `step:doDiscoverFeatureHealingPool`
+  - `step:doDiscoverSingleTargetSpellHealing`
+  - `step:doDiscoverTargetListSpellHealing`
+  - `step:doFillFeatureHealingDistribution`
+  - `step:doFillSpellHealingRoll`
+  - `step:doFillSpellHealingTargetChoice`
+  - `step:doFillSpellHealingTargetList`
+  - `step:doSubmitHealingRollBeforeTargetChoice`
+  - `step:doSubmitHealingRollBeforeTargetList`
+- Allowed inputs used:
+  - `cleanroom-input/MANIFEST.md`
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.route.mbt.qnt`
+  - `cleanroom-input/guidance/README.md`
+  - `cleanroom-input/guidance/reducer-spine.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+
+Behavior implemented:
+
+- Added a shared adapter-side continuation helper that consumes `BattleResolutionResult` through `continuing_subject()` and `into_needs_holes()` and returns the next `BattleState` plus `BattleSubject`.
+- Reused the helper in Save-Gated Spell Ordering and Hit Point Restoration Ordering continuation paths; no durable `BattleState` fields were introduced.
+- Kept QNT branch names quarantined in adapters and evidence; this does not claim all route drivers are converted.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doDiscoverAreaSaveDamage` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverAreaSaveDamage#step:doDiscoverAreaSaveDamage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doDiscoverTargetListConditionChoice` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverTargetListConditionChoice#step:doDiscoverTargetListConditionChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillAreaDamageDice` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillAreaDamageDice#step:doFillAreaDamageDice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillAreaSaveFailed` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillAreaSaveFailed#step:doFillAreaSaveFailed` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionChoiceAfterTargetList` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionChoiceAfterTargetList#step:doFillConditionChoiceAfterTargetList` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionChoiceBeforeTargetList` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionChoiceBeforeTargetList#step:doFillConditionChoiceBeforeTargetList` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillConditionSavingThrow` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionSavingThrow#step:doFillConditionSavingThrow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillTargetListAfterConditionChoice` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillTargetListAfterConditionChoice#step:doFillTargetListAfterConditionChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doFillTargetListBeforeConditionChoice` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillTargetListBeforeConditionChoice#step:doFillTargetListBeforeConditionChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt#step:doSubmitDamageBeforeSavingThrow` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitDamageBeforeSavingThrow#step:doSubmitDamageBeforeSavingThrow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doDiscoverFeatureHealingPool` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverFeatureHealingPool#step:doDiscoverFeatureHealingPool` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doDiscoverSingleTargetSpellHealing` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverSingleTargetSpellHealing#step:doDiscoverSingleTargetSpellHealing` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doDiscoverTargetListSpellHealing` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverTargetListSpellHealing#step:doDiscoverTargetListSpellHealing` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doFillFeatureHealingDistribution` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillFeatureHealingDistribution#step:doFillFeatureHealingDistribution` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doFillSpellHealingRoll` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingRoll#step:doFillSpellHealingRoll` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doFillSpellHealingTargetChoice` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingTargetChoice#step:doFillSpellHealingTargetChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doFillSpellHealingTargetList` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingTargetList#step:doFillSpellHealingTargetList` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doSubmitHealingRollBeforeTargetChoice` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitHealingRollBeforeTargetChoice#step:doSubmitHealingRollBeforeTargetChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt#step:doSubmitHealingRollBeforeTargetList` | `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitHealingRollBeforeTargetList#step:doSubmitHealingRollBeforeTargetList` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE deterministic replay`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/START_GATE.json`
+- Engine depth: `tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test continuation` passed.
+- `cargo test save_gated_spell_ordering_adapter_replays_all_branches` passed.
+- `cargo test hit_point_restoration_ordering_adapter_replays_all_branches` passed.
+- `cargo test reducer_spine_contract_adapter_replays_all_branches` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check be336582921801cd06995121db38e34ca6f4e275...HEAD` passed.
