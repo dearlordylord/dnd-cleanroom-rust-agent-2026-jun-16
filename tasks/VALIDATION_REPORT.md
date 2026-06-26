@@ -461,7 +461,7 @@ Verification results:
 - Supplemental exercised driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
 - Task artifacts: `tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/`
-- Cleanroom freshness: dirty cleanroom evidence only; this does not claim fresh package acceptance.
+- Cleanroom freshness: dirty cleanroom evidence only; this does not claim fresh package acceptance. RRCONV-19D fixer ran in a worktree with a pre-existing untracked final report file preserved outside committed artifacts.
 
 Allowed inputs used:
 
@@ -480,7 +480,7 @@ Behavior implemented:
 
 - Added typed `BattleTurnAdvanceResult` with next `BattleState`, previous actor, next actor, and resulting round.
 - Changed public `advance_turn` and `advance_turn_observed` to return the typed result; `advance_turn_state` is the explicit state-only compatibility helper.
-- Updated reducer-spine and turn-boundary adapters/tests to consume typed result metadata from the shared transition instead of reconstructing it locally.
+- Fixer note: the original RRCONV-19D artifact claim was too broad. This patch changes `doEndTurnToTarget` and the turn-boundary lifecycle adapter projections so `qCurrentActor`, `qActor`, and `qRound` for turn advancement are sourced from `BattleTurnAdvanceResult.previous_actor`, `BattleTurnAdvanceResult.next_actor`, and `BattleTurnAdvanceResult.round`; `BattleState` remains the source for non-advancement state fields.
 - No new durable `BattleState` fields were added.
 
 Generated branch coverage:
@@ -497,6 +497,10 @@ Generated branch coverage:
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponAttackHit` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt#step:doResolveWeaponDamage` | `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponDamage#step:doResolveWeaponDamage` | `reducer_spine_contract_adapter_replays_all_branches` | `covered` |
 
+Supplemental dirty diagnostics:
+
+- `cargo test experimental_qnt_spine_advances_turn_boundary_lifecycle` exercises `battle_runtime_turn_boundary_effect_lifecycle.rs` with `BattleTurnAdvanceResult` metadata as the projection input for `qActor` and `qRound`; this is not recorded as ledger-closing target replay evidence for the RRCONV-19D selected driver.
+
 Target replay evidence:
 
 - Evidence file: `tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json`
@@ -504,7 +508,7 @@ Target replay evidence:
 - Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
 - Quint binding: Rust quint-connect harness
 - Reproduction trace id prefix: `RRCONV-19D dirty replay action=`
-- Checked route projection: `qRoute` with `route-event-list` comparator
+- Checked route projection: `qRoute` with `route-event-list` comparator; the turn-advance rows name `BattleTurnAdvanceResult` fields as checked projection inputs.
 
 Harness artifacts:
 
@@ -525,5 +529,6 @@ Verification results:
 - `cargo test reducer_entrypoint_contract` passed.
 - `cargo test experimental_qnt_spine_advances_turn_boundary_lifecycle` passed.
 - `cargo test experimental_qnt_spine` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check 1c805870c08b6632dba560019c2c7a75dc5ed991...HEAD` passed.

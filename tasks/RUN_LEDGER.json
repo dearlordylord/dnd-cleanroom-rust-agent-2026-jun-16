@@ -407,11 +407,11 @@
         },
         "engineDepth": {
           "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "ea599d6dcef291613ccc404c3fa2aba44945f7245338fd2c97527e56712a8e99"
+          "sha256": "e3ecdd7c819ee49c73206b3a8689d1cd033bba6d333c1e3493106cbd956280c2"
         },
         "reviewLoop": {
           "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/REVIEW_LOOP.json",
-          "sha256": "9ac616376e123a3c00b7138a2f719540ec8eaad133369996957afd1ef1f4fa2d"
+          "sha256": "06cafe576727fa90b99d6c54a27449c7d0c817b3b43566175e86073fb6b0787b"
         },
         "startGate": {
           "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/START_GATE.json",

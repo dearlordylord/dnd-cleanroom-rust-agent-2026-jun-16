@@ -3,7 +3,7 @@
     {
       "id": "RRCONV-19D-turn-advance-state-only-result",
       "reasonableness": "reasonable",
-      "resolution": "Public advance_turn now returns BattleTurnAdvanceResult and observed wrappers/adapters consume its derived previous actor, next actor, round, and state.",
+      "resolution": "The initial artifact claim was overbroad: two QNT adapters still projected turn-advance actor/round metadata back from BattleState. The fixer patch keeps advance_turn returning BattleTurnAdvanceResult and changes the reducer-spine doEndTurnToTarget and turn-boundary lifecycle projections to consume previous_actor, next_actor, and round from BattleTurnAdvanceResult; state-only projection remains explicit for non-advance fields.",
       "status": "fixed"
     }
   ],

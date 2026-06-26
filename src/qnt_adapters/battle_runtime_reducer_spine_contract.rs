@@ -3,7 +3,7 @@ use crate::rules::battle_reducer_spine::{
     resolve_battle_subject_test_fill, resolve_slot_spell_subject, slot_spell_holes_from_battle,
     start_fighter_skeleton_battle, Actor, AttackRollFacts, BattleFill, BattleHoleKind,
     BattleResolutionResult, BattleSlotSpellFill, BattleSlotSpellHole, BattleState, BattleSubject,
-    BattleSubjectKind, BattleTurnSpellSlotUse,
+    BattleSubjectKind, BattleTurnAdvanceResult, BattleTurnSpellSlotUse,
 };
 
 pub const BRANCH_ACTIONS: [&str; 9] = [
@@ -156,16 +156,24 @@ pub fn replay_observed_action(observed_action_taken: &str) -> ReducerSpineContra
             ReducerSpineProtocolResult::Resolved,
             Vec::new(),
         ),
-        "doEndTurnToTarget" => projection_from_battle(
-            &end_turn_to_target(),
-            ReducerSpineStage::TurnAdvanced,
-            ReducerSpineEntrypoint::ResolveBattleSubject,
-            ReducerSpineSubject::EndTurn,
-            ReducerSpineProtocolResult::Resolved,
-            Vec::new(),
-        ),
+        "doEndTurnToTarget" => {
+            let result = end_turn_to_target();
+            projection_from_turn_advance(
+                &result,
+                Actor::Fighter,
+                Actor::Skeleton,
+                1,
+                ProjectionParts {
+                    stage: ReducerSpineStage::TurnAdvanced,
+                    entrypoint: ReducerSpineEntrypoint::ResolveBattleSubject,
+                    subject: ReducerSpineSubject::EndTurn,
+                    protocol_result: ReducerSpineProtocolResult::Resolved,
+                    protocol_holes: Vec::new(),
+                },
+            )
+        }
         "doDiscoverWeaponAttack" => {
-            let state = end_turn_to_target();
+            let state = end_turn_to_target_state();
             let act = discovered_skeleton_weapon_attack(&state);
             projection_from_battle(
                 &state,
@@ -376,6 +384,14 @@ struct ExpectedProjection {
     target_hp: i16,
 }
 
+struct ProjectionParts {
+    stage: ReducerSpineStage,
+    entrypoint: ReducerSpineEntrypoint,
+    subject: ReducerSpineSubject,
+    protocol_result: ReducerSpineProtocolResult,
+    protocol_holes: Vec<ReducerSpineHole>,
+}
+
 fn expected(parts: ExpectedProjection) -> ReducerSpineContractProjection {
     ReducerSpineContractProjection {
         stage: parts.stage,
@@ -421,6 +437,35 @@ fn projection_from_battle(
     }
 }
 
+fn projection_from_turn_advance(
+    result: &BattleTurnAdvanceResult,
+    expected_previous_actor: Actor,
+    expected_next_actor: Actor,
+    expected_round: i16,
+    parts: ProjectionParts,
+) -> ReducerSpineContractProjection {
+    assert_eq!(result.previous_actor, expected_previous_actor);
+    assert_eq!(result.next_actor, expected_next_actor);
+    assert_eq!(result.round, expected_round);
+
+    ReducerSpineContractProjection {
+        stage: parts.stage,
+        entrypoint: parts.entrypoint,
+        subject: parts.subject,
+        current_actor: actor_from_battle(result.next_actor),
+        protocol_result: parts.protocol_result,
+        protocol_holes: parts.protocol_holes,
+        action_available: result.state.action_available,
+        bonus_action_available: result.state.bonus_action_available,
+        caster_reaction_available: result.state.fighter.reaction_available,
+        target_reaction_available: result.state.skeleton.reaction_available,
+        spell_slot_use: spell_slot_use_from_battle(&result.state),
+        interrupt_depth: 0,
+        caster_hp: result.state.fighter.hp,
+        target_hp: result.state.skeleton.hp,
+    }
+}
+
 fn slot_spell_discovered() -> BattleState {
     discover_slot_spell_battle(start_fighter_skeleton_battle())
 }
@@ -439,12 +484,12 @@ fn slot_spell_damage_resolved() -> BattleState {
     )
 }
 
-fn end_turn_to_target() -> BattleState {
-    let result = advance_turn(slot_spell_damage_resolved());
-    assert_eq!(result.previous_actor, Actor::Fighter);
-    assert_eq!(result.next_actor, Actor::Skeleton);
-    assert_eq!(result.round, 1);
-    result.state
+fn end_turn_to_target() -> BattleTurnAdvanceResult {
+    advance_turn(slot_spell_damage_resolved())
+}
+
+fn end_turn_to_target_state() -> BattleState {
+    end_turn_to_target().state
 }
 
 fn discovered_skeleton_weapon_attack(
@@ -460,7 +505,7 @@ fn discovered_skeleton_weapon_attack(
 }
 
 fn weapon_target_resolved() -> (BattleState, BattleSubject, Vec<BattleHoleKind>) {
-    let state = end_turn_to_target();
+    let state = end_turn_to_target_state();
     let act = discovered_skeleton_weapon_attack(&state);
     match resolve_battle_subject_test_fill(
         state,

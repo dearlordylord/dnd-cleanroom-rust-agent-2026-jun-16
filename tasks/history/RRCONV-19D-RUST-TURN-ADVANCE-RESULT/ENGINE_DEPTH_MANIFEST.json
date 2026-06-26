@@ -2699,7 +2699,7 @@
   "expectedNextReuse": [
     {
       "api": "BattleTurnAdvanceResult",
-      "expectedReuse": "Callers use the typed result for previous actor, next actor, round, and next BattleState instead of reconstructing advancement metadata locally."
+      "expectedReuse": "Callers use the typed result for previous actor, next actor, round, and next BattleState instead of reconstructing advancement metadata locally; RRCONV-19D fixer evidence covers reducer-spine doEndTurnToTarget and turn-boundary lifecycle projections consuming that metadata directly."
     },
     {
       "api": "advance_turn_state",
