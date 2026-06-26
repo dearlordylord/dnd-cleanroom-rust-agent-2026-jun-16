@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03` | `ralph/l15-rr03-diagnostic-queue` | `72f81250789a4e7bc6216503f2a93abac6771852` | `019f05b4-136b-7923-a639-a86f819ac526` Aquinas | running |
+| L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03` | `ralph/l15-rr03-diagnostic-queue` | `72f81250789a4e7bc6216503f2a93abac6771852` | `019f05b4-136b-7923-a639-a86f819ac526` Aquinas | implemented at `7b0997b0ad8f76a99d0a905a0e68ef679eecccde`; review pending |
 | L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05` | `ralph/l15-rr05-attack-statblock` | `72f81250789a4e7bc6216503f2a93abac6771852` | `019f05b4-6ea8-7f00-bdb1-264528b3ee63` Ampere | running |
 
 ## Historical RRCONV-19 Worktrees
