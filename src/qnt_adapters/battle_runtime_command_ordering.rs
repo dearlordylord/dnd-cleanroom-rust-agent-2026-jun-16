@@ -23,6 +23,10 @@ use super::battle_runtime_reducer_route::{
     ReducerRouteSubjectFamily,
 };
 
+const COMMAND_ORDERING_ROUTE_CONNECTOR: &str = include_str!(
+    "../../cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt"
+);
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct CommandOrderingWitness {
     pub stage: &'static str,
@@ -308,6 +312,151 @@ fn command_ordering_route_from_obligation(observed_action_taken: &str) -> Vec<Re
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     expected_command_ordering_route(observed_action_taken)
+}
+
+pub fn copied_connector_terminal_route_event(observed_action_taken: &str) -> ReducerRouteEvent {
+    let block = copied_connector_action_block(observed_action_taken);
+    match observed_action_taken {
+        "doFollowGrovel" => copied_connector_without_fill_terminal(block),
+        "doApproachMovementContinues" => copied_connector_discover_terminal(block),
+        action => panic!("unsupported copied connector route check {action}"),
+    }
+}
+
+fn copied_connector_action_block(observed_action_taken: &str) -> &'static str {
+    let marker = format!("  action {observed_action_taken} = all {{");
+    let start = COMMAND_ORDERING_ROUTE_CONNECTOR
+        .find(&marker)
+        .unwrap_or_else(|| panic!("copied connector action {observed_action_taken} is missing"));
+    copied_connector_braced_block(
+        &COMMAND_ORDERING_ROUTE_CONNECTOR[start..],
+        &format!("copied connector action {observed_action_taken}"),
+    )
+}
+
+fn copied_connector_without_fill_terminal(block: &str) -> ReducerRouteEvent {
+    assert_copied_connector_contains(block, "qRoute.append(");
+    assert_copied_connector_contains(block, "routeResolveBattleSubjectWithoutFill(");
+    assert_copied_connector_contains(block, "CommandEffectRouteSubject");
+    assert_copied_connector_contains(block, "Set()");
+    expected_command_without_fill(
+        copied_connector_outcome(block),
+        Vec::new(),
+        copied_connector_owner(block),
+    )
+}
+
+fn copied_connector_discover_terminal(block: &str) -> ReducerRouteEvent {
+    assert_copied_connector_contains(block, "qRoute.append(runtimeCommandDiscoverRoute(");
+    assert_runtime_command_discover_route_helper_matches_qnt();
+    assert_copied_connector_contains(block, "\"needsHoles\"");
+    let stage = copied_connector_stage(block);
+    route_discover_battle_acts_from_route_holes(
+        ReducerRouteSubjectFamily::CommandSpell,
+        command_stage_route_holes(stage),
+        copied_connector_owner(block),
+    )
+}
+
+fn assert_runtime_command_discover_route_helper_matches_qnt() {
+    let marker = "pure def runtimeCommandDiscoverRoute";
+    let start = COMMAND_ORDERING_ROUTE_CONNECTOR
+        .find(marker)
+        .unwrap_or_else(|| {
+            panic!("copied connector runtimeCommandDiscoverRoute helper is missing")
+        });
+    let rest = &COMMAND_ORDERING_ROUTE_CONNECTOR[start..];
+    let helper_end = rest.find("\n\n  action ").unwrap_or_else(|| {
+        panic!("copied connector runtimeCommandDiscoverRoute helper is missing a following action")
+    });
+    let helper = &rest[..helper_end];
+    assert_copied_connector_contains(helper, "routeDiscoverBattleActs(");
+    assert_copied_connector_contains(helper, "CommandEffectRouteSubject");
+    assert_copied_connector_contains(helper, "commandHoleFrontier(stage)");
+    assert_copied_connector_contains(helper, "owner");
+}
+
+fn copied_connector_braced_block<'a>(rest: &'a str, context: &str) -> &'a str {
+    let mut depth = 0_i16;
+    for (index, character) in rest.char_indices() {
+        match character {
+            '{' => depth += 1,
+            '}' => {
+                depth -= 1;
+                if depth == 0 {
+                    return &rest[..=index];
+                }
+            }
+            _ => {}
+        }
+    }
+    panic!("{context} is unterminated")
+}
+
+fn copied_connector_outcome(block: &str) -> ReducerRouteResolutionOutcome {
+    match copied_connector_result_label(block) {
+        "resolved" => ReducerRouteResolutionOutcome::Resolved,
+        "needsHoles" => ReducerRouteResolutionOutcome::NeedsHoles,
+        "invalid" => ReducerRouteResolutionOutcome::Invalid(
+            crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
+        ),
+        result => panic!("unsupported copied connector route result {result}"),
+    }
+}
+
+fn copied_connector_result_label(block: &str) -> &str {
+    let record_start = block
+        .find("recordProjection(")
+        .unwrap_or_else(|| panic!("copied connector action has no recordProjection"));
+    let record_args = &block[record_start + "recordProjection(".len()..];
+    let first_quote = record_args
+        .find('"')
+        .unwrap_or_else(|| panic!("copied connector recordProjection has no result label"));
+    let result_args = &record_args[first_quote + 1..];
+    let second_quote = result_args
+        .find('"')
+        .unwrap_or_else(|| panic!("copied connector recordProjection result is unterminated"));
+    &result_args[..second_quote]
+}
+
+fn copied_connector_stage(block: &str) -> CommandFrontierStage {
+    let marker = "val stage = ";
+    let stage_start = block
+        .find(marker)
+        .unwrap_or_else(|| panic!("copied connector discover action has no stage binding"))
+        + marker.len();
+    let stage_end = block[stage_start..]
+        .find(|character: char| !character.is_ascii_alphanumeric())
+        .map(|index| stage_start + index)
+        .unwrap_or(block.len());
+    match &block[stage_start..stage_end] {
+        "CommandApproachMovementStage" => CommandFrontierStage::ApproachMovement,
+        stage => panic!("unsupported copied connector command stage {stage}"),
+    }
+}
+
+fn copied_connector_owner(block: &str) -> ReducerRouteOwnerGroup {
+    const OWNERS: [(&str, ReducerRouteOwnerGroup); 2] = [
+        (
+            "BattleConditionLifecycleOwner",
+            ReducerRouteOwnerGroup::ConditionLifecycle,
+        ),
+        (
+            "BattleActiveEffectOwner",
+            ReducerRouteOwnerGroup::ActiveEffect,
+        ),
+    ];
+    OWNERS
+        .into_iter()
+        .find_map(|(qnt_owner, owner)| block.contains(qnt_owner).then_some(owner))
+        .unwrap_or_else(|| panic!("copied connector action has no supported route owner"))
+}
+
+fn assert_copied_connector_contains(block: &str, expected: &str) {
+    assert!(
+        block.contains(expected),
+        "copied connector action block is missing {expected}"
+    );
 }
 
 fn expected_command_ordering_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {

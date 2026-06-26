@@ -591,6 +591,7 @@ use battle_runtime_command_option_next_turn::{
     BRANCH_ACTIONS as COMMAND_OPTION_NEXT_TURN_BRANCH_ACTIONS,
 };
 use battle_runtime_command_ordering::{
+    copied_connector_terminal_route_event as copied_connector_command_ordering_terminal_route_event,
     expected_route as expected_command_ordering_route,
     expected_witness as expected_command_ordering_witness,
     projection_payload as command_ordering_projection_payload,
@@ -2219,6 +2220,20 @@ fn command_ordering_adapter_replays_all_branches() {
             }
             _ => {}
         }
+    }
+}
+
+#[test]
+fn command_ordering_expected_routes_match_copied_qnt_connector_examples() {
+    for action in ["doFollowGrovel", "doApproachMovementContinues"] {
+        let rust_expected_route = expected_command_ordering_route(action);
+        let rust_expected_terminal = rust_expected_route
+            .last()
+            .unwrap_or_else(|| panic!("expected Rust command route for {action} is empty"));
+        assert_eq!(
+            rust_expected_terminal,
+            &copied_connector_command_ordering_terminal_route_event(action)
+        );
     }
 }
 
