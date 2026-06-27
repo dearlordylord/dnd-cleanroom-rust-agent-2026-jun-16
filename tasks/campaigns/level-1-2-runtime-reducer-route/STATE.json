@@ -169,7 +169,7 @@
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
     "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "fixing",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
-    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "fixing",
+    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "rereviewing",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
   },
   "lastIntegrationVerification": {
@@ -307,7 +307,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c",
       "branch": "ralph/l15-rr07s-c-weapon-breath-feature",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "fixing",
+      "status": "rereviewing",
       "workerAgent": "019f070b-ff89-7fd2-8978-44745a13ef82",
       "workerName": "Kuhn",
       "commit": "3da4fbbd6d0630c096d0d386f28cc0ce02fb432b",
@@ -341,7 +341,24 @@
       ],
       "fixerAgent": "019f0730-cabf-77a3-801f-b5b9736f7e6b",
       "fixerName": "Franklin",
-      "fixStatus": "running"
+      "fixStatus": "complete",
+      "fixCommit": "e65678a9e310be2f97ba582711a036454c98ab2d",
+      "fixSummary": [
+        "Replaced shared expected route helper construction with independent literal ReducerRouteEvent records for weapon mastery, Dragonborn Breath Weapon, and feature selected-identity route evidence.",
+        "Observed routes still use reducer-facing route helpers; expected route witnesses are independent literals.",
+        "Accepted all 11 lane obligations; no blockers reported by fixer."
+      ],
+      "fixVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "cargo fmt --check",
+        "cargo test weapon_mastery_selected_identity_adapter_replays_all_branches",
+        "cargo test dragonborn_breath_weapon_adapter_replays_all_branches",
+        "cargo test feature_selected_identity_adapter_replays_all_branches",
+        "cargo test (202 tests)",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ]
     }
   ],
   "completedLaneWorktrees": [
