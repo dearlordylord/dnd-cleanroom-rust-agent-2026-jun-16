@@ -12,7 +12,7 @@
       "checklist": "authored-identity-dispatch",
       "id": "fu01e-reaction-identity-dispatch-risk",
       "reasonableness": "reasonable",
-      "resolution": "Added generic ReactionSpell fills for armor-class interruption and failed-save damage facts; production code does not dispatch on selected spell identity.",
+      "resolution": "Added generic ReactionSpell fills for armor-class interruption and failed-save damage facts, then routed accepted rows through production discovery from explicit reaction-window substrates; production code does not dispatch on selected spell identity.",
       "status": "fixed",
       "summary": "Reaction branches could have been routed by selected spell name."
     }
@@ -108,7 +108,7 @@
         }
       ],
       "round": 2,
-      "summary": "Convergence pass after target-blocking non-effect Mage Armor rows and confirming accepted AC/reaction rows use reducer entrypoint route evidence; no reasonable findings remain."
+      "summary": "Convergence pass after target-blocking non-effect Mage Armor rows and confirming accepted AC/reaction rows use reducer entrypoint route evidence, with ReactionSpell rows discovered from production reaction-window state; no reasonable findings remain."
     }
   ],
   "schemaVersion": 1,

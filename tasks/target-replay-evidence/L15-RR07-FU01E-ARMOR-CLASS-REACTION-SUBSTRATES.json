@@ -123,19 +123,20 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState ReactionSpell failed-save damage route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleState ReactionSpell failed-save damage route observed through BattleEntrypointTrace after discover_battle_acts_observed emitted a ReactionSpell act from an after-damage reaction window",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.fighter.reaction_available",
           "BattleState.fighter.hp",
           "BattleState.goblin.hp",
+          "BattleState.reaction_casting_time.reaction_window_open",
           "BattleState.fighter.spell_slots.second_level_expended",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "123a69db1f42b3a2f6216c75e3c2cadaa6cd56f227fea28f739044a63d0da0db",
-        "observedProjectionSha256": "123a69db1f42b3a2f6216c75e3c2cadaa6cd56f227fea28f739044a63d0da0db",
+        "expectedProjectionSha256": "4265b4b0e1d5bba0c39fc2f07c07e44d9db47101a83a337301bb1affa0ae6f36",
+        "observedProjectionSha256": "4265b4b0e1d5bba0c39fc2f07c07e44d9db47101a83a337301bb1affa0ae6f36",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -152,18 +153,19 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState ReactionSpell armor-class interruption route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleState ReactionSpell armor-class interruption route observed through BattleEntrypointTrace after discover_battle_acts_observed emitted a ReactionSpell act from an attack-hit reaction window",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
           "BattleState.fighter.reaction_available",
+          "BattleState.interrupt_resume.reaction_window",
           "BattleState.fighter.shield_armor_class_bonus_active",
           "BattleState.fighter.spell_slots.first_level_expended",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "331c9390ca0cfaefeb5f07dd7bd638dfe32f86e31b44e799fabbae7092e6a26c",
-        "observedProjectionSha256": "331c9390ca0cfaefeb5f07dd7bd638dfe32f86e31b44e799fabbae7092e6a26c",
+        "expectedProjectionSha256": "a991fad033e54947e1c52f83a391f6a3270b152fd86c236f4e9d336bf2d4c614",
+        "observedProjectionSha256": "a991fad033e54947e1c52f83a391f6a3270b152fd86c236f4e9d336bf2d4c614",
         "projection": "qRoute",
         "tag": "state-match"
       },

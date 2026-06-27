@@ -6290,6 +6290,7 @@ pub fn discover_battle_acts(state: &BattleState) -> BattleActDiscoveryResult {
     // Hit Point restoration subject families.
     let actor = current_actor(state);
     let mut acts = Vec::new();
+    push_reaction_spell_acts(state, actor, &mut acts);
     if !state.action_available {
         push_metamagic_option_spell_acts(state, actor, &mut acts);
         return BattleActDiscoveryResult::from_state(state, acts);
@@ -6298,6 +6299,55 @@ pub fn discover_battle_acts(state: &BattleState) -> BattleActDiscoveryResult {
     push_metamagic_option_spell_acts(state, actor, &mut acts);
     push_capability_weapon_acts(state, actor, &mut acts);
     BattleActDiscoveryResult::from_state(state, acts)
+}
+
+fn push_reaction_spell_acts(state: &BattleState, actor: Actor, acts: &mut Vec<AvailableBattleAct>) {
+    if !reaction_spell_opportunity_open(state)
+        || !combatant_for(state, actor).reaction_available
+        || !can_actor_expend_spell_slot_this_turn(state, actor)
+    {
+        return;
+    }
+
+    acts.push(AvailableBattleAct {
+        subject: diagnostic_subject(BattleSubjectKind::ReactionSpell, actor, None),
+        holes: Vec::new(),
+    });
+}
+
+fn reaction_spell_opportunity_open(state: &BattleState) -> bool {
+    attack_hit_reaction_opportunity_open(state) || after_damage_reaction_opportunity_open(state)
+}
+
+fn attack_hit_reaction_opportunity_open(state: &BattleState) -> bool {
+    matches!(
+        state.interrupt_resume.reaction_window,
+        ReactionWindowOffer::Offered {
+            active: ReactionWindowRole::AttackHitInterruption,
+            ..
+        }
+    )
+}
+
+fn after_damage_reaction_opportunity_open(state: &BattleState) -> bool {
+    state.reaction_casting_time.reaction_window_open
+        && state.reaction_casting_time.trigger == BattleReactionCastingTrigger::AfterDamage
+        && state.reaction_casting_time.continuation
+            == BattleReactionCastingContinuation::AfterDamageResolved
+}
+
+fn reaction_spell_fill_matches_opportunity(
+    state: &BattleState,
+    fill: BattleReactionSpellFill,
+) -> bool {
+    match fill {
+        BattleReactionSpellFill::ArmorClassInterruption(_) => {
+            attack_hit_reaction_opportunity_open(state)
+        }
+        BattleReactionSpellFill::FailedSaveDamage(_) => {
+            after_damage_reaction_opportunity_open(state)
+        }
+    }
 }
 
 #[must_use]
@@ -6682,6 +6732,7 @@ fn armor_class_spell_effect_route_subject_is_live(
 fn reaction_spell_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
     subject.kind == BattleSubjectKind::ReactionSpell
         && diagnostic_subject_shape_matches(subject, BattleSubjectKind::ReactionSpell, None)
+        && route_subject_discoverable_now(state, subject)
         && combatant_for(state, subject.actor).reaction_available
         && can_actor_expend_spell_slot_this_turn(state, subject.actor)
 }
@@ -7302,7 +7353,9 @@ fn resolve_battle_subject_unchecked(
             resolve_armor_class_spell_effect_subject(state, fill)
         }
         (BattleSubjectKind::ReactionSpell, BattleFill::ReactionSpell(fill)) => {
-            if !reaction_spell_route_subject_is_live(&state, subject) {
+            if !reaction_spell_route_subject_is_live(&state, subject)
+                || !reaction_spell_fill_matches_opportunity(&state, fill)
+            {
                 return invalid_with_holes(
                     state,
                     BattleResolutionInvalidReason::StaleSubject,

@@ -1,15 +1,19 @@
 use crate::rules::battle_reducer_spine::{
-    reaction_spell_selected_identity_projection_from_battle, resolve_battle_subject_observed,
-    start_battle_observed, Actor, BattleEntrypointTrace, BattleReactionArmorClassInterruptionFacts,
+    discover_battle_acts_observed, reaction_spell_selected_identity_projection_from_battle,
+    resolve_battle_subject_observed, start_battle_observed, Actor, BattleEntrypointTrace,
+    BattleReactionArmorClassInterruptionFacts, BattleReactionCastingContinuation,
+    BattleReactionCastingOutcome, BattleReactionCastingTimeState, BattleReactionCastingTrigger,
     BattleReactionFailedSaveDamageFacts, BattleReactionSpellFill,
     BattleReactionSpellSelectedIdentityOutcome, BattleReactionSpellSelectedIdentityProjection,
     BattleResolutionRequest, BattleResolutionResult, BattleSetup, BattleSpellSlotLevel,
     BattleState, BattleSubject, BattleSubjectKind,
 };
+use crate::rules::interrupt_stack_resume::{ReactionWindowOffer, ReactionWindowRole};
 
 use super::battle_runtime_reducer_route::{
-    observed_reducer_route, route_resolve_battle_subject_from_route_result, route_start_battle,
-    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome,
+    observed_reducer_route, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_route_result, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome,
     ReducerRouteSubjectFamily,
 };
 
@@ -161,8 +165,8 @@ fn reaction_spell_state_and_route(
     BattleReactionSpellSelectedIdentityOutcome,
 ) {
     let mut observer = BattleEntrypointTrace::default();
-    let state = start_battle_observed(reaction_spell_setup(), &mut observer).state;
-    let subject = reaction_spell_subject();
+    let state = start_battle_observed(reaction_spell_setup(fill), &mut observer).state;
+    let subject = discover_reaction_spell_subject(&state, &mut observer);
     let result = resolve_battle_subject_observed(
         state,
         BattleResolutionRequest::reaction_spell(subject, fill)
@@ -176,21 +180,39 @@ fn reaction_spell_state_and_route(
     )
 }
 
-fn reaction_spell_setup() -> BattleSetup {
+fn reaction_spell_setup(fill: BattleReactionSpellFill) -> BattleSetup {
     let mut setup = BattleSetup::standard();
     setup.goblin.hp = 12;
     setup.goblin.max_hp = 12;
+    match fill {
+        BattleReactionSpellFill::ArmorClassInterruption(_) => {
+            setup.interrupt_resume.reaction_window = ReactionWindowOffer::Offered {
+                active: ReactionWindowRole::AttackHitInterruption,
+                suspended: None,
+            };
+        }
+        BattleReactionSpellFill::FailedSaveDamage(_) => {
+            setup.reaction_casting_time = BattleReactionCastingTimeState {
+                trigger: BattleReactionCastingTrigger::AfterDamage,
+                continuation: BattleReactionCastingContinuation::AfterDamageResolved,
+                reaction_window_open: true,
+                outcome: BattleReactionCastingOutcome::Init,
+            };
+        }
+    }
     setup
 }
 
-fn reaction_spell_subject() -> BattleSubject {
-    BattleSubject {
-        kind: BattleSubjectKind::ReactionSpell,
-        actor: Actor::Fighter,
-        target: None,
-        stage: crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage::Resolved,
-        damage_modifier: 0,
-    }
+fn discover_reaction_spell_subject(
+    state: &BattleState,
+    observer: &mut BattleEntrypointTrace,
+) -> BattleSubject {
+    discover_battle_acts_observed(state, observer)
+        .into_available_acts()
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::ReactionSpell)
+        .map(|act| act.subject)
+        .expect("reaction spell should be discoverable")
 }
 
 fn resolved_state(result: BattleResolutionResult, context: &str) -> BattleState {
@@ -203,6 +225,11 @@ fn resolved_state(result: BattleResolutionResult, context: &str) -> BattleState 
 fn reaction_spell_route(owner: ReducerRouteOwnerGroup) -> Vec<ReducerRouteEvent> {
     vec![
         route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::ReactionSpell,
+            Vec::new(),
+            ReducerRouteOwnerGroup::Reaction,
+        ),
         route_resolve_battle_subject_from_route_result(
             ReducerRouteSubjectFamily::ReactionSpell,
             ReducerRouteFillKind::UnitFeatureDecision,

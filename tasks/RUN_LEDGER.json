@@ -2708,25 +2708,25 @@
     },
     {
       "artifacts": {
-        "deciderDecision": {
-          "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "cb8ee65ddda99a2c612a72d20d22104c5cba91b69d95ba697ffa6b53d85c2841"
+      "deciderDecision": {
+        "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/DECIDER_DECISION.json",
+        "sha256": "8a12657d747af87fc40d5ee8b4b86a72ba878cedce656e88643f01ddaab0a19d"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
           "sha256": "5627c5466ab6d12294e6e7895209f15edcd4e867a8350ecb6bb0d16e8d62559a"
         },
-        "reviewLoop": {
-          "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "f8cf4ce690bed66563eeec57b5836769cf7517d00a09442652c73c43d107587d"
+      "reviewLoop": {
+        "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/REVIEW_LOOP.json",
+        "sha256": "1ae039f0ffe2147858c66f009649368bf3906948fdbb4fd9235cd1c4e16fe692"
         },
         "startGate": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/START_GATE.json",
           "sha256": "d1e1d16f22cd2eb0da8405a22b44bb7ee45f9445310ab500d9ae9757616b48b7"
         },
-        "stateOwnerManifest": {
-          "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "dd296219a89d1a1162c841228cff7eab3e8d569104b9b1b922d7ddc2e517ba83"
+      "stateOwnerManifest": {
+        "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+        "sha256": "ff9683e31ea4efd16469fe9b5996200bd10d6f6269b897b76e90479d61306a0b"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",
@@ -2770,8 +2770,8 @@
             "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveHellishRebukeFailedSavingThrow#step:doResolveHellishRebukeFailedSavingThrow",
             "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveShieldReactionSpellHit#step:doResolveShieldReactionSpellHit"
           ],
-          "path": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json",
-          "sha256": "43f49a8bb2b9fbcc755882751813ec168cae4098fa1a1822108a1e3569f80930"
+      "path": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json",
+      "sha256": "379fb519937cbcde4ae2936da595283a8a753a8f6c2b260cb139c7bbfdb9cb45"
         }
       ],
       "taskId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"

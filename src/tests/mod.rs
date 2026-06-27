@@ -4376,6 +4376,7 @@ fn reaction_spell_selected_identity_adapter_replays_in_scope_branches() {
             reducer_route_payload(&expected_reaction_spell_selected_identity_route(action))
         );
         let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("discover_battle_acts"));
         assert!(route_payload.contains("ReactionSpellRouteSubject"));
         match action {
             "doResolveShieldReactionSpellHit" => {

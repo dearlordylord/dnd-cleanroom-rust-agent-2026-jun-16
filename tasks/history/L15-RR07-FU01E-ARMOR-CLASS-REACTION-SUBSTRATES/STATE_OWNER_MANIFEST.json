@@ -60,6 +60,22 @@
       "derivability": {
         "tag": "canonical-source"
       },
+      "fieldPath": "BattleState.interrupt_resume.reaction_window",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "fieldPath": "BattleState.reaction_casting_time.reaction_window_open",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "derivability": {
+        "tag": "canonical-source"
+      },
       "fieldPath": "BattleState.action_available",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
