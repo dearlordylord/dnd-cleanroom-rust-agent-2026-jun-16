@@ -2301,6 +2301,10 @@
           "status": "pass"
         },
         {
+          "command": "cargo test find_familiar_selected_identity_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
           "command": "cargo test selected_identity_adapter_replays_all_branches",
           "status": "pass"
         },
