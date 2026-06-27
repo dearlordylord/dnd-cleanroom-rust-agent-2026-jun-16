@@ -48,6 +48,20 @@
     "acceptedUniqueDriversSource": "CP8_AUDIT.json plus existing target replay evidence after source refresh d5a70b23",
     "acceptedObligationsSource": "CP8 accepted the final three in-scope Mage Armor admission/lifecycle rows after the source refresh supplied cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt. Canonical in-scope denominator is 659; accepted obligation coverage is 659/659."
   },
+  "dirtyTargetReplayRefreshes": [
+    {
+      "id": "pact-slot-handoff-init-projection-route",
+      "status": "dirty-target-replay-complete",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-pact-slot-replay",
+      "branch": "ralph/pact-slot-handoff-replay",
+      "baseCommit": "8db9d1e3c437594cbe82bebf4f8b8b002a2410f2",
+      "manifestSourceCommitSha": "b57772b459f1b75592fd45b9196fd60965b534d3",
+      "driver": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "routeConnector": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "evidence": "tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json",
+      "note": "Diagnostic dirty target replay only. Refreshes Pact Slot init-projection route evidence so doProjectPurePactMagicSlot and doRejectMixedSpellAndPactSlotInit match the copied qRoute connector; does not change fresh target acceptance."
+    }
+  ],
   "completedBeforeCampaign": [
     "T001",
     "T002",
@@ -2677,7 +2691,7 @@
     }
   },
   "nextWorkRecommendations": [
-    "Optionally run a fresh or dirty target replay for the newly copied Pact Slot handoff route surfaces if that behavior becomes the next diagnostic target.",
+    "Optionally run a fresh target replay for the newly copied Pact Slot handoff route surfaces if that behavior becomes an acceptance target; dirty diagnostic replay is recorded in tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
