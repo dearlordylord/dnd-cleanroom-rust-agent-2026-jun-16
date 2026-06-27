@@ -55,11 +55,22 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-pact-slot-replay",
       "branch": "ralph/pact-slot-handoff-replay",
       "baseCommit": "8db9d1e3c437594cbe82bebf4f8b8b002a2410f2",
+      "workerAgent": "Beauvoir the 2nd (019f0a7c-0f68-76c3-953e-cc2a149f15df)",
+      "workerCommit": "23eca8a08e055864630161ad953c65f00fb9027b",
+      "mergeCommit": "1abe8f87fcff9e72efd2e006f549373ff9f00b83",
       "manifestSourceCommitSha": "b57772b459f1b75592fd45b9196fd60965b534d3",
       "driver": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
       "routeConnector": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
       "evidence": "tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json",
-      "note": "Diagnostic dirty target replay only. Refreshes Pact Slot init-projection route evidence so doProjectPurePactMagicSlot and doRejectMixedSpellAndPactSlotInit match the copied qRoute connector; does not change fresh target acceptance."
+      "checks": [
+        "cargo fmt --check",
+        "cargo test battle_init_projection_adapter_replays_all_driver_branches",
+        "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt --evidence tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "note": "Diagnostic dirty target replay only. Refreshes Pact Slot init-projection route evidence so doProjectPurePactMagicSlot and doRejectMixedSpellAndPactSlotInit match the copied qRoute connector; does not change fresh target acceptance or the canonical 659/659 dirty-campaign denominator."
     }
   ],
   "completedBeforeCampaign": [

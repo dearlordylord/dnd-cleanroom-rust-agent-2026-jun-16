@@ -550,3 +550,17 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Review/fixer notes: initial review found the pre-existing base AC projection row still used the stale pre-refresh route shape. The follow-up commit refreshed that row to the generic connector shape: target-choice discovery, target-choice resolution, active-effect no-fill, and Armor Class no-fill. CP8 accounting still counts exactly the three newly accepted rows.
 - Production identity boundary: no production Mage Armor/name/id/provenance dispatch was introduced. Production reducer behavior uses `BattleArmorClassSpellEffectFill`, `BattleSubjectKind::ArmorClassSpellEffect`, route holes/fills, and owner groups. Selected spell identity remains adapter/evidence row identity only.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp8-a`
+
+### PACT-SLOT-HANDOFF-INIT-PROJECTION-ROUTE-REFRESH
+
+- Merge commit: `1abe8f87fcff9e72efd2e006f549373ff9f00b83`
+- Lane commit: `23eca8a08e055864630161ad953c65f00fb9027b`
+- Worker: Beauvoir the 2nd (`019f0a7c-0f68-76c3-953e-cc2a149f15df`)
+- Driver: `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt`
+- Route connector: `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt`
+- Evidence: `tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json`
+- Result: dirty diagnostic replay evidence accepted for the refreshed Pact Slot handoff route surface. The mixed Spell Slot/Pact Slot rejection now matches the copied connector shape: `HandoffResourceProjectionRouteSubject`, `HandoffResourceDeltaFill`, `HandoffSpellResourceProjectionHoleFamily`, and `CharacterBattleResourceProjectionOwner`.
+- Evidence checker: `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt --evidence tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json` passed with five obligations covered.
+- Integration verification: `cargo fmt --check`, focused `battle_init_projection_adapter_replays_all_driver_branches`, `cargo test` (`220` tests), `cargo clippy --all-targets -- -D warnings`, and `git diff --check HEAD~1...HEAD` passed in the replay worktree before merge.
+- Scope note: this does not change fresh target acceptance and does not add new canonical dirty-campaign denominator coverage beyond the already recorded 659/659. It proves the refreshed copied QNT route connector can constrain the existing dirty Rust target for these Pact Slot branches.
+- Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-pact-slot-replay`

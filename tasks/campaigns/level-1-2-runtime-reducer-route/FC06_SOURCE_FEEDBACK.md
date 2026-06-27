@@ -43,8 +43,10 @@ Evidence:
 - FC-05 itself did not prove the pure Pact Slot or mixed Spell Slot/Pact Slot
   branches in `character-battle-init-projection.mbt.qnt`. That was a source
   package gap at the time. The source gap is now resolved by commit
-  `b57772b459f1b75592fd45b9196fd60965b534d3`, but no fresh target replay has
-  yet consumed those new Pact Slot route surfaces.
+  `b57772b459f1b75592fd45b9196fd60965b534d3`. Dirty target replay evidence
+  now consumes those Pact Slot route surfaces in
+  `tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json`,
+  but no fresh target replay has yet accepted them.
 - FC-05 by itself did not prove one integrated sheet-handoff-to-simple-turn
   scenario. That gap is now closed by the later encounter-composition source
   connector and fresh target evidence.
@@ -80,8 +82,9 @@ Resolution:
   `CharacterBattleResourceProjectionOwner`, and
   `CharacterBattleInitProjectionOwner`.
 - This resolves the source-side vocabulary and route ownership gap. A future
-  target replay can now consume the copied connector instead of inferring Pact
-  Slot ownership locally.
+  fresh target replay can now consume the copied connector instead of inferring
+  Pact Slot ownership locally; the dirty target diagnostic replay has already
+  consumed it for the existing legacy harness.
 
 ### Encounter Composition Surface
 
