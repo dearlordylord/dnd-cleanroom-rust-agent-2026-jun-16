@@ -287,7 +287,17 @@
         "Feature profile evidence is adapter-local: replay_observed_action calls expected_witness and proves constant componentRoute hash rather than reusable component owner semantics.",
         "STATE_OWNER_MANIFEST records RuleCoreFeatureProfileSemanticsOwner.componentRoute as durable field in src/rules/battle_features.rs despite adapter-local field and no production module extension.",
         "VALIDATION_REPORT exclusion summary omits doUncannyDodge out-of-scope reason."
-      ]
+      ],
+      "fixerAgent": "019f0680-6c4f-7ca1-8c5a-d1ccfaa86d2c",
+      "fixerName": "Rawls",
+      "fixStatus": "committed",
+      "fixCommit": "3b522e37510064953d299db7cc4a739af9cd9d04",
+      "fixerResolution": [
+        "Removed same-adapter expected-vs-observed comparison; test checks observed route against separate QNT literal qComponentRoute witness and report downgrades claim to adapter-only projection evidence.",
+        "Removed false durable componentRoute state-owner claim; recorded qComponentRoute as non-durable boundary API.",
+        "Added doUncannyDodge level-5 exclusion reason."
+      ],
+      "rereviewStatus": "pending"
     }
   ],
   "completedLaneWorktrees": [
