@@ -1098,6 +1098,9 @@ pub enum BattleSubjectKind {
     CommandSpell,
     ArmorClassSpellEffect,
     ReactionSpell,
+    ReactionSpellDamage,
+    ReactionSpellInterruptDecision,
+    ReactionSpellSlotCommit,
     ScalarBuffTargetSpell,
     WeaponMasteryProperty,
     AttackActionAreaSaveDamageReplacement,
@@ -1118,6 +1121,15 @@ pub enum BattleSubjectKind {
     HeldWeaponActiveEffectAttackRoll,
     HeldWeaponActiveEffectDamage,
     HeldWeaponActiveEffectCleanup,
+    InterruptStackResumeClosedContinuation,
+    InterruptStackResumeDamageContinuation,
+    InterruptStackResumeDecisionToRolledDice,
+    InterruptStackResumeDecisionToSave,
+    InterruptStackResumeReactionEffectMutation,
+    InterruptStackResumeReactionResourceCommit,
+    InterruptStackResumeReactionWindowResume,
+    SaveGatedSpellInterruptDecision,
+    WeaponAttackDamageContinuation,
     RollModifierEffectNoChoice,
     RollModifierEffectSavingThrow,
     RollModifierEffectSkillChoice,
@@ -2377,6 +2389,7 @@ pub enum BattleReducerRouteSubjectFamily {
     ZeroHitPointSpellEffectTeardown,
     ArmorClassSpellEffect,
     ReactionSpell,
+    InterruptStackResume,
     SpellDamageReduction,
     CompanionLifecycle,
     CompanionSharedSenses,
@@ -2865,6 +2878,15 @@ pub fn generic_route_subject_for_current_actor(
     kind: BattleSubjectKind,
 ) -> BattleSubject {
     generic_route_subject_from_battle(state, kind)
+}
+
+#[must_use]
+pub fn generic_route_subject(kind: BattleSubjectKind, actor: Actor) -> BattleSubject {
+    assert!(
+        generic_route_subject_kind(kind),
+        "generic route subject construction requires a generic route subject"
+    );
+    diagnostic_subject(kind, actor, None)
 }
 
 #[must_use]
@@ -7055,6 +7077,18 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::AfterHitDamageRiderEscapeCheck
             | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::ReactionSpellDamage
+            | BattleSubjectKind::ReactionSpellInterruptDecision
+            | BattleSubjectKind::ReactionSpellSlotCommit
+            | BattleSubjectKind::InterruptStackResumeClosedContinuation
+            | BattleSubjectKind::InterruptStackResumeDamageContinuation
+            | BattleSubjectKind::InterruptStackResumeDecisionToRolledDice
+            | BattleSubjectKind::InterruptStackResumeDecisionToSave
+            | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+            | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+            | BattleSubjectKind::InterruptStackResumeReactionWindowResume
+            | BattleSubjectKind::SaveGatedSpellInterruptDecision
+            | BattleSubjectKind::WeaponAttackDamageContinuation
             | BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice
             | BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice
             | BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll
@@ -7088,7 +7122,8 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
 fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteHoleKind::{
         AbilityCheck, AbilityChoice, AttackRoll, ConcentrationSavingThrow, DamageTypeChoice,
-        RolledDice, SavingThrowOutcome, SkillChoice, TargetAbilityChoices, TargetChoice,
+        InterruptDecision, RolledDice, SavingThrowOutcome, SkillChoice, TargetAbilityChoices,
+        TargetChoice,
     };
     use BattleReducerRouteOwnerGroup::{
         AbilityCheckRollMode, ActiveEffect, AttackRoll as AttackRollOwner, Concentration,
@@ -7099,8 +7134,9 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     };
     use BattleReducerRouteSubjectFamily::{
         AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
-        CompanionTouchDelivery, HeldWeaponActiveEffect, ObjectTargetSpellAttack, ScalarBuffEffect,
-        SpellAttack, SpellHostedWeaponAttack, WeaponDamageRider,
+        CompanionTouchDelivery, HeldWeaponActiveEffect, InterruptStackResume,
+        ObjectTargetSpellAttack, ReactionSpell, SaveGatedSpell, ScalarBuffEffect, SpellAttack,
+        SpellHostedWeaponAttack, WeaponAttack, WeaponDamageRider,
     };
 
     match kind {
@@ -7448,6 +7484,78 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: vec![AbilityCheck],
             discover_owner: Concentration,
             resolve_owner: Concentration,
+        },
+        BattleSubjectKind::ReactionSpellInterruptDecision => GenericRouteShape {
+            subject: ReactionSpell,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::ReactionSpellSlotCommit => GenericRouteShape {
+            subject: ReactionSpell,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: SpellSlotAndActionEconomy,
+        },
+        BattleSubjectKind::ReactionSpellDamage => GenericRouteShape {
+            subject: ReactionSpell,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::InterruptStackResumeDecisionToSave => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::SaveGatedSpellInterruptDecision => GenericRouteShape {
+            subject: SaveGatedSpell,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::InterruptStackResumeDecisionToRolledDice => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::InterruptStackResumeReactionResourceCommit => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: SpellSlotAndActionEconomy,
+        },
+        BattleSubjectKind::InterruptStackResumeReactionEffectMutation => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::InterruptStackResumeReactionWindowResume => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::InterruptStackResumeDamageContinuation => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![RolledDice],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::WeaponAttackDamageContinuation => GenericRouteShape {
+            subject: WeaponAttack,
+            holes: vec![RolledDice],
+            discover_owner: HitPoint,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::InterruptStackResumeClosedContinuation => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: Vec::new(),
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
         },
         BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice => GenericRouteShape {
             subject: SpellAttack,
@@ -8805,6 +8913,18 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::AfterHitDamageRiderEscapeCheck
             | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::ReactionSpellDamage
+            | BattleSubjectKind::ReactionSpellInterruptDecision
+            | BattleSubjectKind::ReactionSpellSlotCommit
+            | BattleSubjectKind::InterruptStackResumeClosedContinuation
+            | BattleSubjectKind::InterruptStackResumeDamageContinuation
+            | BattleSubjectKind::InterruptStackResumeDecisionToRolledDice
+            | BattleSubjectKind::InterruptStackResumeDecisionToSave
+            | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+            | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+            | BattleSubjectKind::InterruptStackResumeReactionWindowResume
+            | BattleSubjectKind::SaveGatedSpellInterruptDecision
+            | BattleSubjectKind::WeaponAttackDamageContinuation
             | BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice
             | BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice
             | BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll
@@ -9008,6 +9128,26 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => {
             fill == BattleGenericRouteFill::AbilityCheck
         }
+        BattleSubjectKind::ReactionSpellInterruptDecision
+        | BattleSubjectKind::ReactionSpellSlotCommit
+        | BattleSubjectKind::ReactionSpellDamage
+        | BattleSubjectKind::InterruptStackResumeDecisionToSave
+        | BattleSubjectKind::InterruptStackResumeDecisionToRolledDice
+        | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+        | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+        | BattleSubjectKind::InterruptStackResumeReactionWindowResume => {
+            fill == BattleGenericRouteFill::InterruptDecision
+        }
+        BattleSubjectKind::SaveGatedSpellInterruptDecision => {
+            fill == BattleGenericRouteFill::SavingThrowOutcome
+        }
+        BattleSubjectKind::InterruptStackResumeDamageContinuation
+        | BattleSubjectKind::WeaponAttackDamageContinuation => {
+            fill == BattleGenericRouteFill::RolledDice
+        }
+        BattleSubjectKind::InterruptStackResumeClosedContinuation => {
+            fill == BattleGenericRouteFill::WithoutFill
+        }
         BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice => {
             fill == BattleGenericRouteFill::DamageTypeChoice
         }
@@ -9126,6 +9266,15 @@ fn generic_route_next_holes(
         ) => {
             vec![BattleHoleKind::SavingThrowOutcome]
         }
+        (BattleSubjectKind::InterruptStackResumeDecisionToSave, _) => {
+            vec![BattleHoleKind::SavingThrowOutcome]
+        }
+        (BattleSubjectKind::SaveGatedSpellInterruptDecision, _) => {
+            vec![BattleHoleKind::InterruptDecision]
+        }
+        (BattleSubjectKind::InterruptStackResumeDecisionToRolledDice, _) => {
+            vec![BattleHoleKind::RolledDice]
+        }
         (BattleSubjectKind::CompanionTouchDelivery, BattleGenericRouteFill::TargetChoice) => {
             vec![BattleHoleKind::RolledDice]
         }
@@ -9200,6 +9349,15 @@ fn generic_route_next_holes(
             | BattleSubjectKind::AfterHitDamageRiderEscapeCheck
             | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::ReactionSpellInterruptDecision
+            | BattleSubjectKind::ReactionSpellSlotCommit
+            | BattleSubjectKind::ReactionSpellDamage
+            | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+            | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+            | BattleSubjectKind::InterruptStackResumeReactionWindowResume
+            | BattleSubjectKind::InterruptStackResumeDamageContinuation
+            | BattleSubjectKind::WeaponAttackDamageContinuation
+            | BattleSubjectKind::InterruptStackResumeClosedContinuation
             | BattleSubjectKind::CompanionLifecycle
             | BattleSubjectKind::CompanionSharedSensesActionEconomy
             | BattleSubjectKind::CompanionSharedSensesActiveEffect

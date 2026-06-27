@@ -764,9 +764,11 @@ use battle_runtime_hit_point_restoration_ordering::{
     BRANCH_ACTIONS as HIT_POINT_RESTORATION_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_interrupt_stack_resume::{
+    expected_route as expected_interrupt_stack_resume_route,
     expected_witness as expected_interrupt_stack_resume_witness,
     projection_payload as interrupt_stack_resume_projection_payload,
     replay_observed_action as replay_interrupt_stack_resume_action,
+    replay_observed_route as replay_interrupt_stack_resume_route,
     BRANCH_ACTIONS as INTERRUPT_STACK_RESUME_BRANCH_ACTIONS,
 };
 use battle_runtime_level1_buff_mark_smite_selected_identity::{
@@ -835,10 +837,13 @@ use battle_runtime_quickened_spell_governor::{
     BRANCH_ACTIONS as QUICKENED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_reaction_casting_time::{
+    expected_route as expected_reaction_casting_time_route,
     expected_witness as expected_reaction_casting_time_witness,
     projection_payload as reaction_casting_time_projection_payload,
     replay_observed_action as replay_reaction_casting_time_action,
+    replay_observed_route as replay_reaction_casting_time_route,
     BRANCH_ACTIONS as REACTION_CASTING_TIME_BRANCH_ACTIONS,
+    TARGET_BLOCKED_BRANCH_ACTIONS as REACTION_CASTING_TIME_TARGET_BLOCKED_BRANCH_ACTIONS,
 };
 use battle_runtime_reaction_spell_selected_identity::{
     expected_route as expected_reaction_spell_selected_identity_route,
@@ -4229,6 +4234,9 @@ fn interrupt_stack_resume_adapter_replays_all_branches() {
         assert_eq!(observed, expected_interrupt_stack_resume_witness(action));
         assert!(interrupt_stack_resume_projection_payload(&observed)
             .contains("protocolResult=resolved"));
+        let route = replay_interrupt_stack_resume_route(action);
+        assert_eq!(route, expected_interrupt_stack_resume_route(action));
+        assert!(reducer_route_payload(&route).contains("InterruptStackResumeRouteSubject"));
     }
 }
 
@@ -4347,7 +4355,17 @@ fn reaction_casting_time_adapter_replays_in_scope_branch() {
         assert!(
             reaction_casting_time_projection_payload(&observed).contains("protocolResult=resolved")
         );
+        let route = replay_reaction_casting_time_route(action);
+        assert_eq!(route, expected_reaction_casting_time_route(action));
+        assert!(reducer_route_payload(&route).contains("ReactionSpellRouteSubject"));
     }
+    assert_eq!(
+        REACTION_CASTING_TIME_TARGET_BLOCKED_BRANCH_ACTIONS,
+        [
+            "doCounterspellAllowsSpellCastResume",
+            "doCounterspellEndsSpellCast"
+        ]
+    );
 }
 
 #[test]

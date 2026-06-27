@@ -8,3 +8,8 @@
 L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES
 
 - No target blockers. All selected CP5 active-effect lifecycle route rows are covered by tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json.
+
+## L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES
+
+- doCounterspellAllowsSpellCastResume: Counterspell reaction branches are listed as current out-of-scope obligations for the reaction-casting-time route assignment.
+- doCounterspellEndsSpellCast: Counterspell reaction branches are listed as current out-of-scope obligations for the reaction-casting-time route assignment.

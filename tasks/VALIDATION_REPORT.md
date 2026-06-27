@@ -3787,3 +3787,23 @@ Selected drivers:
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doStartDivineFavor` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doStartDivineFavor#step:doStartDivineFavor` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `blocked` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doStartMagicWeapon` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doStartMagicWeapon#step:doStartMagicWeapon` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `blocked` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doStartShillelagh` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doStartShillelagh#step:doStartShillelagh` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `blocked` |
+
+## L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES
+
+Behavior implemented: accepted interrupt-stack and reaction casting-time rows compare public `BattleEntrypointTrace` qRoute observations emitted through generic route subjects and `resolve_battle_subject_observed` against copied connector-shaped expected routes. Runtime projection remains owned by existing BattleState interrupt/reaction fields and reaction/interrupt owner helpers; no authored spell identity dispatch was added.
+
+Evidence: `tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json`
+
+| Obligation | Evidence | Result | Status |
+| --- | --- | --- | --- |
+| cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt#step:doNestedDeclineResumesOuterInterrupt | tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doNestedDeclineResumesOuterInterrupt#step:doNestedDeclineResumesOuterInterrupt | pass | covered |
+| cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt#step:doReplayRecordedProcedureFromRoot | tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doReplayRecordedProcedureFromRoot#step:doReplayRecordedProcedureFromRoot | pass | covered |
+| cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt#step:doShieldMutationResumesInterruptedAttack | tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doShieldMutationResumesInterruptedAttack#step:doShieldMutationResumesInterruptedAttack | pass | covered |
+| cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt#step:doHellishRebukeAfterDamage | tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doHellishRebukeAfterDamage#step:doHellishRebukeAfterDamage | pass | covered |
+
+Blocked rows:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt#step:doCounterspellAllowsSpellCastResume`: `RR19-BLOCKED-COUNTERSPELL-RESUME-LEVEL3`, recorded in `tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#blockedRuns`.
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt#step:doCounterspellEndsSpellCast`: `RR19-BLOCKED-COUNTERSPELL-END-LEVEL3`, recorded in `tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#blockedRuns`.
+
+Remaining gaps: Counterspell reaction casting-time routes stay blocked for this cleanroom lane because the current target scope does not include the level-3 Counterspell continuation substrate.

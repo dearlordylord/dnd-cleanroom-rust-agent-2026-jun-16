@@ -3312,6 +3312,82 @@
         }
       ],
       "taskId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES"
+    },
+    {
+      "taskId": "L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES",
+      "assignmentId": "level-1-2-full",
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "sourceReducerRouteInventorySha256": "31d7903835ad66051c3a351fd28eaa0bc4e148498eabb2034cc2866a5662b301",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt"
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES/START_GATE.json",
+          "sha256": "901de0f7b10f29d8a5348796e6cacaefe03db6f6e6cc5d4a67cff66ea07941b3"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "80b7feee614f5c3e78d00331dbc152bd5fff15be353f89cce1e699cb0b6bd552"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "7012e97284413748a637963fd76a80d0cc32e268b312cf587a4c0571f9b2bd29"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES/REVIEW_LOOP.json",
+          "sha256": "98da568ee9011241293ec5d699595979a64b088a88f04106c02087c56de8e482"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES/DECIDER_DECISION.json",
+          "sha256": "cf07db6a9e104b5971ae58d065b0f9738d9d0268bef0a889bed0293dc6a40880"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json",
+          "sha256": "313c86970a06c3798eebf76f4660d4dde845a493c314e11f7c19a468961e256a",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doNestedDeclineResumesOuterInterrupt#step:doNestedDeclineResumesOuterInterrupt",
+            "tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doReplayRecordedProcedureFromRoot#step:doReplayRecordedProcedureFromRoot",
+            "tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doShieldMutationResumesInterruptedAttack#step:doShieldMutationResumesInterruptedAttack",
+            "tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doHellishRebukeAfterDamage#step:doHellishRebukeAfterDamage"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "cargo test interrupt_stack_resume_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reaction_casting_time_adapter_replays_in_scope_branch",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 73c5ccea0ee7425952f231485325df5a45a0f36a...HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        }
+      ]
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
