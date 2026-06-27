@@ -1,0 +1,316 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-l15-rr07s-c-weapon-breath-feature-substrates",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doResolveSapMasteryPropertyHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs",
+      "observedActionTaken": "doResolveSapMasteryPropertyHit",
+      "qntFileSha256": "0f40ef79c960317754c984786b7dd6d99f1571df37fedae16fef299f51570e52",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.skeleton.hp",
+          "BattleState.action_available",
+          "BattleState.feature_substrates.weapon_mastery.sap_target",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "1baf472f427fed566e746be6370903827f7655db6c14368360ecdbcd4c59818c",
+        "observedProjectionSha256": "1baf472f427fed566e746be6370903827f7655db6c14368360ecdbcd4c59818c",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doResolveSapMasteryPropertyHit"
+    },
+    {
+      "branchAction": "doResolveToppleMasteryPropertyFailedSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs",
+      "observedActionTaken": "doResolveToppleMasteryPropertyFailedSavingThrow",
+      "qntFileSha256": "0f40ef79c960317754c984786b7dd6d99f1571df37fedae16fef299f51570e52",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.skeleton.prone",
+          "BattleState.feature_substrates.weapon_mastery.outcome",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6b280635c365c4a2aac01c643779a1f65843e94741db68d5c2c36751467f2e6c",
+        "observedProjectionSha256": "6b280635c365c4a2aac01c643779a1f65843e94741db68d5c2c36751467f2e6c",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doResolveToppleMasteryPropertyFailedSavingThrow"
+    },
+    {
+      "branchAction": "doResolveCleaveMasteryPropertySecondTargetHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs",
+      "observedActionTaken": "doResolveCleaveMasteryPropertySecondTargetHit",
+      "qntFileSha256": "0f40ef79c960317754c984786b7dd6d99f1571df37fedae16fef299f51570e52",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.skeleton.hp",
+          "BattleState.goblin.hp",
+          "BattleState.feature_substrates.weapon_mastery.cleave_used_this_turn",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8dd50f914357b46ced3dd5958ba112bd1cd0fcd0f6bd6eae7bc76233c1a3f737",
+        "observedProjectionSha256": "8dd50f914357b46ced3dd5958ba112bd1cd0fcd0f6bd6eae7bc76233c1a3f737",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doResolveCleaveMasteryPropertySecondTargetHit"
+    },
+    {
+      "branchAction": "doResolveBreathWeapon",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs",
+      "observedActionTaken": "doResolveBreathWeapon",
+      "qntFileSha256": "c34949062ea281b6ac6be9dc3103228c97f1b5227d235bd0f8413d442432a4a6",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.skeleton.hp",
+          "BattleState.goblin.hp",
+          "BattleState.feature_substrates.dragonborn_breath_weapon.uses_remaining",
+          "BattleState.feature_substrates.dragonborn_breath_weapon.attack_action_attacks_remaining",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "fe42ddfdad4acb9cd7e7825537bfceb40572ddf142afd251c24c2d4d88282795",
+        "observedProjectionSha256": "fe42ddfdad4acb9cd7e7825537bfceb40572ddf142afd251c24c2d4d88282795",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doResolveBreathWeapon"
+    },
+    {
+      "branchAction": "doOpenExtraAttackSlot",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs",
+      "observedActionTaken": "doOpenExtraAttackSlot",
+      "qntFileSha256": "c34949062ea281b6ac6be9dc3103228c97f1b5227d235bd0f8413d442432a4a6",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.skeleton.hp",
+          "BattleState.feature_substrates.dragonborn_breath_weapon.attack_action_attacks_remaining",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c0884306d90ed58c3575c8d6afa9aa6489b48a9ea1251e36b8a9faf1bc2d65c1",
+        "observedProjectionSha256": "c0884306d90ed58c3575c8d6afa9aa6489b48a9ea1251e36b8a9faf1bc2d65c1",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doOpenExtraAttackSlot"
+    },
+    {
+      "branchAction": "doRejectMissingResource",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs",
+      "observedActionTaken": "doRejectMissingResource",
+      "qntFileSha256": "c34949062ea281b6ac6be9dc3103228c97f1b5227d235bd0f8413d442432a4a6",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.feature_substrates.dragonborn_breath_weapon.uses_remaining",
+          "BattleState.feature_substrates.dragonborn_breath_weapon.protocol",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b518d80d8e4635f077f1efd2780281497dd27515e8f9d1a4201e809d01733331",
+        "observedProjectionSha256": "b518d80d8e4635f077f1efd2780281497dd27515e8f9d1a4201e809d01733331",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doRejectMissingResource"
+    },
+    {
+      "branchAction": "doRejectMismatchedArea",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs",
+      "observedActionTaken": "doRejectMismatchedArea",
+      "qntFileSha256": "c34949062ea281b6ac6be9dc3103228c97f1b5227d235bd0f8413d442432a4a6",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "DragonbornBreathWeaponFacts.area_shape",
+          "BattleState.feature_substrates.dragonborn_breath_weapon.expected_area_shape",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "315cc305b449d7f7286c023c5e778afb1d1e931be3428c15d4016d2c2ea2c9b3",
+        "observedProjectionSha256": "315cc305b449d7f7286c023c5e778afb1d1e931be3428c15d4016d2c2ea2c9b3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doRejectMismatchedArea"
+    },
+    {
+      "branchAction": "doRejectInvalidDamageRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs",
+      "observedActionTaken": "doRejectInvalidDamageRoll",
+      "qntFileSha256": "c34949062ea281b6ac6be9dc3103228c97f1b5227d235bd0f8413d442432a4a6",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "DragonbornBreathWeaponFacts.damage_roll",
+          "BattleState.feature_substrates.dragonborn_breath_weapon.protocol",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2232d39b737406b569ea85082c8090996d3cee1bff66ddce47160dc495c0d166",
+        "observedProjectionSha256": "2232d39b737406b569ea85082c8090996d3cee1bff66ddce47160dc495c0d166",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doRejectInvalidDamageRoll"
+    },
+    {
+      "branchAction": "doActivateInnateSorcery",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_feature_selected_identity.rs",
+      "observedActionTaken": "doActivateInnateSorcery",
+      "qntFileSha256": "c9cf412c78a5ba1453a3a6f4928ca8f0f2e5f2eeb2d6f5a426a200370e4a1516",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.bonus_action_available",
+          "BattleState.feature_substrates.innate_sorcery.uses_remaining",
+          "BattleState.feature_substrates.innate_sorcery.occurrence",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c578d1deab768df71ed58b013104a162279e119bd6d7951ab57ffddd47cd6f7a",
+        "observedProjectionSha256": "c578d1deab768df71ed58b013104a162279e119bd6d7951ab57ffddd47cd6f7a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doActivateInnateSorcery"
+    },
+    {
+      "branchAction": "doProjectInnateSorcerySpellBenefits",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_feature_selected_identity.rs",
+      "observedActionTaken": "doProjectInnateSorcerySpellBenefits",
+      "qntFileSha256": "c9cf412c78a5ba1453a3a6f4928ca8f0f2e5f2eeb2d6f5a426a200370e4a1516",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "InnateSorcerySpellFacts.benefit_eligibility",
+          "BattleState.feature_substrates.innate_sorcery.spell_save_dc_bonus",
+          "BattleState.feature_substrates.innate_sorcery.spell_attack_roll_mode",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8e07d15d8fdab9bed5270dfa70d2e0b5382a49b2baabaa50d9a09a7955cb64f6",
+        "observedProjectionSha256": "8e07d15d8fdab9bed5270dfa70d2e0b5382a49b2baabaa50d9a09a7955cb64f6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doProjectInnateSorcerySpellBenefits"
+    },
+    {
+      "branchAction": "doExcludeInnateSorceryNonSorcererSpellBenefits",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_feature_selected_identity.rs",
+      "observedActionTaken": "doExcludeInnateSorceryNonSorcererSpellBenefits",
+      "qntFileSha256": "c9cf412c78a5ba1453a3a6f4928ca8f0f2e5f2eeb2d6f5a426a200370e4a1516",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "InnateSorcerySpellFacts.benefit_eligibility",
+          "BattleState.feature_substrates.innate_sorcery.spell_save_dc_bonus",
+          "BattleState.feature_substrates.innate_sorcery.spell_attack_roll_mode",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7d6504be75a4f966b5e46a407c1625a55ce8df6be6565832a24739a9cc975b82",
+        "observedProjectionSha256": "7d6504be75a4f966b5e46a407c1625a55ce8df6be6565832a24739a9cc975b82",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "targetProfile": "rust",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "traceId": "L15-RR07S-C replay action=doExcludeInnateSorceryNonSorcererSpellBenefits"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

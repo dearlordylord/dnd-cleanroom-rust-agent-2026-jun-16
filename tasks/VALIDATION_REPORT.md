@@ -2069,3 +2069,48 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed after artifact update.
 - `git diff --check 6af492188311839dd4839b464b2e7049e3330568...HEAD` passed.
+
+## L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES: weapon, breath, feature substrates
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Selected drivers: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt`, `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt`, `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+
+Behavior implemented:
+
+- Weapon mastery selected-identity replay routes Sap, Topple, and Cleave by typed `WeaponMasteryProperty` facts through battle reducer subjects and owner route evidence.
+- Dragonborn Breath Weapon replay routes attack-action area-save damage replacement by `DragonbornBreathWeaponFacts`, including resource, area-shape, damage-roll, and Extra Attack continuation evidence.
+- Active feature spell-benefit replay routes Innate Sorcery by typed spell-benefit eligibility facts, not authored feature identity.
+- Selected authored identity remains confined to adapter branch labels, tests, and evidence payloads.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt#step:doResolveSapMasteryPropertyHit` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveSapMasteryPropertyHit#step:doResolveSapMasteryPropertyHit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt#step:doResolveToppleMasteryPropertyFailedSavingThrow` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveToppleMasteryPropertyFailedSavingThrow#step:doResolveToppleMasteryPropertyFailedSavingThrow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt#step:doResolveCleaveMasteryPropertySecondTargetHit` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveCleaveMasteryPropertySecondTargetHit#step:doResolveCleaveMasteryPropertySecondTargetHit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt#step:doResolveBreathWeapon` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveBreathWeapon#step:doResolveBreathWeapon` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt#step:doOpenExtraAttackSlot` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doOpenExtraAttackSlot#step:doOpenExtraAttackSlot` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt#step:doRejectMissingResource` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectMissingResource#step:doRejectMissingResource` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt#step:doRejectMismatchedArea` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectMismatchedArea#step:doRejectMismatchedArea` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt#step:doRejectInvalidDamageRoll` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectInvalidDamageRoll#step:doRejectInvalidDamageRoll` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt#step:doActivateInnateSorcery` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doActivateInnateSorcery#step:doActivateInnateSorcery` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt#step:doProjectInnateSorcerySpellBenefits` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doProjectInnateSorcerySpellBenefits#step:doProjectInnateSorcerySpellBenefits` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt#step:doExcludeInnateSorceryNonSorcererSpellBenefits` | `tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doExcludeInnateSorceryNonSorcererSpellBenefits#step:doExcludeInnateSorceryNonSorcererSpellBenefits` | `src/tests/mod.rs` | `covered` |
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/DECIDER_DECISION.json`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed after artifact schema convergence.

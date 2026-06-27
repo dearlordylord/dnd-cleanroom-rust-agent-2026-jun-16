@@ -7,6 +7,14 @@
 use crate::rules::attack_damage_disposition::{
     apply_resolved_damage_to_positive_hit_points, CreatureKind, CreatureVitals,
 };
+use crate::rules::battle_features::{
+    dragonborn_breath_weapon_initial_state, innate_sorcery_initial_state,
+    resolve_dragonborn_breath_weapon, sorcerer_spell_save_dc, BreathWeaponAreaShape,
+    DragonbornBreathWeaponFacts, DragonbornBreathWeaponProtocol,
+    DragonbornBreathWeaponScenarioOutcome, DragonbornBreathWeaponState, InnateSorceryOccurrence,
+    InnateSorceryProtocol, InnateSorceryScenarioOutcome, InnateSorcerySpellAttackRollMode,
+    InnateSorcerySpellBenefitEligibility, InnateSorcerySpellFacts, InnateSorceryState,
+};
 use crate::rules::command_options::{
     command_fill_order_accepted_stage, command_fill_order_error, command_fill_order_result,
     command_fill_order_runtime_result, command_hole_frontier, command_next_turn_initial_state,
@@ -81,6 +89,11 @@ use crate::rules::weapon_attack_ordering::{
     weapon_attack_fill_order_result, weapon_attack_hole_frontier, WeaponAttackFillKind,
     WeaponAttackFillOrderResult, WeaponAttackFillOrderingError, WeaponAttackFrontierStage,
     WeaponAttackHoleKind,
+};
+use crate::rules::weapon_mastery_selected_identity::{
+    damage_after_weapon_mastery_hit, WeaponMasteryProperty, WeaponMasteryRuntimeHole,
+    WeaponMasteryRuntimeOutcome, WeaponMasteryRuntimeProtocol, WeaponMasterySelectedIdentityState,
+    WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -189,6 +202,92 @@ impl BattleSpellSlotLedger {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleFeatureSubstrates {
+    pub weapon_mastery: BattleWeaponMasterySubstrate,
+    pub dragonborn_breath_weapon: BattleDragonbornBreathWeaponSubstrate,
+    pub innate_sorcery: BattleInnateSorcerySubstrate,
+}
+
+impl BattleFeatureSubstrates {
+    #[must_use]
+    pub fn standard() -> Self {
+        Self {
+            weapon_mastery: BattleWeaponMasterySubstrate::initial(),
+            dragonborn_breath_weapon: BattleDragonbornBreathWeaponSubstrate::initial(),
+            innate_sorcery: BattleInnateSorcerySubstrate::initial(),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleWeaponMasterySubstrate {
+    pub sap_target: Option<Actor>,
+    pub cleave_used_this_turn: bool,
+    pub outcome: WeaponMasteryRuntimeOutcome,
+}
+
+impl BattleWeaponMasterySubstrate {
+    #[must_use]
+    pub const fn initial() -> Self {
+        Self {
+            sap_target: None,
+            cleave_used_this_turn: false,
+            outcome: WeaponMasteryRuntimeOutcome::Init,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleDragonbornBreathWeaponSubstrate {
+    pub uses_remaining: i16,
+    pub attack_action_attacks_remaining: i16,
+    pub expected_area_shape: BreathWeaponAreaShape,
+    pub scenario_outcome: DragonbornBreathWeaponScenarioOutcome,
+    pub protocol: DragonbornBreathWeaponProtocol,
+}
+
+impl BattleDragonbornBreathWeaponSubstrate {
+    #[must_use]
+    pub fn initial() -> Self {
+        let initial = dragonborn_breath_weapon_initial_state();
+        Self {
+            uses_remaining: initial.breath_weapon_uses_remaining,
+            attack_action_attacks_remaining: initial.attack_action_attacks_remaining,
+            expected_area_shape: BreathWeaponAreaShape::Cone15Feet,
+            scenario_outcome: initial.scenario_outcome,
+            protocol: initial.protocol,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleInnateSorcerySubstrate {
+    pub base_spell_save_dc: i16,
+    pub uses_remaining: i16,
+    pub occurrence: InnateSorceryOccurrence,
+    pub spell_save_dc_bonus: i16,
+    pub spell_attack_roll_mode: InnateSorcerySpellAttackRollMode,
+    pub scenario_outcome: InnateSorceryScenarioOutcome,
+    pub protocol: InnateSorceryProtocol,
+}
+
+impl BattleInnateSorcerySubstrate {
+    #[must_use]
+    pub fn initial() -> Self {
+        let initial = innate_sorcery_initial_state(sorcerer_spell_save_dc(3, 2));
+        Self {
+            base_spell_save_dc: initial.spell_save_dc,
+            uses_remaining: initial.feature_uses_remaining,
+            occurrence: initial.occurrence,
+            spell_save_dc_bonus: 0,
+            spell_attack_roll_mode: initial.spell_attack_roll_mode,
+            scenario_outcome: initial.scenario_outcome,
+            protocol: initial.protocol,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Combatant {
     pub hp: i16,
     pub max_hp: i16,
@@ -242,6 +341,7 @@ pub struct BattleState {
     pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
+    pub feature_substrates: BattleFeatureSubstrates,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
     pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -269,6 +369,7 @@ pub struct BattleSetup {
     pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
+    pub feature_substrates: BattleFeatureSubstrates,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
     pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -308,6 +409,7 @@ impl BattleSetup {
             hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Inactive,
             spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
             command_effect_procedure: BattleCommandEffectProcedure::Inactive,
+            feature_substrates: BattleFeatureSubstrates::standard(),
             spell_slot_uses_this_turn: Vec::new(),
             level_one_plus_spell_casters_this_turn: Vec::new(),
             quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
@@ -647,6 +749,11 @@ pub enum BattleSubjectKind {
     StatBlockAction,
     CommandSpell,
     ScalarBuffTargetSpell,
+    WeaponMasteryProperty,
+    AttackActionAreaSaveDamageReplacement,
+    UnitFeatureBonusAction,
+    ActiveFeatureSpellSaveDc,
+    ActiveFeatureSpellAttackRollMode,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -734,6 +841,11 @@ pub enum BattleFill {
     Concentration(BattleConcentrationFill),
     CommandEffect(BattleCommandEffectFill),
     ScalarBuff(BattleScalarBuffFill),
+    WeaponMasteryProperty(BattleWeaponMasteryPropertyFill),
+    AttackActionAreaSaveDamageReplacement(BattleAttackActionAreaSaveDamageReplacementFill),
+    UnitFeatureBonusAction(BattleUnitFeatureBonusActionFill),
+    ActiveFeatureSpellSaveDc(BattleActiveFeatureSpellBenefitFill),
+    ActiveFeatureSpellAttackRollMode(BattleActiveFeatureSpellBenefitFill),
     StatBlockAction {
         subject: StatBlockActionSubject,
         fill: StatBlockActionFill,
@@ -752,6 +864,33 @@ pub enum BattleWeaponAttackFill {
 pub enum BattleMultiattackFill {
     ResolveMultiattack,
     SpendMultiattackDispatch,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleWeaponMasteryPropertyFill {
+    pub property: WeaponMasteryProperty,
+    pub primary_target: Actor,
+    pub second_target: Option<Actor>,
+    pub damage: i16,
+    pub saving_throw_failed: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleAttackActionAreaSaveDamageReplacementFill {
+    DragonbornBreathWeapon(DragonbornBreathWeaponFacts),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleUnitFeatureBonusActionFill {
+    InnateSorcery { current_round: i16 },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleActiveFeatureSpellBenefitFill {
+    InnateSorcery {
+        current_round: i16,
+        spell_facts: InnateSorcerySpellFacts,
+    },
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -932,6 +1071,71 @@ impl BattleResolutionRequest {
         Ok(Self {
             subject,
             fill: BattleFill::ScalarBuff(fill),
+        })
+    }
+
+    pub fn weapon_mastery_property(
+        subject: BattleSubject,
+        fill: BattleWeaponMasteryPropertyFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::WeaponMasteryProperty {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::WeaponMasteryProperty(fill),
+        })
+    }
+
+    pub fn attack_action_area_save_damage_replacement(
+        subject: BattleSubject,
+        fill: BattleAttackActionAreaSaveDamageReplacementFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::AttackActionAreaSaveDamageReplacement {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::AttackActionAreaSaveDamageReplacement(fill),
+        })
+    }
+
+    pub fn unit_feature_bonus_action(
+        subject: BattleSubject,
+        fill: BattleUnitFeatureBonusActionFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::UnitFeatureBonusAction {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::UnitFeatureBonusAction(fill),
+        })
+    }
+
+    pub fn active_feature_spell_save_dc(
+        subject: BattleSubject,
+        fill: BattleActiveFeatureSpellBenefitFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::ActiveFeatureSpellSaveDc {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::ActiveFeatureSpellSaveDc(fill),
+        })
+    }
+
+    pub fn active_feature_spell_attack_roll_mode(
+        subject: BattleSubject,
+        fill: BattleActiveFeatureSpellBenefitFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::ActiveFeatureSpellAttackRollMode {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::ActiveFeatureSpellAttackRollMode(fill),
         })
     }
 
@@ -1466,6 +1670,7 @@ pub fn start_battle(setup: BattleSetup) -> BattleStartResult {
             hit_point_restoration_procedure: setup.hit_point_restoration_procedure,
             spell_attack_procedure: setup.spell_attack_procedure,
             command_effect_procedure: setup.command_effect_procedure,
+            feature_substrates: setup.feature_substrates,
             spell_slot_uses_this_turn: setup.spell_slot_uses_this_turn,
             level_one_plus_spell_casters_this_turn: setup.level_one_plus_spell_casters_this_turn,
             quickened_level_one_plus_spell_casters_this_turn: setup
@@ -1628,6 +1833,77 @@ pub fn start_fighter_skeleton_battle() -> BattleState {
         ..BattleSetup::standard()
     })
     .state
+}
+
+#[must_use]
+pub fn start_weapon_mastery_property_battle() -> BattleState {
+    // QNT: battle-runtime-weapon-mastery-selected-identity.mbt.qnt `init`.
+    let mut setup = BattleSetup::standard();
+    setup.initiative = Initiative {
+        round: 1,
+        already_acted: Vec::new(),
+        still_to_act: InitiativeStillToAct {
+            actor: Actor::Fighter,
+            waiting: vec![Actor::Skeleton, Actor::Goblin],
+        },
+    };
+    setup.fighter.weapon_damage_modifier = 0;
+    setup.skeleton = Combatant {
+        hp: WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS,
+        max_hp: WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS,
+        ..setup.skeleton
+    };
+    setup.goblin = Combatant {
+        hp: WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS,
+        max_hp: WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS,
+        ..setup.goblin
+    };
+    start_battle(setup).state
+}
+
+#[must_use]
+pub fn start_dragonborn_breath_weapon_battle() -> BattleState {
+    // QNT: battle-runtime-dragonborn-breath-weapon.mbt.qnt `init`.
+    let mut setup = BattleSetup::standard();
+    setup.initiative = Initiative {
+        round: 1,
+        already_acted: Vec::new(),
+        still_to_act: InitiativeStillToAct {
+            actor: Actor::Fighter,
+            waiting: vec![Actor::Skeleton, Actor::Goblin],
+        },
+    };
+    setup.skeleton = Combatant {
+        hp: 20,
+        max_hp: 20,
+        ..setup.skeleton
+    };
+    setup.goblin = Combatant {
+        hp: 20,
+        max_hp: 20,
+        ..setup.goblin
+    };
+    setup.feature_substrates.dragonborn_breath_weapon =
+        BattleDragonbornBreathWeaponSubstrate::initial();
+    start_battle(setup).state
+}
+
+#[must_use]
+pub fn with_dragonborn_breath_weapon_uses_remaining(
+    mut state: BattleState,
+    uses_remaining: i16,
+) -> BattleState {
+    state
+        .feature_substrates
+        .dragonborn_breath_weapon
+        .uses_remaining = uses_remaining;
+    state
+}
+
+#[must_use]
+pub fn start_innate_sorcery_feature_battle() -> BattleState {
+    // QNT: battle-runtime-feature-selected-identity.mbt.qnt `init`.
+    start_fighter_skeleton_battle()
 }
 
 #[must_use]
@@ -2435,6 +2711,253 @@ fn resolve_scalar_buff_battle_subject(
     }
 }
 
+fn resolve_weapon_mastery_property_subject(
+    mut state: BattleState,
+    fill: BattleWeaponMasteryPropertyFill,
+) -> BattleResolutionResult {
+    match fill.property {
+        WeaponMasteryProperty::Sap => {
+            if fill.primary_target != Actor::Skeleton {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::WrongTarget,
+                    Vec::new(),
+                );
+            }
+            combatant_for_mut(&mut state, fill.primary_target).hp = damage_after_weapon_mastery_hit(
+                combatant_for(&state, fill.primary_target).hp,
+                fill.damage,
+            );
+            state.action_available = false;
+            state.feature_substrates.weapon_mastery = BattleWeaponMasterySubstrate {
+                sap_target: Some(fill.primary_target),
+                cleave_used_this_turn: false,
+                outcome: WeaponMasteryRuntimeOutcome::Resolved,
+            };
+        }
+        WeaponMasteryProperty::Topple => {
+            if fill.primary_target != Actor::Skeleton || !fill.saving_throw_failed {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::InvalidFill,
+                    Vec::new(),
+                );
+            }
+            combatant_for_mut(&mut state, fill.primary_target).prone = true;
+            state.feature_substrates.weapon_mastery = BattleWeaponMasterySubstrate {
+                sap_target: None,
+                cleave_used_this_turn: false,
+                outcome: WeaponMasteryRuntimeOutcome::NeedsHoles,
+            };
+            return BattleResolutionResult::NeedsHoles {
+                state,
+                subject: diagnostic_subject(
+                    BattleSubjectKind::WeaponMasteryProperty,
+                    Actor::Fighter,
+                    None,
+                ),
+                holes: vec![BattleHoleKind::RolledDice],
+            };
+        }
+        WeaponMasteryProperty::Cleave => {
+            let Some(second_target) = fill.second_target else {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::WrongTarget,
+                    Vec::new(),
+                );
+            };
+            if fill.primary_target != Actor::Skeleton || second_target != Actor::Goblin {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::WrongTarget,
+                    Vec::new(),
+                );
+            }
+            combatant_for_mut(&mut state, fill.primary_target).hp = damage_after_weapon_mastery_hit(
+                combatant_for(&state, fill.primary_target).hp,
+                fill.damage,
+            );
+            combatant_for_mut(&mut state, second_target).hp = damage_after_weapon_mastery_hit(
+                combatant_for(&state, second_target).hp,
+                fill.damage,
+            );
+            state.action_available = false;
+            state.feature_substrates.weapon_mastery = BattleWeaponMasterySubstrate {
+                sap_target: None,
+                cleave_used_this_turn: true,
+                outcome: WeaponMasteryRuntimeOutcome::Resolved,
+            };
+        }
+    }
+
+    BattleResolutionResult::Resolved { state }
+}
+
+fn resolve_attack_action_area_save_damage_replacement_subject(
+    state: BattleState,
+    fill: BattleAttackActionAreaSaveDamageReplacementFill,
+) -> BattleResolutionResult {
+    match fill {
+        BattleAttackActionAreaSaveDamageReplacementFill::DragonbornBreathWeapon(facts) => {
+            let prior = dragonborn_breath_weapon_from_battle(&state);
+            let state_from_feature = resolve_dragonborn_breath_weapon(prior, facts);
+            let mut next_state = state;
+            next_state.skeleton.hp = state_from_feature.target_hit_points;
+            next_state.goblin.hp = state_from_feature.second_target_hit_points;
+            next_state.feature_substrates.dragonborn_breath_weapon =
+                BattleDragonbornBreathWeaponSubstrate {
+                    uses_remaining: state_from_feature.breath_weapon_uses_remaining,
+                    attack_action_attacks_remaining: state_from_feature
+                        .attack_action_attacks_remaining,
+                    expected_area_shape: facts.expected_area_shape,
+                    scenario_outcome: state_from_feature.scenario_outcome,
+                    protocol: state_from_feature.protocol,
+                };
+            next_state.action_available = state_from_feature.attack_action_attacks_remaining > 0;
+
+            if matches!(
+                state_from_feature.protocol,
+                DragonbornBreathWeaponProtocol::Invalid(_)
+            ) {
+                BattleResolutionResult::Invalid {
+                    state: next_state,
+                    reason: BattleResolutionInvalidReason::InvalidFill,
+                    holes: breath_weapon_invalid_holes(state_from_feature.scenario_outcome),
+                }
+            } else {
+                BattleResolutionResult::Resolved { state: next_state }
+            }
+        }
+    }
+}
+
+fn resolve_unit_feature_bonus_action_subject(
+    state: BattleState,
+    fill: BattleUnitFeatureBonusActionFill,
+) -> BattleResolutionResult {
+    match fill {
+        BattleUnitFeatureBonusActionFill::InnateSorcery { current_round } => {
+            BattleResolutionResult::Resolved {
+                state: apply_innate_sorcery_spell_benefit(
+                    state,
+                    current_round,
+                    InnateSorceryScenarioOutcome::Activated,
+                    1,
+                    InnateSorcerySpellAttackRollMode::Normal,
+                ),
+            }
+        }
+    }
+}
+
+fn resolve_active_feature_spell_save_dc_subject(
+    state: BattleState,
+    fill: BattleActiveFeatureSpellBenefitFill,
+) -> BattleResolutionResult {
+    match fill {
+        BattleActiveFeatureSpellBenefitFill::InnateSorcery {
+            current_round,
+            spell_facts,
+        } => {
+            let (outcome, save_dc_bonus) = innate_sorcery_spell_benefit_projection(spell_facts);
+            BattleResolutionResult::Resolved {
+                state: apply_innate_sorcery_spell_benefit(
+                    state,
+                    current_round,
+                    outcome,
+                    save_dc_bonus,
+                    InnateSorcerySpellAttackRollMode::Normal,
+                ),
+            }
+        }
+    }
+}
+
+fn resolve_active_feature_spell_attack_roll_mode_subject(
+    state: BattleState,
+    fill: BattleActiveFeatureSpellBenefitFill,
+) -> BattleResolutionResult {
+    match fill {
+        BattleActiveFeatureSpellBenefitFill::InnateSorcery {
+            current_round,
+            spell_facts,
+        } => {
+            let (outcome, save_dc_bonus) = innate_sorcery_spell_benefit_projection(spell_facts);
+            let roll_mode = if spell_facts.benefit_eligibility
+                == InnateSorcerySpellBenefitEligibility::Eligible
+            {
+                InnateSorcerySpellAttackRollMode::Advantage
+            } else {
+                InnateSorcerySpellAttackRollMode::Normal
+            };
+            BattleResolutionResult::Resolved {
+                state: apply_innate_sorcery_spell_benefit(
+                    state,
+                    current_round,
+                    outcome,
+                    save_dc_bonus,
+                    roll_mode,
+                ),
+            }
+        }
+    }
+}
+
+fn breath_weapon_invalid_holes(
+    outcome: DragonbornBreathWeaponScenarioOutcome,
+) -> Vec<BattleHoleKind> {
+    match outcome {
+        DragonbornBreathWeaponScenarioOutcome::RejectMismatchedArea => {
+            vec![BattleHoleKind::SavingThrowOutcome]
+        }
+        DragonbornBreathWeaponScenarioOutcome::RejectInvalidDamageRoll => {
+            vec![BattleHoleKind::RolledDice]
+        }
+        DragonbornBreathWeaponScenarioOutcome::RejectMissingResource
+        | DragonbornBreathWeaponScenarioOutcome::Init
+        | DragonbornBreathWeaponScenarioOutcome::Resolved
+        | DragonbornBreathWeaponScenarioOutcome::OpenedExtraAttack => Vec::new(),
+    }
+}
+
+fn innate_sorcery_spell_benefit_projection(
+    spell_facts: InnateSorcerySpellFacts,
+) -> (InnateSorceryScenarioOutcome, i16) {
+    match spell_facts.benefit_eligibility {
+        InnateSorcerySpellBenefitEligibility::Eligible => {
+            (InnateSorceryScenarioOutcome::SpellBenefitsProjected, 1)
+        }
+        InnateSorcerySpellBenefitEligibility::Ineligible => {
+            (InnateSorceryScenarioOutcome::NonSorcererExcluded, 0)
+        }
+    }
+}
+
+fn apply_innate_sorcery_spell_benefit(
+    mut state: BattleState,
+    current_round: i16,
+    scenario_outcome: InnateSorceryScenarioOutcome,
+    spell_save_dc_bonus: i16,
+    spell_attack_roll_mode: InnateSorcerySpellAttackRollMode,
+) -> BattleState {
+    state.bonus_action_available = false;
+    state.feature_substrates.innate_sorcery = BattleInnateSorcerySubstrate {
+        uses_remaining: state
+            .feature_substrates
+            .innate_sorcery
+            .uses_remaining
+            .saturating_sub(1),
+        occurrence: InnateSorceryOccurrence::ActiveUntilEndOfRound(current_round + 10),
+        spell_save_dc_bonus,
+        spell_attack_roll_mode,
+        scenario_outcome,
+        protocol: InnateSorceryProtocol::Resolved,
+        ..state.feature_substrates.innate_sorcery
+    };
+    state
+}
+
 fn scalar_buff_protocol_from_result(result: &BattleResolutionResult) -> ScalarBuffTargetProtocol {
     match result.outcome() {
         BattleResolutionOutcome::NeedsHoles => ScalarBuffTargetProtocol::Init,
@@ -2677,6 +3200,65 @@ pub fn interrupt_stack_resume_projection_from_battle(
         target_hit_points: state.fighter.hp,
         scenario_outcome: state.interrupt_resume.scenario_outcome,
     })
+}
+
+#[must_use]
+pub fn weapon_mastery_selected_identity_from_battle(
+    state: &BattleState,
+) -> WeaponMasterySelectedIdentityState {
+    let mastery = state.feature_substrates.weapon_mastery;
+    let protocol = weapon_mastery_protocol_for_outcome(mastery.outcome);
+    WeaponMasterySelectedIdentityState {
+        primary_target_hit_points: state.skeleton.hp,
+        second_target_hit_points: state.goblin.hp,
+        action_available: state.action_available,
+        primary_target_has_sap_effect: mastery.sap_target == Some(Actor::Skeleton),
+        primary_target_prone: state.skeleton.prone,
+        cleave_used: mastery.cleave_used_this_turn,
+        outcome: mastery.outcome,
+        protocol,
+    }
+}
+
+#[must_use]
+pub fn dragonborn_breath_weapon_from_battle(state: &BattleState) -> DragonbornBreathWeaponState {
+    let breath = state.feature_substrates.dragonborn_breath_weapon;
+    DragonbornBreathWeaponState {
+        target_hit_points: state.skeleton.hp,
+        second_target_hit_points: state.goblin.hp,
+        breath_weapon_uses_remaining: breath.uses_remaining,
+        attack_action_attacks_remaining: breath.attack_action_attacks_remaining,
+        scenario_outcome: breath.scenario_outcome,
+        protocol: breath.protocol,
+    }
+}
+
+#[must_use]
+pub fn innate_sorcery_from_battle(state: &BattleState) -> InnateSorceryState {
+    let innate = state.feature_substrates.innate_sorcery;
+    InnateSorceryState {
+        bonus_action_available: state.bonus_action_available,
+        feature_uses_remaining: innate.uses_remaining,
+        occurrence: innate.occurrence,
+        spell_save_dc: innate.base_spell_save_dc + innate.spell_save_dc_bonus,
+        spell_attack_roll_mode: innate.spell_attack_roll_mode,
+        scenario_outcome: innate.scenario_outcome,
+        protocol: innate.protocol,
+    }
+}
+
+fn weapon_mastery_protocol_for_outcome(
+    outcome: WeaponMasteryRuntimeOutcome,
+) -> WeaponMasteryRuntimeProtocol {
+    match outcome {
+        WeaponMasteryRuntimeOutcome::Init => {
+            WeaponMasteryRuntimeProtocol::Init(vec![WeaponMasteryRuntimeHole::WitnessProtocol])
+        }
+        WeaponMasteryRuntimeOutcome::NeedsHoles => WeaponMasteryRuntimeProtocol::NeedsHoles(vec![
+            WeaponMasteryRuntimeHole::WitnessProtocol,
+        ]),
+        WeaponMasteryRuntimeOutcome::Resolved => WeaponMasteryRuntimeProtocol::Resolved,
+    }
 }
 
 fn fighter_combatant() -> Combatant {
@@ -3084,6 +3666,40 @@ fn push_reducer_spine_diagnostic_acts(
         });
     }
 
+    if first_waiting_actor(state).is_some() {
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::WeaponMasteryProperty, actor, None),
+            holes: Vec::new(),
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(
+                BattleSubjectKind::AttackActionAreaSaveDamageReplacement,
+                actor,
+                None,
+            ),
+            holes: vec![BattleHoleKind::SavingThrowOutcome],
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::ActiveFeatureSpellSaveDc, actor, None),
+            holes: Vec::new(),
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(
+                BattleSubjectKind::ActiveFeatureSpellAttackRollMode,
+                actor,
+                None,
+            ),
+            holes: vec![BattleHoleKind::TargetChoice],
+        });
+    }
+
+    if state.bonus_action_available && first_waiting_actor(state).is_some() {
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::UnitFeatureBonusAction, actor, None),
+            holes: Vec::new(),
+        });
+    }
+
     if let Some(target) = first_zero_hit_point_restoration_target_except(state, actor) {
         acts.push(AvailableBattleAct {
             subject: diagnostic_subject(
@@ -3214,6 +3830,11 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::StatBlockAction
         | BattleSubjectKind::CommandSpell
         | BattleSubjectKind::ScalarBuffTargetSpell
+        | BattleSubjectKind::WeaponMasteryProperty
+        | BattleSubjectKind::AttackActionAreaSaveDamageReplacement
+        | BattleSubjectKind::UnitFeatureBonusAction
+        | BattleSubjectKind::ActiveFeatureSpellSaveDc
+        | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
         | BattleSubjectKind::EndTurn => false,
     }
 }
@@ -3256,6 +3877,40 @@ fn scalar_buff_route_subject_is_live(state: &BattleState, subject: BattleSubject
     state.action_available
         && diagnostic_subject_shape_matches(subject, BattleSubjectKind::ScalarBuffTargetSpell, None)
         && route_subject_discoverable_now(state, subject)
+}
+
+fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
+    if !diagnostic_subject_shape_matches(subject, subject.kind, None) {
+        return false;
+    }
+
+    match subject.kind {
+        BattleSubjectKind::WeaponMasteryProperty
+        | BattleSubjectKind::AttackActionAreaSaveDamageReplacement
+        | BattleSubjectKind::ActiveFeatureSpellSaveDc
+        | BattleSubjectKind::ActiveFeatureSpellAttackRollMode => {
+            state.action_available && route_subject_discoverable_now(state, subject)
+        }
+        BattleSubjectKind::UnitFeatureBonusAction => {
+            state.bonus_action_available && route_subject_discoverable_now(state, subject)
+        }
+        BattleSubjectKind::EndTurn
+        | BattleSubjectKind::WeaponAttack
+        | BattleSubjectKind::Multiattack
+        | BattleSubjectKind::SingleTargetSpellAttack
+        | BattleSubjectKind::TypedSpellAttack
+        | BattleSubjectKind::SlotSpell
+        | BattleSubjectKind::SaveGatedAreaDamage
+        | BattleSubjectKind::SaveGatedTargetListConditionChoice
+        | BattleSubjectKind::HitPointRestorationSingleTargetSpell
+        | BattleSubjectKind::HitPointRestorationTargetListSpell
+        | BattleSubjectKind::HitPointRestorationFeatureHealingPool
+        | BattleSubjectKind::DeathSavingThrow
+        | BattleSubjectKind::ConcentrationTeardown
+        | BattleSubjectKind::StatBlockAction
+        | BattleSubjectKind::CommandSpell
+        | BattleSubjectKind::ScalarBuffTargetSpell => false,
+    }
 }
 
 fn spell_attack_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
@@ -3509,6 +4164,65 @@ fn resolve_battle_subject_unchecked(
             }
             resolve_scalar_buff_battle_subject(state, fill)
         }
+        (BattleSubjectKind::WeaponMasteryProperty, BattleFill::WeaponMasteryProperty(fill)) => {
+            if !feature_substrate_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_weapon_mastery_property_subject(state, fill)
+        }
+        (
+            BattleSubjectKind::AttackActionAreaSaveDamageReplacement,
+            BattleFill::AttackActionAreaSaveDamageReplacement(fill),
+        ) => {
+            if !feature_substrate_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_attack_action_area_save_damage_replacement_subject(state, fill)
+        }
+        (BattleSubjectKind::UnitFeatureBonusAction, BattleFill::UnitFeatureBonusAction(fill)) => {
+            if !feature_substrate_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_unit_feature_bonus_action_subject(state, fill)
+        }
+        (
+            BattleSubjectKind::ActiveFeatureSpellSaveDc,
+            BattleFill::ActiveFeatureSpellSaveDc(fill),
+        ) => {
+            if !feature_substrate_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_active_feature_spell_save_dc_subject(state, fill)
+        }
+        (
+            BattleSubjectKind::ActiveFeatureSpellAttackRollMode,
+            BattleFill::ActiveFeatureSpellAttackRollMode(fill),
+        ) => {
+            if !feature_substrate_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_active_feature_spell_attack_roll_mode_subject(state, fill)
+        }
         (
             BattleSubjectKind::StatBlockAction,
             BattleFill::StatBlockAction {
@@ -3563,6 +4277,11 @@ fn resolve_battle_subject_unchecked(
                 | BattleFill::Concentration(_)
                 | BattleFill::CommandEffect(_)
                 | BattleFill::ScalarBuff(_)
+                | BattleFill::WeaponMasteryProperty(_)
+                | BattleFill::AttackActionAreaSaveDamageReplacement(_)
+                | BattleFill::UnitFeatureBonusAction(_)
+                | BattleFill::ActiveFeatureSpellSaveDc(_)
+                | BattleFill::ActiveFeatureSpellAttackRollMode(_)
                 | BattleFill::StatBlockAction { .. } => invalid(
                     state,
                     BattleResolutionInvalidReason::InvalidFill,
@@ -3594,6 +4313,11 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::ConcentrationTeardown
             | BattleSubjectKind::CommandSpell
             | BattleSubjectKind::ScalarBuffTargetSpell
+            | BattleSubjectKind::WeaponMasteryProperty
+            | BattleSubjectKind::AttackActionAreaSaveDamageReplacement
+            | BattleSubjectKind::UnitFeatureBonusAction
+            | BattleSubjectKind::ActiveFeatureSpellSaveDc
+            | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,

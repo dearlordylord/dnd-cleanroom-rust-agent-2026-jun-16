@@ -20,6 +20,7 @@ pub enum ReducerRouteHoleKind {
     SpellTargetList,
     StatBlockRechargeRoll,
     TargetChoice,
+    UnitFeatureDecision,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -38,6 +39,7 @@ pub enum ReducerRouteFillKind {
     SpellTargetList,
     StatBlockRechargeRoll,
     TargetChoice,
+    UnitFeatureDecision,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -60,20 +62,32 @@ pub enum ReducerRouteSubjectFamily {
     ScalarBuff,
     StatBlockAction,
     WeaponAttack,
+    WeaponMasteryProperty,
+    AttackActionAreaSaveDamageReplacement,
+    UnitFeatureBonusAction,
+    ActiveFeatureSpellSaveDc,
+    ActiveFeatureSpellAttackRollMode,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReducerRouteOwnerGroup {
     ActionEconomy,
     ActiveEffect,
+    AreaShape,
     AttackRoll,
+    AttackActionProcedure,
     Concentration,
     ConditionLifecycle,
+    DamageRoll,
+    DamageType,
+    FeatureResource,
     HitPointAndZeroHpLifecycle,
     HitPoint,
     HoleFrontier,
     InterruptStack,
     MovementResource,
+    SavingThrowOutcome,
+    SpellAttackProcedure,
     SpellSlotAndActionEconomy,
     StatBlockAction,
     TargetSelection,
@@ -507,6 +521,7 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
         ReducerRouteHoleKind::SpellTargetList => "SpellTargetListHoleKind",
         ReducerRouteHoleKind::StatBlockRechargeRoll => "StatBlockRechargeRollHoleKind",
         ReducerRouteHoleKind::TargetChoice => "TargetChoiceHoleKind",
+        ReducerRouteHoleKind::UnitFeatureDecision => "UnitFeatureDecisionHoleKind",
     }
 }
 
@@ -526,6 +541,7 @@ fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
         ReducerRouteFillKind::SpellTargetList => "SpellTargetListFillKind",
         ReducerRouteFillKind::StatBlockRechargeRoll => "StatBlockRechargeRollFillKind",
         ReducerRouteFillKind::TargetChoice => "TargetChoiceFillKind",
+        ReducerRouteFillKind::UnitFeatureDecision => "UnitFeatureDecisionFillKind",
     }
 }
 
@@ -533,9 +549,14 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
     match owner {
         ReducerRouteOwnerGroup::ActionEconomy => "BattleActionEconomyOwner",
         ReducerRouteOwnerGroup::ActiveEffect => "BattleActiveEffectOwner",
+        ReducerRouteOwnerGroup::AreaShape => "BattleAreaShapeOwner",
         ReducerRouteOwnerGroup::AttackRoll => "BattleAttackRollOwner",
+        ReducerRouteOwnerGroup::AttackActionProcedure => "BattleAttackActionProcedureOwner",
         ReducerRouteOwnerGroup::Concentration => "BattleConcentrationOwner",
         ReducerRouteOwnerGroup::ConditionLifecycle => "BattleConditionLifecycleOwner",
+        ReducerRouteOwnerGroup::DamageRoll => "BattleDamageRollOwner",
+        ReducerRouteOwnerGroup::DamageType => "BattleDamageTypeOwner",
+        ReducerRouteOwnerGroup::FeatureResource => "BattleFeatureResourceOwner",
         ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle => {
             "BattleHitPointAndZeroHpLifecycleOwner"
         }
@@ -543,6 +564,8 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::HoleFrontier => "BattleHoleFrontierOwner",
         ReducerRouteOwnerGroup::InterruptStack => "BattleInterruptStackOwner",
         ReducerRouteOwnerGroup::MovementResource => "BattleMovementResourceOwner",
+        ReducerRouteOwnerGroup::SavingThrowOutcome => "BattleSavingThrowOutcomeOwner",
+        ReducerRouteOwnerGroup::SpellAttackProcedure => "BattleSpellAttackProcedureOwner",
         ReducerRouteOwnerGroup::SpellSlotAndActionEconomy => "BattleSpellSlotAndActionEconomyOwner",
         ReducerRouteOwnerGroup::StatBlockAction => "BattleStatBlockActionOwner",
         ReducerRouteOwnerGroup::TargetSelection => "BattleTargetSelectionOwner",
@@ -582,6 +605,17 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::ScalarBuff => "ScalarBuffRouteSubject",
         ReducerRouteSubjectFamily::StatBlockAction => "StatBlockActionRouteSubject",
         ReducerRouteSubjectFamily::WeaponAttack => "WeaponAttackRouteSubject",
+        ReducerRouteSubjectFamily::WeaponMasteryProperty => "WeaponMasteryPropertyRouteSubject",
+        ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement => {
+            "AttackActionAreaSaveDamageReplacementRouteSubject"
+        }
+        ReducerRouteSubjectFamily::UnitFeatureBonusAction => "UnitFeatureBonusActionRouteSubject",
+        ReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc => {
+            "ActiveFeatureSpellSaveDcRouteSubject"
+        }
+        ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode => {
+            "ActiveFeatureSpellAttackRollModeRouteSubject"
+        }
     }
 }
 
