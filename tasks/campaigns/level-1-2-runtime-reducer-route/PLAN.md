@@ -275,6 +275,10 @@ Initial lane:
 
 - `L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES`
 
+Queued follow-up lane:
+
+- `L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES`
+
 Parallelism:
 
 - start with one lane;

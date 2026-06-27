@@ -192,7 +192,10 @@
       "mergedLaneIds": [
         "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES"
       ],
-      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. L15-RRCP7-A accepted the four FU01C generic active-effect and marked-effect route gaps in battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt; CP7_AUDIT.json now records 647 accepted obligations and 21 target blockers."
+      "readyLaneIds": [
+        "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES"
+      ],
+      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. L15-RRCP7-A accepted the four FU01C generic active-effect and marked-effect route gaps in battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt; CP7_AUDIT.json now records 647 accepted obligations and 21 target blockers. L15-RRCP7-B is queued for two FU01B residual damage-spell bridge rows."
     }
   ],
   "laneStatuses": {
@@ -245,7 +248,8 @@
     "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES": "merged-verified",
     "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "merged-verified",
     "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified",
-    "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "merged-verified"
+    "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "merged-verified",
+    "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "ready"
   },
   "lastIntegrationVerification": {
     "head": "f8a438ebff90eb79e274b207c5c286080aaf6726",

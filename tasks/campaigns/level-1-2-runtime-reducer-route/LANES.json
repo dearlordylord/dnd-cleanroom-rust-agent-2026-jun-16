@@ -1092,6 +1092,45 @@
         "tasks/VALIDATION_REPORT.md"
       ],
       "acceptanceSummary": "The four selected FU01C rows replay through observed reducer entrypoints and generic active-effect/marked-effect subjects. Evidence must replace target blockers with accepted route rows only when route events come from BattleEntrypointTrace, not adapter-local synthesis."
+    },
+    {
+      "laneId": "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
+      "checkpointId": "CP7",
+      "status": "ready",
+      "parallelGroup": "cp7-target-blocker-reduction",
+      "routeTaskIds": [
+        "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
+      ],
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 1,
+      "branchObligations": 2,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+      ],
+      "selectedBranchActions": [
+        "doResolveChromaticOrbDuplicateDamageLeap",
+        "doResolveStarryWispObjectSpellAttackDamageAndDimLight"
+      ],
+      "purpose": "Reduce CP7 target-side blockers by bridging selected level-1 damage-spell witness rows to existing generic chained spell-attack sequence and object-target spell-attack route substrates, without selected spell identity dispatch.",
+      "dependencies": [
+        "CP7 active",
+        "copied chained attack sequence and Starry Wisp object route connectors present in cleanroom-input"
+      ],
+      "expectedWriteScope": [
+        "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+        "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+        "src/rules/battle_reducer_spine.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json",
+        "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/**",
+        "tasks/RUN_LEDGER.json",
+        "tasks/VALIDATION_REPORT.md"
+      ],
+      "acceptanceSummary": "The two selected FU01B rows replay through observed reducer entrypoints by reusing generic chained spell-attack sequence and object-target spell-attack substrates. Evidence must replace target blockers only when observed route events come from BattleEntrypointTrace, not adapter-local synthesis."
     }
   ],
   "standardVerification": [
