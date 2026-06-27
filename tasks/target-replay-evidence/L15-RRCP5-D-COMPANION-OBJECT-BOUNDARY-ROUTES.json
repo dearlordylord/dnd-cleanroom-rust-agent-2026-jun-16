@@ -1,0 +1,420 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust reducer-routed companion object-boundary adapters",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doCreateCatFamiliar",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs",
+      "observedActionTaken": "doCreateCatFamiliar",
+      "qntFileSha256": "81d826dfd2bcc63bc9407be4ce4f8289cdd1f4bb2e585e699505f1839e38ed07",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "365576ecb4023c0d7537c83e5aa17035c4960dcf85d986d5d4c7b909a3b475d0",
+        "observedProjectionSha256": "365576ecb4023c0d7537c83e5aa17035c4960dcf85d986d5d4c7b909a3b475d0",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doCreateCatFamiliar"
+    },
+    {
+      "branchAction": "doDeliverTouchSpell",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs",
+      "observedActionTaken": "doDeliverTouchSpell",
+      "qntFileSha256": "81d826dfd2bcc63bc9407be4ce4f8289cdd1f4bb2e585e699505f1839e38ed07",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2f97404c0e73966bd7d334c9861a9d3a93213fc28a4ddf524d433003674ad039",
+        "observedProjectionSha256": "2f97404c0e73966bd7d334c9861a9d3a93213fc28a4ddf524d433003674ad039",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doDeliverTouchSpell"
+    },
+    {
+      "branchAction": "doPactFamiliarAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs",
+      "observedActionTaken": "doPactFamiliarAttack",
+      "qntFileSha256": "81d826dfd2bcc63bc9407be4ce4f8289cdd1f4bb2e585e699505f1839e38ed07",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f6a720c448e81686afe7d070d911d3758c0875dee81ee28340487eae296e1051",
+        "observedProjectionSha256": "f6a720c448e81686afe7d070d911d3758c0875dee81ee28340487eae296e1051",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doPactFamiliarAttack"
+    },
+    {
+      "branchAction": "doReplaceWithRatFamiliar",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs",
+      "observedActionTaken": "doReplaceWithRatFamiliar",
+      "qntFileSha256": "81d826dfd2bcc63bc9407be4ce4f8289cdd1f4bb2e585e699505f1839e38ed07",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "03b949a92b0f32f60fd2c902482b0d0a256ce9f42651e6ebd69fd7440792e0df",
+        "observedProjectionSha256": "03b949a92b0f32f60fd2c902482b0d0a256ce9f42651e6ebd69fd7440792e0df",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doReplaceWithRatFamiliar"
+    },
+    {
+      "branchAction": "doShareSenses",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs",
+      "observedActionTaken": "doShareSenses",
+      "qntFileSha256": "81d826dfd2bcc63bc9407be4ce4f8289cdd1f4bb2e585e699505f1839e38ed07",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4fbbc6d8ca2e2daa50ec1c84152f918cc4829e30f19e0642ac8819063fe53d40",
+        "observedProjectionSha256": "4fbbc6d8ca2e2daa50ec1c84152f918cc4829e30f19e0642ac8819063fe53d40",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doShareSenses"
+    },
+    {
+      "branchAction": "doFillObjectAttackRollHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "observedActionTaken": "doFillObjectAttackRollHit",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "77a39db1a6c6a0f8b4ac02d7cda684af0d9cae97c75df54d3f190c2bd42d0732",
+        "observedProjectionSha256": "77a39db1a6c6a0f8b4ac02d7cda684af0d9cae97c75df54d3f190c2bd42d0732",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectAttackRollHit"
+    },
+    {
+      "branchAction": "doFillObjectAttackRollMiss",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "observedActionTaken": "doFillObjectAttackRollMiss",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a5f5b2d3765653d482d25f0d2a3b3c0dd4e297fa0e114628c426c6ad51003d9e",
+        "observedProjectionSha256": "a5f5b2d3765653d482d25f0d2a3b3c0dd4e297fa0e114628c426c6ad51003d9e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectAttackRollMiss"
+    },
+    {
+      "branchAction": "doFillObjectDamageHigh",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "observedActionTaken": "doFillObjectDamageHigh",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f79a10c701671a3c1167cf3788b2b00b89f7b06ddaddfc75971bd46bece54970",
+        "observedProjectionSha256": "f79a10c701671a3c1167cf3788b2b00b89f7b06ddaddfc75971bd46bece54970",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectDamageHigh"
+    },
+    {
+      "branchAction": "doFillObjectDamageLow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "observedActionTaken": "doFillObjectDamageLow",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ae9716215bfbfb7f68278cbdbc96764a11a3e9d994a084e2ee72dc1c5e4e86ca",
+        "observedProjectionSha256": "ae9716215bfbfb7f68278cbdbc96764a11a3e9d994a084e2ee72dc1c5e4e86ca",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectDamageLow"
+    },
+    {
+      "branchAction": "doFillObjectTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "observedActionTaken": "doFillObjectTarget",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7ecd9ec584235732683f396f12a69a57dca8f994895dc560feb56bd5c75d3888",
+        "observedProjectionSha256": "7ecd9ec584235732683f396f12a69a57dca8f994895dc560feb56bd5c75d3888",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectTarget"
+    },
+    {
+      "branchAction": "doRejectObjectWithoutFact",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "observedActionTaken": "doRejectObjectWithoutFact",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "3a1b2d724ef1a51989045938c30d6b5ff8e0dd3dcfe189b3a5f95102c7b09dfd",
+        "observedProjectionSha256": "3a1b2d724ef1a51989045938c30d6b5ff8e0dd3dcfe189b3a5f95102c7b09dfd",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doRejectObjectWithoutFact"
+    },
+    {
+      "branchAction": "doRejectStaleAfterResolved",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "observedActionTaken": "doRejectStaleAfterResolved",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.CompanionLifecycle",
+          "BattleSubjectKind.CompanionTouchDelivery",
+          "BattleSubjectKind.CompanionReactionAttackStatBlockGate",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleReducerRouteSubjectFamily.CompanionLifecycle",
+          "BattleReducerRouteSubjectFamily.CompanionTouchDelivery",
+          "BattleReducerRouteSubjectFamily.CompanionReactionAttack",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6ce4206e3dbe7ca9305d1db11c04b9b2020649443c8a4a3bbd9f1904ec3729ea",
+        "observedProjectionSha256": "6ce4206e3dbe7ca9305d1db11c04b9b2020649443c8a4a3bbd9f1904ec3729ea",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doRejectStaleAfterResolved"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

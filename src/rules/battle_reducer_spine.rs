@@ -1120,6 +1120,20 @@ pub enum BattleSubjectKind {
     AfterHitDamageRiderAttackDamage,
     AfterHitDamageRiderTurnStartSaveCleanup,
     AfterHitDamageRiderEscapeConcentrationCleanup,
+    CompanionLifecycle,
+    CompanionSharedSensesActionEconomy,
+    CompanionSharedSensesActiveEffect,
+    CompanionTouchDelivery,
+    CompanionReactionAttackStatBlockGate,
+    CompanionReactionAttack,
+    CompanionReactionAttackActionEconomyCleanup,
+    ObjectTargetSpellAttackBoundary,
+    ObjectTargetSpellAttackBoundaryRejection,
+    ObjectTargetSpellAttackAttackMiss,
+    ObjectTargetSpellAttackAttackHit,
+    ObjectTargetSpellAttackDamage,
+    ObjectTargetSpellAttackLightEffect,
+    ObjectTargetSpellAttackStaleReplay,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -2299,6 +2313,7 @@ pub enum BattleReducerRouteSubjectFamily {
     CompanionSharedSenses,
     CompanionTouchDelivery,
     CompanionReactionAttack,
+    ObjectTargetSpellAttack,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -2337,6 +2352,7 @@ pub enum BattleReducerRouteOwnerGroup {
     InterruptStack,
     MovementResource,
     ObjectBoundary,
+    ObjectTargetBoundary,
     Reaction,
     SavingThrowOutcome,
     SavingThrowRollMode,
@@ -2760,6 +2776,18 @@ pub fn discover_generic_route_subject_observed(
     });
     let subject = diagnostic_subject(kind, current_actor(&state), None);
     (state, subject)
+}
+
+#[must_use]
+pub fn generic_route_subject_for_current_actor(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+) -> BattleSubject {
+    assert!(
+        generic_route_subject_kind(kind),
+        "generic route subject construction requires a generic route subject"
+    );
+    diagnostic_subject(kind, current_actor(state), None)
 }
 
 #[must_use]
@@ -3432,7 +3460,21 @@ fn battle_reducer_route_subject_family(
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup) => {
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::CompanionLifecycle
+        | BattleSubjectKind::CompanionSharedSensesActionEconomy
+        | BattleSubjectKind::CompanionSharedSensesActiveEffect
+        | BattleSubjectKind::CompanionTouchDelivery
+        | BattleSubjectKind::CompanionReactionAttackStatBlockGate
+        | BattleSubjectKind::CompanionReactionAttack
+        | BattleSubjectKind::CompanionReactionAttackActionEconomyCleanup
+        | BattleSubjectKind::ObjectTargetSpellAttackBoundary
+        | BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection
+        | BattleSubjectKind::ObjectTargetSpellAttackAttackMiss
+        | BattleSubjectKind::ObjectTargetSpellAttackAttackHit
+        | BattleSubjectKind::ObjectTargetSpellAttackDamage
+        | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
+        | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay) => {
             generic_route_shape(kind).subject
         }
     }
@@ -6719,7 +6761,21 @@ fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerRouteOw
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup) => {
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::CompanionLifecycle
+        | BattleSubjectKind::CompanionSharedSensesActionEconomy
+        | BattleSubjectKind::CompanionSharedSensesActiveEffect
+        | BattleSubjectKind::CompanionTouchDelivery
+        | BattleSubjectKind::CompanionReactionAttackStatBlockGate
+        | BattleSubjectKind::CompanionReactionAttack
+        | BattleSubjectKind::CompanionReactionAttackActionEconomyCleanup
+        | BattleSubjectKind::ObjectTargetSpellAttackBoundary
+        | BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection
+        | BattleSubjectKind::ObjectTargetSpellAttackAttackMiss
+        | BattleSubjectKind::ObjectTargetSpellAttackAttackHit
+        | BattleSubjectKind::ObjectTargetSpellAttackDamage
+        | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
+        | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay) => {
             generic_route_shape(kind).discover_owner
         }
         BattleSubjectKind::EndTurn => BattleReducerRouteOwnerGroup::ActionEconomy,
@@ -6936,6 +6992,20 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::AfterHitDamageRiderAttackDamage
             | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::CompanionLifecycle
+            | BattleSubjectKind::CompanionSharedSensesActionEconomy
+            | BattleSubjectKind::CompanionSharedSensesActiveEffect
+            | BattleSubjectKind::CompanionTouchDelivery
+            | BattleSubjectKind::CompanionReactionAttackStatBlockGate
+            | BattleSubjectKind::CompanionReactionAttack
+            | BattleSubjectKind::CompanionReactionAttackActionEconomyCleanup
+            | BattleSubjectKind::ObjectTargetSpellAttackBoundary
+            | BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection
+            | BattleSubjectKind::ObjectTargetSpellAttackAttackMiss
+            | BattleSubjectKind::ObjectTargetSpellAttackAttackHit
+            | BattleSubjectKind::ObjectTargetSpellAttackDamage
+            | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
+            | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay
     )
 }
 
@@ -6945,11 +7015,13 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     };
     use BattleReducerRouteOwnerGroup::{
         ActiveEffect, AttackRoll as AttackRollOwner, Concentration, HitPoint, HoleFrontier,
-        MovementResource, SpellSlotAndActionEconomy, TargetSelection, TemporaryHitPoint,
+        MovementResource, ObjectTargetBoundary, SpellSlotAndActionEconomy, StatBlockAction,
+        TargetSelection, TemporaryHitPoint,
     };
     use BattleReducerRouteSubjectFamily::{
-        AfterHitDamageRider, HeldWeaponActiveEffect, ScalarBuffEffect, SpellHostedWeaponAttack,
-        WeaponDamageRider,
+        AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
+        CompanionTouchDelivery, HeldWeaponActiveEffect, ObjectTargetSpellAttack, ScalarBuffEffect,
+        SpellHostedWeaponAttack, WeaponDamageRider,
     };
 
     match kind {
@@ -7036,6 +7108,90 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: vec![AbilityCheck],
             discover_owner: Concentration,
             resolve_owner: Concentration,
+        },
+        BattleSubjectKind::CompanionLifecycle => GenericRouteShape {
+            subject: CompanionLifecycle,
+            holes: Vec::new(),
+            discover_owner: BattleReducerRouteOwnerGroup::Companion,
+            resolve_owner: BattleReducerRouteOwnerGroup::Companion,
+        },
+        BattleSubjectKind::CompanionSharedSensesActionEconomy => GenericRouteShape {
+            subject: CompanionSharedSenses,
+            holes: Vec::new(),
+            discover_owner: BattleReducerRouteOwnerGroup::Companion,
+            resolve_owner: BattleReducerRouteOwnerGroup::ActionEconomy,
+        },
+        BattleSubjectKind::CompanionSharedSensesActiveEffect => GenericRouteShape {
+            subject: CompanionSharedSenses,
+            holes: Vec::new(),
+            discover_owner: BattleReducerRouteOwnerGroup::Companion,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::CompanionTouchDelivery => GenericRouteShape {
+            subject: CompanionTouchDelivery,
+            holes: vec![TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: SpellSlotAndActionEconomy,
+        },
+        BattleSubjectKind::CompanionReactionAttackStatBlockGate => GenericRouteShape {
+            subject: CompanionReactionAttack,
+            holes: vec![TargetChoice],
+            discover_owner: BattleReducerRouteOwnerGroup::Companion,
+            resolve_owner: StatBlockAction,
+        },
+        BattleSubjectKind::CompanionReactionAttack => GenericRouteShape {
+            subject: CompanionReactionAttack,
+            holes: vec![TargetChoice],
+            discover_owner: BattleReducerRouteOwnerGroup::Companion,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::CompanionReactionAttackActionEconomyCleanup => GenericRouteShape {
+            subject: CompanionReactionAttack,
+            holes: Vec::new(),
+            discover_owner: BattleReducerRouteOwnerGroup::Companion,
+            resolve_owner: BattleReducerRouteOwnerGroup::ActionEconomy,
+        },
+        BattleSubjectKind::ObjectTargetSpellAttackBoundary => GenericRouteShape {
+            subject: ObjectTargetSpellAttack,
+            holes: Vec::new(),
+            discover_owner: ObjectTargetBoundary,
+            resolve_owner: ObjectTargetBoundary,
+        },
+        BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection => GenericRouteShape {
+            subject: ObjectTargetSpellAttack,
+            holes: Vec::new(),
+            discover_owner: ObjectTargetBoundary,
+            resolve_owner: ObjectTargetBoundary,
+        },
+        BattleSubjectKind::ObjectTargetSpellAttackAttackMiss => GenericRouteShape {
+            subject: ObjectTargetSpellAttack,
+            holes: vec![AttackRoll],
+            discover_owner: AttackRollOwner,
+            resolve_owner: AttackRollOwner,
+        },
+        BattleSubjectKind::ObjectTargetSpellAttackAttackHit => GenericRouteShape {
+            subject: ObjectTargetSpellAttack,
+            holes: vec![AttackRoll],
+            discover_owner: AttackRollOwner,
+            resolve_owner: AttackRollOwner,
+        },
+        BattleSubjectKind::ObjectTargetSpellAttackDamage => GenericRouteShape {
+            subject: ObjectTargetSpellAttack,
+            holes: vec![RolledDice],
+            discover_owner: ObjectTargetBoundary,
+            resolve_owner: ObjectTargetBoundary,
+        },
+        BattleSubjectKind::ObjectTargetSpellAttackLightEffect => GenericRouteShape {
+            subject: ObjectTargetSpellAttack,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::ObjectTargetSpellAttackStaleReplay => GenericRouteShape {
+            subject: ObjectTargetSpellAttack,
+            holes: Vec::new(),
+            discover_owner: HoleFrontier,
+            resolve_owner: HoleFrontier,
         },
         BattleSubjectKind::EndTurn
         | BattleSubjectKind::WeaponAttack
@@ -7159,6 +7315,20 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
         | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::CompanionLifecycle
+        | BattleSubjectKind::CompanionSharedSensesActionEconomy
+        | BattleSubjectKind::CompanionSharedSensesActiveEffect
+        | BattleSubjectKind::CompanionTouchDelivery
+        | BattleSubjectKind::CompanionReactionAttackStatBlockGate
+        | BattleSubjectKind::CompanionReactionAttack
+        | BattleSubjectKind::CompanionReactionAttackActionEconomyCleanup
+        | BattleSubjectKind::ObjectTargetSpellAttackBoundary
+        | BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection
+        | BattleSubjectKind::ObjectTargetSpellAttackAttackMiss
+        | BattleSubjectKind::ObjectTargetSpellAttackAttackHit
+        | BattleSubjectKind::ObjectTargetSpellAttackDamage
+        | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
+        | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay
         | BattleSubjectKind::EndTurn => false,
     }
 }
@@ -7270,7 +7440,21 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => false,
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::CompanionLifecycle
+        | BattleSubjectKind::CompanionSharedSensesActionEconomy
+        | BattleSubjectKind::CompanionSharedSensesActiveEffect
+        | BattleSubjectKind::CompanionTouchDelivery
+        | BattleSubjectKind::CompanionReactionAttackStatBlockGate
+        | BattleSubjectKind::CompanionReactionAttack
+        | BattleSubjectKind::CompanionReactionAttackActionEconomyCleanup
+        | BattleSubjectKind::ObjectTargetSpellAttackBoundary
+        | BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection
+        | BattleSubjectKind::ObjectTargetSpellAttackAttackMiss
+        | BattleSubjectKind::ObjectTargetSpellAttackAttackHit
+        | BattleSubjectKind::ObjectTargetSpellAttackDamage
+        | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
+        | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay => false,
     }
 }
 
@@ -7610,6 +7794,34 @@ fn battle_resolution_route_owner(
     holes: &[BattleHoleKind],
 ) -> BattleReducerRouteOwnerGroup {
     match subject {
+        BattleSubjectKind::CompanionTouchDelivery => match fill {
+            BattleFill::GenericRoute(BattleGenericRouteFill::TargetChoice) => {
+                BattleReducerRouteOwnerGroup::Companion
+            }
+            BattleFill::GenericRoute(BattleGenericRouteFill::RolledDice) => {
+                BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
+            }
+            BattleFill::GenericRoute(BattleGenericRouteFill::WithoutFill) => {
+                BattleReducerRouteOwnerGroup::ActionEconomy
+            }
+            _ => generic_route_shape(subject).resolve_owner,
+        },
+        BattleSubjectKind::CompanionReactionAttack
+        | BattleSubjectKind::CompanionReactionAttackStatBlockGate => match fill {
+            BattleFill::GenericRoute(BattleGenericRouteFill::WithoutFill) => {
+                BattleReducerRouteOwnerGroup::StatBlockAction
+            }
+            BattleFill::GenericRoute(BattleGenericRouteFill::TargetChoice) => {
+                BattleReducerRouteOwnerGroup::TargetSelection
+            }
+            BattleFill::GenericRoute(BattleGenericRouteFill::AttackRoll) => {
+                BattleReducerRouteOwnerGroup::AttackRoll
+            }
+            BattleFill::GenericRoute(BattleGenericRouteFill::RolledDice) => {
+                BattleReducerRouteOwnerGroup::HitPoint
+            }
+            _ => generic_route_shape(subject).resolve_owner,
+        },
         kind if generic_route_subject_kind(kind) => match (kind, fill) {
             (
                 BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup,
@@ -8125,6 +8337,20 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::AfterHitDamageRiderAttackDamage
             | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::CompanionLifecycle
+            | BattleSubjectKind::CompanionSharedSensesActionEconomy
+            | BattleSubjectKind::CompanionSharedSensesActiveEffect
+            | BattleSubjectKind::CompanionTouchDelivery
+            | BattleSubjectKind::CompanionReactionAttackStatBlockGate
+            | BattleSubjectKind::CompanionReactionAttack
+            | BattleSubjectKind::CompanionReactionAttackActionEconomyCleanup
+            | BattleSubjectKind::ObjectTargetSpellAttackBoundary
+            | BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection
+            | BattleSubjectKind::ObjectTargetSpellAttackAttackMiss
+            | BattleSubjectKind::ObjectTargetSpellAttackAttackHit
+            | BattleSubjectKind::ObjectTargetSpellAttackDamage
+            | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
+            | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,
@@ -8193,8 +8419,42 @@ fn generic_route_fill_matches_subject(
         BattleSubjectKind::WeaponDamageRiderActiveEffect
         | BattleSubjectKind::HeldWeaponActiveEffectApply
         | BattleSubjectKind::ScalarBuffEffectSpeedDelta
-        | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint => {
+        | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+        | BattleSubjectKind::CompanionLifecycle
+        | BattleSubjectKind::CompanionSharedSensesActionEconomy
+        | BattleSubjectKind::CompanionSharedSensesActiveEffect
+        | BattleSubjectKind::CompanionReactionAttackActionEconomyCleanup
+        | BattleSubjectKind::ObjectTargetSpellAttackBoundary
+        | BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection
+        | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
+        | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay => {
             fill == BattleGenericRouteFill::WithoutFill
+        }
+        BattleSubjectKind::CompanionTouchDelivery => matches!(
+            fill,
+            BattleGenericRouteFill::TargetChoice
+                | BattleGenericRouteFill::RolledDice
+                | BattleGenericRouteFill::WithoutFill
+        ),
+        BattleSubjectKind::CompanionReactionAttack => matches!(
+            fill,
+            BattleGenericRouteFill::TargetChoice
+                | BattleGenericRouteFill::AttackRoll
+                | BattleGenericRouteFill::RolledDice
+        ),
+        BattleSubjectKind::CompanionReactionAttackStatBlockGate => matches!(
+            fill,
+            BattleGenericRouteFill::WithoutFill
+                | BattleGenericRouteFill::TargetChoice
+                | BattleGenericRouteFill::AttackRoll
+                | BattleGenericRouteFill::RolledDice
+        ),
+        BattleSubjectKind::ObjectTargetSpellAttackAttackMiss
+        | BattleSubjectKind::ObjectTargetSpellAttackAttackHit => {
+            fill == BattleGenericRouteFill::AttackRoll
+        }
+        BattleSubjectKind::ObjectTargetSpellAttackDamage => {
+            fill == BattleGenericRouteFill::RolledDice
         }
         BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => {
             fill == BattleGenericRouteFill::AbilityCheck
@@ -8249,6 +8509,39 @@ fn generic_route_next_holes(
         ) => {
             vec![BattleHoleKind::SavingThrowOutcome]
         }
+        (BattleSubjectKind::CompanionTouchDelivery, BattleGenericRouteFill::TargetChoice) => {
+            vec![BattleHoleKind::RolledDice]
+        }
+        (
+            BattleSubjectKind::CompanionReactionAttackStatBlockGate,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            vec![BattleHoleKind::TargetChoice]
+        }
+        (
+            BattleSubjectKind::ObjectTargetSpellAttackBoundary,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            vec![BattleHoleKind::AttackRoll]
+        }
+        (
+            BattleSubjectKind::CompanionReactionAttack
+            | BattleSubjectKind::CompanionReactionAttackStatBlockGate,
+            BattleGenericRouteFill::TargetChoice,
+        ) => {
+            vec![BattleHoleKind::AttackRoll]
+        }
+        (
+            BattleSubjectKind::CompanionReactionAttack
+            | BattleSubjectKind::CompanionReactionAttackStatBlockGate,
+            BattleGenericRouteFill::AttackRoll,
+        )
+        | (
+            BattleSubjectKind::ObjectTargetSpellAttackAttackHit,
+            BattleGenericRouteFill::AttackRoll,
+        ) => {
+            vec![BattleHoleKind::RolledDice]
+        }
         (
             BattleSubjectKind::SpellHostedWeaponAttackDamage
             | BattleSubjectKind::WeaponDamageRiderActiveEffect
@@ -8259,7 +8552,21 @@ fn generic_route_next_holes(
             | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
             | BattleSubjectKind::AfterHitDamageRiderAttackDamage
             | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-            | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup,
+            | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::CompanionLifecycle
+            | BattleSubjectKind::CompanionSharedSensesActionEconomy
+            | BattleSubjectKind::CompanionSharedSensesActiveEffect
+            | BattleSubjectKind::CompanionTouchDelivery
+            | BattleSubjectKind::CompanionReactionAttackStatBlockGate
+            | BattleSubjectKind::CompanionReactionAttack
+            | BattleSubjectKind::CompanionReactionAttackActionEconomyCleanup
+            | BattleSubjectKind::ObjectTargetSpellAttackBoundary
+            | BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection
+            | BattleSubjectKind::ObjectTargetSpellAttackAttackMiss
+            | BattleSubjectKind::ObjectTargetSpellAttackAttackHit
+            | BattleSubjectKind::ObjectTargetSpellAttackDamage
+            | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
+            | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay,
             _,
         ) => Vec::new(),
         (

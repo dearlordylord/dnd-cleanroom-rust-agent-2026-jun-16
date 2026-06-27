@@ -107,6 +107,7 @@ pub enum ReducerRouteSubjectFamily {
     CompanionSharedSenses,
     CompanionTouchDelivery,
     CompanionReactionAttack,
+    ObjectTargetSpellAttack,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -133,6 +134,7 @@ pub enum ReducerRouteOwnerGroup {
     InterruptStack,
     MovementResource,
     ObjectBoundary,
+    ObjectTargetBoundary,
     Reaction,
     SavingThrowOutcome,
     SavingThrowRollMode,
@@ -723,6 +725,9 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::CompanionReactionAttack => {
             ReducerRouteSubjectFamily::CompanionReactionAttack
         }
+        BattleReducerRouteSubjectFamily::ObjectTargetSpellAttack => {
+            ReducerRouteSubjectFamily::ObjectTargetSpellAttack
+        }
     }
 }
 
@@ -799,6 +804,9 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
         BattleReducerRouteOwnerGroup::InterruptStack => ReducerRouteOwnerGroup::InterruptStack,
         BattleReducerRouteOwnerGroup::MovementResource => ReducerRouteOwnerGroup::MovementResource,
         BattleReducerRouteOwnerGroup::ObjectBoundary => ReducerRouteOwnerGroup::ObjectBoundary,
+        BattleReducerRouteOwnerGroup::ObjectTargetBoundary => {
+            ReducerRouteOwnerGroup::ObjectTargetBoundary
+        }
         BattleReducerRouteOwnerGroup::Reaction => ReducerRouteOwnerGroup::Reaction,
         BattleReducerRouteOwnerGroup::SavingThrowOutcome => {
             ReducerRouteOwnerGroup::SavingThrowOutcome
@@ -1061,6 +1069,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::InterruptStack => "BattleInterruptStackOwner",
         ReducerRouteOwnerGroup::MovementResource => "BattleMovementResourceOwner",
         ReducerRouteOwnerGroup::ObjectBoundary => "BattleObjectBoundaryOwner",
+        ReducerRouteOwnerGroup::ObjectTargetBoundary => "BattleObjectTargetBoundaryOwner",
         ReducerRouteOwnerGroup::Reaction => "BattleReactionOwner",
         ReducerRouteOwnerGroup::SavingThrowOutcome => "BattleSavingThrowOutcomeOwner",
         ReducerRouteOwnerGroup::SavingThrowRollMode => "BattleSavingThrowRollModeOwner",
@@ -1107,6 +1116,7 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::CompanionSharedSenses => "CompanionSharedSensesRouteSubject",
         ReducerRouteSubjectFamily::CompanionTouchDelivery => "CompanionTouchDeliveryRouteSubject",
         ReducerRouteSubjectFamily::CompanionReactionAttack => "CompanionReactionAttackRouteSubject",
+        ReducerRouteSubjectFamily::ObjectTargetSpellAttack => "ObjectTargetSpellAttackRouteSubject",
         ReducerRouteSubjectFamily::CreatureAttack => "CreatureAttackRouteSubject",
         ReducerRouteSubjectFamily::CreatureSpaceMovementPermission => {
             "CreatureSpaceMovementPermissionRouteSubject"

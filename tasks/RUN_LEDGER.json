@@ -2926,6 +2926,86 @@
           "status": "pass"
         }
       ]
+    },
+    {
+      "taskId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES",
+      "assignmentId": "level-1-2-full",
+      "laneId": "battle",
+      "parentRouteTaskId": "L15-RR20",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt"
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES/START_GATE.json",
+          "sha256": "394074c5b6165489d90aa8fd54c946e52dc6a31b4c2b61966d04bdd896aa5146"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "5be0614f0949dd76ba248efb75685bf77422c33d93aa6133233baa15d3f50288"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "c7523fdfca4f0073805478d6ad505da79322d9bbc4e712216601060bcc02e69d"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES/REVIEW_LOOP.json",
+          "sha256": "0a9839f31e214bc243356b4d95b9515a092af209c8c1fb0c4099ee3d3d1781b4"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES/DECIDER_DECISION.json",
+          "sha256": "52a73007caf4cec70474bf523132bb47b44ac5eea93179573f7167332a42c705"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json",
+          "sha256": "8b698bffaf6191dc0dab555e3a899c9509e3bc325bf3a66782242b77e2893f62",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doCreateCatFamiliar#step:doCreateCatFamiliar",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doDeliverTouchSpell#step:doDeliverTouchSpell",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doPactFamiliarAttack#step:doPactFamiliarAttack",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doReplaceWithRatFamiliar#step:doReplaceWithRatFamiliar",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doShareSenses#step:doShareSenses",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectAttackRollHit#step:doFillObjectAttackRollHit",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectAttackRollMiss#step:doFillObjectAttackRollMiss",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectDamageHigh#step:doFillObjectDamageHigh",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectDamageLow#step:doFillObjectDamageLow",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectTarget#step:doFillObjectTarget",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doRejectObjectWithoutFact#step:doRejectObjectWithoutFact",
+            "tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "cargo test starry_wisp_object_adapter_replays_all_branches && cargo test find_familiar_companion_lifecycle_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 73c5ccea0ee7425952f231485325df5a45a0f36a...HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        }
+      ]
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
