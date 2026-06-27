@@ -8594,6 +8594,58 @@ fn reducer_entrypoint_contract_consumes_typed_resolution_requests() {
 }
 
 #[test]
+fn reducer_rejects_reaction_spell_fill_for_different_reactor() {
+    use crate::rules::battle_reducer_spine::{
+        discover_battle_acts, resolve_battle_subject, start_battle, Actor,
+        BattleReactionArmorClassInterruptionFacts, BattleReactionSpellFill,
+        BattleResolutionInvalidReason, BattleResolutionRequest, BattleResolutionResult,
+        BattleSetup, BattleSpellSlotLevel, BattleSubjectKind,
+    };
+    use crate::rules::interrupt_stack_resume::{ReactionWindowOffer, ReactionWindowRole};
+
+    let mut setup = BattleSetup::standard();
+    setup.interrupt_resume.reaction_window = ReactionWindowOffer::Offered {
+        active: ReactionWindowRole::AttackHitInterruption,
+        suspended: None,
+    };
+    let state = start_battle(setup).state;
+    let reaction_subject = discover_battle_acts(&state)
+        .into_available_acts()
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::ReactionSpell)
+        .expect("fighter reaction spell subject should be discoverable")
+        .subject;
+
+    assert_eq!(reaction_subject.actor, Actor::Fighter);
+
+    let request = BattleResolutionRequest::reaction_spell(
+        reaction_subject,
+        BattleReactionSpellFill::ArmorClassInterruption(
+            BattleReactionArmorClassInterruptionFacts {
+                reactor: Actor::Goblin,
+                armor_class_bonus: 5,
+                slot_level: BattleSpellSlotLevel::First,
+            },
+        ),
+    )
+    .expect("reaction spell subject kind should accept reaction spell fill shape");
+
+    let BattleResolutionResult::Invalid {
+        state,
+        reason,
+        holes,
+    } = resolve_battle_subject(state, request)
+    else {
+        panic!("mismatched reaction spell reactor should be rejected");
+    };
+
+    assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
+    assert!(holes.is_empty());
+    assert!(state.fighter.reaction_available);
+    assert!(state.goblin.reaction_available);
+}
+
+#[test]
 fn reducer_entrypoint_contract_observes_public_entrypoint_sequence() {
     use crate::rules::battle_reducer_spine::{
         advance_turn_observed, discover_battle_acts_observed, resolve_battle_subject_observed,

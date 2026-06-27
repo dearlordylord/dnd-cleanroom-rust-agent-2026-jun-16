@@ -6350,6 +6350,13 @@ fn reaction_spell_fill_matches_opportunity(
     }
 }
 
+const fn reaction_spell_fill_reactor(fill: BattleReactionSpellFill) -> Actor {
+    match fill {
+        BattleReactionSpellFill::ArmorClassInterruption(facts) => facts.reactor,
+        BattleReactionSpellFill::FailedSaveDamage(facts) => facts.reactor,
+    }
+}
+
 #[must_use]
 pub fn discover_battle_acts_observed(
     state: &BattleState,
@@ -7354,6 +7361,7 @@ fn resolve_battle_subject_unchecked(
         }
         (BattleSubjectKind::ReactionSpell, BattleFill::ReactionSpell(fill)) => {
             if !reaction_spell_route_subject_is_live(&state, subject)
+                || subject.actor != reaction_spell_fill_reactor(fill)
                 || !reaction_spell_fill_matches_opportunity(&state, fill)
             {
                 return invalid_with_holes(
