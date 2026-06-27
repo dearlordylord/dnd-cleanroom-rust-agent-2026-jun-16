@@ -1,10 +1,11 @@
+use super::character_creation_expected_routes::expected_retained_reference_route;
 use crate::rules::character_creation::{
     apply_creation_retained_reference_operation, completed_fighter_creation_state, route_payload,
     CreationRetainedReferenceOperation, CreationRouteEvent,
 };
 use crate::rules::class_features::{
-    level_one_order_projection, Ability, AbilityCheckBonus, Cantrip, ClassLevel, ClassOrderFeature,
-    ClassOrderProjection, ClericDivineOrder, DruidPrimalOrder, OrderChoice, OrderSelection, Skill,
+    class_order_projection, Ability, AbilityCheckBonus, Cantrip, ClassLevel, ClassOrderFacts,
+    ClassOrderFeature, ClassOrderProjection, OrderChoice, Skill, TrainingProjection,
 };
 
 pub const BRANCH_ACTIONS: &[&str] = &[
@@ -45,13 +46,21 @@ pub fn replay_observed_action(observed_action_taken: &str) -> OrderWitness {
 pub fn replay_observed_route(_observed_action_taken: &str) -> Vec<CreationRouteEvent> {
     apply_creation_retained_reference_operation(
         &completed_fighter_creation_state(),
-        CreationRetainedReferenceOperation::RetainOnly,
+        CreationRetainedReferenceOperation::RetainAndProject,
     )
     .route
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<CreationRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doSelectClericProtectorOrder"
+        | "doSelectClericThaumaturgeOrder"
+        | "doSelectDruidMagicianOrder"
+        | "doSelectDruidWardenOrder" => {
+            expected_retained_reference_route(CreationRetainedReferenceOperation::RetainAndProject)
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn route_projection_payload(route: &[CreationRouteEvent]) -> String {
@@ -176,28 +185,101 @@ pub fn projection_payload(witness: &OrderWitness) -> String {
 }
 
 fn cleric_protector_replay() -> OrderWitness {
-    let observed = level_one_order_projection(OrderSelection::Cleric(ClericDivineOrder::Protector));
+    let observed = class_order_projection(cleric_protector_facts());
     order_projection_witness("clericProtector", &observed)
 }
 
 fn cleric_thaumaturge_replay() -> OrderWitness {
-    let observed =
-        level_one_order_projection(OrderSelection::Cleric(ClericDivineOrder::Thaumaturge {
-            extra_cantrip: Cantrip::Light,
-        }));
+    let observed = class_order_projection(cleric_thaumaturge_facts(Cantrip::Light));
     order_projection_witness("clericThaumaturge", &observed)
 }
 
 fn druid_magician_replay() -> OrderWitness {
-    let observed = level_one_order_projection(OrderSelection::Druid(DruidPrimalOrder::Magician {
-        extra_cantrip: Cantrip::Guidance,
-    }));
+    let observed = class_order_projection(druid_magician_facts(Cantrip::Guidance));
     order_projection_witness("druidMagician", &observed)
 }
 
 fn druid_warden_replay() -> OrderWitness {
-    let observed = level_one_order_projection(OrderSelection::Druid(DruidPrimalOrder::Warden));
+    let observed = class_order_projection(druid_warden_facts());
     order_projection_witness("druidWarden", &observed)
+}
+
+pub fn cleric_protector_facts() -> ClassOrderFacts {
+    ClassOrderFacts {
+        feature: ClassOrderFeature::DivineOrder,
+        selected_choice: OrderChoice::Protector,
+        extra_cantrip: None,
+        selected_order_option_count: 1,
+        selected_suborder_class_choice_feature_count: 0,
+        training: TrainingProjection {
+            martial_weapon_proficiency: true,
+            heavy_armor_training: true,
+            medium_armor_training: true,
+        },
+        ability_check_bonus: None,
+        total_level: ClassLevel::One,
+    }
+}
+
+pub fn cleric_thaumaturge_facts(extra_cantrip: Cantrip) -> ClassOrderFacts {
+    ClassOrderFacts {
+        feature: ClassOrderFeature::DivineOrder,
+        selected_choice: OrderChoice::Thaumaturge,
+        extra_cantrip: Some(extra_cantrip),
+        selected_order_option_count: 1,
+        selected_suborder_class_choice_feature_count: 0,
+        training: TrainingProjection {
+            martial_weapon_proficiency: false,
+            heavy_armor_training: false,
+            medium_armor_training: true,
+        },
+        ability_check_bonus: Some(AbilityCheckBonus {
+            check_ability: Ability::Intelligence,
+            skills: [Skill::Arcana, Skill::Religion],
+            bonus_ability: Ability::Wisdom,
+            minimum_bonus: 1,
+        }),
+        total_level: ClassLevel::One,
+    }
+}
+
+pub fn druid_magician_facts(extra_cantrip: Cantrip) -> ClassOrderFacts {
+    ClassOrderFacts {
+        feature: ClassOrderFeature::PrimalOrder,
+        selected_choice: OrderChoice::Magician,
+        extra_cantrip: Some(extra_cantrip),
+        selected_order_option_count: 1,
+        selected_suborder_class_choice_feature_count: 0,
+        training: TrainingProjection {
+            martial_weapon_proficiency: false,
+            heavy_armor_training: false,
+            medium_armor_training: false,
+        },
+        ability_check_bonus: Some(AbilityCheckBonus {
+            check_ability: Ability::Intelligence,
+            skills: [Skill::Arcana, Skill::Nature],
+            bonus_ability: Ability::Wisdom,
+            minimum_bonus: 1,
+        }),
+        total_level: ClassLevel::One,
+    }
+}
+
+pub fn druid_warden_facts() -> ClassOrderFacts {
+    ClassOrderFacts {
+        feature: ClassOrderFeature::PrimalOrder,
+        selected_choice: OrderChoice::Warden,
+        extra_cantrip: None,
+        selected_order_option_count: 1,
+        selected_suborder_class_choice_feature_count: 0,
+        training: TrainingProjection {
+            martial_weapon_proficiency: true,
+            heavy_armor_training: false,
+            medium_armor_training: true,
+        },
+        ability_check_bonus: None,
+        total_level: ClassLevel::One,
+    }
 }
 
 fn order_projection_witness(

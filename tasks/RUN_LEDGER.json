@@ -1688,15 +1688,15 @@
       "artifacts": {
         "deciderDecision": {
           "path": "tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/DECIDER_DECISION.json",
-          "sha256": "bf6a3b910a9fc240860d74cdf55a1b2376706f73dbb99cf153ac0a9d65dc0a30"
+          "sha256": "9a4e64a5993de067df9f4dbc0e29b541d71ae1abb09df96d7e53aa497104d857"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "cab0069ea22269afd387d7f575d1c1f3c5ae6ca35c65e420b65c4cc5d6c38c9c"
+          "sha256": "3088c74366f9d2f71f1bdaa3b02031830605f966e55ba9b376075c60dac6fc17"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/REVIEW_LOOP.json",
-          "sha256": "5e097b07dff1096909bd811ec32947bc8a37cf98e7ea0d07e913c68ffc4dd711"
+          "sha256": "3f51a01a1a0a3338db7e5bda748dc7d9ca904a17ca27d6bb6449fd334e1e4f23"
         },
         "startGate": {
           "path": "tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/START_GATE.json",
@@ -1704,7 +1704,7 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/STATE_OWNER_MANIFEST.json",
-          "sha256": "c4d410b2bc32dd0e7ce9a385326fc8f7a5599228838254a6603e15c483c29a17"
+          "sha256": "a095c32d02a004e564b942832c45caefc3f3d88bced6f68e2c1e611d2756175f"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",
@@ -1797,7 +1797,7 @@
             "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeRogueWeaponMastery#step:doFinalizeRogueWeaponMastery"
           ],
           "path": "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json",
-          "sha256": "335a607a1898949d1e360b3edf5135de9a84d8b89dbeb24fef068b7d435af280"
+          "sha256": "99750f892c342155f21c023541c65b95edd2586c7e7263b1034880f8022d2ddc"
         }
       ],
       "taskId": "L15-RR08-CHARACTER-CREATION-ROUTES"

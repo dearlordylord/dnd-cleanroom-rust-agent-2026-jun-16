@@ -1750,8 +1750,15 @@ Allowed inputs used:
 Behavior implemented:
 
 - Added shared character-owned creation state and qRoute events in `src/rules/character_creation.rs`.
-- Added support-fact projection APIs for selected class features, Rogue Expertise, Warlock invocations, and expanded Fighting Style facts in `src/rules/class_features.rs`.
-- Added missing selected-identity adapters and route evidence for the selected character-creation drivers; authored QNT action names remain quarantined in adapters/tests/evidence.
+- Added `ProjectBuildFacts` routing plus adapter-local QNT literal expected-route witnesses in `src/qnt_adapters/character_creation_expected_routes.rs`; character-creation expected routes no longer call observed replay helpers.
+- Replaced production class-feature identity dispatch for level-2 feature projections, cleric/druid order projections, weapon mastery class counts, and metamagic option cost/effect facts with admitted support fact shapes in `src/rules/class_features.rs`.
+- Added missing selected-identity adapters and route evidence for the selected character-creation drivers; authored QNT action names and official selected labels remain quarantined in adapters/tests/evidence or selection-boundary fact mapping.
+
+Reviewer finding fixes:
+
+- Fixed `fixer-1-independent-route-evidence`: expected qRoute witnesses are independent adapter-local literals derived from the copied QNT route fixtures, not `replay_observed_route`.
+- Fixed `fixer-2-production-authored-identity-dispatch`: production rules now consume `ClassFeatureProjectionFacts`, `ClassOrderFacts`, `WeaponMasteryFacts`, and opaque metamagic choice keys instead of branching on selected official identity.
+- Fixed `fixer-3-report-honesty`: review, state-owner, engine-depth, decider, and validation-report artifacts now describe the repaired evidence boundary and no longer claim the pre-fix implementation had converged.
 
 Generated branch coverage:
 
@@ -1833,6 +1840,13 @@ Remaining gaps:
 
 Verification results:
 
+- `cargo test character_creation` passed.
+- `cargo test class_feature` passed.
+- `cargo test cleric_druid_order` passed.
+- `cargo test fighting_style` passed.
+- `cargo test rogue_expertise` passed.
+- `cargo test warlock_invocation` passed.
+- `cargo test weapon_mastery` passed.
 - `cargo fmt --check` passed.
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.

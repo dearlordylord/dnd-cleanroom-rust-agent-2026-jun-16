@@ -1,3 +1,4 @@
+use super::character_creation_expected_routes::expected_retained_reference_route;
 use crate::rules::character_creation::{
     apply_creation_retained_reference_operation, completed_fighter_creation_state, route_payload,
     CreationRetainedReferenceOperation, CreationRouteEvent,
@@ -107,7 +108,20 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CreationRouteEv
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<CreationRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    let operation = match observed_action_taken {
+        "doSelectLevelOneArmorOfShadows" => CreationRetainedReferenceOperation::RetainAndProject,
+        "doGainLevelTwoInvocations"
+        | "doReplaceArmorWithEldritchMindOnWarlockLevelGain"
+        | "doReplaceRepeatableInvocationByChoice" => {
+            CreationRetainedReferenceOperation::ReplaceAndProject
+        }
+        "doRejectPrerequisiteRetainedInvocationReplacement"
+        | "doRejectDuplicateInvocationSelections" => {
+            CreationRetainedReferenceOperation::RejectSelection
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    };
+    expected_retained_reference_route(operation)
 }
 
 pub fn projection_payload(witness: &WarlockInvocationWitness) -> String {

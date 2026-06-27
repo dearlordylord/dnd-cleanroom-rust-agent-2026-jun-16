@@ -47,9 +47,39 @@
       "fieldPath": "WarlockInvocationSelectionProjection.selected_invocations",
       "introducedIn": "src/rules/class_features.rs",
       "owner": "executable-boundary-projection"
+    },
+    {
+      "fieldPath": "ClassFeatureProjection.resource",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection",
+      "derivability": {
+        "tag": "stored-executable-boundary-projection",
+        "boundary": "support-profile admitted class feature facts",
+        "sourceField": "ClassFeatureProjectionFacts.resource"
+      }
+    },
+    {
+      "fieldPath": "ClassOrderProjection.training",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection",
+      "derivability": {
+        "tag": "stored-executable-boundary-projection",
+        "boundary": "support-profile admitted order facts",
+        "sourceField": "ClassOrderFacts.training"
+      }
+    },
+    {
+      "fieldPath": "WeaponMasteryProjection.selected_mastery_choice_count",
+      "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection",
+      "derivability": {
+        "tag": "stored-executable-boundary-projection",
+        "boundary": "support-profile admitted weapon mastery facts",
+        "sourceField": "WeaponMasteryFacts.choice_count"
+      }
     }
   ],
-  "durableFieldsReason": "L15-RR08 introduces shared character-owned creation state and support-fact projections. Authored ids remain in adapter witnesses and evidence; production routing uses typed facts, route events, and character-owned state.",
+  "durableFieldsReason": "L15-RR08 stores character-owned creation draft/route state and support-fact projections. Authored ids remain in adapter witnesses, tests, evidence, and selection-boundary mappings; production class-feature rules consume admitted fact shapes rather than selected official identity.",
   "nonDurableBoundaryApiSurface": [
     {
       "apiPath": "CharacterCreationState.route",
@@ -91,6 +121,12 @@
       "apiPath": "WarlockInvocationSelectionProjection.selected_invocations",
       "boundary": "adapter projection witness",
       "introducedIn": "src/rules/class_features.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "character_creation_expected_routes.expected_retained_reference_route",
+      "boundary": "adapter-only QNT literal expected route witness",
+      "introducedIn": "src/qnt_adapters/character_creation_expected_routes.rs",
       "owner": "executable-boundary-projection"
     }
   ],

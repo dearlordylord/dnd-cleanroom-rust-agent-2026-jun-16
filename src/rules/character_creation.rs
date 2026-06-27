@@ -579,6 +579,7 @@ pub struct CharacterCreationStep {
 pub enum CreationRetainedReferenceOperation {
     RetainOnly,
     RetainAndProject,
+    ProjectBuildFacts,
     ReplaceAndProject,
     RejectSelection,
 }
@@ -701,6 +702,12 @@ pub fn apply_creation_retained_reference_operation(
                 subject: CreationRouteSubjectFamily::RetainedReference,
                 owner: CreationRouteOwnerGroup::CreationRetainedReference,
             });
+            route.push(CreationRouteEvent::ProjectCharacterBuildFacts {
+                subject: CreationRouteSubjectFamily::BuildProjection,
+                owner: CreationRouteOwnerGroup::CharacterBuild,
+            });
+        }
+        CreationRetainedReferenceOperation::ProjectBuildFacts => {
             route.push(CreationRouteEvent::ProjectCharacterBuildFacts {
                 subject: CreationRouteSubjectFamily::BuildProjection,
                 owner: CreationRouteOwnerGroup::CharacterBuild,

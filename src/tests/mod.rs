@@ -130,6 +130,8 @@ mod character_creation_class_feature_projections;
 mod character_creation_class_feature_selected_identity;
 #[path = "../qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs"]
 mod character_creation_cleric_druid_order_selected_identity;
+#[path = "../qnt_adapters/character_creation_expected_routes.rs"]
+mod character_creation_expected_routes;
 #[path = "../qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs"]
 mod character_creation_fighter_fighting_style_selected_identity;
 #[path = "../qnt_adapters/character_creation_rogue_expertise_selected_identity.rs"]
@@ -223,11 +225,13 @@ use crate::rules::chained_spell_attacks::{
     ChainedDamageRollFacts, ChainedDamageTypeChoice, ChainedTarget, ChromaticOrbSequenceState,
 };
 use crate::rules::class_features::{
-    apply_weapon_mastery_long_rest_reselection, cleric_divine_order_projection,
-    druid_primal_order_projection, fighter_fighting_style_projection, level_two_feature_projection,
-    weapon_mastery_projection, Cantrip, ClassLevel, ClericDivineOrder, DruidPrimalOrder,
-    FeatureSet, FighterFightingStyleSelection, FightingStyleFeat, MetamagicOption, ProjectionError,
-    Weapon, WeaponMasteryClass, WeaponMasteryReselectionFacts,
+    apply_weapon_mastery_long_rest_reselection, class_feature_projection, class_order_projection,
+    fighter_fighting_style_projection, weapon_mastery_projection, Cantrip,
+    ClassFeatureProjectionFacts, ClassLevel, ClassResource, ClassUnit,
+    FighterFightingStyleSelection, FightingStyleFeat, MetamagicEffect, MetamagicOptionFact,
+    MetamagicOptionKey, MetamagicRepeatability, MetamagicSelection, MetamagicStackingMode,
+    ProjectionError, ResourceKind, ResourceRecovery, ResourceUnit, RuleFact, RuleFactKind,
+    SpellUseLimit, Weapon, WeaponMasteryFeature, WeaponMasteryReselectionFacts,
 };
 use crate::rules::command_options::{
     cleanup_command_halt_turn, command_after_saving_throw_stage, command_fill_order_result,
@@ -1002,11 +1006,12 @@ use character_creation_class_feature_selected_identity::{
     BRANCH_ACTIONS as SELECTED_CLASS_FEATURE_BRANCH_ACTIONS,
 };
 use character_creation_cleric_druid_order_selected_identity::{
-    expected_cleric_protector_witness, expected_cleric_thaumaturge_witness,
-    expected_druid_magician_witness, expected_druid_warden_witness,
-    expected_route as expected_order_route, projection_payload as order_projection_payload,
-    replay_observed_action as replay_order_action, replay_observed_route as replay_order_route,
-    route_projection_payload as order_route_payload, BRANCH_ACTIONS as ORDER_BRANCH_ACTIONS,
+    cleric_thaumaturge_facts, druid_magician_facts, expected_cleric_protector_witness,
+    expected_cleric_thaumaturge_witness, expected_druid_magician_witness,
+    expected_druid_warden_witness, expected_route as expected_order_route,
+    projection_payload as order_projection_payload, replay_observed_action as replay_order_action,
+    replay_observed_route as replay_order_route, route_projection_payload as order_route_payload,
+    BRANCH_ACTIONS as ORDER_BRANCH_ACTIONS,
 };
 use character_creation_fighter_fighting_style_selected_identity::{
     expected_replace_defense_with_archery_witness, expected_route as expected_fighting_style_route,
@@ -1044,7 +1049,7 @@ use character_creation_weapon_mastery_containers_selected_identity::{
     projection_payload as weapon_mastery_projection_payload,
     replay_observed_action as replay_weapon_mastery_action,
     replay_observed_route as replay_weapon_mastery_route,
-    route_projection_payload as weapon_mastery_route_payload,
+    route_projection_payload as weapon_mastery_route_payload, weapon_mastery_facts,
     BRANCH_ACTIONS as CREATION_WEAPON_MASTERY_BRANCH_ACTIONS,
 };
 use character_layer_projection_lifecycle::{
@@ -1223,11 +1228,33 @@ fn selected_class_feature_adapter_replays_all_branches() {
 
 #[test]
 fn sorcerer_metamagic_projection_rejects_duplicate_options() {
-    let result = level_two_feature_projection(FeatureSet::SorcererLevelTwo {
-        metamagic_options: [
-            MetamagicOption::EmpoweredSpell,
-            MetamagicOption::EmpoweredSpell,
-        ],
+    let duplicated_option = MetamagicOptionFact {
+        choice_key: MetamagicOptionKey(1),
+        sorcery_point_cost: 1,
+        stacking_mode: MetamagicStackingMode::CanCombineWithDifferentMetamagic,
+        effect: MetamagicEffect::DamageDiceReroll,
+    };
+    let result = class_feature_projection(ClassFeatureProjectionFacts {
+        resource: ClassResource {
+            unit: ResourceUnit::FontOfMagic,
+            kind: ResourceKind::PointPool,
+            maximum: 2,
+            recovery: ResourceRecovery::LongRest,
+        },
+        fact: RuleFact {
+            kind: RuleFactKind::Metamagic,
+            linked_resource: ResourceUnit::FontOfMagic,
+            martial_arts_die: None,
+            level_bonus: None,
+            metamagic: Some(MetamagicSelection {
+                owner_level: ClassLevel::Two,
+                choice_count: 2,
+                repeatability: MetamagicRepeatability::Unique,
+                point_pool: ResourceUnit::FontOfMagic,
+                spell_use_limit: SpellUseLimit::OnePerSpellUnlessOptionAllowsStacking,
+                options: [duplicated_option, duplicated_option],
+            }),
+        },
     });
 
     assert_eq!(result, Err(ProjectionError::DuplicateMetamagicOption));
@@ -1269,12 +1296,8 @@ fn order_projection_keeps_base_and_selected_training_distinct() {
     // "Core Cleric Traits" and "Level 1: Divine Order";
     // cleanroom-input/raw/srd-5.2.1/Classes/Druid.md
     // "Core Druid Traits" and "Level 1: Primal Order".
-    let cleric_thaumaturge = cleric_divine_order_projection(ClericDivineOrder::Thaumaturge {
-        extra_cantrip: Cantrip::Light,
-    });
-    let druid_magician = druid_primal_order_projection(DruidPrimalOrder::Magician {
-        extra_cantrip: Cantrip::Guidance,
-    });
+    let cleric_thaumaturge = class_order_projection(cleric_thaumaturge_facts(Cantrip::Light));
+    let druid_magician = class_order_projection(druid_magician_facts(Cantrip::Guidance));
 
     assert!(cleric_thaumaturge.training.medium_armor_training);
     assert!(!cleric_thaumaturge.training.heavy_armor_training);
@@ -1524,12 +1547,12 @@ fn weapon_mastery_projection_enforces_class_choice_count() {
     // "Level 1: Weapon Mastery"; cleanroom-input/raw/srd-5.2.1/Classes/Barbarian.md,
     // Paladin.md, Ranger.md, and Rogue.md "Level 1: Weapon Mastery".
     let fighter = weapon_mastery_projection(
-        WeaponMasteryClass::Fighter,
+        weapon_mastery_facts(WeaponMasteryFeature::Fighter, ClassUnit::Fighter, 3),
         &[Weapon::Longsword, Weapon::Spear, Weapon::Flail],
     )
     .expect("fighter has three level-1 weapon mastery choices");
     let short_fighter = weapon_mastery_projection(
-        WeaponMasteryClass::Fighter,
+        weapon_mastery_facts(WeaponMasteryFeature::Fighter, ClassUnit::Fighter, 3),
         &[Weapon::Longsword, Weapon::Spear],
     );
 

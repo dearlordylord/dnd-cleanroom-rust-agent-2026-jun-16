@@ -1,3 +1,4 @@
+use super::character_creation_expected_routes::expected_retained_reference_route;
 use crate::rules::character_creation::{
     apply_creation_retained_reference_operation, completed_fighter_creation_state, route_payload,
     CreationRetainedReferenceOperation, CreationRouteEvent,
@@ -59,7 +60,12 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CreationRouteEv
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<CreationRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    let operation = if observed_action_taken.starts_with("doSelect") {
+        CreationRetainedReferenceOperation::RetainOnly
+    } else {
+        CreationRetainedReferenceOperation::ReplaceAndProject
+    };
+    expected_retained_reference_route(operation)
 }
 
 pub fn route_projection_payload(route: &[CreationRouteEvent]) -> String {

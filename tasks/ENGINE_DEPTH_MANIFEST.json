@@ -3,12 +3,24 @@
     {
       "addedEntries": 55,
       "owner": "adapter",
-      "reason": "One harness evidence run per selected character-creation branch obligation; durable state remains shared in character_creation.rs and class_features.rs."
+      "reason": "One harness evidence run per selected character-creation branch obligation; expected qRoute witnesses are adapter-local QNT literals, and durable state remains shared in character_creation.rs and class_features.rs."
     }
   ],
   "adapterModules": [
     {
-      "adapterScope": "L15-RR08 character creation route replay and selected-identity projection quarantine",
+      "adapterScope": "L15-RR08 independent QNT literal expected-route witnesses for character creation route evidence",
+      "path": "src/qnt_adapters/character_creation_expected_routes.rs",
+      "quarantinedWitnessNames": [
+        "expected_completed_fighter_creation_route",
+        "expected_project_build_facts_route",
+        "expected_retained_reference_route"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json"
+      ]
+    },
+    {
+      "adapterScope": "L15-RR08 character creation route replay, selected-identity projection quarantine, and QNT literal expected-route comparison",
       "path": "src/qnt_adapters/character_creation_class_feature_projections.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -87,7 +99,7 @@
       ]
     },
     {
-      "adapterScope": "L15-RR08 character creation route replay and selected-identity projection quarantine",
+      "adapterScope": "L15-RR08 character creation route replay, selected-identity projection quarantine, and QNT literal expected-route comparison",
       "path": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -166,7 +178,7 @@
       ]
     },
     {
-      "adapterScope": "L15-RR08 character creation route replay and selected-identity projection quarantine",
+      "adapterScope": "L15-RR08 character creation route replay, selected-identity projection quarantine, and QNT literal expected-route comparison",
       "path": "src/qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -245,7 +257,7 @@
       ]
     },
     {
-      "adapterScope": "L15-RR08 character creation route replay and selected-identity projection quarantine",
+      "adapterScope": "L15-RR08 character creation route replay, selected-identity projection quarantine, and QNT literal expected-route comparison",
       "path": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -324,7 +336,7 @@
       ]
     },
     {
-      "adapterScope": "L15-RR08 character creation route replay and selected-identity projection quarantine",
+      "adapterScope": "L15-RR08 character creation route replay, selected-identity projection quarantine, and QNT literal expected-route comparison",
       "path": "src/qnt_adapters/character_creation_rogue_expertise_selected_identity.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -403,7 +415,7 @@
       ]
     },
     {
-      "adapterScope": "L15-RR08 character creation route replay and selected-identity projection quarantine",
+      "adapterScope": "L15-RR08 character creation route replay, selected-identity projection quarantine, and QNT literal expected-route comparison",
       "path": "src/qnt_adapters/character_creation_runtime.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -482,7 +494,7 @@
       ]
     },
     {
-      "adapterScope": "L15-RR08 character creation route replay and selected-identity projection quarantine",
+      "adapterScope": "L15-RR08 character creation route replay, selected-identity projection quarantine, and QNT literal expected-route comparison",
       "path": "src/qnt_adapters/character_creation_warlock_eldritch_invocations_selected_identity.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -561,7 +573,7 @@
       ]
     },
     {
-      "adapterScope": "L15-RR08 character creation route replay and selected-identity projection quarantine",
+      "adapterScope": "L15-RR08 character creation route replay, selected-identity projection quarantine, and QNT literal expected-route comparison",
       "path": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -642,6 +654,7 @@
   ],
   "expectedNextReuse": [
     "CharacterCreationState.route is reusable by later character-sheet and battle handoff route lanes.",
+    "Adapter-local QNT literal expected-route helpers are reusable by later character-creation route witness fixes without depending on observed replay helpers.",
     "Class feature support-fact projections are reusable by sheet feature-resource and selected-identity adapters."
   ],
   "productionModulesExtended": [
@@ -650,7 +663,8 @@
         "CharacterCreationState",
         "apply_creation_fill_batch",
         "apply_creation_retained_reference_operation",
-        "route_payload"
+        "route_payload",
+        "CreationRetainedReferenceOperation::ProjectBuildFacts"
       ],
       "owner": "CharacterCreationStateOwner",
       "path": "src/rules/character_creation.rs",
@@ -661,7 +675,10 @@
         "selected_class_feature_projection",
         "expertise_selection_projection",
         "warlock_invocation_selection_projection",
-        "fighter_fighting_style_projection"
+        "fighter_fighting_style_projection",
+        "class_feature_projection",
+        "class_order_projection",
+        "weapon_mastery_projection"
       ],
       "owner": "CharacterCreationSupportProfileOwner",
       "path": "src/rules/class_features.rs",

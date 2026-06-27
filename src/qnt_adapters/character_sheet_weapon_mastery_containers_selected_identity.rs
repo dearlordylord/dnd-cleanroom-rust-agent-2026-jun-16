@@ -1,6 +1,6 @@
 use crate::rules::class_features::{
     apply_weapon_mastery_long_rest_reselection, weapon_mastery_changed_choice_count,
-    weapon_mastery_projection, ClassUnit, ProjectionError, Weapon, WeaponMasteryClass,
+    weapon_mastery_projection, ClassLevel, ClassUnit, ProjectionError, Weapon, WeaponMasteryFacts,
     WeaponMasteryFeature, WeaponMasteryProjection, WeaponMasteryReselectionFacts,
 };
 
@@ -85,7 +85,7 @@ pub fn projection_payload(witness: &SheetWeaponMasteryWitness) -> String {
 
 fn select_paladin_weapon_mastery() -> SheetWeaponMasteryWitness {
     let projection = weapon_mastery_projection(
-        WeaponMasteryClass::Paladin,
+        weapon_mastery_facts(WeaponMasteryFeature::Paladin, ClassUnit::Paladin, 2),
         &[Weapon::Longsword, Weapon::Dagger],
     )
     .expect("paladin selects two weapon mastery choices");
@@ -106,7 +106,7 @@ fn reselect_paladin_weapon_mastery() -> SheetWeaponMasteryWitness {
 
 fn select_ranger_weapon_mastery() -> SheetWeaponMasteryWitness {
     let projection = weapon_mastery_projection(
-        WeaponMasteryClass::Ranger,
+        weapon_mastery_facts(WeaponMasteryFeature::Ranger, ClassUnit::Ranger, 2),
         &[Weapon::Longsword, Weapon::Dagger],
     )
     .expect("ranger selects two weapon mastery choices");
@@ -127,11 +127,26 @@ fn reselect_ranger_weapon_mastery() -> SheetWeaponMasteryWitness {
 
 fn select_rogue_weapon_mastery() -> SheetWeaponMasteryWitness {
     let projection = weapon_mastery_projection(
-        WeaponMasteryClass::Rogue,
+        weapon_mastery_facts(WeaponMasteryFeature::Rogue, ClassUnit::Rogue, 2),
         &[Weapon::Dagger, Weapon::Shortbow],
     )
     .expect("rogue selects two weapon mastery choices");
     selection_witness("rogueSelected", &projection)
+}
+
+fn weapon_mastery_facts(
+    feature: WeaponMasteryFeature,
+    class_unit: ClassUnit,
+    choice_count: u8,
+) -> WeaponMasteryFacts {
+    WeaponMasteryFacts {
+        feature,
+        class_unit,
+        choice_count,
+        build_mastery_feature_count: choice_count,
+        open_hole_count: 0,
+        total_level: ClassLevel::One,
+    }
 }
 
 fn reselect_rogue_weapon_mastery() -> SheetWeaponMasteryWitness {

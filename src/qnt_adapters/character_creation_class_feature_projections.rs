@@ -1,11 +1,13 @@
+use super::character_creation_expected_routes::expected_project_build_facts_route;
 use crate::rules::character_creation::{
     apply_creation_retained_reference_operation, completed_fighter_creation_state, route_payload,
     CreationRetainedReferenceOperation, CreationRouteEvent,
 };
 use crate::rules::class_features::{
-    level_two_feature_projection, ClassFeatureProjection, ClassLevel, FeatureSet, MetamagicEffect,
-    MetamagicOption, MetamagicRepeatability, MetamagicStackingMode, ResourceKind, ResourceRecovery,
-    ResourceUnit, RuleFactKind, SpellUseLimit,
+    class_feature_projection, ClassFeatureProjection, ClassFeatureProjectionFacts, ClassLevel,
+    ClassResource, MartialArtsDie, MetamagicEffect, MetamagicOptionFact, MetamagicOptionKey,
+    MetamagicRepeatability, MetamagicSelection, MetamagicStackingMode, ResourceKind,
+    ResourceRecovery, ResourceUnit, RuleFact, RuleFactKind, SpellUseLimit,
 };
 
 pub const BRANCH_ACTIONS: &[&str] = &[
@@ -44,6 +46,12 @@ pub struct ProjectionWitness {
     pub replay_index: u8,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum MetamagicOption {
+    EmpoweredSpell,
+    HeightenedSpell,
+}
+
 pub fn replay_observed_action(observed_action_taken: &str) -> ProjectionWitness {
     match observed_action_taken {
         "doProjectMonkFocusAndUncannyMetabolism" => monk_replay(),
@@ -55,13 +63,18 @@ pub fn replay_observed_action(observed_action_taken: &str) -> ProjectionWitness 
 pub fn replay_observed_route(_observed_action_taken: &str) -> Vec<CreationRouteEvent> {
     apply_creation_retained_reference_operation(
         &completed_fighter_creation_state(),
-        CreationRetainedReferenceOperation::RetainAndProject,
+        CreationRetainedReferenceOperation::ProjectBuildFacts,
     )
     .route
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<CreationRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doProjectMonkFocusAndUncannyMetabolism" | "doProjectSorcererFontAndMetamagic" => {
+            expected_project_build_facts_route()
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn route_projection_payload(route: &[CreationRouteEvent]) -> String {
@@ -202,20 +215,19 @@ pub fn projection_payload(witness: &ProjectionWitness) -> String {
 }
 
 fn monk_replay() -> ProjectionWitness {
-    let observed = level_two_feature_projection(FeatureSet::MonkLevelTwo)
+    let observed = class_feature_projection(monk_level_two_facts())
         .expect("level two monk projection is infallible");
     monk_projection_witness(&observed)
 }
 
 fn sorcerer_replay_after_monk() -> ProjectionWitness {
-    let observed = level_two_feature_projection(FeatureSet::SorcererLevelTwo {
-        metamagic_options: [
-            MetamagicOption::EmpoweredSpell,
-            MetamagicOption::HeightenedSpell,
-        ],
-    })
-    .expect("selected metamagic options are unique");
-    sorcerer_projection_witness(&observed)
+    let selected = [
+        MetamagicOption::EmpoweredSpell,
+        MetamagicOption::HeightenedSpell,
+    ];
+    let observed = class_feature_projection(sorcerer_level_two_facts(selected))
+        .expect("selected metamagic options are unique");
+    sorcerer_projection_witness(&observed, selected)
 }
 
 fn monk_projection_witness(projection: &ClassFeatureProjection) -> ProjectionWitness {
@@ -258,7 +270,10 @@ fn monk_projection_witness(projection: &ClassFeatureProjection) -> ProjectionWit
     }
 }
 
-fn sorcerer_projection_witness(projection: &ClassFeatureProjection) -> ProjectionWitness {
+fn sorcerer_projection_witness(
+    projection: &ClassFeatureProjection,
+    selected: [MetamagicOption; 2],
+) -> ProjectionWitness {
     let metamagic = projection
         .fact
         .metamagic
@@ -284,15 +299,80 @@ fn sorcerer_projection_witness(projection: &ClassFeatureProjection) -> Projectio
         metamagic_choice_count: metamagic.choice_count,
         metamagic_selection_repeatability: metamagic_repeatability(metamagic.repeatability),
         metamagic_sorcery_point_pool_id: "sorcery_points",
-        first_metamagic_option_id: metamagic_option_ref(metamagic.options[0].option),
+        first_metamagic_option_id: metamagic_option_ref(selected[0]),
         first_metamagic_sorcery_point_cost: metamagic.options[0].sorcery_point_cost,
         first_metamagic_stacking_mode: metamagic_stacking_mode(metamagic.options[0].stacking_mode),
         first_metamagic_effect_kind: metamagic_effect(metamagic.options[0].effect),
-        second_metamagic_option_id: metamagic_option_ref(metamagic.options[1].option),
+        second_metamagic_option_id: metamagic_option_ref(selected[1]),
         second_metamagic_sorcery_point_cost: metamagic.options[1].sorcery_point_cost,
         second_metamagic_stacking_mode: metamagic_stacking_mode(metamagic.options[1].stacking_mode),
         second_metamagic_effect_kind: metamagic_effect(metamagic.options[1].effect),
         replay_index: 2,
+    }
+}
+
+fn monk_level_two_facts() -> ClassFeatureProjectionFacts {
+    ClassFeatureProjectionFacts {
+        resource: ClassResource {
+            unit: ResourceUnit::MonksFocus,
+            kind: ResourceKind::UseCount,
+            maximum: 2,
+            recovery: ResourceRecovery::ShortOrLongRest,
+        },
+        fact: RuleFact {
+            kind: RuleFactKind::UncannyMetabolism,
+            linked_resource: ResourceUnit::MonksFocus,
+            martial_arts_die: Some(MartialArtsDie { dice: 1, size: 6 }),
+            level_bonus: Some(2),
+            metamagic: None,
+        },
+    }
+}
+
+fn sorcerer_level_two_facts(
+    metamagic_options: [MetamagicOption; 2],
+) -> ClassFeatureProjectionFacts {
+    ClassFeatureProjectionFacts {
+        resource: ClassResource {
+            unit: ResourceUnit::FontOfMagic,
+            kind: ResourceKind::PointPool,
+            maximum: 2,
+            recovery: ResourceRecovery::LongRest,
+        },
+        fact: RuleFact {
+            kind: RuleFactKind::Metamagic,
+            linked_resource: ResourceUnit::FontOfMagic,
+            martial_arts_die: None,
+            level_bonus: None,
+            metamagic: Some(MetamagicSelection {
+                owner_level: ClassLevel::Two,
+                choice_count: 2,
+                repeatability: MetamagicRepeatability::Unique,
+                point_pool: ResourceUnit::FontOfMagic,
+                spell_use_limit: SpellUseLimit::OnePerSpellUnlessOptionAllowsStacking,
+                options: [
+                    metamagic_option_fact(metamagic_options[0]),
+                    metamagic_option_fact(metamagic_options[1]),
+                ],
+            }),
+        },
+    }
+}
+
+fn metamagic_option_fact(option: MetamagicOption) -> MetamagicOptionFact {
+    match option {
+        MetamagicOption::EmpoweredSpell => MetamagicOptionFact {
+            choice_key: MetamagicOptionKey(1),
+            sorcery_point_cost: 1,
+            stacking_mode: MetamagicStackingMode::CanCombineWithDifferentMetamagic,
+            effect: MetamagicEffect::DamageDiceReroll,
+        },
+        MetamagicOption::HeightenedSpell => MetamagicOptionFact {
+            choice_key: MetamagicOptionKey(2),
+            sorcery_point_cost: 2,
+            stacking_mode: MetamagicStackingMode::OnePerSpell,
+            effect: MetamagicEffect::SavingThrowDisadvantage,
+        },
     }
 }
 

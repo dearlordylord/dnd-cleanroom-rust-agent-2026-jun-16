@@ -34,7 +34,7 @@
       "status": "pass"
     }
   ],
-  "rationale": "L15-RR08 routes character creation draft fills and selected class-feature references through shared character-owned creation state, support-admission facts, and qRoute evidence while keeping authored identity in adapter/test/evidence boundaries.",
+  "rationale": "L15-RR08 routes character creation draft fills and selected class-feature references through shared character-owned creation state, support-admission facts, independent QNT literal expected-route witnesses, and qRoute evidence while keeping authored identity in adapter/test/evidence boundaries.",
   "schemaVersion": 1,
   "taskId": "L15-RR08-CHARACTER-CREATION-ROUTES"
 }
