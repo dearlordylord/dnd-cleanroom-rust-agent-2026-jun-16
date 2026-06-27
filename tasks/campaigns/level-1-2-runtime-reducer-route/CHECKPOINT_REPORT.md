@@ -49,7 +49,7 @@ At `ee30e831b0bc0fa49fa54100e54a45c32a43a60a`:
 - CP3 running:
   - `L15-RR08-CHARACTER-CREATION-ROUTES` launched in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08` with worker Harvey `019f06a6-8ed9-7560-9daa-6922b4bb277d`
   - `L15-RR09-CHARACTER-SHEET-ROUTES` launched in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09` with worker Volta `019f06a6-f828-76d0-b989-42488be5d4b9`
-  - `L15-RR09-CHARACTER-SHEET-ROUTES` fixer Aristotle `019f06b9-b640-7042-ab31-0bec31939b48` committed `410e3db7d181c7fba9265cc753ab977198dacca7`; lane is pending focused re-review against Pauli's three blocker findings.
+  - `L15-RR09-CHARACTER-SHEET-ROUTES` fixer Aristotle `019f06b9-b640-7042-ab31-0bec31939b48` committed `410e3db7d181c7fba9265cc753ab977198dacca7`; re-reviewer Jason `019f06c9-bc48-74b1-87dd-8312784588dd` is checking Pauli's three blocker findings.
   - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` remains ready but not launchable until RR08 and RR09 converge.
 
 ## Coverage Delta Log
