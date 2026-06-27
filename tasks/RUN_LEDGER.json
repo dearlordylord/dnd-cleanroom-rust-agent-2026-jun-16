@@ -2283,6 +2283,90 @@
         }
       ],
       "taskId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE/DECIDER_DECISION.json",
+          "sha256": "029ea7a07b9b0c77f4cb540677abfc6a16c3d37e38d5434f95a0a7940da08e65"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "6e2b626bd0584066fdfca9cfd4d74f29330fa186b1051c41ef8b077d9fedc741"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE/REVIEW_LOOP.json",
+          "sha256": "5c586e86967795326500ad4ddf50c6b0cbe7a245d7a6cec0b84fd043030b168c"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE/START_GATE.json",
+          "sha256": "ffb10bc65f1e517108346b3b2a051789e774b9544a8c36e20f0720916138d751"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE/STATE_OWNER_MANIFEST.json",
+          "sha256": "0066109f25c64d93c81414706607a3b490bc0f40c6fe6e998e4b26088d1e4415"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo test quickened -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "parentRouteTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedRestoration#step:doResolveQuickenedRestoration",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedSaveGatedCondition#step:doResolveQuickenedSaveGatedCondition",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedSaveGatedConditionImmunity#step:doResolveQuickenedSaveGatedConditionImmunity",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedDirectCondition#step:doResolveQuickenedDirectCondition",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedRollModifier#step:doResolveQuickenedRollModifier",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedAfterMagicActionSpent#step:doResolveQuickenedAfterMagicActionSpent",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doRejectUnaffordable#step:doRejectUnaffordable",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doRejectUnknownOption#step:doRejectUnknownOption",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doRejectUnsupportedSecondOption#step:doRejectUnsupportedSecondOption",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doRejectOnePerSpell#step:doRejectOnePerSpell",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doRejectPriorLevelOnePlusSpell#step:doRejectPriorLevelOnePlusSpell",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedSaveGatedDamage#step:doResolveQuickenedSaveGatedDamage",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedSpellAttack#step:doResolveQuickenedSpellAttack",
+            "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedSpellAttackSequence#step:doResolveQuickenedSpellAttackSequence"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json",
+          "sha256": "ea0c7083c7c7acf1ad215d259bcce2ef796a1cad3b074c224c13e9e63427557d"
+        }
+      ],
+      "taskId": "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

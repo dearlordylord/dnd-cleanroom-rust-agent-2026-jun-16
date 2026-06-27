@@ -2220,3 +2220,73 @@ The accepted target replay rows are `qRoute` / `route-event-list` evidence: each
 - cargo test: pass
 - cargo clippy --all-targets -- -D warnings: pass
 - node scripts/check-cleanroom-harness.cjs: pass
+
+## L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE: Quickened Metamagic Governor Substrate
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+
+Allowed inputs used:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.mbt.qnt`
+- `cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md`
+- `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- Repo-local `src/**`, `tasks/**`, scripts, and Cargo tooling
+
+Behavior implemented:
+
+- Replayed Quickened and generic metamagic selected-identity drivers through `BattleState`, `start_battle`, `discover_battle_acts`, typed `MetamagicOptionSpell` subject/fill variants, `resolve_battle_subject`, and `BattleResolutionResult`.
+- Added battle-owned Sorcery Point spend and Quickened substrate projection without production authored-name dispatch.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doResolveQuickenedRestoration` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedRestoration#step:doResolveQuickenedRestoration` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doResolveQuickenedSaveGatedCondition` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedSaveGatedCondition#step:doResolveQuickenedSaveGatedCondition` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doResolveQuickenedSaveGatedConditionImmunity` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedSaveGatedConditionImmunity#step:doResolveQuickenedSaveGatedConditionImmunity` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doResolveQuickenedDirectCondition` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedDirectCondition#step:doResolveQuickenedDirectCondition` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doResolveQuickenedRollModifier` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedRollModifier#step:doResolveQuickenedRollModifier` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doResolveQuickenedAfterMagicActionSpent` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedAfterMagicActionSpent#step:doResolveQuickenedAfterMagicActionSpent` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doRejectUnaffordable` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doRejectUnaffordable#step:doRejectUnaffordable` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doRejectUnknownOption` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doRejectUnknownOption#step:doRejectUnknownOption` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doRejectUnsupportedSecondOption` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doRejectUnsupportedSecondOption#step:doRejectUnsupportedSecondOption` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doRejectOnePerSpell` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doRejectOnePerSpell#step:doRejectOnePerSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt#step:doRejectPriorLevelOnePlusSpell` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doRejectPriorLevelOnePlusSpell#step:doRejectPriorLevelOnePlusSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt#step:doResolveQuickenedSaveGatedDamage` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedSaveGatedDamage#step:doResolveQuickenedSaveGatedDamage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt#step:doResolveQuickenedSpellAttack` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedSpellAttack#step:doResolveQuickenedSpellAttack` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.mbt.qnt#step:doResolveQuickenedSpellAttackSequence` | `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json#L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1 action=doResolveQuickenedSpellAttackSequence#step:doResolveQuickenedSpellAttackSequence` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Reproduction seed or trace id: `L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE seed=1`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- _none_
+
+Verification results:
+
+- `cargo test quickened -- --nocapture` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD` passed.

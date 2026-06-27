@@ -780,9 +780,11 @@ use battle_runtime_movement_forced_movement_selected_identity::{
     OUT_OF_SCOPE_BRANCH_ACTIONS as MOVEMENT_FORCED_MOVEMENT_OUT_OF_SCOPE_BRANCH_ACTIONS,
 };
 use battle_runtime_quickened_spell_governor::{
+    expected_route as expected_quickened_spell_route,
     expected_witness as expected_quickened_spell_witness,
     projection_payload as quickened_spell_projection_payload,
     replay_observed_action as replay_quickened_spell_action,
+    replay_observed_route as replay_quickened_spell_route,
     BRANCH_ACTIONS as QUICKENED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_reaction_casting_time::{
@@ -889,21 +891,27 @@ use battle_runtime_sorcerer_metamagic_seeking_selected_identity::{
     BRANCH_ACTIONS as SEEKING_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_selected_identity::{
+    expected_route as expected_quickened_metamagic_route,
     expected_witness as expected_quickened_metamagic_witness,
     projection_payload as quickened_metamagic_projection_payload,
     replay_observed_action as replay_quickened_metamagic_action,
+    replay_observed_route as replay_quickened_metamagic_route,
     BRANCH_ACTIONS as QUICKENED_METAMAGIC_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_spell_attack_selected_identity::{
+    expected_route as expected_quickened_spell_attack_route,
     expected_witness as expected_quickened_spell_attack_witness,
     projection_payload as quickened_spell_attack_projection_payload,
     replay_observed_action as replay_quickened_spell_attack_action,
+    replay_observed_route as replay_quickened_spell_attack_route,
     BRANCH_ACTIONS as QUICKENED_SPELL_ATTACK_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity::{
+    expected_route as expected_quickened_spell_attack_sequence_route,
     expected_witness as expected_quickened_spell_attack_sequence_witness,
     projection_payload as quickened_spell_attack_sequence_projection_payload,
     replay_observed_action as replay_quickened_spell_attack_sequence_action,
+    replay_observed_route as replay_quickened_spell_attack_sequence_route,
     BRANCH_ACTIONS as QUICKENED_SPELL_ATTACK_SEQUENCE_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_subtle_selected_identity::{
@@ -4787,6 +4795,14 @@ fn quickened_spell_governor_adapter_replays_all_branches() {
         let observed = replay_quickened_spell_action(action);
         assert_eq!(observed, expected_quickened_spell_witness(action));
         assert!(quickened_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_quickened_spell_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_quickened_spell_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(route_payload.contains("BattleFeatureResourceOwner"));
     }
 }
 
@@ -6929,6 +6945,14 @@ fn quickened_metamagic_adapter_replays_all_branches() {
         assert!(
             quickened_metamagic_projection_payload(&observed).contains("protocolResult=resolved")
         );
+        let route = replay_quickened_metamagic_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_quickened_metamagic_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(route_payload.contains("BattleSpellSlotAndActionEconomyOwner"));
     }
 }
 
@@ -6969,6 +6993,14 @@ fn quickened_spell_attack_adapter_replays_all_branches() {
         assert_eq!(observed, expected_quickened_spell_attack_witness(action));
         assert!(quickened_spell_attack_projection_payload(&observed)
             .contains("protocolResult=resolved"));
+        let route = replay_quickened_spell_attack_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_quickened_spell_attack_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(route_payload.contains("BattleSpellSlotAndActionEconomyOwner"));
     }
 }
 
@@ -7012,6 +7044,14 @@ fn quickened_spell_attack_sequence_adapter_replays_all_branches() {
             quickened_spell_attack_sequence_projection_payload(&observed)
                 .contains("protocolResult=resolved")
         );
+        let route = replay_quickened_spell_attack_sequence_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_quickened_spell_attack_sequence_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(route_payload.contains("BattleSpellSlotAndActionEconomyOwner"));
     }
 }
 

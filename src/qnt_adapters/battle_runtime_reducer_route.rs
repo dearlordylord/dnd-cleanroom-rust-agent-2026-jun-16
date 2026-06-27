@@ -75,6 +75,7 @@ pub enum ReducerRouteSubjectFamily {
     ActiveFeatureSpellAttackRollMode,
     ActiveFeatureSpellSaveDc,
     AttackActionAreaSaveDamageReplacement,
+    MetamagicOptionSpell,
     UnitFeatureBonusAction,
     WeaponMasteryProperty,
     ZeroHitPointStabilization,
@@ -554,6 +555,9 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement => {
             ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement
         }
+        BattleReducerRouteSubjectFamily::MetamagicOptionSpell => {
+            ReducerRouteSubjectFamily::MetamagicOptionSpell
+        }
         BattleReducerRouteSubjectFamily::UnitFeatureBonusAction => {
             ReducerRouteSubjectFamily::UnitFeatureBonusAction
         }
@@ -976,6 +980,7 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement => {
             "AttackActionAreaSaveDamageReplacementRouteSubject"
         }
+        ReducerRouteSubjectFamily::MetamagicOptionSpell => "MetamagicOptionSpellRouteSubject",
         ReducerRouteSubjectFamily::UnitFeatureBonusAction => "UnitFeatureBonusActionRouteSubject",
         ReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc => {
             "ActiveFeatureSpellSaveDcRouteSubject"
