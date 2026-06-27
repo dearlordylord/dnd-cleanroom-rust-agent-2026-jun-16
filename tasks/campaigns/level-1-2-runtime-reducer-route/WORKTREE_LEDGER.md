@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FC-07-PACT-SLOT-HANDOFF-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-pact-slot-replay` | `ralph/fresh-pact-slot-replay` | `8ec4bc46bfd961345c4f73115d8dc523c5d9163b` | Halley the 2nd (`019f0a88-a545-76e1-9b1b-ee15007116e1`) | pending | running |
 
 ## Historical RRCONV-19 Worktrees
 

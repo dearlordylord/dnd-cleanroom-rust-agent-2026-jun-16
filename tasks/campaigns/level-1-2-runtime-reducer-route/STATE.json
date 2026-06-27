@@ -2361,6 +2361,17 @@
     "status": "accepted-through-sdk-composition",
     "phase": "SDK-TRACER-BULLET-PROGRAMMATIC-SURFACE",
     "phaseName": "Integrated SDK Composition Tracer Bullet",
+    "postFc06PactSlotReplay": {
+      "phase": "FC-07-PACT-SLOT-HANDOFF-REPLAY",
+      "phaseName": "Post-FC06 Pact Slot Handoff Replay",
+      "status": "running",
+      "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-pact-slot-replay",
+      "targetBranch": "ralph/fresh-pact-slot-replay",
+      "baseCommit": "8ec4bc46bfd961345c4f73115d8dc523c5d9163b",
+      "sourceManifestCommitSha": "b57772b459f1b75592fd45b9196fd60965b534d3",
+      "workerAgent": "Halley the 2nd (019f0a88-a545-76e1-9b1b-ee15007116e1)",
+      "scope": "Fresh target replay of newly copied Pact Slot handoff route surfaces from character-battle-init-projection.mbt.qnt and character-battle-init-projection.route.mbt.qnt. This must not read TypeScript source or dirty cleanroom src/** implementation files."
+    },
     "activePhase": {
       "phase": "FC-06",
       "phaseName": "Audit And Source Feedback",
