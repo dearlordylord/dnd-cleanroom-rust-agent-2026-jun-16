@@ -576,5 +576,16 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Result: fresh target replay accepted the newly copied Pact Slot handoff route surfaces from source commit `b57772b459f1b75592fd45b9196fd60965b534d3`. Pure Pact Slot resource projection emits `HandoffResourceProjectionRouteSubject` through `CharacterBattleResourceProjectionOwner` and then enters runtime through `CharacterBattleInitProjectionOwner`; mixed ordinary Spell Slot/Pact Slot input rejects with `HandoffResourceDeltaFill` and `HandoffSpellResourceProjectionHoleFamily`.
 - Runtime shape: production state now distinguishes ordinary spell resources from Pact Slot resources through typed resource shapes. Mixed ordinary/Pact input is representable at the sheet handoff boundary only so the refreshed QNT rejection route can be observed; accepted battle state has no mixed variant.
 - Verification: `cargo fmt --check`, `cargo test` (`25` reducer-spine tests plus `3` SDK tests), `cargo clippy --all-targets -- -D warnings`, `python3 tools/verify_fc00.py`, `python3 tools/verify_sdk_tracer_bullet.py`, forbidden source/dirty-implementation path search, JSON parse checks, and `git diff --check 8ec4bc46bfd961345c4f73115d8dc523c5d9163b...HEAD` passed.
-- Residual risk: old FC-03/FC-04/FC-05 verifier scripts still pin historical source-input hashes and fail after the package refresh on `cleanroom-input/guidance/reducer-spine.md`; FC-07 records this as historical verifier drift, not a Pact Slot route/runtime failure.
+- Residual risk before FC-08: old FC-03/FC-04/FC-05 verifier scripts still pinned historical source-input hashes and failed after the package refresh on `cleanroom-input/guidance/reducer-spine.md`; FC-08 replaced that with a current verifier gate and historical snapshot classification.
 - Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-pact-slot-replay`
+
+### FC-08-FRESH-VERIFIER-REFRESH
+
+- Target commit: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
+- Implementation commit: `e460e9ed7f3448b139ded01128111e276a7fbb41`
+- Static-boundary fix commit: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
+- Workers: Ampere the 2nd (`019f0aa1-145d-7c41-bfff-114cb4d6427d`) and Harvey the 2nd (`019f0aab-ccd3-70d3-9438-5cbe58724ba1`)
+- Result: fresh target `master` fast-forwarded to the current verifier gate after the `b57772b459f1b75592fd45b9196fd60965b534d3` input package refresh. `python3 tools/verify_current_fresh_target.py` now validates the current package inventory, strict FC-07 Pact Slot source-input hashes and route comparisons, SDK tracer-bullet surface, and FC-03/FC-04/FC-05 historical snapshot classification.
+- Static boundary: the broad forbidden source/dirty-implementation path search returns no matches while the verifier still checks for those paths at runtime.
+- Verification in the accepted fresh target: `cargo fmt --check`, `cargo test` (`25` reducer-spine tests plus `3` SDK tests), `cargo clippy --all-targets -- -D warnings`, `python3 tools/verify_current_fresh_target.py`, and the forbidden source/dirty-implementation path search passed.
+- Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-verifier-refresh`

@@ -70,4 +70,6 @@ route-surface gap from that report is also resolved in the copied source
 package by source commit `b57772b459f1b75592fd45b9196fd60965b534d3`; this SDK
 composition acceptance itself does not claim a fresh target replay for those
 Pact Slot branches. The later FC-07 fresh target replay accepts those branches
-at commit `f0ee8f8eb95192639afe5b6af17764dfe46c5303`.
+at commit `f0ee8f8eb95192639afe5b6af17764dfe46c5303`, and the later FC-08
+current verifier accepts the refreshed package at commit
+`a30e6729711ddc3f595cf008931ba5cd6265c58a`.

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-sdk-composition-accepted-source-feedback-resolved",
+  "status": "fresh-current-verifier-accepted-source-feedback-resolved",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -2353,23 +2353,38 @@
     "status": "resolved-and-target-replayed",
     "resolvedItems": [
       "Encounter composition surface QNT/guidance task resolved by source commit 0387d29f9282037637b4256c3c7f292bab7ef85c and fresh target commit 893198ce66a35c8aad007ad8ac7a61c4631c64d9.",
-      "Pact Slot handoff route surfaces for pure Pact Slot and mixed Spell Slot/Pact Slot branches resolved by source commit b57772b459f1b75592fd45b9196fd60965b534d3 and accepted by fresh target commit f0ee8f8eb95192639afe5b6af17764dfe46c5303."
+      "Pact Slot handoff route surfaces for pure Pact Slot and mixed Spell Slot/Pact Slot branches resolved by source commit b57772b459f1b75592fd45b9196fd60965b534d3 and accepted by fresh target commit a30e6729711ddc3f595cf008931ba5cd6265c58a."
     ],
     "remainingItems": []
   },
   "freshCleanroomDryRun": {
-    "status": "accepted-through-sdk-composition-plus-pact-slot-replay",
-    "phase": "FC-07-PACT-SLOT-HANDOFF-REPLAY",
-    "phaseName": "Post-FC06 Pact Slot Handoff Replay",
+    "status": "accepted-through-current-verifier",
+    "phase": "FC-08-FRESH-VERIFIER-REFRESH",
+    "phaseName": "Fresh Verifier Refresh After Input Package Update",
     "postFc07VerifierRefresh": {
       "phase": "FC-08-FRESH-VERIFIER-REFRESH",
       "phaseName": "Fresh Verifier Refresh After Input Package Update",
-      "status": "running",
+      "status": "accepted",
       "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-verifier-refresh",
       "targetBranch": "ralph/fresh-verifier-refresh",
       "baseCommit": "f0ee8f8eb95192639afe5b6af17764dfe46c5303",
+      "implementationCommit": "e460e9ed7f3448b139ded01128111e276a7fbb41",
+      "targetCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
       "workerAgent": "Ampere the 2nd (019f0aa1-145d-7c41-bfff-114cb4d6427d)",
-      "scope": "Repair fresh-run verifier story after the cleanroom-input refresh so historical FC-03/FC-04/FC-05 evidence is not incorrectly revalidated against the b57772b input package, while current FC-07 evidence remains strictly validated."
+      "fixerAgent": "Harvey the 2nd (019f0aab-ccd3-70d3-9438-5cbe58724ba1)",
+      "scope": "Repair fresh-run verifier story after the cleanroom-input refresh so historical FC-03/FC-04/FC-05 evidence is not incorrectly revalidated against the b57772b input package, while current FC-07 evidence remains strictly validated.",
+      "currentGate": "python3 tools/verify_current_fresh_target.py",
+      "checks": [
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "python3 tools/verify_fc00.py",
+        "python3 tools/verify_sdk_tracer_bullet.py",
+        "python3 tools/verify_current_fresh_target.py",
+        "forbidden source/dirty implementation path search returned no matches",
+        "git diff --check f0ee8f8eb95192639afe5b6af17764dfe46c5303...HEAD"
+      ],
+      "result": "Fresh target master fast-forwarded to a30e6729711ddc3f595cf008931ba5cd6265c58a. Current gate validates b57772b package inventory, strict FC-07 Pact Slot source-input hashes and route comparisons, SDK tracer surface, and FC-03/FC-04/FC-05 historical snapshot classification."
     },
     "postFc06PactSlotReplay": {
       "phase": "FC-07-PACT-SLOT-HANDOFF-REPLAY",
@@ -2380,7 +2395,7 @@
       "targetBranch": "ralph/fresh-pact-slot-replay",
       "baseCommit": "8ec4bc46bfd961345c4f73115d8dc523c5d9163b",
       "implementationCommit": "c6385e25aa87bae5dcb718fbc765b61157c4e1ba",
-      "targetCommit": "f0ee8f8eb95192639afe5b6af17764dfe46c5303",
+      "targetCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
       "sourceManifestCommitSha": "b57772b459f1b75592fd45b9196fd60965b534d3",
       "workerAgent": "Halley the 2nd (019f0a88-a545-76e1-9b1b-ee15007116e1)",
       "scope": "Fresh target replay of newly copied Pact Slot handoff route surfaces from character-battle-init-projection.mbt.qnt and character-battle-init-projection.route.mbt.qnt. This did not read TypeScript source or dirty cleanroom src/** implementation files.",
@@ -2394,7 +2409,7 @@
         "forbidden source/dirty implementation path search",
         "git diff --check 8ec4bc46bfd961345c4f73115d8dc523c5d9163b...HEAD"
       ],
-      "residualRisk": "Historical FC-03/FC-04/FC-05 verifier scripts still pin pre-refresh source-input hashes and fail on cleanroom-input/guidance/reducer-spine.md after the package refresh; FC-07 records this as verifier drift, not route/runtime failure."
+      "residualRisk": "Historical FC-03/FC-04/FC-05 verifier scripts still pin historical source-input hashes. The accepted current gate is python3 tools/verify_current_fresh_target.py, which classifies those artifacts as historical snapshot evidence and strictly verifies the current FC-07 Pact Slot replay against the b57772b package."
     },
     "activePhase": {
       "phase": "FC-06",
@@ -2434,7 +2449,7 @@
         {
           "id": "FC-05-pact-slot-branches-lack-route-connector",
           "status": "source-surface-resolved-and-fresh-target-accepted",
-          "summary": "FC-05 recorded this as a limitation because the copied route connector then exposed no generic route surfaces for pure Pact Slot and mixed Spell Slot/Pact Slot branches. Source commit b57772b459f1b75592fd45b9196fd60965b534d3 supplied those route surfaces; fresh target commit f0ee8f8eb95192639afe5b6af17764dfe46c5303 accepted them through public handoff entrypoints."
+          "summary": "FC-05 recorded this as a limitation because the copied route connector then exposed no generic route surfaces for pure Pact Slot and mixed Spell Slot/Pact Slot branches. Source commit b57772b459f1b75592fd45b9196fd60965b534d3 supplied those route surfaces; fresh target commit a30e6729711ddc3f595cf008931ba5cd6265c58a accepts them through public handoff entrypoints and the current verifier gate."
         }
       ],
       "reviewFindings": [
@@ -2476,7 +2491,7 @@
         "git diff --check 101603476fd473483f4480f55bea9c3555d9aefa...HEAD",
         "git status --short"
       ],
-      "residualRisk": "FC-05 proves handoff-route projection plus shared BattleState entry, not a full character-creation-to-battle gameplay scenario. The SDK-style tracer bullet remains a pending completion gate."
+    "residualRisk": "FC-05 itself proves handoff-route projection plus shared BattleState entry, not a full character-creation-to-battle gameplay scenario. The later SDK-style tracer bullet and current fresh verifier are accepted in this same campaign state."
     },
     "earlierReviewedPhase": {
       "phase": "FC-03",
@@ -2630,10 +2645,19 @@
       },
       {
         "phase": "SOURCE-FEEDBACK-PACT-SLOT-ROUTE-SURFACES",
-        "status": "source-surface-resolved",
+        "status": "source-surface-resolved-and-fresh-target-accepted",
         "sourceCommitSha": "b57772b459f1b75592fd45b9196fd60965b534d3",
         "artifact": "tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md",
-        "targetReplayStatus": "not-yet-run"
+        "targetReplayStatus": "accepted",
+        "targetHead": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
+        "currentGate": "python3 tools/verify_current_fresh_target.py"
+      },
+      {
+        "phase": "FC-08-FRESH-VERIFIER-REFRESH",
+        "status": "reviewed-accepted",
+        "implementationCommit": "e460e9ed7f3448b139ded01128111e276a7fbb41",
+        "targetHead": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
+        "artifact": "python3 tools/verify_current_fresh_target.py"
       }
     ],
     "previousAcceptedPhase": {
@@ -2696,6 +2720,12 @@
         "fullFledgedIntegratedScenarioPossibleNow": true,
         "evidence": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_SDK_COMPOSITION_ACCEPTANCE.md",
         "targetCommit": "893198ce66a35c8aad007ad8ac7a61c4631c64d9"
+      },
+      {
+        "gate": "Current fresh target verifier after b57772b input refresh",
+        "status": "accepted",
+        "evidence": "python3 tools/verify_current_fresh_target.py",
+        "targetCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a"
       }
     ],
     "earlierReviewedPhaseFc04": {
@@ -2737,7 +2767,7 @@
     }
   },
   "nextWorkRecommendations": [
-    "Use the accepted fresh target at f0ee8f8eb95192639afe5b6af17764dfe46c5303 as the current strongest evidence for SDK composition plus Pact Slot handoff replay.",
+    "Use the accepted fresh target at a30e6729711ddc3f595cf008931ba5cd6265c58a as the current strongest evidence for SDK composition plus Pact Slot handoff replay, verified by python3 tools/verify_current_fresh_target.py.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."

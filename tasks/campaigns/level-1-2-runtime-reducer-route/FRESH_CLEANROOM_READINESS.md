@@ -27,13 +27,15 @@ review checks were needed to prevent false positives.
 
 Authoritative state:
 
-- `STATE.json.status`: `post-source-refresh-complete`
+- `STATE.json.status`: `fresh-current-verifier-accepted-source-feedback-resolved`
 - refreshed in-scope obligations: `659`
 - accepted obligations: `659`
 - accepted driver coverage: `97 / 97`
 - blockers: `0`
 - out-of-scope obligations: `45`
 - active lane worktrees: none
+- active fresh dry-run worktrees: none
+- strongest fresh target evidence: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
 
 The final CP8 lane accepted exactly these three newly accepted rows:
 
@@ -78,16 +80,18 @@ generic connector route shape but was not counted as a new CP8 row.
   resolved by source commit `b57772b459f1b75592fd45b9196fd60965b534d3`.
   Dirty target replay evidence consumes those Pact Slot connector facts in
   `tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json`;
-  fresh target commit `f0ee8f8eb95192639afe5b6af17764dfe46c5303` now also
-  accepts them through public handoff entrypoints.
+  fresh target commit `a30e6729711ddc3f595cf008931ba5cd6265c58a` now also
+  accepts them through public handoff entrypoints and verifies the current
+  package through `python3 tools/verify_current_fresh_target.py`.
 - It does not prove global harness cleanliness. `node
   scripts/check-cleanroom-harness.cjs` still fails on stale validator hashes in
   `cleanroom-input/MANIFEST.md` for:
   - `scripts/check-cleanroom-harness.cjs`
   - `scripts/cleanroom-branch-coverage-check.cjs`
-- It does not remove old historical evidence debt or ambiguous legacy evidence
-  references. Those are dirty-rehearsal cleanup tasks, not proof blockers for
-  CP8-specific route acceptance.
+- It does not remove every old historical evidence artifact. The fresh current
+  gate classifies FC-03/FC-04/FC-05 as historical snapshots after the input
+  refresh; broader dirty-rehearsal cleanup remains optional unless the dirty
+  harness must pass without exception.
 
 ## Fresh Cleanroom Inputs That Worked
 
@@ -132,12 +136,14 @@ bookkeeping.
 ## Recommended Next Work
 
 The dirty Rust target campaign is closed for the refreshed in-scope denominator,
-the fresh SDK composition tracer is accepted, and the FC-06 source feedback is
-resolved in the copied source package. Next useful work is one of:
+the fresh SDK composition tracer is accepted, the FC-06 source feedback is
+resolved in the copied source package, and the current fresh verifier is green.
+Next useful work is one of:
 
 - use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
-  `f0ee8f8eb95192639afe5b6af17764dfe46c5303` as the accepted evidence for the
-  integrated SDK tracer-bullet plus post-FC06 Pact Slot handoff replay;
+  `a30e6729711ddc3f595cf008931ba5cd6265c58a` as the accepted evidence for the
+  integrated SDK tracer-bullet plus post-FC06 Pact Slot handoff replay, with
+  `python3 tools/verify_current_fresh_target.py` as the current package gate;
 - clean the global stale validator-hash / historical evidence debt so the dirty
   harness can pass without exception;
 - promote the strongest route-connector lessons back into source-side QNT and
