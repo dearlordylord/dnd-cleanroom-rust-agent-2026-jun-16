@@ -191,7 +191,7 @@
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "reviewing",
+    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready",
@@ -218,7 +218,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b",
       "branch": "ralph/l15-rr07-fu01b-spell-attack-damage",
       "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
-      "status": "reviewing",
+      "status": "fixing-review-findings",
       "workerAgent": "019f079d-4d22-75e0-b100-3872c7e6bdc2",
       "workerName": "Euler",
       "commit": "11f9f56bf2dccee87204371cb9a5d5f125e6402c",
@@ -237,7 +237,22 @@
       ],
       "reviewAgent": "019f07ac-40b5-7080-8a85-491461a3c337",
       "reviewName": "Carson",
-      "reviewStatus": "running"
+      "reviewStatus": "findings",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "Top-level task artifacts and history/target replay evidence are stale or missing for FU01B; they still identify FU01A or older lanes.",
+        "Blocked rows are excluded from observed replay but still return normal resolved expected witnesses, which can make blockers look accepted/resolved."
+      ],
+      "reviewVerification": [
+        "git merge-base --is-ancestor 6bad2c3509996b8cafab2a1d0258e3062e8ff60b HEAD",
+        "cargo test attack_spell_shape_adapter_replays_all_branches",
+        "cargo test level1_damage_spell_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
