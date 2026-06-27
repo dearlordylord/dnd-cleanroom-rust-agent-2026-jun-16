@@ -1053,6 +1053,45 @@
         "src/tests/mod.rs",
         "tasks/**"
       ]
+    },
+    {
+      "laneId": "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
+      "checkpointId": "CP7",
+      "status": "running",
+      "parallelGroup": "cp7-target-blocker-reduction",
+      "routeTaskIds": [
+        "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES"
+      ],
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 1,
+      "branchObligations": 4,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt"
+      ],
+      "selectedBranchActions": [
+        "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
+        "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
+        "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
+        "doHexMarkedDamageRiderAndLaterTurnTransfer"
+      ],
+      "purpose": "Reduce CP6 target-side blockers by routing generic condition-immunity plus turn-start Temporary Hit Points and marked-damage transfer effects through shared BattleState reducer subjects, without authored spell identity dispatch.",
+      "dependencies": [
+        "CP6 complete",
+        "copied FU01C QNT/guidance present in cleanroom-input"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json",
+        "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/**",
+        "tasks/RUN_LEDGER.json",
+        "tasks/VALIDATION_REPORT.md"
+      ],
+      "acceptanceSummary": "The four selected FU01C rows replay through observed reducer entrypoints and generic active-effect/marked-effect subjects. Evidence must replace target blockers with accepted route rows only when route events come from BattleEntrypointTrace, not adapter-local synthesis."
     }
   ],
   "standardVerification": [

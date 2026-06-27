@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "complete",
+  "status": "post-cp6-active",
   "dirtyCleanroomOnly": true,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -58,7 +58,7 @@
     "RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT",
     "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
   ],
-  "activeCheckpoint": "CP6",
+  "activeCheckpoint": "CP7",
   "checkpoints": [
     {
       "checkpointId": "CP0",
@@ -180,6 +180,19 @@
         "CP5"
       ],
       "notes": "Closure sweep refreshed after FU01D accepted evidence. CP6_AUDIT.json records 643 accepted pass obligations, 25 explicit target blockers, 0 source-QNT corpus blockers, 36 out-of-scope obligations, and 0 unresolved in-scope obligations."
+    },
+    {
+      "checkpointId": "CP7",
+      "name": "Post-CP6 Target Blocker Reduction",
+      "status": "active",
+      "dependsOn": [
+        "CP6"
+      ],
+      "runningLaneIds": [
+        "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES"
+      ],
+      "mergedLaneIds": [],
+      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. First lane targets the four FU01C generic active-effect and marked-effect route gaps in battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt."
     }
   ],
   "laneStatuses": {
@@ -231,7 +244,8 @@
     "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES": "merged-verified",
     "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES": "merged-verified",
     "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "merged-verified",
-    "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified"
+    "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified",
+    "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "running"
   },
   "lastIntegrationVerification": {
     "head": "2455ec2f9b3c5d8b696d9cc144f196e9393038c6",

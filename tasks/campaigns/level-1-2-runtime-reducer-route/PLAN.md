@@ -262,6 +262,34 @@ Exit criteria:
 - `STATE.json.status` is `complete` or `blocked`;
 - every blocker has a concrete source QNT/corpus, target implementation, or scope reason.
 
+### CP7: Post-CP6 Target Blocker Reduction
+
+Purpose:
+
+Use CP6's exact target-side blocker list as a new dirty-cleanroom diagnostic
+queue. This phase is still rehearsal work. It reduces blockers only when copied
+QNT/guidance already describes the generic reducer route shape and the dirty
+target can produce observed reducer-entrypoint route evidence.
+
+Initial lane:
+
+- `L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES`
+
+Parallelism:
+
+- start with one lane;
+- add more lanes only after the accepted/blocker accounting for this lane is
+  reviewed, because CP6 blockers mix real target gaps with honest setup,
+  scenario-transition, and vocabulary blockers.
+
+Exit criteria:
+
+- accepted rows replace CP6 target blockers only when observed route events come
+  from shared reducer entrypoints;
+- unchanged blockers remain explicit with concrete reasons;
+- source-QNT/corpus gaps discovered during target work are recorded as source
+  blockers instead of inferred from TypeScript or dirty target history.
+
 ## Standard Lane Lifecycle
 
 1. Mark lane `ready` -> `running` in `STATE.json`.
