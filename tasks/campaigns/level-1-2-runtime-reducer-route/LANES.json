@@ -956,7 +956,7 @@
     {
       "laneId": "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
       "checkpointId": "CP5",
-      "status": "worker-running",
+      "status": "reviewing",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES"
@@ -981,7 +981,7 @@
     {
       "laneId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES",
       "checkpointId": "CP5",
-      "status": "worker-running",
+      "status": "reviewing",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR20-BATTLE-COMPANION-OBJECT-BOUNDARY-ROUTES"
@@ -1030,7 +1030,7 @@
     {
       "laneId": "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES",
       "checkpointId": "CP5",
-      "status": "reviewing",
+      "status": "ready-to-merge",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR16-CHAINED-ATTACK-PROCEDURE-ROUTES",
