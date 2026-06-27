@@ -13,7 +13,9 @@
     "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
     "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
     "doResolveSorcerousBurstSpellAttackDamage",
-    "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage"
+    "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+    "doResolveChromaticOrbDuplicateDamageLeap",
+    "doResolveStarryWispObjectSpellAttackDamageAndDimLight"
   ],
   "decision": "accepted",
   "deterministicGates": [
@@ -50,20 +52,9 @@
       "status": "pass"
     }
   ],
-  "rationale": "Accepted FU01B spell attack/save damage rows replay through production BattleState SpellAttack or SaveGatedSpell reducer routes. doResolveChromaticOrbDuplicateDamageLeap and doResolveStarryWispObjectSpellAttackDamageAndDimLight are explicitly target-blocked because their current Rust substrates are ChromaticOrbSequenceState and StarryWispObjectState projections without production BattleState route subjects.",
+  "rationale": "Accepted FU01B spell attack/save damage rows replay through production BattleState SpellAttack, SaveGatedSpell, ChainedSpellAttackProcedure, or ObjectTargetSpellAttack reducer routes observed via BattleEntrypointTrace. The formerly blocked Chromatic Orb and Starry Wisp rows now reuse the generic chained spell-attack sequence and object-target spell-attack substrates without selected spell identity dispatch.",
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "targetBlockedRows": [
-    {
-      "action": "doResolveChromaticOrbDuplicateDamageLeap",
-      "blockerId": "FU01B-BLOCKED-CHROMATIC-ORB-CHAINED-DAMAGE",
-      "reason": "chained duplicate-damage leap is modeled in ChromaticOrbSequenceState, not production BattleState"
-    },
-    {
-      "action": "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
-      "blockerId": "FU01B-BLOCKED-STARRY-WISP-OBJECT-TARGET",
-      "reason": "object HP and dim-light emitter facts are modeled in StarryWispObjectState, not production BattleState"
-    }
-  ],
+  "targetBlockedRows": [],
   "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
 }

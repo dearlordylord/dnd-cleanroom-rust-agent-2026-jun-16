@@ -32,7 +32,7 @@
       ]
     },
     {
-      "adapterScope": "Accepted level-1 damage spell branches replay through production BattleState SpellAttack and SaveGatedSpell reducer routes; two object/chained branches are executable target blockers.",
+      "adapterScope": "Accepted level-1 damage spell branches replay through production BattleState SpellAttack, SaveGatedSpell, ChainedSpellAttackProcedure, and ObjectTargetSpellAttack reducer routes with route-event-list evidence.",
       "path": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doResolveBurningHandsMixedConeSavingThrows",
@@ -45,7 +45,6 @@
         "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
         "doResolveChromaticOrbDuplicateDamageLeap",
         "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
-        "target-blocker",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
@@ -74,8 +73,8 @@
       "module": "src/rules/battle_reducer_spine.rs"
     },
     {
-      "api": "future BattleState object-target and chained spell-attack route subjects",
-      "driver": "object/chained spell damage follow-up lane",
+      "api": "BattleState generic chained spell-attack and object-target spell-attack route subjects",
+      "driver": "object/chained spell damage follow-up lanes",
       "module": "src/rules/battle_reducer_spine.rs"
     }
   ],
@@ -87,10 +86,12 @@
         "discover_spell_attack_damage_subject_observed",
         "discover_save_gated_damage_subject_observed",
         "resolve_battle_subject_observed",
-        "BattleEntrypointTrace"
+        "BattleEntrypointTrace",
+        "discover_generic_route_subject_observed",
+        "generic_route_subject_from_battle"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
-      "reason": "Owns production BattleState spell-attack and save-gated damage reducer routes used by accepted FU01B witnesses.",
+      "reason": "Owns production BattleState spell-attack, save-gated damage, chained spell-attack, and object-target spell-attack reducer routes used by accepted FU01B witnesses.",
       "role": "domain-engine"
     },
     {
@@ -111,7 +112,7 @@
         "project_starry_wisp_object_spell_attack_damage_and_dim_light"
       ],
       "path": "src/rules/level_one_damage_spells.rs",
-      "reason": "Retains QNT-shaped selected level-1 damage projection facts; blocked object/chained rows remain projection-only until production BattleState routes exist.",
+      "reason": "Retains QNT-shaped selected level-1 damage projection facts while route evidence flows through BattleState reducer entrypoints and shared generic route substrates.",
       "role": "runtime-projection"
     }
   ],

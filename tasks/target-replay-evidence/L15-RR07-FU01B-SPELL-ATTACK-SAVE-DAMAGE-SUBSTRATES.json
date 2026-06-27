@@ -1,5 +1,5 @@
 {
-  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "cleanroomManifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
   "generatedBy": {
     "name": "rust-cleanroom-fu01b-spell-attack-save-damage-substrates",
     "tag": "target-harness"
@@ -441,21 +441,24 @@
       "observedActionTaken": "doResolveChromaticOrbDuplicateDamageLeap",
       "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
       "result": {
-        "blockerId": "FU01B-BLOCKED-CHROMATIC-ORB-CHAINED-DAMAGE",
-        "reason": "chained duplicate-damage leap is modeled in ChromaticOrbSequenceState, not production BattleState",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "ChromaticOrbSequenceState",
-          "BattleState"
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "target-blocker-v1",
-        "projection": "production-BattleState-route-admission",
-        "tag": "target-blocker"
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "35b0fe11d44c4f304b0ce8a3e62af4bacd5714bda74c20992fed24dcc4e8a45f",
+        "observedProjectionSha256": "35b0fe11d44c4f304b0ce8a3e62af4bacd5714bda74c20992fed24dcc4e8a45f",
+        "projection": "qRoute",
+        "tag": "state-match"
       },
-      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveChromaticOrbDuplicateDamageLeap"
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveChromaticOrbDuplicateDamageLeap",
+      "routeEvidenceBasis": "production BattleState ChainedSpellAttackProcedure generic route observed through BattleEntrypointTrace"
     },
     {
       "branchAction": "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
@@ -466,21 +469,25 @@
       "observedActionTaken": "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
       "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
       "result": {
-        "blockerId": "FU01B-BLOCKED-STARRY-WISP-OBJECT-TARGET",
-        "reason": "object HP and dim-light emitter facts are modeled in StarryWispObjectState, not production BattleState",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "StarryWispObjectState",
-          "BattleState"
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleSubjectKind.ObjectTargetSpellAttackLightEffect",
+          "BattleGenericRouteFill.RolledDice/WithoutFill",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "target-blocker-v1",
-        "projection": "production-BattleState-route-admission",
-        "tag": "target-blocker"
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f79a10c701671a3c1167cf3788b2b00b89f7b06ddaddfc75971bd46bece54970",
+        "observedProjectionSha256": "f79a10c701671a3c1167cf3788b2b00b89f7b06ddaddfc75971bd46bece54970",
+        "projection": "qRoute",
+        "tag": "state-match"
       },
-      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveStarryWispObjectSpellAttackDamageAndDimLight"
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveStarryWispObjectSpellAttackDamageAndDimLight",
+      "routeEvidenceBasis": "production BattleState ObjectTargetSpellAttack generic route observed through BattleEntrypointTrace"
     }
   ],
   "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",

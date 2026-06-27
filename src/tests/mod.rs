@@ -4717,8 +4717,8 @@ fn level1_damage_spell_adapter_replays_all_branches() {
     // Descriptions-E-L.md, Descriptions-M-P.md, Descriptions-Q-R.md, and
     // Descriptions-S-Z.md selected level-1 and cantrip damage spells.
     assert_eq!(LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS.len(), 10);
-    assert_eq!(ACCEPTED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS.len(), 8);
-    assert_eq!(BLOCKED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS.len(), 2);
+    assert_eq!(ACCEPTED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS.len(), 10);
+    assert_eq!(BLOCKED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS.len(), 0);
     for action in ACCEPTED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS {
         let observed = replay_level1_damage_spell_action(action);
         let observed_route = replay_level1_damage_spell_route(action);
