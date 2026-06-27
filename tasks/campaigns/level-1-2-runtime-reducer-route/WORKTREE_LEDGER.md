@@ -17,7 +17,7 @@ This file prevents orphaned or confused Ralph worktrees.
 | L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c` | `ralph/l15-rr07-fu01c-weapon-buff-mark-smite` | `410a784738fba3b80566eae292140327d4e30877` | Bernoulli `019f07d6-14be-7123-8467-097ce9bee9db` | worker-running |
 | L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d` | `ralph/l15-rr07-fu01d-protection-charm-ward` | `410a784738fba3b80566eae292140327d4e30877` | Pasteur `019f07d6-63cd-7821-8803-074f626ac3e5` | worker-running |
 | L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01e` | `ralph/l15-rr07-fu01e-armor-reaction` | `410a784738fba3b80566eae292140327d4e30877` | Erdos `019f07d6-b9cc-7ba2-86ce-f65b35152f65` | worker-running |
-| L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f` | `ralph/l15-rr07-fu01f-spatial-light-area` | `410a784738fba3b80566eae292140327d4e30877` | Einstein the 2nd `019f07d7-0064-7062-9609-a2d22a704f0d` | worker-running |
+| L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f` | `ralph/l15-rr07-fu01f-spatial-light-area` | `410a784738fba3b80566eae292140327d4e30877` | Einstein the 2nd `019f07d7-0064-7062-9609-a2d22a704f0d` | worker-complete-review-pending at `c4dbd72c098d85dc6fac652bd7b1758e5c6f61dc` |
 
 ## Historical RRCONV-19 Worktrees
 
