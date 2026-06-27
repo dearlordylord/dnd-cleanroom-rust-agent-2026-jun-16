@@ -14,7 +14,6 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c` | `ralph/l15-rr04c-rule-core-spell-ability` | `a625d3e7190eb33396c17ee5dca7ae73f413b348` | Avicenna `019f0671-762b-7002-954d-a26a7c37c13c`; reviewer Beauvoir `019f0683-b5dd-7961-882f-a135f88e97b4`; fixer Lovelace `019f068a-5562-7820-8218-e3ad903bf55c`; re-reviewer Popper `019f0698-bffd-7d42-a34e-20753fac7291` | reviewed-clean-pending-merge, lane head `8b3bd015c34357b38962bfaada4e6f1d0ba3d500` |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -44,6 +43,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c` | `ralph/l15-rr04c-rule-core-spell-ability` | `8b3bd015c34357b38962bfaada4e6f1d0ba3d500` | `ee30e831b0bc0fa49fa54100e54a45c32a43a60a` | removable-after-operator-confirms-no-local-use |
 | L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04d` | `ralph/l15-rr04d-rule-core-feature-profile` | `3b522e37510064953d299db7cc4a739af9cd9d04` | `d0af3dc` | removable-after-operator-confirms-no-local-use |
 | L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b` | `ralph/l15-rr04b-rule-core-movement-reaction-shove` | `22e6ff0ef095602ce05037382499f8715d0cef8e` | `727655c` | removable-after-operator-confirms-no-local-use |
 | L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04a` | `ralph/l15-rr04a-rule-core-damage-statblock` | `9d3ee41d081b7cade2daaba50c0730b412b5fc92` | `b20ce8ff40dc438d93d9e09582078af4d0fa8e24` | removable-after-operator-confirms-no-local-use |

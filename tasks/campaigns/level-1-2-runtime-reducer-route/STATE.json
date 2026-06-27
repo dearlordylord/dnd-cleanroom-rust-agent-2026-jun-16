@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "ready",
+  "status": "running",
   "dirtyCleanroomOnly": true,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025",
+    "lastVerifiedIntegrationHead": "ee30e831b0bc0fa49fa54100e54a45c32a43a60a",
     "lastMergedLane": {
-      "laneId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
-      "mergeCommit": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025",
-      "laneHead": "9d17264679d8207c716f51148c52418629684891"
+      "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
+      "mergeCommit": "ee30e831b0bc0fa49fa54100e54a45c32a43a60a",
+      "laneHead": "8b3bd015c34357b38962bfaada4e6f1d0ba3d500"
     }
   },
   "denominator": {
@@ -33,12 +33,12 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 16,
-    "acceptedDriverCoveragePercent": 16.5,
-    "acceptedObligations": 127,
-    "acceptedObligationCoveragePercent": 19,
+    "acceptedUniqueDrivers": 25,
+    "acceptedDriverCoveragePercent": 25.8,
+    "acceptedObligations": 256,
+    "acceptedObligationCoveragePercent": 38.3,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers",
-    "acceptedObligationsSource": "cleanroom-input/branch-coverage/reducer-route-inventory.json obligations for unique selected drivers"
+    "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json in-scope obligations for unique selected drivers"
   },
   "completedBeforeCampaign": [
     "T001",
@@ -54,7 +54,7 @@
     "RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT",
     "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
   ],
-  "activeCheckpoint": "CP2",
+  "activeCheckpoint": "CP3",
   "checkpoints": [
     {
       "checkpointId": "CP0",
@@ -74,17 +74,14 @@
     {
       "checkpointId": "CP2",
       "name": "Rule-Core Component Connectors",
-      "status": "running",
+      "status": "complete",
       "dependsOn": [
         "CP1"
       ],
-      "readyLaneIds": [],
-      "splitRequiredLaneIds": [],
       "parentLaneId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
-      "runningLaneIds": [],
-      "reviewingLaneIds": [
-        "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
+      "mergedLaneIds": [
         "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
+        "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
         "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
         "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS"
       ]
@@ -92,7 +89,7 @@
     {
       "checkpointId": "CP3",
       "name": "Character Creation, Sheet, And Handoff",
-      "status": "blocked-on-checkpoint",
+      "status": "ready",
       "dependsOn": [
         "CP2"
       ]
@@ -133,10 +130,10 @@
     "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "merged",
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
-    "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "split-into-sublanes",
-    "L15-RR08-CHARACTER-CREATION-ROUTES": "blocked-on-checkpoint",
-    "L15-RR09-CHARACTER-SHEET-ROUTES": "blocked-on-checkpoint",
-    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "blocked-on-checkpoint",
+    "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
+    "L15-RR08-CHARACTER-CREATION-ROUTES": "ready",
+    "L15-RR09-CHARACTER-SHEET-ROUTES": "ready",
+    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "ready",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
     "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
     "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES": "blocked-on-checkpoint",
@@ -157,11 +154,11 @@
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint",
     "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "merged-verified",
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "merged-verified",
-    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "reviewed-clean",
+    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "merged-verified",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "d0af3dc",
+    "head": "ee30e831b0bc0fa49fa54100e54a45c32a43a60a",
     "commands": [
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
@@ -172,16 +169,17 @@
       "cargo test adapter_replays_all_branches --quiet"
     ],
     "result": "passed",
-    "cargoTest": "186 passed",
-    "adapterReplaySmoke": "70 passed"
+    "cargoTest": "191 passed",
+    "adapterReplaySmoke": "71 passed"
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c",
       "branch": "ralph/l15-rr04c-rule-core-spell-ability",
       "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "reviewed-clean-pending-merge",
+      "status": "removable-after-operator-confirms-no-local-use",
       "workerAgent": "019f0671-762b-7002-954d-a26a7c37c13c",
       "workerName": "Avicenna",
       "commit": "399690a03ae83538875768950e5d985c932a723f",
@@ -206,10 +204,25 @@
       "rereviewStatus": "clean",
       "rereviewAgent": "019f0698-bffd-7d42-a34e-20753fac7291",
       "rereviewName": "Popper",
-      "rereviewResidualRisk": "Reviewer ran harness, focused ability/spell tests, and diff whitespace; full cargo test and clippy remain integration merge gates. .claude/review-rules.md is absent in the cleanroom worktree."
-    }
-  ],
-  "completedLaneWorktrees": [
+      "rereviewResidualRisk": "Reviewer ran harness, focused ability/spell tests, and diff whitespace; full cargo test and clippy remain integration merge gates. .claude/review-rules.md is absent in the cleanroom worktree.",
+      "laneHead": "8b3bd015c34357b38962bfaada4e6f1d0ba3d500",
+      "mergeCommit": "ee30e831b0bc0fa49fa54100e54a45c32a43a60a",
+      "integrationVerification": {
+        "head": "ee30e831b0bc0fa49fa54100e54a45c32a43a60a",
+        "commands": [
+          "cargo fmt --check",
+          "node scripts/check-cleanroom-harness.cjs",
+          "node -e <parse campaign/task json>",
+          "git diff --check HEAD~1...HEAD",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "cargo test adapter_replays_all_branches --quiet"
+        ],
+        "result": "passed",
+        "cargoTest": "191 passed",
+        "adapterReplaySmoke": "71 passed"
+      }
+    },
     {
       "laneId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04d",
