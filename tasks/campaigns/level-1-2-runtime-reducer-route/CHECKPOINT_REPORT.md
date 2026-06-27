@@ -17,8 +17,8 @@ Campaign: `level-1-2-runtime-reducer-route`
 | Checkpoint | Status | Notes |
 | --- | --- | --- |
 | CP0 Bootstrap | complete | Source baseline pinned at `6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0`; campaign-control files live on the integration branch. |
-| CP1 Battle Reducer Core Expansion | ready | `L15-RR03` and `L15-RR05` merged; `L15-RR06` is ready. |
-| CP2 Rule-Core Component Connectors | blocked-on-checkpoint | Depends on CP1. Must split `L15-RR04` before execution. |
+| CP1 Battle Reducer Core Expansion | complete | `L15-RR03`, `L15-RR05`, and `L15-RR06` merged and verified. |
+| CP2 Rule-Core Component Connectors | ready-needs-split | CP1 is complete. Split `L15-RR04` into component sublanes before execution. |
 | CP3 Character Creation, Sheet, And Handoff | blocked-on-checkpoint | Depends on CP2. Creation and sheet can run in parallel; handoff merges after both. |
 | CP4 Feature And Catalog Substrates | blocked-on-checkpoint | Depends on CP2 and CP3. Split large FU lanes before execution. |
 | CP5 Remaining Battle Families | blocked-on-checkpoint | Depends on CP1, CP2, CP4. |
@@ -26,21 +26,22 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Last Known Verification
 
-At `a235602664bbae19c3bfac5e38b85b1bbc4c23a5`:
+At `1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025`:
 
 - `cargo fmt --check`: pass
-- `cargo test`: pass, `183 passed`
+- `cargo test`: pass, `185 passed`
 - `cargo clippy --all-targets -- -D warnings`: pass
 - `node scripts/check-cleanroom-harness.cjs`: pass
 - `git diff --check HEAD~1...HEAD`: pass
-- JSON parse for `STATE.json` and `LANES.json`: pass
-- JSON parse for `tasks/ENGINE_DEPTH_MANIFEST.json` and `tasks/RUN_LEDGER.json`: pass
+- JSON parse for `STATE.json`, `LANES.json`, `tasks/ENGINE_DEPTH_MANIFEST.json`, `tasks/RUN_LEDGER.json`, and `tasks/STATE_OWNER_MANIFEST.json`: pass
 - `cargo test adapter_replays_all_branches --quiet`: pass, `70 passed`
 
 ## Active Work
 
 - `L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE` merged at `4c7e12d7645360adb7ab23af61144ceb243c13fe`. Lane head `7ef32d308d51fb54d1032d01b937d168fa63bb64` includes reducer-route evidence for death saving throw and concentration teardown plus the harness quarantine fix.
 - `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` merged at `a235602664bbae19c3bfac5e38b85b1bbc4c23a5`. Lane head `1b928b16bfed2c87ad95efb6aae0a5d384fdb903` covers seven RR05 drivers and 53 route obligations.
+- `L15-RR06-BATTLE-SPELL-EFFECT-ROUTES` merged at `1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025`. Lane head `9d17264679d8207c716f51148c52418629684891` covers command/scalar spell-effect routes and closes CP1.
+- Next checkpoint: split `L15-RR04-RULE-CORE-COMPONENT-CONNECTORS` before launching CP2 Ralph lanes.
 
 ## Coverage Delta Log
 
@@ -85,3 +86,15 @@ Template:
 - Integration verification: `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, `node scripts/check-cleanroom-harness.cjs`, `cargo test adapter_replays_all_branches --quiet`, JSON parse checks, and `git diff --check HEAD~1...HEAD` passed.
 - Review/fixer notes: review loop fixed missing RR05 evidence, creature/spell/stat-block reducer routing gaps, self-referential route expectations, sampled-pick quarantine regression, RR03 artifact integration, and stat-block `BattleResolutionResult` needs-holes/discovery-route contract issues.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05`
+
+### L15-RR06-BATTLE-SPELL-EFFECT-ROUTES
+
+- Merge commit: `1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025`
+- Lane commit(s): `f0e6057dedc100f253a5bec4d34f13bd3c2ca8da`, `0b1dbfb3d7ace478fcf389d076870c9907e7ff27`, `0bc81aa0ffdf97f36ff2f054751afd299ad6c7f5`, `dd616f0d1d94ad0a5bfb78c1a830aef0bc8a6074`, `729cf31d8b1e02a33b897f24288e58f64aff4bb2`, `6a84db8e051e1f9a045f51bf1164a87103e4591f`, `9d17264679d8207c716f51148c52418629684891`
+- Drivers added: `3` net-new unique drivers.
+- Obligations added: `36` net-new counted obligations; total accepted obligations moved from `91` to `127`.
+- New total driver coverage: `16 / 97 = 16.5%`
+- New total obligation coverage: `127 / 668 = 19.0%`
+- Integration verification: `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, `node scripts/check-cleanroom-harness.cjs`, `cargo test adapter_replays_all_branches --quiet`, JSON parse checks, and `git diff --check HEAD~1...HEAD` passed.
+- Review/fixer notes: review loop removed command fixture-role fallbacks, made route equality include `BattleResolutionResult` outcome, replaced self-referential command/scalar expected routes, corrected state-owner and validation artifacts, added a mechanical copied-QNT connector check for disputed command route examples, and removed scalar-buff subject fallback.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr06`

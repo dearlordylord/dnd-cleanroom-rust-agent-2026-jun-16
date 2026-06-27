@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "a235602664bbae19c3bfac5e38b85b1bbc4c23a5",
+    "lastVerifiedIntegrationHead": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025",
     "lastMergedLane": {
-      "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
-      "mergeCommit": "a235602664bbae19c3bfac5e38b85b1bbc4c23a5",
-      "laneHead": "1b928b16bfed2c87ad95efb6aae0a5d384fdb903"
+      "laneId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
+      "mergeCommit": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025",
+      "laneHead": "9d17264679d8207c716f51148c52418629684891"
     }
   },
   "denominator": {
@@ -33,10 +33,10 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 13,
-    "acceptedDriverCoveragePercent": 13.4,
-    "acceptedObligations": 91,
-    "acceptedObligationCoveragePercent": 13.6,
+    "acceptedUniqueDrivers": 16,
+    "acceptedDriverCoveragePercent": 16.5,
+    "acceptedObligations": 127,
+    "acceptedObligationCoveragePercent": 19,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers",
     "acceptedObligationsSource": "cleanroom-input/branch-coverage/reducer-route-inventory.json obligations for unique selected drivers"
   },
@@ -54,7 +54,7 @@
     "RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT",
     "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
   ],
-  "activeCheckpoint": "CP1",
+  "activeCheckpoint": "CP2",
   "checkpoints": [
     {
       "checkpointId": "CP0",
@@ -64,18 +64,25 @@
     {
       "checkpointId": "CP1",
       "name": "Battle Reducer Core Expansion",
-      "status": "reviewing",
-      "readyLaneIds": [],
-      "reviewingLaneIds": [
+      "status": "complete",
+      "mergedLaneIds": [
+        "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE",
+        "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
         "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES"
       ]
     },
     {
       "checkpointId": "CP2",
       "name": "Rule-Core Component Connectors",
-      "status": "blocked-on-checkpoint",
+      "status": "ready-needs-split",
       "dependsOn": [
         "CP1"
+      ],
+      "readyLaneIds": [
+        "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS"
+      ],
+      "splitRequiredLaneIds": [
+        "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS"
       ]
     },
     {
@@ -121,8 +128,8 @@
   "laneStatuses": {
     "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "merged",
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
-    "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "implemented",
-    "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "blocked-on-checkpoint",
+    "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
+    "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "ready-needs-split",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "blocked-on-checkpoint",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "blocked-on-checkpoint",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "blocked-on-checkpoint",
@@ -146,7 +153,7 @@
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint"
   },
   "lastIntegrationVerification": {
-    "head": "a235602664bbae19c3bfac5e38b85b1bbc4c23a5",
+    "head": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025",
     "commands": [
       {
         "command": "cargo fmt --check",
@@ -155,7 +162,7 @@
       {
         "command": "cargo test",
         "status": "pass",
-        "note": "183 passed"
+        "note": "185 passed"
       },
       {
         "command": "cargo clippy --all-targets -- -D warnings",
@@ -170,11 +177,7 @@
         "status": "pass"
       },
       {
-        "command": "JSON parse STATE.json and LANES.json",
-        "status": "pass"
-      },
-      {
-        "command": "JSON parse tasks/ENGINE_DEPTH_MANIFEST.json and tasks/RUN_LEDGER.json",
+        "command": "JSON parse STATE.json, LANES.json, ENGINE_DEPTH_MANIFEST.json, RUN_LEDGER.json, STATE_OWNER_MANIFEST.json",
         "status": "pass"
       },
       {
@@ -184,13 +187,14 @@
       }
     ]
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr06",
       "branch": "ralph/l15-rr06-spell-effect-routes",
       "baseSha": "d7ec2d7957660673aaea3799787dc3224344b3d8",
-      "status": "implemented-pending-review",
+      "status": "removable-after-operator-confirms-no-local-use",
       "workerAgent": "019f0600-b370-7d41-8886-aa5750bdcf84",
       "workerName": "Laplace",
       "commit": "f0e6057dedc100f253a5bec4d34f13bd3c2ca8da",
@@ -300,10 +304,10 @@
       "sixthRereviewStatus": "clean",
       "sixthRereviewAgent": "019f0667-e04d-7340-856f-8bb1fe86975a",
       "sixthRereviewName": "Nietzsche",
-      "sixthRereviewResidualRisk": "Reviewer ran focused checks but did not rerun full cargo test, fmt, or clippy; integration merge must run full gates."
-    }
-  ],
-  "completedLaneWorktrees": [
+      "sixthRereviewResidualRisk": "Reviewer ran focused checks but did not rerun full cargo test, fmt, or clippy; integration merge must run full gates.",
+      "laneHead": "9d17264679d8207c716f51148c52418629684891",
+      "mergeCommit": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025"
+    },
     {
       "laneId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05",

@@ -75,7 +75,7 @@
     {
       "laneId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
       "checkpointId": "CP1",
-      "status": "implemented",
+      "status": "merged",
       "parallelGroup": "cp1-battle-core",
       "routeTaskId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
       "routeClasses": [
@@ -106,7 +106,7 @@
     {
       "laneId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "checkpointId": "CP2",
-      "status": "blocked-on-checkpoint",
+      "status": "ready-needs-split",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [
         "component-first"
