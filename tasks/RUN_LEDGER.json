@@ -2726,7 +2726,7 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "d2cee364c05500055468026c5abce98106d1368c8596aeecbc7a41b6a59f50d8"
+        "sha256": "8001ed0a86f979397bc05483ece8e7a8e2d399579241f0feb9e5a5e97cef03cc"
         }
       },
       "assignmentId": "level-1-2-battle",
@@ -2788,7 +2788,7 @@
             "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doEndWardOnWardedDamageDealt#step:doEndWardOnWardedDamageDealt"
           ],
           "path": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
-          "sha256": "e5b1e867b9b008dcac2be3993480d88d80c9de525ed71b5697bab6ba5ee30ef4"
+        "sha256": "d688c7a7486527e75cab4de9fbfa329b7990c5b75a879a5a14d3f7a298412252"
         }
       ],
       "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"

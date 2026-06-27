@@ -41,12 +41,10 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    let fill = fill_for_action(observed_action_taken);
-    let subject = route_subject_family(fill.subject());
-    let owner = route_owner(fill.subject());
+    let (subject, holes, owner) = expected_route_witness(observed_action_taken);
     vec![
         route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-        route_discover_battle_acts(subject, route_holes(fill.subject()), owner),
+        route_discover_battle_acts(subject, holes, owner),
         route_resolve_battle_subject(
             subject,
             ReducerRouteFillKind::UnitFeatureDecision,
@@ -130,12 +128,12 @@ fn replay_observed_state_and_route(
     let BattleResolutionResult::Resolved { state } = result else {
         panic!("{observed_action_taken} should resolve through ward route")
     };
-    let projection = protection_charm_ward_from_battle(&state);
+    let projection = protection_charm_ward_from_battle(&state, fill);
     let BattleProtectionCharmWardProjection::WardingInterdiction(ward) = projection else {
         panic!("{observed_action_taken} should project ward/interdiction facts")
     };
     (
-        ward.clone(),
+        ward,
         observed_reducer_route(&trace, &[route_subject_family(fill.subject())]),
     )
 }
@@ -189,6 +187,35 @@ fn route_subject_family(subject: BattleProtectionCharmWardSubject) -> ReducerRou
     }
 }
 
+fn expected_route_witness(
+    observed_action_taken: &str,
+) -> (
+    ReducerRouteSubjectFamily,
+    Vec<BattleHoleKind>,
+    ReducerRouteOwnerGroup,
+) {
+    match observed_action_taken {
+        "doCastSanctuaryWardCreation"
+        | "doEndWardOnWardedAttackRoll"
+        | "doEndWardOnWardedSpellCast"
+        | "doEndWardOnWardedDamageDealt" => (
+            ReducerRouteSubjectFamily::ActiveEffect,
+            Vec::new(),
+            ReducerRouteOwnerGroup::ActiveEffect,
+        ),
+        "doInterdictDirectAttackFailedSaveLoss"
+        | "doInterdictDirectSpellSuccessfulSavePassThrough"
+        | "doRetargetDirectAttackToLegalReplacement"
+        | "doRejectIllegalReplacementTarget"
+        | "doExcludeAreaEffectFromInterdiction" => (
+            ReducerRouteSubjectFamily::TargetInterdiction,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::TargetInterdiction,
+        ),
+        action => panic!("unsupported expected route action {action}"),
+    }
+}
+
 fn route_subject_kind(subject: BattleProtectionCharmWardSubject) -> BattleSubjectKind {
     match subject {
         BattleProtectionCharmWardSubject::TargetAdmission => BattleSubjectKind::TargetAdmission,
@@ -202,35 +229,5 @@ fn route_subject_kind(subject: BattleProtectionCharmWardSubject) -> BattleSubjec
         BattleProtectionCharmWardSubject::TargetInterdiction => {
             BattleSubjectKind::TargetInterdiction
         }
-    }
-}
-
-fn route_owner(subject: BattleProtectionCharmWardSubject) -> ReducerRouteOwnerGroup {
-    match subject {
-        BattleProtectionCharmWardSubject::TargetAdmission => {
-            ReducerRouteOwnerGroup::TargetAdmission
-        }
-        BattleProtectionCharmWardSubject::ActiveEffect => ReducerRouteOwnerGroup::ActiveEffect,
-        BattleProtectionCharmWardSubject::ConditionLifecycle => {
-            ReducerRouteOwnerGroup::ConditionLifecycle
-        }
-        BattleProtectionCharmWardSubject::SavingThrowRollMode => {
-            ReducerRouteOwnerGroup::SavingThrowRollMode
-        }
-        BattleProtectionCharmWardSubject::TargetInterdiction => {
-            ReducerRouteOwnerGroup::TargetInterdiction
-        }
-    }
-}
-
-fn route_holes(subject: BattleProtectionCharmWardSubject) -> Vec<BattleHoleKind> {
-    match subject {
-        BattleProtectionCharmWardSubject::TargetAdmission
-        | BattleProtectionCharmWardSubject::TargetInterdiction => {
-            vec![BattleHoleKind::TargetChoice]
-        }
-        BattleProtectionCharmWardSubject::ActiveEffect
-        | BattleProtectionCharmWardSubject::ConditionLifecycle
-        | BattleProtectionCharmWardSubject::SavingThrowRollMode => Vec::new(),
     }
 }

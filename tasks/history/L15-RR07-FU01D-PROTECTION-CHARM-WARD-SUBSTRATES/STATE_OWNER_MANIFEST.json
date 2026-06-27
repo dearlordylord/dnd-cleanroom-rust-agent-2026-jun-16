@@ -1,12 +1,12 @@
 {
   "durableFields": [
     {
-      "apiPath": "BattleState.protection_charm_ward",
+      "apiPath": "BattleState.protection_charm_ward.offered_subject",
       "derivability": {
         "tag": "canonical-source"
       },
-      "domainInvariant": "At most one generic protection/charm/ward substrate subject is offered at a time, and the resolved projection is a single runtime fact source.",
-      "fieldPath": "BattleState.protection_charm_ward",
+      "domainInvariant": "At most one generic protection/charm/ward route subject is offered at a time; resolved creature-protection and sanctuary witnesses are derived at adapter boundaries from fill facts and canonical battle fields.",
+      "fieldPath": "BattleState.protection_charm_ward.offered_subject",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
@@ -15,7 +15,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "domainInvariant": "Setup can admit one generic target-admission, active-effect, condition-lifecycle, saving-throw-roll-mode, or target-interdiction subject without authored spell identity dispatch.",
+      "domainInvariant": "Setup can admit one generic target-admission, active-effect, condition-lifecycle, saving-throw-roll-mode, or target-interdiction subject without carrying resolved projection state or authored spell identity dispatch.",
       "fieldPath": "BattleSetup.protection_charm_ward",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
@@ -52,6 +52,12 @@
     }
   ],
   "nonDurableBoundaryApiSurface": [
+    {
+      "apiPath": "BattleProtectionCharmWardProjection",
+      "boundary": "adapter-facing transient witness derived from branch fill and canonical BattleState action, spell-slot, and hit-point fields",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
     {
       "apiPath": "BattleEntrypointTrace.route_events",
       "boundary": "production reducer route observer trace for accepted protection/charm/ward branches",

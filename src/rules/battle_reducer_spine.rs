@@ -557,7 +557,6 @@ impl BattleProtectionCharmWardFill {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum BattleProtectionCharmWardProjection {
-    Init,
     CreatureTypeProtection(CreatureTypeProtectionState),
     WardingInterdiction(SanctuarySelectedIdentityState),
 }
@@ -565,7 +564,6 @@ pub enum BattleProtectionCharmWardProjection {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct BattleProtectionCharmWardSubstrate {
     pub offered_subject: Option<BattleProtectionCharmWardSubject>,
-    pub projection: BattleProtectionCharmWardProjection,
 }
 
 impl BattleProtectionCharmWardSubstrate {
@@ -573,7 +571,6 @@ impl BattleProtectionCharmWardSubstrate {
     pub fn initial() -> Self {
         Self {
             offered_subject: None,
-            projection: BattleProtectionCharmWardProjection::Init,
         }
     }
 
@@ -581,7 +578,6 @@ impl BattleProtectionCharmWardSubstrate {
     pub fn offered(fill: BattleProtectionCharmWardFill) -> Self {
         Self {
             offered_subject: Some(fill.subject()),
-            projection: BattleProtectionCharmWardProjection::Init,
         }
     }
 }
@@ -2568,8 +2564,19 @@ pub fn start_protection_charm_ward_battle_observed(
 #[must_use]
 pub fn protection_charm_ward_from_battle(
     state: &BattleState,
-) -> &BattleProtectionCharmWardProjection {
-    &state.protection_charm_ward.projection
+    fill: BattleProtectionCharmWardFill,
+) -> BattleProtectionCharmWardProjection {
+    let mut projection = protection_charm_ward_projection(fill);
+    match &mut projection {
+        BattleProtectionCharmWardProjection::CreatureTypeProtection(protection) => {
+            protection.action_available = state.action_available;
+            protection.first_level_slots_expended = state.fighter.spell_slots.first_level_expended;
+        }
+        BattleProtectionCharmWardProjection::WardingInterdiction(ward) => {
+            ward.warded_hp = state.fighter.hp;
+        }
+    }
+    projection
 }
 
 fn protection_charm_ward_setup(fill: BattleProtectionCharmWardFill) -> BattleSetup {
@@ -7847,10 +7854,7 @@ fn resolve_protection_charm_ward_subject(
     if let BattleProtectionCharmWardProjection::WardingInterdiction(ward) = &projection {
         state.fighter.hp = ward.warded_hp;
     }
-    state.protection_charm_ward = BattleProtectionCharmWardSubstrate {
-        offered_subject: None,
-        projection,
-    };
+    state.protection_charm_ward = BattleProtectionCharmWardSubstrate::initial();
     BattleResolutionResult::Resolved { state }
 }
 
