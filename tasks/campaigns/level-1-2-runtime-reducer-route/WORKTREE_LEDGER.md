@@ -14,6 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-e` | `ralph/l15-rrcp7-e-magic-weapon` | `19f1e16` | `019f0947-2366-70d1-b4fb-e95ba0fb0aec` Lorentz the 2nd | running |
 
 ## Historical RRCONV-19 Worktrees
 

@@ -1179,7 +1179,7 @@
     {
       "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
       "checkpointId": "CP7",
-      "status": "queued",
+      "status": "running",
       "parallelGroup": "cp7-target-blocker-reduction",
       "routeTaskIds": [
         "L15-RR17-WEAPON-HOSTED-RIDER-ROUTES"

@@ -19,6 +19,14 @@
       "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
       "baseHead": "4a3ae9d480d04d3e6e63702a933bb0f6774cd5b6",
       "note": "Queue Magic Weapon item-target route reduction using copied WeaponEnhancementItemTargetRouteSubject connector evidence."
+    },
+    "activeLane": {
+      "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-e",
+      "branch": "ralph/l15-rrcp7-e-magic-weapon",
+      "baseSha": "19f1e16",
+      "workerAgent": "019f0947-2366-70d1-b4fb-e95ba0fb0aec",
+      "workerName": "Lorentz the 2nd"
     }
   },
   "denominator": {
@@ -193,17 +201,17 @@
       "dependsOn": [
         "CP6"
       ],
-      "runningLaneIds": [],
+      "runningLaneIds": [
+        "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES"
+      ],
       "mergedLaneIds": [
         "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
         "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
         "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",
         "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES"
       ],
-      "readyLaneIds": [
-        "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES"
-      ],
-      "notes": "CP7-E is queued for the two Magic Weapon item-target rows. These are the only remaining CP7 target blockers currently reducible from dirty cleanroom input alone; scenario transition and Mage Armor rows require source/corpus connector or denominator work first."
+      "readyLaneIds": [],
+      "notes": "CP7-E is running for the two Magic Weapon item-target rows. Scenario transition and Mage Armor rows remain outside this target lane."
     }
   ],
   "laneStatuses": {
@@ -260,7 +268,7 @@
     "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "merged-verified",
     "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "merged-verified",
     "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "merged-verified",
-    "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "queued"
+    "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "running"
   },
   "lastIntegrationVerification": {
     "head": "ffc162a61eeea40b0e922b28c7cdeff95281728d",
@@ -278,7 +286,17 @@
     "focusedTests": "Mage Armor adapter focused route/blocker replay test passed",
     "cleanroomHarness": "failed as expected on stale global manifest/evidence debt; /tmp/rrcp7d-cleanroom-harness.out contained no CP7-D, FU01E, or Mage Armor-specific failures"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-e",
+      "branch": "ralph/l15-rrcp7-e-magic-weapon",
+      "baseSha": "19f1e16",
+      "status": "running",
+      "workerAgent": "019f0947-2366-70d1-b4fb-e95ba0fb0aec",
+      "workerName": "Lorentz the 2nd"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",
