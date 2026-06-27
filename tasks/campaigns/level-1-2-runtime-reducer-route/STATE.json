@@ -190,16 +190,16 @@
       "dependsOn": [
         "CP6"
       ],
-      "runningLaneIds": [],
+      "runningLaneIds": [
+        "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES"
+      ],
       "mergedLaneIds": [
         "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
         "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
         "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES"
       ],
-      "readyLaneIds": [
-        "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES"
-      ],
-      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. CP7-A accepted four FU01C generic active-effect and marked-effect route gaps. CP7-B accepted two residual FU01B damage-spell rows as route-shape evidence. CP7-C accepted five ordinary/pre-hit weapon setup rows through generic WeaponAttack route shapes. CP7-D is queued with a research gate for three Mage Armor admission/lifecycle rows; accept only if cleanroom evidence identifies generic target-admission and active-effect lifecycle owners. CP7_AUDIT.json now records 654 accepted obligations and 14 target blockers before CP7-D."
+      "readyLaneIds": [],
+      "notes": "CP7-D is running with a research gate for three Mage Armor admission/lifecycle rows. Current pre-CP7-D accounting remains 654 accepted obligations and 14 target blockers."
     }
   ],
   "laneStatuses": {
@@ -255,7 +255,7 @@
     "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "merged-verified",
     "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "merged-verified",
     "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "merged-verified",
-    "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "ready"
+    "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "running"
   },
   "lastIntegrationVerification": {
     "head": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
@@ -274,7 +274,17 @@
     "focusedTests": "after-hit damage riders and weapon-hosted attack/riders focused route tests passed",
     "cleanroomHarness": "failed as expected on stale global manifest/evidence debt; /tmp/rrcp7c-cleanroom-harness.out contained no CP7-C lane references and only older RR05 doFillTargetChoice hits"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-d",
+      "branch": "ralph/l15-rrcp7-d-mage-armor",
+      "baseSha": "c59d644",
+      "status": "running",
+      "workerAgent": "019f0917-e297-7ec2-8530-a6e66c2db0fe",
+      "workerName": "McClintock the 2nd"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",

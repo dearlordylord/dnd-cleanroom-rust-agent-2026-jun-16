@@ -1179,7 +1179,7 @@
     {
       "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",
       "checkpointId": "CP7",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp7-target-blocker-reduction",
       "routeTaskIds": [
         "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"

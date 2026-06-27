@@ -14,6 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-d` | `ralph/l15-rrcp7-d-mage-armor` | `c59d644` | `019f0917-e297-7ec2-8530-a6e66c2db0fe` McClintock the 2nd | running |
 
 ## Historical RRCONV-19 Worktrees
 
