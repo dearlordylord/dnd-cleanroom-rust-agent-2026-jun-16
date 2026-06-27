@@ -1802,6 +1802,10 @@ pub enum BattleReducerRouteSubjectFamily {
     RollModifierEffect,
     ScalarBuffEffect,
     SpellDamageReduction,
+    CompanionLifecycle,
+    CompanionSharedSenses,
+    CompanionTouchDelivery,
+    CompanionReactionAttack,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1814,6 +1818,7 @@ pub enum BattleReducerRouteOwnerGroup {
     AttackActionProcedure,
     Concentration,
     ConditionLifecycle,
+    Companion,
     CreatureSpaceMovement,
     CreatureState,
     DamageAdjustment,

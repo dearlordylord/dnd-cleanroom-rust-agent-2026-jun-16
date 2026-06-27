@@ -1,3 +1,11 @@
+use super::battle_reducer_spine::{
+    observe_battle_route_discovery, observe_battle_route_resolution,
+    observe_battle_route_resolution_without_fill, observe_battle_route_start,
+    BattleReducerRouteFillKind, BattleReducerRouteHoleKind, BattleReducerRouteObserver,
+    BattleReducerRouteOwnerGroup, BattleReducerRouteSubjectFamily, BattleReducerRouteTrace,
+    BattleResolutionOutcome,
+};
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum FamiliarStatus {
     None,
@@ -241,6 +249,157 @@ pub fn resolve_pact_find_familiar_reaction_attack(
         protocol: FindFamiliarCompanionProtocol::Resolved,
         ..state
     }
+}
+
+#[must_use]
+pub fn find_familiar_companion_route_observed(
+    state: FindFamiliarCompanionState,
+) -> BattleReducerRouteTrace {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_find_familiar_companion_route(state, &mut trace);
+    trace
+}
+
+pub fn observe_find_familiar_companion_route(
+    state: FindFamiliarCompanionState,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
+    match state.scenario_outcome {
+        FindFamiliarCompanionScenarioOutcome::Created
+        | FindFamiliarCompanionScenarioOutcome::Replaced
+        | FindFamiliarCompanionScenarioOutcome::DismissedAndReappeared => {
+            observe_companion_lifecycle_route(observer);
+        }
+        FindFamiliarCompanionScenarioOutcome::SharedSenses => {
+            observe_companion_shared_senses_route(observer);
+        }
+        FindFamiliarCompanionScenarioOutcome::TouchDelivered => {
+            observe_companion_touch_delivery_route(observer);
+        }
+        FindFamiliarCompanionScenarioOutcome::PactAttack => {
+            observe_companion_reaction_attack_route(observer);
+        }
+        FindFamiliarCompanionScenarioOutcome::Init => {}
+    }
+}
+
+fn observe_companion_lifecycle_route(observer: &mut impl BattleReducerRouteObserver) {
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::CompanionLifecycle,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::Companion,
+        observer,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::CompanionLifecycle,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::Companion,
+        observer,
+    );
+}
+
+fn observe_companion_shared_senses_route(observer: &mut impl BattleReducerRouteObserver) {
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::CompanionSharedSenses,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::Companion,
+        observer,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::CompanionSharedSenses,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ActionEconomy,
+        observer,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::CompanionSharedSenses,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ActiveEffect,
+        observer,
+    );
+}
+
+fn observe_companion_touch_delivery_route(observer: &mut impl BattleReducerRouteObserver) {
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::CompanionTouchDelivery,
+        vec![BattleReducerRouteHoleKind::TargetChoice],
+        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::CompanionTouchDelivery,
+        BattleReducerRouteFillKind::TargetChoice,
+        BattleResolutionOutcome::NeedsHoles,
+        vec![BattleReducerRouteHoleKind::RolledDice],
+        BattleReducerRouteOwnerGroup::Companion,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::CompanionTouchDelivery,
+        BattleReducerRouteFillKind::RolledDice,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        observer,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::CompanionTouchDelivery,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ActionEconomy,
+        observer,
+    );
+}
+
+fn observe_companion_reaction_attack_route(observer: &mut impl BattleReducerRouteObserver) {
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::CompanionReactionAttack,
+        vec![BattleReducerRouteHoleKind::TargetChoice],
+        BattleReducerRouteOwnerGroup::Companion,
+        observer,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::CompanionReactionAttack,
+        BattleResolutionOutcome::NeedsHoles,
+        vec![BattleReducerRouteHoleKind::TargetChoice],
+        BattleReducerRouteOwnerGroup::StatBlockAction,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::CompanionReactionAttack,
+        BattleReducerRouteFillKind::TargetChoice,
+        BattleResolutionOutcome::NeedsHoles,
+        vec![BattleReducerRouteHoleKind::AttackRoll],
+        BattleReducerRouteOwnerGroup::TargetSelection,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::CompanionReactionAttack,
+        BattleReducerRouteFillKind::AttackRoll,
+        BattleResolutionOutcome::NeedsHoles,
+        vec![BattleReducerRouteHoleKind::RolledDice],
+        BattleReducerRouteOwnerGroup::AttackRoll,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::CompanionReactionAttack,
+        BattleReducerRouteFillKind::RolledDice,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::HitPoint,
+        observer,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::CompanionReactionAttack,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ActionEconomy,
+        observer,
+    );
 }
 
 fn apply_companion_damage(hit_points: i16, damage: i16) -> i16 {

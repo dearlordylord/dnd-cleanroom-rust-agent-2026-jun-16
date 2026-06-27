@@ -1,9 +1,16 @@
 use crate::rules::find_familiar::{
     create_find_familiar_companion, deliver_find_familiar_touch_spell,
     dismiss_and_reappear_find_familiar_companion, find_familiar_companion_initial_state,
-    recast_find_familiar_companion_replacement, FamiliarCreatureTypeOverride, FamiliarForm,
-    FamiliarFormFacts, FamiliarSlot, FamiliarStatus, FindFamiliarCompanionProtocol,
-    FindFamiliarCompanionScenarioOutcome, FindFamiliarCompanionState,
+    find_familiar_companion_route_observed, recast_find_familiar_companion_replacement,
+    FamiliarCreatureTypeOverride, FamiliarForm, FamiliarFormFacts, FamiliarSlot, FamiliarStatus,
+    FindFamiliarCompanionProtocol, FindFamiliarCompanionScenarioOutcome,
+    FindFamiliarCompanionState,
+};
+
+use super::battle_runtime_reducer_route::{
+    reducer_route_events_from_battle_trace, ReducerRouteEvent, ReducerRouteFillKind,
+    ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome,
+    ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -39,7 +46,80 @@ pub fn replay_observed_action(observed_action_taken: &str) -> FindFamiliarSelect
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> FindFamiliarSelectedIdentityWitness {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doCastFindFamiliar" => expected_witness_from_parts(FindFamiliarExpectedParts {
+            familiar_status: "present",
+            form_id: "cat",
+            familiar_combatant_present: true,
+            replacement_combatant_present: false,
+            familiar_reaction_available: true,
+            owner_action_available: true,
+            owner_spell_slot_committed: false,
+            target_hp: 1,
+            scenario_outcome: "Cast",
+        }),
+        "doDeliverTouchSpellThroughFindFamiliar" => {
+            expected_witness_from_parts(FindFamiliarExpectedParts {
+                familiar_status: "present",
+                form_id: "cat",
+                familiar_combatant_present: true,
+                replacement_combatant_present: false,
+                familiar_reaction_available: false,
+                owner_action_available: false,
+                owner_spell_slot_committed: true,
+                target_hp: 12,
+                scenario_outcome: "TouchDelivered",
+            })
+        }
+        "doDismissAndReappearFindFamiliar" => {
+            expected_witness_from_parts(FindFamiliarExpectedParts {
+                familiar_status: "present",
+                form_id: "cat",
+                familiar_combatant_present: true,
+                replacement_combatant_present: false,
+                familiar_reaction_available: true,
+                owner_action_available: false,
+                owner_spell_slot_committed: false,
+                target_hp: 1,
+                scenario_outcome: "DismissedAndReappeared",
+            })
+        }
+        "doRecastFindFamiliarReplacement" => {
+            expected_witness_from_parts(FindFamiliarExpectedParts {
+                familiar_status: "present",
+                form_id: "rat",
+                familiar_combatant_present: true,
+                replacement_combatant_present: false,
+                familiar_reaction_available: true,
+                owner_action_available: true,
+                owner_spell_slot_committed: false,
+                target_hp: 1,
+                scenario_outcome: "Recast",
+            })
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    let state = match observed_action_taken {
+        "doCastFindFamiliar" => cast_find_familiar(),
+        "doDeliverTouchSpellThroughFindFamiliar" => touch_spell_delivered(),
+        "doDismissAndReappearFindFamiliar" => dismissed_and_reappeared(),
+        "doRecastFindFamiliarReplacement" => recast_replacement(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    };
+    reducer_route_events_from_battle_trace(&find_familiar_companion_route_observed(state))
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doCastFindFamiliar"
+        | "doDismissAndReappearFindFamiliar"
+        | "doRecastFindFamiliarReplacement" => companion_lifecycle_route(),
+        "doDeliverTouchSpellThroughFindFamiliar" => companion_touch_delivery_route(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &FindFamiliarSelectedIdentityWitness) -> String {
@@ -120,6 +200,36 @@ fn witness_from_state(state: FindFamiliarCompanionState) -> FindFamiliarSelected
     }
 }
 
+struct FindFamiliarExpectedParts {
+    familiar_status: &'static str,
+    form_id: &'static str,
+    familiar_combatant_present: bool,
+    replacement_combatant_present: bool,
+    familiar_reaction_available: bool,
+    owner_action_available: bool,
+    owner_spell_slot_committed: bool,
+    target_hp: i16,
+    scenario_outcome: &'static str,
+}
+
+fn expected_witness_from_parts(
+    parts: FindFamiliarExpectedParts,
+) -> FindFamiliarSelectedIdentityWitness {
+    FindFamiliarSelectedIdentityWitness {
+        familiar_status: parts.familiar_status,
+        form_id: parts.form_id,
+        familiar_combatant_present: parts.familiar_combatant_present,
+        replacement_combatant_present: parts.replacement_combatant_present,
+        familiar_reaction_available: parts.familiar_reaction_available,
+        owner_action_available: parts.owner_action_available,
+        owner_spell_slot_committed: parts.owner_spell_slot_committed,
+        target_hp: parts.target_hp,
+        scenario_outcome: parts.scenario_outcome,
+        protocol_result: "resolved",
+        protocol_holes: Vec::new(),
+    }
+}
+
 fn familiar_combatant_present(state: FindFamiliarCompanionState) -> bool {
     state.status == FamiliarStatus::Present
         && state.slot == FamiliarSlot::Primary
@@ -177,4 +287,56 @@ fn joined_or_none(values: &[&'static str]) -> String {
     } else {
         values.join(",")
     }
+}
+
+fn companion_lifecycle_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::CompanionLifecycle,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::Companion,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::CompanionLifecycle,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::Companion,
+        },
+    ]
+}
+
+fn companion_touch_delivery_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::CompanionTouchDelivery,
+            holes: vec![ReducerRouteHoleKind::TargetChoice],
+            owner: ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::CompanionTouchDelivery,
+            fill: ReducerRouteFillKind::TargetChoice,
+            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
+            holes: vec![ReducerRouteHoleKind::RolledDice],
+            owner: ReducerRouteOwnerGroup::Companion,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::CompanionTouchDelivery,
+            fill: ReducerRouteFillKind::RolledDice,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::CompanionTouchDelivery,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+    ]
 }

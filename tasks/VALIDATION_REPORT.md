@@ -2290,3 +2290,65 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD` passed.
+
+## L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES: Catalog-ready spell substrates
+
+Selected drivers:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt`
+
+Behavior implemented:
+
+- Accepted condition-save catalog witnesses route through generic `SaveGatedSpellRouteSubject` and `RepeatSaveConditionEffectRouteSubject` substrate evidence.
+- Accepted Find Familiar catalog witnesses route through production-observed `BattleReducerRouteTrace` events emitted by `find_familiar_companion_route_observed`; expected route rows remain literal adapter witnesses for generic companion lifecycle and touch-delivery substrates.
+- Accepted Thaumaturgy catalog witness routes through generic `RollModifierEffectRouteSubject` substrate evidence.
+- Selected spell identity remains confined to adapter, test, and evidence boundaries.
+
+Evidence disposition:
+
+- Accepted Find Familiar rows retained: `doCastFindFamiliar`, `doDeliverTouchSpellThroughFindFamiliar`, `doDismissAndReappearFindFamiliar`, and `doRecastFindFamiliarReplacement`.
+- Demoted Find Familiar rows: `_none_`; production reducer ownership is now represented by `BattleReducerRouteTrace.events`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveColorSprayFailedSavingThrow` | `tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveColorSprayFailedSavingThrow#step:doResolveColorSprayFailedSavingThrow` | `src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveEntangleFailedSavingThrow` | `tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveEntangleFailedSavingThrow#step:doResolveEntangleFailedSavingThrow` | `src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveHideousLaughterRepeatSavingThrowSuccess` | `tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveHideousLaughterRepeatSavingThrowSuccess#step:doResolveHideousLaughterRepeatSavingThrowSuccess` | `src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveSleepRepeatSavingThrowFailure` | `tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveSleepRepeatSavingThrowFailure#step:doResolveSleepRepeatSavingThrowFailure` | `src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt#step:doCastFindFamiliar` | `tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doCastFindFamiliar#step:doCastFindFamiliar` | `src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt#step:doDeliverTouchSpellThroughFindFamiliar` | `tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doDeliverTouchSpellThroughFindFamiliar#step:doDeliverTouchSpellThroughFindFamiliar` | `src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt#step:doDismissAndReappearFindFamiliar` | `tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doDismissAndReappearFindFamiliar#step:doDismissAndReappearFindFamiliar` | `src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt#step:doRecastFindFamiliarReplacement` | `tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doRecastFindFamiliarReplacement#step:doRecastFindFamiliarReplacement` | `src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt#step:doResolveThaumaturgyBoomingVoice` | `tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveThaumaturgyBoomingVoice#step:doResolveThaumaturgyBoomingVoice` | `src/qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs` | `covered` |
+
+Out-of-scope branches recorded for this lane:
+
+- `doResolveBlindnessDeafnessBlindedSavingThrow` (level-2 condition-save branch)
+- `doResolveBlindnessDeafnessDeafenedSavingThrow` (level-2 condition-save branch)
+- `doResolveHoldPersonFailedSavingThrow` (level-2 condition-save branch)
+- `doResolveHoldPersonRepeatSavingThrowSuccess` (level-2 repeat-save branch)
+- `doResolveHypnoticPatternFailedSavingThrow` (level-3 condition-save branch)
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Verification results:
+
+- `cargo test condition_saving_throw_selected_identity_routes_in_scope_substrate_branches` passed.
+- `cargo test find_familiar_selected_identity_adapter_replays_all_branches` passed.
+- `cargo test selected_identity_adapter_replays_all_branches` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed after artifact convergence.
+- `git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD` passed.

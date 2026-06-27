@@ -2367,6 +2367,91 @@
         }
       ],
       "taskId": "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE"
+    },
+    {
+      "taskId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt"
+      ],
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "commandResults": [
+        {
+          "command": "cargo test condition_saving_throw_selected_identity_routes_in_scope_substrate_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test find_familiar_selected_identity_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test selected_identity_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD",
+          "status": "pass"
+        }
+      ],
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json",
+          "sha256": "309b5ef2631dbb29d0e43aab0d196e2ffeef6db8114dd899bd7626180bc1885b",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveColorSprayFailedSavingThrow#step:doResolveColorSprayFailedSavingThrow",
+            "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveEntangleFailedSavingThrow#step:doResolveEntangleFailedSavingThrow",
+            "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveHideousLaughterRepeatSavingThrowSuccess#step:doResolveHideousLaughterRepeatSavingThrowSuccess",
+            "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveSleepRepeatSavingThrowFailure#step:doResolveSleepRepeatSavingThrowFailure",
+            "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doCastFindFamiliar#step:doCastFindFamiliar",
+            "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doDeliverTouchSpellThroughFindFamiliar#step:doDeliverTouchSpellThroughFindFamiliar",
+            "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doDismissAndReappearFindFamiliar#step:doDismissAndReappearFindFamiliar",
+            "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doRecastFindFamiliarReplacement#step:doRecastFindFamiliarReplacement",
+            "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveThaumaturgyBoomingVoice#step:doResolveThaumaturgyBoomingVoice"
+          ]
+        }
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/START_GATE.json",
+          "sha256": "8b070dd645ca7e668e5d4c2781fac9beb37c3875489b0edcdd9dc19e32520679"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "37decc1e25e316aef5e410412aa5d194cebf4ab92e440966bf7dbe205e94ed6a"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "3c0fb407f4874a67c2f2e007bc3c41fb4391ba3f93f387bfb377fbbcf4af2647"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "cfe62cc24fa6aa2b9674f156ebf6483cbd462b8548b606ee3699bf496504e26e"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "667c4dc881a212cf9730dd1b863b5c85b3672d219f681f0ed72cb46d33023787"
+        }
+      }
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
