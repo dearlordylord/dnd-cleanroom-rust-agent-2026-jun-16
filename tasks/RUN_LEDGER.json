@@ -3,28 +3,997 @@
     {
       "artifacts": {
         "deciderDecision": {
-          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "a1b9d613c7474002fd430f6a1de852e99623cf64ee0eb742c7eb83742eafb361"
+          "path": "tasks/history/T001/DECIDER_DECISION.json",
+          "sha256": "863c14d6d13943203bd54e7d1944cfbc6142ef59b29567831a961b8a79022013"
         },
         "engineDepth": {
-          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "8a12933e123dde5d8fabf786f7040b7661ebb895a4b87ee9bbcab824a6522898"
+          "path": "tasks/history/T001/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "e0e3685492bb93297e71c763d695b23501488eb753746bae0bfadb71c09029bc"
         },
         "reviewLoop": {
-          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "25c0f8a10dec63934486585b4b1e3f9607534bb88e9028d8bdf95606b3ddb602"
+          "path": "tasks/history/T001/REVIEW_LOOP.json",
+          "sha256": "f8cd56ed127610d792aca6db9509be833a03e19a41d3dba1769ce26fc02c5ab5"
         },
         "startGate": {
-          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/START_GATE.json",
-          "sha256": "ddf6a50dc45a1abc565bd29cc362b13079dd7b96ca6a1cfe7df284702b800649"
+          "path": "tasks/history/T001/START_GATE.json",
+          "sha256": "1c5fa5cd4c2b0d18ba1cd0c14cb7e029cc57cc30d5561d8184c512b6580123aa"
         },
         "stateOwnerManifest": {
-          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "651fca3117704424c652be6e4770f9be68c5daf4c1332cc83da1f51397336fdc"
+          "path": "tasks/history/T001/STATE_OWNER_MANIFEST.json",
+          "sha256": "9e82190d61d6c039b32a5030027b1c002bf3f1720f9a27643f93301d1cbda3d9"
         }
       },
-      "assignmentId": "level-1-2-battle",
+      "assignmentId": "reducer-spine-diagnostic-battle",
       "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test weapon_mastery_selected_identity_adapter_replays_all_branches && cargo test dragonborn_breath_weapon_adapter_replays_all_branches && cargo test feature_selected_identity_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T001-battle-runtime-magic-missile.json#T001 seed=1 action=doFillMagicMissileAllocation#step:doFillMagicMissileAllocation",
+            "tasks/target-replay-evidence/T001-battle-runtime-magic-missile.json#T001 seed=1 action=doFillMagicMissileDamage#step:doFillMagicMissileDamage"
+          ],
+          "path": "tasks/target-replay-evidence/T001-battle-runtime-magic-missile.json",
+          "sha256": "0a77cdcaef21d43d60b8d11582bad04661dc5f3fa60e21854847c0ce7884818c"
+        }
+      ],
+      "taskId": "T001"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/T002/DECIDER_DECISION.json",
+          "sha256": "7a684c1eb02622f865aa37dea40644bb1200a9d35af4782e09e52783865a783d"
+        },
+        "engineDepth": {
+          "path": "tasks/history/T002/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "bfda3370b80449abeadcf689c38c5ee74884ae51c817ba840c86981314e5e3d2"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/T002/REVIEW_LOOP.json",
+          "sha256": "a11152a51d0f061740618d8b0c366cddc850361c99efc324244d8586606b07c5"
+        },
+        "startGate": {
+          "path": "tasks/history/T002/START_GATE.json",
+          "sha256": "5e4a9a283d80e60be9c2f9d8df3da97d81272ffb265b15497b2974db30647bfc"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/T002/STATE_OWNER_MANIFEST.json",
+          "sha256": "2c05709e8fa33cb50a89bc901e98fd45418185d1bbeeab33bc09f2ff9287e3cd"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doDiscoverAreaSaveDamage#step:doDiscoverAreaSaveDamage",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doDiscoverTargetListConditionChoice#step:doDiscoverTargetListConditionChoice",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillAreaDamageDice#step:doFillAreaDamageDice",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillAreaSaveFailed#step:doFillAreaSaveFailed",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillConditionChoiceAfterTargetList#step:doFillConditionChoiceAfterTargetList",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillConditionChoiceBeforeTargetList#step:doFillConditionChoiceBeforeTargetList",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillConditionSavingThrow#step:doFillConditionSavingThrow",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillTargetListAfterConditionChoice#step:doFillTargetListAfterConditionChoice",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doFillTargetListBeforeConditionChoice#step:doFillTargetListBeforeConditionChoice",
+            "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json#T002 seed=1 action=doSubmitDamageBeforeSavingThrow#step:doSubmitDamageBeforeSavingThrow"
+          ],
+          "path": "tasks/target-replay-evidence/T002-battle-runtime-save-gated-spell-ordering.json",
+          "sha256": "71f2eed1ef989bbf51d4f182c644a6970d60103b937dce176fd46b0bd7ce8dba"
+        }
+      ],
+      "taskId": "T002"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/T003/DECIDER_DECISION.json",
+          "sha256": "9c382bbe46c33ea59624d31e676841214b29abb65f3a1a570d29604e3e1a3c5d"
+        },
+        "engineDepth": {
+          "path": "tasks/history/T003/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "332ecfe655f6799846c2357d2dcb0c300bd49a1092dbd4503d772a5e8116409e"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/T003/REVIEW_LOOP.json",
+          "sha256": "6ed9467d0b5b0e1b8f8c68181aadae89107df668b398e9cbbbf258e4935aa357"
+        },
+        "startGate": {
+          "path": "tasks/history/T003/START_GATE.json",
+          "sha256": "0f9072ad89ca964e0635a5340aae0411f86ea7004ce61b87ab3ded7de5295400"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/T003/STATE_OWNER_MANIFEST.json",
+          "sha256": "b80a9174b4339ffaa17bccfd576334fa35127b1365aabb58a84d211fd2c38582"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doDiscoverFeatureHealingPool#step:doDiscoverFeatureHealingPool",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doDiscoverSingleTargetSpellHealing#step:doDiscoverSingleTargetSpellHealing",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doDiscoverTargetListSpellHealing#step:doDiscoverTargetListSpellHealing",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillFeatureHealingDistribution#step:doFillFeatureHealingDistribution",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillSpellHealingRoll#step:doFillSpellHealingRoll",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillSpellHealingTargetChoice#step:doFillSpellHealingTargetChoice",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doFillSpellHealingTargetList#step:doFillSpellHealingTargetList",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doSubmitHealingRollBeforeTargetChoice#step:doSubmitHealingRollBeforeTargetChoice",
+            "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json#T003 seed=1 action=doSubmitHealingRollBeforeTargetList#step:doSubmitHealingRollBeforeTargetList"
+          ],
+          "path": "tasks/target-replay-evidence/T003-battle-runtime-hit-point-restoration-ordering.json",
+          "sha256": "ed5edc22b8fe08fd5dce2331848ee0dea3d29405a9060c7629a59f75155eb162"
+        }
+      ],
+      "taskId": "T003"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/T004/DECIDER_DECISION.json",
+          "sha256": "0ce5527a918ac8da19bab9a985956dbb8af420b6f042d3b96afc24064b529305"
+        },
+        "engineDepth": {
+          "path": "tasks/history/T004/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "46a8ac2d20fb6c7c2ccfd1f66683bf10d3c18c32b865bd354bfb9b6e0d3517b5"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/T004/REVIEW_LOOP.json",
+          "sha256": "d11fba70459f439b728b10332c704ba62b0ba24afd3182a3d69d2f9ae1c28485"
+        },
+        "startGate": {
+          "path": "tasks/history/T004/START_GATE.json",
+          "sha256": "67ed5148c1ece70d69f4dfefb07e6e334baa225720ff089da529505e110bebf1"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/T004/STATE_OWNER_MANIFEST.json",
+          "sha256": "7ca84785185d2ced1fb8929b9a26656437d4dd8eaf3e8c8c4efbdf85547ffbb7"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json#T004 seed=1 action=doDiscoverEndTurnDeathSavingThrow#step:doDiscoverEndTurnDeathSavingThrow",
+            "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json#T004 seed=1 action=doFillDeathSavingThrow#step:doFillDeathSavingThrow",
+            "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json#T004 seed=1 action=doRejectWrongActorEndTurnAfterResolved#step:doRejectWrongActorEndTurnAfterResolved"
+          ],
+          "path": "tasks/target-replay-evidence/T004-battle-runtime-death-saving-throw.json",
+          "sha256": "ae3d1b14dccbc63d2c9b18543a0c0b1911088bca5e2ebfbee47e5a3c48821f60"
+        }
+      ],
+      "taskId": "T004"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/T005/DECIDER_DECISION.json",
+          "sha256": "f1b64e57e9dcda49483c59e3916f4e21824b047f9888343bb8f02b091dcd29a1"
+        },
+        "engineDepth": {
+          "path": "tasks/history/T005/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "977fa70e1d8a314688ca54f2ed23dfed27897fbc2a23fc832f10255759097c8e"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/T005/REVIEW_LOOP.json",
+          "sha256": "268d0f29ea058c9a932885be0e6be2c3834de8e7bb2558a16ec249ed71bf2496"
+        },
+        "startGate": {
+          "path": "tasks/history/T005/START_GATE.json",
+          "sha256": "d14d1b1d5ff48cad032725e6b2c4b842d1b0fbe078cc96354de02053da7ac088"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/T005/STATE_OWNER_MANIFEST.json",
+          "sha256": "71b1dacb2bc1e00d7ba89cfc6470163e2ef2154e80e55ed08f2a70ccb6383cb4"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doCastConcentrationSpell#step:doCastConcentrationSpell",
+            "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doCastReplacementConcentrationSpell#step:doCastReplacementConcentrationSpell",
+            "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doDamageRequestsConcentrationSave#step:doDamageRequestsConcentrationSave",
+            "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doFailConcentrationSave#step:doFailConcentrationSave",
+            "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json#T005 seed=1 action=doVoluntaryEndConcentration#step:doVoluntaryEndConcentration"
+          ],
+          "path": "tasks/target-replay-evidence/T005-battle-runtime-concentration-break-teardown.json",
+          "sha256": "ab636fe7b0ff575f60f5693311c4c2bba0a96d0a9d8f6273ba0be0bd6f4edfef"
+        }
+      ],
+      "taskId": "T005"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/DECIDER_DECISION.json",
+          "sha256": "bd52e4d891254c4eab26efaadf7d35f7ee2c618341a5229f9d3059dde68068b3"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "ac05a7fb46ef79864b87f4179a6a025c0a9a67d5cbdac1c4bd622cd967a12844"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/REVIEW_LOOP.json",
+          "sha256": "29c28937547081097a5e55bfb9ff83b8f468ddea1b2465dec357ec621272fe31"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/START_GATE.json",
+          "sha256": "2efb800ccd2d15e6973d799679aecd6aa5b6cc269b8e53317e837ef4ef88f4e2"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT/STATE_OWNER_MANIFEST.json",
+          "sha256": "fb120c9770ef6b6e0403cf46511fc26e84f6d74000f38798c9f0e4156dbb1ae7"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_entrypoint_contract",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test multiattack_resolution_uses_subject_combatant_profile",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test experimental_qnt_spine",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 1313b305906f85462c65bca4b281da7d8e82e429...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doDiscoverAttack#step:doDiscoverAttack",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillAttackRollHit#step:doFillAttackRollHit",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageHigh#step:doFillDamageHigh",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageHighSneakAttack#step:doFillDamageHighSneakAttack",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageLow#step:doFillDamageLow",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillDamageLowSneakAttack#step:doFillDamageLowSneakAttack",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doFillTarget#step:doFillTarget",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doRejectRecursiveSkeletonMultiattack#step:doRejectRecursiveSkeletonMultiattack",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doRejectWrongTarget#step:doRejectWrongTarget",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch",
+            "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json#RRCONV-19A dirty replay action=doStartSkeletonTurn#step:doStartSkeletonTurn"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19A-battle-setup-entrypoint.json",
+          "sha256": "b4cc845f9313a967e07375be4b6739f69295966aa98ebeb67f8832e1ca55856a"
+        }
+      ],
+      "taskId": "RRCONV-19A-RUST-BATTLE-SETUP-ENTRYPOINT"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/DECIDER_DECISION.json",
+          "sha256": "2bf97061e113d4e039c7fc181505111054990b0bc6e69afdc0d7763f176b0c07"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "c67945ab79ef75477a6a78f95875b81918577c49e56d8da66cbf4f0457ecedd1"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/REVIEW_LOOP.json",
+          "sha256": "1332e3d4ceb2e7b6a87a995f8cbd0c971c3e9d31b5b44dffd40bea982f4a4b41"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/START_GATE.json",
+          "sha256": "c719d953a9d85f55721ab31ebd7be9936aabda3675c42d6a3f2ef8f94cfc5f1a"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT/STATE_OWNER_MANIFEST.json",
+          "sha256": "5d3b6ecc1629802efbf26254127245f20461e9c5efa356c761d5073ac164718f"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_entrypoint_contract",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test experimental_qnt_spine",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test weapon_attack_skeleton_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 1c805870c08b6632dba560019c2c7a75dc5ed991...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doDiscoverAttack#step:doDiscoverAttack",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillAttackRollHit#step:doFillAttackRollHit",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageHigh#step:doFillDamageHigh",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageHighSneakAttack#step:doFillDamageHighSneakAttack",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageLow#step:doFillDamageLow",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillDamageLowSneakAttack#step:doFillDamageLowSneakAttack",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doFillTarget#step:doFillTarget",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectRecursiveSkeletonMultiattack#step:doRejectRecursiveSkeletonMultiattack",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doRejectWrongTarget#step:doRejectWrongTarget",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch",
+            "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json#RRCONV-19B dirty replay action=doStartSkeletonTurn#step:doStartSkeletonTurn"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19B-act-discovery-contract.json",
+          "sha256": "b55669c41913df311137a48883eacdc1281e34d0524f82c58f46873526c4dbeb"
+        }
+      ],
+      "taskId": "RRCONV-19B-RUST-ACT-DISCOVERY-CONTRACT"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/DECIDER_DECISION.json",
+          "sha256": "f369d365b0dd57ecb9a948e6fe56ac380b5bb7d4a347e5da932801d337c06294"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "e3ecdd7c819ee49c73206b3a8689d1cd033bba6d333c1e3493106cbd956280c2"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/REVIEW_LOOP.json",
+          "sha256": "06cafe576727fa90b99d6c54a27449c7d0c817b3b43566175e86073fb6b0787b"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/START_GATE.json",
+          "sha256": "1d1048ce2cf3b83894434ffdad6a82faa833bd0050befd016df70dd2ee0df684"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19D-RUST-TURN-ADVANCE-RESULT/STATE_OWNER_MANIFEST.json",
+          "sha256": "59ce719f8c7b96c26d0c2872a9b3df9ef5a53a9f4e7a509806435320c5ccd8b7"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_entrypoint_contract",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test experimental_qnt_spine_advances_turn_boundary_lifecycle",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test experimental_qnt_spine",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 1c805870c08b6632dba560019c2c7a75dc5ed991...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doStartBattle#step:doStartBattle",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doEndTurnToTarget#step:doEndTurnToTarget",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponTarget#step:doResolveWeaponTarget",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit",
+            "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json#RRCONV-19D dirty replay action=doResolveWeaponDamage#step:doResolveWeaponDamage"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19D-turn-advance-result.json",
+          "sha256": "8e49deae4fc74dc80ddbfe4a2561b28d3aa0379915e11e24de93efaa34c76a2b"
+        }
+      ],
+      "taskId": "RRCONV-19D-RUST-TURN-ADVANCE-RESULT"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/DECIDER_DECISION.json",
+          "sha256": "92234ecf822c5aec23cc09ede25db42e9ba7d0f477e70af38dd225daf9a88e8a"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "dea12b406adf711e2a4e865efa5becab08cbee6c4574277d2e90c15992424072"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/REVIEW_LOOP.json",
+          "sha256": "8b21b3ff30d330f1fa4b73ae08caf2056404fb4b0764c3c2031f15a253ad924e"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/START_GATE.json",
+          "sha256": "f83ecfa8ce4922540db51503cb0f6e6367e7cfc6764f1354f31ec26556af5e19"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT/STATE_OWNER_MANIFEST.json",
+          "sha256": "69ed27c426f00220af3e621a0cb306e364a4ddfb6da7efb420d0f692470e0c03"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_entrypoint_contract",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_spine_contract_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test magic_missile_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test save_gated_spell_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test hit_point_restoration_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test death_saving_throw_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test concentration_break_teardown_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test weapon_attack_skeleton_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 6dc146b9c4a5bf7894b9ad4ae206bc4ef04e222d...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doEndTurnToTarget#step:doEndTurnToTarget",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponDamage#step:doResolveWeaponDamage",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doResolveWeaponTarget#step:doResolveWeaponTarget",
+            "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json#RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT fresh replay action=doStartBattle#step:doStartBattle"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19C-resolution-result-contract.json",
+          "sha256": "9724ea3f33400555280188cfb5365777d997bad933da7453d9f2ab1bc121ed11"
+        }
+      ],
+      "taskId": "RRCONV-19C-RUST-RESOLUTION-RESULT-CONTRACT"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION/DECIDER_DECISION.json",
+          "sha256": "fb9ff032a16a6edd8e6fa1bdb66f4e1fa8944552bfe4199412af13837f8cb157"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "7606ce1f8662332e9e46fe22dc73e3c73f4a460fdca74fa3eeb6860863d6cd94"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION/REVIEW_LOOP.json",
+          "sha256": "05e672010ea5840f7aa5c15ba09d068e5a85df8d720fb8b85ffabfef7993a8d8"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION/START_GATE.json",
+          "sha256": "818aa577d94b1665926ed506d494acdda3dfdc849940802738e4acbdc87f5651"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION/STATE_OWNER_MANIFEST.json",
+          "sha256": "ac32b8187af09ecf80bf869ef995a0fef56cc73f192d82acdf9e1a07517f101b"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "git rev-parse HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "git status --short",
+          "status": "pass"
+        },
+        {
+          "command": "git merge-base --is-ancestor 277f0cf58516d3463267546f578b648f45331a06 HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_entrypoint_contract",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_spine_contract_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test experimental_qnt_spine_advances_turn_boundary_lifecycle",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 277f0cf58516d3463267546f578b648f45331a06...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doDiscoverSlotSpell#step:doDiscoverSlotSpell",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doDiscoverWeaponAttack#step:doDiscoverWeaponAttack",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doEndTurnToTarget#step:doEndTurnToTarget",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doResolveSlotSpellDamage#step:doResolveSlotSpellDamage",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doResolveSlotSpellTargets#step:doResolveSlotSpellTargets",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doResolveWeaponAttackHit#step:doResolveWeaponAttackHit",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doResolveWeaponDamage#step:doResolveWeaponDamage",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doResolveWeaponTarget#step:doResolveWeaponTarget",
+            "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json#RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION fresh replay action=doStartBattle#step:doStartBattle"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19E-end-turn-subject-resolution.json",
+          "sha256": "58c33c9c6292a1d55b55e2c415a7fd30dd5c3580832c6a56ad579253288728a0"
+        }
+      ],
+      "taskId": "RRCONV-19E-RUST-END-TURN-SUBJECT-RESOLUTION"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/DECIDER_DECISION.json",
+          "sha256": "df5107f0350628f1bdacd5414f0e8715fd177c40543fe0c28f04376011516656"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "a2b6fb1621a2dc05cb320011ddfee3acbd42cf66d37fe40e5175a04a0bfbcf7f"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/REVIEW_LOOP.json",
+          "sha256": "ce4c662dc8181f89e738c9d37a058ec5e6cc735016fdc8b0aea67e4491b5845b"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/START_GATE.json",
+          "sha256": "477ab2b0206ea00e249ddc75f223e653105b41b8904821cf5ad89e411353ec19"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT/STATE_OWNER_MANIFEST.json",
+          "sha256": "4bc1da91a717a075b6c7f5052dc375f13dcea69818f5478aae4852a182a6a48d"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "git rev-parse HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "git status --short",
+          "status": "pass"
+        },
+        {
+          "command": "git merge-base --is-ancestor aa3996e4b32e2502b3c3ee5cca051db66157269b HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test resolve_route_event_reads_holes_from_resolution_result",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test route_event",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test magic_missile_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test save_gated_spell_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_spine_contract_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check aa3996e4b32e2502b3c3ee5cca051db66157269b...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doDiscoverAreaSaveDamage#step:doDiscoverAreaSaveDamage",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doDiscoverTargetListConditionChoice#step:doDiscoverTargetListConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillAreaDamageDice#step:doFillAreaDamageDice",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillAreaSaveFailed#step:doFillAreaSaveFailed",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillConditionChoiceAfterTargetList#step:doFillConditionChoiceAfterTargetList",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillConditionChoiceBeforeTargetList#step:doFillConditionChoiceBeforeTargetList",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillConditionSavingThrow#step:doFillConditionSavingThrow",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillMagicMissileAllocation#step:doFillMagicMissileAllocation",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillMagicMissileDamage#step:doFillMagicMissileDamage",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillTargetListAfterConditionChoice#step:doFillTargetListAfterConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doFillTargetListBeforeConditionChoice#step:doFillTargetListBeforeConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json#RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT replay action=doSubmitDamageBeforeSavingThrow#step:doSubmitDamageBeforeSavingThrow"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19F-route-event-from-reducer-result.json",
+          "sha256": "b672f928594babb75fe6fa752e18d17d7841d84e11268a5eaee7193c127300c5"
+        }
+      ],
+      "taskId": "RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/DECIDER_DECISION.json",
+          "sha256": "a5c9b8f8d598430ef19bc1bcea238f6c1ccf8512d4526ac1ecb7450687df4863"
+        },
+        "engineDepth": {
+          "path": "tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "21318201abf24a096834b1348d7b27aa3b4679f67dfec52a1236e661112b4986"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/REVIEW_LOOP.json",
+          "sha256": "e97d922eda7a23f785ffe8bcd2ed44b91eeea6f24e4a92daa6348cffcd5368f9"
+        },
+        "startGate": {
+          "path": "tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/START_GATE.json",
+          "sha256": "92e6418464ebc71a4e8235cc34299f65d6e1de92e5d9aee6691b8659b3f186af"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE/STATE_OWNER_MANIFEST.json",
+          "sha256": "ad7676edcbb5aa21ca7604ce685d27ff0afd311ae601a3888bf739c5de90fc1a"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test continuation",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test save_gated_spell_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test hit_point_restoration_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test reducer_spine_contract_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check be336582921801cd06995121db38e34ca6f4e275...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverAreaSaveDamage#step:doDiscoverAreaSaveDamage",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverTargetListConditionChoice#step:doDiscoverTargetListConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillAreaDamageDice#step:doFillAreaDamageDice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillAreaSaveFailed#step:doFillAreaSaveFailed",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionChoiceAfterTargetList#step:doFillConditionChoiceAfterTargetList",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionChoiceBeforeTargetList#step:doFillConditionChoiceBeforeTargetList",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillConditionSavingThrow#step:doFillConditionSavingThrow",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillTargetListAfterConditionChoice#step:doFillTargetListAfterConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillTargetListBeforeConditionChoice#step:doFillTargetListBeforeConditionChoice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitDamageBeforeSavingThrow#step:doSubmitDamageBeforeSavingThrow",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverFeatureHealingPool#step:doDiscoverFeatureHealingPool",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverSingleTargetSpellHealing#step:doDiscoverSingleTargetSpellHealing",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doDiscoverTargetListSpellHealing#step:doDiscoverTargetListSpellHealing",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillFeatureHealingDistribution#step:doFillFeatureHealingDistribution",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingRoll#step:doFillSpellHealingRoll",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingTargetChoice#step:doFillSpellHealingTargetChoice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doFillSpellHealingTargetList#step:doFillSpellHealingTargetList",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitHealingRollBeforeTargetChoice#step:doSubmitHealingRollBeforeTargetChoice",
+            "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json#RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE replay action=doSubmitHealingRollBeforeTargetList#step:doSubmitHealingRollBeforeTargetList"
+          ],
+          "path": "tasks/target-replay-evidence/RRCONV-19G-subject-continuation-lifecycle.json",
+          "sha256": "4df2e02ca93e388fe6cd4d95c34f8262f1a0e327d05e126e34e327058b364181"
+        }
+      ],
+      "taskId": "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/DECIDER_DECISION.json",
+          "sha256": "d9a963b2fc80ec3bfda0759dccb70b9ab7b466619ad704aaad974949b0f90621"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "a3cca278b2c60f5ae72eb0a8ba98b8ed5266284e68bbbe8acdf218c2a9f22206"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/REVIEW_LOOP.json",
+          "sha256": "b5b4eb19ac49e2f17c0fe9953e66909b9dbb156ce502c49aefa4378c17eac542"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/START_GATE.json",
+          "sha256": "3eaf048ef26ee45a915cd6b5b4c2d80fb0c71abcd2791a332527858bf60f2457"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE/STATE_OWNER_MANIFEST.json",
+          "sha256": "64e651d23f72f0c92abf99286298dced6e9f99404bc3a852aa9edc4589491379"
+        }
+      },
+      "assignmentId": "reducer-spine-diagnostic-battle",
+      "commandResults": [
+        {
+          "command": "cargo test death_saving_throw_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test concentration_break_teardown_adapter_replays_all_branches",
+          "status": "pass"
+        },
         {
           "command": "cargo fmt --check",
           "status": "pass"
@@ -42,38 +1011,263 @@
           "status": "pass"
         },
         {
-          "command": "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
+          "command": "git diff --check 72f81250789a4e7bc6216503f2a93abac6771852...HEAD",
           "status": "pass"
         }
       ],
       "laneId": "battle",
       "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
       "selectedDrivers": [
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt"
       ],
       "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
       "targetReplayEvidence": [
         {
           "evidenceRefs": [
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveSapMasteryPropertyHit#step:doResolveSapMasteryPropertyHit",
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveToppleMasteryPropertyFailedSavingThrow#step:doResolveToppleMasteryPropertyFailedSavingThrow",
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveCleaveMasteryPropertySecondTargetHit#step:doResolveCleaveMasteryPropertySecondTargetHit",
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveBreathWeapon#step:doResolveBreathWeapon",
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doOpenExtraAttackSlot#step:doOpenExtraAttackSlot",
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectMissingResource#step:doRejectMissingResource",
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectMismatchedArea#step:doRejectMismatchedArea",
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectInvalidDamageRoll#step:doRejectInvalidDamageRoll",
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doActivateInnateSorcery#step:doActivateInnateSorcery",
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doProjectInnateSorcerySpellBenefits#step:doProjectInnateSorcerySpellBenefits",
-            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doExcludeInnateSorceryNonSorcererSpellBenefits#step:doExcludeInnateSorceryNonSorcererSpellBenefits"
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doCastConcentrationSpell#step:doCastConcentrationSpell",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doCastReplacementConcentrationSpell#step:doCastReplacementConcentrationSpell",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doDamageRequestsConcentrationSave#step:doDamageRequestsConcentrationSave",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doFailConcentrationSave#step:doFailConcentrationSave",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doVoluntaryEndConcentration#step:doVoluntaryEndConcentration",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doDiscoverEndTurnDeathSavingThrow#step:doDiscoverEndTurnDeathSavingThrow",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doFillDeathSavingThrow#step:doFillDeathSavingThrow",
+            "tasks/target-replay-evidence/L15-RR03-reducer-route.json#L15-RR03 route action=doRejectWrongActorEndTurnAfterResolved#step:doRejectWrongActorEndTurnAfterResolved"
           ],
-          "path": "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json",
-          "sha256": "84023113707dd9e305672ceb471adc87d9ab9480a1ac78617bc7c1afb4f86e1d"
+          "path": "tasks/target-replay-evidence/L15-RR03-reducer-route.json",
+          "sha256": "dab4e9c67f4cd1fdfa486c9dfc4aeec0c3e9c0c6ca61905bb20f9bd2d922bec0"
         }
       ],
-      "taskId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES"
+      "taskId": "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/DECIDER_DECISION.json",
+          "sha256": "57097c74f2233ffe68a91217bb62ed7fc657d59ca8164444edf80d3394dceaa9"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "37eb9586286192d063ea38ef100868188035db351d34468558737b42c270e245"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/REVIEW_LOOP.json",
+          "sha256": "c18db3e3769520fcb6a448733daebfd79e57ce6b8eeb6f10a1c67f44000fe079"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/START_GATE.json",
+          "sha256": "6e8602c0ede58d8ef08830a751ba282eaee8732133c7a3f6e017789239784ba0"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "89dd6eb97530f6ad10a13176796dbd2181c9c6ed3449f0647300e4fa54c46964"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo test adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/creature-attack.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverSingleTargetSpellAttack#step:doDiscoverSingleTargetSpellAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverTypedSpellAttack#step:doDiscoverTypedSpellAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit#step:doFillAttackRollHit",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice#step:doFillDamageDice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageTypeAfterTargetChoice#step:doFillDamageTypeAfterTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageTypeBeforeTargetChoice#step:doFillDamageTypeBeforeTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoiceAfterDamageType#step:doFillTargetChoiceAfterDamageType",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoiceBeforeDamageType#step:doFillTargetChoiceBeforeDamageType",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSubmitAttackRollBeforeTargetChoice#step:doSubmitAttackRollBeforeTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSubmitDamageBeforeAttackRoll#step:doSubmitDamageBeforeAttackRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverRolledActionAttackControl#step:doDiscoverRolledActionAttackControl",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverStaticActionAttackControl#step:doDiscoverStaticActionAttackControl",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice#step:doFillDamageDice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillRechargeRoll#step:doFillRechargeRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillRolledAttackRollHit#step:doFillRolledAttackRollHit",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillStaticAttackRollHit#step:doFillStaticAttackRollHit",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectAttackRollBeforeTargetChoice#step:doRejectAttackRollBeforeTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectDamageBeforeAttackRoll#step:doRejectDamageBeforeAttackRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSpendRechargeGatedRolledAttack#step:doSpendRechargeGatedRolledAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doStartMultiattackControl#step:doStartMultiattackControl",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillHitAttackRoll#step:doFillHitAttackRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveRolledDamage#step:doResolveRolledDamage",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillHitAttackRoll#step:doFillHitAttackRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveDamage#step:doResolveDamage",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverAttack#step:doDiscoverAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit#step:doFillAttackRollHit",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice#step:doFillDamageDice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectAttackRollBeforeTargetChoice#step:doRejectAttackRollBeforeTargetChoice",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectDamageBeforeAttackRoll#step:doRejectDamageBeforeAttackRoll",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverAttack#step:doDiscoverAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit#step:doFillAttackRollHit",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageHigh#step:doFillDamageHigh",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageHighSneakAttack#step:doFillDamageHighSneakAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageLow#step:doFillDamageLow",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageLowSneakAttack#step:doFillDamageLowSneakAttack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTarget#step:doFillTarget",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectRecursiveSkeletonMultiattack#step:doRejectRecursiveSkeletonMultiattack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectWrongTarget#step:doRejectWrongTarget",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doResolveSkeletonMultiattack#step:doResolveSkeletonMultiattack",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doSpendSkeletonMultiattackDispatch#step:doSpendSkeletonMultiattackDispatch",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doStartSkeletonTurn#step:doStartSkeletonTurn",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doAttackerAAttacks#step:doAttackerAAttacks",
+            "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doAttackerBAttacks#step:doAttackerBAttacks"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json",
+          "sha256": "d9b846e463d07cc131e3daafd5320f30eb4a3ce37a77eb2ebac4ad667c525759"
+        }
+      ],
+      "taskId": "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/DECIDER_DECISION.json",
+          "sha256": "300400f3534f2dffd7c079397d5fe394d9e17bd8ab4eda7bd22d3cf386511d82"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "a40bc664c49a59742be29c0a640b3fb1af713c60ead6ee6c54103f07e4a69070"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/REVIEW_LOOP.json",
+          "sha256": "34524632c3f686a21e360600366d20928bbffe3b505d08b2f1724a9b97b2190d"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/START_GATE.json",
+          "sha256": "ceb9ae7c4c2d78c717460bf755666364d1442d2ce53a7cc0f8184719c774ba77"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR06-BATTLE-SPELL-EFFECT-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "734488a30a4af617f30018eec98118b31c099983499196fd13e0c29980b64d01"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo test command_option_next_turn_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test command_ordering_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test scalar_buff_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFailedSaveRecordsPending#step:doFailedSaveRecordsPending",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel#step:doFollowGrovel",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowDrop#step:doFollowDrop",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses#step:doHaltSuppresses",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltEndTurnCleanup#step:doHaltEndTurnCleanup",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachContinues#step:doApproachContinues",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachWithinFiveEndsTurn#step:doApproachWithinFiveEndsTurn",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementRejected#step:doApproachMovementRejected",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovementCleanup#step:doApproachNoMovementCleanup",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeFullMovementEndsTurn#step:doFleeFullMovementEndsTurn",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleePartialMovementRejected#step:doFleePartialMovementRejected",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovementCleanup#step:doFleeNoMovementCleanup",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackWindow#step:doFleeOpportunityAttackWindow",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackDeclinedContinuation#step:doFleeOpportunityAttackDeclinedContinuation",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doComplete#step:doComplete",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDiscoverCommand#step:doDiscoverCommand",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitOptionBeforeTargetList#step:doSubmitOptionBeforeTargetList",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillTargetList#step:doFillTargetList",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitSavingThrowBeforeOption#step:doSubmitSavingThrowBeforeOption",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillGrovelOption#step:doFillGrovelOption",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFailedGrovelSavingThrow#step:doFillFailedGrovelSavingThrow",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel#step:doFollowGrovel",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDropNeedsHeldObjectFacts#step:doDropNeedsHeldObjectFacts",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillDropHeldObjectFacts#step:doFillDropHeldObjectFacts",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses#step:doHaltSuppresses",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementContinues#step:doApproachMovementContinues",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementContinues#step:doFillApproachMovementContinues",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementWithinFive#step:doFillApproachMovementWithinFive",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovement#step:doApproachNoMovement",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeMovement#step:doFleeMovement",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFleeMovement#step:doFillFleeMovement",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectFleePartialMovement#step:doRejectFleePartialMovement",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovement#step:doFleeNoMovement",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttack#step:doFleeOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillLongstriderTarget#step:doFillLongstriderTarget",
+            "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json",
+          "sha256": "6349cedd7dd73748fe3e31e98953c602a4f17e59107733d35d4f48676dc2468d"
+        }
+      ],
+      "taskId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES"
     },
     {
       "artifacts": {
@@ -163,6 +1357,114 @@
         }
       ],
       "taskId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/DECIDER_DECISION.json",
+          "sha256": "87e040f24e82885eccc03a17099defa5a3af30dc59650eda83f800844c00d1ce"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "edb4b05876e8a22c7e2af337144727b66b0fe415edfc5dca4a315e1f8bf33dc9"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/REVIEW_LOOP.json",
+          "sha256": "ba04e1eba8362c9040ee7a89ab0d2f8051beb7b5d571b1d465d0bfa10a8e8ba8"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/START_GATE.json",
+          "sha256": "cca1f1e81dce8fbb214bc13bdca6ba896b25030eb604d5f508c5680793542f38"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/STATE_OWNER_MANIFEST.json",
+          "sha256": "55916afb3b59b3e6ab8d70be96ea2dac0ccb76849e76fe648d3ff0894a44927c"
+        }
+      },
+      "assignmentId": "level-1-2-rules-core",
+      "campaignLaneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
+      "commandResults": [
+        {
+          "command": "cargo test adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check a625d3e7190eb33396c17ee5dca7ae73f413b348...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "rules-core",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "parentRouteTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDash#step:doDash",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDeclineOpportunityAttack#step:doDeclineOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverEscapeGrapple#step:doDiscoverEscapeGrapple",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverGrapple#step:doDiscoverGrapple",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverMovement#step:doDiscoverMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDisengage#step:doDisengage",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doMoveProvokesOpportunityAttack#step:doMoveProvokesOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doMoveThreatSuppressedByDisengage#step:doMoveThreatSuppressedByDisengage",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doRejectDashAfterActionSpent#step:doRejectDashAfterActionSpent",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doRejectMovementOverspend#step:doRejectMovementOverspend",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doReleaseGrapple#step:doReleaseGrapple",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveEscapeFailure#step:doResolveEscapeFailure",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveEscapeSuccess#step:doResolveEscapeSuccess",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveGrappleFailure#step:doResolveGrappleFailure",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveGrappleSuccess#step:doResolveGrappleSuccess",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSelectGrappleTarget#step:doSelectGrappleTarget",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendFullMovement#step:doSpendFullMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendMovement#step:doSpendMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendShortMovement#step:doSpendShortMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doStandFromProne#step:doStandFromProne",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doStartGrappledTargetTurn#step:doStartGrappledTargetTurn",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doBreakReactorConcentrationAfterLargeDamage#step:doBreakReactorConcentrationAfterLargeDamage",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doDeclineOpportunityAttack#step:doDeclineOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doDeclineReadiedMovement#step:doDeclineReadiedMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doHoldReactorConcentrationAfterSmallDamage#step:doHoldReactorConcentrationAfterSmallDamage",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doOfferOpportunityAttack#step:doOfferOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doOfferReadiedMovement#step:doOfferReadiedMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doReadyMovementFixture#step:doReadyMovementFixture",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doRejectReadiedMovementZero#step:doRejectReadiedMovementZero",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doStartReactorConcentrationFixture#step:doStartReactorConcentrationFixture",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doTakeReadiedMovementFill#step:doTakeReadiedMovementFill",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doTakeReadiedMovementShort#step:doTakeReadiedMovementShort",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doInvalidPushDistance#step:doInvalidPushDistance",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsProne#step:doSaveFailsProne",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPush#step:doSaveFailsPush",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPushBlocked#step:doSaveFailsPushBlocked",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPushNoLegalDestination#step:doSaveFailsPushNoLegalDestination",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveSucceeds#step:doSaveSucceeds"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json",
+          "sha256": "495667e314628a957b9a8a830116f13420ae7f7884aa6536424f56aecba08846"
+        }
+      ],
+      "taskId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS"
     },
     {
       "artifacts": {
@@ -739,6 +2041,169 @@
         }
       ],
       "taskId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "a860e079acda93b7938192b50c5ba7a03e5b7d7f51cd1f35d78faea7ffd014f5"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "8afb4e2af6d4d088c4850f6eab42f305e1ec1194ae49687eb1ca6229eee28f9c"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "40bd00df1fed5e76bedfa06361bbad793128d055aa35045aeaade9d5e1418f97"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/START_GATE.json",
+          "sha256": "c633ceec305870a967f00fa5621470424d453d474a123fe7f019728b606547c1"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "2335c9ad57eccbc7ba9cbf415f0a1ffe66338893554519015e2c14b44976e2f3"
+        }
+      },
+      "assignmentId": "level-1-2-battle",
+      "commandResults": [
+        {
+          "command": "cargo test healing_stabilization_adapter_replays_spare_the_dying_branch",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test druid_wild_shape_form_lifecycle_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test movement_forced_movement_selected_identity_adapter_replays_in_scope_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doResolveSpareTheDyingStable#step:doResolveSpareTheDyingStable",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doAssumeRidingHorse#step:doAssumeRidingHorse",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doBeginNextTurn#step:doBeginNextTurn",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doDeathReversion#step:doDeathReversion",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doDismissForm#step:doDismissForm",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doIncapacitatedReversion#step:doIncapacitatedReversion",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doReuseAsCat#step:doReuseAsCat",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doStutter#step:doStutter",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doCommandFleeTargetTurn#step:doCommandFleeTargetTurn",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doDissonantWhispersForcedReactionMovement#step:doDissonantWhispersForcedReactionMovement",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doExpeditiousRetreatImmediateDash#step:doExpeditiousRetreatImmediateDash",
+            "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doMonkUnarmoredMovementDash#step:doMonkUnarmoredMovementDash"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json",
+          "sha256": "b5737cf9ef7d0c9affe7ea4e80fa5d3a9f2503f6af7a5202b0697e489f608962"
+        }
+      ],
+      "taskId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "a1b9d613c7474002fd430f6a1de852e99623cf64ee0eb742c7eb83742eafb361"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "8a12933e123dde5d8fabf786f7040b7661ebb895a4b87ee9bbcab824a6522898"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "25c0f8a10dec63934486585b4b1e3f9607534bb88e9028d8bdf95606b3ddb602"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/START_GATE.json",
+          "sha256": "ddf6a50dc45a1abc565bd29cc362b13079dd7b96ca6a1cfe7df284702b800649"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "651fca3117704424c652be6e4770f9be68c5daf4c1332cc83da1f51397336fdc"
+        }
+      },
+      "assignmentId": "level-1-2-battle",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveSapMasteryPropertyHit#step:doResolveSapMasteryPropertyHit",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveToppleMasteryPropertyFailedSavingThrow#step:doResolveToppleMasteryPropertyFailedSavingThrow",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveCleaveMasteryPropertySecondTargetHit#step:doResolveCleaveMasteryPropertySecondTargetHit",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveBreathWeapon#step:doResolveBreathWeapon",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doOpenExtraAttackSlot#step:doOpenExtraAttackSlot",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectMissingResource#step:doRejectMissingResource",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectMismatchedArea#step:doRejectMismatchedArea",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectInvalidDamageRoll#step:doRejectInvalidDamageRoll",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doActivateInnateSorcery#step:doActivateInnateSorcery",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doProjectInnateSorcerySpellBenefits#step:doProjectInnateSorcerySpellBenefits",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doExcludeInnateSorceryNonSorcererSpellBenefits#step:doExcludeInnateSorceryNonSorcererSpellBenefits"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json",
+          "sha256": "84023113707dd9e305672ceb471adc87d9ab9480a1ac78617bc7c1afb4f86e1d"
+        }
+      ],
+      "taskId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES"
     },
     {
       "artifacts": {
