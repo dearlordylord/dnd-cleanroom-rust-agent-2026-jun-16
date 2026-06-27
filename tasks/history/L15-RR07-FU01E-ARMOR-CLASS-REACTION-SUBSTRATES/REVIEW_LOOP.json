@@ -4,9 +4,9 @@
       "checklist": "branch-coverage",
       "id": "fu01e-mage-armor-non-effect-rows",
       "reasonableness": "reasonable",
-      "resolution": "Recorded them as explicit target-blocker rows while accepting only the base AC projection row for this lane.",
+      "resolution": "Kept as explicit target-blocker rows after CP7-D research confirmed copied reducer-route inventory lacks a Mage Armor qRoute connector and generic armor-class route subject owner.",
       "status": "fixed",
-      "summary": "Mage Armor discovery, armored rejection, and duration expiry are not accepted armor-class spell effect reducer routes."
+      "summary": "Mage Armor discovery, armored rejection, and duration expiry are not accepted reducer routes."
     },
     {
       "checklist": "authored-identity-dispatch",
@@ -108,7 +108,7 @@
         }
       ],
       "round": 2,
-      "summary": "Convergence pass after target-blocking non-effect Mage Armor rows and confirming accepted AC/reaction rows use reducer entrypoint route evidence, with ReactionSpell rows discovered from production reaction-window state; no reasonable findings remain."
+      "summary": "Convergence pass after keeping CP7-D Mage Armor target-admission and active-effect lifecycle rows blocked and confirming accepted AC/reaction rows use reducer entrypoint route evidence, with ReactionSpell rows discovered from production reaction-window state; no reasonable findings remain."
     }
   ],
   "schemaVersion": 1,

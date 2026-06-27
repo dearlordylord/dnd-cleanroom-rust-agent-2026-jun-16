@@ -1,5 +1,5 @@
 {
-  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "cleanroomManifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
   "generatedBy": {
     "name": "rust-cleanroom-fu01e-armor-class-reaction-substrates",
     "tag": "target-harness"
@@ -15,10 +15,10 @@
       "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
       "result": {
         "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DISCOVERY",
-        "reason": "target admission discovery remains projection-only; no accepted armor-class spell effect resolution occurs in this row",
+        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
         "tag": "target-blocker"
       },
-      "routeEvidenceBasis": "target blocker: row is target admission/lifecycle projection without accepted production BattleState effect route in this lane",
+      "routeEvidenceBasis": "target blocker: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -41,10 +41,10 @@
       "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
       "result": {
         "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DURATION-EXPIRY",
-        "reason": "duration expiry is an active-effect lifecycle row without a production BattleState expiry route in this lane",
+        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class active-effect lifecycle route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
         "tag": "target-blocker"
       },
-      "routeEvidenceBasis": "target blocker: row is target admission/lifecycle projection without accepted production BattleState effect route in this lane",
+      "routeEvidenceBasis": "target blocker: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class active-effect lifecycle route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -68,10 +68,10 @@
       "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
       "result": {
         "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-ARMORED-REJECTION",
-        "reason": "armored-target rejection is target admission projection, not an accepted armor-class spell effect route in this lane",
+        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
         "tag": "target-blocker"
       },
-      "routeEvidenceBasis": "target blocker: row is target admission/lifecycle projection without accepted production BattleState effect route in this lane",
+      "routeEvidenceBasis": "target blocker: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [

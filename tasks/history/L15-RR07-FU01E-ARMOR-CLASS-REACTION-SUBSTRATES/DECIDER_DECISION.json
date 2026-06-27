@@ -45,24 +45,24 @@
       "reason": "Counterspell is a level-3 reaction branch and remains out of scope"
     }
   ],
-  "rationale": "Accepted rows route through generic ArmorClassSpellEffect and production-discovered ReactionSpell reducer subjects with active-effect or reaction-owned route evidence; non-effect Mage Armor rows are explicit target blockers and Counterspell remains out of scope.",
+  "rationale": "Accepted rows route through generic ArmorClassSpellEffect and production-discovered ReactionSpell reducer subjects with active-effect or reaction-owned route evidence. CP7-D research kept Mage Armor target admission, armored rejection, and duration expiry as target blockers because copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class route subject owner; accepting them would require source/corpus route support rather than target-side inference. Counterspell remains out of scope.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "targetBlockedRows": [
     {
       "action": "doDiscoverMageArmorUnarmoredSelfTarget",
       "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DISCOVERY",
-      "reason": "target admission discovery is not an armor-class spell effect route"
+      "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference"
     },
     {
       "action": "doRejectMageArmorArmoredTarget",
       "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-ARMORED-REJECTION",
-      "reason": "armored-target rejection is target admission projection"
+      "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference"
     },
     {
       "action": "doExpireMageArmorDuration",
       "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DURATION-EXPIRY",
-      "reason": "duration expiry lacks a production BattleState expiry route in this lane"
+      "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class active-effect lifecycle route subject owner; accepting this row would require source/corpus route support rather than target-side inference"
     }
   ],
   "taskId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"

@@ -2865,6 +2865,8 @@ Allowed inputs used:
 
 Behavior implemented:
 
+- CP7-D blocker research found no copied Mage Armor qRoute connector or generic armor-class route subject owner for target admission, armored rejection, or duration expiry.
+- Kept Mage Armor target-admission discovery, armored-target rejection, and duration expiry as target blockers; accepting them would require source/corpus route support rather than target-side inference.
 - Accepted Mage Armor base AC projection through generic `ArmorClassSpellEffect` route using `armor_class_projection` and active-effect state.
 - Accepted Shield and Hellish Rebuke selected rows through generic `ReactionSpell` fills for armor-class interruption and failed-save damage.
 - Counterspell remains out of scope because it is level 3.
@@ -2897,17 +2899,18 @@ Harness artifacts:
 
 Remaining gaps:
 
-- `doDiscoverMageArmorUnarmoredSelfTarget`, `doRejectMageArmorArmoredTarget`, and `doExpireMageArmorDuration` are target-blocked for this lane.
+- CP7-D retained three Mage Armor target blockers: target admission discovery, armored-target rejection, and duration expiry. The copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class route subject owner for these rows.
 - `doResolveCounterspellMagicMissileCast` is out of scope.
 
 Verification results:
 
-- `cargo test mage_armor_adapter_replays_all_branches && cargo test reaction_spell_selected_identity_adapter_replays_in_scope_branches` passed.
+- `cargo test mage_armor_adapter_replays_all_branches -- --nocapture` passed.
+- `jq empty` over touched JSON files passed.
 - `cargo fmt --check` passed.
+- `git diff --check c59d644...HEAD` passed.
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
-- `node scripts/check-cleanroom-harness.cjs` passed.
-- `git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed on known stale global manifest/evidence debt. Filtered output still includes pre-existing FU01E/Mage Armor stale-manifest lines, so this run is not classified as a clean CP7-D harness pass.
 
 ## FU01C Integration Addendum
 
