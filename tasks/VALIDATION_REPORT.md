@@ -2089,6 +2089,8 @@ Verification results:
 ### Behavior implemented:
 Passive trait, passive movement, passive roll-mode, roll-modifier buff, Danger Sense, and feature-resource-backed Adrenaline behavior route through typed substrate owners. Selected species, feature, and spell identity is retained only in adapter/test/evidence boundaries.
 
+The accepted target replay rows are `qRoute` / `route-event-list` evidence: each focused adapter test now compares `replay_observed_route(action)` against an independent `expected_route(action)` record before accepting the branch. Literal projection witnesses remain as component state checks, but they are not the basis for the route comparator claim.
+
 ### Generated branch coverage:
 | Obligation | Evidence | Harness | Status |
 | --- | --- | --- | --- |
@@ -2122,6 +2124,7 @@ Passive trait, passive movement, passive roll-mode, roll-modifier buff, Danger S
 - None for the selected lane obligations.
 
 ### Verification results:
+- cargo test adapter_replays_all_branches: pass
 - cargo fmt --check: pass
 - cargo test: pass
 - cargo clippy --all-targets -- -D warnings: pass

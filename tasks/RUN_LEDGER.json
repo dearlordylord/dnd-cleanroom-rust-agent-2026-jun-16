@@ -2042,15 +2042,15 @@
       "artifacts": {
         "deciderDecision": {
           "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "273ccbf03529ac24c7fb465253fd4e3f16d83ec74c440145c12b57abff4b1d04"
+          "sha256": "02fbb33b93b5605c6854ae9ee7739b25ec044d3df0690b5987a70a1894330e02"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "8782a50b5d3125a4c20b8775c72c732cc084ed87b7d090110a28ef08f3072c8f"
+          "sha256": "fa959ce5b2a44d8bffb2d7e9035f371120234357e8e4376dfdd919369ac5e584"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "acde980d314609965db99a999610474dc1f4e78fa215a2ec224c6fe4a2e2d6a6"
+          "sha256": "96eaad9020cd56302c45aa4c301280d20033318fde614ef23adf3929233fdf8f"
         },
         "startGate": {
           "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/START_GATE.json",
@@ -2112,7 +2112,7 @@
             "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doShieldOfFaithArmorClassBonus#step:doShieldOfFaithArmorClassBonus"
           ],
           "path": "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json",
-          "sha256": "0824a3f5f2db5d9b356023095d2ab29cbac6c4ff6ba75ea83c9fd7c790a2dec9"
+          "sha256": "994ecc9ad9da79ca9486fa18207b9d49d1e2f07b98f1947fbab4d3bf94cdb8d8"
         }
       ],
       "taskId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES"

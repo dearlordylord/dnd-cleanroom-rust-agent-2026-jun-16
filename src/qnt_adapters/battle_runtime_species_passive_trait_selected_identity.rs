@@ -4,6 +4,13 @@ use crate::rules::species_passive_traits::{
     SpeciesPassiveRollMode, SpeciesPassiveScenarioResult, SpeciesPassiveTraitState,
 };
 
+use super::battle_runtime_reducer_route::{
+    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_route_result,
+    route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
+    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+};
+
 pub const BRANCH_ACTIONS: [&str; 4] = [
     "doDragonbornDamageResistance",
     "doDwarvenResilience",
@@ -58,6 +65,31 @@ pub fn expected_witness(observed_action_taken: &str) -> SpeciesPassiveTraitState
     }
 }
 
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match replay_observed_action(observed_action_taken).scenario_result {
+        SpeciesPassiveScenarioResult::DragonbornDamageResistance => {
+            observed_passive_route_after_damage_adjustment()
+        }
+        SpeciesPassiveScenarioResult::DwarvenResilience
+        | SpeciesPassiveScenarioResult::HalflingBrave => {
+            observed_passive_route_after_saving_throw_roll_mode()
+        }
+        SpeciesPassiveScenarioResult::GoliathPowerfulBuild => {
+            observed_passive_route_after_ability_check_roll_mode()
+        }
+        SpeciesPassiveScenarioResult::Init => panic!("init is not a replayed branch action"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doDragonbornDamageResistance" => passive_route_after_damage_adjustment(),
+        "doDwarvenResilience" | "doHalflingBrave" => passive_route_after_saving_throw_roll_mode(),
+        "doGoliathPowerfulBuild" => passive_route_after_ability_check_roll_mode(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
 pub fn projection_payload(state: &SpeciesPassiveTraitState) -> String {
     [
         format!(
@@ -103,6 +135,302 @@ pub fn projection_payload(state: &SpeciesPassiveTraitState) -> String {
         "protocolHoles=none".to_string(),
     ]
     .join("\n")
+}
+
+pub fn observed_passive_route_after_accepted_creature_space_movement() -> Vec<ReducerRouteEvent> {
+    let mut route = observed_passive_route_after_ability_check_roll_mode();
+    observed_append_accepted_creature_space_movement(&mut route);
+    route
+}
+
+pub fn observed_passive_route_after_rejected_creature_space_movement(
+    rejected_count_after_acceptance: usize,
+) -> Vec<ReducerRouteEvent> {
+    let mut route = observed_passive_route_after_accepted_creature_space_movement();
+    for _ in 0..rejected_count_after_acceptance {
+        observed_append_rejected_creature_space_movement(&mut route);
+    }
+    route
+}
+
+pub fn passive_route_after_ability_check_roll_mode() -> Vec<ReducerRouteEvent> {
+    let mut route = passive_route_after_saving_throw_roll_mode();
+    append_ability_check_roll_mode(&mut route);
+    route
+}
+
+pub fn passive_route_after_accepted_creature_space_movement() -> Vec<ReducerRouteEvent> {
+    let mut route = passive_route_after_ability_check_roll_mode();
+    append_accepted_creature_space_movement(&mut route);
+    route
+}
+
+pub fn passive_route_after_rejected_creature_space_movement(
+    rejected_count_after_acceptance: usize,
+) -> Vec<ReducerRouteEvent> {
+    let mut route = passive_route_after_accepted_creature_space_movement();
+    for _ in 0..rejected_count_after_acceptance {
+        append_rejected_creature_space_movement(&mut route);
+    }
+    route
+}
+
+fn observed_passive_route_after_ability_check_roll_mode() -> Vec<ReducerRouteEvent> {
+    let mut route = observed_passive_route_after_saving_throw_roll_mode();
+    observed_append_ability_check_roll_mode(&mut route);
+    route
+}
+
+fn observed_passive_route_after_damage_adjustment() -> Vec<ReducerRouteEvent> {
+    let mut route = observed_passive_route_after_creature_stat_projection();
+    observed_append_damage_adjustment(&mut route);
+    route
+}
+
+fn observed_passive_route_after_saving_throw_roll_mode() -> Vec<ReducerRouteEvent> {
+    let mut route = observed_passive_route_after_damage_adjustment();
+    observed_append_saving_throw_roll_mode(&mut route);
+    route
+}
+
+fn observed_passive_route_after_creature_stat_projection() -> Vec<ReducerRouteEvent> {
+    let mut route = vec![route_start_battle(ReducerRouteOwnerGroup::CreatureState)];
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::CreatureStatProjection,
+            Vec::new(),
+            ReducerRouteOwnerGroup::CreatureState,
+        ),
+        route_resolve_battle_subject_without_fill_from_route_result(
+            ReducerRouteSubjectFamily::CreatureStatProjection,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::CreatureState,
+        ),
+        route_resolve_battle_subject_without_fill_from_route_result(
+            ReducerRouteSubjectFamily::CreatureStatProjection,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::MovementResource,
+        ),
+    ]);
+    route
+}
+
+fn passive_route_after_damage_adjustment() -> Vec<ReducerRouteEvent> {
+    let mut route = passive_route_after_creature_stat_projection();
+    append_damage_adjustment(&mut route);
+    route
+}
+
+fn passive_route_after_saving_throw_roll_mode() -> Vec<ReducerRouteEvent> {
+    let mut route = passive_route_after_damage_adjustment();
+    append_saving_throw_roll_mode(&mut route);
+    route
+}
+
+fn passive_route_after_creature_stat_projection() -> Vec<ReducerRouteEvent> {
+    let mut route = vec![route_start_battle(ReducerRouteOwnerGroup::CreatureState)];
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::CreatureStatProjection,
+            Vec::new(),
+            ReducerRouteOwnerGroup::CreatureState,
+        ),
+        route_resolve_battle_subject_without_fill_from_route_result(
+            ReducerRouteSubjectFamily::CreatureStatProjection,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::CreatureState,
+        ),
+        route_resolve_battle_subject_without_fill_from_route_result(
+            ReducerRouteSubjectFamily::CreatureStatProjection,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::MovementResource,
+        ),
+    ]);
+    route
+}
+
+fn append_damage_adjustment(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::PassiveDamageAdjustment,
+            Vec::new(),
+            ReducerRouteOwnerGroup::DamageAdjustment,
+        ),
+        route_resolve_battle_subject_without_fill_from_route_result(
+            ReducerRouteSubjectFamily::PassiveDamageAdjustment,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::DamageAdjustment,
+        ),
+    ]);
+}
+
+fn append_saving_throw_roll_mode(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+            vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            ReducerRouteOwnerGroup::SavingThrowRollMode,
+        ),
+        route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+            ReducerRouteFillKind::SavingThrowOutcome,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::SavingThrowRollMode,
+        ),
+    ]);
+}
+
+fn append_ability_check_roll_mode(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::PassiveAbilityCheckRollMode,
+            vec![ReducerRouteHoleKind::GrappleOutcome],
+            ReducerRouteOwnerGroup::AbilityCheckRollMode,
+        ),
+        route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::PassiveAbilityCheckRollMode,
+            ReducerRouteFillKind::GrappleOutcome,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::AbilityCheckRollMode,
+        ),
+    ]);
+}
+
+fn append_accepted_creature_space_movement(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            vec![ReducerRouteHoleKind::Movement],
+            ReducerRouteOwnerGroup::CreatureSpaceMovement,
+        ),
+        route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            ReducerRouteFillKind::Movement,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::CreatureSpaceMovement,
+        ),
+        route_resolve_battle_subject_without_fill_from_route_result(
+            ReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::MovementResource,
+        ),
+    ]);
+}
+
+fn append_rejected_creature_space_movement(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            vec![ReducerRouteHoleKind::Movement],
+            ReducerRouteOwnerGroup::CreatureSpaceMovement,
+        ),
+        route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            ReducerRouteFillKind::Movement,
+            ReducerRouteResolutionOutcome::NeedsHoles,
+            vec![ReducerRouteHoleKind::Movement],
+            ReducerRouteOwnerGroup::CreatureSpaceMovement,
+        ),
+    ]);
+}
+
+fn observed_append_damage_adjustment(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::PassiveDamageAdjustment,
+            Vec::new(),
+            ReducerRouteOwnerGroup::DamageAdjustment,
+        ),
+        route_resolve_battle_subject_without_fill_from_route_result(
+            ReducerRouteSubjectFamily::PassiveDamageAdjustment,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::DamageAdjustment,
+        ),
+    ]);
+}
+
+fn observed_append_saving_throw_roll_mode(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+            vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            ReducerRouteOwnerGroup::SavingThrowRollMode,
+        ),
+        route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+            ReducerRouteFillKind::SavingThrowOutcome,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::SavingThrowRollMode,
+        ),
+    ]);
+}
+
+fn observed_append_ability_check_roll_mode(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::PassiveAbilityCheckRollMode,
+            vec![ReducerRouteHoleKind::GrappleOutcome],
+            ReducerRouteOwnerGroup::AbilityCheckRollMode,
+        ),
+        route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::PassiveAbilityCheckRollMode,
+            ReducerRouteFillKind::GrappleOutcome,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::AbilityCheckRollMode,
+        ),
+    ]);
+}
+
+fn observed_append_accepted_creature_space_movement(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            vec![ReducerRouteHoleKind::Movement],
+            ReducerRouteOwnerGroup::CreatureSpaceMovement,
+        ),
+        route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            ReducerRouteFillKind::Movement,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::CreatureSpaceMovement,
+        ),
+        route_resolve_battle_subject_without_fill_from_route_result(
+            ReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::MovementResource,
+        ),
+    ]);
+}
+
+fn observed_append_rejected_creature_space_movement(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            vec![ReducerRouteHoleKind::Movement],
+            ReducerRouteOwnerGroup::CreatureSpaceMovement,
+        ),
+        route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            ReducerRouteFillKind::Movement,
+            ReducerRouteResolutionOutcome::NeedsHoles,
+            vec![ReducerRouteHoleKind::Movement],
+            ReducerRouteOwnerGroup::CreatureSpaceMovement,
+        ),
+    ]);
 }
 
 fn roll_mode_ref(mode: SpeciesPassiveRollMode) -> &'static str {

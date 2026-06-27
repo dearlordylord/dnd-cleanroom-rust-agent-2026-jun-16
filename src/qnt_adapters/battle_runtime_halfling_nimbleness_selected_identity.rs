@@ -2,6 +2,14 @@ use crate::rules::species_passive_traits::{
     creature_space_traversal_allowed, CreatureSpaceTraversalFacts, CreatureSpaceTraversalPermission,
 };
 
+use super::battle_runtime_reducer_route::ReducerRouteEvent;
+use super::battle_runtime_species_passive_trait_selected_identity::{
+    observed_passive_route_after_accepted_creature_space_movement,
+    observed_passive_route_after_rejected_creature_space_movement,
+    passive_route_after_accepted_creature_space_movement,
+    passive_route_after_rejected_creature_space_movement,
+};
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct HalflingNimblenessWitness {
     pub traversal_accepted: bool,
@@ -105,6 +113,32 @@ pub fn expected_witness(observed_action_taken: &str) -> HalflingNimblenessWitnes
             protocol_result: "resolved",
             protocol_holes: Vec::new(),
         },
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match replay_observed_action(observed_action_taken).scenario_outcome {
+        "MoveThroughLargerCreatureSpace" => {
+            observed_passive_route_after_accepted_creature_space_movement()
+        }
+        "RejectOccupiedStop" => observed_passive_route_after_rejected_creature_space_movement(1),
+        "RejectMissingProfile" => observed_passive_route_after_rejected_creature_space_movement(2),
+        "RejectSameSizeTraversal" => {
+            observed_passive_route_after_rejected_creature_space_movement(3)
+        }
+        action => panic!("unsupported halfling nimbleness replay outcome {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doMoveThroughLargerCreatureSpace" => {
+            passive_route_after_accepted_creature_space_movement()
+        }
+        "doRejectOccupiedStop" => passive_route_after_rejected_creature_space_movement(1),
+        "doRejectMissingProfile" => passive_route_after_rejected_creature_space_movement(2),
+        "doRejectSameSizeTraversal" => passive_route_after_rejected_creature_space_movement(3),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
 }

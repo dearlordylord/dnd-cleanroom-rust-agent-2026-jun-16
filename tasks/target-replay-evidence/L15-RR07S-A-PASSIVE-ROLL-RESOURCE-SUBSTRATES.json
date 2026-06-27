@@ -9,7 +9,7 @@
       "branchAction": "doAdrenalineRushDash",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_adrenaline_rush.rs",
       "observedActionTaken": "doAdrenalineRushDash",
@@ -17,7 +17,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -32,13 +32,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doAdrenalineRushDash"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doAdrenalineRushDash",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt"
     },
     {
       "branchAction": "doRejectSecondDash",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_adrenaline_rush.rs",
       "observedActionTaken": "doRejectSecondDash",
@@ -46,7 +47,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -59,13 +60,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectSecondDash"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectSecondDash",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt"
     },
     {
       "branchAction": "doMoveThroughLargerCreatureSpace",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs",
       "observedActionTaken": "doMoveThroughLargerCreatureSpace",
@@ -73,7 +75,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -87,13 +89,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doMoveThroughLargerCreatureSpace"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doMoveThroughLargerCreatureSpace",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
     },
     {
       "branchAction": "doRejectOccupiedStop",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs",
       "observedActionTaken": "doRejectOccupiedStop",
@@ -101,7 +104,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -114,13 +117,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectOccupiedStop"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectOccupiedStop",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
     },
     {
       "branchAction": "doRejectMissingProfile",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs",
       "observedActionTaken": "doRejectMissingProfile",
@@ -128,7 +132,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -140,13 +144,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectMissingProfile"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectMissingProfile",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
     },
     {
       "branchAction": "doRejectSameSizeTraversal",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs",
       "observedActionTaken": "doRejectSameSizeTraversal",
@@ -154,7 +159,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -167,13 +172,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectSameSizeTraversal"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectSameSizeTraversal",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
     },
     {
       "branchAction": "doDragonbornDamageResistance",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
       "observedActionTaken": "doDragonbornDamageResistance",
@@ -181,7 +187,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -194,13 +200,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doDragonbornDamageResistance"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doDragonbornDamageResistance",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
     },
     {
       "branchAction": "doDwarvenResilience",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
       "observedActionTaken": "doDwarvenResilience",
@@ -208,7 +215,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -221,13 +228,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doDwarvenResilience"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doDwarvenResilience",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
     },
     {
       "branchAction": "doHalflingBrave",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
       "observedActionTaken": "doHalflingBrave",
@@ -235,7 +243,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -248,13 +256,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doHalflingBrave"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doHalflingBrave",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
     },
     {
       "branchAction": "doGoliathPowerfulBuild",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
       "observedActionTaken": "doGoliathPowerfulBuild",
@@ -262,7 +271,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -274,13 +283,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doGoliathPowerfulBuild"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doGoliathPowerfulBuild",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
     },
     {
       "branchAction": "doProjectDangerSenseDexterityAdvantage",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
       "observedActionTaken": "doProjectDangerSenseDexterityAdvantage",
@@ -288,7 +298,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -301,13 +311,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doProjectDangerSenseDexterityAdvantage"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doProjectDangerSenseDexterityAdvantage",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-substrates.route.mbt.qnt"
     },
     {
       "branchAction": "doSuppressDangerSenseWhileIncapacitated",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
       "observedActionTaken": "doSuppressDangerSenseWhileIncapacitated",
@@ -315,7 +326,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -328,13 +339,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doSuppressDangerSenseWhileIncapacitated"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doSuppressDangerSenseWhileIncapacitated",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-substrates.route.mbt.qnt"
     },
     {
       "branchAction": "doBlessAttackAndSaveModifier",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
       "observedActionTaken": "doBlessAttackAndSaveModifier",
@@ -342,7 +354,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -356,13 +368,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doBlessAttackAndSaveModifier"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doBlessAttackAndSaveModifier",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt"
     },
     {
       "branchAction": "doBaneFailedSavePenalty",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
       "observedActionTaken": "doBaneFailedSavePenalty",
@@ -370,7 +383,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -383,13 +396,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doBaneFailedSavePenalty"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doBaneFailedSavePenalty",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt"
     },
     {
       "branchAction": "doGuidanceSkillAbilityCheckModifier",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
       "observedActionTaken": "doGuidanceSkillAbilityCheckModifier",
@@ -397,7 +411,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -411,13 +425,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doGuidanceSkillAbilityCheckModifier"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doGuidanceSkillAbilityCheckModifier",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt"
     },
     {
       "branchAction": "doResistanceReducesMatchingDamage",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
       "observedActionTaken": "doResistanceReducesMatchingDamage",
@@ -425,7 +440,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -438,13 +453,14 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doResistanceReducesMatchingDamage"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doResistanceReducesMatchingDamage",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-damage-reduction.route.mbt.qnt"
     },
     {
       "branchAction": "doShieldOfFaithArmorClassBonus",
       "branchFamily": "step",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
-      "driverProjectionKind": "literal-projection-witness",
+      "driverProjectionKind": "reducer-route-witness",
       "evidenceKind": "target-qnt-mbt-replay",
       "harnessTestPath": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
       "observedActionTaken": "doShieldOfFaithArmorClassBonus",
@@ -452,7 +468,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "observed runtime uses typed substrate owner; expected witness is literal and independent",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare replay_observed_route output to an independent expected_route record before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -465,7 +481,8 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doShieldOfFaithArmorClassBonus"
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doShieldOfFaithArmorClassBonus",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt"
     }
   ],
   "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",

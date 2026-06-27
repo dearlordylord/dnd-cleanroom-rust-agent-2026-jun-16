@@ -597,9 +597,11 @@ use crate::rules::zero_hit_point_mid_resolution::{
 
 use crate::rules::character_battle_handoff::character_battle_route_payload;
 use battle_runtime_adrenaline_rush::{
+    expected_route as expected_adrenaline_rush_route,
     expected_witness as expected_adrenaline_rush_witness,
     projection_payload as adrenaline_rush_projection_payload,
     replay_observed_action as replay_adrenaline_rush_action,
+    replay_observed_route as replay_adrenaline_rush_route,
     BRANCH_ACTIONS as ADRENALINE_RUSH_BRANCH_ACTIONS,
 };
 use battle_runtime_attack_spell_shape_selected_identity::{
@@ -646,9 +648,11 @@ use battle_runtime_creature_type_protection_and_charm_selected_identity::{
     BRANCH_ACTIONS as CREATURE_TYPE_PROTECTION_BRANCH_ACTIONS,
 };
 use battle_runtime_danger_sense_selected_identity::{
+    expected_route as expected_danger_sense_route,
     expected_witness as expected_danger_sense_witness,
     projection_payload as danger_sense_projection_payload,
     replay_observed_action as replay_danger_sense_action,
+    replay_observed_route as replay_danger_sense_route,
     BRANCH_ACTIONS as DANGER_SENSE_BRANCH_ACTIONS,
 };
 use battle_runtime_death_saving_throw::{
@@ -696,9 +700,11 @@ use battle_runtime_find_familiar_selected_identity::{
     BRANCH_ACTIONS as FIND_FAMILIAR_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_halfling_nimbleness_selected_identity::{
+    expected_route as expected_halfling_nimbleness_route,
     expected_witness as expected_halfling_nimbleness_witness,
     projection_payload as halfling_nimbleness_projection_payload,
     replay_observed_action as replay_halfling_nimbleness_action,
+    replay_observed_route as replay_halfling_nimbleness_route,
     BRANCH_ACTIONS as HALFLING_NIMBLENESS_BRANCH_ACTIONS,
 };
 use battle_runtime_healing_stabilization_selected_identity::{
@@ -787,9 +793,11 @@ use battle_runtime_roll_modifier_active_effects::{
     BRANCH_ACTIONS as ROLL_MODIFIER_ACTIVE_EFFECTS_BRANCH_ACTIONS,
 };
 use battle_runtime_roll_modifier_buff_selected_identity::{
+    expected_route as expected_roll_modifier_buff_selected_identity_route,
     expected_witness as expected_roll_modifier_buff_selected_identity_witness,
     projection_payload as roll_modifier_buff_selected_identity_projection_payload,
     replay_observed_action as replay_roll_modifier_buff_selected_identity_action,
+    replay_observed_route as replay_roll_modifier_buff_selected_identity_route,
     BRANCH_ACTIONS as ROLL_MODIFIER_BUFF_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_sanctuary_selected_identity::{
@@ -898,9 +906,11 @@ use battle_runtime_sorcerer_metamagic_twinned_selected_identity::{
     BRANCH_ACTIONS as TWINNED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_species_passive_trait_selected_identity::{
+    expected_route as expected_species_passive_route,
     expected_witness as expected_species_passive_witness,
     projection_payload as species_passive_projection_payload,
     replay_observed_action as replay_species_passive_action,
+    replay_observed_route as replay_species_passive_route,
     BRANCH_ACTIONS as SPECIES_PASSIVE_BRANCH_ACTIONS,
 };
 use battle_runtime_spell_attack_ordering::{
@@ -2245,6 +2255,11 @@ fn adrenaline_rush_adapter_replays_all_branches() {
         let observed = replay_adrenaline_rush_action(action);
         assert_eq!(observed, expected_adrenaline_rush_witness(action));
         assert!(adrenaline_rush_projection_payload(&observed).contains("protocolHoleCount=0"));
+        let route = replay_adrenaline_rush_route(action);
+        assert_eq!(route, expected_adrenaline_rush_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("UnitFeatureBonusActionRouteSubject"));
+        assert!(route_payload.contains("BattleFeatureResourceOwner"));
     }
 }
 
@@ -3776,6 +3791,11 @@ fn danger_sense_adapter_replays_all_branches() {
         let observed = replay_danger_sense_action(action);
         assert_eq!(observed, expected_danger_sense_witness(action));
         assert!(danger_sense_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_danger_sense_route(action);
+        assert_eq!(route, expected_danger_sense_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("PassiveSavingThrowRollModeRouteSubject"));
+        assert!(route_payload.contains("BattleSavingThrowRollModeOwner"));
     }
 }
 
@@ -4966,6 +4986,14 @@ fn roll_modifier_buff_selected_identity_adapter_replays_all_branches() {
             roll_modifier_buff_selected_identity_projection_payload(&observed)
                 .contains("protocolResult=resolved")
         );
+        let route = replay_roll_modifier_buff_selected_identity_route(action);
+        assert_eq!(
+            route,
+            expected_roll_modifier_buff_selected_identity_route(action)
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("BattleActionEconomyOwner"));
+        assert!(route_payload.contains("outcome=resolved"));
     }
 }
 
@@ -7123,6 +7151,11 @@ fn species_passive_trait_adapter_replays_all_branches() {
         let observed = replay_species_passive_action(action);
         assert_eq!(observed, expected_species_passive_witness(action));
         assert!(species_passive_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_species_passive_route(action);
+        assert_eq!(route, expected_species_passive_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("CreatureStatProjectionRouteSubject"));
+        assert!(route_payload.contains("BattleCreatureStateOwner"));
     }
 }
 
@@ -7137,6 +7170,11 @@ fn halfling_nimbleness_adapter_replays_all_branches() {
         let observed = replay_halfling_nimbleness_action(action);
         assert_eq!(observed, expected_halfling_nimbleness_witness(action));
         assert!(halfling_nimbleness_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_halfling_nimbleness_route(action);
+        assert_eq!(route, expected_halfling_nimbleness_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("CreatureSpaceMovementPermissionRouteSubject"));
+        assert!(route_payload.contains("BattleCreatureSpaceMovementOwner"));
     }
 }
 

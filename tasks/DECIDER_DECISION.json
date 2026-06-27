@@ -34,7 +34,7 @@
       "status": "pass"
     }
   ],
-  "rationale": "Accepted: passive trait, passive movement/roll-mode, roll-modifier buff, Danger Sense, and feature-resource-backed Adrenaline behavior route through typed substrate owners and battle state rather than selected authored identity. Expected witnesses are independent literals.",
+  "rationale": "Accepted: passive trait, passive movement/roll-mode, roll-modifier buff, Danger Sense, and feature-resource-backed Adrenaline behavior route through typed substrate owners and battle state rather than selected authored identity. Focused adapter tests compare observed qRoute route-event lists against independent expected_route records; literal projection witnesses remain component state checks only.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "taskId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES"
