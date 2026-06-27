@@ -14,6 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp8-a` | `ralph/l15-rrcp8-a-mage-armor-generic-ac` | `b4c04b7` | pending | planned-for-launch |
 
 ## Historical RRCONV-19 Worktrees
 

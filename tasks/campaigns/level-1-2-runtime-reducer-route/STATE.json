@@ -207,14 +207,14 @@
     {
       "checkpointId": "CP8",
       "name": "Post-Refresh Mage Armor Route Acceptance",
-      "status": "ready",
+      "status": "running",
       "dependsOn": [
         "CP7"
       ],
-      "runningLaneIds": [],
-      "readyLaneIds": [
+      "runningLaneIds": [
         "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES"
       ],
+      "readyLaneIds": [],
       "mergedLaneIds": [],
       "notes": "Run exactly the three remaining Mage Armor rows through the refreshed generic SpellBaseArmorClassEffectRouteSubject connector. Do not reintroduce selected spell identity dispatch or route the nine scenario sequencing rows."
     }
@@ -274,7 +274,7 @@
     "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "merged-verified",
     "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "merged-verified",
     "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "merged-verified",
-    "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES": "ready"
+    "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES": "running"
   },
   "lastIntegrationVerification": {
     "head": "673df2329de89144270ab0d977f5cce1bb670ade",
@@ -293,7 +293,15 @@
     "cleanroomHarness": "failed as expected on stale global manifest/evidence debt; /tmp/rrcp7e-cleanroom-harness.out contained no CP7-E, Magic Weapon, or WeaponEnhancement-specific failures",
     "note": "No Rust changes after CP7-E. This state update records the source/corpus boundary after the verified CP7-E integration head and its accounting commit."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp8-a",
+      "branch": "ralph/l15-rrcp8-a-mage-armor-generic-ac",
+      "baseSha": "b4c04b7",
+      "status": "planned-for-launch"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
