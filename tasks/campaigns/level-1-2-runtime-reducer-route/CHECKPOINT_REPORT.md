@@ -20,7 +20,7 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP1 Battle Reducer Core Expansion | complete | `L15-RR03`, `L15-RR05`, and `L15-RR06` merged and verified. |
 | CP2 Rule-Core Component Connectors | complete | Four `L15-RR04` component sublanes merged and verified. |
 | CP3 Character Creation, Sheet, And Handoff | complete | RR08 creation, RR09 sheet, and RR10 handoff merged and verified. |
-| CP4 Feature And Catalog Substrates | ready | Depends on CP2 and CP3. Split large FU lanes before execution. |
+| CP4 Feature And Catalog Substrates | ready | CP3 complete. Small feature substrate batch is split into three launchable sublanes; FU01 and FU08 still need dedicated split planning before execution. |
 | CP5 Remaining Battle Families | blocked-on-checkpoint | Depends on CP1, CP2, CP4. |
 | CP6 Closure Sweep | blocked-on-checkpoint | Runs after all implementation checkpoints. |
 
@@ -163,3 +163,13 @@ Template:
 - Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` passed.
 - Review/fixer notes: review loop found non-independent expected route witnesses; fixer replaced shared observed/expected route builders with independent adapter-local literal route witnesses while keeping observed replay on reducer-facing route construction.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10`
+
+## CP4 Launch Plan
+
+The small feature substrate batch is split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa`:
+
+- `L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES`: Adrenaline Rush, species passive traits, Danger Sense, and roll-modifier buff substrates (`5` drivers, `17` in-scope obligations).
+- `L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES`: zero-HP stabilization, Wild Shape form lifecycle, and movement/forced-movement substrates (`3` drivers, `12` in-scope obligations; `2` out of scope).
+- `L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES`: weapon mastery property, Dragonborn Breath Weapon, and active feature spell-benefit substrates (`3` drivers, `11` in-scope obligations).
+
+`L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES` and `L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES` remain unscheduled until they are split according to their campaign recommendations.

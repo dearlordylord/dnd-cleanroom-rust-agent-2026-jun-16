@@ -369,7 +369,7 @@
     {
       "laneId": "CP4-SMALL-FEATURE-SUBSTRATE-BATCH",
       "checkpointId": "CP4",
-      "status": "blocked-on-checkpoint",
+      "status": "ready-via-sublanes",
       "routeTaskIds": [
         "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES",
         "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
@@ -388,7 +388,12 @@
         "CP2 complete",
         "CP3 complete"
       ],
-      "driversSource": "See listed routeTaskIds in reducer-route-inventory.json"
+      "driversSource": "See listed routeTaskIds in reducer-route-inventory.json",
+      "splitIntoLaneIds": [
+        "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
+        "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
+        "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES"
+      ]
     },
     {
       "laneId": "CP5-REMAINING-BATTLE-FAMILIES",
@@ -414,6 +419,122 @@
         "CP4 complete"
       ],
       "driversSource": "See listed routeTaskIds in reducer-route-inventory.json"
+    },
+    {
+      "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "ready",
+      "parallelGroup": "cp4-small-feature-substrates",
+      "routeTaskIds": [
+        "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES",
+        "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
+        "L15-RR07-FU03-CONDITION-AND-ROLL-MODIFIER-FEATURE-SUBSTRATES"
+      ],
+      "routeClasses": [
+        "reducer-routed",
+        "catalog-after-substrate"
+      ],
+      "driverCount": 5,
+      "branchObligations": 17,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Route passive trait, passive roll-mode, and feature-resource substrates without authored identity dispatch.",
+      "dependencies": [
+        "CP2 complete",
+        "CP3 complete"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/*feature*",
+        "src/qnt_adapters/battle_runtime_adrenaline_rush.rs",
+        "src/qnt_adapters/battle_runtime_*species*",
+        "src/qnt_adapters/battle_runtime_danger_sense*.rs",
+        "src/qnt_adapters/battle_runtime_roll_modifier*.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Evidence routes passive/resource/roll-mode behavior through typed feature and battle owners rather than selected species, feature, or spell identity."
+    },
+    {
+      "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "ready",
+      "parallelGroup": "cp4-small-feature-substrates",
+      "routeTaskIds": [
+        "L15-RR07-FU04-ZERO-HP-STABILIZATION-SUBSTRATE",
+        "L15-RR07-FU05-FEATURE-MOVEMENT-AND-FORM-SUBSTRATES"
+      ],
+      "routeClasses": [
+        "catalog-after-substrate"
+      ],
+      "driverCount": 3,
+      "branchObligations": 12,
+      "currentOutOfScopeBranchObligations": 2,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Route zero-HP stabilization, active form lifecycle, and movement/forced-movement substrates through existing battle owners.",
+      "dependencies": [
+        "CP2 complete",
+        "CP3 complete"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/*movement*",
+        "src/rules/*lifecycle*",
+        "src/qnt_adapters/battle_runtime_healing_stabilization*.rs",
+        "src/qnt_adapters/battle_runtime_druid_wild_shape*.rs",
+        "src/qnt_adapters/battle_runtime_movement_forced_movement*.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Evidence routes stabilization, form, and movement behavior through HP lifecycle, active-form, movement-resource, turn-boundary, and battle owners."
+    },
+    {
+      "laneId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "ready",
+      "parallelGroup": "cp4-small-feature-substrates",
+      "routeTaskIds": [
+        "L15-RR07-FU06-WEAPON-MASTERY-PROPERTY-SUBSTRATES",
+        "L15-RR07-FU07-DRAGONBORN-BREATH-WEAPON-SUBSTRATE",
+        "L15-RR07-FU09-INNATE-SPELL-BENEFIT-FEATURE-SUBSTRATE"
+      ],
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 3,
+      "branchObligations": 11,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Route weapon mastery property, breath weapon replacement, and active feature spell-benefit substrates through battle reducer owners.",
+      "dependencies": [
+        "CP2 complete",
+        "CP3 complete"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/*weapon*",
+        "src/rules/*feature*",
+        "src/qnt_adapters/battle_runtime_weapon_mastery*.rs",
+        "src/qnt_adapters/battle_runtime_dragonborn_breath_weapon*.rs",
+        "src/qnt_adapters/battle_runtime_feature_selected_identity*.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Evidence routes property/area-save/feature spell-benefit behavior by typed property and feature facts, not authored identity."
     }
   ],
   "standardVerification": [
