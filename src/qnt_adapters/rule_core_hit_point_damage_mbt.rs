@@ -38,8 +38,19 @@ pub fn projection_payload(state: &HitPointDamageState) -> String {
         format!("qDamageToHitPoints={}", state.damage_to_hit_points),
         format!("qRemainingDamageAtZero={}", state.remaining_damage_at_zero),
         format!("qReplayIndex={}", state.replay_index),
+        format!("qComponentRoute={}", component_route_payload()),
     ]
     .join("\n")
+}
+
+pub fn component_route_payload() -> String {
+    [
+        "RuleCoreComponentParseInput(RuleCoreHitPointDamageOwner)",
+        "RuleCoreComponentAdmitInput(RuleCoreHitPointDamageOwner)",
+        "RuleCoreComponentCall(RuleCoreHitPointDamageOwner)",
+        "RuleCoreComponentProjectResult(RuleCoreHitPointDamageOwner)",
+    ]
+    .join(",")
 }
 
 fn scenario_ref(outcome: HitPointDamageOutcome) -> &'static str {

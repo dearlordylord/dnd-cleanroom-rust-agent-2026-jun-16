@@ -29,8 +29,19 @@ pub fn projection_payload(state: &AttackDamageDispositionState) -> String {
             state.knock_out_recovery_ends_when_hit_points_regained
         ),
         format!("qReplayIndex={}", state.replay_index),
+        format!("qComponentRoute={}", component_route_payload()),
     ]
     .join("\n")
+}
+
+pub fn component_route_payload() -> String {
+    [
+        "RuleCoreComponentParseInput(RuleCoreAttackDamageDispositionOwner)",
+        "RuleCoreComponentAdmitInput(RuleCoreAttackDamageDispositionOwner)",
+        "RuleCoreComponentCall(RuleCoreAttackDamageDispositionOwner)",
+        "RuleCoreComponentProjectResult(RuleCoreAttackDamageDispositionOwner)",
+    ]
+    .join(",")
 }
 
 fn scenario_ref(outcome: AttackDamageDispositionOutcome) -> &'static str {

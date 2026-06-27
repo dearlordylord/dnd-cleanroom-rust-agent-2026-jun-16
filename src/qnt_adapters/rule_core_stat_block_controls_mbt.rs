@@ -106,8 +106,19 @@ pub fn projection_payload(state: &StatBlockControlState) -> String {
             protocol_invalid_reason_ref(&state.protocol)
         ),
         format!("protocolHoles={}", joined_or_none(&protocol_holes)),
+        format!("qComponentRoute={}", component_route_payload()),
     ]
     .join("\n")
+}
+
+pub fn component_route_payload() -> String {
+    [
+        "RuleCoreComponentParseInput(RuleCoreStatBlockControlOwner)",
+        "RuleCoreComponentAdmitInput(RuleCoreStatBlockControlOwner)",
+        "RuleCoreComponentCall(RuleCoreStatBlockControlOwner)",
+        "RuleCoreComponentProjectResult(RuleCoreStatBlockControlOwner)",
+    ]
+    .join(",")
 }
 
 fn protocol_result_ref(protocol: &StatBlockControlProtocol) -> &'static str {
