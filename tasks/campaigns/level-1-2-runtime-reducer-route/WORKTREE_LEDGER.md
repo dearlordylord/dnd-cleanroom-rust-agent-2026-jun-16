@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10` | `ralph/l15-rr10-character-battle-handoff` | `6af492188311839dd4839b464b2e7049e3330568` | Darwin `019f06d8-d9f9-76b1-a057-efe51b02c54f`; reviewer Bacon `019f06f4-070e-7dd1-9cc4-7c6567885937`; fixer Plato `019f06f8-3a2a-7863-8286-a48ce02dd0d4`; re-reviewer Hilbert `019f0701-6e43-7150-aff6-d5cc6067bf7a` | review-clean-merge-ready, lane head `4ea5566fc503fcfa17f430b523faa87dc189943c` |
+_none_
 
 ## Historical RRCONV-19 Worktrees
 
@@ -53,3 +53,4 @@ When launching a lane:
 | L15-RR06-BATTLE-SPELL-EFFECT-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr06` | `ralph/l15-rr06-spell-effect-routes` | `9d17264679d8207c716f51148c52418629684891` | `1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025` | removable-after-operator-confirms-no-local-use |
 | L15-RR08-CHARACTER-CREATION-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08` | `ralph/l15-rr08-character-creation` | `e11862d68ab0b02ec0db303504923e9222c3446f` | `76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf` | removable-after-operator-confirms-no-local-use |
 | L15-RR09-CHARACTER-SHEET-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09` | `ralph/l15-rr09-character-sheet` | `410e3db7d181c7fba9265cc753ab977198dacca7` | `616b6c27104807a0cf312d4cd68485e0c7fef1c3` | removable-after-operator-confirms-no-local-use |
+| L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10` | `ralph/l15-rr10-character-battle-handoff` | `4ea5566fc503fcfa17f430b523faa87dc189943c` | `3a0c18402e5620a55d0f2046329ab5697023c2e3` | removable-after-operator-confirms-no-local-use |

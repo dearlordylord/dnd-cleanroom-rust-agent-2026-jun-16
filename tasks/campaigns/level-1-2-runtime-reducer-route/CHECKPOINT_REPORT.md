@@ -19,8 +19,8 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP0 Bootstrap | complete | Source baseline pinned at `6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0`; campaign-control files live on the integration branch. |
 | CP1 Battle Reducer Core Expansion | complete | `L15-RR03`, `L15-RR05`, and `L15-RR06` merged and verified. |
 | CP2 Rule-Core Component Connectors | complete | Four `L15-RR04` component sublanes merged and verified. |
-| CP3 Character Creation, Sheet, And Handoff | running | RR08 creation and RR09 sheet lanes launched from `9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9`; RR10 handoff waits for both. |
-| CP4 Feature And Catalog Substrates | blocked-on-checkpoint | Depends on CP2 and CP3. Split large FU lanes before execution. |
+| CP3 Character Creation, Sheet, And Handoff | complete | RR08 creation, RR09 sheet, and RR10 handoff merged and verified. |
+| CP4 Feature And Catalog Substrates | ready | Depends on CP2 and CP3. Split large FU lanes before execution. |
 | CP5 Remaining Battle Families | blocked-on-checkpoint | Depends on CP1, CP2, CP4. |
 | CP6 Closure Sweep | blocked-on-checkpoint | Runs after all implementation checkpoints. |
 
@@ -57,6 +57,8 @@ At `ee30e831b0bc0fa49fa54100e54a45c32a43a60a`:
   - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` launched in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10` from base `6af492188311839dd4839b464b2e7049e3330568` with worker Darwin `019f06d8-d9f9-76b1-a057-efe51b02c54f`.
   - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` worker Darwin committed `421541a1958b20bdfb3b785174ea125673135d72`; reviewer Bacon `019f06f4-070e-7dd1-9cc4-7c6567885937` found blockers. Observed and expected route witnesses share construction helpers across the changed handoff adapters, so the route checks are not independent enough to support the accepted evidence.
   - RR10 fixer Plato `019f06f8-3a2a-7863-8286-a48ce02dd0d4` committed `4ea5566fc503fcfa17f430b523faa87dc189943c`; re-reviewer Hilbert `019f0701-6e43-7150-aff6-d5cc6067bf7a` returned clean against Bacon's independence findings.
+  - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` merged at `3a0c18402e5620a55d0f2046329ab5697023c2e3` and passed integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`202 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`75 passed`).
+  - CP3 is complete. CP4 is now ready.
 
 ## Coverage Delta Log
 
@@ -149,3 +151,15 @@ Template:
 - Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` passed.
 - Review/fixer notes: review loop replaced self-referential route and projection witnesses, added route comparisons for previously projection-only selected drivers, and resolved RR08/RR09 artifact overlap by keeping cumulative run-ledger and validation evidence for both lanes.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09`
+
+### L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES
+
+- Merge commit: `3a0c18402e5620a55d0f2046329ab5697023c2e3`
+- Lane commit(s): `421541a1958b20bdfb3b785174ea125673135d72`, `4ea5566fc503fcfa17f430b523faa87dc189943c`
+- Drivers added: `5` net-new unique character-battle handoff drivers.
+- Obligations added: `33` net-new counted obligations; total accepted obligations moved from `378` to `411`.
+- New total driver coverage: `48 / 97 = 49.5%`
+- New total obligation coverage: `411 / 668 = 61.5%`
+- Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` passed.
+- Review/fixer notes: review loop found non-independent expected route witnesses; fixer replaced shared observed/expected route builders with independent adapter-local literal route witnesses while keeping observed replay on reducer-facing route construction.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10`

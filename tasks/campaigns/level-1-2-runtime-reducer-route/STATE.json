@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "616b6c27104807a0cf312d4cd68485e0c7fef1c3",
+    "lastVerifiedIntegrationHead": "3a0c18402e5620a55d0f2046329ab5697023c2e3",
     "lastMergedLane": {
-      "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
-      "mergeCommit": "616b6c27104807a0cf312d4cd68485e0c7fef1c3",
-      "laneHead": "410e3db7d181c7fba9265cc753ab977198dacca7"
+      "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
+      "mergeCommit": "3a0c18402e5620a55d0f2046329ab5697023c2e3",
+      "laneHead": "4ea5566fc503fcfa17f430b523faa87dc189943c"
     }
   },
   "denominator": {
@@ -33,10 +33,10 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 43,
-    "acceptedDriverCoveragePercent": 44.3,
-    "acceptedObligations": 378,
-    "acceptedObligationCoveragePercent": 56.6,
+    "acceptedUniqueDrivers": 48,
+    "acceptedDriverCoveragePercent": 49.5,
+    "acceptedObligations": 411,
+    "acceptedObligationCoveragePercent": 61.5,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers",
     "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json in-scope obligations for unique selected drivers"
   },
@@ -89,18 +89,21 @@
     {
       "checkpointId": "CP3",
       "name": "Character Creation, Sheet, And Handoff",
-      "status": "running",
+      "status": "complete",
       "dependsOn": [
         "CP2"
       ],
-      "runningLaneIds": [
+      "runningLaneIds": [],
+      "mergedLaneIds": [
+        "L15-RR08-CHARACTER-CREATION-ROUTES",
+        "L15-RR09-CHARACTER-SHEET-ROUTES",
         "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES"
       ]
     },
     {
       "checkpointId": "CP4",
       "name": "Feature And Catalog Substrates",
-      "status": "blocked-on-checkpoint",
+      "status": "ready",
       "dependsOn": [
         "CP2",
         "CP3"
@@ -136,8 +139,8 @@
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "merged-verified",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "merged-verified",
-    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "review-clean-merge-ready",
-    "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
+    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "merged-verified",
+    "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "ready",
     "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
     "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES": "blocked-on-checkpoint",
     "L15-RR07-FU03-CONDITION-AND-ROLL-MODIFIER-FEATURE-SUBSTRATES": "blocked-on-checkpoint",
@@ -161,7 +164,7 @@
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "616b6c27104807a0cf312d4cd68485e0c7fef1c3",
+    "head": "3a0c18402e5620a55d0f2046329ab5697023c2e3",
     "commands": [
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
@@ -174,83 +177,7 @@
     "cargoTest": "202 passed",
     "adapterReplaySmoke": "75 passed"
   },
-  "activeLaneWorktrees": [
-    {
-      "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10",
-      "branch": "ralph/l15-rr10-character-battle-handoff",
-      "baseSha": "6af492188311839dd4839b464b2e7049e3330568",
-      "status": "review-clean-merge-ready",
-      "workerAgent": "019f06d8-d9f9-76b1-a057-efe51b02c54f",
-      "workerName": "Darwin",
-      "commit": "421541a1958b20bdfb3b785174ea125673135d72",
-      "workerSummary": [
-        "Added character-battle handoff route evidence across init projection, origin feat, settlement, lifecycle, and sheet feature resource drivers.",
-        "Reported all RR10 in-scope obligations accepted and no blockers.",
-        "Reported no new durable production state owners; route events derive from existing character sheet/build/resource/runtime/settlement owners."
-      ],
-      "workerVerification": [
-        "cargo fmt --check",
-        "cargo test (202 tests)",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 6af492188311839dd4839b464b2e7049e3330568...HEAD"
-      ],
-      "reviewAgent": "019f06f4-070e-7dd1-9cc4-7c6567885937",
-      "reviewName": "Bacon",
-      "reviewStatus": "findings",
-      "reviewFindings": [
-        "Feature-resource route expected values are not independent: replay_observed_route and expected_route both delegate to build_feature_resource_route_through_action, making the route assertion tautological.",
-        "The other changed RR10 route adapters share observed/expected construction helpers or route construction paths instead of independently authored expected route records.",
-        "Target replay evidence records those route checks as pass even though the route evidence is not independently supported."
-      ],
-      "reviewVerification": [
-        "git merge-base --is-ancestor 6af492188311839dd4839b464b2e7049e3330568 HEAD",
-        "git diff --check 6af492188311839dd4839b464b2e7049e3330568...HEAD",
-        "node scripts/check-cleanroom-harness.cjs",
-        "cargo test character_battle (0 tests)",
-        "cargo test sheet_feature_resources",
-        "cargo test adapter_replays_all",
-        "mechanical in-scope obligation cross-check: 32 source-inventory in-scope obligations, 32 ledger refs"
-      ],
-      "fixerAgent": "019f06f8-3a2a-7863-8286-a48ce02dd0d4",
-      "fixerName": "Plato",
-      "fixStatus": "committed-pending-rereview",
-      "fixCommit": "4ea5566fc503fcfa17f430b523faa87dc189943c",
-      "fixerSummary": [
-        "Replaced shared observed/expected route builders with adapter-local literal expected route witnesses in all five RR10 adapters.",
-        "Kept observed replay on reducer-facing route construction.",
-        "Updated evidence wording; accepted/blocked obligations unchanged."
-      ],
-      "fixerVerification": [
-        "git merge-base --is-ancestor 6af492188311839dd4839b464b2e7049e3330568 HEAD",
-        "focused tests for all five relevant adapter filters",
-        "cargo fmt --check",
-        "cargo test (202 tests)",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 6af492188311839dd4839b464b2e7049e3330568...HEAD"
-      ],
-      "reReviewAgent": "019f0701-6e43-7150-aff6-d5cc6067bf7a",
-      "reReviewName": "Hilbert",
-      "reReviewStatus": "clean",
-      "reReviewVerdict": "clean",
-      "reReviewSummary": [
-        "Bacon finding 1 resolved: feature-resource observed route uses reducer-facing construction while expected_route uses independent adapter-local expected helpers.",
-        "Bacon finding 2 resolved: other RR10 adapters construct expected CharacterBattleRouteEvent literals through expected helpers not shared with observed route construction.",
-        "Evidence wording now records independent-adapter-local-literal-route-witness for RR10 route evidence entries."
-      ],
-      "reReviewVerification": [
-        "git merge-base --is-ancestor 6af492188311839dd4839b464b2e7049e3330568 HEAD",
-        "node scripts/check-cleanroom-harness.cjs",
-        "cargo test adapter_replays_all -- --nocapture (81 passed)",
-        "git diff --check 6af492188311839dd4839b464b2e7049e3330568...HEAD"
-      ],
-      "reReviewResidualRisk": [
-        "Re-review did not run full cargo test or clippy; fixer had run both before re-review."
-      ]
-    }
-  ],
+  "activeLaneWorktrees": [],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
@@ -644,6 +571,14 @@
       "branch": "ralph/l15-rr09-character-sheet",
       "laneHead": "410e3db7d181c7fba9265cc753ab977198dacca7",
       "mergeCommit": "616b6c27104807a0cf312d4cd68485e0c7fef1c3",
+      "status": "removable-after-operator-confirms-no-local-use"
+    },
+    {
+      "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10",
+      "branch": "ralph/l15-rr10-character-battle-handoff",
+      "laneHead": "4ea5566fc503fcfa17f430b523faa87dc189943c",
+      "mergeCommit": "3a0c18402e5620a55d0f2046329ab5697023c2e3",
       "status": "removable-after-operator-confirms-no-local-use"
     }
   ],
