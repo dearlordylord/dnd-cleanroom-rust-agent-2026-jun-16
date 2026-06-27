@@ -2854,52 +2854,29 @@
       "taskId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"
     },
     {
-      "taskId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
-      "assignmentId": "level-1-2-runtime-reducer-route",
-      "laneId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
-      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
-      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
-      "selectedDrivers": [
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt"
-      ],
       "artifacts": {
-        "startGate": {
-          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/START_GATE.json",
-          "sha256": "8d71591983e4082e20b28f7791ef0c851915e941269e52abfd78fb6f0f2904d5"
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "b0709f076094bdd819b9e61d3c2a73517c9c9e1bfd5e3e92ae8adb36f56080ae"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
           "sha256": "0962729d4be6eceead909334d76d2be56847ee8c0fe1bda1153c3023e5d6e565"
         },
-        "stateOwnerManifest": {
-          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "a9e60d5469cd3361115c820cc223c70251a35bd9d8e4528825b998986aa370e1"
-        },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/REVIEW_LOOP.json",
           "sha256": "73325f07dc44bf59f3241adadcc2724852e43c30dadafb452e0bc1d66aab6a29"
         },
-        "deciderDecision": {
-          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "b0709f076094bdd819b9e61d3c2a73517c9c9e1bfd5e3e92ae8adb36f56080ae"
+        "startGate": {
+          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/START_GATE.json",
+          "sha256": "8d71591983e4082e20b28f7791ef0c851915e941269e52abfd78fb6f0f2904d5"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "a9e60d5469cd3361115c820cc223c70251a35bd9d8e4528825b998986aa370e1"
         }
       },
-      "targetReplayEvidence": [
-        {
-          "path": "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json",
-          "sha256": "6f5aec386f9135e5e400174c1c65d7496aec008c7954c9ac0149de1d81ea2840",
-          "evidenceRefs": [
-            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doDivineFavorWeaponDamageRider#step:doDivineFavorWeaponDamageRider",
-            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doDivineSmiteAfterHitDamage#step:doDivineSmiteAfterHitDamage",
-            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape#step:doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
-            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doFalseLifeTemporaryHitPoints#step:doFalseLifeTemporaryHitPoints",
-            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doLongstriderSpeedIncrease#step:doLongstriderSpeedIncrease",
-            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doSearingSmiteAfterHitTimedDamageAndSaveCleanup#step:doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
-            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doShillelaghWeaponAttackOverride#step:doShillelaghWeaponAttackOverride",
-            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doTrueStrikeSpellHostedWeaponAttack#step:doTrueStrikeSpellHostedWeaponAttack"
-          ]
-        }
-      ],
+      "assignmentId": "level-1-2-runtime-reducer-route",
       "commandResults": [
         {
           "command": "cargo test level1_buff_mark_smite_adapter_replays_all_branches",
@@ -2925,7 +2902,126 @@
           "command": "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD",
           "status": "pass"
         }
-      ]
+      ],
+      "laneId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doDivineFavorWeaponDamageRider#step:doDivineFavorWeaponDamageRider",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doDivineSmiteAfterHitDamage#step:doDivineSmiteAfterHitDamage",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape#step:doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doFalseLifeTemporaryHitPoints#step:doFalseLifeTemporaryHitPoints",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doLongstriderSpeedIncrease#step:doLongstriderSpeedIncrease",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doSearingSmiteAfterHitTimedDamageAndSaveCleanup#step:doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doShillelaghWeaponAttackOverride#step:doShillelaghWeaponAttackOverride",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doTrueStrikeSpellHostedWeaponAttack#step:doTrueStrikeSpellHostedWeaponAttack"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json",
+          "sha256": "6f5aec386f9135e5e400174c1c65d7496aec008c7954c9ac0149de1d81ea2840"
+        }
+      ],
+      "taskId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/DECIDER_DECISION.json",
+          "sha256": "98b08809194041a258d6efe4d52815b775dd4cbdf426c7ecbbdf62dbc35b3415"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "00d1c071a2582c4e18ae6b4d3d4717c7b4429c921b0c8750a07434d0b8cf9162"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/REVIEW_LOOP.json",
+          "sha256": "99b6a36b4e7cd6c2fce8bce3a148f2e6edaae0c5f56f129e7e794e9a8e7de546"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/START_GATE.json",
+          "sha256": "f7108574024ab498d1279984dbe3a7ac43375a10e4ceb598a98e109043bb0053"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "dccc58c07d02a176a6299078afd3a2d075f98d213e4b81733a5f16e611cdaaae"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo test after_hit_damage_riders && cargo test weapon_hosted_attack_and_riders",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 73c5ccea0ee7425952f231485325df5a45a0f36a...HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseDivineSmiteFreeCast#step:doChooseDivineSmiteFreeCast",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseDivineSmiteSlot#step:doChooseDivineSmiteSlot",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseEnsnaringStrike#step:doChooseEnsnaringStrike",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseSearingSmite#step:doChooseSearingSmite",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverEnsnaringStartTurnDamage#step:doDiscoverEnsnaringStartTurnDamage",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverSearingStartTurnDamageAndSave#step:doDiscoverSearingStartTurnDamageAndSave",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillDivineSmiteDamage#step:doFillDivineSmiteDamage",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringEscapeCheck#step:doFillEnsnaringEscapeCheck",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringFailedSave#step:doFillEnsnaringFailedSave",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringStartTurnDamage#step:doFillEnsnaringStartTurnDamage",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringSuccessfulSave#step:doFillEnsnaringSuccessfulSave",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringWeaponDamage#step:doFillEnsnaringWeaponDamage",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillHitAttackRoll#step:doFillHitAttackRoll",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillSearingSmiteDamage#step:doFillSearingSmiteDamage",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillSearingStartTurnDamageAndSave#step:doFillSearingStartTurnDamageAndSave",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCastDivineFavor#step:doCastDivineFavor",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCastShillelagh#step:doCastShillelagh",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCleanDivineFavorDuration#step:doCleanDivineFavorDuration",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCleanMagicWeaponDuration#step:doCleanMagicWeaponDuration",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCleanShillelaghLetGo#step:doCleanShillelaghLetGo",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverShillelaghAttack#step:doDiscoverShillelaghAttack",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverTrueStrike#step:doDiscoverTrueStrike",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillDivineFavorDamage#step:doFillDivineFavorDamage",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShillelaghDamage#step:doFillShillelaghDamage",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShillelaghHit#step:doFillShillelaghHit",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShillelaghTarget#step:doFillShillelaghTarget",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTrueStrikeDamage#step:doFillTrueStrikeDamage",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTrueStrikeHit#step:doFillTrueStrikeHit",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTrueStrikeRadiantTarget#step:doFillTrueStrikeRadiantTarget"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json",
+          "sha256": "151bb91a2102bd53bdb6338a9028a9215e017fa04d3e362d309ede3aa06219f6"
+        }
+      ],
+      "taskId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

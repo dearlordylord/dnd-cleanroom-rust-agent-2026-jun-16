@@ -1,5 +1,7 @@
 #[path = "../qnt_adapters/battle_runtime_adrenaline_rush.rs"]
 mod battle_runtime_adrenaline_rush;
+#[path = "../qnt_adapters/battle_runtime_after_hit_damage_riders.rs"]
+mod battle_runtime_after_hit_damage_riders;
 #[path = "../qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs"]
 mod battle_runtime_attack_spell_shape_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_chained_attack_sequence.rs"]
@@ -608,6 +610,14 @@ use battle_runtime_adrenaline_rush::{
     replay_observed_route as replay_adrenaline_rush_route,
     BRANCH_ACTIONS as ADRENALINE_RUSH_BRANCH_ACTIONS,
 };
+use battle_runtime_after_hit_damage_riders::{
+    blocker_reason as after_hit_damage_riders_blocker_reason,
+    expected_route as expected_after_hit_damage_riders_route,
+    replay_observed_route as replay_after_hit_damage_riders_route,
+    ACCEPTED_ROUTE_BRANCH_ACTIONS as ACCEPTED_AFTER_HIT_DAMAGE_RIDERS_ROUTE_BRANCH_ACTIONS,
+    BLOCKED_ROUTE_BRANCH_ACTIONS as BLOCKED_AFTER_HIT_DAMAGE_RIDERS_ROUTE_BRANCH_ACTIONS,
+    BRANCH_ACTIONS as AFTER_HIT_DAMAGE_RIDERS_BRANCH_ACTIONS,
+};
 use battle_runtime_attack_spell_shape_selected_identity::{
     expected_route as expected_attack_spell_shape_route,
     expected_witness as expected_attack_spell_shape_witness,
@@ -1067,10 +1077,15 @@ use battle_runtime_weapon_attack_skeleton::{
     BRANCH_ACTIONS as WEAPON_ATTACK_SKELETON_BRANCH_ACTIONS,
 };
 use battle_runtime_weapon_hosted_attack_and_riders::{
+    blocker_reason as weapon_hosted_attack_and_riders_blocker_reason,
+    expected_route as expected_weapon_hosted_attack_and_riders_route,
     expected_witness as expected_weapon_hosted_attack_and_riders_witness,
     projection_payload as weapon_hosted_attack_and_riders_projection_payload,
     replay_divine_favor_damage_sample, replay_observed_action as replay_weapon_hosted_action,
-    replay_shillelagh_damage_sample, replay_true_strike_damage_sample,
+    replay_observed_route as replay_weapon_hosted_route, replay_shillelagh_damage_sample,
+    replay_true_strike_damage_sample,
+    ACCEPTED_ROUTE_BRANCH_ACTIONS as ACCEPTED_WEAPON_HOSTED_ATTACK_AND_RIDERS_ROUTE_BRANCH_ACTIONS,
+    BLOCKED_ROUTE_BRANCH_ACTIONS as BLOCKED_WEAPON_HOSTED_ATTACK_AND_RIDERS_ROUTE_BRANCH_ACTIONS,
     BRANCH_ACTIONS as WEAPON_HOSTED_ATTACK_AND_RIDERS_BRANCH_ACTIONS,
 };
 use battle_runtime_weapon_mastery_selected_identity::{
@@ -6367,6 +6382,38 @@ fn multiattack_resolution_uses_subject_combatant_profile() {
 }
 
 #[test]
+fn after_hit_damage_riders_route_adapter_replays_accepted_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-after-hit-damage-riders.mbt.qnt and
+    // battle-runtime-after-hit-damage-riders.route.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Making an
+    // Attack", "Damage Rolls", "Hit Points", and "Bonus Actions";
+    // cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md
+    // "Spell Slots" and "Casting without Slots"; spell descriptions for
+    // Divine Smite, Ensnaring Strike, and Searing Smite.
+    assert_eq!(
+        AFTER_HIT_DAMAGE_RIDERS_BRANCH_ACTIONS.len(),
+        ACCEPTED_AFTER_HIT_DAMAGE_RIDERS_ROUTE_BRANCH_ACTIONS.len()
+            + BLOCKED_AFTER_HIT_DAMAGE_RIDERS_ROUTE_BRANCH_ACTIONS.len()
+    );
+
+    for action in ACCEPTED_AFTER_HIT_DAMAGE_RIDERS_ROUTE_BRANCH_ACTIONS {
+        let route = replay_after_hit_damage_riders_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_after_hit_damage_riders_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("AfterHitDamageRiderRouteSubject"));
+        assert!(route_payload.contains("resolve_battle_subject"));
+    }
+
+    for (action, reason) in BLOCKED_AFTER_HIT_DAMAGE_RIDERS_ROUTE_BRANCH_ACTIONS {
+        assert_eq!(after_hit_damage_riders_blocker_reason(action), Some(reason));
+    }
+}
+
+#[test]
 fn weapon_hosted_attack_and_riders_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt; RAW:
@@ -6385,6 +6432,39 @@ fn weapon_hosted_attack_and_riders_adapter_replays_all_branches() {
         assert!(
             weapon_hosted_attack_and_riders_projection_payload(&observed)
                 .contains("protocolResult=")
+        );
+    }
+}
+
+#[test]
+fn weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches() {
+    // QNT/RAW citations match `weapon_hosted_attack_and_riders_adapter_replays_all_branches`;
+    // route ownership is checked against the copied reducer-route connectors.
+    assert_eq!(
+        WEAPON_HOSTED_ATTACK_AND_RIDERS_BRANCH_ACTIONS.len(),
+        ACCEPTED_WEAPON_HOSTED_ATTACK_AND_RIDERS_ROUTE_BRANCH_ACTIONS.len()
+            + BLOCKED_WEAPON_HOSTED_ATTACK_AND_RIDERS_ROUTE_BRANCH_ACTIONS.len()
+    );
+
+    for action in ACCEPTED_WEAPON_HOSTED_ATTACK_AND_RIDERS_ROUTE_BRANCH_ACTIONS {
+        let route = replay_weapon_hosted_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_weapon_hosted_attack_and_riders_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(
+            route_payload.contains("SpellHostedWeaponAttackRouteSubject")
+                || route_payload.contains("HeldWeaponActiveEffectRouteSubject")
+                || route_payload.contains("WeaponDamageRiderRouteSubject")
+        );
+        assert!(route_payload.contains("resolve_battle_subject"));
+    }
+
+    for (action, reason) in BLOCKED_WEAPON_HOSTED_ATTACK_AND_RIDERS_ROUTE_BRANCH_ACTIONS {
+        assert_eq!(
+            weapon_hosted_attack_and_riders_blocker_reason(action),
+            Some(reason)
         );
     }
 }

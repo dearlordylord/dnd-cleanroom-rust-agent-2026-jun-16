@@ -277,6 +277,13 @@
           "queue": [
             "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt"
           ]
+        },
+        {
+          "laneId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
+          "queue": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt"
+          ]
         }
       ]
     },

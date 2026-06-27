@@ -1,0 +1,1389 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "ralph-l15-rrcp5-a-rider-weapon",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doBreakShiningConcentration",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doBreakShiningConcentration",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doBreakShiningConcentration",
+        "reason": "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doBreakShiningConcentration"
+    },
+    {
+      "branchAction": "doChooseDivineSmiteFreeCast",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doChooseDivineSmiteFreeCast",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderFreeCastSpend diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderFreeCastSpend",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "56c06a7a15dff71267c0af466109170bbb187fac42c93d1bcecfce6a9d815a04",
+        "observedProjectionSha256": "56c06a7a15dff71267c0af466109170bbb187fac42c93d1bcecfce6a9d815a04",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseDivineSmiteFreeCast"
+    },
+    {
+      "branchAction": "doChooseDivineSmiteSlot",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doChooseDivineSmiteSlot",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderSlotSpend diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderSlotSpend",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "76c989ef73f0224768bb68ca8c524c11b9f2795c10e65f593e620e83faf6a3ab",
+        "observedProjectionSha256": "76c989ef73f0224768bb68ca8c524c11b9f2795c10e65f593e620e83faf6a3ab",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseDivineSmiteSlot"
+    },
+    {
+      "branchAction": "doChooseEnsnaringStrike",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doChooseEnsnaringStrike",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderSaveGatedInterruptDecision diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderSaveGatedInterruptDecision",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "02016d544a5e0bae76e3cb1393fa0789e215aadaf148434726024eb7420772ad",
+        "observedProjectionSha256": "02016d544a5e0bae76e3cb1393fa0789e215aadaf148434726024eb7420772ad",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseEnsnaringStrike"
+    },
+    {
+      "branchAction": "doChooseSearingSmite",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doChooseSearingSmite",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderSlotSpend diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderSlotSpend",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5d02acdd3dc1c18e8dd0d0070cf05b45ad5510e9fb6b34f7b04fab88295f9f4b",
+        "observedProjectionSha256": "5d02acdd3dc1c18e8dd0d0070cf05b45ad5510e9fb6b34f7b04fab88295f9f4b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseSearingSmite"
+    },
+    {
+      "branchAction": "doChooseShiningSmite",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doChooseShiningSmite",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doChooseShiningSmite",
+        "reason": "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseShiningSmite"
+    },
+    {
+      "branchAction": "doDiscoverEnsnaringStartTurnDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doDiscoverEnsnaringStartTurnDamage",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderTurnStartDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderTurnStartDamage",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ac134be5f45ab2f16dcf2a06b89aba0a8c85a42770173eac40c586c1f53c9b5d",
+        "observedProjectionSha256": "ac134be5f45ab2f16dcf2a06b89aba0a8c85a42770173eac40c586c1f53c9b5d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverEnsnaringStartTurnDamage"
+    },
+    {
+      "branchAction": "doDiscoverSearingStartTurnDamageAndSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doDiscoverSearingStartTurnDamageAndSave",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderTurnStartSaveCleanup diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderTurnStartSaveCleanup",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a006a18a38c6e43d8683015fe8c4f52589363a4ad2885656a8ed393b782f830b",
+        "observedProjectionSha256": "a006a18a38c6e43d8683015fe8c4f52589363a4ad2885656a8ed393b782f830b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverSearingStartTurnDamageAndSave"
+    },
+    {
+      "branchAction": "doDiscoverWeaponHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doDiscoverWeaponHit",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doDiscoverWeaponHit",
+        "reason": "pre-hit weapon target discovery is outside the after-hit rider route substrate",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverWeaponHit"
+    },
+    {
+      "branchAction": "doFillDivineSmiteDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillDivineSmiteDamage",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderAttackDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [
+        {
+          "pickName": "smiteDiePip",
+          "value": 1
+        },
+        {
+          "pickName": "weaponDiePip",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderAttackDamage",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8e968926ebc90a2150f0778a4b082a4071387538c00b3bd7294bdeceb76f219a",
+        "observedProjectionSha256": "8e968926ebc90a2150f0778a4b082a4071387538c00b3bd7294bdeceb76f219a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillDivineSmiteDamage"
+    },
+    {
+      "branchAction": "doFillEnsnaringEscapeCheck",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillEnsnaringEscapeCheck",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderEscapeCheck+AfterHitDamageRiderEscapeConditionCleanup+AfterHitDamageRiderEscapeConcentrationCleanup diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderEscapeCheck+AfterHitDamageRiderEscapeConditionCleanup+AfterHitDamageRiderEscapeConcentrationCleanup",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "37b304d09ec7696bc828425993fdccd9375dab56d98c56215d0a84b5c1512e06",
+        "observedProjectionSha256": "37b304d09ec7696bc828425993fdccd9375dab56d98c56215d0a84b5c1512e06",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringEscapeCheck"
+    },
+    {
+      "branchAction": "doFillEnsnaringFailedSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillEnsnaringFailedSave",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderSaveGatedCondition+AfterHitDamageRiderSaveGatedConcentration+AfterHitDamageRiderSaveGatedSlotAndActionEconomySpend diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderSaveGatedCondition+AfterHitDamageRiderSaveGatedConcentration+AfterHitDamageRiderSaveGatedSlotAndActionEconomySpend",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8c2a73c35029cc3364b8a425d7d0a1c0a29daeab9fc15476b1964f3c64298914",
+        "observedProjectionSha256": "8c2a73c35029cc3364b8a425d7d0a1c0a29daeab9fc15476b1964f3c64298914",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringFailedSave"
+    },
+    {
+      "branchAction": "doFillEnsnaringStartTurnDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillEnsnaringStartTurnDamage",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderTurnStartDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [
+        {
+          "pickName": "damageDiePip",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderTurnStartDamage",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "3e773f028ebc0fc74b30e9636763e027b7ed2e72b671680b44835165945fedd1",
+        "observedProjectionSha256": "3e773f028ebc0fc74b30e9636763e027b7ed2e72b671680b44835165945fedd1",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringStartTurnDamage"
+    },
+    {
+      "branchAction": "doFillEnsnaringSuccessfulSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillEnsnaringSuccessfulSave",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderSaveGatedSlotAndActionEconomySpend diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderSaveGatedSlotAndActionEconomySpend",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "bcca0faf41dbb78c00fa0363dce1696edc25ee365e385469187af83a7bb26590",
+        "observedProjectionSha256": "bcca0faf41dbb78c00fa0363dce1696edc25ee365e385469187af83a7bb26590",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringSuccessfulSave"
+    },
+    {
+      "branchAction": "doFillEnsnaringWeaponDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillEnsnaringWeaponDamage",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderAttackDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [
+        {
+          "pickName": "weaponDiePip",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderAttackDamage",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b025a82f131d3ed149c1c8f15f683f4d8f2d576521ea41d680884b860d9c4662",
+        "observedProjectionSha256": "b025a82f131d3ed149c1c8f15f683f4d8f2d576521ea41d680884b860d9c4662",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringWeaponDamage"
+    },
+    {
+      "branchAction": "doFillHitAttackRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillHitAttackRoll",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderInterruptDecision diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderInterruptDecision",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "3286de9b5d5902b04efbb939f03da666be60ef8fdb5b10938441f7195c657a53",
+        "observedProjectionSha256": "3286de9b5d5902b04efbb939f03da666be60ef8fdb5b10938441f7195c657a53",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillHitAttackRoll"
+    },
+    {
+      "branchAction": "doFillSearingSmiteDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillSearingSmiteDamage",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderAttackDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [
+        {
+          "pickName": "smiteDiePip",
+          "value": 1
+        },
+        {
+          "pickName": "weaponDiePip",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderAttackDamage",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "df858852c744ec54d88c4803bfffdb800fe32544991c192d18d13df8cf350fba",
+        "observedProjectionSha256": "df858852c744ec54d88c4803bfffdb800fe32544991c192d18d13df8cf350fba",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillSearingSmiteDamage"
+    },
+    {
+      "branchAction": "doFillSearingStartTurnDamageAndSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillSearingStartTurnDamageAndSave",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderTurnStartSaveCleanup diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [
+        {
+          "pickName": "damageDiePip",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.AfterHitDamageRiderTurnStartSaveCleanup",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "bbd73639c3cbd21ec6a67e1a795814302d0e89b7ab3b4f913ce46d191069d794",
+        "observedProjectionSha256": "bbd73639c3cbd21ec6a67e1a795814302d0e89b7ab3b4f913ce46d191069d794",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillSearingStartTurnDamageAndSave"
+    },
+    {
+      "branchAction": "doFillShiningSmiteDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillShiningSmiteDamage",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doFillShiningSmiteDamage",
+        "reason": "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [
+        {
+          "pickName": "smiteDiePip",
+          "value": 1
+        },
+        {
+          "pickName": "weaponDiePip",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShiningSmiteDamage"
+    },
+    {
+      "branchAction": "doFillTargetChoice",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFillTargetChoice",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doFillTargetChoice",
+        "reason": "pre-hit weapon target fill is outside the after-hit rider route substrate",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTargetChoice"
+    },
+    {
+      "branchAction": "doFinish",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doFinish",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doFinish",
+        "reason": "scenario transition has no reducer route surface",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFinish"
+    },
+    {
+      "branchAction": "doStartDivineSmiteFreeCast",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doStartDivineSmiteFreeCast",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doStartDivineSmiteFreeCast",
+        "reason": "scenario transition has no reducer route surface",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartDivineSmiteFreeCast"
+    },
+    {
+      "branchAction": "doStartEnsnaringFailedSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doStartEnsnaringFailedSave",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doStartEnsnaringFailedSave",
+        "reason": "scenario transition has no reducer route surface",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartEnsnaringFailedSave"
+    },
+    {
+      "branchAction": "doStartEnsnaringSuccessfulSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doStartEnsnaringSuccessfulSave",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doStartEnsnaringSuccessfulSave",
+        "reason": "scenario transition has no reducer route surface",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartEnsnaringSuccessfulSave"
+    },
+    {
+      "branchAction": "doStartSearingSmite",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doStartSearingSmite",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doStartSearingSmite",
+        "reason": "scenario transition has no reducer route surface",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartSearingSmite"
+    },
+    {
+      "branchAction": "doStartShiningSmite",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+      "observedActionTaken": "doStartShiningSmite",
+      "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doStartShiningSmite",
+        "reason": "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "AfterHitDamageRiderRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartShiningSmite"
+    },
+    {
+      "branchAction": "doCastDivineFavor",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doCastDivineFavor",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind WeaponDamageRiderActiveEffect diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.WeaponDamageRiderActiveEffect",
+          "BattleReducerRouteSubjectFamily.WeaponDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "77ae916a00a6ca56c9c07460df49b8be6cab4d43a62b4707c7f1343746431ca3",
+        "observedProjectionSha256": "77ae916a00a6ca56c9c07460df49b8be6cab4d43a62b4707c7f1343746431ca3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCastDivineFavor"
+    },
+    {
+      "branchAction": "doCastShillelagh",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doCastShillelagh",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind HeldWeaponActiveEffectApply diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.HeldWeaponActiveEffectApply",
+          "BattleReducerRouteSubjectFamily.HeldWeaponActiveEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8c427b7cadb34b49769597ce4a1453cf664c9d6062ee9028bb63e988d0d490cd",
+        "observedProjectionSha256": "8c427b7cadb34b49769597ce4a1453cf664c9d6062ee9028bb63e988d0d490cd",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCastShillelagh"
+    },
+    {
+      "branchAction": "doCleanDivineFavorDuration",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doCleanDivineFavorDuration",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind WeaponDamageRiderCleanup diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.WeaponDamageRiderCleanup",
+          "BattleReducerRouteSubjectFamily.WeaponDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ba947b9c496aa30ef8e55ca1a73c465a419c46ef2b00068b23f6ef9dfdef6477",
+        "observedProjectionSha256": "ba947b9c496aa30ef8e55ca1a73c465a419c46ef2b00068b23f6ef9dfdef6477",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCleanDivineFavorDuration"
+    },
+    {
+      "branchAction": "doCleanMagicWeaponDuration",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doCleanMagicWeaponDuration",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind HeldWeaponActiveEffectCleanup diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.HeldWeaponActiveEffectCleanup",
+          "BattleReducerRouteSubjectFamily.HeldWeaponActiveEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "baecb4cec01f4d00dfd7a719ee39842df09871a9de376e514f65cd15fd2cd975",
+        "observedProjectionSha256": "baecb4cec01f4d00dfd7a719ee39842df09871a9de376e514f65cd15fd2cd975",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCleanMagicWeaponDuration"
+    },
+    {
+      "branchAction": "doCleanShillelaghLetGo",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doCleanShillelaghLetGo",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind HeldWeaponActiveEffectCleanup diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.HeldWeaponActiveEffectCleanup",
+          "BattleReducerRouteSubjectFamily.HeldWeaponActiveEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "1a32643dc38f02574ca30e6f15ca300ddbd1ef689392fd884b183e23f793afd9",
+        "observedProjectionSha256": "1a32643dc38f02574ca30e6f15ca300ddbd1ef689392fd884b183e23f793afd9",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCleanShillelaghLetGo"
+    },
+    {
+      "branchAction": "doDiscoverDivineFavorAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doDiscoverDivineFavorAttack",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doDiscoverDivineFavorAttack",
+        "reason": "ordinary weapon target discovery is outside the rider route substrate",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "WeaponHostedRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverDivineFavorAttack"
+    },
+    {
+      "branchAction": "doDiscoverMagicWeapon",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doDiscoverMagicWeapon",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doDiscoverMagicWeapon",
+        "reason": "MagicWeaponTargetItem is not present in the copied reducer-route hole vocabulary",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "WeaponHostedRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverMagicWeapon"
+    },
+    {
+      "branchAction": "doDiscoverShillelaghAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doDiscoverShillelaghAttack",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind HeldWeaponActiveEffectTargetChoice diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.HeldWeaponActiveEffectTargetChoice",
+          "BattleReducerRouteSubjectFamily.HeldWeaponActiveEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8fbac61d09f7c4cef57bb25ddfa87de3057c3f9f1c388fb141a80a7fbd69ec9b",
+        "observedProjectionSha256": "8fbac61d09f7c4cef57bb25ddfa87de3057c3f9f1c388fb141a80a7fbd69ec9b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverShillelaghAttack"
+    },
+    {
+      "branchAction": "doDiscoverTrueStrike",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doDiscoverTrueStrike",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind SpellHostedWeaponAttackDamageTypeChoice diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.SpellHostedWeaponAttackDamageTypeChoice",
+          "BattleReducerRouteSubjectFamily.SpellHostedWeaponAttack",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "41e1518e74ef48cac4bee6f5101f04c0f178d38765a4e4bc0ffd328c4cc24db3",
+        "observedProjectionSha256": "41e1518e74ef48cac4bee6f5101f04c0f178d38765a4e4bc0ffd328c4cc24db3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverTrueStrike"
+    },
+    {
+      "branchAction": "doFillDivineFavorDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFillDivineFavorDamage",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind WeaponDamageRiderDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [
+        {
+          "pickName": "riderDiePip",
+          "value": 1
+        },
+        {
+          "pickName": "weaponDiePip",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.WeaponDamageRiderDamage",
+          "BattleReducerRouteSubjectFamily.WeaponDamageRider",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "036a21e054a159df709bec6b5332c07af7cc2ab8c7c9bd7ade769f41c85ee195",
+        "observedProjectionSha256": "036a21e054a159df709bec6b5332c07af7cc2ab8c7c9bd7ade769f41c85ee195",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillDivineFavorDamage"
+    },
+    {
+      "branchAction": "doFillDivineFavorHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFillDivineFavorHit",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doFillDivineFavorHit",
+        "reason": "ordinary weapon attack-roll fill is outside the rider route substrate",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "WeaponHostedRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillDivineFavorHit"
+    },
+    {
+      "branchAction": "doFillDivineFavorTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFillDivineFavorTarget",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doFillDivineFavorTarget",
+        "reason": "ordinary weapon target fill is outside the rider route substrate",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "WeaponHostedRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillDivineFavorTarget"
+    },
+    {
+      "branchAction": "doFillMagicWeaponTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFillMagicWeaponTarget",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doFillMagicWeaponTarget",
+        "reason": "MagicWeaponTargetItem is not present in the copied reducer-route fill vocabulary",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "WeaponHostedRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillMagicWeaponTarget"
+    },
+    {
+      "branchAction": "doFillShillelaghDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFillShillelaghDamage",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind HeldWeaponActiveEffectDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [
+        {
+          "pickName": "damageDiePip",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.HeldWeaponActiveEffectDamage",
+          "BattleReducerRouteSubjectFamily.HeldWeaponActiveEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f92d953faf2417099b2ff0d25153869cbfe3096b1aa8916533d857e62e094744",
+        "observedProjectionSha256": "f92d953faf2417099b2ff0d25153869cbfe3096b1aa8916533d857e62e094744",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShillelaghDamage"
+    },
+    {
+      "branchAction": "doFillShillelaghHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFillShillelaghHit",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind HeldWeaponActiveEffectAttackRoll diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.HeldWeaponActiveEffectAttackRoll",
+          "BattleReducerRouteSubjectFamily.HeldWeaponActiveEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "eb33441972ca5aca6b0b3ddf7d92582eb74317a5ea7cfd5b72c0723caac41fea",
+        "observedProjectionSha256": "eb33441972ca5aca6b0b3ddf7d92582eb74317a5ea7cfd5b72c0723caac41fea",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShillelaghHit"
+    },
+    {
+      "branchAction": "doFillShillelaghTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFillShillelaghTarget",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind HeldWeaponActiveEffectTargetChoice diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.HeldWeaponActiveEffectTargetChoice",
+          "BattleReducerRouteSubjectFamily.HeldWeaponActiveEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "07d212cb8a01821f7647884b6fe0d8b4dc6beff106645d487309fbd6b0e34fdd",
+        "observedProjectionSha256": "07d212cb8a01821f7647884b6fe0d8b4dc6beff106645d487309fbd6b0e34fdd",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShillelaghTarget"
+    },
+    {
+      "branchAction": "doFillTrueStrikeDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFillTrueStrikeDamage",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind SpellHostedWeaponAttackDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [
+        {
+          "pickName": "riderDiePip",
+          "value": 1
+        },
+        {
+          "pickName": "weaponDiePip",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.SpellHostedWeaponAttackDamage",
+          "BattleReducerRouteSubjectFamily.SpellHostedWeaponAttack",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "60f5f569b2af69130eebb16732914fe296babebbe5bb13c0dbbc381c91454204",
+        "observedProjectionSha256": "60f5f569b2af69130eebb16732914fe296babebbe5bb13c0dbbc381c91454204",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTrueStrikeDamage"
+    },
+    {
+      "branchAction": "doFillTrueStrikeHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFillTrueStrikeHit",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind SpellHostedWeaponAttackAttackRoll diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.SpellHostedWeaponAttackAttackRoll",
+          "BattleReducerRouteSubjectFamily.SpellHostedWeaponAttack",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "357b3ed861abd3ff6d056f6806b53245730d9438022dd40f61aa607c6e2375f6",
+        "observedProjectionSha256": "357b3ed861abd3ff6d056f6806b53245730d9438022dd40f61aa607c6e2375f6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTrueStrikeHit"
+    },
+    {
+      "branchAction": "doFillTrueStrikeRadiantTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFillTrueStrikeRadiantTarget",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleSubjectKind SpellHostedWeaponAttackDamageTypeChoice+SpellHostedWeaponAttackTargetChoice diagnostic route subject observed through BattleEntrypointTrace.route_events",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.SpellHostedWeaponAttackDamageTypeChoice+SpellHostedWeaponAttackTargetChoice",
+          "BattleReducerRouteSubjectFamily.SpellHostedWeaponAttack",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "be10a4f52e89ce66090e4628ca8511453598935f33175e9d8162661d2055a31a",
+        "observedProjectionSha256": "be10a4f52e89ce66090e4628ca8511453598935f33175e9d8162661d2055a31a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTrueStrikeRadiantTarget"
+    },
+    {
+      "branchAction": "doFinish",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doFinish",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doFinish",
+        "reason": "scenario transition has no reducer route surface",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "WeaponHostedRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFinish"
+    },
+    {
+      "branchAction": "doStartDivineFavor",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doStartDivineFavor",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doStartDivineFavor",
+        "reason": "scenario transition has no reducer route surface",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "WeaponHostedRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartDivineFavor"
+    },
+    {
+      "branchAction": "doStartMagicWeapon",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doStartMagicWeapon",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doStartMagicWeapon",
+        "reason": "scenario transition has no reducer route surface",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "WeaponHostedRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartMagicWeapon"
+    },
+    {
+      "branchAction": "doStartShillelagh",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+      "observedActionTaken": "doStartShillelagh",
+      "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
+      "result": {
+        "blockerId": "L15-RRCP5-A-doStartShillelagh",
+        "reason": "scenario transition has no reducer route surface",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "WeaponHostedRouteSurface"
+        ],
+        "comparator": "route-surface-admission",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartShillelagh"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
