@@ -676,7 +676,7 @@
     {
       "laneId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "reviewing",
+      "status": "fixing-review-findings",
       "parallelGroup": "cp4-fu08-metamagic",
       "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
       "routeClasses": [
