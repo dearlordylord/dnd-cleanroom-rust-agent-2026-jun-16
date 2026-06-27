@@ -281,7 +281,13 @@
         "New test compares Rust expected terminal route events against facts parsed from battle-runtime-command-ordering.route.mbt.qnt.",
         "doApproachMovementContinues check also inspects copied runtimeCommandDiscoverRoute helper for subject/hole projection drift."
       ],
-      "fifthRereviewStatus": "pending"
+      "fifthRereviewStatus": "findings",
+      "fifthRereviewAgent": "019f0660-cf0f-76e0-becd-6a1d5f7443ce",
+      "fifthRereviewName": "Chandrasekhar",
+      "fifthRereviewFindings": [
+        "Command connector check is real, but scalar_buff_subject still manufactures fallback BattleSubject with Actor::Fighter when discovery does not return ScalarBuffTargetSpell."
+      ],
+      "fifthRereviewResidualRisk": "Copied-connector drift check is token-based and covers the two disputed terminal route examples, not every command-ordering qRoute row."
     }
   ],
   "completedLaneWorktrees": [
