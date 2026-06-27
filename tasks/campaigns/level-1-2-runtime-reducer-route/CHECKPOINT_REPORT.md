@@ -20,21 +20,20 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP1 Battle Reducer Core Expansion | complete | `L15-RR03`, `L15-RR05`, and `L15-RR06` merged and verified. |
 | CP2 Rule-Core Component Connectors | complete | Four `L15-RR04` component sublanes merged and verified. |
 | CP3 Character Creation, Sheet, And Handoff | complete | RR08 creation, RR09 sheet, and RR10 handoff merged and verified. |
-| CP4 Feature And Catalog Substrates | ready | CP3 complete. Small feature substrate batch is split into three launchable sublanes; FU01 and FU08 still need dedicated split planning before execution. |
+| CP4 Feature And Catalog Substrates | running | CP4 small feature substrate batch A/B/C is merged and verified. FU01 and FU08 still need dedicated split planning before execution, so parent CP4 remains open. |
 | CP5 Remaining Battle Families | blocked-on-checkpoint | Depends on CP1, CP2, CP4. |
 | CP6 Closure Sweep | blocked-on-checkpoint | Runs after all implementation checkpoints. |
 
 ## Last Known Verification
 
-At `ee30e831b0bc0fa49fa54100e54a45c32a43a60a`:
+At `1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9`:
 
 - `cargo fmt --check`: pass
-- `cargo test`: pass, `191 passed`
+- `cargo test`: pass, `207 passed`
 - `cargo clippy --all-targets -- -D warnings`: pass
 - `node scripts/check-cleanroom-harness.cjs`: pass
 - `git diff --check HEAD~1...HEAD`: pass
-- JSON parse for `STATE.json`, `LANES.json`, `tasks/ENGINE_DEPTH_MANIFEST.json`, `tasks/RUN_LEDGER.json`, and `tasks/STATE_OWNER_MANIFEST.json`: pass
-- `cargo test adapter_replays_all_branches --quiet`: pass, `71 passed`
+- `cargo test adapter_replays_all_branches --quiet`: pass, `76 passed`
 
 ## Active Work
 
@@ -59,6 +58,12 @@ At `ee30e831b0bc0fa49fa54100e54a45c32a43a60a`:
   - RR10 fixer Plato `019f06f8-3a2a-7863-8286-a48ce02dd0d4` committed `4ea5566fc503fcfa17f430b523faa87dc189943c`; re-reviewer Hilbert `019f0701-6e43-7150-aff6-d5cc6067bf7a` returned clean against Bacon's independence findings.
   - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` merged at `3a0c18402e5620a55d0f2046329ab5697023c2e3` and passed integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`202 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`75 passed`).
   - CP3 is complete. CP4 is now ready.
+- CP4 small feature substrate batch merged:
+  - `L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES` merged at `0ef395a`; lane head `81fd387c6dda4b00c28a752492d6aa0d2fee4d3d`.
+  - `L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES` merged at `67bc22f`; lane head `6d89dd42b345c3253d36759d723c1fe4a3271c2c`.
+  - `L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES` merged at `1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9`; lane head `582b2a71c6573c480d4ccddec15381308a2bd667`.
+  - Integration verification passed: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`207 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`76 passed`).
+  - CP4 remains running because FU01 and FU08 are still split/blocker-planning lanes.
 
 ## Coverage Delta Log
 
@@ -164,9 +169,45 @@ Template:
 - Review/fixer notes: review loop found non-independent expected route witnesses; fixer replaced shared observed/expected route builders with independent adapter-local literal route witnesses while keeping observed replay on reducer-facing route construction.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10`
 
+### L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES
+
+- Merge commit: `0ef395a`
+- Lane commit(s): `81fd387c6dda4b00c28a752492d6aa0d2fee4d3d`
+- Drivers added: `3` net-new unique drivers.
+- Obligations added: `12` net-new counted obligations; total accepted obligations moved from `411` to `423`.
+- New total driver coverage: `51 / 97 = 52.6%`
+- New total obligation coverage: `423 / 668 = 63.3%`
+- Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` passed.
+- Review/fixer notes: reviewer returned clean; Barbarian Fast Movement and Ranger Roving remain blocked or out-of-lane.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-b`
+
+### L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES
+
+- Merge commit: `67bc22f`
+- Lane commit(s): `3da4fbbd6d0630c096d0d386f28cc0ce02fb432b`, `e65678a9e310be2f97ba582711a036454c98ab2d`, `6d89dd42b345c3253d36759d723c1fe4a3271c2c`
+- Drivers added: `3` net-new unique drivers.
+- Obligations added: `11` net-new counted obligations; total accepted obligations moved from `423` to `434`.
+- New total driver coverage: `54 / 97 = 55.7%`
+- New total obligation coverage: `434 / 668 = 65.0%`
+- Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` passed.
+- Review/fixer notes: review loop replaced self-referential expected routes and moved observed routes through reducer observer entrypoints.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c`
+
+### L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES
+
+- Merge commit: `1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9`
+- Lane commit(s): `d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62`, `b857f65367b3a921406ad5c9c4627eadf45f460e`, `969f4526e4e2bb797ee01e2717fbede918f8c768`, `582b2a71c6573c480d4ccddec15381308a2bd667`
+- Drivers added: `5` net-new unique drivers.
+- Obligations added: `17` net-new counted obligations; total accepted obligations moved from `434` to `451`.
+- New total driver coverage: `59 / 97 = 60.8%`
+- New total obligation coverage: `451 / 668 = 67.5%`
+- Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`207 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`76 passed`) passed.
+- Review/fixer notes: review loop replaced projection-only and adapter-synthesized route evidence with production-observed route traces; `BattleState.feature_resources` is the battle-owned durable resource owner.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a`
+
 ## CP4 Launch Plan
 
-The small feature substrate batch is split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa`:
+The small feature substrate batch was split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa` and is now merged:
 
 - `L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES`: Adrenaline Rush, species passive traits, Danger Sense, and roll-modifier buff substrates (`5` drivers, `17` in-scope obligations). Worker: Copernicus `019f070a-d8bb-7111-b578-d4eee793076f`; committed `d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62`; reviewer Herschel `019f071c-a15c-7763-9148-3f7cfdcc6211` found that target replay evidence overclaims route-event comparison while tests assert projection witnesses.
   - Fixer Peirce `019f0721-7a01-7303-bae8-8591e16e1c2d` committed `b857f65367b3a921406ad5c9c4627eadf45f460e`; re-reviewer Hooke `019f0731-733c-7791-9b81-cc60adf5dc58` found that observed route evidence is still adapter-synthesized for the five lane drivers instead of emitted by the production reducer route/observer path. Fixer Kant `019f0736-5669-7d40-89ef-55b4c7cf8f92` committed `969f4526e4e2bb797ee01e2717fbede918f8c768` to route observed evidence through `BattleReducerRouteTrace`; re-reviewer Raman `019f0740-6f67-70d1-9c83-c4012fa2f0a5` found adapters still author the trace by creating `BattleReducerRouteTrace::default()` and calling observe helpers locally. Fixer Arendt `019f0743-c359-70d2-8e7e-fdf4a94a63a1` committed `582b2a71c6573c480d4ccddec15381308a2bd667`, moving accepted observed route evidence to production observer entrypoints in `battle_reducer_spine` and `battle_features`; re-reviewer Curie `019f0757-f7ea-7d50-aade-065a0f11916e` returned clean.

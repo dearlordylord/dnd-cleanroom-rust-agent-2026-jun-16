@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "3a0c18402e5620a55d0f2046329ab5697023c2e3",
+    "lastVerifiedIntegrationHead": "1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9",
     "lastMergedLane": {
-      "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
-      "mergeCommit": "3a0c18402e5620a55d0f2046329ab5697023c2e3",
-      "laneHead": "4ea5566fc503fcfa17f430b523faa87dc189943c"
+      "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
+      "mergeCommit": "1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9",
+      "laneHead": "582b2a71c6573c480d4ccddec15381308a2bd667"
     }
   },
   "denominator": {
@@ -33,10 +33,10 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 48,
-    "acceptedDriverCoveragePercent": 49.5,
-    "acceptedObligations": 411,
-    "acceptedObligationCoveragePercent": 61.5,
+    "acceptedUniqueDrivers": 59,
+    "acceptedDriverCoveragePercent": 60.8,
+    "acceptedObligations": 451,
+    "acceptedObligationCoveragePercent": 67.5,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers",
     "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json in-scope obligations for unique selected drivers"
   },
@@ -108,11 +108,13 @@
         "CP2",
         "CP3"
       ],
-      "runningLaneIds": [
+      "runningLaneIds": [],
+      "mergedLaneIds": [
         "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
         "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
         "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES"
-      ]
+      ],
+      "notes": "CP4 small feature substrate batch merged and verified. FU01 and FU08 remain blocked-on-checkpoint until split planning; parent CP4 is still running."
     },
     {
       "checkpointId": "CP5",
@@ -167,13 +169,13 @@
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "merged-verified",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "merged-verified",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
-    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "review-clean-merge-ready",
-    "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
-    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "review-clean-merge-ready",
-    "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
+    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "merged-verified",
+    "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "merged-verified",
+    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
+    "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete"
   },
   "lastIntegrationVerification": {
-    "head": "3a0c18402e5620a55d0f2046329ab5697023c2e3",
+    "head": "1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9",
     "commands": [
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
@@ -183,297 +185,10 @@
       "cargo test adapter_replays_all_branches --quiet"
     ],
     "result": "passed",
-    "cargoTest": "202 passed",
-    "adapterReplaySmoke": "75 passed"
+    "cargoTest": "207 passed",
+    "adapterReplaySmoke": "76 passed"
   },
-  "activeLaneWorktrees": [
-    {
-      "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a",
-      "branch": "ralph/l15-rr07s-a-passive-roll-resource",
-      "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "review-clean-merge-ready",
-      "workerAgent": "019f070a-d8bb-7111-b578-d4eee793076f",
-      "workerName": "Copernicus",
-      "commit": "d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62",
-      "workerSummary": [
-        "Added route evidence for Adrenaline Rush, Halfling Nimbleness, species passive traits, Danger Sense, and roll modifier buff selected identity.",
-        "Accepted all lane obligations with no blockers.",
-        "Added canonical battle owner BattleState.feature_resources for feature resource expenditure; remaining uses are derived via resource_pool_remaining."
-      ],
-      "workerVerification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "cargo fmt --check",
-        "cargo test",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "reviewAgent": "019f071c-a15c-7763-9148-3f7cfdcc6211",
-      "reviewName": "Herschel",
-      "reviewStatus": "findings",
-      "reviewFindings": [
-        "Target replay evidence mislabels projection witnesses as route evidence: accepted rows declare literal-projection-witness while also claiming comparator route-event-list and projection qRoute.",
-        "Lane tests compare observed state witnesses to expected_witness rather than observed reducer routes to independent expected route records, so route-event acceptance is overclaimed."
-      ],
-      "reviewVerification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
-        "cargo test adapter_replays_all_branches"
-      ],
-      "fixerAgent": "019f0721-7a01-7303-bae8-8591e16e1c2d",
-      "fixerName": "Peirce",
-      "fixStatus": "complete",
-      "fixCommit": "b857f65367b3a921406ad5c9c4627eadf45f460e",
-      "fixSummary": [
-        "Replaced projection-only witness comparisons with reducer-route comparisons for all five lane drivers.",
-        "Focused adapter tests now compare replay_observed_route(action) against independent expected_route(action) records before evidence claims qRoute / route-event-list.",
-        "Accepted all 17 lane obligations; no blockers reported by fixer."
-      ],
-      "fixVerification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "cargo test adapter_replays_all_branches",
-        "cargo fmt --check",
-        "cargo test",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "rereviewAgent": "019f0731-733c-7791-9b81-cc60adf5dc58",
-      "rereviewName": "Hooke",
-      "rereviewStatus": "findings",
-      "rereviewVerdict": "findings",
-      "rereviewFindings": [
-        "Observed route evidence is still adapter-synthesized, not emitted by the production reducer route/observer path. The focused tests compare replay_*_route(action) to expected_*_route(action), but replay_observed_route is mostly hardcoded adapter-local ReducerRouteEvent vectors.",
-        "Danger Sense, roll modifier buff, species passive trait, Halfling Nimbleness, and Adrenaline Rush adapters still overclaim reducer-route-witness / qRoute / route-event-list because observed route lists are not produced by the reducer surface."
-      ],
-      "rereviewVerification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "node scripts/check-cleanroom-harness.cjs",
-        "cargo test adapter_replays_all_branches (76 tests)",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "fixer2Agent": "019f0736-5669-7d40-89ef-55b4c7cf8f92",
-      "fixer2Name": "Kant",
-      "fix2Status": "complete",
-      "fix2Commit": "969f4526e4e2bb797ee01e2717fbede918f8c768",
-      "fix2Summary": [
-        "Observed route evidence now comes from production BattleReducerRouteTrace emission and is translated by the adapter for comparison against independent expected route records.",
-        "Accepted all lane A obligations for Adrenaline Rush, Danger Sense, Roll Modifier Buff, Species Passive Traits, and Halfling Nimbleness substrate routes.",
-        "No production selected-authored-identity dispatch introduced; BattleState.feature_resources ownership preserved."
-      ],
-      "fix2Verification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "cargo fmt --check",
-        "cargo test adapter_replays_all_branches (76 tests)",
-        "cargo test (206 tests)",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "rereview2Agent": "019f0740-6f67-70d1-9c83-c4012fa2f0a5",
-      "rereview2Name": "Raman",
-      "rereview2Status": "findings",
-      "rereview2Verdict": "findings",
-      "rereview2Findings": [
-        "Observed lane A routes are still synthesized in adapters: adapters create BattleReducerRouteTrace::default(), populate it by calling observe_battle_route_* from adapter-local record_* helpers, then translate that trace.",
-        "Artifacts still overclaim reducer-routed evidence: target evidence, DECIDER_DECISION, and REVIEW_LOOP say tests compare production BattleReducerRouteTrace-observed output, but observed routes are adapter-authored traces."
-      ],
-      "rereview2Verification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "node scripts/check-cleanroom-harness.cjs",
-        "cargo test adapter_replays_all_branches (76 passed, 130 filtered)",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "fixer3Agent": "019f0743-c359-70d2-8e7e-fdf4a94a63a1",
-      "fixer3Name": "Arendt",
-      "fix3Status": "complete",
-      "fix3Commit": "582b2a71c6573c480d4ccddec15381308a2bd667",
-      "fix3Summary": [
-        "Removed adapter-local accepted route synthesis; no BattleReducerRouteTrace::default plus local observe_battle_route_* calls remain in the cited adapters.",
-        "Accepted observed routes now come from production observer entrypoints in battle_reducer_spine and battle_features; adapters select branches and translate returned production traces for comparison.",
-        "Accepted all 17 lane A obligations; no blockers reported by fixer."
-      ],
-      "fix3Verification": [
-        "cargo fmt --check",
-        "cargo test adapter_replays_all_branches",
-        "cargo test",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "rereview3Agent": "019f0757-f7ea-7d50-aade-065a0f11916e",
-      "rereview3Name": "Curie",
-      "rereview3Status": "clean",
-      "rereview3Verdict": "clean",
-      "rereview3Summary": [
-        "The five lane A adapters no longer create BattleReducerRouteTrace::default() or call observe helpers locally.",
-        "Observed routes are translated from traces returned by production reducer/observer entrypoints.",
-        "Expected routes remain independent literal route records/lists.",
-        "Artifacts describe qRoute / route-event-list evidence honestly and do not claim projection-only evidence as route evidence.",
-        "BattleState.feature_resources remains the single battle-state owner for the Adrenaline Rush resource pool; remaining uses are derived from ResourcePoolFacts.",
-        "No selected-authored-identity string/id dispatch found in changed src/rules code."
-      ],
-      "rereview3Verification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "node scripts/check-cleanroom-harness.cjs",
-        "cargo test adapter_replays_all_branches (76 passed)",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ]
-    },
-    {
-      "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-b",
-      "branch": "ralph/l15-rr07s-b-zero-hp-form-movement",
-      "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "review-clean-merge-ready",
-      "workerAgent": "019f070b-2c30-7de1-bece-a71c78a04a4b",
-      "workerName": "Newton",
-      "commit": "81fd387c6dda4b00c28a752492d6aa0d2fee4d3d",
-      "workerSummary": [
-        "Added route evidence for zero-HP stabilization, Wild Shape form lifecycle, and movement/forced movement substrates.",
-        "Accepted zero-HP stabilization, all 7 Wild Shape branch actions, and 4 in-scope movement/forced-movement branches.",
-        "Left Barbarian Fast Movement and Ranger Roving as blocked/out-of-lane according to scope."
-      ],
-      "workerVerification": [
-        "focused adapter tests",
-        "cargo fmt --check",
-        "cargo test",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "reviewAgent": "019f071a-2cf3-7a21-8176-bc3148c52163",
-      "reviewName": "Ramanujan",
-      "reviewStatus": "clean",
-      "reviewVerdict": "clean",
-      "reviewSummary": [
-        "No production selected-identity dispatch found; lane action/catalog strings remain confined to adapters/tests/artifacts.",
-        "Expected routes are independent literal ReducerRouteEvent records, not observed replay helpers.",
-        "Tests compare observed reducer routes to expected routes for stabilization, all Wild Shape branches, and accepted movement branches.",
-        "Artifacts honestly list 12 accepted obligations and keep Barbarian Fast Movement / Ranger Roving blocked or out-of-lane.",
-        "No durable runtime state added."
-      ],
-      "reviewVerification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "node scripts/check-cleanroom-harness.cjs",
-        "cargo test adapter_replays",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
-        "cargo fmt --check",
-        "cargo test",
-        "cargo clippy --all-targets -- -D warnings",
-        "git status --short clean"
-      ]
-    },
-    {
-      "laneId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c",
-      "branch": "ralph/l15-rr07s-c-weapon-breath-feature",
-      "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "review-clean-merge-ready",
-      "workerAgent": "019f070b-ff89-7fd2-8978-44745a13ef82",
-      "workerName": "Kuhn",
-      "commit": "3da4fbbd6d0630c096d0d386f28cc0ce02fb432b",
-      "workerSummary": [
-        "Added route evidence for weapon mastery property, Dragonborn Breath Weapon, and active feature spell benefits.",
-        "Accepted all lane obligations with no blockers.",
-        "Added BattleState.feature_substrates as runtime owner for reducer-owned substrate state."
-      ],
-      "workerVerification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "focused adapter tests for weapon mastery, dragonborn breath weapon, and feature selected identity",
-        "cargo fmt --check",
-        "cargo test (202 tests)",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "reviewAgent": "019f072c-d0a6-7e53-adcf-02844f72a6f9",
-      "reviewName": "Nash",
-      "reviewStatus": "findings",
-      "reviewVerdict": "findings",
-      "reviewFindings": [
-        "Expected route witnesses are not independent: weapon mastery, Dragonborn Breath Weapon, and feature selected-identity adapters build observed and expected routes with the same route_* helper constructors.",
-        "Evidence/report honesty is overstated: REVIEW_LOOP and DECIDER_DECISION claim literal independent expected route witnesses while tests compare observed routes to non-independent expected routes."
-      ],
-      "reviewVerification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
-        "focused route tests for weapon mastery, Dragonborn Breath Weapon, and feature selected identity"
-      ],
-      "fixerAgent": "019f0730-cabf-77a3-801f-b5b9736f7e6b",
-      "fixerName": "Franklin",
-      "fixStatus": "complete",
-      "fixCommit": "e65678a9e310be2f97ba582711a036454c98ab2d",
-      "fixSummary": [
-        "Replaced shared expected route helper construction with independent literal ReducerRouteEvent records for weapon mastery, Dragonborn Breath Weapon, and feature selected-identity route evidence.",
-        "Observed routes still use reducer-facing route helpers; expected route witnesses are independent literals.",
-        "Accepted all 11 lane obligations; no blockers reported by fixer."
-      ],
-      "fixVerification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "cargo fmt --check",
-        "cargo test weapon_mastery_selected_identity_adapter_replays_all_branches",
-        "cargo test dragonborn_breath_weapon_adapter_replays_all_branches",
-        "cargo test feature_selected_identity_adapter_replays_all_branches",
-        "cargo test (202 tests)",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "rereviewAgent": "019f0739-45c1-70a3-b026-5757480663b5",
-      "rereviewName": "Dewey",
-      "rereviewStatus": "findings",
-      "rereviewVerdict": "findings",
-      "rereviewFindings": [
-        "Observed route witnesses are still adapter-synthesized, not reducer-observed. The three lane adapters build observed Vec<ReducerRouteEvent> values with qnt_adapters route constructors and literal subjects/holes/outcomes rather than using start_battle_observed, discover_battle_acts_observed, or resolve_battle_subject_observed.",
-        "Artifacts still overclaim reducer-routed route evidence: target replay evidence and VALIDATION_REPORT say observed reducer-routed qRoute output is compared against independent literal expected records, but observed qRoute remains adapter-local synthesis."
-      ],
-      "rereviewVerification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "node scripts/check-cleanroom-harness.cjs",
-        "focused tests for weapon mastery selected identity, Dragonborn Breath Weapon, and feature selected identity",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "fixer2Agent": "019f073c-aa3b-7182-8769-82593a36eb71",
-      "fixer2Name": "Averroes",
-      "fix2Status": "complete",
-      "fix2Commit": "6d89dd42b345c3253d36759d723c1fe4a3271c2c",
-      "fix2Summary": [
-        "Added reducer-observed route events to BattleEntrypointTrace.",
-        "Switched weapon mastery, Dragonborn Breath Weapon, and feature selected-identity adapters to build observed route evidence from start_*_observed, discover_battle_acts_observed, and resolve_battle_subject_observed.",
-        "Kept expected routes as independent literal ReducerRouteEvent records and revised artifacts to stop claiming unobserved internal micro-route evidence.",
-        "Accepted all 11 lane C obligations; Extra Attack continuation remains state projection, not a separate observed route event."
-      ],
-      "fix2Verification": [
-        "cargo fmt --check",
-        "cargo test weapon_mastery_selected_identity_adapter_replays_all_branches && cargo test dragonborn_breath_weapon_adapter_replays_all_branches && cargo test feature_selected_identity_adapter_replays_all_branches",
-        "cargo test",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ],
-      "rereview2Agent": "019f074b-83da-7fb3-a98a-d833225f491e",
-      "rereview2Name": "Noether",
-      "rereview2Status": "clean",
-      "rereview2Verdict": "clean",
-      "rereview2Summary": [
-        "Observed routes for Weapon Mastery, Dragonborn Breath Weapon, and feature selected identity are emitted through reducer observer entrypoints and translated from BattleEntrypointTrace, not adapter-synthesized.",
-        "Expected routes are independent literal ReducerRouteEvent lists.",
-        "Extra Attack continuation is represented as state projection only; no internal micro-route is claimed as observed route evidence.",
-        "src/rules dispatch uses typed runtime facts/enums, not selected authored identity strings/ids/slugs.",
-        "BattleState.feature_substrates remains the single battle-state owner for the new substrate facts."
-      ],
-      "rereview2Verification": [
-        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
-        "node scripts/check-cleanroom-harness.cjs",
-        "cargo test adapter_replays_all_branches (75 passed)",
-        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ]
-    }
-  ],
+  "activeLaneWorktrees": [],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
@@ -876,6 +591,340 @@
       "laneHead": "4ea5566fc503fcfa17f430b523faa87dc189943c",
       "mergeCommit": "3a0c18402e5620a55d0f2046329ab5697023c2e3",
       "status": "removable-after-operator-confirms-no-local-use"
+    },
+    {
+      "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a",
+      "branch": "ralph/l15-rr07s-a-passive-roll-resource",
+      "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
+      "status": "removable-after-operator-confirms-no-local-use",
+      "workerAgent": "019f070a-d8bb-7111-b578-d4eee793076f",
+      "workerName": "Copernicus",
+      "commit": "d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62",
+      "workerSummary": [
+        "Added route evidence for Adrenaline Rush, Halfling Nimbleness, species passive traits, Danger Sense, and roll modifier buff selected identity.",
+        "Accepted all lane obligations with no blockers.",
+        "Added canonical battle owner BattleState.feature_resources for feature resource expenditure; remaining uses are derived via resource_pool_remaining."
+      ],
+      "workerVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "reviewAgent": "019f071c-a15c-7763-9148-3f7cfdcc6211",
+      "reviewName": "Herschel",
+      "reviewStatus": "findings",
+      "reviewFindings": [
+        "Target replay evidence mislabels projection witnesses as route evidence: accepted rows declare literal-projection-witness while also claiming comparator route-event-list and projection qRoute.",
+        "Lane tests compare observed state witnesses to expected_witness rather than observed reducer routes to independent expected route records, so route-event acceptance is overclaimed."
+      ],
+      "reviewVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
+        "cargo test adapter_replays_all_branches"
+      ],
+      "fixerAgent": "019f0721-7a01-7303-bae8-8591e16e1c2d",
+      "fixerName": "Peirce",
+      "fixStatus": "complete",
+      "fixCommit": "b857f65367b3a921406ad5c9c4627eadf45f460e",
+      "fixSummary": [
+        "Replaced projection-only witness comparisons with reducer-route comparisons for all five lane drivers.",
+        "Focused adapter tests now compare replay_observed_route(action) against independent expected_route(action) records before evidence claims qRoute / route-event-list.",
+        "Accepted all 17 lane obligations; no blockers reported by fixer."
+      ],
+      "fixVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "cargo test adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "rereviewAgent": "019f0731-733c-7791-9b81-cc60adf5dc58",
+      "rereviewName": "Hooke",
+      "rereviewStatus": "findings",
+      "rereviewVerdict": "findings",
+      "rereviewFindings": [
+        "Observed route evidence is still adapter-synthesized, not emitted by the production reducer route/observer path. The focused tests compare replay_*_route(action) to expected_*_route(action), but replay_observed_route is mostly hardcoded adapter-local ReducerRouteEvent vectors.",
+        "Danger Sense, roll modifier buff, species passive trait, Halfling Nimbleness, and Adrenaline Rush adapters still overclaim reducer-route-witness / qRoute / route-event-list because observed route lists are not produced by the reducer surface."
+      ],
+      "rereviewVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "cargo test adapter_replays_all_branches (76 tests)",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "fixer2Agent": "019f0736-5669-7d40-89ef-55b4c7cf8f92",
+      "fixer2Name": "Kant",
+      "fix2Status": "complete",
+      "fix2Commit": "969f4526e4e2bb797ee01e2717fbede918f8c768",
+      "fix2Summary": [
+        "Observed route evidence now comes from production BattleReducerRouteTrace emission and is translated by the adapter for comparison against independent expected route records.",
+        "Accepted all lane A obligations for Adrenaline Rush, Danger Sense, Roll Modifier Buff, Species Passive Traits, and Halfling Nimbleness substrate routes.",
+        "No production selected-authored-identity dispatch introduced; BattleState.feature_resources ownership preserved."
+      ],
+      "fix2Verification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "cargo fmt --check",
+        "cargo test adapter_replays_all_branches (76 tests)",
+        "cargo test (206 tests)",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "rereview2Agent": "019f0740-6f67-70d1-9c83-c4012fa2f0a5",
+      "rereview2Name": "Raman",
+      "rereview2Status": "findings",
+      "rereview2Verdict": "findings",
+      "rereview2Findings": [
+        "Observed lane A routes are still synthesized in adapters: adapters create BattleReducerRouteTrace::default(), populate it by calling observe_battle_route_* from adapter-local record_* helpers, then translate that trace.",
+        "Artifacts still overclaim reducer-routed evidence: target evidence, DECIDER_DECISION, and REVIEW_LOOP say tests compare production BattleReducerRouteTrace-observed output, but observed routes are adapter-authored traces."
+      ],
+      "rereview2Verification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "cargo test adapter_replays_all_branches (76 passed, 130 filtered)",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "fixer3Agent": "019f0743-c359-70d2-8e7e-fdf4a94a63a1",
+      "fixer3Name": "Arendt",
+      "fix3Status": "complete",
+      "fix3Commit": "582b2a71c6573c480d4ccddec15381308a2bd667",
+      "fix3Summary": [
+        "Removed adapter-local accepted route synthesis; no BattleReducerRouteTrace::default plus local observe_battle_route_* calls remain in the cited adapters.",
+        "Accepted observed routes now come from production observer entrypoints in battle_reducer_spine and battle_features; adapters select branches and translate returned production traces for comparison.",
+        "Accepted all 17 lane A obligations; no blockers reported by fixer."
+      ],
+      "fix3Verification": [
+        "cargo fmt --check",
+        "cargo test adapter_replays_all_branches",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "rereview3Agent": "019f0757-f7ea-7d50-aade-065a0f11916e",
+      "rereview3Name": "Curie",
+      "rereview3Status": "clean",
+      "rereview3Verdict": "clean",
+      "rereview3Summary": [
+        "The five lane A adapters no longer create BattleReducerRouteTrace::default() or call observe helpers locally.",
+        "Observed routes are translated from traces returned by production reducer/observer entrypoints.",
+        "Expected routes remain independent literal route records/lists.",
+        "Artifacts describe qRoute / route-event-list evidence honestly and do not claim projection-only evidence as route evidence.",
+        "BattleState.feature_resources remains the single battle-state owner for the Adrenaline Rush resource pool; remaining uses are derived from ResourcePoolFacts.",
+        "No selected-authored-identity string/id dispatch found in changed src/rules code."
+      ],
+      "rereview3Verification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "cargo test adapter_replays_all_branches (76 passed)",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "laneHead": "582b2a71c6573c480d4ccddec15381308a2bd667",
+      "mergeCommit": "1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9",
+      "integrationVerification": {
+        "head": "1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9",
+        "commands": [
+          "cargo fmt --check",
+          "node scripts/check-cleanroom-harness.cjs",
+          "git diff --check HEAD~1...HEAD",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "cargo test adapter_replays_all_branches --quiet"
+        ],
+        "result": "passed",
+        "cargoTest": "207 passed",
+        "adapterReplaySmoke": "76 passed"
+      }
+    },
+    {
+      "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-b",
+      "branch": "ralph/l15-rr07s-b-zero-hp-form-movement",
+      "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
+      "status": "removable-after-operator-confirms-no-local-use",
+      "workerAgent": "019f070b-2c30-7de1-bece-a71c78a04a4b",
+      "workerName": "Newton",
+      "commit": "81fd387c6dda4b00c28a752492d6aa0d2fee4d3d",
+      "workerSummary": [
+        "Added route evidence for zero-HP stabilization, Wild Shape form lifecycle, and movement/forced movement substrates.",
+        "Accepted zero-HP stabilization, all 7 Wild Shape branch actions, and 4 in-scope movement/forced-movement branches.",
+        "Left Barbarian Fast Movement and Ranger Roving as blocked/out-of-lane according to scope."
+      ],
+      "workerVerification": [
+        "focused adapter tests",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "reviewAgent": "019f071a-2cf3-7a21-8176-bc3148c52163",
+      "reviewName": "Ramanujan",
+      "reviewStatus": "clean",
+      "reviewVerdict": "clean",
+      "reviewSummary": [
+        "No production selected-identity dispatch found; lane action/catalog strings remain confined to adapters/tests/artifacts.",
+        "Expected routes are independent literal ReducerRouteEvent records, not observed replay helpers.",
+        "Tests compare observed reducer routes to expected routes for stabilization, all Wild Shape branches, and accepted movement branches.",
+        "Artifacts honestly list 12 accepted obligations and keep Barbarian Fast Movement / Ranger Roving blocked or out-of-lane.",
+        "No durable runtime state added."
+      ],
+      "reviewVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "cargo test adapter_replays",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git status --short clean"
+      ],
+      "laneHead": "81fd387c6dda4b00c28a752492d6aa0d2fee4d3d",
+      "mergeCommit": "0ef395a",
+      "integrationVerification": {
+        "head": "1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9",
+        "commands": [
+          "cargo fmt --check",
+          "node scripts/check-cleanroom-harness.cjs",
+          "git diff --check HEAD~1...HEAD",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "cargo test adapter_replays_all_branches --quiet"
+        ],
+        "result": "passed",
+        "cargoTest": "207 passed",
+        "adapterReplaySmoke": "76 passed"
+      }
+    },
+    {
+      "laneId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c",
+      "branch": "ralph/l15-rr07s-c-weapon-breath-feature",
+      "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
+      "status": "removable-after-operator-confirms-no-local-use",
+      "workerAgent": "019f070b-ff89-7fd2-8978-44745a13ef82",
+      "workerName": "Kuhn",
+      "commit": "3da4fbbd6d0630c096d0d386f28cc0ce02fb432b",
+      "workerSummary": [
+        "Added route evidence for weapon mastery property, Dragonborn Breath Weapon, and active feature spell benefits.",
+        "Accepted all lane obligations with no blockers.",
+        "Added BattleState.feature_substrates as runtime owner for reducer-owned substrate state."
+      ],
+      "workerVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "focused adapter tests for weapon mastery, dragonborn breath weapon, and feature selected identity",
+        "cargo fmt --check",
+        "cargo test (202 tests)",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "reviewAgent": "019f072c-d0a6-7e53-adcf-02844f72a6f9",
+      "reviewName": "Nash",
+      "reviewStatus": "findings",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "Expected route witnesses are not independent: weapon mastery, Dragonborn Breath Weapon, and feature selected-identity adapters build observed and expected routes with the same route_* helper constructors.",
+        "Evidence/report honesty is overstated: REVIEW_LOOP and DECIDER_DECISION claim literal independent expected route witnesses while tests compare observed routes to non-independent expected routes."
+      ],
+      "reviewVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
+        "focused route tests for weapon mastery, Dragonborn Breath Weapon, and feature selected identity"
+      ],
+      "fixerAgent": "019f0730-cabf-77a3-801f-b5b9736f7e6b",
+      "fixerName": "Franklin",
+      "fixStatus": "complete",
+      "fixCommit": "e65678a9e310be2f97ba582711a036454c98ab2d",
+      "fixSummary": [
+        "Replaced shared expected route helper construction with independent literal ReducerRouteEvent records for weapon mastery, Dragonborn Breath Weapon, and feature selected-identity route evidence.",
+        "Observed routes still use reducer-facing route helpers; expected route witnesses are independent literals.",
+        "Accepted all 11 lane obligations; no blockers reported by fixer."
+      ],
+      "fixVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "cargo fmt --check",
+        "cargo test weapon_mastery_selected_identity_adapter_replays_all_branches",
+        "cargo test dragonborn_breath_weapon_adapter_replays_all_branches",
+        "cargo test feature_selected_identity_adapter_replays_all_branches",
+        "cargo test (202 tests)",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "rereviewAgent": "019f0739-45c1-70a3-b026-5757480663b5",
+      "rereviewName": "Dewey",
+      "rereviewStatus": "findings",
+      "rereviewVerdict": "findings",
+      "rereviewFindings": [
+        "Observed route witnesses are still adapter-synthesized, not reducer-observed. The three lane adapters build observed Vec<ReducerRouteEvent> values with qnt_adapters route constructors and literal subjects/holes/outcomes rather than using start_battle_observed, discover_battle_acts_observed, or resolve_battle_subject_observed.",
+        "Artifacts still overclaim reducer-routed route evidence: target replay evidence and VALIDATION_REPORT say observed reducer-routed qRoute output is compared against independent literal expected records, but observed qRoute remains adapter-local synthesis."
+      ],
+      "rereviewVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "focused tests for weapon mastery selected identity, Dragonborn Breath Weapon, and feature selected identity",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "fixer2Agent": "019f073c-aa3b-7182-8769-82593a36eb71",
+      "fixer2Name": "Averroes",
+      "fix2Status": "complete",
+      "fix2Commit": "6d89dd42b345c3253d36759d723c1fe4a3271c2c",
+      "fix2Summary": [
+        "Added reducer-observed route events to BattleEntrypointTrace.",
+        "Switched weapon mastery, Dragonborn Breath Weapon, and feature selected-identity adapters to build observed route evidence from start_*_observed, discover_battle_acts_observed, and resolve_battle_subject_observed.",
+        "Kept expected routes as independent literal ReducerRouteEvent records and revised artifacts to stop claiming unobserved internal micro-route evidence.",
+        "Accepted all 11 lane C obligations; Extra Attack continuation remains state projection, not a separate observed route event."
+      ],
+      "fix2Verification": [
+        "cargo fmt --check",
+        "cargo test weapon_mastery_selected_identity_adapter_replays_all_branches && cargo test dragonborn_breath_weapon_adapter_replays_all_branches && cargo test feature_selected_identity_adapter_replays_all_branches",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "rereview2Agent": "019f074b-83da-7fb3-a98a-d833225f491e",
+      "rereview2Name": "Noether",
+      "rereview2Status": "clean",
+      "rereview2Verdict": "clean",
+      "rereview2Summary": [
+        "Observed routes for Weapon Mastery, Dragonborn Breath Weapon, and feature selected identity are emitted through reducer observer entrypoints and translated from BattleEntrypointTrace, not adapter-synthesized.",
+        "Expected routes are independent literal ReducerRouteEvent lists.",
+        "Extra Attack continuation is represented as state projection only; no internal micro-route is claimed as observed route evidence.",
+        "src/rules dispatch uses typed runtime facts/enums, not selected authored identity strings/ids/slugs.",
+        "BattleState.feature_substrates remains the single battle-state owner for the new substrate facts."
+      ],
+      "rereview2Verification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "cargo test adapter_replays_all_branches (75 passed)",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "laneHead": "6d89dd42b345c3253d36759d723c1fe4a3271c2c",
+      "mergeCommit": "67bc22f",
+      "integrationVerification": {
+        "head": "1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9",
+        "commands": [
+          "cargo fmt --check",
+          "node scripts/check-cleanroom-harness.cjs",
+          "git diff --check HEAD~1...HEAD",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "cargo test adapter_replays_all_branches --quiet"
+        ],
+        "result": "passed",
+        "cargoTest": "207 passed",
+        "adapterReplaySmoke": "76 passed"
+      }
     }
   ],
   "operatorNotes": [
