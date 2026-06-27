@@ -135,8 +135,8 @@
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
-    "L15-RR08-CHARACTER-CREATION-ROUTES": "fixing",
-    "L15-RR09-CHARACTER-SHEET-ROUTES": "rereviewing",
+    "L15-RR08-CHARACTER-CREATION-ROUTES": "fix-committed-pending-rereview",
+    "L15-RR09-CHARACTER-SHEET-ROUTES": "review-clean-merge-ready",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "ready",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
     "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
@@ -182,7 +182,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08",
       "branch": "ralph/l15-rr08-character-creation",
       "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
-      "status": "fixing",
+      "status": "fix-committed-pending-rereview",
       "workerAgent": "019f06a6-8ed9-7560-9daa-6922b4bb277d",
       "workerName": "Harvey",
       "commit": "8416ee533fed413f9f072b982e0d425d89d90bac",
@@ -201,14 +201,33 @@
       ],
       "fixerAgent": "019f06bd-b6ee-7771-81e1-d412340ae0e9",
       "fixerName": "Kierkegaard",
-      "fixStatus": "running"
+      "fixStatus": "committed-pending-rereview",
+      "fixCommit": "e11862d68ab0b02ec0db303504923e9222c3446f",
+      "fixerSummary": [
+        "Added independent adapter-local QNT literal route witnesses for character creation expected routes.",
+        "Removed production dispatch on official selected identities for reported class-feature cases; production consumes admitted support fact shapes.",
+        "Updated evidence/report artifacts to describe the repaired implementation."
+      ],
+      "fixerVerification": [
+        "git merge-base --is-ancestor 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9 HEAD",
+        "cargo test character_creation",
+        "focused changed tests: class_feature, cleric_druid_order, fighting_style, rogue_expertise, warlock_invocation, weapon_mastery",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9...HEAD"
+      ],
+      "mergeRisk": [
+        "Touches src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs, which also changed in RR09; require re-review before any CP3 merge."
+      ]
     },
     {
       "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09",
       "branch": "ralph/l15-rr09-character-sheet",
       "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
-      "status": "rereviewing",
+      "status": "review-clean-merge-ready",
       "workerAgent": "019f06a6-f828-76d0-b989-42488be5d4b9",
       "workerName": "Volta",
       "commit": "cf9a8974fc9285878f6a8276dff8aa3cda3f3682",
@@ -245,7 +264,22 @@
       ],
       "reReviewAgent": "019f06c9-bc48-74b1-87dd-8312784588dd",
       "reReviewName": "Jason",
-      "reReviewStatus": "running"
+      "reReviewStatus": "clean",
+      "reReviewVerdict": "clean",
+      "reReviewSummary": [
+        "Pauli finding 1 resolved: arcane recovery, class feature, and spell slots expected_route values no longer delegate to observed replay.",
+        "Pauli finding 2 resolved: spellbook ritual, weapon mastery, and spell slots expected witnesses are literal expected records rather than reducer/replay-derived projections.",
+        "Pauli finding 3 resolved: ability check, healing resource, spellbook ritual, and weapon mastery tests now compare observed routes to expected routes."
+      ],
+      "reReviewVerification": [
+        "git merge-base --is-ancestor 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9 HEAD",
+        "cargo test adapter_replays",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9...HEAD"
+      ],
+      "mergeRisk": [
+        "Overlaps RR08 in src/tests/mod.rs, tasks artifacts, and src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs; merge after RR08 re-review with explicit conflict review."
+      ]
     }
   ],
   "completedLaneWorktrees": [
