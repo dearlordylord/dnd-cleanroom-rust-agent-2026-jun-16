@@ -1,10 +1,11 @@
 use crate::rules::battle_reducer_spine::{
-    discover_generic_route_subject_observed, resolve_battle_subject_observed,
-    start_battle_observed, Actor, BattleEntrypointTrace, BattleGenericRouteFill, BattleHoleKind,
-    BattleReducerRouteEvent, BattleReducerRouteFillKind, BattleReducerRouteHoleKind,
-    BattleReducerRouteOwnerGroup, BattleReducerRouteSubjectFamily, BattleReducerRouteTrace,
-    BattleResolutionInvalidReason, BattleResolutionOutcome, BattleResolutionRequest,
-    BattleResolutionResult, BattleSetup, BattleState, BattleSubject, BattleSubjectKind,
+    discover_battle_acts_observed, discover_generic_route_subject_observed,
+    resolve_battle_subject_observed, start_battle_observed, Actor, AttackRollFacts,
+    BattleEntrypointTrace, BattleGenericRouteFill, BattleHoleKind, BattleReducerRouteEvent,
+    BattleReducerRouteFillKind, BattleReducerRouteHoleKind, BattleReducerRouteOwnerGroup,
+    BattleReducerRouteSubjectFamily, BattleReducerRouteTrace, BattleResolutionInvalidReason,
+    BattleResolutionOutcome, BattleResolutionRequest, BattleResolutionResult, BattleSetup,
+    BattleState, BattleSubject, BattleSubjectKind, BattleWeaponAttackFill,
 };
 use crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage;
 
@@ -188,6 +189,13 @@ pub enum GenericBattleRouteStep {
         kind: BattleSubjectKind,
         fill: BattleGenericRouteFill,
     },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum WeaponAttackSetupRouteEnd {
+    Discovered,
+    TargetFilled,
+    HitFilled,
 }
 
 #[derive(Debug, Clone, Eq)]
@@ -482,6 +490,102 @@ pub fn replay_generic_battle_route(steps: &[GenericBattleRouteStep]) -> Vec<Redu
         .iter()
         .map(reducer_route_event_from_observed)
         .collect()
+}
+
+#[must_use]
+pub fn replay_observed_weapon_attack_setup_route(
+    end: WeaponAttackSetupRouteEnd,
+) -> Vec<ReducerRouteEvent> {
+    let mut trace = BattleEntrypointTrace::default();
+    let mut state = start_battle_observed(BattleSetup::standard(), &mut trace).state;
+    let discovery = discover_battle_acts_observed(&state, &mut trace);
+    let mut subject = discovery
+        .available_acts()
+        .iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::WeaponAttack)
+        .expect("standard battle should discover a Fighter weapon attack")
+        .subject;
+
+    if matches!(
+        end,
+        WeaponAttackSetupRouteEnd::TargetFilled | WeaponAttackSetupRouteEnd::HitFilled
+    ) {
+        let result = resolve_battle_subject_observed(
+            state,
+            BattleResolutionRequest::weapon_attack(
+                subject,
+                BattleWeaponAttackFill::TargetChoice(Actor::Goblin),
+            )
+            .expect("WeaponAttack subject should accept weapon attack fills"),
+            &mut trace,
+        );
+        let outcome = result.outcome();
+        let needs_holes = result.into_needs_holes().unwrap_or_else(|| {
+            panic!("target choice should need attack-roll holes, got {outcome:?}")
+        });
+        state = needs_holes.state;
+        subject = needs_holes.subject;
+    }
+
+    if matches!(end, WeaponAttackSetupRouteEnd::HitFilled) {
+        let result = resolve_battle_subject_observed(
+            state,
+            BattleResolutionRequest::weapon_attack(
+                subject,
+                BattleWeaponAttackFill::AttackRoll(AttackRollFacts {
+                    total: 16,
+                    natural_d20: 12,
+                }),
+            )
+            .expect("WeaponAttack subject should accept weapon attack fills"),
+            &mut trace,
+        );
+        let outcome = result.outcome();
+        result
+            .into_needs_holes()
+            .unwrap_or_else(|| panic!("attack-roll hit should need damage holes, got {outcome:?}"));
+    }
+
+    observed_reducer_route(&trace, &[ReducerRouteSubjectFamily::WeaponAttack])
+}
+
+#[must_use]
+pub fn expected_weapon_attack_setup_route(
+    end: WeaponAttackSetupRouteEnd,
+) -> Vec<ReducerRouteEvent> {
+    let mut route = vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::WeaponAttack,
+            vec![ReducerRouteHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::TargetSelection,
+        ),
+    ];
+
+    if matches!(
+        end,
+        WeaponAttackSetupRouteEnd::TargetFilled | WeaponAttackSetupRouteEnd::HitFilled
+    ) {
+        route.push(route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::WeaponAttack,
+            ReducerRouteFillKind::TargetChoice,
+            ReducerRouteResolutionOutcome::NeedsHoles,
+            vec![ReducerRouteHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::TargetSelection,
+        ));
+    }
+
+    if matches!(end, WeaponAttackSetupRouteEnd::HitFilled) {
+        route.push(route_resolve_battle_subject_from_route_result(
+            ReducerRouteSubjectFamily::WeaponAttack,
+            ReducerRouteFillKind::AttackRoll,
+            ReducerRouteResolutionOutcome::NeedsHoles,
+            vec![ReducerRouteHoleKind::RolledDice],
+            ReducerRouteOwnerGroup::AttackRoll,
+        ));
+    }
+
+    route
 }
 
 fn generic_route_subject(kind: BattleSubjectKind) -> BattleSubject {

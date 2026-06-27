@@ -1,6 +1,6 @@
 {
   "durableFields": [],
-  "noDurableFieldsReason": "This lane adds no durable BattleState fields; accepted evidence reuses production BattleSubjectKind generic route subject variants, existing BattleEntrypointTrace route events, and adapter qRoute projection. Blocked rows remain target blockers instead of duplicating pre-hit, scenario-transition, target-item, or out-of-scope state.",
+  "noDurableFieldsReason": "This lane adds no durable BattleState fields; accepted evidence reuses production BattleSubjectKind generic route subject variants, ordinary WeaponAttack route events, existing BattleEntrypointTrace route events, and adapter qRoute projection. Blocked rows remain target blockers instead of duplicating scenario-transition, MagicWeaponTargetItem, or out-of-scope state.",
   "nonDurableBoundaryApiSurface": [
     {
       "apiPath": "BattleEntrypointTrace.route_events",
@@ -169,6 +169,18 @@
       "boundary": "accepted target replay checked production diagnostic route fact",
       "introducedIn": "src/qnt_adapters/battle_runtime_reducer_route.rs",
       "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleReducerRouteSubjectFamily.WeaponAttack",
+      "boundary": "accepted target replay checked production diagnostic route fact",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
+      "apiPath": "BattleSubjectKind.WeaponAttack",
+      "boundary": "accepted target replay checked production diagnostic route fact",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
     }
   ],
   "schemaVersion": 1,

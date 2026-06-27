@@ -2,7 +2,7 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "adapterScope": "Replays accepted after-hit rider owner-split rows through public generic BattleSubjectKind route subjects and records target blockers for pre-hit, scenario-transition, and out-of-scope Shining Smite rows; unsupported Shining illumination route subjects are not present in this lane.",
+      "adapterScope": "Replays accepted after-hit rider owner-split rows plus CP7-C generic WeaponAttack pre-hit discovery/target-fill rows through public reducer entrypoints; scenario-transition and out-of-scope Shining Smite rows remain blockers.",
       "path": "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -86,7 +86,7 @@
       ]
     },
     {
-      "adapterScope": "Replays accepted weapon-hosted spell attack, held-weapon active-effect, and weapon damage rider rows through public generic BattleSubjectKind route subjects; component projection smoke is separate from accepted route evidence, and target-item plus pure scenario rows remain blockers.",
+      "adapterScope": "Replays accepted weapon-hosted spell attack, held-weapon active-effect, weapon damage rider rows, and CP7-C generic Divine Favor WeaponAttack setup rows through public reducer entrypoints; MagicWeaponTargetItem plus pure scenario rows remain blockers.",
       "path": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -170,7 +170,7 @@
       ]
     },
     {
-      "adapterScope": "Projects BattleEntrypointTrace route events into QNT-facing qRoute strings and keeps route subject/fill/hole labels quarantined in adapter evidence.",
+      "adapterScope": "Projects BattleEntrypointTrace route events into QNT-facing qRoute strings and provides shared observed/literal generic WeaponAttack setup route witnesses for CP7-C.",
       "path": "src/qnt_adapters/battle_runtime_reducer_route.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
@@ -252,7 +252,8 @@
         "AfterHitDamageRiderRouteSubject",
         "SpellHostedWeaponAttackRouteSubject",
         "HeldWeaponActiveEffectRouteSubject",
-        "WeaponDamageRiderRouteSubject"
+        "WeaponDamageRiderRouteSubject",
+        "WeaponAttackRouteSubject"
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json"
@@ -260,6 +261,11 @@
     }
   ],
   "expectedNextReuse": [
+    {
+      "api": "generic WeaponAttack setup route replay through BattleEntrypointTrace",
+      "driver": "future rows that need ordinary weapon discovery, target-fill, or hit-fill route evidence without rider-selected semantics",
+      "module": "src/qnt_adapters/battle_runtime_reducer_route.rs"
+    },
     {
       "api": "BattleSubjectKind generic route substrate discovery and resolution through BattleState reducer entrypoints",
       "driver": "future after-hit rider and weapon-hosted route drivers",

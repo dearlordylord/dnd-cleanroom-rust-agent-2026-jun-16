@@ -1,8 +1,9 @@
 use super::battle_runtime_reducer_route::{
-    observed_reducer_route, route_discover_battle_acts_from_route_holes,
+    expected_weapon_attack_setup_route, observed_reducer_route,
+    replay_observed_weapon_attack_setup_route, route_discover_battle_acts_from_route_holes,
     route_resolve_battle_subject_from_route_result, route_start_battle, ReducerRouteEvent,
     ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
-    ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+    ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily, WeaponAttackSetupRouteEnd,
 };
 use crate::rules::battle_reducer_spine::{
     discover_generic_route_subject_observed, resolve_battle_subject_observed,
@@ -39,7 +40,9 @@ pub const BRANCH_ACTIONS: [&str; 26] = [
     "doFinish",
 ];
 
-pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 15] = [
+pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 17] = [
+    "doDiscoverWeaponHit",
+    "doFillTargetChoice",
     "doFillHitAttackRoll",
     "doChooseDivineSmiteSlot",
     "doChooseDivineSmiteFreeCast",
@@ -57,15 +60,7 @@ pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 15] = [
     "doFillSearingStartTurnDamageAndSave",
 ];
 
-pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 11] = [
-    (
-        "doDiscoverWeaponHit",
-        "pre-hit weapon target discovery is outside the after-hit rider route substrate",
-    ),
-    (
-        "doFillTargetChoice",
-        "pre-hit weapon target fill is outside the after-hit rider route substrate",
-    ),
+pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 9] = [
     (
         "doChooseShiningSmite",
         "Shining Smite is out of scope for this level-1/2 cleanroom route lane",
@@ -106,6 +101,12 @@ pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 11] = [
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
+        "doDiscoverWeaponHit" => {
+            replay_observed_weapon_attack_setup_route(WeaponAttackSetupRouteEnd::Discovered)
+        }
+        "doFillTargetChoice" => {
+            replay_observed_weapon_attack_setup_route(WeaponAttackSetupRouteEnd::TargetFilled)
+        }
         "doFillHitAttackRoll" => replay_generic_route_sequence(&[(
             BattleSubjectKind::AfterHitDamageRiderInterruptDecision,
             BattleGenericRouteFill::InterruptDecision,
@@ -205,6 +206,12 @@ fn replay_generic_route_sequence(
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
+        "doDiscoverWeaponHit" => {
+            expected_weapon_attack_setup_route(WeaponAttackSetupRouteEnd::Discovered)
+        }
+        "doFillTargetChoice" => {
+            expected_weapon_attack_setup_route(WeaponAttackSetupRouteEnd::TargetFilled)
+        }
         "doFillHitAttackRoll" => expected_interrupt_route(
             ReducerRouteOwnerGroup::InterruptStack,
             ReducerRouteFillKind::InterruptDecision,

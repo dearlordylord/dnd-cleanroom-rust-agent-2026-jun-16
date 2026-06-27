@@ -232,19 +232,21 @@
       "observedActionTaken": "doDiscoverWeaponHit",
       "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
       "result": {
-        "blockerId": "L15-RRCP5-A-doDiscoverWeaponHit",
-        "reason": "pre-hit weapon target discovery is outside the after-hit rider route substrate",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
+          "BattleSubjectKind.WeaponAttack",
+          "BattleReducerRouteSubjectFamily.WeaponAttack",
           "BattleEntrypointTrace.route_events",
-          "AfterHitDamageRiderRouteSurface"
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "route-surface-admission",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "afc9921bd9e399c59281988efbeed879c70a74d3196f67fd050df12a49eb120b",
+        "observedProjectionSha256": "afc9921bd9e399c59281988efbeed879c70a74d3196f67fd050df12a49eb120b",
         "projection": "qRoute",
-        "tag": "target-blocker"
+        "tag": "state-match"
       },
       "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doDiscoverWeaponHit"
     },
@@ -576,19 +578,21 @@
       "observedActionTaken": "doFillTargetChoice",
       "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
       "result": {
-        "blockerId": "L15-RRCP5-A-doFillTargetChoice",
-        "reason": "pre-hit weapon target fill is outside the after-hit rider route substrate",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
+          "BattleSubjectKind.WeaponAttack",
+          "BattleReducerRouteSubjectFamily.WeaponAttack",
           "BattleEntrypointTrace.route_events",
-          "AfterHitDamageRiderRouteSurface"
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "route-surface-admission",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "19d66a1d277a4f6bffd604398965f2f18459f9b5f7867ba45ff1eb9a3144789a",
+        "observedProjectionSha256": "19d66a1d277a4f6bffd604398965f2f18459f9b5f7867ba45ff1eb9a3144789a",
         "projection": "qRoute",
-        "tag": "target-blocker"
+        "tag": "state-match"
       },
       "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillTargetChoice"
     },
@@ -891,19 +895,21 @@
       "observedActionTaken": "doDiscoverDivineFavorAttack",
       "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
       "result": {
-        "blockerId": "L15-RRCP5-A-doDiscoverDivineFavorAttack",
-        "reason": "ordinary weapon target discovery is outside the rider route substrate",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
+          "BattleSubjectKind.WeaponAttack",
+          "BattleReducerRouteSubjectFamily.WeaponAttack",
           "BattleEntrypointTrace.route_events",
-          "WeaponHostedRouteSurface"
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "route-surface-admission",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "afc9921bd9e399c59281988efbeed879c70a74d3196f67fd050df12a49eb120b",
+        "observedProjectionSha256": "afc9921bd9e399c59281988efbeed879c70a74d3196f67fd050df12a49eb120b",
         "projection": "qRoute",
-        "tag": "target-blocker"
+        "tag": "state-match"
       },
       "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverDivineFavorAttack"
     },
@@ -1034,19 +1040,21 @@
       "observedActionTaken": "doFillDivineFavorHit",
       "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
       "result": {
-        "blockerId": "L15-RRCP5-A-doFillDivineFavorHit",
-        "reason": "ordinary weapon attack-roll fill is outside the rider route substrate",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
+          "BattleSubjectKind.WeaponAttack",
+          "BattleReducerRouteSubjectFamily.WeaponAttack",
           "BattleEntrypointTrace.route_events",
-          "WeaponHostedRouteSurface"
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "route-surface-admission",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "bee3b3413e4e562a5a662e7e504d1139bcf3491dde51b534375acd3095ce5fa3",
+        "observedProjectionSha256": "bee3b3413e4e562a5a662e7e504d1139bcf3491dde51b534375acd3095ce5fa3",
         "projection": "qRoute",
-        "tag": "target-blocker"
+        "tag": "state-match"
       },
       "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorHit"
     },
@@ -1059,19 +1067,21 @@
       "observedActionTaken": "doFillDivineFavorTarget",
       "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
       "result": {
-        "blockerId": "L15-RRCP5-A-doFillDivineFavorTarget",
-        "reason": "ordinary weapon target fill is outside the rider route substrate",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
+          "BattleSubjectKind.WeaponAttack",
+          "BattleReducerRouteSubjectFamily.WeaponAttack",
           "BattleEntrypointTrace.route_events",
-          "WeaponHostedRouteSurface"
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "route-surface-admission",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "19d66a1d277a4f6bffd604398965f2f18459f9b5f7867ba45ff1eb9a3144789a",
+        "observedProjectionSha256": "19d66a1d277a4f6bffd604398965f2f18459f9b5f7867ba45ff1eb9a3144789a",
         "projection": "qRoute",
-        "tag": "target-blocker"
+        "tag": "state-match"
       },
       "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorTarget"
     },

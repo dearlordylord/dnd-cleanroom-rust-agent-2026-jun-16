@@ -1,11 +1,23 @@
 {
   "acceptedRows": [
+    "doCastDivineFavor",
+    "doCastShillelagh",
     "doChooseDivineSmiteFreeCast",
     "doChooseDivineSmiteSlot",
     "doChooseEnsnaringStrike",
     "doChooseSearingSmite",
+    "doCleanDivineFavorDuration",
+    "doCleanMagicWeaponDuration",
+    "doCleanShillelaghLetGo",
+    "doDiscoverDivineFavorAttack",
     "doDiscoverEnsnaringStartTurnDamage",
     "doDiscoverSearingStartTurnDamageAndSave",
+    "doDiscoverShillelaghAttack",
+    "doDiscoverTrueStrike",
+    "doDiscoverWeaponHit",
+    "doFillDivineFavorDamage",
+    "doFillDivineFavorHit",
+    "doFillDivineFavorTarget",
     "doFillDivineSmiteDamage",
     "doFillEnsnaringEscapeCheck",
     "doFillEnsnaringFailedSave",
@@ -15,17 +27,10 @@
     "doFillHitAttackRoll",
     "doFillSearingSmiteDamage",
     "doFillSearingStartTurnDamageAndSave",
-    "doCastDivineFavor",
-    "doCastShillelagh",
-    "doCleanDivineFavorDuration",
-    "doCleanMagicWeaponDuration",
-    "doCleanShillelaghLetGo",
-    "doDiscoverShillelaghAttack",
-    "doDiscoverTrueStrike",
-    "doFillDivineFavorDamage",
     "doFillShillelaghDamage",
     "doFillShillelaghHit",
     "doFillShillelaghTarget",
+    "doFillTargetChoice",
     "doFillTrueStrikeDamage",
     "doFillTrueStrikeHit",
     "doFillTrueStrikeRadiantTarget"
@@ -65,7 +70,7 @@
       "status": "pass"
     }
   ],
-  "rationale": "Accepted CP5 rows replay through production BattleSubjectKind diagnostic route subjects emitted as BattleEntrypointTrace route events and compared through adapter qRoute projection for after-hit rider, spell-hosted weapon attack, held-weapon active-effect, and weapon damage rider substrates. Pre-hit weapon steps, pure scenario transitions, ordinary weapon-hosted target/attack-roll rows, MagicWeaponTargetItem holes absent from the copied reducer-route vocabulary, and out-of-scope Shining Smite rows remain target-blocked. Component projection smoke is not counted as accepted route evidence.",
+  "rationale": "CP7-C accepts the five remaining generic weapon setup rows through production BattleEntrypointTrace.route_events and independent WeaponAttack qRoute witnesses. Scenario transitions, Shining Smite out-of-scope rows, and MagicWeaponTargetItem rows remain blocked.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "targetBlockedRows": [
@@ -80,29 +85,9 @@
       "reason": "Shining Smite is out of scope for this level-1/2 cleanroom route lane"
     },
     {
-      "action": "doDiscoverDivineFavorAttack",
-      "blockerId": "L15-RRCP5-A-doDiscoverDivineFavorAttack",
-      "reason": "ordinary weapon target discovery is outside the rider route substrate"
-    },
-    {
       "action": "doDiscoverMagicWeapon",
       "blockerId": "L15-RRCP5-A-doDiscoverMagicWeapon",
       "reason": "MagicWeaponTargetItem is not present in the copied reducer-route hole vocabulary"
-    },
-    {
-      "action": "doDiscoverWeaponHit",
-      "blockerId": "L15-RRCP5-A-doDiscoverWeaponHit",
-      "reason": "pre-hit weapon target discovery is outside the after-hit rider route substrate"
-    },
-    {
-      "action": "doFillDivineFavorHit",
-      "blockerId": "L15-RRCP5-A-doFillDivineFavorHit",
-      "reason": "ordinary weapon attack-roll fill is outside the rider route substrate"
-    },
-    {
-      "action": "doFillDivineFavorTarget",
-      "blockerId": "L15-RRCP5-A-doFillDivineFavorTarget",
-      "reason": "ordinary weapon target fill is outside the rider route substrate"
     },
     {
       "action": "doFillMagicWeaponTarget",
@@ -113,11 +98,6 @@
       "action": "doFillShiningSmiteDamage",
       "blockerId": "L15-RRCP5-A-doFillShiningSmiteDamage",
       "reason": "Shining Smite is out of scope for this level-1/2 cleanroom route lane"
-    },
-    {
-      "action": "doFillTargetChoice",
-      "blockerId": "L15-RRCP5-A-doFillTargetChoice",
-      "reason": "pre-hit weapon target fill is outside the after-hit rider route substrate"
     },
     {
       "action": "doFinish",
