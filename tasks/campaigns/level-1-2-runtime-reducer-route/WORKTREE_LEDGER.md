@@ -15,7 +15,7 @@ This file prevents orphaned or confused Ralph worktrees.
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
 | L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a` | `ralph/l15-rr07-fu01a-catalog-ready` | `4b24c074161a5bbe2b52ef1125c5f7044e3172e0` | Carver `019f0776-9fa7-7893-a111-b0aa8a7f73e3` | fixing Godel P1 finding; fixer Einstein `019f078b-5bbf-7423-8391-5e79c45293de` |
-| L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08a` | `ralph/l15-rr07-fu08a-metamagic-governor` | `4b24c074161a5bbe2b52ef1125c5f7044e3172e0` | Halley `019f0777-14c3-7af1-aef6-cd902821a7ae` | review-needed commit `07e47f01a9e728fcfe919b4af2e1a4592b97069f` |
+| L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08a` | `ralph/l15-rr07-fu08a-metamagic-governor` | `4b24c074161a5bbe2b52ef1125c5f7044e3172e0` | Halley `019f0777-14c3-7af1-aef6-cd902821a7ae` | reviewing commit `07e47f01a9e728fcfe919b4af2e1a4592b97069f`; reviewer Socrates `019f078f-07bb-7e53-9a22-a248a86a7821` |
 
 ## Historical RRCONV-19 Worktrees
 

@@ -193,7 +193,7 @@
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
-    "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "review-needed",
+    "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "reviewing",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "blocked-on-fu08a",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "blocked-on-fu08a"
   },
@@ -261,7 +261,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08a",
       "branch": "ralph/l15-rr07-fu08a-metamagic-governor",
       "baseSha": "4b24c074161a5bbe2b52ef1125c5f7044e3172e0",
-      "status": "review-needed",
+      "status": "reviewing",
       "workerAgent": "019f0777-14c3-7af1-aef6-cd902821a7ae",
       "workerName": "Halley",
       "commit": "07e47f01a9e728fcfe919b4af2e1a4592b97069f",
@@ -277,7 +277,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD"
-      ]
+      ],
+      "reviewAgent": "019f078f-07bb-7e53-9a22-a248a86a7821",
+      "reviewName": "Socrates",
+      "reviewStatus": "running"
     }
   ],
   "completedLaneWorktrees": [
