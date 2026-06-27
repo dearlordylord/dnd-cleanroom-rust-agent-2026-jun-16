@@ -191,7 +191,7 @@
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "running",
+    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "review-needed",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready",
@@ -218,9 +218,23 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b",
       "branch": "ralph/l15-rr07-fu01b-spell-attack-damage",
       "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
-      "status": "running",
+      "status": "review-needed",
       "workerAgent": "019f079d-4d22-75e0-b100-3872c7e6bdc2",
-      "workerName": "Euler"
+      "workerName": "Euler",
+      "commit": "11f9f56bf2dccee87204371cb9a5d5f125e6402c",
+      "workerSummary": [
+        "Accepted 14 spell attack/save damage selected witness rows through reducer-routed evidence.",
+        "Blocked doResolveChromaticOrbDuplicateDamageLeap and doResolveStarryWispObjectSpellAttackDamageAndDimLight because required facts are not production BattleState owned."
+      ],
+      "workerVerification": [
+        "git merge-base --is-ancestor 6bad2c3509996b8cafab2a1d0258e3062e8ff60b HEAD",
+        "focused adapter tests",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
