@@ -2,16 +2,11 @@
 
 ## Work Loop Status
 
-- Current manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Scope file: `tasks/LEVEL_1_2_SCOPE.md`
-- Work Loop instructions: `tasks/WORK_LOOP.md`
-- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `L15-RR09-CHARACTER-SHEET-ROUTES`
-- Next queued driver: `<orchestrator-owned>`
-- Next task id: `<orchestrator-owned>`
-
-Completion rule: a queued branch set is complete only when this report has an entry that names the exact `.mbt.qnt` driver, records the current manifest source commit SHA, records the current source branch inventory SHA, lists the allowed inputs used, renders branch coverage from harness-generated target replay evidence, and records verification results.
+- Last completed current-snapshot queued branch set: `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES`
+- Latest evidence: `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json`
+- Latest verification: cargo fmt --check, cargo test, cargo clippy, cleanroom harness, and git diff --check passed.
 
 ## Dirty Rehearsal Caveats
 
@@ -1984,3 +1979,92 @@ Verification results:
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
+
+## L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES: character-battle handoff routes
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Selected drivers: `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt`, `cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt`, `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt`, `cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt`, `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- Selected `cleanroom-input/qnt/character-battle-runtime/*.mbt.qnt` drivers and route connectors
+- `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`, `Rules-Glossary.md`, `Classes/Paladin.md`, `Classes/Monk.md`, `Classes/Sorcerer.md`, `Classes/Warlock.md`, `Character-Creation.md`, `Character-Origins.md`, and `Feats.md`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md` and `CLEANROOM_ASSUMPTIONS.md`
+- Repo-local `src/**`, `tasks/**`, and Cargo tooling
+
+Behavior implemented:
+
+- Added shared `CharacterBattleRouteEvent` route-owner vocabulary for sheet-to-battle projection, battle runtime entry, settlement, and rejection holes.
+- Added accepted pure Pact Slot, mixed Spell/Pact rejection, and active battle-state settlement branch handling.
+- Updated handoff adapters to compare observed replay against independent expected projection records and qRoute prefixes.
+- Kept selected authored identity in adapter/test/evidence boundaries; production route/fact code consumes typed subjects, owners, fills, holes, and state-owner facts.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt#step:doFinalizeCriminalAlertOriginFeat` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFinalizeCriminalAlertOriginFeat#step:doFinalizeCriminalAlertOriginFeat` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt#step:doProjectAlertInitiativeHandoff` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectAlertInitiativeHandoff#step:doProjectAlertInitiativeHandoff` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doProjectSheetHitPointsArmorClassConditionsAndProfiles` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectSheetHitPointsArmorClassConditionsAndProfiles#step:doProjectSheetHitPointsArmorClassConditionsAndProfiles` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doProjectPurePactMagicSlot` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectPurePactMagicSlot#step:doProjectPurePactMagicSlot` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doRejectMixedSpellAndPactSlotInit` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMixedSpellAndPactSlotInit#step:doRejectMixedSpellAndPactSlotInit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doRejectBuildMaximumAboveBuildMaximum` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectBuildMaximumAboveBuildMaximum#step:doRejectBuildMaximumAboveBuildMaximum` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doRejectStableRecoveryProgressDuringInit` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectStableRecoveryProgressDuringInit#step:doRejectStableRecoveryProgressDuringInit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doSettleHitPointsConditionsSlotsAndPreservedSheetState` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleHitPointsConditionsSlotsAndPreservedSheetState#step:doSettleHitPointsConditionsSlotsAndPreservedSheetState` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doSettlePurePactMagicSlotExpenditure` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettlePurePactMagicSlotExpenditure#step:doSettlePurePactMagicSlotExpenditure` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doRejectMixedSpellAndPactSlotSettlement` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMixedSpellAndPactSlotSettlement#step:doRejectMixedSpellAndPactSlotSettlement` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doSettleFeatureResourceExpenditure` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleFeatureResourceExpenditure#step:doSettleFeatureResourceExpenditure` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doRejectMismatchedCharacterIdentity` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMismatchedCharacterIdentity#step:doRejectMismatchedCharacterIdentity` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doRejectMaximumHpDrift` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMaximumHpDrift#step:doRejectMaximumHpDrift` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doRejectActiveWildShapeHandoff` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectActiveWildShapeHandoff#step:doRejectActiveWildShapeHandoff` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doRejectActiveBattleStateHandoff` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectActiveBattleStateHandoff#step:doRejectActiveBattleStateHandoff` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doRejectStableRecoveryProgressHandoff` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectStableRecoveryProgressHandoff#step:doRejectStableRecoveryProgressHandoff` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doSettleZeroHpStableLifecycle` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleZeroHpStableLifecycle#step:doSettleZeroHpStableLifecycle` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt#step:doFinalizeDraftToBuild` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFinalizeDraftToBuild#step:doFinalizeDraftToBuild` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt#step:doCreateSheetFromBuild` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doCreateSheetFromBuild#step:doCreateSheetFromBuild` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt#step:doProjectSheetToBattleInit` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectSheetToBattleInit#step:doProjectSheetToBattleInit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt#step:doResolveSkeletonShortswordAttack` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doResolveSkeletonShortswordAttack#step:doResolveSkeletonShortswordAttack` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt#step:doSettleBattleToSheet` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleBattleToSheet#step:doSettleBattleToSheet` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doLayOnHandsRestoresHpAndRemovesPoisoned` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLayOnHandsRestoresHpAndRemovesPoisoned#step:doLayOnHandsRestoresHpAndRemovesPoisoned` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doRejectLayOnHandsOverspend` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectLayOnHandsOverspend#step:doRejectLayOnHandsOverspend` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doLongRestClearsLayOnHandsPool` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLongRestClearsLayOnHandsPool#step:doLongRestClearsLayOnHandsPool` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doShortRestRecoversUseCountPools` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doShortRestRecoversUseCountPools#step:doShortRestRecoversUseCountPools` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doLongRestClearsPointPoolAndUseState` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLongRestClearsPointPoolAndUseState#step:doLongRestClearsPointPoolAndUseState` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doFontOfMagicSlotToPoints` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFontOfMagicSlotToPoints#step:doFontOfMagicSlotToPoints` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doShortRestPreservesUncannyUseState` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doShortRestPreservesUncannyUseState#step:doShortRestPreservesUncannyUseState` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doLongRestClearsUncannyUseState` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLongRestClearsUncannyUseState#step:doLongRestClearsUncannyUseState` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doUncannyMetabolismRecoversFocusAndHeals` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doUncannyMetabolismRecoversFocusAndHeals#step:doUncannyMetabolismRecoversFocusAndHeals` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doRejectUncannyMetabolismRepeatUse` | `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectUncannyMetabolismRepeatUse#step:doRejectUncannyMetabolismRepeatUse` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Reproduction trace id prefix: `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=<branchAction>`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- No blockers for harness-accepted L15-RR10 CP3 obligations. Transit/higher-scope rows are present in adapter tests where useful but are not cited as accepted coverage.
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed after artifact update.
+- `git diff --check 6af492188311839dd4839b464b2e7049e3330568...HEAD` passed.

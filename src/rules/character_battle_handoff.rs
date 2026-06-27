@@ -3,6 +3,7 @@ pub enum CharacterBattleIdentity {
     None,
     BattleInitFighter,
     BattleInitSorcerer,
+    BattleInitWarlock,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -49,11 +50,13 @@ impl BattleInitProjectionFacts {
 pub enum CharacterBattleInitProjectionAcceptance {
     SheetHitPointsArmorClassConditionsAndProfiles,
     SheetSpellcastingAndMetamagic,
+    PurePactMagicSlot,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CharacterBattleInitProjectionRejection {
     SheetHitPointMaximumExceedsBuildDerivedMaximum,
+    MixedSpellAndPactSlot,
     StableRecoveryProgressDuringInit,
 }
 
@@ -97,6 +100,9 @@ impl RejectedCharacterBattleInitProjection {
         match self.reason {
             CharacterBattleInitProjectionRejection::SheetHitPointMaximumExceedsBuildDerivedMaximum => {
                 "Character battle initialization max HP exceeds build-derived max HP."
+            }
+            CharacterBattleInitProjectionRejection::MixedSpellAndPactSlot => {
+                "Battle handoff cannot project mixed Spell Slot and Pact Slot state without origin-distinct battle slots."
             }
             CharacterBattleInitProjectionRejection::StableRecoveryProgressDuringInit => {
                 "Battle handoff cannot preserve in-progress Stable recovery timers."
@@ -158,7 +164,7 @@ pub fn project_sheet_hit_points_armor_class_conditions_and_profiles_for_battle(
         facts: BattleInitProjectionFacts {
             character_identity: CharacterBattleIdentity::BattleInitFighter,
             current_hp: 6,
-            hit_point_maximum: 8,
+            hit_point_maximum: 9,
             temporary_hit_points: 4,
             armor_class: 17,
             poisoned: true,
@@ -179,7 +185,7 @@ pub fn project_sheet_spellcasting_and_metamagic_for_battle() -> AcceptedCharacte
         facts: BattleInitProjectionFacts {
             character_identity: CharacterBattleIdentity::BattleInitSorcerer,
             current_hp: 24,
-            hit_point_maximum: 24,
+            hit_point_maximum: 27,
             armor_class: 12,
             spell_level_1_count: 4,
             spell_level_1_expended: 1,
@@ -188,6 +194,32 @@ pub fn project_sheet_spellcasting_and_metamagic_for_battle() -> AcceptedCharacte
             metamagic_known_options: 2,
             ..BattleInitProjectionFacts::empty()
         },
+    }
+}
+
+#[must_use]
+pub fn project_pure_pact_magic_slot_for_battle() -> AcceptedCharacterBattleInitProjection {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Warlock.md "Pact Magic";
+    // QNT: character-battle-init-projection.mbt.qnt.
+    AcceptedCharacterBattleInitProjection {
+        kind: CharacterBattleInitProjectionAcceptance::PurePactMagicSlot,
+        facts: BattleInitProjectionFacts {
+            character_identity: CharacterBattleIdentity::BattleInitWarlock,
+            current_hp: 8,
+            hit_point_maximum: 9,
+            armor_class: 12,
+            spell_level_1_count: 1,
+            ..BattleInitProjectionFacts::empty()
+        },
+    }
+}
+
+#[must_use]
+pub fn reject_battle_initialization_mixed_spell_and_pact_slot(
+) -> RejectedCharacterBattleInitProjection {
+    RejectedCharacterBattleInitProjection {
+        reason: CharacterBattleInitProjectionRejection::MixedSpellAndPactSlot,
+        facts: BattleInitProjectionFacts::empty(),
     }
 }
 
@@ -264,16 +296,19 @@ impl BattleSettlementFacts {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CharacterBattleSettlementAcceptance {
     HitPointsConditionsSlotsAndPreservedSheetState,
+    PurePactMagicSlotExpenditure,
     FeatureResourceExpenditure,
     ZeroHpStableLifecycle,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CharacterBattleSettlementRejection {
-    AmbiguousCreatedSpellSlotSource,
-    MismatchedCharacterIdentity,
+    MixedSpellAndPactSlot,
+    AmbiguousCreatedSpellSlotOrigin,
+    CharacterSheetMismatch,
     MaximumHpDrift,
     ActiveWildShape,
+    ActiveBattleState,
     StableRecoveryProgress,
 }
 
@@ -315,17 +350,23 @@ impl RejectedCharacterBattleSettlement {
     #[must_use]
     pub const fn message(&self) -> &'static str {
         match self.reason {
-            CharacterBattleSettlementRejection::AmbiguousCreatedSpellSlotSource => {
-                "Battle handoff Spell Slot expenditure has ambiguous origin for level 3."
+            CharacterBattleSettlementRejection::MixedSpellAndPactSlot => {
+                "Battle handoff cannot project mixed Spell Slot and Pact Slot state without origin-distinct battle slots."
             }
-            CharacterBattleSettlementRejection::MismatchedCharacterIdentity => {
-                "Battle handoff character identity does not match Character Sheet."
+            CharacterBattleSettlementRejection::AmbiguousCreatedSpellSlotOrigin => {
+                "Battle handoff Spell Slot expenditure is origin-ambiguous for level 3."
+            }
+            CharacterBattleSettlementRejection::CharacterSheetMismatch => {
+                "Battle handoff character does not match Character Sheet."
             }
             CharacterBattleSettlementRejection::MaximumHpDrift => {
                 "Battle handoff maximum HP does not match Character Sheet."
             }
             CharacterBattleSettlementRejection::ActiveWildShape => {
                 "Battle handoff while Wild Shape is active is blocked; dismiss or resolve reversion before Character Sheet handoff."
+            }
+            CharacterBattleSettlementRejection::ActiveBattleState => {
+                "Battle handoff while active battle effects or Concentration are present is blocked; end or resolve battle-local effects before Character Sheet handoff."
             }
             CharacterBattleSettlementRejection::StableRecoveryProgress => {
                 "Battle handoff cannot preserve in-progress Stable recovery timers."
@@ -389,11 +430,30 @@ pub fn settle_battle_hit_points_conditions_slots_and_preserved_sheet_state(
             poisoned: true,
             prone: true,
             spell_level_1_expended: 2,
-            pact_slots_expended: 1,
             spent_hit_dice: 1,
             rest_feature_used: true,
             ..BattleSettlementFacts::empty()
         },
+    }
+}
+
+#[must_use]
+pub fn settle_battle_pure_pact_magic_slot_expenditure() -> AcceptedCharacterBattleSettlement {
+    AcceptedCharacterBattleSettlement {
+        kind: CharacterBattleSettlementAcceptance::PurePactMagicSlotExpenditure,
+        facts: BattleSettlementFacts {
+            current_hp: 8,
+            pact_slots_expended: 1,
+            ..BattleSettlementFacts::empty()
+        },
+    }
+}
+
+#[must_use]
+pub fn reject_battle_settlement_mixed_spell_and_pact_slot() -> RejectedCharacterBattleSettlement {
+    RejectedCharacterBattleSettlement {
+        reason: CharacterBattleSettlementRejection::MixedSpellAndPactSlot,
+        facts: BattleSettlementFacts::empty(),
     }
 }
 
@@ -409,11 +469,263 @@ pub fn settle_battle_feature_resource_expenditure() -> AcceptedCharacterBattleSe
     }
 }
 
+#[allow(clippy::enum_variant_names)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum CharacterBattleRouteSubjectFamily {
+    SheetToBattleInitRouteSubject,
+    BattleToSheetSettlementRouteSubject,
+    HandoffResourceProjectionRouteSubject,
+    HandoffFeatureResourceProjectionRouteSubject,
+    HandoffSelectedReferenceRouteSubject,
+    HandoffBattleMutationRouteSubject,
+}
+
+#[allow(clippy::enum_variant_names)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub enum CharacterBattleRouteHoleFamily {
+    HandoffIdentityMatchHoleFamily,
+    HandoffHitPointProjectionHoleFamily,
+    HandoffSpellResourceProjectionHoleFamily,
+    HandoffFeatureResourceProjectionHoleFamily,
+    HandoffSettlementConflictHoleFamily,
+}
+
+#[allow(clippy::enum_variant_names)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum CharacterBattleRouteFillFamily {
+    HandoffSheetProjectionFill,
+    HandoffBattleDeltaFill,
+    HandoffResourceDeltaFill,
+    HandoffSettlementRejectionFill,
+}
+
+#[allow(clippy::enum_variant_names)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum CharacterBattleRouteOwnerGroup {
+    CharacterBattleSheetOwner,
+    CharacterBattleBuildProjectionOwner,
+    CharacterBattleInitProjectionOwner,
+    CharacterBattleRuntimeOwner,
+    CharacterBattleSettlementOwner,
+    CharacterBattleResourceProjectionOwner,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum CharacterBattleRouteEvent {
+    RouteProjectCharacterSheetToBattle {
+        subject: CharacterBattleRouteSubjectFamily,
+        owner: CharacterBattleRouteOwnerGroup,
+    },
+    RouteEnterBattleRuntime {
+        subject: CharacterBattleRouteSubjectFamily,
+        owner: CharacterBattleRouteOwnerGroup,
+    },
+    RouteSettleBattleToCharacterSheet {
+        subject: CharacterBattleRouteSubjectFamily,
+        fill: CharacterBattleRouteFillFamily,
+        holes: Vec<CharacterBattleRouteHoleFamily>,
+        owner: CharacterBattleRouteOwnerGroup,
+    },
+    RouteRejectCharacterBattleHandoff {
+        subject: CharacterBattleRouteSubjectFamily,
+        fill: CharacterBattleRouteFillFamily,
+        holes: Vec<CharacterBattleRouteHoleFamily>,
+        owner: CharacterBattleRouteOwnerGroup,
+    },
+}
+
+#[must_use]
+pub fn route_project_character_sheet_to_battle(
+    subject: CharacterBattleRouteSubjectFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteProjectCharacterSheetToBattle { subject, owner }
+}
+
+#[must_use]
+pub fn route_enter_battle_runtime(
+    subject: CharacterBattleRouteSubjectFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteEnterBattleRuntime { subject, owner }
+}
+
+#[must_use]
+pub fn route_settle_battle_to_character_sheet(
+    subject: CharacterBattleRouteSubjectFamily,
+    fill: CharacterBattleRouteFillFamily,
+    holes: Vec<CharacterBattleRouteHoleFamily>,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteSettleBattleToCharacterSheet {
+        subject,
+        fill,
+        holes: sorted_holes(holes),
+        owner,
+    }
+}
+
+#[must_use]
+pub fn route_reject_character_battle_handoff(
+    subject: CharacterBattleRouteSubjectFamily,
+    fill: CharacterBattleRouteFillFamily,
+    holes: Vec<CharacterBattleRouteHoleFamily>,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteRejectCharacterBattleHandoff {
+        subject,
+        fill,
+        holes: sorted_holes(holes),
+        owner,
+    }
+}
+
+#[must_use]
+pub fn character_battle_route_payload(route: &[CharacterBattleRouteEvent]) -> String {
+    route
+        .iter()
+        .map(route_event_payload)
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
+fn sorted_holes(
+    mut holes: Vec<CharacterBattleRouteHoleFamily>,
+) -> Vec<CharacterBattleRouteHoleFamily> {
+    holes.sort();
+    holes
+}
+
+fn route_event_payload(event: &CharacterBattleRouteEvent) -> String {
+    match event {
+        CharacterBattleRouteEvent::RouteProjectCharacterSheetToBattle { subject, owner } => {
+            format!(
+                "RouteProjectCharacterSheetToBattle subject={} owner={}",
+                subject_ref(*subject),
+                owner_ref(*owner)
+            )
+        }
+        CharacterBattleRouteEvent::RouteEnterBattleRuntime { subject, owner } => {
+            format!(
+                "RouteEnterBattleRuntime subject={} owner={}",
+                subject_ref(*subject),
+                owner_ref(*owner)
+            )
+        }
+        CharacterBattleRouteEvent::RouteSettleBattleToCharacterSheet {
+            subject,
+            fill,
+            holes,
+            owner,
+        } => format!(
+            "RouteSettleBattleToCharacterSheet subject={} fill={} holes={} owner={}",
+            subject_ref(*subject),
+            fill_ref(*fill),
+            joined_holes(holes),
+            owner_ref(*owner)
+        ),
+        CharacterBattleRouteEvent::RouteRejectCharacterBattleHandoff {
+            subject,
+            fill,
+            holes,
+            owner,
+        } => format!(
+            "RouteRejectCharacterBattleHandoff subject={} fill={} holes={} owner={}",
+            subject_ref(*subject),
+            fill_ref(*fill),
+            joined_holes(holes),
+            owner_ref(*owner)
+        ),
+    }
+}
+
+fn subject_ref(subject: CharacterBattleRouteSubjectFamily) -> &'static str {
+    match subject {
+        CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject => {
+            "SheetToBattleInitRouteSubject"
+        }
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject => {
+            "BattleToSheetSettlementRouteSubject"
+        }
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject => {
+            "HandoffResourceProjectionRouteSubject"
+        }
+        CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject => {
+            "HandoffFeatureResourceProjectionRouteSubject"
+        }
+        CharacterBattleRouteSubjectFamily::HandoffSelectedReferenceRouteSubject => {
+            "HandoffSelectedReferenceRouteSubject"
+        }
+        CharacterBattleRouteSubjectFamily::HandoffBattleMutationRouteSubject => {
+            "HandoffBattleMutationRouteSubject"
+        }
+    }
+}
+
+fn fill_ref(fill: CharacterBattleRouteFillFamily) -> &'static str {
+    match fill {
+        CharacterBattleRouteFillFamily::HandoffSheetProjectionFill => "HandoffSheetProjectionFill",
+        CharacterBattleRouteFillFamily::HandoffBattleDeltaFill => "HandoffBattleDeltaFill",
+        CharacterBattleRouteFillFamily::HandoffResourceDeltaFill => "HandoffResourceDeltaFill",
+        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill => {
+            "HandoffSettlementRejectionFill"
+        }
+    }
+}
+
+fn owner_ref(owner: CharacterBattleRouteOwnerGroup) -> &'static str {
+    match owner {
+        CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner => "CharacterBattleSheetOwner",
+        CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner => {
+            "CharacterBattleBuildProjectionOwner"
+        }
+        CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner => {
+            "CharacterBattleInitProjectionOwner"
+        }
+        CharacterBattleRouteOwnerGroup::CharacterBattleRuntimeOwner => {
+            "CharacterBattleRuntimeOwner"
+        }
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner => {
+            "CharacterBattleSettlementOwner"
+        }
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner => {
+            "CharacterBattleResourceProjectionOwner"
+        }
+    }
+}
+
+fn joined_holes(holes: &[CharacterBattleRouteHoleFamily]) -> String {
+    if holes.is_empty() {
+        return "none".to_string();
+    }
+    holes
+        .iter()
+        .map(|hole| match hole {
+            CharacterBattleRouteHoleFamily::HandoffIdentityMatchHoleFamily => {
+                "HandoffIdentityMatchHoleFamily"
+            }
+            CharacterBattleRouteHoleFamily::HandoffHitPointProjectionHoleFamily => {
+                "HandoffHitPointProjectionHoleFamily"
+            }
+            CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily => {
+                "HandoffSpellResourceProjectionHoleFamily"
+            }
+            CharacterBattleRouteHoleFamily::HandoffFeatureResourceProjectionHoleFamily => {
+                "HandoffFeatureResourceProjectionHoleFamily"
+            }
+            CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily => {
+                "HandoffSettlementConflictHoleFamily"
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(",")
+}
+
 #[must_use]
 pub fn reject_battle_settlement_ambiguous_created_spell_slot_source(
 ) -> RejectedCharacterBattleSettlement {
     RejectedCharacterBattleSettlement {
-        reason: CharacterBattleSettlementRejection::AmbiguousCreatedSpellSlotSource,
+        reason: CharacterBattleSettlementRejection::AmbiguousCreatedSpellSlotOrigin,
         facts: BattleSettlementFacts {
             created_level_3_capacity: 1,
             ..BattleSettlementFacts::empty()
@@ -425,7 +737,7 @@ pub fn reject_battle_settlement_ambiguous_created_spell_slot_source(
 pub fn reject_battle_settlement_mismatched_character_identity() -> RejectedCharacterBattleSettlement
 {
     RejectedCharacterBattleSettlement {
-        reason: CharacterBattleSettlementRejection::MismatchedCharacterIdentity,
+        reason: CharacterBattleSettlementRejection::CharacterSheetMismatch,
         facts: BattleSettlementFacts::empty(),
     }
 }
@@ -443,6 +755,14 @@ pub fn reject_battle_settlement_active_wild_shape() -> RejectedCharacterBattleSe
     // Assumption: cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md A27.
     RejectedCharacterBattleSettlement {
         reason: CharacterBattleSettlementRejection::ActiveWildShape,
+        facts: BattleSettlementFacts::empty(),
+    }
+}
+
+#[must_use]
+pub fn reject_battle_settlement_active_battle_state() -> RejectedCharacterBattleSettlement {
+    RejectedCharacterBattleSettlement {
+        reason: CharacterBattleSettlementRejection::ActiveBattleState,
         facts: BattleSettlementFacts::empty(),
     }
 }

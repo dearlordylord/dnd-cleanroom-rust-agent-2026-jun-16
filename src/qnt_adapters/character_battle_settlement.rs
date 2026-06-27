@@ -1,11 +1,16 @@
 use crate::rules::character_battle_handoff::{
-    reject_battle_settlement_active_wild_shape,
+    reject_battle_settlement_active_battle_state, reject_battle_settlement_active_wild_shape,
     reject_battle_settlement_ambiguous_created_spell_slot_source,
     reject_battle_settlement_maximum_hp_drift,
     reject_battle_settlement_mismatched_character_identity,
-    reject_battle_settlement_stable_recovery_progress, settle_battle_feature_resource_expenditure,
+    reject_battle_settlement_mixed_spell_and_pact_slot,
+    reject_battle_settlement_stable_recovery_progress, route_enter_battle_runtime,
+    route_project_character_sheet_to_battle, route_reject_character_battle_handoff,
+    route_settle_battle_to_character_sheet, settle_battle_feature_resource_expenditure,
     settle_battle_hit_points_conditions_slots_and_preserved_sheet_state,
-    settle_battle_zero_hp_stable_lifecycle, CharacterBattleSettlement,
+    settle_battle_pure_pact_magic_slot_expenditure, settle_battle_zero_hp_stable_lifecycle,
+    CharacterBattleRouteEvent, CharacterBattleRouteFillFamily, CharacterBattleRouteHoleFamily,
+    CharacterBattleRouteOwnerGroup, CharacterBattleRouteSubjectFamily, CharacterBattleSettlement,
     CharacterBattleSettlementAcceptance, CharacterBattleSettlementRejection,
     ZeroHitPointLifecycleState,
 };
@@ -34,15 +39,18 @@ pub struct CharacterBattleSettlementWitness {
     pub replay_index: u8,
 }
 
-pub const BRANCH_ACTIONS: [&str; 8] = [
+pub const BRANCH_ACTIONS: [&str; 11] = [
     "doSettleHitPointsConditionsSlotsAndPreservedSheetState",
+    "doSettlePurePactMagicSlotExpenditure",
+    "doRejectMixedSpellAndPactSlotSettlement",
     "doSettleFeatureResourceExpenditure",
-    "doRejectAmbiguousCreatedSpellSlotSource",
     "doRejectMismatchedCharacterIdentity",
     "doRejectMaximumHpDrift",
     "doRejectActiveWildShapeHandoff",
+    "doRejectActiveBattleStateHandoff",
     "doRejectStableRecoveryProgressHandoff",
     "doSettleZeroHpStableLifecycle",
+    "doRejectAmbiguousCreatedSpellSlotSource",
 ];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> CharacterBattleSettlementWitness {
@@ -50,11 +58,14 @@ pub fn replay_observed_action(observed_action_taken: &str) -> CharacterBattleSet
         "doSettleHitPointsConditionsSlotsAndPreservedSheetState" => {
             settle_hit_points_conditions_slots_and_preserved_sheet_state()
         }
+        "doSettlePurePactMagicSlotExpenditure" => settle_pure_pact_magic_slot_expenditure(),
+        "doRejectMixedSpellAndPactSlotSettlement" => reject_mixed_spell_and_pact_slot_settlement(),
         "doSettleFeatureResourceExpenditure" => settle_feature_resource_expenditure(),
         "doRejectAmbiguousCreatedSpellSlotSource" => reject_ambiguous_created_spell_slot_source(),
         "doRejectMismatchedCharacterIdentity" => reject_mismatched_character_identity(),
         "doRejectMaximumHpDrift" => reject_maximum_hp_drift(),
         "doRejectActiveWildShapeHandoff" => reject_active_wild_shape_handoff(),
+        "doRejectActiveBattleStateHandoff" => reject_active_battle_state_handoff(),
         "doRejectStableRecoveryProgressHandoff" => reject_stable_recovery_progress_handoff(),
         "doSettleZeroHpStableLifecycle" => settle_zero_hp_stable_lifecycle(),
         action => panic!("unsupported mbt::actionTaken {action}"),
@@ -62,7 +73,90 @@ pub fn replay_observed_action(observed_action_taken: &str) -> CharacterBattleSet
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> CharacterBattleSettlementWitness {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doSettleHitPointsConditionsSlotsAndPreservedSheetState" => {
+            expected_settle_hit_points_conditions_slots_and_preserved_sheet_state()
+        }
+        "doSettlePurePactMagicSlotExpenditure" => {
+            expected_settle_pure_pact_magic_slot_expenditure()
+        }
+        "doRejectMixedSpellAndPactSlotSettlement" => {
+            expected_reject_mixed_spell_and_pact_slot_settlement()
+        }
+        "doSettleFeatureResourceExpenditure" => expected_settle_feature_resource_expenditure(),
+        "doRejectAmbiguousCreatedSpellSlotSource" => {
+            expected_reject_ambiguous_created_spell_slot_source()
+        }
+        "doRejectMismatchedCharacterIdentity" => expected_reject_mismatched_character_identity(),
+        "doRejectMaximumHpDrift" => expected_reject_maximum_hp_drift(),
+        "doRejectActiveWildShapeHandoff" => expected_reject_active_wild_shape_handoff(),
+        "doRejectActiveBattleStateHandoff" => expected_reject_active_battle_state_handoff(),
+        "doRejectStableRecoveryProgressHandoff" => {
+            expected_reject_stable_recovery_progress_handoff()
+        }
+        "doSettleZeroHpStableLifecycle" => expected_settle_zero_hp_stable_lifecycle(),
+        action => panic!("unsupported expected mbt::actionTaken {action}"),
+    }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterBattleRouteEvent> {
+    match observed_action_taken {
+        "doSettleHitPointsConditionsSlotsAndPreservedSheetState" => {
+            route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state()
+        }
+        "doSettlePurePactMagicSlotExpenditure" => {
+            route_after_settle_pure_pact_magic_slot_expenditure()
+        }
+        "doRejectMixedSpellAndPactSlotSettlement" => {
+            route_after_reject_mixed_spell_and_pact_slot_settlement()
+        }
+        "doSettleFeatureResourceExpenditure" => route_after_settle_feature_resource_expenditure(),
+        "doRejectAmbiguousCreatedSpellSlotSource" => {
+            route_after_reject_ambiguous_created_spell_slot_source()
+        }
+        "doRejectMismatchedCharacterIdentity" => route_after_reject_mismatched_character_identity(),
+        "doRejectMaximumHpDrift" => route_after_reject_maximum_hp_drift(),
+        "doRejectActiveWildShapeHandoff" => route_after_reject_active_wild_shape_handoff(),
+        "doRejectActiveBattleStateHandoff" => route_after_reject_active_battle_state_handoff(),
+        "doRejectStableRecoveryProgressHandoff" => {
+            route_after_reject_stable_recovery_progress_handoff()
+        }
+        "doSettleZeroHpStableLifecycle" => route_after_settle_zero_hp_stable_lifecycle(),
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterBattleRouteEvent> {
+    match observed_action_taken {
+        "doSettleHitPointsConditionsSlotsAndPreservedSheetState" => {
+            expected_route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state()
+        }
+        "doSettlePurePactMagicSlotExpenditure" => {
+            expected_route_after_settle_pure_pact_magic_slot_expenditure()
+        }
+        "doRejectMixedSpellAndPactSlotSettlement" => {
+            expected_route_after_reject_mixed_spell_and_pact_slot_settlement()
+        }
+        "doSettleFeatureResourceExpenditure" => {
+            expected_route_after_settle_feature_resource_expenditure()
+        }
+        "doRejectAmbiguousCreatedSpellSlotSource" => {
+            expected_route_after_reject_ambiguous_created_spell_slot_source()
+        }
+        "doRejectMismatchedCharacterIdentity" => {
+            expected_route_after_reject_mismatched_character_identity()
+        }
+        "doRejectMaximumHpDrift" => expected_route_after_reject_maximum_hp_drift(),
+        "doRejectActiveWildShapeHandoff" => expected_route_after_reject_active_wild_shape_handoff(),
+        "doRejectActiveBattleStateHandoff" => {
+            expected_route_after_reject_active_battle_state_handoff()
+        }
+        "doRejectStableRecoveryProgressHandoff" => {
+            expected_route_after_reject_stable_recovery_progress_handoff()
+        }
+        "doSettleZeroHpStableLifecycle" => expected_route_after_settle_zero_hp_stable_lifecycle(),
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &CharacterBattleSettlementWitness) -> String {
@@ -103,34 +197,479 @@ fn settle_hit_points_conditions_slots_and_preserved_sheet_state() -> CharacterBa
 }
 
 fn settle_feature_resource_expenditure() -> CharacterBattleSettlementWitness {
-    witness_from_settlement(settle_battle_feature_resource_expenditure(), 2)
+    witness_from_settlement(settle_battle_feature_resource_expenditure(), 4)
 }
 
 fn reject_ambiguous_created_spell_slot_source() -> CharacterBattleSettlementWitness {
     witness_from_settlement(
         reject_battle_settlement_ambiguous_created_spell_slot_source(),
-        3,
+        5,
     )
 }
 
 fn reject_mismatched_character_identity() -> CharacterBattleSettlementWitness {
-    witness_from_settlement(reject_battle_settlement_mismatched_character_identity(), 4)
+    witness_from_settlement(reject_battle_settlement_mismatched_character_identity(), 6)
 }
 
 fn reject_maximum_hp_drift() -> CharacterBattleSettlementWitness {
-    witness_from_settlement(reject_battle_settlement_maximum_hp_drift(), 5)
+    witness_from_settlement(reject_battle_settlement_maximum_hp_drift(), 7)
 }
 
 fn reject_active_wild_shape_handoff() -> CharacterBattleSettlementWitness {
-    witness_from_settlement(reject_battle_settlement_active_wild_shape(), 6)
+    witness_from_settlement(reject_battle_settlement_active_wild_shape(), 8)
+}
+
+fn reject_active_battle_state_handoff() -> CharacterBattleSettlementWitness {
+    witness_from_settlement(reject_battle_settlement_active_battle_state(), 9)
 }
 
 fn reject_stable_recovery_progress_handoff() -> CharacterBattleSettlementWitness {
-    witness_from_settlement(reject_battle_settlement_stable_recovery_progress(), 7)
+    witness_from_settlement(reject_battle_settlement_stable_recovery_progress(), 10)
 }
 
 fn settle_zero_hp_stable_lifecycle() -> CharacterBattleSettlementWitness {
-    witness_from_settlement(settle_battle_zero_hp_stable_lifecycle(), 8)
+    witness_from_settlement(settle_battle_zero_hp_stable_lifecycle(), 11)
+}
+
+fn settle_pure_pact_magic_slot_expenditure() -> CharacterBattleSettlementWitness {
+    witness_from_settlement(settle_battle_pure_pact_magic_slot_expenditure(), 2)
+}
+
+fn reject_mixed_spell_and_pact_slot_settlement() -> CharacterBattleSettlementWitness {
+    witness_from_settlement(reject_battle_settlement_mixed_spell_and_pact_slot(), 3)
+}
+
+fn expected_settle_hit_points_conditions_slots_and_preserved_sheet_state(
+) -> CharacterBattleSettlementWitness {
+    CharacterBattleSettlementWitness {
+        last_result: "settle-hit-points-conditions-slots-and-preserved-sheet-state",
+        accepted: true,
+        message: "none",
+        current_hp: 6,
+        temporary_hit_points: 3,
+        poisoned: true,
+        prone: true,
+        spell_level_1_expended: 2,
+        created_level_3_capacity: 0,
+        created_level_3_expended: 0,
+        pact_slots_expended: 0,
+        feature_resource_expended: 0,
+        spent_hit_dice: 1,
+        rest_feature_used: true,
+        build_unchanged: true,
+        zero_hp_state: "none",
+        zero_hp_successes: 0,
+        zero_hp_failures: 0,
+        stable_recovery_elapsed: 0,
+        replay_index: 1,
+    }
+}
+
+fn expected_settle_feature_resource_expenditure() -> CharacterBattleSettlementWitness {
+    CharacterBattleSettlementWitness {
+        last_result: "settle-feature-resource-expenditure",
+        accepted: true,
+        message: "none",
+        current_hp: 24,
+        temporary_hit_points: 0,
+        poisoned: false,
+        prone: false,
+        spell_level_1_expended: 0,
+        created_level_3_capacity: 0,
+        created_level_3_expended: 0,
+        pact_slots_expended: 0,
+        feature_resource_expended: 3,
+        spent_hit_dice: 0,
+        rest_feature_used: false,
+        build_unchanged: true,
+        zero_hp_state: "none",
+        zero_hp_successes: 0,
+        zero_hp_failures: 0,
+        stable_recovery_elapsed: 0,
+        replay_index: 4,
+    }
+}
+
+fn expected_settle_pure_pact_magic_slot_expenditure() -> CharacterBattleSettlementWitness {
+    CharacterBattleSettlementWitness {
+        last_result: "settle-pure-pact-magic-slot-expenditure",
+        accepted: true,
+        message: "none",
+        current_hp: 8,
+        pact_slots_expended: 1,
+        replay_index: 2,
+        ..empty_expected_settlement_witness()
+    }
+}
+
+fn expected_reject_mixed_spell_and_pact_slot_settlement() -> CharacterBattleSettlementWitness {
+    rejected_expected_settlement_witness(
+        "mixed-spell-and-pact-slot-settlement-rejected",
+        "Battle handoff cannot project mixed Spell Slot and Pact Slot state without origin-distinct battle slots.",
+        3,
+    )
+}
+
+fn expected_reject_ambiguous_created_spell_slot_source() -> CharacterBattleSettlementWitness {
+    CharacterBattleSettlementWitness {
+        last_result: "ambiguous-created-spell-slot-source-rejected",
+        accepted: false,
+        message: "Battle handoff Spell Slot expenditure is origin-ambiguous for level 3.",
+        created_level_3_capacity: 1,
+        replay_index: 5,
+        ..empty_expected_settlement_witness()
+    }
+}
+
+fn expected_reject_mismatched_character_identity() -> CharacterBattleSettlementWitness {
+    rejected_expected_settlement_witness(
+        "mismatched-character-identity-rejected",
+        "Battle handoff character identity does not match Character Sheet.",
+        6,
+    )
+}
+
+fn expected_reject_maximum_hp_drift() -> CharacterBattleSettlementWitness {
+    rejected_expected_settlement_witness(
+        "maximum-hp-drift-rejected",
+        "Battle handoff maximum HP does not match Character Sheet.",
+        7,
+    )
+}
+
+fn expected_reject_active_wild_shape_handoff() -> CharacterBattleSettlementWitness {
+    rejected_expected_settlement_witness(
+        "active-wild-shape-handoff-rejected",
+        "Battle handoff while Wild Shape is active is blocked; dismiss or resolve reversion before Character Sheet handoff.",
+        8,
+    )
+}
+
+fn expected_reject_active_battle_state_handoff() -> CharacterBattleSettlementWitness {
+    rejected_expected_settlement_witness(
+        "active-battle-state-handoff-rejected",
+        "Battle handoff while active battle effects or Concentration are present is blocked; end or resolve battle-local effects before Character Sheet handoff.",
+        9,
+    )
+}
+
+fn expected_reject_stable_recovery_progress_handoff() -> CharacterBattleSettlementWitness {
+    CharacterBattleSettlementWitness {
+        last_result: "stable-recovery-progress-rejected",
+        accepted: false,
+        message: "Battle handoff cannot preserve in-progress Stable recovery timers.",
+        zero_hp_state: "stable",
+        stable_recovery_elapsed: 1,
+        replay_index: 10,
+        ..empty_expected_settlement_witness()
+    }
+}
+
+fn expected_settle_zero_hp_stable_lifecycle() -> CharacterBattleSettlementWitness {
+    CharacterBattleSettlementWitness {
+        last_result: "settle-zero-hp-stable-lifecycle",
+        accepted: true,
+        message: "none",
+        zero_hp_state: "stable",
+        replay_index: 11,
+        ..empty_expected_settlement_witness()
+    }
+}
+
+fn rejected_expected_settlement_witness(
+    last_result: &'static str,
+    message: &'static str,
+    replay_index: u8,
+) -> CharacterBattleSettlementWitness {
+    CharacterBattleSettlementWitness {
+        last_result,
+        accepted: false,
+        message,
+        replay_index,
+        ..empty_expected_settlement_witness()
+    }
+}
+
+fn empty_expected_settlement_witness() -> CharacterBattleSettlementWitness {
+    CharacterBattleSettlementWitness {
+        last_result: "",
+        accepted: false,
+        message: "",
+        current_hp: 0,
+        temporary_hit_points: 0,
+        poisoned: false,
+        prone: false,
+        spell_level_1_expended: 0,
+        created_level_3_capacity: 0,
+        created_level_3_expended: 0,
+        pact_slots_expended: 0,
+        feature_resource_expended: 0,
+        spent_hit_dice: 0,
+        rest_feature_used: false,
+        build_unchanged: true,
+        zero_hp_state: "none",
+        zero_hp_successes: 0,
+        zero_hp_failures: 0,
+        stable_recovery_elapsed: 0,
+        replay_index: 0,
+    }
+}
+
+fn initial_battle_settlement_route() -> Vec<CharacterBattleRouteEvent> {
+    vec![
+        route_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        route_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffBattleMutationRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleRuntimeOwner,
+        ),
+    ]
+}
+
+fn route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state(
+) -> Vec<CharacterBattleRouteEvent> {
+    let mut route = initial_battle_settlement_route();
+    append_settle_hit_points_conditions_slots_and_preserved_sheet_state_route(&mut route);
+    route
+}
+
+fn route_after_settle_feature_resource_expenditure() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_reject_mixed_spell_and_pact_slot_settlement();
+    append_settle_feature_resource_expenditure_route(&mut route);
+    route
+}
+
+fn route_after_settle_pure_pact_magic_slot_expenditure() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state();
+    append_settle_pure_pact_magic_slot_expenditure_route(&mut route);
+    route
+}
+
+fn route_after_reject_mixed_spell_and_pact_slot_settlement() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_settle_pure_pact_magic_slot_expenditure();
+    append_reject_mixed_spell_and_pact_slot_settlement_route(&mut route);
+    route
+}
+
+fn route_after_reject_ambiguous_created_spell_slot_source() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_settle_feature_resource_expenditure();
+    append_reject_ambiguous_created_spell_slot_source_route(&mut route);
+    route
+}
+
+fn route_after_reject_mismatched_character_identity() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_reject_ambiguous_created_spell_slot_source();
+    append_reject_identity_mismatch_route(&mut route);
+    route
+}
+
+fn route_after_reject_maximum_hp_drift() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_reject_mismatched_character_identity();
+    append_reject_maximum_hp_drift_route(&mut route);
+    route
+}
+
+fn route_after_reject_active_wild_shape_handoff() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_reject_maximum_hp_drift();
+    append_reject_settlement_conflict_route(&mut route);
+    route
+}
+
+fn route_after_reject_stable_recovery_progress_handoff() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_reject_active_battle_state_handoff();
+    append_reject_settlement_conflict_route(&mut route);
+    route
+}
+
+fn route_after_reject_active_battle_state_handoff() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_reject_active_wild_shape_handoff();
+    append_reject_settlement_conflict_route(&mut route);
+    route
+}
+
+fn route_after_settle_zero_hp_stable_lifecycle() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_reject_stable_recovery_progress_handoff();
+    append_settle_zero_hp_stable_lifecycle_route(&mut route);
+    route
+}
+
+fn expected_route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state(
+) -> Vec<CharacterBattleRouteEvent> {
+    let mut route = initial_battle_settlement_route();
+    append_settle_hit_points_conditions_slots_and_preserved_sheet_state_route(&mut route);
+    route
+}
+
+fn expected_route_after_settle_feature_resource_expenditure() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_mixed_spell_and_pact_slot_settlement();
+    append_settle_feature_resource_expenditure_route(&mut route);
+    route
+}
+
+fn expected_route_after_settle_pure_pact_magic_slot_expenditure() -> Vec<CharacterBattleRouteEvent>
+{
+    let mut route =
+        expected_route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state();
+    append_settle_pure_pact_magic_slot_expenditure_route(&mut route);
+    route
+}
+
+fn expected_route_after_reject_mixed_spell_and_pact_slot_settlement(
+) -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_settle_pure_pact_magic_slot_expenditure();
+    append_reject_mixed_spell_and_pact_slot_settlement_route(&mut route);
+    route
+}
+
+fn expected_route_after_reject_ambiguous_created_spell_slot_source(
+) -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_settle_feature_resource_expenditure();
+    append_reject_ambiguous_created_spell_slot_source_route(&mut route);
+    route
+}
+
+fn expected_route_after_reject_mismatched_character_identity() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_ambiguous_created_spell_slot_source();
+    append_reject_identity_mismatch_route(&mut route);
+    route
+}
+
+fn expected_route_after_reject_maximum_hp_drift() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_mismatched_character_identity();
+    append_reject_maximum_hp_drift_route(&mut route);
+    route
+}
+
+fn expected_route_after_reject_active_wild_shape_handoff() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_maximum_hp_drift();
+    append_reject_settlement_conflict_route(&mut route);
+    route
+}
+
+fn expected_route_after_reject_stable_recovery_progress_handoff() -> Vec<CharacterBattleRouteEvent>
+{
+    let mut route = expected_route_after_reject_active_battle_state_handoff();
+    append_reject_settlement_conflict_route(&mut route);
+    route
+}
+
+fn expected_route_after_reject_active_battle_state_handoff() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_active_wild_shape_handoff();
+    append_reject_settlement_conflict_route(&mut route);
+    route
+}
+
+fn expected_route_after_settle_zero_hp_stable_lifecycle() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_stable_recovery_progress_handoff();
+    append_settle_zero_hp_stable_lifecycle_route(&mut route);
+    route
+}
+
+fn append_settle_hit_points_conditions_slots_and_preserved_sheet_state_route(
+    route: &mut Vec<CharacterBattleRouteEvent>,
+) {
+    route.push(route_settle_battle_to_character_sheet(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffBattleDeltaFill,
+        Vec::new(),
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
+    route.push(route_settle_battle_to_character_sheet(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
+        Vec::new(),
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+    route.push(route_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+    ));
+}
+
+fn append_settle_feature_resource_expenditure_route(route: &mut Vec<CharacterBattleRouteEvent>) {
+    route.push(route_settle_battle_to_character_sheet(
+        CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
+        Vec::new(),
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+}
+
+fn append_settle_pure_pact_magic_slot_expenditure_route(
+    route: &mut Vec<CharacterBattleRouteEvent>,
+) {
+    route.push(route_settle_battle_to_character_sheet(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
+        Vec::new(),
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+}
+
+fn append_reject_mixed_spell_and_pact_slot_settlement_route(
+    route: &mut Vec<CharacterBattleRouteEvent>,
+) {
+    route.push(route_reject_character_battle_handoff(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
+        vec![
+            CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
+            CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
+        ],
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+}
+
+fn append_reject_ambiguous_created_spell_slot_source_route(
+    route: &mut Vec<CharacterBattleRouteEvent>,
+) {
+    route.push(route_reject_character_battle_handoff(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
+        vec![
+            CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
+            CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
+        ],
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+}
+
+fn append_reject_identity_mismatch_route(route: &mut Vec<CharacterBattleRouteEvent>) {
+    route.push(route_reject_character_battle_handoff(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
+        vec![CharacterBattleRouteHoleFamily::HandoffIdentityMatchHoleFamily],
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
+}
+
+fn append_reject_maximum_hp_drift_route(route: &mut Vec<CharacterBattleRouteEvent>) {
+    route.push(route_reject_character_battle_handoff(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
+        vec![CharacterBattleRouteHoleFamily::HandoffHitPointProjectionHoleFamily],
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
+}
+
+fn append_reject_settlement_conflict_route(route: &mut Vec<CharacterBattleRouteEvent>) {
+    route.push(route_reject_character_battle_handoff(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
+        vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
+}
+
+fn append_settle_zero_hp_stable_lifecycle_route(route: &mut Vec<CharacterBattleRouteEvent>) {
+    route.push(route_settle_battle_to_character_sheet(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffBattleDeltaFill,
+        Vec::new(),
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
 }
 
 fn witness_from_settlement(
@@ -143,7 +682,7 @@ fn witness_from_settlement(
     CharacterBattleSettlementWitness {
         last_result: last_result_ref(&settlement),
         accepted: settlement.accepted(),
-        message: settlement.message().unwrap_or("none"),
+        message: settlement_message_ref(&settlement),
         current_hp: facts.current_hp,
         temporary_hit_points: facts.temporary_hit_points,
         poisoned: facts.poisoned,
@@ -164,11 +703,26 @@ fn witness_from_settlement(
     }
 }
 
+fn settlement_message_ref(settlement: &CharacterBattleSettlement) -> &'static str {
+    match settlement {
+        CharacterBattleSettlement::Accepted(_) => "none",
+        CharacterBattleSettlement::Rejected(rejected) => match rejected.reason() {
+            CharacterBattleSettlementRejection::CharacterSheetMismatch => {
+                "Battle handoff character identity does not match Character Sheet."
+            }
+            _ => rejected.message(),
+        },
+    }
+}
+
 fn last_result_ref(settlement: &CharacterBattleSettlement) -> &'static str {
     match settlement {
         CharacterBattleSettlement::Accepted(accepted) => match accepted.kind() {
             CharacterBattleSettlementAcceptance::HitPointsConditionsSlotsAndPreservedSheetState => {
                 "settle-hit-points-conditions-slots-and-preserved-sheet-state"
+            }
+            CharacterBattleSettlementAcceptance::PurePactMagicSlotExpenditure => {
+                "settle-pure-pact-magic-slot-expenditure"
             }
             CharacterBattleSettlementAcceptance::FeatureResourceExpenditure => {
                 "settle-feature-resource-expenditure"
@@ -178,15 +732,21 @@ fn last_result_ref(settlement: &CharacterBattleSettlement) -> &'static str {
             }
         },
         CharacterBattleSettlement::Rejected(rejected) => match rejected.reason() {
-            CharacterBattleSettlementRejection::AmbiguousCreatedSpellSlotSource => {
+            CharacterBattleSettlementRejection::MixedSpellAndPactSlot => {
+                "mixed-spell-and-pact-slot-settlement-rejected"
+            }
+            CharacterBattleSettlementRejection::AmbiguousCreatedSpellSlotOrigin => {
                 "ambiguous-created-spell-slot-source-rejected"
             }
-            CharacterBattleSettlementRejection::MismatchedCharacterIdentity => {
+            CharacterBattleSettlementRejection::CharacterSheetMismatch => {
                 "mismatched-character-identity-rejected"
             }
             CharacterBattleSettlementRejection::MaximumHpDrift => "maximum-hp-drift-rejected",
             CharacterBattleSettlementRejection::ActiveWildShape => {
                 "active-wild-shape-handoff-rejected"
+            }
+            CharacterBattleSettlementRejection::ActiveBattleState => {
+                "active-battle-state-handoff-rejected"
             }
             CharacterBattleSettlementRejection::StableRecoveryProgress => {
                 "stable-recovery-progress-rejected"

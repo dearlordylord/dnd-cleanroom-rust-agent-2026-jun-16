@@ -1,10 +1,15 @@
 use crate::rules::character_battle_handoff::{
+    project_pure_pact_magic_slot_for_battle,
     project_sheet_hit_points_armor_class_conditions_and_profiles_for_battle,
     project_sheet_spellcasting_and_metamagic_for_battle,
+    reject_battle_initialization_mixed_spell_and_pact_slot,
     reject_battle_initialization_sheet_hit_point_maximum_exceeds_build,
-    reject_battle_initialization_stable_recovery_progress, CharacterBattleIdentity,
-    CharacterBattleInitProjection, CharacterBattleInitProjectionAcceptance,
-    CharacterBattleInitProjectionRejection,
+    reject_battle_initialization_stable_recovery_progress, route_enter_battle_runtime,
+    route_project_character_sheet_to_battle, route_reject_character_battle_handoff,
+    CharacterBattleIdentity, CharacterBattleInitProjection,
+    CharacterBattleInitProjectionAcceptance, CharacterBattleInitProjectionRejection,
+    CharacterBattleRouteEvent, CharacterBattleRouteFillFamily, CharacterBattleRouteHoleFamily,
+    CharacterBattleRouteOwnerGroup, CharacterBattleRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -29,9 +34,10 @@ pub struct CharacterBattleInitProjectionWitness {
     pub replay_index: u8,
 }
 
-pub const BRANCH_ACTIONS: [&str; 4] = [
+pub const BRANCH_ACTIONS: [&str; 5] = [
     "doProjectSheetHitPointsArmorClassConditionsAndProfiles",
-    "doProjectSheetSpellcastingAndMetamagic",
+    "doProjectPurePactMagicSlot",
+    "doRejectMixedSpellAndPactSlotInit",
     "doRejectBuildMaximumAboveBuildMaximum",
     "doRejectStableRecoveryProgressDuringInit",
 ];
@@ -42,6 +48,8 @@ pub fn replay_observed_action(observed_action_taken: &str) -> CharacterBattleIni
             sheet_hit_points_armor_class_conditions_and_profiles()
         }
         "doProjectSheetSpellcastingAndMetamagic" => sheet_spellcasting_and_metamagic(),
+        "doProjectPurePactMagicSlot" => pure_pact_magic_slot(),
+        "doRejectMixedSpellAndPactSlotInit" => reject_mixed_spell_and_pact_slot_init(),
         "doRejectBuildMaximumAboveBuildMaximum" => reject_build_maximum_above_build_maximum(),
         "doRejectStableRecoveryProgressDuringInit" => reject_stable_recovery_progress_during_init(),
         action => panic!("unsupported mbt::actionTaken {action}"),
@@ -49,7 +57,55 @@ pub fn replay_observed_action(observed_action_taken: &str) -> CharacterBattleIni
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> CharacterBattleInitProjectionWitness {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doProjectSheetHitPointsArmorClassConditionsAndProfiles" => {
+            expected_sheet_hit_points_armor_class_conditions_and_profiles()
+        }
+        "doProjectSheetSpellcastingAndMetamagic" => expected_sheet_spellcasting_and_metamagic(),
+        "doProjectPurePactMagicSlot" => expected_pure_pact_magic_slot(),
+        "doRejectMixedSpellAndPactSlotInit" => expected_reject_mixed_spell_and_pact_slot_init(),
+        "doRejectBuildMaximumAboveBuildMaximum" => {
+            expected_reject_build_maximum_above_build_maximum()
+        }
+        "doRejectStableRecoveryProgressDuringInit" => {
+            expected_reject_stable_recovery_progress_during_init()
+        }
+        action => panic!("unsupported expected mbt::actionTaken {action}"),
+    }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterBattleRouteEvent> {
+    match observed_action_taken {
+        "doProjectSheetHitPointsArmorClassConditionsAndProfiles" => {
+            route_after_sheet_hit_points_armor_class_conditions_and_profiles()
+        }
+        "doProjectSheetSpellcastingAndMetamagic" => route_after_sheet_spellcasting_and_metamagic(),
+        "doProjectPurePactMagicSlot" => route_after_pure_pact_magic_slot(),
+        "doRejectMixedSpellAndPactSlotInit" => route_after_reject_mixed_spell_and_pact_slot_init(),
+        "doRejectBuildMaximumAboveBuildMaximum" => route_after_reject_build_maximum(),
+        "doRejectStableRecoveryProgressDuringInit" => route_after_reject_stable_recovery_progress(),
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterBattleRouteEvent> {
+    match observed_action_taken {
+        "doProjectSheetHitPointsArmorClassConditionsAndProfiles" => {
+            expected_route_after_sheet_hit_points_armor_class_conditions_and_profiles()
+        }
+        "doProjectSheetSpellcastingAndMetamagic" => {
+            expected_route_after_sheet_spellcasting_and_metamagic()
+        }
+        "doProjectPurePactMagicSlot" => expected_route_after_pure_pact_magic_slot(),
+        "doRejectMixedSpellAndPactSlotInit" => {
+            expected_route_after_reject_mixed_spell_and_pact_slot_init()
+        }
+        "doRejectBuildMaximumAboveBuildMaximum" => expected_route_after_reject_build_maximum(),
+        "doRejectStableRecoveryProgressDuringInit" => {
+            expected_route_after_reject_stable_recovery_progress()
+        }
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &CharacterBattleInitProjectionWitness) -> String {
@@ -93,12 +149,288 @@ fn sheet_spellcasting_and_metamagic() -> CharacterBattleInitProjectionWitness {
 fn reject_build_maximum_above_build_maximum() -> CharacterBattleInitProjectionWitness {
     witness_from_projection(
         reject_battle_initialization_sheet_hit_point_maximum_exceeds_build(),
-        3,
+        5,
     )
 }
 
 fn reject_stable_recovery_progress_during_init() -> CharacterBattleInitProjectionWitness {
-    witness_from_projection(reject_battle_initialization_stable_recovery_progress(), 4)
+    witness_from_projection(reject_battle_initialization_stable_recovery_progress(), 6)
+}
+
+fn pure_pact_magic_slot() -> CharacterBattleInitProjectionWitness {
+    witness_from_projection(project_pure_pact_magic_slot_for_battle(), 3)
+}
+
+fn reject_mixed_spell_and_pact_slot_init() -> CharacterBattleInitProjectionWitness {
+    witness_from_projection(reject_battle_initialization_mixed_spell_and_pact_slot(), 4)
+}
+
+fn expected_sheet_hit_points_armor_class_conditions_and_profiles(
+) -> CharacterBattleInitProjectionWitness {
+    CharacterBattleInitProjectionWitness {
+        last_result: "sheet-hit-points-armor-class-conditions-and-profiles",
+        accepted: true,
+        message: "none",
+        character_identity: "character:battle-init-fighter",
+        current_hp: 6,
+        max_hp: 9,
+        temporary_hit_points: 4,
+        armor_class: 17,
+        poisoned: true,
+        spell_level_1_count: 0,
+        spell_level_1_expended: 0,
+        spell_level_2_count: 0,
+        spell_level_2_expended: 0,
+        spell_level_3_count: 0,
+        spell_level_3_expended: 0,
+        passive_armor_class_profile_count: 1,
+        metamagic_known_options: 0,
+        replay_index: 1,
+    }
+}
+
+fn expected_sheet_spellcasting_and_metamagic() -> CharacterBattleInitProjectionWitness {
+    CharacterBattleInitProjectionWitness {
+        last_result: "sheet-spellcasting-and-metamagic",
+        accepted: true,
+        message: "none",
+        character_identity: "character:battle-init-sorcerer",
+        current_hp: 24,
+        max_hp: 27,
+        temporary_hit_points: 0,
+        armor_class: 12,
+        poisoned: false,
+        spell_level_1_count: 4,
+        spell_level_1_expended: 1,
+        spell_level_2_count: 3,
+        spell_level_2_expended: 0,
+        spell_level_3_count: 3,
+        spell_level_3_expended: 0,
+        passive_armor_class_profile_count: 0,
+        metamagic_known_options: 2,
+        replay_index: 2,
+    }
+}
+
+fn expected_reject_build_maximum_above_build_maximum() -> CharacterBattleInitProjectionWitness {
+    expected_rejection_witness(
+        "build-maximum-above-build-maximum-rejected",
+        "Character battle initialization max HP exceeds build-derived max HP.",
+        5,
+    )
+}
+
+fn expected_reject_stable_recovery_progress_during_init() -> CharacterBattleInitProjectionWitness {
+    expected_rejection_witness(
+        "stable-recovery-progress-during-init-rejected",
+        "Battle handoff cannot preserve in-progress Stable recovery timers.",
+        6,
+    )
+}
+
+fn expected_pure_pact_magic_slot() -> CharacterBattleInitProjectionWitness {
+    CharacterBattleInitProjectionWitness {
+        last_result: "pure-pact-magic-slot-projection",
+        accepted: true,
+        message: "none",
+        character_identity: "character:battle-init-warlock",
+        current_hp: 8,
+        max_hp: 9,
+        temporary_hit_points: 0,
+        armor_class: 12,
+        poisoned: false,
+        spell_level_1_count: 1,
+        spell_level_1_expended: 0,
+        spell_level_2_count: 0,
+        spell_level_2_expended: 0,
+        spell_level_3_count: 0,
+        spell_level_3_expended: 0,
+        passive_armor_class_profile_count: 0,
+        metamagic_known_options: 0,
+        replay_index: 3,
+    }
+}
+
+fn expected_reject_mixed_spell_and_pact_slot_init() -> CharacterBattleInitProjectionWitness {
+    expected_rejection_witness(
+        "mixed-spell-and-pact-slot-init-rejected",
+        "Battle handoff cannot project mixed Spell Slot and Pact Slot state without origin-distinct battle slots.",
+        4,
+    )
+}
+
+fn expected_rejection_witness(
+    last_result: &'static str,
+    message: &'static str,
+    replay_index: u8,
+) -> CharacterBattleInitProjectionWitness {
+    CharacterBattleInitProjectionWitness {
+        last_result,
+        accepted: false,
+        message,
+        character_identity: "none",
+        current_hp: 0,
+        max_hp: 0,
+        temporary_hit_points: 0,
+        armor_class: 0,
+        poisoned: false,
+        spell_level_1_count: 0,
+        spell_level_1_expended: 0,
+        spell_level_2_count: 0,
+        spell_level_2_expended: 0,
+        spell_level_3_count: 0,
+        spell_level_3_expended: 0,
+        passive_armor_class_profile_count: 0,
+        metamagic_known_options: 0,
+        replay_index,
+    }
+}
+
+fn route_after_sheet_hit_points_armor_class_conditions_and_profiles(
+) -> Vec<CharacterBattleRouteEvent> {
+    let mut route = Vec::new();
+    append_sheet_hit_points_armor_class_conditions_and_profiles_route(&mut route);
+    route
+}
+
+fn route_after_sheet_spellcasting_and_metamagic() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_sheet_hit_points_armor_class_conditions_and_profiles();
+    append_sheet_spellcasting_and_metamagic_route(&mut route);
+    route
+}
+
+fn route_after_reject_build_maximum() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_reject_mixed_spell_and_pact_slot_init();
+    append_reject_build_maximum_route(&mut route);
+    route
+}
+
+fn route_after_reject_stable_recovery_progress() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_reject_build_maximum();
+    append_reject_stable_recovery_route(&mut route);
+    route
+}
+
+fn expected_route_after_sheet_hit_points_armor_class_conditions_and_profiles(
+) -> Vec<CharacterBattleRouteEvent> {
+    let mut route = Vec::new();
+    append_sheet_hit_points_armor_class_conditions_and_profiles_route(&mut route);
+    route
+}
+
+fn expected_route_after_sheet_spellcasting_and_metamagic() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_sheet_hit_points_armor_class_conditions_and_profiles();
+    append_sheet_spellcasting_and_metamagic_route(&mut route);
+    route
+}
+
+fn expected_route_after_reject_build_maximum() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_mixed_spell_and_pact_slot_init();
+    append_reject_build_maximum_route(&mut route);
+    route
+}
+
+fn route_after_pure_pact_magic_slot() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_sheet_spellcasting_and_metamagic();
+    append_pure_pact_magic_slot_route(&mut route);
+    route
+}
+
+fn route_after_reject_mixed_spell_and_pact_slot_init() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = route_after_pure_pact_magic_slot();
+    append_reject_mixed_spell_and_pact_slot_init_route(&mut route);
+    route
+}
+
+fn expected_route_after_pure_pact_magic_slot() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_sheet_spellcasting_and_metamagic();
+    append_pure_pact_magic_slot_route(&mut route);
+    route
+}
+
+fn expected_route_after_reject_mixed_spell_and_pact_slot_init() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_pure_pact_magic_slot();
+    append_reject_mixed_spell_and_pact_slot_init_route(&mut route);
+    route
+}
+
+fn expected_route_after_reject_stable_recovery_progress() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_build_maximum();
+    append_reject_stable_recovery_route(&mut route);
+    route
+}
+
+fn append_sheet_hit_points_armor_class_conditions_and_profiles_route(
+    route: &mut Vec<CharacterBattleRouteEvent>,
+) {
+    route.push(route_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+    ));
+    route.push(route_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+    ));
+    route.push(route_enter_battle_runtime(
+        CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+    ));
+}
+
+fn append_sheet_spellcasting_and_metamagic_route(route: &mut Vec<CharacterBattleRouteEvent>) {
+    route.push(route_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+    ));
+    route.push(route_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+    route.push(route_enter_battle_runtime(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+    ));
+}
+
+fn append_reject_build_maximum_route(route: &mut Vec<CharacterBattleRouteEvent>) {
+    route.push(route_reject_character_battle_handoff(
+        CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
+        vec![CharacterBattleRouteHoleFamily::HandoffHitPointProjectionHoleFamily],
+        CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+    ));
+}
+
+fn append_pure_pact_magic_slot_route(route: &mut Vec<CharacterBattleRouteEvent>) {
+    route.push(route_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+    route.push(route_enter_battle_runtime(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+    ));
+}
+
+fn append_reject_mixed_spell_and_pact_slot_init_route(route: &mut Vec<CharacterBattleRouteEvent>) {
+    route.push(route_reject_character_battle_handoff(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
+        vec![
+            CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
+            CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
+        ],
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+}
+
+fn append_reject_stable_recovery_route(route: &mut Vec<CharacterBattleRouteEvent>) {
+    route.push(route_reject_character_battle_handoff(
+        CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
+        vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
+        CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+    ));
 }
 
 fn witness_from_projection(
@@ -139,10 +471,16 @@ fn last_result_ref(projection: &CharacterBattleInitProjection) -> &'static str {
             CharacterBattleInitProjectionAcceptance::SheetSpellcastingAndMetamagic => {
                 "sheet-spellcasting-and-metamagic"
             }
+            CharacterBattleInitProjectionAcceptance::PurePactMagicSlot => {
+                "pure-pact-magic-slot-projection"
+            }
         },
         CharacterBattleInitProjection::Rejected(rejected) => match rejected.reason() {
             CharacterBattleInitProjectionRejection::SheetHitPointMaximumExceedsBuildDerivedMaximum => {
                 "build-maximum-above-build-maximum-rejected"
+            }
+            CharacterBattleInitProjectionRejection::MixedSpellAndPactSlot => {
+                "mixed-spell-and-pact-slot-init-rejected"
             }
             CharacterBattleInitProjectionRejection::StableRecoveryProgressDuringInit => {
                 "stable-recovery-progress-during-init-rejected"
@@ -156,5 +494,6 @@ fn character_identity_ref(identity: CharacterBattleIdentity) -> &'static str {
         CharacterBattleIdentity::None => "none",
         CharacterBattleIdentity::BattleInitFighter => "character:battle-init-fighter",
         CharacterBattleIdentity::BattleInitSorcerer => "character:battle-init-sorcerer",
+        CharacterBattleIdentity::BattleInitWarlock => "character:battle-init-warlock",
     }
 }

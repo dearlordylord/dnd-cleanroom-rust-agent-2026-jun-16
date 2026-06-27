@@ -1,0 +1,1152 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-character-battle-handoff-route-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt",
+      "qntFileSha256": "2484aafcef6ad5e232d83453df17e2446793355cef8194de454bfbbf05db9511",
+      "branchFamily": "step",
+      "branchAction": "doFinalizeCriminalAlertOriginFeat",
+      "observedActionTaken": "doFinalizeCriminalAlertOriginFeat",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFinalizeCriminalAlertOriginFeat",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "891798382ad8f2e9f0a394e7c37f4b8d5e11bad2194950420c24cd531d23c64a",
+        "observedProjectionSha256": "891798382ad8f2e9f0a394e7c37f4b8d5e11bad2194950420c24cd531d23c64a",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt",
+      "qntFileSha256": "2484aafcef6ad5e232d83453df17e2446793355cef8194de454bfbbf05db9511",
+      "branchFamily": "step",
+      "branchAction": "doProjectAlertInitiativeHandoff",
+      "observedActionTaken": "doProjectAlertInitiativeHandoff",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectAlertInitiativeHandoff",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a0610a211954c672b6bc5af338a65e871f602c1a7078ddaa4cc251ee9d38ec77",
+        "observedProjectionSha256": "a0610a211954c672b6bc5af338a65e871f602c1a7078ddaa4cc251ee9d38ec77",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "branchFamily": "step",
+      "branchAction": "doProjectSheetHitPointsArmorClassConditionsAndProfiles",
+      "observedActionTaken": "doProjectSheetHitPointsArmorClassConditionsAndProfiles",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectSheetHitPointsArmorClassConditionsAndProfiles",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "48af09d3c084863f55544f672f6d98c510e60ed3f352d514d14ca394d798892e",
+        "observedProjectionSha256": "48af09d3c084863f55544f672f6d98c510e60ed3f352d514d14ca394d798892e",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "branchFamily": "step",
+      "branchAction": "doProjectSheetSpellcastingAndMetamagic",
+      "observedActionTaken": "doProjectSheetSpellcastingAndMetamagic",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectSheetSpellcastingAndMetamagic",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "91d3de9570e9c7305fbd6944a925d47ec4106749f28c5e94ed2fa2a3559fc5ef",
+        "observedProjectionSha256": "91d3de9570e9c7305fbd6944a925d47ec4106749f28c5e94ed2fa2a3559fc5ef",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "branchFamily": "step",
+      "branchAction": "doProjectPurePactMagicSlot",
+      "observedActionTaken": "doProjectPurePactMagicSlot",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectPurePactMagicSlot",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "31567c22c3c132dc8b824576d52c226217a34533fadd5d2d196e0ee551a03fe9",
+        "observedProjectionSha256": "31567c22c3c132dc8b824576d52c226217a34533fadd5d2d196e0ee551a03fe9",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "branchFamily": "step",
+      "branchAction": "doRejectMixedSpellAndPactSlotInit",
+      "observedActionTaken": "doRejectMixedSpellAndPactSlotInit",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMixedSpellAndPactSlotInit",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "20d941439d00190c2ab38ce72e1eb916abdb014c3a3c641eb537ceb85ed95dfb",
+        "observedProjectionSha256": "20d941439d00190c2ab38ce72e1eb916abdb014c3a3c641eb537ceb85ed95dfb",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "branchFamily": "step",
+      "branchAction": "doRejectBuildMaximumAboveBuildMaximum",
+      "observedActionTaken": "doRejectBuildMaximumAboveBuildMaximum",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectBuildMaximumAboveBuildMaximum",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "aeda2f30cefa8e629f5437d8bc20d0916d0ac0c846ab0941cc1d8a7979867b26",
+        "observedProjectionSha256": "aeda2f30cefa8e629f5437d8bc20d0916d0ac0c846ab0941cc1d8a7979867b26",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "branchFamily": "step",
+      "branchAction": "doRejectStableRecoveryProgressDuringInit",
+      "observedActionTaken": "doRejectStableRecoveryProgressDuringInit",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectStableRecoveryProgressDuringInit",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "15b3054084be679799ad926397eb6ed6214a7a8ee7a48d47b59d3ef62c0d4768",
+        "observedProjectionSha256": "15b3054084be679799ad926397eb6ed6214a7a8ee7a48d47b59d3ef62c0d4768",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doSettleHitPointsConditionsSlotsAndPreservedSheetState",
+      "observedActionTaken": "doSettleHitPointsConditionsSlotsAndPreservedSheetState",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleHitPointsConditionsSlotsAndPreservedSheetState",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4795a7fccc4a2daa89c19986fbf0d63b5ff966a8949e7653023389790cce3357",
+        "observedProjectionSha256": "4795a7fccc4a2daa89c19986fbf0d63b5ff966a8949e7653023389790cce3357",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doSettlePurePactMagicSlotExpenditure",
+      "observedActionTaken": "doSettlePurePactMagicSlotExpenditure",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettlePurePactMagicSlotExpenditure",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c8e787b54fce8c8f8554361f8e8fd59211927511345c73f270cadb4951314d4a",
+        "observedProjectionSha256": "c8e787b54fce8c8f8554361f8e8fd59211927511345c73f270cadb4951314d4a",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doRejectMixedSpellAndPactSlotSettlement",
+      "observedActionTaken": "doRejectMixedSpellAndPactSlotSettlement",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMixedSpellAndPactSlotSettlement",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "dd7f65acb34a9e725ffc3264404f6887ca4cb7a16cb932ad2a6896d0110f6212",
+        "observedProjectionSha256": "dd7f65acb34a9e725ffc3264404f6887ca4cb7a16cb932ad2a6896d0110f6212",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doSettleFeatureResourceExpenditure",
+      "observedActionTaken": "doSettleFeatureResourceExpenditure",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleFeatureResourceExpenditure",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4f363b4ae74f0bfb4935c1346c29983b5f96d0bf4c3d764b4d93baad33207a80",
+        "observedProjectionSha256": "4f363b4ae74f0bfb4935c1346c29983b5f96d0bf4c3d764b4d93baad33207a80",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doRejectAmbiguousCreatedSpellSlotSource",
+      "observedActionTaken": "doRejectAmbiguousCreatedSpellSlotSource",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectAmbiguousCreatedSpellSlotSource",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8a899022be0e529bbf90c99d46540d1b95ed1db028d5c27d5c85c47cf87ef41c",
+        "observedProjectionSha256": "8a899022be0e529bbf90c99d46540d1b95ed1db028d5c27d5c85c47cf87ef41c",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doRejectMismatchedCharacterIdentity",
+      "observedActionTaken": "doRejectMismatchedCharacterIdentity",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMismatchedCharacterIdentity",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7654de56814185222be0571e9fc2ca40e54e033c780a0d04dfac485fdbd36829",
+        "observedProjectionSha256": "7654de56814185222be0571e9fc2ca40e54e033c780a0d04dfac485fdbd36829",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doRejectMaximumHpDrift",
+      "observedActionTaken": "doRejectMaximumHpDrift",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMaximumHpDrift",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "44d56f2297a8a881d625115693209c38d7c80df6c1783cceddde909a930e6ea9",
+        "observedProjectionSha256": "44d56f2297a8a881d625115693209c38d7c80df6c1783cceddde909a930e6ea9",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doRejectActiveWildShapeHandoff",
+      "observedActionTaken": "doRejectActiveWildShapeHandoff",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectActiveWildShapeHandoff",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2c5349677127872f7cf5e1af9a5483a9ebd99215de210fedbc62d2aebd2677ca",
+        "observedProjectionSha256": "2c5349677127872f7cf5e1af9a5483a9ebd99215de210fedbc62d2aebd2677ca",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doRejectActiveBattleStateHandoff",
+      "observedActionTaken": "doRejectActiveBattleStateHandoff",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectActiveBattleStateHandoff",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "95319bc5c36f2b3112be761987295025fa4849a4491077810c5a5b3b6ac32785",
+        "observedProjectionSha256": "95319bc5c36f2b3112be761987295025fa4849a4491077810c5a5b3b6ac32785",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doRejectStableRecoveryProgressHandoff",
+      "observedActionTaken": "doRejectStableRecoveryProgressHandoff",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectStableRecoveryProgressHandoff",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "606d2dba4f5b7be54e3a6bdec74b3af03f3e4cf6c6b936b89c9a4955d5dae1f9",
+        "observedProjectionSha256": "606d2dba4f5b7be54e3a6bdec74b3af03f3e4cf6c6b936b89c9a4955d5dae1f9",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+      "qntFileSha256": "536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d",
+      "branchFamily": "step",
+      "branchAction": "doSettleZeroHpStableLifecycle",
+      "observedActionTaken": "doSettleZeroHpStableLifecycle",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleZeroHpStableLifecycle",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a2fa1e42a697be9243cef03ed6746f1307841278c6db0c224fbb1f681fc64509",
+        "observedProjectionSha256": "a2fa1e42a697be9243cef03ed6746f1307841278c6db0c224fbb1f681fc64509",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
+      "qntFileSha256": "a2db8e8512717dff0f0a3c5aa97e72328adb8820a2449249ddae447f5957f905",
+      "branchFamily": "step",
+      "branchAction": "doFinalizeDraftToBuild",
+      "observedActionTaken": "doFinalizeDraftToBuild",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFinalizeDraftToBuild",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a3af860e615d4ef71f91decf86ca7f9db66261d7f9e57165436cda03b86e4a55",
+        "observedProjectionSha256": "a3af860e615d4ef71f91decf86ca7f9db66261d7f9e57165436cda03b86e4a55",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
+      "qntFileSha256": "a2db8e8512717dff0f0a3c5aa97e72328adb8820a2449249ddae447f5957f905",
+      "branchFamily": "step",
+      "branchAction": "doCreateSheetFromBuild",
+      "observedActionTaken": "doCreateSheetFromBuild",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doCreateSheetFromBuild",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b52bd7121daad58c613628bf7ec06766a8cef6db601666fe2c575507b0149294",
+        "observedProjectionSha256": "b52bd7121daad58c613628bf7ec06766a8cef6db601666fe2c575507b0149294",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
+      "qntFileSha256": "a2db8e8512717dff0f0a3c5aa97e72328adb8820a2449249ddae447f5957f905",
+      "branchFamily": "step",
+      "branchAction": "doProjectSheetToBattleInit",
+      "observedActionTaken": "doProjectSheetToBattleInit",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectSheetToBattleInit",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "22eb4bab713d81032a17eb284d078f1e8d801c6dcb029105502b83c3fcab4741",
+        "observedProjectionSha256": "22eb4bab713d81032a17eb284d078f1e8d801c6dcb029105502b83c3fcab4741",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
+      "qntFileSha256": "a2db8e8512717dff0f0a3c5aa97e72328adb8820a2449249ddae447f5957f905",
+      "branchFamily": "step",
+      "branchAction": "doResolveSkeletonShortswordAttack",
+      "observedActionTaken": "doResolveSkeletonShortswordAttack",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doResolveSkeletonShortswordAttack",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4bff68215b66d4a74b3b64411b29e5bf37085ea78ae1e1d187d5e8204f1dd4ab",
+        "observedProjectionSha256": "4bff68215b66d4a74b3b64411b29e5bf37085ea78ae1e1d187d5e8204f1dd4ab",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
+      "qntFileSha256": "a2db8e8512717dff0f0a3c5aa97e72328adb8820a2449249ddae447f5957f905",
+      "branchFamily": "step",
+      "branchAction": "doSettleBattleToSheet",
+      "observedActionTaken": "doSettleBattleToSheet",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleBattleToSheet",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "af9144f3bc8460c00d2b75f46129b0fd59db9d6d3533636a5835d6d41a05920d",
+        "observedProjectionSha256": "af9144f3bc8460c00d2b75f46129b0fd59db9d6d3533636a5835d6d41a05920d",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doLayOnHandsRestoresHpAndRemovesPoisoned",
+      "observedActionTaken": "doLayOnHandsRestoresHpAndRemovesPoisoned",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLayOnHandsRestoresHpAndRemovesPoisoned",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "25885dfd42992f6a869d629d5fd3e2f31e47e0d086bb62415d303e45d2f714f4",
+        "observedProjectionSha256": "25885dfd42992f6a869d629d5fd3e2f31e47e0d086bb62415d303e45d2f714f4",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doRejectLayOnHandsOverspend",
+      "observedActionTaken": "doRejectLayOnHandsOverspend",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectLayOnHandsOverspend",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f3716221a66f8964a48090f6d1541406eb93482e9d89af18d8bc2277820e8902",
+        "observedProjectionSha256": "f3716221a66f8964a48090f6d1541406eb93482e9d89af18d8bc2277820e8902",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doLongRestClearsLayOnHandsPool",
+      "observedActionTaken": "doLongRestClearsLayOnHandsPool",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLongRestClearsLayOnHandsPool",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b1f8413349599625cce3f69cd62b7cec252bd1ec189d238a377ca249ea0d645f",
+        "observedProjectionSha256": "b1f8413349599625cce3f69cd62b7cec252bd1ec189d238a377ca249ea0d645f",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doShortRestRecoversUseCountPools",
+      "observedActionTaken": "doShortRestRecoversUseCountPools",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doShortRestRecoversUseCountPools",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4c3aee1d53bfbf926ac2c6e9fa76f8acf30a376b87f07d0c2ab67ac67d24259a",
+        "observedProjectionSha256": "4c3aee1d53bfbf926ac2c6e9fa76f8acf30a376b87f07d0c2ab67ac67d24259a",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doLongRestClearsPointPoolAndUseState",
+      "observedActionTaken": "doLongRestClearsPointPoolAndUseState",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLongRestClearsPointPoolAndUseState",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "76254ff1ac90937df119fe4c71dbc1ca2bb35e4c9560361d693abdc98bce2d41",
+        "observedProjectionSha256": "76254ff1ac90937df119fe4c71dbc1ca2bb35e4c9560361d693abdc98bce2d41",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doFontOfMagicSlotToPoints",
+      "observedActionTaken": "doFontOfMagicSlotToPoints",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFontOfMagicSlotToPoints",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8422ea92a795c3b49085b46d978e095bf11ea2bfade1dc4d171de8afa8f7211c",
+        "observedProjectionSha256": "8422ea92a795c3b49085b46d978e095bf11ea2bfade1dc4d171de8afa8f7211c",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doRejectFontOfMagicAmbiguousSlotSource",
+      "observedActionTaken": "doRejectFontOfMagicAmbiguousSlotSource",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectFontOfMagicAmbiguousSlotSource",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "1f836adc93eaca9121192e6401d2e05f485d07ec7715f84434c86dc7c475ab1b",
+        "observedProjectionSha256": "1f836adc93eaca9121192e6401d2e05f485d07ec7715f84434c86dc7c475ab1b",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doFontOfMagicPointsToSlot",
+      "observedActionTaken": "doFontOfMagicPointsToSlot",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFontOfMagicPointsToSlot",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d807f8c0d2f6dd2f89cadd920da46146e6895225d13fdbe18e5d462df1176b1d",
+        "observedProjectionSha256": "d807f8c0d2f6dd2f89cadd920da46146e6895225d13fdbe18e5d462df1176b1d",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doRejectFontOfMagicInsufficientPoints",
+      "observedActionTaken": "doRejectFontOfMagicInsufficientPoints",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectFontOfMagicInsufficientPoints",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4da4149816c574529cdb7ec592174ba0f424696aa7a40d49c06ae7721fc6f54e",
+        "observedProjectionSha256": "4da4149816c574529cdb7ec592174ba0f424696aa7a40d49c06ae7721fc6f54e",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doShortRestPreservesUncannyUseState",
+      "observedActionTaken": "doShortRestPreservesUncannyUseState",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doShortRestPreservesUncannyUseState",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "af1be82cbb8588cec31a79e3867564fbca5891dd076e94935dbca3362620a53f",
+        "observedProjectionSha256": "af1be82cbb8588cec31a79e3867564fbca5891dd076e94935dbca3362620a53f",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doLongRestClearsUncannyUseState",
+      "observedActionTaken": "doLongRestClearsUncannyUseState",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLongRestClearsUncannyUseState",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "38bf4e035dfc865e94bf33e0ddc480f42eb8991114624d209083f9b99e8aac45",
+        "observedProjectionSha256": "38bf4e035dfc865e94bf33e0ddc480f42eb8991114624d209083f9b99e8aac45",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doUncannyMetabolismRecoversFocusAndHeals",
+      "observedActionTaken": "doUncannyMetabolismRecoversFocusAndHeals",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doUncannyMetabolismRecoversFocusAndHeals",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "04098d7f3da8aca1add41077c35b93f76084c3ed15113744f5eaf7b72f6bd5e7",
+        "observedProjectionSha256": "04098d7f3da8aca1add41077c35b93f76084c3ed15113744f5eaf7b72f6bd5e7",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doRejectUncannyMetabolismRepeatUse",
+      "observedActionTaken": "doRejectUncannyMetabolismRepeatUse",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectUncannyMetabolismRepeatUse",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "53ac1d88702ddd58d377f4cea1e3811b6b82e8f5beaa6d59dfebbf4adbdda87c",
+        "observedProjectionSha256": "53ac1d88702ddd58d377f4cea1e3811b6b82e8f5beaa6d59dfebbf4adbdda87c",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt",
+      "qntFileSha256": "43070ba1360da630711d239cdcae927ec61004571e5f36ab059f3f8133adbabd",
+      "branchFamily": "step",
+      "branchAction": "doMetamagicBridgeUsesSharedPointPool",
+      "observedActionTaken": "doMetamagicBridgeUsesSharedPointPool",
+      "harnessTestPath": "src/tests/mod.rs",
+      "traceId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doMetamagicBridgeUsesSharedPointPool",
+      "sampledInputs": [],
+      "driverProjectionKind": "reducer-route-witness",
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
+      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "002f4cd9ac0b271b53b29271172a9547b21db35454843c97b4ac55698acc8ba4",
+        "observedProjectionSha256": "002f4cd9ac0b271b53b29271172a9547b21db35454843c97b4ac55698acc8ba4",
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
