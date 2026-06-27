@@ -14,9 +14,9 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a` | `ralph/l15-rr07s-a-passive-roll-resource` | `8d8576315773c721128fabaf79319bdbf2921eaa` | pending | pending-launch |
-| L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-b` | `ralph/l15-rr07s-b-zero-hp-form-movement` | `8d8576315773c721128fabaf79319bdbf2921eaa` | pending | pending-launch |
-| L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c` | `ralph/l15-rr07s-c-weapon-breath-feature` | `8d8576315773c721128fabaf79319bdbf2921eaa` | pending | pending-launch |
+| L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a` | `ralph/l15-rr07s-a-passive-roll-resource` | `8d8576315773c721128fabaf79319bdbf2921eaa` | Copernicus `019f070a-d8bb-7111-b578-d4eee793076f` | running |
+| L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-b` | `ralph/l15-rr07s-b-zero-hp-form-movement` | `8d8576315773c721128fabaf79319bdbf2921eaa` | Newton `019f070b-2c30-7de1-bece-a71c78a04a4b` | running |
+| L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c` | `ralph/l15-rr07s-c-weapon-breath-feature` | `8d8576315773c721128fabaf79319bdbf2921eaa` | Kuhn `019f070b-ff89-7fd2-8978-44745a13ef82` | running |
 
 ## Historical RRCONV-19 Worktrees
 

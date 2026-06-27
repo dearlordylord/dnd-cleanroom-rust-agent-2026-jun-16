@@ -103,10 +103,15 @@
     {
       "checkpointId": "CP4",
       "name": "Feature And Catalog Substrates",
-      "status": "ready",
+      "status": "running",
       "dependsOn": [
         "CP2",
         "CP3"
+      ],
+      "runningLaneIds": [
+        "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
+        "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
+        "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES"
       ]
     },
     {
@@ -162,10 +167,10 @@
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "merged-verified",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "merged-verified",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
-    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "ready",
-    "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "ready",
-    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "ready",
-    "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "ready-via-sublanes"
+    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "running",
+    "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "running",
+    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "running",
+    "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
   },
   "lastIntegrationVerification": {
     "head": "3a0c18402e5620a55d0f2046329ab5697023c2e3",
@@ -181,7 +186,35 @@
     "cargoTest": "202 passed",
     "adapterReplaySmoke": "75 passed"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a",
+      "branch": "ralph/l15-rr07s-a-passive-roll-resource",
+      "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
+      "status": "running",
+      "workerAgent": "019f070a-d8bb-7111-b578-d4eee793076f",
+      "workerName": "Copernicus"
+    },
+    {
+      "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-b",
+      "branch": "ralph/l15-rr07s-b-zero-hp-form-movement",
+      "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
+      "status": "running",
+      "workerAgent": "019f070b-2c30-7de1-bece-a71c78a04a4b",
+      "workerName": "Newton"
+    },
+    {
+      "laneId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c",
+      "branch": "ralph/l15-rr07s-c-weapon-breath-feature",
+      "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
+      "status": "running",
+      "workerAgent": "019f070b-ff89-7fd2-8978-44745a13ef82",
+      "workerName": "Kuhn"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",

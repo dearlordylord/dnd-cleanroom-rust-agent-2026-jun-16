@@ -369,7 +369,7 @@
     {
       "laneId": "CP4-SMALL-FEATURE-SUBSTRATE-BATCH",
       "checkpointId": "CP4",
-      "status": "ready-via-sublanes",
+      "status": "running-via-sublanes",
       "routeTaskIds": [
         "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES",
         "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
@@ -423,7 +423,7 @@
     {
       "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp4-small-feature-substrates",
       "routeTaskIds": [
         "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES",
@@ -464,7 +464,7 @@
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp4-small-feature-substrates",
       "routeTaskIds": [
         "L15-RR07-FU04-ZERO-HP-STABILIZATION-SUBSTRATE",
@@ -501,7 +501,7 @@
     {
       "laneId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp4-small-feature-substrates",
       "routeTaskIds": [
         "L15-RR07-FU06-WEAPON-MASTERY-PROPERTY-SUBSTRATES",
