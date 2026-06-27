@@ -1,3 +1,6 @@
+use crate::rules::battle_reducer_spine::{
+    observe_spatial_route_subject, BattleReducerRouteTrace, BattleSpatialRouteSubject,
+};
 use crate::rules::level_one_spatial_spells::{
     project_dancing_lights_movable_dim_light,
     project_faerie_fire_outline_advantage_invisible_dim_light,
@@ -12,6 +15,10 @@ use crate::rules::level_one_spatial_spells::{
     SightObscurement,
 };
 
+use super::battle_runtime_reducer_route::{
+    reducer_route_events_from_battle_trace, ReducerRouteEvent,
+};
+
 pub const BRANCH_ACTIONS: [&str; 10] = [
     "doDancingLightsMovableDimLight",
     "doFaerieFireOutlineAdvantageInvisibleDimLight",
@@ -24,6 +31,8 @@ pub const BRANCH_ACTIONS: [&str; 10] = [
     "doProduceFlameHeldLightProjectionHurlCleanup",
     "doThunderwaveSavePushObjectsBoom",
 ];
+
+pub const ACCEPTED_BRANCH_ACTIONS: [&str; 10] = BRANCH_ACTIONS;
 
 pub fn replay_observed_action(observed_action_taken: &str) -> LevelOneSpatialState {
     match observed_action_taken {
@@ -53,8 +62,19 @@ pub fn replay_observed_action(observed_action_taken: &str) -> LevelOneSpatialSta
     }
 }
 
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    let subject = spatial_route_subject(observed_action_taken);
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_spatial_route_subject(subject, &mut trace);
+    reducer_route_events_from_battle_trace(&trace)
+}
+
 pub fn expected_witness(observed_action_taken: &str) -> LevelOneSpatialState {
     replay_observed_action(observed_action_taken)
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    replay_observed_route(observed_action_taken)
 }
 
 pub fn projection_payload(state: &LevelOneSpatialState) -> String {
@@ -383,6 +403,28 @@ pub fn projection_payload(state: &LevelOneSpatialState) -> String {
         "protocolHoles=none".to_string(),
     ]
     .join("\n")
+}
+
+fn spatial_route_subject(observed_action_taken: &str) -> BattleSpatialRouteSubject {
+    match observed_action_taken {
+        "doDancingLightsMovableDimLight" => BattleSpatialRouteSubject::LightProjection,
+        "doFaerieFireOutlineAdvantageInvisibleDimLight" => BattleSpatialRouteSubject::OutlineEffect,
+        "doFeatherFallReactionMitigationLanding" => BattleSpatialRouteSubject::FallingMitigation,
+        "doFogCloudAreaIdentityObscurementStrongWindCleanup" => {
+            BattleSpatialRouteSubject::AreaObscurement
+        }
+        "doGreaseCastGroundHazardSavingThrows" => BattleSpatialRouteSubject::AreaHazard,
+        "doGreaseMovementAndTurnTriggers" => BattleSpatialRouteSubject::MovementReplacement,
+        "doJumpMovementReplacementLandingWitness" => BattleSpatialRouteSubject::MovementReplacement,
+        "doLightObjectEmitterProjectionReplacementCleanup" => {
+            BattleSpatialRouteSubject::ObjectBoundary
+        }
+        "doProduceFlameHeldLightProjectionHurlCleanup" => {
+            BattleSpatialRouteSubject::LightProjection
+        }
+        "doThunderwaveSavePushObjectsBoom" => BattleSpatialRouteSubject::ForcedMovement,
+        action => panic!("unsupported spatial route mbt::actionTaken {action}"),
+    }
 }
 
 fn illumination_ref(value: Illumination) -> &'static str {

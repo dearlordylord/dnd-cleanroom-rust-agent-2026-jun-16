@@ -2096,14 +2096,20 @@ pub enum BattleReducerRouteHoleKind {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleReducerRouteSubjectFamily {
     ActiveFormLifecycle,
+    AreaHazard,
+    AreaObscurement,
     ConcentrationTeardown,
     CommandSpell,
     CreatureAttack,
     BattleAction,
     DeathSavingThrow,
+    FallingMitigation,
     ForcedMovement,
     HitPointRestoration,
+    LightProjection,
     MovementResource,
+    ObjectBoundaryEffect,
+    OutlineEffect,
     SaveGatedSpell,
     SlotSpell,
     SpellAttack,
@@ -2129,6 +2135,18 @@ pub enum BattleReducerRouteSubjectFamily {
     CompanionSharedSenses,
     CompanionTouchDelivery,
     CompanionReactionAttack,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSpatialRouteSubject {
+    AreaHazard,
+    AreaObscurement,
+    FallingMitigation,
+    ForcedMovement,
+    LightProjection,
+    MovementReplacement,
+    ObjectBoundary,
+    OutlineEffect,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -2318,6 +2336,147 @@ pub fn observe_battle_route_resolution_without_fill(
             owner,
         },
     );
+}
+
+pub fn observe_spatial_route_subject(
+    subject: BattleSpatialRouteSubject,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observe_battle_route_start(spatial_route_start_owner(subject), observer);
+    observe_battle_route_discovery(
+        spatial_route_subject_family(subject),
+        spatial_route_holes(subject),
+        spatial_route_owner(subject),
+        observer,
+    );
+    observe_battle_route_resolution(
+        spatial_route_subject_family(subject),
+        spatial_route_fill(subject),
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        spatial_route_resolution_owner(subject),
+        observer,
+    );
+}
+
+const fn spatial_route_start_owner(
+    subject: BattleSpatialRouteSubject,
+) -> BattleReducerRouteOwnerGroup {
+    match subject {
+        BattleSpatialRouteSubject::FallingMitigation => {
+            BattleReducerRouteOwnerGroup::InterruptStack
+        }
+        BattleSpatialRouteSubject::ForcedMovement
+        | BattleSpatialRouteSubject::MovementReplacement => {
+            BattleReducerRouteOwnerGroup::MovementResource
+        }
+        BattleSpatialRouteSubject::ObjectBoundary => BattleReducerRouteOwnerGroup::ObjectBoundary,
+        BattleSpatialRouteSubject::AreaHazard
+        | BattleSpatialRouteSubject::AreaObscurement
+        | BattleSpatialRouteSubject::LightProjection
+        | BattleSpatialRouteSubject::OutlineEffect => {
+            BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
+        }
+    }
+}
+
+const fn spatial_route_subject_family(
+    subject: BattleSpatialRouteSubject,
+) -> BattleReducerRouteSubjectFamily {
+    match subject {
+        BattleSpatialRouteSubject::AreaHazard => BattleReducerRouteSubjectFamily::AreaHazard,
+        BattleSpatialRouteSubject::AreaObscurement => {
+            BattleReducerRouteSubjectFamily::AreaObscurement
+        }
+        BattleSpatialRouteSubject::FallingMitigation => {
+            BattleReducerRouteSubjectFamily::FallingMitigation
+        }
+        BattleSpatialRouteSubject::ForcedMovement => {
+            BattleReducerRouteSubjectFamily::ForcedMovement
+        }
+        BattleSpatialRouteSubject::LightProjection => {
+            BattleReducerRouteSubjectFamily::LightProjection
+        }
+        BattleSpatialRouteSubject::MovementReplacement => {
+            BattleReducerRouteSubjectFamily::MovementResource
+        }
+        BattleSpatialRouteSubject::ObjectBoundary => {
+            BattleReducerRouteSubjectFamily::ObjectBoundaryEffect
+        }
+        BattleSpatialRouteSubject::OutlineEffect => BattleReducerRouteSubjectFamily::OutlineEffect,
+    }
+}
+
+fn spatial_route_holes(subject: BattleSpatialRouteSubject) -> Vec<BattleReducerRouteHoleKind> {
+    match subject {
+        BattleSpatialRouteSubject::AreaHazard => {
+            vec![BattleReducerRouteHoleKind::SavingThrowOutcome]
+        }
+        BattleSpatialRouteSubject::AreaObscurement
+        | BattleSpatialRouteSubject::LightProjection
+        | BattleSpatialRouteSubject::ObjectBoundary
+        | BattleSpatialRouteSubject::OutlineEffect => {
+            vec![BattleReducerRouteHoleKind::TargetChoice]
+        }
+        BattleSpatialRouteSubject::FallingMitigation => {
+            vec![BattleReducerRouteHoleKind::InterruptDecision]
+        }
+        BattleSpatialRouteSubject::ForcedMovement
+        | BattleSpatialRouteSubject::MovementReplacement => {
+            vec![BattleReducerRouteHoleKind::Movement]
+        }
+    }
+}
+
+const fn spatial_route_fill(subject: BattleSpatialRouteSubject) -> BattleReducerRouteFillKind {
+    match subject {
+        BattleSpatialRouteSubject::AreaHazard => BattleReducerRouteFillKind::SavingThrowOutcome,
+        BattleSpatialRouteSubject::AreaObscurement
+        | BattleSpatialRouteSubject::LightProjection
+        | BattleSpatialRouteSubject::ObjectBoundary
+        | BattleSpatialRouteSubject::OutlineEffect => BattleReducerRouteFillKind::TargetChoice,
+        BattleSpatialRouteSubject::FallingMitigation => {
+            BattleReducerRouteFillKind::UnitFeatureDecision
+        }
+        BattleSpatialRouteSubject::ForcedMovement
+        | BattleSpatialRouteSubject::MovementReplacement => BattleReducerRouteFillKind::Movement,
+    }
+}
+
+const fn spatial_route_owner(subject: BattleSpatialRouteSubject) -> BattleReducerRouteOwnerGroup {
+    match subject {
+        BattleSpatialRouteSubject::AreaHazard | BattleSpatialRouteSubject::AreaObscurement => {
+            BattleReducerRouteOwnerGroup::AreaShape
+        }
+        BattleSpatialRouteSubject::FallingMitigation => {
+            BattleReducerRouteOwnerGroup::InterruptStack
+        }
+        BattleSpatialRouteSubject::ForcedMovement
+        | BattleSpatialRouteSubject::MovementReplacement => {
+            BattleReducerRouteOwnerGroup::MovementResource
+        }
+        BattleSpatialRouteSubject::LightProjection | BattleSpatialRouteSubject::OutlineEffect => {
+            BattleReducerRouteOwnerGroup::ActiveEffect
+        }
+        BattleSpatialRouteSubject::ObjectBoundary => BattleReducerRouteOwnerGroup::ObjectBoundary,
+    }
+}
+
+const fn spatial_route_resolution_owner(
+    subject: BattleSpatialRouteSubject,
+) -> BattleReducerRouteOwnerGroup {
+    match subject {
+        BattleSpatialRouteSubject::AreaHazard => BattleReducerRouteOwnerGroup::ConditionLifecycle,
+        BattleSpatialRouteSubject::AreaObscurement
+        | BattleSpatialRouteSubject::FallingMitigation
+        | BattleSpatialRouteSubject::LightProjection => BattleReducerRouteOwnerGroup::ActiveEffect,
+        BattleSpatialRouteSubject::ForcedMovement
+        | BattleSpatialRouteSubject::MovementReplacement => {
+            BattleReducerRouteOwnerGroup::MovementResource
+        }
+        BattleSpatialRouteSubject::ObjectBoundary => BattleReducerRouteOwnerGroup::ObjectBoundary,
+        BattleSpatialRouteSubject::OutlineEffect => BattleReducerRouteOwnerGroup::AttackRoll,
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

@@ -8,6 +8,40 @@
 - Latest evidence: `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json`
 - Latest verification: cargo fmt --check, cargo test, cargo clippy, cleanroom harness, and git diff --check passed.
 
+## L15-RR07-FU01F: Spatial Light/Area/Movement Substrates
+
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt`
+- Evidence file: `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json`
+- Accepted rows: all ten spatial witness rows.
+- Target blockers: `_none_`
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doDancingLightsMovableDimLight` | `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doDancingLightsMovableDimLight#step:doDancingLightsMovableDimLight` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doFaerieFireOutlineAdvantageInvisibleDimLight` | `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doFaerieFireOutlineAdvantageInvisibleDimLight#step:doFaerieFireOutlineAdvantageInvisibleDimLight` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doFeatherFallReactionMitigationLanding` | `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doFeatherFallReactionMitigationLanding#step:doFeatherFallReactionMitigationLanding` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doFogCloudAreaIdentityObscurementStrongWindCleanup` | `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doFogCloudAreaIdentityObscurementStrongWindCleanup#step:doFogCloudAreaIdentityObscurementStrongWindCleanup` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doGreaseCastGroundHazardSavingThrows` | `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doGreaseCastGroundHazardSavingThrows#step:doGreaseCastGroundHazardSavingThrows` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doGreaseMovementAndTurnTriggers` | `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doGreaseMovementAndTurnTriggers#step:doGreaseMovementAndTurnTriggers` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doJumpMovementReplacementLandingWitness` | `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doJumpMovementReplacementLandingWitness#step:doJumpMovementReplacementLandingWitness` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doLightObjectEmitterProjectionReplacementCleanup` | `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doLightObjectEmitterProjectionReplacementCleanup#step:doLightObjectEmitterProjectionReplacementCleanup` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doProduceFlameHeldLightProjectionHurlCleanup` | `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doProduceFlameHeldLightProjectionHurlCleanup#step:doProduceFlameHeldLightProjectionHurlCleanup` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doThunderwaveSavePushObjectsBoom` | `tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doThunderwaveSavePushObjectsBoom#step:doThunderwaveSavePushObjectsBoom` | `src/tests/mod.rs` | `covered` |
+
+Behavior implemented:
+
+- Added generic reducer route subjects for light projection, outline effects, area obscurement, area hazards, falling mitigation, and object-boundary effects.
+- Reused generic movement and forced-movement route subjects for movement replacement/cost and push disposition witnesses.
+- Kept selected witness action names quarantined in the adapter; production route emission uses shape/substrate route subjects only.
+
+Verification results:
+
+- `cargo test level1_spatial_witness_adapter_replays_all_branches -- --nocapture` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json` passed.
+- Full lane verification is recorded in the final run ledger for this task.
+
 ## Dirty Rehearsal Caveats
 
 - This run used the existing dirty Rust cleanroom implementation to save time. It is current-snapshot rehearsal evidence for this target branch, not fresh cleanroom evidence.
