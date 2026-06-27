@@ -187,7 +187,7 @@
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
-    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "fix-applied-pending-rereview",
+    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "rereviewing",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
@@ -215,7 +215,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a",
       "branch": "ralph/l15-rr07-fu01a-catalog-ready",
       "baseSha": "4b24c074161a5bbe2b52ef1125c5f7044e3172e0",
-      "status": "fix-applied-pending-rereview",
+      "status": "rereviewing",
       "workerAgent": "019f0776-9fa7-7893-a111-b0aa8a7f73e3",
       "workerName": "Carver",
       "commit": "710ff08b6114640820b147e5d0b4a460693e73e2",
@@ -268,7 +268,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD"
-      ]
+      ],
+      "rereviewAgent": "019f0794-a7c8-7eb1-83d1-dccd5d0ba171",
+      "rereviewName": "Descartes",
+      "rereviewStatus": "running"
     }
   ],
   "completedLaneWorktrees": [
