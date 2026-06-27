@@ -287,7 +287,17 @@
       "fifthRereviewFindings": [
         "Command connector check is real, but scalar_buff_subject still manufactures fallback BattleSubject with Actor::Fighter when discovery does not return ScalarBuffTargetSpell."
       ],
-      "fifthRereviewResidualRisk": "Copied-connector drift check is token-based and covers the two disputed terminal route examples, not every command-ordering qRoute row."
+      "fifthRereviewResidualRisk": "Copied-connector drift check is token-based and covers the two disputed terminal route examples, not every command-ordering qRoute row.",
+      "sixthFixerAgent": "019f0664-c383-7b83-8233-824bb01ca15f",
+      "sixthFixerName": "Locke",
+      "sixthFixStatus": "committed",
+      "sixthFixCommit": "9d17264679d8207c716f51148c52418629684891",
+      "sixthFixerResolution": [
+        "Removed synthetic BattleSubject fallback from scalar-buff discovery.",
+        "Scalar-buff replay fails explicitly when ScalarBuffTargetSpell is not discoverable before replay.",
+        "Added focused missing-discovery failure-path test."
+      ],
+      "sixthRereviewStatus": "pending"
     }
   ],
   "completedLaneWorktrees": [
