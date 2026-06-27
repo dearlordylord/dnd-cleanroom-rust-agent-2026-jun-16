@@ -1106,6 +1106,20 @@ pub enum BattleSubjectKind {
     ActiveFeatureSpellAttackRollMode,
     MetamagicOptionSpell,
     Spatial(BattleSpatialRouteSubject),
+    SpellHostedWeaponAttackDamageTypeChoice,
+    SpellHostedWeaponAttackTargetChoice,
+    SpellHostedWeaponAttackAttackRoll,
+    SpellHostedWeaponAttackDamage,
+    WeaponDamageRiderActiveEffect,
+    WeaponDamageRiderDamage,
+    HeldWeaponActiveEffectApply,
+    HeldWeaponActiveEffectAttackRoll,
+    HeldWeaponActiveEffectDamage,
+    ScalarBuffEffectSpeedDelta,
+    ScalarBuffEffectTemporaryHitPoint,
+    AfterHitDamageRiderAttackDamage,
+    AfterHitDamageRiderTurnStartSaveCleanup,
+    AfterHitDamageRiderEscapeConcentrationCleanup,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1202,10 +1216,23 @@ pub enum BattleFill {
     ActiveFeatureSpellAttackRollMode(BattleActiveFeatureSpellBenefitFill),
     MetamagicOptionSpell(BattleMetamagicOptionSpellFill),
     Spatial(BattleSpatialRouteFill),
+    GenericRoute(BattleGenericRouteFill),
     StatBlockAction {
         subject: StatBlockActionSubject,
         fill: StatBlockActionFill,
     },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleGenericRouteFill {
+    AbilityCheck,
+    AttackRoll,
+    DamageTypeChoice,
+    InterruptDecision,
+    RolledDice,
+    SavingThrowOutcome,
+    TargetChoice,
+    WithoutFill,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1719,6 +1746,19 @@ impl BattleResolutionRequest {
         })
     }
 
+    pub fn generic_route(
+        subject: BattleSubject,
+        fill: BattleGenericRouteFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if !generic_route_subject_kind(subject.kind) {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::GenericRoute(fill),
+        })
+    }
+
     pub fn stat_block_action(subject: StatBlockActionSubject, fill: StatBlockActionFill) -> Self {
         Self {
             subject: battle_subject_from_stat_block_action_subject(subject),
@@ -1729,6 +1769,7 @@ impl BattleResolutionRequest {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleHoleKind {
+    AbilityCheck,
     TargetChoice,
     SpellTargetAllocation,
     AttackRoll,
@@ -2165,6 +2206,7 @@ pub enum BattleEntrypointEvent {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleReducerRouteFillKind {
+    AbilityCheck,
     AttackRoll,
     GrappleOutcome,
     ConcentrationSavingThrow,
@@ -2172,6 +2214,7 @@ pub enum BattleReducerRouteFillKind {
     DamageTypeChoice,
     DeathSavingThrow,
     HitPointHealingDistribution,
+    InterruptDecision,
     CommandOptionChoice,
     Movement,
     RolledDice,
@@ -2187,6 +2230,7 @@ pub enum BattleReducerRouteFillKind {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum BattleReducerRouteHoleKind {
+    AbilityCheck,
     AttackRoll,
     GrappleOutcome,
     ConcentrationSavingThrow,
@@ -2227,9 +2271,13 @@ pub enum BattleReducerRouteSubjectFamily {
     SaveGatedSpell,
     SlotSpell,
     SpellAttack,
+    SpellHostedWeaponAttack,
     ScalarBuff,
     StatBlockAction,
     WeaponAttack,
+    WeaponDamageRider,
+    HeldWeaponActiveEffect,
+    AfterHitDamageRider,
     ActiveFeatureSpellAttackRollMode,
     ActiveFeatureSpellSaveDc,
     AttackActionAreaSaveDamageReplacement,
@@ -2692,6 +2740,26 @@ pub fn start_battle_observed(
         owner: BattleReducerRouteOwnerGroup::ActionEconomy,
     });
     start_battle(setup)
+}
+
+#[must_use]
+pub fn discover_generic_route_subject_observed(
+    state: BattleState,
+    kind: BattleSubjectKind,
+    observer: &mut impl BattleEntrypointObserver,
+) -> (BattleState, BattleSubject) {
+    assert!(
+        generic_route_subject_kind(kind),
+        "generic route discovery requires a generic route subject"
+    );
+    let shape = generic_route_shape(kind);
+    observer.observe_battle_reducer_route(BattleReducerRouteEvent::DiscoverBattleActs {
+        subject: shape.subject,
+        holes: shape.holes,
+        owner: shape.discover_owner,
+    });
+    let subject = diagnostic_subject(kind, current_actor(&state), None);
+    (state, subject)
 }
 
 #[must_use]
@@ -3277,6 +3345,7 @@ fn sorted_battle_reducer_route_holes(
 
 fn battle_reducer_route_hole(hole: BattleHoleKind) -> BattleReducerRouteHoleKind {
     match hole {
+        BattleHoleKind::AbilityCheck => BattleReducerRouteHoleKind::AbilityCheck,
         BattleHoleKind::AttackRoll => BattleReducerRouteHoleKind::AttackRoll,
         BattleHoleKind::ConcentrationSavingThrow => {
             BattleReducerRouteHoleKind::ConcentrationSavingThrow
@@ -3299,7 +3368,7 @@ fn battle_reducer_route_hole(hole: BattleHoleKind) -> BattleReducerRouteHoleKind
     }
 }
 
-const fn battle_reducer_route_subject_family(
+fn battle_reducer_route_subject_family(
     subject: BattleSubjectKind,
 ) -> BattleReducerRouteSubjectFamily {
     match subject {
@@ -3350,6 +3419,22 @@ const fn battle_reducer_route_subject_family(
             BattleReducerRouteSubjectFamily::MetamagicOptionSpell
         }
         BattleSubjectKind::Spatial(subject) => spatial_route_subject_family(subject),
+        kind @ (BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice
+        | BattleSubjectKind::SpellHostedWeaponAttackTargetChoice
+        | BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
+        | BattleSubjectKind::SpellHostedWeaponAttackDamage
+        | BattleSubjectKind::WeaponDamageRiderActiveEffect
+        | BattleSubjectKind::WeaponDamageRiderDamage
+        | BattleSubjectKind::HeldWeaponActiveEffectApply
+        | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
+        | BattleSubjectKind::HeldWeaponActiveEffectDamage
+        | BattleSubjectKind::ScalarBuffEffectSpeedDelta
+        | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+        | BattleSubjectKind::AfterHitDamageRiderAttackDamage
+        | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup) => {
+            generic_route_shape(kind).subject
+        }
     }
 }
 
@@ -6582,7 +6667,7 @@ pub fn discover_battle_acts_observed(
     discovery
 }
 
-const fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerRouteOwnerGroup {
+fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerRouteOwnerGroup {
     match kind {
         BattleSubjectKind::WeaponAttack => BattleReducerRouteOwnerGroup::TargetSelection,
         BattleSubjectKind::Multiattack => BattleReducerRouteOwnerGroup::AttackActionProcedure,
@@ -6621,6 +6706,22 @@ const fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerR
         }
         BattleSubjectKind::MetamagicOptionSpell => BattleReducerRouteOwnerGroup::FeatureResource,
         BattleSubjectKind::Spatial(subject) => spatial_route_owner(subject),
+        kind @ (BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice
+        | BattleSubjectKind::SpellHostedWeaponAttackTargetChoice
+        | BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
+        | BattleSubjectKind::SpellHostedWeaponAttackDamage
+        | BattleSubjectKind::WeaponDamageRiderActiveEffect
+        | BattleSubjectKind::WeaponDamageRiderDamage
+        | BattleSubjectKind::HeldWeaponActiveEffectApply
+        | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
+        | BattleSubjectKind::HeldWeaponActiveEffectDamage
+        | BattleSubjectKind::ScalarBuffEffectSpeedDelta
+        | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+        | BattleSubjectKind::AfterHitDamageRiderAttackDamage
+        | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup) => {
+            generic_route_shape(kind).discover_owner
+        }
         BattleSubjectKind::EndTurn => BattleReducerRouteOwnerGroup::ActionEconomy,
     }
 }
@@ -6810,6 +6911,160 @@ fn diagnostic_subject_shape_matches(
         && subject.damage_modifier == 0
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+struct GenericRouteShape {
+    subject: BattleReducerRouteSubjectFamily,
+    holes: Vec<BattleReducerRouteHoleKind>,
+    discover_owner: BattleReducerRouteOwnerGroup,
+    resolve_owner: BattleReducerRouteOwnerGroup,
+}
+
+fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
+    matches!(
+        kind,
+        BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice
+            | BattleSubjectKind::SpellHostedWeaponAttackTargetChoice
+            | BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
+            | BattleSubjectKind::SpellHostedWeaponAttackDamage
+            | BattleSubjectKind::WeaponDamageRiderActiveEffect
+            | BattleSubjectKind::WeaponDamageRiderDamage
+            | BattleSubjectKind::HeldWeaponActiveEffectApply
+            | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
+            | BattleSubjectKind::HeldWeaponActiveEffectDamage
+            | BattleSubjectKind::ScalarBuffEffectSpeedDelta
+            | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+            | BattleSubjectKind::AfterHitDamageRiderAttackDamage
+            | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
+            | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+    )
+}
+
+fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
+    use BattleReducerRouteHoleKind::{
+        AbilityCheck, AttackRoll, DamageTypeChoice, RolledDice, SavingThrowOutcome, TargetChoice,
+    };
+    use BattleReducerRouteOwnerGroup::{
+        ActiveEffect, AttackRoll as AttackRollOwner, Concentration, HitPoint, HoleFrontier,
+        MovementResource, SpellSlotAndActionEconomy, TargetSelection, TemporaryHitPoint,
+    };
+    use BattleReducerRouteSubjectFamily::{
+        AfterHitDamageRider, HeldWeaponActiveEffect, ScalarBuffEffect, SpellHostedWeaponAttack,
+        WeaponDamageRider,
+    };
+
+    match kind {
+        BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice => GenericRouteShape {
+            subject: SpellHostedWeaponAttack,
+            holes: vec![DamageTypeChoice, TargetChoice],
+            discover_owner: BattleReducerRouteOwnerGroup::ActionEconomy,
+            resolve_owner: HoleFrontier,
+        },
+        BattleSubjectKind::SpellHostedWeaponAttackTargetChoice => GenericRouteShape {
+            subject: SpellHostedWeaponAttack,
+            holes: vec![TargetChoice],
+            discover_owner: TargetSelection,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::SpellHostedWeaponAttackAttackRoll => GenericRouteShape {
+            subject: SpellHostedWeaponAttack,
+            holes: vec![AttackRoll],
+            discover_owner: AttackRollOwner,
+            resolve_owner: AttackRollOwner,
+        },
+        BattleSubjectKind::SpellHostedWeaponAttackDamage => GenericRouteShape {
+            subject: SpellHostedWeaponAttack,
+            holes: vec![RolledDice],
+            discover_owner: HitPoint,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::WeaponDamageRiderActiveEffect => GenericRouteShape {
+            subject: WeaponDamageRider,
+            holes: Vec::new(),
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::WeaponDamageRiderDamage => GenericRouteShape {
+            subject: WeaponDamageRider,
+            holes: vec![RolledDice],
+            discover_owner: ActiveEffect,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::HeldWeaponActiveEffectApply => GenericRouteShape {
+            subject: HeldWeaponActiveEffect,
+            holes: Vec::new(),
+            discover_owner: BattleReducerRouteOwnerGroup::ActionEconomy,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::HeldWeaponActiveEffectAttackRoll => GenericRouteShape {
+            subject: HeldWeaponActiveEffect,
+            holes: vec![AttackRoll],
+            discover_owner: ActiveEffect,
+            resolve_owner: AttackRollOwner,
+        },
+        BattleSubjectKind::HeldWeaponActiveEffectDamage => GenericRouteShape {
+            subject: HeldWeaponActiveEffect,
+            holes: vec![RolledDice],
+            discover_owner: ActiveEffect,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::ScalarBuffEffectSpeedDelta => GenericRouteShape {
+            subject: ScalarBuffEffect,
+            holes: Vec::new(),
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: MovementResource,
+        },
+        BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint => GenericRouteShape {
+            subject: ScalarBuffEffect,
+            holes: Vec::new(),
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: TemporaryHitPoint,
+        },
+        BattleSubjectKind::AfterHitDamageRiderAttackDamage => GenericRouteShape {
+            subject: AfterHitDamageRider,
+            holes: vec![RolledDice],
+            discover_owner: HitPoint,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup => GenericRouteShape {
+            subject: AfterHitDamageRider,
+            holes: vec![RolledDice, SavingThrowOutcome],
+            discover_owner: ActiveEffect,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => GenericRouteShape {
+            subject: AfterHitDamageRider,
+            holes: vec![AbilityCheck],
+            discover_owner: Concentration,
+            resolve_owner: Concentration,
+        },
+        BattleSubjectKind::EndTurn
+        | BattleSubjectKind::WeaponAttack
+        | BattleSubjectKind::Multiattack
+        | BattleSubjectKind::SingleTargetSpellAttack
+        | BattleSubjectKind::TypedSpellAttack
+        | BattleSubjectKind::SlotSpell
+        | BattleSubjectKind::SaveGatedAreaDamage
+        | BattleSubjectKind::SaveGatedTargetListConditionChoice
+        | BattleSubjectKind::HitPointRestorationSingleTargetSpell
+        | BattleSubjectKind::HitPointRestorationTargetListSpell
+        | BattleSubjectKind::HitPointRestorationFeatureHealingPool
+        | BattleSubjectKind::DeathSavingThrow
+        | BattleSubjectKind::ConcentrationTeardown
+        | BattleSubjectKind::StatBlockAction
+        | BattleSubjectKind::CommandSpell
+        | BattleSubjectKind::ArmorClassSpellEffect
+        | BattleSubjectKind::ReactionSpell
+        | BattleSubjectKind::ScalarBuffTargetSpell
+        | BattleSubjectKind::WeaponMasteryProperty
+        | BattleSubjectKind::AttackActionAreaSaveDamageReplacement
+        | BattleSubjectKind::UnitFeatureBonusAction
+        | BattleSubjectKind::ActiveFeatureSpellSaveDc
+        | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
+        | BattleSubjectKind::MetamagicOptionSpell
+        | BattleSubjectKind::Spatial(_) => panic!("not a generic route subject"),
+    }
+}
+
 fn route_subject_discoverable_now(state: &BattleState, subject: BattleSubject) -> bool {
     discover_battle_acts(state)
         .available_acts()
@@ -6890,6 +7145,20 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::ActiveFeatureSpellSaveDc
         | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
         | BattleSubjectKind::Spatial(_)
+        | BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice
+        | BattleSubjectKind::SpellHostedWeaponAttackTargetChoice
+        | BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
+        | BattleSubjectKind::SpellHostedWeaponAttackDamage
+        | BattleSubjectKind::WeaponDamageRiderActiveEffect
+        | BattleSubjectKind::WeaponDamageRiderDamage
+        | BattleSubjectKind::HeldWeaponActiveEffectApply
+        | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
+        | BattleSubjectKind::HeldWeaponActiveEffectDamage
+        | BattleSubjectKind::ScalarBuffEffectSpeedDelta
+        | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+        | BattleSubjectKind::AfterHitDamageRiderAttackDamage
+        | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
         | BattleSubjectKind::EndTurn => false,
     }
 }
@@ -6987,7 +7256,21 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
         | BattleSubjectKind::Spatial(_)
         | BattleSubjectKind::ArmorClassSpellEffect
         | BattleSubjectKind::ReactionSpell
-        | BattleSubjectKind::ScalarBuffTargetSpell => false,
+        | BattleSubjectKind::ScalarBuffTargetSpell
+        | BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice
+        | BattleSubjectKind::SpellHostedWeaponAttackTargetChoice
+        | BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
+        | BattleSubjectKind::SpellHostedWeaponAttackDamage
+        | BattleSubjectKind::WeaponDamageRiderActiveEffect
+        | BattleSubjectKind::WeaponDamageRiderDamage
+        | BattleSubjectKind::HeldWeaponActiveEffectApply
+        | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
+        | BattleSubjectKind::HeldWeaponActiveEffectDamage
+        | BattleSubjectKind::ScalarBuffEffectSpeedDelta
+        | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+        | BattleSubjectKind::AfterHitDamageRiderAttackDamage
+        | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => false,
     }
 }
 
@@ -7207,6 +7490,8 @@ fn battle_resolution_route_event(
 fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRouteFillKind> {
     match fill {
         BattleFill::NoFill => None,
+        BattleFill::GenericRoute(BattleGenericRouteFill::WithoutFill) => None,
+        BattleFill::GenericRoute(fill) => Some(generic_route_fill_kind(fill)),
         BattleFill::TargetChoice(_) => Some(BattleReducerRouteFillKind::TargetChoice),
         BattleFill::AttackRoll(_) => Some(BattleReducerRouteFillKind::AttackRoll),
         BattleFill::DamageRoll(_) | BattleFill::SneakAttackDamageRoll(_) => {
@@ -7303,6 +7588,21 @@ fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRoute
     }
 }
 
+const fn generic_route_fill_kind(fill: BattleGenericRouteFill) -> BattleReducerRouteFillKind {
+    match fill {
+        BattleGenericRouteFill::AbilityCheck => BattleReducerRouteFillKind::AbilityCheck,
+        BattleGenericRouteFill::AttackRoll => BattleReducerRouteFillKind::AttackRoll,
+        BattleGenericRouteFill::DamageTypeChoice => BattleReducerRouteFillKind::DamageTypeChoice,
+        BattleGenericRouteFill::InterruptDecision => BattleReducerRouteFillKind::InterruptDecision,
+        BattleGenericRouteFill::RolledDice => BattleReducerRouteFillKind::RolledDice,
+        BattleGenericRouteFill::SavingThrowOutcome => {
+            BattleReducerRouteFillKind::SavingThrowOutcome
+        }
+        BattleGenericRouteFill::TargetChoice => BattleReducerRouteFillKind::TargetChoice,
+        BattleGenericRouteFill::WithoutFill => BattleReducerRouteFillKind::UnitFeatureDecision,
+    }
+}
+
 fn battle_resolution_route_owner(
     subject: BattleSubjectKind,
     fill: BattleFill,
@@ -7310,6 +7610,13 @@ fn battle_resolution_route_owner(
     holes: &[BattleHoleKind],
 ) -> BattleReducerRouteOwnerGroup {
     match subject {
+        kind if generic_route_subject_kind(kind) => match (kind, fill) {
+            (
+                BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup,
+                BattleFill::GenericRoute(BattleGenericRouteFill::SavingThrowOutcome),
+            ) => BattleReducerRouteOwnerGroup::ActiveEffect,
+            _ => generic_route_shape(kind).resolve_owner,
+        },
         BattleSubjectKind::WeaponAttack => match battle_reducer_route_fill_kind(fill) {
             Some(BattleReducerRouteFillKind::TargetChoice) => {
                 BattleReducerRouteOwnerGroup::TargetSelection
@@ -7697,6 +8004,9 @@ fn resolve_battle_subject_unchecked(
             }
             BattleResolutionResult::Resolved { state }
         }
+        (kind, BattleFill::GenericRoute(fill)) if generic_route_subject_kind(kind) => {
+            resolve_generic_route_subject(state, subject, fill)
+        }
         (
             BattleSubjectKind::StatBlockAction,
             BattleFill::StatBlockAction {
@@ -7760,6 +8070,7 @@ fn resolve_battle_subject_unchecked(
                 | BattleFill::ActiveFeatureSpellAttackRollMode(_)
                 | BattleFill::MetamagicOptionSpell(_)
                 | BattleFill::Spatial(_)
+                | BattleFill::GenericRoute(_)
                 | BattleFill::StatBlockAction { .. } => invalid(
                     state,
                     BattleResolutionInvalidReason::InvalidFill,
@@ -7800,6 +8111,20 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
             | BattleSubjectKind::MetamagicOptionSpell
             | BattleSubjectKind::Spatial(_)
+            | BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice
+            | BattleSubjectKind::SpellHostedWeaponAttackTargetChoice
+            | BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
+            | BattleSubjectKind::SpellHostedWeaponAttackDamage
+            | BattleSubjectKind::WeaponDamageRiderActiveEffect
+            | BattleSubjectKind::WeaponDamageRiderDamage
+            | BattleSubjectKind::HeldWeaponActiveEffectApply
+            | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
+            | BattleSubjectKind::HeldWeaponActiveEffectDamage
+            | BattleSubjectKind::ScalarBuffEffectSpeedDelta
+            | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+            | BattleSubjectKind::AfterHitDamageRiderAttackDamage
+            | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
+            | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,
@@ -7808,6 +8133,163 @@ fn resolve_battle_subject_unchecked(
             BattleResolutionInvalidReason::InvalidFill,
             subject.stage,
         ),
+    }
+}
+
+fn resolve_generic_route_subject(
+    state: BattleState,
+    subject: BattleSubject,
+    fill: BattleGenericRouteFill,
+) -> BattleResolutionResult {
+    if !diagnostic_subject_shape_matches(subject, subject.kind, None)
+        || !generic_route_fill_matches_subject(subject.kind, fill)
+    {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::InvalidFill,
+            Vec::new(),
+        );
+    }
+
+    let next_holes = generic_route_next_holes(subject.kind, fill);
+    if next_holes.is_empty() {
+        BattleResolutionResult::Resolved { state }
+    } else {
+        BattleResolutionResult::NeedsHoles {
+            state,
+            subject,
+            holes: next_holes,
+        }
+    }
+}
+
+fn generic_route_fill_matches_subject(
+    kind: BattleSubjectKind,
+    fill: BattleGenericRouteFill,
+) -> bool {
+    match kind {
+        BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice => {
+            fill == BattleGenericRouteFill::DamageTypeChoice
+        }
+        BattleSubjectKind::SpellHostedWeaponAttackTargetChoice => {
+            fill == BattleGenericRouteFill::TargetChoice
+        }
+        BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
+        | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll => {
+            fill == BattleGenericRouteFill::AttackRoll
+        }
+        BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup => {
+            matches!(
+                fill,
+                BattleGenericRouteFill::RolledDice | BattleGenericRouteFill::SavingThrowOutcome
+            )
+        }
+        BattleSubjectKind::SpellHostedWeaponAttackDamage
+        | BattleSubjectKind::WeaponDamageRiderDamage
+        | BattleSubjectKind::HeldWeaponActiveEffectDamage
+        | BattleSubjectKind::AfterHitDamageRiderAttackDamage => {
+            fill == BattleGenericRouteFill::RolledDice
+        }
+        BattleSubjectKind::WeaponDamageRiderActiveEffect
+        | BattleSubjectKind::HeldWeaponActiveEffectApply
+        | BattleSubjectKind::ScalarBuffEffectSpeedDelta
+        | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint => {
+            fill == BattleGenericRouteFill::WithoutFill
+        }
+        BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => {
+            fill == BattleGenericRouteFill::AbilityCheck
+        }
+        BattleSubjectKind::EndTurn
+        | BattleSubjectKind::WeaponAttack
+        | BattleSubjectKind::Multiattack
+        | BattleSubjectKind::SingleTargetSpellAttack
+        | BattleSubjectKind::TypedSpellAttack
+        | BattleSubjectKind::SlotSpell
+        | BattleSubjectKind::SaveGatedAreaDamage
+        | BattleSubjectKind::SaveGatedTargetListConditionChoice
+        | BattleSubjectKind::HitPointRestorationSingleTargetSpell
+        | BattleSubjectKind::HitPointRestorationTargetListSpell
+        | BattleSubjectKind::HitPointRestorationFeatureHealingPool
+        | BattleSubjectKind::DeathSavingThrow
+        | BattleSubjectKind::ConcentrationTeardown
+        | BattleSubjectKind::StatBlockAction
+        | BattleSubjectKind::CommandSpell
+        | BattleSubjectKind::ArmorClassSpellEffect
+        | BattleSubjectKind::ReactionSpell
+        | BattleSubjectKind::ScalarBuffTargetSpell
+        | BattleSubjectKind::WeaponMasteryProperty
+        | BattleSubjectKind::AttackActionAreaSaveDamageReplacement
+        | BattleSubjectKind::UnitFeatureBonusAction
+        | BattleSubjectKind::ActiveFeatureSpellSaveDc
+        | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
+        | BattleSubjectKind::MetamagicOptionSpell
+        | BattleSubjectKind::Spatial(_) => false,
+    }
+}
+
+fn generic_route_next_holes(
+    kind: BattleSubjectKind,
+    fill: BattleGenericRouteFill,
+) -> Vec<BattleHoleKind> {
+    match (kind, fill) {
+        (BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice, _) => {
+            vec![BattleHoleKind::TargetChoice]
+        }
+        (BattleSubjectKind::SpellHostedWeaponAttackTargetChoice, _) => {
+            vec![BattleHoleKind::AttackRoll]
+        }
+        (
+            BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
+            | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll,
+            _,
+        ) => vec![BattleHoleKind::RolledDice],
+        (
+            BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup,
+            BattleGenericRouteFill::RolledDice,
+        ) => {
+            vec![BattleHoleKind::SavingThrowOutcome]
+        }
+        (
+            BattleSubjectKind::SpellHostedWeaponAttackDamage
+            | BattleSubjectKind::WeaponDamageRiderActiveEffect
+            | BattleSubjectKind::WeaponDamageRiderDamage
+            | BattleSubjectKind::HeldWeaponActiveEffectApply
+            | BattleSubjectKind::HeldWeaponActiveEffectDamage
+            | BattleSubjectKind::ScalarBuffEffectSpeedDelta
+            | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+            | BattleSubjectKind::AfterHitDamageRiderAttackDamage
+            | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
+            | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup,
+            _,
+        ) => Vec::new(),
+        (
+            BattleSubjectKind::EndTurn
+            | BattleSubjectKind::WeaponAttack
+            | BattleSubjectKind::Multiattack
+            | BattleSubjectKind::SingleTargetSpellAttack
+            | BattleSubjectKind::TypedSpellAttack
+            | BattleSubjectKind::SlotSpell
+            | BattleSubjectKind::SaveGatedAreaDamage
+            | BattleSubjectKind::SaveGatedTargetListConditionChoice
+            | BattleSubjectKind::HitPointRestorationSingleTargetSpell
+            | BattleSubjectKind::HitPointRestorationTargetListSpell
+            | BattleSubjectKind::HitPointRestorationFeatureHealingPool
+            | BattleSubjectKind::DeathSavingThrow
+            | BattleSubjectKind::ConcentrationTeardown
+            | BattleSubjectKind::StatBlockAction
+            | BattleSubjectKind::CommandSpell
+            | BattleSubjectKind::ArmorClassSpellEffect
+            | BattleSubjectKind::ReactionSpell
+            | BattleSubjectKind::ScalarBuffTargetSpell
+            | BattleSubjectKind::WeaponMasteryProperty
+            | BattleSubjectKind::AttackActionAreaSaveDamageReplacement
+            | BattleSubjectKind::UnitFeatureBonusAction
+            | BattleSubjectKind::ActiveFeatureSpellSaveDc
+            | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
+            | BattleSubjectKind::MetamagicOptionSpell
+            | BattleSubjectKind::Spatial(_),
+            _,
+        ) => Vec::new(),
     }
 }
 

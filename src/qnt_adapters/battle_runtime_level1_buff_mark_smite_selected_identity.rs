@@ -1,4 +1,9 @@
 use crate::rules::battle_features::SavingThrowAbility;
+use crate::rules::battle_reducer_spine::{
+    discover_generic_route_subject_observed, resolve_battle_subject_observed,
+    start_battle_observed, BattleEntrypointTrace, BattleGenericRouteFill, BattleResolutionRequest,
+    BattleSetup, BattleSubjectKind,
+};
 use crate::rules::level_one_spell_effects::{
     project_divine_favor_weapon_damage_rider, project_divine_smite_after_hit_damage,
     project_ensnaring_strike_restraint_damage_and_escape, project_false_life_temporary_hit_points,
@@ -14,6 +19,14 @@ use crate::rules::level_one_spell_effects::{
     SpellWeapon, SpellWeaponComponent, WeaponAttackOverrideEffect, WeaponAttackPresentation,
 };
 use crate::rules::spell_shapes::DamageType;
+
+use super::battle_runtime_reducer_route::{
+    observed_reducer_route, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_route_result,
+    route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
+    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct LevelOneSpellEffectWitness {
@@ -126,8 +139,41 @@ pub const BRANCH_ACTIONS: [&str; 12] = [
     "doTrueStrikeSpellHostedWeaponAttack",
 ];
 
+pub const ACCEPTED_BRANCH_ACTIONS: [&str; 8] = [
+    "doDivineFavorWeaponDamageRider",
+    "doDivineSmiteAfterHitDamage",
+    "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
+    "doFalseLifeTemporaryHitPoints",
+    "doLongstriderSpeedIncrease",
+    "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
+    "doShillelaghWeaponAttackOverride",
+    "doTrueStrikeSpellHostedWeaponAttack",
+];
+
+pub const BLOCKED_BRANCH_ACTIONS: [(&str, &str); 4] = [
+    (
+        "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
+        "blocked: condition-immunity plus turn-start temporary Hit Points needs a generic active-effect route subject",
+    ),
+    (
+        "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
+        "blocked: condition-immunity cleanup needs a generic active-effect route subject",
+    ),
+    (
+        "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
+        "blocked: marked-target damage rider plus transfer needs a generic marked-effect route subject",
+    ),
+    (
+        "doHexMarkedDamageRiderAndLaterTurnTransfer",
+        "blocked: marked-target damage rider plus transfer needs a generic marked-effect route subject",
+    ),
+];
+
 pub fn replay_observed_action(observed_action_taken: &str) -> LevelOneSpellEffectWitness {
     match observed_action_taken {
+        action if blocker_reason(action).is_some() => {
+            panic!("{}: {}", action, blocker_reason(action).unwrap())
+        }
         "doDivineFavorWeaponDamageRider" => {
             witness_from_state(project_divine_favor_weapon_damage_rider())
         }
@@ -166,8 +212,206 @@ pub fn replay_observed_action(observed_action_taken: &str) -> LevelOneSpellEffec
     }
 }
 
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        action if blocker_reason(action).is_some() => {
+            panic!("{}: {}", action, blocker_reason(action).unwrap())
+        }
+        "doDivineFavorWeaponDamageRider" => replay_generic_route(
+            BattleSubjectKind::WeaponDamageRiderDamage,
+            &[BattleGenericRouteFill::RolledDice],
+            &[ReducerRouteSubjectFamily::WeaponDamageRider],
+        ),
+        "doDivineSmiteAfterHitDamage" => replay_generic_route(
+            BattleSubjectKind::AfterHitDamageRiderAttackDamage,
+            &[BattleGenericRouteFill::RolledDice],
+            &[ReducerRouteSubjectFamily::AfterHitDamageRider],
+        ),
+        "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape" => replay_generic_route(
+            BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup,
+            &[BattleGenericRouteFill::AbilityCheck],
+            &[ReducerRouteSubjectFamily::AfterHitDamageRider],
+        ),
+        "doFalseLifeTemporaryHitPoints" => replay_generic_route(
+            BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint,
+            &[BattleGenericRouteFill::WithoutFill],
+            &[ReducerRouteSubjectFamily::ScalarBuffEffect],
+        ),
+        "doLongstriderSpeedIncrease" => replay_generic_route(
+            BattleSubjectKind::ScalarBuffEffectSpeedDelta,
+            &[BattleGenericRouteFill::WithoutFill],
+            &[ReducerRouteSubjectFamily::ScalarBuffEffect],
+        ),
+        "doSearingSmiteAfterHitTimedDamageAndSaveCleanup" => replay_generic_route(
+            BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup,
+            &[
+                BattleGenericRouteFill::RolledDice,
+                BattleGenericRouteFill::SavingThrowOutcome,
+            ],
+            &[ReducerRouteSubjectFamily::AfterHitDamageRider],
+        ),
+        "doShillelaghWeaponAttackOverride" => replay_generic_route(
+            BattleSubjectKind::HeldWeaponActiveEffectDamage,
+            &[BattleGenericRouteFill::RolledDice],
+            &[ReducerRouteSubjectFamily::HeldWeaponActiveEffect],
+        ),
+        "doTrueStrikeSpellHostedWeaponAttack" => replay_generic_route(
+            BattleSubjectKind::SpellHostedWeaponAttackDamage,
+            &[BattleGenericRouteFill::RolledDice],
+            &[ReducerRouteSubjectFamily::SpellHostedWeaponAttack],
+        ),
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
+}
+
+fn replay_generic_route(
+    subject_kind: BattleSubjectKind,
+    fills: &[BattleGenericRouteFill],
+    route_subjects: &[ReducerRouteSubjectFamily],
+) -> Vec<ReducerRouteEvent> {
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start_battle_observed(BattleSetup::standard(), &mut trace).state;
+    let (mut state, subject) =
+        discover_generic_route_subject_observed(state, subject_kind, &mut trace);
+    for fill in fills {
+        state = resolve_battle_subject_observed(
+            state,
+            BattleResolutionRequest::generic_route(subject, *fill)
+                .expect("generic route subject should accept generic route fills"),
+            &mut trace,
+        )
+        .into_state();
+    }
+    observed_reducer_route(&trace, route_subjects)
+}
+
 pub fn expected_witness(observed_action_taken: &str) -> LevelOneSpellEffectWitness {
     replay_observed_action(observed_action_taken)
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doDivineFavorWeaponDamageRider" => expected_damage_route(
+            ReducerRouteSubjectFamily::WeaponDamageRider,
+            ReducerRouteOwnerGroup::ActiveEffect,
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+        "doDivineSmiteAfterHitDamage" => expected_damage_route(
+            ReducerRouteSubjectFamily::AfterHitDamageRider,
+            ReducerRouteOwnerGroup::HitPoint,
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+        "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape" => vec![
+            route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+            route_discover_battle_acts_from_route_holes(
+                ReducerRouteSubjectFamily::AfterHitDamageRider,
+                vec![ReducerRouteHoleKind::AbilityCheck],
+                ReducerRouteOwnerGroup::Concentration,
+            ),
+            route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::AfterHitDamageRider,
+                ReducerRouteFillKind::AbilityCheck,
+                ReducerRouteResolutionOutcome::Resolved,
+                Vec::new(),
+                ReducerRouteOwnerGroup::Concentration,
+            ),
+        ],
+        "doFalseLifeTemporaryHitPoints" => expected_without_fill_route(
+            ReducerRouteSubjectFamily::ScalarBuffEffect,
+            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+            ReducerRouteOwnerGroup::TemporaryHitPoint,
+        ),
+        "doLongstriderSpeedIncrease" => expected_without_fill_route(
+            ReducerRouteSubjectFamily::ScalarBuffEffect,
+            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+            ReducerRouteOwnerGroup::MovementResource,
+        ),
+        "doSearingSmiteAfterHitTimedDamageAndSaveCleanup" => vec![
+            route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+            route_discover_battle_acts_from_route_holes(
+                ReducerRouteSubjectFamily::AfterHitDamageRider,
+                vec![
+                    ReducerRouteHoleKind::RolledDice,
+                    ReducerRouteHoleKind::SavingThrowOutcome,
+                ],
+                ReducerRouteOwnerGroup::ActiveEffect,
+            ),
+            route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::AfterHitDamageRider,
+                ReducerRouteFillKind::RolledDice,
+                ReducerRouteResolutionOutcome::NeedsHoles,
+                vec![ReducerRouteHoleKind::SavingThrowOutcome],
+                ReducerRouteOwnerGroup::HitPoint,
+            ),
+            route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::AfterHitDamageRider,
+                ReducerRouteFillKind::SavingThrowOutcome,
+                ReducerRouteResolutionOutcome::Resolved,
+                Vec::new(),
+                ReducerRouteOwnerGroup::ActiveEffect,
+            ),
+        ],
+        "doShillelaghWeaponAttackOverride" => expected_damage_route(
+            ReducerRouteSubjectFamily::HeldWeaponActiveEffect,
+            ReducerRouteOwnerGroup::ActiveEffect,
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+        "doTrueStrikeSpellHostedWeaponAttack" => expected_damage_route(
+            ReducerRouteSubjectFamily::SpellHostedWeaponAttack,
+            ReducerRouteOwnerGroup::HitPoint,
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+        action if blocker_reason(action).is_some() => {
+            panic!("{}: {}", action, blocker_reason(action).unwrap())
+        }
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+    }
+}
+
+fn expected_damage_route(
+    subject: ReducerRouteSubjectFamily,
+    discovery_owner: ReducerRouteOwnerGroup,
+    resolution_owner: ReducerRouteOwnerGroup,
+) -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            subject,
+            vec![ReducerRouteHoleKind::RolledDice],
+            discovery_owner,
+        ),
+        route_resolve_battle_subject_from_route_result(
+            subject,
+            ReducerRouteFillKind::RolledDice,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            resolution_owner,
+        ),
+    ]
+}
+
+fn expected_without_fill_route(
+    subject: ReducerRouteSubjectFamily,
+    discovery_owner: ReducerRouteOwnerGroup,
+    resolution_owner: ReducerRouteOwnerGroup,
+) -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(subject, Vec::new(), discovery_owner),
+        route_resolve_battle_subject_without_fill_from_route_result(
+            subject,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            resolution_owner,
+        ),
+    ]
+}
+
+#[must_use]
+pub fn blocker_reason(observed_action_taken: &str) -> Option<&'static str> {
+    BLOCKED_BRANCH_ACTIONS
+        .iter()
+        .find_map(|(action, reason)| (*action == observed_action_taken).then_some(*reason))
 }
 
 pub fn projection_payload(witness: &LevelOneSpellEffectWitness) -> String {

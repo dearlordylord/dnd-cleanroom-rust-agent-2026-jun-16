@@ -593,6 +593,7 @@ fn weapon_holes(holes: Vec<BattleHoleKind>) -> Vec<ReducerSpineHole> {
             BattleHoleKind::AttackRoll => ReducerSpineHole::AttackRoll,
             BattleHoleKind::RolledDice => ReducerSpineHole::RolledDice,
             BattleHoleKind::SpellTargetAllocation
+            | BattleHoleKind::AbilityCheck
             | BattleHoleKind::SpellTargetList
             | BattleHoleKind::DamageTypeChoice
             | BattleHoleKind::ConditionChoice

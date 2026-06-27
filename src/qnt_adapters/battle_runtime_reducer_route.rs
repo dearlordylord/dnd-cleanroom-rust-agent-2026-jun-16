@@ -7,6 +7,7 @@ use crate::rules::battle_reducer_spine::{
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum ReducerRouteHoleKind {
+    AbilityCheck,
     AttackRoll,
     GrappleOutcome,
     ConcentrationSavingThrow,
@@ -29,6 +30,7 @@ pub enum ReducerRouteHoleKind {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReducerRouteFillKind {
+    AbilityCheck,
     AttackRoll,
     GrappleOutcome,
     ConcentrationSavingThrow,
@@ -36,6 +38,7 @@ pub enum ReducerRouteFillKind {
     DamageTypeChoice,
     DeathSavingThrow,
     HitPointHealingDistribution,
+    InterruptDecision,
     CommandOptionChoice,
     Movement,
     RolledDice,
@@ -76,9 +79,13 @@ pub enum ReducerRouteSubjectFamily {
     SaveGatedSpell,
     SlotSpell,
     SpellAttack,
+    SpellHostedWeaponAttack,
     ScalarBuff,
     StatBlockAction,
     WeaponAttack,
+    WeaponDamageRider,
+    HeldWeaponActiveEffect,
+    AfterHitDamageRider,
     ActiveFeatureSpellAttackRollMode,
     ActiveFeatureSpellSaveDc,
     AttackActionAreaSaveDamageReplacement,
@@ -638,11 +645,23 @@ const fn reducer_route_subject(
         }
         BattleReducerRouteSubjectFamily::SlotSpell => ReducerRouteSubjectFamily::SlotSpell,
         BattleReducerRouteSubjectFamily::SpellAttack => ReducerRouteSubjectFamily::SpellAttack,
+        BattleReducerRouteSubjectFamily::SpellHostedWeaponAttack => {
+            ReducerRouteSubjectFamily::SpellHostedWeaponAttack
+        }
         BattleReducerRouteSubjectFamily::ScalarBuff => ReducerRouteSubjectFamily::ScalarBuff,
         BattleReducerRouteSubjectFamily::StatBlockAction => {
             ReducerRouteSubjectFamily::StatBlockAction
         }
         BattleReducerRouteSubjectFamily::WeaponAttack => ReducerRouteSubjectFamily::WeaponAttack,
+        BattleReducerRouteSubjectFamily::WeaponDamageRider => {
+            ReducerRouteSubjectFamily::WeaponDamageRider
+        }
+        BattleReducerRouteSubjectFamily::HeldWeaponActiveEffect => {
+            ReducerRouteSubjectFamily::HeldWeaponActiveEffect
+        }
+        BattleReducerRouteSubjectFamily::AfterHitDamageRider => {
+            ReducerRouteSubjectFamily::AfterHitDamageRider
+        }
         BattleReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode => {
             ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode
         }
@@ -709,6 +728,7 @@ const fn reducer_route_subject(
 
 const fn reducer_route_fill(fill: BattleReducerRouteFillKind) -> ReducerRouteFillKind {
     match fill {
+        BattleReducerRouteFillKind::AbilityCheck => ReducerRouteFillKind::AbilityCheck,
         BattleReducerRouteFillKind::AttackRoll => ReducerRouteFillKind::AttackRoll,
         BattleReducerRouteFillKind::GrappleOutcome => ReducerRouteFillKind::GrappleOutcome,
         BattleReducerRouteFillKind::ConcentrationSavingThrow => {
@@ -720,6 +740,7 @@ const fn reducer_route_fill(fill: BattleReducerRouteFillKind) -> ReducerRouteFil
         BattleReducerRouteFillKind::HitPointHealingDistribution => {
             ReducerRouteFillKind::HitPointHealingDistribution
         }
+        BattleReducerRouteFillKind::InterruptDecision => ReducerRouteFillKind::InterruptDecision,
         BattleReducerRouteFillKind::CommandOptionChoice => {
             ReducerRouteFillKind::CommandOptionChoice
         }
@@ -849,6 +870,7 @@ fn sorted_route_holes(mut route_holes: Vec<ReducerRouteHoleKind>) -> Vec<Reducer
 
 fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
     match hole {
+        BattleHoleKind::AbilityCheck => ReducerRouteHoleKind::AbilityCheck,
         BattleHoleKind::ConcentrationSavingThrow => ReducerRouteHoleKind::ConcentrationSavingThrow,
         BattleHoleKind::ConditionChoice => ReducerRouteHoleKind::ConditionChoice,
         BattleHoleKind::DeathSavingThrow => ReducerRouteHoleKind::DeathSavingThrow,
@@ -871,6 +893,7 @@ fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
 
 const fn reducer_route_route_hole(hole: BattleReducerRouteHoleKind) -> ReducerRouteHoleKind {
     match hole {
+        BattleReducerRouteHoleKind::AbilityCheck => ReducerRouteHoleKind::AbilityCheck,
         BattleReducerRouteHoleKind::AttackRoll => ReducerRouteHoleKind::AttackRoll,
         BattleReducerRouteHoleKind::GrappleOutcome => ReducerRouteHoleKind::GrappleOutcome,
         BattleReducerRouteHoleKind::ConcentrationSavingThrow => {
@@ -961,6 +984,7 @@ fn joined_holes(holes: &[ReducerRouteHoleKind]) -> String {
 
 fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
     match hole {
+        ReducerRouteHoleKind::AbilityCheck => "AbilityCheckHoleKind",
         ReducerRouteHoleKind::AttackRoll => "AttackRollHoleKind",
         ReducerRouteHoleKind::GrappleOutcome => "GrappleOutcomeHoleKind",
         ReducerRouteHoleKind::ConcentrationSavingThrow => "ConcentrationSavingThrowHoleKind",
@@ -986,6 +1010,7 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
 
 fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
     match fill {
+        ReducerRouteFillKind::AbilityCheck => "AbilityCheckFillKind",
         ReducerRouteFillKind::AttackRoll => "AttackRollFillKind",
         ReducerRouteFillKind::GrappleOutcome => "GrappleOutcomeFillKind",
         ReducerRouteFillKind::ConcentrationSavingThrow => "ConcentrationSavingThrowFillKind",
@@ -993,6 +1018,7 @@ fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
         ReducerRouteFillKind::DamageTypeChoice => "DamageTypeChoiceFillKind",
         ReducerRouteFillKind::DeathSavingThrow => "DeathSavingThrowFillKind",
         ReducerRouteFillKind::HitPointHealingDistribution => "HitPointHealingDistributionFillKind",
+        ReducerRouteFillKind::InterruptDecision => "InterruptDecisionFillKind",
         ReducerRouteFillKind::CommandOptionChoice => "CommandOptionChoiceFillKind",
         ReducerRouteFillKind::Movement => "MovementFillKind",
         ReducerRouteFillKind::RolledDice => "RolledDiceFillKind",
@@ -1108,6 +1134,7 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::SaveGatedSpell => "SaveGatedSpellRouteSubject",
         ReducerRouteSubjectFamily::SlotSpell => "SlotSpellRouteSubject",
         ReducerRouteSubjectFamily::SpellAttack => "SpellAttackRouteSubject",
+        ReducerRouteSubjectFamily::SpellHostedWeaponAttack => "SpellHostedWeaponAttackRouteSubject",
         ReducerRouteSubjectFamily::ScalarBuff => "ScalarBuffRouteSubject",
         ReducerRouteSubjectFamily::ScalarBuffEffect => "ScalarBuffEffectRouteSubject",
         ReducerRouteSubjectFamily::ArmorClassSpellEffect => "ArmorClassSpellEffectRouteSubject",
@@ -1115,6 +1142,9 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::SpellDamageReduction => "SpellDamageReductionRouteSubject",
         ReducerRouteSubjectFamily::StatBlockAction => "StatBlockActionRouteSubject",
         ReducerRouteSubjectFamily::WeaponAttack => "WeaponAttackRouteSubject",
+        ReducerRouteSubjectFamily::WeaponDamageRider => "WeaponDamageRiderRouteSubject",
+        ReducerRouteSubjectFamily::HeldWeaponActiveEffect => "HeldWeaponActiveEffectRouteSubject",
+        ReducerRouteSubjectFamily::AfterHitDamageRider => "AfterHitDamageRiderRouteSubject",
         ReducerRouteSubjectFamily::WeaponMasteryProperty => "WeaponMasteryPropertyRouteSubject",
         ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement => {
             "AttackActionAreaSaveDamageReplacementRouteSubject"
