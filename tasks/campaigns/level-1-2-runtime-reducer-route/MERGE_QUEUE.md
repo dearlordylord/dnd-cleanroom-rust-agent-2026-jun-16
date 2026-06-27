@@ -6,16 +6,11 @@ This file records lane branches that are implemented, reviewed, and waiting to m
 
 ## Current Queue
 
-1. `L15-RR08-CHARACTER-CREATION-ROUTES`
-   - Lane head: `e11862d68ab0b02ec0db303504923e9222c3446f`
-   - Worktree: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08`
-   - Review: clean after Kierkegaard fixer and Meitner re-review.
-   - Merge note: process before RR09 unless explicit conflict review finds a better order; RR08 removes production selected-identity APIs that RR09 overlap must adapt to.
-2. `L15-RR09-CHARACTER-SHEET-ROUTES`
+1. `L15-RR09-CHARACTER-SHEET-ROUTES`
    - Lane head: `410e3db7d181c7fba9265cc753ab977198dacca7`
    - Worktree: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09`
    - Review: clean after Aristotle fixer and Jason re-review.
-   - Merge note: overlaps RR08 in `src/tests/mod.rs`, task artifacts, and `src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs`; run explicit conflict review after RR08 merge.
+   - Merge note: RR08 is merged; run explicit conflict review for `src/tests/mod.rs`, task artifacts, and `src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs`.
 
 ## Merge Rules
 

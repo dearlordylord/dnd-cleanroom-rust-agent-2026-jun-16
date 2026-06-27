@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "ee30e831b0bc0fa49fa54100e54a45c32a43a60a",
+    "lastVerifiedIntegrationHead": "76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf",
     "lastMergedLane": {
-      "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
-      "mergeCommit": "ee30e831b0bc0fa49fa54100e54a45c32a43a60a",
-      "laneHead": "8b3bd015c34357b38962bfaada4e6f1d0ba3d500"
+      "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
+      "mergeCommit": "76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf",
+      "laneHead": "e11862d68ab0b02ec0db303504923e9222c3446f"
     }
   },
   "denominator": {
@@ -33,10 +33,10 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 25,
-    "acceptedDriverCoveragePercent": 25.8,
-    "acceptedObligations": 256,
-    "acceptedObligationCoveragePercent": 38.3,
+    "acceptedUniqueDrivers": 33,
+    "acceptedDriverCoveragePercent": 34,
+    "acceptedObligations": 311,
+    "acceptedObligationCoveragePercent": 46.6,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers",
     "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json in-scope obligations for unique selected drivers"
   },
@@ -135,7 +135,7 @@
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
-    "L15-RR08-CHARACTER-CREATION-ROUTES": "review-clean-merge-ready",
+    "L15-RR08-CHARACTER-CREATION-ROUTES": "merged-verified",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "review-clean-merge-ready",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "ready",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
@@ -162,19 +162,18 @@
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "ee30e831b0bc0fa49fa54100e54a45c32a43a60a",
+    "head": "76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf",
     "commands": [
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
-      "node -e <parse campaign/task json>",
       "git diff --check HEAD~1...HEAD",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings",
       "cargo test adapter_replays_all_branches --quiet"
     ],
     "result": "passed",
-    "cargoTest": "191 passed",
-    "adapterReplaySmoke": "71 passed"
+    "cargoTest": "199 passed",
+    "adapterReplaySmoke": "72 passed"
   },
   "activeLaneWorktrees": [
     {
@@ -182,7 +181,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08",
       "branch": "ralph/l15-rr08-character-creation",
       "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
-      "status": "review-clean-merge-ready",
+      "status": "merged-verified",
       "workerAgent": "019f06a6-8ed9-7560-9daa-6922b4bb277d",
       "workerName": "Harvey",
       "commit": "8416ee533fed413f9f072b982e0d425d89d90bac",
@@ -684,6 +683,14 @@
       "fixCommit": "155ca2bed52639f3de011a2a22de2b0f63d6c318",
       "secondFixCommit": "7ef32d308d51fb54d1032d01b937d168fa63bb64",
       "mergeCommit": "4c7e12d7645360adb7ab23af61144ceb243c13fe",
+      "status": "removable-after-operator-confirms-no-local-use"
+    },
+    {
+      "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08",
+      "branch": "ralph/l15-rr08-character-creation",
+      "laneHead": "e11862d68ab0b02ec0db303504923e9222c3446f",
+      "mergeCommit": "76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf",
       "status": "removable-after-operator-confirms-no-local-use"
     }
   ],

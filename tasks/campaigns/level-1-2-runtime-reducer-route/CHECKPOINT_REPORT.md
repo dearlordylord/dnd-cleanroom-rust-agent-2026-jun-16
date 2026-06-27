@@ -52,6 +52,7 @@ At `ee30e831b0bc0fa49fa54100e54a45c32a43a60a`:
   - `L15-RR08-CHARACTER-CREATION-ROUTES` fixer Kierkegaard `019f06bd-b6ee-7771-81e1-d412340ae0e9` committed `e11862d68ab0b02ec0db303504923e9222c3446f`; re-reviewer Meitner `019f06cd-b784-7a62-99fe-39612ff205f4` returned clean against Anscombe's blocker findings.
   - `L15-RR09-CHARACTER-SHEET-ROUTES` fixer Aristotle `019f06b9-b640-7042-ab31-0bec31939b48` committed `410e3db7d181c7fba9265cc753ab977198dacca7`; re-reviewer Jason `019f06c9-bc48-74b1-87dd-8312784588dd` returned clean against Pauli's three blocker findings.
   - RR08 and RR09 overlap in `src/tests/mod.rs`, task artifacts, and `src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs`; merge only after RR08 re-review and an explicit conflict review.
+  - `L15-RR08-CHARACTER-CREATION-ROUTES` merged at `76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf` and passed integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`199 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`72 passed`).
   - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` remains ready but not launchable until RR08 and RR09 converge.
 
 ## Coverage Delta Log
@@ -121,3 +122,15 @@ Template:
 - Integration verification: `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, `node scripts/check-cleanroom-harness.cjs`, `cargo test adapter_replays_all_branches --quiet`, JSON parse checks, and `git diff --check HEAD~1...HEAD` passed.
 - Review/fixer notes: RR04A and RR04B were accepted after fixing overclaimed state ownership, stale reports, self-referential witnesses, fixture identity naming, and duplicate evidence refs. RR04D was accepted only as adapter-only component projection evidence, with no production reusable feature-component semantics claimed. RR04C added shared route facts in `src/rules/rule_core_components.rs`, independent literal expected witnesses, and split accepted spell rows from non-acceptance regression rows.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04a`, `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b`, `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c`, `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04d`
+
+### L15-RR08-CHARACTER-CREATION-ROUTES
+
+- Merge commit: `76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf`
+- Lane commit(s): `8416ee533fed413f9f072b982e0d425d89d90bac`, `e11862d68ab0b02ec0db303504923e9222c3446f`
+- Drivers added: `8` net-new unique character-creation drivers.
+- Obligations added: `55` net-new counted obligations; total accepted obligations moved from `256` to `311`.
+- New total driver coverage: `33 / 97 = 34.0%`
+- New total obligation coverage: `311 / 668 = 46.6%`
+- Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` passed.
+- Review/fixer notes: review loop replaced self-referential expected route witnesses with adapter-local literal route witnesses, removed production selected-identity dispatch from reported class-feature paths, and corrected overclaimed evidence artifacts.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08`
