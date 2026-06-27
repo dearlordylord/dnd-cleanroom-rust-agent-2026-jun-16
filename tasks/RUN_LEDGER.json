@@ -2328,7 +2328,7 @@
       "targetReplayEvidence": [
         {
           "path": "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json",
-          "sha256": "7184f0ee2edcd9e0070b8d20388b6c3eea824fa5e0d9dc039f79bbde66452086",
+          "sha256": "309b5ef2631dbb29d0e43aab0d196e2ffeef6db8114dd899bd7626180bc1885b",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveColorSprayFailedSavingThrow#step:doResolveColorSprayFailedSavingThrow",
             "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveEntangleFailedSavingThrow#step:doResolveEntangleFailedSavingThrow",
@@ -2349,19 +2349,19 @@
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "cf7af5d0b8e7b0944dfd95526e4076baefa65dc5f9ad8a84f513e5a97f77c5dd"
+          "sha256": "37decc1e25e316aef5e410412aa5d194cebf4ab92e440966bf7dbe205e94ed6a"
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "08d465f7945ade777c164846407d895ef8c121f9811efe6f0144ca155de6f398"
+          "sha256": "3c0fb407f4874a67c2f2e007bc3c41fb4391ba3f93f387bfb377fbbcf4af2647"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "9cdacd54f334ef64a8f11b2f9d14624a18a5b659277fd4381790cb3ccd18f506"
+          "sha256": "cfe62cc24fa6aa2b9674f156ebf6483cbd462b8548b606ee3699bf496504e26e"
         },
         "deciderDecision": {
           "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "8aec0c97db1a347ec580832982bbe3a92c326e51a87810c576848ffa282f9cb5"
+          "sha256": "667c4dc881a212cf9730dd1b863b5c85b3672d219f681f0ed72cb46d33023787"
         }
       }
     }

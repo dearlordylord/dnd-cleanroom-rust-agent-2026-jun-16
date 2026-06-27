@@ -36,5 +36,5 @@
       "status": "pass"
     }
   ],
-  "rationale": "Accepted in-scope catalog-after-substrate spell identity branches through existing generic save-gated spell, repeat-save condition effect, companion lifecycle/touch delivery, and roll-modifier effect route evidence. Level-2/3 condition-save branches remain out of scope for this lane."
+  "rationale": "Accepted in-scope catalog-after-substrate spell identity branches through existing generic save-gated spell, repeat-save condition effect, production-observed companion lifecycle/touch delivery, and roll-modifier effect route evidence. Find Familiar observed routes are emitted as BattleReducerRouteTrace events by the production companion substrate observer; no Find Familiar rows were demoted. Level-2/3 condition-save branches remain out of scope for this lane."
 }

@@ -593,6 +593,18 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::SpellDamageReduction => {
             ReducerRouteSubjectFamily::SpellDamageReduction
         }
+        BattleReducerRouteSubjectFamily::CompanionLifecycle => {
+            ReducerRouteSubjectFamily::CompanionLifecycle
+        }
+        BattleReducerRouteSubjectFamily::CompanionSharedSenses => {
+            ReducerRouteSubjectFamily::CompanionSharedSenses
+        }
+        BattleReducerRouteSubjectFamily::CompanionTouchDelivery => {
+            ReducerRouteSubjectFamily::CompanionTouchDelivery
+        }
+        BattleReducerRouteSubjectFamily::CompanionReactionAttack => {
+            ReducerRouteSubjectFamily::CompanionReactionAttack
+        }
     }
 }
 
@@ -649,6 +661,7 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
         BattleReducerRouteOwnerGroup::ConditionLifecycle => {
             ReducerRouteOwnerGroup::ConditionLifecycle
         }
+        BattleReducerRouteOwnerGroup::Companion => ReducerRouteOwnerGroup::Companion,
         BattleReducerRouteOwnerGroup::CreatureSpaceMovement => {
             ReducerRouteOwnerGroup::CreatureSpaceMovement
         }

@@ -93,7 +93,59 @@
         }
       ],
       "summary": "Convergence pass after full cargo test and clippy; no reasonable findings remained."
+    },
+    {
+      "round": 3,
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "pass"
+        }
+      ],
+      "summary": "Fixer convergence pass for Find Familiar route evidence: observed route emission now comes from production BattleReducerRouteTrace events and expected route witnesses remain literal."
     }
   ],
-  "findings": []
+  "findings": [
+    {
+      "id": "fu01a-find-familiar-adapter-local-route-synthesis",
+      "status": "fixed",
+      "resolution": "Moved observed Find Familiar companion route emission to production find_familiar_companion_route_observed and mapped companion route subjects from production BattleReducerRouteSubjectFamily. Adapter expected routes remain literal witnesses and no accepted rows were demoted."
+    }
+  ]
 }

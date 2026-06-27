@@ -1,16 +1,16 @@
 use crate::rules::find_familiar::{
     create_find_familiar_companion, deliver_find_familiar_touch_spell,
     dismiss_and_reappear_find_familiar_companion, find_familiar_companion_initial_state,
-    recast_find_familiar_companion_replacement, FamiliarCreatureTypeOverride, FamiliarForm,
-    FamiliarFormFacts, FamiliarSlot, FamiliarStatus, FindFamiliarCompanionProtocol,
-    FindFamiliarCompanionScenarioOutcome, FindFamiliarCompanionState,
+    find_familiar_companion_route_observed, recast_find_familiar_companion_replacement,
+    FamiliarCreatureTypeOverride, FamiliarForm, FamiliarFormFacts, FamiliarSlot, FamiliarStatus,
+    FindFamiliarCompanionProtocol, FindFamiliarCompanionScenarioOutcome,
+    FindFamiliarCompanionState,
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_route_result,
-    route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
-    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
-    ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+    reducer_route_events_from_battle_trace, ReducerRouteEvent, ReducerRouteFillKind,
+    ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome,
+    ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -109,7 +109,7 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
         "doRecastFindFamiliarReplacement" => recast_replacement(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     };
-    route_from_companion_substrate(state.scenario_outcome)
+    reducer_route_events_from_battle_trace(&find_familiar_companion_route_observed(state))
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
@@ -289,137 +289,54 @@ fn joined_or_none(values: &[&'static str]) -> String {
     }
 }
 
-fn route_from_companion_substrate(
-    outcome: FindFamiliarCompanionScenarioOutcome,
-) -> Vec<ReducerRouteEvent> {
-    match outcome {
-        FindFamiliarCompanionScenarioOutcome::Created
-        | FindFamiliarCompanionScenarioOutcome::Replaced
-        | FindFamiliarCompanionScenarioOutcome::DismissedAndReappeared => {
-            companion_lifecycle_route()
-        }
-        FindFamiliarCompanionScenarioOutcome::TouchDelivered => companion_touch_delivery_route(),
-        FindFamiliarCompanionScenarioOutcome::SharedSenses => companion_shared_senses_route(),
-        FindFamiliarCompanionScenarioOutcome::PactAttack => companion_reaction_attack_route(),
-        FindFamiliarCompanionScenarioOutcome::Init => vec![route_start()],
-    }
-}
-
 fn companion_lifecycle_route() -> Vec<ReducerRouteEvent> {
     vec![
-        route_start(),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::CompanionLifecycle,
-            Vec::new(),
-            ReducerRouteOwnerGroup::Companion,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::CompanionLifecycle,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::Companion,
-        ),
-    ]
-}
-
-fn companion_shared_senses_route() -> Vec<ReducerRouteEvent> {
-    vec![
-        route_start(),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::CompanionSharedSenses,
-            Vec::new(),
-            ReducerRouteOwnerGroup::Companion,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::CompanionSharedSenses,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::ActionEconomy,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::CompanionSharedSenses,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::ActiveEffect,
-        ),
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::CompanionLifecycle,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::Companion,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::CompanionLifecycle,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::Companion,
+        },
     ]
 }
 
 fn companion_touch_delivery_route() -> Vec<ReducerRouteEvent> {
     vec![
-        route_start(),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::CompanionTouchDelivery,
-            vec![ReducerRouteHoleKind::TargetChoice],
-            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::CompanionTouchDelivery,
-            ReducerRouteFillKind::TargetChoice,
-            ReducerRouteResolutionOutcome::NeedsHoles,
-            vec![ReducerRouteHoleKind::RolledDice],
-            ReducerRouteOwnerGroup::Companion,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::CompanionTouchDelivery,
-            ReducerRouteFillKind::RolledDice,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::CompanionTouchDelivery,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::ActionEconomy,
-        ),
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::CompanionTouchDelivery,
+            holes: vec![ReducerRouteHoleKind::TargetChoice],
+            owner: ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::CompanionTouchDelivery,
+            fill: ReducerRouteFillKind::TargetChoice,
+            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
+            holes: vec![ReducerRouteHoleKind::RolledDice],
+            owner: ReducerRouteOwnerGroup::Companion,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::CompanionTouchDelivery,
+            fill: ReducerRouteFillKind::RolledDice,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::CompanionTouchDelivery,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
     ]
-}
-
-fn companion_reaction_attack_route() -> Vec<ReducerRouteEvent> {
-    vec![
-        route_start(),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::CompanionReactionAttack,
-            vec![ReducerRouteHoleKind::TargetChoice],
-            ReducerRouteOwnerGroup::Companion,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::CompanionReactionAttack,
-            ReducerRouteResolutionOutcome::NeedsHoles,
-            vec![ReducerRouteHoleKind::TargetChoice],
-            ReducerRouteOwnerGroup::StatBlockAction,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::CompanionReactionAttack,
-            ReducerRouteFillKind::TargetChoice,
-            ReducerRouteResolutionOutcome::NeedsHoles,
-            vec![ReducerRouteHoleKind::AttackRoll],
-            ReducerRouteOwnerGroup::TargetSelection,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::CompanionReactionAttack,
-            ReducerRouteFillKind::AttackRoll,
-            ReducerRouteResolutionOutcome::NeedsHoles,
-            vec![ReducerRouteHoleKind::RolledDice],
-            ReducerRouteOwnerGroup::AttackRoll,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::CompanionReactionAttack,
-            ReducerRouteFillKind::RolledDice,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::HitPoint,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::CompanionReactionAttack,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::ActionEconomy,
-        ),
-    ]
-}
-
-fn route_start() -> ReducerRouteEvent {
-    route_start_battle(ReducerRouteOwnerGroup::ActionEconomy)
 }

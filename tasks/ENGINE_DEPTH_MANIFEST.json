@@ -26,11 +26,22 @@
     {
       "path": "src/rules/find_familiar.rs",
       "role": "rule-facts",
-      "reason": "Owns companion lifecycle, replacement, reappearance, and touch-delivery substrate facts independent of selected spell identity.",
+      "reason": "Owns companion lifecycle, replacement, reappearance, touch-delivery substrate facts, and production-observed companion route emission independent of selected spell identity.",
       "domainApis": [
         "FindFamiliarCompanionState",
         "create_find_familiar_companion",
-        "deliver_find_familiar_touch_spell"
+        "deliver_find_familiar_touch_spell",
+        "find_familiar_companion_route_observed"
+      ]
+    },
+    {
+      "path": "src/rules/battle_reducer_spine.rs",
+      "role": "domain-api",
+      "reason": "Owns production BattleReducerRouteSubjectFamily and BattleReducerRouteOwnerGroup companion route variants consumed by Find Familiar observed route traces.",
+      "domainApis": [
+        "BattleReducerRouteSubjectFamily::CompanionLifecycle",
+        "BattleReducerRouteSubjectFamily::CompanionTouchDelivery",
+        "BattleReducerRouteOwnerGroup::Companion"
       ]
     },
     {
@@ -89,7 +100,7 @@
     },
     {
       "path": "src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs",
-      "adapterScope": "Selected Find Familiar catalog witness boundary; accepted branches route through companion lifecycle and touch-delivery substrate evidence.",
+      "adapterScope": "Selected Find Familiar catalog witness boundary; accepted branches convert production BattleReducerRouteTrace companion lifecycle and touch-delivery substrate evidence.",
       "quarantinedWitnessNames": [
         "doCastFindFamiliar",
         "doDeliverTouchSpellThroughFindFamiliar",

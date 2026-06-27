@@ -126,6 +126,7 @@
         "observedProjectionSha256": "dfc2527a4ae53581f3bd175918c9eba0f3e4919d48c92dbbc489d7297d999a74",
         "checkedTargetStateFields": [
           "FindFamiliarCompanionState.scenario_outcome",
+          "BattleReducerRouteTrace.events",
           "ReducerRouteEvent.qRoute"
         ]
       },
@@ -151,6 +152,7 @@
         "observedProjectionSha256": "50c7d54cffddc8edb315777accfe13d4e15c2187da2da812ea6c74770e6f9e1b",
         "checkedTargetStateFields": [
           "FindFamiliarCompanionState.scenario_outcome",
+          "BattleReducerRouteTrace.events",
           "ReducerRouteEvent.qRoute"
         ]
       },
@@ -176,6 +178,7 @@
         "observedProjectionSha256": "e30c7faa5cb115f759450356e85e4380fc39745c6b3062511131d5b8b794d441",
         "checkedTargetStateFields": [
           "FindFamiliarCompanionState.scenario_outcome",
+          "BattleReducerRouteTrace.events",
           "ReducerRouteEvent.qRoute"
         ]
       },
@@ -201,6 +204,7 @@
         "observedProjectionSha256": "faaa9c0622061ec053ca7d1b426cbb7a7a6bc5a66d11f5085fd757df6a146858",
         "checkedTargetStateFields": [
           "FindFamiliarCompanionState.scenario_outcome",
+          "BattleReducerRouteTrace.events",
           "ReducerRouteEvent.qRoute"
         ]
       },

@@ -2232,9 +2232,14 @@ Selected drivers:
 Behavior implemented:
 
 - Accepted condition-save catalog witnesses route through generic `SaveGatedSpellRouteSubject` and `RepeatSaveConditionEffectRouteSubject` substrate evidence.
-- Accepted Find Familiar catalog witnesses route through generic companion lifecycle and touch-delivery substrate evidence.
+- Accepted Find Familiar catalog witnesses route through production-observed `BattleReducerRouteTrace` events emitted by `find_familiar_companion_route_observed`; expected route rows remain literal adapter witnesses for generic companion lifecycle and touch-delivery substrates.
 - Accepted Thaumaturgy catalog witness routes through generic `RollModifierEffectRouteSubject` substrate evidence.
 - Selected spell identity remains confined to adapter, test, and evidence boundaries.
+
+Evidence disposition:
+
+- Accepted Find Familiar rows retained: `doCastFindFamiliar`, `doDeliverTouchSpellThroughFindFamiliar`, `doDismissAndReappearFindFamiliar`, and `doRecastFindFamiliarReplacement`.
+- Demoted Find Familiar rows: `_none_`; production reducer ownership is now represented by `BattleReducerRouteTrace.events`.
 
 Generated branch coverage:
 
@@ -2270,6 +2275,7 @@ Harness artifacts:
 Verification results:
 
 - `cargo test condition_saving_throw_selected_identity_routes_in_scope_substrate_branches` passed.
+- `cargo test find_familiar_selected_identity_adapter_replays_all_branches` passed.
 - `cargo test selected_identity_adapter_replays_all_branches` passed.
 - `cargo fmt --check` passed.
 - `cargo test` passed.

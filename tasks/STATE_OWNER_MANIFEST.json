@@ -23,6 +23,12 @@
       "owner": "executable-boundary-projection"
     },
     {
+      "apiPath": "BattleReducerRouteTrace.events",
+      "boundary": "production reducer route observer trace for companion substrate routes",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "production-route-observer"
+    },
+    {
       "apiPath": "RollModifierActiveEffectsState.thaumaturgy_intimidation_roll_mode",
       "boundary": "roll-modifier active-effect substrate projection",
       "introducedIn": "src/rules/roll_modifier_active_effects.rs",
