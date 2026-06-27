@@ -1,0 +1,228 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "L15-RR22 independent spell attack sequence route adapter"
+  },
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt",
+      "qntFileSha256": "0c8873356d5858900f7e993e028f11352ed28e92c9e91abf366defb45c4ce476",
+      "branchFamily": "step",
+      "branchAction": "doFillFirstAttackHit",
+      "observedActionTaken": "doFillFirstAttackHit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "traceId": "L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillFirstAttackHit",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8202e354411a8c129c08b87213518095a802bffa2d2ffc0e6b20630ad0ab7bb8",
+        "observedProjectionSha256": "8202e354411a8c129c08b87213518095a802bffa2d2ffc0e6b20630ad0ab7bb8",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.IndependentSpellAttackSequence*",
+          "BattleGenericRouteFill.TargetChoice/AttackRoll/RolledDice/WithoutFill",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt",
+      "qntFileSha256": "0c8873356d5858900f7e993e028f11352ed28e92c9e91abf366defb45c4ce476",
+      "branchFamily": "step",
+      "branchAction": "doFillFirstAttackMiss",
+      "observedActionTaken": "doFillFirstAttackMiss",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "traceId": "L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillFirstAttackMiss",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7b6cfe22e98503c615061cc964cf5f9dc5414016d1dfe385a30e232dc93ce061",
+        "observedProjectionSha256": "7b6cfe22e98503c615061cc964cf5f9dc5414016d1dfe385a30e232dc93ce061",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.IndependentSpellAttackSequence*",
+          "BattleGenericRouteFill.TargetChoice/AttackRoll/RolledDice/WithoutFill",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt",
+      "qntFileSha256": "0c8873356d5858900f7e993e028f11352ed28e92c9e91abf366defb45c4ce476",
+      "branchFamily": "step",
+      "branchAction": "doFillFirstDamageLow",
+      "observedActionTaken": "doFillFirstDamageLow",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "traceId": "L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillFirstDamageLow",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6788b6f71c25e8f04c3199c1177dbe78e7076dd79005889dcbe42613136eacc5",
+        "observedProjectionSha256": "6788b6f71c25e8f04c3199c1177dbe78e7076dd79005889dcbe42613136eacc5",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.IndependentSpellAttackSequence*",
+          "BattleGenericRouteFill.TargetChoice/AttackRoll/RolledDice/WithoutFill",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt",
+      "qntFileSha256": "0c8873356d5858900f7e993e028f11352ed28e92c9e91abf366defb45c4ce476",
+      "branchFamily": "step",
+      "branchAction": "doFillSecondAttackHit",
+      "observedActionTaken": "doFillSecondAttackHit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "traceId": "L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillSecondAttackHit",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2f40536a3603d3a5e4cd2d0f4ad83b787c2e0faed724ece54197912f153e0cb8",
+        "observedProjectionSha256": "2f40536a3603d3a5e4cd2d0f4ad83b787c2e0faed724ece54197912f153e0cb8",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.IndependentSpellAttackSequence*",
+          "BattleGenericRouteFill.TargetChoice/AttackRoll/RolledDice/WithoutFill",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt",
+      "qntFileSha256": "0c8873356d5858900f7e993e028f11352ed28e92c9e91abf366defb45c4ce476",
+      "branchFamily": "step",
+      "branchAction": "doFillSecondAttackMiss",
+      "observedActionTaken": "doFillSecondAttackMiss",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "traceId": "L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillSecondAttackMiss",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "923715d7a1ec3e56309f15fbb2b67c43b349cd6d31dc4958535edd248e26d9a5",
+        "observedProjectionSha256": "923715d7a1ec3e56309f15fbb2b67c43b349cd6d31dc4958535edd248e26d9a5",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.IndependentSpellAttackSequence*",
+          "BattleGenericRouteFill.TargetChoice/AttackRoll/RolledDice/WithoutFill",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt",
+      "qntFileSha256": "0c8873356d5858900f7e993e028f11352ed28e92c9e91abf366defb45c4ce476",
+      "branchFamily": "step",
+      "branchAction": "doFillSecondDamageLow",
+      "observedActionTaken": "doFillSecondDamageLow",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "traceId": "L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillSecondDamageLow",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2c52c51206bc39c0ee7ae51474b52931fa97bf81077ac164d8d76bba5ddaae66",
+        "observedProjectionSha256": "2c52c51206bc39c0ee7ae51474b52931fa97bf81077ac164d8d76bba5ddaae66",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.IndependentSpellAttackSequence*",
+          "BattleGenericRouteFill.TargetChoice/AttackRoll/RolledDice/WithoutFill",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt",
+      "qntFileSha256": "0c8873356d5858900f7e993e028f11352ed28e92c9e91abf366defb45c4ce476",
+      "branchFamily": "step",
+      "branchAction": "doFillTwoCreatureTargets",
+      "observedActionTaken": "doFillTwoCreatureTargets",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "traceId": "L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillTwoCreatureTargets",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ad2d25471a2abe3783eaf5bf95feb46700d3c4f741e8c556200951491ff8c66e",
+        "observedProjectionSha256": "ad2d25471a2abe3783eaf5bf95feb46700d3c4f741e8c556200951491ff8c66e",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.IndependentSpellAttackSequence*",
+          "BattleGenericRouteFill.TargetChoice/AttackRoll/RolledDice/WithoutFill",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt",
+      "qntFileSha256": "0c8873356d5858900f7e993e028f11352ed28e92c9e91abf366defb45c4ce476",
+      "branchFamily": "step",
+      "branchAction": "doRejectStaleAfterResolved",
+      "observedActionTaken": "doRejectStaleAfterResolved",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+      "traceId": "L15-RR22 independent spell attack sequence route adapter seed=1 action=doRejectStaleAfterResolved",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "abd208b81bd40a4bbc6922e0b1b1d49d640e1f40e2c4d9bbbb77828fef2b3e19",
+        "observedProjectionSha256": "abd208b81bd40a4bbc6922e0b1b1d49d640e1f40e2c4d9bbbb77828fef2b3e19",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.IndependentSpellAttackSequence*",
+          "BattleGenericRouteFill.TargetChoice/AttackRoll/RolledDice/WithoutFill",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}
