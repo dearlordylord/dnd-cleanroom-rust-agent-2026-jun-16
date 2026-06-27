@@ -198,7 +198,7 @@
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "ready",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "review-clean-merge-ready",
-    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "fix-applied-pending-rereview"
+    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "review-clean-merge-ready"
   },
   "lastIntegrationVerification": {
     "head": "5a6e5d2d1975788acef1373786eb94dd0074407e",
@@ -299,7 +299,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08c",
       "branch": "ralph/l15-rr07-fu08c-metamagic-reroll-damage",
       "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
-      "status": "fix-applied-pending-rereview",
+      "status": "review-clean-merge-ready",
       "workerAgent": "019f079e-94a7-7e00-99a3-808e4091635d",
       "workerName": "Tesla",
       "commit": "a6e33d9bad73f82e20e0373986738e943d45233d",
@@ -349,6 +349,25 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
+      ],
+      "rereviewAgent": "019f07b8-0737-7380-ba31-b784c87fbd8c",
+      "rereviewName": "Hume",
+      "rereviewStatus": "clean",
+      "rereviewVerdict": "clean",
+      "rereviewSummary": [
+        "Mismatch rejection runs before admission, spend, action lock, projection, or route success.",
+        "Accepted FU08C rows still route through production observer entrypoints with independent expected routes.",
+        "No new authored-identity dispatch; artifacts unchanged because accepted evidence shape did not change."
+      ],
+      "rereviewVerification": [
+        "git merge-base --is-ancestor 6bad2c3509996b8cafab2a1d0258e3062e8ff60b HEAD",
+        "cargo test metamagic_option_spell_rejects_mismatched_option_facts_and_effect",
+        "cargo test spell_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b..HEAD"
       ]
     }
   ],
