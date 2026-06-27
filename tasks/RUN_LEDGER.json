@@ -1939,6 +1939,104 @@
           "sha256": "581de64311e181dff50d4acc50f9a276cca60f2b4afb3731da9670f08d07771c"
         }
       }
+    },
+    {
+      "taskId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt"
+      ],
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 6af492188311839dd4839b464b2e7049e3330568...HEAD",
+          "status": "pass"
+        }
+      ],
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json",
+          "sha256": "b9dd00616246063ae386534e5706f3ecc0a5c738d3a711c742d020b55892f82e",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFinalizeCriminalAlertOriginFeat#step:doFinalizeCriminalAlertOriginFeat",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectAlertInitiativeHandoff#step:doProjectAlertInitiativeHandoff",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectSheetHitPointsArmorClassConditionsAndProfiles#step:doProjectSheetHitPointsArmorClassConditionsAndProfiles",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectPurePactMagicSlot#step:doProjectPurePactMagicSlot",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMixedSpellAndPactSlotInit#step:doRejectMixedSpellAndPactSlotInit",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectBuildMaximumAboveBuildMaximum#step:doRejectBuildMaximumAboveBuildMaximum",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectStableRecoveryProgressDuringInit#step:doRejectStableRecoveryProgressDuringInit",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleHitPointsConditionsSlotsAndPreservedSheetState#step:doSettleHitPointsConditionsSlotsAndPreservedSheetState",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettlePurePactMagicSlotExpenditure#step:doSettlePurePactMagicSlotExpenditure",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMixedSpellAndPactSlotSettlement#step:doRejectMixedSpellAndPactSlotSettlement",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleFeatureResourceExpenditure#step:doSettleFeatureResourceExpenditure",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMismatchedCharacterIdentity#step:doRejectMismatchedCharacterIdentity",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectMaximumHpDrift#step:doRejectMaximumHpDrift",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectActiveWildShapeHandoff#step:doRejectActiveWildShapeHandoff",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectActiveBattleStateHandoff#step:doRejectActiveBattleStateHandoff",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectStableRecoveryProgressHandoff#step:doRejectStableRecoveryProgressHandoff",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleZeroHpStableLifecycle#step:doSettleZeroHpStableLifecycle",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFinalizeDraftToBuild#step:doFinalizeDraftToBuild",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doCreateSheetFromBuild#step:doCreateSheetFromBuild",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectSheetToBattleInit#step:doProjectSheetToBattleInit",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doResolveSkeletonShortswordAttack#step:doResolveSkeletonShortswordAttack",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doSettleBattleToSheet#step:doSettleBattleToSheet",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLayOnHandsRestoresHpAndRemovesPoisoned#step:doLayOnHandsRestoresHpAndRemovesPoisoned",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectLayOnHandsOverspend#step:doRejectLayOnHandsOverspend",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLongRestClearsLayOnHandsPool#step:doLongRestClearsLayOnHandsPool",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doShortRestRecoversUseCountPools#step:doShortRestRecoversUseCountPools",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLongRestClearsPointPoolAndUseState#step:doLongRestClearsPointPoolAndUseState",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFontOfMagicSlotToPoints#step:doFontOfMagicSlotToPoints",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doShortRestPreservesUncannyUseState#step:doShortRestPreservesUncannyUseState",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLongRestClearsUncannyUseState#step:doLongRestClearsUncannyUseState",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doUncannyMetabolismRecoversFocusAndHeals#step:doUncannyMetabolismRecoversFocusAndHeals",
+            "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectUncannyMetabolismRepeatUse#step:doRejectUncannyMetabolismRepeatUse"
+          ]
+        }
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/START_GATE.json",
+          "sha256": "08014822c9f70ed89cf1edc8d7536ebb72d214d8bc9882af2de6683821458179"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "6d41f255c93c1b60257a6858088f0c39f209a6a8ee02a2ab67b0ad16cefba010"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "1050fdd13a6af74cf978e29b76053b2355e3a3f96322232ad15a871085d01034"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/REVIEW_LOOP.json",
+          "sha256": "d76b0824f17454c44bfcfe553986b78a8ff63f227b137ef0063b13f857978cc6"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/DECIDER_DECISION.json",
+          "sha256": "e3535bfaea2aa3e02fdbad9a452bdd1c2b2574f3ab418304c794a9fb312a1582"
+        }
+      }
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

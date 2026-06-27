@@ -10,24 +10,24 @@ pub enum CharacterLifecycleLayer {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct CharacterLifecycleFacts {
-    draft_has_open_holes: bool,
-    build_finalized: bool,
-    sheet_owns_hit_points: bool,
-    sheet_current_hp: i16,
-    sheet_max_hp: i16,
-    battle_init_character_combatant: bool,
-    battle_runtime_character_hp: i16,
-    battle_runtime_hp_changed: bool,
-    settlement_current_hp: i16,
-    settlement_persisted_battle_hp: bool,
-    build_identity_unchanged: bool,
+    pub draft_has_open_holes: bool,
+    pub build_finalized: bool,
+    pub sheet_owns_hit_points: bool,
+    pub sheet_current_hp: i16,
+    pub sheet_max_hp: i16,
+    pub battle_init_character_combatant: bool,
+    pub battle_runtime_character_hp: i16,
+    pub battle_runtime_hp_changed: bool,
+    pub settlement_current_hp: i16,
+    pub settlement_persisted_battle_hp: bool,
+    pub build_identity_unchanged: bool,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct CharacterLifecycleProjection {
-    layer: CharacterLifecycleLayer,
-    facts: CharacterLifecycleFacts,
-    replay_index: i16,
+    pub layer: CharacterLifecycleLayer,
+    pub facts: CharacterLifecycleFacts,
+    pub replay_index: i16,
 }
 
 const SHEET_WITNESS_HIT_POINTS: i16 = 12;
@@ -142,7 +142,7 @@ pub fn draft_character_lifecycle_projection() -> CharacterLifecycleProjection {
 #[must_use]
 pub fn finalize_draft_to_build() -> CharacterLifecycleProjection {
     // QNT: character-layer-projection-lifecycle.mbt.qnt
-    // `doFinalizeDraftToBuild`.
+    // build-layer transition.
     record_projection(CharacterLifecycleLayer::Build, finalized_build_facts(), 1)
 }
 
@@ -151,7 +151,7 @@ pub fn create_sheet_from_build() -> CharacterLifecycleProjection {
     // RAW: cleanroom-input/raw/srd-5.2.1/Character-Creation.md
     // "Hit Points"; domain: Character Sheet owns persistent PC HP.
     // QNT: character-layer-projection-lifecycle.mbt.qnt
-    // `doCreateSheetFromBuild`.
+    // sheet-layer transition.
     record_projection(CharacterLifecycleLayer::Sheet, character_sheet_facts(), 2)
 }
 
@@ -159,7 +159,7 @@ pub fn create_sheet_from_build() -> CharacterLifecycleProjection {
 pub fn project_sheet_to_battle_init() -> CharacterLifecycleProjection {
     // Domain: a Character Sheet projects creature-level combat statistics.
     // QNT: character-layer-projection-lifecycle.mbt.qnt
-    // `doProjectSheetToBattleInit`.
+    // battle-init projection transition.
     record_projection(
         CharacterLifecycleLayer::BattleInitProjection,
         battle_init_projection_facts(),
@@ -171,7 +171,7 @@ pub fn project_sheet_to_battle_init() -> CharacterLifecycleProjection {
 pub fn resolve_skeleton_shortsword_attack() -> CharacterLifecycleProjection {
     // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
     // "Hit Points"; QNT: character-layer-projection-lifecycle.mbt.qnt
-    // `doResolveSkeletonShortswordAttack`.
+    // battle-runtime hit point mutation transition.
     record_projection(
         CharacterLifecycleLayer::BattleRuntime,
         battle_runtime_facts(),
@@ -183,7 +183,7 @@ pub fn resolve_skeleton_shortsword_attack() -> CharacterLifecycleProjection {
 pub fn settle_battle_to_sheet() -> CharacterLifecycleProjection {
     // Settlement writes accepted battle-owned HP deltas back to the
     // Character Sheet while preserving build identity. QNT:
-    // character-layer-projection-lifecycle.mbt.qnt `doSettleBattleToSheet`.
+    // character-layer-projection-lifecycle.mbt.qnt settlement transition.
     record_projection(CharacterLifecycleLayer::Settlement, settlement_facts(), 5)
 }
 

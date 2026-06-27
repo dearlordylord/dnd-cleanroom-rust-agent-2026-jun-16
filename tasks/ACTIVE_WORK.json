@@ -196,6 +196,16 @@
             "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt"
           ]
+        },
+        {
+          "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
+          "queue": [
+            "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+            "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+            "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
+            "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt"
+          ]
         }
       ]
     },

@@ -587,6 +587,7 @@ use crate::rules::zero_hit_point_mid_resolution::{
     ZERO_HP_SOURCE_DAMAGE, ZERO_HP_SOURCE_INITIAL_HIT_POINTS,
 };
 
+use crate::rules::character_battle_handoff::character_battle_route_payload;
 use battle_runtime_adrenaline_rush::{
     expected_witness as expected_adrenaline_rush_witness,
     projection_payload as adrenaline_rush_projection_payload,
@@ -981,21 +982,26 @@ use battle_runtime_zero_hit_point_mid_resolution::{
     BRANCH_ACTIONS as ZERO_HIT_POINT_MID_RESOLUTION_BRANCH_ACTIONS,
 };
 use character_battle_init_projection::{
+    expected_route as expected_battle_init_projection_route,
     expected_witness as expected_battle_init_projection_witness,
     projection_payload as battle_init_projection_payload,
     replay_observed_action as replay_battle_init_projection_action,
+    replay_observed_route as replay_battle_init_projection_route,
     BRANCH_ACTIONS as BATTLE_INIT_PROJECTION_BRANCH_ACTIONS,
 };
 use character_battle_origin_feat_selected_identity::{
-    expected_witness as expected_origin_feat_witness,
+    expected_route as expected_origin_feat_route, expected_witness as expected_origin_feat_witness,
     projection_payload as origin_feat_projection_payload,
     replay_observed_action as replay_origin_feat_action,
+    replay_observed_route as replay_origin_feat_route,
     BRANCH_ACTIONS as ORIGIN_FEAT_BRANCH_ACTIONS,
 };
 use character_battle_settlement::{
+    expected_route as expected_battle_settlement_route,
     expected_witness as expected_battle_settlement_witness,
     projection_payload as battle_settlement_projection_payload,
     replay_observed_action as replay_battle_settlement_action,
+    replay_observed_route as replay_battle_settlement_route,
     BRANCH_ACTIONS as BATTLE_SETTLEMENT_BRANCH_ACTIONS,
 };
 use character_creation_class_feature_projections::{
@@ -1061,9 +1067,10 @@ use character_creation_weapon_mastery_containers_selected_identity::{
     BRANCH_ACTIONS as CREATION_WEAPON_MASTERY_BRANCH_ACTIONS,
 };
 use character_layer_projection_lifecycle::{
-    expected_witness as expected_lifecycle_witness,
+    expected_route as expected_lifecycle_route, expected_witness as expected_lifecycle_witness,
     projection_payload as lifecycle_projection_payload,
-    replay_observed_action as replay_lifecycle_action, BRANCH_ACTIONS as LIFECYCLE_BRANCH_ACTIONS,
+    replay_observed_action as replay_lifecycle_action,
+    replay_observed_route as replay_lifecycle_route, BRANCH_ACTIONS as LIFECYCLE_BRANCH_ACTIONS,
 };
 use character_sheet_ability_check_proficiency_bonus::{
     expected_expertise_witness, expected_jack_of_all_trades_level_two_witness,
@@ -1097,9 +1104,11 @@ use character_sheet_class_feature_selected_identity::{
     BRANCH_ACTIONS as SHEET_CLASS_FEATURE_BRANCH_ACTIONS,
 };
 use character_sheet_feature_resources::{
+    expected_route as expected_sheet_feature_resource_route,
     expected_witness as expected_sheet_feature_resource_witness,
     projection_payload as sheet_feature_resource_projection_payload,
     replay_observed_action as replay_sheet_feature_resource_action,
+    replay_observed_route as replay_sheet_feature_resource_route,
     BRANCH_ACTIONS as SHEET_FEATURE_RESOURCE_BRANCH_ACTIONS,
 };
 use character_sheet_healing_resource_selected_identity::{
@@ -2048,8 +2057,12 @@ fn origin_feat_adapter_replays_all_branches() {
     // character-battle-origin-feat-selected-identity.mbt.qnt.
     for action in ORIGIN_FEAT_BRANCH_ACTIONS {
         let observed = replay_origin_feat_action(action);
+        let observed_route = replay_origin_feat_route(action);
         assert_eq!(observed, expected_origin_feat_witness(action));
+        assert_eq!(observed_route, expected_origin_feat_route(action));
         assert!(origin_feat_projection_payload(&observed).contains("originFeatUnitId=alert"));
+        assert!(character_battle_route_payload(&observed_route)
+            .contains("HandoffSelectedReferenceRouteSubject"));
     }
 }
 
@@ -2057,18 +2070,26 @@ fn origin_feat_adapter_replays_all_branches() {
 fn battle_init_projection_adapter_replays_all_driver_branches() {
     // QNT: cleanroom-input/qnt/character-battle-runtime/
     // character-battle-init-projection.mbt.qnt.
-    const IN_SCOPE_ACTIONS: [&str; 3] = [
+    const IN_SCOPE_ACTIONS: [&str; 5] = [
         "doProjectSheetHitPointsArmorClassConditionsAndProfiles",
+        "doProjectPurePactMagicSlot",
+        "doRejectMixedSpellAndPactSlotInit",
         "doRejectBuildMaximumAboveBuildMaximum",
         "doRejectStableRecoveryProgressDuringInit",
     ];
 
-    assert_eq!(BATTLE_INIT_PROJECTION_BRANCH_ACTIONS.len(), 4);
-    assert_eq!(IN_SCOPE_ACTIONS.len(), 3);
+    assert_eq!(BATTLE_INIT_PROJECTION_BRANCH_ACTIONS.len(), 5);
+    assert_eq!(IN_SCOPE_ACTIONS.len(), 5);
     for action in BATTLE_INIT_PROJECTION_BRANCH_ACTIONS {
         let observed = replay_battle_init_projection_action(action);
+        let observed_route = replay_battle_init_projection_route(action);
         assert_eq!(observed, expected_battle_init_projection_witness(action));
+        assert_eq!(
+            observed_route,
+            expected_battle_init_projection_route(action)
+        );
         assert!(battle_init_projection_payload(&observed).contains("replayIndex="));
+        assert!(character_battle_route_payload(&observed_route).contains("CharacterBattle"));
     }
 }
 
@@ -2076,22 +2097,30 @@ fn battle_init_projection_adapter_replays_all_driver_branches() {
 fn battle_settlement_adapter_replays_all_driver_branches() {
     // QNT: cleanroom-input/qnt/character-battle-runtime/
     // character-battle-settlement.mbt.qnt.
-    const IN_SCOPE_ACTIONS: [&str; 7] = [
+    const IN_SCOPE_ACTIONS: [&str; 11] = [
         "doSettleHitPointsConditionsSlotsAndPreservedSheetState",
+        "doSettlePurePactMagicSlotExpenditure",
+        "doRejectMixedSpellAndPactSlotSettlement",
         "doSettleFeatureResourceExpenditure",
         "doRejectMismatchedCharacterIdentity",
         "doRejectMaximumHpDrift",
         "doRejectActiveWildShapeHandoff",
+        "doRejectActiveBattleStateHandoff",
         "doRejectStableRecoveryProgressHandoff",
         "doSettleZeroHpStableLifecycle",
+        "doRejectAmbiguousCreatedSpellSlotSource",
     ];
 
-    assert_eq!(BATTLE_SETTLEMENT_BRANCH_ACTIONS.len(), 8);
-    assert_eq!(IN_SCOPE_ACTIONS.len(), 7);
+    assert_eq!(BATTLE_SETTLEMENT_BRANCH_ACTIONS.len(), 11);
+    assert_eq!(IN_SCOPE_ACTIONS.len(), 11);
     for action in BATTLE_SETTLEMENT_BRANCH_ACTIONS {
         let observed = replay_battle_settlement_action(action);
+        let observed_route = replay_battle_settlement_route(action);
         assert_eq!(observed, expected_battle_settlement_witness(action));
+        assert_eq!(observed_route, expected_battle_settlement_route(action));
         assert!(battle_settlement_projection_payload(&observed).contains("replayIndex="));
+        assert!(character_battle_route_payload(&observed_route)
+            .contains("BattleToSheetSettlementRouteSubject"));
     }
 }
 
@@ -2101,8 +2130,12 @@ fn lifecycle_adapter_replays_all_branches() {
     // character-layer-projection-lifecycle.mbt.qnt.
     for action in LIFECYCLE_BRANCH_ACTIONS {
         let observed = replay_lifecycle_action(action);
+        let observed_route = replay_lifecycle_route(action);
         assert_eq!(observed, expected_lifecycle_witness(action));
+        assert_eq!(observed_route, expected_lifecycle_route(action));
         assert!(lifecycle_projection_payload(&observed).contains("qReplayIndex="));
+        assert!(character_battle_route_payload(&observed_route)
+            .contains("RouteProjectCharacterSheetToBattle"));
     }
 }
 
@@ -2126,8 +2159,15 @@ fn sheet_feature_resources_adapter_replays_all_driver_branches() {
     assert_eq!(IN_SCOPE_ACTIONS.len(), 9);
     for action in SHEET_FEATURE_RESOURCE_BRANCH_ACTIONS {
         let observed = replay_sheet_feature_resource_action(action);
+        let observed_route = replay_sheet_feature_resource_route(action);
         assert_eq!(observed, expected_sheet_feature_resource_witness(action));
+        assert_eq!(
+            observed_route,
+            expected_sheet_feature_resource_route(action)
+        );
         assert!(sheet_feature_resource_projection_payload(&observed).contains("replayIndex="));
+        assert!(character_battle_route_payload(&observed_route)
+            .contains("HandoffFeatureResourceProjectionRouteSubject"));
     }
 }
 
