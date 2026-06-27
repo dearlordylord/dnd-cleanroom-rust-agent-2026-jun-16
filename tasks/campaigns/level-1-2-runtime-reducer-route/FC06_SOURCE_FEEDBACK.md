@@ -2,7 +2,7 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: `complete`
+Status: `partially-resolved`
 
 Fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 
@@ -22,6 +22,10 @@ Fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-ru
   programmatic synthetic sheet creation, sheet-to-battle handoff, and a simple
   reducer-driven battle turn using `BattleSetup`, `start_battle`,
   `discover_battle_acts`, `resolve_battle_subject`, and `advance_turn`.
+- After source commit `0387d29f9282037637b4256c3c7f292bab7ef85c`, the fresh
+  target also proved the integrated SDK tracer bullet: sheet projection,
+  encounter composition, battle entry, act discovery, subject resolution, damage
+  mutation, action spend, and turn advancement through public APIs.
 
 Evidence:
 
@@ -29,6 +33,7 @@ Evidence:
 - `EVIDENCE/sdk-tracer-bullet-programmatic-surface.json`
 - `FRESH_RUN_REPORT.md` in the fresh target
 - `BLOCKERS.json` in the fresh target
+- `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` in this campaign directory
 
 ## What It Did Not Prove
 
@@ -36,15 +41,9 @@ Evidence:
   in `character-battle-init-projection.mbt.qnt`. The projection witness has
   those branches, but `character-battle-init-projection.route.mbt.qnt` has no
   matching generic route surfaces.
-- The SDK tracer-bullet did not prove one integrated
-  sheet-handoff-to-simple-turn scenario. The public handoff path creates a
-  `BattleState` with the projected character only, with no opponent and no
-  subject profiles; the target has no public composition API to add those facts
-  before or after entry.
-- The fresh run did not prove any source semantics for encounter composition.
-  It only exposed that the current cleanroom inputs do not tell a future target
-  how to combine a sheet-derived combatant, other combatants, and generic
-  battle subject profiles.
+- FC-05 by itself did not prove one integrated sheet-handoff-to-simple-turn
+  scenario. That gap is now closed by the later encounter-composition source
+  connector and fresh target evidence.
 
 ## Source-Side Gaps
 
@@ -80,33 +79,26 @@ Required source task:
 
 ### Encounter Composition Surface
 
-Current source inputs:
+Status: `resolved`
 
-- `cleanroom-input/guidance/reducer-spine.md` defines `start_battle` from
-  battle setup and separately defines character-battle handoff entrypoints.
-- The FC-05 route connector defines projection and battle-entry route events,
-  not encounter assembly.
-- The SDK tracer evidence shows that public sheet handoff and simple battle
-  turn APIs exist separately, but no source QNT/guidance says how a
-  sheet-derived combatant is composed with opponents and generic subject
-  profiles.
+Resolved source inputs:
 
-Required source task:
+- `cleanroom-input/qnt/character-battle-runtime/character-battle-encounter-composition.route.mbt.qnt`
+- `cleanroom-input/qnt/character-battle-runtime/character-battle-reducer-route.qnt`
+- `cleanroom-input/guidance/reducer-spine.md`
 
-- Add QNT/guidance for encounter composition at the character-to-battle
-  boundary.
-- Inputs: character-battle init projection route, battle reducer route
-  vocabulary, reducer-spine guidance, and RAW/domain anchors for battle
-  participants and Initiative.
-- Outputs: a small source-side contract describing how a sheet-derived
-  combatant enters an encounter with other combatants and subject profiles.
-  The contract should specify owners for participant membership, subject
-  profile availability, Initiative/current actor facts, and whether composition
-  occurs before `start_battle`, inside handoff entry, or through a typed
-  post-entry reducer operation.
-- Boundary: the target API shape should follow this contract. A future
-  cleanroom agent should not infer encounter composition from the Rust target,
-  prior dirty scaffolding, or convenience methods.
+The route connector records the composition sequence and the owned fact-family
+sets for sheet-derived participant candidate, non-sheet participant membership,
+Encounter Side relationship ownership, subject-profile availability ownership,
+Initiative count ownership, stable Initiative order ownership, and current actor
+ownership.
+
+Fresh target evidence:
+
+- `enter_composed_battle_runtime`
+- `sdk_can_project_sheet_compose_encounter_and_drive_one_battle_turn`
+- `character_battle_encounter_composition_matches_route_connector`
+- `EVIDENCE/sdk-tracer-bullet-programmatic-surface.json`
 
 ## Recommended Source-Side Tasks
 
@@ -115,26 +107,30 @@ Required source task:
    vocabulary only. Output boundary: route connector facts or an explicit
    source blocker; no Rust target APIs.
 
-2. Create an encounter composition QNT/guidance task.
+2. Keep the encounter composition route connector as prerequisite evidence for
+   future fresh cleanroom runs.
    Input boundary: character-battle handoff QNT, battle reducer route QNT,
    reducer-spine guidance, and SRD/domain terms for combat participants and
    Initiative. Output boundary: source-side contract plus cleanroom guidance
    for public target surfaces; no target implementation.
 
-3. Update future fresh-run prompts to require these source facts before
-   claiming a full integrated SDK tracer-bullet.
+3. Update future fresh-run prompts to require the encounter-composition source
+   facts before claiming a full integrated SDK tracer-bullet.
    Input boundary: this FC-06 artifact and fresh target evidence. Output
    boundary: campaign prompts/readiness notes that keep the limitation visible.
 
 ## Why This Belongs In QNT And Guidance
 
-Both gaps are ownership and route-shape decisions. If a cleanroom target fills
-them in locally, it can pass tests while teaching the wrong architecture:
+These gaps were ownership and route-shape decisions. If a cleanroom target fills
+one in locally before source QNT/guidance exists, it can pass tests while
+teaching the wrong architecture:
 
 - Pact Slot handling decides whether resource projection has distinct owners,
   distinct slot facts, or a typed rejection path.
 - Encounter composition decides who owns participant membership, subject
-  profiles, Initiative/current actor facts, and handoff-to-battle sequencing.
+  profiles, Initiative/current actor facts, and handoff-to-battle sequencing;
+  this is now encoded by the encounter-composition route connector and fresh
+  target evidence.
 
 Those are not implementation conveniences. They are cross-layer contracts that
 future targets need to share. Encoding them in QNT/guidance keeps route

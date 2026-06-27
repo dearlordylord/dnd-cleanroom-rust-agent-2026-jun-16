@@ -2,7 +2,7 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: ready to launch after the operator chooses a fresh target directory.
+Status: accepted through the SDK tracer-bullet composition checkpoint.
 
 ## Purpose
 
@@ -27,6 +27,12 @@ implementation knowledge or production authored-identity dispatch.
 The fresh dry run is successful if it produces a small, honest target plus
 blocker notes that improve the source-side QNT/guidance package. It is not
 required to cover all `659` in-scope dirty-campaign obligations.
+
+Current accepted target:
+`/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
+
+Current accepted SDK tracer commit:
+`893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 ## Hard Boundaries
 
@@ -95,6 +101,9 @@ directory:
   hashes.
 - `STATE_OWNERS.md` or equivalent: durable state owners and derivability
   records.
+
+The SDK tracer-bullet acceptance is summarized in
+`FRESH_SDK_COMPOSITION_ACCEPTANCE.md`.
 
 ## Tracer Sequence
 
@@ -334,10 +343,10 @@ programmatic tracer-bullet scenario against the freshest usable target surface:
   concrete blocker explaining which missing surface prevents it.
 
 FC-06 source feedback is recorded in `FC06_SOURCE_FEEDBACK.md`. The first fresh
-SDK tracer-bullet was accepted only partial-with-limitation: public APIs can
-create a synthetic sheet, hand off into `BattleState`, and separately drive a
-simple battle turn, but a single integrated handoff-to-simple-turn scenario is
-blocked until source QNT/guidance defines an encounter composition surface.
+SDK tracer-bullet exposed a missing encounter-composition surface; source commit
+`0387d29f9282037637b4256c3c7f292bab7ef85c` added that route contract, and fresh
+target commit `893198ce66a35c8aad007ad8ac7a61c4631c64d9` accepted the full
+integrated sheet-to-composed-encounter-to-simple-turn scenario.
 
 ## Parallelism
 

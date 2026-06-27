@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fc-06-source-feedback-complete",
+  "status": "fresh-sdk-composition-accepted",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -16,8 +16,8 @@
       "note": "CP8 accepted exactly the three remaining Mage Armor admission/lifecycle rows through the generic SpellBaseArmorClassEffectRouteSubject connector; the pre-existing base AC projection row was refreshed to the same connector shape without counting as a new CP8 row."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "d5a70b23ad05abd4188b1f0d37d9c6aba600cce5",
-      "note": "Refreshed cleanroom-input from source after generic SpellBaseArmorClassEffectRouteSubject connector and fixture sequencing denominator exclusions landed."
+      "sourceCommitSha": "0387d29f9282037637b4256c3c7f292bab7ef85c",
+      "note": "Refreshed cleanroom-input from source after character-battle encounter-composition route connector, fact-family route evidence, and prerequisite scaffold rendering landed."
     }
   },
   "denominator": {
@@ -2323,11 +2323,20 @@
   },
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
-  "freshCleanroomSourceFeedbackReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md",
+  "freshCleanroomSourceFeedbackReport": {
+    "path": "tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md",
+    "status": "partially-resolved",
+    "resolvedItems": [
+      "Encounter composition surface QNT/guidance task resolved by source commit 0387d29f9282037637b4256c3c7f292bab7ef85c and fresh target commit 893198ce66a35c8aad007ad8ac7a61c4631c64d9."
+    ],
+    "remainingItems": [
+      "Pact Slot handoff route surfaces for pure Pact Slot and mixed Spell Slot/Pact Slot branches remain source-side follow-up."
+    ]
+  },
   "freshCleanroomDryRun": {
-    "status": "fc-06-source-feedback-complete",
-    "phase": "FC-06",
-    "phaseName": "Audit And Source Feedback",
+    "status": "accepted-through-sdk-composition",
+    "phase": "SDK-TRACER-BULLET-PROGRAMMATIC-SURFACE",
+    "phaseName": "Integrated SDK Composition Tracer Bullet",
     "activePhase": {
       "phase": "FC-06",
       "phaseName": "Audit And Source Feedback",
@@ -2551,6 +2560,14 @@
         "phase": "FC-06",
         "status": "source-feedback-complete",
         "artifact": "tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md"
+      },
+      {
+        "phase": "SDK-TRACER-BULLET-PROGRAMMATIC-SURFACE",
+        "status": "reviewed-accepted",
+        "sourceCommitSha": "0387d29f9282037637b4256c3c7f292bab7ef85c",
+        "implementationCommit": "ed768b281796887341cbed8eead4a80c05bbd09c",
+        "targetHead": "893198ce66a35c8aad007ad8ac7a61c4631c64d9",
+        "artifact": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_SDK_COMPOSITION_ACCEPTANCE.md"
       }
     ],
     "previousAcceptedPhase": {
@@ -2608,16 +2625,11 @@
     ],
     "completionGates": [
       {
-        "id": "programmatic-tracer-bullet-scenario",
-        "status": "reviewed-accepted-with-limitation",
-        "description": "Before the broader reducer-spine goal is considered done, run an SDK-style public programmatic surface scenario: create a character, hand off or project it into a simple battle, and drive at least one complete simple battle turn through public reducer/runtime APIs. Prefer the fresh target; if only the dirty cleanroom can run it, record that limitation.",
-        "lastUpdated": "2026-06-27",
-        "workerAgent": "019f0a07-f2ad-7f72-985f-dad61f35ea1e",
-        "targetBaseCommit": "380cf29e49d509bc0f246cf9aa022f226e42efd8",
-        "reviewerAgent": "019f0a29-bada-7af1-8de9-db3ed994effb",
-        "targetHead": "e6394e544900ad5e851e918cf1980a7b5b1f78cd",
-        "fullFledgedIntegratedScenarioPossibleNow": false,
-        "blocker": "SDK-tracer-handoff-battle-lacks-encounter-composition-surface"
+        "gate": "SDK tracer bullet public programmatic surface",
+        "status": "accepted",
+        "fullFledgedIntegratedScenarioPossibleNow": true,
+        "evidence": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_SDK_COMPOSITION_ACCEPTANCE.md",
+        "targetCommit": "893198ce66a35c8aad007ad8ac7a61c4631c64d9"
       }
     ],
     "earlierReviewedPhaseFc04": {
@@ -2659,44 +2671,40 @@
     }
   },
   "nextWorkRecommendations": [
-    "Use FC06_SOURCE_FEEDBACK.md as the source-side follow-up record for fresh cleanroom limitations.",
-    "Add source QNT/guidance for an encounter composition surface before asking a future cleanroom run to prove an integrated sheet-handoff-to-simple-turn SDK tracer.",
     "Add or explicitly block Pact Slot handoff route connector surfaces for the pure Pact Slot and mixed Spell Slot/Pact Slot branches in character-battle-init-projection.mbt.qnt.",
-    "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception."
+    "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
+    "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
+    "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
   "sdkTracerBullet": {
-    "status": "reviewed-accepted-with-limitation",
+    "status": "reviewed-accepted",
     "preferredTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
-    "fallbackTarget": "dirty cleanroom only if the fresh target cannot express the scenario yet",
-    "requiredScenario": "Use public/programmatic APIs to create a synthetic character sheet, project or hand off the character into a simple battle, discover and resolve at least one battle act, and advance a complete simple turn.",
-    "evidenceRequirement": "Record whether the surface is full-fledged or limited, and ensure any battle behavior goes through reducer entrypoints rather than local replay helpers.",
-    "workerAgent": "019f0a07-f2ad-7f72-985f-dad61f35ea1e",
-    "workerName": "Godel the 2nd",
-    "reviewerAgent": "019f0a29-bada-7af1-8de9-db3ed994effb",
-    "reviewerName": "Chandrasekhar the 2nd",
-    "targetBaseCommit": "380cf29e49d509bc0f246cf9aa022f226e42efd8",
-    "campaignLaunchCommit": "69970c2",
-    "targetHead": "e6394e544900ad5e851e918cf1980a7b5b1f78cd",
-    "evidenceCommit": "88eb160ad8f2af9fa0bc688d382d52923dca718b",
-    "statusDetail": "Programmatic sheet creation, sheet-to-battle handoff, and a separate public reducer-driven simple battle turn pass. A single integrated handoff-to-simple-turn scenario is blocked by missing public encounter composition surface.",
-    "fullFledgedIntegratedScenarioPossibleNow": false,
-    "blocker": {
+    "fallbackTarget": "not needed for this scenario; dirty target remains diagnostic evidence only",
+    "requiredScenario": "Use public/programmatic APIs to create a synthetic character sheet, project the character, compose an encounter with non-sheet participants and generic subject profiles, discover and resolve at least one battle act, and advance a complete simple turn.",
+    "evidenceRequirement": "Record full-fledged integrated surface evidence and ensure battle behavior goes through reducer entrypoints while character-battle composition emits copied route fact-family events.",
+    "sourceCommitSha": "0387d29f9282037637b4256c3c7f292bab7ef85c",
+    "workerAgent": "019f0a55-85f0-76b3-9cc2-228e24c200c9",
+    "workerName": "Popper the 2nd",
+    "targetBaseCommit": "e6394e544900ad5e851e918cf1980a7b5b1f78cd",
+    "targetHead": "893198ce66a35c8aad007ad8ac7a61c4631c64d9",
+    "implementationCommit": "ed768b281796887341cbed8eead4a80c05bbd09c",
+    "evidenceCommit": "893198ce66a35c8aad007ad8ac7a61c4631c64d9",
+    "statusDetail": "Programmatic sheet creation, projection, encounter composition, BattleState entry, act discovery, subject resolution, HP mutation, action spend, and turn advancement pass through public APIs. The previous missing encounter-composition blocker is closed.",
+    "fullFledgedIntegratedScenarioPossibleNow": true,
+    "closedBlocker": {
       "id": "SDK-tracer-handoff-battle-lacks-encounter-composition-surface",
-      "classification": "target-public-api-limitation",
-      "requiredPublicSurface": "A public encounter composition path that can combine a sheet-derived combatant with other combatants and generic subject profiles before or during BattleState entry."
+      "classification": "closed-by-source-qnt-and-fresh-target",
+      "sourceConnector": "cleanroom-input/qnt/character-battle-runtime/character-battle-encounter-composition.route.mbt.qnt",
+      "targetEntrypoint": "enter_composed_battle_runtime"
     },
     "verification": [
       "cargo fmt --check",
-      "cargo test (22 reducer tests, 3 SDK tracer tests)",
-      "cargo clippy --all-targets -- -D warnings",
-      "python3 tools/verify_fc00.py",
-      "python3 tools/verify_fc01.py",
-      "python3 tools/verify_fc02.py",
-      "python3 tools/verify_fc03.py",
-      "python3 tools/verify_fc04.py",
-      "python3 tools/verify_fc05.py",
+      "cargo test --test sdk_tracer_bullet",
+      "cargo test --test reducer_spine character_battle_encounter_composition_matches_route_connector",
       "python3 tools/verify_sdk_tracer_bullet.py",
-      "git diff --check 380cf29e49d509bc0f246cf9aa022f226e42efd8...HEAD",
+      "cargo test (23 reducer tests, 3 SDK tracer tests)",
+      "cargo clippy --all-targets -- -D warnings",
+      "git diff --check",
       "git status --short"
     ]
   }

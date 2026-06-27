@@ -71,12 +71,12 @@ generic connector route shape but was not counted as a new CP8 row.
   without the old dirty Rust scaffolding.
 - It does not prove the Rust target is the desired final architecture. The Rust
   implementation is an evidence target, not the final product.
-- The FC-06 audit in `FC06_SOURCE_FEEDBACK.md` records two fresh-run source
-  feedback items: Pact Slot branches in the character-battle init projection
-  witness lack generic route connector surfaces, and the SDK tracer-bullet only
-  proves sheet creation, handoff, and a simple battle turn separately because a
-  single integrated handoff-to-simple-turn scenario lacks an encounter
-  composition surface.
+- The FC-06 audit in `FC06_SOURCE_FEEDBACK.md` originally recorded two
+  fresh-run source feedback items. Encounter composition is now resolved by
+  source commit `0387d29f9282037637b4256c3c7f292bab7ef85c` and fresh target
+  commit `893198ce66a35c8aad007ad8ac7a61c4631c64d9`; Pact Slot branches in the
+  character-battle init projection witness still lack generic route connector
+  surfaces.
 - It does not prove global harness cleanliness. `node
   scripts/check-cleanroom-harness.cjs` still fails on stale validator hashes in
   `cleanroom-input/MANIFEST.md` for:
@@ -128,13 +128,12 @@ bookkeeping.
 
 ## Recommended Next Work
 
-The dirty Rust target campaign is closed for the refreshed in-scope denominator.
-Next useful work is one of:
+The dirty Rust target campaign is closed for the refreshed in-scope denominator,
+and the fresh SDK composition tracer is accepted. Next useful work is one of:
 
-- launch the fresh cleanroom dry run described in
-  `FRESH_CLEANROOM_DRY_RUN_PLAN.md`;
-- address the FC-06 source feedback in `FC06_SOURCE_FEEDBACK.md` before
-  requiring a future cleanroom run to prove a full integrated SDK tracer-bullet;
+- address the remaining Pact Slot source feedback in `FC06_SOURCE_FEEDBACK.md`;
+- use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` as the accepted evidence for a full
+  integrated SDK tracer-bullet;
 - clean the global stale validator-hash / historical evidence debt so the dirty
   harness can pass without exception;
 - promote the strongest route-connector lessons back into source-side QNT and
