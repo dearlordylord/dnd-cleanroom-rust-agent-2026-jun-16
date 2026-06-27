@@ -2926,8 +2926,11 @@
           "status": "pass"
         },
         {
-          "command": "node scripts/check-cleanroom-harness.cjs (status 1; classified as pre-existing stale non-FU01C global harness debt; no FU01C hits)",
-          "status": "pass"
+          "classification": "pre-existing stale non-FU01C global harness debt; no FU01C hits",
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "exitStatus": 1,
+          "nonblocking": true,
+          "status": "classified-nonblocking-fail"
         },
         {
           "command": "git diff --check e08d2f034615250ce4e543938b28cb98e05bf976...HEAD",
