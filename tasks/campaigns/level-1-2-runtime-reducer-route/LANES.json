@@ -897,7 +897,7 @@
     {
       "laneId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
       "checkpointId": "CP5",
-      "status": "worker-running",
+      "status": "reviewing",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR15-AFTER-HIT-RIDER-OWNER-SPLIT",
