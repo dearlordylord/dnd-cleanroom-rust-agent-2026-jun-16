@@ -205,6 +205,24 @@ Template:
 - Review/fixer notes: review loop replaced projection-only and adapter-synthesized route evidence with production-observed route traces; `BattleState.feature_resources` is the battle-owned durable resource owner.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a`
 
+### L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE
+
+- Merge commit: `b909dfdaa01bca96953a590b9984518bd5e9bc68`
+- Lane commit(s): `07e47f01a9e728fcfe919b4af2e1a4592b97069f`
+- Drivers added: `4` net-new unique drivers.
+- Obligations added: `11` net-new counted obligations; total accepted obligations moved from `451` to `462`.
+- New total driver coverage: `63 / 97 = 64.9%`
+- New total obligation coverage: `462 / 668 = 69.2%`
+- Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`207 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: reviewer returned clean; observed Quickened/metamagic evidence routes through production observer entrypoints, expected route witnesses are literal, and production routing dispatches by metamagic option/effect shape rather than authored identity.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08a`
+
+### L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES
+
+- Current status: fix-applied-pending-rereview.
+- Lane commit(s): `710ff08b6114640820b147e5d0b4a460693e73e2`, `c1945b17d33c5f97ed0779284007039fb7dd090a`
+- Review/fixer notes: first reviewer found Find Familiar observed route evidence was adapter-local; fixer added production companion route ownership and Find Familiar route observation, retained the four Find Familiar accepted rows, and left existing level-2/3 condition-save rows out of scope.
+
 ## CP4 Launch Plan
 
 The small feature substrate batch was split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa` and is now merged:
