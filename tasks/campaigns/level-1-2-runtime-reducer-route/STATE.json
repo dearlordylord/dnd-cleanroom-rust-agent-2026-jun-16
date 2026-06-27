@@ -187,7 +187,7 @@
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
-    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "rereviewing",
+    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "fixing-rereview-artifact-finding",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
@@ -215,7 +215,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a",
       "branch": "ralph/l15-rr07-fu01a-catalog-ready",
       "baseSha": "4b24c074161a5bbe2b52ef1125c5f7044e3172e0",
-      "status": "rereviewing",
+      "status": "fixing-rereview-artifact-finding",
       "workerAgent": "019f0776-9fa7-7893-a111-b0aa8a7f73e3",
       "workerName": "Carver",
       "commit": "710ff08b6114640820b147e5d0b4a460693e73e2",
@@ -271,7 +271,24 @@
       ],
       "rereviewAgent": "019f0794-a7c8-7eb1-83d1-dccd5d0ba171",
       "rereviewName": "Descartes",
-      "rereviewStatus": "running"
+      "rereviewStatus": "findings",
+      "rereviewVerdict": "findings",
+      "rereviewFindings": [
+        "Low artifact mismatch: VALIDATION_REPORT.md claims cargo test find_familiar_selected_identity_adapter_replays_all_branches passed, but RUN_LEDGER.json command block does not record that focused command; either log it or align report wording with the ledger."
+      ],
+      "rereviewSummary": [
+        "Prior P1 code finding is fixed: Find Familiar observed route evidence flows through production BattleReducerRouteTrace and companion route owner/family, with literal independent expected witnesses.",
+        "No authored-name route subject dispatch found in reviewed path."
+      ],
+      "rereviewVerification": [
+        "git merge-base --is-ancestor 4b24c074161a5bbe2b52ef1125c5f7044e3172e0 HEAD",
+        "cargo test find_familiar_selected_identity_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs"
+      ]
     }
   ],
   "completedLaneWorktrees": [
