@@ -2342,9 +2342,15 @@
       "reviewFindings": [
         {
           "severity": "high",
-          "status": "fixer-queued",
+          "status": "fixed-awaiting-final-review",
           "summary": "resolve_battle_subject accepts foreign subjects from another BattleState when id/generation/actor collide, allowing adapter-local helper synthesis and caller-influenced observed route evidence.",
           "requiredFix": "Require reducer-owned subject identity from the same BattleState, validate full subject/profile/hole state or add a state-scoped token, and emit route events from stored reducer subject data rather than caller-supplied subject data."
+        },
+        {
+          "severity": "high",
+          "status": "fixer-queued",
+          "summary": "resolve_battle_subject removes the stored SubjectProgress before target validation; invalid target input can erase the reducer-owned subject frontier and make a later valid fill look undiscovered.",
+          "requiredFix": "Validate before removal or reinsert the stored progress on validation failure, then add regression coverage proving invalid table input does not consume the open subject frontier."
         }
       ]
     },
