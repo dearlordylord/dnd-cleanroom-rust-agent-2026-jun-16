@@ -14,7 +14,6 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-b` | `ralph/l15-rrcp7-b-damage-spell-bridges` | `74d7988cd62baaf85b00a134deb7d84f4c513dc1` | `019f08db-bf2e-71f2-b447-19a0a450d398` Confucius the 2nd | running |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -73,3 +72,4 @@ When launching a lane:
 | L15-RRCP5-C-REACTION-INTERRUPT-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-c` | `ralph/l15-rrcp5-c-reactions` | `6300fce274c2c9774e0e159b068463d50a8958e2` | `97763b0f981424c462d7af86f0dd0463dd1b9012` | removable |
 | L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-e` | `ralph/l15-rrcp5-e-ability-search` | `3dd749a6440a073c10d303d56e05b8ad40af024c` | `e1cb8616d0a3fbe2aa59a69d7eeba28da6e7622d` | removable |
 | L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-a` | `ralph/l15-rrcp7-a-buff-mark-active-effects` | `a62478648dde859d7e814e1c99d8bdf7987b4af6` | `f8a438ebff90eb79e274b207c5c286080aaf6726` | removable |
+| L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-b` | `ralph/l15-rrcp7-b-damage-spell-bridges` | `2741da1671caa183a4907e6eec54de26c744d7e8` | `b33d9bbc1080c0d7a96ab606da07d0f517417096` | removable |

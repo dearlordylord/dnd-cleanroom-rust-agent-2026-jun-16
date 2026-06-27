@@ -23,19 +23,20 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is accepted after the copied route connector refresh. |
 | CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
 | CP6 Closure Sweep | complete | Closure audit recorded in `CP6_AUDIT.json` and `CP6_CLOSURE_REPORT.md`; every in-scope obligation is accepted or explicitly blocked. |
-| CP7 Post-CP6 Target Blocker Reduction | active | First lane `L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES` merged and verified; four FU01C target blockers are now accepted. |
+| CP7 Post-CP6 Target Blocker Reduction | active | `L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES` and `L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES` merged and verified; six target blockers are now accepted after CP6. |
 
 ## Last Known Verification
 
-At CP7 integration head `f8a438ebff90eb79e274b207c5c286080aaf6726`:
+At CP7 integration head `b33d9bbc1080c0d7a96ab606da07d0f517417096`:
 
-- `cargo test level1_buff_mark_smite_adapter_replays_all_branches -- --nocapture`: pass
-- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json`: pass, `12` obligations covered
+- `cargo test level1_damage_spell_adapter_replays_all_branches -- --nocapture`: pass
+- `cargo test attack_spell_shape_adapter_replays_all_branches -- --nocapture`: pass
+- `jq empty` over `tasks/RUN_LEDGER.json`, affected FU01B history/evidence files, and `CP7_AUDIT.json`: pass
 - `cargo fmt --check`: pass
 - `git diff --check HEAD~1...HEAD`: pass
 - `cargo test`: pass, `220` tests
 - `cargo clippy --all-targets -- -D warnings`: pass
-- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale non-FU01C evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7-cleanroom-harness.out` contained no FU01C/buff-mark references.
+- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale non-FU01B evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7b-cleanroom-harness.out` contained no FU01B/Chromatic/Starry references.
 
 ## Active Work
 
@@ -461,3 +462,16 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Integration verification: focused FU01C adapter test, focused FU01C target replay evidence check, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`220 passed`), and `cargo clippy --all-targets -- -D warnings` passed. `node scripts/check-cleanroom-harness.cjs` still fails on pre-existing stale non-FU01C global evidence/manifest debt.
 - Review/fixer notes: review confirmed the four selected FU01C rows route through shared reducer entrypoints and `BattleEntrypointTrace.route_events`, with generic `ConditionImmunityActiveEffect` and `MarkedEffect` subjects and no new durable `BattleState` fields. Fixer corrected `RUN_LEDGER.json` so the known global harness failure is recorded as `classified-nonblocking-fail` rather than `pass`; rereview returned clean.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-a`
+
+### L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES
+
+- Merge commit: `b33d9bbc1080c0d7a96ab606da07d0f517417096`
+- Lane commit(s): `38ee4e9d7f2331c6cb7a9fcd65d15778310f3aa3`, `2741da1671caa183a4907e6eec54de26c744d7e8`
+- Drivers added: `0` net-new unique drivers; FU01B was already counted.
+- Obligations added: `2` accepted counted obligations; total accepted obligations moved from `647` to `649`.
+- New total driver coverage: `97 / 97 = 100.0%`
+- New total obligation coverage: `649 / 668 = 97.2%`
+- Remaining blockers: `19` target-side blockers, `0` source-QNT corpus blockers, `0` unresolved in-scope obligations.
+- Integration verification: focused FU01B level-1 damage spell adapter test, focused attack spell shape adapter test, affected JSON parse checks, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`220` tests), and `cargo clippy --all-targets -- -D warnings` passed. `node scripts/check-cleanroom-harness.cjs` still fails on pre-existing stale non-FU01B global evidence/manifest debt; the saved output contained no FU01B/Chromatic/Starry references.
+- Review/fixer notes: review found omitted harness failure bookkeeping and overclaimed residual-row semantics. Fixer recorded the harness as `classified-nonblocking-fail`, narrowed the two residual rows to route-shape evidence only, and made the Chromatic Orb expected route witness independent. Rereview returned clean.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-b`

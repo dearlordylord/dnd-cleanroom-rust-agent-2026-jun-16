@@ -1096,7 +1096,7 @@
     {
       "laneId": "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
       "checkpointId": "CP7",
-      "status": "ready",
+      "status": "merged-verified",
       "parallelGroup": "cp7-target-blocker-reduction",
       "routeTaskIds": [
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
@@ -1130,7 +1130,7 @@
         "tasks/RUN_LEDGER.json",
         "tasks/VALIDATION_REPORT.md"
       ],
-      "acceptanceSummary": "The two selected FU01B rows replay through observed reducer entrypoints by reusing generic chained spell-attack sequence and object-target spell-attack substrates. Evidence must replace target blockers only when observed route events come from BattleEntrypointTrace, not adapter-local synthesis."
+      "acceptanceSummary": "Merged and verified. The two selected FU01B rows replay through observed reducer entrypoints by reusing generic chained spell-attack sequence and object-target spell-attack substrates; accepted coverage is route-shape evidence only, because selected damage-spell witness payloads remain projection-helper derived."
     }
   ],
   "standardVerification": [

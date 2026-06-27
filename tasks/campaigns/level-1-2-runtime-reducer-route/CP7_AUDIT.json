@@ -3,7 +3,7 @@
   "campaignId": "level-1-2-runtime-reducer-route",
   "integrationWorktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
   "integrationBranch": "ralph/rrconv-19-cleanroom",
-  "auditedHead": "f8a438ebff90eb79e274b207c5c286080aaf6726",
+  "auditedHead": "b33d9bbc1080c0d7a96ab606da07d0f517417096",
   "denominator": {
     "source": "cleanroom-input/branch-coverage/reducer-route-inventory.json",
     "denominatorId": "level-1-5-cleanroom-route-v1",
@@ -370,7 +370,7 @@
     }
   },
   "inputHashes": {
-    "runLedgerSha256": "97c3da85140f6280c2b17e3f074ac944e3e89c71498b73c6d72f11661d84fb8b",
+    "runLedgerSha256": "aed90163450c6e2b0eea9b062810e5b13c26cc9ab2831805e197acb6c07042ee",
     "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
     "reducerRouteInventorySha256": "a7e709e8e8988aab49c2274d7c3481d79ff9e1a9188e87f1888324106acec471"
   },
@@ -385,5 +385,17 @@
     "acceptedObligationsAdded": 4,
     "removedTargetBlockerObligations": 4,
     "note": "Four FU01C target blocker rows were accepted after generic condition-immunity active-effect and marked-effect reducer subjects produced observed BattleEntrypointTrace route evidence."
+  },
+  "cp7bRefresh": {
+    "laneId": "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
+    "mergeCommit": "b33d9bbc1080c0d7a96ab606da07d0f517417096",
+    "laneHead": "2741da1671caa183a4907e6eec54de26c744d7e8",
+    "decision": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/DECIDER_DECISION.json#decision:accepted",
+    "decisionSha256": "39394acbb07147508e2db08414bd77a89cfda3d24f4f08194d98f72c9302b619",
+    "evidence": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json",
+    "evidenceSha256": "a0f3d90df89e6f0a3ad586e6020d2411784acf01d7890413311cda1d83f794c6",
+    "acceptedObligationsAdded": 2,
+    "removedTargetBlockerObligations": 2,
+    "note": "Two FU01B residual damage-spell target blocker rows were accepted as route-shape evidence through generic chained spell-attack and object-target spell-attack route substrates. Their selected damage-spell witness payloads remain projection-helper derived and do not claim full BattleResolutionResult-derived semantics."
   }
 }

@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "post-cp6-active",
+  "status": "post-cp7-active",
   "dirtyCleanroomOnly": true,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "2455ec2f9b3c5d8b696d9cc144f196e9393038c6",
+    "lastVerifiedIntegrationHead": "b33d9bbc1080c0d7a96ab606da07d0f517417096",
     "lastMergedLane": {
-      "laneId": "CP6-CLOSURE-SWEEP",
-      "mergeCommit": null,
-      "laneHead": null,
-      "note": "CP6 closure bookkeeping refreshed over integration head 2455ec2f9b3c5d8b696d9cc144f196e9393038c6; FU01D accepted evidence is included in closure accounting."
+      "laneId": "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
+      "mergeCommit": "b33d9bbc1080c0d7a96ab606da07d0f517417096",
+      "laneHead": "2741da1671caa183a4907e6eec54de26c744d7e8",
+      "note": "CP7-B merged two residual FU01B damage-spell rows as route-shape evidence through existing generic spell-attack route substrates; selected witness payloads remain projection-helper derived."
     }
   },
   "denominator": {
@@ -36,13 +36,13 @@
   "coverageCurrent": {
     "acceptedUniqueDrivers": 97,
     "acceptedDriverCoveragePercent": 100,
-    "acceptedObligations": 647,
-    "acceptedObligationCoveragePercent": 96.9,
-    "blockedObligations": 21,
+    "acceptedObligations": 649,
+    "acceptedObligationCoveragePercent": 97.2,
+    "blockedObligations": 19,
     "outOfScopeObligations": 36,
     "unresolvedInScopeObligations": 0,
     "acceptedUniqueDriversSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit",
-    "acceptedObligationsSource": "target replay evidence pass runs keyed by driverPath#branchFamily:branchAction; target blockers excluded from accepted coverage; FU01D source-QNT blockers and four FU01C target blockers removed after accepted copied-connector replay evidence"
+    "acceptedObligationsSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit; FU01D source-QNT blockers, four FU01C target blockers, and two FU01B residual route-shape blockers removed after accepted copied-connector/reducer-entrypoint replay evidence."
   },
   "completedBeforeCampaign": [
     "T001",
@@ -188,14 +188,13 @@
       "dependsOn": [
         "CP6"
       ],
-      "runningLaneIds": [
+      "runningLaneIds": [],
+      "mergedLaneIds": [
+        "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
         "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES"
       ],
-      "mergedLaneIds": [
-        "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES"
-      ],
       "readyLaneIds": [],
-      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. L15-RRCP7-A accepted the four FU01C generic active-effect and marked-effect route gaps in battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt; CP7_AUDIT.json now records 647 accepted obligations and 21 target blockers. L15-RRCP7-B is queued for two FU01B residual damage-spell bridge rows."
+      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. CP7-A accepted four FU01C generic active-effect and marked-effect route gaps. CP7-B accepted two residual FU01B damage-spell rows as route-shape evidence through existing generic chained spell-attack and object-target spell-attack substrates; selected damage-spell witness payloads remain projection-helper derived, not full BattleResolutionResult-derived semantics. CP7_AUDIT.json now records 649 accepted obligations and 19 target blockers."
     }
   ],
   "laneStatuses": {
@@ -249,37 +248,81 @@
     "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "merged-verified",
     "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified",
     "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "merged-verified",
-    "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "running"
+    "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "f8a438ebff90eb79e274b207c5c286080aaf6726",
+    "head": "b33d9bbc1080c0d7a96ab606da07d0f517417096",
     "commands": [
-      "cargo test level1_buff_mark_smite_adapter_replays_all_branches -- --nocapture",
-      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json",
+      "cargo test level1_damage_spell_adapter_replays_all_branches -- --nocapture",
+      "cargo test attack_spell_shape_adapter_replays_all_branches -- --nocapture",
+      "jq empty tasks/RUN_LEDGER.json tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/DECIDER_DECISION.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/REVIEW_LOOP.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/STATE_OWNER_MANIFEST.json tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json",
       "cargo fmt --check",
       "git diff --check HEAD~1...HEAD",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings",
       "node scripts/check-cleanroom-harness.cjs"
     ],
-    "result": "focused FU01C checks, fmt, diff check, cargo test, and clippy passed; cleanroom harness failed only on pre-existing stale non-FU01C global evidence/manifest debt",
+    "result": "passed except cleanroom harness failed on pre-existing stale non-FU01B global evidence/manifest debt",
     "cargoTest": "220 passed",
-    "focusedCargoTest": "level1_buff_mark_smite_adapter_replays_all_branches: 1 passed, 219 filtered out",
-    "targetReplayEvidenceCheck": "12 FU01C obligations covered",
-    "cleanroomHarness": "failed as expected on stale non-FU01C manifest/evidence debt; /tmp/rrcp7-cleanroom-harness.out contained no FU01C/buff-mark references"
+    "focusedTests": "level1 damage spell and attack spell shape focused tests passed",
+    "cleanroomHarness": "failed as expected on stale non-FU01B manifest/evidence debt; /tmp/rrcp7b-cleanroom-harness.out contained no FU01B/Chromatic/Starry references"
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-b",
       "branch": "ralph/l15-rrcp7-b-damage-spell-bridges",
       "baseSha": "74d7988cd62baaf85b00a134deb7d84f4c513dc1",
-      "status": "running",
+      "status": "merged-verified",
       "workerAgent": "019f08db-bf2e-71f2-b447-19a0a450d398",
-      "workerName": "Confucius the 2nd"
-    }
-  ],
-  "completedLaneWorktrees": [
+      "workerName": "Confucius the 2nd",
+      "workerStatus": "complete",
+      "workerCommit": "38ee4e9d7f2331c6cb7a9fcd65d15778310f3aa3",
+      "acceptedRows": 2,
+      "blockedRows": 0,
+      "workerSummary": [
+        "Accepted two residual FU01B damage-spell rows by routing them through existing chained spell-attack and object-target spell-attack route substrates.",
+        "Kept production routing shape-based and avoided selected spell identity dispatch."
+      ],
+      "reviewAgent": "019f08e8-1de2-7510-a0e4-d7a7162b4487",
+      "reviewName": "Pascal the 2nd",
+      "reviewStatus": "findings",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "RUN_LEDGER.json omitted the failed cleanroom harness command.",
+        "Artifacts overclaimed full reducer replay even though the selected witness payload remains projection-helper derived for the residual rows.",
+        "Chromatic Orb expected route reused route-table construction too closely with observed replay."
+      ],
+      "fixerAgent": "019f08ea-dde0-79d2-b571-b2d0ab968957",
+      "fixerName": "Galileo the 2nd",
+      "fixerStatus": "complete",
+      "fixerCommit": "2741da1671caa183a4907e6eec54de26c744d7e8",
+      "fixerSummary": [
+        "Recorded the cleanroom harness run as classified-nonblocking-fail with pre-existing stale non-FU01B global harness debt.",
+        "Narrowed accepted claims to route-shape evidence for the two residual rows.",
+        "Made the Chromatic Orb expected route witness independent from observed route replay."
+      ],
+      "rereviewAgent": "019f08f3-910c-7172-bc82-0bf9066c8aee",
+      "rereviewName": "Gauss the 2nd",
+      "rereviewStatus": "clean",
+      "rereviewVerdict": "clean",
+      "mergeCommit": "b33d9bbc1080c0d7a96ab606da07d0f517417096",
+      "integrationVerification": [
+        "cargo test level1_damage_spell_adapter_replays_all_branches -- --nocapture",
+        "cargo test attack_spell_shape_adapter_replays_all_branches -- --nocapture",
+        "jq empty tasks/RUN_LEDGER.json tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/DECIDER_DECISION.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/REVIEW_LOOP.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/STATE_OWNER_MANIFEST.json tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json",
+        "cargo fmt --check",
+        "git diff --check HEAD~1...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs"
+      ],
+      "integrationVerificationResult": "passed except cleanroom harness failed on pre-existing stale non-FU01B global evidence/manifest debt; harness output contained no FU01B/Chromatic/Starry hits.",
+      "acceptedDriversAdded": 0,
+      "acceptedObligationsAdded": 2,
+      "remainingTargetBlockers": 19
+    },
     {
       "laneId": "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-a",
