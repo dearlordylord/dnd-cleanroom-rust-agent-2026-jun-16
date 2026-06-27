@@ -17,9 +17,11 @@ use crate::rules::weapon_attack_skeleton::{
 
 use super::battle_runtime_reducer_route::{
     route_discover_battle_acts, route_resolve_battle_subject_from_result,
-    route_resolve_battle_subject_without_fill, route_start_battle, ReducerRouteEvent,
-    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
-    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
+    route_resolve_battle_subject_from_route_result, route_resolve_battle_subject_without_fill,
+    route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
+    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteResolveConnector, ReducerRouteResolveFill,
+    ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 14] = [
@@ -182,11 +184,17 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
             vec![BattleHoleKind::AttackRoll],
             ReducerRouteOwnerGroup::TargetSelection,
         )]),
-        "doRejectWrongTarget" => expected_skeleton_weapon_route(&[(
-            ReducerRouteFillKind::TargetChoice,
-            vec![BattleHoleKind::TargetChoice],
-            ReducerRouteOwnerGroup::TargetSelection,
-        )]),
+        "doRejectWrongTarget" => {
+            let mut route = expected_skeleton_weapon_discovery_route();
+            route.push(route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::WeaponAttack,
+                ReducerRouteFillKind::TargetChoice,
+                ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::WrongTarget),
+                vec![ReducerRouteHoleKind::TargetChoice],
+                ReducerRouteOwnerGroup::TargetSelection,
+            ));
+            route
+        }
         "doFillAttackRollMiss" => expected_skeleton_weapon_route(&[
             (
                 ReducerRouteFillKind::TargetChoice,
@@ -249,8 +257,9 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
                     ReducerRouteOwnerGroup::HitPoint,
                 ),
             ]);
-            route.push(route_resolve_battle_subject_without_fill(
+            route.push(route_resolve_battle_subject_without_fill_from_route_result(
                 ReducerRouteSubjectFamily::WeaponAttack,
+                ReducerRouteResolutionOutcome::Resolved,
                 Vec::new(),
                 ReducerRouteOwnerGroup::HoleFrontier,
             ));
@@ -258,8 +267,9 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         }
         "doStartSkeletonTurn" => {
             let mut route = expected_skeleton_weapon_discovery_route();
-            route.push(route_resolve_battle_subject_without_fill(
+            route.push(route_resolve_battle_subject_without_fill_from_route_result(
                 ReducerRouteSubjectFamily::BattleAction,
+                ReducerRouteResolutionOutcome::Resolved,
                 Vec::new(),
                 ReducerRouteOwnerGroup::ActionEconomy,
             ));
@@ -267,8 +277,9 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         }
         "doResolveSkeletonMultiattack" => {
             let mut route = expected_skeleton_multiattack_discovery_route();
-            route.push(route_resolve_battle_subject_without_fill(
+            route.push(route_resolve_battle_subject_without_fill_from_route_result(
                 ReducerRouteSubjectFamily::StatBlockAction,
+                ReducerRouteResolutionOutcome::Resolved,
                 Vec::new(),
                 ReducerRouteOwnerGroup::StatBlockAction,
             ));
@@ -276,8 +287,9 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         }
         "doRejectRecursiveSkeletonMultiattack" => {
             let mut route = expected_skeleton_multiattack_resolved_route();
-            route.push(route_resolve_battle_subject_without_fill(
+            route.push(route_resolve_battle_subject_without_fill_from_route_result(
                 ReducerRouteSubjectFamily::StatBlockAction,
+                ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::StaleSubject),
                 Vec::new(),
                 ReducerRouteOwnerGroup::StatBlockAction,
             ));
@@ -755,7 +767,10 @@ fn holes_from_spine(holes: &[BattleHoleKind]) -> Vec<WeaponAttackSkeletonHole> {
             | BattleHoleKind::HitPointHealingDistribution
             | BattleHoleKind::DeathSavingThrow
             | BattleHoleKind::ConcentrationSavingThrow
-            | BattleHoleKind::StatBlockRechargeRoll => {
+            | BattleHoleKind::StatBlockRechargeRoll
+            | BattleHoleKind::CommandOptionChoice
+            | BattleHoleKind::InterruptDecision
+            | BattleHoleKind::Movement => {
                 panic!("weapon projection received non-weapon reducer hole {hole:?}")
             }
         })

@@ -12,9 +12,10 @@ use crate::rules::hit_points::{
 
 use super::battle_runtime_reducer_route::{
     route_discover_battle_acts, route_resolve_battle_subject,
-    route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
-    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
-    ReducerRouteResolveFill, ReducerRouteSubjectFamily,
+    route_resolve_battle_subject_from_result, route_resolve_battle_subject_from_route_result,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteResolveConnector, ReducerRouteResolveFill,
+    ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -88,9 +89,10 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         }
         "doRejectWrongActorEndTurnAfterResolved" => {
             let mut route = expected_route("doFillDeathSavingThrow");
-            route.push(route_resolve_battle_subject(
+            route.push(route_resolve_battle_subject_from_route_result(
                 ReducerRouteSubjectFamily::DeathSavingThrow,
                 ReducerRouteFillKind::DeathSavingThrow,
+                ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::WrongActor),
                 Vec::new(),
                 ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
             ));

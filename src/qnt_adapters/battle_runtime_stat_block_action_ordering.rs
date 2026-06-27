@@ -3,8 +3,8 @@ use crate::rules::battle_reducer_spine::{
     primary_stat_block_multiattack_profile, resolve_battle_subject,
     spend_recharge_gated_rolled_stat_block_attack, start_stat_block_actor_battle,
     start_stat_block_multiattack_control, stat_block_action_projection_from_result, Actor,
-    AttackRollFacts, BattleHoleKind, BattleResolutionRequest, BattleResolutionResult, BattleState,
-    StatBlockActionFill, StatBlockActionSubject,
+    AttackRollFacts, BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionRequest,
+    BattleResolutionResult, BattleState, StatBlockActionFill, StatBlockActionSubject,
 };
 use crate::rules::stat_block_action_ordering::{
     self, StatBlockActionFillOrderingError, StatBlockActionFrontierStage, StatBlockActionHoleKind,
@@ -13,8 +13,9 @@ use crate::rules::stat_block_action_ordering::{
 
 use super::battle_runtime_reducer_route::{
     route_discover_battle_acts, route_discover_battle_acts_from_result,
-    route_resolve_battle_subject_from_result, route_start_battle, ReducerRouteEvent,
-    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolveConnector,
+    route_resolve_battle_subject_from_result, route_resolve_battle_subject_from_route_result,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome, ReducerRouteResolveConnector,
     ReducerRouteResolveFill, ReducerRouteSubjectFamily,
 };
 
@@ -275,28 +276,37 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         | "doDiscoverStaticActionAttackControl" => {
             expected_stat_block_discovery_route(vec![BattleHoleKind::TargetChoice])
         }
-        "doRejectAttackRollBeforeTargetChoice" => expected_stat_block_attack_route(&[(
-            ReducerRouteFillKind::AttackRoll,
-            vec![BattleHoleKind::TargetChoice],
-            ReducerRouteOwnerGroup::HoleFrontier,
-        )]),
+        "doRejectAttackRollBeforeTargetChoice" => {
+            let mut route = expected_stat_block_discovery_route(vec![BattleHoleKind::TargetChoice]);
+            route.push(route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::StatBlockAction,
+                ReducerRouteFillKind::AttackRoll,
+                ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill),
+                vec![ReducerRouteHoleKind::TargetChoice],
+                ReducerRouteOwnerGroup::HoleFrontier,
+            ));
+            route
+        }
         "doFillTargetChoice" => expected_stat_block_attack_route(&[(
             ReducerRouteFillKind::TargetChoice,
             vec![BattleHoleKind::AttackRoll],
             ReducerRouteOwnerGroup::TargetSelection,
         )]),
-        "doRejectDamageBeforeAttackRoll" => expected_stat_block_attack_route(&[
-            (
+        "doRejectDamageBeforeAttackRoll" => {
+            let mut route = expected_stat_block_attack_route(&[(
                 ReducerRouteFillKind::TargetChoice,
                 vec![BattleHoleKind::AttackRoll],
                 ReducerRouteOwnerGroup::TargetSelection,
-            ),
-            (
+            )]);
+            route.push(route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::StatBlockAction,
                 ReducerRouteFillKind::RolledDice,
-                vec![BattleHoleKind::AttackRoll],
+                ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill),
+                vec![ReducerRouteHoleKind::AttackRoll],
                 ReducerRouteOwnerGroup::HoleFrontier,
-            ),
-        ]),
+            ));
+            route
+        }
         "doFillAttackRollMiss" => expected_stat_block_attack_route(&[
             (
                 ReducerRouteFillKind::TargetChoice,

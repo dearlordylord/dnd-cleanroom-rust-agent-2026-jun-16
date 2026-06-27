@@ -1,0 +1,1012 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-quint-connect-rr06-spell-effect-route-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doFailedSaveRecordsPending",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doFailedSaveRecordsPending",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c25fc8b1ca48d5648449b50bd3a1712671fe5eee924d7b2edd523003d0d328f3",
+        "observedProjectionSha256": "c25fc8b1ca48d5648449b50bd3a1712671fe5eee924d7b2edd523003d0d328f3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFailedSaveRecordsPending",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doFollowGrovel",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doFollowGrovel",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "35c8ad7e02d7a04f15d8b1c83f097c356dca43a8ca607496f2e4ea16d9b1346e",
+        "observedProjectionSha256": "35c8ad7e02d7a04f15d8b1c83f097c356dca43a8ca607496f2e4ea16d9b1346e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check",
+      "reviewFix": "terminal route event is copied connector resolve_battle_subject_without_fill resolved under BattleConditionLifecycleOwner"
+    },
+    {
+      "branchAction": "doFollowDrop",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doFollowDrop",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e4fa0232cec4c2aa9372578861ace9f4509d5c0abc8273afc297dcabd6692315",
+        "observedProjectionSha256": "e4fa0232cec4c2aa9372578861ace9f4509d5c0abc8273afc297dcabd6692315",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowDrop",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doHaltSuppresses",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doHaltSuppresses",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "37bfa3db7bbef49650641949d593ee3fbda4fa74710cb0f7e26a42142956aa18",
+        "observedProjectionSha256": "37bfa3db7bbef49650641949d593ee3fbda4fa74710cb0f7e26a42142956aa18",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doHaltEndTurnCleanup",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doHaltEndTurnCleanup",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "cdd690041a61f3845c7c52c243e5b3e5dc1456519700efcaf655184a927da8fe",
+        "observedProjectionSha256": "cdd690041a61f3845c7c52c243e5b3e5dc1456519700efcaf655184a927da8fe",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltEndTurnCleanup",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doApproachContinues",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doApproachContinues",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d2f70b30a992778c4a6dc1082576dbd6e08a1e2f0a4376d0c56d9673851cd0a8",
+        "observedProjectionSha256": "d2f70b30a992778c4a6dc1082576dbd6e08a1e2f0a4376d0c56d9673851cd0a8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachContinues",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doApproachWithinFiveEndsTurn",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doApproachWithinFiveEndsTurn",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b6c93c7777d3203093733d8d575173f2cf0e43b5efdcf2fba3e3ec79563ab9e6",
+        "observedProjectionSha256": "b6c93c7777d3203093733d8d575173f2cf0e43b5efdcf2fba3e3ec79563ab9e6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachWithinFiveEndsTurn",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doApproachMovementRejected",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doApproachMovementRejected",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "af0cb21d72ca156f1bb346157bc9d880024c0032818829b102a00b37545cd1ea",
+        "observedProjectionSha256": "af0cb21d72ca156f1bb346157bc9d880024c0032818829b102a00b37545cd1ea",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementRejected",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doApproachNoMovementCleanup",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doApproachNoMovementCleanup",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "62f3fdb88dd8b5c6c63792f0f55b43380163a51663831afea6e5e7eba9e2f7a7",
+        "observedProjectionSha256": "62f3fdb88dd8b5c6c63792f0f55b43380163a51663831afea6e5e7eba9e2f7a7",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovementCleanup",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doFleeFullMovementEndsTurn",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doFleeFullMovementEndsTurn",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6fc5972de0b2f95381178d5a5e7c5f50a06d5baf58fe83a51cc7399e2f68ba73",
+        "observedProjectionSha256": "6fc5972de0b2f95381178d5a5e7c5f50a06d5baf58fe83a51cc7399e2f68ba73",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeFullMovementEndsTurn",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doFleePartialMovementRejected",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doFleePartialMovementRejected",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9a807e8245f17b2ce6a5ed482e602ad3dcaf38327153f09f5ae34c57d86c08da",
+        "observedProjectionSha256": "9a807e8245f17b2ce6a5ed482e602ad3dcaf38327153f09f5ae34c57d86c08da",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleePartialMovementRejected",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doFleeNoMovementCleanup",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doFleeNoMovementCleanup",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0da683470d77774df42bc56b3f5eda4b21ae2d484af21906570ad064c007e902",
+        "observedProjectionSha256": "0da683470d77774df42bc56b3f5eda4b21ae2d484af21906570ad064c007e902",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovementCleanup",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doFleeOpportunityAttackWindow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doFleeOpportunityAttackWindow",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e0faa1f507cb468863aaaa728440d26a1e748c8de579e8959616d98db4f0d816",
+        "observedProjectionSha256": "e0faa1f507cb468863aaaa728440d26a1e748c8de579e8959616d98db4f0d816",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackWindow",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doFleeOpportunityAttackDeclinedContinuation",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doFleeOpportunityAttackDeclinedContinuation",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2cf540fa59f58d53e8371df4b353dd8531a754fb59a0e21d7bb8c214ba1676f1",
+        "observedProjectionSha256": "2cf540fa59f58d53e8371df4b353dd8531a754fb59a0e21d7bb8c214ba1676f1",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttackDeclinedContinuation",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doComplete",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_option_next_turn.rs",
+      "observedActionTaken": "doComplete",
+      "qntFileSha256": "6cf5bebc41b94f1afc928ee3c263dae28b00a08377eea6c463d610a09868cd5c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available",
+          "BattleState.interrupt_resume"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a375bc860e9e43abc288ad5e27aa3122aa50c60563187429cfefca67282e0f42",
+        "observedProjectionSha256": "a375bc860e9e43abc288ad5e27aa3122aa50c60563187429cfefca67282e0f42",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doComplete",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "routeEvidenceBasis": "paired-command-ordering-route-connector-cross-check"
+    },
+    {
+      "branchAction": "doDiscoverCommand",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doDiscoverCommand",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "83497038d2c69f14cc7431d64a7a27d75edc996ee9cb61bfb6499cf89cc374bb",
+        "observedProjectionSha256": "83497038d2c69f14cc7431d64a7a27d75edc996ee9cb61bfb6499cf89cc374bb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDiscoverCommand",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doSubmitOptionBeforeTargetList",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doSubmitOptionBeforeTargetList",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8ccf7e52f6fd831f7eee8ad031c75672d59d0d4ca7708e30ffddeb699a8fb3d8",
+        "observedProjectionSha256": "8ccf7e52f6fd831f7eee8ad031c75672d59d0d4ca7708e30ffddeb699a8fb3d8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitOptionBeforeTargetList",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFillTargetList",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFillTargetList",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ac5a20448308cf34ffd2f92c3cf0186e00f0e71c04c8f6955d928096be0024af",
+        "observedProjectionSha256": "ac5a20448308cf34ffd2f92c3cf0186e00f0e71c04c8f6955d928096be0024af",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillTargetList",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doSubmitSavingThrowBeforeOption",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doSubmitSavingThrowBeforeOption",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6c6d6f324eee920995d453ce89c45b5d6de3d9da788775a1c9c01b3d1a6a3777",
+        "observedProjectionSha256": "6c6d6f324eee920995d453ce89c45b5d6de3d9da788775a1c9c01b3d1a6a3777",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doSubmitSavingThrowBeforeOption",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFillGrovelOption",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFillGrovelOption",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0ec3b78273046c7db0eb788ca4f1c46667a4c7d6d5f2e44d620382d39995c445",
+        "observedProjectionSha256": "0ec3b78273046c7db0eb788ca4f1c46667a4c7d6d5f2e44d620382d39995c445",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillGrovelOption",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFillFailedGrovelSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFillFailedGrovelSavingThrow",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6e211cb7c1a49f25caff46e58636e758c037ed71d3d0dab518d34eaeed743eab",
+        "observedProjectionSha256": "6e211cb7c1a49f25caff46e58636e758c037ed71d3d0dab518d34eaeed743eab",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFailedGrovelSavingThrow",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFollowGrovel",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFollowGrovel",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "73640fbfe0ca97b2e2e3ffbb92df8e9fcf4e6423d163ecdcd9b4a7ae4486d53d",
+        "observedProjectionSha256": "73640fbfe0ca97b2e2e3ffbb92df8e9fcf4e6423d163ecdcd9b4a7ae4486d53d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doDropNeedsHeldObjectFacts",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doDropNeedsHeldObjectFacts",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ce9232033f2d6b970fcd6e7ac134cd25e5fdb67f5c2cf86f763ec887ef96cf06",
+        "observedProjectionSha256": "ce9232033f2d6b970fcd6e7ac134cd25e5fdb67f5c2cf86f763ec887ef96cf06",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doDropNeedsHeldObjectFacts",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFillDropHeldObjectFacts",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFillDropHeldObjectFacts",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a49420e9964ef2b55e6ba053ef80ab966235c173426d296de76413e0c62f96d7",
+        "observedProjectionSha256": "a49420e9964ef2b55e6ba053ef80ab966235c173426d296de76413e0c62f96d7",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillDropHeldObjectFacts",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doHaltSuppresses",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doHaltSuppresses",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ff7cea97be25a2ee53b12d7d052277bb620aacddc2e09652d7fe0e0a848736f4",
+        "observedProjectionSha256": "ff7cea97be25a2ee53b12d7d052277bb620aacddc2e09652d7fe0e0a848736f4",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doApproachMovementContinues",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doApproachMovementContinues",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b10757c32231991b8cdeae5e015081932ebc854c54a27801dac80495846ca3f3",
+        "observedProjectionSha256": "b10757c32231991b8cdeae5e015081932ebc854c54a27801dac80495846ca3f3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachMovementContinues",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute",
+      "reviewFix": "terminal route event is copied connector discover_battle_acts for CommandApproachMovementStage under BattleActiveEffectOwner"
+    },
+    {
+      "branchAction": "doFillApproachMovementContinues",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFillApproachMovementContinues",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "64c5d826aa7c9a5fd6d70632a8abcd977bdef2855c4db9fb3851ac544ebd7ae3",
+        "observedProjectionSha256": "64c5d826aa7c9a5fd6d70632a8abcd977bdef2855c4db9fb3851ac544ebd7ae3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementContinues",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFillApproachMovementWithinFive",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFillApproachMovementWithinFive",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "46706f8ecee6e63556a4780407b24bb9b3e45f30ff937f62da5c3ca2756efb14",
+        "observedProjectionSha256": "46706f8ecee6e63556a4780407b24bb9b3e45f30ff937f62da5c3ca2756efb14",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillApproachMovementWithinFive",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doApproachNoMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doApproachNoMovement",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "627ca7c6cce024099eed98243d59e62451da0bc08a099f483b8fd98f2b08172b",
+        "observedProjectionSha256": "627ca7c6cce024099eed98243d59e62451da0bc08a099f483b8fd98f2b08172b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doApproachNoMovement",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFleeMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFleeMovement",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8545e9288a5d78552f38d00c9c46b0fc2a93e19553f7640f3e071991216544cb",
+        "observedProjectionSha256": "8545e9288a5d78552f38d00c9c46b0fc2a93e19553f7640f3e071991216544cb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeMovement",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFillFleeMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFillFleeMovement",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "3f69241fad09571cbdaaa66dfdca94ce8184725ee44c0d4b418f8dc7c1190afe",
+        "observedProjectionSha256": "3f69241fad09571cbdaaa66dfdca94ce8184725ee44c0d4b418f8dc7c1190afe",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillFleeMovement",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doRejectFleePartialMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doRejectFleePartialMovement",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "38df1555cf1e44392c27cb793456720c2664267d453c6f43ae20a9dca70fb41a",
+        "observedProjectionSha256": "38df1555cf1e44392c27cb793456720c2664267d453c6f43ae20a9dca70fb41a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectFleePartialMovement",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFleeNoMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFleeNoMovement",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b1b69c9c3ca19262c6cd5f28a1f1a9fbd003da1cf1f25eeefadc8b21ab1fb48d",
+        "observedProjectionSha256": "b1b69c9c3ca19262c6cd5f28a1f1a9fbd003da1cf1f25eeefadc8b21ab1fb48d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeNoMovement",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFleeOpportunityAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_command_ordering.rs",
+      "observedActionTaken": "doFleeOpportunityAttack",
+      "qntFileSha256": "5854506f09a16207cb87ec8fdfde43b9450d19be6276bee2db1c77054c05f0c0",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.command_effect_procedure",
+          "BattleResolutionResult.requested_holes",
+          "BattleState.action_available"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7bf8406bb11e26efd4bafec071c6ab799820e4f4f243ce1216a7c6856f6c256b",
+        "observedProjectionSha256": "7bf8406bb11e26efd4bafec071c6ab799820e4f4f243ce1216a7c6856f6c256b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFleeOpportunityAttack",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt",
+      "routeEvidenceBasis": "copied-route-connector-qRoute"
+    },
+    {
+      "branchAction": "doFillLongstriderTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_scalar_buff.rs",
+      "observedActionTaken": "doFillLongstriderTarget",
+      "qntFileSha256": "3f0684da760de7561a3e5a8fa1074786e8919336564a1959ee908169bc67ba03",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.goblin.speed_feet",
+          "BattleState.action_available",
+          "BattleResolutionResult.requested_holes"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b9cb52a8ea0639dc7f6de8c21700e145411c97cb8dde1a356d4bbc5e56ec30ee",
+        "observedProjectionSha256": "b9cb52a8ea0639dc7f6de8c21700e145411c97cb8dde1a356d4bbc5e56ec30ee",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFillLongstriderTarget"
+    },
+    {
+      "branchAction": "doRejectStaleAfterResolved",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_scalar_buff.rs",
+      "observedActionTaken": "doRejectStaleAfterResolved",
+      "qntFileSha256": "3f0684da760de7561a3e5a8fa1074786e8919336564a1959ee908169bc67ba03",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.goblin.speed_feet",
+          "BattleState.action_available",
+          "BattleResolutionResult.requested_holes"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "67663aece4683b8ec9919f8a36bb309621ce3b3dc4d06d043321154b5a32a827",
+        "observedProjectionSha256": "67663aece4683b8ec9919f8a36bb309621ce3b3dc4d06d043321154b5a32a827",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doRejectStaleAfterResolved"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
