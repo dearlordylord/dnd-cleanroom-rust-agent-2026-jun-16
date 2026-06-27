@@ -25,7 +25,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "domainInvariant": "Action availability is the battle-state source of whether the actor can still spend an action after resolving accepted protection/charm/ward rows.",
+      "domainInvariant": "Action availability is the battle-state source of whether the actor can still spend an action after resolving diagnostic protection/charm/ward rows.",
       "fieldPath": "BattleState.action_available",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
@@ -35,7 +35,7 @@
       "derivability": {
         "tag": "canonical-source"
       },
-      "domainInvariant": "First-level slot expenditure is the battle-state source of the spell resource consumed by accepted protection/charm rows.",
+      "domainInvariant": "First-level slot expenditure is the battle-state source of the spell resource consumed by diagnostic protection/charm rows.",
       "fieldPath": "BattleState.fighter.spell_slots.first_level_expended",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
@@ -60,7 +60,7 @@
     },
     {
       "apiPath": "BattleEntrypointTrace.route_events",
-      "boundary": "production reducer route observer trace for accepted protection/charm/ward branches",
+      "boundary": "production reducer route observer trace for diagnostic protection/charm/ward branches; not accepted coverage without copied-QNT connector evidence",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "executable-boundary-projection"
     },
@@ -69,12 +69,6 @@
       "boundary": "target replay route-event-list comparator projection",
       "introducedIn": "src/qnt_adapters/battle_runtime_reducer_route.rs",
       "owner": "executable-boundary-projection"
-    },
-    {
-      "apiPath": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
-      "boundary": "target replay evidence with accepted pass rows",
-      "introducedIn": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
-      "owner": "harness-witness-protocol"
     }
   ],
   "schemaVersion": 1,

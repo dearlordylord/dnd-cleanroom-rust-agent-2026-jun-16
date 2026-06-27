@@ -1,21 +1,19 @@
 {
   "acceptedRows": [
-    "doDiscoverAnimalFriendshipBeastTargetAdmission",
-    "doResolveAnimalFriendshipFailedSaveCharmed",
-    "doResolveAnimalFriendshipCasterDamageBreak",
-    "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
-    "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
-    "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
-    "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
-    "doCastSanctuaryWardCreation",
-    "doInterdictDirectAttackFailedSaveLoss",
-    "doInterdictDirectSpellSuccessfulSavePassThrough",
-    "doRetargetDirectAttackToLegalReplacement",
-    "doRejectIllegalReplacementTarget",
-    "doExcludeAreaEffectFromInterdiction",
-    "doEndWardOnWardedAttackRoll",
-    "doEndWardOnWardedSpellCast",
-    "doEndWardOnWardedDamageDealt"
+    "doChillTouchHitPointRegainPrevention",
+    "doFireBoltHit",
+    "doGuidingBoltNextAttackAdvantage",
+    "doInflictWoundsFailedSave",
+    "doInflictWoundsSuccessfulSave",
+    "doShockingGraspOpportunityAttackDenied",
+    "doResolveBurningHandsMixedConeSavingThrows",
+    "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+    "doResolveIceKnifeMissBurstSavingThrows",
+    "doResolvePoisonSpraySpellAttackDamage",
+    "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
+    "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
+    "doResolveSorcerousBurstSpellAttackDamage",
+    "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage"
   ],
   "decision": "accepted",
   "deterministicGates": [
@@ -52,9 +50,20 @@
       "status": "pass"
     }
   ],
-  "rationale": "Accepted protection, charm, and ward rows replay through production BattleState protection/charm/ward substrate subjects. Route evidence is observed through TargetAdmission, ActiveEffect, ConditionLifecycle, SavingThrowRollMode, and TargetInterdiction subject families; production dispatch uses typed fill facts and subject shape, not selected spell identity.",
+  "rationale": "Accepted FU01B spell attack/save damage rows replay through production BattleState SpellAttack or SaveGatedSpell reducer routes. doResolveChromaticOrbDuplicateDamageLeap and doResolveStarryWispObjectSpellAttackDamageAndDimLight are explicitly target-blocked because their current Rust substrates are ChromaticOrbSequenceState and StarryWispObjectState projections without production BattleState route subjects.",
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "targetBlockedRows": [],
-  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
+  "targetBlockedRows": [
+    {
+      "action": "doResolveChromaticOrbDuplicateDamageLeap",
+      "blockerId": "FU01B-BLOCKED-CHROMATIC-ORB-CHAINED-DAMAGE",
+      "reason": "chained duplicate-damage leap is modeled in ChromaticOrbSequenceState, not production BattleState"
+    },
+    {
+      "action": "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
+      "blockerId": "FU01B-BLOCKED-STARRY-WISP-OBJECT-TARGET",
+      "reason": "object HP and dim-light emitter facts are modeled in StarryWispObjectState, not production BattleState"
+    }
+  ],
+  "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
 }

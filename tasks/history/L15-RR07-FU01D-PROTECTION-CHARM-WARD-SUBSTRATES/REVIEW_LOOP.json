@@ -1,5 +1,15 @@
 {
-  "findings": [],
+  "findings": [
+    {
+      "id": "FU01D-REPORT-HONESTY-GENERIC-CONNECTOR-MISSING",
+      "checklist": "report-honesty",
+      "severity": "blocking",
+      "status": "fixed",
+      "reasonableness": "reasonable",
+      "finding": "FU01D claimed accepted coverage for creature-type protection/charm and sanctuary rows even though the copied reducer-route inventory still marks the corresponding route rows as source-QNT corpus blockers and no executable copied-QNT generic connector substrate is present.",
+      "resolution": "Demoted every FU01D row to target-blocker evidence and moved the decider row list from acceptedRows to targetBlockedRows while preserving the Rust replay code as diagnostic substrate only."
+    }
+  ],
   "rounds": [
     {
       "passes": [
@@ -45,7 +55,7 @@
         }
       ],
       "round": 1,
-      "summary": "Checked RAW/QNT traceability, domain language, architecture/connascence, adapter quarantine, state ownership, and report honesty after routing FU01D protection/charm/ward rows through generic reducer subjects."
+      "summary": "Reviewer loop found the report-honesty blocker: Rust qRoute replay exists, but the copied cleanroom QNT inputs do not include an executable generic protection/charm/ward connector substrate, so the rows cannot be counted as accepted coverage."
     },
     {
       "passes": [
@@ -91,7 +101,7 @@
         }
       ],
       "round": 2,
-      "summary": "Convergence pass after artifact refresh and route-vocabulary review; no reasonable findings remain."
+      "summary": "Convergence pass after demotion: FU01D artifacts no longer claim accepted coverage; all rows are explicit target/source-QNT connector blockers and the diagnostic Rust substrate remains quarantined."
     }
   ],
   "schemaVersion": 1,

@@ -1,66 +1,22 @@
 {
-  "durableFields": [
-    {
-      "apiPath": "BattleState.protection_charm_ward.offered_subject",
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "domainInvariant": "At most one generic protection/charm/ward route subject is offered at a time; resolved creature-protection and sanctuary witnesses are derived at adapter boundaries from fill facts and canonical battle fields.",
-      "fieldPath": "BattleState.protection_charm_ward.offered_subject",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "apiPath": "BattleSetup.protection_charm_ward",
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "domainInvariant": "Setup can admit one generic target-admission, active-effect, condition-lifecycle, saving-throw-roll-mode, or target-interdiction subject without carrying resolved projection state or authored spell identity dispatch.",
-      "fieldPath": "BattleSetup.protection_charm_ward",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "apiPath": "BattleState.action_available",
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "domainInvariant": "Action availability is the battle-state source of whether the actor can still spend an action after resolving accepted protection/charm/ward rows.",
-      "fieldPath": "BattleState.action_available",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "apiPath": "BattleState.fighter.spell_slots.first_level_expended",
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "domainInvariant": "First-level slot expenditure is the battle-state source of the spell resource consumed by accepted protection/charm rows.",
-      "fieldPath": "BattleState.fighter.spell_slots.first_level_expended",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "apiPath": "BattleState.fighter.hp",
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "domainInvariant": "Fighter hit points are the battle-state source observed by ward teardown rows that deal damage.",
-      "fieldPath": "BattleState.fighter.hp",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    }
-  ],
+  "durableFields": [],
+  "noDurableFieldsReason": "FU01B adds no durable production fields; accepted evidence reuses existing BattleState spell-attack/save-gated spell procedure, actor hit point/effect state, and route observer projections. Blocked rows are explicit target blockers rather than duplicated BattleState state.",
   "nonDurableBoundaryApiSurface": [
     {
-      "apiPath": "BattleProtectionCharmWardProjection",
-      "boundary": "adapter-facing transient witness derived from branch fill and canonical BattleState action, spell-slot, and hit-point fields",
+      "apiPath": "BattleState.spell_attack_procedure",
+      "boundary": "existing battle-state spell-attack procedure projection",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
-      "apiPath": "BattleEntrypointTrace.route_events",
-      "boundary": "production reducer route observer trace for accepted protection/charm/ward branches",
+      "apiPath": "BattleState.save_gated_spell_procedure",
+      "boundary": "existing battle-state save-gated spell procedure projection",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleEntrypointTrace.events",
+      "boundary": "production reducer route observer trace for accepted spell attack/save-gated branches",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "executable-boundary-projection"
     },
@@ -71,12 +27,42 @@
       "owner": "executable-boundary-projection"
     },
     {
-      "apiPath": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
-      "boundary": "target replay evidence with accepted pass rows",
-      "introducedIn": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
+      "apiPath": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json",
+      "boundary": "target replay evidence with accepted pass rows and executable target-blocker rows",
+      "introducedIn": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json",
       "owner": "harness-witness-protocol"
+    },
+    {
+      "apiPath": "BattleState.action_available",
+      "boundary": "accepted target replay checked BattleState field",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleState.fighter.spell_slots.first_level_expended",
+      "boundary": "accepted target replay checked BattleState field",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleState.skeleton.hp",
+      "boundary": "accepted target replay checked BattleState field",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleState.skeleton.spell_active_effects",
+      "boundary": "accepted target replay checked BattleState field",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleState.goblin.hp",
+      "boundary": "accepted target replay checked BattleState field",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
+  "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
 }

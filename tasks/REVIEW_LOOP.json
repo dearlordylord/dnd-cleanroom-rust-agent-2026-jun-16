@@ -1,5 +1,22 @@
 {
-  "findings": [],
+  "findings": [
+    {
+      "checklist": "report-honesty",
+      "id": "fu01b-stale-task-artifacts",
+      "reasonableness": "reasonable",
+      "resolution": "Replaced top-level artifacts with FU01B manifests, added FU01B history, target replay evidence, validation report, and ledger refs.",
+      "status": "fixed",
+      "summary": "Top-level task artifacts and history still described FU01A."
+    },
+    {
+      "checklist": "branch-coverage",
+      "id": "fu01b-blocked-rows-looked-resolved",
+      "reasonableness": "reasonable",
+      "resolution": "Adapter expected/replay/route entrypoints now reject both rows with blocker reasons, and target replay evidence records target-blocker runs instead of pass refs.",
+      "status": "fixed",
+      "summary": "Chromatic Orb chained damage and Starry Wisp object-target rows had normal resolved expected witnesses without production BattleState route evidence."
+    }
+  ],
   "rounds": [
     {
       "passes": [
@@ -45,7 +62,7 @@
         }
       ],
       "round": 1,
-      "summary": "Checked RAW/QNT traceability, domain language, architecture/connascence, adapter quarantine, state ownership, and report honesty after routing FU01D protection/charm/ward rows through generic reducer subjects."
+      "summary": "Checked RAW/QNT traceability, domain language, architecture/connascence, adapter quarantine, state ownership, and report honesty after FU01B route implementation."
     },
     {
       "passes": [
@@ -91,9 +108,9 @@
         }
       ],
       "round": 2,
-      "summary": "Convergence pass after artifact refresh and route-vocabulary review; no reasonable findings remain."
+      "summary": "Fixer convergence pass after demoting object/chained rows to executable target blockers and refreshing FU01B artifacts; no reasonable findings remain."
     }
   ],
   "schemaVersion": 1,
-  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
+  "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
 }

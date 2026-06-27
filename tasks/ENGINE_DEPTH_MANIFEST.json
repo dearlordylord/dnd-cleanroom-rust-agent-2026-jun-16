@@ -2,111 +2,119 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "adapterScope": "Accepted creature-type target admission, charm condition lifecycle, protection active-effect, and protection saving-throw roll-mode rows replay through production BattleState generic substrate subjects.",
-      "path": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "adapterScope": "Accepted spell attack/save shape branches replay through production BattleState SpellAttack and SaveGatedSpell reducer routes with route-event-list evidence.",
+      "path": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doDiscoverAnimalFriendshipBeastTargetAdmission",
-        "doResolveAnimalFriendshipFailedSaveCharmed",
-        "doResolveAnimalFriendshipCasterDamageBreak",
-        "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
-        "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
-        "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
-        "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
-        "checkedTargetStateFields",
-        "cleanroomManifestSourceCommitSha",
-        "expectedProjectionSha256",
+        "doChillTouchHitPointRegainPrevention",
+        "doFireBoltHit",
+        "doGuidingBoltNextAttackAdvantage",
+        "doInflictWoundsFailedSave",
+        "doInflictWoundsSuccessfulSave",
+        "doShockingGraspOpportunityAttackDenied",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
-        "observedProjectionSha256",
+        "traceId",
         "qntFileSha256",
         "sourceBranchInventorySha256",
+        "cleanroomManifestSourceCommitSha",
         "targetProfile",
         "targetProfileSha256",
-        "traceId",
         "stateCheck",
         "comparator",
+        "expectedProjectionSha256",
+        "observedProjectionSha256",
+        "checkedTargetStateFields",
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json"
+        "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json"
       ]
     },
     {
-      "adapterScope": "Accepted ward creation, target interdiction, retargeting, bypass, and teardown rows replay through production BattleState generic substrate subjects.",
-      "path": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "adapterScope": "Accepted level-1 damage spell branches replay through production BattleState SpellAttack and SaveGatedSpell reducer routes; two object/chained branches are executable target blockers.",
+      "path": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
       "quarantinedWitnessNames": [
-        "doCastSanctuaryWardCreation",
-        "doInterdictDirectAttackFailedSaveLoss",
-        "doInterdictDirectSpellSuccessfulSavePassThrough",
-        "doRetargetDirectAttackToLegalReplacement",
-        "doRejectIllegalReplacementTarget",
-        "doExcludeAreaEffectFromInterdiction",
-        "doEndWardOnWardedAttackRoll",
-        "doEndWardOnWardedSpellCast",
-        "doEndWardOnWardedDamageDealt",
-        "checkedTargetStateFields",
-        "cleanroomManifestSourceCommitSha",
-        "expectedProjectionSha256",
+        "doResolveBurningHandsMixedConeSavingThrows",
+        "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+        "doResolveIceKnifeMissBurstSavingThrows",
+        "doResolvePoisonSpraySpellAttackDamage",
+        "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
+        "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
+        "doResolveSorcerousBurstSpellAttackDamage",
+        "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+        "doResolveChromaticOrbDuplicateDamageLeap",
+        "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
+        "target-blocker",
         "mbt::actionTaken",
         "mbt::nondetPicks",
         "observedActionTaken",
-        "observedProjectionSha256",
+        "traceId",
         "qntFileSha256",
         "sourceBranchInventorySha256",
+        "cleanroomManifestSourceCommitSha",
         "targetProfile",
         "targetProfileSha256",
-        "traceId",
         "stateCheck",
         "comparator",
+        "expectedProjectionSha256",
+        "observedProjectionSha256",
+        "checkedTargetStateFields",
         "harnessTestPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json"
+        "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json"
       ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "BattleState.protection_charm_ward generic substrate subjects",
-      "driver": "future protection/charm/ward selected-identity or substrate drivers",
+      "api": "BattleState SpellAttack/SaveGatedSpell reducer routes",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "module": "src/rules/battle_reducer_spine.rs"
+    },
+    {
+      "api": "future BattleState object-target and chained spell-attack route subjects",
+      "driver": "object/chained spell damage follow-up lane",
       "module": "src/rules/battle_reducer_spine.rs"
     }
   ],
   "productionModulesExtended": [
     {
       "domainApis": [
-        "BattleProtectionCharmWardSubstrate",
-        "BattleProtectionCharmWardFill",
-        "start_protection_charm_ward_battle_observed",
+        "BattleState.spell_attack_procedure",
+        "BattleState.save_gated_spell_procedure",
+        "discover_spell_attack_damage_subject_observed",
+        "discover_save_gated_damage_subject_observed",
         "resolve_battle_subject_observed",
         "BattleEntrypointTrace"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
-      "reason": "Owns generic target-admission, active-effect, condition-lifecycle, saving-throw-roll-mode, and target-interdiction reducer routes used by accepted FU01D witnesses.",
+      "reason": "Owns production BattleState spell-attack and save-gated damage reducer routes used by accepted FU01B witnesses.",
       "role": "domain-engine"
     },
     {
       "domainApis": [
-        "CreatureTypeProtectionState",
-        "ProtectionTargetFacts",
-        "protection_relevant_effect_save_roll_mode"
+        "SpellShapeState",
+        "resolve_spell_attack_hit",
+        "resolve_spell_save_damage"
       ],
-      "path": "src/rules/creature_type_protection.rs",
-      "reason": "Retains QNT-shaped runtime projection facts while accepted route evidence flows through BattleState.",
+      "path": "src/rules/spell_shapes.rs",
+      "reason": "Retains QNT-shaped spell attack/save damage projection facts while accepted route evidence flows through BattleState.",
       "role": "runtime-projection"
     },
     {
       "domainApis": [
-        "SanctuarySelectedIdentityState",
-        "warded_projection",
-        "ended_projection"
+        "LevelOneDamageSpellState",
+        "project_burning_hands_mixed_cone_saving_throws",
+        "project_chromatic_orb_duplicate_damage_leap",
+        "project_starry_wisp_object_spell_attack_damage_and_dim_light"
       ],
-      "path": "src/rules/sanctuary_selected_identity.rs",
-      "reason": "Retains QNT-shaped ward projection facts while accepted route evidence flows through BattleState target interdiction and active-effect subjects.",
+      "path": "src/rules/level_one_damage_spells.rs",
+      "reason": "Retains QNT-shaped selected level-1 damage projection facts; blocked object/chained rows remain projection-only until production BattleState routes exist.",
       "role": "runtime-projection"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
+  "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
 }

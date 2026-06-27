@@ -1,8 +1,8 @@
 {
   "baseCheck": {
-    "ancestorCommand": "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
-    "declaredBaseSha": "410a784738fba3b80566eae292140327d4e30877",
-    "headSha": "410a784738fba3b80566eae292140327d4e30877",
+    "ancestorCommand": "git merge-base --is-ancestor 6bad2c3509996b8cafab2a1d0258e3062e8ff60b HEAD",
+    "declaredBaseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
+    "headSha": "11f9f56bf2dccee87204371cb9a5d5f125e6402c",
     "result": "pass"
   },
   "preImplementationStatus": {
@@ -11,16 +11,16 @@
     "result": "clean"
   },
   "schemaVersion": 1,
-  "startHeadSha": "410a784738fba3b80566eae292140327d4e30877",
-  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
+  "startHeadSha": "11f9f56bf2dccee87204371cb9a5d5f125e6402c",
+  "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
   "taskScope": {
-    "assignmentId": "level-1-2-battle",
-    "laneId": "battle",
+    "assignmentId": "level-1-2-runtime-reducer-route",
+    "laneId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
     "parentRouteTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
-    "routeClass": "protection-charm-ward-substrates",
+    "routeClass": "spell-attack-save-damage-substrates",
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
     ]
   }
 }
