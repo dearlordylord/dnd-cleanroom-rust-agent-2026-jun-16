@@ -1683,6 +1683,144 @@
         }
       ],
       "taskId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS"
+    },
+    {
+      "taskId": "L15-RR09-CHARACTER-SHEET-ROUTES",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-arcane-recovery-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt"
+      ],
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json",
+          "sha256": "dc4c8fd5a02bc4ecf5d063db79e5c19e5eb1e02e173fc77352eabee69e3e8f11",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectExpertise#step:doProjectExpertise",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectJackOfAllTradesLevelTwo#step:doProjectJackOfAllTradesLevelTwo",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectJackOfAllTradesRoundedDown#step:doProjectJackOfAllTradesRoundedDown",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectSkillProficiency#step:doProjectSkillProficiency",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectMissingBardLevelTwo#step:doRejectMissingBardLevelTwo",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectOtherProficiencyBonus#step:doRejectOtherProficiencyBonus",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRecoverSecondLevelSpellSlot#step:doRecoverSecondLevelSpellSlot",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectPactSlotArcaneRecovery#step:doRejectPactSlotArcaneRecovery",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doResetArcaneRecoveryOnLongRest#step:doResetArcaneRecoveryOnLongRest",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectHeavyArmorWithShield#step:doProjectHeavyArmorWithShield",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectLightArmor#step:doProjectLightArmor",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectMediumArmorDexCap#step:doProjectMediumArmorDexCap",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectBarbarianUnarmoredDefense#step:doSelectBarbarianUnarmoredDefense",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectBarbarianUnarmoredDefenseWithShield#step:doSelectBarbarianUnarmoredDefenseWithShield",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectMonkUnarmoredDefense#step:doSelectMonkUnarmoredDefense",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectBardJackOfAllTrades#step:doProjectBardJackOfAllTrades",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectClericLifeDomainSpells#step:doProjectClericLifeDomainSpells",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectDruidCircleLandSpells#step:doProjectDruidCircleLandSpells",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectPaladinOathDevotionSpells#step:doProjectPaladinOathDevotionSpells",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectPaladinsSmite#step:doProjectPaladinsSmite",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectRangerFavoredEnemy#step:doProjectRangerFavoredEnemy",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectSorcererDraconicSpells#step:doProjectSorcererDraconicSpells",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectWarlockFiendSpells#step:doProjectWarlockFiendSpells",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doLayOnHandsRestoreHpAndRemovePoisoned#step:doLayOnHandsRestoreHpAndRemovePoisoned",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectFighterLevelOne#step:doProjectFighterLevelOne",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectFighterLevelTwo#step:doProjectFighterLevelTwo",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectMinimumHigherLevelGain#step:doProjectMinimumHigherLevelGain",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectReducedEffectiveMaximum#step:doProjectReducedEffectiveMaximum",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectSorcererDraconicResilience#step:doProjectSorcererDraconicResilience",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectWizardFighterMulticlass#step:doProjectWizardFighterMulticlass",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doCompleteLongRestRestoresHpHitPointDiceAndMaximum#step:doCompleteLongRestRestoresHpHitPointDiceAndMaximum",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptLongRestBeforeOneHourNoBenefit#step:doInterruptLongRestBeforeOneHourNoBenefit",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptLongRestWithShortRestBenefits#step:doInterruptLongRestWithShortRestBenefits",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptShortRestNoBenefit#step:doInterruptShortRestNoBenefit",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectLongRestBeforeSixteenHourWait#step:doRejectLongRestBeforeSixteenHourWait",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectLongRestDurationTooShort#step:doRejectLongRestDurationTooShort",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectLongRestInterruptionAtRequiredDuration#step:doRejectLongRestInterruptionAtRequiredDuration",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectLongRestPhysicalExertionTooShort#step:doRejectLongRestPhysicalExertionTooShort",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectLongRestStartAtZeroHp#step:doRejectLongRestStartAtZeroHp",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectShortRestDurationTooShort#step:doRejectShortRestDurationTooShort",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectShortRestStartAtZeroHp#step:doRejectShortRestStartAtZeroHp",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSpendShortRestHitPointDiceSequentially#step:doSpendShortRestHitPointDiceSequentially",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSpendShortRestHitPointDie#step:doSpendShortRestHitPointDie",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots#step:doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptLongRestBeforeOneHourNoSlotBenefit#step:doInterruptLongRestBeforeOneHourNoSlotBenefit",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptLongRestWithShortRestSlotBenefits#step:doInterruptLongRestWithShortRestSlotBenefits",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptShortRestNoSlotBenefit#step:doInterruptShortRestNoSlotBenefit",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doMagicalCunningRecoversPactSlots#step:doMagicalCunningRecoversPactSlots",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectArcaneRecoveryPactSlotRefund#step:doRejectArcaneRecoveryPactSlotRefund",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectMagicalCunningWithoutExpendedPactSlots#step:doRejectMagicalCunningWithoutExpendedPactSlots",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectMismatchedOrdinarySpellSlotCapacity#step:doRejectMismatchedOrdinarySpellSlotCapacity",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectPactSlotExpenditureOverCapacity#step:doRejectPactSlotExpenditureOverCapacity",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doShortRestArcaneRecoveryRefundsOrdinarySpellSlot#step:doShortRestArcaneRecoveryRefundsOrdinarySpellSlot",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doShortRestRestoresPactSlotsOnly#step:doShortRestRestoresPactSlotsOnly",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInvokeSpellbookRitual#step:doInvokeSpellbookRitual",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectMissingRitualAccessFeature#step:doRejectMissingRitualAccessFeature",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectNonLeveledRitualSpellbookSpell#step:doRejectNonLeveledRitualSpellbookSpell",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectNonRitualSpellbookSpell#step:doRejectNonRitualSpellbookSpell",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectPreparedOnlyRitual#step:doRejectPreparedOnlyRitual",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doAcceptOneChangeWeaponMasteryReselection#step:doAcceptOneChangeWeaponMasteryReselection",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectTooManyChangesWeaponMasteryReselection#step:doRejectTooManyChangesWeaponMasteryReselection",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doReselectPaladinWeaponMasteryOnLongRest#step:doReselectPaladinWeaponMasteryOnLongRest",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doReselectRangerWeaponMasteryOnLongRest#step:doReselectRangerWeaponMasteryOnLongRest",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doReselectRogueWeaponMasteryOnLongRest#step:doReselectRogueWeaponMasteryOnLongRest",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectPaladinWeaponMastery#step:doSelectPaladinWeaponMastery",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectRangerWeaponMastery#step:doSelectRangerWeaponMastery",
+            "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectRogueWeaponMastery#step:doSelectRogueWeaponMastery"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9...HEAD",
+          "status": "pass"
+        }
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/START_GATE.json",
+          "sha256": "b01867bd9d82f76611d3110e0c8f499968a0731f4670622f05c26f7529b1d866"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "c97cf64c2f59ae241028032740364dc1dc4398854bb7df500d1e8547b4741a8c"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "e189f71eca583cb9d9236671b10f8ac020942476419a19b33e3f188944d90113"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/REVIEW_LOOP.json",
+          "sha256": "efc66ca3252ab9ae2fd4374f8486145c85f92f0164154f4720d69ec6b67375e1"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/DECIDER_DECISION.json",
+          "sha256": "dbcbe3f66e812dc6d9a90451965387fb37ae3b9bc8c763f7c5bd30fc29604955"
+        }
+      }
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
