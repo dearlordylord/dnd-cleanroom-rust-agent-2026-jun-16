@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b` | `ralph/l15-rr07-fu01b-spell-attack-damage` | `6bad2c3509996b8cafab2a1d0258e3062e8ff60b` | Euler `019f079d-4d22-75e0-b100-3872c7e6bdc2`; fixer Schrodinger `019f07b0-2295-7dc1-9369-8f9508ebc5fa`; re-reviewer Turing `019f07ce-25c1-7ff3-a39b-92f5005a9529` | review-clean-merge-ready at fixer commit `195a473783bc666f5413dabe0a2bf93ea18003df` |
+| _none_ | _none_ | _none_ | _none_ | _none_ | no active lane worktrees |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -61,3 +61,4 @@ When launching a lane:
 | L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a` | `ralph/l15-rr07-fu01a-catalog-ready` | `86290c012cdefb8afdcc526a8caa58da190b407b` | `5a6e5d2d1975788acef1373786eb94dd0074407e` | removable-after-operator-confirms-no-local-use |
 | L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08b` | `ralph/l15-rr07-fu08b-metamagic-save-range` | `3727abed465765fbc2b3f223076ed265d31393ff` | `20daf3ede80af636df4e71a776d95783182fef2d` | removable-after-operator-confirms-no-local-use |
 | L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08c` | `ralph/l15-rr07-fu08c-metamagic-reroll-damage` | `a0ac254c610b4c0e64b4f6d160c0ef533f400a40` | `5bec99231b38d67c5930922cb77328d2b71c031a` | removable-after-operator-confirms-no-local-use |
+| L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b` | `ralph/l15-rr07-fu01b-spell-attack-damage` | `195a473783bc666f5413dabe0a2bf93ea18003df` | `6834ee18356e01eb9b00bd4b32f0169b75a7220d` | removable-after-operator-confirms-no-local-use |

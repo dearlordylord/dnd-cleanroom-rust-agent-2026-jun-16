@@ -251,6 +251,18 @@ Template:
 - Review/fixer notes: reviewer found contradictory metamagic option facts/effects were representable and accepted; fixer added `MetamagicOptionEffectMismatch` at the reducer boundary before spend/action-lock/projection/routing, plus a regression test. Integration resolved FU08B/FU08C by sharing one `MetamagicOptionSpell` subject with typed modification/effect shape checks.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08c`
 
+### L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES
+
+- Merge commit: `6834ee18356e01eb9b00bd4b32f0169b75a7220d`
+- Lane commit(s): `11f9f56bf2dccee87204371cb9a5d5f125e6402c`, `195a473783bc666f5413dabe0a2bf93ea18003df`
+- Drivers added: `2` net-new unique drivers.
+- Obligations added: `14` accepted counted obligations; `2` rows are recorded as target blockers. Total accepted obligations moved from `478` to `492`.
+- New total driver coverage: `73 / 97 = 75.3%`
+- New total obligation coverage: `492 / 668 = 73.7%`
+- Integration verification: focused FU01B adapter tests, FU08C mismatch regression, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check`, `cargo test` (`209 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: Carson found stale FU01B artifacts and dishonest blocker witnesses. Schrodinger fixed artifacts/history/evidence and made the two blocker rows reject/report target-blocker status across observed replay, observed route, expected witness, and evidence. Turing re-reviewed clean.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b`
+
 ## CP4 Launch Plan
 
 The small feature substrate batch was split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa` and is now merged:
