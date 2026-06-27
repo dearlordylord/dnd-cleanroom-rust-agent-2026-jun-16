@@ -197,7 +197,7 @@
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "fixing-review-findings",
-    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "worker-complete-review-pending",
+    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
@@ -265,7 +265,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d",
       "branch": "ralph/l15-rr07-fu01d-protection-charm-ward",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "worker-complete-review-pending",
+      "status": "fixing-review-findings",
       "workerAgent": "019f07d6-63cd-7821-8803-074f626ac3e5",
       "workerName": "Pasteur",
       "workerCommit": "879b44d3d7dec602df492f4570429b9fc92cb6f0",
@@ -286,7 +286,23 @@
       ],
       "reviewAgent": "019f07f1-7dcf-7472-9ca7-b32d4164cdb4",
       "reviewName": "Fermat the 2nd",
-      "reviewStatus": "running"
+      "reviewStatus": "findings",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "BattleState.protection_charm_ward stores full projection states and duplicates canonical battle state such as action availability, slot expenditure, and warded HP.",
+        "Expected routes derive subject/owner/holes from fill.subject(), which is coupled to observed discovery construction.",
+        "Target replay evidence uses placeholder projection hashes and validation report header still names FU08B as latest evidence."
+      ],
+      "reviewVerification": [
+        "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
+        "cargo test creature_type_protection_adapter_replays_all_branches",
+        "cargo test sanctuary_selected_identity_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
