@@ -95,6 +95,12 @@
       "owner": "executable-boundary-projection"
     },
     {
+      "apiPath": "BattleArmorClassOwner projection",
+      "boundary": "state-read/no-op Armor Class projection route reached after base active-effect projection or duration-expiry cleanup; live check uses existing BattleState.action_available=false to keep fresh standalone projection stale",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state-projection-boundary"
+    },
+    {
       "apiPath": "MageArmorState.self_target_admitted",
       "boundary": "target replay checked projection field",
       "introducedIn": "src/rules/level_one_armor_spells.rs",

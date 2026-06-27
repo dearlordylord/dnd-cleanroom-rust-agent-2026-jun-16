@@ -77,16 +77,20 @@ Verification results:
 
 ## Work Loop Status
 
-- Manifest source commit SHA: `53642cf0b1bc98f4426b6081fe37c98a960939fc`
-- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Last completed current-snapshot queued branch set: `L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES`
-- Latest evidence: `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json` covers `doDiscoverMagicWeapon` and `doFillMagicWeaponTarget` via copied `WeaponEnhancementItemTargetRouteSubject` qRoute and reducer-entrypoint route replay.
-- Latest verification: focused CP7-E route adapter and touched JSON validation passed; full verification is recorded in the CP7-E section below.
+- Manifest source commit SHA: `d5a70b23ad05abd4188b1f0d37d9c6aba600cce5`
+- Source branch inventory SHA: `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81`
+- Reducer-route inventory SHA: `e76d003bcff671c3567e35f9ee3e15bec5801e4807fdfe35e2fdc937d3f0e13c`
+- Last completed current-snapshot queued branch set: `L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES`
+- Latest evidence: `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json` covers the three CP8 Mage Armor rows plus refreshed base Armor Class projection route shape via copied `SpellBaseArmorClassEffectRouteSubject` qRoute and reducer-entrypoint route replay.
+- Latest verification: focused Mage Armor route adapter, touched JSON validation, `cargo fmt --check`, and cleanroom harness rerun are recorded in the FU01E/CP8 section below.
 
 ## L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES: Companion/Object-Boundary Routes
 
-- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
-- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Manifest source commit SHA: `d5a70b23ad05abd4188b1f0d37d9c6aba600cce5`
+- Source branch inventory SHA: `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81`
+- Reducer-route inventory SHA: `e76d003bcff671c3567e35f9ee3e15bec5801e4807fdfe35e2fdc937d3f0e13c`
+- Mage Armor selected QNT SHA: `b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b`
+- Generic Armor Class route connector SHA: `9e84c94cb89313d8a788ca1163aa86bd1b727c72a1175044e1aeb2951ccda060`
 - Drivers:
   - `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt`
   - `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt`
@@ -160,11 +164,12 @@ Verification results:
 
 ## Work Loop Status
 
-- Manifest source commit SHA: `53642cf0b1bc98f4426b6081fe37c98a960939fc`
-- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Last completed current-snapshot queued branch set: `L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES`
-- Latest evidence: `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json` covers `doDiscoverMagicWeapon` and `doFillMagicWeaponTarget` via copied `WeaponEnhancementItemTargetRouteSubject` qRoute and reducer-entrypoint route replay.
-- Latest verification: focused CP7-E route adapter and touched JSON validation passed; full verification is recorded in the CP7-E section below.
+- Manifest source commit SHA: `d5a70b23ad05abd4188b1f0d37d9c6aba600cce5`
+- Source branch inventory SHA: `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81`
+- Reducer-route inventory SHA: `e76d003bcff671c3567e35f9ee3e15bec5801e4807fdfe35e2fdc937d3f0e13c`
+- Last completed current-snapshot queued branch set: `L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES`
+- Latest evidence: `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json` covers the three CP8 Mage Armor rows plus refreshed base Armor Class projection route shape via copied `SpellBaseArmorClassEffectRouteSubject` qRoute and reducer-entrypoint route replay.
+- Latest verification: focused Mage Armor route adapter, touched JSON validation, `cargo fmt --check`, and cleanroom harness rerun are recorded in the FU01E/CP8 section below.
 
 ## L15-RR07-FU01F: Spatial Light/Area/Movement Substrates
 
@@ -209,8 +214,11 @@ Verification results:
 
 ## T001: Magic Missile
 
-- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
-- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Manifest source commit SHA: `d5a70b23ad05abd4188b1f0d37d9c6aba600cce5`
+- Source branch inventory SHA: `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81`
+- Reducer-route inventory SHA: `e76d003bcff671c3567e35f9ee3e15bec5801e4807fdfe35e2fdc937d3f0e13c`
+- Mage Armor selected QNT SHA: `b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b`
+- Generic Armor Class route connector SHA: `9e84c94cb89313d8a788ca1163aa86bd1b727c72a1175044e1aeb2951ccda060`
 - Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt`
 - Branch obligations:
   - `step:doFillMagicMissileAllocation`
@@ -2857,6 +2865,7 @@ Allowed inputs used:
 
 - `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt`
 - `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt`
 - `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt`
 - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
 - `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
@@ -2867,7 +2876,8 @@ Behavior implemented:
 
 - CP7-D blocker research found no copied Mage Armor qRoute connector or generic armor-class route subject owner for target admission, armored rejection, or duration expiry.
 - CP8 source refresh supplied `SpellBaseArmorClassEffectRouteSubject`; accepted Mage Armor target-admission discovery, armored-target rejection, and duration expiry through observed `BattleEntrypointTrace.route_events` matching the generic connector.
-- Accepted Mage Armor base AC projection through generic `SpellBaseArmorClassEffect` route using `armor_class_projection` and active-effect state.
+- Refreshed the pre-existing Mage Armor base AC projection route to the generic connector shape: target-admission discovery, `TargetChoiceFillKind` target-selection resolution, active-effect projection without fill, and Armor Class owner projection without fill. This row remains pre-existing FU01E coverage and is not counted as one of the three new CP8 accepted rows.
+- `ArmorClassProjection` is intentionally a state-read/no-op `BattleArmorClassOwner` projection boundary: copied QNT records only route ownership and no additional fill for the Armor Class projection step. The live check is narrowed to post-action states (`BattleState.action_available=false`), which covers both post-base-effect projection and post-expiry projection while rejecting fresh standalone projection requests as stale.
 - Accepted Shield and Hellish Rebuke selected rows through generic `ReactionSpell` fills for armor-class interruption and failed-save damage.
 - Counterspell remains out of scope because it is level 3.
 
@@ -2900,6 +2910,7 @@ Harness artifacts:
 Remaining gaps:
 
 - CP8 accepted the three formerly blocked Mage Armor target rows after the refreshed cleanroom package supplied the generic `SpellBaseArmorClassEffectRouteSubject` connector.
+- The FU01E target replay evidence file is mixed historical evidence: CP8 newly accepts only the three `L15-RRCP8-A` Mage Armor rows, while the pre-existing base projection and reaction rows remain FU01E rows. The top-level evidence metadata now records the refreshed `d5a70b23` package because all rows in the file use current copied QNT hashes.
 - `doResolveCounterspellMagicMissileCast` is out of scope.
 
 Verification results:
@@ -2910,8 +2921,7 @@ Verification results:
 - `git diff --check c59d644...HEAD` passed.
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
-- `node scripts/check-cleanroom-harness.cjs` failed on known stale global manifest/evidence debt. Filtered output still includes pre-existing FU01E/Mage Armor stale-manifest lines, so this run is not classified as a clean CP7-D harness pass.
-- CP8 verification: `cargo test mage_armor_adapter_replays_all_branches -- --nocapture`, `cargo test mage_armor_projects_base_armor_class_and_duration -- --nocapture`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, `cargo fmt --check`, `jq empty` on edited JSON artifacts, and `git diff --check b4c04b7...HEAD` passed. `node scripts/check-cleanroom-harness.cjs` failed only on pre-existing stale validator hashes in `cleanroom-input/MANIFEST.md` for `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs`; it reported no CP8/FU01E evidence, ledger, or artifact failures.
+- CP8 verification: `cargo test mage_armor_adapter_replays_all_branches -- --nocapture`, `jq empty` on edited JSON artifacts, `cargo fmt --check`, and `git diff --check b4c04b7...HEAD` passed. `node scripts/check-cleanroom-harness.cjs` failed only on pre-existing stale validator hashes in `cleanroom-input/MANIFEST.md` for `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs`; it reported no CP8/FU01E evidence, ledger, or artifact failures.
 
 ## FU01C Integration Addendum
 

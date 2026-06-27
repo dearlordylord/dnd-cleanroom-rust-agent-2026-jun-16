@@ -155,6 +155,32 @@
       ],
       "round": 3,
       "summary": "CP8 convergence pass after accepting exactly three Mage Armor rows through the generic SpellBaseArmorClassEffectRouteSubject connector. Production reducer code uses generic target-admission, active-effect, turn-boundary, and Armor Class owner facts; selected Mage Armor identity remains quarantined to adapter/evidence row names."
+    },
+    {
+      "passes": [
+        {
+          "checklist": "generic-connector-parity",
+          "status": "pass"
+        },
+        {
+          "checklist": "base-armor-class-projection-route-shape",
+          "status": "pass"
+        },
+        {
+          "checklist": "armor-class-owner-live-check",
+          "status": "pass"
+        },
+        {
+          "checklist": "artifact-honesty",
+          "status": "pass"
+        },
+        {
+          "checklist": "cp8-accounting",
+          "status": "pass"
+        }
+      ],
+      "round": 4,
+      "summary": "Follow-up review accepted the preferred fix for the pre-existing Mage Armor base projection row: replay now matches the refreshed generic connector sequence of target admission, active-effect no-fill projection, and Armor Class no-fill projection. ArmorClassProjection is intentionally a state-read/no-op BattleArmorClassOwner boundary, but its live check is narrowed to post-action states with BattleState.action_available=false so fresh standalone projection requests remain stale. CP8 accounting remains exactly three newly accepted rows."
     }
   ],
   "schemaVersion": 1,

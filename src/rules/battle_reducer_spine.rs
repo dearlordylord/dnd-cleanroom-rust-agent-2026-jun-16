@@ -5025,18 +5025,7 @@ fn resolve_armor_class_spell_effect_subject(
             *effect = BattleArmorClassBaseEffect::None;
             BattleResolutionResult::Resolved { state }
         }
-        BattleArmorClassSpellEffectFill::ArmorClassProjection(facts) => {
-            if combatant_for(&state, facts.target)
-                .spell_active_effects
-                .armor_class_base_effect
-                .is_active()
-            {
-                return invalid_with_holes(
-                    state,
-                    BattleResolutionInvalidReason::StaleSubject,
-                    Vec::new(),
-                );
-            }
+        BattleArmorClassSpellEffectFill::ArmorClassProjection(_facts) => {
             BattleResolutionResult::Resolved { state }
         }
     }
@@ -8441,12 +8430,7 @@ fn armor_class_spell_effect_route_subject_is_live(
                 ..
             }
         ),
-        BattleArmorClassSpellEffectFill::ArmorClassProjection(facts) => {
-            !combatant_for(state, facts.target)
-                .spell_active_effects
-                .armor_class_base_effect
-                .is_active()
-        }
+        BattleArmorClassSpellEffectFill::ArmorClassProjection(_) => !state.action_available,
     }
 }
 
@@ -8889,10 +8873,8 @@ fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRoute
             BattleArmorClassSpellEffectFill::TargetAdmission(_) => {
                 Some(BattleReducerRouteFillKind::TargetChoice)
             }
-            BattleArmorClassSpellEffectFill::BaseArmorClassProjection(_) => {
-                Some(BattleReducerRouteFillKind::UnitFeatureDecision)
-            }
-            BattleArmorClassSpellEffectFill::DurationBoundary(_)
+            BattleArmorClassSpellEffectFill::BaseArmorClassProjection(_)
+            | BattleArmorClassSpellEffectFill::DurationBoundary(_)
             | BattleArmorClassSpellEffectFill::ActiveEffectEnd(_)
             | BattleArmorClassSpellEffectFill::ArmorClassProjection(_) => None,
         },

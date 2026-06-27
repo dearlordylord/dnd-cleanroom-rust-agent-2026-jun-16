@@ -90,18 +90,10 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         ],
         "doResolveMageArmorBaseArmorClassProjection" => vec![
             route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-            route_discover_battle_acts_from_route_holes(
-                ReducerRouteSubjectFamily::ArmorClassSpellEffect,
-                vec![ReducerRouteHoleKind::TargetChoice],
-                ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
-            ),
-            route_resolve_battle_subject_from_route_result(
-                ReducerRouteSubjectFamily::ArmorClassSpellEffect,
-                ReducerRouteFillKind::UnitFeatureDecision,
-                ReducerRouteResolutionOutcome::Resolved,
-                Vec::new(),
-                ReducerRouteOwnerGroup::ActiveEffect,
-            ),
+            discover_target_admission(),
+            resolve_target_admission(ReducerRouteResolutionOutcome::Resolved, Vec::new()),
+            resolve_without_fill(ReducerRouteOwnerGroup::ActiveEffect),
+            resolve_without_fill(ReducerRouteOwnerGroup::ArmorClass),
         ],
         action => panic!("unsupported expected route mbt::actionTaken {action}"),
     }
@@ -247,20 +239,57 @@ fn replay_observed_state_and_route(
             let mut observer = BattleEntrypointTrace::default();
             let state = start_battle_observed(mage_armor_setup(), &mut observer).state;
             let subject = discover_armor_class_spell_effect_subject(&state, &mut observer);
+            let state = resolved_state(
+                resolve_battle_subject_observed(
+                    state,
+                    BattleResolutionRequest::armor_class_spell_effect(
+                        subject,
+                        BattleArmorClassSpellEffectFill::TargetAdmission(
+                            BattleArmorClassTargetAdmissionFacts {
+                                target: Actor::Fighter,
+                                target_wears_armor: false,
+                            },
+                        ),
+                    )
+                    .expect(
+                        "armor-class spell effect subject should accept target-admission facts",
+                    ),
+                    &mut observer,
+                ),
+                observed_action_taken,
+            );
+            let state = resolved_state(
+                resolve_battle_subject_observed(
+                    state,
+                    BattleResolutionRequest::armor_class_spell_effect(
+                        subject,
+                        BattleArmorClassSpellEffectFill::BaseArmorClassProjection(
+                            BattleArmorClassBaseProjectionFacts {
+                                target: Actor::Fighter,
+                                base_armor_class: MAGE_ARMOR_BASE_ARMOR_CLASS,
+                                dexterity_modifier: MAGE_ARMOR_DEXTERITY_MODIFIER,
+                                duration_ticks: MAGE_ARMOR_DURATION_TICKS,
+                            },
+                        ),
+                    )
+                    .expect("armor-class spell effect subject should accept base projection facts"),
+                    &mut observer,
+                ),
+                observed_action_taken,
+            );
             let result = resolve_battle_subject_observed(
                 state,
                 BattleResolutionRequest::armor_class_spell_effect(
                     subject,
-                    BattleArmorClassSpellEffectFill::BaseArmorClassProjection(
-                        BattleArmorClassBaseProjectionFacts {
+                    BattleArmorClassSpellEffectFill::ArmorClassProjection(
+                        BattleArmorClassEffectTargetFacts {
                             target: Actor::Fighter,
-                            base_armor_class: MAGE_ARMOR_BASE_ARMOR_CLASS,
-                            dexterity_modifier: MAGE_ARMOR_DEXTERITY_MODIFIER,
-                            duration_ticks: MAGE_ARMOR_DURATION_TICKS,
                         },
                     ),
                 )
-                .expect("armor-class spell effect subject should accept base projection facts"),
+                .expect(
+                    "armor-class spell effect subject should accept armor-class projection facts",
+                ),
                 &mut observer,
             );
             (

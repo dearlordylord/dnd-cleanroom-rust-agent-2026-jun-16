@@ -4918,6 +4918,20 @@ fn mage_armor_adapter_replays_all_branches() {
             _ => panic!("unexpected accepted Mage Armor route action {action}"),
         }
     }
+    let base_projection_route =
+        replay_mage_armor_route("doResolveMageArmorBaseArmorClassProjection");
+    assert_eq!(
+        reducer_route_payload(&base_projection_route),
+        reducer_route_payload(&expected_mage_armor_route(
+            "doResolveMageArmorBaseArmorClassProjection"
+        ))
+    );
+    let base_projection_payload = reducer_route_payload(&base_projection_route);
+    assert!(base_projection_payload.contains("SpellBaseArmorClassEffectRouteSubject"));
+    assert!(base_projection_payload.contains("TargetChoiceFillKind"));
+    assert!(base_projection_payload.contains("BattleTargetSelectionOwner"));
+    assert!(base_projection_payload.contains("BattleActiveEffectOwner"));
+    assert!(base_projection_payload.contains("BattleArmorClassOwner"));
 }
 
 #[test]

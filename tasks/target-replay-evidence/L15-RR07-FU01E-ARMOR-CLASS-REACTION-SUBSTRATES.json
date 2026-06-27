@@ -1,5 +1,5 @@
 {
-  "cleanroomManifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
+  "cleanroomManifestSourceCommitSha": "d5a70b23ad05abd4188b1f0d37d9c6aba600cce5",
   "generatedBy": {
     "name": "rust-cleanroom-fu01e-armor-class-reaction-substrates",
     "tag": "target-harness"
@@ -100,7 +100,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState ArmorClassSpellEffect route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleState SpellBaseArmorClassEffect route observed through BattleEntrypointTrace for target admission, base active-effect projection, and Armor Class owner projection",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -110,8 +110,8 @@
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "d56bd21412afcab93bc2f04b3eb68eeadbffa3288beb617f1bba480fba062c30",
-        "observedProjectionSha256": "d56bd21412afcab93bc2f04b3eb68eeadbffa3288beb617f1bba480fba062c30",
+        "expectedProjectionSha256": "7c9f5553058375981172ad4b57cd55c411a2f38d25e069f7a649adc97c3f21b9",
+        "observedProjectionSha256": "7c9f5553058375981172ad4b57cd55c411a2f38d25e069f7a649adc97c3f21b9",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -177,7 +177,7 @@
       "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveShieldReactionSpellHit"
     }
   ],
-  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
   "targetProfile": "rust",
   "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
 }
