@@ -53,7 +53,8 @@ At `ee30e831b0bc0fa49fa54100e54a45c32a43a60a`:
   - `L15-RR09-CHARACTER-SHEET-ROUTES` fixer Aristotle `019f06b9-b640-7042-ab31-0bec31939b48` committed `410e3db7d181c7fba9265cc753ab977198dacca7`; re-reviewer Jason `019f06c9-bc48-74b1-87dd-8312784588dd` returned clean against Pauli's three blocker findings.
   - RR08 and RR09 overlap in `src/tests/mod.rs`, task artifacts, and `src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs`; merge only after RR08 re-review and an explicit conflict review.
   - `L15-RR08-CHARACTER-CREATION-ROUTES` merged at `76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf` and passed integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`199 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`72 passed`).
-  - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` remains ready but not launchable until RR08 and RR09 converge.
+  - `L15-RR09-CHARACTER-SHEET-ROUTES` merged at `616b6c27104807a0cf312d4cd68485e0c7fef1c3` after resolving shared task-artifact conflicts by preserving cumulative ledger evidence and both validation sections. Integration verification passed: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`202 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`75 passed`).
+  - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` is now launchable from integration head `616b6c27104807a0cf312d4cd68485e0c7fef1c3`.
 
 ## Coverage Delta Log
 
@@ -134,3 +135,15 @@ Template:
 - Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` passed.
 - Review/fixer notes: review loop replaced self-referential expected route witnesses with adapter-local literal route witnesses, removed production selected-identity dispatch from reported class-feature paths, and corrected overclaimed evidence artifacts.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08`
+
+### L15-RR09-CHARACTER-SHEET-ROUTES
+
+- Merge commit: `616b6c27104807a0cf312d4cd68485e0c7fef1c3`
+- Lane commit(s): `cf9a8974fc9285878f6a8276dff8aa3cda3f3682`, `410e3db7d181c7fba9265cc753ab977198dacca7`
+- Drivers added: `10` net-new unique character-sheet drivers.
+- Obligations added: `67` net-new counted obligations; total accepted obligations moved from `311` to `378`.
+- New total driver coverage: `43 / 97 = 44.3%`
+- New total obligation coverage: `378 / 668 = 56.6%`
+- Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` passed.
+- Review/fixer notes: review loop replaced self-referential route and projection witnesses, added route comparisons for previously projection-only selected drivers, and resolved RR08/RR09 artifact overlap by keeping cumulative run-ledger and validation evidence for both lanes.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09`

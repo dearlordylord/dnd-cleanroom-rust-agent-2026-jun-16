@@ -6,11 +6,7 @@ This file records lane branches that are implemented, reviewed, and waiting to m
 
 ## Current Queue
 
-1. `L15-RR09-CHARACTER-SHEET-ROUTES`
-   - Lane head: `410e3db7d181c7fba9265cc753ab977198dacca7`
-   - Worktree: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09`
-   - Review: clean after Aristotle fixer and Jason re-review.
-   - Merge note: RR08 is merged; run explicit conflict review for `src/tests/mod.rs`, task artifacts, and `src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs`.
+_empty_
 
 ## Merge Rules
 

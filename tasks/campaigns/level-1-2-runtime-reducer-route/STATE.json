@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf",
+    "lastVerifiedIntegrationHead": "616b6c27104807a0cf312d4cd68485e0c7fef1c3",
     "lastMergedLane": {
-      "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
-      "mergeCommit": "76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf",
-      "laneHead": "e11862d68ab0b02ec0db303504923e9222c3446f"
+      "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
+      "mergeCommit": "616b6c27104807a0cf312d4cd68485e0c7fef1c3",
+      "laneHead": "410e3db7d181c7fba9265cc753ab977198dacca7"
     }
   },
   "denominator": {
@@ -33,10 +33,10 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 33,
-    "acceptedDriverCoveragePercent": 34,
-    "acceptedObligations": 311,
-    "acceptedObligationCoveragePercent": 46.6,
+    "acceptedUniqueDrivers": 43,
+    "acceptedDriverCoveragePercent": 44.3,
+    "acceptedObligations": 378,
+    "acceptedObligationCoveragePercent": 56.6,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers",
     "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json in-scope obligations for unique selected drivers"
   },
@@ -93,10 +93,7 @@
       "dependsOn": [
         "CP2"
       ],
-      "runningLaneIds": [
-        "L15-RR08-CHARACTER-CREATION-ROUTES",
-        "L15-RR09-CHARACTER-SHEET-ROUTES"
-      ]
+      "runningLaneIds": []
     },
     {
       "checkpointId": "CP4",
@@ -136,7 +133,7 @@
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "merged-verified",
-    "L15-RR09-CHARACTER-SHEET-ROUTES": "review-clean-merge-ready",
+    "L15-RR09-CHARACTER-SHEET-ROUTES": "merged-verified",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "ready",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
     "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
@@ -162,7 +159,7 @@
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf",
+    "head": "616b6c27104807a0cf312d4cd68485e0c7fef1c3",
     "commands": [
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
@@ -172,140 +169,10 @@
       "cargo test adapter_replays_all_branches --quiet"
     ],
     "result": "passed",
-    "cargoTest": "199 passed",
-    "adapterReplaySmoke": "72 passed"
+    "cargoTest": "202 passed",
+    "adapterReplaySmoke": "75 passed"
   },
-  "activeLaneWorktrees": [
-    {
-      "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08",
-      "branch": "ralph/l15-rr08-character-creation",
-      "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
-      "status": "merged-verified",
-      "workerAgent": "019f06a6-8ed9-7560-9daa-6922b4bb277d",
-      "workerName": "Harvey",
-      "commit": "8416ee533fed413f9f072b982e0d425d89d90bac",
-      "workerSummary": [
-        "Added character creation state/support reducer route changes and adapters.",
-        "Recorded 53 in-scope accepted refs in L15-RR08 target replay evidence.",
-        "Reported full cargo/harness verification passing with 199 tests."
-      ],
-      "reviewAgent": "019f06ba-0bd8-75f1-a90f-c644d3746cb3",
-      "reviewName": "Anscombe",
-      "reviewStatus": "findings",
-      "reviewFindings": [
-        "Expected route witnesses are self-referential across character creation adapters and tests assert equality against non-independent expected routes.",
-        "Production rule code dispatches on official selected identities in class_features.rs instead of admitted support facts.",
-        "Evidence artifacts overclaim acceptance and authored-identity quarantine despite self-referential witnesses and production identity dispatch."
-      ],
-      "fixerAgent": "019f06bd-b6ee-7771-81e1-d412340ae0e9",
-      "fixerName": "Kierkegaard",
-      "fixStatus": "committed-pending-rereview",
-      "fixCommit": "e11862d68ab0b02ec0db303504923e9222c3446f",
-      "fixerSummary": [
-        "Added independent adapter-local QNT literal route witnesses for character creation expected routes.",
-        "Removed production dispatch on official selected identities for reported class-feature cases; production consumes admitted support fact shapes.",
-        "Updated evidence/report artifacts to describe the repaired implementation."
-      ],
-      "fixerVerification": [
-        "git merge-base --is-ancestor 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9 HEAD",
-        "cargo test character_creation",
-        "focused changed tests: class_feature, cleric_druid_order, fighting_style, rogue_expertise, warlock_invocation, weapon_mastery",
-        "cargo fmt --check",
-        "cargo test",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9...HEAD"
-      ],
-      "mergeRisk": [
-        "Touches src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs, which also changed in RR09; require re-review before any CP3 merge."
-      ],
-      "reReviewAgent": "019f06cd-b784-7a62-99fe-39612ff205f4",
-      "reReviewName": "Meitner",
-      "reReviewStatus": "clean",
-      "reReviewVerdict": "clean",
-      "reReviewSummary": [
-        "Anscombe finding 1 resolved: character-creation expected routes now use adapter-local literal helpers, not observed replay helpers.",
-        "Anscombe finding 2 resolved: production authored-identity dispatch removed for reported cleric/druid order, weapon mastery class counts, and metamagic option labels.",
-        "Anscombe finding 3 resolved: evidence/report artifacts now describe the repaired boundary and no longer claim pre-fix convergence."
-      ],
-      "reReviewVerification": [
-        "git merge-base --is-ancestor 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9 HEAD",
-        "cargo test character_creation",
-        "cargo test class_feature",
-        "cargo test cleric_druid_order",
-        "cargo test fighting_style",
-        "cargo test rogue_expertise",
-        "cargo test warlock_invocation",
-        "cargo test weapon_mastery",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9...HEAD"
-      ],
-      "reReviewResidualRisk": [
-        "Full cargo test, fmt, and clippy were not rerun by re-reviewer; fixer had run them before re-review.",
-        "RR08 overlaps RR09 in src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs and task/test artifacts; integration merge must review conflicts explicitly."
-      ]
-    },
-    {
-      "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09",
-      "branch": "ralph/l15-rr09-character-sheet",
-      "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
-      "status": "review-clean-merge-ready",
-      "workerAgent": "019f06a6-f828-76d0-b989-42488be5d4b9",
-      "workerName": "Volta",
-      "commit": "cf9a8974fc9285878f6a8276dff8aa3cda3f3682",
-      "workerSummary": [
-        "Added character sheet reducer route/projection module and adapters.",
-        "Recorded 67 accepted refs in L15-RR09 target replay evidence.",
-        "Reported full cargo/harness verification passing with 194 tests."
-      ],
-      "reviewAgent": "019f06b4-d8d0-7050-9873-35e567b871b6",
-      "reviewName": "Pauli",
-      "reviewStatus": "findings",
-      "reviewFindings": [
-        "Route expected values are self-referential: expected_route delegates to replay_observed_route in arcane recovery, class feature, and spell slots adapters.",
-        "Some expected witnesses are not independent of observed replay: spellbook ritual and weapon mastery expected witnesses return replay_observed_action; spell slots expected projections use the same reducer helpers as observed replay.",
-        "Evidence artifacts overclaim route coverage for selected drivers whose tests only assert projection witnesses and do not replay or compare route values."
-      ],
-      "fixerAgent": "019f06b9-b640-7042-ab31-0bec31939b48",
-      "fixerName": "Aristotle",
-      "fixStatus": "committed-pending-rereview",
-      "fixCommit": "410e3db7d181c7fba9265cc753ab977198dacca7",
-      "fixerSummary": [
-        "Replaced self-referential expected_route witnesses in Arcane Recovery, Class Feature, and Spell Slots adapters.",
-        "Replaced reducer-derived/self-referential expected witnesses for Spellbook Ritual, Weapon Mastery, and Spell Slots.",
-        "Added actual route replay and expected-route comparisons for Ability Check, Healing Resource, Spellbook Ritual, and Weapon Mastery tests."
-      ],
-      "fixerVerification": [
-        "git merge-base --is-ancestor 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9 HEAD",
-        "cargo test adapter_replays",
-        "cargo fmt --check",
-        "cargo test",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9...HEAD"
-      ],
-      "reReviewAgent": "019f06c9-bc48-74b1-87dd-8312784588dd",
-      "reReviewName": "Jason",
-      "reReviewStatus": "clean",
-      "reReviewVerdict": "clean",
-      "reReviewSummary": [
-        "Pauli finding 1 resolved: arcane recovery, class feature, and spell slots expected_route values no longer delegate to observed replay.",
-        "Pauli finding 2 resolved: spellbook ritual, weapon mastery, and spell slots expected witnesses are literal expected records rather than reducer/replay-derived projections.",
-        "Pauli finding 3 resolved: ability check, healing resource, spellbook ritual, and weapon mastery tests now compare observed routes to expected routes."
-      ],
-      "reReviewVerification": [
-        "git merge-base --is-ancestor 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9 HEAD",
-        "cargo test adapter_replays",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9...HEAD"
-      ],
-      "mergeRisk": [
-        "Overlaps RR08 in src/tests/mod.rs, tasks artifacts, and src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs; merge after RR08 re-review with explicit conflict review."
-      ]
-    }
-  ],
+  "activeLaneWorktrees": [],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
@@ -691,6 +558,14 @@
       "branch": "ralph/l15-rr08-character-creation",
       "laneHead": "e11862d68ab0b02ec0db303504923e9222c3446f",
       "mergeCommit": "76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf",
+      "status": "removable-after-operator-confirms-no-local-use"
+    },
+    {
+      "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09",
+      "branch": "ralph/l15-rr09-character-sheet",
+      "laneHead": "410e3db7d181c7fba9265cc753ab977198dacca7",
+      "mergeCommit": "616b6c27104807a0cf312d4cd68485e0c7fef1c3",
       "status": "removable-after-operator-confirms-no-local-use"
     }
   ],

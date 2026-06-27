@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR09-CHARACTER-SHEET-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09` | `ralph/l15-rr09-character-sheet` | `9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9` | Volta `019f06a6-f828-76d0-b989-42488be5d4b9`; reviewer Pauli `019f06b4-d8d0-7050-9873-35e567b871b6`; fixer Aristotle `019f06b9-b640-7042-ab31-0bec31939b48`; re-reviewer Jason `019f06c9-bc48-74b1-87dd-8312784588dd` | review-clean-merge-ready, lane head `410e3db7d181c7fba9265cc753ab977198dacca7`; overlaps RR08 in `src/tests/mod.rs`, task artifacts, and `character_sheet_weapon_mastery_containers_selected_identity.rs` |
+_none_
 
 ## Historical RRCONV-19 Worktrees
 
@@ -52,3 +52,4 @@ When launching a lane:
 | L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05` | `ralph/l15-rr05-attack-statblock` | `1b928b16bfed2c87ad95efb6aae0a5d384fdb903` | `a235602664bbae19c3bfac5e38b85b1bbc4c23a5` | removable-after-operator-confirms-no-local-use |
 | L15-RR06-BATTLE-SPELL-EFFECT-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr06` | `ralph/l15-rr06-spell-effect-routes` | `9d17264679d8207c716f51148c52418629684891` | `1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025` | removable-after-operator-confirms-no-local-use |
 | L15-RR08-CHARACTER-CREATION-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08` | `ralph/l15-rr08-character-creation` | `e11862d68ab0b02ec0db303504923e9222c3446f` | `76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf` | removable-after-operator-confirms-no-local-use |
+| L15-RR09-CHARACTER-SHEET-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09` | `ralph/l15-rr09-character-sheet` | `410e3db7d181c7fba9265cc753ab977198dacca7` | `616b6c27104807a0cf312d4cd68485e0c7fef1c3` | removable-after-operator-confirms-no-local-use |
