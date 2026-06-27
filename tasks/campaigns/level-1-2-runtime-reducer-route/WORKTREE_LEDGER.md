@@ -15,7 +15,7 @@ This file prevents orphaned or confused Ralph worktrees.
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
 | L15-RR08-CHARACTER-CREATION-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08` | `ralph/l15-rr08-character-creation` | `9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9` | Harvey `019f06a6-8ed9-7560-9daa-6922b4bb277d` | running |
-| L15-RR09-CHARACTER-SHEET-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09` | `ralph/l15-rr09-character-sheet` | `9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9` | Volta `019f06a6-f828-76d0-b989-42488be5d4b9` | running |
+| L15-RR09-CHARACTER-SHEET-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09` | `ralph/l15-rr09-character-sheet` | `9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9` | Volta `019f06a6-f828-76d0-b989-42488be5d4b9` | implemented-pending-review, lane head `cf9a8974fc9285878f6a8276dff8aa3cda3f3682` |
 
 ## Historical RRCONV-19 Worktrees
 
