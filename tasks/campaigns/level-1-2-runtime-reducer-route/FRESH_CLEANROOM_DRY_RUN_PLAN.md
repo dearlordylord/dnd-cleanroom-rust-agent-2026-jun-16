@@ -333,6 +333,12 @@ programmatic tracer-bullet scenario against the freshest usable target surface:
 - assert that the public programmatic surface is usable end to end, or record a
   concrete blocker explaining which missing surface prevents it.
 
+FC-06 source feedback is recorded in `FC06_SOURCE_FEEDBACK.md`. The first fresh
+SDK tracer-bullet was accepted only partial-with-limitation: public APIs can
+create a synthetic sheet, hand off into `BattleState`, and separately drive a
+simple battle turn, but a single integrated handoff-to-simple-turn scenario is
+blocked until source QNT/guidance defines an encounter composition surface.
+
 ## Parallelism
 
 Use a simple checkpoint sequence until the reducer surface is stable:

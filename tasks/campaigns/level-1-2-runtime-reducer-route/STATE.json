@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fc-06-source-feedback-running",
+  "status": "fc-06-source-feedback-complete",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -294,16 +294,7 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no CP8/FU01E/Mage Armor evidence, ledger, or artifact failures",
     "review": "Rawls the 2nd re-review returned no blockers for commit a8b96ec0aa91b4249b352009b1384292f917f7e2"
   },
-  "activeLaneWorktrees": [
-    {
-      "laneId": "FC-06-SOURCE-FEEDBACK-AUDIT",
-      "path": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
-      "branch": "ralph/rrconv-19-cleanroom",
-      "baseSha": "4c21cf8d99802bd8f0e6d90aed49e6e84ce694d7",
-      "agent": "pending",
-      "status": "launch-recorded"
-    }
-  ],
+  "activeLaneWorktrees": [],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES",
@@ -2332,16 +2323,19 @@
   },
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
+  "freshCleanroomSourceFeedbackReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md",
   "freshCleanroomDryRun": {
-    "status": "fc-06-running",
+    "status": "fc-06-source-feedback-complete",
     "phase": "FC-06",
     "phaseName": "Audit And Source Feedback",
     "activePhase": {
       "phase": "FC-06",
       "phaseName": "Audit And Source Feedback",
-      "status": "worker-launch-recorded",
+      "status": "complete",
       "baseSha": "4c21cf8d99802bd8f0e6d90aed49e6e84ce694d7",
-      "scope": "Audit fresh-run outputs and convert missing reducer-route or handoff facts into source-side QNT/guidance feedback, with special attention to encounter composition surface and Pact Slot route-surface limitations."
+      "scope": "Audit fresh-run outputs and convert missing reducer-route or handoff facts into source-side QNT/guidance feedback, with special attention to encounter composition surface and Pact Slot route-surface limitations.",
+      "artifact": "tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md",
+      "completedDate": "2026-06-27"
     },
     "previousPhase": {
       "phase": "FC-05",
@@ -2552,6 +2546,11 @@
         "status": "reviewed-accepted-with-limitations",
         "runtimeCommit": "63e6fb93a67b17d8bf2d4fbb0b44bd644c0cf419",
         "targetHead": "380cf29e49d509bc0f246cf9aa022f226e42efd8"
+      },
+      {
+        "phase": "FC-06",
+        "status": "source-feedback-complete",
+        "artifact": "tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md"
       }
     ],
     "previousAcceptedPhase": {
@@ -2660,9 +2659,9 @@
     }
   },
   "nextWorkRecommendations": [
-    "Run FC-06 Audit And Source Feedback: decide how the missing encounter composition surface should be represented in source-side QNT/guidance rather than patched only in the cleanroom target.",
-    "Promote the FC-05 Pact Slot route-surface limitation into source QNT/guidance if that branch remains in-scope for future cleanroom runs.",
-    "Keep the fresh target evidence as diagnostic: it proves separate public sheet handoff and simple battle turn surfaces, and records the integrated API blocker precisely.",
+    "Use FC06_SOURCE_FEEDBACK.md as the source-side follow-up record for fresh cleanroom limitations.",
+    "Add source QNT/guidance for an encounter composition surface before asking a future cleanroom run to prove an integrated sheet-handoff-to-simple-turn SDK tracer.",
+    "Add or explicitly block Pact Slot handoff route connector surfaces for the pure Pact Slot and mixed Spell Slot/Pact Slot branches in character-battle-init-projection.mbt.qnt.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception."
   ],
   "sdkTracerBullet": {
