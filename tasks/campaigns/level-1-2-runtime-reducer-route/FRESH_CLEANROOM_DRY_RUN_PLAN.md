@@ -3,7 +3,7 @@
 Campaign: `level-1-2-runtime-reducer-route`
 
 Status: accepted through the SDK tracer-bullet composition checkpoint, Pact
-Slot handoff replay, FEXP-04 active-effect expansion, and current
+Slot handoff replay, FEXP-05 reaction/interrupt expansion, and current
 fresh-target verifier.
 
 ## Purpose
@@ -37,7 +37,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`e8b0310e647ad471089fcd34737b8fd70211b373`
+`eb05e8495eac993b69e17f68544edace6e56caee`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -62,6 +62,11 @@ at `e8b0310e647ad471089fcd34737b8fd70211b373` with generic roll-modifier,
 scalar-buff, targeted-speed, and turn-boundary lifecycle route evidence;
 residual concentration-break cleanup, cumulative scalar sequencing, and exact
 roll-choice payloads remain explicitly blocked.
+`FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at
+`eb05e8495eac993b69e17f68544edace6e56caee` with generic reaction casting-time
+interrupt/resume, after-damage reaction, nested interrupt resume, active-effect
+resume, and recorded procedure replay route evidence; selected reaction spell
+projections and interrupt trigger taxonomy remain explicitly blocked.
 
 ## Hard Boundaries
 

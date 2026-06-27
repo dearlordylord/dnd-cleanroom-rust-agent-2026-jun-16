@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: FEXP-05 running from accepted fresh target head `e8b0310e647ad471089fcd34737b8fd70211b373`
+Status: FEXP-05 accepted-with-blockers; next lane is FEXP-06 from accepted fresh target head `eb05e8495eac993b69e17f68544edace6e56caee`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `e8b0310e647ad471089fcd34737b8fd70211b373`
+- current accepted fresh target head: `eb05e8495eac993b69e17f68544edace6e56caee`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `b57772b459f1b75592fd45b9196fd60965b534d3`
 
@@ -153,7 +153,13 @@ Status:
   public reducer entrypoints;
 - residual concentration-break cleanup, cumulative scalar sequencing, and exact
   roll-choice payloads remain source-input blockers;
-- continue this checkpoint with `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY`.
+- `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at fresh
+  target head `eb05e8495eac993b69e17f68544edace6e56caee`;
+- generic reaction casting-time interrupt/resume, after-damage reaction, nested
+  interrupt resume, active-effect resume, and recorded procedure replay route
+  surfaces route through public reducer entrypoints;
+- selected reaction spell projections and interrupt trigger taxonomy remain
+  explicit source-input blockers.
 
 Why third:
 

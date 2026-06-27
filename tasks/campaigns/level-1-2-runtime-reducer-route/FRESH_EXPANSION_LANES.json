@@ -122,7 +122,7 @@
     {
       "laneId": "FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY",
       "checkpointId": "FEXP-CP3",
-      "status": "running",
+      "status": "merged",
       "routeClass": "reducer-routed",
       "purpose": "Add reaction casting-time and interrupt-stack resume routing before broader reaction spell selected-identity branches are attempted.",
       "drivers": [
@@ -138,7 +138,7 @@
         "BLOCKERS.json entries for any reaction AC active-effect branch without generic substrate",
         "verifier update for FEXP-05 evidence"
       ],
-      "acceptanceSummary": "Reaction and interrupt routes use generic timing, stack, and fill shapes; selected reaction spell identity remains evidence-only."
+      "acceptanceSummary": "Accepted with blockers: generic reaction casting-time and interrupt-stack resume route surfaces route through public reducer entrypoints; expected records are mechanically derived from connector action bodies/helper vocabulary; selected reaction spell projections and interrupt trigger taxonomy remain explicit source-input blockers."
     },
     {
       "laneId": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",

@@ -35,7 +35,7 @@ Authoritative state:
 - out-of-scope obligations: `45`
 - active lane worktrees: none
 - active fresh dry-run worktrees: none
-- strongest fresh target evidence: `e8b0310e647ad471089fcd34737b8fd70211b373`
+- strongest fresh target evidence: `eb05e8495eac993b69e17f68544edace6e56caee`
 
 The final CP8 lane accepted exactly these three newly accepted rows:
 
@@ -141,13 +141,13 @@ resolved in the copied source package, and the current fresh verifier is green.
 Next useful work is one of:
 
 - use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
-  `e8b0310e647ad471089fcd34737b8fd70211b373` as the accepted evidence for the
+  `eb05e8495eac993b69e17f68544edace6e56caee` as the accepted evidence for the
   integrated SDK tracer-bullet plus post-FC06 Pact Slot handoff replay plus
   FEXP-00 expansion baseline lock, FEXP-01 diagnostic battle route pack, and
   FEXP-02 generic spell-attack/save-gated substrate lane plus FEXP-03
   chained/object spell-attack substrate lane plus FEXP-04 active-effect
-  lifecycle substrate lane, with `python3 tools/verify_current_fresh_target.py`
-  as the current package gate;
+  lifecycle substrate lane plus FEXP-05 reaction/interrupt substrate lane, with
+  `python3 tools/verify_current_fresh_target.py` as the current package gate;
 - clean the global stale validator-hash / historical evidence debt so the dirty
   harness can pass without exception;
 - promote the strongest route-connector lessons back into source-side QNT and
