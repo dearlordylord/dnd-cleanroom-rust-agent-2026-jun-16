@@ -777,9 +777,11 @@ use battle_runtime_level1_spatial_witness_selected_identity::{
     BRANCH_ACTIONS as LEVEL1_SPATIAL_BRANCH_ACTIONS,
 };
 use battle_runtime_mage_armor_selected_identity::{
-    expected_witness as expected_mage_armor_witness,
+    expected_route as expected_mage_armor_route, expected_witness as expected_mage_armor_witness,
     projection_payload as mage_armor_projection_payload,
     replay_observed_action as replay_mage_armor_action,
+    replay_observed_route as replay_mage_armor_route,
+    ACCEPTED_ROUTE_BRANCH_ACTIONS as MAGE_ARMOR_ACCEPTED_ROUTE_BRANCH_ACTIONS,
     BRANCH_ACTIONS as MAGE_ARMOR_BRANCH_ACTIONS,
 };
 use battle_runtime_magic_missile::{
@@ -815,9 +817,11 @@ use battle_runtime_reaction_casting_time::{
     BRANCH_ACTIONS as REACTION_CASTING_TIME_BRANCH_ACTIONS,
 };
 use battle_runtime_reaction_spell_selected_identity::{
+    expected_route as expected_reaction_spell_selected_identity_route,
     expected_witness as expected_reaction_spell_selected_identity_witness,
     projection_payload as reaction_spell_selected_identity_projection_payload,
     replay_observed_action as replay_reaction_spell_selected_identity_action,
+    replay_observed_route as replay_reaction_spell_selected_identity_route,
     BRANCH_ACTIONS as REACTION_SPELL_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_reducer_route::{battle_resolution_continuation, reducer_route_payload};
@@ -4366,6 +4370,22 @@ fn reaction_spell_selected_identity_adapter_replays_in_scope_branches() {
             reaction_spell_selected_identity_projection_payload(&observed)
                 .contains("protocolResult=resolved")
         );
+        let route = replay_reaction_spell_selected_identity_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_reaction_spell_selected_identity_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("ReactionSpellRouteSubject"));
+        match action {
+            "doResolveShieldReactionSpellHit" => {
+                assert!(route_payload.contains("BattleActiveEffectOwner"));
+            }
+            "doResolveHellishRebukeFailedSavingThrow" => {
+                assert!(route_payload.contains("BattleHitPointOwner"));
+            }
+            _ => panic!("unexpected reaction spell branch {action}"),
+        }
     }
 }
 
@@ -4690,6 +4710,16 @@ fn mage_armor_adapter_replays_all_branches() {
         let observed = replay_mage_armor_action(action);
         assert_eq!(observed, expected_mage_armor_witness(action));
         assert!(mage_armor_projection_payload(&observed).contains("protocolHoles=none"));
+    }
+    for action in MAGE_ARMOR_ACCEPTED_ROUTE_BRANCH_ACTIONS {
+        let route = replay_mage_armor_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_mage_armor_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("ArmorClassSpellEffectRouteSubject"));
+        assert!(route_payload.contains("BattleActiveEffectOwner"));
     }
 }
 

@@ -4,6 +4,9 @@
 //! tracked experiment proving that one durable `BattleState` path can be built
 //! from QNT before an MBT adapter is wired through the same entrypoints.
 
+use crate::rules::armor_class::{
+    armor_class_projection, ArmorClassAbility, ArmorClassFacts, ArmorClassFormula, ArmorClassOption,
+};
 use crate::rules::attack_damage_disposition::{
     apply_resolved_damage_to_positive_hit_points, CreatureKind, CreatureVitals,
 };
@@ -479,6 +482,23 @@ pub struct Combatant {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleArmorClassBaseEffect {
+    None,
+    Active {
+        base_armor_class: i8,
+        dexterity_modifier: i8,
+        duration_ticks: u16,
+    },
+}
+
+impl BattleArmorClassBaseEffect {
+    #[must_use]
+    pub const fn is_active(self) -> bool {
+        matches!(self, Self::Active { .. })
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleSpellActiveEffectKind {
     None,
     HitPointRegainPrevented,
@@ -490,6 +510,7 @@ pub enum BattleSpellActiveEffectKind {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct BattleSpellActiveEffects {
+    pub armor_class_base_effect: BattleArmorClassBaseEffect,
     pub hit_point_regain_prevented: bool,
     pub next_attack_roll_against_self_advantage: bool,
     pub opportunity_attack_denied: bool,
@@ -501,6 +522,7 @@ impl BattleSpellActiveEffects {
     #[must_use]
     pub const fn none() -> Self {
         Self {
+            armor_class_base_effect: BattleArmorClassBaseEffect::None,
             hit_point_regain_prevented: false,
             next_attack_roll_against_self_advantage: false,
             opportunity_attack_denied: false,
@@ -538,7 +560,8 @@ impl BattleSpellActiveEffects {
 
     #[must_use]
     pub const fn count(self) -> usize {
-        self.hit_point_regain_prevented as usize
+        self.armor_class_base_effect.is_active() as usize
+            + self.hit_point_regain_prevented as usize
             + self.next_attack_roll_against_self_advantage as usize
             + self.opportunity_attack_denied as usize
             + self.poisoned as usize
@@ -946,6 +969,41 @@ pub enum BattleScalarBuffFill {
     TargetChoice(Actor),
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleArmorClassSpellEffectFill {
+    BaseArmorClassProjection(BattleArmorClassBaseProjectionFacts),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleArmorClassBaseProjectionFacts {
+    pub target: Actor,
+    pub base_armor_class: i8,
+    pub dexterity_modifier: i8,
+    pub duration_ticks: u16,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReactionSpellFill {
+    ArmorClassInterruption(BattleReactionArmorClassInterruptionFacts),
+    FailedSaveDamage(BattleReactionFailedSaveDamageFacts),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleReactionArmorClassInterruptionFacts {
+    pub reactor: Actor,
+    pub armor_class_bonus: i16,
+    pub slot_level: BattleSpellSlotLevel,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleReactionFailedSaveDamageFacts {
+    pub reactor: Actor,
+    pub trigger_creature: Actor,
+    pub reactor_damage_taken: i16,
+    pub damage: i16,
+    pub slot_level: BattleSpellSlotLevel,
+}
+
 impl BattleReactionCastingTimeState {
     #[must_use]
     pub fn none() -> Self {
@@ -1035,6 +1093,8 @@ pub enum BattleSubjectKind {
     ConcentrationTeardown,
     StatBlockAction,
     CommandSpell,
+    ArmorClassSpellEffect,
+    ReactionSpell,
     ScalarBuffTargetSpell,
     WeaponMasteryProperty,
     AttackActionAreaSaveDamageReplacement,
@@ -1128,6 +1188,8 @@ pub enum BattleFill {
     DeathSavingThrow(DeathSavingThrowFacts),
     Concentration(BattleConcentrationFill),
     CommandEffect(BattleCommandEffectFill),
+    ArmorClassSpellEffect(BattleArmorClassSpellEffectFill),
+    ReactionSpell(BattleReactionSpellFill),
     ScalarBuff(BattleScalarBuffFill),
     WeaponMasteryProperty(BattleWeaponMasteryPropertyFill),
     AttackActionAreaSaveDamageReplacement(BattleAttackActionAreaSaveDamageReplacementFill),
@@ -1519,6 +1581,32 @@ impl BattleResolutionRequest {
         Ok(Self {
             subject,
             fill: BattleFill::CommandEffect(fill),
+        })
+    }
+
+    pub fn armor_class_spell_effect(
+        subject: BattleSubject,
+        fill: BattleArmorClassSpellEffectFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::ArmorClassSpellEffect {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::ArmorClassSpellEffect(fill),
+        })
+    }
+
+    pub fn reaction_spell(
+        subject: BattleSubject,
+        fill: BattleReactionSpellFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::ReactionSpell {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::ReactionSpell(fill),
         })
     }
 
@@ -2124,6 +2212,8 @@ pub enum BattleReducerRouteSubjectFamily {
     CreatureStatProjection,
     RollModifierEffect,
     ScalarBuffEffect,
+    ArmorClassSpellEffect,
+    ReactionSpell,
     SpellDamageReduction,
     CompanionLifecycle,
     CompanionSharedSenses,
@@ -2155,6 +2245,7 @@ pub enum BattleReducerRouteOwnerGroup {
     InterruptStack,
     MovementResource,
     ObjectBoundary,
+    Reaction,
     SavingThrowOutcome,
     SavingThrowRollMode,
     SpellAttackProcedure,
@@ -3041,6 +3132,10 @@ const fn battle_reducer_route_subject_family(
         }
         BattleSubjectKind::StatBlockAction => BattleReducerRouteSubjectFamily::StatBlockAction,
         BattleSubjectKind::CommandSpell => BattleReducerRouteSubjectFamily::CommandSpell,
+        BattleSubjectKind::ArmorClassSpellEffect => {
+            BattleReducerRouteSubjectFamily::ArmorClassSpellEffect
+        }
+        BattleSubjectKind::ReactionSpell => BattleReducerRouteSubjectFamily::ReactionSpell,
         BattleSubjectKind::ScalarBuffTargetSpell => BattleReducerRouteSubjectFamily::ScalarBuff,
         BattleSubjectKind::WeaponMasteryProperty => {
             BattleReducerRouteSubjectFamily::WeaponMasteryProperty
@@ -4260,6 +4355,95 @@ fn resolve_scalar_buff_battle_subject(
     }
 }
 
+fn resolve_armor_class_spell_effect_subject(
+    mut state: BattleState,
+    fill: BattleArmorClassSpellEffectFill,
+) -> BattleResolutionResult {
+    match fill {
+        BattleArmorClassSpellEffectFill::BaseArmorClassProjection(facts) => {
+            if !can_actor_expend_spell_slot_this_turn(&state, current_actor(&state)) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            let actor = current_actor(&state);
+            state = claim_pending_actor_spell_slot_use(state, actor);
+            combatant_for_mut(&mut state, facts.target)
+                .spell_active_effects
+                .armor_class_base_effect = BattleArmorClassBaseEffect::Active {
+                base_armor_class: facts.base_armor_class,
+                dexterity_modifier: facts.dexterity_modifier,
+                duration_ticks: facts.duration_ticks,
+            };
+            state = expend_combatant_spell_slot(state, actor, BattleSpellSlotLevel::First);
+            state = commit_actor_spell_slot_use(state, actor);
+            state.action_available = false;
+            BattleResolutionResult::Resolved { state }
+        }
+    }
+}
+
+fn resolve_reaction_spell_subject(
+    state: BattleState,
+    fill: BattleReactionSpellFill,
+) -> BattleResolutionResult {
+    match fill {
+        BattleReactionSpellFill::ArmorClassInterruption(facts) => {
+            resolve_reaction_armor_class_interruption(state, facts)
+        }
+        BattleReactionSpellFill::FailedSaveDamage(facts) => {
+            resolve_reaction_failed_save_damage(state, facts)
+        }
+    }
+}
+
+fn resolve_reaction_armor_class_interruption(
+    state: BattleState,
+    facts: BattleReactionArmorClassInterruptionFacts,
+) -> BattleResolutionResult {
+    if !can_actor_expend_spell_slot_this_turn(&state, facts.reactor)
+        || !combatant_for(&state, facts.reactor).reaction_available
+    {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            Vec::new(),
+        );
+    }
+    let state = claim_pending_actor_spell_slot_use(state, facts.reactor);
+    let state = spend_reaction(state, facts.reactor);
+    let state = apply_reaction_armor_class_bonus(state, facts.reactor, facts.armor_class_bonus);
+    let state = expend_combatant_spell_slot(state, facts.reactor, facts.slot_level);
+    BattleResolutionResult::Resolved {
+        state: commit_actor_spell_slot_use(state, facts.reactor),
+    }
+}
+
+fn resolve_reaction_failed_save_damage(
+    state: BattleState,
+    facts: BattleReactionFailedSaveDamageFacts,
+) -> BattleResolutionResult {
+    if !can_actor_expend_spell_slot_this_turn(&state, facts.reactor)
+        || !combatant_for(&state, facts.reactor).reaction_available
+    {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            Vec::new(),
+        );
+    }
+    let state = claim_pending_actor_spell_slot_use(state, facts.reactor);
+    let state = spend_reaction(state, facts.reactor);
+    let state = expend_combatant_spell_slot(state, facts.reactor, facts.slot_level);
+    let state = commit_actor_spell_slot_use(state, facts.reactor);
+    let state = with_damaged_target(state, facts.reactor, facts.reactor_damage_taken);
+    BattleResolutionResult::Resolved {
+        state: with_damaged_target(state, facts.trigger_creature, facts.damage),
+    }
+}
+
 fn resolve_weapon_mastery_property_subject(
     mut state: BattleState,
     fill: BattleWeaponMasteryPropertyFill,
@@ -5138,16 +5322,18 @@ pub fn resolve_shield_reaction_spell_hit_battle(state: BattleState) -> BattleSta
     // QNT: battle-runtime-reaction-window.qnt `castShieldReactionSpell`;
     // battle-runtime-reaction-resolution.qnt `resolveReactionOffer` AttackHit
     // Shield branch.
-    if !can_actor_expend_spell_slot_this_turn(&state, Actor::Fighter)
-        || !state.fighter.reaction_available
-    {
-        return state;
-    }
-    let state = claim_pending_actor_spell_slot_use(state, Actor::Fighter);
-    let state = spend_reaction(state, Actor::Fighter);
-    let state = apply_shield_armor_class_bonus(state, Actor::Fighter);
-    let state = expend_combatant_spell_slot(state, Actor::Fighter, BattleSpellSlotLevel::First);
-    commit_actor_spell_slot_use(state, Actor::Fighter)
+    resolve_reaction_spell_subject(
+        state,
+        BattleReactionSpellFill::ArmorClassInterruption(
+            BattleReactionArmorClassInterruptionFacts {
+                reactor: Actor::Fighter,
+                armor_class_bonus: 5,
+                slot_level: BattleSpellSlotLevel::First,
+            },
+        ),
+    )
+    .state()
+    .clone()
 }
 
 #[must_use]
@@ -5163,17 +5349,25 @@ pub fn resolve_hellish_rebuke_after_damage_battle(state: BattleState) -> BattleS
             reaction_window_open: true,
             outcome: BattleReactionCastingOutcome::Init,
         },
-        ..with_damaged_target(state, Actor::Fighter, 1)
+        ..state
     };
     if !can_actor_expend_spell_slot_this_turn(&state, Actor::Fighter)
         || !state.fighter.reaction_available
     {
         return state;
     }
-    let state = claim_pending_actor_spell_slot_use(state, Actor::Fighter);
-    let state = spend_reaction(state, Actor::Fighter);
-    let state = expend_combatant_spell_slot(state, Actor::Fighter, BattleSpellSlotLevel::Second);
-    let state = commit_actor_spell_slot_use(state, Actor::Fighter);
+    let state = resolve_reaction_spell_subject(
+        state,
+        BattleReactionSpellFill::FailedSaveDamage(BattleReactionFailedSaveDamageFacts {
+            reactor: Actor::Fighter,
+            trigger_creature: Actor::Goblin,
+            reactor_damage_taken: 1,
+            damage: 3,
+            slot_level: BattleSpellSlotLevel::Second,
+        }),
+    )
+    .state()
+    .clone();
     BattleState {
         reaction_casting_time: BattleReactionCastingTimeState {
             trigger: BattleReactionCastingTrigger::AfterDamage,
@@ -5181,7 +5375,7 @@ pub fn resolve_hellish_rebuke_after_damage_battle(state: BattleState) -> BattleS
             reaction_window_open: false,
             outcome: BattleReactionCastingOutcome::AfterDamageReactionResolved,
         },
-        ..with_damaged_target(state, Actor::Goblin, 3)
+        ..state
     }
 }
 
@@ -5190,17 +5384,23 @@ pub fn resolve_hellish_rebuke_failed_save_reaction_spell_battle(state: BattleSta
     // QNT: battle-runtime-reaction-spell-selected-identity.mbt.qnt
     // failed-save selected-identity branch; support QNT:
     // battle-runtime-reaction-resolution.qnt `resolveHellishRebukeAfterDamage`.
-    let state = with_damaged_target(state, Actor::Fighter, 1);
     if !can_actor_expend_spell_slot_this_turn(&state, Actor::Fighter)
         || !state.fighter.reaction_available
     {
         return state;
     }
-    let state = claim_pending_actor_spell_slot_use(state, Actor::Fighter);
-    let state = spend_reaction(state, Actor::Fighter);
-    let state = expend_combatant_spell_slot(state, Actor::Fighter, BattleSpellSlotLevel::Second);
-    let state = commit_actor_spell_slot_use(state, Actor::Fighter);
-    with_damaged_target(state, Actor::Goblin, 3)
+    resolve_reaction_spell_subject(
+        state,
+        BattleReactionSpellFill::FailedSaveDamage(BattleReactionFailedSaveDamageFacts {
+            reactor: Actor::Fighter,
+            trigger_creature: Actor::Goblin,
+            reactor_damage_taken: 1,
+            damage: 3,
+            slot_level: BattleSpellSlotLevel::Second,
+        }),
+    )
+    .state()
+    .clone()
 }
 
 #[must_use]
@@ -6152,6 +6352,10 @@ const fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerR
         BattleSubjectKind::ConcentrationTeardown => BattleReducerRouteOwnerGroup::Concentration,
         BattleSubjectKind::StatBlockAction => BattleReducerRouteOwnerGroup::StatBlockAction,
         BattleSubjectKind::CommandSpell => BattleReducerRouteOwnerGroup::ActiveEffect,
+        BattleSubjectKind::ArmorClassSpellEffect => {
+            BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
+        }
+        BattleSubjectKind::ReactionSpell => BattleReducerRouteOwnerGroup::Reaction,
         BattleSubjectKind::ScalarBuffTargetSpell => BattleReducerRouteOwnerGroup::ActiveEffect,
         BattleSubjectKind::WeaponMasteryProperty
         | BattleSubjectKind::AttackActionAreaSaveDamageReplacement
@@ -6208,6 +6412,10 @@ fn push_reducer_spine_diagnostic_acts(
         acts.push(AvailableBattleAct {
             subject: diagnostic_subject(BattleSubjectKind::ScalarBuffTargetSpell, actor, None),
             holes: vec![BattleHoleKind::TargetChoice],
+        });
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::ArmorClassSpellEffect, actor, None),
+            holes: Vec::new(),
         });
         acts.push(AvailableBattleAct {
             subject: diagnostic_subject(BattleSubjectKind::ConcentrationTeardown, actor, None),
@@ -6410,6 +6618,8 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::ConcentrationTeardown
         | BattleSubjectKind::StatBlockAction
         | BattleSubjectKind::CommandSpell
+        | BattleSubjectKind::ArmorClassSpellEffect
+        | BattleSubjectKind::ReactionSpell
         | BattleSubjectKind::ScalarBuffTargetSpell
         | BattleSubjectKind::WeaponMasteryProperty
         | BattleSubjectKind::AttackActionAreaSaveDamageReplacement
@@ -6460,6 +6670,22 @@ fn scalar_buff_route_subject_is_live(state: &BattleState, subject: BattleSubject
         && route_subject_discoverable_now(state, subject)
 }
 
+fn armor_class_spell_effect_route_subject_is_live(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> bool {
+    state.action_available
+        && diagnostic_subject_shape_matches(subject, BattleSubjectKind::ArmorClassSpellEffect, None)
+        && route_subject_discoverable_now(state, subject)
+}
+
+fn reaction_spell_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
+    subject.kind == BattleSubjectKind::ReactionSpell
+        && diagnostic_subject_shape_matches(subject, BattleSubjectKind::ReactionSpell, None)
+        && combatant_for(state, subject.actor).reaction_available
+        && can_actor_expend_spell_slot_this_turn(state, subject.actor)
+}
+
 fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
     if !diagnostic_subject_shape_matches(subject, subject.kind, None) {
         return false;
@@ -6493,6 +6719,8 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
         | BattleSubjectKind::ConcentrationTeardown
         | BattleSubjectKind::StatBlockAction
         | BattleSubjectKind::CommandSpell
+        | BattleSubjectKind::ArmorClassSpellEffect
+        | BattleSubjectKind::ReactionSpell
         | BattleSubjectKind::ScalarBuffTargetSpell => false,
     }
 }
@@ -6774,6 +7002,9 @@ fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRoute
             | BattleCommandEffectFill::Complete => BattleReducerRouteFillKind::UnitFeatureDecision,
             BattleCommandEffectFill::Movement { .. } => BattleReducerRouteFillKind::Movement,
         }),
+        BattleFill::ArmorClassSpellEffect(_) | BattleFill::ReactionSpell(_) => {
+            Some(BattleReducerRouteFillKind::UnitFeatureDecision)
+        }
         BattleFill::ScalarBuff(_) => Some(BattleReducerRouteFillKind::TargetChoice),
         BattleFill::WeaponMasteryProperty(_)
         | BattleFill::UnitFeatureBonusAction(_)
@@ -6884,6 +7115,16 @@ fn battle_resolution_route_owner(
         | BattleSubjectKind::ActiveFeatureSpellAttackRollMode => {
             BattleReducerRouteOwnerGroup::ActiveEffect
         }
+        BattleSubjectKind::ArmorClassSpellEffect => BattleReducerRouteOwnerGroup::ActiveEffect,
+        BattleSubjectKind::ReactionSpell => match fill {
+            BattleFill::ReactionSpell(BattleReactionSpellFill::ArmorClassInterruption(_)) => {
+                BattleReducerRouteOwnerGroup::ActiveEffect
+            }
+            BattleFill::ReactionSpell(BattleReactionSpellFill::FailedSaveDamage(_)) => {
+                BattleReducerRouteOwnerGroup::HitPoint
+            }
+            _ => BattleReducerRouteOwnerGroup::Reaction,
+        },
         BattleSubjectKind::MetamagicOptionSpell => match outcome {
             BattleResolutionOutcome::Invalid(BattleResolutionInvalidReason::StaleSubject) => {
                 BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
@@ -7050,6 +7291,26 @@ fn resolve_battle_subject_unchecked(
             }
             resolve_command_effect_battle_subject(state, subject, fill)
         }
+        (BattleSubjectKind::ArmorClassSpellEffect, BattleFill::ArmorClassSpellEffect(fill)) => {
+            if !armor_class_spell_effect_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_armor_class_spell_effect_subject(state, fill)
+        }
+        (BattleSubjectKind::ReactionSpell, BattleFill::ReactionSpell(fill)) => {
+            if !reaction_spell_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_reaction_spell_subject(state, fill)
+        }
         (BattleSubjectKind::ScalarBuffTargetSpell, BattleFill::ScalarBuff(fill)) => {
             if !scalar_buff_route_subject_is_live(&state, subject) {
                 return invalid_with_holes(
@@ -7182,6 +7443,8 @@ fn resolve_battle_subject_unchecked(
                 | BattleFill::DeathSavingThrow(_)
                 | BattleFill::Concentration(_)
                 | BattleFill::CommandEffect(_)
+                | BattleFill::ArmorClassSpellEffect(_)
+                | BattleFill::ReactionSpell(_)
                 | BattleFill::ScalarBuff(_)
                 | BattleFill::WeaponMasteryProperty(_)
                 | BattleFill::AttackActionAreaSaveDamageReplacement(_)
@@ -7219,6 +7482,8 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::DeathSavingThrow
             | BattleSubjectKind::ConcentrationTeardown
             | BattleSubjectKind::CommandSpell
+            | BattleSubjectKind::ArmorClassSpellEffect
+            | BattleSubjectKind::ReactionSpell
             | BattleSubjectKind::ScalarBuffTargetSpell
             | BattleSubjectKind::WeaponMasteryProperty
             | BattleSubjectKind::AttackActionAreaSaveDamageReplacement
@@ -8914,22 +9179,47 @@ fn finalize_slot_spell_damage(
 }
 
 fn armor_class_for(state: &BattleState, actor: Actor) -> i16 {
-    let combatant = match actor {
-        Actor::Fighter => state.fighter.armor_class,
-        Actor::Goblin => state.goblin.armor_class,
-        Actor::Rogue => state.rogue.armor_class,
-        Actor::Skeleton => state.skeleton.armor_class,
+    let combatant = combatant_for(state, actor);
+    let base_armor_class = match combatant.spell_active_effects.armor_class_base_effect {
+        BattleArmorClassBaseEffect::None => combatant.armor_class,
+        BattleArmorClassBaseEffect::Active {
+            base_armor_class,
+            dexterity_modifier,
+            ..
+        } => {
+            let projected = armor_class_projection(
+                ArmorClassOption::DefaultUnarmored,
+                ArmorClassFacts {
+                    dexterity_modifier,
+                    constitution_modifier: 0,
+                    wisdom_modifier: 0,
+                    charisma_modifier: 0,
+                    formula: ArmorClassFormula::AbilitySum {
+                        base: base_armor_class,
+                        abilities: vec![ArmorClassAbility::Dexterity],
+                    },
+                    shield_bonus: None,
+                },
+            );
+            i16::from(projected.armor_class)
+        }
     };
-    let shield_bonus = if combatant_for(state, actor).shield_armor_class_bonus_active {
+    let shield_bonus = if combatant.shield_armor_class_bonus_active {
         5
     } else {
         0
     };
-    combatant + shield_bonus
+    base_armor_class + shield_bonus
 }
 
-fn apply_shield_armor_class_bonus(mut state: BattleState, actor: Actor) -> BattleState {
-    // QNT: battle-runtime-reaction-window.qnt `applyShieldReactionSpell`.
+fn apply_reaction_armor_class_bonus(
+    mut state: BattleState,
+    actor: Actor,
+    armor_class_bonus: i16,
+) -> BattleState {
+    if armor_class_bonus <= 0 {
+        return state;
+    }
     match actor {
         Actor::Fighter => state.fighter.shield_armor_class_bonus_active = true,
         Actor::Goblin => state.goblin.shield_armor_class_bonus_active = true,

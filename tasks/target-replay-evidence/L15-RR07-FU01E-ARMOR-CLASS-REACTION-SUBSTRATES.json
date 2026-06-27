@@ -1,0 +1,176 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-fu01e-armor-class-reaction-substrates",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doDiscoverMageArmorUnarmoredSelfTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+      "observedActionTaken": "doDiscoverMageArmorUnarmoredSelfTarget",
+      "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
+      "result": {
+        "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DISCOVERY",
+        "reason": "target admission discovery remains projection-only; no accepted armor-class spell effect resolution occurs in this row",
+        "tag": "target-blocker"
+      },
+      "routeEvidenceBasis": "target blocker: row is target admission/lifecycle projection without accepted production BattleState effect route in this lane",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MageArmorState.self_target_admitted",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doDiscoverMageArmorUnarmoredSelfTarget"
+    },
+    {
+      "branchAction": "doExpireMageArmorDuration",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+      "observedActionTaken": "doExpireMageArmorDuration",
+      "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
+      "result": {
+        "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DURATION-EXPIRY",
+        "reason": "duration expiry is an active-effect lifecycle row without a production BattleState expiry route in this lane",
+        "tag": "target-blocker"
+      },
+      "routeEvidenceBasis": "target blocker: row is target admission/lifecycle projection without accepted production BattleState effect route in this lane",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MageArmorState.mage_armor_duration_ticks",
+          "MageArmorState.mage_armor_effect_present",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doExpireMageArmorDuration"
+    },
+    {
+      "branchAction": "doRejectMageArmorArmoredTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+      "observedActionTaken": "doRejectMageArmorArmoredTarget",
+      "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
+      "result": {
+        "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-ARMORED-REJECTION",
+        "reason": "armored-target rejection is target admission projection, not an accepted armor-class spell effect route in this lane",
+        "tag": "target-blocker"
+      },
+      "routeEvidenceBasis": "target blocker: row is target admission/lifecycle projection without accepted production BattleState effect route in this lane",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MageArmorState.armored_target_rejected",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doRejectMageArmorArmoredTarget"
+    },
+    {
+      "branchAction": "doResolveMageArmorBaseArmorClassProjection",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+      "observedActionTaken": "doResolveMageArmorBaseArmorClassProjection",
+      "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState ArmorClassSpellEffect route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.fighter.spell_active_effects.armor_class_base_effect",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.action_available",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "46b1eb37e2793f9a7a6dbc732c0a7d8eb51851719fb2330ca1ea815b87c412ad",
+        "observedProjectionSha256": "46b1eb37e2793f9a7a6dbc732c0a7d8eb51851719fb2330ca1ea815b87c412ad",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveMageArmorBaseArmorClassProjection"
+    },
+    {
+      "branchAction": "doResolveHellishRebukeFailedSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveHellishRebukeFailedSavingThrow",
+      "qntFileSha256": "8192d11ce0dc893853b0eceda1b7ef853bbee219295f8e18e5071a5d33789e4a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState ReactionSpell failed-save damage route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.fighter.reaction_available",
+          "BattleState.fighter.hp",
+          "BattleState.goblin.hp",
+          "BattleState.fighter.spell_slots.second_level_expended",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "123a69db1f42b3a2f6216c75e3c2cadaa6cd56f227fea28f739044a63d0da0db",
+        "observedProjectionSha256": "123a69db1f42b3a2f6216c75e3c2cadaa6cd56f227fea28f739044a63d0da0db",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveHellishRebukeFailedSavingThrow"
+    },
+    {
+      "branchAction": "doResolveShieldReactionSpellHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveShieldReactionSpellHit",
+      "qntFileSha256": "8192d11ce0dc893853b0eceda1b7ef853bbee219295f8e18e5071a5d33789e4a",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState ReactionSpell armor-class interruption route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.fighter.reaction_available",
+          "BattleState.fighter.shield_armor_class_bonus_active",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "331c9390ca0cfaefeb5f07dd7bd638dfe32f86e31b44e799fabbae7092e6a26c",
+        "observedProjectionSha256": "331c9390ca0cfaefeb5f07dd7bd638dfe32f86e31b44e799fabbae7092e6a26c",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveShieldReactionSpellHit"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

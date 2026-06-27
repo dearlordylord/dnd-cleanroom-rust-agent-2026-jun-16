@@ -87,6 +87,8 @@ pub enum ReducerRouteSubjectFamily {
     CreatureStatProjection,
     RollModifierEffect,
     ScalarBuffEffect,
+    ArmorClassSpellEffect,
+    ReactionSpell,
     SpellDamageReduction,
     CompanionLifecycle,
     CompanionSharedSenses,
@@ -118,6 +120,7 @@ pub enum ReducerRouteOwnerGroup {
     InterruptStack,
     MovementResource,
     ObjectBoundary,
+    Reaction,
     SavingThrowOutcome,
     SavingThrowRollMode,
     SpellAttackProcedure,
@@ -660,6 +663,10 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::ScalarBuffEffect => {
             ReducerRouteSubjectFamily::ScalarBuffEffect
         }
+        BattleReducerRouteSubjectFamily::ArmorClassSpellEffect => {
+            ReducerRouteSubjectFamily::ArmorClassSpellEffect
+        }
+        BattleReducerRouteSubjectFamily::ReactionSpell => ReducerRouteSubjectFamily::ReactionSpell,
         BattleReducerRouteSubjectFamily::SpellDamageReduction => {
             ReducerRouteSubjectFamily::SpellDamageReduction
         }
@@ -749,6 +756,7 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
         BattleReducerRouteOwnerGroup::InterruptStack => ReducerRouteOwnerGroup::InterruptStack,
         BattleReducerRouteOwnerGroup::MovementResource => ReducerRouteOwnerGroup::MovementResource,
         BattleReducerRouteOwnerGroup::ObjectBoundary => ReducerRouteOwnerGroup::ObjectBoundary,
+        BattleReducerRouteOwnerGroup::Reaction => ReducerRouteOwnerGroup::Reaction,
         BattleReducerRouteOwnerGroup::SavingThrowOutcome => {
             ReducerRouteOwnerGroup::SavingThrowOutcome
         }
@@ -1005,6 +1013,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::InterruptStack => "BattleInterruptStackOwner",
         ReducerRouteOwnerGroup::MovementResource => "BattleMovementResourceOwner",
         ReducerRouteOwnerGroup::ObjectBoundary => "BattleObjectBoundaryOwner",
+        ReducerRouteOwnerGroup::Reaction => "BattleReactionOwner",
         ReducerRouteOwnerGroup::SavingThrowOutcome => "BattleSavingThrowOutcomeOwner",
         ReducerRouteOwnerGroup::SavingThrowRollMode => "BattleSavingThrowRollModeOwner",
         ReducerRouteOwnerGroup::SpellAttackProcedure => "BattleSpellAttackProcedureOwner",
@@ -1073,6 +1082,8 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::SpellAttack => "SpellAttackRouteSubject",
         ReducerRouteSubjectFamily::ScalarBuff => "ScalarBuffRouteSubject",
         ReducerRouteSubjectFamily::ScalarBuffEffect => "ScalarBuffEffectRouteSubject",
+        ReducerRouteSubjectFamily::ArmorClassSpellEffect => "ArmorClassSpellEffectRouteSubject",
+        ReducerRouteSubjectFamily::ReactionSpell => "ReactionSpellRouteSubject",
         ReducerRouteSubjectFamily::SpellDamageReduction => "SpellDamageReductionRouteSubject",
         ReducerRouteSubjectFamily::StatBlockAction => "StatBlockActionRouteSubject",
         ReducerRouteSubjectFamily::WeaponAttack => "WeaponAttackRouteSubject",
