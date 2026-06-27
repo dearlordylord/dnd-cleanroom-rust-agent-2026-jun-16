@@ -8,12 +8,12 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "d941600280ca6d865cfefc90e1c51e857f0aec91",
+    "lastVerifiedIntegrationHead": "2455ec2f9b3c5d8b696d9cc144f196e9393038c6",
     "lastMergedLane": {
       "laneId": "CP6-CLOSURE-SWEEP",
       "mergeCommit": null,
       "laneHead": null,
-      "note": "CP6 is campaign bookkeeping over integration head d941600280ca6d865cfefc90e1c51e857f0aec91; final commit SHA is external to this self-referential state file."
+      "note": "CP6 closure bookkeeping refreshed over integration head 2455ec2f9b3c5d8b696d9cc144f196e9393038c6; FU01D accepted evidence is included in closure accounting."
     }
   },
   "denominator": {
@@ -34,15 +34,15 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 95,
-    "acceptedDriverCoveragePercent": 97.9,
-    "acceptedObligations": 627,
-    "acceptedObligationCoveragePercent": 93.9,
-    "blockedObligations": 41,
+    "acceptedUniqueDrivers": 97,
+    "acceptedDriverCoveragePercent": 100,
+    "acceptedObligations": 643,
+    "acceptedObligationCoveragePercent": 96.3,
+    "blockedObligations": 25,
     "outOfScopeObligations": 36,
     "unresolvedInScopeObligations": 0,
     "acceptedUniqueDriversSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP6_AUDIT.json exact row-key audit",
-    "acceptedObligationsSource": "target replay evidence pass runs keyed by driverPath#branchFamily:branchAction; source-QNT and target blockers excluded from accepted coverage"
+    "acceptedObligationsSource": "target replay evidence pass runs keyed by driverPath#branchFamily:branchAction; target blockers excluded from accepted coverage; FU01D source-QNT blockers removed after accepted copied-connector replay evidence"
   },
   "completedBeforeCampaign": [
     "T001",
@@ -179,7 +179,7 @@
         "CP4",
         "CP5"
       ],
-      "notes": "Closure sweep complete. CP6_AUDIT.json records 627 accepted pass obligations, 41 explicit blockers, 36 out-of-scope obligations, and 0 unresolved in-scope obligations."
+      "notes": "Closure sweep refreshed after FU01D accepted evidence. CP6_AUDIT.json records 643 accepted pass obligations, 25 explicit target blockers, 0 source-QNT corpus blockers, 36 out-of-scope obligations, and 0 unresolved in-scope obligations."
     }
   ],
   "laneStatuses": {
@@ -234,18 +234,16 @@
     "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "d941600280ca6d865cfefc90e1c51e857f0aec91 plus CP6 bookkeeping changes",
+    "head": "2455ec2f9b3c5d8b696d9cc144f196e9393038c6",
     "commands": [
-      "node scripts/check-cleanroom-harness.cjs",
-      "cargo fmt --check",
-      "git diff --check HEAD~1...HEAD",
-      "cargo test",
-      "cargo clippy --all-targets -- -D warnings"
+      "jq empty tasks/campaigns/level-1-2-runtime-reducer-route/CP6_AUDIT.json tasks/campaigns/level-1-2-runtime-reducer-route/STATE.json tasks/campaigns/level-1-2-runtime-reducer-route/LANES.json",
+      "git diff --check",
+      "cargo test route_replays_all_branches",
+      "node scripts/check-cleanroom-harness.cjs"
     ],
-    "result": "passed",
-    "cargoTest": "218 passed",
-    "clippy": "passed",
-    "cleanroomHarness": "passed"
+    "result": "bookkeeping checks passed; cleanroom harness failed only on global stale non-FU01D evidence/ledger entries pinned to source 564376fd95218a209bb9eae5c9ccb54ca3e04a52 after cleanroom-input moved to source 53642cf0b1bc98f4426b6081fe37c98a960939fc",
+    "cargoTest": "route_replays_all_branches: 2 passed, 0 failed, 218 filtered out",
+    "cleanroomHarness": "failed as expected on stale non-FU01D manifest/evidence debt; not a FU01D failure"
   },
   "activeLaneWorktrees": [],
   "completedLaneWorktrees": [
@@ -685,24 +683,28 @@
       "mergeCommit": "91e141c8998682ebf6daf65e0ff5594aaf24551e",
       "completedStatus": "removable-after-operator-confirms-no-local-use",
       "integrationVerification": [
+        "cargo test route_replays_all_branches",
         "cargo test creature_type_protection_adapter_replays_all_branches",
         "cargo test sanctuary_selected_identity_adapter_replays_all_branches",
         "cargo fmt --check",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check HEAD...",
         "cargo test",
-        "cargo clippy --all-targets -- -D warnings"
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD",
+        "node scripts/check-cleanroom-harness.cjs (fails only on global stale non-FU01D manifest debt after input refresh)"
       ],
-      "integrationVerificationResult": "passed; cargo test 210 passed",
-      "acceptedDriversAdded": 0,
-      "acceptedObligationsAdded": 0,
-      "blockedObligations": 16,
+      "integrationVerificationResult": "FU01D accepted at head 2455ec2f9b3c5d8b696d9cc144f196e9393038c6; current closure refresh reruns route_replays_all_branches and diff/JSON checks. Cleanroom harness remains blocked by global stale non-FU01D evidence, not FU01D.",
+      "acceptedDriversAdded": 2,
+      "acceptedObligationsAdded": 16,
+      "blockedObligations": 0,
       "refreshSourceCommit": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
       "refreshSummary": [
         "Copied route connectors are now present for creature-type protection/charm and sanctuary selected-identity drivers.",
         "All 16 FU01D selected rows replay through generic reducer route subject, fill, owner, and hole shapes.",
         "No selected FU01D rows remain blocked after the refresh."
-      ]
+      ],
+      "refreshHead": "2455ec2f9b3c5d8b696d9cc144f196e9393038c6",
+      "refreshEvidence": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
+      "refreshDecision": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
     },
     {
       "laneId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",

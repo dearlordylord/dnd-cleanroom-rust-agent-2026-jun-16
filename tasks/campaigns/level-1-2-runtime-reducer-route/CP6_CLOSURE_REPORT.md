@@ -36,15 +36,15 @@ Result:
 - Driver denominator: `97`
 - In-scope obligation denominator: `668`
 - Out-of-scope obligations: `36`
-- Accepted pass drivers: `95 / 97 = 97.9%`
-- Accepted pass obligations: `627 / 668 = 93.9%`
-- Blocked obligations: `41`
+- Accepted pass drivers: `97 / 97 = 100.0%`
+- Accepted pass obligations: `643 / 668 = 96.3%`
+- Blocked obligations: `25`
 - Unresolved in-scope obligations: `0`
 
 Blocked obligations split:
 
 - `25` target-implementation blockers recorded in target replay evidence.
-- `16` source-QNT corpus blockers recorded by `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json` and reported in `tasks/VALIDATION_REPORT.md`.
+- `0` source-QNT corpus blockers. FU01D's former 16 source-QNT blockers are now accepted by `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json` and `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json`.
 
 ## Important Accounting Note
 
@@ -56,21 +56,19 @@ That shape is ambiguous when several drivers share a branch action such as `doFi
 
 This does not create an unresolved obligation in the current closure sweep, but it is a harness-accounting improvement to carry forward.
 
-## Remaining Blocker
+## Remaining Blockers
 
-The only source-side architectural blocker exposed by this closure sweep is the FU01D generic protection/charm/ward connector gap:
+No source-QNT corpus blocker remains in this closure audit.
 
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
-
-Those two drivers remain blocked because the copied cleanroom input package does not include an executable generic protection/charm/ward QNT connector substrate. Diagnostic Rust replay exists, but it is not accepted reducer-route coverage.
+The remaining `25` blockers are target-side reducer-route coverage gaps already recorded in target replay evidence. FU01D is no longer among them: both protection/charm/ward drivers have accepted copied-connector route replay evidence, and production route architecture remains generic subject/fill/owner/hole shape rather than authored identity dispatch.
 
 ## Verification
 
-CP6 integration verification passed:
+CP6 closure bookkeeping was refreshed over audited integration head `2455ec2f9b3c5d8b696d9cc144f196e9393038c6`.
 
-- `node scripts/check-cleanroom-harness.cjs`: passed
-- `cargo fmt --check`: passed
-- `git diff --check HEAD~1...HEAD`: passed
-- `cargo test`: passed, `218` tests
-- `cargo clippy --all-targets -- -D warnings`: passed
+Current verification:
+
+- `git diff --check`: passed
+- `cargo test route_replays_all_branches`: passed
+- JSON parse checks for edited JSON: passed
+- `node scripts/check-cleanroom-harness.cjs`: failed only on global stale non-FU01D evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; this is dirty-cleanroom global harness debt, not a FU01D failure.

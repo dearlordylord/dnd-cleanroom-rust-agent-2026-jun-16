@@ -3,7 +3,7 @@
   "campaignId": "level-1-2-runtime-reducer-route",
   "integrationWorktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
   "integrationBranch": "ralph/rrconv-19-cleanroom",
-  "auditedHead": "d941600280ca6d865cfefc90e1c51e857f0aec91",
+  "auditedHead": "2455ec2f9b3c5d8b696d9cc144f196e9393038c6",
   "denominator": {
     "source": "cleanroom-input/branch-coverage/reducer-route-inventory.json",
     "denominatorId": "level-1-5-cleanroom-route-v1",
@@ -13,15 +13,15 @@
     "outOfScopeObligations": 36
   },
   "coverage": {
-    "ledgerSelectedDrivers": 95,
-    "acceptedPassDrivers": 95,
-    "acceptedPassObligations": 627,
-    "acceptedDriverCoveragePercent": 97.9,
-    "acceptedObligationCoveragePercent": 93.9,
+    "ledgerSelectedDrivers": 97,
+    "acceptedPassDrivers": 97,
+    "acceptedPassObligations": 643,
+    "acceptedDriverCoveragePercent": 100,
+    "acceptedObligationCoveragePercent": 96.3,
     "targetBlockerObligations": 25,
-    "sourceQntCorpusBlockerObligations": 16,
-    "totalBlockedObligations": 41,
-    "blockedDrivers": 7,
+    "sourceQntCorpusBlockerObligations": 0,
+    "totalBlockedObligations": 25,
+    "blockedDrivers": 5,
     "unresolvedInScopeObligations": 0
   },
   "blockerSources": {
@@ -152,104 +152,7 @@
         "reason": "scenario transition has no reducer route surface"
       }
     ],
-    "sourceQntCorpusRows": [
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doDiscoverAnimalFriendshipBeastTargetAdmission",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveAnimalFriendshipCasterDamageBreak",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveAnimalFriendshipFailedSaveCharmed",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doCastSanctuaryWardCreation",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedAttackRoll",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedDamageDealt",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedSpellCast",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doExcludeAreaEffectFromInterdiction",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doInterdictDirectAttackFailedSaveLoss",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doInterdictDirectSpellSuccessfulSavePassThrough",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doRejectIllegalReplacementTarget",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doRetargetDirectAttackToLegalReplacement",
-        "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-        "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate",
-        "source": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json"
-      }
-    ]
+    "sourceQntCorpusRows": []
   },
   "outOfScopeRows": [
     {
@@ -487,11 +390,18 @@
         ]
       }
     ],
-    "recommendation": "Future evidence refs should include driverPath or obligationId; this CP6 audit computes closure by row key from evidence runs, not by unique legacy ref string."
+    "recommendation": "Future evidence refs should include driverPath or obligationId; this CP6 audit computes closure by row key from evidence runs, not by unique legacy ref string.",
+    "fu01dRefresh": {
+      "decision": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json#decision:accepted",
+      "evidence": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
+      "acceptedDrivers": 2,
+      "acceptedObligations": 16,
+      "note": "FU01D source-QNT blocker rows were removed from closure blockers after copied executable route connectors and accepted reducer-entrypoint replay evidence landed at auditedHead."
+    }
   },
   "inputHashes": {
-    "runLedgerSha256": "7727d5705b2f1d35db348ef32b5758aebe8b8ba47ec0bca8a75c292d6b04ac23",
+    "runLedgerSha256": "3849ff60c4dca90ef50046b90ff0c6a1d4b966ded3201b5b51189d32306951a9",
     "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
-    "reducerRouteInventorySha256": "31d7903835ad66051c3a351fd28eaa0bc4e148498eabb2034cc2866a5662b301"
+    "reducerRouteInventorySha256": "a7e709e8e8988aab49c2274d7c3481d79ff9e1a9188e87f1888324106acec471"
   }
 }

@@ -20,19 +20,18 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP1 Battle Reducer Core Expansion | complete | `L15-RR03`, `L15-RR05`, and `L15-RR06` merged and verified. |
 | CP2 Rule-Core Component Connectors | complete | Four `L15-RR04` component sublanes merged and verified. |
 | CP3 Character Creation, Sheet, And Handoff | complete | RR08 creation, RR09 sheet, and RR10 handoff merged and verified. |
-| CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is recorded as zero accepted coverage with a source-QNT connector blocker. |
+| CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is accepted after the copied route connector refresh. |
 | CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
 | CP6 Closure Sweep | complete | Closure audit recorded in `CP6_AUDIT.json` and `CP6_CLOSURE_REPORT.md`; every in-scope obligation is accepted or explicitly blocked. |
 
 ## Last Known Verification
 
-At CP6 closure state over audited integration head `d941600280ca6d865cfefc90e1c51e857f0aec91` plus CP6 bookkeeping changes:
+At CP6 closure state refreshed over audited integration head `2455ec2f9b3c5d8b696d9cc144f196e9393038c6`:
 
-- `node scripts/check-cleanroom-harness.cjs`: pass
-- `cargo fmt --check`: pass
-- `git diff --check HEAD~1...HEAD`: pass
-- `cargo test`: pass, `218 passed`
-- `cargo clippy --all-targets -- -D warnings`: pass
+- `git diff --check`: pass
+- `cargo test route_replays_all_branches`: pass
+- JSON parse checks for edited JSON: pass
+- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale non-FU01D evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; not a FU01D failure.
 
 ## Active Work
 
@@ -62,7 +61,7 @@ At CP6 closure state over audited integration head `d941600280ca6d865cfefc90e1c5
   - `L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES` merged at `67bc22f`; lane head `6d89dd42b345c3253d36759d723c1fe4a3271c2c`.
   - `L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES` merged at `1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9`; lane head `582b2a71c6573c480d4ccddec15381308a2bd667`.
   - Integration verification passed: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`207 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`76 passed`).
-  - CP4 is now complete: FU01 and FU08 split lanes are merged, with FU01D recorded as honest zero-accepted blocker evidence.
+  - CP4 is complete: FU01 and FU08 split lanes are merged, with FU01D accepted after the copied route connector refresh.
 
 ## Coverage Delta Log
 
@@ -302,12 +301,13 @@ Template:
 
 - Merge commit: `91e141c8998682ebf6daf65e0ff5594aaf24551e`
 - Lane commit(s): `879b44d3d7dec602df492f4570429b9fc92cb6f0`, `97c2e1feb4da16f7f60c96dcf3a16374d748283c`, `b5a005e4cfb4b35b47a9b65f1dd688f61e059142`, `61a1bc984aa104b439c4adf3d2e43b0ad57e1674`
-- Drivers added: `0` accepted drivers.
-- Obligations added: `0` accepted obligations; all `16` FU01D protection/charm/ward rows are blocked because the copied cleanroom inputs still lack an executable generic protection/charm/ward connector substrate.
-- New total driver coverage: `77 / 97 = 79.4%`
-- New total obligation coverage: `513 / 668 = 76.8%`
-- Integration verification: focused FU01D adapter tests, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD...`, `cargo test` (`210 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
-- Review/fixer notes: first review removed duplicated durable projection state and self-referential witnesses. Second review found accepted coverage was still dishonest without copied executable connector evidence. Follow-up fixer demoted all FU01D rows to blockers, removed stale accepted replay evidence/accounting, and final re-review fixed a stale validation header before returning clean.
+- Source-refresh commit: `2455ec2f9b3c5d8b696d9cc144f196e9393038c6`
+- Drivers added after source refresh: `2` accepted drivers.
+- Obligations added after source refresh: `16` accepted obligations; no selected FU01D rows remain blocked.
+- Current closure driver coverage: `97 / 97 = 100.0%`
+- Current closure obligation coverage: `643 / 668 = 96.3%`
+- Integration verification: focused FU01D evidence check, focused FU01D adapter tests, `cargo fmt --check`, `cargo test route_replays_all_branches`, full `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD` passed. `node scripts/check-cleanroom-harness.cjs` now fails only on global stale non-FU01D evidence after the cleanroom-input source refresh.
+- Review/fixer notes: first review removed duplicated durable projection state and self-referential witnesses. Second review correctly rejected Rust-only evidence without copied executable connector evidence. The later source refresh added copied executable route connectors, restored accepted FU01D evidence through generic subject/fill/owner/hole route replay, and left production authored identity out of dispatch.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d`
 
 ## CP4 Launch Plan
@@ -436,9 +436,10 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 
 - Audit artifact: `tasks/campaigns/level-1-2-runtime-reducer-route/CP6_AUDIT.json`
 - Closure report: `tasks/campaigns/level-1-2-runtime-reducer-route/CP6_CLOSURE_REPORT.md`
-- Accepted pass coverage by exact row key: `95 / 97 = 97.9%` drivers and `627 / 668 = 93.9%` in-scope obligations.
-- Explicit blockers: `41` in-scope obligations, split into `25` target-implementation blockers with target replay evidence and `16` source-QNT corpus blockers from `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json`.
+- Accepted pass coverage by exact row key: `97 / 97 = 100.0%` drivers and `643 / 668 = 96.3%` in-scope obligations.
+- Explicit blockers: `25` in-scope target-implementation blockers with target replay evidence.
+- Source-QNT corpus blockers: `0`; FU01D's former 16 source-QNT blockers are accepted after the copied route connector refresh.
 - Out-of-scope obligations: `36`, from the copied source branch inventory.
 - Unresolved in-scope obligations: `0`.
 - Accounting note: some legacy evidence refs in `tasks/RUN_LEDGER.json` are ambiguous by string because they omit `driverPath`; `CP6_AUDIT.json` computes closure by `driverPath#branchFamily:branchAction`.
-- Campaign status after CP6: complete for the dirty cleanroom rehearsal, with the FU01D generic protection/charm/ward copied-QNT connector substrate recorded as the remaining source-side blocker before those two drivers can become accepted coverage.
+- Campaign status after CP6: complete for the dirty cleanroom rehearsal. Remaining gaps are target-side blockers only; FU01D is accepted and no source-QNT corpus blocker remains in this closure accounting.
