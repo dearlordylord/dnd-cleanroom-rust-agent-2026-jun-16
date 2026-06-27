@@ -2,7 +2,8 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: accepted through the SDK tracer-bullet composition checkpoint.
+Status: accepted through the SDK tracer-bullet composition checkpoint, Pact
+Slot handoff replay, and current fresh-target verifier.
 
 ## Purpose
 
@@ -33,6 +34,12 @@ Current accepted target:
 
 Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
+
+Current accepted fresh target head:
+`a30e6729711ddc3f595cf008931ba5cd6265c58a`
+
+Current package gate:
+`python3 tools/verify_current_fresh_target.py`
 
 ## Hard Boundaries
 
@@ -103,7 +110,9 @@ directory:
   records.
 
 The SDK tracer-bullet acceptance is summarized in
-`FRESH_SDK_COMPOSITION_ACCEPTANCE.md`.
+`FRESH_SDK_COMPOSITION_ACCEPTANCE.md`. The current accepted target state after
+the `b57772b459f1b75592fd45b9196fd60965b534d3` source package refresh is
+verified by `python3 tools/verify_current_fresh_target.py`.
 
 ## Tracer Sequence
 
@@ -348,6 +357,15 @@ SDK tracer-bullet exposed a missing encounter-composition surface; source commit
 target commit `893198ce66a35c8aad007ad8ac7a61c4631c64d9` accepted the full
 integrated sheet-to-composed-encounter-to-simple-turn scenario.
 
+The same feedback report also recorded a missing Pact Slot handoff route
+surface. Source commit `b57772b459f1b75592fd45b9196fd60965b534d3` supplied the
+generic route facts for pure Pact Slot projection and mixed ordinary/Pact Slot
+handoff rejection. Fresh target commit
+`a30e6729711ddc3f595cf008931ba5cd6265c58a` accepts that replay through public
+handoff entrypoints and adds the current verifier gate that validates strict
+FC-07 source hashes, route comparisons, SDK tracer evidence, and FC-03/FC-04/FC-05
+historical snapshot classification.
+
 ## Parallelism
 
 Use a simple checkpoint sequence until the reducer surface is stable:
@@ -358,7 +376,9 @@ Use a simple checkpoint sequence until the reducer surface is stable:
    disjoint adapter/test/evidence files and treat the reducer core as frozen.
 4. `FC-05` may run in parallel with one battle tracer after `FC-01`, but should
    not define battle-owned fields.
-5. `FC-06` is sequential and closes the dry run.
+5. `FC-06` is sequential source-feedback audit work.
+6. `FC-07` and `FC-08` are post-feedback acceptance gates for refreshed source
+   package facts and the current verifier.
 
 Recommended initial execution is one worker lane at a time through `FC-04`.
 Parallelize only after the first fresh reducer API has survived review.
@@ -382,6 +402,9 @@ The dry run is complete when:
 
 - `FC-00` through `FC-06` are either accepted or blocked with concrete blocker
   records;
+- post-feedback source gaps are either accepted in the fresh target or remain
+  concrete blockers;
+- the current fresh target verifier passes for the accepted source package;
 - the fresh target has at least one battle route accepted through reducer
   entrypoints;
 - the generic base Armor Class tracer is accepted or blocked with a source-input

@@ -29,6 +29,9 @@ Fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-ru
 - After source commit `b57772b459f1b75592fd45b9196fd60965b534d3`, the copied
   cleanroom input also contains generic route surfaces for pure Pact Slot
   projection and mixed Spell Slot/Pact Slot handoff rejection.
+- Fresh target commit `a30e6729711ddc3f595cf008931ba5cd6265c58a` accepts those
+  Pact Slot branches through public handoff entrypoints and verifies the current
+  package with `python3 tools/verify_current_fresh_target.py`.
 
 Evidence:
 
@@ -37,6 +40,8 @@ Evidence:
 - `FRESH_RUN_REPORT.md` in the fresh target
 - `BLOCKERS.json` in the fresh target
 - `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` in this campaign directory
+- `EVIDENCE/fc07-pact-slot-handoff-route.json` in the fresh target
+- `python3 tools/verify_current_fresh_target.py` in the fresh target
 
 ## What It Did Not Prove
 
@@ -46,8 +51,11 @@ Evidence:
   `b57772b459f1b75592fd45b9196fd60965b534d3`. Dirty target replay evidence
   consumes those Pact Slot route surfaces in
   `tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json`,
-  and fresh target commit `f0ee8f8eb95192639afe5b6af17764dfe46c5303` now
-  accepts them without TypeScript source or dirty implementation input.
+  and fresh target commit `a30e6729711ddc3f595cf008931ba5cd6265c58a` now
+  accepts them without TypeScript source or dirty implementation input. The
+  accepted current verifier validates this as current evidence and classifies
+  older FC-03/FC-04/FC-05 verifier artifacts as historical snapshots after the
+  input-package refresh.
 - FC-05 by itself did not prove one integrated sheet-handoff-to-simple-turn
   scenario. That gap is now closed by the later encounter-composition source
   connector and fresh target evidence.
