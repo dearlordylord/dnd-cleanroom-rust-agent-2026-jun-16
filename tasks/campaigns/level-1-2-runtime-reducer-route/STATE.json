@@ -2324,29 +2324,43 @@
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
   "freshCleanroomDryRun": {
-    "status": "fc-03-running",
-    "phase": "FC-03",
-    "phaseName": "Spell Attack Or Save-Gated Connector",
-    "activePhase": {
+    "status": "fc-03-reviewed-accepted",
+    "phase": "FC-04",
+    "phaseName": "Generic Base Armor Class Regression",
+    "previousPhase": {
       "phase": "FC-03",
       "phaseName": "Spell Attack Or Save-Gated Connector",
-      "status": "worker-running",
+      "status": "reviewed-accepted-with-blockers",
       "targetBaseCommit": "9b4232da35ca3532ac6815475c2998a21c734452",
       "campaignLaunchCommit": "c62945c3cf70653db7aa363ebbaeb945de04d4ec",
+      "campaignAcceptanceCommit": "c827a46",
+      "runtimeCommit": "20de2c92377db2e212fbcc179b74d1d6d5993878",
+      "targetHead": "7b690c80e6fa4f3177ff41ccedf2083175b1b00c",
       "workerAgent": "019f09e3-eb5a-7843-983c-df5cee14caef",
       "workerName": "Volta the 2nd",
-      "scope": "Implement the smallest honest generic spell connector route, preferably save-gated spell ordering, through shared reducer entrypoints; keep selected identity quarantined to adapter/evidence boundaries and record grouped selected-identity blockers where connector evidence is incomplete.",
-      "preferredConnectors": [
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.route.mbt.qnt"
-      ],
-      "selectedIdentityDriversUnderReview": [
+      "reviewerAgent": "019f09ee-0dae-7603-8190-9030e94ed671",
+      "reviewerName": "Faraday the 2nd",
+      "finalReviewVerdict": "clean",
+      "scope": "Generic save-gated spell ordering connector route through shared reducer entrypoints, with grouped selected-identity drivers explicitly blocked rather than overclaimed.",
+      "acceptedConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
+      "blockedSelectedIdentityDrivers": [
         "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
         "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
       ],
-      "acceptanceBoundary": "Do not claim full selected-identity driver acceptance unless expected route records cover every selected branch; record explicit source-QNT/substrate blockers instead."
+      "verification": [
+        "cargo fmt --check",
+        "cargo test (13 passed)",
+        "cargo clippy --all-targets -- -D warnings",
+        "python3 tools/verify_fc00.py",
+        "python3 tools/verify_fc01.py",
+        "python3 tools/verify_fc02.py",
+        "python3 tools/verify_fc03.py",
+        "git diff --check 9b4232da35ca3532ac6815475c2998a21c734452...HEAD",
+        "git status --short"
+      ],
+      "residualRisk": "FC-03 proves route/hole-owner evidence only. It does not prove concrete save-gated HP damage application; the final BattleHitPointOwner event is route ownership, not effect parity."
     },
-    "previousPhase": {
+    "earlierReviewedPhase": {
       "phase": "FC-02",
       "phaseName": "Minimal Battle Action Route",
       "status": "reviewed-accepted",
@@ -2372,7 +2386,7 @@
       ],
       "residualRisk": "Expected route independence is inspectable in tests/evidence but not mechanically proven against the QNT file by the verifier."
     },
-    "earlierReviewedPhase": {
+    "earlierReviewedPhaseFc01": {
       "phase": "FC-01",
       "phaseName": "Reducer Spine Substrate",
       "status": "reviewed-accepted",
@@ -2431,6 +2445,12 @@
         "status": "reviewed-accepted",
         "runtimeCommit": "488f1000cc6c08ddba29802bcea47d851737bf88",
         "targetHead": "9b4232da35ca3532ac6815475c2998a21c734452"
+      },
+      {
+        "phase": "FC-03",
+        "status": "reviewed-accepted-with-blockers",
+        "runtimeCommit": "20de2c92377db2e212fbcc179b74d1d6d5993878",
+        "targetHead": "7b690c80e6fa4f3177ff41ccedf2083175b1b00c"
       }
     ],
     "previousAcceptedPhase": {
@@ -2495,7 +2515,7 @@
     ]
   },
   "nextWorkRecommendations": [
-    "Continue supervising FC-03 Spell Attack Or Save-Gated Connector worker Volta the 2nd (`019f09e3-eb5a-7843-983c-df5cee14caef`) in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00.",
+    "Launch FC-04 Generic Base Armor Class Regression in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 using the fresh dry-run plan.",
     "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
     "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
     "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."
