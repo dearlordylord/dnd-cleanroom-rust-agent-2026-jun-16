@@ -14,6 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-b` | `ralph/l15-rrcp7-b-damage-spell-bridges` | `74d7988cd62baaf85b00a134deb7d84f4c513dc1` | `019f08db-bf2e-71f2-b447-19a0a450d398` Confucius the 2nd | running |
 
 ## Historical RRCONV-19 Worktrees
 

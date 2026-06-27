@@ -188,13 +188,13 @@
       "dependsOn": [
         "CP6"
       ],
-      "runningLaneIds": [],
+      "runningLaneIds": [
+        "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES"
+      ],
       "mergedLaneIds": [
         "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES"
       ],
-      "readyLaneIds": [
-        "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES"
-      ],
+      "readyLaneIds": [],
       "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. L15-RRCP7-A accepted the four FU01C generic active-effect and marked-effect route gaps in battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt; CP7_AUDIT.json now records 647 accepted obligations and 21 target blockers. L15-RRCP7-B is queued for two FU01B residual damage-spell bridge rows."
     }
   ],
@@ -249,7 +249,7 @@
     "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "merged-verified",
     "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified",
     "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "merged-verified",
-    "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "ready"
+    "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "running"
   },
   "lastIntegrationVerification": {
     "head": "f8a438ebff90eb79e274b207c5c286080aaf6726",
@@ -268,7 +268,17 @@
     "targetReplayEvidenceCheck": "12 FU01C obligations covered",
     "cleanroomHarness": "failed as expected on stale non-FU01C manifest/evidence debt; /tmp/rrcp7-cleanroom-harness.out contained no FU01C/buff-mark references"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-b",
+      "branch": "ralph/l15-rrcp7-b-damage-spell-bridges",
+      "baseSha": "74d7988cd62baaf85b00a134deb7d84f4c513dc1",
+      "status": "running",
+      "workerAgent": "019f08db-bf2e-71f2-b447-19a0a450d398",
+      "workerName": "Confucius the 2nd"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
