@@ -14,7 +14,10 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | _none_ | _none_ | _none_ | _none_ | no active lane worktrees |
+| L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c` | `ralph/l15-rr07-fu01c-weapon-buff-mark-smite` | `410a784738fba3b80566eae292140327d4e30877` | pending | worker-running |
+| L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d` | `ralph/l15-rr07-fu01d-protection-charm-ward` | `410a784738fba3b80566eae292140327d4e30877` | pending | worker-running |
+| L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01e` | `ralph/l15-rr07-fu01e-armor-reaction` | `410a784738fba3b80566eae292140327d4e30877` | pending | worker-running |
+| L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f` | `ralph/l15-rr07-fu01f-spatial-light-area` | `410a784738fba3b80566eae292140327d4e30877` | pending | worker-running |
 
 ## Historical RRCONV-19 Worktrees
 

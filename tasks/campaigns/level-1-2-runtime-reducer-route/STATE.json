@@ -108,7 +108,12 @@
         "CP2",
         "CP3"
       ],
-      "runningLaneIds": [],
+      "runningLaneIds": [
+        "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
+        "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
+        "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
+        "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES"
+      ],
       "mergedLaneIds": [
         "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
         "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
@@ -119,7 +124,7 @@
         "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
       ],
-      "notes": "FU01A, FU01B, FU08A, FU08B, and FU08C are merged and verified. FU01B records two target blockers; remaining CP4 split lanes FU01C-FU01F are ready/unlaunched.",
+      "notes": "FU01A, FU01B, FU08A, FU08B, and FU08C are merged and verified. FU01C-FU01F are launched in parallel from base 410a784738fba3b80566eae292140327d4e30877.",
       "splitLaneIds": [
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
@@ -191,10 +196,10 @@
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready",
-    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready",
-    "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready",
-    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "ready",
+    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "worker-running",
+    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "worker-running",
+    "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "worker-running",
+    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "worker-running",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified"
@@ -211,7 +216,44 @@
     "result": "passed",
     "cargoTest": "209 passed"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c",
+      "branch": "ralph/l15-rr07-fu01c-weapon-buff-mark-smite",
+      "baseSha": "410a784738fba3b80566eae292140327d4e30877",
+      "status": "worker-running",
+      "workerAgent": "pending",
+      "workerName": "pending"
+    },
+    {
+      "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d",
+      "branch": "ralph/l15-rr07-fu01d-protection-charm-ward",
+      "baseSha": "410a784738fba3b80566eae292140327d4e30877",
+      "status": "worker-running",
+      "workerAgent": "pending",
+      "workerName": "pending"
+    },
+    {
+      "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01e",
+      "branch": "ralph/l15-rr07-fu01e-armor-reaction",
+      "baseSha": "410a784738fba3b80566eae292140327d4e30877",
+      "status": "worker-running",
+      "workerAgent": "pending",
+      "workerName": "pending"
+    },
+    {
+      "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f",
+      "branch": "ralph/l15-rr07-fu01f-spatial-light-area",
+      "baseSha": "410a784738fba3b80566eae292140327d4e30877",
+      "status": "worker-running",
+      "workerAgent": "pending",
+      "workerName": "pending"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
