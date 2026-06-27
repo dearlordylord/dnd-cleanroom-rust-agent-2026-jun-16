@@ -35,6 +35,8 @@ module battleRuntimeReducerRoute {
     | InterruptStackResumeRouteSubject
     | RollModifierEffectRouteSubject
     | SpellDamageReductionRouteSubject
+    | ArmorClassSpellEffectRouteSubject
+    | ReactionSpellRouteSubject
     | ScalarBuffEffectRouteSubject
     | RepeatSaveConditionEffectRouteSubject
     | TurnBoundaryEffectLifecycleRouteSubject
@@ -88,6 +90,7 @@ module battleRuntimeReducerRoute {
     | BattleItemTargetBoundaryOwner
     | BattleMovementResourceOwner
     | BattleInterruptStackOwner
+    | BattleReactionOwner
     | BattleFeatureResourceOwner
     | BattleTemporaryHitPointOwner
     | BattleTurnBoundaryOwner

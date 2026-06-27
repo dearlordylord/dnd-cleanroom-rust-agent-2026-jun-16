@@ -264,6 +264,13 @@
             "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt"
           ]
+        },
+        {
+          "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
+          "queue": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt"
+          ]
         }
       ]
     },
