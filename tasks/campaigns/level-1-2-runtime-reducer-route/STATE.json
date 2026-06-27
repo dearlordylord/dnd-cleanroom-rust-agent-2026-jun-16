@@ -136,7 +136,7 @@
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "merged-verified",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "merged-verified",
-    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "reviewing",
+    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "findings",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
     "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
     "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES": "blocked-on-checkpoint",
@@ -180,7 +180,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10",
       "branch": "ralph/l15-rr10-character-battle-handoff",
       "baseSha": "6af492188311839dd4839b464b2e7049e3330568",
-      "status": "reviewing",
+      "status": "findings",
       "workerAgent": "019f06d8-d9f9-76b1-a057-efe51b02c54f",
       "workerName": "Darwin",
       "commit": "421541a1958b20bdfb3b785174ea125673135d72",
@@ -198,7 +198,21 @@
       ],
       "reviewAgent": "019f06f4-070e-7dd1-9cc4-7c6567885937",
       "reviewName": "Bacon",
-      "reviewStatus": "running"
+      "reviewStatus": "findings",
+      "reviewFindings": [
+        "Feature-resource route expected values are not independent: replay_observed_route and expected_route both delegate to build_feature_resource_route_through_action, making the route assertion tautological.",
+        "The other changed RR10 route adapters share observed/expected construction helpers or route construction paths instead of independently authored expected route records.",
+        "Target replay evidence records those route checks as pass even though the route evidence is not independently supported."
+      ],
+      "reviewVerification": [
+        "git merge-base --is-ancestor 6af492188311839dd4839b464b2e7049e3330568 HEAD",
+        "git diff --check 6af492188311839dd4839b464b2e7049e3330568...HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "cargo test character_battle (0 tests)",
+        "cargo test sheet_feature_resources",
+        "cargo test adapter_replays_all",
+        "mechanical in-scope obligation cross-check: 32 source-inventory in-scope obligations, 32 ledger refs"
+      ]
     }
   ],
   "completedLaneWorktrees": [
