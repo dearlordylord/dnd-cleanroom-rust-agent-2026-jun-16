@@ -2204,6 +2204,85 @@
           "sha256": "a1b9d613c7474002fd430f6a1de852e99623cf64ee0eb742c7eb83742eafb361"
         }
       }
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "02fbb33b93b5605c6854ae9ee7739b25ec044d3df0690b5987a70a1894330e02"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "ed17d763af8e951ff0e286cfde1193939f90ff350a8646907ac145aa94b425b5"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "01aaf961778c03374c5943b071f0c47bfdbc267bd79dff91f37fe5618e4762c3"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/START_GATE.json",
+          "sha256": "53ea3151e9e4466a4797a02720e4726052387a3581dc0303d28abf3cb1f3cbf5"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "b95a357fffd60d1ec5d3be091160a1251e165d7aa94eaa839170b31e1e1506fb"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doAdrenalineRushDash#step:doAdrenalineRushDash",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectSecondDash#step:doRejectSecondDash",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doMoveThroughLargerCreatureSpace#step:doMoveThroughLargerCreatureSpace",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectOccupiedStop#step:doRejectOccupiedStop",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectMissingProfile#step:doRejectMissingProfile",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectSameSizeTraversal#step:doRejectSameSizeTraversal",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doDragonbornDamageResistance#step:doDragonbornDamageResistance",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doDwarvenResilience#step:doDwarvenResilience",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doHalflingBrave#step:doHalflingBrave",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doGoliathPowerfulBuild#step:doGoliathPowerfulBuild",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doProjectDangerSenseDexterityAdvantage#step:doProjectDangerSenseDexterityAdvantage",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doSuppressDangerSenseWhileIncapacitated#step:doSuppressDangerSenseWhileIncapacitated",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doBlessAttackAndSaveModifier#step:doBlessAttackAndSaveModifier",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doBaneFailedSavePenalty#step:doBaneFailedSavePenalty",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doGuidanceSkillAbilityCheckModifier#step:doGuidanceSkillAbilityCheckModifier",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doResistanceReducesMatchingDamage#step:doResistanceReducesMatchingDamage",
+            "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doShieldOfFaithArmorClassBonus#step:doShieldOfFaithArmorClassBonus"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json",
+          "sha256": "6667a54b884404d6c80943bac071aaaf1439aa6e7634d26d597a186e2ef3cfab"
+        }
+      ],
+      "taskId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

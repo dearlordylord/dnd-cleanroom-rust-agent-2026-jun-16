@@ -1,5 +1,4 @@
 {
-  "schemaVersion": 1,
   "assignments": [
     {
       "assignmentId": "reducer-spine-diagnostic-battle",
@@ -206,6 +205,16 @@
             "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
             "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt"
           ]
+        },
+        {
+          "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
+          "queue": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt"
+          ]
         }
       ]
     },
@@ -356,5 +365,6 @@
         }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 1
 }

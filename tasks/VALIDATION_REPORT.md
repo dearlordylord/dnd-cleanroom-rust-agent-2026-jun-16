@@ -2160,3 +2160,63 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed after artifact schema convergence.
 - `git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD` passed.
+
+## L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES
+
+- Ledger task: L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES
+- Machine-readable run ledger: tasks/RUN_LEDGER.json
+- Current manifest source commit SHA: 564376fd95218a209bb9eae5c9ccb54ca3e04a52
+- Source branch inventory SHA: 4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+
+### Allowed inputs used:
+- cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt
+- cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt
+- cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt
+- cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt
+- cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt
+
+### Behavior implemented:
+Passive trait, passive movement, passive roll-mode, roll-modifier buff, Danger Sense, and feature-resource-backed Adrenaline behavior route through typed substrate owners. Selected species, feature, and spell identity is retained only in adapter/test/evidence boundaries.
+
+The accepted target replay rows are `qRoute` / `route-event-list` evidence: each focused adapter test now compares traces emitted by `src/rules/battle_reducer_spine.rs` and `src/rules/battle_features.rs` production observer entrypoints against an independent `expected_route(action)` record before accepting the branch. Literal projection witnesses remain as component state checks, but they are not the basis for the route comparator claim.
+
+### Generated branch coverage:
+| Obligation | Evidence | Harness | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt#step:doAdrenalineRushDash` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doAdrenalineRushDash#step:doAdrenalineRushDash` | `src/qnt_adapters/battle_runtime_adrenaline_rush.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt#step:doRejectSecondDash` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectSecondDash#step:doRejectSecondDash` | `src/qnt_adapters/battle_runtime_adrenaline_rush.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt#step:doMoveThroughLargerCreatureSpace` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doMoveThroughLargerCreatureSpace#step:doMoveThroughLargerCreatureSpace` | `src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt#step:doRejectOccupiedStop` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectOccupiedStop#step:doRejectOccupiedStop` | `src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt#step:doRejectMissingProfile` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectMissingProfile#step:doRejectMissingProfile` | `src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt#step:doRejectSameSizeTraversal` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectSameSizeTraversal#step:doRejectSameSizeTraversal` | `src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt#step:doDragonbornDamageResistance` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doDragonbornDamageResistance#step:doDragonbornDamageResistance` | `src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt#step:doDwarvenResilience` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doDwarvenResilience#step:doDwarvenResilience` | `src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt#step:doHalflingBrave` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doHalflingBrave#step:doHalflingBrave` | `src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt#step:doGoliathPowerfulBuild` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doGoliathPowerfulBuild#step:doGoliathPowerfulBuild` | `src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt#step:doProjectDangerSenseDexterityAdvantage` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doProjectDangerSenseDexterityAdvantage#step:doProjectDangerSenseDexterityAdvantage` | `src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt#step:doSuppressDangerSenseWhileIncapacitated` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doSuppressDangerSenseWhileIncapacitated#step:doSuppressDangerSenseWhileIncapacitated` | `src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt#step:doBlessAttackAndSaveModifier` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doBlessAttackAndSaveModifier#step:doBlessAttackAndSaveModifier` | `src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt#step:doBaneFailedSavePenalty` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doBaneFailedSavePenalty#step:doBaneFailedSavePenalty` | `src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt#step:doGuidanceSkillAbilityCheckModifier` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doGuidanceSkillAbilityCheckModifier#step:doGuidanceSkillAbilityCheckModifier` | `src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt#step:doResistanceReducesMatchingDamage` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doResistanceReducesMatchingDamage#step:doResistanceReducesMatchingDamage` | `src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt#step:doShieldOfFaithArmorClassBonus` | `tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doShieldOfFaithArmorClassBonus#step:doShieldOfFaithArmorClassBonus` | `src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs` | `covered` |
+
+### Harness artifacts:
+- tasks/START_GATE.json
+- tasks/ENGINE_DEPTH_MANIFEST.json
+- tasks/STATE_OWNER_MANIFEST.json
+- tasks/REVIEW_LOOP.json
+- tasks/DECIDER_DECISION.json
+- tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json
+
+### Remaining gaps:
+- None for the selected lane obligations.
+
+### Verification results:
+- cargo test adapter_replays_all_branches: pass
+- cargo fmt --check: pass
+- cargo test: pass
+- cargo clippy --all-targets -- -D warnings: pass
+- node scripts/check-cleanroom-harness.cjs: pass

@@ -1,7 +1,16 @@
 use crate::rules::battle_features::{
     danger_sense_initial_state, project_danger_sense_dexterity_advantage,
-    suppress_danger_sense_while_incapacitated, DangerSenseProtocol, DangerSenseScenarioOutcome,
-    DangerSenseState,
+    project_danger_sense_dexterity_advantage_observed, suppress_danger_sense_while_incapacitated,
+    suppress_danger_sense_while_incapacitated_observed, DangerSenseProtocol,
+    DangerSenseScenarioOutcome, DangerSenseState,
+};
+
+use super::battle_runtime_reducer_route::{
+    reducer_route_events_from_battle_trace, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_route_result,
+    route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
+    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -34,7 +43,77 @@ pub fn replay_observed_action(observed_action_taken: &str) -> DangerSenseWitness
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> DangerSenseWitness {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doProjectDangerSenseDexterityAdvantage" => DangerSenseWitness {
+            scenario_outcome: "DangerSenseDexterityAdvantage",
+            source_unit_id: "barbarian_danger_sense",
+            dexterity_roll_mode_count: 1,
+            constitution_roll_mode_count: 0,
+            suppressed: false,
+            accepted: true,
+            protocol_result: "resolved",
+            protocol_holes: Vec::new(),
+        },
+        "doSuppressDangerSenseWhileIncapacitated" => DangerSenseWitness {
+            scenario_outcome: "DangerSenseIncapacitatedSuppressed",
+            source_unit_id: "barbarian_danger_sense",
+            dexterity_roll_mode_count: 0,
+            constitution_roll_mode_count: 0,
+            suppressed: true,
+            accepted: true,
+            protocol_result: "resolved",
+            protocol_holes: Vec::new(),
+        },
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    let (_state, trace) = match observed_action_taken {
+        "doProjectDangerSenseDexterityAdvantage" => {
+            project_danger_sense_dexterity_advantage_observed()
+        }
+        "doSuppressDangerSenseWhileIncapacitated" => {
+            suppress_danger_sense_while_incapacitated_observed()
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    };
+    reducer_route_events_from_battle_trace(&trace)
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doProjectDangerSenseDexterityAdvantage" => vec![
+            route_start_battle(ReducerRouteOwnerGroup::SavingThrowRollMode),
+            route_discover_battle_acts_from_route_holes(
+                ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+                vec![ReducerRouteHoleKind::SavingThrowOutcome],
+                ReducerRouteOwnerGroup::SavingThrowRollMode,
+            ),
+            route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+                ReducerRouteFillKind::SavingThrowOutcome,
+                ReducerRouteResolutionOutcome::Resolved,
+                Vec::new(),
+                ReducerRouteOwnerGroup::SavingThrowRollMode,
+            ),
+        ],
+        "doSuppressDangerSenseWhileIncapacitated" => vec![
+            route_start_battle(ReducerRouteOwnerGroup::SavingThrowRollMode),
+            route_discover_battle_acts_from_route_holes(
+                ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+                Vec::new(),
+                ReducerRouteOwnerGroup::SavingThrowRollMode,
+            ),
+            route_resolve_battle_subject_without_fill_from_route_result(
+                ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+                ReducerRouteResolutionOutcome::Resolved,
+                Vec::new(),
+                ReducerRouteOwnerGroup::ConditionLifecycle,
+            ),
+        ],
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &DangerSenseWitness) -> String {

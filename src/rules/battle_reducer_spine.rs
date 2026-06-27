@@ -9,10 +9,12 @@ use crate::rules::attack_damage_disposition::{
 };
 use crate::rules::battle_features::{
     dragonborn_breath_weapon_initial_state, innate_sorcery_initial_state,
-    resolve_dragonborn_breath_weapon, sorcerer_spell_save_dc, BreathWeaponAreaShape,
-    DragonbornBreathWeaponFacts, DragonbornBreathWeaponProtocol,
-    DragonbornBreathWeaponScenarioOutcome, DragonbornBreathWeaponState, InnateSorceryOccurrence,
-    InnateSorceryProtocol, InnateSorceryScenarioOutcome, InnateSorcerySpellAttackRollMode,
+    resolve_adrenaline_rush_bonus_action_dash, resolve_dragonborn_breath_weapon,
+    sorcerer_spell_save_dc, AdrenalineRushFacts, AdrenalineRushRejection, AdrenalineRushResult,
+    BattleTurnFeatureState, BreathWeaponAreaShape, DragonbornBreathWeaponFacts,
+    DragonbornBreathWeaponProtocol, DragonbornBreathWeaponScenarioOutcome,
+    DragonbornBreathWeaponState, InnateSorceryOccurrence, InnateSorceryProtocol,
+    InnateSorceryScenarioOutcome, InnateSorcerySpellAttackRollMode,
     InnateSorcerySpellBenefitEligibility, InnateSorcerySpellFacts, InnateSorceryState,
 };
 use crate::rules::command_options::{
@@ -31,6 +33,9 @@ use crate::rules::concentration::{
     ConcentrationSavingThrowFacts, ConcentrationState,
 };
 use crate::rules::creature_size::CreatureSize;
+use crate::rules::feature_resources::{
+    resource_pool_remaining, spend_resource_pool, ResourcePoolFacts,
+};
 use crate::rules::hit_point_restoration_ordering::{
     hit_point_restoration_fill_order_accepted_stage, hit_point_restoration_fill_order_error,
     hit_point_restoration_fill_order_result, hit_point_restoration_fill_order_runtime_result,
@@ -53,6 +58,11 @@ use crate::rules::interrupt_stack_resume::{
     ReactionWindowRole,
 };
 use crate::rules::magic_missile::magic_missile_force_damage;
+use crate::rules::roll_modifier_buff_selected_identity::{
+    project_bane_failed_save_penalty, project_bless_attack_and_save_modifier,
+    project_guidance_skill_ability_check_modifier, project_resistance_matching_damage_reduction,
+    project_shield_of_faith_armor_class_bonus, RollModifierBuffSelectedIdentityState,
+};
 use crate::rules::rule_core_stat_block_controls::{
     resolve_stat_block_control_subject, start_stat_block_multiattack_from,
     stat_block_control_initial_state, stat_block_multiattack_continuation_open,
@@ -70,6 +80,11 @@ use crate::rules::save_gated_spell_ordering::{
 use crate::rules::scalar_buff::{
     ScalarBuffTargetHole, ScalarBuffTargetInvalidReason, ScalarBuffTargetProtocol,
     ScalarBuffTargetState,
+};
+use crate::rules::species_passive_traits::{
+    creature_space_traversal_allowed, project_dragonborn_damage_resistance,
+    project_dwarven_resilience, project_goliath_powerful_build, project_halfling_brave,
+    CreatureSpaceTraversalFacts, SpeciesPassiveTraitState,
 };
 use crate::rules::spell_attack_ordering::{
     spell_attack_fill_order_error, spell_attack_fill_order_result,
@@ -342,6 +357,7 @@ pub struct BattleState {
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
     pub feature_substrates: BattleFeatureSubstrates,
+    pub feature_resources: BattleFeatureResources,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
     pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -370,6 +386,7 @@ pub struct BattleSetup {
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
     pub feature_substrates: BattleFeatureSubstrates,
+    pub feature_resources: BattleFeatureResources,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
     pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -410,6 +427,7 @@ impl BattleSetup {
             spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
             command_effect_procedure: BattleCommandEffectProcedure::Inactive,
             feature_substrates: BattleFeatureSubstrates::standard(),
+            feature_resources: BattleFeatureResources::standard(),
             spell_slot_uses_this_turn: Vec::new(),
             level_one_plus_spell_casters_this_turn: Vec::new(),
             quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
@@ -425,6 +443,23 @@ impl BattleSetup {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct BattleStartResult {
     pub state: BattleState,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleFeatureResources {
+    pub bonus_action_dash_temporary_hit_points: ResourcePoolFacts,
+}
+
+impl BattleFeatureResources {
+    #[must_use]
+    pub const fn standard() -> Self {
+        Self {
+            bonus_action_dash_temporary_hit_points: ResourcePoolFacts {
+                capacity: 3,
+                expended: 0,
+            },
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -1577,6 +1612,7 @@ pub enum BattleEntrypointEvent {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleReducerRouteFillKind {
     AttackRoll,
+    GrappleOutcome,
     ConcentrationSavingThrow,
     ConditionChoice,
     DamageTypeChoice,
@@ -1586,22 +1622,83 @@ pub enum BattleReducerRouteFillKind {
     Movement,
     RolledDice,
     SavingThrowOutcome,
+    SkillChoice,
     SpellTargetAllocation,
     SpellTargetList,
     StatBlockRechargeRoll,
     TargetChoice,
     UnitFeatureDecision,
+    WildShapeEquipmentDisposition,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub enum BattleReducerRouteHoleKind {
+    AttackRoll,
+    GrappleOutcome,
+    ConcentrationSavingThrow,
+    ConditionChoice,
+    DamageTypeChoice,
+    DeathSavingThrow,
+    HitPointHealingDistribution,
+    InterruptDecision,
+    CommandOptionChoice,
+    Movement,
+    RolledDice,
+    SavingThrowOutcome,
+    SkillChoice,
+    SpellTargetAllocation,
+    SpellTargetList,
+    StatBlockRechargeRoll,
+    TargetChoice,
+    WildShapeEquipmentDisposition,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReducerRouteSubjectFamily {
+    ActiveFormLifecycle,
+    ConcentrationTeardown,
+    CommandSpell,
+    CreatureAttack,
+    BattleAction,
+    DeathSavingThrow,
+    ForcedMovement,
+    HitPointRestoration,
+    MovementResource,
+    SaveGatedSpell,
+    SlotSpell,
+    SpellAttack,
+    ScalarBuff,
+    StatBlockAction,
+    WeaponAttack,
+    ActiveFeatureSpellAttackRollMode,
+    ActiveFeatureSpellSaveDc,
+    AttackActionAreaSaveDamageReplacement,
+    UnitFeatureBonusAction,
+    WeaponMasteryProperty,
+    ZeroHitPointStabilization,
+    PassiveAbilityCheckRollMode,
+    PassiveDamageAdjustment,
+    PassiveSavingThrowRollMode,
+    CreatureSpaceMovementPermission,
+    CreatureStatProjection,
+    RollModifierEffect,
+    ScalarBuffEffect,
+    SpellDamageReduction,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleReducerRouteOwnerGroup {
     ActionEconomy,
     ActiveEffect,
+    AbilityCheckRollMode,
     AreaShape,
     AttackRoll,
     AttackActionProcedure,
     Concentration,
     ConditionLifecycle,
+    CreatureSpaceMovement,
+    CreatureState,
+    DamageAdjustment,
     DamageRoll,
     DamageType,
     FeatureResource,
@@ -1611,11 +1708,16 @@ pub enum BattleReducerRouteOwnerGroup {
     InterruptStack,
     MovementResource,
     SavingThrowOutcome,
+    SavingThrowRollMode,
     SpellAttackProcedure,
     SpellSlotAndActionEconomy,
     StatBlockAction,
     TargetSelection,
+    TemporaryHitPoint,
+    TurnBoundary,
 }
+
+pub type BattleReducerRouteResolutionOutcome = BattleResolutionOutcome;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum BattleReducerRouteEvent {
@@ -1623,23 +1725,45 @@ pub enum BattleReducerRouteEvent {
         owner: BattleReducerRouteOwnerGroup,
     },
     DiscoverBattleActs {
-        subject: BattleSubjectKind,
-        holes: Vec<BattleHoleKind>,
+        subject: BattleReducerRouteSubjectFamily,
+        holes: Vec<BattleReducerRouteHoleKind>,
         owner: BattleReducerRouteOwnerGroup,
     },
     ResolveBattleSubject {
-        subject: BattleSubjectKind,
+        subject: BattleReducerRouteSubjectFamily,
         fill: BattleReducerRouteFillKind,
-        outcome: BattleResolutionOutcome,
-        holes: Vec<BattleHoleKind>,
+        outcome: BattleReducerRouteResolutionOutcome,
+        holes: Vec<BattleReducerRouteHoleKind>,
         owner: BattleReducerRouteOwnerGroup,
     },
     ResolveBattleSubjectWithoutFill {
-        subject: BattleSubjectKind,
-        outcome: BattleResolutionOutcome,
-        holes: Vec<BattleHoleKind>,
+        subject: BattleReducerRouteSubjectFamily,
+        outcome: BattleReducerRouteResolutionOutcome,
+        holes: Vec<BattleReducerRouteHoleKind>,
         owner: BattleReducerRouteOwnerGroup,
     },
+}
+
+pub trait BattleReducerRouteObserver {
+    fn observe_battle_reducer_route(&mut self, event: BattleReducerRouteEvent);
+}
+
+#[derive(Debug, Default, Clone, PartialEq, Eq)]
+pub struct BattleReducerRouteTrace {
+    events: Vec<BattleReducerRouteEvent>,
+}
+
+impl BattleReducerRouteTrace {
+    #[must_use]
+    pub fn events(&self) -> &[BattleReducerRouteEvent] {
+        &self.events
+    }
+}
+
+impl BattleReducerRouteObserver for BattleReducerRouteTrace {
+    fn observe_battle_reducer_route(&mut self, event: BattleReducerRouteEvent) {
+        self.events.push(event);
+    }
 }
 
 impl BattleEntrypointEvent {
@@ -1686,6 +1810,66 @@ impl BattleEntrypointObserver for BattleEntrypointTrace {
     fn observe_battle_reducer_route(&mut self, event: BattleReducerRouteEvent) {
         self.route_events.push(event);
     }
+}
+
+impl BattleReducerRouteObserver for BattleEntrypointTrace {
+    fn observe_battle_reducer_route(&mut self, event: BattleReducerRouteEvent) {
+        self.route_events.push(event);
+    }
+}
+
+pub fn observe_battle_route_start(
+    owner: BattleReducerRouteOwnerGroup,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observer.observe_battle_reducer_route(BattleReducerRouteEvent::StartBattle { owner });
+}
+
+pub fn observe_battle_route_discovery(
+    subject: BattleReducerRouteSubjectFamily,
+    holes: Vec<BattleReducerRouteHoleKind>,
+    owner: BattleReducerRouteOwnerGroup,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observer.observe_battle_reducer_route(BattleReducerRouteEvent::DiscoverBattleActs {
+        subject,
+        holes: sorted_battle_reducer_route_holes(holes),
+        owner,
+    });
+}
+
+pub fn observe_battle_route_resolution(
+    subject: BattleReducerRouteSubjectFamily,
+    fill: BattleReducerRouteFillKind,
+    outcome: BattleReducerRouteResolutionOutcome,
+    holes: Vec<BattleReducerRouteHoleKind>,
+    owner: BattleReducerRouteOwnerGroup,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observer.observe_battle_reducer_route(BattleReducerRouteEvent::ResolveBattleSubject {
+        subject,
+        fill,
+        outcome,
+        holes: sorted_battle_reducer_route_holes(holes),
+        owner,
+    });
+}
+
+pub fn observe_battle_route_resolution_without_fill(
+    subject: BattleReducerRouteSubjectFamily,
+    outcome: BattleReducerRouteResolutionOutcome,
+    holes: Vec<BattleReducerRouteHoleKind>,
+    owner: BattleReducerRouteOwnerGroup,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observer.observe_battle_reducer_route(
+        BattleReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject,
+            outcome,
+            holes: sorted_battle_reducer_route_holes(holes),
+            owner,
+        },
+    );
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1751,6 +1935,7 @@ pub fn start_battle(setup: BattleSetup) -> BattleStartResult {
             spell_attack_procedure: setup.spell_attack_procedure,
             command_effect_procedure: setup.command_effect_procedure,
             feature_substrates: setup.feature_substrates,
+            feature_resources: setup.feature_resources,
             spell_slot_uses_this_turn: setup.spell_slot_uses_this_turn,
             level_one_plus_spell_casters_this_turn: setup.level_one_plus_spell_casters_this_turn,
             quickened_level_one_plus_spell_casters_this_turn: setup
@@ -1779,6 +1964,652 @@ pub fn start_battle_observed(
 #[must_use]
 pub fn start_standard_battle() -> BattleState {
     start_battle(BattleSetup::standard()).state
+}
+
+#[must_use]
+pub fn resolve_bonus_action_dash_temporary_hit_points_feature_battle(
+    mut state: BattleState,
+    actor: Actor,
+    proficiency_bonus: i16,
+) -> BattleResolutionResult {
+    let combatant = combatant_for(&state, actor);
+    let projection = resolve_adrenaline_rush_bonus_action_dash(AdrenalineRushFacts {
+        turn: BattleTurnFeatureState {
+            actor_temporary_hit_points: combatant.temporary_hp,
+            bonus_action_available: state.bonus_action_available,
+            dash_bonus_feet: state.dash_movement_bonus_feet,
+            feature_uses_remaining: resource_pool_remaining(
+                state
+                    .feature_resources
+                    .bonus_action_dash_temporary_hit_points,
+            ),
+        },
+        speed_feet: combatant.speed_feet,
+        proficiency_bonus,
+        actor_owns_turn: actor == current_actor(&state),
+        actor_unconscious: combatant.unconscious,
+        actor_incapacitated: combatant.incapacitated,
+    });
+
+    match projection.result {
+        AdrenalineRushResult::Resolved => {
+            let resource_pool = state
+                .feature_resources
+                .bonus_action_dash_temporary_hit_points;
+            let Ok(spent_pool) = spend_resource_pool(resource_pool, 1) else {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::InvalidFill,
+                    Vec::new(),
+                );
+            };
+            state
+                .feature_resources
+                .bonus_action_dash_temporary_hit_points = spent_pool;
+            let actor_state = combatant_for_mut(&mut state, actor);
+            actor_state.temporary_hp = projection.turn.actor_temporary_hit_points;
+            state.bonus_action_available = projection.turn.bonus_action_available;
+            state.dash_movement_bonus_feet = projection.turn.dash_bonus_feet;
+            BattleResolutionResult::Resolved { state }
+        }
+        AdrenalineRushResult::Invalid(reason) => BattleResolutionResult::Invalid {
+            state,
+            reason: adrenaline_rush_invalid_reason(reason),
+            holes: Vec::new(),
+        },
+    }
+}
+
+#[must_use]
+pub fn bonus_action_dash_temporary_hit_points_feature_turn_state(
+    state: &BattleState,
+    actor: Actor,
+) -> BattleTurnFeatureState {
+    let combatant = combatant_for(state, actor);
+    BattleTurnFeatureState {
+        actor_temporary_hit_points: combatant.temporary_hp,
+        bonus_action_available: state.bonus_action_available,
+        dash_bonus_feet: state.dash_movement_bonus_feet,
+        feature_uses_remaining: resource_pool_remaining(
+            state
+                .feature_resources
+                .bonus_action_dash_temporary_hit_points,
+        ),
+    }
+}
+
+const fn adrenaline_rush_invalid_reason(
+    reason: AdrenalineRushRejection,
+) -> BattleResolutionInvalidReason {
+    match reason {
+        AdrenalineRushRejection::WrongActor => BattleResolutionInvalidReason::WrongActor,
+        AdrenalineRushRejection::StaleSubject
+        | AdrenalineRushRejection::NoUsesRemaining
+        | AdrenalineRushRejection::UnableToAct => BattleResolutionInvalidReason::StaleSubject,
+        AdrenalineRushRejection::InvalidFill => BattleResolutionInvalidReason::InvalidFill,
+    }
+}
+
+#[must_use]
+pub fn trace_adrenaline_rush_bonus_action_dash(
+    state: BattleState,
+    actor: Actor,
+    proficiency_bonus: i16,
+) -> (BattleResolutionResult, BattleReducerRouteTrace) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_feature_dash_start(&mut trace);
+    let result = resolve_feature_dash_observed(state, actor, proficiency_bonus, &mut trace);
+    (result, trace)
+}
+
+#[must_use]
+pub fn trace_adrenaline_rush_bonus_action_dash_then_reject_second_dash(
+    state: BattleState,
+    actor: Actor,
+    proficiency_bonus: i16,
+) -> (BattleResolutionResult, BattleReducerRouteTrace) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_feature_dash_start(&mut trace);
+    let first_result = resolve_feature_dash_observed(state, actor, proficiency_bonus, &mut trace);
+    let second_result = resolve_feature_dash_observed(
+        first_result.state().clone(),
+        actor,
+        proficiency_bonus,
+        &mut trace,
+    );
+    (second_result, trace)
+}
+
+#[must_use]
+pub fn project_dragonborn_damage_resistance_observed(
+) -> (SpeciesPassiveTraitState, BattleReducerRouteTrace) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_passive_route_after_creature_stat_projection(&mut trace);
+    let state = project_dragonborn_damage_resistance();
+    observe_damage_adjustment(&mut trace);
+    (state, trace)
+}
+
+#[must_use]
+pub fn project_dwarven_resilience_observed() -> (SpeciesPassiveTraitState, BattleReducerRouteTrace)
+{
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_passive_route_after_creature_stat_projection(&mut trace);
+    observe_damage_adjustment(&mut trace);
+    let state = project_dwarven_resilience();
+    observe_saving_throw_roll_mode(&mut trace);
+    (state, trace)
+}
+
+#[must_use]
+pub fn project_halfling_brave_observed() -> (SpeciesPassiveTraitState, BattleReducerRouteTrace) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_passive_route_after_creature_stat_projection(&mut trace);
+    observe_damage_adjustment(&mut trace);
+    let state = project_halfling_brave();
+    observe_saving_throw_roll_mode(&mut trace);
+    (state, trace)
+}
+
+#[must_use]
+pub fn project_goliath_powerful_build_observed(
+) -> (SpeciesPassiveTraitState, BattleReducerRouteTrace) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_passive_route_after_ability_check_roll_mode(&mut trace);
+    let state = project_goliath_powerful_build();
+    (state, trace)
+}
+
+#[must_use]
+pub fn trace_creature_space_traversal_sequence(
+    facts: &[CreatureSpaceTraversalFacts],
+) -> (Vec<bool>, BattleReducerRouteTrace) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_passive_route_after_ability_check_roll_mode(&mut trace);
+    let mut results = Vec::with_capacity(facts.len());
+
+    for facts in facts {
+        let accepted = creature_space_traversal_allowed(*facts);
+        observe_creature_space_movement(accepted, &mut trace);
+        results.push(accepted);
+    }
+
+    (results, trace)
+}
+
+#[must_use]
+pub fn project_bless_attack_and_save_modifier_observed() -> (
+    RollModifierBuffSelectedIdentityState,
+    BattleReducerRouteTrace,
+) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_roll_modifier_start(&mut trace);
+    observe_roll_modifier_discovery(Vec::new(), &mut trace);
+    let state = project_bless_attack_and_save_modifier();
+    observe_roll_modifier_resolution_without_fill(
+        BattleReducerRouteOwnerGroup::ActiveEffect,
+        &mut trace,
+    );
+    observe_roll_modifier_resolution_without_fill(
+        BattleReducerRouteOwnerGroup::Concentration,
+        &mut trace,
+    );
+    (state, trace)
+}
+
+#[must_use]
+pub fn project_bane_failed_save_penalty_observed() -> (
+    RollModifierBuffSelectedIdentityState,
+    BattleReducerRouteTrace,
+) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_roll_modifier_start(&mut trace);
+    observe_roll_modifier_discovery(
+        vec![BattleReducerRouteHoleKind::SavingThrowOutcome],
+        &mut trace,
+    );
+    let state = project_bane_failed_save_penalty();
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::RollModifierEffect,
+        BattleReducerRouteFillKind::SavingThrowOutcome,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ActiveEffect,
+        &mut trace,
+    );
+    observe_roll_modifier_resolution_without_fill(
+        BattleReducerRouteOwnerGroup::Concentration,
+        &mut trace,
+    );
+    (state, trace)
+}
+
+#[must_use]
+pub fn project_guidance_skill_ability_check_modifier_observed() -> (
+    RollModifierBuffSelectedIdentityState,
+    BattleReducerRouteTrace,
+) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_roll_modifier_start(&mut trace);
+    observe_roll_modifier_discovery(vec![BattleReducerRouteHoleKind::SkillChoice], &mut trace);
+    let state = project_guidance_skill_ability_check_modifier();
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::RollModifierEffect,
+        BattleReducerRouteFillKind::SkillChoice,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ActiveEffect,
+        &mut trace,
+    );
+    observe_roll_modifier_resolution_without_fill(
+        BattleReducerRouteOwnerGroup::Concentration,
+        &mut trace,
+    );
+    (state, trace)
+}
+
+#[must_use]
+pub fn project_resistance_matching_damage_reduction_observed() -> (
+    RollModifierBuffSelectedIdentityState,
+    BattleReducerRouteTrace,
+) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, &mut trace);
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::SpellDamageReduction,
+        vec![BattleReducerRouteHoleKind::TargetChoice],
+        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        &mut trace,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::SpellDamageReduction,
+        BattleReducerRouteFillKind::TargetChoice,
+        BattleReducerRouteResolutionOutcome::NeedsHoles,
+        vec![BattleReducerRouteHoleKind::DamageTypeChoice],
+        BattleReducerRouteOwnerGroup::TargetSelection,
+        &mut trace,
+    );
+    let state = project_resistance_matching_damage_reduction();
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::SpellDamageReduction,
+        BattleReducerRouteFillKind::DamageTypeChoice,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ActiveEffect,
+        &mut trace,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::SpellDamageReduction,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::Concentration,
+        &mut trace,
+    );
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::SpellDamageReduction,
+        vec![BattleReducerRouteHoleKind::RolledDice],
+        BattleReducerRouteOwnerGroup::DamageAdjustment,
+        &mut trace,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::SpellDamageReduction,
+        BattleReducerRouteFillKind::RolledDice,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::DamageAdjustment,
+        &mut trace,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::SpellDamageReduction,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ActiveEffect,
+        &mut trace,
+    );
+    (state, trace)
+}
+
+#[must_use]
+pub fn project_shield_of_faith_armor_class_bonus_observed() -> (
+    RollModifierBuffSelectedIdentityState,
+    BattleReducerRouteTrace,
+) {
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, &mut trace);
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::ScalarBuffEffect,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        &mut trace,
+    );
+    let state = project_shield_of_faith_armor_class_bonus();
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::ScalarBuffEffect,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ActiveEffect,
+        &mut trace,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::ScalarBuffEffect,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::Concentration,
+        &mut trace,
+    );
+    (state, trace)
+}
+
+fn observe_feature_dash_start(observer: &mut impl BattleReducerRouteObserver) {
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::UnitFeatureBonusAction,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::FeatureResource,
+        observer,
+    );
+}
+
+fn resolve_feature_dash_observed(
+    state: BattleState,
+    actor: Actor,
+    proficiency_bonus: i16,
+    observer: &mut impl BattleReducerRouteObserver,
+) -> BattleResolutionResult {
+    let result = resolve_bonus_action_dash_temporary_hit_points_feature_battle(
+        state,
+        actor,
+        proficiency_bonus,
+    );
+    observe_feature_dash_result(&result, observer);
+    result
+}
+
+fn observe_feature_dash_result(
+    result: &BattleResolutionResult,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observe_feature_dash_resolution(
+        result,
+        BattleReducerRouteOwnerGroup::ActionEconomy,
+        observer,
+    );
+
+    if matches!(
+        result.outcome(),
+        BattleReducerRouteResolutionOutcome::Resolved
+    ) {
+        observe_feature_dash_resolution(
+            result,
+            BattleReducerRouteOwnerGroup::FeatureResource,
+            observer,
+        );
+        observe_feature_dash_resolution(
+            result,
+            BattleReducerRouteOwnerGroup::MovementResource,
+            observer,
+        );
+        observe_feature_dash_resolution(
+            result,
+            BattleReducerRouteOwnerGroup::TemporaryHitPoint,
+            observer,
+        );
+    }
+}
+
+fn observe_feature_dash_resolution(
+    result: &BattleResolutionResult,
+    owner: BattleReducerRouteOwnerGroup,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::UnitFeatureBonusAction,
+        result.outcome(),
+        battle_reducer_route_holes(result),
+        owner,
+        observer,
+    );
+}
+
+fn observe_passive_route_after_ability_check_roll_mode(
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observe_passive_route_after_creature_stat_projection(observer);
+    observe_damage_adjustment(observer);
+    observe_saving_throw_roll_mode(observer);
+    observe_ability_check_roll_mode(observer);
+}
+
+fn observe_passive_route_after_creature_stat_projection(
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::CreatureState, observer);
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::CreatureStatProjection,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::CreatureState,
+        observer,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::CreatureStatProjection,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::CreatureState,
+        observer,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::CreatureStatProjection,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::MovementResource,
+        observer,
+    );
+}
+
+fn observe_damage_adjustment(observer: &mut impl BattleReducerRouteObserver) {
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::PassiveDamageAdjustment,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::DamageAdjustment,
+        observer,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::PassiveDamageAdjustment,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::DamageAdjustment,
+        observer,
+    );
+}
+
+fn observe_saving_throw_roll_mode(observer: &mut impl BattleReducerRouteObserver) {
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+        vec![BattleReducerRouteHoleKind::SavingThrowOutcome],
+        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+        BattleReducerRouteFillKind::SavingThrowOutcome,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        observer,
+    );
+}
+
+fn observe_ability_check_roll_mode(observer: &mut impl BattleReducerRouteObserver) {
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::PassiveAbilityCheckRollMode,
+        vec![BattleReducerRouteHoleKind::GrappleOutcome],
+        BattleReducerRouteOwnerGroup::AbilityCheckRollMode,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::PassiveAbilityCheckRollMode,
+        BattleReducerRouteFillKind::GrappleOutcome,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::AbilityCheckRollMode,
+        observer,
+    );
+}
+
+fn observe_creature_space_movement(accepted: bool, observer: &mut impl BattleReducerRouteObserver) {
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+        vec![BattleReducerRouteHoleKind::Movement],
+        BattleReducerRouteOwnerGroup::CreatureSpaceMovement,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+        BattleReducerRouteFillKind::Movement,
+        if accepted {
+            BattleReducerRouteResolutionOutcome::Resolved
+        } else {
+            BattleReducerRouteResolutionOutcome::NeedsHoles
+        },
+        if accepted {
+            Vec::new()
+        } else {
+            vec![BattleReducerRouteHoleKind::Movement]
+        },
+        BattleReducerRouteOwnerGroup::CreatureSpaceMovement,
+        observer,
+    );
+    if accepted {
+        observe_battle_route_resolution_without_fill(
+            BattleReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            BattleReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            BattleReducerRouteOwnerGroup::MovementResource,
+            observer,
+        );
+    }
+}
+
+fn observe_roll_modifier_start(observer: &mut impl BattleReducerRouteObserver) {
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
+}
+
+fn observe_roll_modifier_discovery(
+    holes: Vec<BattleReducerRouteHoleKind>,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::RollModifierEffect,
+        holes,
+        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        observer,
+    );
+}
+
+fn observe_roll_modifier_resolution_without_fill(
+    owner: BattleReducerRouteOwnerGroup,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::RollModifierEffect,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        owner,
+        observer,
+    );
+}
+
+#[must_use]
+pub fn battle_reducer_route_holes(
+    result: &BattleResolutionResult,
+) -> Vec<BattleReducerRouteHoleKind> {
+    let Some(holes) = result.requested_holes() else {
+        return Vec::new();
+    };
+    sorted_battle_reducer_route_holes(
+        holes
+            .iter()
+            .copied()
+            .map(battle_reducer_route_hole)
+            .collect(),
+    )
+}
+
+fn sorted_battle_reducer_route_holes(
+    mut holes: Vec<BattleReducerRouteHoleKind>,
+) -> Vec<BattleReducerRouteHoleKind> {
+    holes.sort();
+    holes
+}
+
+fn battle_reducer_route_hole(hole: BattleHoleKind) -> BattleReducerRouteHoleKind {
+    match hole {
+        BattleHoleKind::AttackRoll => BattleReducerRouteHoleKind::AttackRoll,
+        BattleHoleKind::ConcentrationSavingThrow => {
+            BattleReducerRouteHoleKind::ConcentrationSavingThrow
+        }
+        BattleHoleKind::ConditionChoice => BattleReducerRouteHoleKind::ConditionChoice,
+        BattleHoleKind::DamageTypeChoice => BattleReducerRouteHoleKind::DamageTypeChoice,
+        BattleHoleKind::DeathSavingThrow => BattleReducerRouteHoleKind::DeathSavingThrow,
+        BattleHoleKind::HitPointHealingDistribution => {
+            BattleReducerRouteHoleKind::HitPointHealingDistribution
+        }
+        BattleHoleKind::InterruptDecision => BattleReducerRouteHoleKind::InterruptDecision,
+        BattleHoleKind::CommandOptionChoice => BattleReducerRouteHoleKind::CommandOptionChoice,
+        BattleHoleKind::Movement => BattleReducerRouteHoleKind::Movement,
+        BattleHoleKind::RolledDice => BattleReducerRouteHoleKind::RolledDice,
+        BattleHoleKind::SavingThrowOutcome => BattleReducerRouteHoleKind::SavingThrowOutcome,
+        BattleHoleKind::SpellTargetAllocation => BattleReducerRouteHoleKind::SpellTargetAllocation,
+        BattleHoleKind::SpellTargetList => BattleReducerRouteHoleKind::SpellTargetList,
+        BattleHoleKind::StatBlockRechargeRoll => BattleReducerRouteHoleKind::StatBlockRechargeRoll,
+        BattleHoleKind::TargetChoice => BattleReducerRouteHoleKind::TargetChoice,
+    }
+}
+
+const fn battle_reducer_route_subject_family(
+    subject: BattleSubjectKind,
+) -> BattleReducerRouteSubjectFamily {
+    match subject {
+        BattleSubjectKind::EndTurn | BattleSubjectKind::Multiattack => {
+            BattleReducerRouteSubjectFamily::BattleAction
+        }
+        BattleSubjectKind::WeaponAttack => BattleReducerRouteSubjectFamily::WeaponAttack,
+        BattleSubjectKind::SingleTargetSpellAttack | BattleSubjectKind::TypedSpellAttack => {
+            BattleReducerRouteSubjectFamily::SpellAttack
+        }
+        BattleSubjectKind::SlotSpell => BattleReducerRouteSubjectFamily::SlotSpell,
+        BattleSubjectKind::SaveGatedAreaDamage
+        | BattleSubjectKind::SaveGatedTargetListConditionChoice => {
+            BattleReducerRouteSubjectFamily::SaveGatedSpell
+        }
+        BattleSubjectKind::HitPointRestorationSingleTargetSpell
+        | BattleSubjectKind::HitPointRestorationTargetListSpell
+        | BattleSubjectKind::HitPointRestorationFeatureHealingPool => {
+            BattleReducerRouteSubjectFamily::HitPointRestoration
+        }
+        BattleSubjectKind::DeathSavingThrow => BattleReducerRouteSubjectFamily::DeathSavingThrow,
+        BattleSubjectKind::ConcentrationTeardown => {
+            BattleReducerRouteSubjectFamily::ConcentrationTeardown
+        }
+        BattleSubjectKind::StatBlockAction => BattleReducerRouteSubjectFamily::StatBlockAction,
+        BattleSubjectKind::CommandSpell => BattleReducerRouteSubjectFamily::CommandSpell,
+        BattleSubjectKind::ScalarBuffTargetSpell => BattleReducerRouteSubjectFamily::ScalarBuff,
+        BattleSubjectKind::WeaponMasteryProperty => {
+            BattleReducerRouteSubjectFamily::WeaponMasteryProperty
+        }
+        BattleSubjectKind::AttackActionAreaSaveDamageReplacement => {
+            BattleReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement
+        }
+        BattleSubjectKind::UnitFeatureBonusAction => {
+            BattleReducerRouteSubjectFamily::UnitFeatureBonusAction
+        }
+        BattleSubjectKind::ActiveFeatureSpellSaveDc => {
+            BattleReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc
+        }
+        BattleSubjectKind::ActiveFeatureSpellAttackRollMode => {
+            BattleReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode
+        }
+    }
 }
 
 #[must_use]
@@ -3712,8 +4543,14 @@ pub fn discover_battle_acts_observed(
     let discovery = discover_battle_acts(state);
     for act in discovery.available_acts() {
         observer.observe_battle_reducer_route(BattleReducerRouteEvent::DiscoverBattleActs {
-            subject: act.subject.kind,
-            holes: act.holes.clone(),
+            subject: battle_reducer_route_subject_family(act.subject.kind),
+            holes: sorted_battle_reducer_route_holes(
+                act.holes
+                    .iter()
+                    .copied()
+                    .map(battle_reducer_route_hole)
+                    .collect(),
+            ),
             owner: battle_discovery_route_owner(act.subject.kind),
         });
     }
@@ -4237,20 +5074,28 @@ fn battle_resolution_route_event(
     let holes = result
         .requested_holes()
         .map_or_else(Vec::new, <[_]>::to_vec);
+    let route_holes = sorted_battle_reducer_route_holes(
+        holes
+            .iter()
+            .copied()
+            .map(battle_reducer_route_hole)
+            .collect(),
+    );
     let outcome = result.outcome();
     let owner = battle_resolution_route_owner(subject, fill, outcome, &holes);
+    let subject = battle_reducer_route_subject_family(subject);
     match battle_reducer_route_fill_kind(fill) {
         Some(fill) => BattleReducerRouteEvent::ResolveBattleSubject {
             subject,
             fill,
             outcome,
-            holes,
+            holes: route_holes,
             owner,
         },
         None => BattleReducerRouteEvent::ResolveBattleSubjectWithoutFill {
             subject,
             outcome,
-            holes,
+            holes: route_holes,
             owner,
         },
     }

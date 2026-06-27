@@ -28,6 +28,8 @@ mod battle_runtime_feature_selected_identity;
 mod battle_runtime_find_familiar_companion_lifecycle;
 #[path = "../qnt_adapters/battle_runtime_find_familiar_selected_identity.rs"]
 mod battle_runtime_find_familiar_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs"]
+mod battle_runtime_halfling_nimbleness_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs"]
 mod battle_runtime_healing_stabilization_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs"]
@@ -381,9 +383,10 @@ use crate::rules::roll_modifier_active_effects::{
 use crate::rules::roll_modifier_buff_selected_identity::{
     project_bane_failed_save_penalty, project_bless_attack_and_save_modifier,
     project_guidance_skill_ability_check_modifier, project_resistance_matching_damage_reduction,
-    project_shield_of_faith_armor_class_bonus, roll_modifier_buff_selected_identity_initial_state,
+    project_roll_modifier_buff_substrate, project_shield_of_faith_armor_class_bonus,
+    roll_modifier_buff_selected_identity_initial_state, ArmorClassBuff, D20RollModifierBuff,
     RollModifierBuffDamageType, RollModifierBuffProtocol, RollModifierBuffScenarioOutcome,
-    RollModifierBuffSign, RollModifierBuffSkill,
+    RollModifierBuffSign, RollModifierBuffSkill, RollModifierBuffSubstrate, RollModifierBuffTarget,
 };
 use crate::rules::rule_core_hit_point_damage::{
     hit_point_damage_initial_state, resolve_monster_dies_at_zero,
@@ -484,9 +487,14 @@ use crate::rules::sorcerer_metamagic::{
     TransmutedSpellScenarioResult, TwinnedSpellProtocol, TwinnedSpellScenarioResult,
 };
 use crate::rules::species_passive_traits::{
+    apply_passive_damage_resistance, creature_space_traversal_allowed,
+    passive_ability_check_roll_mode, passive_save_has_advantage,
     project_dragonborn_damage_resistance, project_dwarven_resilience,
-    project_goliath_powerful_build, species_passive_traits_initial_state, SpeciesPassiveProtocol,
-    SpeciesPassiveRollMode, SpeciesPassiveScenarioResult,
+    project_goliath_powerful_build, project_halfling_brave, species_passive_traits_initial_state,
+    CreatureSpaceTraversalFacts, CreatureSpaceTraversalPermission, PassiveAbilityCheckKind,
+    PassiveAbilityCheckRollMode, PassiveDamageResistance, PassiveDamageType, PassiveSaveAdvantage,
+    PassiveSaveCondition, PassiveSavePurpose, SpeciesPassiveProtocol, SpeciesPassiveRollMode,
+    SpeciesPassiveScenarioResult,
 };
 use crate::rules::spell_attack_ordering::{
     discover_single_target_spell_attack, discover_typed_spell_attack, fill_attack_roll_hit,
@@ -591,9 +599,11 @@ use crate::rules::zero_hit_point_mid_resolution::{
 
 use crate::rules::character_battle_handoff::character_battle_route_payload;
 use battle_runtime_adrenaline_rush::{
+    expected_route as expected_adrenaline_rush_route,
     expected_witness as expected_adrenaline_rush_witness,
     projection_payload as adrenaline_rush_projection_payload,
     replay_observed_action as replay_adrenaline_rush_action,
+    replay_observed_route as replay_adrenaline_rush_route,
     BRANCH_ACTIONS as ADRENALINE_RUSH_BRANCH_ACTIONS,
 };
 use battle_runtime_attack_spell_shape_selected_identity::{
@@ -640,9 +650,11 @@ use battle_runtime_creature_type_protection_and_charm_selected_identity::{
     BRANCH_ACTIONS as CREATURE_TYPE_PROTECTION_BRANCH_ACTIONS,
 };
 use battle_runtime_danger_sense_selected_identity::{
+    expected_route as expected_danger_sense_route,
     expected_witness as expected_danger_sense_witness,
     projection_payload as danger_sense_projection_payload,
     replay_observed_action as replay_danger_sense_action,
+    replay_observed_route as replay_danger_sense_route,
     BRANCH_ACTIONS as DANGER_SENSE_BRANCH_ACTIONS,
 };
 use battle_runtime_death_saving_throw::{
@@ -694,6 +706,14 @@ use battle_runtime_find_familiar_selected_identity::{
     projection_payload as find_familiar_selected_identity_projection_payload,
     replay_observed_action as replay_find_familiar_selected_identity_action,
     BRANCH_ACTIONS as FIND_FAMILIAR_SELECTED_IDENTITY_BRANCH_ACTIONS,
+};
+use battle_runtime_halfling_nimbleness_selected_identity::{
+    expected_route as expected_halfling_nimbleness_route,
+    expected_witness as expected_halfling_nimbleness_witness,
+    projection_payload as halfling_nimbleness_projection_payload,
+    replay_observed_action as replay_halfling_nimbleness_action,
+    replay_observed_route as replay_halfling_nimbleness_route,
+    BRANCH_ACTIONS as HALFLING_NIMBLENESS_BRANCH_ACTIONS,
 };
 use battle_runtime_healing_stabilization_selected_identity::{
     expected_route as expected_healing_stabilization_route,
@@ -792,9 +812,11 @@ use battle_runtime_roll_modifier_active_effects::{
     BRANCH_ACTIONS as ROLL_MODIFIER_ACTIVE_EFFECTS_BRANCH_ACTIONS,
 };
 use battle_runtime_roll_modifier_buff_selected_identity::{
+    expected_route as expected_roll_modifier_buff_selected_identity_route,
     expected_witness as expected_roll_modifier_buff_selected_identity_witness,
     projection_payload as roll_modifier_buff_selected_identity_projection_payload,
     replay_observed_action as replay_roll_modifier_buff_selected_identity_action,
+    replay_observed_route as replay_roll_modifier_buff_selected_identity_route,
     BRANCH_ACTIONS as ROLL_MODIFIER_BUFF_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_sanctuary_selected_identity::{
@@ -903,9 +925,11 @@ use battle_runtime_sorcerer_metamagic_twinned_selected_identity::{
     BRANCH_ACTIONS as TWINNED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_species_passive_trait_selected_identity::{
+    expected_route as expected_species_passive_route,
     expected_witness as expected_species_passive_witness,
     projection_payload as species_passive_projection_payload,
     replay_observed_action as replay_species_passive_action,
+    replay_observed_route as replay_species_passive_route,
     BRANCH_ACTIONS as SPECIES_PASSIVE_BRANCH_ACTIONS,
 };
 use battle_runtime_spell_attack_ordering::{
@@ -2252,6 +2276,11 @@ fn adrenaline_rush_adapter_replays_all_branches() {
         let observed = replay_adrenaline_rush_action(action);
         assert_eq!(observed, expected_adrenaline_rush_witness(action));
         assert!(adrenaline_rush_projection_payload(&observed).contains("protocolHoleCount=0"));
+        let route = replay_adrenaline_rush_route(action);
+        assert_eq!(route, expected_adrenaline_rush_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("UnitFeatureBonusActionRouteSubject"));
+        assert!(route_payload.contains("BattleFeatureResourceOwner"));
     }
 }
 
@@ -2290,6 +2319,44 @@ fn adrenaline_rush_bonus_action_dash_spends_use_and_keeps_higher_temp_hp() {
         AdrenalineRushResult::Invalid(AdrenalineRushRejection::StaleSubject)
     );
     assert_eq!(apply_temporary_hit_points(5, 3), 5);
+}
+
+#[test]
+fn adrenaline_rush_battle_route_uses_battle_feature_resource_owner() {
+    use crate::rules::battle_reducer_spine::{
+        bonus_action_dash_temporary_hit_points_feature_turn_state,
+        resolve_bonus_action_dash_temporary_hit_points_feature_battle, start_standard_battle,
+        Actor, BattleResolutionInvalidReason, BattleResolutionResult,
+    };
+
+    // RAW/QNT citations match
+    // `adrenaline_rush_bonus_action_dash_spends_use_and_keeps_higher_temp_hp`.
+    let mut initial = start_standard_battle();
+    initial.fighter.temporary_hp = 1;
+
+    let BattleResolutionResult::Resolved { state } =
+        resolve_bonus_action_dash_temporary_hit_points_feature_battle(initial, Actor::Fighter, 3)
+    else {
+        panic!("bonus-action dash temporary-hit-point feature should resolve");
+    };
+    let projection =
+        bonus_action_dash_temporary_hit_points_feature_turn_state(&state, Actor::Fighter);
+    assert_eq!(projection.actor_temporary_hit_points, 3);
+    assert!(!projection.bonus_action_available);
+    assert_eq!(projection.dash_bonus_feet, 30);
+    assert_eq!(projection.feature_uses_remaining, 2);
+
+    let BattleResolutionResult::Invalid { reason, state, .. } =
+        resolve_bonus_action_dash_temporary_hit_points_feature_battle(state, Actor::Fighter, 3)
+    else {
+        panic!("second bonus-action dash should be stale after bonus action is spent");
+    };
+    assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
+    assert_eq!(
+        bonus_action_dash_temporary_hit_points_feature_turn_state(&state, Actor::Fighter)
+            .feature_uses_remaining,
+        2
+    );
 }
 
 #[test]
@@ -3745,6 +3812,11 @@ fn danger_sense_adapter_replays_all_branches() {
         let observed = replay_danger_sense_action(action);
         assert_eq!(observed, expected_danger_sense_witness(action));
         assert!(danger_sense_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_danger_sense_route(action);
+        assert_eq!(route, expected_danger_sense_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("PassiveSavingThrowRollModeRouteSubject"));
+        assert!(route_payload.contains("BattleSavingThrowRollModeOwner"));
     }
 }
 
@@ -4940,6 +5012,14 @@ fn roll_modifier_buff_selected_identity_adapter_replays_all_branches() {
             roll_modifier_buff_selected_identity_projection_payload(&observed)
                 .contains("protocolResult=resolved")
         );
+        let route = replay_roll_modifier_buff_selected_identity_route(action);
+        assert_eq!(
+            route,
+            expected_roll_modifier_buff_selected_identity_route(action)
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("BattleActionEconomyOwner"));
+        assert!(route_payload.contains("outcome=resolved"));
     }
 }
 
@@ -4991,6 +5071,40 @@ fn roll_modifier_buff_selected_identity_projects_spell_modifiers() {
     );
     assert_eq!(shield.primary_target_armor_class, 12);
     assert_eq!(shield.primary_target_effect_count, 1);
+}
+
+#[test]
+fn roll_modifier_buff_substrates_project_without_spell_identity_dispatch() {
+    // RAW/QNT citations match
+    // `roll_modifier_buff_selected_identity_projects_spell_modifiers`; this
+    // fixes the runtime owner at the typed effect-substrate boundary.
+    let d20 = project_roll_modifier_buff_substrate(
+        RollModifierBuffSubstrate::D20Modifier(D20RollModifierBuff {
+            target: RollModifierBuffTarget::PrimaryAndSecondaryTargets,
+            sign: RollModifierBuffSign::Plus,
+            attack_roll: true,
+            saving_throw: true,
+            ability_check: false,
+            skill: RollModifierBuffSkill::None,
+            rejects_unselected_target: false,
+        }),
+        RollModifierBuffScenarioOutcome::Bless,
+    );
+    assert_eq!(d20.primary_target_effect_count, 1);
+    assert_eq!(d20.secondary_target_effect_count, 1);
+    assert_eq!(d20.d20_modifier_sign, RollModifierBuffSign::Plus);
+    assert!(d20.d20_modifier_attack_roll);
+    assert!(d20.d20_modifier_saving_throw);
+
+    let armor = project_roll_modifier_buff_substrate(
+        RollModifierBuffSubstrate::ArmorClass(ArmorClassBuff {
+            target: RollModifierBuffTarget::PrimaryTarget,
+            bonus: 2,
+        }),
+        RollModifierBuffScenarioOutcome::ShieldOfFaith,
+    );
+    assert_eq!(armor.primary_target_effect_count, 1);
+    assert_eq!(armor.primary_target_armor_class, 12);
 }
 
 #[test]
@@ -7078,11 +7192,36 @@ fn species_passive_trait_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-species-passive-trait-selected-identity.mbt.qnt;
     // RAW: cleanroom-input/raw/srd-5.2.1/Character-Origins.md
-    // "Dragonborn", "Dwarven Resilience", and "Powerful Build".
+    // "Dragonborn", "Dwarven Resilience", "Brave", and "Powerful Build".
+    assert_eq!(SPECIES_PASSIVE_BRANCH_ACTIONS.len(), 4);
     for action in SPECIES_PASSIVE_BRANCH_ACTIONS {
         let observed = replay_species_passive_action(action);
         assert_eq!(observed, expected_species_passive_witness(action));
         assert!(species_passive_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_species_passive_route(action);
+        assert_eq!(route, expected_species_passive_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("CreatureStatProjectionRouteSubject"));
+        assert!(route_payload.contains("BattleCreatureStateOwner"));
+    }
+}
+
+#[test]
+fn halfling_nimbleness_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Character-Origins.md
+    // "Halfling", "Nimble".
+    assert_eq!(HALFLING_NIMBLENESS_BRANCH_ACTIONS.len(), 4);
+    for action in HALFLING_NIMBLENESS_BRANCH_ACTIONS {
+        let observed = replay_halfling_nimbleness_action(action);
+        assert_eq!(observed, expected_halfling_nimbleness_witness(action));
+        assert!(halfling_nimbleness_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_halfling_nimbleness_route(action);
+        assert_eq!(route, expected_halfling_nimbleness_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("CreatureSpaceMovementPermissionRouteSubject"));
+        assert!(route_payload.contains("BattleCreatureSpaceMovementOwner"));
     }
 }
 
@@ -7118,6 +7257,15 @@ fn species_passive_traits_project_selected_identity_cases() {
         SpeciesPassiveScenarioResult::DwarvenResilience
     );
 
+    let halfling = project_halfling_brave();
+    assert!(halfling.halfling_frightened_avoid_save_advantage);
+    assert!(halfling.halfling_frightened_end_save_advantage);
+    assert!(!halfling.halfling_poisoned_save_advantage);
+    assert_eq!(
+        halfling.scenario_result,
+        SpeciesPassiveScenarioResult::HalflingBrave
+    );
+
     let goliath = project_goliath_powerful_build();
     assert_eq!(
         goliath.goliath_escape_roll_mode,
@@ -7132,6 +7280,74 @@ fn species_passive_traits_project_selected_identity_cases() {
         SpeciesPassiveScenarioResult::GoliathPowerfulBuild
     );
     assert_eq!(goliath.protocol, SpeciesPassiveProtocol::Resolved);
+}
+
+#[test]
+fn passive_trait_substrates_are_derived_from_typed_profiles() {
+    // RAW/QNT citations match `species_passive_traits_project_selected_identity_cases`;
+    // this test fixes the behavioral owner at the typed profile boundary rather
+    // than selected species identity.
+    assert_eq!(
+        apply_passive_damage_resistance(
+            PassiveDamageResistance {
+                damage_type: PassiveDamageType::Fire,
+            },
+            PassiveDamageType::Fire,
+            9,
+        ),
+        4
+    );
+    assert_eq!(
+        apply_passive_damage_resistance(
+            PassiveDamageResistance {
+                damage_type: PassiveDamageType::Fire,
+            },
+            PassiveDamageType::Cold,
+            9,
+        ),
+        9
+    );
+    assert!(passive_save_has_advantage(
+        PassiveSaveAdvantage {
+            condition: PassiveSaveCondition::Frightened,
+            purpose: PassiveSavePurpose::AvoidCondition,
+        },
+        PassiveSaveCondition::Frightened,
+        PassiveSavePurpose::AvoidCondition,
+    ));
+    assert!(!passive_save_has_advantage(
+        PassiveSaveAdvantage {
+            condition: PassiveSaveCondition::Frightened,
+            purpose: PassiveSavePurpose::AvoidCondition,
+        },
+        PassiveSaveCondition::Poisoned,
+        PassiveSavePurpose::AvoidCondition,
+    ));
+    assert_eq!(
+        passive_ability_check_roll_mode(
+            PassiveAbilityCheckRollMode {
+                check: PassiveAbilityCheckKind::EscapeGrapple,
+            },
+            PassiveAbilityCheckKind::EscapeGrapple,
+        ),
+        SpeciesPassiveRollMode::Advantage
+    );
+    assert!(creature_space_traversal_allowed(
+        CreatureSpaceTraversalFacts {
+            permission: Some(CreatureSpaceTraversalPermission::LargerCreatureSpaceNoStop),
+            mover_size_rank: 1,
+            occupied_creature_size_rank: 2,
+            stops_in_occupied_space: false,
+        }
+    ));
+    assert!(!creature_space_traversal_allowed(
+        CreatureSpaceTraversalFacts {
+            permission: Some(CreatureSpaceTraversalPermission::LargerCreatureSpaceNoStop),
+            mover_size_rank: 1,
+            occupied_creature_size_rank: 2,
+            stops_in_occupied_space: true,
+        }
+    ));
 }
 
 #[test]

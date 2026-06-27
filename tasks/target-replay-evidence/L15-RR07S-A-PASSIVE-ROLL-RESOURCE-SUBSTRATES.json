@@ -1,0 +1,491 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-passive-roll-resource-substrate-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doAdrenalineRushDash",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_adrenaline_rush.rs",
+      "observedActionTaken": "doAdrenalineRushDash",
+      "qntFileSha256": "1cce63790a9dd74585f89d0eddfab5490455f75404579c891e59dca520a5f4fe",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.fighter.temporary_hp",
+          "BattleState.bonus_action_available",
+          "BattleState.dash_movement_bonus_feet",
+          "BattleState.feature_resources.bonus_action_dash_temporary_hit_points"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "24ceec9009945f060b3f71fa25f38498a3f442f23a05ce1010e30a9374442867",
+        "observedProjectionSha256": "24ceec9009945f060b3f71fa25f38498a3f442f23a05ce1010e30a9374442867",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doAdrenalineRushDash",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doRejectSecondDash",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_adrenaline_rush.rs",
+      "observedActionTaken": "doRejectSecondDash",
+      "qntFileSha256": "1cce63790a9dd74585f89d0eddfab5490455f75404579c891e59dca520a5f4fe",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleResolutionResult.Invalid.reason",
+          "BattleState.feature_resources.bonus_action_dash_temporary_hit_points"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9437ca6c4301c2513641725a9bc86a84541341626983e3ac54128cd2c0c56feb",
+        "observedProjectionSha256": "9437ca6c4301c2513641725a9bc86a84541341626983e3ac54128cd2c0c56feb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectSecondDash",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doMoveThroughLargerCreatureSpace",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs",
+      "observedActionTaken": "doMoveThroughLargerCreatureSpace",
+      "qntFileSha256": "7f393d8d83b9dffc68d81844afa8faa6c8b9a98cf6b1f0b2a1998adece99ccdc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CreatureSpaceTraversalFacts.permission",
+          "CreatureSpaceTraversalFacts.occupied_creature_size_rank",
+          "CreatureSpaceTraversalFacts.stops_in_occupied_space"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b29346104d71ff66e2c5716a0d613d33db222a0ca5383481bcbd65433a6d64f0",
+        "observedProjectionSha256": "b29346104d71ff66e2c5716a0d613d33db222a0ca5383481bcbd65433a6d64f0",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doMoveThroughLargerCreatureSpace",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doRejectOccupiedStop",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs",
+      "observedActionTaken": "doRejectOccupiedStop",
+      "qntFileSha256": "7f393d8d83b9dffc68d81844afa8faa6c8b9a98cf6b1f0b2a1998adece99ccdc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CreatureSpaceTraversalFacts.permission",
+          "CreatureSpaceTraversalFacts.stops_in_occupied_space"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "174feeb06ba409ca78aef51603e200ffa46473639478925670f37f925973be5e",
+        "observedProjectionSha256": "174feeb06ba409ca78aef51603e200ffa46473639478925670f37f925973be5e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectOccupiedStop",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doRejectMissingProfile",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs",
+      "observedActionTaken": "doRejectMissingProfile",
+      "qntFileSha256": "7f393d8d83b9dffc68d81844afa8faa6c8b9a98cf6b1f0b2a1998adece99ccdc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CreatureSpaceTraversalFacts.permission"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "76c33a267e0eda5431f93feb55c02980cb706b88a3b71f026055777a9b39ea0a",
+        "observedProjectionSha256": "76c33a267e0eda5431f93feb55c02980cb706b88a3b71f026055777a9b39ea0a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectMissingProfile",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doRejectSameSizeTraversal",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs",
+      "observedActionTaken": "doRejectSameSizeTraversal",
+      "qntFileSha256": "7f393d8d83b9dffc68d81844afa8faa6c8b9a98cf6b1f0b2a1998adece99ccdc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CreatureSpaceTraversalFacts.mover_size_rank",
+          "CreatureSpaceTraversalFacts.occupied_creature_size_rank"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7633b486930bc06e350b2d9d8014605e8a740f3d6aabedfcf54a18bd905766a8",
+        "observedProjectionSha256": "7633b486930bc06e350b2d9d8014605e8a740f3d6aabedfcf54a18bd905766a8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doRejectSameSizeTraversal",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doDragonbornDamageResistance",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
+      "observedActionTaken": "doDragonbornDamageResistance",
+      "qntFileSha256": "efbc937b9f24ecdd5248fd6fdbd96f5def8b0edaf72abcb8b9239a17419d813c",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "PassiveDamageResistance.damage_type",
+          "PassiveDamageType.Fire"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "fbb5f27d6a90035863c895742256be96069d2008e2b491a5c444534a79035357",
+        "observedProjectionSha256": "fbb5f27d6a90035863c895742256be96069d2008e2b491a5c444534a79035357",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doDragonbornDamageResistance",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doDwarvenResilience",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
+      "observedActionTaken": "doDwarvenResilience",
+      "qntFileSha256": "efbc937b9f24ecdd5248fd6fdbd96f5def8b0edaf72abcb8b9239a17419d813c",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "PassiveDamageResistance.damage_type",
+          "PassiveSaveAdvantage.condition"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0e3a762253767832d5864794b5d5b6e2967d6cc3d3304c0525dfdbb5215fd96a",
+        "observedProjectionSha256": "0e3a762253767832d5864794b5d5b6e2967d6cc3d3304c0525dfdbb5215fd96a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doDwarvenResilience",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doHalflingBrave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
+      "observedActionTaken": "doHalflingBrave",
+      "qntFileSha256": "efbc937b9f24ecdd5248fd6fdbd96f5def8b0edaf72abcb8b9239a17419d813c",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "PassiveSaveAdvantage.condition",
+          "PassiveSaveAdvantage.purpose"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2f1f3873d836e879ef390d90070d12bb5587e11002213917ed9dadd00fd1a5f4",
+        "observedProjectionSha256": "2f1f3873d836e879ef390d90070d12bb5587e11002213917ed9dadd00fd1a5f4",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doHalflingBrave",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doGoliathPowerfulBuild",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
+      "observedActionTaken": "doGoliathPowerfulBuild",
+      "qntFileSha256": "efbc937b9f24ecdd5248fd6fdbd96f5def8b0edaf72abcb8b9239a17419d813c",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "PassiveAbilityCheckRollMode.check"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9385bcd0f171469a365c78f4d1e24f597f51e87421fe57641dd9d8e16b5f0590",
+        "observedProjectionSha256": "9385bcd0f171469a365c78f4d1e24f597f51e87421fe57641dd9d8e16b5f0590",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doGoliathPowerfulBuild",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doProjectDangerSenseDexterityAdvantage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
+      "observedActionTaken": "doProjectDangerSenseDexterityAdvantage",
+      "qntFileSha256": "1a3710eb18c667601d2b5120783a5084bc5f89192466a3c54f494c3be854d22d",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "DangerSenseFacts.saving_throw_ability",
+          "DangerSenseFacts.actor_incapacitated"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "87eb8337cd262531ccf733e00c5ab12e5a3c7314accee4185fc67675c2ac83b8",
+        "observedProjectionSha256": "87eb8337cd262531ccf733e00c5ab12e5a3c7314accee4185fc67675c2ac83b8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doProjectDangerSenseDexterityAdvantage",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-substrates.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doSuppressDangerSenseWhileIncapacitated",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
+      "observedActionTaken": "doSuppressDangerSenseWhileIncapacitated",
+      "qntFileSha256": "1a3710eb18c667601d2b5120783a5084bc5f89192466a3c54f494c3be854d22d",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "DangerSenseFacts.saving_throw_ability",
+          "DangerSenseFacts.actor_incapacitated"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "675b7ecfc7e73c5cfcfa1dda9d4dfcbe4c143a13a3ad44d562913faaef8c0f14",
+        "observedProjectionSha256": "675b7ecfc7e73c5cfcfa1dda9d4dfcbe4c143a13a3ad44d562913faaef8c0f14",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doSuppressDangerSenseWhileIncapacitated",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-substrates.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doBlessAttackAndSaveModifier",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
+      "observedActionTaken": "doBlessAttackAndSaveModifier",
+      "qntFileSha256": "831e17658f94e7a10b282d09e8d93032e03add48c2ee6683543210cb822f0d47",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RollModifierBuffSubstrate.D20Modifier",
+          "D20RollModifierBuff.attack_roll",
+          "D20RollModifierBuff.saving_throw"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "072b28a48de735fa5e0c757598336c7da32fee5092f53cb9ada822d08f426118",
+        "observedProjectionSha256": "072b28a48de735fa5e0c757598336c7da32fee5092f53cb9ada822d08f426118",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doBlessAttackAndSaveModifier",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doBaneFailedSavePenalty",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
+      "observedActionTaken": "doBaneFailedSavePenalty",
+      "qntFileSha256": "831e17658f94e7a10b282d09e8d93032e03add48c2ee6683543210cb822f0d47",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RollModifierBuffSubstrate.D20Modifier",
+          "D20RollModifierBuff.sign"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c6110c5a0f59f48a1682403ddf43e3239cd23eab389edfb5b03d64218b61db02",
+        "observedProjectionSha256": "c6110c5a0f59f48a1682403ddf43e3239cd23eab389edfb5b03d64218b61db02",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doBaneFailedSavePenalty",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doGuidanceSkillAbilityCheckModifier",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
+      "observedActionTaken": "doGuidanceSkillAbilityCheckModifier",
+      "qntFileSha256": "831e17658f94e7a10b282d09e8d93032e03add48c2ee6683543210cb822f0d47",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RollModifierBuffSubstrate.D20Modifier",
+          "D20RollModifierBuff.ability_check",
+          "D20RollModifierBuff.skill"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "eda98b1356a3ce67e995605bc376233f3d189b5f2acb118cab0cf3eb78ec4482",
+        "observedProjectionSha256": "eda98b1356a3ce67e995605bc376233f3d189b5f2acb118cab0cf3eb78ec4482",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doGuidanceSkillAbilityCheckModifier",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doResistanceReducesMatchingDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
+      "observedActionTaken": "doResistanceReducesMatchingDamage",
+      "qntFileSha256": "831e17658f94e7a10b282d09e8d93032e03add48c2ee6683543210cb822f0d47",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RollModifierBuffSubstrate.DamageReduction",
+          "DamageReductionBuff.damage_type"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5a5490dc9d0ee549e82546c342fe025c894c8849c0f0ad9687b39a6786ccefc8",
+        "observedProjectionSha256": "5a5490dc9d0ee549e82546c342fe025c894c8849c0f0ad9687b39a6786ccefc8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doResistanceReducesMatchingDamage",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-damage-reduction.route.mbt.qnt"
+    },
+    {
+      "branchAction": "doShieldOfFaithArmorClassBonus",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
+      "observedActionTaken": "doShieldOfFaithArmorClassBonus",
+      "qntFileSha256": "831e17658f94e7a10b282d09e8d93032e03add48c2ee6683543210cb822f0d47",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RollModifierBuffSubstrate.ArmorClass",
+          "ArmorClassBuff.bonus"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5242247d2b661669078dc29de78cc761340975fbbcc743843968bdd8fd5827a8",
+        "observedProjectionSha256": "5242247d2b661669078dc29de78cc761340975fbbcc743843968bdd8fd5827a8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doShieldOfFaithArmorClassBonus",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
