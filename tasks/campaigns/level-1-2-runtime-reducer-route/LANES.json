@@ -332,7 +332,7 @@
     {
       "laneId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "blocked-on-checkpoint",
+      "status": "split-via-sublanes",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
         "source-qnt-corpus-blocker",
@@ -340,36 +340,386 @@
       ],
       "driverCount": 11,
       "branchObligations": 75,
-      "splitRecommendation": "Split before execution into blocker-resolution and catalog-after-substrate sublanes.",
+      "splitRecommendation": "Split into six sublanes: one catalog-ready lane and five blocker/substrate lanes grouped by generic route vocabulary/write scope.",
       "purpose": "Resolve level-1 spell selected-identity substrate blockers and keep spell identity outside production dispatch.",
       "dependencies": [
         "CP2 complete",
         "CP3 complete"
       ],
-      "driversSource": "See reducer-route-inventory.json routeTaskId L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES"
+      "driversSource": "See reducer-route-inventory.json routeTaskId L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+      "splitIntoLaneIds": [
+        "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
+        "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
+        "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
+        "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
+        "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
+        "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES"
+      ]
+    },
+    {
+      "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "ready",
+      "parallelGroup": "cp4-fu01-spell-identity",
+      "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+      "routeClasses": [
+        "catalog-after-substrate"
+      ],
+      "driverCount": 3,
+      "branchObligations": 14,
+      "currentOutOfScopeBranchObligations": 5,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Route catalog-ready selected spell witnesses through existing save-gated, repeat-save, companion, and roll-modifier substrates while keeping selected spell identity outside production dispatch.",
+      "dependencies": [
+        "CP2 complete",
+        "CP3 complete",
+        "existing save-gated, repeat-save, companion lifecycle, touch delivery, and roll-modifier route connectors"
+      ],
+      "expectedWriteScope": [
+        "src/qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_find_familiar_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_thaumaturgy_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/rules/save_gated_spell_ordering.rs",
+        "src/rules/sleep_repeat_save.rs",
+        "src/rules/find_familiar.rs",
+        "src/rules/roll_modifier_active_effects.rs",
+        "src/rules/thaumaturgy_selected_identity.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Accepted evidence routes selected catalog witnesses through existing generic substrates, records level-2/3 condition-save branches as out-of-scope, and does not add production selected spell identity dispatch.",
+      "blockerHandling": "If a branch cannot be routed through existing connector evidence, record a concrete substrate blocker and do not count it as accepted."
+    },
+    {
+      "laneId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "ready-after-fu01a-or-serial-route-vocabulary",
+      "parallelGroup": "cp4-fu01-spell-identity",
+      "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+      "routeClasses": [
+        "source-qnt-corpus-blocker"
+      ],
+      "driverCount": 2,
+      "branchObligations": 16,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Admit selected damage-spell witnesses only through generic spell attack, save-gated, chained/object-target, or active-effect route subjects.",
+      "dependencies": [
+        "CP1 spell attack/save-gated reducer routes merged",
+        "CP2 spell component connectors merged"
+      ],
+      "expectedWriteScope": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt",
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/level_one_damage_spells.rs",
+        "src/rules/spell_attack_ordering.rs",
+        "src/rules/save_gated_spell_ordering.rs",
+        "src/rules/chained_spell_attacks.rs",
+        "src/rules/spell_shapes.rs",
+        "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Damage-spell selected witnesses count only when behavior is admitted by generic route subjects, not selected spell names.",
+      "blockerHandling": "Add generic QNT route subjects only when cleanroom QNT/RAW facts support them; otherwise record branch-level blockers and exclude those branches from accepted replay."
+    },
+    {
+      "laneId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "ready-after-fu01a-or-serial-route-vocabulary",
+      "parallelGroup": "cp4-fu01-spell-identity",
+      "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+      "routeClasses": [
+        "source-qnt-corpus-blocker"
+      ],
+      "driverCount": 1,
+      "branchObligations": 12,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Route weapon-hosted and buff spell behavior through typed rider, scalar, held-weapon, mark-transfer, condition-immunity, and temporary-HP substrates.",
+      "dependencies": [
+        "CP1/CP2 spell, attack, scalar buff, and feature-profile connectors merged"
+      ],
+      "expectedWriteScope": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt",
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/level_one_spell_effects.rs",
+        "src/rules/weapon_hosted_attack_and_riders.rs",
+        "src/rules/scalar_buff_active_effects.rs",
+        "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Accepted branches route through generic rider/scalar/held-weapon substrates; mark-transfer and condition-immunity branches remain blocked until generic route subjects exist.",
+      "blockerHandling": "Split accepted existing-substrate branches from unresolved active-effect branches; do not count mark-transfer or condition-immunity branches without generic QNT route subjects."
+    },
+    {
+      "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "ready-after-fu01a-or-serial-route-vocabulary",
+      "parallelGroup": "cp4-fu01-spell-identity",
+      "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+      "routeClasses": [
+        "source-qnt-corpus-blocker"
+      ],
+      "driverCount": 2,
+      "branchObligations": 16,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Admit protection, charm, and ward behavior through target-admission, active-effect, condition-lifecycle, and target-interdiction facts.",
+      "dependencies": [
+        "CP2 condition/feature component connectors",
+        "CP3 handoff/state owners available"
+      ],
+      "expectedWriteScope": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt",
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/creature_type_protection.rs",
+        "src/rules/sanctuary_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Protection, charm, and ward behavior is admitted by generic route facts, not selected spell identity.",
+      "blockerHandling": "If generic ward/protection route surface cannot be defined from copied QNT and RAW facts, leave affected branches blocked with explicit source-QNT/corpus evidence."
+    },
+    {
+      "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "ready-after-fu01a-or-serial-route-vocabulary",
+      "parallelGroup": "cp4-fu01-spell-identity",
+      "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+      "routeClasses": [
+        "source-qnt-corpus-blocker"
+      ],
+      "driverCount": 2,
+      "branchObligations": 7,
+      "currentOutOfScopeBranchObligations": 1,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Route armor-class spell effects through generic armor-class projection plus active-effect/reaction owners.",
+      "dependencies": [
+        "CP3 character sheet/armor-class owners merged",
+        "CP1 reaction/interrupt substrate merged"
+      ],
+      "expectedWriteScope": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt",
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/armor_class.rs",
+        "src/rules/level_one_armor_spells.rs",
+        "src/rules/interrupt_stack_resume.rs",
+        "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reaction_casting_time.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Armor-class spell effects route through generic AC projection and active-effect/reaction owners; the level-3 reaction branch remains out-of-scope.",
+      "blockerHandling": "Do not model armor-class behavior by selected spell identity; add generic AC route subjects or record the AC substrate blocker."
+    },
+    {
+      "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "ready-after-fu01a-or-serial-route-vocabulary",
+      "parallelGroup": "cp4-fu01-spell-identity",
+      "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+      "routeClasses": [
+        "source-qnt-corpus-blocker"
+      ],
+      "driverCount": 1,
+      "branchObligations": 10,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Admit spatial spell witnesses through generic light, outline, area, hazard, movement, falling, forced-movement, and object-boundary route subjects.",
+      "dependencies": [
+        "CP4 small movement/form substrate lane merged",
+        "CP1/CP2 reaction and movement component facts available"
+      ],
+      "expectedWriteScope": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt",
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/level_one_spatial_spells.rs",
+        "src/rules/turn_boundary_effect_lifecycle.rs",
+        "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Spatial spell witnesses count only through generic spatial/light/area/movement route subjects.",
+      "blockerHandling": "Expected to produce blocker evidence; add generic route subjects only when supported by cleanroom QNT/RAW facts, otherwise leave branch-level blockers."
     },
     {
       "laneId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "blocked-on-checkpoint",
+      "status": "split-via-sublanes",
       "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
       "routeClasses": [
         "reducer-routed"
       ],
       "driverCount": 13,
       "branchObligations": 30,
-      "splitRecommendation": "Split before execution into governor/core and option-specific sublanes.",
+      "splitRecommendation": "Split into three sublanes: governor/Quickened first, then save/range/target options and reroll/damage/projection options.",
       "purpose": "Route Sorcery Point, casting-time, same-turn spell, and metamagic option substrates without selected-identity dispatch.",
       "dependencies": [
         "CP2 complete",
         "CP3 complete"
       ],
-      "driversSource": "See reducer-route-inventory.json routeTaskId L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES"
+      "driversSource": "See reducer-route-inventory.json routeTaskId L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
+      "splitIntoLaneIds": [
+        "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
+        "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
+        "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES"
+      ]
+    },
+    {
+      "laneId": "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
+      "checkpointId": "CP4",
+      "status": "ready",
+      "parallelGroup": "cp4-fu08-metamagic",
+      "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 4,
+      "branchObligations": 14,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Establish shared Sorcery Point spend, one-option-per-spell, selected-option admission, Bonus Action casting-time, and same-turn level-1-plus spell locks.",
+      "dependencies": [
+        "CP2 complete",
+        "CP3 complete",
+        "Prior CP1 spell/action reducer substrate merged"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/quickened_spell_governor.rs",
+        "src/rules/sorcerer_metamagic.rs",
+        "src/rules/feature_resources.rs",
+        "src/qnt_adapters/battle_runtime_quickened_spell_governor.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Quickened and generic metamagic governor evidence routes through reducer entrypoints, typed subject/fill variants, BattleResolutionResult, feature-resource/action-economy/spell-procedure owners, and typed option facts; selected option names stay at catalog/fixture/admission boundaries.",
+      "blockerHandling": "If option admission, Sorcery Point spend, same-turn spell locks, or route-owner evidence cannot be expressed without authored identity dispatch, record branch-level blockers instead of inferring TypeScript behavior."
+    },
+    {
+      "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "blocked-on-fu08a",
+      "parallelGroup": "cp4-fu08-metamagic",
+      "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 4,
+      "branchObligations": 9,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Route Careful, Heightened, Distant, and Twinned through saving throw, roll-mode, damage-adjustment, condition, object-boundary, target-selection, and feature-resource owners.",
+      "dependencies": [
+        "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
+        "CP4 small feature substrate batch merged"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/sorcerer_metamagic.rs",
+        "src/rules/save_gated_spell_ordering.rs",
+        "src/rules/level_one_spell_effects.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_distant_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_twinned_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Careful/Heightened/Distant/Twinned evidence routes through typed metamagic effect facts and reducer owners, without production dispatch on option names.",
+      "blockerHandling": "Block only affected branches if target-list, target-choice, saving-throw, or object-boundary facts are missing from QNT/corpus input."
+    },
+    {
+      "laneId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
+      "checkpointId": "CP4",
+      "status": "blocked-on-fu08a",
+      "parallelGroup": "cp4-fu08-metamagic",
+      "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 5,
+      "branchObligations": 7,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-seeking-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt"
+      ],
+      "purpose": "Route Empowered, Seeking, Subtle, Transmuted, and Extended through damage roll, attack roll, damage type, hit point, component, action-economy, active-effect, concentration, and feature-resource owners.",
+      "dependencies": [
+        "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
+        "CP1/CP2 spell, attack-roll, damage-roll, and hit-point component evidence merged"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/sorcerer_metamagic.rs",
+        "src/rules/attack_damage_disposition.rs",
+        "src/rules/spell_attack_ordering.rs",
+        "src/rules/level_one_damage_spells.rs",
+        "src/rules/level_one_spell_effects.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_empowered_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_seeking_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_subtle_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_transmuted_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_sorcerer_metamagic_extended_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Reroll/damage/projection metamagic evidence routes through typed option facts and reducer owners; resource spend/rejection, reroll fills, damage-type choice fills, and duration/component projections are reducer-shaped facts, not adapter-local replay state.",
+      "blockerHandling": "Record branch-level blockers if damage dice, attack reroll, component projection, duration/concentration, or damage-type substitution facts are missing from cleanroom QNT/corpus."
     },
     {
       "laneId": "CP4-SMALL-FEATURE-SUBSTRATE-BATCH",
       "checkpointId": "CP4",
-      "status": "running-via-sublanes",
+      "status": "complete",
       "routeTaskIds": [
         "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES",
         "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
@@ -423,7 +773,7 @@
     {
       "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "review-clean-merge-ready",
+      "status": "merged-verified",
       "parallelGroup": "cp4-small-feature-substrates",
       "routeTaskIds": [
         "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES",
@@ -464,7 +814,7 @@
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "review-clean-merge-ready",
+      "status": "merged-verified",
       "parallelGroup": "cp4-small-feature-substrates",
       "routeTaskIds": [
         "L15-RR07-FU04-ZERO-HP-STABILIZATION-SUBSTRATE",
@@ -501,7 +851,7 @@
     {
       "laneId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "review-clean-merge-ready",
+      "status": "merged-verified",
       "parallelGroup": "cp4-small-feature-substrates",
       "routeTaskIds": [
         "L15-RR07-FU06-WEAPON-MASTERY-PROPERTY-SUBSTRATES",

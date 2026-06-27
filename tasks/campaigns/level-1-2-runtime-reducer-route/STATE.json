@@ -114,7 +114,18 @@
         "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
         "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES"
       ],
-      "notes": "CP4 small feature substrate batch merged and verified. FU01 and FU08 remain blocked-on-checkpoint until split planning; parent CP4 is still running."
+      "notes": "CP4 small feature substrate batch merged and verified. FU01 and FU08 are now split into executable sublanes; FU01A and FU08A are the initial ready lanes.",
+      "splitLaneIds": [
+        "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
+        "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
+        "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
+        "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
+        "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
+        "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
+        "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
+        "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
+        "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES"
+      ]
     },
     {
       "checkpointId": "CP5",
@@ -148,14 +159,14 @@
     "L15-RR09-CHARACTER-SHEET-ROUTES": "merged-verified",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "merged-verified",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "ready",
-    "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
+    "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "split-via-sublanes",
     "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES": "ready-via-sublane",
     "L15-RR07-FU03-CONDITION-AND-ROLL-MODIFIER-FEATURE-SUBSTRATES": "ready-via-sublane",
     "L15-RR07-FU04-ZERO-HP-STABILIZATION-SUBSTRATE": "ready-via-sublane",
     "L15-RR07-FU05-FEATURE-MOVEMENT-AND-FORM-SUBSTRATES": "ready-via-sublane",
     "L15-RR07-FU06-WEAPON-MASTERY-PROPERTY-SUBSTRATES": "ready-via-sublane",
     "L15-RR07-FU07-DRAGONBORN-BREATH-WEAPON-SUBSTRATE": "ready-via-sublane",
-    "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES": "blocked-on-checkpoint",
+    "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES": "split-via-sublanes",
     "L15-RR07-FU09-INNATE-SPELL-BENEFIT-FEATURE-SUBSTRATE": "ready-via-sublane",
     "L15-RR15-AFTER-HIT-RIDER-OWNER-SPLIT": "blocked-on-checkpoint",
     "L15-RR16-CHAINED-ATTACK-PROCEDURE-ROUTES": "blocked-on-checkpoint",
@@ -172,7 +183,16 @@
     "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "merged-verified",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
-    "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete"
+    "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
+    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "ready",
+    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
+    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
+    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
+    "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
+    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
+    "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "ready",
+    "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "blocked-on-fu08a",
+    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "blocked-on-fu08a"
   },
   "lastIntegrationVerification": {
     "head": "1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9",

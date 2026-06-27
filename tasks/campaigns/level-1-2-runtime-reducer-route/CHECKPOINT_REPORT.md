@@ -215,3 +215,22 @@ The small feature substrate batch was split into three parallel lanes from integ
 - `L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES`: weapon mastery property, Dragonborn Breath Weapon, and active feature spell-benefit substrates (`3` drivers, `11` in-scope obligations). Worker: Kuhn `019f070b-ff89-7fd2-8978-44745a13ef82`; committed `3da4fbbd6d0630c096d0d386f28cc0ce02fb432b`; reviewer Nash `019f072c-d0a6-7e53-adcf-02844f72a6f9` found blocker findings. Expected route witnesses shared `route_*` helper construction with observed routes in the weapon mastery, Dragonborn Breath Weapon, and feature selected-identity adapters, and the evidence artifacts overclaimed literal independent expected routes. Fixer Franklin `019f0730-cabf-77a3-801f-b5b9736f7e6b` committed `e65678a9e310be2f97ba582711a036454c98ab2d` to replace expected routes with independent literal `ReducerRouteEvent` records; re-reviewer Dewey `019f0739-45c1-70a3-b026-5757480663b5` found the observed route witnesses are still adapter-synthesized instead of reducer-observed through `start_battle_observed`, `discover_battle_acts_observed`, or `resolve_battle_subject_observed`. Fixer Averroes `019f073c-aa3b-7182-8769-82593a36eb71` committed `6d89dd42b345c3253d36759d723c1fe4a3271c2c`, adding reducer-observed route events to `BattleEntrypointTrace` and using observed reducer entrypoints for the three lane adapters; re-reviewer Noether `019f074b-83da-7fb3-a98a-d833225f491e` returned clean.
 
 `L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES` and `L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES` remain unscheduled until they are split according to their campaign recommendations.
+
+## CP4 Remaining Split Plan
+
+`L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES` is split into six sublanes:
+
+- `L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES`: catalog-ready selected spell witnesses over existing save-gated, repeat-save, companion, and roll-modifier substrates. This is the first FU01 launch lane.
+- `L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES`: spell attack, save-gated damage, chained/object-target, and post-hit/post-damage active-effect substrates.
+- `L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES`: weapon-hosted buff, after-hit rider, scalar, held-weapon, mark-transfer, condition-immunity, and temporary-HP substrates.
+- `L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES`: creature-type target admission, protection/charm active effects, charm-break lifecycle, and warded-target interdiction.
+- `L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES`: armor-class base active effect and reaction-triggered armor-class spell substrates.
+- `L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES`: light, outline, area hazard, falling, movement replacement, forced movement, and object-boundary substrates.
+
+`L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES` is split into three sublanes:
+
+- `L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE`: shared Sorcery Point spend, one-option-per-spell, selected-option admission, Bonus Action casting-time, same-turn level-1-plus spell locks, and Quickened selected witnesses. This must run before FU08B/FU08C.
+- `L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES`: Careful, Heightened, Distant, and Twinned option substrates.
+- `L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES`: Empowered, Seeking, Subtle, Transmuted, and Extended option substrates.
+
+Initial ready lanes after the split: `L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES` and `L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE`.
