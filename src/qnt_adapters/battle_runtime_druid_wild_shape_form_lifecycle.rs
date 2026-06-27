@@ -6,6 +6,13 @@ use crate::rules::wild_shape::{
     WildShapeScenarioOutcome, WildShapeState,
 };
 
+use super::battle_runtime_reducer_route::{
+    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_route_holes,
+    route_resolve_battle_subject_without_fill_from_route_holes, route_start_battle,
+    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+};
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct DruidWildShapeFormLifecycleWitness {
     pub active_form: &'static str,
@@ -50,7 +57,16 @@ pub fn replay_observed_action(observed_action_taken: &str) -> DruidWildShapeForm
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> DruidWildShapeFormLifecycleWitness {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doAssumeRidingHorse" => expected_assumed_riding_horse(),
+        "doBeginNextTurn" => expected_next_turn(),
+        "doDeathReversion" => expected_death_reversion(),
+        "doDismissForm" => expected_dismissed(),
+        "doIncapacitatedReversion" => expected_incapacitated_reversion(),
+        "doReuseAsCat" => expected_reused_cat(),
+        "doStutter" => expected_death_reversion(),
+        action => panic!("unsupported expected mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &DruidWildShapeFormLifecycleWitness) -> String {
@@ -76,6 +92,32 @@ pub fn projection_payload(witness: &DruidWildShapeFormLifecycleWitness) -> Strin
         format!("protocolHoles={}", joined_or_none(&witness.protocol_holes)),
     ]
     .join("\n")
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doAssumeRidingHorse" => route_after_assume_form(),
+        "doBeginNextTurn" => route_after_begin_next_turn(),
+        "doDeathReversion" => route_after_death_reversion(),
+        "doDismissForm" => route_after_dismiss_form(),
+        "doIncapacitatedReversion" => route_after_incapacitated_reversion(),
+        "doReuseAsCat" => route_after_reuse_form(),
+        "doStutter" => route_after_death_reversion(),
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doAssumeRidingHorse" => expected_route_after_assume_form(),
+        "doBeginNextTurn" => expected_route_after_begin_next_turn(),
+        "doDeathReversion" => expected_route_after_death_reversion(),
+        "doDismissForm" => expected_route_after_dismiss_form(),
+        "doIncapacitatedReversion" => expected_route_after_incapacitated_reversion(),
+        "doReuseAsCat" => expected_route_after_reuse_form(),
+        "doStutter" => expected_route_after_death_reversion(),
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+    }
 }
 
 fn assumed_riding_horse() -> WildShapeState {
@@ -104,6 +146,383 @@ fn death_reversion() -> WildShapeState {
 
 fn stuttered_after_death() -> WildShapeState {
     stutter_wild_shape_state(death_reversion())
+}
+
+fn expected_assumed_riding_horse() -> DruidWildShapeFormLifecycleWitness {
+    DruidWildShapeFormLifecycleWitness {
+        active_form: "ridingHorse",
+        bonus_action_available: false,
+        uses_remaining: 1,
+        temporary_hit_points: 2,
+        armor_class: 11,
+        creature_size: "large",
+        speed_feet: 60,
+        shove_dc: 13,
+        spell_available: false,
+        active_form_effect_count: 1,
+        merged_equipment_count: 2,
+        druid_status: "able",
+        scenario_outcome: "AssumedRidingHorse",
+        protocol_result: "resolved",
+        protocol_invalid_reason: "",
+        protocol_holes: vec![],
+    }
+}
+
+fn expected_next_turn() -> DruidWildShapeFormLifecycleWitness {
+    DruidWildShapeFormLifecycleWitness {
+        bonus_action_available: true,
+        scenario_outcome: "NextTurn",
+        ..expected_assumed_riding_horse()
+    }
+}
+
+fn expected_reused_cat() -> DruidWildShapeFormLifecycleWitness {
+    DruidWildShapeFormLifecycleWitness {
+        active_form: "cat",
+        bonus_action_available: false,
+        uses_remaining: 0,
+        armor_class: 12,
+        creature_size: "tiny",
+        speed_feet: 40,
+        shove_dc: 6,
+        scenario_outcome: "ReusedCat",
+        ..expected_assumed_riding_horse()
+    }
+}
+
+fn expected_dismissed() -> DruidWildShapeFormLifecycleWitness {
+    DruidWildShapeFormLifecycleWitness {
+        active_form: "trueForm",
+        bonus_action_available: false,
+        armor_class: 16,
+        creature_size: "medium",
+        speed_feet: 30,
+        shove_dc: 13,
+        spell_available: true,
+        active_form_effect_count: 0,
+        merged_equipment_count: 0,
+        scenario_outcome: "Dismissed",
+        ..expected_next_turn()
+    }
+}
+
+fn expected_incapacitated_reversion() -> DruidWildShapeFormLifecycleWitness {
+    DruidWildShapeFormLifecycleWitness {
+        active_form: "trueForm",
+        armor_class: 16,
+        creature_size: "medium",
+        speed_feet: 30,
+        shove_dc: 13,
+        spell_available: false,
+        active_form_effect_count: 0,
+        merged_equipment_count: 0,
+        druid_status: "incapacitated",
+        scenario_outcome: "FormIncapacitated",
+        ..expected_assumed_riding_horse()
+    }
+}
+
+fn expected_death_reversion() -> DruidWildShapeFormLifecycleWitness {
+    DruidWildShapeFormLifecycleWitness {
+        active_form: "trueForm",
+        armor_class: 16,
+        creature_size: "medium",
+        speed_feet: 30,
+        shove_dc: 13,
+        spell_available: false,
+        active_form_effect_count: 0,
+        merged_equipment_count: 0,
+        druid_status: "dead",
+        scenario_outcome: "FormDead",
+        ..expected_assumed_riding_horse()
+    }
+}
+
+fn route_after_assume_form() -> Vec<ReducerRouteEvent> {
+    let mut route = initial_route();
+    append_assume_or_reuse_form_route(&mut route);
+    route
+}
+
+fn route_after_begin_next_turn() -> Vec<ReducerRouteEvent> {
+    let mut route = route_after_assume_form();
+    route.push(discover_active_form(
+        Vec::new(),
+        ReducerRouteOwnerGroup::TurnBoundary,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::TurnBoundary,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    route
+}
+
+fn route_after_reuse_form() -> Vec<ReducerRouteEvent> {
+    let mut route = route_after_begin_next_turn();
+    append_assume_or_reuse_form_route(&mut route);
+    route
+}
+
+fn route_after_dismiss_form() -> Vec<ReducerRouteEvent> {
+    let mut route = route_after_begin_next_turn();
+    route.push(discover_active_form(
+        Vec::new(),
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::CreatureState,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::MovementResource,
+    ));
+    route
+}
+
+fn route_after_incapacitated_reversion() -> Vec<ReducerRouteEvent> {
+    let mut route = route_after_assume_form();
+    route.push(discover_active_form(
+        Vec::new(),
+        ReducerRouteOwnerGroup::ConditionLifecycle,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ConditionLifecycle,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::CreatureState,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::MovementResource,
+    ));
+    route
+}
+
+fn route_after_death_reversion() -> Vec<ReducerRouteEvent> {
+    let mut route = route_after_assume_form();
+    route.push(discover_active_form(
+        Vec::new(),
+        ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::CreatureState,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::MovementResource,
+    ));
+    route
+}
+
+fn initial_route() -> Vec<ReducerRouteEvent> {
+    vec![route_start_battle(ReducerRouteOwnerGroup::ActionEconomy)]
+}
+
+fn append_assume_or_reuse_form_route(route: &mut Vec<ReducerRouteEvent>) {
+    route.push(discover_active_form(
+        vec![ReducerRouteHoleKind::WildShapeEquipmentDisposition],
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    route.push(route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::ActiveFormLifecycle,
+        ReducerRouteFillKind::WildShapeEquipmentDisposition,
+        Vec::new(),
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::FeatureResource,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::TemporaryHitPoint,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::CreatureState,
+    ));
+    route.push(resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::MovementResource,
+    ));
+}
+
+fn discover_active_form(
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_discover_battle_acts_from_route_holes(
+        ReducerRouteSubjectFamily::ActiveFormLifecycle,
+        holes,
+        owner,
+    )
+}
+
+fn resolve_active_form_without_fill(owner: ReducerRouteOwnerGroup) -> ReducerRouteEvent {
+    route_resolve_battle_subject_without_fill_from_route_holes(
+        ReducerRouteSubjectFamily::ActiveFormLifecycle,
+        Vec::new(),
+        owner,
+    )
+}
+
+fn expected_route_after_assume_form() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_initial_route();
+    append_expected_assume_or_reuse_form_route(&mut route);
+    route
+}
+
+fn expected_route_after_begin_next_turn() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_route_after_assume_form();
+    route.push(expected_discover_active_form(
+        Vec::new(),
+        ReducerRouteOwnerGroup::TurnBoundary,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::TurnBoundary,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    route
+}
+
+fn expected_route_after_reuse_form() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_route_after_begin_next_turn();
+    append_expected_assume_or_reuse_form_route(&mut route);
+    route
+}
+
+fn expected_route_after_dismiss_form() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_route_after_begin_next_turn();
+    route.push(expected_discover_active_form(
+        Vec::new(),
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::CreatureState,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::MovementResource,
+    ));
+    route
+}
+
+fn expected_route_after_incapacitated_reversion() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_route_after_assume_form();
+    route.push(expected_discover_active_form(
+        Vec::new(),
+        ReducerRouteOwnerGroup::ConditionLifecycle,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ConditionLifecycle,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::CreatureState,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::MovementResource,
+    ));
+    route
+}
+
+fn expected_route_after_death_reversion() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_route_after_assume_form();
+    route.push(expected_discover_active_form(
+        Vec::new(),
+        ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::CreatureState,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::MovementResource,
+    ));
+    route
+}
+
+fn expected_initial_route() -> Vec<ReducerRouteEvent> {
+    vec![ReducerRouteEvent::StartBattle {
+        owner: ReducerRouteOwnerGroup::ActionEconomy,
+    }]
+}
+
+fn append_expected_assume_or_reuse_form_route(route: &mut Vec<ReducerRouteEvent>) {
+    route.push(expected_discover_active_form(
+        vec![ReducerRouteHoleKind::WildShapeEquipmentDisposition],
+        ReducerRouteOwnerGroup::ActionEconomy,
+    ));
+    route.push(ReducerRouteEvent::ResolveBattleSubject {
+        subject: ReducerRouteSubjectFamily::ActiveFormLifecycle,
+        fill: ReducerRouteFillKind::WildShapeEquipmentDisposition,
+        outcome: ReducerRouteResolutionOutcome::Resolved,
+        holes: Vec::new(),
+        owner: ReducerRouteOwnerGroup::ActionEconomy,
+    });
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::FeatureResource,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::TemporaryHitPoint,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::CreatureState,
+    ));
+    route.push(expected_resolve_active_form_without_fill(
+        ReducerRouteOwnerGroup::MovementResource,
+    ));
+}
+
+fn expected_discover_active_form(
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    ReducerRouteEvent::DiscoverBattleActs {
+        subject: ReducerRouteSubjectFamily::ActiveFormLifecycle,
+        holes,
+        owner,
+    }
+}
+
+fn expected_resolve_active_form_without_fill(owner: ReducerRouteOwnerGroup) -> ReducerRouteEvent {
+    ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+        subject: ReducerRouteSubjectFamily::ActiveFormLifecycle,
+        outcome: ReducerRouteResolutionOutcome::Resolved,
+        holes: Vec::new(),
+        owner,
+    }
 }
 
 fn witness_from_state(state: WildShapeState) -> DruidWildShapeFormLifecycleWitness {

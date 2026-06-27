@@ -1,0 +1,372 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-quint-connect-l15-rr07s-b-zero-hp-form-movement-substrates",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doResolveSpareTheDyingStable",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs",
+      "observedActionTaken": "doResolveSpareTheDyingStable",
+      "qntFileSha256": "3ee6641e2cba8d527a382b3814ba16b2e2bda4e0c0689bf7e4ca5fc787537a53",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-stabilization.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "41e5c41a3ce7e7a7fd42f8b2d102b0ca6074c2b5ed52d114e55c27cc2d0f79dc",
+        "observedProjectionSha256": "41e5c41a3ce7e7a7fd42f8b2d102b0ca6074c2b5ed52d114e55c27cc2d0f79dc",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doResolveSpareTheDyingStable"
+    },
+    {
+      "branchAction": "doAssumeRidingHorse",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "observedActionTaken": "doAssumeRidingHorse",
+      "qntFileSha256": "886b4062e44b2f1e3c978d3658c5e9b037ac2d5f90f4bf66a25a99d3a7e3cadc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "db67fb593dc90d6ab406535dc16dab1f32eb650c3cad347a7f96f724481001d1",
+        "observedProjectionSha256": "db67fb593dc90d6ab406535dc16dab1f32eb650c3cad347a7f96f724481001d1",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doAssumeRidingHorse"
+    },
+    {
+      "branchAction": "doBeginNextTurn",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "observedActionTaken": "doBeginNextTurn",
+      "qntFileSha256": "886b4062e44b2f1e3c978d3658c5e9b037ac2d5f90f4bf66a25a99d3a7e3cadc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9513eee5bf73ff6e9c2082ebcccdccac4c96d5cb5e396e28c8e3e0f907f3c382",
+        "observedProjectionSha256": "9513eee5bf73ff6e9c2082ebcccdccac4c96d5cb5e396e28c8e3e0f907f3c382",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doBeginNextTurn"
+    },
+    {
+      "branchAction": "doDeathReversion",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "observedActionTaken": "doDeathReversion",
+      "qntFileSha256": "886b4062e44b2f1e3c978d3658c5e9b037ac2d5f90f4bf66a25a99d3a7e3cadc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "dc93d4d42879217ba2ac71efe72419a125ccb616dde3e065916dd84df02cc82c",
+        "observedProjectionSha256": "dc93d4d42879217ba2ac71efe72419a125ccb616dde3e065916dd84df02cc82c",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doDeathReversion"
+    },
+    {
+      "branchAction": "doDismissForm",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "observedActionTaken": "doDismissForm",
+      "qntFileSha256": "886b4062e44b2f1e3c978d3658c5e9b037ac2d5f90f4bf66a25a99d3a7e3cadc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7bd399beb18f99225fbada70e949523c9fdb6a78cedc2eff4ed3404052327388",
+        "observedProjectionSha256": "7bd399beb18f99225fbada70e949523c9fdb6a78cedc2eff4ed3404052327388",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doDismissForm"
+    },
+    {
+      "branchAction": "doIncapacitatedReversion",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "observedActionTaken": "doIncapacitatedReversion",
+      "qntFileSha256": "886b4062e44b2f1e3c978d3658c5e9b037ac2d5f90f4bf66a25a99d3a7e3cadc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0dbb56d0d61d18fe9c023cc86c79f26bb585c23e4b91f4921c8b3cad8a868bfe",
+        "observedProjectionSha256": "0dbb56d0d61d18fe9c023cc86c79f26bb585c23e4b91f4921c8b3cad8a868bfe",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doIncapacitatedReversion"
+    },
+    {
+      "branchAction": "doReuseAsCat",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "observedActionTaken": "doReuseAsCat",
+      "qntFileSha256": "886b4062e44b2f1e3c978d3658c5e9b037ac2d5f90f4bf66a25a99d3a7e3cadc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "86072e1dbff679280eb0ff496a55a89d5491a2bb69dce7f9f8263d9e6be3a788",
+        "observedProjectionSha256": "86072e1dbff679280eb0ff496a55a89d5491a2bb69dce7f9f8263d9e6be3a788",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doReuseAsCat"
+    },
+    {
+      "branchAction": "doStutter",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_druid_wild_shape_form_lifecycle.rs",
+      "observedActionTaken": "doStutter",
+      "qntFileSha256": "886b4062e44b2f1e3c978d3658c5e9b037ac2d5f90f4bf66a25a99d3a7e3cadc",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e858a165bf9aff46fcf4d5b04343f5274145a5a1f9ca507f07bcaf3d3d02a63d",
+        "observedProjectionSha256": "e858a165bf9aff46fcf4d5b04343f5274145a5a1f9ca507f07bcaf3d3d02a63d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doStutter"
+    },
+    {
+      "branchAction": "doCommandFleeTargetTurn",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_movement_forced_movement_selected_identity.rs",
+      "observedActionTaken": "doCommandFleeTargetTurn",
+      "qntFileSha256": "e1a971ac419085dd5992e5546553401b225c1101791e1a75144382b84593e8a7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "66138392aa669f9629983c799b0418343dc04f8837303dea4bab2d7ed734e8e5",
+        "observedProjectionSha256": "66138392aa669f9629983c799b0418343dc04f8837303dea4bab2d7ed734e8e5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doCommandFleeTargetTurn"
+    },
+    {
+      "branchAction": "doDissonantWhispersForcedReactionMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_movement_forced_movement_selected_identity.rs",
+      "observedActionTaken": "doDissonantWhispersForcedReactionMovement",
+      "qntFileSha256": "e1a971ac419085dd5992e5546553401b225c1101791e1a75144382b84593e8a7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c336948d1ddb28657e69176212273ccb63d7cefae309324d851287b0fc42d6ed",
+        "observedProjectionSha256": "c336948d1ddb28657e69176212273ccb63d7cefae309324d851287b0fc42d6ed",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doDissonantWhispersForcedReactionMovement"
+    },
+    {
+      "branchAction": "doExpeditiousRetreatImmediateDash",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_movement_forced_movement_selected_identity.rs",
+      "observedActionTaken": "doExpeditiousRetreatImmediateDash",
+      "qntFileSha256": "e1a971ac419085dd5992e5546553401b225c1101791e1a75144382b84593e8a7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "efa3aa492ffb5fc81bf0965a6770988e9f7ffc5a57683ba70ad42e5912fbfe5d",
+        "observedProjectionSha256": "efa3aa492ffb5fc81bf0965a6770988e9f7ffc5a57683ba70ad42e5912fbfe5d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doExpeditiousRetreatImmediateDash"
+    },
+    {
+      "branchAction": "doMonkUnarmoredMovementDash",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt",
+      "driverProjectionKind": "literal-projection-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_movement_forced_movement_selected_identity.rs",
+      "observedActionTaken": "doMonkUnarmoredMovementDash",
+      "qntFileSha256": "e1a971ac419085dd5992e5546553401b225c1101791e1a75144382b84593e8a7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ReducerRouteEvent",
+          "ReducerRouteEvent.subject",
+          "ReducerRouteEvent.owner",
+          "ReducerRouteEvent.holes",
+          "ReducerRouteEvent.fill",
+          "qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "26c386c8ec834bf1791b10a3684816d7f03040e87c8aaa99552a8ca2307e4c42",
+        "observedProjectionSha256": "26c386c8ec834bf1791b10a3684816d7f03040e87c8aaa99552a8ca2307e4c42",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doMonkUnarmoredMovementDash"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
