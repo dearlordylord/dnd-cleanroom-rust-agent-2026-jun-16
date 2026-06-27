@@ -198,7 +198,7 @@
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "ready",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "review-clean-merge-ready",
-    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "fixing-review-findings"
+    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "fix-applied-pending-rereview"
   },
   "lastIntegrationVerification": {
     "head": "5a6e5d2d1975788acef1373786eb94dd0074407e",
@@ -299,7 +299,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08c",
       "branch": "ralph/l15-rr07-fu08c-metamagic-reroll-damage",
       "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
-      "status": "fixing-review-findings",
+      "status": "fix-applied-pending-rereview",
       "workerAgent": "019f079e-94a7-7e00-99a3-808e4091635d",
       "workerName": "Tesla",
       "commit": "a6e33d9bad73f82e20e0373986738e943d45233d",
@@ -331,6 +331,24 @@
         "cargo test",
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs"
+      ],
+      "fixerAgent": "019f07b2-932d-7662-8117-a5261072e592",
+      "fixerName": "Huygens",
+      "fixerStatus": "complete",
+      "fixerCommit": "a0ac254c610b4c0e64b4f6d160c0ef533f400a40",
+      "fixerSummary": [
+        "Added BattleResolutionInvalidReason::MetamagicOptionEffectMismatch and reducer-boundary option/effect coherence check before spend/lock/projection/routing.",
+        "Added regression test for mismatched component-suppression facts plus DamageReroll effect.",
+        "FU08C accepted rows remain accepted; no blockers/demotions."
+      ],
+      "fixerVerification": [
+        "cargo test metamagic_option_spell_rejects_mismatched_option_facts_and_effect",
+        "cargo test spell_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test (209 passed)",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
       ]
     }
   ],
