@@ -285,7 +285,10 @@
         "node scripts/check-cleanroom-harness.cjs",
         "cargo test adapter_replays_all_branches (76 passed, 130 filtered)",
         "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ]
+      ],
+      "fixer3Agent": "019f0743-c359-70d2-8e7e-fdf4a94a63a1",
+      "fixer3Name": "Arendt",
+      "fix3Status": "running"
     },
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
