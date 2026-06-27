@@ -1098,6 +1098,9 @@ pub enum BattleSubjectKind {
     CommandSpell,
     ArmorClassSpellEffect,
     ReactionSpell,
+    ReactionSpellDamage,
+    ReactionSpellInterruptDecision,
+    ReactionSpellSlotCommit,
     ScalarBuffTargetSpell,
     WeaponMasteryProperty,
     AttackActionAreaSaveDamageReplacement,
@@ -1115,6 +1118,15 @@ pub enum BattleSubjectKind {
     HeldWeaponActiveEffectApply,
     HeldWeaponActiveEffectAttackRoll,
     HeldWeaponActiveEffectDamage,
+    InterruptStackResumeClosedContinuation,
+    InterruptStackResumeDamageContinuation,
+    InterruptStackResumeDecisionToRolledDice,
+    InterruptStackResumeDecisionToSave,
+    InterruptStackResumeReactionEffectMutation,
+    InterruptStackResumeReactionResourceCommit,
+    InterruptStackResumeReactionWindowResume,
+    SaveGatedSpellInterruptDecision,
+    WeaponAttackDamageContinuation,
     ScalarBuffEffectSpeedDelta,
     ScalarBuffEffectTemporaryHitPoint,
     AfterHitDamageRiderAttackDamage,
@@ -3433,9 +3445,19 @@ fn battle_reducer_route_subject_family(
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup) => {
-            generic_route_shape(kind).subject
-        }
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::ReactionSpellDamage
+        | BattleSubjectKind::ReactionSpellInterruptDecision
+        | BattleSubjectKind::ReactionSpellSlotCommit
+        | BattleSubjectKind::InterruptStackResumeClosedContinuation
+        | BattleSubjectKind::InterruptStackResumeDamageContinuation
+        | BattleSubjectKind::InterruptStackResumeDecisionToRolledDice
+        | BattleSubjectKind::InterruptStackResumeDecisionToSave
+        | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+        | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+        | BattleSubjectKind::InterruptStackResumeReactionWindowResume
+        | BattleSubjectKind::SaveGatedSpellInterruptDecision
+        | BattleSubjectKind::WeaponAttackDamageContinuation) => generic_route_shape(kind).subject,
     }
 }
 
@@ -5661,45 +5683,6 @@ pub fn resolve_hellish_rebuke_after_damage_battle(state: BattleState) -> BattleS
 }
 
 #[must_use]
-pub fn resolve_hellish_rebuke_after_damage_battle_observed(
-    state: BattleState,
-    observer: &mut impl BattleReducerRouteObserver,
-) -> BattleState {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::ReactionSpell,
-        vec![BattleReducerRouteHoleKind::InterruptDecision],
-        BattleReducerRouteOwnerGroup::InterruptStack,
-        observer,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::ReactionSpell,
-        BattleReducerRouteFillKind::InterruptDecision,
-        BattleResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::InterruptStack,
-        observer,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::ReactionSpell,
-        BattleReducerRouteFillKind::InterruptDecision,
-        BattleResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
-        observer,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::ReactionSpell,
-        BattleReducerRouteFillKind::InterruptDecision,
-        BattleResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::HitPoint,
-        observer,
-    );
-    resolve_hellish_rebuke_after_damage_battle(state)
-}
-
-#[must_use]
 pub fn resolve_hellish_rebuke_failed_save_reaction_spell_battle(state: BattleState) -> BattleState {
     // QNT: battle-runtime-reaction-spell-selected-identity.mbt.qnt
     // failed-save selected-identity branch; support QNT:
@@ -5806,45 +5789,6 @@ pub fn resolve_nested_interrupt_decline_battle(state: BattleState) -> BattleStat
 }
 
 #[must_use]
-pub fn resolve_nested_interrupt_decline_battle_observed(
-    state: BattleState,
-    observer: &mut impl BattleReducerRouteObserver,
-) -> BattleState {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::InterruptStackResume,
-        vec![BattleReducerRouteHoleKind::InterruptDecision],
-        BattleReducerRouteOwnerGroup::InterruptStack,
-        observer,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::InterruptStackResume,
-        BattleReducerRouteFillKind::InterruptDecision,
-        BattleResolutionOutcome::NeedsHoles,
-        vec![BattleReducerRouteHoleKind::SavingThrowOutcome],
-        BattleReducerRouteOwnerGroup::InterruptStack,
-        observer,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::SaveGatedSpell,
-        BattleReducerRouteFillKind::SavingThrowOutcome,
-        BattleResolutionOutcome::NeedsHoles,
-        vec![BattleReducerRouteHoleKind::InterruptDecision],
-        BattleReducerRouteOwnerGroup::InterruptStack,
-        observer,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::InterruptStackResume,
-        BattleReducerRouteFillKind::InterruptDecision,
-        BattleResolutionOutcome::NeedsHoles,
-        vec![BattleReducerRouteHoleKind::RolledDice],
-        BattleReducerRouteOwnerGroup::InterruptStack,
-        observer,
-    );
-    resolve_nested_interrupt_decline_battle(state)
-}
-
-#[must_use]
 pub fn resolve_interrupted_attack_after_reaction_mutation_battle(
     state: BattleState,
 ) -> BattleState {
@@ -5874,45 +5818,6 @@ pub fn resolve_interrupted_attack_after_reaction_mutation_battle(
 }
 
 #[must_use]
-pub fn resolve_interrupted_attack_after_reaction_mutation_battle_observed(
-    state: BattleState,
-    observer: &mut impl BattleReducerRouteObserver,
-) -> BattleState {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::InterruptStackResume,
-        vec![BattleReducerRouteHoleKind::InterruptDecision],
-        BattleReducerRouteOwnerGroup::InterruptStack,
-        observer,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::InterruptStackResume,
-        BattleReducerRouteFillKind::InterruptDecision,
-        BattleResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
-        observer,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::InterruptStackResume,
-        BattleReducerRouteFillKind::InterruptDecision,
-        BattleResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::ActiveEffect,
-        observer,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::InterruptStackResume,
-        BattleReducerRouteFillKind::InterruptDecision,
-        BattleResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::InterruptStack,
-        observer,
-    );
-    resolve_interrupted_attack_after_reaction_mutation_battle(state)
-}
-
-#[must_use]
 pub fn resolve_recorded_attack_replay_from_root_battle(state: BattleState) -> BattleState {
     // QNT: battle-runtime-interrupt-stack-resume.mbt.qnt
     // recorded attack replay branch; replay vocabulary:
@@ -5930,36 +5835,6 @@ pub fn resolve_recorded_attack_replay_from_root_battle(state: BattleState) -> Ba
         },
         ..state
     }
-}
-
-#[must_use]
-pub fn resolve_recorded_attack_replay_from_root_battle_observed(
-    state: BattleState,
-    observer: &mut impl BattleReducerRouteObserver,
-) -> BattleState {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::InterruptStackResume,
-        vec![BattleReducerRouteHoleKind::RolledDice],
-        BattleReducerRouteOwnerGroup::InterruptStack,
-        observer,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::WeaponAttack,
-        BattleReducerRouteFillKind::RolledDice,
-        BattleResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::HitPoint,
-        observer,
-    );
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::InterruptStackResume,
-        BattleResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::InterruptStack,
-        observer,
-    );
-    resolve_recorded_attack_replay_from_root_battle(state)
 }
 
 #[must_use]
@@ -6867,7 +6742,19 @@ fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerRouteOw
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup) => {
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::ReactionSpellDamage
+        | BattleSubjectKind::ReactionSpellInterruptDecision
+        | BattleSubjectKind::ReactionSpellSlotCommit
+        | BattleSubjectKind::InterruptStackResumeClosedContinuation
+        | BattleSubjectKind::InterruptStackResumeDamageContinuation
+        | BattleSubjectKind::InterruptStackResumeDecisionToRolledDice
+        | BattleSubjectKind::InterruptStackResumeDecisionToSave
+        | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+        | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+        | BattleSubjectKind::InterruptStackResumeReactionWindowResume
+        | BattleSubjectKind::SaveGatedSpellInterruptDecision
+        | BattleSubjectKind::WeaponAttackDamageContinuation) => {
             generic_route_shape(kind).discover_owner
         }
         BattleSubjectKind::EndTurn => BattleReducerRouteOwnerGroup::ActionEconomy,
@@ -7048,6 +6935,15 @@ fn diagnostic_subject(
     }
 }
 
+#[must_use]
+pub fn generic_route_subject(kind: BattleSubjectKind, actor: Actor) -> BattleSubject {
+    assert!(
+        generic_route_subject_kind(kind),
+        "generic route subject constructor requires a generic route subject"
+    );
+    diagnostic_subject(kind, actor, None)
+}
+
 fn diagnostic_subject_shape_matches(
     subject: BattleSubject,
     kind: BattleSubjectKind,
@@ -7084,20 +6980,34 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::AfterHitDamageRiderAttackDamage
             | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::ReactionSpellDamage
+            | BattleSubjectKind::ReactionSpellInterruptDecision
+            | BattleSubjectKind::ReactionSpellSlotCommit
+            | BattleSubjectKind::InterruptStackResumeClosedContinuation
+            | BattleSubjectKind::InterruptStackResumeDamageContinuation
+            | BattleSubjectKind::InterruptStackResumeDecisionToRolledDice
+            | BattleSubjectKind::InterruptStackResumeDecisionToSave
+            | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+            | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+            | BattleSubjectKind::InterruptStackResumeReactionWindowResume
+            | BattleSubjectKind::SaveGatedSpellInterruptDecision
+            | BattleSubjectKind::WeaponAttackDamageContinuation
     )
 }
 
 fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteHoleKind::{
-        AbilityCheck, AttackRoll, DamageTypeChoice, RolledDice, SavingThrowOutcome, TargetChoice,
+        AbilityCheck, AttackRoll, DamageTypeChoice, InterruptDecision, RolledDice,
+        SavingThrowOutcome, TargetChoice,
     };
     use BattleReducerRouteOwnerGroup::{
         ActiveEffect, AttackRoll as AttackRollOwner, Concentration, HitPoint, HoleFrontier,
-        MovementResource, SpellSlotAndActionEconomy, TargetSelection, TemporaryHitPoint,
+        InterruptStack, MovementResource, SpellSlotAndActionEconomy, TargetSelection,
+        TemporaryHitPoint,
     };
     use BattleReducerRouteSubjectFamily::{
-        AfterHitDamageRider, HeldWeaponActiveEffect, ScalarBuffEffect, SpellHostedWeaponAttack,
-        WeaponDamageRider,
+        AfterHitDamageRider, HeldWeaponActiveEffect, InterruptStackResume, ReactionSpell,
+        SaveGatedSpell, ScalarBuffEffect, SpellHostedWeaponAttack, WeaponAttack, WeaponDamageRider,
     };
 
     match kind {
@@ -7184,6 +7094,78 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: vec![AbilityCheck],
             discover_owner: Concentration,
             resolve_owner: Concentration,
+        },
+        BattleSubjectKind::ReactionSpellInterruptDecision => GenericRouteShape {
+            subject: ReactionSpell,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::ReactionSpellSlotCommit => GenericRouteShape {
+            subject: ReactionSpell,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: SpellSlotAndActionEconomy,
+        },
+        BattleSubjectKind::ReactionSpellDamage => GenericRouteShape {
+            subject: ReactionSpell,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::InterruptStackResumeDecisionToSave => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::SaveGatedSpellInterruptDecision => GenericRouteShape {
+            subject: SaveGatedSpell,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::InterruptStackResumeDecisionToRolledDice => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::InterruptStackResumeReactionResourceCommit => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: SpellSlotAndActionEconomy,
+        },
+        BattleSubjectKind::InterruptStackResumeReactionEffectMutation => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::InterruptStackResumeReactionWindowResume => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![InterruptDecision],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::InterruptStackResumeDamageContinuation => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: vec![RolledDice],
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::WeaponAttackDamageContinuation => GenericRouteShape {
+            subject: WeaponAttack,
+            holes: vec![RolledDice],
+            discover_owner: HitPoint,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::InterruptStackResumeClosedContinuation => GenericRouteShape {
+            subject: InterruptStackResume,
+            holes: Vec::new(),
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
         },
         BattleSubjectKind::EndTurn
         | BattleSubjectKind::WeaponAttack
@@ -7307,6 +7289,18 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
         | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::ReactionSpellDamage
+        | BattleSubjectKind::ReactionSpellInterruptDecision
+        | BattleSubjectKind::ReactionSpellSlotCommit
+        | BattleSubjectKind::InterruptStackResumeClosedContinuation
+        | BattleSubjectKind::InterruptStackResumeDamageContinuation
+        | BattleSubjectKind::InterruptStackResumeDecisionToRolledDice
+        | BattleSubjectKind::InterruptStackResumeDecisionToSave
+        | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+        | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+        | BattleSubjectKind::InterruptStackResumeReactionWindowResume
+        | BattleSubjectKind::SaveGatedSpellInterruptDecision
+        | BattleSubjectKind::WeaponAttackDamageContinuation
         | BattleSubjectKind::EndTurn => false,
     }
 }
@@ -7418,7 +7412,19 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => false,
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::ReactionSpellDamage
+        | BattleSubjectKind::ReactionSpellInterruptDecision
+        | BattleSubjectKind::ReactionSpellSlotCommit
+        | BattleSubjectKind::InterruptStackResumeClosedContinuation
+        | BattleSubjectKind::InterruptStackResumeDamageContinuation
+        | BattleSubjectKind::InterruptStackResumeDecisionToRolledDice
+        | BattleSubjectKind::InterruptStackResumeDecisionToSave
+        | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+        | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+        | BattleSubjectKind::InterruptStackResumeReactionWindowResume
+        | BattleSubjectKind::SaveGatedSpellInterruptDecision
+        | BattleSubjectKind::WeaponAttackDamageContinuation => false,
     }
 }
 
@@ -8273,6 +8279,18 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::AfterHitDamageRiderAttackDamage
             | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::ReactionSpellDamage
+            | BattleSubjectKind::ReactionSpellInterruptDecision
+            | BattleSubjectKind::ReactionSpellSlotCommit
+            | BattleSubjectKind::InterruptStackResumeClosedContinuation
+            | BattleSubjectKind::InterruptStackResumeDamageContinuation
+            | BattleSubjectKind::InterruptStackResumeDecisionToRolledDice
+            | BattleSubjectKind::InterruptStackResumeDecisionToSave
+            | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+            | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+            | BattleSubjectKind::InterruptStackResumeReactionWindowResume
+            | BattleSubjectKind::SaveGatedSpellInterruptDecision
+            | BattleSubjectKind::WeaponAttackDamageContinuation
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,
@@ -8347,6 +8365,26 @@ fn generic_route_fill_matches_subject(
         BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => {
             fill == BattleGenericRouteFill::AbilityCheck
         }
+        BattleSubjectKind::ReactionSpellInterruptDecision
+        | BattleSubjectKind::ReactionSpellSlotCommit
+        | BattleSubjectKind::ReactionSpellDamage
+        | BattleSubjectKind::InterruptStackResumeDecisionToSave
+        | BattleSubjectKind::InterruptStackResumeDecisionToRolledDice
+        | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+        | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+        | BattleSubjectKind::InterruptStackResumeReactionWindowResume => {
+            fill == BattleGenericRouteFill::InterruptDecision
+        }
+        BattleSubjectKind::SaveGatedSpellInterruptDecision => {
+            fill == BattleGenericRouteFill::SavingThrowOutcome
+        }
+        BattleSubjectKind::InterruptStackResumeDamageContinuation
+        | BattleSubjectKind::WeaponAttackDamageContinuation => {
+            fill == BattleGenericRouteFill::RolledDice
+        }
+        BattleSubjectKind::InterruptStackResumeClosedContinuation => {
+            fill == BattleGenericRouteFill::WithoutFill
+        }
         BattleSubjectKind::EndTurn
         | BattleSubjectKind::WeaponAttack
         | BattleSubjectKind::Multiattack
@@ -8397,6 +8435,15 @@ fn generic_route_next_holes(
         ) => {
             vec![BattleHoleKind::SavingThrowOutcome]
         }
+        (BattleSubjectKind::InterruptStackResumeDecisionToSave, _) => {
+            vec![BattleHoleKind::SavingThrowOutcome]
+        }
+        (BattleSubjectKind::SaveGatedSpellInterruptDecision, _) => {
+            vec![BattleHoleKind::InterruptDecision]
+        }
+        (BattleSubjectKind::InterruptStackResumeDecisionToRolledDice, _) => {
+            vec![BattleHoleKind::RolledDice]
+        }
         (
             BattleSubjectKind::SpellHostedWeaponAttackDamage
             | BattleSubjectKind::WeaponDamageRiderActiveEffect
@@ -8407,7 +8454,16 @@ fn generic_route_next_holes(
             | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
             | BattleSubjectKind::AfterHitDamageRiderAttackDamage
             | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-            | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup,
+            | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::ReactionSpellInterruptDecision
+            | BattleSubjectKind::ReactionSpellSlotCommit
+            | BattleSubjectKind::ReactionSpellDamage
+            | BattleSubjectKind::InterruptStackResumeReactionResourceCommit
+            | BattleSubjectKind::InterruptStackResumeReactionEffectMutation
+            | BattleSubjectKind::InterruptStackResumeReactionWindowResume
+            | BattleSubjectKind::InterruptStackResumeDamageContinuation
+            | BattleSubjectKind::WeaponAttackDamageContinuation
+            | BattleSubjectKind::InterruptStackResumeClosedContinuation,
             _,
         ) => Vec::new(),
         (

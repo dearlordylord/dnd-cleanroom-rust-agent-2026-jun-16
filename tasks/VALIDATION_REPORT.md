@@ -3464,7 +3464,7 @@ Verification results: recorded in RUN_LEDGER commandResults; this lane requires 
 
 ## L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES
 
-Behavior implemented: accepted interrupt-stack and reaction casting-time rows compare production `BattleReducerRouteTrace` qRoute observations against copied connector-shaped expected routes. Runtime projection remains owned by existing BattleState interrupt/reaction fields and reaction/interrupt owner helpers; no authored spell identity dispatch was added.
+Behavior implemented: accepted interrupt-stack and reaction casting-time rows compare public `BattleEntrypointTrace` qRoute observations emitted through generic route subjects and `resolve_battle_subject_observed` against copied connector-shaped expected routes. Runtime projection remains owned by existing BattleState interrupt/reaction fields and reaction/interrupt owner helpers; no authored spell identity dispatch was added.
 
 Evidence: `tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json`
 

@@ -1,11 +1,10 @@
 use crate::rules::battle_reducer_spine::{
-    interrupt_stack_resume_projection_from_battle,
+    discover_generic_route_subject_observed, generic_route_subject,
+    interrupt_stack_resume_projection_from_battle, resolve_battle_subject_observed,
     resolve_interrupted_attack_after_reaction_mutation_battle,
-    resolve_interrupted_attack_after_reaction_mutation_battle_observed,
-    resolve_nested_interrupt_decline_battle, resolve_nested_interrupt_decline_battle_observed,
-    resolve_recorded_attack_replay_from_root_battle,
-    resolve_recorded_attack_replay_from_root_battle_observed, start_interrupt_stack_resume_battle,
-    BattleReducerRouteTrace,
+    resolve_nested_interrupt_decline_battle, resolve_recorded_attack_replay_from_root_battle,
+    start_battle_observed, start_interrupt_stack_resume_battle, Actor, BattleEntrypointTrace,
+    BattleGenericRouteFill, BattleResolutionRequest, BattleSetup, BattleSubjectKind,
 };
 use crate::rules::interrupt_stack_resume::{
     interrupt_stack_resume_initial_state, resolve_interrupted_attack_after_reaction_mutation,
@@ -15,7 +14,7 @@ use crate::rules::interrupt_stack_resume::{
 };
 
 use super::battle_runtime_reducer_route::{
-    reducer_route_events_from_battle_trace, route_discover_battle_acts_from_route_holes,
+    observed_reducer_route, route_discover_battle_acts_from_route_holes,
     route_resolve_battle_subject, route_resolve_battle_subject_from_route_holes,
     route_resolve_battle_subject_without_fill, route_start_battle, ReducerRouteEvent,
     ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
@@ -64,23 +63,65 @@ pub fn expected_witness(observed_action_taken: &str) -> InterruptStackResumeWitn
 }
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    let mut trace = BattleReducerRouteTrace::default();
-    let initial = start_interrupt_stack_resume_battle();
     match observed_action_taken {
-        "doNestedDeclineResumesOuterInterrupt" => {
-            let _ = resolve_nested_interrupt_decline_battle_observed(initial, &mut trace);
-        }
-        "doReplayRecordedProcedureFromRoot" => {
-            let _ = resolve_recorded_attack_replay_from_root_battle_observed(initial, &mut trace);
-        }
-        "doShieldMutationResumesInterruptedAttack" => {
-            let _ = resolve_interrupted_attack_after_reaction_mutation_battle_observed(
-                initial, &mut trace,
-            );
-        }
+        "doNestedDeclineResumesOuterInterrupt" => replay_generic_route(
+            BattleSubjectKind::InterruptStackResumeDecisionToSave,
+            &[
+                (
+                    BattleSubjectKind::InterruptStackResumeDecisionToSave,
+                    BattleGenericRouteFill::InterruptDecision,
+                ),
+                (
+                    BattleSubjectKind::SaveGatedSpellInterruptDecision,
+                    BattleGenericRouteFill::SavingThrowOutcome,
+                ),
+                (
+                    BattleSubjectKind::InterruptStackResumeDecisionToRolledDice,
+                    BattleGenericRouteFill::InterruptDecision,
+                ),
+            ],
+            &[
+                ReducerRouteSubjectFamily::InterruptStackResume,
+                ReducerRouteSubjectFamily::SaveGatedSpell,
+            ],
+        ),
+        "doReplayRecordedProcedureFromRoot" => replay_generic_route(
+            BattleSubjectKind::InterruptStackResumeDamageContinuation,
+            &[
+                (
+                    BattleSubjectKind::WeaponAttackDamageContinuation,
+                    BattleGenericRouteFill::RolledDice,
+                ),
+                (
+                    BattleSubjectKind::InterruptStackResumeClosedContinuation,
+                    BattleGenericRouteFill::WithoutFill,
+                ),
+            ],
+            &[
+                ReducerRouteSubjectFamily::InterruptStackResume,
+                ReducerRouteSubjectFamily::WeaponAttack,
+            ],
+        ),
+        "doShieldMutationResumesInterruptedAttack" => replay_generic_route(
+            BattleSubjectKind::InterruptStackResumeReactionResourceCommit,
+            &[
+                (
+                    BattleSubjectKind::InterruptStackResumeReactionResourceCommit,
+                    BattleGenericRouteFill::InterruptDecision,
+                ),
+                (
+                    BattleSubjectKind::InterruptStackResumeReactionEffectMutation,
+                    BattleGenericRouteFill::InterruptDecision,
+                ),
+                (
+                    BattleSubjectKind::InterruptStackResumeReactionWindowResume,
+                    BattleGenericRouteFill::InterruptDecision,
+                ),
+            ],
+            &[ReducerRouteSubjectFamily::InterruptStackResume],
+        ),
         action => panic!("unsupported route mbt::actionTaken {action}"),
-    };
-    reducer_route_events_from_battle_trace(&trace)
+    }
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
@@ -107,6 +148,26 @@ fn replay_observed_action_through_battle_spine(
         action => panic!("unsupported mbt::actionTaken {action}"),
     };
     witness_from_state(interrupt_stack_resume_projection_from_battle(&state))
+}
+
+fn replay_generic_route(
+    discovery_subject: BattleSubjectKind,
+    steps: &[(BattleSubjectKind, BattleGenericRouteFill)],
+    route_subjects: &[ReducerRouteSubjectFamily],
+) -> Vec<ReducerRouteEvent> {
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start_battle_observed(BattleSetup::standard(), &mut trace).state;
+    let (mut state, _) =
+        discover_generic_route_subject_observed(state, discovery_subject, &mut trace);
+    for (subject_kind, fill) in steps {
+        let request = BattleResolutionRequest::generic_route(
+            generic_route_subject(*subject_kind, Actor::Fighter),
+            *fill,
+        )
+        .expect("generic route subject should accept generic route fills");
+        state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
+    }
+    observed_reducer_route(&trace, route_subjects)
 }
 
 fn pending_interrupt_decision_route() -> Vec<ReducerRouteEvent> {

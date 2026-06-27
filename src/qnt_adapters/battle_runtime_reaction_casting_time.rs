@@ -1,12 +1,15 @@
 use crate::rules::battle_reducer_spine::{
-    reaction_casting_time_projection_from_battle, resolve_hellish_rebuke_after_damage_battle,
-    resolve_hellish_rebuke_after_damage_battle_observed, start_reaction_casting_time_battle,
+    discover_generic_route_subject_observed, generic_route_subject,
+    reaction_casting_time_projection_from_battle, resolve_battle_subject_observed,
+    resolve_hellish_rebuke_after_damage_battle, start_battle_observed,
+    start_reaction_casting_time_battle, Actor, BattleEntrypointTrace, BattleGenericRouteFill,
     BattleReactionCastingContinuation, BattleReactionCastingOutcome,
-    BattleReactionCastingTimeProjection, BattleReactionCastingTrigger, BattleReducerRouteTrace,
+    BattleReactionCastingTimeProjection, BattleReactionCastingTrigger, BattleResolutionRequest,
+    BattleSetup, BattleSubjectKind,
 };
 
 use super::battle_runtime_reducer_route::{
-    reducer_route_events_from_battle_trace, route_discover_battle_acts_from_route_holes,
+    observed_reducer_route, route_discover_battle_acts_from_route_holes,
     route_resolve_battle_subject_from_route_holes, route_start_battle, ReducerRouteEvent,
     ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
 };
@@ -69,14 +72,24 @@ pub fn expected_witness(observed_action_taken: &str) -> ReactionCastingTimeWitne
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
-        "doHellishRebukeAfterDamage" => {
-            let mut trace = BattleReducerRouteTrace::default();
-            let _ = resolve_hellish_rebuke_after_damage_battle_observed(
-                start_reaction_casting_time_battle(),
-                &mut trace,
-            );
-            reducer_route_events_from_battle_trace(&trace)
-        }
+        "doHellishRebukeAfterDamage" => replay_generic_route(
+            BattleSubjectKind::ReactionSpellInterruptDecision,
+            &[
+                (
+                    BattleSubjectKind::ReactionSpellInterruptDecision,
+                    BattleGenericRouteFill::InterruptDecision,
+                ),
+                (
+                    BattleSubjectKind::ReactionSpellSlotCommit,
+                    BattleGenericRouteFill::InterruptDecision,
+                ),
+                (
+                    BattleSubjectKind::ReactionSpellDamage,
+                    BattleGenericRouteFill::InterruptDecision,
+                ),
+            ],
+            &[ReducerRouteSubjectFamily::ReactionSpell],
+        ),
         action => panic!("unsupported route mbt::actionTaken {action}"),
     }
 }
@@ -120,6 +133,26 @@ pub fn projection_payload(witness: &ReactionCastingTimeWitness) -> String {
         format!("protocolHoles={}", joined_or_none(&witness.protocol_holes)),
     ]
     .join("\n")
+}
+
+fn replay_generic_route(
+    discovery_subject: BattleSubjectKind,
+    steps: &[(BattleSubjectKind, BattleGenericRouteFill)],
+    route_subjects: &[ReducerRouteSubjectFamily],
+) -> Vec<ReducerRouteEvent> {
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start_battle_observed(BattleSetup::standard(), &mut trace).state;
+    let (mut state, _) =
+        discover_generic_route_subject_observed(state, discovery_subject, &mut trace);
+    for (subject_kind, fill) in steps {
+        let request = BattleResolutionRequest::generic_route(
+            generic_route_subject(*subject_kind, Actor::Fighter),
+            *fill,
+        )
+        .expect("generic route subject should accept generic route fills");
+        state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
+    }
+    observed_reducer_route(&trace, route_subjects)
 }
 
 fn pending_reaction_decision_route() -> Vec<ReducerRouteEvent> {
