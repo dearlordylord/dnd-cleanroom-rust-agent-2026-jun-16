@@ -1030,7 +1030,7 @@
     {
       "laneId": "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES",
       "checkpointId": "CP5",
-      "status": "worker-running",
+      "status": "reviewing",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR16-CHAINED-ATTACK-PROCEDURE-ROUTES",
