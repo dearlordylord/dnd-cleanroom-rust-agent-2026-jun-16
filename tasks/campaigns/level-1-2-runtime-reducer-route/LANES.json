@@ -398,7 +398,7 @@
     {
       "laneId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
@@ -637,7 +637,7 @@
     {
       "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp4-fu08-metamagic",
       "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
       "routeClasses": [
@@ -676,7 +676,7 @@
     {
       "laneId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp4-fu08-metamagic",
       "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
       "routeClasses": [

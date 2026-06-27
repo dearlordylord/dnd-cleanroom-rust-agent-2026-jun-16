@@ -108,7 +108,11 @@
         "CP2",
         "CP3"
       ],
-      "runningLaneIds": [],
+      "runningLaneIds": [
+        "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
+        "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
+        "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES"
+      ],
       "mergedLaneIds": [
         "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
         "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
@@ -116,7 +120,7 @@
         "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES"
       ],
-      "notes": "FU01A and FU08A are merged and verified. CP4 small feature substrate batch remains merged and verified; FU01B-F and FU08B-C are ready for the next Ralph batches.",
+      "notes": "FU01A and FU08A are merged and verified. FU01B, FU08B, and FU08C are running from base 6bad2c3509996b8cafab2a1d0258e3062e8ff60b.",
       "splitLaneIds": [
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
@@ -187,14 +191,14 @@
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "ready",
+    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "running",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "ready",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
-    "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "ready",
-    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "ready"
+    "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "running",
+    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "running"
   },
   "lastIntegrationVerification": {
     "head": "5a6e5d2d1975788acef1373786eb94dd0074407e",
@@ -208,7 +212,35 @@
     "result": "passed",
     "cargoTest": "208 passed"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b",
+      "branch": "ralph/l15-rr07-fu01b-spell-attack-damage",
+      "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
+      "status": "running",
+      "workerAgent": "019f079d-4d22-75e0-b100-3872c7e6bdc2",
+      "workerName": "Euler"
+    },
+    {
+      "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08b",
+      "branch": "ralph/l15-rr07-fu08b-metamagic-save-range",
+      "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
+      "status": "running",
+      "workerAgent": "019f079d-ab15-71b0-8240-dd4bfa6a1ab1",
+      "workerName": "Galileo"
+    },
+    {
+      "laneId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08c",
+      "branch": "ralph/l15-rr07-fu08c-metamagic-reroll-damage",
+      "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
+      "status": "running",
+      "workerAgent": "019f079e-94a7-7e00-99a3-808e4091635d",
+      "workerName": "Tesla"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
