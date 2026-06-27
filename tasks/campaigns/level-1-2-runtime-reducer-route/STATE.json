@@ -74,18 +74,19 @@
     {
       "checkpointId": "CP2",
       "name": "Rule-Core Component Connectors",
-      "status": "ready",
+      "status": "running",
       "dependsOn": [
         "CP1"
       ],
-      "readyLaneIds": [
+      "readyLaneIds": [],
+      "splitRequiredLaneIds": [],
+      "parentLaneId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
+      "runningLaneIds": [
         "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
         "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
         "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
         "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS"
-      ],
-      "splitRequiredLaneIds": [],
-      "parentLaneId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS"
+      ]
     },
     {
       "checkpointId": "CP3",
@@ -153,10 +154,10 @@
     "L15-RR20-BATTLE-COMPANION-OBJECT-BOUNDARY-ROUTES": "blocked-on-checkpoint",
     "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES": "blocked-on-checkpoint",
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint",
-    "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "ready",
-    "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "ready",
-    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "ready",
-    "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "ready"
+    "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "running",
+    "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "running",
+    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "running",
+    "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "running"
   },
   "lastIntegrationVerification": {
     "head": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025",
@@ -193,7 +194,44 @@
       }
     ]
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04a",
+      "branch": "ralph/l15-rr04a-rule-core-damage-statblock",
+      "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
+      "status": "running",
+      "workerAgent": "019f0670-c7a0-72d1-9fd3-cfeb18268fab",
+      "workerName": "Cicero"
+    },
+    {
+      "laneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b",
+      "branch": "ralph/l15-rr04b-rule-core-movement-reaction-shove",
+      "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
+      "status": "running",
+      "workerAgent": "019f0671-240b-7540-9f83-d8c2b4e83b30",
+      "workerName": "Russell"
+    },
+    {
+      "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c",
+      "branch": "ralph/l15-rr04c-rule-core-spell-ability",
+      "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
+      "status": "running",
+      "workerAgent": "019f0671-762b-7002-954d-a26a7c37c13c",
+      "workerName": "Avicenna"
+    },
+    {
+      "laneId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04d",
+      "branch": "ralph/l15-rr04d-rule-core-feature-profile",
+      "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
+      "status": "running",
+      "workerAgent": "019f0671-d268-7f62-b173-674d8d90738f",
+      "workerName": "Mill"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",

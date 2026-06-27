@@ -18,7 +18,7 @@ Campaign: `level-1-2-runtime-reducer-route`
 | --- | --- | --- |
 | CP0 Bootstrap | complete | Source baseline pinned at `6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0`; campaign-control files live on the integration branch. |
 | CP1 Battle Reducer Core Expansion | complete | `L15-RR03`, `L15-RR05`, and `L15-RR06` merged and verified. |
-| CP2 Rule-Core Component Connectors | ready | CP1 is complete. `L15-RR04` is split into four ready component sublanes. |
+| CP2 Rule-Core Component Connectors | running | Four `L15-RR04` component sublanes launched from base `a625d3e7190eb33396c17ee5dca7ae73f413b348`. |
 | CP3 Character Creation, Sheet, And Handoff | blocked-on-checkpoint | Depends on CP2. Creation and sheet can run in parallel; handoff merges after both. |
 | CP4 Feature And Catalog Substrates | blocked-on-checkpoint | Depends on CP2 and CP3. Split large FU lanes before execution. |
 | CP5 Remaining Battle Families | blocked-on-checkpoint | Depends on CP1, CP2, CP4. |
@@ -41,7 +41,7 @@ At `1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025`:
 - `L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE` merged at `4c7e12d7645360adb7ab23af61144ceb243c13fe`. Lane head `7ef32d308d51fb54d1032d01b937d168fa63bb64` includes reducer-route evidence for death saving throw and concentration teardown plus the harness quarantine fix.
 - `L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES` merged at `a235602664bbae19c3bfac5e38b85b1bbc4c23a5`. Lane head `1b928b16bfed2c87ad95efb6aae0a5d384fdb903` covers seven RR05 drivers and 53 route obligations.
 - `L15-RR06-BATTLE-SPELL-EFFECT-ROUTES` merged at `1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025`. Lane head `9d17264679d8207c716f51148c52418629684891` covers command/scalar spell-effect routes and closes CP1.
-- Next checkpoint: launch CP2 component sublanes:
+- CP2 running lanes launched from base `a625d3e7190eb33396c17ee5dca7ae73f413b348`:
   - `L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS`
   - `L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS`
   - `L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS`

@@ -140,7 +140,7 @@
     {
       "laneId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
       "checkpointId": "CP2",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp2-rule-core-components",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [
@@ -170,7 +170,7 @@
     {
       "laneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
       "checkpointId": "CP2",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp2-rule-core-components",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [
@@ -200,7 +200,7 @@
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
       "checkpointId": "CP2",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp2-rule-core-components",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [
@@ -228,7 +228,7 @@
     {
       "laneId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
       "checkpointId": "CP2",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp2-rule-core-components",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [
