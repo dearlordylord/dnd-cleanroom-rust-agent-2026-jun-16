@@ -754,9 +754,14 @@ use battle_runtime_interrupt_stack_resume::{
     BRANCH_ACTIONS as INTERRUPT_STACK_RESUME_BRANCH_ACTIONS,
 };
 use battle_runtime_level1_buff_mark_smite_selected_identity::{
+    blocker_reason as level1_buff_mark_smite_blocker_reason,
+    expected_route as expected_level1_buff_mark_smite_route,
     expected_witness as expected_level1_buff_mark_smite_witness,
     projection_payload as level1_buff_mark_smite_projection_payload,
     replay_observed_action as replay_level1_buff_mark_smite_action,
+    replay_observed_route as replay_level1_buff_mark_smite_route,
+    ACCEPTED_BRANCH_ACTIONS as ACCEPTED_LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS,
+    BLOCKED_BRANCH_ACTIONS as BLOCKED_LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS,
     BRANCH_ACTIONS as LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS,
 };
 use battle_runtime_level1_damage_spell_selected_identity::{
@@ -4441,11 +4446,36 @@ fn level1_buff_mark_smite_adapter_replays_all_branches() {
     // battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt; RAW:
     // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md,
     // Descriptions-E-L.md, and Descriptions-S-Z.md selected level-1 spells.
-    for action in LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS {
+    assert_eq!(
+        LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS.len(),
+        ACCEPTED_LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS.len()
+            + BLOCKED_LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS.len()
+    );
+
+    for action in ACCEPTED_LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS {
         let observed = replay_level1_buff_mark_smite_action(action);
         assert_eq!(observed, expected_level1_buff_mark_smite_witness(action));
         assert!(level1_buff_mark_smite_projection_payload(&observed)
             .contains("protocolResult=resolved"));
+
+        let observed_route = replay_level1_buff_mark_smite_route(action);
+        assert_eq!(
+            reducer_route_payload(&observed_route),
+            reducer_route_payload(&expected_level1_buff_mark_smite_route(action))
+        );
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("resolve_battle_subject"));
+        assert!(
+            route_payload.contains("WeaponDamageRiderRouteSubject")
+                || route_payload.contains("AfterHitDamageRiderRouteSubject")
+                || route_payload.contains("HeldWeaponActiveEffectRouteSubject")
+                || route_payload.contains("SpellHostedWeaponAttackRouteSubject")
+                || route_payload.contains("ScalarBuffEffectRouteSubject")
+        );
+    }
+
+    for (action, reason) in BLOCKED_LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS {
+        assert_eq!(level1_buff_mark_smite_blocker_reason(action), Some(reason));
     }
 }
 

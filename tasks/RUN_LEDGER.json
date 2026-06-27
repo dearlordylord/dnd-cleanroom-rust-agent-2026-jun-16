@@ -2705,6 +2705,80 @@
         }
       ],
       "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
+    },
+    {
+      "taskId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt"
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/START_GATE.json",
+          "sha256": "8d71591983e4082e20b28f7791ef0c851915e941269e52abfd78fb6f0f2904d5"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "6f25e1bafba969835563b0dc36e2981c574402f4799f6eaeb4dc44abf4438f87"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "1d5df717da33432530d6ae9d82c740327668fad3cc1c614fc03c59e11ed5449b"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "92232024b1a7ce2b5da1f02afe9726836aec3c3933c12a820556cda099073b63"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "0d196340559b38a168a297c777a04ba5ecefc94141b003ab7b92eac8b3a1e56d"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json",
+          "sha256": "59babe5f846283355cf363da5f0bcc3063a62bed983bcb7f6864331bb7c43158",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doDivineFavorWeaponDamageRider#step:doDivineFavorWeaponDamageRider",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doDivineSmiteAfterHitDamage#step:doDivineSmiteAfterHitDamage",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape#step:doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doFalseLifeTemporaryHitPoints#step:doFalseLifeTemporaryHitPoints",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doLongstriderSpeedIncrease#step:doLongstriderSpeedIncrease",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doSearingSmiteAfterHitTimedDamageAndSaveCleanup#step:doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doShillelaghWeaponAttackOverride#step:doShillelaghWeaponAttackOverride",
+            "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doTrueStrikeSpellHostedWeaponAttack#step:doTrueStrikeSpellHostedWeaponAttack"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "cargo test level1_buff_mark_smite_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD",
+          "status": "pass"
+        }
+      ]
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

@@ -760,6 +760,7 @@ fn holes_from_spine(holes: &[BattleHoleKind]) -> Vec<WeaponAttackSkeletonHole> {
             BattleHoleKind::AttackRoll => WeaponAttackSkeletonHole::AttackRoll,
             BattleHoleKind::RolledDice => WeaponAttackSkeletonHole::DamageRoll,
             BattleHoleKind::SpellTargetAllocation
+            | BattleHoleKind::AbilityCheck
             | BattleHoleKind::SpellTargetList
             | BattleHoleKind::DamageTypeChoice
             | BattleHoleKind::ConditionChoice
