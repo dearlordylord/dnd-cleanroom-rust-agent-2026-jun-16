@@ -221,10 +221,10 @@
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified",
     "CP5-REMAINING-BATTLE-FAMILIES": "split-via-sublanes",
-    "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES": "reviewing",
+    "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES": "fixing-review-findings",
     "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES": "reviewing",
     "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES": "fixing-review-findings",
-    "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES": "reviewing",
+    "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES": "ready-to-merge",
     "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "worker-running",
     "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "ready-to-merge"
   },
@@ -248,7 +248,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-a",
       "branch": "ralph/l15-rrcp5-a-rider-weapon",
       "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
-      "status": "reviewing",
+      "status": "fixing-review-findings",
       "workerAgent": "019f0814-4361-7420-9980-4380319e11c1",
       "workerName": "Heisenberg the 2nd",
       "workerStatus": "complete",
@@ -260,8 +260,17 @@
         "Added generic reducer route subjects for after-hit rider owner splits, weapon damage rider cleanup, and held-weapon target/cleanup routes."
       ],
       "reviewAgent": "019f0827-0101-72e2-84e2-85dbdd08d218",
-      "reviewStatus": "running",
-      "reviewName": "Bohr the 2nd"
+      "reviewStatus": "findings",
+      "reviewName": "Bohr the 2nd",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "Blocked Shining/illumination rows conflict with production AfterHitDamageRiderIllumination route subjects/shapes.",
+        "Duplicate blocker/trace id L15-RRCP5-A-doFinish across different drivers.",
+        "Weapon-hosted all-branches witness test is self-comparison and should not be claimed as independent copied-QNT witness evidence."
+      ],
+      "followupFixerAgent": "019f082b-82c8-7943-9f72-ef80dfd79b8b",
+      "followupFixerStatus": "running",
+      "followupFixerName": "Goodall the 2nd"
     },
     {
       "laneId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
@@ -314,7 +323,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-d",
       "branch": "ralph/l15-rrcp5-d-companion-object",
       "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
-      "status": "reviewing",
+      "status": "ready-to-merge",
       "workerAgent": "019f0814-446b-78a3-8f87-54aea8e638d8",
       "workerName": "Hume the 2nd",
       "workerStatus": "complete",
@@ -326,8 +335,13 @@
         "Starry Wisp object-target behavior uses ObjectTargetSpellAttackRouteSubject with copied connector owner BattleObjectTargetBoundaryOwner."
       ],
       "reviewAgent": "019f0828-859f-7d52-9429-50cb0123dcaa",
-      "reviewStatus": "running",
-      "reviewName": "Ramanujan the 2nd"
+      "reviewStatus": "clean",
+      "reviewName": "Ramanujan the 2nd",
+      "reviewVerdict": "clean",
+      "reviewSummary": [
+        "Accepted 12 rows represented in evidence/report/ledger; no hidden blockers.",
+        "Route replay uses public reducer entrypoints; expected routes independently enumerated; object-target owner distinction verified."
+      ]
     },
     {
       "laneId": "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
