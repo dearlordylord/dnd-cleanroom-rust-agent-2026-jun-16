@@ -1,3 +1,6 @@
 # Blockers
 
 - L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES: no accepted-branch blockers. Find Familiar rows remain accepted after moving observed route evidence to production `BattleReducerRouteTrace` emission; no Find Familiar rows were demoted. Level-2/3 condition-save branches are intentionally out of scope for this lane: doResolveBlindnessDeafnessBlindedSavingThrow, doResolveBlindnessDeafnessDeafenedSavingThrow, doResolveHoldPersonFailedSavingThrow, doResolveHoldPersonRepeatSavingThrowSuccess, doResolveHypnoticPatternFailedSavingThrow.
+- L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES: accepted attack/save damage rows are routed through production `BattleState` spell attack or save-gated reducer entrypoints and observed reducer-route events. Blocked rows:
+  - `doResolveChromaticOrbDuplicateDamageLeap`: chained duplicate-damage leap facts are modeled in `ChromaticOrbSequenceState`, not production `BattleState`; accepting this row would require a production chained/object-target route subject.
+  - `doResolveStarryWispObjectSpellAttackDamageAndDimLight`: object HP and dim-light emitter facts are modeled in `StarryWispObjectState`, not production `BattleState`; accepting this row would require production object-target damage/light state.

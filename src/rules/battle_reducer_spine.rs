@@ -370,6 +370,75 @@ pub struct Combatant {
     pub sneak_attack_used_this_turn: bool,
     pub recharge_available: bool,
     pub spell_slots: BattleSpellSlotLedger,
+    pub spell_active_effects: BattleSpellActiveEffects,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSpellActiveEffectKind {
+    None,
+    HitPointRegainPrevented,
+    NextAttackRollAgainstSelfAdvantage,
+    OpportunityAttackDenied,
+    Poisoned,
+    NextAttackRollDisadvantage,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleSpellActiveEffects {
+    pub hit_point_regain_prevented: bool,
+    pub next_attack_roll_against_self_advantage: bool,
+    pub opportunity_attack_denied: bool,
+    pub poisoned: bool,
+    pub next_attack_roll_disadvantage: bool,
+}
+
+impl BattleSpellActiveEffects {
+    #[must_use]
+    pub const fn none() -> Self {
+        Self {
+            hit_point_regain_prevented: false,
+            next_attack_roll_against_self_advantage: false,
+            opportunity_attack_denied: false,
+            poisoned: false,
+            next_attack_roll_disadvantage: false,
+        }
+    }
+
+    #[must_use]
+    pub const fn with_effect(effect: BattleSpellActiveEffectKind) -> Self {
+        match effect {
+            BattleSpellActiveEffectKind::None => Self::none(),
+            BattleSpellActiveEffectKind::HitPointRegainPrevented => Self {
+                hit_point_regain_prevented: true,
+                ..Self::none()
+            },
+            BattleSpellActiveEffectKind::NextAttackRollAgainstSelfAdvantage => Self {
+                next_attack_roll_against_self_advantage: true,
+                ..Self::none()
+            },
+            BattleSpellActiveEffectKind::OpportunityAttackDenied => Self {
+                opportunity_attack_denied: true,
+                ..Self::none()
+            },
+            BattleSpellActiveEffectKind::Poisoned => Self {
+                poisoned: true,
+                ..Self::none()
+            },
+            BattleSpellActiveEffectKind::NextAttackRollDisadvantage => Self {
+                next_attack_roll_disadvantage: true,
+                ..Self::none()
+            },
+        }
+    }
+
+    #[must_use]
+    pub const fn count(self) -> usize {
+        self.hit_point_regain_prevented as usize
+            + self.next_attack_roll_against_self_advantage as usize
+            + self.opportunity_attack_denied as usize
+            + self.poisoned as usize
+            + self.next_attack_roll_disadvantage as usize
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -596,6 +665,31 @@ pub struct BattleSaveGatedSpellSubject {
     pub stage: SaveGatedSpellFrontierStage,
     pub damage_dice_required: bool,
     pub last_ordering_error: Option<SaveGatedSpellFillOrderingError>,
+    pub damage_application: BattleSaveGatedDamageApplication,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleSaveGatedDamageApplication {
+    pub primary_target: Actor,
+    pub primary_damage: i16,
+    pub primary_effect: BattleSpellActiveEffectKind,
+    pub secondary_target: Option<Actor>,
+    pub secondary_damage: i16,
+    pub spend_first_level_slot: bool,
+}
+
+impl BattleSaveGatedDamageApplication {
+    #[must_use]
+    pub const fn none(actor: Actor) -> Self {
+        Self {
+            primary_target: actor,
+            primary_damage: 0,
+            primary_effect: BattleSpellActiveEffectKind::None,
+            secondary_target: None,
+            secondary_damage: 0,
+            spend_first_level_slot: false,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -668,7 +762,9 @@ pub struct BattleSpellAttackSubject {
     pub target: Option<Actor>,
     pub stage: SpellAttackFrontierStage,
     pub requires_spell_slot: bool,
+    pub spend_first_level_slot: bool,
     pub last_ordering_error: Option<SpellAttackFillOrderingError>,
+    pub target_effect: BattleSpellActiveEffectKind,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -3147,7 +3243,13 @@ pub fn discover_single_target_spell_attack_battle(state: BattleState) -> BattleS
     // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
     // "Making an Attack"; QNT: battle-runtime-spell-attack-ordering.qnt
     // `SpellAttackTargetChoiceStage`.
-    start_spell_attack_subject(state, false, SpellAttackFrontierStage::TargetChoice)
+    start_spell_attack_subject(
+        state,
+        false,
+        false,
+        SpellAttackFrontierStage::TargetChoice,
+        BattleSpellActiveEffectKind::None,
+    )
 }
 
 #[must_use]
@@ -3165,8 +3267,71 @@ pub fn discover_typed_spell_attack_battle(state: BattleState) -> BattleState {
     start_spell_attack_subject(
         state,
         true,
+        true,
         SpellAttackFrontierStage::DamageTypeAndTargetChoice,
+        BattleSpellActiveEffectKind::None,
     )
+}
+
+#[must_use]
+pub fn discover_spell_attack_damage_subject_observed(
+    state: BattleState,
+    requires_spell_slot: bool,
+    target_effect: BattleSpellActiveEffectKind,
+    observer: &mut impl BattleEntrypointObserver,
+) -> (BattleState, BattleSubject) {
+    let actor = current_actor(&state);
+    let subject = diagnostic_subject(BattleSubjectKind::SingleTargetSpellAttack, actor, None);
+    observer.observe_battle_reducer_route(BattleReducerRouteEvent::DiscoverBattleActs {
+        subject: BattleReducerRouteSubjectFamily::SpellAttack,
+        holes: sorted_battle_reducer_route_holes(vec![BattleReducerRouteHoleKind::TargetChoice]),
+        owner: BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+    });
+    let state = start_spell_attack_subject(
+        state,
+        false,
+        requires_spell_slot,
+        SpellAttackFrontierStage::TargetChoice,
+        target_effect,
+    );
+    (state, subject)
+}
+
+#[must_use]
+pub fn discover_save_gated_damage_subject_observed(
+    state: BattleState,
+    damage_application: BattleSaveGatedDamageApplication,
+    observer: &mut impl BattleEntrypointObserver,
+) -> (BattleState, BattleSubject) {
+    let actor = current_actor(&state);
+    let subject = diagnostic_subject(BattleSubjectKind::SaveGatedAreaDamage, actor, None);
+    observer.observe_battle_reducer_route(BattleReducerRouteEvent::DiscoverBattleActs {
+        subject: BattleReducerRouteSubjectFamily::SaveGatedSpell,
+        holes: sorted_battle_reducer_route_holes(vec![
+            BattleReducerRouteHoleKind::SavingThrowOutcome,
+        ]),
+        owner: BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+    });
+    let mut state = state;
+    if !state.action_available {
+        return (state, subject);
+    }
+    if damage_application.spend_first_level_slot {
+        if !can_actor_expend_spell_slot_this_turn(&state, actor) {
+            return (state, subject);
+        }
+        state = claim_pending_actor_spell_slot_use(state, actor);
+    }
+    state.action_available = false;
+    state.save_gated_spell_procedure =
+        BattleSaveGatedSpellProcedure::Active(BattleSaveGatedSpellSubject {
+            actor,
+            stage: SaveGatedSpellFrontierStage::DamageSavingThrowOutcome,
+            damage_dice_required: true,
+            last_ordering_error: None,
+            damage_application,
+        });
+    (state, subject)
 }
 
 #[must_use]
@@ -3195,7 +3360,8 @@ pub fn resolve_spell_attack_subject(
         ..state
     };
     if spell_attack_fill_order_runtime_result(result) == SpellAttackRuntimeResult::Resolved {
-        finalize_spell_attack_subject(next_state, next_subject)
+        let rolled_damage = spell_attack_damage_from_fill(fill);
+        finalize_spell_attack_subject(next_state, next_subject, rolled_damage)
     } else {
         next_state
     }
@@ -4718,6 +4884,7 @@ fn fighter_combatant() -> Combatant {
         sneak_attack_used_this_turn: false,
         recharge_available: false,
         spell_slots: BattleSpellSlotLedger::none(),
+        spell_active_effects: BattleSpellActiveEffects::none(),
     }
 }
 
@@ -4743,6 +4910,7 @@ fn goblin_combatant() -> Combatant {
         sneak_attack_used_this_turn: false,
         recharge_available: true,
         spell_slots: BattleSpellSlotLedger::none(),
+        spell_active_effects: BattleSpellActiveEffects::none(),
     }
 }
 
@@ -4768,6 +4936,7 @@ fn rogue_combatant() -> Combatant {
         sneak_attack_used_this_turn: false,
         recharge_available: false,
         spell_slots: BattleSpellSlotLedger::none(),
+        spell_active_effects: BattleSpellActiveEffects::none(),
     }
 }
 
@@ -4793,6 +4962,7 @@ fn skeleton_combatant() -> Combatant {
         sneak_attack_used_this_turn: false,
         recharge_available: false,
         spell_slots: BattleSpellSlotLedger::none(),
+        spell_active_effects: BattleSpellActiveEffects::none(),
     }
 }
 
@@ -5294,19 +5464,19 @@ fn slot_spell_route_subject_is_live(state: &BattleState, subject: BattleSubject)
 }
 
 fn save_gated_spell_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
-    if !state.action_available
-        || !matches!(
-            subject.kind,
-            BattleSubjectKind::SaveGatedAreaDamage
-                | BattleSubjectKind::SaveGatedTargetListConditionChoice
-        )
-        || !diagnostic_subject_shape_matches(subject, subject.kind, None)
+    if !matches!(
+        subject.kind,
+        BattleSubjectKind::SaveGatedAreaDamage
+            | BattleSubjectKind::SaveGatedTargetListConditionChoice
+    ) || !diagnostic_subject_shape_matches(subject, subject.kind, None)
     {
         return false;
     }
 
     match state.save_gated_spell_procedure {
-        BattleSaveGatedSpellProcedure::Inactive => route_subject_discoverable_now(state, subject),
+        BattleSaveGatedSpellProcedure::Inactive => {
+            state.action_available && route_subject_discoverable_now(state, subject)
+        }
         BattleSaveGatedSpellProcedure::Active(active) => {
             active.actor == subject.actor
                 && active.stage != SaveGatedSpellFrontierStage::Resolved
@@ -5730,6 +5900,39 @@ fn battle_resolution_route_owner(
             Some(BattleReducerRouteFillKind::RolledDice) => BattleReducerRouteOwnerGroup::HitPoint,
             _ => BattleReducerRouteOwnerGroup::AttackActionProcedure,
         },
+        BattleSubjectKind::SingleTargetSpellAttack | BattleSubjectKind::TypedSpellAttack => {
+            match battle_reducer_route_fill_kind(fill) {
+                Some(BattleReducerRouteFillKind::TargetChoice) => {
+                    BattleReducerRouteOwnerGroup::TargetSelection
+                }
+                Some(BattleReducerRouteFillKind::DamageTypeChoice) => {
+                    BattleReducerRouteOwnerGroup::DamageType
+                }
+                Some(BattleReducerRouteFillKind::AttackRoll) => {
+                    BattleReducerRouteOwnerGroup::AttackRoll
+                }
+                Some(BattleReducerRouteFillKind::RolledDice) => {
+                    BattleReducerRouteOwnerGroup::HitPoint
+                }
+                _ => BattleReducerRouteOwnerGroup::SpellAttackProcedure,
+            }
+        }
+        BattleSubjectKind::SaveGatedAreaDamage
+        | BattleSubjectKind::SaveGatedTargetListConditionChoice => {
+            match battle_reducer_route_fill_kind(fill) {
+                Some(BattleReducerRouteFillKind::SavingThrowOutcome) => {
+                    BattleReducerRouteOwnerGroup::HoleFrontier
+                }
+                Some(BattleReducerRouteFillKind::RolledDice) => {
+                    BattleReducerRouteOwnerGroup::HitPoint
+                }
+                Some(
+                    BattleReducerRouteFillKind::SpellTargetList
+                    | BattleReducerRouteFillKind::ConditionChoice,
+                ) => BattleReducerRouteOwnerGroup::HoleFrontier,
+                _ => BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+            }
+        }
         BattleSubjectKind::WeaponMasteryProperty => match (fill, outcome, holes) {
             (
                 BattleFill::WeaponMasteryProperty(BattleWeaponMasteryPropertyFill {
@@ -6189,7 +6392,11 @@ fn resolve_spell_attack_battle_subject_result(
     };
     if spell_attack_fill_order_runtime_result(result) == SpellAttackRuntimeResult::Resolved {
         BattleResolutionResult::Resolved {
-            state: finalize_spell_attack_subject(next_state, next_active),
+            state: finalize_spell_attack_subject(
+                next_state,
+                next_active,
+                spell_attack_damage_from_fill(fill),
+            ),
         }
     } else {
         BattleResolutionResult::NeedsHoles {
@@ -6223,7 +6430,9 @@ fn resolve_save_gated_spell_battle_subject(
         ..state
     };
     if save_gated_spell_fill_order_runtime_result(result) == SaveGatedSpellRuntimeResult::Resolved {
-        BattleResolutionResult::Resolved { state }
+        BattleResolutionResult::Resolved {
+            state: finalize_save_gated_spell_subject(state, next_subject),
+        }
     } else {
         BattleResolutionResult::NeedsHoles {
             state,
@@ -6387,18 +6596,21 @@ fn active_or_initial_save_gated_subject(
                 stage: SaveGatedSpellFrontierStage::DamageSavingThrowOutcome,
                 damage_dice_required: true,
                 last_ordering_error: None,
+                damage_application: BattleSaveGatedDamageApplication::none(subject.actor),
             },
             BattleSubjectKind::SaveGatedTargetListConditionChoice => BattleSaveGatedSpellSubject {
                 actor: subject.actor,
                 stage: SaveGatedSpellFrontierStage::TargetListAndConditionChoice,
                 damage_dice_required: false,
                 last_ordering_error: None,
+                damage_application: BattleSaveGatedDamageApplication::none(subject.actor),
             },
             _ => BattleSaveGatedSpellSubject {
                 actor: subject.actor,
                 stage: SaveGatedSpellFrontierStage::ActSelection,
                 damage_dice_required: false,
                 last_ordering_error: None,
+                damage_application: BattleSaveGatedDamageApplication::none(subject.actor),
             },
         },
     }
@@ -7572,7 +7784,9 @@ fn resolve_attack_roll(
 fn start_spell_attack_subject(
     mut state: BattleState,
     requires_spell_slot: bool,
+    spend_first_level_slot: bool,
     stage: SpellAttackFrontierStage,
+    target_effect: BattleSpellActiveEffectKind,
 ) -> BattleState {
     let actor = current_actor(&state);
     if !state.action_available {
@@ -7584,7 +7798,9 @@ fn start_spell_attack_subject(
         target: None,
         stage,
         requires_spell_slot,
+        spend_first_level_slot,
         last_ordering_error: None,
+        target_effect,
     });
     state
 }
@@ -7612,6 +7828,15 @@ fn spell_attack_fill_attack_hits(
         .unwrap_or(true)
 }
 
+fn spell_attack_damage_from_fill(fill: BattleSpellAttackFill) -> i16 {
+    match fill {
+        BattleSpellAttackFill::DamageRoll(damage) => damage,
+        BattleSpellAttackFill::TargetChoice(_)
+        | BattleSpellAttackFill::DamageTypeChoice
+        | BattleSpellAttackFill::AttackRoll(_) => 0,
+    }
+}
+
 fn spell_attack_result_stage(result: SpellAttackFillOrderResult) -> SpellAttackFrontierStage {
     match result {
         SpellAttackFillOrderResult::Accepted(stage)
@@ -7637,12 +7862,62 @@ fn spell_attack_target_after_fill(
 fn finalize_spell_attack_subject(
     state: BattleState,
     subject: BattleSpellAttackSubject,
+    rolled_damage: i16,
 ) -> BattleState {
-    if !subject.requires_spell_slot {
-        return state;
+    let state = if let Some(target) = subject.target {
+        apply_spell_damage_to_target(state, target, rolled_damage, subject.target_effect)
+    } else {
+        state
+    };
+    if subject.spend_first_level_slot {
+        let state = expend_combatant_spell_slot(state, subject.actor, BattleSpellSlotLevel::First);
+        commit_actor_spell_slot_use(state, subject.actor)
+    } else {
+        state
     }
-    let state = expend_combatant_spell_slot(state, subject.actor, BattleSpellSlotLevel::First);
-    commit_actor_spell_slot_use(state, subject.actor)
+}
+
+fn finalize_save_gated_spell_subject(
+    state: BattleState,
+    subject: BattleSaveGatedSpellSubject,
+) -> BattleState {
+    let application = subject.damage_application;
+    let state = apply_spell_damage_to_target(
+        state,
+        application.primary_target,
+        application.primary_damage,
+        application.primary_effect,
+    );
+    let state = if let Some(target) = application.secondary_target {
+        apply_spell_damage_to_target(
+            state,
+            target,
+            application.secondary_damage,
+            BattleSpellActiveEffectKind::None,
+        )
+    } else {
+        state
+    };
+    if application.spend_first_level_slot {
+        let state = expend_combatant_spell_slot(state, subject.actor, BattleSpellSlotLevel::First);
+        commit_actor_spell_slot_use(state, subject.actor)
+    } else {
+        state
+    }
+}
+
+fn apply_spell_damage_to_target(
+    state: BattleState,
+    target: Actor,
+    damage: i16,
+    effect: BattleSpellActiveEffectKind,
+) -> BattleState {
+    let mut state = with_damaged_target(state, target, damage);
+    if effect != BattleSpellActiveEffectKind::None {
+        combatant_for_mut(&mut state, target).spell_active_effects =
+            BattleSpellActiveEffects::with_effect(effect);
+    }
+    state
 }
 
 fn finalize_slot_spell_damage(
