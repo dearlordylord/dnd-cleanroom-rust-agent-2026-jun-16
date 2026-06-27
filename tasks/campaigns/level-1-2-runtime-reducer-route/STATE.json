@@ -223,8 +223,8 @@
       "branch": "ralph/l15-rr07-fu01c-weapon-buff-mark-smite",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
       "status": "worker-running",
-      "workerAgent": "pending",
-      "workerName": "pending"
+      "workerAgent": "019f07d6-14be-7123-8467-097ce9bee9db",
+      "workerName": "Bernoulli"
     },
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
@@ -232,8 +232,8 @@
       "branch": "ralph/l15-rr07-fu01d-protection-charm-ward",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
       "status": "worker-running",
-      "workerAgent": "pending",
-      "workerName": "pending"
+      "workerAgent": "019f07d6-63cd-7821-8803-074f626ac3e5",
+      "workerName": "Pasteur"
     },
     {
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
@@ -241,8 +241,8 @@
       "branch": "ralph/l15-rr07-fu01e-armor-reaction",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
       "status": "worker-running",
-      "workerAgent": "pending",
-      "workerName": "pending"
+      "workerAgent": "019f07d6-b9cc-7ba2-86ce-f65b35152f65",
+      "workerName": "Erdos"
     },
     {
       "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
@@ -250,8 +250,8 @@
       "branch": "ralph/l15-rr07-fu01f-spatial-light-area",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
       "status": "worker-running",
-      "workerAgent": "pending",
-      "workerName": "pending"
+      "workerAgent": "019f07d7-0064-7062-9609-a2d22a704f0d",
+      "workerName": "Einstein the 2nd"
     }
   ],
   "completedLaneWorktrees": [
