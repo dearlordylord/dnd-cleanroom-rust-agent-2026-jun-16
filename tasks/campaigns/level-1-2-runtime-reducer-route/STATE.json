@@ -167,7 +167,7 @@
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "merged-verified",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "merged-verified",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
-    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "rereviewing",
+    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "fixing",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "fixing",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
@@ -192,7 +192,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a",
       "branch": "ralph/l15-rr07s-a-passive-roll-resource",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "rereviewing",
+      "status": "fixing",
       "workerAgent": "019f070a-d8bb-7111-b578-d4eee793076f",
       "workerName": "Copernicus",
       "commit": "d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62",
@@ -274,7 +274,18 @@
       ],
       "rereview2Agent": "019f0740-6f67-70d1-9c83-c4012fa2f0a5",
       "rereview2Name": "Raman",
-      "rereview2Status": "running"
+      "rereview2Status": "findings",
+      "rereview2Verdict": "findings",
+      "rereview2Findings": [
+        "Observed lane A routes are still synthesized in adapters: adapters create BattleReducerRouteTrace::default(), populate it by calling observe_battle_route_* from adapter-local record_* helpers, then translate that trace.",
+        "Artifacts still overclaim reducer-routed evidence: target evidence, DECIDER_DECISION, and REVIEW_LOOP say tests compare production BattleReducerRouteTrace-observed output, but observed routes are adapter-authored traces."
+      ],
+      "rereview2Verification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "cargo test adapter_replays_all_branches (76 passed, 130 filtered)",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
