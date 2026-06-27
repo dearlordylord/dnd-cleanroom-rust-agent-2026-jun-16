@@ -15,7 +15,7 @@ This file prevents orphaned or confused Ralph worktrees.
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
 | L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04a` | `ralph/l15-rr04a-rule-core-damage-statblock` | `a625d3e7190eb33396c17ee5dca7ae73f413b348` | Cicero `019f0670-c7a0-72d1-9fd3-cfeb18268fab` | running |
-| L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b` | `ralph/l15-rr04b-rule-core-movement-reaction-shove` | `a625d3e7190eb33396c17ee5dca7ae73f413b348` | Russell `019f0671-240b-7540-9f83-d8c2b4e83b30` | running |
+| L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b` | `ralph/l15-rr04b-rule-core-movement-reaction-shove` | `a625d3e7190eb33396c17ee5dca7ae73f413b348` | Russell `019f0671-240b-7540-9f83-d8c2b4e83b30` | implemented-pending-review, lane head `629d9ef2c992042ddf007a6517f7e428478598d1` |
 | L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c` | `ralph/l15-rr04c-rule-core-spell-ability` | `a625d3e7190eb33396c17ee5dca7ae73f413b348` | Avicenna `019f0671-762b-7002-954d-a26a7c37c13c` | running |
 | L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04d` | `ralph/l15-rr04d-rule-core-feature-profile` | `a625d3e7190eb33396c17ee5dca7ae73f413b348` | Mill `019f0671-d268-7f62-b173-674d8d90738f` | running |
 

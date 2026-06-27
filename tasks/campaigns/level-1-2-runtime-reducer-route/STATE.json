@@ -83,9 +83,11 @@
       "parentLaneId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "runningLaneIds": [
         "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
-        "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
         "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
         "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS"
+      ],
+      "reviewingLaneIds": [
+        "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS"
       ]
     },
     {
@@ -155,7 +157,7 @@
     "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES": "blocked-on-checkpoint",
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint",
     "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "running",
-    "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "running",
+    "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "implemented",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "running",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "running"
   },
@@ -209,9 +211,10 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b",
       "branch": "ralph/l15-rr04b-rule-core-movement-reaction-shove",
       "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "running",
+      "status": "implemented-pending-review",
       "workerAgent": "019f0671-240b-7540-9f83-d8c2b4e83b30",
-      "workerName": "Russell"
+      "workerName": "Russell",
+      "commit": "629d9ef2c992042ddf007a6517f7e428478598d1"
     },
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
