@@ -23,7 +23,8 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is accepted after the copied route connector refresh. |
 | CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
 | CP6 Closure Sweep | complete | Closure audit recorded in `CP6_AUDIT.json` and `CP6_CLOSURE_REPORT.md`; every in-scope obligation is accepted or explicitly blocked. |
-| CP7 Post-CP6 Target Blocker Reduction | blocked on source/corpus refresh | `L15-RRCP7-A` through `L15-RRCP7-E` merged and verified; thirteen target blockers are accepted after CP6, and twelve blockers remain. Those rows now require source QNT/corpus route support or a denominator decision before another dirty cleanroom lane can honestly accept them. |
+| CP7 Post-CP6 Target Blocker Reduction | complete after source refresh | `L15-RRCP7-A` through `L15-RRCP7-E` merged and verified; source refresh `d5a70b23` moved nine fixture scenario transition rows out of the reducer-route denominator and supplied a generic spell base Armor Class route connector. |
+| CP8 Post-Refresh Mage Armor Route Acceptance | ready | One lane is queued: `L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES`, covering the three remaining Mage Armor admission/lifecycle rows against `battle-runtime-spell-base-armor-class-effect.route.mbt.qnt`. |
 
 ## Last Known Verification
 
@@ -47,6 +48,12 @@ Remaining blocker groups:
 
 - `9` scenario transition rows in the after-hit and weapon-hosted drivers. Source must decide whether these are fixture sequencing rows that should leave the reducer-route denominator, or real reducer transitions that need explicit QNT route connectors.
 - `3` Mage Armor rows. Source must add a generic armor-class base active-effect / target-admission battle route connector before target replay can count them.
+
+Resolved by source refresh `d5a70b23ad05abd4188b1f0d37d9c6aba600cce5`:
+
+- The nine scenario transition rows are now out-of-scope transit-only fixture sequencing rows.
+- The Mage Armor selected-identity driver is now reducer-routed through `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt`.
+- Refreshed denominator: `659` in-scope obligations, `45` out-of-scope obligations. Accepted target evidence remains `656`, so `3` rows are ready for CP8 target replay.
 
 ## Active Work
 

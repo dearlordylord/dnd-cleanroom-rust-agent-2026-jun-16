@@ -5,9 +5,9 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: 53642cf0b1bc98f4426b6081fe37c98a960939fc
-- Copy date: 2026-06-27T09:51:23.328Z
-- Files: 513
+- Source commit SHA: d5a70b23ad05abd4188b1f0d37d9c6aba600cce5
+- Copy date: 2026-06-27T14:17:33.036Z
+- Files: 514
 
 Cleanroom tasks must declare which source commit SHA they implement
 against (the `Source commit SHA` recorded here at task start).
@@ -44,7 +44,7 @@ instead of guessing.
 - `branch-coverage/reducer-route-inventory.json`: 1
 - `guidance/README.md`: 1
 - `guidance/reducer-spine.md`: 1
-- `qnt/battle-runtime`: 316
+- `qnt/battle-runtime`: 317
 - `qnt/character-creation-runtime`: 22
 - `qnt/character-sheet-runtime`: 23
 - `qnt/character-battle-runtime`: 11
@@ -95,8 +95,8 @@ instead of guessing.
 | `raw/srd-5.2.1/Spells/Gaining-and-Casting.md` | `fc36dfa2fb45157289d90b1ae9b09e36211bc92c7ef4bd0c8f8af4a65cda9403` | `.references/srd-5.2.1/Spells/Gaining-and-Casting.md` |
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
-| `branch-coverage/source-branch-inventory.json` | `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
-| `branch-coverage/reducer-route-inventory.json` | `a7e709e8e8988aab49c2274d7c3481d79ff9e1a9188e87f1888324106acec471` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
+| `branch-coverage/source-branch-inventory.json` | `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
+| `branch-coverage/reducer-route-inventory.json` | `e76d003bcff671c3567e35f9ee3e15bec5801e4807fdfe35e2fdc937d3f0e13c` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
 | `guidance/README.md` | `d62a834399e1469186bc931f2d27bdf696b9a67c9c9e21c15982ee722ed5384b` | `plans/cleanroom-guidance/README.md` |
 | `guidance/reducer-spine.md` | `0421042330a8d30ec3fc832cfcf987d7c666c020f2c0f48e4f79d1ee605d88be` | `plans/cleanroom-guidance/reducer-spine.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
@@ -284,7 +284,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` | `8192d11ce0dc893853b0eceda1b7ef853bbee219295f8e18e5071a5d33789e4a` | `packages/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window-tests.qnt` | `4ce834fb0929cec617e79abf7a4cfcbacdc10718041c774f0f092ae434b76159` | `packages/battle-runtime/battle-runtime-reaction-window-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window.qnt` | `f557bce899edff541e53cfd081a0a0a4db84364c355aa1605e438b6015ef383e` | `packages/battle-runtime/battle-runtime-reaction-window.qnt` |
-| `qnt/battle-runtime/battle-runtime-reducer-route.qnt` | `c10ae0669f4d0bfe8606f4684c307cb7a8cee760f3280c905ff866f455fe54d7` | `packages/battle-runtime/battle-runtime-reducer-route.qnt` |
+| `qnt/battle-runtime/battle-runtime-reducer-route.qnt` | `f0adb8d01e920da4dda3d74ae7db158f6e2f4f477b08abd7dbf2ede29db21a78` | `packages/battle-runtime/battle-runtime-reducer-route.qnt` |
 | `qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` | `5b7fe7a06d31dda4e32625ede181289efe9c2b9ddb8fe6e42df87d826b88e565` | `packages/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` | `0b0e39e7cd765f7203dedd77221d12b7724e3083cd67be5573b65b46ced46967` | `packages/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` | `fca72ca4bb400a1de697f0fa4786210eb57a8a0130ee7531c9f9226a0997d43e` | `packages/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` |
@@ -347,6 +347,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-spell-attack-ordering.route.mbt.qnt` | `56c2b847c1dcfc7dd833d67e00fc3e728c936cf084c82138d5ee948d639e350a` | `packages/battle-runtime/battle-runtime-spell-attack-ordering.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-attack-tests.qnt` | `7bf6ed4c7b2de7923c4c9cc667af12f6a9c93c868718e4b0d8f7e40bb4f0af85` | `packages/battle-runtime/battle-runtime-spell-attack-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-attack.qnt` | `96d01cd512ec37eb9993c324c73c8cf418a1b9caf4c3dc064a6e6f7a79af457d` | `packages/battle-runtime/battle-runtime-spell-attack.qnt` |
+| `qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt` | `9e84c94cb89313d8a788ca1163aa86bd1b727c72a1175044e1aeb2951ccda060` | `packages/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-bridge-examples.qnt` | `4ca06ff6ec75c462170d3d82a5cbf45e1b7b80150d47dccca56e4e6ffe8caa0a` | `packages/battle-runtime/battle-runtime-spell-bridge-examples.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-bridge.qnt` | `d6b9a5e84a01bc5d46074a681a3f40cf7973f8c09ce00c464853a62966b9b00f` | `packages/battle-runtime/battle-runtime-spell-bridge.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-created-held-object-lifecycle.mbt.qnt` | `658d72dbf958861e770316b6e391423c020bf0a03cf30f41edbc1006007609d8` | `packages/battle-runtime/battle-runtime-spell-created-held-object-lifecycle.mbt.qnt` |
@@ -572,5 +573,5 @@ instead of guessing.
 
 | File | sha256 |
 | --- | --- |
-| `scripts/check-cleanroom-harness.cjs` | `0ed7656ef183599a8f54c604219ad34e51a0addb757d4be34deb694938db82f1` |
-| `scripts/cleanroom-branch-coverage-check.cjs` | `5b7f4913a2c6455c556e13a276107337219804698ffd087c64d536cf66c6e06c` |
+| `scripts/check-cleanroom-harness.cjs` | `bf3a3120ef5bb10b0a11093bb3bbe8d911199f720cc4cba050d4080e78ba5130` |
+| `scripts/cleanroom-branch-coverage-check.cjs` | `4a02c5241cb3842e2f9228302ea4f28bd8472c33a2936d7d79b2348205096ae2` |

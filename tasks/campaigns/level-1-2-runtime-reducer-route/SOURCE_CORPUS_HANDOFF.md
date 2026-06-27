@@ -10,11 +10,14 @@ Last dirty-cleanroom accounting head: `673df2329de89144270ab0d977f5cce1bb670ade`
 
 ## Status
 
-CP7 exhausted the target-side reducer-route work that can be accepted from the copied cleanroom input package.
+CP7 exhausted the target-side reducer-route work that could be accepted from the previous copied cleanroom input package.
 
-Current coverage is `656 / 668` accepted in-scope obligations. The remaining `12` obligations are not ready for another dirty Rust cleanroom implementation lane. Accepting them in target code now would infer semantics that are not present in the cleanroom package.
+Source refresh `d5a70b23ad05abd4188b1f0d37d9c6aba600cce5` satisfied this handoff:
 
-No Ralph worker should be launched for these rows until the source QNT/branch inventory package is refreshed or the denominator is intentionally changed.
+- the nine fixture scenario transition rows are now out-of-scope transit-only rows;
+- the three Mage Armor admission/lifecycle rows are now reducer-routed through `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt`.
+
+Current target evidence coverage remains `656` accepted obligations, but the refreshed denominator is now `659` in-scope obligations. The next dirty cleanroom lane is target-side CP8 for the remaining three rows.
 
 ## Remaining Blocker Groups
 
@@ -36,10 +39,9 @@ Rows:
 
 Current evidence reason: `scenario transition has no reducer route surface`.
 
-Source-side decision required:
+Source-side decision result:
 
-- If these actions are fixture scenario sequencing, update source branch-scope or branch-inventory generation so they are excluded from reducer-route coverage.
-- If source decides any of them are real reducer transitions, add explicit QNT route connectors for that transition surface and regenerate the cleanroom package before target implementation.
+- These actions were classified as fixture scenario sequencing and excluded from reducer-route coverage as out-of-scope transit-only rows.
 
 The dirty cleanroom must not synthesize a route for these rows from adapter names or prior implementation history.
 
@@ -53,17 +55,15 @@ Rows:
 - `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration`
 - `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget`
 
-Current evidence reason: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission / active-effect lifecycle route owner.
+Current evidence reason: resolved by refreshed generic spell base Armor Class route connector.
 
-Source-side work required:
+Source-side work completed:
 
-- Add a generic armor-class base active-effect battle route connector.
-- Cover unarmored target admission, armored-target rejection, and duration expiry.
-- Keep selected spell identity at catalog, selection, admission, or fixture boundaries only.
-- Regenerate the cleanroom input package before any target lane attempts acceptance.
+- Added a generic spell base Armor Class route connector.
+- Covered unarmored target admission, armored-target rejection, base Armor Class active-effect projection, and duration expiry.
+- Kept selected spell identity at catalog, selection, admission, or fixture boundaries only.
+- Regenerated the cleanroom input package for the dirty target.
 
 ## Next Campaign Boundary
 
-The next useful dirty-cleanroom phase is a refresh phase after source/corpus work lands. It should consume a regenerated cleanroom package, recompute the branch denominator, and then launch only the rows that the new package makes derivable.
-
-Until that refresh exists, the campaign is blocked on source/corpus or denominator decisions, not on Rust implementation.
+The next useful dirty-cleanroom phase is CP8. It should consume the regenerated package and launch only `L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES`.

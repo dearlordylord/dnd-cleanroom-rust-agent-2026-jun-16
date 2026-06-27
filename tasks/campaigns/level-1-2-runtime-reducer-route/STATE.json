@@ -1,19 +1,23 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "blocked-on-source-corpus-refresh",
+  "status": "post-source-refresh-active",
   "dirtyCleanroomOnly": true,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "673df2329de89144270ab0d977f5cce1bb670ade",
+    "lastVerifiedIntegrationHead": "2cad93ab15f4b84898d00ce6efaa337746a6fa64",
     "lastMergedLane": {
       "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
       "mergeCommit": "24ad8f3b493b2affa4dba3607a619f92bf54eb16",
       "laneHead": "d08c66e271cae1d4f3ddd5eb1ca101ad5b11c14c",
       "note": "CP7-E accepted exactly the two Magic Weapon item-target rows through observed reducer-entrypoint route events matching the copied WeaponEnhancementItemTargetRouteSubject qRoute. Scenario transition and Mage Armor rows remain blocked."
+    },
+    "lastSourceRefresh": {
+      "sourceCommitSha": "d5a70b23ad05abd4188b1f0d37d9c6aba600cce5",
+      "note": "Refreshed cleanroom-input from source after generic SpellBaseArmorClassEffectRouteSubject connector and fixture sequencing denominator exclusions landed."
     }
   },
   "denominator": {
@@ -21,9 +25,9 @@
     "denominatorId": "level-1-5-cleanroom-route-v1",
     "levelScopeFile": "tasks/LEVEL_1_2_SCOPE.md",
     "driverFiles": 97,
-    "canonicalInScopeBranchObligations": 668,
+    "canonicalInScopeBranchObligations": 659,
     "routeAssignmentObligationSumBeforeScopeExclusions": 699,
-    "currentOutOfScopeBranchObligations": 36
+    "currentOutOfScopeBranchObligations": 45
   },
   "coverageAtBootstrap": {
     "acceptedUniqueDrivers": 7,
@@ -37,12 +41,12 @@
     "acceptedUniqueDrivers": 97,
     "acceptedDriverCoveragePercent": 100,
     "acceptedObligations": 656,
-    "acceptedObligationCoveragePercent": 98.2,
-    "blockedObligations": 12,
-    "outOfScopeObligations": 36,
+    "acceptedObligationCoveragePercent": 99.5,
+    "blockedObligations": 3,
+    "outOfScopeObligations": 45,
     "unresolvedInScopeObligations": 0,
     "acceptedUniqueDriversSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit",
-    "acceptedObligationsSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit; CP7 accepted four FU01C target blockers, two FU01B residual route-shape blockers, five CP7-C ordinary/pre-hit weapon setup blockers, and two CP7-E Magic Weapon item-target blockers after reducer-entrypoint replay evidence. CP7-D added no accepted rows and keeps the three Mage Armor admission/lifecycle rows blocked pending source/corpus route support. The remaining nine scenario transition rows require a source-side denominator or route-surface decision before any target acceptance."
+    "acceptedObligationsSource": "CP7_AUDIT.json remains the pre-refresh row-key audit for accepted target replay evidence. After source refresh d5a70b23, the canonical in-scope denominator is 659: nine scenario sequencing rows moved out of scope as transit-only fixture rows, and the three Mage Armor admission/lifecycle rows are now reducer-routed through cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt pending target replay acceptance."
   },
   "completedBeforeCampaign": [
     "T001",
@@ -58,7 +62,7 @@
     "RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT",
     "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
   ],
-  "activeCheckpoint": "CP7",
+  "activeCheckpoint": "CP8",
   "checkpoints": [
     {
       "checkpointId": "CP0",
@@ -184,7 +188,7 @@
     {
       "checkpointId": "CP7",
       "name": "Post-CP6 Target Blocker Reduction",
-      "status": "blocked-on-source-corpus-refresh",
+      "status": "complete-after-source-refresh",
       "dependsOn": [
         "CP6"
       ],
@@ -197,8 +201,22 @@
         "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES"
       ],
       "readyLaneIds": [],
-      "notes": "CP7 target-side blocker reduction is exhausted at 656/668 accepted obligations. The remaining twelve rows are not ready for another dirty target lane: nine are scenario transition rows requiring a source-side denominator or route-surface decision, and three Mage Armor rows require a generic armor-class battle route connector in the source/corpus package.",
-      "nextBoundary": "Refresh source QNT/branch inventory/cleanroom input package before launching CP8 or any further dirty cleanroom target lane."
+      "notes": "CP7 target-side blocker reduction closed after source refresh d5a70b23. The nine scenario transition rows are now out-of-scope transit-only fixture rows, and Mage Armor route ownership is supplied by the generic SpellBaseArmorClassEffectRouteSubject connector.",
+      "nextBoundary": "CP8 handles the three remaining Mage Armor target replay rows against the refreshed cleanroom package."
+    },
+    {
+      "checkpointId": "CP8",
+      "name": "Post-Refresh Mage Armor Route Acceptance",
+      "status": "ready",
+      "dependsOn": [
+        "CP7"
+      ],
+      "runningLaneIds": [],
+      "readyLaneIds": [
+        "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES"
+      ],
+      "mergedLaneIds": [],
+      "notes": "Run exactly the three remaining Mage Armor rows through the refreshed generic SpellBaseArmorClassEffectRouteSubject connector. Do not reintroduce selected spell identity dispatch or route the nine scenario sequencing rows."
     }
   ],
   "laneStatuses": {
@@ -255,7 +273,8 @@
     "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "merged-verified",
     "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "merged-verified",
     "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "merged-verified",
-    "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "merged-verified"
+    "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "merged-verified",
+    "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES": "ready"
   },
   "lastIntegrationVerification": {
     "head": "673df2329de89144270ab0d977f5cce1bb670ade",
@@ -2253,20 +2272,9 @@
     "If the integration HEAD changes outside this campaign, stop and reconcile before launching more Ralph workers."
   ],
   "sourceCorpusRefreshRequired": {
-    "status": "required-before-next-cleanroom-target-lane",
+    "status": "satisfied-by-source-refresh",
+    "sourceCommitSha": "d5a70b23ad05abd4188b1f0d37d9c6aba600cce5",
     "report": "tasks/campaigns/level-1-2-runtime-reducer-route/SOURCE_CORPUS_HANDOFF.md",
-    "summary": "CP7 exhausted target-side reducer-route work available from the copied cleanroom input package. The remaining twelve rows need source/corpus changes or denominator decisions before another dirty cleanroom lane can honestly accept them.",
-    "blockerGroups": [
-      {
-        "group": "scenario-transition-denominator-or-route-surface",
-        "obligations": 9,
-        "recommendation": "Review source branch-scope and route inventory generation. If these doStart/doFinish rows are fixture scenario sequencing, exclude them from reducer-route obligations. If source decides they are real reducer transitions, add explicit QNT route connectors and regenerate the cleanroom input package before target work."
-      },
-      {
-        "group": "battle-armor-class-active-effect-route-owner",
-        "obligations": 3,
-        "recommendation": "Add a source QNT route connector for a generic armor-class target-admission and active-effect lifecycle owner covering unarmored admission, armored-target rejection, and duration expiry. Regenerate cleanroom input before target work."
-      }
-    ]
+    "summary": "Source refresh supplied the generic spell base Armor Class route connector and moved the nine fixture scenario transition rows out of the reducer-route denominator. The next dirty target lane may attempt only the three Mage Armor admission/lifecycle rows."
   }
 }

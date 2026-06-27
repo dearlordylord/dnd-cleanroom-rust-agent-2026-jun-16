@@ -309,6 +309,34 @@ Do not launch another dirty cleanroom target lane for these rows until the
 source QNT/branch inventory package is refreshed or the denominator is
 intentionally changed.
 
+Refresh result: source commit `d5a70b23ad05abd4188b1f0d37d9c6aba600cce5`
+satisfied this boundary. The cleanroom package now excludes the nine fixture
+scenario transition rows as out-of-scope transit-only rows and supplies
+`battle-runtime-spell-base-armor-class-effect.route.mbt.qnt` for the generic
+spell base Armor Class target-admission / active-effect lifecycle route.
+
+### CP8: Post-Refresh Mage Armor Route Acceptance
+
+Purpose:
+
+Consume the refreshed cleanroom package in the dirty Rust target and accept the
+three remaining Mage Armor admission/lifecycle rows only if they replay through
+observed shared reducer entrypoints and match the generic
+`SpellBaseArmorClassEffectRouteSubject` connector.
+
+Lane:
+
+- `L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES`
+
+Exit criteria:
+
+- `doDiscoverMageArmorUnarmoredSelfTarget`, `doRejectMageArmorArmoredTarget`,
+  and `doExpireMageArmorDuration` have target replay evidence matched to the
+  generic connector;
+- no production selected spell identity dispatch is introduced;
+- scenario transition rows remain out-of-scope transit-only and are not counted
+  as accepted target replay.
+
 ## Standard Lane Lifecycle
 
 1. Mark lane `ready` -> `running` in `STATE.json`.

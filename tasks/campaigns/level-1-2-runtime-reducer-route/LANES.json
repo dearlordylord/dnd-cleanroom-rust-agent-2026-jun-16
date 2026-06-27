@@ -1258,6 +1258,56 @@
         "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json"
       ],
       "acceptanceSummary": "Merged and verified as a blocker/research result with zero accepted rows. The three Mage Armor admission/lifecycle rows remain target-blocked because the copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission/active-effect lifecycle route owner; accepting them in target code would be source/corpus inference, not cleanroom evidence."
+    },
+    {
+      "laneId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES",
+      "checkpointId": "CP8",
+      "status": "ready",
+      "parallelGroup": "cp8-post-source-refresh-target-acceptance",
+      "routeTaskIds": [
+        "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES"
+      ],
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 1,
+      "branchObligations": 3,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt"
+      ],
+      "routeConnectorPaths": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt"
+      ],
+      "selectedBranchActions": [
+        "doDiscoverMageArmorUnarmoredSelfTarget",
+        "doRejectMageArmorArmoredTarget",
+        "doExpireMageArmorDuration"
+      ],
+      "purpose": "Accept the three remaining Mage Armor admission/lifecycle rows by replaying them through the refreshed generic SpellBaseArmorClassEffectRouteSubject connector and observed production reducer entrypoints.",
+      "dependencies": [
+        "cleanroom-input manifest source SHA d5a70b23ad05abd4188b1f0d37d9c6aba600cce5",
+        "generic spell base Armor Class route connector present",
+        "nine scenario transition rows excluded from the refreshed reducer-route denominator as transit-only fixture sequencing rows"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/level_one_armor_spells.rs",
+        "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json",
+        "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/**",
+        "tasks/RUN_LEDGER.json",
+        "tasks/VALIDATION_REPORT.md",
+        "tasks/campaigns/level-1-2-runtime-reducer-route/CP8_AUDIT.json"
+      ],
+      "acceptanceCriteria": [
+        "Observed replay for each selected row goes through start_battle_observed, discover_battle_acts, resolve_battle_subject, or equivalent existing observed reducer entrypoints that emit BattleEntrypointTrace.route_events.",
+        "Observed route events match cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt for target admission, armored target rejection, and duration expiry surfaces.",
+        "Production code does not dispatch on Mage Armor name/id/provenance; selected identity remains fixture/admission/catalog data only.",
+        "The nine scenario transition rows remain out-of-scope transit-only and are not accepted by target replay evidence."
+      ],
+      "blockerHandling": "If the refreshed connector is still insufficient, record the exact missing generic owner/fill/subject fact instead of synthesizing a selected spell route."
     }
   ],
   "standardVerification": [
