@@ -4,8 +4,8 @@
 
 - Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Last completed current-snapshot queued branch set: `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES`
-- Latest evidence: `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json`
+- Last completed current-snapshot queued branch set: `L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES`
+- Latest evidence: `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json`
 - Latest verification: cargo fmt --check, cargo test, cargo clippy, cleanroom harness, and git diff --check passed.
 
 ## Dirty Rehearsal Caveats
@@ -2352,3 +2352,82 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed after artifact convergence.
 - `git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD` passed.
+## L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES: Metamagic Save, Range, and Target Substrates
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Drivers:
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt`
+- `cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md`
+- `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- Repo-local `src/**`, `tasks/**`, and Rust/Cargo tooling
+
+Behavior implemented:
+
+- Replayed Careful, Heightened, Distant, and Twinned selected-identity branches through production `BattleState` reducer entrypoints: `start_battle_observed`, `discover_battle_acts_observed`, and `resolve_battle_subject_observed`.
+- Reused the FU08A Sorcery Point resource and one-option metamagic governor facts; branch adapters no longer synthesize observed state directly.
+- Routed observed evidence through typed save, damage-adjustment, condition, object-boundary, target-selection, action-economy, and feature-resource owner facts without production dispatch on authored spell or option identity.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt#step:doResolveCarefulSaveGatedDamage` | `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveCarefulSaveGatedDamage#step:doResolveCarefulSaveGatedDamage` | `src/qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt#step:doResolveCarefulSaveGatedNoEffect` | `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveCarefulSaveGatedNoEffect#step:doResolveCarefulSaveGatedNoEffect` | `src/qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt#step:doResolveHeightenedSaveGatedDamage` | `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedSaveGatedDamage#step:doResolveHeightenedSaveGatedDamage` | `src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt#step:doResolveHeightenedHideousLaughter` | `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedHideousLaughter#step:doResolveHeightenedHideousLaughter` | `src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt#step:doResolveHeightenedGreaseEntrySave` | `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedGreaseEntrySave#step:doResolveHeightenedGreaseEntrySave` | `src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt#step:doResolveHeightenedGustOfWindEndTurnSave` | `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedGustOfWindEndTurnSave#step:doResolveHeightenedGustOfWindEndTurnSave` | `src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt#step:doResolveHeightenedSaveGatedConditionEndTurnSave` | `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedSaveGatedConditionEndTurnSave#step:doResolveHeightenedSaveGatedConditionEndTurnSave` | `src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt#step:doResolveDistantObjectLight` | `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveDistantObjectLight#step:doResolveDistantObjectLight` | `src/qnt_adapters/battle_runtime_sorcerer_metamagic_distant_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt#step:doResolveTwinnedTargetCount` | `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveTwinnedTargetCount#step:doResolveTwinnedTargetCount` | `src/qnt_adapters/battle_runtime_sorcerer_metamagic_twinned_selected_identity.rs` | `covered` |
+
+Accepted/demoted/blocker rows:
+
+| Row type | Count | Notes |
+| --- | ---: | --- |
+| Accepted | 9 | All in-scope FU08B branch actions route through production reducer entrypoints. |
+| Demoted | 0 | None. |
+| Blocker | 0 | None. |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Reproduction seed or trace id: `L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD` passed.

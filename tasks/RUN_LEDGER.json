@@ -1807,11 +1807,53 @@
       "taskId": "L15-RR08-CHARACTER-CREATION-ROUTES"
     },
     {
-      "taskId": "L15-RR09-CHARACTER-SHEET-ROUTES",
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/DECIDER_DECISION.json",
+          "sha256": "581de64311e181dff50d4acc50f9a276cca60f2b4afb3731da9670f08d07771c"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "0ec335c4b34beb83d7bb45ace9242ceda69cb546e8004f5ad1ec4b570e914a94"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/REVIEW_LOOP.json",
+          "sha256": "9e54b9c3ab00be8cb9ed9bd4c4efc1b68151db9056130b0597f6444fca75df00"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/START_GATE.json",
+          "sha256": "b01867bd9d82f76611d3110e0c8f499968a0731f4670622f05c26f7529b1d866"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "505f967b1a005e683e95cdedfcb9588caee0363e52d12128fd886ac10b27ea30"
+        }
+      },
       "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9...HEAD",
+          "status": "pass"
+        }
+      ],
       "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
       "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
-      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
       "selectedDrivers": [
         "cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt",
         "cleanroom-input/qnt/character-sheet-runtime/character-sheet-arcane-recovery-selected-identity.mbt.qnt",
@@ -1824,10 +1866,9 @@
         "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt",
         "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt"
       ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
       "targetReplayEvidence": [
         {
-          "path": "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json",
-          "sha256": "b7ac5fc3598d0cc726016ec7415357cd7662f0ddd22c208f512208b650de9648",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectExpertise#step:doProjectExpertise",
             "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectJackOfAllTradesLevelTwo#step:doProjectJackOfAllTradesLevelTwo",
@@ -1896,67 +1937,37 @@
             "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectPaladinWeaponMastery#step:doSelectPaladinWeaponMastery",
             "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectRangerWeaponMastery#step:doSelectRangerWeaponMastery",
             "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectRogueWeaponMastery#step:doSelectRogueWeaponMastery"
-          ]
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json",
+          "sha256": "b7ac5fc3598d0cc726016ec7415357cd7662f0ddd22c208f512208b650de9648"
         }
       ],
-      "commandResults": [
-        {
-          "command": "cargo fmt --check",
-          "status": "pass"
-        },
-        {
-          "command": "cargo test",
-          "status": "pass"
-        },
-        {
-          "command": "cargo clippy --all-targets -- -D warnings",
-          "status": "pass"
-        },
-        {
-          "command": "node scripts/check-cleanroom-harness.cjs",
-          "status": "pass"
-        },
-        {
-          "command": "git diff --check 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9...HEAD",
-          "status": "pass"
-        }
-      ],
-      "artifacts": {
-        "startGate": {
-          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/START_GATE.json",
-          "sha256": "b01867bd9d82f76611d3110e0c8f499968a0731f4670622f05c26f7529b1d866"
-        },
-        "engineDepth": {
-          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "0ec335c4b34beb83d7bb45ace9242ceda69cb546e8004f5ad1ec4b570e914a94"
-        },
-        "stateOwnerManifest": {
-          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/STATE_OWNER_MANIFEST.json",
-          "sha256": "505f967b1a005e683e95cdedfcb9588caee0363e52d12128fd886ac10b27ea30"
-        },
-        "reviewLoop": {
-          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/REVIEW_LOOP.json",
-          "sha256": "9e54b9c3ab00be8cb9ed9bd4c4efc1b68151db9056130b0597f6444fca75df00"
-        },
-        "deciderDecision": {
-          "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/DECIDER_DECISION.json",
-          "sha256": "581de64311e181dff50d4acc50f9a276cca60f2b4afb3731da9670f08d07771c"
-        }
-      }
+      "taskId": "L15-RR09-CHARACTER-SHEET-ROUTES"
     },
     {
-      "taskId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/DECIDER_DECISION.json",
+          "sha256": "e3535bfaea2aa3e02fdbad9a452bdd1c2b2574f3ab418304c794a9fb312a1582"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "6d41f255c93c1b60257a6858088f0c39f209a6a8ee02a2ab67b0ad16cefba010"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/REVIEW_LOOP.json",
+          "sha256": "d76b0824f17454c44bfcfe553986b78a8ff63f227b137ef0063b13f857978cc6"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/START_GATE.json",
+          "sha256": "08014822c9f70ed89cf1edc8d7536ebb72d214d8bc9882af2de6683821458179"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "1050fdd13a6af74cf978e29b76053b2355e3a3f96322232ad15a871085d01034"
+        }
+      },
       "assignmentId": "level-1-2-runtime-reducer-route",
-      "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
-      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
-      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
-      "selectedDrivers": [
-        "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
-        "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt",
-        "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
-        "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
-        "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt"
-      ],
       "commandResults": [
         {
           "command": "cargo fmt --check",
@@ -1979,10 +1990,18 @@
           "status": "pass"
         }
       ],
+      "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
       "targetReplayEvidence": [
         {
-          "path": "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json",
-          "sha256": "b9dd00616246063ae386534e5706f3ecc0a5c738d3a711c742d020b55892f82e",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFinalizeCriminalAlertOriginFeat#step:doFinalizeCriminalAlertOriginFeat",
             "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectAlertInitiativeHandoff#step:doProjectAlertInitiativeHandoff",
@@ -2016,43 +2035,37 @@
             "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doLongRestClearsUncannyUseState#step:doLongRestClearsUncannyUseState",
             "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doUncannyMetabolismRecoversFocusAndHeals#step:doUncannyMetabolismRecoversFocusAndHeals",
             "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doRejectUncannyMetabolismRepeatUse#step:doRejectUncannyMetabolismRepeatUse"
-          ]
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json",
+          "sha256": "b9dd00616246063ae386534e5706f3ecc0a5c738d3a711c742d020b55892f82e"
         }
       ],
-      "artifacts": {
-        "startGate": {
-          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/START_GATE.json",
-          "sha256": "08014822c9f70ed89cf1edc8d7536ebb72d214d8bc9882af2de6683821458179"
-        },
-        "engineDepth": {
-          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "6d41f255c93c1b60257a6858088f0c39f209a6a8ee02a2ab67b0ad16cefba010"
-        },
-        "stateOwnerManifest": {
-          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/STATE_OWNER_MANIFEST.json",
-          "sha256": "1050fdd13a6af74cf978e29b76053b2355e3a3f96322232ad15a871085d01034"
-        },
-        "reviewLoop": {
-          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/REVIEW_LOOP.json",
-          "sha256": "d76b0824f17454c44bfcfe553986b78a8ff63f227b137ef0063b13f857978cc6"
-        },
-        "deciderDecision": {
-          "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/DECIDER_DECISION.json",
-          "sha256": "e3535bfaea2aa3e02fdbad9a452bdd1c2b2574f3ab418304c794a9fb312a1582"
-        }
-      }
+      "taskId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES"
     },
     {
-      "taskId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "a860e079acda93b7938192b50c5ba7a03e5b7d7f51cd1f35d78faea7ffd014f5"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "8afb4e2af6d4d088c4850f6eab42f305e1ec1194ae49687eb1ca6229eee28f9c"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "40bd00df1fed5e76bedfa06361bbad793128d055aa35045aeaade9d5e1418f97"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/START_GATE.json",
+          "sha256": "c633ceec305870a967f00fa5621470424d453d474a123fe7f019728b606547c1"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "2335c9ad57eccbc7ba9cbf415f0a1ffe66338893554519015e2c14b44976e2f3"
+        }
+      },
       "assignmentId": "level-1-2-battle",
-      "laneId": "battle",
-      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
-      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
-      "selectedDrivers": [
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt"
-      ],
       "commandResults": [
         {
           "command": "cargo test healing_stabilization_adapter_replays_spare_the_dying_branch",
@@ -2087,10 +2100,16 @@
           "status": "pass"
         }
       ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
       "targetReplayEvidence": [
         {
-          "path": "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json",
-          "sha256": "b5737cf9ef7d0c9affe7ea4e80fa5d3a9f2503f6af7a5202b0697e489f608962",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doResolveSpareTheDyingStable#step:doResolveSpareTheDyingStable",
             "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doAssumeRidingHorse#step:doAssumeRidingHorse",
@@ -2104,43 +2123,37 @@
             "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doDissonantWhispersForcedReactionMovement#step:doDissonantWhispersForcedReactionMovement",
             "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doExpeditiousRetreatImmediateDash#step:doExpeditiousRetreatImmediateDash",
             "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doMonkUnarmoredMovementDash#step:doMonkUnarmoredMovementDash"
-          ]
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json",
+          "sha256": "b5737cf9ef7d0c9affe7ea4e80fa5d3a9f2503f6af7a5202b0697e489f608962"
         }
       ],
-      "artifacts": {
-        "startGate": {
-          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/START_GATE.json",
-          "sha256": "c633ceec305870a967f00fa5621470424d453d474a123fe7f019728b606547c1"
-        },
-        "engineDepth": {
-          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "8afb4e2af6d4d088c4850f6eab42f305e1ec1194ae49687eb1ca6229eee28f9c"
-        },
-        "stateOwnerManifest": {
-          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "2335c9ad57eccbc7ba9cbf415f0a1ffe66338893554519015e2c14b44976e2f3"
-        },
-        "reviewLoop": {
-          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "40bd00df1fed5e76bedfa06361bbad793128d055aa35045aeaade9d5e1418f97"
-        },
-        "deciderDecision": {
-          "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "a860e079acda93b7938192b50c5ba7a03e5b7d7f51cd1f35d78faea7ffd014f5"
-        }
-      }
+      "taskId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES"
     },
     {
-      "taskId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "a1b9d613c7474002fd430f6a1de852e99623cf64ee0eb742c7eb83742eafb361"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "8a12933e123dde5d8fabf786f7040b7661ebb895a4b87ee9bbcab824a6522898"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "25c0f8a10dec63934486585b4b1e3f9607534bb88e9028d8bdf95606b3ddb602"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/START_GATE.json",
+          "sha256": "ddf6a50dc45a1abc565bd29cc362b13079dd7b96ca6a1cfe7df284702b800649"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "651fca3117704424c652be6e4770f9be68c5daf4c1332cc83da1f51397336fdc"
+        }
+      },
       "assignmentId": "level-1-2-battle",
-      "laneId": "battle",
-      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
-      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
-      "selectedDrivers": [
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
-      ],
       "commandResults": [
         {
           "command": "cargo fmt --check",
@@ -2163,10 +2176,16 @@
           "status": "pass"
         }
       ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
       "targetReplayEvidence": [
         {
-          "path": "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json",
-          "sha256": "84023113707dd9e305672ceb471adc87d9ab9480a1ac78617bc7c1afb4f86e1d",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveSapMasteryPropertyHit#step:doResolveSapMasteryPropertyHit",
             "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveToppleMasteryPropertyFailedSavingThrow#step:doResolveToppleMasteryPropertyFailedSavingThrow",
@@ -2179,31 +2198,12 @@
             "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doActivateInnateSorcery#step:doActivateInnateSorcery",
             "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doProjectInnateSorcerySpellBenefits#step:doProjectInnateSorcerySpellBenefits",
             "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doExcludeInnateSorceryNonSorcererSpellBenefits#step:doExcludeInnateSorceryNonSorcererSpellBenefits"
-          ]
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json",
+          "sha256": "84023113707dd9e305672ceb471adc87d9ab9480a1ac78617bc7c1afb4f86e1d"
         }
       ],
-      "artifacts": {
-        "startGate": {
-          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/START_GATE.json",
-          "sha256": "ddf6a50dc45a1abc565bd29cc362b13079dd7b96ca6a1cfe7df284702b800649"
-        },
-        "engineDepth": {
-          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "8a12933e123dde5d8fabf786f7040b7661ebb895a4b87ee9bbcab824a6522898"
-        },
-        "stateOwnerManifest": {
-          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "651fca3117704424c652be6e4770f9be68c5daf4c1332cc83da1f51397336fdc"
-        },
-        "reviewLoop": {
-          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "25c0f8a10dec63934486585b4b1e3f9607534bb88e9028d8bdf95606b3ddb602"
-        },
-        "deciderDecision": {
-          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "a1b9d613c7474002fd430f6a1de852e99623cf64ee0eb742c7eb83742eafb361"
-        }
-      }
+      "taskId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES"
     },
     {
       "artifacts": {
@@ -2369,16 +2369,29 @@
       "taskId": "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE"
     },
     {
-      "taskId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "667c4dc881a212cf9730dd1b863b5c85b3672d219f681f0ed72cb46d33023787"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "37decc1e25e316aef5e410412aa5d194cebf4ab92e440966bf7dbe205e94ed6a"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "cfe62cc24fa6aa2b9674f156ebf6483cbd462b8548b606ee3699bf496504e26e"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/START_GATE.json",
+          "sha256": "8b070dd645ca7e668e5d4c2781fac9beb37c3875489b0edcdd9dc19e32520679"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "3c0fb407f4874a67c2f2e007bc3c41fb4391ba3f93f387bfb377fbbcf4af2647"
+        }
+      },
       "assignmentId": "level-1-2-runtime-reducer-route",
-      "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
-      "selectedDrivers": [
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt"
-      ],
-      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
-      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
       "commandResults": [
         {
           "command": "cargo test condition_saving_throw_selected_identity_routes_in_scope_substrate_branches",
@@ -2413,10 +2426,16 @@
           "status": "pass"
         }
       ],
+      "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-thaumaturgy-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
       "targetReplayEvidence": [
         {
-          "path": "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json",
-          "sha256": "309b5ef2631dbb29d0e43aab0d196e2ffeef6db8114dd899bd7626180bc1885b",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveColorSprayFailedSavingThrow#step:doResolveColorSprayFailedSavingThrow",
             "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveEntangleFailedSavingThrow#step:doResolveEntangleFailedSavingThrow",
@@ -2427,31 +2446,86 @@
             "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doDismissAndReappearFindFamiliar#step:doDismissAndReappearFindFamiliar",
             "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doRecastFindFamiliarReplacement#step:doRecastFindFamiliarReplacement",
             "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json#L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES route action=doResolveThaumaturgyBoomingVoice#step:doResolveThaumaturgyBoomingVoice"
-          ]
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07-FU01A-catalog-ready-spell-substrates.json",
+          "sha256": "309b5ef2631dbb29d0e43aab0d196e2ffeef6db8114dd899bd7626180bc1885b"
         }
       ],
+      "taskId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES"
+    },
+    {
       "artifacts": {
-        "startGate": {
-          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/START_GATE.json",
-          "sha256": "8b070dd645ca7e668e5d4c2781fac9beb37c3875489b0edcdd9dc19e32520679"
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "9928d3c44c4ff560dc76b5bf29ad1ed906472062215390d2d12350f2214594c9"
         },
         "engineDepth": {
-          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "37decc1e25e316aef5e410412aa5d194cebf4ab92e440966bf7dbe205e94ed6a"
-        },
-        "stateOwnerManifest": {
-          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "3c0fb407f4874a67c2f2e007bc3c41fb4391ba3f93f387bfb377fbbcf4af2647"
+          "path": "tasks/history/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "091bbdaea21dbe14a27a15f460a374d9574b04105d389c42e3bfc122f28b4449"
         },
         "reviewLoop": {
-          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "cfe62cc24fa6aa2b9674f156ebf6483cbd462b8548b606ee3699bf496504e26e"
+          "path": "tasks/history/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "94a15d58fbb82293783954eb28653bc0fb7dba75fbea3d91a15574d888dcf58f"
         },
-        "deciderDecision": {
-          "path": "tasks/history/L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "667c4dc881a212cf9730dd1b863b5c85b3672d219f681f0ed72cb46d33023787"
+        "startGate": {
+          "path": "tasks/history/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES/START_GATE.json",
+          "sha256": "0f32993587d79d66cb264d0195f705e8a5f59bb659c11edd0102150fb3fab2f2"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "f457e5e43db227cbe7145addfcdfc40e505f3423d43c6eca0a07dd2019cb4ed2"
         }
-      }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveCarefulSaveGatedDamage#step:doResolveCarefulSaveGatedDamage",
+            "tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveCarefulSaveGatedNoEffect#step:doResolveCarefulSaveGatedNoEffect",
+            "tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedSaveGatedDamage#step:doResolveHeightenedSaveGatedDamage",
+            "tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedHideousLaughter#step:doResolveHeightenedHideousLaughter",
+            "tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedGreaseEntrySave#step:doResolveHeightenedGreaseEntrySave",
+            "tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedGustOfWindEndTurnSave#step:doResolveHeightenedGustOfWindEndTurnSave",
+            "tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedSaveGatedConditionEndTurnSave#step:doResolveHeightenedSaveGatedConditionEndTurnSave",
+            "tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveDistantObjectLight#step:doResolveDistantObjectLight",
+            "tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json#L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveTwinnedTargetCount#step:doResolveTwinnedTargetCount"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json",
+          "sha256": "d277f7f6923b3b60142007bdac3c4ae36855cb82b43230cc51d5261bad3e1e6e"
+        }
+      ],
+      "taskId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

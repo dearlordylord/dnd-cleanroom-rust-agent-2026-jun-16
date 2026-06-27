@@ -87,7 +87,11 @@ use crate::rules::scalar_buff::{
     ScalarBuffTargetState,
 };
 use crate::rules::sorcerer_metamagic::{
-    QuickenedMetamagicProtocol, QuickenedMetamagicScenarioResult, QuickenedMetamagicState,
+    CarefulSpellProtocol, CarefulSpellScenarioResult, CarefulSpellState, DistantSpellProtocol,
+    DistantSpellScenarioResult, DistantSpellState, HeightenedSpellProtocol,
+    HeightenedSpellScenarioResult, HeightenedSpellState, QuickenedMetamagicProtocol,
+    QuickenedMetamagicScenarioResult, QuickenedMetamagicState, TwinnedSpellProtocol,
+    TwinnedSpellScenarioResult, TwinnedSpellState,
 };
 use crate::rules::species_passive_traits::{
     creature_space_traversal_allowed, project_dragonborn_damage_resistance,
@@ -230,6 +234,7 @@ pub struct BattleFeatureSubstrates {
     pub dragonborn_breath_weapon: BattleDragonbornBreathWeaponSubstrate,
     pub innate_sorcery: BattleInnateSorcerySubstrate,
     pub quickened_spell: BattleQuickenedSpellSubstrate,
+    pub metamagic_spell: BattleMetamagicSpellSubstrate,
 }
 
 impl BattleFeatureSubstrates {
@@ -240,6 +245,7 @@ impl BattleFeatureSubstrates {
             dragonborn_breath_weapon: BattleDragonbornBreathWeaponSubstrate::initial(),
             innate_sorcery: BattleInnateSorcerySubstrate::initial(),
             quickened_spell: BattleQuickenedSpellSubstrate::initial(),
+            metamagic_spell: BattleMetamagicSpellSubstrate::initial(),
         }
     }
 }
@@ -344,6 +350,56 @@ impl BattleQuickenedSpellSubstrate {
             metamagic_outcome: QuickenedMetamagicScenarioResult::Init,
             governor_protocol: QuickenedSpellProtocol::Init,
             metamagic_protocol: QuickenedMetamagicProtocol::Init,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleMetamagicSpellOutcome {
+    Init,
+    ProtectedSaveGatedDamage,
+    ProtectedSaveGatedNoEffect,
+    FirstTargetDisadvantageSaveGatedDamage,
+    FirstTargetDisadvantageCondition,
+    FirstTargetDisadvantageEntrySave,
+    FirstTargetDisadvantageEndTurnSave,
+    FirstTargetDisadvantageConditionEndTurnSave,
+    ObjectRangeLight,
+    AdditionalSingleTarget,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleMetamagicSpellProtocol {
+    Init,
+    Resolved,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleMetamagicSpellSubstrate {
+    pub offered: bool,
+    pub protected_save_targets: i16,
+    pub first_target_save_disadvantage: bool,
+    pub light_emitter_count: i16,
+    pub bright_radius_feet: i16,
+    pub dim_additional_feet: i16,
+    pub target_active_effect_count: i16,
+    pub outcome: BattleMetamagicSpellOutcome,
+    pub protocol: BattleMetamagicSpellProtocol,
+}
+
+impl BattleMetamagicSpellSubstrate {
+    #[must_use]
+    pub const fn initial() -> Self {
+        Self {
+            offered: false,
+            protected_save_targets: 0,
+            first_target_save_disadvantage: false,
+            light_emitter_count: 0,
+            bright_radius_feet: 0,
+            dim_additional_feet: 0,
+            target_active_effect_count: 0,
+            outcome: BattleMetamagicSpellOutcome::Init,
+            protocol: BattleMetamagicSpellProtocol::Init,
         }
     }
 }
@@ -1021,6 +1077,29 @@ pub enum BattleMetamagicOptionSpellEffect {
         target_hit_points_after: i16,
         target_active_effect_count: i16,
     },
+    ProtectedSaveGatedDamage {
+        target_hit_points_after: i16,
+        protected_save_targets: i16,
+    },
+    ProtectedSaveGatedNoEffect {
+        protected_save_targets: i16,
+    },
+    FirstTargetDisadvantageSaveGatedDamage {
+        target_hit_points_after: i16,
+    },
+    FirstTargetDisadvantageCondition {
+        target_active_effect_count: i16,
+    },
+    FirstTargetDisadvantageEntrySave,
+    FirstTargetDisadvantageEndTurnSave,
+    FirstTargetDisadvantageConditionEndTurnSave,
+    ObjectRangeLight {
+        bright_radius_feet: i16,
+        dim_additional_feet: i16,
+    },
+    AdditionalSingleTarget {
+        target_active_effect_count: i16,
+    },
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1030,6 +1109,7 @@ pub struct BattleMetamagicOptionSpellFill {
     pub options_already_applied_to_spell: u8,
     pub selected_second_option_supported: bool,
     pub spell_uses_level_one_plus_slot: bool,
+    pub spell_consumes_magic_action: bool,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1830,6 +1910,7 @@ pub enum BattleReducerRouteOwnerGroup {
     HoleFrontier,
     InterruptStack,
     MovementResource,
+    ObjectBoundary,
     SavingThrowOutcome,
     SavingThrowRollMode,
     SpellAttackProcedure,
@@ -3026,6 +3107,28 @@ pub fn start_quickened_metamagic_battle() -> BattleState {
 }
 
 #[must_use]
+pub fn start_metamagic_option_spell_battle(sorcery_points_remaining: i16) -> BattleState {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Level 2: Metamagic"; QNT:
+    // battle-runtime-sorcerer-metamagic-*-selected-identity.mbt.qnt `init`.
+    let mut setup = fighter_skeleton_battle_setup();
+    setup.skeleton = Combatant {
+        hp: 10,
+        max_hp: 20,
+        ..setup.skeleton
+    };
+    setup.feature_substrates.metamagic_spell = BattleMetamagicSpellSubstrate {
+        offered: true,
+        ..BattleMetamagicSpellSubstrate::initial()
+    };
+    setup.feature_resources.sorcery_points = ResourcePoolFacts {
+        capacity: sorcery_points_remaining.max(0),
+        expended: 0,
+    };
+    start_battle(setup).state
+}
+
+#[must_use]
 pub fn with_battle_sorcery_points(mut state: BattleState, remaining: i16) -> BattleState {
     state.feature_resources.sorcery_points = ResourcePoolFacts {
         capacity: remaining.max(0),
@@ -4032,7 +4135,7 @@ fn resolve_active_feature_spell_attack_roll_mode_subject(
     }
 }
 
-fn resolve_quickened_metamagic_option_spell_subject(
+fn resolve_metamagic_option_spell_subject(
     state: BattleState,
     subject: BattleSubject,
     fill: BattleMetamagicOptionSpellFill,
@@ -4053,9 +4156,10 @@ fn resolve_quickened_metamagic_option_spell_subject(
             QuickenedSpellScenarioOutcome::RejectedUnaffordable,
         );
     }
-    if !fill
-        .option_facts
-        .changes_action_casting_time_to_bonus_action
+    if metamagic_effect_changes_casting_time_to_bonus_action(fill.effect)
+        && !fill
+            .option_facts
+            .changes_action_casting_time_to_bonus_action
     {
         return rejected_quickened_metamagic_result(
             state,
@@ -4105,7 +4209,14 @@ fn resolve_quickened_metamagic_option_spell_subject(
     let magic_action_available_before_resolution = state.action_available;
     let mut state = state;
     state.feature_resources.sorcery_points = sorcery_points;
-    state.bonus_action_available = false;
+    if fill
+        .option_facts
+        .changes_action_casting_time_to_bonus_action
+    {
+        state.bonus_action_available = false;
+    } else if fill.spell_consumes_magic_action {
+        state.action_available = false;
+    }
     if fill.spell_uses_level_one_plus_slot {
         state = claim_pending_actor_spell_slot_use(state, subject.actor);
         state = expend_combatant_spell_slot(state, subject.actor, BattleSpellSlotLevel::First);
@@ -4120,9 +4231,13 @@ fn resolve_quickened_metamagic_option_spell_subject(
         }
     }
 
-    state = apply_quickened_spell_effect(state, fill.effect);
-    state.feature_substrates.quickened_spell =
-        quickened_success_substrate(fill.effect, magic_action_available_before_resolution);
+    state = apply_metamagic_spell_effect(state, fill.effect);
+    if metamagic_effect_changes_casting_time_to_bonus_action(fill.effect) {
+        state.feature_substrates.quickened_spell =
+            quickened_success_substrate(fill.effect, magic_action_available_before_resolution);
+    } else {
+        state.feature_substrates.metamagic_spell = metamagic_spell_success_substrate(fill.effect);
+    }
 
     BattleResolutionResult::Resolved { state }
 }
@@ -4148,7 +4263,23 @@ fn rejected_quickened_metamagic_result(
     }
 }
 
-fn apply_quickened_spell_effect(
+const fn metamagic_effect_changes_casting_time_to_bonus_action(
+    effect: BattleMetamagicOptionSpellEffect,
+) -> bool {
+    matches!(
+        effect,
+        BattleMetamagicOptionSpellEffect::HitPointRestoration { .. }
+            | BattleMetamagicOptionSpellEffect::SaveGatedCondition
+            | BattleMetamagicOptionSpellEffect::SaveGatedConditionImmunity
+            | BattleMetamagicOptionSpellEffect::DirectCondition
+            | BattleMetamagicOptionSpellEffect::RollModifier
+            | BattleMetamagicOptionSpellEffect::SaveGatedDamage { .. }
+            | BattleMetamagicOptionSpellEffect::SpellAttack { .. }
+            | BattleMetamagicOptionSpellEffect::SpellAttackSequence { .. }
+    )
+}
+
+fn apply_metamagic_spell_effect(
     mut state: BattleState,
     effect: BattleMetamagicOptionSpellEffect,
 ) -> BattleState {
@@ -4166,16 +4297,131 @@ fn apply_quickened_spell_effect(
         | BattleMetamagicOptionSpellEffect::SpellAttackSequence {
             target_hit_points_after,
             ..
+        }
+        | BattleMetamagicOptionSpellEffect::ProtectedSaveGatedDamage {
+            target_hit_points_after,
+            ..
+        }
+        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageSaveGatedDamage {
+            target_hit_points_after,
         } => Some(target_hit_points_after),
         BattleMetamagicOptionSpellEffect::SaveGatedCondition
         | BattleMetamagicOptionSpellEffect::SaveGatedConditionImmunity
         | BattleMetamagicOptionSpellEffect::DirectCondition
-        | BattleMetamagicOptionSpellEffect::RollModifier => None,
+        | BattleMetamagicOptionSpellEffect::RollModifier
+        | BattleMetamagicOptionSpellEffect::ProtectedSaveGatedNoEffect { .. }
+        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageCondition { .. }
+        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEntrySave
+        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEndTurnSave
+        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageConditionEndTurnSave
+        | BattleMetamagicOptionSpellEffect::ObjectRangeLight { .. }
+        | BattleMetamagicOptionSpellEffect::AdditionalSingleTarget { .. } => None,
     };
     if let Some(target_hit_points_after) = target_hit_points_after {
         state.skeleton.hp = target_hit_points_after;
     }
     state
+}
+
+const fn metamagic_spell_success_substrate(
+    effect: BattleMetamagicOptionSpellEffect,
+) -> BattleMetamagicSpellSubstrate {
+    match effect {
+        BattleMetamagicOptionSpellEffect::ProtectedSaveGatedDamage {
+            protected_save_targets,
+            ..
+        } => BattleMetamagicSpellSubstrate {
+            offered: false,
+            protected_save_targets,
+            outcome: BattleMetamagicSpellOutcome::ProtectedSaveGatedDamage,
+            protocol: BattleMetamagicSpellProtocol::Resolved,
+            ..BattleMetamagicSpellSubstrate::initial()
+        },
+        BattleMetamagicOptionSpellEffect::ProtectedSaveGatedNoEffect {
+            protected_save_targets,
+        } => BattleMetamagicSpellSubstrate {
+            offered: false,
+            protected_save_targets,
+            outcome: BattleMetamagicSpellOutcome::ProtectedSaveGatedNoEffect,
+            protocol: BattleMetamagicSpellProtocol::Resolved,
+            ..BattleMetamagicSpellSubstrate::initial()
+        },
+        BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageSaveGatedDamage { .. } => {
+            first_target_disadvantage_substrate(
+                0,
+                BattleMetamagicSpellOutcome::FirstTargetDisadvantageSaveGatedDamage,
+            )
+        }
+        BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageCondition {
+            target_active_effect_count,
+        } => first_target_disadvantage_substrate(
+            target_active_effect_count,
+            BattleMetamagicSpellOutcome::FirstTargetDisadvantageCondition,
+        ),
+        BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEntrySave => {
+            first_target_disadvantage_substrate(
+                0,
+                BattleMetamagicSpellOutcome::FirstTargetDisadvantageEntrySave,
+            )
+        }
+        BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEndTurnSave => {
+            first_target_disadvantage_substrate(
+                0,
+                BattleMetamagicSpellOutcome::FirstTargetDisadvantageEndTurnSave,
+            )
+        }
+        BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageConditionEndTurnSave => {
+            first_target_disadvantage_substrate(
+                0,
+                BattleMetamagicSpellOutcome::FirstTargetDisadvantageConditionEndTurnSave,
+            )
+        }
+        BattleMetamagicOptionSpellEffect::ObjectRangeLight {
+            bright_radius_feet,
+            dim_additional_feet,
+        } => BattleMetamagicSpellSubstrate {
+            offered: false,
+            light_emitter_count: 1,
+            bright_radius_feet,
+            dim_additional_feet,
+            outcome: BattleMetamagicSpellOutcome::ObjectRangeLight,
+            protocol: BattleMetamagicSpellProtocol::Resolved,
+            ..BattleMetamagicSpellSubstrate::initial()
+        },
+        BattleMetamagicOptionSpellEffect::AdditionalSingleTarget {
+            target_active_effect_count,
+        } => BattleMetamagicSpellSubstrate {
+            offered: false,
+            target_active_effect_count,
+            outcome: BattleMetamagicSpellOutcome::AdditionalSingleTarget,
+            protocol: BattleMetamagicSpellProtocol::Resolved,
+            ..BattleMetamagicSpellSubstrate::initial()
+        },
+        BattleMetamagicOptionSpellEffect::HitPointRestoration { .. }
+        | BattleMetamagicOptionSpellEffect::SaveGatedCondition
+        | BattleMetamagicOptionSpellEffect::SaveGatedConditionImmunity
+        | BattleMetamagicOptionSpellEffect::DirectCondition
+        | BattleMetamagicOptionSpellEffect::RollModifier
+        | BattleMetamagicOptionSpellEffect::SaveGatedDamage { .. }
+        | BattleMetamagicOptionSpellEffect::SpellAttack { .. }
+        | BattleMetamagicOptionSpellEffect::SpellAttackSequence { .. } => {
+            BattleMetamagicSpellSubstrate::initial()
+        }
+    }
+}
+
+const fn first_target_disadvantage_substrate(
+    target_active_effect_count: i16,
+    outcome: BattleMetamagicSpellOutcome,
+) -> BattleMetamagicSpellSubstrate {
+    BattleMetamagicSpellSubstrate {
+        offered: false,
+        first_target_save_disadvantage: true,
+        target_active_effect_count,
+        outcome,
+        protocol: BattleMetamagicSpellProtocol::Resolved,
+        ..BattleMetamagicSpellSubstrate::initial()
+    }
 }
 
 const fn quickened_success_substrate(
@@ -4269,6 +4515,17 @@ const fn quickened_success_substrate(
             QuickenedSpellScenarioOutcome::Init,
             QuickenedMetamagicScenarioResult::QuickenedSpellAttackSequence,
         ),
+        BattleMetamagicOptionSpellEffect::ProtectedSaveGatedDamage { .. }
+        | BattleMetamagicOptionSpellEffect::ProtectedSaveGatedNoEffect { .. }
+        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageSaveGatedDamage { .. }
+        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageCondition { .. }
+        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEntrySave
+        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEndTurnSave
+        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageConditionEndTurnSave
+        | BattleMetamagicOptionSpellEffect::ObjectRangeLight { .. }
+        | BattleMetamagicOptionSpellEffect::AdditionalSingleTarget { .. } => {
+            BattleQuickenedSpellSubstrate::initial()
+        }
     }
 }
 
@@ -4682,6 +4939,150 @@ pub fn quickened_metamagic_from_battle(state: &BattleState) -> QuickenedMetamagi
     }
 }
 
+#[must_use]
+pub fn careful_spell_from_battle(state: &BattleState) -> CarefulSpellState {
+    let metamagic = state.feature_substrates.metamagic_spell;
+    CarefulSpellState {
+        magic_action_available: state.action_available,
+        bonus_action_available: state.bonus_action_available,
+        sorcery_points_remaining: resource_pool_remaining(state.feature_resources.sorcery_points),
+        target_hit_points: state.skeleton.hp,
+        target_active_effect_count: metamagic.target_active_effect_count,
+        scenario_result: match (metamagic.outcome, metamagic.protected_save_targets > 0) {
+            (BattleMetamagicSpellOutcome::ProtectedSaveGatedDamage, true) => {
+                CarefulSpellScenarioResult::CarefulSaveGatedDamage
+            }
+            (BattleMetamagicSpellOutcome::ProtectedSaveGatedNoEffect, true) => {
+                CarefulSpellScenarioResult::CarefulSaveGatedNoEffect
+            }
+            (
+                BattleMetamagicSpellOutcome::Init
+                | BattleMetamagicSpellOutcome::ProtectedSaveGatedDamage
+                | BattleMetamagicSpellOutcome::ProtectedSaveGatedNoEffect
+                | BattleMetamagicSpellOutcome::FirstTargetDisadvantageSaveGatedDamage
+                | BattleMetamagicSpellOutcome::FirstTargetDisadvantageCondition
+                | BattleMetamagicSpellOutcome::FirstTargetDisadvantageEntrySave
+                | BattleMetamagicSpellOutcome::FirstTargetDisadvantageEndTurnSave
+                | BattleMetamagicSpellOutcome::FirstTargetDisadvantageConditionEndTurnSave
+                | BattleMetamagicSpellOutcome::ObjectRangeLight
+                | BattleMetamagicSpellOutcome::AdditionalSingleTarget,
+                _,
+            ) => CarefulSpellScenarioResult::Init,
+        },
+        protocol: match metamagic.protocol {
+            BattleMetamagicSpellProtocol::Init => CarefulSpellProtocol::Init,
+            BattleMetamagicSpellProtocol::Resolved => CarefulSpellProtocol::Resolved,
+        },
+    }
+}
+
+#[must_use]
+pub fn heightened_spell_from_battle(state: &BattleState) -> HeightenedSpellState {
+    let metamagic = state.feature_substrates.metamagic_spell;
+    HeightenedSpellState {
+        magic_action_available: state.action_available,
+        bonus_action_available: state.bonus_action_available,
+        sorcery_points_remaining: resource_pool_remaining(state.feature_resources.sorcery_points),
+        target_hit_points: state.skeleton.hp,
+        target_active_effect_count: metamagic.target_active_effect_count,
+        scenario_result: match (metamagic.outcome, metamagic.first_target_save_disadvantage) {
+            (BattleMetamagicSpellOutcome::FirstTargetDisadvantageSaveGatedDamage, true) => {
+                HeightenedSpellScenarioResult::HeightenedSaveGatedDamage
+            }
+            (BattleMetamagicSpellOutcome::FirstTargetDisadvantageCondition, true) => {
+                HeightenedSpellScenarioResult::HeightenedHideousLaughter
+            }
+            (BattleMetamagicSpellOutcome::FirstTargetDisadvantageEntrySave, true) => {
+                HeightenedSpellScenarioResult::HeightenedGreaseEntrySave
+            }
+            (BattleMetamagicSpellOutcome::FirstTargetDisadvantageEndTurnSave, true) => {
+                HeightenedSpellScenarioResult::HeightenedGustOfWindEndTurnSave
+            }
+            (BattleMetamagicSpellOutcome::FirstTargetDisadvantageConditionEndTurnSave, true) => {
+                HeightenedSpellScenarioResult::HeightenedSaveGatedConditionEndTurnSave
+            }
+            (
+                BattleMetamagicSpellOutcome::Init
+                | BattleMetamagicSpellOutcome::ProtectedSaveGatedDamage
+                | BattleMetamagicSpellOutcome::ProtectedSaveGatedNoEffect
+                | BattleMetamagicSpellOutcome::FirstTargetDisadvantageSaveGatedDamage
+                | BattleMetamagicSpellOutcome::FirstTargetDisadvantageCondition
+                | BattleMetamagicSpellOutcome::FirstTargetDisadvantageEntrySave
+                | BattleMetamagicSpellOutcome::FirstTargetDisadvantageEndTurnSave
+                | BattleMetamagicSpellOutcome::FirstTargetDisadvantageConditionEndTurnSave
+                | BattleMetamagicSpellOutcome::ObjectRangeLight
+                | BattleMetamagicSpellOutcome::AdditionalSingleTarget,
+                _,
+            ) => HeightenedSpellScenarioResult::Init,
+        },
+        protocol: match metamagic.protocol {
+            BattleMetamagicSpellProtocol::Init => HeightenedSpellProtocol::Init,
+            BattleMetamagicSpellProtocol::Resolved => HeightenedSpellProtocol::Resolved,
+        },
+    }
+}
+
+#[must_use]
+pub fn distant_spell_from_battle(state: &BattleState) -> DistantSpellState {
+    let metamagic = state.feature_substrates.metamagic_spell;
+    DistantSpellState {
+        sorcery_points_remaining: resource_pool_remaining(state.feature_resources.sorcery_points),
+        light_emitter_count: metamagic.light_emitter_count,
+        bright_radius_feet: metamagic.bright_radius_feet,
+        dim_additional_feet: metamagic.dim_additional_feet,
+        scenario_result: match metamagic.outcome {
+            BattleMetamagicSpellOutcome::ObjectRangeLight => {
+                DistantSpellScenarioResult::DistantObjectLight
+            }
+            BattleMetamagicSpellOutcome::Init
+            | BattleMetamagicSpellOutcome::ProtectedSaveGatedDamage
+            | BattleMetamagicSpellOutcome::ProtectedSaveGatedNoEffect
+            | BattleMetamagicSpellOutcome::FirstTargetDisadvantageSaveGatedDamage
+            | BattleMetamagicSpellOutcome::FirstTargetDisadvantageCondition
+            | BattleMetamagicSpellOutcome::FirstTargetDisadvantageEntrySave
+            | BattleMetamagicSpellOutcome::FirstTargetDisadvantageEndTurnSave
+            | BattleMetamagicSpellOutcome::FirstTargetDisadvantageConditionEndTurnSave
+            | BattleMetamagicSpellOutcome::AdditionalSingleTarget => {
+                DistantSpellScenarioResult::Init
+            }
+        },
+        protocol: match metamagic.protocol {
+            BattleMetamagicSpellProtocol::Init => DistantSpellProtocol::Init,
+            BattleMetamagicSpellProtocol::Resolved => DistantSpellProtocol::Resolved,
+        },
+    }
+}
+
+#[must_use]
+pub fn twinned_spell_from_battle(state: &BattleState) -> TwinnedSpellState {
+    let metamagic = state.feature_substrates.metamagic_spell;
+    TwinnedSpellState {
+        magic_action_available: state.action_available,
+        bonus_action_available: state.bonus_action_available,
+        sorcery_points_remaining: resource_pool_remaining(state.feature_resources.sorcery_points),
+        target_hit_points: state.skeleton.hp,
+        target_active_effect_count: metamagic.target_active_effect_count,
+        scenario_result: match metamagic.outcome {
+            BattleMetamagicSpellOutcome::AdditionalSingleTarget => {
+                TwinnedSpellScenarioResult::TwinnedTargetCount
+            }
+            BattleMetamagicSpellOutcome::Init
+            | BattleMetamagicSpellOutcome::ProtectedSaveGatedDamage
+            | BattleMetamagicSpellOutcome::ProtectedSaveGatedNoEffect
+            | BattleMetamagicSpellOutcome::FirstTargetDisadvantageSaveGatedDamage
+            | BattleMetamagicSpellOutcome::FirstTargetDisadvantageCondition
+            | BattleMetamagicSpellOutcome::FirstTargetDisadvantageEntrySave
+            | BattleMetamagicSpellOutcome::FirstTargetDisadvantageEndTurnSave
+            | BattleMetamagicSpellOutcome::FirstTargetDisadvantageConditionEndTurnSave
+            | BattleMetamagicSpellOutcome::ObjectRangeLight => TwinnedSpellScenarioResult::Init,
+        },
+        protocol: match metamagic.protocol {
+            BattleMetamagicSpellProtocol::Init => TwinnedSpellProtocol::Init,
+            BattleMetamagicSpellProtocol::Resolved => TwinnedSpellProtocol::Resolved,
+        },
+    }
+}
+
 fn weapon_mastery_protocol_for_outcome(
     outcome: WeaponMasteryRuntimeOutcome,
 ) -> WeaponMasteryRuntimeProtocol {
@@ -5013,11 +5414,11 @@ pub fn discover_battle_acts(state: &BattleState) -> BattleActDiscoveryResult {
     let actor = current_actor(state);
     let mut acts = Vec::new();
     if !state.action_available {
-        push_quickened_metamagic_acts(state, actor, &mut acts);
+        push_metamagic_option_spell_acts(state, actor, &mut acts);
         return BattleActDiscoveryResult::from_state(state, acts);
     }
     push_reducer_spine_diagnostic_acts(state, actor, &mut acts);
-    push_quickened_metamagic_acts(state, actor, &mut acts);
+    push_metamagic_option_spell_acts(state, actor, &mut acts);
     push_capability_weapon_acts(state, actor, &mut acts);
     BattleActDiscoveryResult::from_state(state, acts)
 }
@@ -5221,15 +5622,12 @@ fn push_reducer_spine_diagnostic_acts(
     }
 }
 
-fn push_quickened_metamagic_acts(
+fn push_metamagic_option_spell_acts(
     state: &BattleState,
     actor: Actor,
     acts: &mut Vec<AvailableBattleAct>,
 ) {
-    if !state.feature_substrates.quickened_spell.offered
-        || !state.bonus_action_available
-        || first_waiting_actor(state).is_none()
-    {
+    if !metamagic_option_spell_available(state) || first_waiting_actor(state).is_none() {
         return;
     }
 
@@ -5401,7 +5799,7 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
             state.bonus_action_available && route_subject_discoverable_now(state, subject)
         }
         BattleSubjectKind::MetamagicOptionSpell => {
-            quickened_metamagic_route_subject_is_live(state, subject)
+            metamagic_option_spell_route_subject_is_live(state, subject)
         }
         BattleSubjectKind::EndTurn
         | BattleSubjectKind::WeaponAttack
@@ -5422,11 +5820,18 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
     }
 }
 
-fn quickened_metamagic_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
-    state.feature_substrates.quickened_spell.offered
-        && state.bonus_action_available
+fn metamagic_option_spell_route_subject_is_live(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> bool {
+    metamagic_option_spell_available(state)
         && diagnostic_subject_shape_matches(subject, BattleSubjectKind::MetamagicOptionSpell, None)
         && route_subject_discoverable_now(state, subject)
+}
+
+fn metamagic_option_spell_available(state: &BattleState) -> bool {
+    (state.feature_substrates.quickened_spell.offered && state.bonus_action_available)
+        || (state.feature_substrates.metamagic_spell.offered && state.action_available)
 }
 
 fn spell_attack_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
@@ -5779,9 +6184,40 @@ fn battle_resolution_route_owner(
                 BattleResolutionInvalidReason::WrongActor
                 | BattleResolutionInvalidReason::WrongTarget,
             ) => BattleReducerRouteOwnerGroup::ActionEconomy,
-            BattleResolutionOutcome::Resolved | BattleResolutionOutcome::NeedsHoles => {
-                BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
-            }
+            BattleResolutionOutcome::Resolved | BattleResolutionOutcome::NeedsHoles => match fill {
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect: BattleMetamagicOptionSpellEffect::ProtectedSaveGatedDamage { .. },
+                    ..
+                }) => BattleReducerRouteOwnerGroup::DamageAdjustment,
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect: BattleMetamagicOptionSpellEffect::ProtectedSaveGatedNoEffect { .. },
+                    ..
+                }) => BattleReducerRouteOwnerGroup::SavingThrowOutcome,
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect:
+                        BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageCondition { .. },
+                    ..
+                }) => BattleReducerRouteOwnerGroup::ConditionLifecycle,
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect:
+                        BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageSaveGatedDamage {
+                            ..
+                        }
+                        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEntrySave
+                        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEndTurnSave
+                        | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageConditionEndTurnSave,
+                    ..
+                }) => BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect: BattleMetamagicOptionSpellEffect::ObjectRangeLight { .. },
+                    ..
+                }) => BattleReducerRouteOwnerGroup::ObjectBoundary,
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect: BattleMetamagicOptionSpellEffect::AdditionalSingleTarget { .. },
+                    ..
+                }) => BattleReducerRouteOwnerGroup::TargetSelection,
+                _ => BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+            },
         },
         _ => battle_discovery_route_owner(subject),
     }
@@ -5946,14 +6382,14 @@ fn resolve_battle_subject_unchecked(
             resolve_active_feature_spell_attack_roll_mode_subject(state, fill)
         }
         (BattleSubjectKind::MetamagicOptionSpell, BattleFill::MetamagicOptionSpell(fill)) => {
-            if !quickened_metamagic_route_subject_is_live(&state, subject) {
+            if !metamagic_option_spell_route_subject_is_live(&state, subject) {
                 return invalid_with_holes(
                     state,
                     BattleResolutionInvalidReason::StaleSubject,
                     Vec::new(),
                 );
             }
-            resolve_quickened_metamagic_option_spell_subject(state, subject, fill)
+            resolve_metamagic_option_spell_subject(state, subject, fill)
         }
         (
             BattleSubjectKind::StatBlockAction,
