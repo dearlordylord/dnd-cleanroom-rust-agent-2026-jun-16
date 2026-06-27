@@ -12,3 +12,8 @@
 - doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup: condition-immunity cleanup needs a generic active-effect route subject.
 - doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer: marked-target damage rider plus transfer needs a generic marked-effect route subject.
 - doHexMarkedDamageRiderAndLaterTurnTransfer: marked-target damage rider plus transfer needs a generic marked-effect route subject.
+
+## L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES
+
+- doCounterspellAllowsSpellCastResume: Counterspell reaction branches are listed as current out-of-scope obligations for the reaction-casting-time route assignment.
+- doCounterspellEndsSpellCast: Counterspell reaction branches are listed as current out-of-scope obligations for the reaction-casting-time route assignment.

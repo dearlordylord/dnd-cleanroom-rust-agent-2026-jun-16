@@ -5,6 +5,12 @@ use crate::rules::battle_reducer_spine::{
     BattleReactionCastingTrigger,
 };
 
+use super::battle_runtime_reducer_route::{
+    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_route_holes,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+};
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ReactionCastingTimeWitness {
     pub trigger_kind: &'static str,
@@ -23,6 +29,11 @@ pub struct ReactionCastingTimeWitness {
 }
 
 pub const BRANCH_ACTIONS: [&str; 1] = ["doHellishRebukeAfterDamage"];
+
+pub const TARGET_BLOCKED_BRANCH_ACTIONS: [&str; 2] = [
+    "doCounterspellAllowsSpellCastResume",
+    "doCounterspellEndsSpellCast",
+];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> ReactionCastingTimeWitness {
     match observed_action_taken {
@@ -53,6 +64,17 @@ pub fn expected_witness(observed_action_taken: &str) -> ReactionCastingTimeWitne
             protocol_holes: Vec::new(),
         },
         action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    expected_route(observed_action_taken)
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doHellishRebukeAfterDamage" => hellish_rebuke_after_damage_route(),
+        action => panic!("unsupported route mbt::actionTaken {action}"),
     }
 }
 
@@ -88,6 +110,40 @@ pub fn projection_payload(witness: &ReactionCastingTimeWitness) -> String {
         format!("protocolHoles={}", joined_or_none(&witness.protocol_holes)),
     ]
     .join("\n")
+}
+
+fn pending_reaction_decision_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::ReactionSpell,
+            vec![ReducerRouteHoleKind::InterruptDecision],
+            ReducerRouteOwnerGroup::InterruptStack,
+        ),
+    ]
+}
+
+fn hellish_rebuke_after_damage_route() -> Vec<ReducerRouteEvent> {
+    let mut route = pending_reaction_decision_route();
+    route.push(route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::ReactionSpell,
+        ReducerRouteFillKind::InterruptDecision,
+        Vec::new(),
+        ReducerRouteOwnerGroup::InterruptStack,
+    ));
+    route.push(route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::ReactionSpell,
+        ReducerRouteFillKind::InterruptDecision,
+        Vec::new(),
+        ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+    ));
+    route.push(route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::ReactionSpell,
+        ReducerRouteFillKind::InterruptDecision,
+        Vec::new(),
+        ReducerRouteOwnerGroup::HitPoint,
+    ));
+    route
 }
 
 fn witness_from_projection(

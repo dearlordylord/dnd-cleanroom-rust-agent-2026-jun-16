@@ -11,6 +11,13 @@ use crate::rules::interrupt_stack_resume::{
     InterruptStackResumeScenarioOutcome, InterruptStackResumeState,
 };
 
+use super::battle_runtime_reducer_route::{
+    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject,
+    route_resolve_battle_subject_from_route_holes, route_resolve_battle_subject_without_fill,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+};
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct InterruptStackResumeWitness {
     pub max_stack_depth_observed: u8,
@@ -53,6 +60,19 @@ pub fn expected_witness(observed_action_taken: &str) -> InterruptStackResumeWitn
     }
 }
 
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    expected_route(observed_action_taken)
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doNestedDeclineResumesOuterInterrupt" => nested_decline_route(),
+        "doReplayRecordedProcedureFromRoot" => replay_recorded_attack_route(),
+        "doShieldMutationResumesInterruptedAttack" => reaction_mutation_route(),
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
+}
+
 fn replay_observed_action_through_battle_spine(
     observed_action_taken: &str,
 ) -> InterruptStackResumeWitness {
@@ -68,6 +88,90 @@ fn replay_observed_action_through_battle_spine(
         action => panic!("unsupported mbt::actionTaken {action}"),
     };
     witness_from_state(interrupt_stack_resume_projection_from_battle(&state))
+}
+
+fn pending_interrupt_decision_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::InterruptStackResume,
+            vec![ReducerRouteHoleKind::InterruptDecision],
+            ReducerRouteOwnerGroup::InterruptStack,
+        ),
+    ]
+}
+
+fn pending_damage_continuation_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::InterruptStackResume,
+            vec![ReducerRouteHoleKind::RolledDice],
+            ReducerRouteOwnerGroup::InterruptStack,
+        ),
+    ]
+}
+
+fn nested_decline_route() -> Vec<ReducerRouteEvent> {
+    let mut route = pending_interrupt_decision_route();
+    route.push(route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::InterruptStackResume,
+        ReducerRouteFillKind::InterruptDecision,
+        vec![ReducerRouteHoleKind::SavingThrowOutcome],
+        ReducerRouteOwnerGroup::InterruptStack,
+    ));
+    route.push(route_resolve_battle_subject(
+        ReducerRouteSubjectFamily::SaveGatedSpell,
+        ReducerRouteFillKind::SavingThrowOutcome,
+        vec![crate::rules::battle_reducer_spine::BattleHoleKind::InterruptDecision],
+        ReducerRouteOwnerGroup::InterruptStack,
+    ));
+    route.push(route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::InterruptStackResume,
+        ReducerRouteFillKind::InterruptDecision,
+        vec![ReducerRouteHoleKind::RolledDice],
+        ReducerRouteOwnerGroup::InterruptStack,
+    ));
+    route
+}
+
+fn reaction_mutation_route() -> Vec<ReducerRouteEvent> {
+    let mut route = pending_interrupt_decision_route();
+    route.push(route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::InterruptStackResume,
+        ReducerRouteFillKind::InterruptDecision,
+        Vec::new(),
+        ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+    ));
+    route.push(route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::InterruptStackResume,
+        ReducerRouteFillKind::InterruptDecision,
+        Vec::new(),
+        ReducerRouteOwnerGroup::ActiveEffect,
+    ));
+    route.push(route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::InterruptStackResume,
+        ReducerRouteFillKind::InterruptDecision,
+        Vec::new(),
+        ReducerRouteOwnerGroup::InterruptStack,
+    ));
+    route
+}
+
+fn replay_recorded_attack_route() -> Vec<ReducerRouteEvent> {
+    let mut route = pending_damage_continuation_route();
+    route.push(route_resolve_battle_subject(
+        ReducerRouteSubjectFamily::WeaponAttack,
+        ReducerRouteFillKind::RolledDice,
+        Vec::new(),
+        ReducerRouteOwnerGroup::HitPoint,
+    ));
+    route.push(route_resolve_battle_subject_without_fill(
+        ReducerRouteSubjectFamily::InterruptStackResume,
+        Vec::new(),
+        ReducerRouteOwnerGroup::InterruptStack,
+    ));
+    route
 }
 
 pub fn projection_payload(witness: &InterruptStackResumeWitness) -> String {

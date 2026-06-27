@@ -2264,6 +2264,7 @@ pub enum BattleReducerRouteSubjectFamily {
     FallingMitigation,
     ForcedMovement,
     HitPointRestoration,
+    InterruptStackResume,
     LightProjection,
     MovementResource,
     ObjectBoundaryEffect,
