@@ -2775,8 +2775,8 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "baseline-accepted",
-    "activeLane": null,
+    "status": "running",
+    "activeLane": "FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "574c99d28ef2fe8779c500dad34879efa7aa4177",
@@ -2804,6 +2804,10 @@
         "coverageClaim": "baseline expansion state only; no new runtime coverage claimed"
       }
     ],
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-01",
+    "activeBranch": "ralph/fexp-01-diagnostic-battle-route-pack",
+    "activeLaneBaseCommit": "574c99d28ef2fe8779c500dad34879efa7aa4177",
+    "workerAgent": "Mencius the 2nd (019f0acb-0a8f-79b0-a25a-d17dc816d6cd)",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK"
   },

@@ -30,7 +30,7 @@
     {
       "laneId": "FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK",
       "checkpointId": "FEXP-CP1",
-      "status": "proposed",
+      "status": "running",
       "routeClass": "reducer-routed",
       "purpose": "Convert FC-01 diagnostic reducer substrate support into focused current-package route evidence for small battle lifecycle drivers.",
       "drivers": [

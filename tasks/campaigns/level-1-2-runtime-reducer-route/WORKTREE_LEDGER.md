@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-01` | `ralph/fexp-01-diagnostic-battle-route-pack` | `574c99d28ef2fe8779c500dad34879efa7aa4177` | Mencius the 2nd (`019f0acb-0a8f-79b0-a25a-d17dc816d6cd`) | pending | running |
 
 ## Historical RRCONV-19 Worktrees
 
