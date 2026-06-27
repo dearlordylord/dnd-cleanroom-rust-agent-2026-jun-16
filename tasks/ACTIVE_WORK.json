@@ -153,6 +153,13 @@
             "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt"
           ]
+        },
+        {
+          "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
+          "queue": [
+            "cleanroom-input/qnt/battle-runtime/rule-core-ability-skill-command.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt"
+          ]
         }
       ]
     },

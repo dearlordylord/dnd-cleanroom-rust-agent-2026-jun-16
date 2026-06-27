@@ -154,6 +154,8 @@ mod character_sheet_spellbook_ritual_selected_identity;
 mod character_sheet_weapon_mastery_containers_selected_identity;
 #[path = "../qnt_adapters/creature_attack_mbt.rs"]
 mod creature_attack_mbt;
+#[path = "../qnt_adapters/rule_core_ability_skill_command_mbt.rs"]
+mod rule_core_ability_skill_command_mbt;
 #[path = "../qnt_adapters/rule_core_attack_damage_disposition.rs"]
 mod rule_core_attack_damage_disposition;
 #[path = "../qnt_adapters/rule_core_hit_point_damage_mbt.rs"]
@@ -164,6 +166,8 @@ mod rule_core_movement_mbt;
 mod rule_core_reactions_mbt;
 #[path = "../qnt_adapters/rule_core_shove_outcome_mbt.rs"]
 mod rule_core_shove_outcome_mbt;
+#[path = "../qnt_adapters/rule_core_spells_mbt.rs"]
+mod rule_core_spells_mbt;
 #[path = "../qnt_adapters/rule_core_stat_block_controls_mbt.rs"]
 mod rule_core_stat_block_controls_mbt;
 
@@ -1059,6 +1063,14 @@ use creature_attack_mbt::{
     replay_observed_route as replay_creature_attack_route, replay_sampled_inputs,
     BRANCH_ACTIONS as CREATURE_ATTACK_BRANCH_ACTIONS, REPLAY_DAMAGE_SAMPLE, REPLAY_HIT_SAMPLE,
 };
+use rule_core_ability_skill_command_mbt::{
+    component_route_payload as ability_skill_command_component_route_payload,
+    expected_component_route as expected_ability_skill_command_component_route,
+    expected_witness as expected_ability_skill_command_witness,
+    projection_payload as ability_skill_command_projection_payload,
+    replay_observed_action as replay_ability_skill_command_action,
+    BRANCH_ACTIONS as ABILITY_SKILL_COMMAND_BRANCH_ACTIONS,
+};
 use rule_core_attack_damage_disposition::{
     expected_witness as expected_attack_damage_disposition_witness,
     projection_payload as attack_damage_disposition_projection_payload,
@@ -1084,6 +1096,13 @@ use rule_core_reactions_mbt::{
 use rule_core_shove_outcome_mbt::{
     expected_witness as expected_shove_witness, projection_payload as shove_projection_payload,
     replay_observed_action as replay_shove_action, BRANCH_ACTIONS as SHOVE_BRANCH_ACTIONS,
+};
+use rule_core_spells_mbt::{
+    component_route_payload as spell_component_route_payload,
+    expected_component_route as expected_spell_component_route,
+    expected_witness as expected_spell_witness, projection_payload as spell_projection_payload,
+    replay_observed_action as replay_spell_action, SpellProcedureProtocolResult,
+    BRANCH_ACTIONS as SPELL_BRANCH_ACTIONS,
 };
 use rule_core_stat_block_controls_mbt::{
     expected_witness as expected_stat_block_control_witness,
@@ -2496,6 +2515,54 @@ fn creature_attack_applies_hit_damage_to_opposing_creature_only() {
 }
 
 #[test]
+fn ability_skill_command_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // rule-core-ability-skill-command.mbt.qnt; component connector:
+    // RuleCoreAbilitySkillCommandOwner. RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Ability Checks"
+    // and "Search"; Spells/Descriptions-A-D.md "Command" and "Enhance
+    // Ability"; Spells/Descriptions-E-L.md "Guidance".
+    assert_eq!(ABILITY_SKILL_COMMAND_BRANCH_ACTIONS.len(), 32);
+    for action in ABILITY_SKILL_COMMAND_BRANCH_ACTIONS {
+        let observed = replay_ability_skill_command_action(action);
+        assert_eq!(observed, expected_ability_skill_command_witness(action));
+        assert_eq!(
+            observed.component_route,
+            expected_ability_skill_command_component_route()
+        );
+        assert!(ability_skill_command_projection_payload(&observed).contains("qComponentRoute="));
+    }
+}
+
+#[test]
+fn ability_skill_command_projects_search_guidance_enhance_and_command_components() {
+    // RAW/QNT citations match `ability_skill_command_adapter_replays_all_branches`.
+    let search_failed = replay_ability_skill_command_action("doSearchFails");
+    assert!(search_failed.target_hidden);
+    assert!(!search_failed.action_available);
+    assert_eq!(search_failed.current_actor, "Goblin");
+
+    let guidance = replay_ability_skill_command_action("doGuidanceSkillSleightOfHand");
+    assert_eq!(guidance.d20_modifier_skill, "sleight_of_hand");
+    assert_eq!(guidance.target_effect_count, 1);
+    assert_eq!(guidance.caster_effect_count, 1);
+
+    let enhance = replay_ability_skill_command_action("doEnhanceAbilityChoice");
+    assert_eq!(enhance.ability_check_mode_ability, "dex");
+
+    let command_window =
+        replay_ability_skill_command_action("doCommandFollowFleeOpportunityAttack");
+    assert_eq!(command_window.pending_command_option, "flee");
+    assert!(command_window.reaction_window_open);
+    assert_eq!(
+        ability_skill_command_component_route_payload(&command_window.component_route),
+        ability_skill_command_component_route_payload(
+            &expected_ability_skill_command_component_route()
+        )
+    );
+}
+
+#[test]
 fn attack_damage_disposition_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // rule-core-attack-damage-disposition.mbt.qnt and imported rule-core QNT;
@@ -2646,6 +2713,59 @@ fn hit_point_damage_projects_temporary_zero_and_massive_damage() {
     assert!(massive.dead);
     assert!(!massive.unconscious);
     assert_eq!(massive.replay_index, 4);
+}
+
+#[test]
+fn rule_core_spells_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt and
+    // shared-algebras/proofs/rule-core spell procedure profiles. RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md
+    // "Spell Slots", "Casting Time", "Targets", and "Ready"; spell
+    // descriptions for Magic Missile, Ray of Frost, Acid Splash, Healing Word,
+    // Cure Wounds, Mass Healing Word, Mass Cure Wounds, and Mage Armor.
+    assert_eq!(SPELL_BRANCH_ACTIONS.len(), 30);
+    for action in SPELL_BRANCH_ACTIONS {
+        let observed = replay_spell_action(action);
+        assert_eq!(observed, expected_spell_witness(action));
+        assert_eq!(observed.component_route, expected_spell_component_route());
+        assert!(spell_projection_payload(&observed).contains("qComponentRoute="));
+    }
+}
+
+#[test]
+fn rule_core_spells_projects_invocation_damage_healing_and_readied_response() {
+    // RAW/QNT citations match `rule_core_spells_adapter_replays_all_branches`.
+    let missile = replay_spell_action("doMagicMissileLow");
+    assert_eq!(missile.target_hp, 4);
+    assert!(missile.spell_slot_spent_this_turn);
+    assert_eq!(missile.level_one_slots_remaining, 1);
+    assert_eq!(
+        missile.protocol_result,
+        SpellProcedureProtocolResult::Resolved
+    );
+
+    let ray_critical = replay_spell_action("doRayOfFrostCritical");
+    assert_eq!(ray_critical.target_hp, 5);
+    assert_eq!(ray_critical.active_effect_kind, "speedDelta");
+
+    let mass_healing = replay_spell_action("doMassHealingWordWounded");
+    assert!(mass_healing.action_available);
+    assert!(!mass_healing.bonus_action_available);
+    assert_eq!(mass_healing.target_hp, 12);
+    assert_eq!(mass_healing.second_target_hp, 12);
+    assert_eq!(mass_healing.level_one_slots_remaining, 0);
+
+    let held = replay_spell_action("doReadySpellHold");
+    assert!(held.readied_held);
+    assert!(held.concentration_active);
+
+    let released = replay_spell_action("doReleaseReadiedSpell");
+    assert!(!released.caster_reaction_available);
+    assert!(released.readied_released);
+    assert_eq!(
+        spell_component_route_payload(&released.component_route),
+        spell_component_route_payload(&expected_spell_component_route())
+    );
 }
 
 #[test]
