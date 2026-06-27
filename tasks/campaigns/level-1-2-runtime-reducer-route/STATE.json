@@ -191,7 +191,7 @@
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "fixing-review-findings",
+    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "rereviewing-after-fixer",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready",
@@ -218,7 +218,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b",
       "branch": "ralph/l15-rr07-fu01b-spell-attack-damage",
       "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
-      "status": "fixing-review-findings",
+      "status": "rereviewing-after-fixer",
       "workerAgent": "019f079d-4d22-75e0-b100-3872c7e6bdc2",
       "workerName": "Euler",
       "commit": "11f9f56bf2dccee87204371cb9a5d5f125e6402c",
@@ -252,7 +252,28 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
-      ]
+      ],
+      "fixerAgent": "019f07b0-2295-7dc1-9369-8f9508ebc5fa",
+      "fixerName": "Schrodinger",
+      "fixerStatus": "complete",
+      "fixerCommit": "195a473783bc666f5413dabe0a2bf93ea18003df",
+      "fixerSummary": [
+        "Updated FU01B artifacts/evidence to identify FU01B instead of stale FU01A/older lanes.",
+        "Changed target-blocker rows so observed replay, observed route, expected witness, and evidence records reject/report blocker status instead of resolved pass refs.",
+        "Added minimal target-blocker support to harness validators."
+      ],
+      "fixerVerification": [
+        "cargo test attack_spell_shape_adapter_replays_all_branches",
+        "cargo test level1_damage_spell_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
+      ],
+      "rereviewAgent": "019f07ce-25c1-7ff3-a39b-92f5005a9529",
+      "rereviewName": "Turing",
+      "rereviewStatus": "running"
     }
   ],
   "completedLaneWorktrees": [
