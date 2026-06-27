@@ -1,3 +1,5 @@
+#[path = "../qnt_adapters/battle_runtime_ability_check_choice_search.rs"]
+mod battle_runtime_ability_check_choice_search;
 #[path = "../qnt_adapters/battle_runtime_adrenaline_rush.rs"]
 mod battle_runtime_adrenaline_rush;
 #[path = "../qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs"]
@@ -600,6 +602,14 @@ use crate::rules::zero_hit_point_mid_resolution::{
 };
 
 use crate::rules::character_battle_handoff::character_battle_route_payload;
+use battle_runtime_ability_check_choice_search::{
+    expected_route as expected_ability_check_choice_search_route,
+    expected_witness as expected_ability_check_choice_search_witness,
+    projection_payload as ability_check_choice_search_projection_payload,
+    replay_observed_action as replay_ability_check_choice_search_action,
+    replay_observed_route as replay_ability_check_choice_search_route,
+    BRANCH_ACTIONS as ABILITY_CHECK_CHOICE_SEARCH_BRANCH_ACTIONS,
+};
 use battle_runtime_adrenaline_rush::{
     expected_route as expected_adrenaline_rush_route,
     expected_witness as expected_adrenaline_rush_witness,
@@ -2342,6 +2352,40 @@ fn adrenaline_rush_adapter_replays_all_branches() {
         let route_payload = reducer_route_payload(&route);
         assert!(route_payload.contains("UnitFeatureBonusActionRouteSubject"));
         assert!(route_payload.contains("BattleFeatureResourceOwner"));
+    }
+}
+
+#[test]
+fn ability_check_choice_search_adapter_replays_all_branches() {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Ability
+    // Checks" and "Search"; Rules-Glossary.md "Hide" and "Search";
+    // Spells/Descriptions-E-L.md "Enhance Ability" and "Guidance".
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-ability-check-choice-search.mbt.qnt and
+    // battle-runtime-ability-check-choice-search.route.mbt.qnt.
+    assert_eq!(ABILITY_CHECK_CHOICE_SEARCH_BRANCH_ACTIONS.len(), 12);
+    for action in ABILITY_CHECK_CHOICE_SEARCH_BRANCH_ACTIONS {
+        let observed = replay_ability_check_choice_search_action(action);
+        assert_eq!(
+            observed,
+            expected_ability_check_choice_search_witness(action)
+        );
+        let projection_payload = ability_check_choice_search_projection_payload(&observed);
+        assert!(projection_payload.contains("protocolResult="));
+        assert!(projection_payload.contains("actionAvailable="));
+
+        let observed_route = replay_ability_check_choice_search_route(action);
+        assert_eq!(
+            reducer_route_payload(&observed_route),
+            reducer_route_payload(&expected_ability_check_choice_search_route(action))
+        );
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("BattleActionEconomyOwner"));
+        if action.starts_with("doSearch") {
+            assert!(route_payload.contains("AbilityCheckSearchRouteSubject"));
+        } else {
+            assert!(route_payload.contains("RollModifierEffectRouteSubject"));
+        }
     }
 }
 

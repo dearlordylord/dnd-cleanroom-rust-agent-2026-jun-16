@@ -206,6 +206,7 @@ fn quickened_setup_for_action(observed_action_taken: &str) -> BattleSetup {
         spell_attack_procedure: state.spell_attack_procedure,
         command_effect_procedure: state.command_effect_procedure,
         spatial_route_subjects: state.spatial_route_subjects,
+        ability_check_choice_search: state.ability_check_choice_search,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
         spell_slot_uses_this_turn: state.spell_slot_uses_this_turn,

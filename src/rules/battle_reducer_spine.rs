@@ -4,6 +4,12 @@
 //! tracked experiment proving that one durable `BattleState` path can be built
 //! from QNT before an MBT adapter is wired through the same entrypoints.
 
+use crate::rules::ability_check_choice_search::{
+    invalid_projection, projection_from_state, AbilityCheckChoiceSearchProjection,
+    AbilityCheckSearchAbility, AbilityCheckSearchRollMode, AbilityCheckSearchSkill,
+    AbilityCheckSearchStage, BattleAbilityCheckChoiceSearchState, RollModifierChoiceKind,
+    RollModifierChoiceState, SearchAbilityCheckFacts, SearchTargetChoiceFacts,
+};
 use crate::rules::armor_class::{
     armor_class_projection, ArmorClassAbility, ArmorClassFacts, ArmorClassFormula, ArmorClassOption,
 };
@@ -600,6 +606,7 @@ pub struct BattleState {
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
     pub spatial_route_subjects: Vec<BattleSpatialRouteSubject>,
+    pub ability_check_choice_search: BattleAbilityCheckChoiceSearchState,
     pub feature_substrates: BattleFeatureSubstrates,
     pub feature_resources: BattleFeatureResources,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
@@ -630,6 +637,7 @@ pub struct BattleSetup {
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
     pub spatial_route_subjects: Vec<BattleSpatialRouteSubject>,
+    pub ability_check_choice_search: BattleAbilityCheckChoiceSearchState,
     pub feature_substrates: BattleFeatureSubstrates,
     pub feature_resources: BattleFeatureResources,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
@@ -672,6 +680,7 @@ impl BattleSetup {
             spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
             command_effect_procedure: BattleCommandEffectProcedure::Inactive,
             spatial_route_subjects: Vec::new(),
+            ability_check_choice_search: BattleAbilityCheckChoiceSearchState::inactive(),
             feature_substrates: BattleFeatureSubstrates::standard(),
             feature_resources: BattleFeatureResources::standard(),
             spell_slot_uses_this_turn: Vec::new(),
@@ -1082,6 +1091,8 @@ impl TurnBoundaryEffects {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleSubjectKind {
     EndTurn,
+    AbilityCheckSearch,
+    RollModifierEffect,
     WeaponAttack,
     Multiattack,
     SingleTargetSpellAttack,
@@ -1193,6 +1204,8 @@ pub struct AttackRollFacts {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleFill {
     NoFill,
+    AbilityCheckSearch(BattleAbilityCheckSearchFill),
+    RollModifierEffect(BattleRollModifierEffectFill),
     TargetChoice(Actor),
     AttackRoll(AttackRollFacts),
     DamageRoll(i16),
@@ -1226,13 +1239,32 @@ pub enum BattleFill {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleGenericRouteFill {
     AbilityCheck,
+    AbilityChoice,
     AttackRoll,
     DamageTypeChoice,
     InterruptDecision,
     RolledDice,
     SavingThrowOutcome,
+    SkillChoice,
     TargetChoice,
     WithoutFill,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleAbilityCheckSearchFill {
+    TargetChoice {
+        target: Actor,
+        facts: SearchTargetChoiceFacts,
+    },
+    AbilityCheck(SearchAbilityCheckFacts),
+    SkillChoice(AbilityCheckSearchSkill),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleRollModifierEffectFill {
+    TargetChoice(Actor),
+    SkillChoice(AbilityCheckSearchSkill),
+    AbilityChoice(AbilityCheckSearchAbility),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1492,6 +1524,44 @@ impl BattleResolutionRequest {
                     BattleFill::SneakAttackDamageRoll(damage)
                 }
             },
+        })
+    }
+
+    pub fn ability_check_search(
+        subject: BattleSubject,
+        fill: BattleAbilityCheckSearchFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::AbilityCheckSearch {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::AbilityCheckSearch(fill),
+        })
+    }
+
+    pub fn roll_modifier_effect(
+        subject: BattleSubject,
+        fill: BattleRollModifierEffectFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::RollModifierEffect {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::RollModifierEffect(fill),
+        })
+    }
+
+    pub fn roll_modifier_effect_without_fill(
+        subject: BattleSubject,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if subject.kind != BattleSubjectKind::RollModifierEffect {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::NoFill,
         })
     }
 
@@ -1770,6 +1840,7 @@ impl BattleResolutionRequest {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleHoleKind {
     AbilityCheck,
+    AbilityChoice,
     TargetChoice,
     SpellTargetAllocation,
     AttackRoll,
@@ -1783,6 +1854,7 @@ pub enum BattleHoleKind {
     ConcentrationSavingThrow,
     StatBlockRechargeRoll,
     CommandOptionChoice,
+    SkillChoice,
     InterruptDecision,
     Movement,
 }
@@ -2207,6 +2279,7 @@ pub enum BattleEntrypointEvent {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleReducerRouteFillKind {
     AbilityCheck,
+    AbilityChoice,
     AttackRoll,
     GrappleOutcome,
     ConcentrationSavingThrow,
@@ -2231,6 +2304,7 @@ pub enum BattleReducerRouteFillKind {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum BattleReducerRouteHoleKind {
     AbilityCheck,
+    AbilityChoice,
     AttackRoll,
     GrappleOutcome,
     ConcentrationSavingThrow,
@@ -2254,6 +2328,7 @@ pub enum BattleReducerRouteHoleKind {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleReducerRouteSubjectFamily {
     ActiveFormLifecycle,
+    AbilityCheckSearch,
     AreaHazard,
     AreaObscurement,
     ConcentrationTeardown,
@@ -2317,6 +2392,7 @@ pub enum BattleSpatialRouteSubject {
 pub enum BattleReducerRouteOwnerGroup {
     ActionEconomy,
     ActiveEffect,
+    AbilityCheck,
     AbilityCheckRollMode,
     AreaShape,
     AttackRoll,
@@ -2715,6 +2791,7 @@ pub fn start_battle(setup: BattleSetup) -> BattleStartResult {
             spell_attack_procedure: setup.spell_attack_procedure,
             command_effect_procedure: setup.command_effect_procedure,
             spatial_route_subjects: setup.spatial_route_subjects,
+            ability_check_choice_search: setup.ability_check_choice_search,
             feature_substrates: setup.feature_substrates,
             feature_resources: setup.feature_resources,
             spell_slot_uses_this_turn: setup.spell_slot_uses_this_turn,
@@ -2765,6 +2842,63 @@ pub fn discover_generic_route_subject_observed(
 #[must_use]
 pub fn start_standard_battle() -> BattleState {
     start_battle(BattleSetup::standard()).state
+}
+
+#[must_use]
+pub fn start_search_ability_check_battle() -> BattleState {
+    start_battle(BattleSetup {
+        ability_check_choice_search: BattleAbilityCheckChoiceSearchState::Search(
+            crate::rules::ability_check_choice_search::AbilityCheckSearchState::target_choice_open(
+                true,
+            ),
+        ),
+        ..BattleSetup::standard()
+    })
+    .state
+}
+
+#[must_use]
+pub fn start_roll_modifier_skill_choice_battle() -> BattleState {
+    start_battle(BattleSetup {
+        ability_check_choice_search: BattleAbilityCheckChoiceSearchState::RollModifierChoice(
+            RollModifierChoiceState::skill_choice_open(),
+        ),
+        ..BattleSetup::standard()
+    })
+    .state
+}
+
+#[must_use]
+pub fn start_roll_modifier_ability_choice_battle() -> BattleState {
+    start_battle(BattleSetup {
+        ability_check_choice_search: BattleAbilityCheckChoiceSearchState::RollModifierChoice(
+            RollModifierChoiceState::ability_choice_open(),
+        ),
+        ..BattleSetup::standard()
+    })
+    .state
+}
+
+#[must_use]
+pub fn ability_check_choice_search_projection_from_battle(
+    state: &BattleState,
+) -> AbilityCheckChoiceSearchProjection {
+    projection_from_state(state.ability_check_choice_search, state.action_available)
+}
+
+#[must_use]
+pub fn ability_check_choice_search_projection_from_battle_result(
+    result: &BattleResolutionResult,
+) -> AbilityCheckChoiceSearchProjection {
+    match result.outcome() {
+        BattleResolutionOutcome::Invalid(_) => invalid_projection(
+            result.state().ability_check_choice_search,
+            result.state().action_available,
+        ),
+        BattleResolutionOutcome::NeedsHoles | BattleResolutionOutcome::Resolved => {
+            ability_check_choice_search_projection_from_battle(result.state())
+        }
+    }
 }
 
 #[must_use]
@@ -3346,6 +3480,7 @@ fn sorted_battle_reducer_route_holes(
 fn battle_reducer_route_hole(hole: BattleHoleKind) -> BattleReducerRouteHoleKind {
     match hole {
         BattleHoleKind::AbilityCheck => BattleReducerRouteHoleKind::AbilityCheck,
+        BattleHoleKind::AbilityChoice => BattleReducerRouteHoleKind::AbilityChoice,
         BattleHoleKind::AttackRoll => BattleReducerRouteHoleKind::AttackRoll,
         BattleHoleKind::ConcentrationSavingThrow => {
             BattleReducerRouteHoleKind::ConcentrationSavingThrow
@@ -3361,6 +3496,7 @@ fn battle_reducer_route_hole(hole: BattleHoleKind) -> BattleReducerRouteHoleKind
         BattleHoleKind::Movement => BattleReducerRouteHoleKind::Movement,
         BattleHoleKind::RolledDice => BattleReducerRouteHoleKind::RolledDice,
         BattleHoleKind::SavingThrowOutcome => BattleReducerRouteHoleKind::SavingThrowOutcome,
+        BattleHoleKind::SkillChoice => BattleReducerRouteHoleKind::SkillChoice,
         BattleHoleKind::SpellTargetAllocation => BattleReducerRouteHoleKind::SpellTargetAllocation,
         BattleHoleKind::SpellTargetList => BattleReducerRouteHoleKind::SpellTargetList,
         BattleHoleKind::StatBlockRechargeRoll => BattleReducerRouteHoleKind::StatBlockRechargeRoll,
@@ -3374,6 +3510,12 @@ fn battle_reducer_route_subject_family(
     match subject {
         BattleSubjectKind::EndTurn | BattleSubjectKind::Multiattack => {
             BattleReducerRouteSubjectFamily::BattleAction
+        }
+        BattleSubjectKind::AbilityCheckSearch => {
+            BattleReducerRouteSubjectFamily::AbilityCheckSearch
+        }
+        BattleSubjectKind::RollModifierEffect => {
+            BattleReducerRouteSubjectFamily::RollModifierEffect
         }
         BattleSubjectKind::WeaponAttack => BattleReducerRouteSubjectFamily::WeaponAttack,
         BattleSubjectKind::SingleTargetSpellAttack | BattleSubjectKind::TypedSpellAttack => {
@@ -6700,6 +6842,10 @@ fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerRouteOw
         | BattleSubjectKind::UnitFeatureBonusAction => {
             BattleReducerRouteOwnerGroup::FeatureResource
         }
+        BattleSubjectKind::AbilityCheckSearch => BattleReducerRouteOwnerGroup::ActionEconomy,
+        BattleSubjectKind::RollModifierEffect => {
+            BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
+        }
         BattleSubjectKind::ActiveFeatureSpellSaveDc
         | BattleSubjectKind::ActiveFeatureSpellAttackRollMode => {
             BattleReducerRouteOwnerGroup::ActiveEffect
@@ -6731,6 +6877,8 @@ fn push_reducer_spine_diagnostic_acts(
     actor: Actor,
     acts: &mut Vec<AvailableBattleAct>,
 ) {
+    push_ability_check_choice_search_acts(state, actor, acts);
+
     if death_saving_throw_available(combatant_for(state, actor)) {
         acts.push(AvailableBattleAct {
             subject: diagnostic_subject(BattleSubjectKind::DeathSavingThrow, actor, Some(actor)),
@@ -6859,6 +7007,34 @@ fn push_reducer_spine_diagnostic_acts(
                 HitPointRestorationFrontierStage::FeatureHealingPoolDistribution,
             ),
         });
+    }
+}
+
+fn push_ability_check_choice_search_acts(
+    state: &BattleState,
+    actor: Actor,
+    acts: &mut Vec<AvailableBattleAct>,
+) {
+    match state.ability_check_choice_search {
+        BattleAbilityCheckChoiceSearchState::Search(search) => {
+            if state.action_available && search.stage != AbilityCheckSearchStage::Resolved {
+                acts.push(AvailableBattleAct {
+                    subject: diagnostic_subject(BattleSubjectKind::AbilityCheckSearch, actor, None),
+                    holes: ability_check_search_holes(search.stage),
+                });
+            }
+        }
+        BattleAbilityCheckChoiceSearchState::RollModifierChoice(choice) => {
+            if state.action_available
+                && (choice.target_effect_count == 0 && choice.caster_effect_count == 0)
+            {
+                acts.push(AvailableBattleAct {
+                    subject: diagnostic_subject(BattleSubjectKind::RollModifierEffect, actor, None),
+                    holes: roll_modifier_choice_holes(choice),
+                });
+            }
+        }
+        BattleAbilityCheckChoiceSearchState::Inactive => {}
     }
 }
 
@@ -7038,6 +7214,8 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             resolve_owner: Concentration,
         },
         BattleSubjectKind::EndTurn
+        | BattleSubjectKind::AbilityCheckSearch
+        | BattleSubjectKind::RollModifierEffect
         | BattleSubjectKind::WeaponAttack
         | BattleSubjectKind::Multiattack
         | BattleSubjectKind::SingleTargetSpellAttack
@@ -7124,6 +7302,8 @@ fn save_gated_spell_subject_kind_matches(
         BattleSubjectKind::SaveGatedAreaDamage => subject.damage_dice_required,
         BattleSubjectKind::SaveGatedTargetListConditionChoice => !subject.damage_dice_required,
         BattleSubjectKind::MetamagicOptionSpell
+        | BattleSubjectKind::AbilityCheckSearch
+        | BattleSubjectKind::RollModifierEffect
         | BattleSubjectKind::WeaponAttack
         | BattleSubjectKind::Multiattack
         | BattleSubjectKind::SingleTargetSpellAttack
@@ -7239,6 +7419,8 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
             metamagic_option_spell_route_subject_is_live(state, subject)
         }
         BattleSubjectKind::EndTurn
+        | BattleSubjectKind::AbilityCheckSearch
+        | BattleSubjectKind::RollModifierEffect
         | BattleSubjectKind::WeaponAttack
         | BattleSubjectKind::Multiattack
         | BattleSubjectKind::SingleTargetSpellAttack
@@ -7287,6 +7469,26 @@ fn metamagic_option_spell_available(state: &BattleState) -> bool {
     (state.feature_substrates.quickened_spell.offered && state.bonus_action_available)
         || (state.feature_substrates.metamagic_spell.offered && state.action_available)
         || (state.feature_substrates.metamagic_option_spell.offered && state.action_available)
+}
+
+fn ability_check_search_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
+    diagnostic_subject_shape_matches(subject, BattleSubjectKind::AbilityCheckSearch, None)
+        && matches!(
+            state.ability_check_choice_search,
+            BattleAbilityCheckChoiceSearchState::Search(search)
+                if search.stage != AbilityCheckSearchStage::Resolved
+        )
+        && route_subject_discoverable_now(state, subject)
+}
+
+fn roll_modifier_effect_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
+    diagnostic_subject_shape_matches(subject, BattleSubjectKind::RollModifierEffect, None)
+        && matches!(
+            state.ability_check_choice_search,
+            BattleAbilityCheckChoiceSearchState::RollModifierChoice(choice)
+                if choice.target_effect_count == 0 && choice.caster_effect_count == 0
+        )
+        && route_subject_discoverable_now(state, subject)
 }
 
 fn spatial_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
@@ -7492,6 +7694,24 @@ fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRoute
         BattleFill::NoFill => None,
         BattleFill::GenericRoute(BattleGenericRouteFill::WithoutFill) => None,
         BattleFill::GenericRoute(fill) => Some(generic_route_fill_kind(fill)),
+        BattleFill::AbilityCheckSearch(fill) => Some(match fill {
+            BattleAbilityCheckSearchFill::TargetChoice { .. } => {
+                BattleReducerRouteFillKind::TargetChoice
+            }
+            BattleAbilityCheckSearchFill::AbilityCheck(_) => {
+                BattleReducerRouteFillKind::AbilityCheck
+            }
+            BattleAbilityCheckSearchFill::SkillChoice(_) => BattleReducerRouteFillKind::SkillChoice,
+        }),
+        BattleFill::RollModifierEffect(fill) => Some(match fill {
+            BattleRollModifierEffectFill::TargetChoice(_) => {
+                BattleReducerRouteFillKind::TargetChoice
+            }
+            BattleRollModifierEffectFill::SkillChoice(_) => BattleReducerRouteFillKind::SkillChoice,
+            BattleRollModifierEffectFill::AbilityChoice(_) => {
+                BattleReducerRouteFillKind::AbilityChoice
+            }
+        }),
         BattleFill::TargetChoice(_) => Some(BattleReducerRouteFillKind::TargetChoice),
         BattleFill::AttackRoll(_) => Some(BattleReducerRouteFillKind::AttackRoll),
         BattleFill::DamageRoll(_) | BattleFill::SneakAttackDamageRoll(_) => {
@@ -7591,6 +7811,7 @@ fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRoute
 const fn generic_route_fill_kind(fill: BattleGenericRouteFill) -> BattleReducerRouteFillKind {
     match fill {
         BattleGenericRouteFill::AbilityCheck => BattleReducerRouteFillKind::AbilityCheck,
+        BattleGenericRouteFill::AbilityChoice => BattleReducerRouteFillKind::AbilityChoice,
         BattleGenericRouteFill::AttackRoll => BattleReducerRouteFillKind::AttackRoll,
         BattleGenericRouteFill::DamageTypeChoice => BattleReducerRouteFillKind::DamageTypeChoice,
         BattleGenericRouteFill::InterruptDecision => BattleReducerRouteFillKind::InterruptDecision,
@@ -7598,6 +7819,7 @@ const fn generic_route_fill_kind(fill: BattleGenericRouteFill) -> BattleReducerR
         BattleGenericRouteFill::SavingThrowOutcome => {
             BattleReducerRouteFillKind::SavingThrowOutcome
         }
+        BattleGenericRouteFill::SkillChoice => BattleReducerRouteFillKind::SkillChoice,
         BattleGenericRouteFill::TargetChoice => BattleReducerRouteFillKind::TargetChoice,
         BattleGenericRouteFill::WithoutFill => BattleReducerRouteFillKind::UnitFeatureDecision,
     }
@@ -7616,6 +7838,36 @@ fn battle_resolution_route_owner(
                 BattleFill::GenericRoute(BattleGenericRouteFill::SavingThrowOutcome),
             ) => BattleReducerRouteOwnerGroup::ActiveEffect,
             _ => generic_route_shape(kind).resolve_owner,
+        },
+        BattleSubjectKind::AbilityCheckSearch => match fill {
+            BattleFill::AbilityCheckSearch(BattleAbilityCheckSearchFill::TargetChoice {
+                ..
+            }) => BattleReducerRouteOwnerGroup::TargetSelection,
+            BattleFill::AbilityCheckSearch(BattleAbilityCheckSearchFill::AbilityCheck(_)) => {
+                BattleReducerRouteOwnerGroup::AbilityCheck
+            }
+            BattleFill::AbilityCheckSearch(BattleAbilityCheckSearchFill::SkillChoice(_)) => {
+                BattleReducerRouteOwnerGroup::HoleFrontier
+            }
+            _ => BattleReducerRouteOwnerGroup::HoleFrontier,
+        },
+        BattleSubjectKind::RollModifierEffect => match fill {
+            BattleFill::NoFill => BattleReducerRouteOwnerGroup::Concentration,
+            BattleFill::RollModifierEffect(BattleRollModifierEffectFill::TargetChoice(_)) => {
+                BattleReducerRouteOwnerGroup::TargetSelection
+            }
+            BattleFill::RollModifierEffect(BattleRollModifierEffectFill::SkillChoice(_))
+            | BattleFill::RollModifierEffect(BattleRollModifierEffectFill::AbilityChoice(_)) => {
+                match outcome {
+                    BattleResolutionOutcome::Invalid(_) => {
+                        BattleReducerRouteOwnerGroup::HoleFrontier
+                    }
+                    BattleResolutionOutcome::Resolved | BattleResolutionOutcome::NeedsHoles => {
+                        BattleReducerRouteOwnerGroup::ActiveEffect
+                    }
+                }
+            }
+            _ => BattleReducerRouteOwnerGroup::HoleFrontier,
         },
         BattleSubjectKind::WeaponAttack => match battle_reducer_route_fill_kind(fill) {
             Some(BattleReducerRouteFillKind::TargetChoice) => {
@@ -7810,6 +8062,40 @@ fn resolve_battle_subject_unchecked(
     }
 
     match (subject.kind, fill) {
+        (BattleSubjectKind::AbilityCheckSearch, BattleFill::AbilityCheckSearch(fill)) => {
+            if !ability_check_search_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_ability_check_search_subject(state, fill)
+        }
+        (BattleSubjectKind::RollModifierEffect, BattleFill::RollModifierEffect(fill)) => {
+            if !roll_modifier_effect_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_roll_modifier_effect_subject(state, fill)
+        }
+        (BattleSubjectKind::RollModifierEffect, BattleFill::NoFill) => {
+            if !diagnostic_subject_shape_matches(
+                subject,
+                BattleSubjectKind::RollModifierEffect,
+                None,
+            ) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            BattleResolutionResult::Resolved { state }
+        }
         (BattleSubjectKind::SlotSpell, BattleFill::SlotSpell(fill)) => {
             if !slot_spell_route_subject_is_live(&state, subject) {
                 return invalid(
@@ -8051,6 +8337,8 @@ fn resolve_battle_subject_unchecked(
                     resolve_damage_roll(state, subject, rolled_damage, true)
                 }
                 BattleFill::NoFill
+                | BattleFill::AbilityCheckSearch(_)
+                | BattleFill::RollModifierEffect(_)
                 | BattleFill::ResolveMultiattack
                 | BattleFill::SpendMultiattackDispatch
                 | BattleFill::SpellAttack(_)
@@ -8091,6 +8379,8 @@ fn resolve_battle_subject_unchecked(
         ),
         (
             BattleSubjectKind::SlotSpell
+            | BattleSubjectKind::AbilityCheckSearch
+            | BattleSubjectKind::RollModifierEffect
             | BattleSubjectKind::SingleTargetSpellAttack
             | BattleSubjectKind::TypedSpellAttack
             | BattleSubjectKind::SaveGatedAreaDamage
@@ -8163,6 +8453,163 @@ fn resolve_generic_route_subject(
     }
 }
 
+fn resolve_ability_check_search_subject(
+    mut state: BattleState,
+    fill: BattleAbilityCheckSearchFill,
+) -> BattleResolutionResult {
+    let BattleAbilityCheckChoiceSearchState::Search(search) = state.ability_check_choice_search
+    else {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            Vec::new(),
+        );
+    };
+
+    match (search.stage, fill) {
+        (
+            AbilityCheckSearchStage::TargetChoice,
+            BattleAbilityCheckSearchFill::TargetChoice { facts, .. },
+        ) if facts.target_admitted => {
+            let actor = current_actor(&state);
+            state.ability_check_choice_search = BattleAbilityCheckChoiceSearchState::Search(
+                crate::rules::ability_check_choice_search::AbilityCheckSearchState {
+                    stage: AbilityCheckSearchStage::AbilityCheck,
+                    target_admitted: true,
+                    ..search
+                },
+            );
+            BattleResolutionResult::NeedsHoles {
+                state,
+                subject: diagnostic_subject(BattleSubjectKind::AbilityCheckSearch, actor, None),
+                holes: vec![BattleHoleKind::AbilityCheck],
+            }
+        }
+        (
+            AbilityCheckSearchStage::TargetChoice,
+            BattleAbilityCheckSearchFill::TargetChoice { .. },
+        ) => invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::InvalidFill,
+            Vec::new(),
+        ),
+        (
+            AbilityCheckSearchStage::AbilityCheck,
+            BattleAbilityCheckSearchFill::AbilityCheck(facts),
+        ) => {
+            state.action_available = false;
+            state.ability_check_choice_search = BattleAbilityCheckChoiceSearchState::Search(
+                crate::rules::ability_check_choice_search::AbilityCheckSearchState {
+                    stage: AbilityCheckSearchStage::Resolved,
+                    target_hidden: facts.total < facts.difficulty_class,
+                    target_admitted: search.target_admitted,
+                },
+            );
+            BattleResolutionResult::Resolved { state }
+        }
+        (AbilityCheckSearchStage::AbilityCheck, BattleAbilityCheckSearchFill::SkillChoice(_)) => {
+            invalid_with_holes(
+                state,
+                BattleResolutionInvalidReason::InvalidFill,
+                Vec::new(),
+            )
+        }
+        (
+            AbilityCheckSearchStage::Resolved,
+            BattleAbilityCheckSearchFill::TargetChoice { .. }
+            | BattleAbilityCheckSearchFill::AbilityCheck(_)
+            | BattleAbilityCheckSearchFill::SkillChoice(_),
+        )
+        | (
+            AbilityCheckSearchStage::AbilityCheck,
+            BattleAbilityCheckSearchFill::TargetChoice { .. },
+        )
+        | (
+            AbilityCheckSearchStage::TargetChoice,
+            BattleAbilityCheckSearchFill::AbilityCheck(_)
+            | BattleAbilityCheckSearchFill::SkillChoice(_),
+        ) => invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::InvalidFill,
+            Vec::new(),
+        ),
+    }
+}
+
+fn resolve_roll_modifier_effect_subject(
+    mut state: BattleState,
+    fill: BattleRollModifierEffectFill,
+) -> BattleResolutionResult {
+    let BattleAbilityCheckChoiceSearchState::RollModifierChoice(choice) =
+        state.ability_check_choice_search
+    else {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
+            Vec::new(),
+        );
+    };
+
+    match (choice.target_selected, choice.choice_kind, fill) {
+        (false, _, BattleRollModifierEffectFill::TargetChoice(_)) => {
+            let actor = current_actor(&state);
+            let next_choice = RollModifierChoiceState {
+                target_selected: true,
+                ..choice
+            };
+            state.ability_check_choice_search =
+                BattleAbilityCheckChoiceSearchState::RollModifierChoice(next_choice);
+            BattleResolutionResult::NeedsHoles {
+                state,
+                subject: diagnostic_subject(BattleSubjectKind::RollModifierEffect, actor, None),
+                holes: roll_modifier_choice_holes(next_choice),
+            }
+        }
+        (true, RollModifierChoiceKind::Skill, BattleRollModifierEffectFill::SkillChoice(skill)) => {
+            state.action_available = false;
+            state.concentration = cast_concentration_spell(state.concentration.clone());
+            state.ability_check_choice_search =
+                BattleAbilityCheckChoiceSearchState::RollModifierChoice(RollModifierChoiceState {
+                    target_effect_count: 1,
+                    caster_effect_count: state.concentration.active_concentration_effect_count,
+                    d20_modifier_skill: Some(skill),
+                    ..choice
+                });
+            BattleResolutionResult::Resolved { state }
+        }
+        (
+            true,
+            RollModifierChoiceKind::Ability,
+            BattleRollModifierEffectFill::AbilityChoice(ability),
+        ) => {
+            state.action_available = false;
+            state.concentration = cast_concentration_spell(state.concentration.clone());
+            state.ability_check_choice_search =
+                BattleAbilityCheckChoiceSearchState::RollModifierChoice(RollModifierChoiceState {
+                    target_effect_count: 1,
+                    caster_effect_count: 0,
+                    ability_check_mode_ability: Some(ability),
+                    target_dexterity_roll_mode: if ability == AbilityCheckSearchAbility::Dexterity {
+                        AbilityCheckSearchRollMode::Advantage
+                    } else {
+                        AbilityCheckSearchRollMode::Normal
+                    },
+                    ..choice
+                });
+            BattleResolutionResult::Resolved { state }
+        }
+        (true, RollModifierChoiceKind::Skill, BattleRollModifierEffectFill::AbilityChoice(_))
+        | (true, RollModifierChoiceKind::Ability, BattleRollModifierEffectFill::SkillChoice(_))
+        | (false, _, BattleRollModifierEffectFill::SkillChoice(_))
+        | (false, _, BattleRollModifierEffectFill::AbilityChoice(_))
+        | (true, _, BattleRollModifierEffectFill::TargetChoice(_)) => invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::InvalidFill,
+            Vec::new(),
+        ),
+    }
+}
+
 fn generic_route_fill_matches_subject(
     kind: BattleSubjectKind,
     fill: BattleGenericRouteFill,
@@ -8200,6 +8647,8 @@ fn generic_route_fill_matches_subject(
             fill == BattleGenericRouteFill::AbilityCheck
         }
         BattleSubjectKind::EndTurn
+        | BattleSubjectKind::AbilityCheckSearch
+        | BattleSubjectKind::RollModifierEffect
         | BattleSubjectKind::WeaponAttack
         | BattleSubjectKind::Multiattack
         | BattleSubjectKind::SingleTargetSpellAttack
@@ -8264,6 +8713,8 @@ fn generic_route_next_holes(
         ) => Vec::new(),
         (
             BattleSubjectKind::EndTurn
+            | BattleSubjectKind::AbilityCheckSearch
+            | BattleSubjectKind::RollModifierEffect
             | BattleSubjectKind::WeaponAttack
             | BattleSubjectKind::Multiattack
             | BattleSubjectKind::SingleTargetSpellAttack
@@ -9659,6 +10110,32 @@ fn stat_block_action_hole_kinds(stage: StatBlockActionFrontierStage) -> Vec<Batt
             StatBlockActionHoleKind::StatBlockRechargeRoll => BattleHoleKind::StatBlockRechargeRoll,
         })
         .collect()
+}
+
+fn ability_check_search_holes(stage: AbilityCheckSearchStage) -> Vec<BattleHoleKind> {
+    match stage {
+        AbilityCheckSearchStage::TargetChoice => vec![BattleHoleKind::TargetChoice],
+        AbilityCheckSearchStage::AbilityCheck => vec![BattleHoleKind::AbilityCheck],
+        AbilityCheckSearchStage::Resolved => Vec::new(),
+    }
+}
+
+fn roll_modifier_choice_holes(choice: RollModifierChoiceState) -> Vec<BattleHoleKind> {
+    if choice.target_selected {
+        return match choice.choice_kind {
+            RollModifierChoiceKind::Skill => vec![BattleHoleKind::SkillChoice],
+            RollModifierChoiceKind::Ability => vec![BattleHoleKind::AbilityChoice],
+        };
+    }
+
+    match choice.choice_kind {
+        RollModifierChoiceKind::Skill => {
+            vec![BattleHoleKind::TargetChoice, BattleHoleKind::SkillChoice]
+        }
+        RollModifierChoiceKind::Ability => {
+            vec![BattleHoleKind::TargetChoice, BattleHoleKind::AbilityChoice]
+        }
+    }
 }
 
 const fn battle_subject_from_stat_block_action_subject(

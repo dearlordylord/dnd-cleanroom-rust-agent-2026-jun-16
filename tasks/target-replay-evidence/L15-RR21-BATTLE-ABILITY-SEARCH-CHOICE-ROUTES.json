@@ -1,0 +1,396 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-ability-check-search-choice-route-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doSearchTargetChoiceOpen",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doSearchTargetChoiceOpen",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "dc5354a9e55def85ee32addda802098ffe31fcc48db9482330dfef883572efde",
+        "observedProjectionSha256": "dc5354a9e55def85ee32addda802098ffe31fcc48db9482330dfef883572efde",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchTargetChoiceOpen"
+    },
+    {
+      "branchAction": "doSearchAbilityCheckOpen",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doSearchAbilityCheckOpen",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "71afbd75cbad1c690dc10c3115a50aa7229a6fa5df507dad7c0b29b6b9493cc5",
+        "observedProjectionSha256": "71afbd75cbad1c690dc10c3115a50aa7229a6fa5df507dad7c0b29b6b9493cc5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchAbilityCheckOpen"
+    },
+    {
+      "branchAction": "doSearchInvalidTargetRejected",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doSearchInvalidTargetRejected",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "78090d300cb3f3aa83e36f6581925f1ea918fd3048b0f81c1c51269765042b9a",
+        "observedProjectionSha256": "78090d300cb3f3aa83e36f6581925f1ea918fd3048b0f81c1c51269765042b9a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchInvalidTargetRejected"
+    },
+    {
+      "branchAction": "doSearchInvalidAbilityFillRejected",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doSearchInvalidAbilityFillRejected",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6ab169738faec0a6aff0768861242e5ed58f0bdbdd5145bcbb0a3522b887e98b",
+        "observedProjectionSha256": "6ab169738faec0a6aff0768861242e5ed58f0bdbdd5145bcbb0a3522b887e98b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchInvalidAbilityFillRejected"
+    },
+    {
+      "branchAction": "doSearchFails",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doSearchFails",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4b9756987ce5492417eb93f7830c478af5d695187838f21e014a8737999e2013",
+        "observedProjectionSha256": "4b9756987ce5492417eb93f7830c478af5d695187838f21e014a8737999e2013",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchFails"
+    },
+    {
+      "branchAction": "doSearchSucceeds",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doSearchSucceeds",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "72f61a36cb9c9b526ff38ebd69c3889d1ce963dc9aca88a50848ce6018686a85",
+        "observedProjectionSha256": "72f61a36cb9c9b526ff38ebd69c3889d1ce963dc9aca88a50848ce6018686a85",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchSucceeds"
+    },
+    {
+      "branchAction": "doGuidanceSkillChoiceOpen",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doGuidanceSkillChoiceOpen",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7e8fa33996d8b2695b6271fa734bdb4323bf8f7baa33461a367d167615ede139",
+        "observedProjectionSha256": "7e8fa33996d8b2695b6271fa734bdb4323bf8f7baa33461a367d167615ede139",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doGuidanceSkillChoiceOpen"
+    },
+    {
+      "branchAction": "doGuidanceInvalidAbilityFillRejected",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doGuidanceInvalidAbilityFillRejected",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "acffbd9661dac3f51450eda9648f50c030163f45e14dcfcb99bfe374ff9182e8",
+        "observedProjectionSha256": "acffbd9661dac3f51450eda9648f50c030163f45e14dcfcb99bfe374ff9182e8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doGuidanceInvalidAbilityFillRejected"
+    },
+    {
+      "branchAction": "doGuidanceSkillAthletics",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doGuidanceSkillAthletics",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c8f50f76f3748df2d6bcfeba6c4484c6c6e234aa0e0b8264297df6d6a7fed297",
+        "observedProjectionSha256": "c8f50f76f3748df2d6bcfeba6c4484c6c6e234aa0e0b8264297df6d6a7fed297",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doGuidanceSkillAthletics"
+    },
+    {
+      "branchAction": "doEnhanceAbilityChoiceOpen",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doEnhanceAbilityChoiceOpen",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6bdcbbc951018da31436bc1bb153b093d85ce278db9e890372a815d6a4349aed",
+        "observedProjectionSha256": "6bdcbbc951018da31436bc1bb153b093d85ce278db9e890372a815d6a4349aed",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doEnhanceAbilityChoiceOpen"
+    },
+    {
+      "branchAction": "doEnhanceAbilityInvalidSkillFillRejected",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doEnhanceAbilityInvalidSkillFillRejected",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "feee29478219bc07b0089124ba52523b9ee7e470547331b1ded07620dfff086f",
+        "observedProjectionSha256": "feee29478219bc07b0089124ba52523b9ee7e470547331b1ded07620dfff086f",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doEnhanceAbilityInvalidSkillFillRejected"
+    },
+    {
+      "branchAction": "doEnhanceAbilityDex",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+      "observedActionTaken": "doEnhanceAbilityDex",
+      "qntFileSha256": "03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+      "routeEvidenceBasis": "Focused Rust adapter test compares production BattleState reducer observer route events against independent expected qRoute records for the ability-check/search choice route.",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.ability_check_choice_search",
+          "BattleState.action_available",
+          "BattleState.concentration",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.AbilityCheckSearch",
+          "ReducerRouteEvent.RollModifierEffect"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8b98717882590739b5c3546183167d33e0552d6bf3557bca62c0ded38964cce4",
+        "observedProjectionSha256": "8b98717882590739b5c3546183167d33e0552d6bf3557bca62c0ded38964cce4",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doEnhanceAbilityDex"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

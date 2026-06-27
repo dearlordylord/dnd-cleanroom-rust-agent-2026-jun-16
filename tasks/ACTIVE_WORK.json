@@ -277,6 +277,12 @@
           "queue": [
             "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt"
           ]
+        },
+        {
+          "laneId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES",
+          "queue": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt"
+          ]
         }
       ]
     },

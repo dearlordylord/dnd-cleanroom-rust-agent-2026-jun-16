@@ -2926,6 +2926,81 @@
           "status": "pass"
         }
       ]
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/DECIDER_DECISION.json",
+          "sha256": "13bbefe0b4ca613c53bfeeb54bb27ccfdf4f338b6e648a476888e5b50d1910a1"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "18a94923242a6ab2dbce50ae9681459e5afaadd48792022b00087f96baadea05"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/REVIEW_LOOP.json",
+          "sha256": "617a20cf2a03be048348a410b6f84457476e4473c5774b4f8b6cc7fc1cc859b8"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/START_GATE.json",
+          "sha256": "b3d9c94a7050f9bb9f45f0b398408edfa5cbf8e428de0de72478ac8d196a4c39"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "e4ab013ab32a3f09351574ff69e04c8314bf00c36fcd8d3384954f91aa96da7f"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo test ability_check_choice_search_adapter_replays_all_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 73c5ccea0ee7425952f231485325df5a45a0f36a...HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doGuidanceInvalidAbilityFillRejected#step:doGuidanceInvalidAbilityFillRejected",
+            "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doGuidanceSkillAthletics#step:doGuidanceSkillAthletics",
+            "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doGuidanceSkillChoiceOpen#step:doGuidanceSkillChoiceOpen",
+            "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchAbilityCheckOpen#step:doSearchAbilityCheckOpen",
+            "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchFails#step:doSearchFails",
+            "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchInvalidAbilityFillRejected#step:doSearchInvalidAbilityFillRejected",
+            "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchInvalidTargetRejected#step:doSearchInvalidTargetRejected",
+            "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchSucceeds#step:doSearchSucceeds",
+            "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchTargetChoiceOpen#step:doSearchTargetChoiceOpen"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json",
+          "sha256": "f7ca3507622f370412a36aec742e2f4624ac4608854ecc4dab970b632e7084d4"
+        }
+      ],
+      "taskId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

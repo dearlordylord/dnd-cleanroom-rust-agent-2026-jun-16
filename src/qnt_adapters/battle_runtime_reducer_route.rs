@@ -8,6 +8,7 @@ use crate::rules::battle_reducer_spine::{
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum ReducerRouteHoleKind {
     AbilityCheck,
+    AbilityChoice,
     AttackRoll,
     GrappleOutcome,
     ConcentrationSavingThrow,
@@ -31,6 +32,7 @@ pub enum ReducerRouteHoleKind {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReducerRouteFillKind {
     AbilityCheck,
+    AbilityChoice,
     AttackRoll,
     GrappleOutcome,
     ConcentrationSavingThrow,
@@ -61,6 +63,7 @@ pub enum ReducerRouteResolveFill {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReducerRouteSubjectFamily {
     ActiveFormLifecycle,
+    AbilityCheckSearch,
     AreaHazard,
     AreaObscurement,
     ConcentrationTeardown,
@@ -113,6 +116,7 @@ pub enum ReducerRouteSubjectFamily {
 pub enum ReducerRouteOwnerGroup {
     ActionEconomy,
     ActiveEffect,
+    AbilityCheck,
     AbilityCheckRollMode,
     AreaShape,
     AttackRoll,
@@ -518,6 +522,7 @@ pub fn setup_from_battle_state(state: BattleState) -> BattleSetup {
         spell_attack_procedure: state.spell_attack_procedure,
         command_effect_procedure: state.command_effect_procedure,
         spatial_route_subjects: state.spatial_route_subjects,
+        ability_check_choice_search: state.ability_check_choice_search,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
         spell_slot_uses_this_turn: state.spell_slot_uses_this_turn,
@@ -565,6 +570,7 @@ pub fn battle_setup_from_state(state: BattleState) -> BattleSetup {
         spell_attack_procedure: state.spell_attack_procedure,
         command_effect_procedure: state.command_effect_procedure,
         spatial_route_subjects: state.spatial_route_subjects,
+        ability_check_choice_search: state.ability_check_choice_search,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
         spell_slot_uses_this_turn: state.spell_slot_uses_this_turn,
@@ -605,6 +611,9 @@ const fn reducer_route_subject(
     match subject {
         BattleReducerRouteSubjectFamily::ActiveFormLifecycle => {
             ReducerRouteSubjectFamily::ActiveFormLifecycle
+        }
+        BattleReducerRouteSubjectFamily::AbilityCheckSearch => {
+            ReducerRouteSubjectFamily::AbilityCheckSearch
         }
         BattleReducerRouteSubjectFamily::AreaHazard => ReducerRouteSubjectFamily::AreaHazard,
         BattleReducerRouteSubjectFamily::AreaObscurement => {
@@ -729,6 +738,7 @@ const fn reducer_route_subject(
 const fn reducer_route_fill(fill: BattleReducerRouteFillKind) -> ReducerRouteFillKind {
     match fill {
         BattleReducerRouteFillKind::AbilityCheck => ReducerRouteFillKind::AbilityCheck,
+        BattleReducerRouteFillKind::AbilityChoice => ReducerRouteFillKind::AbilityChoice,
         BattleReducerRouteFillKind::AttackRoll => ReducerRouteFillKind::AttackRoll,
         BattleReducerRouteFillKind::GrappleOutcome => ReducerRouteFillKind::GrappleOutcome,
         BattleReducerRouteFillKind::ConcentrationSavingThrow => {
@@ -769,6 +779,7 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
     match owner {
         BattleReducerRouteOwnerGroup::ActionEconomy => ReducerRouteOwnerGroup::ActionEconomy,
         BattleReducerRouteOwnerGroup::ActiveEffect => ReducerRouteOwnerGroup::ActiveEffect,
+        BattleReducerRouteOwnerGroup::AbilityCheck => ReducerRouteOwnerGroup::AbilityCheck,
         BattleReducerRouteOwnerGroup::AbilityCheckRollMode => {
             ReducerRouteOwnerGroup::AbilityCheckRollMode
         }
@@ -871,6 +882,7 @@ fn sorted_route_holes(mut route_holes: Vec<ReducerRouteHoleKind>) -> Vec<Reducer
 fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
     match hole {
         BattleHoleKind::AbilityCheck => ReducerRouteHoleKind::AbilityCheck,
+        BattleHoleKind::AbilityChoice => ReducerRouteHoleKind::AbilityChoice,
         BattleHoleKind::ConcentrationSavingThrow => ReducerRouteHoleKind::ConcentrationSavingThrow,
         BattleHoleKind::ConditionChoice => ReducerRouteHoleKind::ConditionChoice,
         BattleHoleKind::DeathSavingThrow => ReducerRouteHoleKind::DeathSavingThrow,
@@ -883,6 +895,7 @@ fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
         BattleHoleKind::Movement => ReducerRouteHoleKind::Movement,
         BattleHoleKind::RolledDice => ReducerRouteHoleKind::RolledDice,
         BattleHoleKind::SavingThrowOutcome => ReducerRouteHoleKind::SavingThrowOutcome,
+        BattleHoleKind::SkillChoice => ReducerRouteHoleKind::SkillChoice,
         BattleHoleKind::SpellTargetAllocation => ReducerRouteHoleKind::SpellTargetAllocation,
         BattleHoleKind::SpellTargetList => ReducerRouteHoleKind::SpellTargetList,
         BattleHoleKind::StatBlockRechargeRoll => ReducerRouteHoleKind::StatBlockRechargeRoll,
@@ -894,6 +907,7 @@ fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
 const fn reducer_route_route_hole(hole: BattleReducerRouteHoleKind) -> ReducerRouteHoleKind {
     match hole {
         BattleReducerRouteHoleKind::AbilityCheck => ReducerRouteHoleKind::AbilityCheck,
+        BattleReducerRouteHoleKind::AbilityChoice => ReducerRouteHoleKind::AbilityChoice,
         BattleReducerRouteHoleKind::AttackRoll => ReducerRouteHoleKind::AttackRoll,
         BattleReducerRouteHoleKind::GrappleOutcome => ReducerRouteHoleKind::GrappleOutcome,
         BattleReducerRouteHoleKind::ConcentrationSavingThrow => {
@@ -985,6 +999,7 @@ fn joined_holes(holes: &[ReducerRouteHoleKind]) -> String {
 fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
     match hole {
         ReducerRouteHoleKind::AbilityCheck => "AbilityCheckHoleKind",
+        ReducerRouteHoleKind::AbilityChoice => "AbilityChoiceHoleKind",
         ReducerRouteHoleKind::AttackRoll => "AttackRollHoleKind",
         ReducerRouteHoleKind::GrappleOutcome => "GrappleOutcomeHoleKind",
         ReducerRouteHoleKind::ConcentrationSavingThrow => "ConcentrationSavingThrowHoleKind",
@@ -1011,6 +1026,7 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
 fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
     match fill {
         ReducerRouteFillKind::AbilityCheck => "AbilityCheckFillKind",
+        ReducerRouteFillKind::AbilityChoice => "AbilityChoiceFillKind",
         ReducerRouteFillKind::AttackRoll => "AttackRollFillKind",
         ReducerRouteFillKind::GrappleOutcome => "GrappleOutcomeFillKind",
         ReducerRouteFillKind::ConcentrationSavingThrow => "ConcentrationSavingThrowFillKind",
@@ -1039,6 +1055,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
     match owner {
         ReducerRouteOwnerGroup::ActionEconomy => "BattleActionEconomyOwner",
         ReducerRouteOwnerGroup::ActiveEffect => "BattleActiveEffectOwner",
+        ReducerRouteOwnerGroup::AbilityCheck => "BattleAbilityCheckOwner",
         ReducerRouteOwnerGroup::AbilityCheckRollMode => "BattleAbilityCheckRollModeOwner",
         ReducerRouteOwnerGroup::AreaShape => "BattleAreaShapeOwner",
         ReducerRouteOwnerGroup::AttackRoll => "BattleAttackRollOwner",
@@ -1098,6 +1115,7 @@ fn outcome_ref(outcome: ReducerRouteResolutionOutcome) -> &'static str {
 fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
     match subject {
         ReducerRouteSubjectFamily::ActiveFormLifecycle => "ActiveFormLifecycleRouteSubject",
+        ReducerRouteSubjectFamily::AbilityCheckSearch => "AbilityCheckSearchRouteSubject",
         ReducerRouteSubjectFamily::AreaHazard => "AreaHazardRouteSubject",
         ReducerRouteSubjectFamily::AreaObscurement => "AreaObscurementRouteSubject",
         ReducerRouteSubjectFamily::BattleAction => "BattleActionRouteSubject",
