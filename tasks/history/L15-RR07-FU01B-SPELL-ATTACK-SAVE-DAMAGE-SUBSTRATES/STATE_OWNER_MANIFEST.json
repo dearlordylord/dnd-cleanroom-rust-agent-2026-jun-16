@@ -1,6 +1,6 @@
 {
   "durableFields": [],
-  "noDurableFieldsReason": "FU01B adds no durable production fields; accepted evidence reuses existing BattleState spell-attack/save-gated spell procedure, actor hit point/effect state, and route observer projections. Blocked rows are explicit target blockers rather than duplicated BattleState state.",
+  "noDurableFieldsReason": "FU01B adds no durable production fields; accepted BattleState evidence covers spell-attack/save-gated procedure state for the direct rows and route-shape evidence for the two residual chained/object-target rows. The residual rows retain QNT-shaped selected level-one projection facts only as adapter witness payloads, not BattleResolutionResult-derived damage-spell semantics.",
   "nonDurableBoundaryApiSurface": [
     {
       "apiPath": "BattleState.spell_attack_procedure",
@@ -15,8 +15,8 @@
       "owner": "battle-state"
     },
     {
-      "apiPath": "BattleEntrypointTrace.events",
-      "boundary": "production reducer route observer trace for accepted spell attack/save-gated branches",
+      "apiPath": "BattleEntrypointTrace.route_events",
+      "boundary": "production reducer route observer trace for accepted spell attack/save-gated/generic route branches",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "executable-boundary-projection"
     },
@@ -28,7 +28,7 @@
     },
     {
       "apiPath": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json",
-      "boundary": "target replay evidence with accepted pass rows and executable target-blocker rows",
+      "boundary": "target replay evidence with accepted pass rows only",
       "introducedIn": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json",
       "owner": "harness-witness-protocol"
     },
@@ -59,6 +59,36 @@
     {
       "apiPath": "BattleState.goblin.hp",
       "boundary": "accepted target replay checked BattleState field",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleSubjectKind.ChainedSpellAttackProcedure*",
+      "boundary": "checked generic chained spell-attack route subject family for Chromatic Orb duplicate damage leap route-shape evidence",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+      "boundary": "checked generic fill sequence for chained spell-attack route evidence",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+      "boundary": "checked object-target spell-attack damage route subject for Starry Wisp object route-shape evidence",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleSubjectKind.ObjectTargetSpellAttackLightEffect",
+      "boundary": "checked object-target spell-attack light-effect route subject for Starry Wisp object route-shape evidence",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleGenericRouteFill.RolledDice/WithoutFill",
+      "boundary": "checked generic fill sequence for object-target damage and light route evidence",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     }

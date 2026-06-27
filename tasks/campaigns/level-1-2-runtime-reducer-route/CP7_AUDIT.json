@@ -15,13 +15,13 @@
   "coverage": {
     "ledgerSelectedDrivers": 97,
     "acceptedPassDrivers": 97,
-    "acceptedPassObligations": 647,
+    "acceptedPassObligations": 649,
     "acceptedDriverCoveragePercent": 100,
-    "acceptedObligationCoveragePercent": 96.9,
-    "targetBlockerObligations": 21,
+    "acceptedObligationCoveragePercent": 97.2,
+    "targetBlockerObligations": 19,
     "sourceQntCorpusBlockerObligations": 0,
-    "totalBlockedObligations": 21,
-    "blockedDrivers": 4,
+    "totalBlockedObligations": 19,
+    "blockedDrivers": 3,
     "unresolvedInScopeObligations": 0
   },
   "blockerSources": {
@@ -60,16 +60,6 @@
         "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doStartSearingSmite",
         "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartSearingSmite#step:doStartSearingSmite",
         "reason": "scenario transition has no reducer route surface"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveChromaticOrbDuplicateDamageLeap",
-        "evidence": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveChromaticOrbDuplicateDamageLeap#step:doResolveChromaticOrbDuplicateDamageLeap",
-        "reason": "chained duplicate-damage leap is modeled in ChromaticOrbSequenceState, not production BattleState"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight",
-        "evidence": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveStarryWispObjectSpellAttackDamageAndDimLight#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight",
-        "reason": "object HP and dim-light emitter facts are modeled in StarryWispObjectState, not production BattleState"
       },
       {
         "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doDiscoverMageArmorUnarmoredSelfTarget",

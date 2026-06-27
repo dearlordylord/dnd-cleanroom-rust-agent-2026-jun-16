@@ -1,10 +1,15 @@
 use crate::rules::battle_reducer_spine::{
     discover_save_gated_damage_subject_observed, discover_spell_attack_damage_subject_observed,
     resolve_battle_subject_observed, start_battle_observed, Actor, AttackRollFacts,
-    BattleEntrypointTrace, BattleResolutionRequest, BattleResolutionResult,
+    BattleEntrypointTrace, BattleHoleKind, BattleResolutionRequest, BattleResolutionResult,
     BattleSaveGatedDamageApplication, BattleSaveGatedSpellFill, BattleSaveGatedSpellProcedure,
     BattleSetup, BattleSpellActiveEffectKind, BattleSpellAttackFill, BattleSpellAttackProcedure,
     BattleState,
+};
+use crate::rules::level_one_damage_spells::{
+    project_chromatic_orb_duplicate_damage_leap,
+    project_starry_wisp_object_spell_attack_damage_and_dim_light, LevelOneDamageSpellProtocol,
+    LevelOneDamageSpellScenarioOutcome, LevelOneDamageSpellState,
 };
 
 use super::battle_runtime_reducer_route::{
@@ -12,6 +17,7 @@ use super::battle_runtime_reducer_route::{
     route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup,
     ReducerRouteSubjectFamily,
 };
+use super::{battle_runtime_chained_attack_sequence, battle_runtime_starry_wisp_object};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct LevelOneDamageSpellWitness {
@@ -52,30 +58,31 @@ pub const BRANCH_ACTIONS: [&str; 10] = [
     "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
 ];
 
-pub const ACCEPTED_BRANCH_ACTIONS: [&str; 8] = [
+pub const ACCEPTED_BRANCH_ACTIONS: [&str; 10] = [
     "doResolveBurningHandsMixedConeSavingThrows",
+    "doResolveChromaticOrbDuplicateDamageLeap",
     "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
     "doResolveIceKnifeMissBurstSavingThrows",
     "doResolvePoisonSpraySpellAttackDamage",
     "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
     "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
     "doResolveSorcerousBurstSpellAttackDamage",
+    "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
     "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
 ];
 
-pub const BLOCKED_BRANCH_ACTIONS: [(&str, &str); 2] = [
-    (
-        "doResolveChromaticOrbDuplicateDamageLeap",
-        "blocked: chained duplicate-damage leap is modeled in ChromaticOrbSequenceState, not production BattleState",
-    ),
-    (
-        "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
-        "blocked: object HP and dim-light emitter facts are modeled in StarryWispObjectState, not production BattleState",
-    ),
-];
+pub const BLOCKED_BRANCH_ACTIONS: [(&str, &str); 0] = [];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> LevelOneDamageSpellWitness {
     match observed_action_taken {
+        "doResolveChromaticOrbDuplicateDamageLeap" => {
+            witness_from_level_one_projection(project_chromatic_orb_duplicate_damage_leap())
+        }
+        "doResolveStarryWispObjectSpellAttackDamageAndDimLight" => {
+            witness_from_level_one_projection(
+                project_starry_wisp_object_spell_attack_damage_and_dim_light(),
+            )
+        }
         action if blocker_reason(action).is_some() => {
             panic!("{}: {}", action, blocker_reason(action).unwrap())
         }
@@ -85,6 +92,10 @@ pub fn replay_observed_action(observed_action_taken: &str) -> LevelOneDamageSpel
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
+        "doResolveChromaticOrbDuplicateDamageLeap" => chromatic_orb_duplicate_damage_leap_route(),
+        "doResolveStarryWispObjectSpellAttackDamageAndDimLight" => {
+            starry_wisp_object_damage_and_dim_light_route()
+        }
         action if blocker_reason(action).is_some() => {
             panic!("{}: {}", action, blocker_reason(action).unwrap())
         }
@@ -187,6 +198,16 @@ pub fn expected_witness(observed_action_taken: &str) -> LevelOneDamageSpellWitne
             secondary_target_hp: 9,
             scenario_outcome: "BurningHandsMixedConeSavingThrows",
         }),
+        "doResolveChromaticOrbDuplicateDamageLeap" => expected(ExpectedLevelOneDamageSpell {
+            action_available: false,
+            spell_slot_spent_this_turn: true,
+            level1_slots_remaining: 0,
+            primary_target_hp: 3,
+            primary_target_poisoned: false,
+            primary_target_next_attack_roll_disadvantage: false,
+            secondary_target_hp: 9,
+            scenario_outcome: "ChromaticOrbDuplicateDamageLeap",
+        }),
         "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows" => {
             expected(ExpectedLevelOneDamageSpell {
                 action_available: false,
@@ -253,6 +274,18 @@ pub fn expected_witness(observed_action_taken: &str) -> LevelOneDamageSpellWitne
             secondary_target_hp: 12,
             scenario_outcome: "SorcerousBurstSpellAttackDamage",
         }),
+        "doResolveStarryWispObjectSpellAttackDamageAndDimLight" => {
+            expected(ExpectedLevelOneDamageSpell {
+                action_available: false,
+                spell_slot_spent_this_turn: false,
+                level1_slots_remaining: 1,
+                primary_target_hp: 12,
+                primary_target_poisoned: false,
+                primary_target_next_attack_roll_disadvantage: false,
+                secondary_target_hp: 12,
+                scenario_outcome: "StarryWispObjectSpellAttackDamageAndDimLight",
+            })
+        }
         "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage" => {
             expected(ExpectedLevelOneDamageSpell {
                 action_available: false,
@@ -275,9 +308,15 @@ pub fn expected_witness(observed_action_taken: &str) -> LevelOneDamageSpellWitne
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
+        "doResolveChromaticOrbDuplicateDamageLeap" => {
+            expected_chromatic_orb_duplicate_damage_leap_route()
+        }
         "doResolvePoisonSpraySpellAttackDamage"
         | "doResolveRayOfSicknessSpellAttackDamageAndPoisoned"
         | "doResolveSorcerousBurstSpellAttackDamage" => expected_spell_attack_route(),
+        "doResolveStarryWispObjectSpellAttackDamageAndDimLight" => {
+            expected_starry_wisp_object_damage_and_dim_light_route()
+        }
         action if ACCEPTED_BRANCH_ACTIONS.contains(&action) => expected_save_gated_route(),
         action if blocker_reason(action).is_some() => {
             panic!("{}: {}", action, blocker_reason(action).unwrap())
@@ -394,6 +433,97 @@ fn save_gated_route(
     )
 }
 
+fn chromatic_orb_duplicate_damage_leap_route() -> Vec<ReducerRouteEvent> {
+    battle_runtime_chained_attack_sequence::replay_observed_route(
+        "doResolveStep1DuplicateDamageSlot1Limit",
+    )
+}
+
+fn expected_chromatic_orb_duplicate_damage_leap_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts(
+            ReducerRouteSubjectFamily::SpellAttack,
+            vec![BattleHoleKind::DamageTypeChoice],
+            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::DamageTypeChoice,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::SpellAttackProcedure,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::TargetSelection,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::SpellAttackProcedure,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::AttackRoll,
+            vec![BattleHoleKind::RolledDice],
+            ReducerRouteOwnerGroup::AttackRoll,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::RolledDice,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::RolledDice,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::SpellAttackProcedure,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::TargetSelection,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::SpellAttackProcedure,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::AttackRoll,
+            vec![BattleHoleKind::RolledDice],
+            ReducerRouteOwnerGroup::AttackRoll,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::RolledDice,
+            Vec::new(),
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::RolledDice,
+            Vec::new(),
+            ReducerRouteOwnerGroup::SpellAttackProcedure,
+        ),
+    ]
+}
+
+fn starry_wisp_object_damage_and_dim_light_route() -> Vec<ReducerRouteEvent> {
+    battle_runtime_starry_wisp_object::replay_observed_route("doFillObjectDamageHigh")
+}
+
+fn expected_starry_wisp_object_damage_and_dim_light_route() -> Vec<ReducerRouteEvent> {
+    battle_runtime_starry_wisp_object::expected_route("doFillObjectDamageHigh")
+}
+
 fn level_one_damage_setup() -> BattleSetup {
     let mut setup = BattleSetup::standard();
     setup.initiative.still_to_act.waiting = vec![Actor::Skeleton, Actor::Goblin];
@@ -439,6 +569,24 @@ fn witness_from_battle_state(state: &BattleState) -> LevelOneDamageSpellWitness 
         secondary_target_hp: state.goblin.hp,
         scenario_outcome: scenario_from_battle_state(state),
         protocol_result: "resolved",
+        protocol_holes: Vec::new(),
+    }
+}
+
+fn witness_from_level_one_projection(
+    state: LevelOneDamageSpellState,
+) -> LevelOneDamageSpellWitness {
+    LevelOneDamageSpellWitness {
+        action_available: state.action_available,
+        spell_slot_spent_this_turn: state.spell_slot_spent_this_turn,
+        level1_slots_remaining: state.level_one_slots_remaining,
+        primary_target_hp: state.primary_target_hit_points,
+        primary_target_poisoned: state.primary_target_poisoned,
+        primary_target_next_attack_roll_disadvantage: state
+            .primary_target_next_attack_roll_disadvantage,
+        secondary_target_hp: state.secondary_target_hit_points,
+        scenario_outcome: level_one_scenario_ref(state.scenario_outcome),
+        protocol_result: level_one_protocol_ref(state.protocol),
         protocol_holes: Vec::new(),
     }
 }
@@ -545,6 +693,49 @@ fn scenario_from_battle_state(state: &BattleState) -> &'static str {
             true,
         ) => "ViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
         _ => "Unknown",
+    }
+}
+
+fn level_one_scenario_ref(outcome: LevelOneDamageSpellScenarioOutcome) -> &'static str {
+    match outcome {
+        LevelOneDamageSpellScenarioOutcome::Init => "Init",
+        LevelOneDamageSpellScenarioOutcome::BurningHandsMixedConeSavingThrows => {
+            "BurningHandsMixedConeSavingThrows"
+        }
+        LevelOneDamageSpellScenarioOutcome::ChromaticOrbDuplicateDamageLeap => {
+            "ChromaticOrbDuplicateDamageLeap"
+        }
+        LevelOneDamageSpellScenarioOutcome::IceKnifeHitAttackDamageAndBurstSavingThrows => {
+            "IceKnifeHitAttackDamageAndBurstSavingThrows"
+        }
+        LevelOneDamageSpellScenarioOutcome::IceKnifeMissBurstSavingThrows => {
+            "IceKnifeMissBurstSavingThrows"
+        }
+        LevelOneDamageSpellScenarioOutcome::PoisonSpraySpellAttackDamage => {
+            "PoisonSpraySpellAttackDamage"
+        }
+        LevelOneDamageSpellScenarioOutcome::RayOfSicknessSpellAttackDamageAndPoisoned => {
+            "RayOfSicknessSpellAttackDamageAndPoisoned"
+        }
+        LevelOneDamageSpellScenarioOutcome::SacredFlameDexteritySavingThrowRadiantDamage => {
+            "SacredFlameDexteritySavingThrowRadiantDamage"
+        }
+        LevelOneDamageSpellScenarioOutcome::SorcerousBurstSpellAttackDamage => {
+            "SorcerousBurstSpellAttackDamage"
+        }
+        LevelOneDamageSpellScenarioOutcome::StarryWispObjectSpellAttackDamageAndDimLight => {
+            "StarryWispObjectSpellAttackDamageAndDimLight"
+        }
+        LevelOneDamageSpellScenarioOutcome::ViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage => {
+            "ViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage"
+        }
+    }
+}
+
+fn level_one_protocol_ref(protocol: LevelOneDamageSpellProtocol) -> &'static str {
+    match protocol {
+        LevelOneDamageSpellProtocol::Init => "init",
+        LevelOneDamageSpellProtocol::Resolved => "resolved",
     }
 }
 

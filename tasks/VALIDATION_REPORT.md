@@ -2771,22 +2771,21 @@ Selected drivers:
 Behavior implemented:
 
 - Accepted attack spell shape rows replay through production `BattleState` spell attack or save-gated reducer entrypoints and observed `ReducerRouteEvent.qRoute` evidence.
-- Accepted level-1 damage spell rows replay through production `BattleState` spell attack or save-gated reducer entrypoints and observed `ReducerRouteEvent.qRoute` evidence.
-- `doResolveChromaticOrbDuplicateDamageLeap` and `doResolveStarryWispObjectSpellAttackDamageAndDimLight` are not accepted as resolved witnesses. They are target blockers because the implemented Rust facts live in `ChromaticOrbSequenceState` and `StarryWispObjectState`, not production `BattleState` route subjects.
+- Accepted level-1 damage spell rows replay direct spell attack or save-gated rows through production `BattleState` reducer entrypoints and observed `ReducerRouteEvent.qRoute` evidence.
+- `doResolveChromaticOrbDuplicateDamageLeap` reuses the generic chained spell-attack sequence route substrate; `doResolveStarryWispObjectSpellAttackDamageAndDimLight` reuses the generic object-target spell-attack damage/light substrate. These two rows are accepted only as route-shape evidence observed through `BattleEntrypointTrace`; their selected damage-spell witness payloads remain projection-helper derived and do not claim full `BattleResolutionResult` semantics.
 
 Accepted rows:
 
 - Attack spell shape: `doFireBoltHit`, `doChillTouchHitPointRegainPrevention`, `doGuidingBoltNextAttackAdvantage`, `doInflictWoundsFailedSave`, `doInflictWoundsSuccessfulSave`, `doShockingGraspOpportunityAttackDenied`
-- Level 1 damage: `doResolveBurningHandsMixedConeSavingThrows`, `doResolveIceKnifeHitAttackDamageAndBurstSavingThrows`, `doResolveIceKnifeMissBurstSavingThrows`, `doResolvePoisonSpraySpellAttackDamage`, `doResolveRayOfSicknessSpellAttackDamageAndPoisoned`, `doResolveSacredFlameDexteritySavingThrowRadiantDamage`, `doResolveSorcerousBurstSpellAttackDamage`, `doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage`
+- Level 1 damage: `doResolveBurningHandsMixedConeSavingThrows`, `doResolveChromaticOrbDuplicateDamageLeap`, `doResolveIceKnifeHitAttackDamageAndBurstSavingThrows`, `doResolveIceKnifeMissBurstSavingThrows`, `doResolvePoisonSpraySpellAttackDamage`, `doResolveRayOfSicknessSpellAttackDamageAndPoisoned`, `doResolveSacredFlameDexteritySavingThrowRadiantDamage`, `doResolveSorcerousBurstSpellAttackDamage`, `doResolveStarryWispObjectSpellAttackDamageAndDimLight`, `doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage`
 
 Target blockers:
 
-- `doResolveChromaticOrbDuplicateDamageLeap`: `target-blocker`, no production `BattleState` chained spell-attack route.
-- `doResolveStarryWispObjectSpellAttackDamageAndDimLight`: `target-blocker`, no production `BattleState` object-target damage/light route.
+- `_none_`.
 
 Allowed inputs used:
 
-- `cleanroom-input/MANIFEST.md` source commit `564376fd95218a209bb9eae5c9ccb54ca3e04a52`.
+- `cleanroom-input/MANIFEST.md` source commit `53642cf0b1bc98f4426b6081fe37c98a960939fc`.
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`.
 - SRD 5.2.1 spell attack, saving throw, damage, and hit point passages under `cleanroom-input/raw/srd-5.2.1/`.
 - Ubiquitous language: `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`.
@@ -2809,16 +2808,16 @@ Generated branch coverage:
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveSacredFlameDexteritySavingThrowRadiantDamage` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveSacredFlameDexteritySavingThrowRadiantDamage#step:doResolveSacredFlameDexteritySavingThrowRadiantDamage` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveSorcerousBurstSpellAttackDamage` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveSorcerousBurstSpellAttackDamage#step:doResolveSorcerousBurstSpellAttackDamage` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage#step:doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveChromaticOrbDuplicateDamageLeap` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveChromaticOrbDuplicateDamageLeap#step:doResolveChromaticOrbDuplicateDamageLeap` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `blocked` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveStarryWispObjectSpellAttackDamageAndDimLight#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `blocked` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveChromaticOrbDuplicateDamageLeap` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveChromaticOrbDuplicateDamageLeap#step:doResolveChromaticOrbDuplicateDamageLeap` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveStarryWispObjectSpellAttackDamageAndDimLight#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
 
 Harness artifacts:
 
-- Start gate: `tasks/START_GATE.json`
-- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
-- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
-- Reviewer loop: `tasks/REVIEW_LOOP.json`
-- Decider decision: `tasks/DECIDER_DECISION.json`
+- Start gate: `tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/DECIDER_DECISION.json`
 - History: `tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/`
 - Target replay evidence: `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json`
 - Run ledger: `tasks/RUN_LEDGER.json`
@@ -2827,11 +2826,23 @@ Verification results:
 
 - `cargo test attack_spell_shape_adapter_replays_all_branches` passed.
 - `cargo test level1_damage_spell_adapter_replays_all_branches` passed.
+- Combined FU01B `validateTargetReplayEvidence` check passed: 16 covered, 0 blocked.
 - `cargo fmt --check` passed.
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
-- `node scripts/check-cleanroom-harness.cjs` passed.
-- `git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD` passed.
+- `git diff --check 74d7988cd62baaf85b00a134deb7d84f4c513dc1...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` was run and failed on pre-existing global stale-manifest/report debt outside FU01B (for example T001/T002 evidence still records manifest `564376fd95218a209bb9eae5c9ccb54ca3e04a52` while the current cleanroom manifest is `53642cf0b1bc98f4426b6081fe37c98a960939fc`).
+
+Reviewer-fix verification results:
+
+- `cargo test attack_spell_shape_adapter_replays_all_branches` passed.
+- `cargo test level1_damage_spell_adapter_replays_all_branches` passed.
+- Combined FU01B `validateTargetReplayEvidence` check passed: 16 covered.
+- `cargo fmt --check` passed.
+- `cargo check` passed.
+- `jq empty` over `tasks/RUN_LEDGER.json` and affected FU01B/CP7 JSON artifacts passed.
+- `git diff --check 74d7988cd62baaf85b00a134deb7d84f4c513dc1...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` was rerun and classified as nonblocking failure on pre-existing stale non-FU01B global harness debt.
 
 
 ## L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES: Armor-Class Reaction Substrates
@@ -3631,8 +3642,8 @@ Verification results: focused FU01C adapter test passed; focused FU01C target re
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveSacredFlameDexteritySavingThrowRadiantDamage | tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveSacredFlameDexteritySavingThrowRadiantDamage#step:doResolveSacredFlameDexteritySavingThrowRadiantDamage | pass | covered |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveSorcerousBurstSpellAttackDamage | tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveSorcerousBurstSpellAttackDamage#step:doResolveSorcerousBurstSpellAttackDamage | pass | covered |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage | tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage#step:doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage | pass | covered |
-| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveChromaticOrbDuplicateDamageLeap | tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveChromaticOrbDuplicateDamageLeap#step:doResolveChromaticOrbDuplicateDamageLeap | FU01B-BLOCKED-CHROMATIC-ORB-CHAINED-DAMAGE | blocked |
-| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight | tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveStarryWispObjectSpellAttackDamageAndDimLight#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight | FU01B-BLOCKED-STARRY-WISP-OBJECT-TARGET | blocked |
+| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveChromaticOrbDuplicateDamageLeap | tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveChromaticOrbDuplicateDamageLeap#step:doResolveChromaticOrbDuplicateDamageLeap | pass | covered |
+| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight | tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveStarryWispObjectSpellAttackDamageAndDimLight#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight | pass | covered |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doDivineFavorWeaponDamageRider | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doDivineFavorWeaponDamageRider#step:doDivineFavorWeaponDamageRider | pass | covered |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doDivineSmiteAfterHitDamage | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doDivineSmiteAfterHitDamage#step:doDivineSmiteAfterHitDamage | pass | covered |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape#step:doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape | pass | covered |

@@ -13,7 +13,9 @@
     "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
     "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
     "doResolveSorcerousBurstSpellAttackDamage",
-    "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage"
+    "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+    "doResolveChromaticOrbDuplicateDamageLeap",
+    "doResolveStarryWispObjectSpellAttackDamageAndDimLight"
   ],
   "decision": "accepted",
   "deterministicGates": [
@@ -50,20 +52,9 @@
       "status": "pass"
     }
   ],
-  "rationale": "Accepted FU01B spell attack/save damage rows replay through production BattleState SpellAttack or SaveGatedSpell reducer routes. doResolveChromaticOrbDuplicateDamageLeap and doResolveStarryWispObjectSpellAttackDamageAndDimLight are explicitly target-blocked because their current Rust substrates are ChromaticOrbSequenceState and StarryWispObjectState projections without production BattleState route subjects.",
+  "rationale": "Accepted FU01B spell attack/save damage rows replay direct SpellAttack/SaveGatedSpell rows through production BattleState reducer routes observed via BattleEntrypointTrace. The Chromatic Orb and Starry Wisp residual rows are accepted only as route-shape evidence from generic ChainedSpellAttackProcedure/ObjectTargetSpellAttack route substrates; their selected damage-spell witness payloads remain projection-helper derived and do not claim full BattleResolutionResult-derived damage-spell semantics.",
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "targetBlockedRows": [
-    {
-      "action": "doResolveChromaticOrbDuplicateDamageLeap",
-      "blockerId": "FU01B-BLOCKED-CHROMATIC-ORB-CHAINED-DAMAGE",
-      "reason": "chained duplicate-damage leap is modeled in ChromaticOrbSequenceState, not production BattleState"
-    },
-    {
-      "action": "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
-      "blockerId": "FU01B-BLOCKED-STARRY-WISP-OBJECT-TARGET",
-      "reason": "object HP and dim-light emitter facts are modeled in StarryWispObjectState, not production BattleState"
-    }
-  ],
+  "targetBlockedRows": [],
   "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
 }
