@@ -16,17 +16,18 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "generic LightProjection route subject observed through production BattleReducerRouteTrace",
+      "routeEvidenceBasis": "generic LightProjection route subject observed through public BattleState start/discover/resolve entrypoints",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleReducerRouteTrace.events",
-          "BattleSpatialRouteSubject.LightProjection",
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(LightProjection)",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "f5eb4bdb58ab347eed2e4c0ce0eb9fc3f9f629c933cb2c99bee2349596606095",
-        "observedProjectionSha256": "f5eb4bdb58ab347eed2e4c0ce0eb9fc3f9f629c933cb2c99bee2349596606095",
+        "expectedProjectionSha256": "6c5615213973a3e85a25f7c3cb9f50fb3c530cb9ba852f6c633c3eb58ab4cf5b",
+        "observedProjectionSha256": "6c5615213973a3e85a25f7c3cb9f50fb3c530cb9ba852f6c633c3eb58ab4cf5b",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -43,17 +44,18 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "generic OutlineEffect route subject observed through production BattleReducerRouteTrace",
+      "routeEvidenceBasis": "generic OutlineEffect route subject observed through public BattleState start/discover/resolve entrypoints",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleReducerRouteTrace.events",
-          "BattleSpatialRouteSubject.OutlineEffect",
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(OutlineEffect)",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "2c09546963991e7859a92cf3510e0b96ba3e76a0aead239e3a9fec9862ecdf85",
-        "observedProjectionSha256": "2c09546963991e7859a92cf3510e0b96ba3e76a0aead239e3a9fec9862ecdf85",
+        "expectedProjectionSha256": "30668e3c4965bf7968fee746da3c5e3e60a9637cc918c2bdda72de6f25e8c406",
+        "observedProjectionSha256": "30668e3c4965bf7968fee746da3c5e3e60a9637cc918c2bdda72de6f25e8c406",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -70,17 +72,18 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "generic FallingMitigation route subject observed through production BattleReducerRouteTrace",
+      "routeEvidenceBasis": "generic FallingMitigation route subject observed through public BattleState start/discover/resolve entrypoints",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleReducerRouteTrace.events",
-          "BattleSpatialRouteSubject.FallingMitigation",
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(FallingMitigation)",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "999566c5d397a96276e435743c8c2efe6a00d78385ed9efab181b1c1cea7dcce",
-        "observedProjectionSha256": "999566c5d397a96276e435743c8c2efe6a00d78385ed9efab181b1c1cea7dcce",
+        "expectedProjectionSha256": "69dcaef2ccb3770f1168e24f8852ea3f3334161c6b9e52b39ed2dd0364338fb9",
+        "observedProjectionSha256": "69dcaef2ccb3770f1168e24f8852ea3f3334161c6b9e52b39ed2dd0364338fb9",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -97,17 +100,18 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "generic AreaObscurement route subject observed through production BattleReducerRouteTrace",
+      "routeEvidenceBasis": "generic AreaObscurement route subject observed through public BattleState start/discover/resolve entrypoints",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleReducerRouteTrace.events",
-          "BattleSpatialRouteSubject.AreaObscurement",
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(AreaObscurement)",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "171ad22f54195dc2d4fd00b6ba0b8666c1e50b01f4fc384ded416572d42c85ff",
-        "observedProjectionSha256": "171ad22f54195dc2d4fd00b6ba0b8666c1e50b01f4fc384ded416572d42c85ff",
+        "expectedProjectionSha256": "4039502d1d279c397c8e8152858f3cb5ebb720803bd0fecaf75793902e2f1214",
+        "observedProjectionSha256": "4039502d1d279c397c8e8152858f3cb5ebb720803bd0fecaf75793902e2f1214",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -124,17 +128,18 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "generic AreaHazard route subject observed through production BattleReducerRouteTrace",
+      "routeEvidenceBasis": "generic AreaHazard route subject observed through public BattleState start/discover/resolve entrypoints",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleReducerRouteTrace.events",
-          "BattleSpatialRouteSubject.AreaHazard",
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(AreaHazard)",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "e8a4bcaad473081c32bdadf429826f5ac805a7de82d0ea918d7a2f5429f2c681",
-        "observedProjectionSha256": "e8a4bcaad473081c32bdadf429826f5ac805a7de82d0ea918d7a2f5429f2c681",
+        "expectedProjectionSha256": "7e7482cc6a4b49627abe05889b34376722dffb2ff82823747bdc58509c4f0680",
+        "observedProjectionSha256": "7e7482cc6a4b49627abe05889b34376722dffb2ff82823747bdc58509c4f0680",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -151,17 +156,18 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "generic MovementResource route subject observed through production BattleReducerRouteTrace",
+      "routeEvidenceBasis": "generic MovementResource route subject observed through public BattleState start/discover/resolve entrypoints",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleReducerRouteTrace.events",
-          "BattleSpatialRouteSubject.MovementReplacement",
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(MovementReplacement)",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "e1745238124df7049fea44885e127791b6d65a328ae81c5a69ee997a66cc32a2",
-        "observedProjectionSha256": "e1745238124df7049fea44885e127791b6d65a328ae81c5a69ee997a66cc32a2",
+        "expectedProjectionSha256": "1c28df49cd9aff7448dd2288da5fa34d6fd5f93a80a374eb3a8a57e3b6dcf010",
+        "observedProjectionSha256": "1c28df49cd9aff7448dd2288da5fa34d6fd5f93a80a374eb3a8a57e3b6dcf010",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -178,17 +184,18 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "generic MovementResource route subject observed through production BattleReducerRouteTrace",
+      "routeEvidenceBasis": "generic MovementResource route subject observed through public BattleState start/discover/resolve entrypoints",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleReducerRouteTrace.events",
-          "BattleSpatialRouteSubject.MovementReplacement",
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(MovementReplacement)",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "e1745238124df7049fea44885e127791b6d65a328ae81c5a69ee997a66cc32a2",
-        "observedProjectionSha256": "e1745238124df7049fea44885e127791b6d65a328ae81c5a69ee997a66cc32a2",
+        "expectedProjectionSha256": "1c28df49cd9aff7448dd2288da5fa34d6fd5f93a80a374eb3a8a57e3b6dcf010",
+        "observedProjectionSha256": "1c28df49cd9aff7448dd2288da5fa34d6fd5f93a80a374eb3a8a57e3b6dcf010",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -205,17 +212,18 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "generic ObjectBoundaryEffect route subject observed through production BattleReducerRouteTrace",
+      "routeEvidenceBasis": "generic ObjectBoundaryEffect route subject observed through public BattleState start/discover/resolve entrypoints",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleReducerRouteTrace.events",
-          "BattleSpatialRouteSubject.ObjectBoundary",
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(ObjectBoundary)",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "9dac001fee514cd6c6173c67194770177ab8a8d600f198655a5df73a14db1e06",
-        "observedProjectionSha256": "9dac001fee514cd6c6173c67194770177ab8a8d600f198655a5df73a14db1e06",
+        "expectedProjectionSha256": "aa19c49cd154e619ff6d6d1878fd295cc45cb90653c518761065f805ef87e0d6",
+        "observedProjectionSha256": "aa19c49cd154e619ff6d6d1878fd295cc45cb90653c518761065f805ef87e0d6",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -232,17 +240,18 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "generic LightProjection route subject observed through production BattleReducerRouteTrace",
+      "routeEvidenceBasis": "generic LightProjection route subject observed through public BattleState start/discover/resolve entrypoints",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleReducerRouteTrace.events",
-          "BattleSpatialRouteSubject.LightProjection",
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(LightProjection)",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "f5eb4bdb58ab347eed2e4c0ce0eb9fc3f9f629c933cb2c99bee2349596606095",
-        "observedProjectionSha256": "f5eb4bdb58ab347eed2e4c0ce0eb9fc3f9f629c933cb2c99bee2349596606095",
+        "expectedProjectionSha256": "6c5615213973a3e85a25f7c3cb9f50fb3c530cb9ba852f6c633c3eb58ab4cf5b",
+        "observedProjectionSha256": "6c5615213973a3e85a25f7c3cb9f50fb3c530cb9ba852f6c633c3eb58ab4cf5b",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -259,17 +268,18 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "generic ForcedMovement route subject observed through production BattleReducerRouteTrace",
+      "routeEvidenceBasis": "generic ForcedMovement route subject observed through public BattleState start/discover/resolve entrypoints",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleReducerRouteTrace.events",
-          "BattleSpatialRouteSubject.ForcedMovement",
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(ForcedMovement)",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "020525cc4b9a7a390ff6ed09c3b7b145ec49396547e8a2fa671d337d68695da2",
-        "observedProjectionSha256": "020525cc4b9a7a390ff6ed09c3b7b145ec49396547e8a2fa671d337d68695da2",
+        "expectedProjectionSha256": "5d3803fc58c375788b9e024730389f091d1b089bda51660288272c73cb0f73d7",
+        "observedProjectionSha256": "5d3803fc58c375788b9e024730389f091d1b089bda51660288272c73cb0f73d7",
         "projection": "qRoute",
         "tag": "state-match"
       },

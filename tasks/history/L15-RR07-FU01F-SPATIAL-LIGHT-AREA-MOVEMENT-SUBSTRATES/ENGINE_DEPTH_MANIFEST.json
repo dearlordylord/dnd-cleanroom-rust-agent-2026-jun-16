@@ -2,7 +2,7 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "adapterScope": "Accepted spatial witness rows replay through production BattleReducerRouteTrace events for generic spatial route subjects.",
+      "adapterScope": "Accepted spatial witness rows replay through public BattleState start/discover/resolve entrypoints for generic spatial route subjects.",
       "path": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doDancingLightsMovableDimLight",
@@ -38,7 +38,7 @@
   ],
   "expectedNextReuse": [
     {
-      "api": "BattleSpatialRouteSubject and observe_spatial_route_subject",
+      "api": "BattleSubjectKind::Spatial, BattleSpatialRouteSubject, and BattleSpatialRouteFill public reducer routing",
       "driver": "future spatial/light/area movement witness lanes",
       "module": "src/rules/battle_reducer_spine.rs"
     }
@@ -55,10 +55,15 @@
         "BattleReducerRouteSubjectFamily.ForcedMovement",
         "BattleReducerRouteSubjectFamily.ObjectBoundaryEffect",
         "BattleSpatialRouteSubject",
-        "observe_spatial_route_subject"
+        "BattleSubjectKind::Spatial",
+        "BattleFill::Spatial",
+        "BattleSpatialRouteFill",
+        "BattleSetup.spatial_route_subjects",
+        "BattleState.spatial_route_subjects",
+        "BattleResolutionRequest::spatial_route"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
-      "reason": "Owns generic spatial/light/area/movement route events used by accepted FU01F witnesses.",
+      "reason": "Owns generic spatial/light/area/movement route subjects discoverable and resolvable through public BattleState reducer entrypoints.",
       "role": "domain-engine"
     },
     {

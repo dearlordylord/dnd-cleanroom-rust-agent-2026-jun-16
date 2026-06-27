@@ -2710,15 +2710,15 @@
       "artifacts": {
         "deciderDecision": {
           "path": "tasks/history/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "e4add6985134f7bb49346449ad653e7d2a8c8e853584be835c996e7eb1fd8659"
+          "sha256": "53f0aba8cdee1b1b574bda5c598f63ad6af787b5fbc8ac4e5d890c41eb30f1cd"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "4d60243ce9b237a280b396c6a5f139f8fbb61af9544866f482f421228842162a"
+          "sha256": "13742c5a9bccc9d69c232da1d384a8d2106216f4e58ca9bc6e9ce931f2f01d45"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "63c9df54ae720e80a7c6f4e2c6c617f961734a8193a4e7838b160c5df9586f87"
+          "sha256": "f49190445d69788bdcebbaf2ee6c656cb7a3bb343e41fc9b03dff65d6f7a63d2"
         },
         "startGate": {
           "path": "tasks/history/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES/START_GATE.json",
@@ -2726,17 +2726,13 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "fcd99b68147d9af1c610a6238be9be5403e0df207f377cf44b8b33342f52395e"
+          "sha256": "70e224be96bd36eb1555b103c05b65b2034823e2d34f81ab7cd53abc68b1bbc3"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",
       "commandResults": [
         {
-          "command": "cargo test level1_spatial_witness_adapter_replays_all_branches -- --nocapture",
-          "status": "pass"
-        },
-        {
-          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json",
+          "command": "cargo test level1_spatial_witness_adapter_replays_all_branches",
           "status": "pass"
         },
         {
@@ -2782,7 +2778,7 @@
             "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doThunderwaveSavePushObjectsBoom#step:doThunderwaveSavePushObjectsBoom"
           ],
           "path": "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json",
-          "sha256": "cd04666923a82cfdd5703363dd55d60e0e6372e0073202b811f3e42b4ebbc946"
+          "sha256": "468c4cd7a4d70cdc5113d4ff8e8a721b1504e676ab1c627e76041366fdee4cb5"
         }
       ],
       "taskId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES"

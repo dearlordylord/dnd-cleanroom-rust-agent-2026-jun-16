@@ -576,6 +576,7 @@ pub struct BattleState {
     pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
+    pub spatial_route_subjects: Vec<BattleSpatialRouteSubject>,
     pub feature_substrates: BattleFeatureSubstrates,
     pub feature_resources: BattleFeatureResources,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
@@ -605,6 +606,7 @@ pub struct BattleSetup {
     pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
+    pub spatial_route_subjects: Vec<BattleSpatialRouteSubject>,
     pub feature_substrates: BattleFeatureSubstrates,
     pub feature_resources: BattleFeatureResources,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
@@ -646,6 +648,7 @@ impl BattleSetup {
             hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Inactive,
             spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
             command_effect_procedure: BattleCommandEffectProcedure::Inactive,
+            spatial_route_subjects: Vec::new(),
             feature_substrates: BattleFeatureSubstrates::standard(),
             feature_resources: BattleFeatureResources::standard(),
             spell_slot_uses_this_turn: Vec::new(),
@@ -1042,6 +1045,7 @@ pub enum BattleSubjectKind {
     ActiveFeatureSpellSaveDc,
     ActiveFeatureSpellAttackRollMode,
     MetamagicOptionSpell,
+    Spatial(BattleSpatialRouteSubject),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1135,6 +1139,7 @@ pub enum BattleFill {
     ActiveFeatureSpellSaveDc(BattleActiveFeatureSpellBenefitFill),
     ActiveFeatureSpellAttackRollMode(BattleActiveFeatureSpellBenefitFill),
     MetamagicOptionSpell(BattleMetamagicOptionSpellFill),
+    Spatial(BattleSpatialRouteFill),
     StatBlockAction {
         subject: StatBlockActionSubject,
         fill: StatBlockActionFill,
@@ -1613,6 +1618,19 @@ impl BattleResolutionRequest {
         })
     }
 
+    pub fn spatial_route(
+        subject: BattleSubject,
+        fill: BattleSpatialRouteFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if !matches!(subject.kind, BattleSubjectKind::Spatial(_)) {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::Spatial(fill),
+        })
+    }
+
     pub fn stat_block_action(subject: StatBlockActionSubject, fill: StatBlockActionFill) -> Self {
         Self {
             subject: battle_subject_from_stat_block_action_subject(subject),
@@ -1637,6 +1655,14 @@ pub enum BattleHoleKind {
     StatBlockRechargeRoll,
     CommandOptionChoice,
     InterruptDecision,
+    Movement,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSpatialRouteFill {
+    TargetChoice,
+    SavingThrowOutcome,
+    UnitFeatureDecision,
     Movement,
 }
 
@@ -2345,13 +2371,16 @@ pub fn observe_spatial_route_subject(
     observe_battle_route_start(spatial_route_start_owner(subject), observer);
     observe_battle_route_discovery(
         spatial_route_subject_family(subject),
-        spatial_route_holes(subject),
+        spatial_route_holes(subject)
+            .into_iter()
+            .map(battle_reducer_route_hole)
+            .collect(),
         spatial_route_owner(subject),
         observer,
     );
     observe_battle_route_resolution(
         spatial_route_subject_family(subject),
-        spatial_route_fill(subject),
+        spatial_route_fill_kind(spatial_route_fill(subject)),
         BattleReducerRouteResolutionOutcome::Resolved,
         Vec::new(),
         spatial_route_resolution_owner(subject),
@@ -2407,39 +2436,44 @@ const fn spatial_route_subject_family(
     }
 }
 
-fn spatial_route_holes(subject: BattleSpatialRouteSubject) -> Vec<BattleReducerRouteHoleKind> {
+fn spatial_route_holes(subject: BattleSpatialRouteSubject) -> Vec<BattleHoleKind> {
     match subject {
-        BattleSpatialRouteSubject::AreaHazard => {
-            vec![BattleReducerRouteHoleKind::SavingThrowOutcome]
-        }
+        BattleSpatialRouteSubject::AreaHazard => vec![BattleHoleKind::SavingThrowOutcome],
         BattleSpatialRouteSubject::AreaObscurement
         | BattleSpatialRouteSubject::LightProjection
         | BattleSpatialRouteSubject::ObjectBoundary
-        | BattleSpatialRouteSubject::OutlineEffect => {
-            vec![BattleReducerRouteHoleKind::TargetChoice]
-        }
-        BattleSpatialRouteSubject::FallingMitigation => {
-            vec![BattleReducerRouteHoleKind::InterruptDecision]
-        }
+        | BattleSpatialRouteSubject::OutlineEffect => vec![BattleHoleKind::TargetChoice],
+        BattleSpatialRouteSubject::FallingMitigation => vec![BattleHoleKind::InterruptDecision],
         BattleSpatialRouteSubject::ForcedMovement
         | BattleSpatialRouteSubject::MovementReplacement => {
-            vec![BattleReducerRouteHoleKind::Movement]
+            vec![BattleHoleKind::Movement]
         }
     }
 }
 
-const fn spatial_route_fill(subject: BattleSpatialRouteSubject) -> BattleReducerRouteFillKind {
+pub const fn spatial_route_fill(subject: BattleSpatialRouteSubject) -> BattleSpatialRouteFill {
     match subject {
-        BattleSpatialRouteSubject::AreaHazard => BattleReducerRouteFillKind::SavingThrowOutcome,
+        BattleSpatialRouteSubject::AreaHazard => BattleSpatialRouteFill::SavingThrowOutcome,
         BattleSpatialRouteSubject::AreaObscurement
         | BattleSpatialRouteSubject::LightProjection
         | BattleSpatialRouteSubject::ObjectBoundary
-        | BattleSpatialRouteSubject::OutlineEffect => BattleReducerRouteFillKind::TargetChoice,
-        BattleSpatialRouteSubject::FallingMitigation => {
+        | BattleSpatialRouteSubject::OutlineEffect => BattleSpatialRouteFill::TargetChoice,
+        BattleSpatialRouteSubject::FallingMitigation => BattleSpatialRouteFill::UnitFeatureDecision,
+        BattleSpatialRouteSubject::ForcedMovement
+        | BattleSpatialRouteSubject::MovementReplacement => BattleSpatialRouteFill::Movement,
+    }
+}
+
+const fn spatial_route_fill_kind(fill: BattleSpatialRouteFill) -> BattleReducerRouteFillKind {
+    match fill {
+        BattleSpatialRouteFill::TargetChoice => BattleReducerRouteFillKind::TargetChoice,
+        BattleSpatialRouteFill::SavingThrowOutcome => {
+            BattleReducerRouteFillKind::SavingThrowOutcome
+        }
+        BattleSpatialRouteFill::UnitFeatureDecision => {
             BattleReducerRouteFillKind::UnitFeatureDecision
         }
-        BattleSpatialRouteSubject::ForcedMovement
-        | BattleSpatialRouteSubject::MovementReplacement => BattleReducerRouteFillKind::Movement,
+        BattleSpatialRouteFill::Movement => BattleReducerRouteFillKind::Movement,
     }
 }
 
@@ -2541,6 +2575,7 @@ pub fn start_battle(setup: BattleSetup) -> BattleStartResult {
             hit_point_restoration_procedure: setup.hit_point_restoration_procedure,
             spell_attack_procedure: setup.spell_attack_procedure,
             command_effect_procedure: setup.command_effect_procedure,
+            spatial_route_subjects: setup.spatial_route_subjects,
             feature_substrates: setup.feature_substrates,
             feature_resources: setup.feature_resources,
             spell_slot_uses_this_turn: setup.spell_slot_uses_this_turn,
@@ -3219,6 +3254,7 @@ const fn battle_reducer_route_subject_family(
         BattleSubjectKind::MetamagicOptionSpell => {
             BattleReducerRouteSubjectFamily::MetamagicOptionSpell
         }
+        BattleSubjectKind::Spatial(subject) => spatial_route_subject_family(subject),
     }
 }
 
@@ -6255,6 +6291,7 @@ pub fn discover_battle_acts(state: &BattleState) -> BattleActDiscoveryResult {
     }
     push_reducer_spine_diagnostic_acts(state, actor, &mut acts);
     push_metamagic_option_spell_acts(state, actor, &mut acts);
+    push_spatial_route_acts(state, actor, &mut acts);
     push_capability_weapon_acts(state, actor, &mut acts);
     BattleActDiscoveryResult::from_state(state, acts)
 }
@@ -6322,6 +6359,7 @@ const fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerR
             BattleReducerRouteOwnerGroup::ActiveEffect
         }
         BattleSubjectKind::MetamagicOptionSpell => BattleReducerRouteOwnerGroup::FeatureResource,
+        BattleSubjectKind::Spatial(subject) => spatial_route_owner(subject),
         BattleSubjectKind::EndTurn => BattleReducerRouteOwnerGroup::ActionEconomy,
     }
 }
@@ -6473,6 +6511,15 @@ fn push_metamagic_option_spell_acts(
     });
 }
 
+fn push_spatial_route_acts(state: &BattleState, actor: Actor, acts: &mut Vec<AvailableBattleAct>) {
+    for subject in state.spatial_route_subjects.iter().copied() {
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::Spatial(subject), actor, None),
+            holes: spatial_route_holes(subject),
+        });
+    }
+}
+
 fn diagnostic_subject(
     kind: BattleSubjectKind,
     actor: Actor,
@@ -6575,6 +6622,7 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::UnitFeatureBonusAction
         | BattleSubjectKind::ActiveFeatureSpellSaveDc
         | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
+        | BattleSubjectKind::Spatial(_)
         | BattleSubjectKind::EndTurn => false,
     }
 }
@@ -6652,6 +6700,7 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
         | BattleSubjectKind::ConcentrationTeardown
         | BattleSubjectKind::StatBlockAction
         | BattleSubjectKind::CommandSpell
+        | BattleSubjectKind::Spatial(_)
         | BattleSubjectKind::ScalarBuffTargetSpell => false,
     }
 }
@@ -6669,6 +6718,15 @@ fn metamagic_option_spell_available(state: &BattleState) -> bool {
     (state.feature_substrates.quickened_spell.offered && state.bonus_action_available)
         || (state.feature_substrates.metamagic_spell.offered && state.action_available)
         || (state.feature_substrates.metamagic_option_spell.offered && state.action_available)
+}
+
+fn spatial_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
+    let BattleSubjectKind::Spatial(spatial_subject) = subject.kind else {
+        return false;
+    };
+    diagnostic_subject_shape_matches(subject, subject.kind, None)
+        && state.spatial_route_subjects.contains(&spatial_subject)
+        && route_subject_discoverable_now(state, subject)
 }
 
 fn spell_attack_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
@@ -6941,6 +6999,7 @@ fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRoute
         | BattleFill::MetamagicOptionSpell(_) => {
             Some(BattleReducerRouteFillKind::UnitFeatureDecision)
         }
+        BattleFill::Spatial(fill) => Some(spatial_route_fill_kind(fill)),
         BattleFill::AttackActionAreaSaveDamageReplacement(_) => {
             Some(BattleReducerRouteFillKind::SavingThrowOutcome)
         }
@@ -7116,6 +7175,17 @@ fn battle_resolution_route_owner(
                 _ => BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
             },
         },
+        BattleSubjectKind::Spatial(subject) => match outcome {
+            BattleResolutionOutcome::Resolved | BattleResolutionOutcome::NeedsHoles => {
+                spatial_route_resolution_owner(subject)
+            }
+            BattleResolutionOutcome::Invalid(BattleResolutionInvalidReason::StaleSubject) => {
+                spatial_route_owner(subject)
+            }
+            BattleResolutionOutcome::Invalid(_) => {
+                battle_discovery_route_owner(BattleSubjectKind::Spatial(subject))
+            }
+        },
         _ => battle_discovery_route_owner(subject),
     }
 }
@@ -7288,6 +7358,23 @@ fn resolve_battle_subject_unchecked(
             }
             resolve_metamagic_option_spell_subject(state, subject, fill)
         }
+        (BattleSubjectKind::Spatial(spatial_subject), BattleFill::Spatial(fill)) => {
+            if !spatial_route_subject_is_live(&state, subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            if fill != spatial_route_fill(spatial_subject) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::InvalidFill,
+                    Vec::new(),
+                );
+            }
+            BattleResolutionResult::Resolved { state }
+        }
         (
             BattleSubjectKind::StatBlockAction,
             BattleFill::StatBlockAction {
@@ -7348,6 +7435,7 @@ fn resolve_battle_subject_unchecked(
                 | BattleFill::ActiveFeatureSpellSaveDc(_)
                 | BattleFill::ActiveFeatureSpellAttackRollMode(_)
                 | BattleFill::MetamagicOptionSpell(_)
+                | BattleFill::Spatial(_)
                 | BattleFill::StatBlockAction { .. } => invalid(
                     state,
                     BattleResolutionInvalidReason::InvalidFill,
@@ -7385,6 +7473,7 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::ActiveFeatureSpellSaveDc
             | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
             | BattleSubjectKind::MetamagicOptionSpell
+            | BattleSubjectKind::Spatial(_)
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,

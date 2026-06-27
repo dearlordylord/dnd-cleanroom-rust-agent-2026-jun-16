@@ -1,6 +1,14 @@
 {
-  "durableFields": [],
-  "noDurableFieldsReason": "FU01F adds no durable production state fields. Accepted evidence uses generic BattleReducerRouteTrace route events and the existing LevelOneSpatialState runtime projection; selected spell identity remains adapter-local witness input.",
+  "durableFields": [
+    {
+      "fieldPath": "BattleState.spatial_route_subjects",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state",
+      "derivability": {
+        "tag": "canonical-source"
+      }
+    }
+  ],
   "nonDurableBoundaryApiSurface": [
     {
       "apiPath": "BattleReducerRouteSubjectFamily.LightProjection",
@@ -57,8 +65,8 @@
       "owner": "executable-boundary-projection"
     },
     {
-      "apiPath": "BattleReducerRouteTrace.events",
-      "boundary": "checked route trace event list",
+      "apiPath": "BattleEntrypointTrace.route_events",
+      "boundary": "checked public entrypoint route event list",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "executable-boundary-projection"
     },
@@ -121,6 +129,54 @@
       "boundary": "target replay evidence for accepted spatial rows",
       "introducedIn": "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json",
       "owner": "harness-witness-protocol"
+    },
+    {
+      "apiPath": "BattleSubjectKind.Spatial(LightProjection)",
+      "boundary": "checked generic light projection public battle subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind.Spatial(OutlineEffect)",
+      "boundary": "checked generic outline public battle subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind.Spatial(FallingMitigation)",
+      "boundary": "checked generic falling mitigation public battle subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind.Spatial(AreaObscurement)",
+      "boundary": "checked generic area obscurement public battle subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind.Spatial(AreaHazard)",
+      "boundary": "checked generic area hazard public battle subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind.Spatial(MovementReplacement)",
+      "boundary": "checked generic movement replacement public battle subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind.Spatial(ObjectBoundary)",
+      "boundary": "checked generic object-boundary public battle subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind.Spatial(ForcedMovement)",
+      "boundary": "checked generic forced-movement public battle subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
     }
   ],
   "schemaVersion": 1,

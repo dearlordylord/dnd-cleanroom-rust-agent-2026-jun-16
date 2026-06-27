@@ -4,9 +4,17 @@
       "checklist": "architecture-connascence",
       "id": "fu01f-duplicated-spatial-route-metadata",
       "reasonableness": "reasonable",
-      "resolution": "Removed duplicated adapter route metadata. Production BattleReducerRouteTrace emission now owns the route shape; the adapter only maps selected witness rows to generic BattleSpatialRouteSubject values.",
+      "resolution": "Removed duplicated adapter route metadata. Public BattleState spatial subject discovery and resolution now own the observed route shape; the adapter maps selected witness rows only to generic BattleSpatialRouteSubject setup data.",
       "status": "fixed",
       "summary": "Initial implementation duplicated spatial route owner/fill/holes in the adapter and reducer spine."
+    },
+    {
+      "checklist": "report-honesty",
+      "id": "fu01f-public-entrypoint-route-evidence",
+      "reasonableness": "reasonable",
+      "resolution": "Moved observed route evidence onto public BattleState entrypoints. The adapter now starts a battle with generic spatial route subjects, discovers public BattleSubjectKind::Spatial acts, resolves them through BattleResolutionRequest::spatial_route, and keeps expected routes as independent literals.",
+      "status": "fixed",
+      "summary": "Review found the previous adapter called observe_spatial_route_subject directly and used replay_observed_route as expected evidence."
     }
   ],
   "rounds": [
@@ -101,6 +109,52 @@
       ],
       "round": 2,
       "summary": "Convergence pass after localizing route metadata in the reducer spine and validating the FU01F target replay evidence; no reasonable findings remain."
+    },
+    {
+      "round": 3,
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "pass"
+        }
+      ],
+      "summary": "Fixup convergence pass after moving FU01F observed route evidence to public BattleState start/discover/resolve entrypoints and replacing expected routes with independent literal witnesses; no rows are demoted or blocked."
     }
   ],
   "schemaVersion": 1,

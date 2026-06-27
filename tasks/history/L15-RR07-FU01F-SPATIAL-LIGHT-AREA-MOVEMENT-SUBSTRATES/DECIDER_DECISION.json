@@ -46,7 +46,7 @@
       "status": "pass"
     }
   ],
-  "rationale": "All FU01F spatial rows replay through generic spatial route subjects emitted by production BattleReducerRouteTrace. The adapter maps selected witness rows to generic light, outline, area, hazard, movement, falling, forced-movement, and object-boundary route subjects; production code does not dispatch on selected spell identity.",
+  "rationale": "All FU01F spatial rows replay through generic spatial route subjects carried by BattleState and observed through public start_battle_observed, discover_battle_acts_observed, and resolve_battle_subject_observed entrypoints. The adapter maps selected witness rows only to generic light, outline, area, hazard, movement, falling, forced-movement, and object-boundary route subjects; production code does not dispatch on selected spell identity.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "targetBlockedRows": [],
