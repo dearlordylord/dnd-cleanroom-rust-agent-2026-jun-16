@@ -464,7 +464,7 @@
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "worker-committed-pending-review",
+      "status": "reviewing",
       "parallelGroup": "cp4-small-feature-substrates",
       "routeTaskIds": [
         "L15-RR07-FU04-ZERO-HP-STABILIZATION-SUBSTRATE",
