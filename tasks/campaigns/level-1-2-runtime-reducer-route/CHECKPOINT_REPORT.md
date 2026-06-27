@@ -402,7 +402,19 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Review/fixer notes: first review found unsupported illumination rows, duplicate `doFinish` ids, and self-comparison witness coverage. Fixer removed unsupported production `AfterHitDamageRiderIllumination*` route subjects, kept Shining rows blocked, qualified blocker/trace ids, and tied accepted coverage to reducer route evidence. Re-review returned clean.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-a`
 
+### L15-RRCP5-C-REACTION-INTERRUPT-ROUTES
+
+- Merge commit: `97763b0f981424c462d7af86f0dd0463dd1b9012`
+- Lane commit(s): `555ebff0f658c1a4d090c46b49637ef0283578ea`, `8b97ed1fa16870bc42689ca3176a92b191e91a91`, `6300fce274c2c9774e0e159b068463d50a8958e2`
+- Drivers added: `2` net-new unique drivers.
+- Obligations added: `4` accepted counted obligations; `2` Counterspell rows remain target-blocked.
+- New total driver coverage: `90 / 97 = 92.8%`
+- New total obligation coverage: `609 / 668 = 91.2%`
+- Integration verification: focused interrupt-stack and reaction-casting adapter tests, `node scripts/check-cleanroom-harness.cjs`, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`217 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: first review found self-fulfilling accepted route evidence and missing blocked Counterspell reporting. Fixer routed accepted qRoute replay through `BattleEntrypointTrace`, `discover_generic_route_subject_observed`, and `resolve_battle_subject_observed`; Counterspell rows remain blocked rather than accepted. Re-review returned clean.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-c`
+
 ## CP5 Current Queue
 
-- `L15-RRCP5-C-REACTION-INTERRUPT-ROUTES`: fixer Euler the 2nd completed at `6300fce274c2c9774e0e159b068463d50a8958e2`; Banach the 2nd re-reviewed clean; ready to merge.
-- `L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES`: re-review found `tasks/ENGINE_DEPTH_MANIFEST.json` still lists three out-of-scope Enhance Ability rows; needs narrow artifact fixer.
+- `L15-RRCP5-C-REACTION-INTERRUPT-ROUTES`: merged and verified at `97763b0f981424c462d7af86f0dd0463dd1b9012`.
+- `L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES`: metadata fixer Mendel the 2nd completed at `2e5a7d9cb45a12517949bba0ad8c127160992384`; active and history `tasks/ENGINE_DEPTH_MANIFEST.json` now keep accepted evidence at nine Search/Guidance rows and leave three Enhance Ability rows out of scope. Awaiting re-review before merge.

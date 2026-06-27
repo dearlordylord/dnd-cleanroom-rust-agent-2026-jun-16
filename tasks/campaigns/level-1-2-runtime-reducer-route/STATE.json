@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "a0a88e469f71f5069f4f01c19bbdbc2745660155",
+    "lastVerifiedIntegrationHead": "97763b0f981424c462d7af86f0dd0463dd1b9012",
     "lastMergedLane": {
-      "laneId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
-      "mergeCommit": "a0a88e469f71f5069f4f01c19bbdbc2745660155",
-      "laneHead": "5ecdd9ef43f9598fe19fdda58fcab4596c0c68c2"
+      "laneId": "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
+      "mergeCommit": "97763b0f981424c462d7af86f0dd0463dd1b9012",
+      "laneHead": "6300fce274c2c9774e0e159b068463d50a8958e2"
     }
   },
   "denominator": {
@@ -33,10 +33,10 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 88,
-    "acceptedDriverCoveragePercent": 90.7,
-    "acceptedObligations": 605,
-    "acceptedObligationCoveragePercent": 90.6,
+    "acceptedUniqueDrivers": 90,
+    "acceptedDriverCoveragePercent": 92.8,
+    "acceptedObligations": 609,
+    "acceptedObligationCoveragePercent": 91.2,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers plus completed-before-campaign baseline",
     "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json accepted in-scope obligations for unique selected drivers; target-blocker rows excluded"
   },
@@ -145,16 +145,16 @@
         "CP2",
         "CP4"
       ],
-      "notes": "Six CP5 sublanes launched from integration head 73c5ccea0ee7425952f231485325df5a45a0f36a. F, D, B, and A are merged. C is clean and ready to merge. E needs a narrow engine-depth artifact fix after re-review.",
+      "notes": "Six CP5 sublanes launched from integration head 73c5ccea0ee7425952f231485325df5a45a0f36a. F, D, B, A, and C are merged. E has a narrow artifact fixer committed and awaits re-review.",
       "runningLaneIds": [
-        "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
         "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES"
       ],
       "mergedLaneIds": [
         "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES",
         "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES",
         "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
-        "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES"
+        "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
+        "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES"
       ],
       "splitLaneIds": [
         "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
@@ -224,16 +224,16 @@
     "CP5-REMAINING-BATTLE-FAMILIES": "split-via-sublanes",
     "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES": "merged-verified",
     "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES": "merged-verified",
-    "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES": "ready-to-merge-after-clean-review",
+    "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES": "merged-verified",
     "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES": "merged-verified",
-    "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "review-findings-after-fixer",
+    "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "fixer-complete-awaiting-rereview",
     "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "a0a88e469f71f5069f4f01c19bbdbc2745660155",
+    "head": "97763b0f981424c462d7af86f0dd0463dd1b9012",
     "commands": [
-      "cargo test after_hit_damage_riders",
-      "cargo test weapon_hosted_attack_and_riders",
+      "cargo test interrupt_stack_resume_adapter_replays_all_branches -- --nocapture",
+      "cargo test reaction_casting_time_adapter_replays_in_scope_branch -- --nocapture",
       "node scripts/check-cleanroom-harness.cjs",
       "cargo fmt --check",
       "git diff --check HEAD~1...HEAD",
@@ -245,52 +245,11 @@
   },
   "activeLaneWorktrees": [
     {
-      "laneId": "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-c",
-      "branch": "ralph/l15-rrcp5-c-reactions",
-      "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
-      "status": "ready-to-merge-after-clean-review",
-      "workerAgent": "019f0814-4433-7fb1-8f8e-80862b5967b4",
-      "workerName": "Planck the 2nd",
-      "workerStatus": "complete",
-      "workerCommit": "555ebff0f658c1a4d090c46b49637ef0283578ea",
-      "acceptedRows": 4,
-      "blockedRows": 2,
-      "workerSummary": [
-        "Accepted four interrupt/reaction rows; blocked two Counterspell rows."
-      ],
-      "reviewAgent": "019f0828-1d3e-70e0-a461-f8d906e086d4",
-      "reviewStatus": "findings",
-      "reviewName": "Averroes the 2nd",
-      "reviewVerdict": "findings",
-      "reviewFindings": [
-        "High: accepted qRoute evidence is self-fulfilling; replay_observed_route returns expected_route in interrupt_stack_resume and reaction_casting_time adapters.",
-        "Medium: validation report omits blocked Counterspell rows."
-      ],
-      "followupFixerAgent": "019f082a-907d-7241-b9b9-4ff8ddc03372",
-      "followupFixerStatus": "complete",
-      "followupFixerName": "Kepler the 2nd",
-      "followupFixerCommit": "6300fce274c2c9774e0e159b068463d50a8958e2",
-      "followupFixerSummary": [
-        "Removed scenario-specific manual route-emission replay bypass.",
-        "Replayed accepted reaction/interrupt qRoutes through BattleEntrypointTrace, generic route subjects, and resolve_battle_subject_observed.",
-        "Kept accepted rows at four and Counterspell rows blocked outside accepted coverage."
-      ],
-      "rereviewAgent": "019f0843-4b03-7642-a311-ffca3291a603",
-      "rereviewName": "Banach the 2nd",
-      "rereviewStatus": "clean",
-      "rereviewVerdict": "clean",
-      "rereviewSummary": [
-        "Accepted qRoute replay now runs through BattleEntrypointTrace and public reducer observation.",
-        "Expected route construction remains separate; accepted rows are exactly four and Counterspell rows remain target-blocked."
-      ]
-    },
-    {
       "laneId": "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-e",
       "branch": "ralph/l15-rrcp5-e-ability-search",
       "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
-      "status": "review-findings-after-fixer",
+      "status": "fixer-complete-awaiting-rereview",
       "workerAgent": "019f0814-452a-77b2-8a73-ea35806cd964",
       "workerName": "Locke the 2nd",
       "workerStatus": "complete",
@@ -326,10 +285,75 @@
       "rereviewFindings": [
         "ENGINE_DEPTH_MANIFEST.json still lists the three out-of-scope Enhance Ability rows in quarantinedWitnessNames for both copied history and active manifest.",
         "RUN_LEDGER.json records the hash of that inconsistent engine-depth manifest, despite accepted evidence/decision being correct at nine rows."
+      ],
+      "secondFixerAgent": "019f084a-75fc-7562-aa1d-173a4c33a330",
+      "secondFixerName": "Mendel the 2nd",
+      "secondFixerStatus": "complete",
+      "secondFixerCommit": "2e5a7d9cb45a12517949bba0ad8c127160992384",
+      "secondFixerSummary": [
+        "Removed three out-of-scope Enhance Ability rows from active and history engine-depth quarantined witness metadata.",
+        "Updated RUN_LEDGER hashes to match the corrected engine-depth manifest.",
+        "Verification passed: cleanroom harness, fmt, diff check, focused ability-search-choice test, cargo test, and clippy."
       ]
     }
   ],
   "completedLaneWorktrees": [
+    {
+      "laneId": "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-c",
+      "branch": "ralph/l15-rrcp5-c-reactions",
+      "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
+      "status": "merged-verified",
+      "workerAgent": "019f0814-4433-7fb1-8f8e-80862b5967b4",
+      "workerName": "Planck the 2nd",
+      "workerStatus": "complete",
+      "workerCommit": "555ebff0f658c1a4d090c46b49637ef0283578ea",
+      "acceptedRows": 4,
+      "blockedRows": 2,
+      "workerSummary": [
+        "Accepted four interrupt/reaction rows; blocked two Counterspell rows."
+      ],
+      "reviewAgent": "019f0828-1d3e-70e0-a461-f8d906e086d4",
+      "reviewStatus": "findings",
+      "reviewName": "Averroes the 2nd",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "High: accepted qRoute evidence is self-fulfilling; replay_observed_route returns expected_route in interrupt_stack_resume and reaction_casting_time adapters.",
+        "Medium: validation report omits blocked Counterspell rows."
+      ],
+      "followupFixerAgent": "019f082a-907d-7241-b9b9-4ff8ddc03372",
+      "followupFixerStatus": "complete",
+      "followupFixerName": "Kepler the 2nd",
+      "followupFixerCommit": "6300fce274c2c9774e0e159b068463d50a8958e2",
+      "followupFixerSummary": [
+        "Removed scenario-specific manual route-emission replay bypass.",
+        "Replayed accepted reaction/interrupt qRoutes through BattleEntrypointTrace, generic route subjects, and resolve_battle_subject_observed.",
+        "Kept accepted rows at four and Counterspell rows blocked outside accepted coverage."
+      ],
+      "rereviewAgent": "019f0843-4b03-7642-a311-ffca3291a603",
+      "rereviewName": "Banach the 2nd",
+      "rereviewStatus": "clean",
+      "rereviewVerdict": "clean",
+      "rereviewSummary": [
+        "Accepted qRoute replay now runs through BattleEntrypointTrace and public reducer observation.",
+        "Expected route construction remains separate; accepted rows are exactly four and Counterspell rows remain target-blocked."
+      ],
+      "mergeCommit": "97763b0f981424c462d7af86f0dd0463dd1b9012",
+      "completedStatus": "removable-after-operator-confirms-no-local-use",
+      "integrationVerification": [
+        "cargo test interrupt_stack_resume_adapter_replays_all_branches -- --nocapture",
+        "cargo test reaction_casting_time_adapter_replays_in_scope_branch -- --nocapture",
+        "node scripts/check-cleanroom-harness.cjs",
+        "cargo fmt --check",
+        "git diff --check HEAD~1...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings"
+      ],
+      "integrationVerificationResult": "passed; cargo test 217 passed",
+      "acceptedDriversAdded": 2,
+      "acceptedObligationsAdded": 4,
+      "blockedObligations": 2
+    },
     {
       "laneId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-a",
