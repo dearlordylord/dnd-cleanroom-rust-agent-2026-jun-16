@@ -6622,6 +6622,7 @@ fn weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches() {
             route_payload.contains("SpellHostedWeaponAttackRouteSubject")
                 || route_payload.contains("HeldWeaponActiveEffectRouteSubject")
                 || route_payload.contains("WeaponDamageRiderRouteSubject")
+                || route_payload.contains("WeaponEnhancementItemTargetRouteSubject")
                 || route_payload.contains("WeaponAttackRouteSubject")
         );
         if action == "doDiscoverDivineFavorAttack" {

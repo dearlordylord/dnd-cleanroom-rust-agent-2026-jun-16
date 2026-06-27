@@ -97,6 +97,7 @@ pub enum ReducerRouteSubjectFamily {
     StatBlockAction,
     WeaponAttack,
     WeaponDamageRider,
+    WeaponEnhancementItemTarget,
     HeldWeaponActiveEffect,
     AfterHitDamageRider,
     ActiveFeatureSpellAttackRollMode,
@@ -157,6 +158,7 @@ pub enum ReducerRouteOwnerGroup {
     MovementResource,
     ObjectBoundary,
     ObjectTargetBoundary,
+    ItemTargetBoundary,
     Reaction,
     SavingThrowOutcome,
     SavingThrowRollMode,
@@ -841,6 +843,9 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::WeaponDamageRider => {
             ReducerRouteSubjectFamily::WeaponDamageRider
         }
+        BattleReducerRouteSubjectFamily::WeaponEnhancementItemTarget => {
+            ReducerRouteSubjectFamily::WeaponEnhancementItemTarget
+        }
         BattleReducerRouteSubjectFamily::HeldWeaponActiveEffect => {
             ReducerRouteSubjectFamily::HeldWeaponActiveEffect
         }
@@ -1022,6 +1027,9 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
         BattleReducerRouteOwnerGroup::ObjectBoundary => ReducerRouteOwnerGroup::ObjectBoundary,
         BattleReducerRouteOwnerGroup::ObjectTargetBoundary => {
             ReducerRouteOwnerGroup::ObjectTargetBoundary
+        }
+        BattleReducerRouteOwnerGroup::ItemTargetBoundary => {
+            ReducerRouteOwnerGroup::ItemTargetBoundary
         }
         BattleReducerRouteOwnerGroup::Reaction => ReducerRouteOwnerGroup::Reaction,
         BattleReducerRouteOwnerGroup::SavingThrowOutcome => {
@@ -1309,6 +1317,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::MovementResource => "BattleMovementResourceOwner",
         ReducerRouteOwnerGroup::ObjectBoundary => "BattleObjectBoundaryOwner",
         ReducerRouteOwnerGroup::ObjectTargetBoundary => "BattleObjectTargetBoundaryOwner",
+        ReducerRouteOwnerGroup::ItemTargetBoundary => "BattleItemTargetBoundaryOwner",
         ReducerRouteOwnerGroup::Reaction => "BattleReactionOwner",
         ReducerRouteOwnerGroup::SavingThrowOutcome => "BattleSavingThrowOutcomeOwner",
         ReducerRouteOwnerGroup::SavingThrowRollMode => "BattleSavingThrowRollModeOwner",
@@ -1405,6 +1414,9 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::StatBlockAction => "StatBlockActionRouteSubject",
         ReducerRouteSubjectFamily::WeaponAttack => "WeaponAttackRouteSubject",
         ReducerRouteSubjectFamily::WeaponDamageRider => "WeaponDamageRiderRouteSubject",
+        ReducerRouteSubjectFamily::WeaponEnhancementItemTarget => {
+            "WeaponEnhancementItemTargetRouteSubject"
+        }
         ReducerRouteSubjectFamily::HeldWeaponActiveEffect => "HeldWeaponActiveEffectRouteSubject",
         ReducerRouteSubjectFamily::AfterHitDamageRider => "AfterHitDamageRiderRouteSubject",
         ReducerRouteSubjectFamily::WeaponMasteryProperty => "WeaponMasteryPropertyRouteSubject",

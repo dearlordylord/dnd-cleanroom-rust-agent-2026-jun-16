@@ -1132,6 +1132,7 @@ pub enum BattleSubjectKind {
     HeldWeaponActiveEffectAttackRoll,
     HeldWeaponActiveEffectDamage,
     HeldWeaponActiveEffectCleanup,
+    WeaponEnhancementItemTarget,
     InterruptStackResumeClosedContinuation,
     InterruptStackResumeDamageContinuation,
     InterruptStackResumeDecisionToRolledDice,
@@ -2506,6 +2507,7 @@ pub enum BattleReducerRouteSubjectFamily {
     ProtectionCharmActiveEffect,
     CharmSourceDamageBreak,
     WardedTargetInterdiction,
+    WeaponEnhancementItemTarget,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -2546,6 +2548,7 @@ pub enum BattleReducerRouteOwnerGroup {
     MovementResource,
     ObjectBoundary,
     ObjectTargetBoundary,
+    ItemTargetBoundary,
     Reaction,
     SavingThrowOutcome,
     SavingThrowRollMode,
@@ -7240,6 +7243,7 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::WeaponDamageRiderActiveEffect
             | BattleSubjectKind::WeaponDamageRiderDamage
             | BattleSubjectKind::WeaponDamageRiderCleanup
+            | BattleSubjectKind::WeaponEnhancementItemTarget
             | BattleSubjectKind::HeldWeaponActiveEffectApply
             | BattleSubjectKind::HeldWeaponActiveEffectTargetChoice
             | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
@@ -7380,7 +7384,7 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
         CompanionTouchDelivery, CreatureTypeTargetAdmission, HeldWeaponActiveEffect,
         InterruptStackResume, MarkedEffect, ObjectTargetSpellAttack, ProtectionCharmActiveEffect,
         ReactionSpell, SaveGatedSpell, ScalarBuffEffect, SpellAttack, SpellHostedWeaponAttack,
-        WardedTargetInterdiction, WeaponAttack, WeaponDamageRider,
+        WardedTargetInterdiction, WeaponAttack, WeaponDamageRider, WeaponEnhancementItemTarget,
     };
 
     match kind {
@@ -7491,6 +7495,12 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             subject: HeldWeaponActiveEffect,
             holes: Vec::new(),
             discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::WeaponEnhancementItemTarget => GenericRouteShape {
+            subject: WeaponEnhancementItemTarget,
+            holes: Vec::new(),
+            discover_owner: BattleReducerRouteOwnerGroup::ItemTargetBoundary,
             resolve_owner: ActiveEffect,
         },
         BattleSubjectKind::RollModifierEffectConcentrationCleanup => GenericRouteShape {
@@ -8238,6 +8248,7 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::WeaponDamageRiderActiveEffect
         | BattleSubjectKind::WeaponDamageRiderDamage
         | BattleSubjectKind::WeaponDamageRiderCleanup
+        | BattleSubjectKind::WeaponEnhancementItemTarget
         | BattleSubjectKind::HeldWeaponActiveEffectApply
         | BattleSubjectKind::HeldWeaponActiveEffectTargetChoice
         | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
@@ -9401,6 +9412,7 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::WeaponDamageRiderActiveEffect
             | BattleSubjectKind::WeaponDamageRiderDamage
             | BattleSubjectKind::WeaponDamageRiderCleanup
+            | BattleSubjectKind::WeaponEnhancementItemTarget
             | BattleSubjectKind::HeldWeaponActiveEffectApply
             | BattleSubjectKind::HeldWeaponActiveEffectTargetChoice
             | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
@@ -9805,6 +9817,7 @@ fn generic_route_fill_matches_subject(
         }
         BattleSubjectKind::WeaponDamageRiderActiveEffect
         | BattleSubjectKind::WeaponDamageRiderCleanup
+        | BattleSubjectKind::WeaponEnhancementItemTarget
         | BattleSubjectKind::HeldWeaponActiveEffectApply
         | BattleSubjectKind::HeldWeaponActiveEffectCleanup
         | BattleSubjectKind::RollModifierEffectNoChoice
