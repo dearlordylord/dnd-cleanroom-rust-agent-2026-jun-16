@@ -3598,6 +3598,79 @@
           "status": "pass"
         }
       ]
+    },
+    {
+      "taskId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
+      "manifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "sourceReducerRouteInventorySha256": "a7e709e8e8988aab49c2274d7c3481d79ff9e1a9188e87f1888324106acec471",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt"
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/START_GATE.json",
+          "sha256": "1b5f936f44e2f2726e317e47d51c4450107af7d7a65184e26e387f480b8c9e0a"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "9fe3d5c097cc2a1ac6b2c5ff26c21f7f9130620df0da3cdbabc9137577daba26"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "438403cc0e21bcd73c50a942bf4a51f166919dc0666351593d0678c67ec420ec"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/REVIEW_LOOP.json",
+          "sha256": "0f66db0f6b9c98cbe382a549eda8ec9b0a528a4206bfb02c28adf6c23a04099b"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/DECIDER_DECISION.json",
+          "sha256": "abf0ebfa3741705c84f0784567dbace34632239b9540b98e8b9c2a3d4156c277"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json",
+          "sha256": "114de0a6d4d339a674b8de3fde41dc041beb35c4d403efe6fe982aa214e61bf5",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverMagicWeapon#step:doDiscoverMagicWeapon",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillMagicWeaponTarget#step:doFillMagicWeaponTarget"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "jq empty over touched JSON",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 19f1e16...HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "fail: global stale manifest/evidence debt; no CP7-E or Magic Weapon-specific failures"
+        }
+      ]
     }
   ],
   "manifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",

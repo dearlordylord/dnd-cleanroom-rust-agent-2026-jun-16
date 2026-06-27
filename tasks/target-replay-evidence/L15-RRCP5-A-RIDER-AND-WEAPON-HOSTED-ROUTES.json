@@ -922,19 +922,22 @@
       "observedActionTaken": "doDiscoverMagicWeapon",
       "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
       "result": {
-        "blockerId": "L15-RRCP5-A-doDiscoverMagicWeapon",
-        "reason": "MagicWeaponTargetItem is not present in the copied reducer-route hole vocabulary",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
+      "routeEvidenceBasis": "production BattleSubjectKind WeaponEnhancementItemTarget diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
+          "BattleSubjectKind.WeaponEnhancementItemTarget",
+          "BattleReducerRouteSubjectFamily.WeaponEnhancementItemTarget",
           "BattleEntrypointTrace.route_events",
-          "WeaponHostedRouteSurface"
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "route-surface-admission",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "804ac8c38e89752fa735463ef0a568dcc4403ad14863b4f5dc7b0ca9f29258cb",
+        "observedProjectionSha256": "804ac8c38e89752fa735463ef0a568dcc4403ad14863b4f5dc7b0ca9f29258cb",
         "projection": "qRoute",
-        "tag": "target-blocker"
+        "tag": "state-match"
       },
       "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverMagicWeapon"
     },
@@ -1094,19 +1097,22 @@
       "observedActionTaken": "doFillMagicWeaponTarget",
       "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
       "result": {
-        "blockerId": "L15-RRCP5-A-doFillMagicWeaponTarget",
-        "reason": "MagicWeaponTargetItem is not present in the copied reducer-route fill vocabulary",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
+      "routeEvidenceBasis": "production BattleSubjectKind WeaponEnhancementItemTarget diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
+          "BattleSubjectKind.WeaponEnhancementItemTarget",
+          "BattleReducerRouteSubjectFamily.WeaponEnhancementItemTarget",
           "BattleEntrypointTrace.route_events",
-          "WeaponHostedRouteSurface"
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "route-surface-admission",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "804ac8c38e89752fa735463ef0a568dcc4403ad14863b4f5dc7b0ca9f29258cb",
+        "observedProjectionSha256": "804ac8c38e89752fa735463ef0a568dcc4403ad14863b4f5dc7b0ca9f29258cb",
         "projection": "qRoute",
-        "tag": "target-blocker"
+        "tag": "state-match"
       },
       "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillMagicWeaponTarget"
     },

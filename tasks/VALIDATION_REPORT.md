@@ -79,9 +79,9 @@ Verification results:
 
 - Manifest source commit SHA: `53642cf0b1bc98f4426b6081fe37c98a960939fc`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Last completed current-snapshot queued branch set: `L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES`
-- Latest evidence: `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json` covers all 16 selected FU01D rows via copied route connectors and reducer-entrypoint route replay.
-- Latest verification: focused FU01D evidence check, cargo fmt --check, focused FU01D tests, cargo test, cargo clippy, and git diff --check passed; cleanroom harness is blocked by global stale-manifest evidence outside FU01D.
+- Last completed current-snapshot queued branch set: `L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES`
+- Latest evidence: `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json` covers `doDiscoverMagicWeapon` and `doFillMagicWeaponTarget` via copied `WeaponEnhancementItemTargetRouteSubject` qRoute and reducer-entrypoint route replay.
+- Latest verification: focused CP7-E route adapter and touched JSON validation passed; full verification is recorded in the CP7-E section below.
 
 ## L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES: Companion/Object-Boundary Routes
 
@@ -162,9 +162,9 @@ Verification results:
 
 - Manifest source commit SHA: `53642cf0b1bc98f4426b6081fe37c98a960939fc`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Last completed current-snapshot queued branch set: `L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES`
-- Latest evidence: `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json` covers all 16 selected FU01D rows via copied route connectors and reducer-entrypoint route replay.
-- Latest verification: focused FU01D evidence check, cargo fmt --check, focused FU01D tests, cargo test, cargo clippy, and git diff --check passed; cleanroom harness is blocked by global stale-manifest evidence outside FU01D.
+- Last completed current-snapshot queued branch set: `L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES`
+- Latest evidence: `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json` covers `doDiscoverMagicWeapon` and `doFillMagicWeaponTarget` via copied `WeaponEnhancementItemTargetRouteSubject` qRoute and reducer-entrypoint route replay.
+- Latest verification: focused CP7-E route adapter and touched JSON validation passed; full verification is recorded in the CP7-E section below.
 
 ## L15-RR07-FU01F: Spatial Light/Area/Movement Substrates
 
@@ -3851,7 +3851,7 @@ Verification results:
 
 ## L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES
 
-CP7-C refresh: accepted five generic WeaponAttack setup rows (`doDiscoverWeaponHit`, `doFillTargetChoice`, `doDiscoverDivineFavorAttack`, `doFillDivineFavorTarget`, `doFillDivineFavorHit`) through production `BattleEntrypointTrace.route_events` and independent qRoute witnesses. Scenario-transition rows and MagicWeaponTargetItem rows remain blocked.
+CP7-C refresh: accepted five generic WeaponAttack setup rows (`doDiscoverWeaponHit`, `doFillTargetChoice`, `doDiscoverDivineFavorAttack`, `doFillDivineFavorTarget`, `doFillDivineFavorHit`) through production `BattleEntrypointTrace.route_events` and independent qRoute witnesses. CP7-E refresh accepted the two Magic Weapon item-target rows (`doDiscoverMagicWeapon`, `doFillMagicWeaponTarget`) through the copied `WeaponEnhancementItemTargetRouteSubject` qRoute. Scenario-transition rows remain blocked.
 
 Selected drivers:
 - cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt
@@ -3887,13 +3887,13 @@ Selected drivers:
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doCleanMagicWeaponDuration` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCleanMagicWeaponDuration#step:doCleanMagicWeaponDuration` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doCleanShillelaghLetGo` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCleanShillelaghLetGo#step:doCleanShillelaghLetGo` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doDiscoverDivineFavorAttack` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverDivineFavorAttack#step:doDiscoverDivineFavorAttack` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doDiscoverMagicWeapon` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverMagicWeapon#step:doDiscoverMagicWeapon` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `blocked` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doDiscoverMagicWeapon` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverMagicWeapon#step:doDiscoverMagicWeapon` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doDiscoverShillelaghAttack` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverShillelaghAttack#step:doDiscoverShillelaghAttack` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doDiscoverTrueStrike` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverTrueStrike#step:doDiscoverTrueStrike` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillDivineFavorDamage` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorDamage#step:doFillDivineFavorDamage` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillDivineFavorHit` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorHit#step:doFillDivineFavorHit` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillDivineFavorTarget` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorTarget#step:doFillDivineFavorTarget` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillMagicWeaponTarget` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillMagicWeaponTarget#step:doFillMagicWeaponTarget` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `blocked` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillMagicWeaponTarget` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillMagicWeaponTarget#step:doFillMagicWeaponTarget` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillShillelaghDamage` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillShillelaghDamage#step:doFillShillelaghDamage` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillShillelaghHit` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillShillelaghHit#step:doFillShillelaghHit` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillShillelaghTarget` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillShillelaghTarget#step:doFillShillelaghTarget` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
@@ -3915,6 +3915,65 @@ Verification results:
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` failed with pre-existing global stale manifest/evidence debt; classified nonblocking for CP7-C because the output contains no weapon-prehit-specific failure.
+
+## L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES
+
+- Manifest source commit SHA: `53642cf0b1bc98f4426b6081fe37c98a960939fc`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt`
+- Route connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-enhancement-item-target.route.mbt.qnt`
+- Evidence file: `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json`
+- Accepted rows: `doDiscoverMagicWeapon`, `doFillMagicWeaponTarget`
+- Target blocker delta: `14 -> 12`; accepted obligation delta: `654/668 -> 656/668`
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-enhancement-item-target.route.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt`
+- `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+
+Behavior implemented:
+
+- Added a generic reducer route subject for `WeaponEnhancementItemTargetRouteSubject` and a distinct `BattleItemTargetBoundaryOwner` route owner.
+- Replayed both Magic Weapon item-target rows through `BattleEntrypointTrace.route_events`: `routeStartBattle(BattleActionEconomyOwner)`, discover with empty holes owned by `BattleItemTargetBoundaryOwner`, then resolve without fill with empty holes owned by `BattleActiveEffectOwner`.
+- Kept `MagicWeaponTargetItem` out of reducer-owned hole and fill vocabulary; it remains component witness vocabulary from the weapon-hosted driver.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doDiscoverMagicWeapon` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverMagicWeapon#step:doDiscoverMagicWeapon` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillMagicWeaponTarget` | `tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillMagicWeaponTarget#step:doFillMagicWeaponTarget` | `src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs` | `covered` |
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- Scenario transition rows (`doStart*`, `doFinish`) remain blocked.
+- Mage Armor rows remain blocked from CP7-D; no CP7-E acceptance is claimed for them.
+
+Verification results:
+
+- `cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture` passed.
+- `jq empty` over touched JSON files passed.
+- `cargo fmt --check` passed.
+- `git diff --check 19f1e16...HEAD` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed with pre-existing global stale-manifest/evidence debt; a filtered check found no CP7-E, Magic Weapon, or WeaponEnhancement-specific harness failure.
 
 ## L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES
 

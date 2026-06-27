@@ -15,12 +15,12 @@
   "coverage": {
     "ledgerSelectedDrivers": 97,
     "acceptedPassDrivers": 97,
-    "acceptedPassObligations": 654,
+    "acceptedPassObligations": 656,
     "acceptedDriverCoveragePercent": 100,
-    "acceptedObligationCoveragePercent": 97.9,
-    "targetBlockerObligations": 14,
+    "acceptedObligationCoveragePercent": 98.2,
+    "targetBlockerObligations": 12,
     "sourceQntCorpusBlockerObligations": 0,
-    "totalBlockedObligations": 14,
+    "totalBlockedObligations": 12,
     "blockedDrivers": 3,
     "unresolvedInScopeObligations": 0
   },
@@ -65,16 +65,6 @@
         "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget",
         "evidence": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doRejectMageArmorArmoredTarget#step:doRejectMageArmorArmoredTarget",
         "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doDiscoverMagicWeapon",
-        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverMagicWeapon#step:doDiscoverMagicWeapon",
-        "reason": "MagicWeaponTargetItem is not present in the copied reducer-route hole vocabulary"
-      },
-      {
-        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillMagicWeaponTarget",
-        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillMagicWeaponTarget#step:doFillMagicWeaponTarget",
-        "reason": "MagicWeaponTargetItem is not present in the copied reducer-route fill vocabulary"
       },
       {
         "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFinish",
@@ -345,7 +335,7 @@
     }
   },
   "inputHashes": {
-    "runLedgerSha256": "1d7138ba3f3c6cd900b990cf4383188792cd297fedc646247ae3c39ab5629cc1",
+    "runLedgerSha256": "471ff1e086b844cbf09cc96b7153025fd06d22878a946df9d617ac8a08f40bee",
     "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
     "reducerRouteInventorySha256": "a7e709e8e8988aab49c2274d7c3481d79ff9e1a9188e87f1888324106acec471"
   },
@@ -409,5 +399,22 @@
     "evidence": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json",
     "evidenceSha256": "d8db5408ddd96fdff45c3dbebd4c060374c446413500a07997fed463132c6d2f",
     "note": "CP7-D intentionally kept all three Mage Armor rows blocked. The copied reducer-route inventory does not provide a Mage Armor qRoute connector or generic armor-class target-admission/active-effect lifecycle route owner, so target-side acceptance would be inference beyond the cleanroom input."
+  },
+  "cp7eRefresh": {
+    "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
+    "selectedRows": [
+      "doDiscoverMagicWeapon",
+      "doFillMagicWeaponTarget"
+    ],
+    "acceptedObligationsAdded": 2,
+    "acceptedObligationsAfterRefresh": 656,
+    "removedTargetBlockerObligations": 2,
+    "targetBlockersAfterRefresh": 12,
+    "decision": "tasks/history/L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES/DECIDER_DECISION.json#decision:accepted",
+    "decisionSha256": "abf0ebfa3741705c84f0784567dbace34632239b9540b98e8b9c2a3d4156c277",
+    "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json",
+    "evidenceSha256": "114de0a6d4d339a674b8de3fde41dc041beb35c4d403efe6fe982aa214e61bf5",
+    "runLedgerSha256": "471ff1e086b844cbf09cc96b7153025fd06d22878a946df9d617ac8a08f40bee",
+    "note": "Accepted exactly the two Magic Weapon item-target rows through observed BattleEntrypointTrace.route_events matching the copied WeaponEnhancementItemTargetRouteSubject qRoute. Scenario-transition blockers and Mage Armor rows remain blocked; MagicWeaponTargetItem was not added as reducer-owned hole or fill vocabulary."
   }
 }

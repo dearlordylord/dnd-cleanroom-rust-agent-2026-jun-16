@@ -50,7 +50,7 @@ pub const BRANCH_ACTIONS: [&str; 23] = [
     "doFinish",
 ];
 
-pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 17] = [
+pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 19] = [
     "doDiscoverTrueStrike",
     "doFillTrueStrikeRadiantTarget",
     "doFillTrueStrikeHit",
@@ -67,10 +67,12 @@ pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 17] = [
     "doFillDivineFavorHit",
     "doFillDivineFavorDamage",
     "doCleanDivineFavorDuration",
+    "doDiscoverMagicWeapon",
+    "doFillMagicWeaponTarget",
     "doCleanMagicWeaponDuration",
 ];
 
-pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 6] = [
+pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 4] = [
     (
         "doStartShillelagh",
         "scenario transition has no reducer route surface",
@@ -82,14 +84,6 @@ pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 6] = [
     (
         "doStartMagicWeapon",
         "scenario transition has no reducer route surface",
-    ),
-    (
-        "doDiscoverMagicWeapon",
-        "MagicWeaponTargetItem is not present in the copied reducer-route hole vocabulary",
-    ),
-    (
-        "doFillMagicWeaponTarget",
-        "MagicWeaponTargetItem is not present in the copied reducer-route fill vocabulary",
     ),
     (
         "doFinish",
@@ -528,6 +522,10 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             BattleSubjectKind::WeaponDamageRiderCleanup,
             BattleGenericRouteFill::WithoutFill,
         )]),
+        "doDiscoverMagicWeapon" | "doFillMagicWeaponTarget" => replay_generic_route_sequence(&[(
+            BattleSubjectKind::WeaponEnhancementItemTarget,
+            BattleGenericRouteFill::WithoutFill,
+        )]),
         action if blocker_reason(action).is_some() => {
             panic!("{}: {}", action, blocker_reason(action).unwrap())
         }
@@ -556,6 +554,7 @@ fn replay_generic_route_sequence(
             ReducerRouteSubjectFamily::SpellHostedWeaponAttack,
             ReducerRouteSubjectFamily::HeldWeaponActiveEffect,
             ReducerRouteSubjectFamily::WeaponDamageRider,
+            ReducerRouteSubjectFamily::WeaponEnhancementItemTarget,
         ],
     )
 }
@@ -666,6 +665,11 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         "doCleanDivineFavorDuration" => expected_without_fill_route(
             ReducerRouteSubjectFamily::WeaponDamageRider,
             ReducerRouteOwnerGroup::ActiveEffect,
+            ReducerRouteOwnerGroup::ActiveEffect,
+        ),
+        "doDiscoverMagicWeapon" | "doFillMagicWeaponTarget" => expected_without_fill_route(
+            ReducerRouteSubjectFamily::WeaponEnhancementItemTarget,
+            ReducerRouteOwnerGroup::ItemTargetBoundary,
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
         action if blocker_reason(action).is_some() => {
