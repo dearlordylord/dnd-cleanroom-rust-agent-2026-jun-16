@@ -187,7 +187,7 @@
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
-    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "running",
+    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "reviewing",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
@@ -217,9 +217,28 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a",
       "branch": "ralph/l15-rr07-fu01a-catalog-ready",
       "baseSha": "4b24c074161a5bbe2b52ef1125c5f7044e3172e0",
-      "status": "running",
+      "status": "reviewing",
       "workerAgent": "019f0776-9fa7-7893-a111-b0aa8a7f73e3",
-      "workerName": "Carver"
+      "workerName": "Carver",
+      "commit": "710ff08b6114640820b147e5d0b4a460693e73e2",
+      "workerSummary": [
+        "Accepted 9 in-scope catalog-ready spell substrate branches through existing generic substrates.",
+        "Recorded 5 level-2/3 condition-save branches as out-of-scope.",
+        "Reported no blockers for accepted branches."
+      ],
+      "workerVerification": [
+        "git merge-base --is-ancestor 4b24c074161a5bbe2b52ef1125c5f7044e3172e0 HEAD",
+        "cargo fmt --check",
+        "cargo test condition_saving_throw_selected_identity_routes_in_scope_substrate_branches",
+        "cargo test selected_identity_adapter_replays_all_branches",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD"
+      ],
+      "reviewAgent": "019f0788-0409-7902-b05c-616193548f50",
+      "reviewName": "Godel",
+      "reviewStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
