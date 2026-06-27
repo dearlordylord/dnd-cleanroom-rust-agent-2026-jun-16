@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "post-source-refresh-complete",
-  "dirtyCleanroomOnly": true,
+  "status": "fresh-cleanroom-fc05-accepted",
+  "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
@@ -2324,64 +2324,91 @@
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
   "freshCleanroomDryRun": {
-    "status": "fc-05-running",
-    "phase": "FC-05",
-    "phaseName": "Character, Sheet, Or Handoff Seed",
+    "status": "fc-05-reviewed-accepted-with-limitations",
+    "phase": "FC-06",
+    "phaseName": "Audit And Source Feedback",
     "activePhase": {
-      "phase": "FC-05",
-      "phaseName": "Character, Sheet, Or Handoff Seed",
-      "status": "worker-running",
-      "targetBaseCommit": "101603476fd473483f4480f55bea9c3555d9aefa",
-      "campaignLaunchCommit": "85b6dea",
-      "workerAgent": "019f0a07-f2ad-7f72-985f-dad61f35ea1e",
-      "workerName": "Godel the 2nd",
-      "scope": "Implement a minimal character sheet to battle init projection through generic character-battle handoff route evidence using character-battle-init-projection.route.mbt.qnt.",
-      "preferredDriver": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
-      "requiredConnector": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
-      "expectedSurfaces": [
-        "sheet HP/Armor Class/conditions/profile projection",
-        "sheet spellcasting/metamagic resource projection",
-        "build maximum rejection",
-        "stable recovery progress rejection"
-      ],
-      "sdkTracerBulletContribution": "Seed the programmatic public surface for character sheet to battle init to battle runtime, without duplicating battle-owned runtime facts."
+      "phase": "FC-06",
+      "phaseName": "Audit And Source Feedback",
+      "status": "ready",
+      "scope": "Audit fresh-run lessons and convert any missing reducer-route or handoff facts into source-side QNT/guidance feedback before treating the dry run as complete.",
+      "prerequisites": [
+        "FC-05 reviewed clean after fix",
+        "programmatic tracer-bullet scenario remains pending as a completion gate"
+      ]
     },
     "previousPhase": {
-      "phase": "FC-04",
-      "phaseName": "Generic Base Armor Class Regression",
-      "status": "reviewed-accepted",
-      "targetBaseCommit": "7b690c80e6fa4f3177ff41ccedf2083175b1b00c",
-      "campaignLaunchCommit": "f487298",
-      "campaignAcceptanceCommit": "7a74d1a",
-      "runtimeCommit": "9f86b3468a689d894096267d0fcde8de7d4a9388",
-      "targetHead": "101603476fd473483f4480f55bea9c3555d9aefa",
-      "workerAgent": "019f09f3-de14-78c3-b696-a672305e19c0",
-      "workerName": "Socrates the 2nd",
-      "reviewerAgent": "019f0a02-f2c7-7253-b65d-8fddd58a642c",
-      "reviewerName": "Sartre the 2nd",
-      "finalReviewVerdict": "clean",
-      "scope": "Generic base Armor Class effect route evidence through shared reducer entrypoints using battle-runtime-spell-base-armor-class-effect.route.mbt.qnt; selected spell identity remains limited to evidence/test/source-input citation boundaries.",
-      "preferredDriver": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
-      "requiredConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt",
+      "phase": "FC-05",
+      "phaseName": "Character, Sheet, Or Handoff Seed",
+      "status": "reviewed-accepted-with-limitations",
+      "targetBaseCommit": "101603476fd473483f4480f55bea9c3555d9aefa",
+      "campaignLaunchCommit": "85b6dea",
+      "campaignAcceptanceCommit": "9af5510334b70477f957096ac86bf3cd1dc0a95c",
+      "runtimeCommit": "63e6fb93a67b17d8bf2d4fbb0b44bd644c0cf419",
+      "targetHead": "380cf29e49d509bc0f246cf9aa022f226e42efd8",
+      "workerAgent": "019f0a07-f2ad-7f72-985f-dad61f35ea1e",
+      "workerName": "Godel the 2nd",
+      "reviewerAgent": "019f0a17-0887-76e3-8163-c569e61faf54",
+      "reviewerName": "Arendt the 2nd",
+      "finalReviewVerdict": "clean after one fix round",
+      "scope": "Generic character sheet to battle init handoff route evidence through public handoff entrypoints, with successful entry using start_battle and BattleState/CombatantState ownership rather than a parallel handoff cache.",
+      "preferredDriver": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "requiredConnector": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
       "acceptedSurfaces": [
-        "unarmored target admission",
-        "armored target rejection",
-        "base Armor Class projection",
-        "duration expiry cleanup"
+        "sheet HP, temporary HP, Armor Class, conditions, and passive Armor Class profile projection",
+        "sheet spell slot and metamagic resource projection",
+        "build maximum rejection from sheet projection",
+        "build maximum rejection from resource projection to prevent bypass",
+        "stable recovery progress rejection during battle entry",
+        "successful handoff calls start_battle and stores runtime facts in BattleState/CombatantState"
+      ],
+      "limitations": [
+        {
+          "id": "FC-05-pact-slot-branches-lack-route-connector",
+          "status": "accepted limitation",
+          "summary": "The preferred driver has pure Pact Slot and mixed Spell Slot/Pact Slot branches, but the route connector exposes no corresponding generic route surfaces; FC-05 records this rather than inventing behavior."
+        }
+      ],
+      "reviewFindings": [
+        {
+          "severity": "high",
+          "status": "fixed-reviewed-clean",
+          "summary": "Resource projection could bypass the build max-HP gate.",
+          "requiredFix": "Require CharacterBuildProjection in project_character_resources_to_battle and add a regression route comparison."
+        },
+        {
+          "severity": "medium",
+          "status": "fixed-reviewed-clean",
+          "summary": "Evidence overstated projection entrypoints as shared BattleState reducer evidence.",
+          "requiredFix": "Classify projection events as character-battle handoff route evidence and only start_battle as shared BattleState reducer evidence."
+        },
+        {
+          "severity": "medium",
+          "status": "fixed-reviewed-clean",
+          "summary": "FC-05 target commit metadata was pending/null.",
+          "requiredFix": "Record committed target metadata and make verify_fc05 require committed status and an ancestor SHA."
+        },
+        {
+          "severity": "low",
+          "status": "fixed-reviewed-clean",
+          "summary": "BLOCKERS.json top-level phase metadata was stale.",
+          "requiredFix": "Update top-level phase metadata to FC-05 accepted-with-limitations while retaining older blockers and limitations."
+        }
       ],
       "verification": [
         "cargo fmt --check",
-        "cargo test (17 passed)",
+        "cargo test (22 passed)",
         "cargo clippy --all-targets -- -D warnings",
         "python3 tools/verify_fc00.py",
         "python3 tools/verify_fc01.py",
         "python3 tools/verify_fc02.py",
         "python3 tools/verify_fc03.py",
         "python3 tools/verify_fc04.py",
-        "git diff --check 7b690c80e6fa4f3177ff41ccedf2083175b1b00c...HEAD",
+        "python3 tools/verify_fc05.py",
+        "git diff --check 101603476fd473483f4480f55bea9c3555d9aefa...HEAD",
         "git status --short"
       ],
-      "residualRisk": "The target worktree did not contain .claude/review-rules.md inside the allowed fresh-cleanroom review boundary; reviewer used the campaign/source package boundaries and AGENTS instructions."
+      "residualRisk": "FC-05 proves handoff-route projection plus shared BattleState entry, not a full character-creation-to-battle gameplay scenario. The SDK-style tracer bullet remains a pending completion gate."
     },
     "earlierReviewedPhase": {
       "phase": "FC-03",
@@ -2513,6 +2540,12 @@
         "status": "reviewed-accepted",
         "runtimeCommit": "9f86b3468a689d894096267d0fcde8de7d4a9388",
         "targetHead": "101603476fd473483f4480f55bea9c3555d9aefa"
+      },
+      {
+        "phase": "FC-05",
+        "status": "reviewed-accepted-with-limitations",
+        "runtimeCommit": "63e6fb93a67b17d8bf2d4fbb0b44bd644c0cf419",
+        "targetHead": "380cf29e49d509bc0f246cf9aa022f226e42efd8"
       }
     ],
     "previousAcceptedPhase": {
@@ -2571,15 +2604,60 @@
     "completionGates": [
       {
         "id": "programmatic-tracer-bullet-scenario",
-        "status": "pending",
-        "description": "Before the broader reducer-spine goal is considered done, run an SDK-style public programmatic surface scenario: create a character, hand off or project it into a simple battle, and drive at least one complete simple battle turn through public reducer/runtime APIs. Prefer the fresh target; if only the dirty cleanroom can run it, record that limitation."
+        "status": "pending-after-fc05",
+        "description": "Before the broader reducer-spine goal is considered done, run an SDK-style public programmatic surface scenario: create a character, hand off or project it into a simple battle, and drive at least one complete simple battle turn through public reducer/runtime APIs. Prefer the fresh target; if only the dirty cleanroom can run it, record that limitation.",
+        "lastUpdated": "2026-06-27"
       }
-    ]
+    ],
+    "earlierReviewedPhaseFc04": {
+      "phase": "FC-04",
+      "phaseName": "Generic Base Armor Class Regression",
+      "status": "reviewed-accepted",
+      "targetBaseCommit": "7b690c80e6fa4f3177ff41ccedf2083175b1b00c",
+      "campaignLaunchCommit": "f487298",
+      "campaignAcceptanceCommit": "7a74d1a",
+      "runtimeCommit": "9f86b3468a689d894096267d0fcde8de7d4a9388",
+      "targetHead": "101603476fd473483f4480f55bea9c3555d9aefa",
+      "workerAgent": "019f09f3-de14-78c3-b696-a672305e19c0",
+      "workerName": "Socrates the 2nd",
+      "reviewerAgent": "019f0a02-f2c7-7253-b65d-8fddd58a642c",
+      "reviewerName": "Sartre the 2nd",
+      "finalReviewVerdict": "clean",
+      "scope": "Generic base Armor Class effect route evidence through shared reducer entrypoints using battle-runtime-spell-base-armor-class-effect.route.mbt.qnt; selected spell identity remains limited to evidence/test/source-input citation boundaries.",
+      "preferredDriver": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
+      "requiredConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt",
+      "acceptedSurfaces": [
+        "unarmored target admission",
+        "armored target rejection",
+        "base Armor Class projection",
+        "duration expiry cleanup"
+      ],
+      "verification": [
+        "cargo fmt --check",
+        "cargo test (17 passed)",
+        "cargo clippy --all-targets -- -D warnings",
+        "python3 tools/verify_fc00.py",
+        "python3 tools/verify_fc01.py",
+        "python3 tools/verify_fc02.py",
+        "python3 tools/verify_fc03.py",
+        "python3 tools/verify_fc04.py",
+        "git diff --check 7b690c80e6fa4f3177ff41ccedf2083175b1b00c...HEAD",
+        "git status --short"
+      ],
+      "residualRisk": "The target worktree did not contain .claude/review-rules.md inside the allowed fresh-cleanroom review boundary; reviewer used the campaign/source package boundaries and AGENTS instructions."
+    }
   },
   "nextWorkRecommendations": [
-    "Continue supervising FC-05 Character, Sheet, Or Handoff Seed worker Godel the 2nd (`019f0a07-f2ad-7f72-985f-dad61f35ea1e`) in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00.",
-    "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
-    "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
-    "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."
-  ]
+    "Run the programmatic tracer-bullet scenario in the fresh target if possible: create a synthetic character sheet, project it into battle, and drive one simple battle turn through public APIs.",
+    "Run FC-06 Audit And Source Feedback to turn fresh-run limitations and verifier lessons into source-side QNT/guidance changes.",
+    "Promote the FC-05 Pact Slot route-surface limitation into source QNT/guidance rather than adding cleanroom-only behavior.",
+    "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception."
+  ],
+  "sdkTracerBullet": {
+    "status": "pending-after-fc05",
+    "preferredTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
+    "fallbackTarget": "dirty cleanroom only if the fresh target cannot express the scenario yet",
+    "requiredScenario": "Use public/programmatic APIs to create a synthetic character sheet, project or hand off the character into a simple battle, discover and resolve at least one battle act, and advance a complete simple turn.",
+    "evidenceRequirement": "Record whether the surface is full-fledged or limited, and ensure any battle behavior goes through reducer entrypoints rather than local replay helpers."
+  }
 }

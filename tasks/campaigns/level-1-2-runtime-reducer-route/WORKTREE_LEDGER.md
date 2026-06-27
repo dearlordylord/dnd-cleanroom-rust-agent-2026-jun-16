@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FC-05-CHARACTER-BATTLE-INIT-PROJECTION | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `85b6dea` campaign / `101603476fd473483f4480f55bea9c3555d9aefa` target | Godel the 2nd (`019f0a07-f2ad-7f72-985f-dad61f35ea1e`) | _pending_ | running |
+| _none_ | | | | | | |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -94,3 +94,4 @@ When launching a lane:
 | FC-02-MINIMAL-BATTLE-ACTION-ROUTE | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `9b4232da35ca3532ac6815475c2998a21c734452` | `74d38f9` campaign / `1f26d3e4fc792912e9b84f8e2cf242f3869c3807` target | Noether the 2nd (`019f09d2-d8b3-7fb2-a66c-b30dccae865e`) | Sagan the 2nd (`019f09dd-a4cf-7761-8763-876b4888bf79`) | FC-02 accepted; ready for FC-03 |
 | FC-03-SPELL-CONNECTOR | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `7b690c80e6fa4f3177ff41ccedf2083175b1b00c` | `c62945c3cf70653db7aa363ebbaeb945de04d4ec` campaign / `9b4232da35ca3532ac6815475c2998a21c734452` target | Volta the 2nd (`019f09e3-eb5a-7843-983c-df5cee14caef`) | Faraday the 2nd (`019f09ee-0dae-7603-8190-9030e94ed671`) | FC-03 accepted-with-blockers; ready for FC-04 |
 | FC-04-GENERIC-BASE-ARMOR-CLASS | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `101603476fd473483f4480f55bea9c3555d9aefa` | `f487298` campaign / `7b690c80e6fa4f3177ff41ccedf2083175b1b00c` target | Socrates the 2nd (`019f09f3-de14-78c3-b696-a672305e19c0`) | Sartre the 2nd (`019f0a02-f2c7-7253-b65d-8fddd58a642c`) | FC-04 accepted; ready for FC-05 |
+| FC-05-CHARACTER-BATTLE-INIT-PROJECTION | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `380cf29e49d509bc0f246cf9aa022f226e42efd8` | `85b6dea` campaign / `101603476fd473483f4480f55bea9c3555d9aefa` target | Godel the 2nd (`019f0a07-f2ad-7f72-985f-dad61f35ea1e`) | Arendt the 2nd (`019f0a17-0887-76e3-8163-c569e61faf54`) | FC-05 accepted-with-limitations after one fix round; runtime/evidence commit `63e6fb93a67b17d8bf2d4fbb0b44bd644c0cf419`; ready for tracer-bullet gate and FC-06 |
