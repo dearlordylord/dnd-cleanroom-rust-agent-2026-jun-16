@@ -200,7 +200,7 @@
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
       "checkpointId": "CP2",
-      "status": "running",
+      "status": "implemented",
       "parallelGroup": "cp2-rule-core-components",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [

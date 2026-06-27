@@ -81,13 +81,12 @@
       "readyLaneIds": [],
       "splitRequiredLaneIds": [],
       "parentLaneId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
-      "runningLaneIds": [
-        "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS"
-      ],
+      "runningLaneIds": [],
       "reviewingLaneIds": [
         "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
         "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
-        "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS"
+        "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
+        "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS"
       ]
     },
     {
@@ -158,7 +157,7 @@
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint",
     "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "implemented",
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "implemented",
-    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "running",
+    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "implemented",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "implemented"
   },
   "lastIntegrationVerification": {
@@ -246,9 +245,10 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c",
       "branch": "ralph/l15-rr04c-rule-core-spell-ability",
       "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "running",
+      "status": "implemented-pending-review",
       "workerAgent": "019f0671-762b-7002-954d-a26a7c37c13c",
-      "workerName": "Avicenna"
+      "workerName": "Avicenna",
+      "commit": "399690a03ae83538875768950e5d985c932a723f"
     },
     {
       "laneId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
