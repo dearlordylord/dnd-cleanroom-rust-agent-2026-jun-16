@@ -2001,7 +2001,7 @@ Behavior implemented:
 
 - Added shared `CharacterBattleRouteEvent` route-owner vocabulary for sheet-to-battle projection, battle runtime entry, settlement, and rejection holes.
 - Added accepted pure Pact Slot, mixed Spell/Pact rejection, and active battle-state settlement branch handling.
-- Updated handoff adapters to compare observed replay against independent expected projection records and qRoute prefixes.
+- Updated handoff adapters to compare observed replay against independent expected projection records and adapter-local literal qRoute witnesses; expected routes no longer share observed append/build helpers.
 - Kept selected authored identity in adapter/test/evidence boundaries; production route/fact code consumes typed subjects, owners, fills, holes, and state-owner facts.
 
 Generated branch coverage:
@@ -2044,6 +2044,7 @@ Generated branch coverage:
 Target replay evidence:
 
 - Evidence file: `tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json`
+- Route evidence basis: independent adapter-local literal route witnesses derived from the selected `.mbt.qnt` route connectors and cleanroom facts.
 - Target profile: `rust`
 - Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
 - Reproduction trace id prefix: `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=<branchAction>`

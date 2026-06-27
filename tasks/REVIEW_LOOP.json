@@ -8,6 +8,11 @@
       "resolution": "Handoff expected_witness functions no longer delegate to replay_observed_action."
     },
     {
+      "id": "rr10-independent-expected-routes",
+      "status": "fixed",
+      "resolution": "Handoff expected_route functions now use adapter-local literal CharacterBattleRouteEvent witnesses derived from the copied route drivers and cleanroom facts, while observed replay remains on reducer-facing route construction."
+    },
+    {
       "id": "rr10-shared-route-owner",
       "status": "fixed",
       "resolution": "Adapters use shared CharacterBattleRouteEvent qRoute facts."
@@ -63,7 +68,7 @@
           "status": "pass"
         }
       ],
-      "summary": "Initial review fixed route owner, independent expected records, accepted branch omissions, and QNT fact mismatches."
+      "summary": "Initial review fixed route owner, independent expected records and routes, accepted branch omissions, and QNT fact mismatches."
     },
     {
       "id": "rr10-review-round-2",
@@ -109,7 +114,7 @@
           "status": "pass"
         }
       ],
-      "summary": "Convergence pass found no remaining reasonable findings."
+      "summary": "Convergence pass found no remaining reasonable findings, including the independent expected-route evidence check."
     }
   ]
 }

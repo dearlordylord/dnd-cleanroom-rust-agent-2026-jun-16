@@ -701,7 +701,45 @@ fn feature_resource_route_through_action(
 fn expected_feature_resource_route_through_action(
     observed_action_taken: &str,
 ) -> Vec<CharacterBattleRouteEvent> {
-    build_feature_resource_route_through_action(observed_action_taken)
+    match observed_action_taken {
+        "doLayOnHandsRestoresHpAndRemovesPoisoned" => {
+            expected_route_after_lay_on_hands_restores_hp_and_removes_poisoned()
+        }
+        "doRejectLayOnHandsOverspend" => expected_route_after_reject_lay_on_hands_overspend(),
+        "doLongRestClearsLayOnHandsPool" => {
+            expected_route_after_long_rest_clears_lay_on_hands_pool()
+        }
+        "doShortRestRecoversUseCountPools" => {
+            expected_route_after_short_rest_recovers_use_count_pools()
+        }
+        "doLongRestClearsPointPoolAndUseState" => {
+            expected_route_after_long_rest_clears_point_pool_and_use_state()
+        }
+        "doFontOfMagicSlotToPoints" => expected_route_after_font_of_magic_slot_to_points(),
+        "doRejectFontOfMagicAmbiguousSlotSource" => {
+            expected_route_after_reject_font_of_magic_ambiguous_slot_source()
+        }
+        "doFontOfMagicPointsToSlot" => expected_route_after_font_of_magic_points_to_slot(),
+        "doRejectFontOfMagicInsufficientPoints" => {
+            expected_route_after_reject_font_of_magic_insufficient_points()
+        }
+        "doShortRestPreservesUncannyUseState" => {
+            expected_route_after_short_rest_preserves_uncanny_use_state()
+        }
+        "doLongRestClearsUncannyUseState" => {
+            expected_route_after_long_rest_clears_uncanny_use_state()
+        }
+        "doUncannyMetabolismRecoversFocusAndHeals" => {
+            expected_route_after_uncanny_metabolism_recovers_focus_and_heals()
+        }
+        "doRejectUncannyMetabolismRepeatUse" => {
+            expected_route_after_reject_uncanny_metabolism_repeat_use()
+        }
+        "doMetamagicBridgeUsesSharedPointPool" => {
+            expected_route_after_metamagic_bridge_uses_shared_point_pool()
+        }
+        action => panic!("unsupported expected route action {action}"),
+    }
 }
 
 fn build_feature_resource_route_through_action(
@@ -828,6 +866,195 @@ fn append_metamagic_battle_bridge_route(route: &mut Vec<CharacterBattleRouteEven
         CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
         CharacterBattleRouteOwnerGroup::CharacterBattleRuntimeOwner,
     ));
+}
+
+fn expected_route_after_lay_on_hands_restores_hp_and_removes_poisoned(
+) -> Vec<CharacterBattleRouteEvent> {
+    vec![
+        expected_initial_feature_resource_handoff_route_event(),
+        expected_accepted_feature_resource_route_event(),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+    ]
+}
+
+fn expected_route_after_reject_lay_on_hands_overspend() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_lay_on_hands_restores_hp_and_removes_poisoned();
+    route.push(expected_rejected_feature_resource_route_event(vec![
+        CharacterBattleRouteHoleFamily::HandoffFeatureResourceProjectionHoleFamily,
+    ]));
+    route
+}
+
+fn expected_route_after_long_rest_clears_lay_on_hands_pool() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_lay_on_hands_overspend();
+    route.push(expected_accepted_feature_resource_route_event());
+    route
+}
+
+fn expected_route_after_short_rest_recovers_use_count_pools() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_long_rest_clears_lay_on_hands_pool();
+    route.push(expected_accepted_feature_resource_route_event());
+    route
+}
+
+fn expected_route_after_long_rest_clears_point_pool_and_use_state() -> Vec<CharacterBattleRouteEvent>
+{
+    let mut route = expected_route_after_short_rest_recovers_use_count_pools();
+    route.push(expected_accepted_feature_resource_route_event());
+    route
+}
+
+fn expected_route_after_font_of_magic_slot_to_points() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_long_rest_clears_point_pool_and_use_state();
+    route.push(expected_accepted_feature_resource_route_event());
+    route.push(expected_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+    route
+}
+
+fn expected_route_after_reject_font_of_magic_ambiguous_slot_source(
+) -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_font_of_magic_slot_to_points();
+    route.push(expected_rejected_spell_resource_route_event(vec![
+        CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
+        CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
+    ]));
+    route
+}
+
+fn expected_route_after_font_of_magic_points_to_slot() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_font_of_magic_ambiguous_slot_source();
+    route.push(expected_accepted_feature_resource_route_event());
+    route.push(expected_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+    route
+}
+
+fn expected_route_after_reject_font_of_magic_insufficient_points() -> Vec<CharacterBattleRouteEvent>
+{
+    let mut route = expected_route_after_font_of_magic_points_to_slot();
+    route.push(expected_rejected_feature_resource_route_event(vec![
+        CharacterBattleRouteHoleFamily::HandoffFeatureResourceProjectionHoleFamily,
+    ]));
+    route
+}
+
+fn expected_route_after_short_rest_preserves_uncanny_use_state() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_reject_font_of_magic_insufficient_points();
+    route.push(expected_accepted_feature_resource_route_event());
+    route
+}
+
+fn expected_route_after_long_rest_clears_uncanny_use_state() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_short_rest_preserves_uncanny_use_state();
+    route.push(expected_accepted_feature_resource_route_event());
+    route
+}
+
+fn expected_route_after_uncanny_metabolism_recovers_focus_and_heals(
+) -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_long_rest_clears_uncanny_use_state();
+    route.push(expected_accepted_feature_resource_route_event());
+    route.push(expected_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+    ));
+    route
+}
+
+fn expected_route_after_reject_uncanny_metabolism_repeat_use() -> Vec<CharacterBattleRouteEvent> {
+    let mut route = expected_route_after_uncanny_metabolism_recovers_focus_and_heals();
+    route.push(expected_rejected_feature_resource_route_event(vec![
+        CharacterBattleRouteHoleFamily::HandoffFeatureResourceProjectionHoleFamily,
+    ]));
+    route
+}
+
+fn expected_route_after_metamagic_bridge_uses_shared_point_pool() -> Vec<CharacterBattleRouteEvent>
+{
+    let mut route = expected_route_after_reject_uncanny_metabolism_repeat_use();
+    route.push(expected_accepted_feature_resource_route_event());
+    route.push(expected_enter_battle_runtime(
+        CharacterBattleRouteSubjectFamily::HandoffBattleMutationRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleRuntimeOwner,
+    ));
+    route.push(expected_enter_battle_runtime(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleRuntimeOwner,
+    ));
+    route
+}
+
+fn expected_initial_feature_resource_handoff_route_event() -> CharacterBattleRouteEvent {
+    expected_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+    )
+}
+
+fn expected_accepted_feature_resource_route_event() -> CharacterBattleRouteEvent {
+    expected_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    )
+}
+
+fn expected_rejected_feature_resource_route_event(
+    holes: Vec<CharacterBattleRouteHoleFamily>,
+) -> CharacterBattleRouteEvent {
+    expected_reject_character_battle_handoff(
+        CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
+        holes,
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    )
+}
+
+fn expected_rejected_spell_resource_route_event(
+    holes: Vec<CharacterBattleRouteHoleFamily>,
+) -> CharacterBattleRouteEvent {
+    expected_reject_character_battle_handoff(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
+        holes,
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    )
+}
+
+fn expected_project_character_sheet_to_battle(
+    subject: CharacterBattleRouteSubjectFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteProjectCharacterSheetToBattle { subject, owner }
+}
+
+fn expected_enter_battle_runtime(
+    subject: CharacterBattleRouteSubjectFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteEnterBattleRuntime { subject, owner }
+}
+
+fn expected_reject_character_battle_handoff(
+    subject: CharacterBattleRouteSubjectFamily,
+    fill: CharacterBattleRouteFillFamily,
+    mut holes: Vec<CharacterBattleRouteHoleFamily>,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    holes.sort();
+    CharacterBattleRouteEvent::RouteRejectCharacterBattleHandoff {
+        subject,
+        fill,
+        holes,
+        owner,
+    }
 }
 
 fn feature_resource_pool(capacity: i16, expended: i16) -> ResourcePoolFacts {

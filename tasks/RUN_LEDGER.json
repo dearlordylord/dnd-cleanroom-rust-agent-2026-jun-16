@@ -1978,7 +1978,7 @@
       "targetReplayEvidence": [
         {
           "path": "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json",
-          "sha256": "82fa7c0b6a337709cf371c49059758990b4a4e1fe4655e12757f3e8c42a11b51",
+          "sha256": "b9dd00616246063ae386534e5706f3ecc0a5c738d3a711c742d020b55892f82e",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doFinalizeCriminalAlertOriginFeat#step:doFinalizeCriminalAlertOriginFeat",
             "tasks/target-replay-evidence/L15-RR10-character-battle-handoff-routes.json#L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES route action=doProjectAlertInitiativeHandoff#step:doProjectAlertInitiativeHandoff",
@@ -2030,7 +2030,7 @@
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/REVIEW_LOOP.json",
-          "sha256": "e9e94bd86c51090e94bc981948c6f2fd79bd4cd54b60fa6c8f2a47a701d94c64"
+          "sha256": "d76b0824f17454c44bfcfe553986b78a8ff63f227b137ef0063b13f857978cc6"
         },
         "deciderDecision": {
           "path": "tasks/history/L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES/DECIDER_DECISION.json",

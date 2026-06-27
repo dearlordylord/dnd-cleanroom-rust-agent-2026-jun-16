@@ -125,15 +125,27 @@ fn route_after_project_alert_initiative_handoff() -> Vec<CharacterBattleRouteEve
 }
 
 fn expected_route_after_finalize_criminal_alert_origin_feat() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = Vec::new();
-    append_retain_origin_feat_route(&mut route);
-    route
+    vec![expected_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::HandoffSelectedReferenceRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+    )]
 }
 
 fn expected_route_after_project_alert_initiative_handoff() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_finalize_criminal_alert_origin_feat();
-    append_project_alert_initiative_handoff_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffSelectedReferenceRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffSelectedReferenceRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffSelectedReferenceRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleRuntimeOwner,
+        ),
+    ]
 }
 
 fn append_retain_origin_feat_route(route: &mut Vec<CharacterBattleRouteEvent>) {
@@ -152,6 +164,20 @@ fn append_project_alert_initiative_handoff_route(route: &mut Vec<CharacterBattle
         CharacterBattleRouteSubjectFamily::HandoffSelectedReferenceRouteSubject,
         CharacterBattleRouteOwnerGroup::CharacterBattleRuntimeOwner,
     ));
+}
+
+fn expected_project_character_sheet_to_battle(
+    subject: CharacterBattleRouteSubjectFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteProjectCharacterSheetToBattle { subject, owner }
+}
+
+fn expected_enter_battle_runtime(
+    subject: CharacterBattleRouteSubjectFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteEnterBattleRuntime { subject, owner }
 }
 
 fn origin_feat_ref(origin_feat: OriginFeat) -> &'static str {

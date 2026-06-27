@@ -247,33 +247,87 @@ fn route_after_settle_battle_to_sheet() -> Vec<CharacterBattleRouteEvent> {
 }
 
 fn expected_route_after_finalize_draft_to_build() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = Vec::new();
-    append_finalize_draft_to_build_route(&mut route);
-    route
+    vec![expected_project_character_sheet_to_battle(
+        CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+        CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+    )]
 }
 
 fn expected_route_after_create_sheet_from_build() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_finalize_draft_to_build();
-    append_create_sheet_from_build_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+    ]
 }
 
 fn expected_route_after_project_sheet_to_battle_init() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_create_sheet_from_build();
-    append_project_sheet_to_battle_init_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+    ]
 }
 
 fn expected_route_after_resolve_skeleton_shortsword_attack() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_project_sheet_to_battle_init();
-    append_resolve_battle_runtime_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffBattleMutationRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleRuntimeOwner,
+        ),
+    ]
 }
 
 fn expected_route_after_settle_battle_to_sheet() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_resolve_skeleton_shortsword_attack();
-    append_settle_battle_to_sheet_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffBattleMutationRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleRuntimeOwner,
+        ),
+        expected_settle_battle_to_character_sheet(
+            CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+            CharacterBattleRouteFillFamily::HandoffBattleDeltaFill,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+        ),
+    ]
 }
 
 fn append_finalize_draft_to_build_route(route: &mut Vec<CharacterBattleRouteEvent>) {
@@ -311,4 +365,31 @@ fn append_settle_battle_to_sheet_route(route: &mut Vec<CharacterBattleRouteEvent
         Vec::new(),
         CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
     ));
+}
+
+fn expected_project_character_sheet_to_battle(
+    subject: CharacterBattleRouteSubjectFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteProjectCharacterSheetToBattle { subject, owner }
+}
+
+fn expected_enter_battle_runtime(
+    subject: CharacterBattleRouteSubjectFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteEnterBattleRuntime { subject, owner }
+}
+
+fn expected_settle_battle_to_character_sheet(
+    subject: CharacterBattleRouteSubjectFamily,
+    fill: CharacterBattleRouteFillFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteSettleBattleToCharacterSheet {
+        subject,
+        fill,
+        holes: Vec::new(),
+        owner,
+    }
 }

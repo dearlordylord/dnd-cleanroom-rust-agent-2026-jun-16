@@ -17,7 +17,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -47,7 +47,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -77,7 +77,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -107,7 +107,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -137,7 +137,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -167,7 +167,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -197,7 +197,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -227,7 +227,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -257,7 +257,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -287,7 +287,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -317,7 +317,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -347,7 +347,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -377,7 +377,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -407,7 +407,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -437,7 +437,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -467,7 +467,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -497,7 +497,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -527,7 +527,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -557,7 +557,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -587,7 +587,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -617,7 +617,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -647,7 +647,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -677,7 +677,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -707,7 +707,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-layer-projection-lifecycle.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -737,7 +737,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -767,7 +767,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -797,7 +797,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -827,7 +827,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -857,7 +857,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -887,7 +887,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -917,7 +917,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -947,7 +947,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -977,7 +977,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -1007,7 +1007,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -1037,7 +1037,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -1067,7 +1067,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -1097,7 +1097,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
@@ -1127,7 +1127,7 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.route.mbt.qnt",
-      "routeEvidenceBasis": "paired-character-battle-route-connector-cross-check",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",

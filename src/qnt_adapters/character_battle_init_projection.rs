@@ -313,21 +313,101 @@ fn route_after_reject_stable_recovery_progress() -> Vec<CharacterBattleRouteEven
 
 fn expected_route_after_sheet_hit_points_armor_class_conditions_and_profiles(
 ) -> Vec<CharacterBattleRouteEvent> {
-    let mut route = Vec::new();
-    append_sheet_hit_points_armor_class_conditions_and_profiles_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+    ]
 }
 
 fn expected_route_after_sheet_spellcasting_and_metamagic() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_sheet_hit_points_armor_class_conditions_and_profiles();
-    append_sheet_spellcasting_and_metamagic_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+    ]
 }
 
 fn expected_route_after_reject_build_maximum() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_reject_mixed_spell_and_pact_slot_init();
-    append_reject_build_maximum_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_reject_character_battle_handoff(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
+            vec![
+                CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
+                CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
+            ],
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_reject_character_battle_handoff(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
+            vec![CharacterBattleRouteHoleFamily::HandoffHitPointProjectionHoleFamily],
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+    ]
 }
 
 fn route_after_pure_pact_magic_slot() -> Vec<CharacterBattleRouteEvent> {
@@ -343,21 +423,144 @@ fn route_after_reject_mixed_spell_and_pact_slot_init() -> Vec<CharacterBattleRou
 }
 
 fn expected_route_after_pure_pact_magic_slot() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_sheet_spellcasting_and_metamagic();
-    append_pure_pact_magic_slot_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+    ]
 }
 
 fn expected_route_after_reject_mixed_spell_and_pact_slot_init() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_pure_pact_magic_slot();
-    append_reject_mixed_spell_and_pact_slot_init_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_reject_character_battle_handoff(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
+            vec![
+                CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
+                CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
+            ],
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+    ]
 }
 
 fn expected_route_after_reject_stable_recovery_progress() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_reject_build_maximum();
-    append_reject_stable_recovery_route(&mut route);
-    route
+    vec![
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_project_character_sheet_to_battle(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_enter_battle_runtime(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+        expected_reject_character_battle_handoff(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
+            vec![
+                CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
+                CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
+            ],
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
+        expected_reject_character_battle_handoff(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
+            vec![CharacterBattleRouteHoleFamily::HandoffHitPointProjectionHoleFamily],
+            CharacterBattleRouteOwnerGroup::CharacterBattleBuildProjectionOwner,
+        ),
+        expected_reject_character_battle_handoff(
+            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
+            CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
+            vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
+            CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
+        ),
+    ]
 }
 
 fn append_sheet_hit_points_armor_class_conditions_and_profiles_route(
@@ -431,6 +634,35 @@ fn append_reject_stable_recovery_route(route: &mut Vec<CharacterBattleRouteEvent
         vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
         CharacterBattleRouteOwnerGroup::CharacterBattleInitProjectionOwner,
     ));
+}
+
+fn expected_project_character_sheet_to_battle(
+    subject: CharacterBattleRouteSubjectFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteProjectCharacterSheetToBattle { subject, owner }
+}
+
+fn expected_enter_battle_runtime(
+    subject: CharacterBattleRouteSubjectFamily,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteEnterBattleRuntime { subject, owner }
+}
+
+fn expected_reject_character_battle_handoff(
+    subject: CharacterBattleRouteSubjectFamily,
+    fill: CharacterBattleRouteFillFamily,
+    mut holes: Vec<CharacterBattleRouteHoleFamily>,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    holes.sort();
+    CharacterBattleRouteEvent::RouteRejectCharacterBattleHandoff {
+        subject,
+        fill,
+        holes,
+        owner,
+    }
 }
 
 fn witness_from_projection(
