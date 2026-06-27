@@ -376,13 +376,12 @@ use crate::rules::rule_core_movement::{
 use crate::rules::rule_core_reactions::{
     break_reactor_concentration_after_large_damage, decline_reaction_opportunity_attack,
     decline_readied_movement_reaction, hold_reactor_concentration_after_small_damage,
-    offer_reaction_opportunity_attack, offer_readied_movement_reaction,
-    ready_reaction_movement_fixture, reject_readied_movement_zero,
-    resolve_rule_core_reaction_subject, rule_core_reactions_initial_state,
-    start_reactor_concentration, take_readied_movement_fill, take_readied_movement_short,
-    RuleCorePendingTrigger, RuleCoreReactionDecision, RuleCoreReactionHole,
-    RuleCoreReactionInvalidReason, RuleCoreReactionProtocol, RuleCoreReactionSubject,
-    RuleCoreReactionWindow,
+    offer_reaction_opportunity_attack, offer_readied_movement_reaction, ready_movement_reaction,
+    reject_readied_movement_zero, resolve_rule_core_reaction_subject,
+    rule_core_reactions_initial_state, start_reactor_concentration, take_readied_movement_fill,
+    take_readied_movement_short, RuleCorePendingTrigger, RuleCoreReactionDecision,
+    RuleCoreReactionHole, RuleCoreReactionInvalidReason, RuleCoreReactionProtocol,
+    RuleCoreReactionSubject, RuleCoreReactionWindow,
 };
 use crate::rules::rule_core_shove_outcome::{
     apply_shove_outcome, legal_shove_push_disposition, reject_shove_invalid_push_distance,
@@ -2781,7 +2780,7 @@ fn reactions_project_opportunity_ready_movement_and_concentration() {
     );
     assert_eq!(declined.protocol, RuleCoreReactionProtocol::Resolved);
 
-    let readied = ready_reaction_movement_fixture();
+    let readied = ready_movement_reaction();
     assert!(readied.reactor_readied_movement_held);
     let offered_readied = offer_readied_movement_reaction();
     assert_eq!(
@@ -2854,7 +2853,7 @@ fn reactions_transition_api_resolves_offer_decline_and_readied_movement() {
 
     let readied = resolve_rule_core_reaction_subject(
         rule_core_reactions_initial_state(),
-        RuleCoreReactionSubject::ReadyMovementFixture,
+        RuleCoreReactionSubject::ReadyMovement,
     );
     let readied_offered =
         resolve_rule_core_reaction_subject(readied, RuleCoreReactionSubject::OfferReadiedMovement);

@@ -2,13 +2,12 @@ use crate::rules::rule_core_movement::{MOVEMENT_FILL_COST_FEET, MOVEMENT_SHORT_C
 use crate::rules::rule_core_reactions::{
     break_reactor_concentration_after_large_damage, decline_reaction_opportunity_attack,
     decline_readied_movement_reaction, hold_reactor_concentration_after_small_damage,
-    offer_reaction_opportunity_attack, offer_readied_movement_reaction,
-    ready_reaction_movement_fixture, reject_readied_movement_zero,
-    resolve_rule_core_reaction_subject, rule_core_reactions_initial_state,
-    start_reactor_concentration, take_readied_movement_fill, take_readied_movement_short,
-    RuleCorePendingTrigger, RuleCoreReactionDecision, RuleCoreReactionHole,
-    RuleCoreReactionInvalidReason, RuleCoreReactionProtocol, RuleCoreReactionState,
-    RuleCoreReactionSubject, RuleCoreReactionWindow,
+    offer_reaction_opportunity_attack, offer_readied_movement_reaction, ready_movement_reaction,
+    reject_readied_movement_zero, resolve_rule_core_reaction_subject,
+    rule_core_reactions_initial_state, start_reactor_concentration, take_readied_movement_fill,
+    take_readied_movement_short, RuleCorePendingTrigger, RuleCoreReactionDecision,
+    RuleCoreReactionHole, RuleCoreReactionInvalidReason, RuleCoreReactionProtocol,
+    RuleCoreReactionState, RuleCoreReactionSubject, RuleCoreReactionWindow,
 };
 
 pub const BRANCH_ACTIONS: [&str; 11] = [
@@ -41,7 +40,7 @@ pub fn expected_witness(observed_action_taken: &str) -> RuleCoreReactionState {
         }
         "doOfferOpportunityAttack" => offer_reaction_opportunity_attack(),
         "doOfferReadiedMovement" => offer_readied_movement_reaction(),
-        "doReadyMovementFixture" => ready_reaction_movement_fixture(),
+        "doReadyMovementFixture" => ready_movement_reaction(),
         "doRejectReadiedMovementZero" => reject_readied_movement_zero(),
         "doStartReactorConcentrationFixture" => start_reactor_concentration(),
         "doTakeReadiedMovementFill" => take_readied_movement_fill(),
@@ -119,7 +118,7 @@ fn offered_opportunity_attack_state() -> RuleCoreReactionState {
 fn ready_movement_state() -> RuleCoreReactionState {
     resolve_rule_core_reaction_subject(
         rule_core_reactions_initial_state(),
-        RuleCoreReactionSubject::ReadyMovementFixture,
+        RuleCoreReactionSubject::ReadyMovement,
     )
 }
 
