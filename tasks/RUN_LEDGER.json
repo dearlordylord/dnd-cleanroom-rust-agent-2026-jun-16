@@ -30,6 +30,10 @@
           "status": "pass"
         },
         {
+          "command": "cargo test weapon_mastery_selected_identity_adapter_replays_all_branches && cargo test dragonborn_breath_weapon_adapter_replays_all_branches && cargo test feature_selected_identity_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
           "command": "cargo test",
           "status": "pass"
         },
@@ -2074,7 +2078,7 @@
       "targetReplayEvidence": [
         {
           "path": "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json",
-          "sha256": "6f06d97ebefca9f0cde4d6e01aa340c98da80a8c0b4090c1131ae0aa406724c5",
+          "sha256": "54c0a5dc4e33a2a043f18a4ab2a2043d0bf450369798019ccd0b6a75ca2794ec",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveSapMasteryPropertyHit#step:doResolveSapMasteryPropertyHit",
             "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveToppleMasteryPropertyFailedSavingThrow#step:doResolveToppleMasteryPropertyFailedSavingThrow",
@@ -2097,7 +2101,7 @@
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "ea8d19fd1ed6141c90a9401db475c4f68de644484d384c77db25a8ab3de45338"
+          "sha256": "8a12933e123dde5d8fabf786f7040b7661ebb895a4b87ee9bbcab824a6522898"
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
@@ -2105,11 +2109,11 @@
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "98500470ca6385f5825090a3a7ef3ca275ef968f509fb3bd3f0af3d991bed102"
+          "sha256": "a0e71744571c2b177d3b6802c370a95dd2cdb7f146037e4e6f72f8dc7c90a0ad"
         },
         "deciderDecision": {
           "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "d2dfd751824997971fc687019e79088eb487940517c66c904f3aa1b4f9eb6828"
+          "sha256": "b5787d3ee2310032166902e7993c8788c7f5d805fbad9538b934014351d15d86"
         }
       }
     }

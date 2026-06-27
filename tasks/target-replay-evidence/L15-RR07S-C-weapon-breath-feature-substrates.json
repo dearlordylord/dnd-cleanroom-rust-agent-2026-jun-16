@@ -312,5 +312,9 @@
   ],
   "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
   "targetProfile": "rust",
-  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "evidenceNotes": [
+    "Fixer refresh: focused adapter tests compare observed reducer-routed qRoute output against independent adapter-local literal ReducerRouteEvent expected records.",
+    "Projection hashes are unchanged by the fixer because the accepted route payloads did not change; only expected-route construction independence changed."
+  ]
 }

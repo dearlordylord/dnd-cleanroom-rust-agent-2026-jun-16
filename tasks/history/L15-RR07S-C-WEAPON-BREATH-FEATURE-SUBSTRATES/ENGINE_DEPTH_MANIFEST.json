@@ -28,7 +28,7 @@
   ],
   "adapterModules": [
     {
-      "adapterScope": "Weapon mastery selected identity projection and qRoute evidence for Sap, Topple, and Cleave typed property facts.",
+      "adapterScope": "Weapon mastery selected identity projection and qRoute evidence for Sap, Topple, and Cleave typed property facts; expected qRoute witnesses are independent literal ReducerRouteEvent records.",
       "path": "src/qnt_adapters/battle_runtime_weapon_mastery_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doResolveSapMasteryPropertyHit",
@@ -56,7 +56,7 @@
       ]
     },
     {
-      "adapterScope": "Dragonborn Breath Weapon projection and qRoute evidence for typed attack-action area-save damage replacement facts.",
+      "adapterScope": "Dragonborn Breath Weapon projection and qRoute evidence for typed attack-action area-save damage replacement facts; expected qRoute witnesses are independent literal ReducerRouteEvent records.",
       "path": "src/qnt_adapters/battle_runtime_dragonborn_breath_weapon.rs",
       "quarantinedWitnessNames": [
         "doResolveBreathWeapon",
@@ -77,7 +77,7 @@
       ]
     },
     {
-      "adapterScope": "Active feature selected identity projection and qRoute evidence for typed Innate Sorcery spell-benefit facts.",
+      "adapterScope": "Active feature selected identity projection and qRoute evidence for typed Innate Sorcery spell-benefit facts; expected qRoute witnesses are independent literal ReducerRouteEvent records.",
       "path": "src/qnt_adapters/battle_runtime_feature_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doActivateInnateSorcery",

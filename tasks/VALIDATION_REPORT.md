@@ -2082,6 +2082,7 @@ Behavior implemented:
 - Weapon mastery selected-identity replay routes Sap, Topple, and Cleave by typed `WeaponMasteryProperty` facts through battle reducer subjects and owner route evidence.
 - Dragonborn Breath Weapon replay routes attack-action area-save damage replacement by `DragonbornBreathWeaponFacts`, including resource, area-shape, damage-roll, and Extra Attack continuation evidence.
 - Active feature spell-benefit replay routes Innate Sorcery by typed spell-benefit eligibility facts, not authored feature identity.
+- Focused adapter route checks now compare observed reducer-routed output against independent literal `ReducerRouteEvent` expected records; expected routes no longer call the shared `route_*` helpers used by observed replay.
 - Selected authored identity remains confined to adapter branch labels, tests, and evidence payloads.
 
 Generated branch coverage:
@@ -2111,6 +2112,8 @@ Harness artifacts:
 Verification results:
 
 - `cargo fmt --check` passed.
+- Focused route evidence tests passed: `cargo test weapon_mastery_selected_identity_adapter_replays_all_branches`, `cargo test dragonborn_breath_weapon_adapter_replays_all_branches`, and `cargo test feature_selected_identity_adapter_replays_all_branches`.
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed after artifact schema convergence.
+- `git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD` passed.

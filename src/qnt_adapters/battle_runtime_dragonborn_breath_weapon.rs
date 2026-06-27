@@ -424,119 +424,127 @@ fn observed_reject_invalid_damage_roll_route() -> Vec<ReducerRouteEvent> {
 
 fn expected_resolve_breath_weapon_route(opens_extra_attack_slot: bool) -> Vec<ReducerRouteEvent> {
     let mut route = vec![
-        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            vec![ReducerRouteHoleKind::SavingThrowOutcome],
-            ReducerRouteOwnerGroup::FeatureResource,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteFillKind::SavingThrowOutcome,
-            ReducerRouteResolutionOutcome::NeedsHoles,
-            vec![ReducerRouteHoleKind::RolledDice],
-            ReducerRouteOwnerGroup::AreaShape,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteResolutionOutcome::NeedsHoles,
-            vec![ReducerRouteHoleKind::RolledDice],
-            ReducerRouteOwnerGroup::SavingThrowOutcome,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteResolutionOutcome::NeedsHoles,
-            vec![ReducerRouteHoleKind::RolledDice],
-            ReducerRouteOwnerGroup::DamageType,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteFillKind::RolledDice,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::DamageRoll,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::HitPoint,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::FeatureResource,
-        ),
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            holes: vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
+            holes: vec![ReducerRouteHoleKind::RolledDice],
+            owner: ReducerRouteOwnerGroup::AreaShape,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
+            holes: vec![ReducerRouteHoleKind::RolledDice],
+            owner: ReducerRouteOwnerGroup::SavingThrowOutcome,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
+            holes: vec![ReducerRouteHoleKind::RolledDice],
+            owner: ReducerRouteOwnerGroup::DamageType,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            fill: ReducerRouteFillKind::RolledDice,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::DamageRoll,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::HitPoint,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
     ];
     if opens_extra_attack_slot {
-        route.push(route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::WeaponAttack,
-            vec![ReducerRouteHoleKind::TargetChoice],
-            ReducerRouteOwnerGroup::AttackActionProcedure,
-        ));
+        route.push(ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::WeaponAttack,
+            holes: vec![ReducerRouteHoleKind::TargetChoice],
+            owner: ReducerRouteOwnerGroup::AttackActionProcedure,
+        });
     } else {
-        route.push(route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::AttackActionProcedure,
-        ));
+        route.push(ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::AttackActionProcedure,
+        });
     }
     route
 }
 
 fn expected_reject_missing_resource_route() -> Vec<ReducerRouteEvent> {
     vec![
-        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::FeatureResource,
-        ),
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
     ]
 }
 
 fn expected_reject_mismatched_area_route() -> Vec<ReducerRouteEvent> {
     vec![
-        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            vec![ReducerRouteHoleKind::SavingThrowOutcome],
-            ReducerRouteOwnerGroup::FeatureResource,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteFillKind::SavingThrowOutcome,
-            ReducerRouteResolutionOutcome::NeedsHoles,
-            vec![ReducerRouteHoleKind::SavingThrowOutcome],
-            ReducerRouteOwnerGroup::AreaShape,
-        ),
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            holes: vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
+            holes: vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            owner: ReducerRouteOwnerGroup::AreaShape,
+        },
     ]
 }
 
 fn expected_reject_invalid_damage_roll_route() -> Vec<ReducerRouteEvent> {
     vec![
-        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            vec![ReducerRouteHoleKind::SavingThrowOutcome],
-            ReducerRouteOwnerGroup::FeatureResource,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteFillKind::SavingThrowOutcome,
-            ReducerRouteResolutionOutcome::NeedsHoles,
-            vec![ReducerRouteHoleKind::RolledDice],
-            ReducerRouteOwnerGroup::AreaShape,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            ReducerRouteFillKind::RolledDice,
-            ReducerRouteResolutionOutcome::NeedsHoles,
-            vec![ReducerRouteHoleKind::RolledDice],
-            ReducerRouteOwnerGroup::DamageRoll,
-        ),
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            holes: vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
+            holes: vec![ReducerRouteHoleKind::RolledDice],
+            owner: ReducerRouteOwnerGroup::AreaShape,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            fill: ReducerRouteFillKind::RolledDice,
+            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
+            holes: vec![ReducerRouteHoleKind::RolledDice],
+            owner: ReducerRouteOwnerGroup::DamageRoll,
+        },
     ]
 }

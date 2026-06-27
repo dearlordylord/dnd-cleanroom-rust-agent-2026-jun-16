@@ -36,5 +36,5 @@
       "status": "pass"
     }
   ],
-  "rationale": "L15-RR07S-C routes weapon mastery property, Dragonborn Breath Weapon, and active feature spell-benefit substrates through typed battle reducer facts and owner route evidence. Authored selected identity remains confined to adapter/test/evidence boundaries."
+  "rationale": "L15-RR07S-C routes weapon mastery property, Dragonborn Breath Weapon, and active feature spell-benefit substrates through typed battle reducer facts and owner route evidence. Focused adapter tests compare observed reducer-routed output against independent literal expected route records. Authored selected identity remains confined to adapter/test/evidence boundaries."
 }
