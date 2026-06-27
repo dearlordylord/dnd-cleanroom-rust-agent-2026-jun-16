@@ -93,7 +93,9 @@
       "dependsOn": [
         "CP2"
       ],
-      "runningLaneIds": []
+      "runningLaneIds": [
+        "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES"
+      ]
     },
     {
       "checkpointId": "CP4",
@@ -134,7 +136,7 @@
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "merged-verified",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "merged-verified",
-    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "ready",
+    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "running",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
     "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
     "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES": "blocked-on-checkpoint",
@@ -172,7 +174,17 @@
     "cargoTest": "202 passed",
     "adapterReplaySmoke": "75 passed"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10",
+      "branch": "ralph/l15-rr10-character-battle-handoff",
+      "baseSha": "6af492188311839dd4839b464b2e7049e3330568",
+      "status": "running",
+      "workerAgent": "019f06d8-d9f9-76b1-a057-efe51b02c54f",
+      "workerName": "Darwin"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",

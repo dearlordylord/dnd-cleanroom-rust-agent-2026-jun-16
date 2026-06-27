@@ -54,7 +54,7 @@ At `ee30e831b0bc0fa49fa54100e54a45c32a43a60a`:
   - RR08 and RR09 overlap in `src/tests/mod.rs`, task artifacts, and `src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs`; merge only after RR08 re-review and an explicit conflict review.
   - `L15-RR08-CHARACTER-CREATION-ROUTES` merged at `76f2c5c61c1553c002dcd3f026a6ac9f444d1fdf` and passed integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`199 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`72 passed`).
   - `L15-RR09-CHARACTER-SHEET-ROUTES` merged at `616b6c27104807a0cf312d4cd68485e0c7fef1c3` after resolving shared task-artifact conflicts by preserving cumulative ledger evidence and both validation sections. Integration verification passed: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`202 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`75 passed`).
-  - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` is now launchable from integration head `616b6c27104807a0cf312d4cd68485e0c7fef1c3`.
+  - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` launched in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10` from base `6af492188311839dd4839b464b2e7049e3330568` with worker Darwin `019f06d8-d9f9-76b1-a057-efe51b02c54f`.
 
 ## Coverage Delta Log
 

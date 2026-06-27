@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-_none_
+| L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10` | `ralph/l15-rr10-character-battle-handoff` | `6af492188311839dd4839b464b2e7049e3330568` | Darwin `019f06d8-d9f9-76b1-a057-efe51b02c54f` | running |
 
 ## Historical RRCONV-19 Worktrees
 
