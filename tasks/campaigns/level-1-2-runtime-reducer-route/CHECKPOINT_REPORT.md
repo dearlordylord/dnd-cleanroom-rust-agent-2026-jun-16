@@ -287,6 +287,18 @@ Template:
 - Review/fixer notes: first review found adapter-manufactured ReactionSpell subjects and overstated artifacts; fixer routed ReactionSpell discovery through production reaction-window substrates. Re-review fixed one fill/reactor mismatch at the reducer boundary and then returned clean. Integration repaired `RUN_LEDGER.json` to preserve cumulative evidence while appending FU01E.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01e`
 
+### L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES
+
+- Merge commit: `925c298ac923b894891a34331865839f5a1be371`
+- Lane commit(s): `bf62c115801af2ff95e7df2418316747f99af010`, `45f5bbb71c2d7d2ac946112dacdc63e94c7b4af4`, `947f76c009833c8a0702e78956accfd1a3417da9`
+- Drivers added: `1` net-new unique driver.
+- Obligations added: `8` accepted counted obligations; `4` rows remain target blockers for generic condition-immunity active-effect and marked-effect transfer route subjects. Total accepted obligations moved from `505` to `513`.
+- New total driver coverage: `77 / 97 = 79.4%`
+- New total obligation coverage: `513 / 668 = 76.8%`
+- Integration verification: focused FU01C adapter test, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD...`, `cargo test` (`210 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: first review found false durable ownership claims for nonexistent `BattleState.genericRouteSubjects`; fixer reframed evidence around real subject kinds and route events. Re-review found duplicate continuation ownership in `GenericRouteShape.next_holes`; follow-up fixer removed that field so `generic_route_next_holes(subject.kind, fill)` is the single continuation source. Final re-review returned clean.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c`
+
 ## CP4 Launch Plan
 
 The small feature substrate batch was split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa` and is now merged:

@@ -436,7 +436,7 @@
     {
       "laneId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready-to-merge",
+      "status": "merged-verified",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
