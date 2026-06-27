@@ -571,4 +571,4 @@ instead of guessing.
 | File | sha256 |
 | --- | --- |
 | `scripts/check-cleanroom-harness.cjs` | `422cca946e44d9ad2bd70c57bf99637bbc0b910badfe72c63e6ff80ab0e2fd7e` |
-| `scripts/cleanroom-branch-coverage-check.cjs` | `d2eead89a5d3f5f783a0d17827c854948368f26505185f1d0420f1262c05c954` |
+| `scripts/cleanroom-branch-coverage-check.cjs` | `4c2c6baadcf6aba84302d1da1832972e429d18096af268017a5f42487e3aa720` |

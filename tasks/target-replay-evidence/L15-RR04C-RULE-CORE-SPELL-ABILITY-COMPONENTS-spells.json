@@ -1,0 +1,636 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-rule-core-spell-component-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doAcidSplashAllSuccess",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doAcidSplashAllSuccess",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "f5f76484d7dc8e74947598fc2991ec895980f6950e125fda1bb73280e118e824",
+        "observedProjectionSha256": "f5f76484d7dc8e74947598fc2991ec895980f6950e125fda1bb73280e118e824",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doAcidSplashAllSuccess"
+    },
+    {
+      "branchAction": "doAcidSplashNeedsDamageRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doAcidSplashNeedsDamageRoll",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "6ac39852498f13553803eea018653dd67c8b25c0b2c3a800ebfa9f9e384c8b16",
+        "observedProjectionSha256": "6ac39852498f13553803eea018653dd67c8b25c0b2c3a800ebfa9f9e384c8b16",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doAcidSplashNeedsDamageRoll"
+    },
+    {
+      "branchAction": "doAcidSplashNeedsSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doAcidSplashNeedsSavingThrow",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "a836e75b39c229c3368d56743a21fab2065be5ccf228d59d7b5716a6f9365c3c",
+        "observedProjectionSha256": "a836e75b39c229c3368d56743a21fab2065be5ccf228d59d7b5716a6f9365c3c",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doAcidSplashNeedsSavingThrow"
+    },
+    {
+      "branchAction": "doAcidSplashOneFail",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doAcidSplashOneFail",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "1633d46ac86c34c27f497417cfe9dfc668e496aee2bc3288ace57cac69515803",
+        "observedProjectionSha256": "1633d46ac86c34c27f497417cfe9dfc668e496aee2bc3288ace57cac69515803",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doAcidSplashOneFail"
+    },
+    {
+      "branchAction": "doCureWoundsNeedsHealingRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doCureWoundsNeedsHealingRoll",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "2f9b13606f6c2f2ab1b91ac3aabf1f9ffb5fd203b3b660d9554bfa7305aa7d8f",
+        "observedProjectionSha256": "2f9b13606f6c2f2ab1b91ac3aabf1f9ffb5fd203b3b660d9554bfa7305aa7d8f",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCureWoundsNeedsHealingRoll"
+    },
+    {
+      "branchAction": "doCureWoundsNeedsTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doCureWoundsNeedsTarget",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "ffb8dae84798f4ea4622e8aba311811e6b2b76d2ba12ad7c598ed9a218d183aa",
+        "observedProjectionSha256": "ffb8dae84798f4ea4622e8aba311811e6b2b76d2ba12ad7c598ed9a218d183aa",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCureWoundsNeedsTarget"
+    },
+    {
+      "branchAction": "doCureWoundsWounded",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doCureWoundsWounded",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "18d515d8b6de53f0086e790d2f32a72a961893b494c18ba2bdd5e33142c03e19",
+        "observedProjectionSha256": "18d515d8b6de53f0086e790d2f32a72a961893b494c18ba2bdd5e33142c03e19",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCureWoundsWounded"
+    },
+    {
+      "branchAction": "doHealingWordNeedsHealingRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doHealingWordNeedsHealingRoll",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "2f9b13606f6c2f2ab1b91ac3aabf1f9ffb5fd203b3b660d9554bfa7305aa7d8f",
+        "observedProjectionSha256": "2f9b13606f6c2f2ab1b91ac3aabf1f9ffb5fd203b3b660d9554bfa7305aa7d8f",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doHealingWordNeedsHealingRoll"
+    },
+    {
+      "branchAction": "doHealingWordNeedsTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doHealingWordNeedsTarget",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "ffb8dae84798f4ea4622e8aba311811e6b2b76d2ba12ad7c598ed9a218d183aa",
+        "observedProjectionSha256": "ffb8dae84798f4ea4622e8aba311811e6b2b76d2ba12ad7c598ed9a218d183aa",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doHealingWordNeedsTarget"
+    },
+    {
+      "branchAction": "doHealingWordWounded",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doHealingWordWounded",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "e07bb31b4ced00065cc48e8073fe7534c309fd89284b16930d771831026ca4ab",
+        "observedProjectionSha256": "e07bb31b4ced00065cc48e8073fe7534c309fd89284b16930d771831026ca4ab",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doHealingWordWounded"
+    },
+    {
+      "branchAction": "doHealingWordZeroHp",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doHealingWordZeroHp",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "dd2a1577d0ebd744656a8ceb066f8e4aa213297e5429c1be966bf938b9a02fc5",
+        "observedProjectionSha256": "dd2a1577d0ebd744656a8ceb066f8e4aa213297e5429c1be966bf938b9a02fc5",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doHealingWordZeroHp"
+    },
+    {
+      "branchAction": "doMageArmor",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doMageArmor",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "4928fc74b488ccc0f41c3d87ee0373c8a4ff785b402a8bbb6276445a936439af",
+        "observedProjectionSha256": "4928fc74b488ccc0f41c3d87ee0373c8a4ff785b402a8bbb6276445a936439af",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doMageArmor"
+    },
+    {
+      "branchAction": "doMageArmorNeedsTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doMageArmorNeedsTarget",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "b5c608507253593fa52b2d48b6fe128e606ecdd0e86d65d10d954e5386ef2f81",
+        "observedProjectionSha256": "b5c608507253593fa52b2d48b6fe128e606ecdd0e86d65d10d954e5386ef2f81",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doMageArmorNeedsTarget"
+    },
+    {
+      "branchAction": "doMagicMissileLow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doMagicMissileLow",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "69ce2858689d0218e1ac77651e409c15c3d1eaf59e5a4373d6ae26eec735dd02",
+        "observedProjectionSha256": "69ce2858689d0218e1ac77651e409c15c3d1eaf59e5a4373d6ae26eec735dd02",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doMagicMissileLow"
+    },
+    {
+      "branchAction": "doMagicMissileNeedsAllocation",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doMagicMissileNeedsAllocation",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "9202e515749d2c706ceea4f43b7e54a89fb6624b54dfa41fa73e9e33f7e81d75",
+        "observedProjectionSha256": "9202e515749d2c706ceea4f43b7e54a89fb6624b54dfa41fa73e9e33f7e81d75",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doMagicMissileNeedsAllocation"
+    },
+    {
+      "branchAction": "doRayOfFrostCritical",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doRayOfFrostCritical",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "62cf7cc1cb7bd8eee5a0a8caf80a8b440ccdf5739587286dd4ece66dc0cb4139",
+        "observedProjectionSha256": "62cf7cc1cb7bd8eee5a0a8caf80a8b440ccdf5739587286dd4ece66dc0cb4139",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostCritical"
+    },
+    {
+      "branchAction": "doRayOfFrostHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doRayOfFrostHit",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "8bc483f3e9af2cb73430fc2a396f72a5d10a94b94ab476bd9bb99f60f97a352e",
+        "observedProjectionSha256": "8bc483f3e9af2cb73430fc2a396f72a5d10a94b94ab476bd9bb99f60f97a352e",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostHit"
+    },
+    {
+      "branchAction": "doRayOfFrostMiss",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doRayOfFrostMiss",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "f5f76484d7dc8e74947598fc2991ec895980f6950e125fda1bb73280e118e824",
+        "observedProjectionSha256": "f5f76484d7dc8e74947598fc2991ec895980f6950e125fda1bb73280e118e824",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostMiss"
+    },
+    {
+      "branchAction": "doRayOfFrostNeedsAttackRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doRayOfFrostNeedsAttackRoll",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "ad81930ccd2767fdcf761c4183439818844912b423bbb5ec0aac7b9bf89226b5",
+        "observedProjectionSha256": "ad81930ccd2767fdcf761c4183439818844912b423bbb5ec0aac7b9bf89226b5",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostNeedsAttackRoll"
+    },
+    {
+      "branchAction": "doRayOfFrostNeedsDamageRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doRayOfFrostNeedsDamageRoll",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "6ac39852498f13553803eea018653dd67c8b25c0b2c3a800ebfa9f9e384c8b16",
+        "observedProjectionSha256": "6ac39852498f13553803eea018653dd67c8b25c0b2c3a800ebfa9f9e384c8b16",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostNeedsDamageRoll"
+    },
+    {
+      "branchAction": "doRayOfFrostNeedsTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doRayOfFrostNeedsTarget",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "b5c608507253593fa52b2d48b6fe128e606ecdd0e86d65d10d954e5386ef2f81",
+        "observedProjectionSha256": "b5c608507253593fa52b2d48b6fe128e606ecdd0e86d65d10d954e5386ef2f81",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostNeedsTarget"
+    },
+    {
+      "branchAction": "doReadySpellHold",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doReadySpellHold",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "8cce6a142e72b5827fd650ea1d9eced3271310b67ba4700ca4445878bf06ebe4",
+        "observedProjectionSha256": "8cce6a142e72b5827fd650ea1d9eced3271310b67ba4700ca4445878bf06ebe4",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doReadySpellHold"
+    },
+    {
+      "branchAction": "doRejectSecondSlotSpell",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doRejectSecondSlotSpell",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "180393141dc199fcd6fba61df8fb4cb42d3ace51f5ba7d4fb30d5f078e1af68e",
+        "observedProjectionSha256": "180393141dc199fcd6fba61df8fb4cb42d3ace51f5ba7d4fb30d5f078e1af68e",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRejectSecondSlotSpell"
+    },
+    {
+      "branchAction": "doReleaseReadiedSpell",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_spells_mbt.rs",
+      "observedActionTaken": "doReleaseReadiedSpell",
+      "qntFileSha256": "8e6cf9fefd04b61a913f56e7a9aa5d9aa714efbb71eed99f06c3d6b1c9b5a269",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
+          "MageArmorState.action_available",
+          "MageArmorState.level_one_slots_expended"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "cf4deb87f9e23ea5ea67f01ae6776c6155806970984b15ddf02b04de26dda087",
+        "observedProjectionSha256": "cf4deb87f9e23ea5ea67f01ae6776c6155806970984b15ddf02b04de26dda087",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doReleaseReadiedSpell"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

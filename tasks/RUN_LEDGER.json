@@ -1549,6 +1549,140 @@
         }
       ],
       "taskId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/DECIDER_DECISION.json",
+          "sha256": "5311c8cbd29af2a649606ddff2f2400be08adb43fe096da1841576f2d32b4e44"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "151c771427a312805565739b6937d106c4915b7be2ed3e53fe01ff5179adb0d0"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/REVIEW_LOOP.json",
+          "sha256": "a909c690742cb557d80efe48a568552889066ec9f30f426e5e810f0e51dac79b"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/START_GATE.json",
+          "sha256": "420c51d37f78a798c447117a040d249364d34c9df04d108e0197beedcc829874"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/STATE_OWNER_MANIFEST.json",
+          "sha256": "d9829fe6458a57eeef59205a809f47cfac8470d62f21c0cf4b332e4651360bd0"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo test ability_skill_command -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test rule_core_spells -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check a625d3e7190eb33396c17ee5dca7ae73f413b348...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "parentRouteTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/rule-core-ability-skill-command.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandCastGrovel#step:doCommandCastGrovel",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowApproachContinues#step:doCommandFollowApproachContinues",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowApproachNoMovement#step:doCommandFollowApproachNoMovement",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowApproachWithinFive#step:doCommandFollowApproachWithinFive",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowDrop#step:doCommandFollowDrop",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowFlee#step:doCommandFollowFlee",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowFleeNoMovement#step:doCommandFollowFleeNoMovement",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowFleeOpportunityAttack#step:doCommandFollowFleeOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowFleePartialRejected#step:doCommandFollowFleePartialRejected",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowGrovel#step:doCommandFollowGrovel",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandHaltSuppresses#step:doCommandHaltSuppresses",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doEnhanceAbilityChoice#step:doEnhanceAbilityChoice",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillAcrobatics#step:doGuidanceSkillAcrobatics",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillAnimalHandling#step:doGuidanceSkillAnimalHandling",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillArcana#step:doGuidanceSkillArcana",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillAthletics#step:doGuidanceSkillAthletics",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillDeception#step:doGuidanceSkillDeception",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillHistory#step:doGuidanceSkillHistory",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillInsight#step:doGuidanceSkillInsight",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillIntimidation#step:doGuidanceSkillIntimidation",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillInvestigation#step:doGuidanceSkillInvestigation",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillMedicine#step:doGuidanceSkillMedicine",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillNature#step:doGuidanceSkillNature",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillPerception#step:doGuidanceSkillPerception",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillPerformance#step:doGuidanceSkillPerformance",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillPersuasion#step:doGuidanceSkillPersuasion",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillReligion#step:doGuidanceSkillReligion",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillSleightOfHand#step:doGuidanceSkillSleightOfHand",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillStealth#step:doGuidanceSkillStealth",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillSurvival#step:doGuidanceSkillSurvival",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doSearchFails#step:doSearchFails",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doSearchSucceeds#step:doSearchSucceeds"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json",
+          "sha256": "52cc18dc94fd282ace837b4073bd2e636968f16857a56ab5bec3c48fc59602ba"
+        },
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doAcidSplashAllSuccess#step:doAcidSplashAllSuccess",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doAcidSplashNeedsDamageRoll#step:doAcidSplashNeedsDamageRoll",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doAcidSplashNeedsSavingThrow#step:doAcidSplashNeedsSavingThrow",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doAcidSplashOneFail#step:doAcidSplashOneFail",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCureWoundsNeedsHealingRoll#step:doCureWoundsNeedsHealingRoll",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCureWoundsNeedsTarget#step:doCureWoundsNeedsTarget",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCureWoundsWounded#step:doCureWoundsWounded",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doHealingWordNeedsHealingRoll#step:doHealingWordNeedsHealingRoll",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doHealingWordNeedsTarget#step:doHealingWordNeedsTarget",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doHealingWordWounded#step:doHealingWordWounded",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doHealingWordZeroHp#step:doHealingWordZeroHp",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doMageArmor#step:doMageArmor",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doMageArmorNeedsTarget#step:doMageArmorNeedsTarget",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doMagicMissileLow#step:doMagicMissileLow",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doMagicMissileNeedsAllocation#step:doMagicMissileNeedsAllocation",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostCritical#step:doRayOfFrostCritical",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostHit#step:doRayOfFrostHit",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostMiss#step:doRayOfFrostMiss",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostNeedsAttackRoll#step:doRayOfFrostNeedsAttackRoll",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostNeedsDamageRoll#step:doRayOfFrostNeedsDamageRoll",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRayOfFrostNeedsTarget#step:doRayOfFrostNeedsTarget",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doReadySpellHold#step:doReadySpellHold",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doRejectSecondSlotSpell#step:doRejectSecondSlotSpell",
+            "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doReleaseReadiedSpell#step:doReleaseReadiedSpell"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json",
+          "sha256": "371a98f64b53a35e69c13992342cbc77cda94406dac2448726d2810ff271ea88"
+        }
+      ],
+      "taskId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

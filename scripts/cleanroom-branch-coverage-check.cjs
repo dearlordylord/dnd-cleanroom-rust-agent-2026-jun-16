@@ -1007,12 +1007,22 @@ function validateRouteReplayProjection(run, routeInventory, context, issues) {
     routeRowForReplay(routeInventory, run),
   );
   if (expectedStateCheck === undefined) return;
-  if (run.stateCheck?.projection !== expectedStateCheck.projection) {
+  const upgradedComponentProjection =
+    expectedStateCheck.projection === "qComponentRoute" &&
+    run.stateCheck?.projection === "qComponentRoute+qProjectionPayload" &&
+    run.stateCheck?.comparator === "component-route-and-projection-payload-v1";
+  if (
+    run.stateCheck?.projection !== expectedStateCheck.projection &&
+    !upgradedComponentProjection
+  ) {
     issues.push(
       `${context}: ${run.driverPath} route evidence requires stateCheck.projection ${expectedStateCheck.projection}.`,
     );
   }
-  if (run.stateCheck?.comparator !== expectedStateCheck.comparator) {
+  if (
+    run.stateCheck?.comparator !== expectedStateCheck.comparator &&
+    !upgradedComponentProjection
+  ) {
     issues.push(
       `${context}: ${run.driverPath} route evidence requires stateCheck.comparator ${expectedStateCheck.comparator}.`,
     );
