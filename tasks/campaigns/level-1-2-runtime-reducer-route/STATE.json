@@ -3004,7 +3004,7 @@
     "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-07",
     "activeBranch": "ralph/fexp-07-feature-species-metamagic-substrates",
     "activeLaneBaseCommit": "0d5200e43fd7e9f094a93585f00eaf6bd2266c75",
-    "workerAgent": null,
+    "workerAgent": "Linnaeus the 3rd (019f0b81-9f37-7b13-baf9-f5ce3bc56ecb)",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES",
     "nextWorkRecommendations": [
