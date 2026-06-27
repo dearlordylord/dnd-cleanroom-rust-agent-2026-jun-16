@@ -26,6 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
+| FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-07` | `ralph/fexp-07-feature-species-metamagic-substrates` | `0d5200e43fd7e9f094a93585f00eaf6bd2266c75` | pending | pending | running |
 
 ## Historical RRCONV-19 Worktrees
 

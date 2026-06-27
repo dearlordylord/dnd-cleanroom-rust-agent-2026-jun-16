@@ -169,7 +169,7 @@
     {
       "laneId": "FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES",
       "checkpointId": "FEXP-CP5",
-      "status": "proposed",
+      "status": "running",
       "routeClass": "substrate-first",
       "purpose": "Probe high-risk feature/species/metamagic selected drivers only through generic substrate connectors.",
       "drivers": [

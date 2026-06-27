@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-expansion-fexp06-accepted-with-blockers",
+  "status": "fresh-expansion-fexp07-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -2775,8 +2775,8 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fexp06-accepted-with-blockers",
-    "activeLane": null,
+    "status": "running",
+    "activeLane": "FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "0d5200e43fd7e9f094a93585f00eaf6bd2266c75",
@@ -3001,15 +3001,15 @@
         "residualRisk": "James the 3rd reported an initial discovery command listed sibling AGENTS.md paths before stopping; no sibling contents were used for substantive reads/edits, and accepted evidence/verifier paths are confined to the fresh target and copied inputs."
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
-    "activeLaneBaseCommit": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-07",
+    "activeBranch": "ralph/fexp-07-feature-species-metamagic-substrates",
+    "activeLaneBaseCommit": "0d5200e43fd7e9f094a93585f00eaf6bd2266c75",
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES",
     "nextWorkRecommendations": [
-      "Launch FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES from accepted fresh target head 0d5200e43fd7e9f094a93585f00eaf6bd2266c75.",
-      "Keep selected/catalog-heavy behavior admitted only through generic substrate connectors; stop on blockers rather than introducing authored identity dispatch."
+      "FEXP-07 is running from accepted fresh target head 0d5200e43fd7e9f094a93585f00eaf6bd2266c75.",
+      "Review selected/catalog-heavy feature, species, and metamagic evidence strictly: admit only generic substrate connector facts, and stop on blockers rather than adding authored identity dispatch."
     ]
   },
   "sdkTracerBullet": {
