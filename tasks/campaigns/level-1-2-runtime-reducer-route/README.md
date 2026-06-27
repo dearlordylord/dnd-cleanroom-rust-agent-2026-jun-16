@@ -17,5 +17,6 @@ Primary files:
 - `CHECKPOINT_REPORT.md`: checkpoint status and coverage delta log.
 - `WORKTREE_LEDGER.md`: worktree ownership and cleanup state.
 - `PROMPTS.md`: copyable Ralph worker, reviewer, and fixer briefs.
+- `FRESH_CLEANROOM_READINESS.md`: post-CP8 closure evidence, limits, and next work for a future fresh cleanroom run.
 
 The campaign is designed so an orchestrator can resume after losing chat context. If the files and the git worktree disagree, stop and reconcile the files before launching more Ralph workers.
