@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FC-02-MINIMAL-BATTLE-ACTION-ROUTE | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `74d38f9` campaign / `1f26d3e4fc792912e9b84f8e2cf242f3869c3807` target | Noether the 2nd (`019f09d2-d8b3-7fb2-a66c-b30dccae865e`) | pending | running minimal weapon attack route |
 
 ## Historical RRCONV-19 Worktrees
 
