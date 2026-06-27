@@ -617,9 +617,11 @@ use battle_runtime_attack_spell_shape_selected_identity::{
     BRANCH_ACTIONS as ATTACK_SPELL_SHAPE_BRANCH_ACTIONS,
 };
 use battle_runtime_chained_attack_sequence::{
+    expected_route as expected_chained_attack_sequence_route,
     expected_witness as expected_chained_attack_sequence_witness,
     projection_payload as chained_attack_sequence_projection_payload,
     replay_observed_action as replay_chained_attack_sequence_action,
+    replay_observed_route as replay_chained_attack_sequence_route,
     BRANCH_ACTIONS as CHAINED_ATTACK_SEQUENCE_BRANCH_ACTIONS,
 };
 use battle_runtime_command_option_next_turn::{
@@ -696,9 +698,11 @@ use battle_runtime_druid_wild_shape_form_lifecycle::{
     BRANCH_ACTIONS as DRUID_WILD_SHAPE_BRANCH_ACTIONS,
 };
 use battle_runtime_eldritch_blast::{
+    expected_route as expected_eldritch_blast_route,
     expected_witness as expected_eldritch_blast_witness,
     projection_payload as eldritch_blast_projection_payload,
     replay_observed_action as replay_eldritch_blast_action,
+    replay_observed_route as replay_eldritch_blast_route,
     BRANCH_ACTIONS as ELDRITCH_BLAST_BRANCH_ACTIONS,
 };
 use battle_runtime_feature_selected_identity::{
@@ -2506,6 +2510,10 @@ fn chained_attack_sequence_adapter_replays_all_branches() {
         let observed = replay_chained_attack_sequence_action(action);
         assert_eq!(observed, expected_chained_attack_sequence_witness(action));
         assert!(chained_attack_sequence_projection_payload(&observed).contains("protocolResult="));
+        assert_eq!(
+            replay_chained_attack_sequence_route(action),
+            expected_chained_attack_sequence_route(action)
+        );
     }
 }
 
@@ -7996,6 +8004,10 @@ fn eldritch_blast_adapter_replays_all_branches() {
         let observed = replay_eldritch_blast_action(action);
         assert_eq!(observed, expected_eldritch_blast_witness(action));
         assert!(eldritch_blast_projection_payload(&observed).contains("protocolResult="));
+        assert_eq!(
+            replay_eldritch_blast_route(action),
+            expected_eldritch_blast_route(action)
+        );
     }
 }
 

@@ -1,0 +1,292 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "L15-RR16 chained spell attack procedure route adapter"
+  },
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doStartCast",
+      "observedActionTaken": "doStartCast",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "L15-RR16 chained spell attack procedure route adapter seed=1 action=doStartCast",
+      "sampledInputs": [
+        {
+          "pickName": "slotLevel",
+          "value": 1
+        }
+      ],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "bad3b6de2abccf3a1f399b947b58333f84fcd20a9bdec40399f3fbb462377269",
+        "observedProjectionSha256": "bad3b6de2abccf3a1f399b947b58333f84fcd20a9bdec40399f3fbb462377269",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doChooseDamageType",
+      "observedActionTaken": "doChooseDamageType",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "L15-RR16 chained spell attack procedure route adapter seed=1 action=doChooseDamageType",
+      "sampledInputs": [
+        {
+          "pickName": "damageType",
+          "value": "fire"
+        }
+      ],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b011d5190cfbddbe42143fe4097c9ca689bbe1d96dd3558747c1cff8ebc70fc4",
+        "observedProjectionSha256": "b011d5190cfbddbe42143fe4097c9ca689bbe1d96dd3558747c1cff8ebc70fc4",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doChooseInitialTarget",
+      "observedActionTaken": "doChooseInitialTarget",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "L15-RR16 chained spell attack procedure route adapter seed=1 action=doChooseInitialTarget",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "10397e215bb24f50409c6273878141e1bef4293f23f66480049843c71ef26085",
+        "observedProjectionSha256": "10397e215bb24f50409c6273878141e1bef4293f23f66480049843c71ef26085",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep0AttackHit",
+      "observedActionTaken": "doResolveStep0AttackHit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep0AttackHit",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c5ecade5f82e4ec320638bb1420a8d19ea83252b852c72f3bf6ed4bd182e9c79",
+        "observedProjectionSha256": "c5ecade5f82e4ec320638bb1420a8d19ea83252b852c72f3bf6ed4bd182e9c79",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep0DamageNoDuplicate",
+      "observedActionTaken": "doResolveStep0DamageNoDuplicate",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep0DamageNoDuplicate",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "87587322079d1db564540432ee9d56d90c3d39a68a7d117bf5be6f14f68aa66b",
+        "observedProjectionSha256": "87587322079d1db564540432ee9d56d90c3d39a68a7d117bf5be6f14f68aa66b",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep0DamageDuplicate",
+      "observedActionTaken": "doResolveStep0DamageDuplicate",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep0DamageDuplicate",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "57875d24cdd7c0dc3214d934903dad9acc5ed76fdd05c5744ecd15aa88385eee",
+        "observedProjectionSha256": "57875d24cdd7c0dc3214d934903dad9acc5ed76fdd05c5744ecd15aa88385eee",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doChooseFirstLeapTarget",
+      "observedActionTaken": "doChooseFirstLeapTarget",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "L15-RR16 chained spell attack procedure route adapter seed=1 action=doChooseFirstLeapTarget",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "659a03e32e6ad3b65e06822dfee1c57192811d03f3d6af05eb421fb960616252",
+        "observedProjectionSha256": "659a03e32e6ad3b65e06822dfee1c57192811d03f3d6af05eb421fb960616252",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep1AttackHit",
+      "observedActionTaken": "doResolveStep1AttackHit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep1AttackHit",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8e06f17061fa7b983f603b1252e920a1e17afd05b4f6e26ecbc70a168d9a3ce7",
+        "observedProjectionSha256": "8e06f17061fa7b983f603b1252e920a1e17afd05b4f6e26ecbc70a168d9a3ce7",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep1DuplicateDamageSlot1Limit",
+      "observedActionTaken": "doResolveStep1DuplicateDamageSlot1Limit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep1DuplicateDamageSlot1Limit",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "35b0fe11d44c4f304b0ce8a3e62af4bacd5714bda74c20992fed24dcc4e8a45f",
+        "observedProjectionSha256": "35b0fe11d44c4f304b0ce8a3e62af4bacd5714bda74c20992fed24dcc4e8a45f",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+      "qntFileSha256": "1d91c14e26a451b94c59601f06fc2f4d881e8074ee2fcf392563cd44ce4792c1",
+      "branchFamily": "step",
+      "branchAction": "doResolveStep1DuplicateDamageSlot2AllowsLeap",
+      "observedActionTaken": "doResolveStep1DuplicateDamageSlot2AllowsLeap",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+      "traceId": "L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep1DuplicateDamageSlot2AllowsLeap",
+      "sampledInputs": [],
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "96f18a351e08b5f97084a62fe43f436582fa7aa22cd52655043a4d2a80120325",
+        "observedProjectionSha256": "96f18a351e08b5f97084a62fe43f436582fa7aa22cd52655043a4d2a80120325",
+        "checkedTargetStateFields": [
+          "BattleSubjectKind.ChainedSpellAttackProcedure*",
+          "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.SpellAttack"
+        ]
+      },
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ]
+}

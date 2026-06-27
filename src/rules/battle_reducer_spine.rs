@@ -1120,6 +1120,19 @@ pub enum BattleSubjectKind {
     AfterHitDamageRiderAttackDamage,
     AfterHitDamageRiderTurnStartSaveCleanup,
     AfterHitDamageRiderEscapeConcentrationCleanup,
+    ChainedSpellAttackProcedureDamageTypeChoice,
+    ChainedSpellAttackProcedureTargetChoice,
+    ChainedSpellAttackProcedureAttackRoll,
+    ChainedSpellAttackProcedureDamageResolved,
+    ChainedSpellAttackProcedureDamageContinues,
+    IndependentSpellAttackSequenceObjectBoundary,
+    IndependentSpellAttackSequenceTargetChoice,
+    IndependentSpellAttackSequenceAttackHit,
+    IndependentSpellAttackSequenceAttackContinues,
+    IndependentSpellAttackSequenceAttackResolved,
+    IndependentSpellAttackSequenceDamageContinues,
+    IndependentSpellAttackSequenceDamageResolved,
+    IndependentSpellAttackSequenceStaleReplay,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -2763,6 +2776,18 @@ pub fn discover_generic_route_subject_observed(
 }
 
 #[must_use]
+pub fn generic_route_subject_from_battle(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+) -> BattleSubject {
+    assert!(
+        generic_route_subject_kind(kind),
+        "generic route subject construction requires a generic route subject"
+    );
+    diagnostic_subject(kind, current_actor(state), None)
+}
+
+#[must_use]
 pub fn start_standard_battle() -> BattleState {
     start_battle(BattleSetup::standard()).state
 }
@@ -3432,7 +3457,20 @@ fn battle_reducer_route_subject_family(
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup) => {
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice
+        | BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice
+        | BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageResolved
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceObjectBoundary
+        | BattleSubjectKind::IndependentSpellAttackSequenceTargetChoice
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackHit
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackResolved
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageResolved
+        | BattleSubjectKind::IndependentSpellAttackSequenceStaleReplay) => {
             generic_route_shape(kind).subject
         }
     }
@@ -6719,7 +6757,20 @@ fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerRouteOw
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup) => {
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice
+        | BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice
+        | BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageResolved
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceObjectBoundary
+        | BattleSubjectKind::IndependentSpellAttackSequenceTargetChoice
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackHit
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackResolved
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageResolved
+        | BattleSubjectKind::IndependentSpellAttackSequenceStaleReplay) => {
             generic_route_shape(kind).discover_owner
         }
         BattleSubjectKind::EndTurn => BattleReducerRouteOwnerGroup::ActionEconomy,
@@ -6936,6 +6987,19 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::AfterHitDamageRiderAttackDamage
             | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice
+            | BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice
+            | BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll
+            | BattleSubjectKind::ChainedSpellAttackProcedureDamageResolved
+            | BattleSubjectKind::ChainedSpellAttackProcedureDamageContinues
+            | BattleSubjectKind::IndependentSpellAttackSequenceObjectBoundary
+            | BattleSubjectKind::IndependentSpellAttackSequenceTargetChoice
+            | BattleSubjectKind::IndependentSpellAttackSequenceAttackHit
+            | BattleSubjectKind::IndependentSpellAttackSequenceAttackContinues
+            | BattleSubjectKind::IndependentSpellAttackSequenceAttackResolved
+            | BattleSubjectKind::IndependentSpellAttackSequenceDamageContinues
+            | BattleSubjectKind::IndependentSpellAttackSequenceDamageResolved
+            | BattleSubjectKind::IndependentSpellAttackSequenceStaleReplay
     )
 }
 
@@ -6948,8 +7012,8 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
         MovementResource, SpellSlotAndActionEconomy, TargetSelection, TemporaryHitPoint,
     };
     use BattleReducerRouteSubjectFamily::{
-        AfterHitDamageRider, HeldWeaponActiveEffect, ScalarBuffEffect, SpellHostedWeaponAttack,
-        WeaponDamageRider,
+        AfterHitDamageRider, HeldWeaponActiveEffect, ScalarBuffEffect, SpellAttack,
+        SpellHostedWeaponAttack, WeaponDamageRider,
     };
 
     match kind {
@@ -7036,6 +7100,64 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: vec![AbilityCheck],
             discover_owner: Concentration,
             resolve_owner: Concentration,
+        },
+        BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice => GenericRouteShape {
+            subject: SpellAttack,
+            holes: vec![DamageTypeChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: BattleReducerRouteOwnerGroup::SpellAttackProcedure,
+        },
+        BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice => GenericRouteShape {
+            subject: SpellAttack,
+            holes: vec![TargetChoice],
+            discover_owner: TargetSelection,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll => GenericRouteShape {
+            subject: SpellAttack,
+            holes: vec![AttackRoll],
+            discover_owner: AttackRollOwner,
+            resolve_owner: AttackRollOwner,
+        },
+        BattleSubjectKind::ChainedSpellAttackProcedureDamageResolved
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageContinues => GenericRouteShape {
+            subject: SpellAttack,
+            holes: vec![RolledDice],
+            discover_owner: HitPoint,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::IndependentSpellAttackSequenceObjectBoundary => GenericRouteShape {
+            subject: SpellAttack,
+            holes: Vec::new(),
+            discover_owner: BattleReducerRouteOwnerGroup::ObjectBoundary,
+            resolve_owner: BattleReducerRouteOwnerGroup::ObjectBoundary,
+        },
+        BattleSubjectKind::IndependentSpellAttackSequenceTargetChoice => GenericRouteShape {
+            subject: SpellAttack,
+            holes: vec![TargetChoice],
+            discover_owner: BattleReducerRouteOwnerGroup::ActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::IndependentSpellAttackSequenceAttackHit
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackResolved => GenericRouteShape {
+            subject: SpellAttack,
+            holes: vec![AttackRoll],
+            discover_owner: AttackRollOwner,
+            resolve_owner: AttackRollOwner,
+        },
+        BattleSubjectKind::IndependentSpellAttackSequenceDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageResolved => GenericRouteShape {
+            subject: SpellAttack,
+            holes: vec![RolledDice],
+            discover_owner: HitPoint,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::IndependentSpellAttackSequenceStaleReplay => GenericRouteShape {
+            subject: SpellAttack,
+            holes: Vec::new(),
+            discover_owner: BattleReducerRouteOwnerGroup::HoleFrontier,
+            resolve_owner: BattleReducerRouteOwnerGroup::HoleFrontier,
         },
         BattleSubjectKind::EndTurn
         | BattleSubjectKind::WeaponAttack
@@ -7159,6 +7281,19 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
         | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice
+        | BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice
+        | BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageResolved
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceObjectBoundary
+        | BattleSubjectKind::IndependentSpellAttackSequenceTargetChoice
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackHit
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackResolved
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageResolved
+        | BattleSubjectKind::IndependentSpellAttackSequenceStaleReplay
         | BattleSubjectKind::EndTurn => false,
     }
 }
@@ -7270,7 +7405,20 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
         | BattleSubjectKind::AfterHitDamageRiderAttackDamage
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => false,
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice
+        | BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice
+        | BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageResolved
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceObjectBoundary
+        | BattleSubjectKind::IndependentSpellAttackSequenceTargetChoice
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackHit
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackResolved
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageResolved
+        | BattleSubjectKind::IndependentSpellAttackSequenceStaleReplay => false,
     }
 }
 
@@ -7444,12 +7592,67 @@ pub fn resolve_battle_subject_observed(
     let subject = request.subject().kind;
     let fill = request.fill;
     let result = resolve_battle_subject(state, request);
-    observer.observe_battle_reducer_route(battle_resolution_route_event(subject, fill, &result));
+    for event in battle_resolution_route_events(subject, fill, &result) {
+        observer.observe_battle_reducer_route(event);
+    }
     observer.observe_battle_entrypoint(BattleEntrypointEvent::ResolveBattleSubject {
         subject,
         outcome: result.outcome(),
     });
     result
+}
+
+fn battle_resolution_route_events(
+    subject: BattleSubjectKind,
+    fill: BattleFill,
+    result: &BattleResolutionResult,
+) -> Vec<BattleReducerRouteEvent> {
+    let route_event = battle_resolution_route_event(subject, fill, result);
+    let Some(procedure_event) = spell_attack_procedure_route_event(subject, &route_event) else {
+        return vec![route_event];
+    };
+    vec![route_event, procedure_event]
+}
+
+fn spell_attack_procedure_route_event(
+    subject: BattleSubjectKind,
+    route_event: &BattleReducerRouteEvent,
+) -> Option<BattleReducerRouteEvent> {
+    if !spell_attack_procedure_route_records_procedure_owner(subject) {
+        return None;
+    }
+    let BattleReducerRouteEvent::ResolveBattleSubject {
+        fill,
+        outcome,
+        holes,
+        ..
+    } = route_event
+    else {
+        return None;
+    };
+
+    Some(BattleReducerRouteEvent::ResolveBattleSubject {
+        subject: BattleReducerRouteSubjectFamily::SpellAttack,
+        fill: *fill,
+        outcome: *outcome,
+        holes: holes.clone(),
+        owner: BattleReducerRouteOwnerGroup::SpellAttackProcedure,
+    })
+}
+
+const fn spell_attack_procedure_route_records_procedure_owner(subject: BattleSubjectKind) -> bool {
+    matches!(
+        subject,
+        BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice
+            | BattleSubjectKind::ChainedSpellAttackProcedureDamageResolved
+            | BattleSubjectKind::ChainedSpellAttackProcedureDamageContinues
+            | BattleSubjectKind::IndependentSpellAttackSequenceTargetChoice
+            | BattleSubjectKind::IndependentSpellAttackSequenceAttackHit
+            | BattleSubjectKind::IndependentSpellAttackSequenceAttackContinues
+            | BattleSubjectKind::IndependentSpellAttackSequenceAttackResolved
+            | BattleSubjectKind::IndependentSpellAttackSequenceDamageContinues
+            | BattleSubjectKind::IndependentSpellAttackSequenceDamageResolved
+    )
 }
 
 fn battle_resolution_route_event(
@@ -8125,6 +8328,19 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::AfterHitDamageRiderAttackDamage
             | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+            | BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice
+            | BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice
+            | BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll
+            | BattleSubjectKind::ChainedSpellAttackProcedureDamageResolved
+            | BattleSubjectKind::ChainedSpellAttackProcedureDamageContinues
+            | BattleSubjectKind::IndependentSpellAttackSequenceObjectBoundary
+            | BattleSubjectKind::IndependentSpellAttackSequenceTargetChoice
+            | BattleSubjectKind::IndependentSpellAttackSequenceAttackHit
+            | BattleSubjectKind::IndependentSpellAttackSequenceAttackContinues
+            | BattleSubjectKind::IndependentSpellAttackSequenceAttackResolved
+            | BattleSubjectKind::IndependentSpellAttackSequenceDamageContinues
+            | BattleSubjectKind::IndependentSpellAttackSequenceDamageResolved
+            | BattleSubjectKind::IndependentSpellAttackSequenceStaleReplay
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,
@@ -8147,6 +8363,14 @@ fn resolve_generic_route_subject(
         return invalid_with_holes(
             state,
             BattleResolutionInvalidReason::InvalidFill,
+            Vec::new(),
+        );
+    }
+
+    if subject.kind == BattleSubjectKind::IndependentSpellAttackSequenceStaleReplay {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::StaleSubject,
             Vec::new(),
         );
     }
@@ -8198,6 +8422,29 @@ fn generic_route_fill_matches_subject(
         }
         BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => {
             fill == BattleGenericRouteFill::AbilityCheck
+        }
+        BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice => {
+            fill == BattleGenericRouteFill::DamageTypeChoice
+        }
+        BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice
+        | BattleSubjectKind::IndependentSpellAttackSequenceTargetChoice => {
+            fill == BattleGenericRouteFill::TargetChoice
+        }
+        BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackHit
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceAttackResolved => {
+            fill == BattleGenericRouteFill::AttackRoll
+        }
+        BattleSubjectKind::ChainedSpellAttackProcedureDamageResolved
+        | BattleSubjectKind::ChainedSpellAttackProcedureDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageContinues
+        | BattleSubjectKind::IndependentSpellAttackSequenceDamageResolved => {
+            fill == BattleGenericRouteFill::RolledDice
+        }
+        BattleSubjectKind::IndependentSpellAttackSequenceObjectBoundary
+        | BattleSubjectKind::IndependentSpellAttackSequenceStaleReplay => {
+            fill == BattleGenericRouteFill::WithoutFill
         }
         BattleSubjectKind::EndTurn
         | BattleSubjectKind::WeaponAttack
@@ -8260,6 +8507,38 @@ fn generic_route_next_holes(
             | BattleSubjectKind::AfterHitDamageRiderAttackDamage
             | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup,
+            _,
+        ) => Vec::new(),
+        (BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice, _) => {
+            vec![BattleHoleKind::TargetChoice]
+        }
+        (BattleSubjectKind::ChainedSpellAttackProcedureTargetChoice, _) => {
+            vec![BattleHoleKind::AttackRoll]
+        }
+        (BattleSubjectKind::ChainedSpellAttackProcedureAttackRoll, _) => {
+            vec![BattleHoleKind::RolledDice]
+        }
+        (BattleSubjectKind::ChainedSpellAttackProcedureDamageContinues, _) => {
+            vec![BattleHoleKind::TargetChoice]
+        }
+        (BattleSubjectKind::IndependentSpellAttackSequenceTargetChoice, _) => {
+            vec![BattleHoleKind::AttackRoll]
+        }
+        (BattleSubjectKind::IndependentSpellAttackSequenceAttackHit, _) => {
+            vec![BattleHoleKind::RolledDice]
+        }
+        (BattleSubjectKind::IndependentSpellAttackSequenceAttackContinues, _) => {
+            vec![BattleHoleKind::AttackRoll]
+        }
+        (BattleSubjectKind::IndependentSpellAttackSequenceDamageContinues, _) => {
+            vec![BattleHoleKind::AttackRoll]
+        }
+        (
+            BattleSubjectKind::ChainedSpellAttackProcedureDamageResolved
+            | BattleSubjectKind::IndependentSpellAttackSequenceObjectBoundary
+            | BattleSubjectKind::IndependentSpellAttackSequenceAttackResolved
+            | BattleSubjectKind::IndependentSpellAttackSequenceDamageResolved
+            | BattleSubjectKind::IndependentSpellAttackSequenceStaleReplay,
             _,
         ) => Vec::new(),
         (

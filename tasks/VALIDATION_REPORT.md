@@ -3461,3 +3461,68 @@ Verification results: recorded in RUN_LEDGER commandResults; this lane requires 
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup | FU01C-BLOCKED-HEROISM-CONDITION-IMMUNITY-CLEANUP | blocked |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer | FU01C-BLOCKED-HUNTERS-MARK-TRANSFER | blocked |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHexMarkedDamageRiderAndLaterTurnTransfer | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHexMarkedDamageRiderAndLaterTurnTransfer#step:doHexMarkedDamageRiderAndLaterTurnTransfer | FU01C-BLOCKED-HEX-TRANSFER | blocked |
+
+## L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Machine-readable ledger: `tasks/RUN_LEDGER.json`
+- Selected drivers:
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt`
+
+Allowed inputs used:
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.route.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.route.mbt.qnt`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/raw/srd-5.2.1` and `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md` excerpts named by the reducer-route inventory
+
+Behavior implemented:
+- Chained spell attack sequence route fills use reducer-owned SpellAttack procedure route subjects for damage type, target choice, attack roll, damage, and continuation.
+- Independent spell attack sequence route fills use reducer-owned SpellAttack procedure route subjects for target choice, object boundary discovery, per-attack resolution, damage, continuation, and stale replay rejection.
+- Production route emission is keyed by reducer subject shape, generic fills, and route-owner facts rather than authored spell identity.
+
+Generated branch coverage:
+- L15-RR16: 10 covered, 0 blocked.
+- L15-RR22: 8 covered, 0 blocked.
+
+Target replay evidence:
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt#step:doStartCast` | `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json#L15-RR16 chained spell attack procedure route adapter seed=1 action=doStartCast#step:doStartCast` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt#step:doChooseDamageType` | `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json#L15-RR16 chained spell attack procedure route adapter seed=1 action=doChooseDamageType#step:doChooseDamageType` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt#step:doChooseInitialTarget` | `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json#L15-RR16 chained spell attack procedure route adapter seed=1 action=doChooseInitialTarget#step:doChooseInitialTarget` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt#step:doResolveStep0AttackHit` | `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json#L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep0AttackHit#step:doResolveStep0AttackHit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt#step:doResolveStep0DamageNoDuplicate` | `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json#L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep0DamageNoDuplicate#step:doResolveStep0DamageNoDuplicate` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt#step:doResolveStep0DamageDuplicate` | `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json#L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep0DamageDuplicate#step:doResolveStep0DamageDuplicate` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt#step:doChooseFirstLeapTarget` | `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json#L15-RR16 chained spell attack procedure route adapter seed=1 action=doChooseFirstLeapTarget#step:doChooseFirstLeapTarget` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt#step:doResolveStep1AttackHit` | `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json#L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep1AttackHit#step:doResolveStep1AttackHit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt#step:doResolveStep1DuplicateDamageSlot1Limit` | `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json#L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep1DuplicateDamageSlot1Limit#step:doResolveStep1DuplicateDamageSlot1Limit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt#step:doResolveStep1DuplicateDamageSlot2AllowsLeap` | `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json#L15-RR16 chained spell attack procedure route adapter seed=1 action=doResolveStep1DuplicateDamageSlot2AllowsLeap#step:doResolveStep1DuplicateDamageSlot2AllowsLeap` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt#step:doFillFirstAttackHit` | `tasks/target-replay-evidence/L15-RR22-independent-spell-attack-sequence-routes.json#L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillFirstAttackHit#step:doFillFirstAttackHit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt#step:doFillFirstAttackMiss` | `tasks/target-replay-evidence/L15-RR22-independent-spell-attack-sequence-routes.json#L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillFirstAttackMiss#step:doFillFirstAttackMiss` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt#step:doFillFirstDamageLow` | `tasks/target-replay-evidence/L15-RR22-independent-spell-attack-sequence-routes.json#L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillFirstDamageLow#step:doFillFirstDamageLow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt#step:doFillSecondAttackHit` | `tasks/target-replay-evidence/L15-RR22-independent-spell-attack-sequence-routes.json#L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillSecondAttackHit#step:doFillSecondAttackHit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt#step:doFillSecondAttackMiss` | `tasks/target-replay-evidence/L15-RR22-independent-spell-attack-sequence-routes.json#L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillSecondAttackMiss#step:doFillSecondAttackMiss` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt#step:doFillSecondDamageLow` | `tasks/target-replay-evidence/L15-RR22-independent-spell-attack-sequence-routes.json#L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillSecondDamageLow#step:doFillSecondDamageLow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt#step:doFillTwoCreatureTargets` | `tasks/target-replay-evidence/L15-RR22-independent-spell-attack-sequence-routes.json#L15-RR22 independent spell attack sequence route adapter seed=1 action=doFillTwoCreatureTargets#step:doFillTwoCreatureTargets` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt#step:doRejectStaleAfterResolved` | `tasks/target-replay-evidence/L15-RR22-independent-spell-attack-sequence-routes.json#L15-RR22 independent spell attack sequence route adapter seed=1 action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved` | `src/tests/mod.rs` | `covered` |
+
+Harness artifacts:
+- `tasks/START_GATE.json`
+- `tasks/ENGINE_DEPTH_MANIFEST.json`
+- `tasks/STATE_OWNER_MANIFEST.json`
+- `tasks/REVIEW_LOOP.json`
+- `tasks/DECIDER_DECISION.json`
+- `tasks/target-replay-evidence/L15-RR16-chained-attack-procedure-routes.json`
+- `tasks/target-replay-evidence/L15-RR22-independent-spell-attack-sequence-routes.json`
+
+Remaining gaps:
+- None for L15-RR16 or L15-RR22.
+
+Verification results:
+- Focused adapter route tests passed.
+- Full command results are recorded in `tasks/RUN_LEDGER.json`.

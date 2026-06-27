@@ -1,3 +1,13 @@
+use super::battle_runtime_reducer_route::{
+    observed_reducer_route, route_discover_battle_acts, route_resolve_battle_subject,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup,
+    ReducerRouteSubjectFamily,
+};
+use crate::rules::battle_reducer_spine::{
+    discover_generic_route_subject_observed, generic_route_subject_from_battle,
+    resolve_battle_subject_observed, start_battle_observed, BattleGenericRouteFill, BattleHoleKind,
+    BattleResolutionRequest, BattleSetup, BattleSubjectKind,
+};
 use crate::rules::chained_spell_attacks::{
     choose_chromatic_orb_damage_type, choose_chromatic_orb_initial_target,
     choose_chromatic_orb_leap_target, chromatic_orb_initial_state,
@@ -68,6 +78,47 @@ pub fn expected_witness(observed_action_taken: &str) -> ChainedAttackSequenceWit
     replay_observed_action(observed_action_taken)
 }
 
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    let mut trace = crate::rules::battle_reducer_spine::BattleEntrypointTrace::default();
+    let state = start_battle_observed(BattleSetup::standard(), &mut trace).state;
+    let (mut state, _) = discover_generic_route_subject_observed(
+        state,
+        BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice,
+        &mut trace,
+    );
+    for (kind, fill) in route_fills_for_action(observed_action_taken) {
+        let subject = generic_route_subject_from_battle(&state, kind);
+        state = resolve_battle_subject_observed(
+            state,
+            BattleResolutionRequest::generic_route(subject, fill)
+                .expect("spell attack procedure route subject accepts generic fills"),
+            &mut trace,
+        )
+        .into_state();
+    }
+    observed_reducer_route(&trace, &[ReducerRouteSubjectFamily::SpellAttack])
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    let mut route = vec![route_start_battle(ReducerRouteOwnerGroup::ActionEconomy)];
+    route.push(route_discover_battle_acts(
+        ReducerRouteSubjectFamily::SpellAttack,
+        vec![BattleHoleKind::DamageTypeChoice],
+        ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+    ));
+    for (fill, holes, owners) in expected_route_fills_for_action(observed_action_taken) {
+        for owner in owners {
+            route.push(route_resolve_battle_subject(
+                ReducerRouteSubjectFamily::SpellAttack,
+                fill,
+                holes.clone(),
+                owner,
+            ));
+        }
+    }
+    route
+}
+
 pub fn projection_payload(witness: &ChainedAttackSequenceWitness) -> String {
     [
         format!("damageType={}", witness.damage_type),
@@ -98,6 +149,170 @@ pub fn projection_payload(witness: &ChainedAttackSequenceWitness) -> String {
         format!("protocolHoles={}", joined_or_none(&witness.protocol_holes)),
     ]
     .join("\n")
+}
+
+fn route_fills_for_action(
+    observed_action_taken: &str,
+) -> Vec<(BattleSubjectKind, BattleGenericRouteFill)> {
+    use BattleGenericRouteFill::{AttackRoll, DamageTypeChoice, RolledDice, TargetChoice};
+    use BattleSubjectKind::{
+        ChainedSpellAttackProcedureAttackRoll, ChainedSpellAttackProcedureDamageContinues,
+        ChainedSpellAttackProcedureDamageResolved, ChainedSpellAttackProcedureDamageTypeChoice,
+        ChainedSpellAttackProcedureTargetChoice,
+    };
+
+    match observed_action_taken {
+        "doStartCast" => vec![],
+        "doChooseDamageType" => vec![(
+            ChainedSpellAttackProcedureDamageTypeChoice,
+            DamageTypeChoice,
+        )],
+        "doChooseInitialTarget" => vec![
+            (
+                ChainedSpellAttackProcedureDamageTypeChoice,
+                DamageTypeChoice,
+            ),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+        ],
+        "doResolveStep0AttackHit" => vec![
+            (
+                ChainedSpellAttackProcedureDamageTypeChoice,
+                DamageTypeChoice,
+            ),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+            (ChainedSpellAttackProcedureAttackRoll, AttackRoll),
+        ],
+        "doResolveStep0DamageNoDuplicate" => vec![
+            (
+                ChainedSpellAttackProcedureDamageTypeChoice,
+                DamageTypeChoice,
+            ),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+            (ChainedSpellAttackProcedureAttackRoll, AttackRoll),
+            (ChainedSpellAttackProcedureDamageResolved, RolledDice),
+        ],
+        "doResolveStep0DamageDuplicate" => vec![
+            (
+                ChainedSpellAttackProcedureDamageTypeChoice,
+                DamageTypeChoice,
+            ),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+            (ChainedSpellAttackProcedureAttackRoll, AttackRoll),
+            (ChainedSpellAttackProcedureDamageContinues, RolledDice),
+        ],
+        "doChooseFirstLeapTarget" => vec![
+            (
+                ChainedSpellAttackProcedureDamageTypeChoice,
+                DamageTypeChoice,
+            ),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+            (ChainedSpellAttackProcedureAttackRoll, AttackRoll),
+            (ChainedSpellAttackProcedureDamageContinues, RolledDice),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+        ],
+        "doResolveStep1AttackHit" => vec![
+            (
+                ChainedSpellAttackProcedureDamageTypeChoice,
+                DamageTypeChoice,
+            ),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+            (ChainedSpellAttackProcedureAttackRoll, AttackRoll),
+            (ChainedSpellAttackProcedureDamageContinues, RolledDice),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+            (ChainedSpellAttackProcedureAttackRoll, AttackRoll),
+        ],
+        "doResolveStep1DuplicateDamageSlot1Limit" => vec![
+            (
+                ChainedSpellAttackProcedureDamageTypeChoice,
+                DamageTypeChoice,
+            ),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+            (ChainedSpellAttackProcedureAttackRoll, AttackRoll),
+            (ChainedSpellAttackProcedureDamageContinues, RolledDice),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+            (ChainedSpellAttackProcedureAttackRoll, AttackRoll),
+            (ChainedSpellAttackProcedureDamageResolved, RolledDice),
+        ],
+        "doResolveStep1DuplicateDamageSlot2AllowsLeap" => vec![
+            (
+                ChainedSpellAttackProcedureDamageTypeChoice,
+                DamageTypeChoice,
+            ),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+            (ChainedSpellAttackProcedureAttackRoll, AttackRoll),
+            (ChainedSpellAttackProcedureDamageContinues, RolledDice),
+            (ChainedSpellAttackProcedureTargetChoice, TargetChoice),
+            (ChainedSpellAttackProcedureAttackRoll, AttackRoll),
+            (ChainedSpellAttackProcedureDamageContinues, RolledDice),
+        ],
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
+}
+
+fn expected_route_fills_for_action(
+    observed_action_taken: &str,
+) -> Vec<(
+    ReducerRouteFillKind,
+    Vec<BattleHoleKind>,
+    Vec<ReducerRouteOwnerGroup>,
+)> {
+    route_fills_for_action(observed_action_taken)
+        .into_iter()
+        .map(|(kind, fill)| expected_route_fill(kind, fill))
+        .collect()
+}
+
+fn expected_route_fill(
+    kind: BattleSubjectKind,
+    fill: BattleGenericRouteFill,
+) -> (
+    ReducerRouteFillKind,
+    Vec<BattleHoleKind>,
+    Vec<ReducerRouteOwnerGroup>,
+) {
+    use BattleGenericRouteFill::{AttackRoll, DamageTypeChoice, RolledDice, TargetChoice};
+    use BattleSubjectKind::{
+        ChainedSpellAttackProcedureAttackRoll, ChainedSpellAttackProcedureDamageContinues,
+        ChainedSpellAttackProcedureDamageResolved, ChainedSpellAttackProcedureDamageTypeChoice,
+        ChainedSpellAttackProcedureTargetChoice,
+    };
+    match (kind, fill) {
+        (ChainedSpellAttackProcedureDamageTypeChoice, DamageTypeChoice) => (
+            ReducerRouteFillKind::DamageTypeChoice,
+            vec![BattleHoleKind::TargetChoice],
+            vec![ReducerRouteOwnerGroup::SpellAttackProcedure],
+        ),
+        (ChainedSpellAttackProcedureTargetChoice, TargetChoice) => (
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            vec![
+                ReducerRouteOwnerGroup::TargetSelection,
+                ReducerRouteOwnerGroup::SpellAttackProcedure,
+            ],
+        ),
+        (ChainedSpellAttackProcedureAttackRoll, AttackRoll) => (
+            ReducerRouteFillKind::AttackRoll,
+            vec![BattleHoleKind::RolledDice],
+            vec![ReducerRouteOwnerGroup::AttackRoll],
+        ),
+        (ChainedSpellAttackProcedureDamageResolved, RolledDice) => (
+            ReducerRouteFillKind::RolledDice,
+            Vec::new(),
+            vec![
+                ReducerRouteOwnerGroup::HitPoint,
+                ReducerRouteOwnerGroup::SpellAttackProcedure,
+            ],
+        ),
+        (ChainedSpellAttackProcedureDamageContinues, RolledDice) => (
+            ReducerRouteFillKind::RolledDice,
+            vec![BattleHoleKind::TargetChoice],
+            vec![
+                ReducerRouteOwnerGroup::HitPoint,
+                ReducerRouteOwnerGroup::SpellAttackProcedure,
+            ],
+        ),
+        _ => panic!("unsupported chained spell attack route fill"),
+    }
 }
 
 fn started_cast(slot_level: i16) -> ChromaticOrbSequenceState {
