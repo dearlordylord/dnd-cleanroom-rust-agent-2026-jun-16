@@ -169,7 +169,7 @@
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
     "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "fixing",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
-    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "worker-committed-pending-review",
+    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "reviewing",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
   },
   "lastIntegrationVerification": {
@@ -275,7 +275,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c",
       "branch": "ralph/l15-rr07s-c-weapon-breath-feature",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "worker-committed-pending-review",
+      "status": "reviewing",
       "workerAgent": "019f070b-ff89-7fd2-8978-44745a13ef82",
       "workerName": "Kuhn",
       "commit": "3da4fbbd6d0630c096d0d386f28cc0ce02fb432b",
@@ -292,7 +292,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ]
+      ],
+      "reviewAgent": "019f072c-d0a6-7e53-adcf-02844f72a6f9",
+      "reviewName": "Nash",
+      "reviewStatus": "running"
     }
   ],
   "completedLaneWorktrees": [
