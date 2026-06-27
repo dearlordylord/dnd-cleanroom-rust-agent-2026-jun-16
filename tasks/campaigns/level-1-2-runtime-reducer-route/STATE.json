@@ -124,7 +124,7 @@
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
         "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES"
       ],
-      "notes": "FU01A, FU01B, FU01F, FU08A, FU08B, and FU08C are merged and verified. FU01C, FU01D, and FU01E remain in review/fixer loops.",
+      "notes": "FU01A, FU01B, FU01F, FU08A, FU08B, and FU08C are merged and verified. FU01E is clean after re-review and ready to merge. FU01C and FU01D remain in review/fixer loops.",
       "splitLaneIds": [
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
@@ -196,9 +196,9 @@
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "fixing-review-findings",
-    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "fixing-review-findings",
-    "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "rereviewing-after-fixer",
+    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "rereviewing-after-followup-fixer",
+    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "rereviewing-after-fixer",
+    "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready-to-merge",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
@@ -223,7 +223,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c",
       "branch": "ralph/l15-rr07-fu01c-weapon-buff-mark-smite",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "fixing-review-findings",
+      "status": "rereviewing-after-followup-fixer",
       "workerAgent": "019f07d6-14be-7123-8467-097ce9bee9db",
       "workerName": "Bernoulli",
       "workerCommit": "bf62c115801af2ff95e7df2418316747f99af010",
@@ -290,14 +290,36 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
-      ]
+      ],
+      "followupFixerAgent": "019f07fd-20c1-78e1-ab14-d329b294ba92",
+      "followupFixerName": "Hilbert the 2nd",
+      "followupFixerStatus": "complete",
+      "followupFixerFinding": "Remove or single-source GenericRouteShape.next_holes so generic_route_next_holes(subject.kind, fill) remains the authoritative route-continuation owner.",
+      "followupFixerCommit": "947f76c009833c8a0702e78956accfd1a3417da9",
+      "followupFixerSummary": [
+        "Removed GenericRouteShape.next_holes and constructor values.",
+        "Left generic_route_next_holes(subject.kind, fill) as the single authoritative continuation source."
+      ],
+      "followupFixerVerification": [
+        "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
+        "cargo test buff_mark_smite -- --list",
+        "cargo test level1_buff_mark_smite_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings"
+      ],
+      "followupRereviewAgent": "019f07ff-49ef-7812-a27c-40e673589979",
+      "followupRereviewName": "Archimedes the 2nd",
+      "followupRereviewStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d",
       "branch": "ralph/l15-rr07-fu01d-protection-charm-ward",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "fixing-review-findings",
+      "status": "rereviewing-after-fixer",
       "workerAgent": "019f07d6-63cd-7821-8803-074f626ac3e5",
       "workerName": "Pasteur",
       "workerCommit": "879b44d3d7dec602df492f4570429b9fc92cb6f0",
@@ -335,16 +357,35 @@
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
       ],
-      "fixerAgent": "pending",
-      "fixerName": "pending",
-      "fixerStatus": "pending-launch"
+      "fixerAgent": "019f07f5-821b-76c0-80ef-a88215f986bf",
+      "fixerName": "Kuhn the 2nd",
+      "fixerStatus": "complete",
+      "fixerCommit": "97c2e1feb4da16f7f60c96dcf3a16374d748283c",
+      "fixerSummary": [
+        "Removed durable full projection storage from BattleState.protection_charm_ward; it now carries only the offered route subject.",
+        "Made protection/charm/ward projections transient and derived from branch fill plus canonical battle fields.",
+        "Replaced expected routes with branch-owned literal route witnesses and refreshed honest evidence hashes/reports."
+      ],
+      "fixerVerification": [
+        "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
+        "cargo test creature_type_protection_adapter_replays_all_branches",
+        "cargo test sanctuary_selected_identity_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
+      ],
+      "rereviewAgent": "019f07fd-755a-7313-b7af-6e42908e71f6",
+      "rereviewName": "Boole the 2nd",
+      "rereviewStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01e",
       "branch": "ralph/l15-rr07-fu01e-armor-reaction",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "rereviewing-after-fixer",
+      "status": "ready-to-merge",
       "workerAgent": "019f07d6-b9cc-7ba2-86ce-f65b35152f65",
       "workerName": "Erdos",
       "workerCommit": "6b4866d40d05c68ce2da897571443f58ffbf17ac",
@@ -401,7 +442,25 @@
       ],
       "rereviewAgent": "019f07f6-fc15-76e2-9297-8be46ec69e71",
       "rereviewName": "Ptolemy the 2nd",
-      "rereviewStatus": "running"
+      "rereviewStatus": "clean",
+      "rereviewVerdict": "clean-after-review-fix",
+      "rereviewCommit": "c135ceb24f7b0f44d93f14763d55dbb9aaa8cf4f",
+      "rereviewSummary": [
+        "Reviewer fixed a ReactionSpell fill/reactor mismatch at the reducer boundary.",
+        "Confirmed ReactionSpell rows are discovered through discover_battle_acts_observed, liveness uses production discoverability, and artifacts no longer overstate adapter-manufactured subjects.",
+        "No remaining findings."
+      ],
+      "rereviewVerification": [
+        "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
+        "cargo test mage_armor_adapter_replays_all_branches",
+        "cargo test reaction_spell_selected_identity_adapter_replays_in_scope_branches",
+        "cargo test reducer_rejects_reaction_spell_fill_for_different_reactor",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
+      ]
     }
   ],
   "completedLaneWorktrees": [

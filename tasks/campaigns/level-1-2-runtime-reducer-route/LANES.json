@@ -436,7 +436,7 @@
     {
       "laneId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "fixing-review-findings",
+      "status": "rereviewing-after-followup-fixer",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
@@ -469,7 +469,7 @@
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "worker-running",
+      "status": "rereviewing-after-fixer",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
@@ -504,7 +504,7 @@
     {
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "worker-running",
+      "status": "ready-to-merge",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
