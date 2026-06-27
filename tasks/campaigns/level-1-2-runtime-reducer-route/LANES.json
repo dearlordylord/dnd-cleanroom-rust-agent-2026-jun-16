@@ -597,7 +597,7 @@
     {
       "laneId": "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
       "checkpointId": "CP4",
-      "status": "reviewing",
+      "status": "review-clean-merge-ready",
       "parallelGroup": "cp4-fu08-metamagic",
       "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
       "routeClasses": [
