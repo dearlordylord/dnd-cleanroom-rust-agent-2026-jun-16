@@ -2322,9 +2322,10 @@
     "summary": "Source refresh supplied the generic spell base Armor Class route connector and moved nine fixture scenario transition rows out of the reducer-route denominator. CP8 target replay accepted the remaining three Mage Armor rows, closing refreshed in-scope coverage at 659/659."
   },
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
+  "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
   "nextWorkRecommendations": [
+    "Launch the fresh cleanroom dry run described in FRESH_CLEANROOM_DRY_RUN_PLAN.md.",
     "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
-    "Start a fresh cleanroom dry run using only the cleanroom package and campaign guidance.",
     "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
     "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."
   ]

@@ -6,7 +6,7 @@ Integration worktree: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrco
 
 Integration branch: `ralph/rrconv-19-cleanroom`
 
-Current integration head: `2152e2c`
+Integration head when this readiness report was written: `22d9257`
 
 Verified reducer-route head: `5b1e976b6af7fadefa4ea5a065ae81de53b94d09`
 
@@ -125,10 +125,10 @@ bookkeeping.
 The dirty Rust target campaign is closed for the refreshed in-scope denominator.
 Next useful work is one of:
 
+- launch the fresh cleanroom dry run described in
+  `FRESH_CLEANROOM_DRY_RUN_PLAN.md`;
 - clean the global stale validator-hash / historical evidence debt so the dirty
   harness can pass without exception;
-- start a fresh cleanroom dry run using only the cleanroom package and this
-  campaign guidance;
 - promote the strongest route-connector lessons back into source-side QNT and
   cleanroom guidance before a fresh run;
 - audit whether any accepted rows still depend too much on dirty target
