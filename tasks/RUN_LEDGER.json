@@ -2722,25 +2722,25 @@
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "6f25e1bafba969835563b0dc36e2981c574402f4799f6eaeb4dc44abf4438f87"
+          "sha256": "0962729d4be6eceead909334d76d2be56847ee8c0fe1bda1153c3023e5d6e565"
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "1d5df717da33432530d6ae9d82c740327668fad3cc1c614fc03c59e11ed5449b"
+          "sha256": "a9e60d5469cd3361115c820cc223c70251a35bd9d8e4528825b998986aa370e1"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "92232024b1a7ce2b5da1f02afe9726836aec3c3933c12a820556cda099073b63"
+          "sha256": "73325f07dc44bf59f3241adadcc2724852e43c30dadafb452e0bc1d66aab6a29"
         },
         "deciderDecision": {
           "path": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "0d196340559b38a168a297c777a04ba5ecefc94141b003ab7b92eac8b3a1e56d"
+          "sha256": "b0709f076094bdd819b9e61d3c2a73517c9c9e1bfd5e3e92ae8adb36f56080ae"
         }
       },
       "targetReplayEvidence": [
         {
           "path": "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json",
-          "sha256": "59babe5f846283355cf363da5f0bcc3063a62bed983bcb7f6864331bb7c43158",
+          "sha256": "6f5aec386f9135e5e400174c1c65d7496aec008c7954c9ac0149de1d81ea2840",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doDivineFavorWeaponDamageRider#step:doDivineFavorWeaponDamageRider",
             "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doDivineSmiteAfterHitDamage#step:doDivineSmiteAfterHitDamage",

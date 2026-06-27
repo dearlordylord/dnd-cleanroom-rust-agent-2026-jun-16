@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "taskId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
   "durableFields": [],
-  "noDurableFieldsReason": "FU01C adds no durable BattleState fields; accepted evidence reuses generic route subject kinds, existing BattleEntrypointTrace route events, and adapter qRoute projection. Blocked rows remain target blockers instead of duplicating marked-transfer or condition-immunity state.",
+  "noDurableFieldsReason": "FU01C adds no durable BattleState fields; accepted evidence reuses production BattleSubjectKind generic route subject variants, existing BattleEntrypointTrace route events, and adapter qRoute projection. Blocked rows remain target blockers instead of duplicating marked-transfer or condition-immunity state.",
   "nonDurableBoundaryApiSurface": [
     {
-      "apiPath": "BattleState.genericRouteSubjects.WeaponDamageRiderDamage",
-      "boundary": "accepted target replay checked generic BattleState route subject",
+      "apiPath": "BattleSubjectKind.WeaponDamageRiderDamage",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+      "owner": "battle-route-diagnostic"
     },
     {
       "apiPath": "ReducerRouteEvent.qRoute",
@@ -17,46 +17,82 @@
       "owner": "executable-boundary-projection"
     },
     {
-      "apiPath": "BattleState.genericRouteSubjects.AfterHitDamageRiderAttackDamage",
-      "boundary": "accepted target replay checked generic BattleState route subject",
+      "apiPath": "BattleEntrypointTrace.route_events",
+      "boundary": "production route-event observation boundary for accepted target replay rows",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+      "owner": "battle-route-diagnostic"
     },
     {
-      "apiPath": "BattleState.genericRouteSubjects.AfterHitDamageRiderEscapeConcentrationCleanup",
-      "boundary": "accepted target replay checked generic BattleState route subject",
+      "apiPath": "BattleReducerRouteSubjectFamily.WeaponDamageRider",
+      "boundary": "accepted target replay checked route subject family",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+      "owner": "battle-route-diagnostic"
     },
     {
-      "apiPath": "BattleState.genericRouteSubjects.ScalarBuffEffectTemporaryHitPoint",
-      "boundary": "accepted target replay checked generic BattleState route subject",
+      "apiPath": "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+      "boundary": "accepted target replay checked route subject family",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+      "owner": "battle-route-diagnostic"
     },
     {
-      "apiPath": "BattleState.genericRouteSubjects.ScalarBuffEffectSpeedDelta",
-      "boundary": "accepted target replay checked generic BattleState route subject",
+      "apiPath": "BattleReducerRouteSubjectFamily.ScalarBuffEffect",
+      "boundary": "accepted target replay checked route subject family",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+      "owner": "battle-route-diagnostic"
     },
     {
-      "apiPath": "BattleState.genericRouteSubjects.AfterHitDamageRiderTurnStartSaveCleanup",
-      "boundary": "accepted target replay checked generic BattleState route subject",
+      "apiPath": "BattleReducerRouteSubjectFamily.HeldWeaponActiveEffect",
+      "boundary": "accepted target replay checked route subject family",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+      "owner": "battle-route-diagnostic"
     },
     {
-      "apiPath": "BattleState.genericRouteSubjects.HeldWeaponActiveEffectDamage",
-      "boundary": "accepted target replay checked generic BattleState route subject",
+      "apiPath": "BattleReducerRouteSubjectFamily.SpellHostedWeaponAttack",
+      "boundary": "accepted target replay checked route subject family",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+      "owner": "battle-route-diagnostic"
     },
     {
-      "apiPath": "BattleState.genericRouteSubjects.SpellHostedWeaponAttackDamage",
-      "boundary": "accepted target replay checked generic BattleState route subject",
+      "apiPath": "BattleSubjectKind.AfterHitDamageRiderAttackDamage",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+      "owner": "battle-route-diagnostic"
+    },
+    {
+      "apiPath": "BattleSubjectKind.AfterHitDamageRiderEscapeConcentrationCleanup",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
+      "apiPath": "BattleSubjectKind.ScalarBuffEffectTemporaryHitPoint",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
+      "apiPath": "BattleSubjectKind.ScalarBuffEffectSpeedDelta",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
+      "apiPath": "BattleSubjectKind.AfterHitDamageRiderTurnStartSaveCleanup",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
+      "apiPath": "BattleSubjectKind.HeldWeaponActiveEffectDamage",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
+      "apiPath": "BattleSubjectKind.SpellHostedWeaponAttackDamage",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
     },
     {
       "apiPath": "LevelOneSpellEffectState",

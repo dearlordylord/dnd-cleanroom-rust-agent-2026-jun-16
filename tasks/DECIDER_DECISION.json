@@ -69,5 +69,5 @@
     }
   ],
   "rejectedFindings": [],
-  "rationale": "Accepted FU01C rows replay through generic production BattleState rider, after-hit rider, held-weapon, spell-hosted weapon, scalar-buff, temporary-HP, and concentration escape route subjects. Mark-transfer and Heroism condition-immunity rows remain target-blocked because generic route subjects for marked-effect transfer and condition-immunity active effects do not yet exist."
+  "rationale": "Accepted FU01C rows replay through production BattleSubjectKind diagnostic route subjects emitted as BattleEntrypointTrace route events and compared through adapter qRoute projection for rider, after-hit rider, held-weapon, spell-hosted weapon, scalar-buff, temporary-HP, and concentration escape substrates. Mark-transfer and Heroism condition-immunity rows remain target-blocked because generic route subjects for marked-effect transfer and condition-immunity active effects do not yet exist."
 }

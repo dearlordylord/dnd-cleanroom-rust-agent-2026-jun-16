@@ -5,7 +5,7 @@
     {
       "path": "src/rules/battle_reducer_spine.rs",
       "role": "domain-engine",
-      "reason": "Owns production BattleState generic reducer route subjects and observed route evidence for accepted weapon rider, after-hit rider, held-weapon, spell-hosted weapon, scalar buff, and temporary-hit-point substrates.",
+      "reason": "Owns production BattleSubjectKind generic reducer route subjects and BattleEntrypointTrace route-event evidence for accepted weapon rider, after-hit rider, held-weapon, spell-hosted weapon, scalar buff, and temporary-hit-point substrates.",
       "domainApis": [
         "BattleSubjectKind generic route substrate variants",
         "BattleGenericRouteFill",
@@ -29,7 +29,7 @@
   "adapterModules": [
     {
       "path": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "adapterScope": "Accepted level-1 buff/mark/smite selected-identity rows replay through production BattleState generic rider/scalar/held-weapon/spell-hosted route evidence; mark-transfer and condition-immunity rows are explicit target blockers.",
+      "adapterScope": "Accepted level-1 buff/mark/smite selected-identity rows replay through production BattleSubjectKind generic rider/scalar/held-weapon/spell-hosted diagnostic subjects and BattleEntrypointTrace route evidence; mark-transfer and condition-immunity rows are explicit target blockers.",
       "quarantinedWitnessNames": [
         "doDivineFavorWeaponDamageRider",
         "doDivineSmiteAfterHitDamage",
@@ -111,7 +111,7 @@
   "expectedNextReuse": [
     {
       "module": "src/rules/battle_reducer_spine.rs",
-      "api": "BattleState generic route substrate discovery and resolution",
+      "api": "BattleSubjectKind generic route substrate discovery and resolution through BattleState reducer entrypoints",
       "driver": "future level-1/2 selected spell identity substrate drivers"
     },
     {

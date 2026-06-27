@@ -7,7 +7,7 @@ Source branch inventory SHA: 4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999
 
 Allowed inputs used: cleanroom-input/**, local task artifacts, and Rust/Cargo tooling in this cleanroom worktree.
 
-Behavior implemented: accepted FU01C rows route through generic production BattleState route substrates; rows without generic route subjects are recorded as target blockers.
+Behavior implemented: accepted FU01C rows route through production BattleSubjectKind diagnostic subjects emitted as BattleEntrypointTrace route events and compared through adapter qRoute projection; rows without generic route subjects are recorded as target blockers.
 
 Generated branch coverage: see the obligation table below for every ledger obligation.
 

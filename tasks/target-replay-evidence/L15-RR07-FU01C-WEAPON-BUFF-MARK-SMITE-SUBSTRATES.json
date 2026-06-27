@@ -16,11 +16,13 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState WeaponDamageRider generic route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleSubjectKind WeaponDamageRiderDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleState.genericRouteSubjects.WeaponDamageRiderDamage",
+          "BattleSubjectKind.WeaponDamageRiderDamage",
+          "BattleReducerRouteSubjectFamily.WeaponDamageRider",
+          "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
@@ -42,11 +44,13 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState AfterHitDamageRider generic route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderAttackDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleState.genericRouteSubjects.AfterHitDamageRiderAttackDamage",
+          "BattleSubjectKind.AfterHitDamageRiderAttackDamage",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
@@ -68,11 +72,13 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState AfterHitDamageRider escape/concentration generic route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderEscapeConcentrationCleanup diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleState.genericRouteSubjects.AfterHitDamageRiderEscapeConcentrationCleanup",
+          "BattleSubjectKind.AfterHitDamageRiderEscapeConcentrationCleanup",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
@@ -94,11 +100,13 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState ScalarBuffEffect temporary-hit-point generic route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleSubjectKind ScalarBuffEffectTemporaryHitPoint diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleState.genericRouteSubjects.ScalarBuffEffectTemporaryHitPoint",
+          "BattleSubjectKind.ScalarBuffEffectTemporaryHitPoint",
+          "BattleReducerRouteSubjectFamily.ScalarBuffEffect",
+          "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
@@ -120,11 +128,13 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState ScalarBuffEffect movement-resource generic route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleSubjectKind ScalarBuffEffectSpeedDelta diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleState.genericRouteSubjects.ScalarBuffEffectSpeedDelta",
+          "BattleSubjectKind.ScalarBuffEffectSpeedDelta",
+          "BattleReducerRouteSubjectFamily.ScalarBuffEffect",
+          "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
@@ -146,11 +156,13 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState AfterHitDamageRider timed damage/save-cleanup generic route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleSubjectKind AfterHitDamageRiderTurnStartSaveCleanup diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleState.genericRouteSubjects.AfterHitDamageRiderTurnStartSaveCleanup",
+          "BattleSubjectKind.AfterHitDamageRiderTurnStartSaveCleanup",
+          "BattleReducerRouteSubjectFamily.AfterHitDamageRider",
+          "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
@@ -172,11 +184,13 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState HeldWeaponActiveEffect generic route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleSubjectKind HeldWeaponActiveEffectDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleState.genericRouteSubjects.HeldWeaponActiveEffectDamage",
+          "BattleSubjectKind.HeldWeaponActiveEffectDamage",
+          "BattleReducerRouteSubjectFamily.HeldWeaponActiveEffect",
+          "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
@@ -198,11 +212,13 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "production BattleState SpellHostedWeaponAttack generic route observed through BattleEntrypointTrace",
+      "routeEvidenceBasis": "production BattleSubjectKind SpellHostedWeaponAttackDamage diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleState.genericRouteSubjects.SpellHostedWeaponAttackDamage",
+          "BattleSubjectKind.SpellHostedWeaponAttackDamage",
+          "BattleReducerRouteSubjectFamily.SpellHostedWeaponAttack",
+          "BattleEntrypointTrace.route_events",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
