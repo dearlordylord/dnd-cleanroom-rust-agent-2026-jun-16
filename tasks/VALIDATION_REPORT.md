@@ -5,7 +5,7 @@
 - Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
 - Last completed current-snapshot queued branch set: `L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES`
-- Latest evidence: `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json`
+- Latest evidence: _none for FU01D_; the selected rows are source-QNT corpus blockers until a copied executable generic protection/charm/ward connector substrate exists.
 - Latest verification: cargo fmt --check, cargo test, cargo clippy, cleanroom harness, and git diff --check passed.
 
 ## Dirty Rehearsal Caveats
