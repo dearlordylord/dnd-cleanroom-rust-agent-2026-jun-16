@@ -4,6 +4,89 @@
 
 - Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Last completed current-snapshot queued branch set: `L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES`
+- Latest evidence: `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json`
+- Latest verification: focused CP5 adapter tests, cargo fmt --check, cleanroom harness, git diff --check, cargo test, and cargo clippy passed.
+
+## L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES: Companion/Object-Boundary Routes
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Drivers:
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt`
+- Evidence file: `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json`
+- Target replay evidence: `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json`
+- Accepted rows: all 12 CP5 companion/object-boundary rows.
+- Target blockers: `_none_`
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.route.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+- `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+- `cleanroom-input/raw/srd-5.2.1/Classes/Warlock.md`
+- `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md`
+- `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+
+Behavior implemented:
+
+- Added generic reducer route subjects for companion lifecycle, shared senses, touch delivery, and companion reaction attack routes.
+- Added generic object-target spell attack route subjects for object-boundary admission/rejection, attack hit/miss, object damage, active-effect light emission, and stale replay.
+- Kept QNT branch names and authored spell names in adapters/evidence; production route dispatch uses reducer subject shapes, fills, holes, owners, and public reducer entrypoint route events.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt#step:doCreateCatFamiliar` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doCreateCatFamiliar#step:doCreateCatFamiliar` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt#step:doDeliverTouchSpell` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doDeliverTouchSpell#step:doDeliverTouchSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt#step:doPactFamiliarAttack` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doPactFamiliarAttack#step:doPactFamiliarAttack` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt#step:doReplaceWithRatFamiliar` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doReplaceWithRatFamiliar#step:doReplaceWithRatFamiliar` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt#step:doShareSenses` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doShareSenses#step:doShareSenses` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt#step:doFillObjectAttackRollHit` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectAttackRollHit#step:doFillObjectAttackRollHit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt#step:doFillObjectAttackRollMiss` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectAttackRollMiss#step:doFillObjectAttackRollMiss` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt#step:doFillObjectDamageHigh` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectDamageHigh#step:doFillObjectDamageHigh` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt#step:doFillObjectDamageLow` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectDamageLow#step:doFillObjectDamageLow` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt#step:doFillObjectTarget` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doFillObjectTarget#step:doFillObjectTarget` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt#step:doRejectObjectWithoutFact` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doRejectObjectWithoutFact#step:doRejectObjectWithoutFact` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt#step:doRejectStaleAfterResolved` | `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json#L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES route action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved` | `src/tests/mod.rs` | `covered` |
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo test starry_wisp_object_adapter_replays_all_branches && cargo test find_familiar_companion_lifecycle_adapter_replays_all_branches` passed.
+- `cargo fmt --check` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 73c5ccea0ee7425952f231485325df5a45a0f36a...HEAD` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+
+---
+
+## Work Loop Status
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
 - Last completed current-snapshot queued branch set: `L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES`
 - Latest evidence: _none for FU01D_; the selected rows are source-QNT corpus blockers until a copied executable generic protection/charm/ward connector substrate exists.
 - Latest verification: cargo fmt --check, cargo test, cargo clippy, cleanroom harness, and git diff --check passed.

@@ -714,9 +714,11 @@ use battle_runtime_feature_selected_identity::{
     BRANCH_ACTIONS as FEATURE_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_find_familiar_companion_lifecycle::{
+    expected_route as expected_find_familiar_companion_route,
     expected_witness as expected_find_familiar_companion_witness,
     projection_payload as find_familiar_companion_projection_payload,
     replay_observed_action as replay_find_familiar_companion_action,
+    replay_observed_route as replay_find_familiar_companion_route,
     BRANCH_ACTIONS as FIND_FAMILIAR_COMPANION_BRANCH_ACTIONS,
 };
 use battle_runtime_find_familiar_selected_identity::{
@@ -1005,9 +1007,11 @@ use battle_runtime_spell_attack_ordering::{
     BRANCH_ACTIONS as SPELL_ATTACK_ORDERING_BRANCH_ACTIONS,
 };
 use battle_runtime_starry_wisp_object::{
+    expected_route as expected_starry_wisp_object_route,
     expected_witness as expected_starry_wisp_object_witness,
     projection_payload as starry_wisp_object_projection_payload,
     replay_observed_action as replay_starry_wisp_object_action,
+    replay_observed_route as replay_starry_wisp_object_route,
     BRANCH_ACTIONS as STARRY_WISP_OBJECT_BRANCH_ACTIONS,
 };
 use battle_runtime_stat_block_action_ordering::{
@@ -8079,6 +8083,16 @@ fn starry_wisp_object_adapter_replays_all_branches() {
         let observed = replay_starry_wisp_object_action(action);
         assert_eq!(observed, expected_starry_wisp_object_witness(action));
         assert!(starry_wisp_object_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_starry_wisp_object_route(action);
+        assert_eq!(route, expected_starry_wisp_object_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("ObjectTargetSpellAttackRouteSubject"));
+        assert!(
+            route_payload.contains("BattleObjectTargetBoundaryOwner")
+                || route_payload.contains("BattleAttackRollOwner")
+                || route_payload.contains("BattleActiveEffectOwner")
+                || route_payload.contains("BattleHoleFrontierOwner")
+        );
     }
 }
 
@@ -8270,6 +8284,11 @@ fn find_familiar_companion_lifecycle_adapter_replays_all_branches() {
         let observed = replay_find_familiar_companion_action(action);
         assert_eq!(observed, expected_find_familiar_companion_witness(action));
         assert!(find_familiar_companion_projection_payload(&observed).contains("qCompanionCount="));
+        let route = replay_find_familiar_companion_route(action);
+        assert_eq!(route, expected_find_familiar_companion_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("Companion"));
+        assert!(route_payload.contains("resolve_battle_subject"));
     }
 }
 
