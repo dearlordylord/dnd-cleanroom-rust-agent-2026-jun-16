@@ -238,7 +238,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
-      ]
+      ],
+      "reviewAgent": "019f07ec-8aa9-7393-a787-b88408715ed1",
+      "reviewName": "Wegener the 2nd",
+      "reviewStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
@@ -290,7 +293,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
-      ]
+      ],
+      "fixerAgent": "019f07ec-da47-7d53-8b30-24e90b73cca5",
+      "fixerName": "Hegel the 2nd",
+      "fixerStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
