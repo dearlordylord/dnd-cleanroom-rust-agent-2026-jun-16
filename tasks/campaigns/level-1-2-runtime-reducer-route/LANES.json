@@ -1135,7 +1135,7 @@
     {
       "laneId": "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",
       "checkpointId": "CP7",
-      "status": "running",
+      "status": "merged-verified",
       "parallelGroup": "cp7-target-blocker-reduction",
       "routeTaskIds": [
         "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES"
@@ -1174,7 +1174,7 @@
         "tasks/RUN_LEDGER.json",
         "tasks/VALIDATION_REPORT.md"
       ],
-      "acceptanceSummary": "Each selected row must replay through observed BattleEntrypointTrace.route_events using generic weapon attack route subjects/fills, with independent expected qRoute witnesses. Do not accept scenario transition rows or MagicWeaponTargetItem rows in this lane."
+      "acceptanceSummary": "Merged and verified. The five selected rows replay through observed BattleEntrypointTrace.route_events using generic WeaponAttack route subjects/fills and independent expected qRoute witnesses. Scenario transition rows and MagicWeaponTargetItem rows remain blocked."
     }
   ],
   "standardVerification": [

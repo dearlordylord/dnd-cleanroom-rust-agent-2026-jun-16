@@ -23,20 +23,20 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is accepted after the copied route connector refresh. |
 | CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
 | CP6 Closure Sweep | complete | Closure audit recorded in `CP6_AUDIT.json` and `CP6_CLOSURE_REPORT.md`; every in-scope obligation is accepted or explicitly blocked. |
-| CP7 Post-CP6 Target Blocker Reduction | active | `L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES` and `L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES` merged and verified; six target blockers are now accepted after CP6. |
+| CP7 Post-CP6 Target Blocker Reduction | active | `L15-RRCP7-A`, `L15-RRCP7-B`, and `L15-RRCP7-C` merged and verified; eleven target blockers are now accepted after CP6. |
 
 ## Last Known Verification
 
-At CP7 integration head `b33d9bbc1080c0d7a96ab606da07d0f517417096`:
+At CP7 integration head `554e2e2c0adae1127496d4a12023ae5ac8979f88`:
 
-- `cargo test level1_damage_spell_adapter_replays_all_branches -- --nocapture`: pass
-- `cargo test attack_spell_shape_adapter_replays_all_branches -- --nocapture`: pass
-- `jq empty` over `tasks/RUN_LEDGER.json`, affected FU01B history/evidence files, and `CP7_AUDIT.json`: pass
+- `cargo test after_hit_damage_riders_route_adapter_replays_accepted_branches -- --nocapture`: pass
+- `cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture`: pass
+- `jq empty` over `tasks/RUN_LEDGER.json`, affected CP5-A history/evidence files, and `CP7_AUDIT.json`: pass
 - `cargo fmt --check`: pass
 - `git diff --check HEAD~1...HEAD`: pass
 - `cargo test`: pass, `220` tests
 - `cargo clippy --all-targets -- -D warnings`: pass
-- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale non-FU01B evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7b-cleanroom-harness.out` contained no FU01B/Chromatic/Starry references.
+- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7c-cleanroom-harness.out` contained no CP7-C lane references and only older RR05 `doFillTargetChoice` hits.
 
 ## Active Work
 
@@ -478,7 +478,14 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 
 ### L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES
 
-- Status: queued.
+- Merge commit: `554e2e2c0adae1127496d4a12023ae5ac8979f88`
+- Lane commit(s): `2c27a3c83162374661ccc229ac9332c96605c966`, `855e702770866c18ae5b657367b95af8410efbe9`
 - Selected rows: `doDiscoverWeaponHit`, `doFillTargetChoice`, `doDiscoverDivineFavorAttack`, `doFillDivineFavorHit`, and `doFillDivineFavorTarget`.
-- Purpose: reuse generic weapon attack discovery, target-fill, and attack-roll route shapes for ordinary/pre-hit weapon setup rows that CP5-A kept blocked because they were outside the rider-specific substrate.
-- Explicit non-goals: do not accept the nine scenario transition rows, and do not accept the two `MagicWeaponTargetItem` rows until copied route vocabulary exists.
+- Obligations added: `5` accepted counted obligations; total accepted obligations moved from `649` to `654`.
+- New total driver coverage: `97 / 97 = 100.0%`
+- New total obligation coverage: `654 / 668 = 97.9%`
+- Remaining blockers: `14` target-side blockers, `0` source-QNT corpus blockers, `0` unresolved in-scope obligations.
+- Integration verification: focused after-hit and weapon-hosted route adapter tests, affected JSON parse checks, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`220` tests), and `cargo clippy --all-targets -- -D warnings` passed. `node scripts/check-cleanroom-harness.cjs` still fails on pre-existing stale global evidence/manifest debt; the saved output contained no CP7-C lane references.
+- Review/fixer notes: review accepted the route implementation and classified the `Actor::Goblin` target as fixture fill data, not production identity dispatch. The only finding was stale CP7 audit head metadata; the worker fixed it and rereview returned clean.
+- Explicit non-goals preserved: the nine scenario transition rows and two `MagicWeaponTargetItem` rows remain blocked.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-c`

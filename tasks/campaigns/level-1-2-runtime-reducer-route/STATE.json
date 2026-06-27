@@ -8,12 +8,12 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "b33d9bbc1080c0d7a96ab606da07d0f517417096",
+    "lastVerifiedIntegrationHead": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
     "lastMergedLane": {
-      "laneId": "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
-      "mergeCommit": "b33d9bbc1080c0d7a96ab606da07d0f517417096",
-      "laneHead": "2741da1671caa183a4907e6eec54de26c744d7e8",
-      "note": "CP7-B merged two residual FU01B damage-spell rows as route-shape evidence through existing generic spell-attack route substrates; selected witness payloads remain projection-helper derived."
+      "laneId": "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",
+      "mergeCommit": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
+      "laneHead": "855e702770866c18ae5b657367b95af8410efbe9",
+      "note": "CP7-C merged five ordinary/pre-hit weapon setup rows as generic WeaponAttack route evidence through BattleEntrypointTrace.route_events; scenario transition and MagicWeaponTargetItem rows remain blocked."
     }
   },
   "denominator": {
@@ -36,13 +36,13 @@
   "coverageCurrent": {
     "acceptedUniqueDrivers": 97,
     "acceptedDriverCoveragePercent": 100,
-    "acceptedObligations": 649,
-    "acceptedObligationCoveragePercent": 97.2,
-    "blockedObligations": 19,
+    "acceptedObligations": 654,
+    "acceptedObligationCoveragePercent": 97.9,
+    "blockedObligations": 14,
     "outOfScopeObligations": 36,
     "unresolvedInScopeObligations": 0,
     "acceptedUniqueDriversSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit",
-    "acceptedObligationsSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit; FU01D source-QNT blockers, four FU01C target blockers, and two FU01B residual route-shape blockers removed after accepted copied-connector/reducer-entrypoint replay evidence."
+    "acceptedObligationsSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit; FU01D source-QNT blockers, four FU01C target blockers, two FU01B residual route-shape blockers, and five CP7-C ordinary/pre-hit weapon setup blockers removed after accepted reducer-entrypoint replay evidence."
   },
   "completedBeforeCampaign": [
     "T001",
@@ -193,10 +193,11 @@
       "runningLaneIds": [],
       "mergedLaneIds": [
         "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
-        "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES"
+        "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
+        "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES"
       ],
       "readyLaneIds": [],
-      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. CP7-A accepted four FU01C generic active-effect and marked-effect route gaps. CP7-B accepted two residual FU01B damage-spell rows as route-shape evidence through existing generic chained spell-attack and object-target spell-attack substrates; selected damage-spell witness payloads remain projection-helper derived, not full BattleResolutionResult-derived semantics. CP7-C is running for five ordinary/pre-hit weapon setup rows that can reuse existing generic weapon attack route shapes. CP7_AUDIT.json now records 649 accepted obligations and 19 target blockers before CP7-C."
+      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. CP7-A accepted four FU01C generic active-effect and marked-effect route gaps. CP7-B accepted two residual FU01B damage-spell rows as route-shape evidence through existing generic chained spell-attack and object-target spell-attack substrates. CP7-C accepted five ordinary/pre-hit weapon setup rows through generic WeaponAttack route shapes. CP7_AUDIT.json now records 654 accepted obligations and 14 target blockers."
     }
   ],
   "laneStatuses": {
@@ -251,37 +252,74 @@
     "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified",
     "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "merged-verified",
     "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "merged-verified",
-    "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "running"
+    "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "b33d9bbc1080c0d7a96ab606da07d0f517417096",
+    "head": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
     "commands": [
-      "cargo test level1_damage_spell_adapter_replays_all_branches -- --nocapture",
-      "cargo test attack_spell_shape_adapter_replays_all_branches -- --nocapture",
-      "jq empty tasks/RUN_LEDGER.json tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/DECIDER_DECISION.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/REVIEW_LOOP.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/STATE_OWNER_MANIFEST.json tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json",
+      "cargo test after_hit_damage_riders_route_adapter_replays_accepted_branches -- --nocapture",
+      "cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture",
+      "jq empty tasks/RUN_LEDGER.json tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/DECIDER_DECISION.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/ENGINE_DEPTH_MANIFEST.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/REVIEW_LOOP.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/STATE_OWNER_MANIFEST.json tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json",
       "cargo fmt --check",
       "git diff --check HEAD~1...HEAD",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings",
       "node scripts/check-cleanroom-harness.cjs"
     ],
-    "result": "passed except cleanroom harness failed on pre-existing stale non-FU01B global evidence/manifest debt",
+    "result": "passed except cleanroom harness failed on pre-existing stale global evidence/manifest debt",
     "cargoTest": "220 passed",
-    "focusedTests": "level1 damage spell and attack spell shape focused tests passed",
-    "cleanroomHarness": "failed as expected on stale non-FU01B manifest/evidence debt; /tmp/rrcp7b-cleanroom-harness.out contained no FU01B/Chromatic/Starry references"
+    "focusedTests": "after-hit damage riders and weapon-hosted attack/riders focused route tests passed",
+    "cleanroomHarness": "failed as expected on stale global manifest/evidence debt; /tmp/rrcp7c-cleanroom-harness.out contained no CP7-C lane references and only older RR05 doFillTargetChoice hits"
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-c",
       "branch": "ralph/l15-rrcp7-c-weapon-prehit",
       "baseSha": "28a25db",
-      "status": "running",
+      "status": "merged-verified",
       "workerAgent": "019f0901-5ace-7fc0-8f7f-f7ec9f28400f",
-      "workerName": "Kierkegaard the 2nd"
-    }
-  ],
-  "completedLaneWorktrees": [
+      "workerName": "Kierkegaard the 2nd",
+      "workerStatus": "complete",
+      "workerCommit": "2c27a3c83162374661ccc229ac9332c96605c966",
+      "acceptedRows": 5,
+      "blockedRows": 0,
+      "workerSummary": [
+        "Accepted exactly five ordinary/pre-hit weapon setup rows through generic WeaponAttack route evidence.",
+        "Kept scenario transition rows and MagicWeaponTargetItem rows blocked."
+      ],
+      "reviewAgent": "019f090d-8dcb-79c2-8efd-bf6effd8373d",
+      "reviewName": "Bacon the 2nd",
+      "reviewStatus": "findings",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "CP7_AUDIT.json reported refreshed CP7-C coverage while top-level auditedHead still pointed at pre-refresh b33d9bbc."
+      ],
+      "fixerCommit": "855e702770866c18ae5b657367b95af8410efbe9",
+      "fixerSummary": [
+        "Updated CP7_AUDIT auditedHead metadata and recorded lane head; rereview returned clean."
+      ],
+      "rereviewAgent": "019f090d-8dcb-79c2-8efd-bf6effd8373d",
+      "rereviewName": "Bacon the 2nd",
+      "rereviewStatus": "clean",
+      "rereviewVerdict": "clean",
+      "mergeCommit": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
+      "integrationVerification": [
+        "cargo test after_hit_damage_riders_route_adapter_replays_accepted_branches -- --nocapture",
+        "cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture",
+        "jq empty tasks/RUN_LEDGER.json tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/DECIDER_DECISION.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/ENGINE_DEPTH_MANIFEST.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/REVIEW_LOOP.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/STATE_OWNER_MANIFEST.json tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json",
+        "cargo fmt --check",
+        "git diff --check HEAD~1...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs"
+      ],
+      "integrationVerificationResult": "passed except cleanroom harness failed on pre-existing stale global evidence/manifest debt",
+      "acceptedDriversAdded": 0,
+      "acceptedObligationsAdded": 5,
+      "remainingTargetBlockers": 14
+    },
     {
       "laneId": "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-b",
