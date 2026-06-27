@@ -1114,11 +1114,11 @@ Verification results:
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
 - Selected driver: `cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt`
 - Allowed inputs used: copied QNT driver, copied rule-core QNT slices, copied SRD 5.2.1 RAW, UBIQUITOUS_LANGUAGE.md, reducer-route inventory, and local Cargo harness.
-- Behavior implemented: component-first feature profile replay through `RuleCoreFeatureProfileSemanticsOwner` and `qComponentRoute`; no battle-state owner and no authored feature identity production dispatch added.
-- Generated branch coverage: 22 in-scope obligations covered; out-of-scope/source-blocked branches remain governed by source branch inventory decisions.
+- Behavior implemented: adapter-only component-first feature profile replay of the copied QNT literal `qComponentRoute` through `RuleCoreFeatureProfileSemanticsOwner`; no battle-state owner, production component state, or authored feature identity production dispatch added.
+- Generated branch coverage: 22 selected obligations covered for the `qComponentRoute` projection only; this is dirty rehearsal evidence for the component-owner projection, not a claim that production reducer-shaped feature component semantics were added.
 - Target replay evidence: `tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json`
 - Harness artifacts: `tasks/START_GATE.json`, `tasks/ENGINE_DEPTH_MANIFEST.json`, `tasks/STATE_OWNER_MANIFEST.json`, `tasks/REVIEW_LOOP.json`, `tasks/DECIDER_DECISION.json`, and `tasks/RUN_LEDGER.json`.
-- Remaining gaps: Mycelium Step remains source-blocked in the copied corpus; Evasion and Boon of Combat Prowess remain outside this lane denominator.
+- Remaining gaps: Mycelium Step remains source-blocked in the copied corpus; Evasion and Boon of Combat Prowess remain outside this lane denominator; `doUncannyDodge` is out of scope for this lane because Rogue Uncanny Dodge is a level-5 feature assigned to `L15-RR12-LEVEL5-SCOPE-PROMOTION` in the copied inventory.
 - Verification results: focused adapter test, cargo fmt, cargo test, cargo clippy, cleanroom harness, and diff whitespace checks recorded in `tasks/RUN_LEDGER.json`.
 
 | Obligation | Evidence | Harness | Status |

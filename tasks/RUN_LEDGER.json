@@ -1273,11 +1273,11 @@
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "51301851ea40bbd3cec975d5d668cedd3a8a581a794eeb0aa241cdf19499185b"
+          "sha256": "24bd457cb3b2489d8f7b75714f0176851b1b9efc95a545a143fa31fcff59bfa8"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS/REVIEW_LOOP.json",
-          "sha256": "173bfdce6ec3ef74cb73944ca7aa1c6a1d394f1cfcfc064d43a2a55d1ff406e2"
+          "sha256": "e569ec3e0da9d1f8b531a33b80ba55ba47c51f88906407a7b260a978530497e9"
         },
         "startGate": {
           "path": "tasks/history/L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS/START_GATE.json",
@@ -1285,7 +1285,7 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS/STATE_OWNER_MANIFEST.json",
-          "sha256": "8b2769ea1dc97bb41390d5363883bae8440107435d761388715a4eca433371b7"
+          "sha256": "f9c7ed4c2c8854c490472b8ec15fa7fb3649321634fad188e6ab2dd10d198d7e"
         }
       },
       "assignmentId": "level-1-2-full",
@@ -1348,7 +1348,7 @@
             "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doZeroHitPointReplacement#step:doZeroHitPointReplacement"
           ],
           "path": "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json",
-          "sha256": "d7903fead8ff64c0a09d735debb2a02a7231d6d961366e8ae54a43ea4230d732"
+          "sha256": "52be0341a012d5212687c83233c5dd6a58c45f35a0f79e4b3fc8e5a3f118c892"
         }
       ],
       "taskId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS"

@@ -1068,8 +1068,8 @@ use rule_core_attack_damage_disposition::{
     BRANCH_ACTIONS as ATTACK_DAMAGE_DISPOSITION_BRANCH_ACTIONS,
 };
 use rule_core_features_mbt::{
-    expected_witness as expected_rule_core_features_witness,
     projection_payload as rule_core_features_projection_payload,
+    qnt_component_route_witness as expected_rule_core_features_component_route,
     replay_observed_action as replay_rule_core_features_action,
     BRANCH_ACTIONS as RULE_CORE_FEATURES_BRANCH_ACTIONS,
 };
@@ -2994,7 +2994,10 @@ fn rule_core_features_adapter_replays_active_component_branches() {
     assert_eq!(RULE_CORE_FEATURES_BRANCH_ACTIONS.len(), 22);
     for action in RULE_CORE_FEATURES_BRANCH_ACTIONS {
         let observed = replay_rule_core_features_action(action);
-        assert_eq!(observed, expected_rule_core_features_witness(action));
+        assert_eq!(
+            observed.component_route,
+            expected_rule_core_features_component_route()
+        );
         let payload = rule_core_features_projection_payload(&observed);
         assert!(payload.contains("protocolResult="));
         assert!(payload.contains("qComponentRoute="));

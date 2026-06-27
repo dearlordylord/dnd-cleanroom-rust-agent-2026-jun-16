@@ -1,5 +1,24 @@
 {
-  "findings": [],
+  "findings": [
+    {
+      "id": "RR04D-1-independent-component-route-evidence",
+      "reasonableness": "reasonable",
+      "resolution": "Changed the focused feature-profile adapter test to compare the observed replay route against a separate QNT literal qComponentRoute witness instead of comparing replay_observed_action() to expected_witness(). Report wording now limits the claim to adapter-only QNT component-route projection evidence.",
+      "status": "fixed"
+    },
+    {
+      "id": "RR04D-2-component-route-not-durable-state",
+      "reasonableness": "reasonable",
+      "resolution": "Moved RuleCoreFeatureProfileSemanticsOwner.qComponentRoute out of durableFields and into nonDurableBoundaryApiSurface, with noDurableFieldsReason documenting that no production module or battle-state owner was added.",
+      "status": "fixed"
+    },
+    {
+      "id": "RR04D-3-validation-report-uncanny-dodge-exclusion",
+      "reasonableness": "reasonable",
+      "resolution": "Added the copied-inventory out-of-scope reason for doUncannyDodge to the RR04D validation report remaining gaps.",
+      "status": "fixed"
+    }
+  ],
   "rounds": [
     {
       "passes": [

@@ -1,21 +1,10 @@
 {
-  "durableFields": [
-    {
-      "derivability": {
-        "boundary": "component-first target replay qComponentRoute stateCheck",
-        "sourceField": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt qComponentRoute",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "RuleCoreFeatureProfileSemanticsOwner.componentRoute",
-      "introducedIn": "src/rules/battle_features.rs",
-      "owner": "executable-boundary-projection"
-    }
-  ],
-  "durableFieldsReason": "No battle-state or production feature-identity dispatch field was added. The checked field records the executable component-route projection required by the cleanroom harness for RuleCoreFeatureProfileSemanticsOwner evidence.",
+  "durableFields": [],
+  "noDurableFieldsReason": "No battle-state or production feature-profile field was added. The checked qComponentRoute replay field is a non-durable adapter boundary projection copied from the QNT component connector.",
   "nonDurableBoundaryApiSurface": [
     {
-      "apiPath": "RuleCoreFeatureProfileSemanticsOwner qComponentRoute",
-      "boundary": "component-first cleanroom replay evidence",
+      "apiPath": "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute",
+      "boundary": "component-first cleanroom replay evidence from QNT literal projection",
       "introducedIn": "src/qnt_adapters/rule_core_features_mbt.rs",
       "owner": "harness-witness-protocol"
     }

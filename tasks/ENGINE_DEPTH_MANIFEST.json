@@ -3,12 +3,12 @@
     {
       "addedEntries": 22,
       "owner": "adapter",
-      "reason": "Component-first target replay evidence covers active rule-core feature profile branches through qComponentRoute without adding battle-state owners."
+      "reason": "Component-first target replay evidence covers the QNT literal qComponentRoute projection for active rule-core feature profile branch actions without adding battle-state owners or production component state."
     }
   ],
   "adapterModules": [
     {
-      "adapterScope": "Rule-core feature profile component replay for qComponentRoute through RuleCoreFeatureProfileSemanticsOwner.",
+      "adapterScope": "Adapter-only rule-core feature profile qComponentRoute literal replay through RuleCoreFeatureProfileSemanticsOwner; this does not claim production reducer-shaped component state.",
       "path": "src/qnt_adapters/rule_core_features_mbt.rs",
       "quarantinedWitnessNames": [
         "RuleCoreFeatureProfileSemanticsOwner",
