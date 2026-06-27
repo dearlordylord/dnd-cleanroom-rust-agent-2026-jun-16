@@ -1499,9 +1499,18 @@ function validateStateOwnerManifest({
     issues.push("tasks/STATE_OWNER_MANIFEST.json durableFields must be an array.");
     return;
   }
+  const nonDurableBoundaryApiPaths = new Set(
+    (stateOwnerManifest.nonDurableBoundaryApiSurface ?? [])
+      .filter(isRecord)
+      .map((entry) => entry.apiPath)
+      .filter((apiPath) => typeof apiPath === "string"),
+  );
+  const hasUnrecordedRequiredStateFields = Array.from(requiredStateFieldPaths).some(
+    (fieldPath) => !nonDurableBoundaryApiPaths.has(fieldPath),
+  );
   if (
     stateOwnerManifest.durableFields.length === 0 &&
-    (requiredStateFieldPaths.size > 0 ||
+    (hasUnrecordedRequiredStateFields ||
       typeof stateOwnerManifest.noDurableFieldsReason !== "string" ||
       stateOwnerManifest.noDurableFieldsReason.trim() === "")
   ) {
@@ -1516,7 +1525,7 @@ function validateStateOwnerManifest({
       .filter((fieldPath) => typeof fieldPath === "string"),
   );
   for (const fieldPath of requiredStateFieldPaths) {
-    if (!durableFieldPaths.has(fieldPath)) {
+    if (!durableFieldPaths.has(fieldPath) && !nonDurableBoundaryApiPaths.has(fieldPath)) {
       issues.push(
         `tasks/STATE_OWNER_MANIFEST.json must record checked replay state field ${fieldPath}.`,
       );

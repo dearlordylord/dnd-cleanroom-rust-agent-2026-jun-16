@@ -1,0 +1,606 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-rule-core-feature-profile-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doActionSurgeActivate",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doActionSurgeActivate",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doActionSurgeActivate"
+    },
+    {
+      "branchAction": "doActionSurgeRejectTwice",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doActionSurgeRejectTwice",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doActionSurgeRejectTwice"
+    },
+    {
+      "branchAction": "doActionSurgeSpendAttack",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doActionSurgeSpendAttack",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doActionSurgeSpendAttack"
+    },
+    {
+      "branchAction": "doArcheryAttackRollBonus",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doArcheryAttackRollBonus",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doArcheryAttackRollBonus"
+    },
+    {
+      "branchAction": "doCunningDash",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doCunningDash",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doCunningDash"
+    },
+    {
+      "branchAction": "doCunningDisengage",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doCunningDisengage",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doCunningDisengage"
+    },
+    {
+      "branchAction": "doCunningHide",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doCunningHide",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doCunningHide"
+    },
+    {
+      "branchAction": "doCuttingWordsDamage",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doCuttingWordsDamage",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doCuttingWordsDamage"
+    },
+    {
+      "branchAction": "doDefenseArmorClass",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doDefenseArmorClass",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doDefenseArmorClass"
+    },
+    {
+      "branchAction": "doDeflectAttacksDamageReduction",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doDeflectAttacksDamageReduction",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doDeflectAttacksDamageReduction"
+    },
+    {
+      "branchAction": "doDiscoverSecondWind",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doDiscoverSecondWind",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doDiscoverSecondWind"
+    },
+    {
+      "branchAction": "doFrenzy",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doFrenzy",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doFrenzy"
+    },
+    {
+      "branchAction": "doImprovedCritical",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doImprovedCritical",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doImprovedCritical"
+    },
+    {
+      "branchAction": "doRageActivateAndDamage",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doRageActivateAndDamage",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doRageActivateAndDamage"
+    },
+    {
+      "branchAction": "doRecklessAttack",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doRecklessAttack",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doRecklessAttack"
+    },
+    {
+      "branchAction": "doResolveSecondWindHigh",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doResolveSecondWindHigh",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doResolveSecondWindHigh"
+    },
+    {
+      "branchAction": "doResolveSecondWindLow",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doResolveSecondWindLow",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doResolveSecondWindLow"
+    },
+    {
+      "branchAction": "doSavageAttackerDamage",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doSavageAttackerDamage",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doSavageAttackerDamage"
+    },
+    {
+      "branchAction": "doSneakAttack",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doSneakAttack",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doSneakAttack"
+    },
+    {
+      "branchAction": "doTacticalMindConvertedSuccess",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doTacticalMindConvertedSuccess",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doTacticalMindConvertedSuccess"
+    },
+    {
+      "branchAction": "doTacticalMindStillFailed",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doTacticalMindStillFailed",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doTacticalMindStillFailed"
+    },
+    {
+      "branchAction": "doZeroHitPointReplacement",
+      "branchFamily": "step",
+      "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "componentOwners": [
+        "RuleCoreFeatureProfileSemanticsOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_features_mbt.rs",
+      "observedActionTaken": "doZeroHitPointReplacement",
+      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreFeatureProfileSemanticsOwner.qComponentRoute"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "observedProjectionSha256": "c3f662386480a345b6264c9d5da0d1703fa2b00eda519c23fdbc72aa7b80a645",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doZeroHitPointReplacement"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
