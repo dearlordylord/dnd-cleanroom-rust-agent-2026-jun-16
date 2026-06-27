@@ -14,6 +14,11 @@
       "mergeCommit": "ffc162a61eeea40b0e922b28c7cdeff95281728d",
       "laneHead": "61b1534b2cfc9b3d403ca358864beeb6266c0e66",
       "note": "CP7-D merged as a blocker/research result with zero accepted rows. The three Mage Armor admission/lifecycle rows remain blocked because the copied route inventory has no Mage Armor qRoute connector or generic armor-class target-admission/active-effect lifecycle route owner."
+    },
+    "nextQueuedLane": {
+      "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
+      "baseHead": "4a3ae9d480d04d3e6e63702a933bb0f6774cd5b6",
+      "note": "Queue Magic Weapon item-target route reduction using copied WeaponEnhancementItemTargetRouteSubject connector evidence."
     }
   },
   "denominator": {
@@ -195,8 +200,10 @@
         "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",
         "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES"
       ],
-      "readyLaneIds": [],
-      "notes": "CP7-D merged as blocker/research evidence with zero accepted rows. Current accounting remains 654 accepted obligations and 14 target blockers; the three Mage Armor rows require source/corpus route support before target acceptance would be meaningful."
+      "readyLaneIds": [
+        "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES"
+      ],
+      "notes": "CP7-E is queued for the two Magic Weapon item-target rows. These are the only remaining CP7 target blockers currently reducible from dirty cleanroom input alone; scenario transition and Mage Armor rows require source/corpus connector or denominator work first."
     }
   ],
   "laneStatuses": {
@@ -252,7 +259,8 @@
     "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "merged-verified",
     "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "merged-verified",
     "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "merged-verified",
-    "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "merged-verified"
+    "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "merged-verified",
+    "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "queued"
   },
   "lastIntegrationVerification": {
     "head": "ffc162a61eeea40b0e922b28c7cdeff95281728d",

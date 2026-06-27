@@ -502,3 +502,11 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Review/fixer notes: initial worker output tried to accept Mage Armor through adapter-driven generic route synthesis. Review rejected that as unsupported by copied cleanroom input. The worker converted the lane into an honest blocker/research result and refreshed FU01E metadata hashes; rereview returned clean.
 - Blocker recorded: the copied reducer-route inventory has no Mage Armor `qRoute` connector or generic armor-class target-admission/active-effect lifecycle route owner, so accepting these rows in target code would be inference beyond the cleanroom package.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-d`
+
+### L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES
+
+- Status: queued.
+- Selected rows: `doDiscoverMagicWeapon` and `doFillMagicWeaponTarget`.
+- Route connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-enhancement-item-target.route.mbt.qnt`.
+- Acceptance gate: observed reducer-entrypoint route evidence must match `WeaponEnhancementItemTargetRouteSubject` with empty route holes, `BattleItemTargetBoundaryOwner` discovery, and no-fill resolution owned by `BattleActiveEffectOwner`.
+- Explicit non-goals: do not add `MagicWeaponTargetItem` as reducer-owned hole/fill vocabulary; do not include the nine scenario transition rows or the three Mage Armor rows in this target lane.

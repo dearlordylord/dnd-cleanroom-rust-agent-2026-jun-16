@@ -1177,6 +1177,46 @@
       "acceptanceSummary": "Merged and verified. The five selected rows replay through observed BattleEntrypointTrace.route_events using generic WeaponAttack route subjects/fills and independent expected qRoute witnesses. Scenario transition rows and MagicWeaponTargetItem rows remain blocked."
     },
     {
+      "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
+      "checkpointId": "CP7",
+      "status": "queued",
+      "parallelGroup": "cp7-target-blocker-reduction",
+      "routeTaskIds": [
+        "L15-RR17-WEAPON-HOSTED-RIDER-ROUTES"
+      ],
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 1,
+      "branchObligations": 2,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt"
+      ],
+      "selectedBranchActions": [
+        "doDiscoverMagicWeapon",
+        "doFillMagicWeaponTarget"
+      ],
+      "purpose": "Reduce the two Magic Weapon item-target CP7 blockers using the copied WeaponEnhancementItemTargetRouteSubject route connector without adding MagicWeaponTargetItem to reducer-owned hole/fill vocabulary.",
+      "dependencies": [
+        "CP7 active",
+        "CP5-A rider/weapon-hosted artifacts present",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-enhancement-item-target.route.mbt.qnt present"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/weapon_hosted_attack_and_riders.rs",
+        "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json",
+        "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/**",
+        "tasks/RUN_LEDGER.json",
+        "tasks/VALIDATION_REPORT.md",
+        "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json"
+      ],
+      "acceptanceSummary": "Queued. Accept only if doDiscoverMagicWeapon and doFillMagicWeaponTarget replay through observed reducer entrypoints and match the copied WeaponEnhancementItemTargetRouteSubject qRoute: start battle, discover with empty holes and BattleItemTargetBoundaryOwner, then resolve without fill with BattleActiveEffectOwner. Do not add MagicWeaponTargetItem as reducer-owned hole/fill vocabulary."
+    },
+    {
       "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",
       "checkpointId": "CP7",
       "status": "merged-verified",
