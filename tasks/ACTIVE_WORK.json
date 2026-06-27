@@ -1,5 +1,4 @@
 {
-  "schemaVersion": 1,
   "assignments": [
     {
       "assignmentId": "reducer-spine-diagnostic-battle",
@@ -168,6 +167,19 @@
             "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt"
           ]
+        },
+        {
+          "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
+          "queue": [
+            "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt",
+            "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+            "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt"
+          ]
         }
       ]
     },
@@ -318,5 +330,6 @@
         }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 1
 }

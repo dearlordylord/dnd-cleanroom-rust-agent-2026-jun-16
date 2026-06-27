@@ -1,8 +1,10 @@
 use crate::rules::character_creation::{
-    ability_scores_only_fills, accepted_draft, choice, empty_draft, fill_creation_holes,
-    initial_choices_only_fills, initial_manifest_fills, manifest_choice_fills,
-    manifest_loadout_fills, manifest_purchase_fills, BatchIssueCode, ChoiceOption, Draft, Fill,
-    FillBatchResult, FillIssue, FillIssueCode, FinalizationStatus, Hole, Progression,
+    ability_scores_only_fills, accepted_draft, apply_creation_fill_batch, choice, empty_draft,
+    fill_creation_holes, initial_choices_only_fills, initial_manifest_fills, manifest_choice_fills,
+    manifest_loadout_fills, manifest_purchase_fills, new_character_creation_state, route_payload,
+    BatchIssueCode, CharacterCreationState, ChoiceOption, CreationRouteEvent,
+    CreationRouteOwnerGroup, Draft, Fill, FillBatchResult, FillIssue, FillIssueCode,
+    FinalizationStatus, Hole, Progression,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -163,6 +165,18 @@ pub fn replay_observed_action(observed_action_taken: &str) -> RuntimeWitness {
     }
 }
 
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CreationRouteEvent> {
+    replay_route_state(observed_action_taken).route
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CreationRouteEvent> {
+    replay_route_state(observed_action_taken).route
+}
+
+pub fn route_projection_payload(route: &[CreationRouteEvent]) -> String {
+    route_payload(route)
+}
+
 pub fn projection_payload(witness: &RuntimeWitness) -> String {
     [
         format!("qLastResult={}", witness.q_last_result),
@@ -248,6 +262,241 @@ fn after_manifest_purchase() -> Draft {
         u16::from(draft.revision),
         &manifest_purchase_fills(),
     ))
+}
+
+fn replay_route_state(observed_action_taken: &str) -> CharacterCreationState {
+    let initial = new_character_creation_state();
+    match observed_action_taken {
+        "doFillAbilityScoresOnly" => {
+            apply_creation_fill_batch(
+                &initial,
+                0,
+                &ability_scores_only_fills(),
+                CreationRouteOwnerGroup::CharacterDraft,
+            )
+            .state
+        }
+        "doFillInitialChoicesOnly" => {
+            apply_creation_fill_batch(
+                &initial,
+                0,
+                &initial_choices_only_fills(),
+                CreationRouteOwnerGroup::CharacterDraft,
+            )
+            .state
+        }
+        "doFillInitialManifest" => {
+            apply_creation_fill_batch(
+                &initial,
+                0,
+                &initial_manifest_fills(),
+                CreationRouteOwnerGroup::CharacterDraft,
+            )
+            .state
+        }
+        "doFillManifestChoices" => {
+            let state = route_after_initial_manifest();
+            apply_creation_fill_batch(
+                &state,
+                u16::from(state.draft.revision),
+                &manifest_choice_fills(),
+                CreationRouteOwnerGroup::CreationSupportProfileAdmission,
+            )
+            .state
+        }
+        "doFillManifestPurchase" => {
+            let state = route_after_manifest_choices();
+            apply_creation_fill_batch(
+                &state,
+                u16::from(state.draft.revision),
+                &manifest_purchase_fills(),
+                CreationRouteOwnerGroup::CreationSupportProfileAdmission,
+            )
+            .state
+        }
+        "doFillManifestLoadout" => {
+            let state = route_after_manifest_purchase();
+            apply_creation_fill_batch(
+                &state,
+                u16::from(state.draft.revision),
+                &manifest_loadout_fills(),
+                CreationRouteOwnerGroup::CharacterDraft,
+            )
+            .state
+        }
+        "doRejectClosedInitialProgressionHole" => {
+            let state = route_after_initial_choices();
+            apply_creation_fill_batch(
+                &state,
+                u16::from(state.draft.revision),
+                &[choice(
+                    Hole::Progression,
+                    &[ChoiceOption::ClassFighterLevel1],
+                )],
+                CreationRouteOwnerGroup::CreationHoleFrontier,
+            )
+            .state
+        }
+        "doRejectDuplicateFill" => {
+            apply_creation_fill_batch(
+                &initial,
+                0,
+                &[
+                    choice(
+                        Hole::Languages,
+                        &[ChoiceOption::LanguageDwarvish, ChoiceOption::LanguageGoblin],
+                    ),
+                    choice(
+                        Hole::Languages,
+                        &[ChoiceOption::LanguageDwarvish, ChoiceOption::LanguageGoblin],
+                    ),
+                ],
+                CreationRouteOwnerGroup::CharacterDraft,
+            )
+            .state
+        }
+        "doRejectDuplicateLanguage" => {
+            apply_creation_fill_batch(
+                &initial,
+                0,
+                &[choice(
+                    Hole::Languages,
+                    &[
+                        ChoiceOption::LanguageDwarvish,
+                        ChoiceOption::LanguageDwarvish,
+                    ],
+                )],
+                CreationRouteOwnerGroup::CharacterDraft,
+            )
+            .state
+        }
+        "doRejectStaleInitialManifest" => {
+            apply_creation_fill_batch(
+                &initial,
+                999,
+                &initial_manifest_fills(),
+                CreationRouteOwnerGroup::CharacterDraft,
+            )
+            .state
+        }
+        "doRejectTooFewLanguages" => {
+            apply_creation_fill_batch(
+                &initial,
+                0,
+                &[choice(Hole::Languages, &[ChoiceOption::LanguageDwarvish])],
+                CreationRouteOwnerGroup::CharacterDraft,
+            )
+            .state
+        }
+        "doRejectTooManyLanguages" => {
+            apply_creation_fill_batch(
+                &initial,
+                0,
+                &[choice(
+                    Hole::Languages,
+                    &[
+                        ChoiceOption::LanguageDwarvish,
+                        ChoiceOption::LanguageGoblin,
+                        ChoiceOption::LanguageElvish,
+                    ],
+                )],
+                CreationRouteOwnerGroup::CharacterDraft,
+            )
+            .state
+        }
+        "doRejectUnknownLoadoutArmor" => {
+            apply_creation_fill_batch(
+                &initial,
+                0,
+                &[choice(Hole::LoadoutArmor, &[ChoiceOption::LoadoutWorn])],
+                CreationRouteOwnerGroup::CreationHoleFrontier,
+            )
+            .state
+        }
+        "doRejectUnsupportedClassEquipment" => {
+            let state = route_after_initial_manifest();
+            apply_creation_fill_batch(
+                &state,
+                u16::from(state.draft.revision),
+                &[choice(
+                    Hole::ClassEquipment,
+                    &[ChoiceOption::ClassEquipmentPackageA],
+                )],
+                CreationRouteOwnerGroup::CreationSupportProfileAdmission,
+            )
+            .state
+        }
+        "doRejectUnsupportedLanguage" => {
+            apply_creation_fill_batch(
+                &initial,
+                0,
+                &[choice(
+                    Hole::Languages,
+                    &[ChoiceOption::LanguageDwarvish, ChoiceOption::LanguageElvish],
+                )],
+                CreationRouteOwnerGroup::CreationSupportProfileAdmission,
+            )
+            .state
+        }
+        "doRejectWrongKindPrimaryClass" => {
+            apply_creation_fill_batch(
+                &initial,
+                0,
+                &[Fill::AbilityScores {
+                    hole: Hole::Progression,
+                    method: crate::rules::character_creation::AbilityScoreMethod::StandardArray,
+                    scores: crate::rules::character_creation::fighter_standard_array(),
+                }],
+                CreationRouteOwnerGroup::CharacterDraft,
+            )
+            .state
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn route_after_initial_manifest() -> CharacterCreationState {
+    let initial = new_character_creation_state();
+    apply_creation_fill_batch(
+        &initial,
+        0,
+        &initial_manifest_fills(),
+        CreationRouteOwnerGroup::CharacterDraft,
+    )
+    .state
+}
+
+fn route_after_initial_choices() -> CharacterCreationState {
+    let initial = new_character_creation_state();
+    apply_creation_fill_batch(
+        &initial,
+        0,
+        &initial_choices_only_fills(),
+        CreationRouteOwnerGroup::CharacterDraft,
+    )
+    .state
+}
+
+fn route_after_manifest_choices() -> CharacterCreationState {
+    let state = route_after_initial_manifest();
+    apply_creation_fill_batch(
+        &state,
+        u16::from(state.draft.revision),
+        &manifest_choice_fills(),
+        CreationRouteOwnerGroup::CreationSupportProfileAdmission,
+    )
+    .state
+}
+
+fn route_after_manifest_purchase() -> CharacterCreationState {
+    let state = route_after_manifest_choices();
+    apply_creation_fill_batch(
+        &state,
+        u16::from(state.draft.revision),
+        &manifest_purchase_fills(),
+        CreationRouteOwnerGroup::CreationSupportProfileAdmission,
+    )
+    .state
 }
 
 fn witness_from_result(result: FillBatchResult) -> RuntimeWitness {

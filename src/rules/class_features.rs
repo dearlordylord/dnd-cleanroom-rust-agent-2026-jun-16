@@ -5,14 +5,6 @@ pub enum ClassLevel {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum FeatureSet {
-    MonkLevelTwo,
-    SorcererLevelTwo {
-        metamagic_options: [MetamagicOption; 2],
-    },
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ResourceUnit {
     MonksFocus,
     FontOfMagic,
@@ -80,18 +72,7 @@ pub struct MetamagicSelection {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum MetamagicOption {
-    EmpoweredSpell,
-    HeightenedSpell,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct MetamagicOptionFact {
-    pub option: MetamagicOption,
-    pub sorcery_point_cost: u8,
-    pub stacking_mode: MetamagicStackingMode,
-    pub effect: MetamagicEffect,
-}
+pub struct MetamagicOptionKey(pub u8);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MetamagicStackingMode {
@@ -100,9 +81,23 @@ pub enum MetamagicStackingMode {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct MetamagicOptionFact {
+    pub choice_key: MetamagicOptionKey,
+    pub sorcery_point_cost: u8,
+    pub stacking_mode: MetamagicStackingMode,
+    pub effect: MetamagicEffect,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum MetamagicEffect {
     DamageDiceReroll,
     SavingThrowDisadvantage,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ClassFeatureProjectionFacts {
+    pub resource: ClassResource,
+    pub fact: RuleFact,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -115,6 +110,10 @@ pub struct ClassFeatureProjection {
 pub enum ProjectionError {
     DuplicateMetamagicOption,
     MissingExtraCantrip,
+    DuplicateExpertiseSkill,
+    ExpertiseSkillNotOwned,
+    DuplicateInvocationSelection,
+    LockedInvocationReplacement,
     WrongWeaponMasteryChoiceCount,
     IllegalWeaponMasteryReselectionFacts,
     ExistingWeaponMasteryChoiceCountMismatch,
@@ -144,6 +143,8 @@ pub enum FightingStyleFeature {
 pub enum FightingStyleFeat {
     Archery,
     Defense,
+    GreatWeaponFighting,
+    TwoWeaponFighting,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -156,21 +157,81 @@ pub struct FightingStyleProjection {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum OrderSelection {
-    Cleric(ClericDivineOrder),
-    Druid(DruidPrimalOrder),
+pub struct SelectedClassFeatureFacts {
+    pub choice_count: u8,
+    pub resource_maximum: u8,
+    pub known_form_count: u8,
+    pub short_rest_refill: u8,
+    pub long_rest_refills_all: bool,
+    pub accepted: bool,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum ClericDivineOrder {
-    Protector,
-    Thaumaturge { extra_cantrip: Cantrip },
+pub struct SelectedClassFeatureProjection {
+    pub choice_count: u8,
+    pub resource_maximum: u8,
+    pub known_form_count: u8,
+    pub short_rest_refill: u8,
+    pub long_rest_refills_all: bool,
+    pub accepted: bool,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum DruidPrimalOrder {
-    Magician { extra_cantrip: Cantrip },
-    Warden,
+pub enum ExpertiseSkill {
+    Acrobatics,
+    Perception,
+    SleightOfHand,
+    Stealth,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ExpertiseSelectionFacts {
+    pub requested_skills: Vec<ExpertiseSkill>,
+    pub owned_skill_proficiency_count: u8,
+    pub total_level: u8,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ExpertiseSelectionProjection {
+    pub selected_skills: Vec<ExpertiseSkill>,
+    pub selected_expertise_choice_count: u8,
+    pub build_expertise_count: u8,
+    pub owned_skill_proficiency_count: u8,
+    pub total_level: u8,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum EldritchInvocation {
+    ArmorOfShadows,
+    DevilsSight,
+    EldritchMind,
+    PactBlade,
+    RepellingBlastEldritchBlast,
+    RepellingBlastPoisonSpray,
+    ThirstingBlade,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct WarlockInvocationSelectionFacts {
+    pub selected_invocations: Vec<EldritchInvocation>,
+    pub replacement_locked_by_prerequisite: bool,
+    pub pact_magic_cantrip_count: u8,
+    pub pact_magic_prepared_spell_count: u8,
+    pub pact_magic_slot_count: u8,
+    pub pact_magic_slot_level: u8,
+    pub total_level: u8,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct WarlockInvocationSelectionProjection {
+    pub selected_invocations: Vec<EldritchInvocation>,
+    pub selected_invocation_count: u8,
+    pub selected_class_choice_feature_ref_count: u8,
+    pub pact_magic_cantrip_count: u8,
+    pub pact_magic_prepared_spell_count: u8,
+    pub pact_magic_slot_count: u8,
+    pub pact_magic_slot_level: u8,
+    pub total_level: u8,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -222,7 +283,7 @@ pub struct AbilityCheckBonus {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct ClassOrderProjection {
+pub struct ClassOrderFacts {
     pub feature: ClassOrderFeature,
     pub selected_choice: OrderChoice,
     pub extra_cantrip: Option<Cantrip>,
@@ -233,13 +294,16 @@ pub struct ClassOrderProjection {
     pub total_level: ClassLevel,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum WeaponMasteryClass {
-    Barbarian,
-    Fighter,
-    Paladin,
-    Ranger,
-    Rogue,
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ClassOrderProjection {
+    pub feature: ClassOrderFeature,
+    pub selected_choice: OrderChoice,
+    pub extra_cantrip: Option<Cantrip>,
+    pub selected_order_option_count: u8,
+    pub selected_suborder_class_choice_feature_count: u8,
+    pub training: TrainingProjection,
+    pub ability_check_bonus: Option<AbilityCheckBonus>,
+    pub total_level: ClassLevel,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -270,6 +334,16 @@ pub enum Weapon {
     Spear,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct WeaponMasteryFacts {
+    pub feature: WeaponMasteryFeature,
+    pub class_unit: ClassUnit,
+    pub choice_count: u8,
+    pub build_mastery_feature_count: u8,
+    pub open_hole_count: u8,
+    pub total_level: ClassLevel,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct WeaponMasteryProjection {
     pub feature: WeaponMasteryFeature,
@@ -298,23 +372,19 @@ pub struct WeaponMasteryReselectionProjection<T> {
     pub long_rest_change_count: usize,
 }
 
-pub fn level_two_feature_projection(
-    feature_set: FeatureSet,
+pub fn class_feature_projection(
+    facts: ClassFeatureProjectionFacts,
 ) -> Result<ClassFeatureProjection, ProjectionError> {
-    match feature_set {
-        FeatureSet::MonkLevelTwo => Ok(monk_level_two_projection()),
-        FeatureSet::SorcererLevelTwo { metamagic_options } => {
-            sorcerer_level_two_projection(metamagic_options)
+    if let Some(metamagic) = &facts.fact.metamagic {
+        if metamagic.options[0].choice_key == metamagic.options[1].choice_key {
+            return Err(ProjectionError::DuplicateMetamagicOption);
         }
     }
-}
 
-#[must_use]
-pub fn level_one_order_projection(selection: OrderSelection) -> ClassOrderProjection {
-    match selection {
-        OrderSelection::Cleric(choice) => cleric_divine_order_projection(choice),
-        OrderSelection::Druid(choice) => druid_primal_order_projection(choice),
-    }
+    Ok(ClassFeatureProjection {
+        resource: facts.resource,
+        fact: facts.fact,
+    })
 }
 
 #[must_use]
@@ -348,12 +418,88 @@ pub fn fighter_fighting_style_projection(
     }
 }
 
+#[must_use]
+pub fn selected_class_feature_projection(
+    facts: SelectedClassFeatureFacts,
+) -> SelectedClassFeatureProjection {
+    // QNT: character-creation-class-feature-selected-identity.mbt.qnt.
+    // Character Creation "Record Class Features" owns selected references at
+    // the catalog/selection boundary; execution-facing behavior uses these
+    // parsed support facts rather than authored identity.
+    SelectedClassFeatureProjection {
+        choice_count: facts.choice_count,
+        resource_maximum: facts.resource_maximum,
+        known_form_count: facts.known_form_count,
+        short_rest_refill: facts.short_rest_refill,
+        long_rest_refills_all: facts.long_rest_refills_all,
+        accepted: facts.accepted,
+    }
+}
+
+pub fn expertise_selection_projection(
+    facts: ExpertiseSelectionFacts,
+) -> Result<ExpertiseSelectionProjection, ProjectionError> {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Rogue.md "Level 1:
+    // Expertise"; Rules-Glossary.md "Expertise".
+    if has_duplicates(&facts.requested_skills) {
+        return Err(ProjectionError::DuplicateExpertiseSkill);
+    }
+    if facts.requested_skills.len() > usize::from(facts.owned_skill_proficiency_count) {
+        return Err(ProjectionError::ExpertiseSkillNotOwned);
+    }
+
+    Ok(ExpertiseSelectionProjection {
+        selected_expertise_choice_count: facts.requested_skills.len() as u8,
+        build_expertise_count: facts.requested_skills.len() as u8,
+        selected_skills: facts.requested_skills,
+        owned_skill_proficiency_count: facts.owned_skill_proficiency_count,
+        total_level: facts.total_level,
+    })
+}
+
+pub fn warlock_invocation_selection_projection(
+    facts: WarlockInvocationSelectionFacts,
+) -> Result<WarlockInvocationSelectionProjection, ProjectionError> {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Warlock.md "Level 1:
+    // Eldritch Invocations" and "Level 1: Pact Magic".
+    if facts.replacement_locked_by_prerequisite {
+        return Err(ProjectionError::LockedInvocationReplacement);
+    }
+    if has_duplicates(&facts.selected_invocations) {
+        return Err(ProjectionError::DuplicateInvocationSelection);
+    }
+
+    Ok(WarlockInvocationSelectionProjection {
+        selected_invocation_count: facts.selected_invocations.len() as u8,
+        selected_class_choice_feature_ref_count: 0,
+        selected_invocations: facts.selected_invocations,
+        pact_magic_cantrip_count: facts.pact_magic_cantrip_count,
+        pact_magic_prepared_spell_count: facts.pact_magic_prepared_spell_count,
+        pact_magic_slot_count: facts.pact_magic_slot_count,
+        pact_magic_slot_level: facts.pact_magic_slot_level,
+        total_level: facts.total_level,
+    })
+}
+
+pub fn class_order_projection(facts: ClassOrderFacts) -> ClassOrderProjection {
+    ClassOrderProjection {
+        feature: facts.feature,
+        selected_choice: facts.selected_choice,
+        extra_cantrip: facts.extra_cantrip,
+        selected_order_option_count: facts.selected_order_option_count,
+        selected_suborder_class_choice_feature_count: facts
+            .selected_suborder_class_choice_feature_count,
+        training: facts.training,
+        ability_check_bonus: facts.ability_check_bonus,
+        total_level: facts.total_level,
+    }
+}
+
 pub fn weapon_mastery_projection(
-    class: WeaponMasteryClass,
+    facts: WeaponMasteryFacts,
     selected_weapons: &[Weapon],
 ) -> Result<WeaponMasteryProjection, ProjectionError> {
-    let expected_count = weapon_mastery_choice_count(class);
-    if selected_weapons.len() != usize::from(expected_count) {
+    if selected_weapons.len() != usize::from(facts.choice_count) {
         return Err(ProjectionError::WrongWeaponMasteryChoiceCount);
     }
 
@@ -361,13 +507,13 @@ pub fn weapon_mastery_projection(
         // cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md,
         // "Level 1: Weapon Mastery"; equivalent level-1 Weapon Mastery
         // entries are cited for Barbarian, Paladin, Ranger, and Rogue.
-        feature: weapon_mastery_feature(class),
-        class_unit: weapon_mastery_class_unit(class),
+        feature: facts.feature,
+        class_unit: facts.class_unit,
         selected_weapons: selected_weapons.to_vec(),
-        selected_mastery_choice_count: expected_count,
-        build_mastery_feature_count: expected_count,
-        open_hole_count: 0,
-        total_level: ClassLevel::One,
+        selected_mastery_choice_count: facts.choice_count,
+        build_mastery_feature_count: facts.build_mastery_feature_count,
+        open_hole_count: facts.open_hole_count,
+        total_level: facts.total_level,
     })
 }
 
@@ -452,194 +598,9 @@ fn weapon_mastery_choices_have_duplicates<T: Eq>(weapons: &[T]) -> bool {
         .any(|(index, weapon)| weapons[..index].contains(weapon))
 }
 
-fn weapon_mastery_choice_count(class: WeaponMasteryClass) -> u8 {
-    match class {
-        WeaponMasteryClass::Fighter => 3,
-        WeaponMasteryClass::Barbarian
-        | WeaponMasteryClass::Paladin
-        | WeaponMasteryClass::Ranger
-        | WeaponMasteryClass::Rogue => 2,
-    }
-}
-
-fn weapon_mastery_feature(class: WeaponMasteryClass) -> WeaponMasteryFeature {
-    match class {
-        WeaponMasteryClass::Barbarian => WeaponMasteryFeature::Barbarian,
-        WeaponMasteryClass::Fighter => WeaponMasteryFeature::Fighter,
-        WeaponMasteryClass::Paladin => WeaponMasteryFeature::Paladin,
-        WeaponMasteryClass::Ranger => WeaponMasteryFeature::Ranger,
-        WeaponMasteryClass::Rogue => WeaponMasteryFeature::Rogue,
-    }
-}
-
-fn weapon_mastery_class_unit(class: WeaponMasteryClass) -> ClassUnit {
-    match class {
-        WeaponMasteryClass::Barbarian => ClassUnit::Barbarian,
-        WeaponMasteryClass::Fighter => ClassUnit::Fighter,
-        WeaponMasteryClass::Paladin => ClassUnit::Paladin,
-        WeaponMasteryClass::Ranger => ClassUnit::Ranger,
-        WeaponMasteryClass::Rogue => ClassUnit::Rogue,
-    }
-}
-
-#[must_use]
-pub fn cleric_divine_order_projection(choice: ClericDivineOrder) -> ClassOrderProjection {
-    match choice {
-        ClericDivineOrder::Protector => ClassOrderProjection {
-            // cleanroom-input/raw/srd-5.2.1/Classes/Cleric.md,
-            // "Level 1: Divine Order", Protector.
-            feature: ClassOrderFeature::DivineOrder,
-            selected_choice: OrderChoice::Protector,
-            extra_cantrip: None,
-            selected_order_option_count: 1,
-            selected_suborder_class_choice_feature_count: 0,
-            training: TrainingProjection {
-                martial_weapon_proficiency: true,
-                heavy_armor_training: true,
-                medium_armor_training: true,
-            },
-            ability_check_bonus: None,
-            total_level: ClassLevel::One,
-        },
-        ClericDivineOrder::Thaumaturge { extra_cantrip } => ClassOrderProjection {
-            // cleanroom-input/raw/srd-5.2.1/Classes/Cleric.md,
-            // "Level 1: Divine Order", Thaumaturge.
-            feature: ClassOrderFeature::DivineOrder,
-            selected_choice: OrderChoice::Thaumaturge,
-            extra_cantrip: Some(extra_cantrip),
-            selected_order_option_count: 1,
-            selected_suborder_class_choice_feature_count: 0,
-            training: TrainingProjection {
-                martial_weapon_proficiency: false,
-                heavy_armor_training: false,
-                medium_armor_training: true,
-            },
-            ability_check_bonus: Some(AbilityCheckBonus {
-                check_ability: Ability::Intelligence,
-                skills: [Skill::Arcana, Skill::Religion],
-                bonus_ability: Ability::Wisdom,
-                minimum_bonus: 1,
-            }),
-            total_level: ClassLevel::One,
-        },
-    }
-}
-
-#[must_use]
-pub fn druid_primal_order_projection(choice: DruidPrimalOrder) -> ClassOrderProjection {
-    match choice {
-        DruidPrimalOrder::Magician { extra_cantrip } => ClassOrderProjection {
-            // cleanroom-input/raw/srd-5.2.1/Classes/Druid.md,
-            // "Level 1: Primal Order", Magician.
-            feature: ClassOrderFeature::PrimalOrder,
-            selected_choice: OrderChoice::Magician,
-            extra_cantrip: Some(extra_cantrip),
-            selected_order_option_count: 1,
-            selected_suborder_class_choice_feature_count: 0,
-            training: TrainingProjection {
-                martial_weapon_proficiency: false,
-                heavy_armor_training: false,
-                medium_armor_training: false,
-            },
-            ability_check_bonus: Some(AbilityCheckBonus {
-                check_ability: Ability::Intelligence,
-                skills: [Skill::Arcana, Skill::Nature],
-                bonus_ability: Ability::Wisdom,
-                minimum_bonus: 1,
-            }),
-            total_level: ClassLevel::One,
-        },
-        DruidPrimalOrder::Warden => ClassOrderProjection {
-            // cleanroom-input/raw/srd-5.2.1/Classes/Druid.md,
-            // "Level 1: Primal Order", Warden.
-            feature: ClassOrderFeature::PrimalOrder,
-            selected_choice: OrderChoice::Warden,
-            extra_cantrip: None,
-            selected_order_option_count: 1,
-            selected_suborder_class_choice_feature_count: 0,
-            training: TrainingProjection {
-                martial_weapon_proficiency: true,
-                heavy_armor_training: false,
-                medium_armor_training: true,
-            },
-            ability_check_bonus: None,
-            total_level: ClassLevel::One,
-        },
-    }
-}
-
-#[must_use]
-pub fn monk_level_two_projection() -> ClassFeatureProjection {
-    ClassFeatureProjection {
-        // cleanroom-input/raw/srd-5.2.1/Classes/Monk.md,
-        // "Level 2: Monk's Focus" and "Level 2: Uncanny Metabolism".
-        resource: ClassResource {
-            unit: ResourceUnit::MonksFocus,
-            kind: ResourceKind::UseCount,
-            maximum: 2,
-            recovery: ResourceRecovery::ShortOrLongRest,
-        },
-        fact: RuleFact {
-            kind: RuleFactKind::UncannyMetabolism,
-            linked_resource: ResourceUnit::MonksFocus,
-            martial_arts_die: Some(MartialArtsDie { dice: 1, size: 6 }),
-            level_bonus: Some(2),
-            metamagic: None,
-        },
-    }
-}
-
-pub fn sorcerer_level_two_projection(
-    metamagic_options: [MetamagicOption; 2],
-) -> Result<ClassFeatureProjection, ProjectionError> {
-    if metamagic_options[0] == metamagic_options[1] {
-        return Err(ProjectionError::DuplicateMetamagicOption);
-    }
-
-    Ok(ClassFeatureProjection {
-        // cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md,
-        // "Level 2: Font of Magic", "Level 2: Metamagic",
-        // "Empowered Spell", and "Heightened Spell".
-        resource: ClassResource {
-            unit: ResourceUnit::FontOfMagic,
-            kind: ResourceKind::PointPool,
-            maximum: 2,
-            recovery: ResourceRecovery::LongRest,
-        },
-        fact: RuleFact {
-            kind: RuleFactKind::Metamagic,
-            linked_resource: ResourceUnit::FontOfMagic,
-            martial_arts_die: None,
-            level_bonus: None,
-            metamagic: Some(MetamagicSelection {
-                owner_level: ClassLevel::Two,
-                choice_count: 2,
-                repeatability: MetamagicRepeatability::Unique,
-                point_pool: ResourceUnit::FontOfMagic,
-                spell_use_limit: SpellUseLimit::OnePerSpellUnlessOptionAllowsStacking,
-                options: [
-                    metamagic_option_fact(metamagic_options[0]),
-                    metamagic_option_fact(metamagic_options[1]),
-                ],
-            }),
-        },
-    })
-}
-
-#[must_use]
-pub fn metamagic_option_fact(option: MetamagicOption) -> MetamagicOptionFact {
-    match option {
-        MetamagicOption::EmpoweredSpell => MetamagicOptionFact {
-            option,
-            sorcery_point_cost: 1,
-            stacking_mode: MetamagicStackingMode::CanCombineWithDifferentMetamagic,
-            effect: MetamagicEffect::DamageDiceReroll,
-        },
-        MetamagicOption::HeightenedSpell => MetamagicOptionFact {
-            option,
-            sorcery_point_cost: 2,
-            stacking_mode: MetamagicStackingMode::OnePerSpell,
-            effect: MetamagicEffect::SavingThrowDisadvantage,
-        },
-    }
+fn has_duplicates<T: Eq>(items: &[T]) -> bool {
+    items
+        .iter()
+        .enumerate()
+        .any(|(index, item)| items[..index].contains(item))
 }

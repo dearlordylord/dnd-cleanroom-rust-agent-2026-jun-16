@@ -1683,6 +1683,124 @@
         }
       ],
       "taskId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/DECIDER_DECISION.json",
+          "sha256": "9a4e64a5993de067df9f4dbc0e29b541d71ae1abb09df96d7e53aa497104d857"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "3088c74366f9d2f71f1bdaa3b02031830605f966e55ba9b376075c60dac6fc17"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/REVIEW_LOOP.json",
+          "sha256": "3f51a01a1a0a3338db7e5bda748dc7d9ca904a17ca27d6bb6449fd334e1e4f23"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/START_GATE.json",
+          "sha256": "04c9b6e3fe8211b3457ab0b7a366225ab52d11e4502b77ea8681ab4c9266e6a5"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "a095c32d02a004e564b942832c45caefc3f3d88bced6f68e2c1e611d2756175f"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectMonkFocusAndUncannyMetabolism#step:doProjectMonkFocusAndUncannyMetabolism",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectSorcererFontAndMetamagic#step:doProjectSorcererFontAndMetamagic",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectClericChannelDivinity#step:doProjectClericChannelDivinity",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectDruidWildCompanion#step:doProjectDruidWildCompanion",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectDruidWildShape#step:doProjectDruidWildShape",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectMonksFocus#step:doProjectMonksFocus",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectMonkUncannyMetabolism#step:doProjectMonkUncannyMetabolism",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectWarlockPactMagic#step:doProjectWarlockPactMagic",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectBardExpertise#step:doSelectBardExpertise",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectPaladinFightingStyle#step:doSelectPaladinFightingStyle",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectRangerDeftExplorer#step:doSelectRangerDeftExplorer",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectRangerFightingStyle#step:doSelectRangerFightingStyle",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectWizardEvocationSavant#step:doSelectWizardEvocationSavant",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectWizardScholar#step:doSelectWizardScholar",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectClericProtectorOrder#step:doSelectClericProtectorOrder",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectClericThaumaturgeOrder#step:doSelectClericThaumaturgeOrder",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectDruidMagicianOrder#step:doSelectDruidMagicianOrder",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectDruidWardenOrder#step:doSelectDruidWardenOrder",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceArcheryWithDefenseOnFighterLevelGain#step:doReplaceArcheryWithDefenseOnFighterLevelGain",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceDefenseWithArcheryOnFighterLevelGain#step:doReplaceDefenseWithArcheryOnFighterLevelGain",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceDefenseWithGreatWeaponFightingOnFighterLevelGain#step:doReplaceDefenseWithGreatWeaponFightingOnFighterLevelGain",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceDefenseWithTwoWeaponFightingOnFighterLevelGain#step:doReplaceDefenseWithTwoWeaponFightingOnFighterLevelGain",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectArcheryFightingStyle#step:doSelectArcheryFightingStyle",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectDefenseFightingStyle#step:doSelectDefenseFightingStyle",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectGreatWeaponFightingStyle#step:doSelectGreatWeaponFightingStyle",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectTwoWeaponFightingStyle#step:doSelectTwoWeaponFightingStyle",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectLevelOneOwnedSkillExpertise#step:doSelectLevelOneOwnedSkillExpertise",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillAbilityScoresOnly#step:doFillAbilityScoresOnly",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillInitialChoicesOnly#step:doFillInitialChoicesOnly",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillInitialManifest#step:doFillInitialManifest",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillManifestChoices#step:doFillManifestChoices",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillManifestLoadout#step:doFillManifestLoadout",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillManifestPurchase#step:doFillManifestPurchase",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectClosedInitialProgressionHole#step:doRejectClosedInitialProgressionHole",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectDuplicateFill#step:doRejectDuplicateFill",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectDuplicateLanguage#step:doRejectDuplicateLanguage",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectStaleInitialManifest#step:doRejectStaleInitialManifest",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectTooFewLanguages#step:doRejectTooFewLanguages",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectTooManyLanguages#step:doRejectTooManyLanguages",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectUnknownLoadoutArmor#step:doRejectUnknownLoadoutArmor",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectUnsupportedClassEquipment#step:doRejectUnsupportedClassEquipment",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectUnsupportedLanguage#step:doRejectUnsupportedLanguage",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectWrongKindPrimaryClass#step:doRejectWrongKindPrimaryClass",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doGainLevelTwoInvocations#step:doGainLevelTwoInvocations",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectDuplicateInvocationSelections#step:doRejectDuplicateInvocationSelections",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceArmorWithEldritchMindOnWarlockLevelGain#step:doReplaceArmorWithEldritchMindOnWarlockLevelGain",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceRepeatableInvocationByChoice#step:doReplaceRepeatableInvocationByChoice",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectLevelOneArmorOfShadows#step:doSelectLevelOneArmorOfShadows",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeBarbarianWeaponMastery#step:doFinalizeBarbarianWeaponMastery",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeFighterWeaponMastery#step:doFinalizeFighterWeaponMastery",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizePaladinWeaponMastery#step:doFinalizePaladinWeaponMastery",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeRangerWeaponMastery#step:doFinalizeRangerWeaponMastery",
+            "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeRogueWeaponMastery#step:doFinalizeRogueWeaponMastery"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR08-character-creation-routes.json",
+          "sha256": "99750f892c342155f21c023541c65b95edd2586c7e7263b1034880f8022d2ddc"
+        }
+      ],
+      "taskId": "L15-RR08-CHARACTER-CREATION-ROUTES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

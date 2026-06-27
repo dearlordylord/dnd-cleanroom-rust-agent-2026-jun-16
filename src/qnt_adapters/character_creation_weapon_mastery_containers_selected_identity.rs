@@ -1,7 +1,20 @@
+use super::character_creation_expected_routes::expected_retained_reference_route;
+use crate::rules::character_creation::{
+    apply_creation_retained_reference_operation, completed_fighter_creation_state, route_payload,
+    CreationRetainedReferenceOperation, CreationRouteEvent,
+};
 use crate::rules::class_features::{
-    weapon_mastery_projection, ClassLevel, ClassUnit, Weapon, WeaponMasteryClass,
+    weapon_mastery_projection, ClassLevel, ClassUnit, Weapon, WeaponMasteryFacts,
     WeaponMasteryFeature, WeaponMasteryProjection,
 };
+
+pub const BRANCH_ACTIONS: &[&str] = &[
+    "doFinalizeFighterWeaponMastery",
+    "doFinalizeBarbarianWeaponMastery",
+    "doFinalizePaladinWeaponMastery",
+    "doFinalizeRangerWeaponMastery",
+    "doFinalizeRogueWeaponMastery",
+];
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct WeaponMasteryWitness {
@@ -30,6 +43,31 @@ pub fn replay_observed_action(observed_action_taken: &str) -> WeaponMasteryWitne
         "doFinalizeRogueWeaponMastery" => rogue_replay(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
+}
+
+pub fn replay_observed_route(_observed_action_taken: &str) -> Vec<CreationRouteEvent> {
+    apply_creation_retained_reference_operation(
+        &completed_fighter_creation_state(),
+        CreationRetainedReferenceOperation::RetainOnly,
+    )
+    .route
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CreationRouteEvent> {
+    match observed_action_taken {
+        "doFinalizeBarbarianWeaponMastery"
+        | "doFinalizeFighterWeaponMastery"
+        | "doFinalizePaladinWeaponMastery"
+        | "doFinalizeRangerWeaponMastery"
+        | "doFinalizeRogueWeaponMastery" => {
+            expected_retained_reference_route(CreationRetainedReferenceOperation::RetainOnly)
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn route_projection_payload(route: &[CreationRouteEvent]) -> String {
+    route_payload(route)
 }
 
 pub fn expected_barbarian_witness() -> WeaponMasteryWitness {
@@ -164,7 +202,7 @@ pub fn projection_payload(witness: &WeaponMasteryWitness) -> String {
 
 fn barbarian_replay() -> WeaponMasteryWitness {
     let observed = weapon_mastery_projection(
-        WeaponMasteryClass::Barbarian,
+        weapon_mastery_facts(WeaponMasteryFeature::Barbarian, ClassUnit::Barbarian, 2),
         &[Weapon::Longsword, Weapon::Dagger],
     )
     .expect("barbarian selects two weapon mastery choices");
@@ -173,7 +211,7 @@ fn barbarian_replay() -> WeaponMasteryWitness {
 
 fn fighter_replay() -> WeaponMasteryWitness {
     let observed = weapon_mastery_projection(
-        WeaponMasteryClass::Fighter,
+        weapon_mastery_facts(WeaponMasteryFeature::Fighter, ClassUnit::Fighter, 3),
         &[Weapon::Longsword, Weapon::Spear, Weapon::Flail],
     )
     .expect("fighter selects three weapon mastery choices");
@@ -182,7 +220,7 @@ fn fighter_replay() -> WeaponMasteryWitness {
 
 fn paladin_replay() -> WeaponMasteryWitness {
     let observed = weapon_mastery_projection(
-        WeaponMasteryClass::Paladin,
+        weapon_mastery_facts(WeaponMasteryFeature::Paladin, ClassUnit::Paladin, 2),
         &[Weapon::Longsword, Weapon::Dagger],
     )
     .expect("paladin selects two weapon mastery choices");
@@ -191,7 +229,7 @@ fn paladin_replay() -> WeaponMasteryWitness {
 
 fn ranger_replay() -> WeaponMasteryWitness {
     let observed = weapon_mastery_projection(
-        WeaponMasteryClass::Ranger,
+        weapon_mastery_facts(WeaponMasteryFeature::Ranger, ClassUnit::Ranger, 2),
         &[Weapon::Longsword, Weapon::Dagger],
     )
     .expect("ranger selects two weapon mastery choices");
@@ -200,11 +238,26 @@ fn ranger_replay() -> WeaponMasteryWitness {
 
 fn rogue_replay() -> WeaponMasteryWitness {
     let observed = weapon_mastery_projection(
-        WeaponMasteryClass::Rogue,
+        weapon_mastery_facts(WeaponMasteryFeature::Rogue, ClassUnit::Rogue, 2),
         &[Weapon::Dagger, Weapon::Shortsword],
     )
     .expect("rogue selects two weapon mastery choices");
     weapon_mastery_witness("rogueFinalized", &observed)
+}
+
+pub fn weapon_mastery_facts(
+    feature: WeaponMasteryFeature,
+    class_unit: ClassUnit,
+    choice_count: u8,
+) -> WeaponMasteryFacts {
+    WeaponMasteryFacts {
+        feature,
+        class_unit,
+        choice_count,
+        build_mastery_feature_count: choice_count,
+        open_hole_count: 0,
+        total_level: ClassLevel::One,
+    }
 }
 
 fn weapon_mastery_witness(

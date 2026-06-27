@@ -497,6 +497,445 @@ pub fn choice(hole: Hole, options: &[ChoiceOption]) -> Fill {
     }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub enum CreationRouteSubjectFamily {
+    DraftState,
+    OptionDiscovery,
+    FillBatch,
+    RetainedReference,
+    BuildProjection,
+    Finalization,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub enum CreationRouteHoleFamily {
+    DraftStructure,
+    UnitChoice,
+    AbilityScore,
+    EquipmentSelection,
+    Loadout,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub enum CreationRouteFillFamily {
+    ChoiceSet,
+    AbilityScoreAssignment,
+    EquipmentSelection,
+    LoadoutSelection,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub enum CreationRouteOwnerGroup {
+    CharacterDraft,
+    CharacterBuild,
+    CreationHoleFrontier,
+    CreationSupportProfileAdmission,
+    CreationRetainedReference,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum CreationRouteEvent {
+    CreateCharacterDraft {
+        owner: CreationRouteOwnerGroup,
+    },
+    DiscoverCreationHoles {
+        subject: CreationRouteSubjectFamily,
+        holes: BTreeSet<CreationRouteHoleFamily>,
+        owner: CreationRouteOwnerGroup,
+    },
+    ApplyCreationFillBatch {
+        subject: CreationRouteSubjectFamily,
+        fills: BTreeSet<CreationRouteFillFamily>,
+        holes: BTreeSet<CreationRouteHoleFamily>,
+        owner: CreationRouteOwnerGroup,
+    },
+    RetainCreationRetainedReferences {
+        subject: CreationRouteSubjectFamily,
+        owner: CreationRouteOwnerGroup,
+    },
+    ProjectCharacterBuildFacts {
+        subject: CreationRouteSubjectFamily,
+        owner: CreationRouteOwnerGroup,
+    },
+    FinalizeCharacterDraft {
+        subject: CreationRouteSubjectFamily,
+        owner: CreationRouteOwnerGroup,
+    },
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CharacterCreationState {
+    pub draft: Draft,
+    pub route: Vec<CreationRouteEvent>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CharacterCreationStep {
+    pub state: CharacterCreationState,
+    pub result: FillBatchResult,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum CreationRetainedReferenceOperation {
+    RetainOnly,
+    RetainAndProject,
+    ProjectBuildFacts,
+    ReplaceAndProject,
+    RejectSelection,
+}
+
+#[must_use]
+pub fn new_character_creation_state() -> CharacterCreationState {
+    CharacterCreationState {
+        draft: empty_draft(),
+        route: initial_creation_route(),
+    }
+}
+
+#[must_use]
+pub fn initial_creation_route() -> Vec<CreationRouteEvent> {
+    vec![
+        CreationRouteEvent::CreateCharacterDraft {
+            owner: CreationRouteOwnerGroup::CharacterDraft,
+        },
+        CreationRouteEvent::DiscoverCreationHoles {
+            subject: CreationRouteSubjectFamily::DraftState,
+            holes: route_hole_families(&[
+                CreationRouteHoleFamily::DraftStructure,
+                CreationRouteHoleFamily::AbilityScore,
+            ]),
+            owner: CreationRouteOwnerGroup::CreationHoleFrontier,
+        },
+    ]
+}
+
+#[must_use]
+pub fn apply_creation_fill_batch(
+    state: &CharacterCreationState,
+    expected_revision: u16,
+    fills: &[Fill],
+    owner: CreationRouteOwnerGroup,
+) -> CharacterCreationStep {
+    let result = fill_creation_holes(&state.draft, expected_revision, fills);
+    let route_holes = match &result {
+        FillBatchResult::Accepted { holes, .. } | FillBatchResult::Rejected { holes, .. } => {
+            route_hole_families_from_open_holes(holes)
+        }
+    };
+    let mut route = apply_fill_batch_route(
+        &state.route,
+        fill_families_from_fills(fills),
+        route_holes,
+        owner,
+    );
+    let draft = match &result {
+        FillBatchResult::Accepted { draft, .. } => draft.clone(),
+        FillBatchResult::Rejected { .. } => state.draft.clone(),
+    };
+    if matches!(
+        &result,
+        FillBatchResult::Accepted {
+            finalization: FinalizationStatus::Ready,
+            ..
+        }
+    ) {
+        route.push(CreationRouteEvent::FinalizeCharacterDraft {
+            subject: CreationRouteSubjectFamily::Finalization,
+            owner: CreationRouteOwnerGroup::CharacterBuild,
+        });
+    }
+
+    CharacterCreationStep {
+        state: CharacterCreationState { draft, route },
+        result,
+    }
+}
+
+#[must_use]
+pub fn completed_fighter_creation_state() -> CharacterCreationState {
+    let initial = new_character_creation_state();
+    let after_initial = apply_creation_fill_batch(
+        &initial,
+        0,
+        &initial_manifest_fills(),
+        CreationRouteOwnerGroup::CharacterDraft,
+    )
+    .state;
+    let after_choices = apply_creation_fill_batch(
+        &after_initial,
+        u16::from(after_initial.draft.revision),
+        &manifest_choice_fills(),
+        CreationRouteOwnerGroup::CreationSupportProfileAdmission,
+    )
+    .state;
+    let after_purchase = apply_creation_fill_batch(
+        &after_choices,
+        u16::from(after_choices.draft.revision),
+        &manifest_purchase_fills(),
+        CreationRouteOwnerGroup::CreationSupportProfileAdmission,
+    )
+    .state;
+    apply_creation_fill_batch(
+        &after_purchase,
+        u16::from(after_purchase.draft.revision),
+        &manifest_loadout_fills(),
+        CreationRouteOwnerGroup::CharacterDraft,
+    )
+    .state
+}
+
+#[must_use]
+pub fn apply_creation_retained_reference_operation(
+    state: &CharacterCreationState,
+    operation: CreationRetainedReferenceOperation,
+) -> CharacterCreationState {
+    let mut route = state.route.clone();
+    match operation {
+        CreationRetainedReferenceOperation::RetainOnly => {
+            route.push(CreationRouteEvent::RetainCreationRetainedReferences {
+                subject: CreationRouteSubjectFamily::RetainedReference,
+                owner: CreationRouteOwnerGroup::CreationRetainedReference,
+            });
+        }
+        CreationRetainedReferenceOperation::RetainAndProject => {
+            route.push(CreationRouteEvent::RetainCreationRetainedReferences {
+                subject: CreationRouteSubjectFamily::RetainedReference,
+                owner: CreationRouteOwnerGroup::CreationRetainedReference,
+            });
+            route.push(CreationRouteEvent::ProjectCharacterBuildFacts {
+                subject: CreationRouteSubjectFamily::BuildProjection,
+                owner: CreationRouteOwnerGroup::CharacterBuild,
+            });
+        }
+        CreationRetainedReferenceOperation::ProjectBuildFacts => {
+            route.push(CreationRouteEvent::ProjectCharacterBuildFacts {
+                subject: CreationRouteSubjectFamily::BuildProjection,
+                owner: CreationRouteOwnerGroup::CharacterBuild,
+            });
+        }
+        CreationRetainedReferenceOperation::ReplaceAndProject => {
+            route.push(CreationRouteEvent::ApplyCreationFillBatch {
+                subject: CreationRouteSubjectFamily::RetainedReference,
+                fills: route_fill_families(&[CreationRouteFillFamily::ChoiceSet]),
+                holes: BTreeSet::new(),
+                owner: CreationRouteOwnerGroup::CharacterBuild,
+            });
+            route.push(CreationRouteEvent::RetainCreationRetainedReferences {
+                subject: CreationRouteSubjectFamily::RetainedReference,
+                owner: CreationRouteOwnerGroup::CreationRetainedReference,
+            });
+            route.push(CreationRouteEvent::ProjectCharacterBuildFacts {
+                subject: CreationRouteSubjectFamily::BuildProjection,
+                owner: CreationRouteOwnerGroup::CharacterBuild,
+            });
+        }
+        CreationRetainedReferenceOperation::RejectSelection => {
+            route.push(CreationRouteEvent::ApplyCreationFillBatch {
+                subject: CreationRouteSubjectFamily::RetainedReference,
+                fills: route_fill_families(&[CreationRouteFillFamily::ChoiceSet]),
+                holes: route_hole_families(&[CreationRouteHoleFamily::UnitChoice]),
+                owner: CreationRouteOwnerGroup::CreationSupportProfileAdmission,
+            });
+        }
+    }
+
+    CharacterCreationState {
+        draft: state.draft.clone(),
+        route,
+    }
+}
+
+#[must_use]
+pub fn apply_fill_batch_route(
+    route: &[CreationRouteEvent],
+    fills: BTreeSet<CreationRouteFillFamily>,
+    holes: BTreeSet<CreationRouteHoleFamily>,
+    owner: CreationRouteOwnerGroup,
+) -> Vec<CreationRouteEvent> {
+    let mut next = route.to_vec();
+    next.push(CreationRouteEvent::ApplyCreationFillBatch {
+        subject: CreationRouteSubjectFamily::FillBatch,
+        fills,
+        holes: holes.clone(),
+        owner,
+    });
+    next.push(CreationRouteEvent::DiscoverCreationHoles {
+        subject: CreationRouteSubjectFamily::OptionDiscovery,
+        holes,
+        owner: CreationRouteOwnerGroup::CreationHoleFrontier,
+    });
+    next
+}
+
+#[must_use]
+pub fn route_hole_families_from_open_holes(
+    holes: &BTreeSet<Hole>,
+) -> BTreeSet<CreationRouteHoleFamily> {
+    holes.iter().map(route_hole_family).collect()
+}
+
+#[must_use]
+pub fn fill_families_from_fills(fills: &[Fill]) -> BTreeSet<CreationRouteFillFamily> {
+    fills.iter().map(route_fill_family).collect()
+}
+
+#[must_use]
+pub fn route_payload(route: &[CreationRouteEvent]) -> String {
+    route
+        .iter()
+        .map(route_event_payload)
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
+fn route_hole_families(families: &[CreationRouteHoleFamily]) -> BTreeSet<CreationRouteHoleFamily> {
+    families.iter().copied().collect()
+}
+
+fn route_fill_families(families: &[CreationRouteFillFamily]) -> BTreeSet<CreationRouteFillFamily> {
+    families.iter().copied().collect()
+}
+
+fn route_hole_family(hole: &Hole) -> CreationRouteHoleFamily {
+    match hole {
+        Hole::Progression
+        | Hole::Background
+        | Hole::Species
+        | Hole::Languages
+        | Hole::Alignment => CreationRouteHoleFamily::DraftStructure,
+        Hole::AbilityScores => CreationRouteHoleFamily::AbilityScore,
+        Hole::ClassSkills
+        | Hole::FighterFightingStyle
+        | Hole::FighterWeaponMastery
+        | Hole::BackgroundAbilityScoreIncrease
+        | Hole::BackgroundTool => CreationRouteHoleFamily::UnitChoice,
+        Hole::ClassEquipment | Hole::BackgroundEquipment | Hole::EquipmentPurchase => {
+            CreationRouteHoleFamily::EquipmentSelection
+        }
+        Hole::LoadoutArmor | Hole::LoadoutShield | Hole::LoadoutWeapon => {
+            CreationRouteHoleFamily::Loadout
+        }
+    }
+}
+
+fn route_fill_family(fill: &Fill) -> CreationRouteFillFamily {
+    match fill {
+        Fill::AbilityScores { .. } => CreationRouteFillFamily::AbilityScoreAssignment,
+        Fill::Choice { hole, .. } => match hole {
+            Hole::ClassEquipment | Hole::BackgroundEquipment | Hole::EquipmentPurchase => {
+                CreationRouteFillFamily::EquipmentSelection
+            }
+            Hole::LoadoutArmor | Hole::LoadoutShield | Hole::LoadoutWeapon => {
+                CreationRouteFillFamily::LoadoutSelection
+            }
+            _ => CreationRouteFillFamily::ChoiceSet,
+        },
+    }
+}
+
+fn route_event_payload(event: &CreationRouteEvent) -> String {
+    match event {
+        CreationRouteEvent::CreateCharacterDraft { owner } => {
+            format!("RouteCreateCharacterDraft(owner={})", owner_ref(*owner))
+        }
+        CreationRouteEvent::DiscoverCreationHoles {
+            subject,
+            holes,
+            owner,
+        } => format!(
+            "RouteDiscoverCreationHoles(subject={},holes={},owner={})",
+            subject_ref(*subject),
+            hole_family_payload(holes),
+            owner_ref(*owner)
+        ),
+        CreationRouteEvent::ApplyCreationFillBatch {
+            subject,
+            fills,
+            holes,
+            owner,
+        } => format!(
+            "RouteApplyCreationFillBatch(subject={},fills={},holes={},owner={})",
+            subject_ref(*subject),
+            fill_family_payload(fills),
+            hole_family_payload(holes),
+            owner_ref(*owner)
+        ),
+        CreationRouteEvent::RetainCreationRetainedReferences { subject, owner } => format!(
+            "RouteRetainCreationRetainedReferences(subject={},owner={})",
+            subject_ref(*subject),
+            owner_ref(*owner)
+        ),
+        CreationRouteEvent::ProjectCharacterBuildFacts { subject, owner } => format!(
+            "RouteProjectCharacterBuildFacts(subject={},owner={})",
+            subject_ref(*subject),
+            owner_ref(*owner)
+        ),
+        CreationRouteEvent::FinalizeCharacterDraft { subject, owner } => format!(
+            "RouteFinalizeCharacterDraft(subject={},owner={})",
+            subject_ref(*subject),
+            owner_ref(*owner)
+        ),
+    }
+}
+
+fn hole_family_payload(holes: &BTreeSet<CreationRouteHoleFamily>) -> String {
+    holes
+        .iter()
+        .map(|hole| hole_family_ref(*hole))
+        .collect::<Vec<_>>()
+        .join(",")
+}
+
+fn fill_family_payload(fills: &BTreeSet<CreationRouteFillFamily>) -> String {
+    fills
+        .iter()
+        .map(|fill| fill_family_ref(*fill))
+        .collect::<Vec<_>>()
+        .join(",")
+}
+
+fn subject_ref(subject: CreationRouteSubjectFamily) -> &'static str {
+    match subject {
+        CreationRouteSubjectFamily::DraftState => "CreationDraftStateRouteSubject",
+        CreationRouteSubjectFamily::OptionDiscovery => "CreationOptionDiscoveryRouteSubject",
+        CreationRouteSubjectFamily::FillBatch => "CreationFillBatchRouteSubject",
+        CreationRouteSubjectFamily::RetainedReference => "CreationRetainedReferenceRouteSubject",
+        CreationRouteSubjectFamily::BuildProjection => "CreationBuildProjectionRouteSubject",
+        CreationRouteSubjectFamily::Finalization => "CreationFinalizationRouteSubject",
+    }
+}
+
+fn hole_family_ref(hole: CreationRouteHoleFamily) -> &'static str {
+    match hole {
+        CreationRouteHoleFamily::DraftStructure => "CreationDraftStructureHoleFamily",
+        CreationRouteHoleFamily::UnitChoice => "CreationUnitChoiceHoleFamily",
+        CreationRouteHoleFamily::AbilityScore => "CreationAbilityScoreHoleFamily",
+        CreationRouteHoleFamily::EquipmentSelection => "CreationEquipmentSelectionHoleFamily",
+        CreationRouteHoleFamily::Loadout => "CreationLoadoutHoleFamily",
+    }
+}
+
+fn fill_family_ref(fill: CreationRouteFillFamily) -> &'static str {
+    match fill {
+        CreationRouteFillFamily::ChoiceSet => "CreationChoiceSetFill",
+        CreationRouteFillFamily::AbilityScoreAssignment => "CreationAbilityScoreAssignmentFill",
+        CreationRouteFillFamily::EquipmentSelection => "CreationEquipmentSelectionFill",
+        CreationRouteFillFamily::LoadoutSelection => "CreationLoadoutSelectionFill",
+    }
+}
+
+fn owner_ref(owner: CreationRouteOwnerGroup) -> &'static str {
+    match owner {
+        CreationRouteOwnerGroup::CharacterDraft => "CharacterDraftOwner",
+        CreationRouteOwnerGroup::CharacterBuild => "CharacterBuildOwner",
+        CreationRouteOwnerGroup::CreationHoleFrontier => "CreationHoleFrontierOwner",
+        CreationRouteOwnerGroup::CreationSupportProfileAdmission => {
+            "CreationSupportProfileAdmissionOwner"
+        }
+        CreationRouteOwnerGroup::CreationRetainedReference => "CreationRetainedReferenceOwner",
+    }
+}
+
 fn has_fighter_progression(draft: &Draft) -> bool {
     matches!(
         draft.progression,

@@ -1,0 +1,1584 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-character-creation-route-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doProjectMonkFocusAndUncannyMetabolism",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_projections.rs",
+      "observedActionTaken": "doProjectMonkFocusAndUncannyMetabolism",
+      "qntFileSha256": "8fc02f0d03d9299f85edf3b31bbceefb70fe1c0ca29d1043787298558bbf3ec5",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7573876149fb30858c6c988006369be239fad3fb71930cdf036a0a4b195eec62",
+        "observedProjectionSha256": "7573876149fb30858c6c988006369be239fad3fb71930cdf036a0a4b195eec62",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectMonkFocusAndUncannyMetabolism"
+    },
+    {
+      "branchAction": "doProjectSorcererFontAndMetamagic",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_projections.rs",
+      "observedActionTaken": "doProjectSorcererFontAndMetamagic",
+      "qntFileSha256": "8fc02f0d03d9299f85edf3b31bbceefb70fe1c0ca29d1043787298558bbf3ec5",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9d195c3376d43d0aa0f9cf6c53de816790e1303334272f012474bad2fb1f0922",
+        "observedProjectionSha256": "9d195c3376d43d0aa0f9cf6c53de816790e1303334272f012474bad2fb1f0922",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectSorcererFontAndMetamagic"
+    },
+    {
+      "branchAction": "doProjectClericChannelDivinity",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doProjectClericChannelDivinity",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2d9f78030d389c220f77b4581245b05cae463eac5cc787dddd825364cce4dcaf",
+        "observedProjectionSha256": "2d9f78030d389c220f77b4581245b05cae463eac5cc787dddd825364cce4dcaf",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectClericChannelDivinity"
+    },
+    {
+      "branchAction": "doProjectDruidWildCompanion",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doProjectDruidWildCompanion",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "71f216fef0eb4200572fee1a89dea56dba159079b8c0a135cef47e0c6e9b5414",
+        "observedProjectionSha256": "71f216fef0eb4200572fee1a89dea56dba159079b8c0a135cef47e0c6e9b5414",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectDruidWildCompanion"
+    },
+    {
+      "branchAction": "doProjectDruidWildShape",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doProjectDruidWildShape",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "99f2cfc96a76c2e74c0edd3426952562c16e112131e0138df280b316f619e9f5",
+        "observedProjectionSha256": "99f2cfc96a76c2e74c0edd3426952562c16e112131e0138df280b316f619e9f5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectDruidWildShape"
+    },
+    {
+      "branchAction": "doProjectMonksFocus",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doProjectMonksFocus",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a2f4db32542d78a1e7b27a9a07aee043ffe51d920e3bbcc5d1225c01d59eb138",
+        "observedProjectionSha256": "a2f4db32542d78a1e7b27a9a07aee043ffe51d920e3bbcc5d1225c01d59eb138",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectMonksFocus"
+    },
+    {
+      "branchAction": "doProjectMonkUncannyMetabolism",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doProjectMonkUncannyMetabolism",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9f034573efef6e7e1bb200d2900327a0c6110a594d1a1aa9f0e9dc05c960d564",
+        "observedProjectionSha256": "9f034573efef6e7e1bb200d2900327a0c6110a594d1a1aa9f0e9dc05c960d564",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectMonkUncannyMetabolism"
+    },
+    {
+      "branchAction": "doProjectWarlockPactMagic",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doProjectWarlockPactMagic",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "624b96c922238caf9374193fc35a04e8fc3688cb6f22e90de1d6eddfd0081b3b",
+        "observedProjectionSha256": "624b96c922238caf9374193fc35a04e8fc3688cb6f22e90de1d6eddfd0081b3b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectWarlockPactMagic"
+    },
+    {
+      "branchAction": "doSelectBardExpertise",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doSelectBardExpertise",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0e987832c324667451997739501dc49d419ca21563457cc6b912173e6d5f99bf",
+        "observedProjectionSha256": "0e987832c324667451997739501dc49d419ca21563457cc6b912173e6d5f99bf",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectBardExpertise"
+    },
+    {
+      "branchAction": "doSelectPaladinFightingStyle",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doSelectPaladinFightingStyle",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "62cb4b9d7e00c2ed3749f82f148d7197dc02f25a395eda537b063251ff033a9e",
+        "observedProjectionSha256": "62cb4b9d7e00c2ed3749f82f148d7197dc02f25a395eda537b063251ff033a9e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectPaladinFightingStyle"
+    },
+    {
+      "branchAction": "doSelectRangerDeftExplorer",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doSelectRangerDeftExplorer",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "1d6bae6e29f454a28ae6307c45cd7481a97accadd0af885b718d44e36671072a",
+        "observedProjectionSha256": "1d6bae6e29f454a28ae6307c45cd7481a97accadd0af885b718d44e36671072a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectRangerDeftExplorer"
+    },
+    {
+      "branchAction": "doSelectRangerFightingStyle",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doSelectRangerFightingStyle",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "aa148cb7fba07ac72d7ca938f4bca6f182b7d0550609e095507c11ec9e0a1f59",
+        "observedProjectionSha256": "aa148cb7fba07ac72d7ca938f4bca6f182b7d0550609e095507c11ec9e0a1f59",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectRangerFightingStyle"
+    },
+    {
+      "branchAction": "doSelectWizardEvocationSavant",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doSelectWizardEvocationSavant",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "162b9e7345c6646c87996378b71275452ff5cb926384c8696d3b4685723b83f6",
+        "observedProjectionSha256": "162b9e7345c6646c87996378b71275452ff5cb926384c8696d3b4685723b83f6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectWizardEvocationSavant"
+    },
+    {
+      "branchAction": "doSelectWizardScholar",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_class_feature_selected_identity.rs",
+      "observedActionTaken": "doSelectWizardScholar",
+      "qntFileSha256": "cd36d8c184109e92eb0e1b84f3b0585f760b0c6da5124731cff5222063f1c37c",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "SelectedClassFeatureProjection.supportFacts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "40a3f25b5784902f765bc43908da4581901a910e9efabb82e948d5276c45fa8a",
+        "observedProjectionSha256": "40a3f25b5784902f765bc43908da4581901a910e9efabb82e948d5276c45fa8a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectWizardScholar"
+    },
+    {
+      "branchAction": "doSelectClericProtectorOrder",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs",
+      "observedActionTaken": "doSelectClericProtectorOrder",
+      "qntFileSha256": "4fbdc4bb1c63a889d75b7117eb8c6e74a26cdce10c468379254f3b621b124218",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e4cd4c76a6f77d241c0e80c81d0574e2e4a3a17b0e3e9f796a76c1df96502772",
+        "observedProjectionSha256": "e4cd4c76a6f77d241c0e80c81d0574e2e4a3a17b0e3e9f796a76c1df96502772",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectClericProtectorOrder"
+    },
+    {
+      "branchAction": "doSelectClericThaumaturgeOrder",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs",
+      "observedActionTaken": "doSelectClericThaumaturgeOrder",
+      "qntFileSha256": "4fbdc4bb1c63a889d75b7117eb8c6e74a26cdce10c468379254f3b621b124218",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e4e31e87c6efb502fe6aadb11d789417ce01170acfb2c8a41d7b9c941b370470",
+        "observedProjectionSha256": "e4e31e87c6efb502fe6aadb11d789417ce01170acfb2c8a41d7b9c941b370470",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectClericThaumaturgeOrder"
+    },
+    {
+      "branchAction": "doSelectDruidMagicianOrder",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs",
+      "observedActionTaken": "doSelectDruidMagicianOrder",
+      "qntFileSha256": "4fbdc4bb1c63a889d75b7117eb8c6e74a26cdce10c468379254f3b621b124218",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "3b58bd69d08c7549bd58be245fda587e7439b76fe6e55335ff96232819bc003e",
+        "observedProjectionSha256": "3b58bd69d08c7549bd58be245fda587e7439b76fe6e55335ff96232819bc003e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectDruidMagicianOrder"
+    },
+    {
+      "branchAction": "doSelectDruidWardenOrder",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs",
+      "observedActionTaken": "doSelectDruidWardenOrder",
+      "qntFileSha256": "4fbdc4bb1c63a889d75b7117eb8c6e74a26cdce10c468379254f3b621b124218",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9be1b2c1a68512898edd64b96d4748bcd8264e1f4621398a8080320efd92fc84",
+        "observedProjectionSha256": "9be1b2c1a68512898edd64b96d4748bcd8264e1f4621398a8080320efd92fc84",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectDruidWardenOrder"
+    },
+    {
+      "branchAction": "doReplaceArcheryWithDefenseOnFighterLevelGain",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "observedActionTaken": "doReplaceArcheryWithDefenseOnFighterLevelGain",
+      "qntFileSha256": "24c3b09a38f9e724ade09ed5de71da19a65e88123c88670c498abb7d95573416",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "FightingStyleProjection.selected_feat"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5014afdd909452e0942a9c8b14364c2db70430171af4cc03958fd44cc2057543",
+        "observedProjectionSha256": "5014afdd909452e0942a9c8b14364c2db70430171af4cc03958fd44cc2057543",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceArcheryWithDefenseOnFighterLevelGain"
+    },
+    {
+      "branchAction": "doReplaceDefenseWithArcheryOnFighterLevelGain",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "observedActionTaken": "doReplaceDefenseWithArcheryOnFighterLevelGain",
+      "qntFileSha256": "24c3b09a38f9e724ade09ed5de71da19a65e88123c88670c498abb7d95573416",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "FightingStyleProjection.selected_feat"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b49cfaeb9550c21f13eb5ca80fd9b866e1fe4fa1800a8a4590ed62338a05478e",
+        "observedProjectionSha256": "b49cfaeb9550c21f13eb5ca80fd9b866e1fe4fa1800a8a4590ed62338a05478e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceDefenseWithArcheryOnFighterLevelGain"
+    },
+    {
+      "branchAction": "doReplaceDefenseWithGreatWeaponFightingOnFighterLevelGain",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "observedActionTaken": "doReplaceDefenseWithGreatWeaponFightingOnFighterLevelGain",
+      "qntFileSha256": "24c3b09a38f9e724ade09ed5de71da19a65e88123c88670c498abb7d95573416",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "FightingStyleProjection.selected_feat"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "65ab10b287109549b6483984be90ec63aaa6bdbacd86910eb617ee7055f60dcd",
+        "observedProjectionSha256": "65ab10b287109549b6483984be90ec63aaa6bdbacd86910eb617ee7055f60dcd",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceDefenseWithGreatWeaponFightingOnFighterLevelGain"
+    },
+    {
+      "branchAction": "doReplaceDefenseWithTwoWeaponFightingOnFighterLevelGain",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "observedActionTaken": "doReplaceDefenseWithTwoWeaponFightingOnFighterLevelGain",
+      "qntFileSha256": "24c3b09a38f9e724ade09ed5de71da19a65e88123c88670c498abb7d95573416",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "FightingStyleProjection.selected_feat"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ff3981667f3fca0fea60e3cec64fd156ec550e9d9c29628c2a25c18a2113e86f",
+        "observedProjectionSha256": "ff3981667f3fca0fea60e3cec64fd156ec550e9d9c29628c2a25c18a2113e86f",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceDefenseWithTwoWeaponFightingOnFighterLevelGain"
+    },
+    {
+      "branchAction": "doSelectArcheryFightingStyle",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "observedActionTaken": "doSelectArcheryFightingStyle",
+      "qntFileSha256": "24c3b09a38f9e724ade09ed5de71da19a65e88123c88670c498abb7d95573416",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "FightingStyleProjection.selected_feat"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b455883a68b8248c8d1da78816ce65e074645fe8c3669fd35a113d8284995507",
+        "observedProjectionSha256": "b455883a68b8248c8d1da78816ce65e074645fe8c3669fd35a113d8284995507",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectArcheryFightingStyle"
+    },
+    {
+      "branchAction": "doSelectDefenseFightingStyle",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "observedActionTaken": "doSelectDefenseFightingStyle",
+      "qntFileSha256": "24c3b09a38f9e724ade09ed5de71da19a65e88123c88670c498abb7d95573416",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "FightingStyleProjection.selected_feat"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6e709450f709c5f67b409a3e19f87ce13f7e72de3618dd49961225e43a8fc008",
+        "observedProjectionSha256": "6e709450f709c5f67b409a3e19f87ce13f7e72de3618dd49961225e43a8fc008",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectDefenseFightingStyle"
+    },
+    {
+      "branchAction": "doSelectGreatWeaponFightingStyle",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "observedActionTaken": "doSelectGreatWeaponFightingStyle",
+      "qntFileSha256": "24c3b09a38f9e724ade09ed5de71da19a65e88123c88670c498abb7d95573416",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "FightingStyleProjection.selected_feat"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8eaac6d02d191c0958175a68527b4dddb446252dcdad80dbf52a12cd2e38a0c5",
+        "observedProjectionSha256": "8eaac6d02d191c0958175a68527b4dddb446252dcdad80dbf52a12cd2e38a0c5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectGreatWeaponFightingStyle"
+    },
+    {
+      "branchAction": "doSelectTwoWeaponFightingStyle",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs",
+      "observedActionTaken": "doSelectTwoWeaponFightingStyle",
+      "qntFileSha256": "24c3b09a38f9e724ade09ed5de71da19a65e88123c88670c498abb7d95573416",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "FightingStyleProjection.selected_feat"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b04564a1ffd7a447fe0e2e7157940099a3fe001410cb753fb38c6315a9fa837d",
+        "observedProjectionSha256": "b04564a1ffd7a447fe0e2e7157940099a3fe001410cb753fb38c6315a9fa837d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectTwoWeaponFightingStyle"
+    },
+    {
+      "branchAction": "doSelectLevelOneOwnedSkillExpertise",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_rogue_expertise_selected_identity.rs",
+      "observedActionTaken": "doSelectLevelOneOwnedSkillExpertise",
+      "qntFileSha256": "8c6dac1aa0fde3a91f9769abbf29d81c27155d8319f7c61fef5e88835eb4fd45",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "ExpertiseSelectionProjection.selected_skills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c4dbd177eb565a26a05a3a8a020ffccd8ec2c3d91e2c51d6b3dfdcdeb3ca2b0d",
+        "observedProjectionSha256": "c4dbd177eb565a26a05a3a8a020ffccd8ec2c3d91e2c51d6b3dfdcdeb3ca2b0d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectLevelOneOwnedSkillExpertise"
+    },
+    {
+      "branchAction": "doSelectLevelSixAdditionalOwnedSkillExpertise",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_rogue_expertise_selected_identity.rs",
+      "observedActionTaken": "doSelectLevelSixAdditionalOwnedSkillExpertise",
+      "qntFileSha256": "8c6dac1aa0fde3a91f9769abbf29d81c27155d8319f7c61fef5e88835eb4fd45",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "ExpertiseSelectionProjection.selected_skills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a6f7547f949c9aed967e76fac9e210971ac71d6b4141eb003e47e80271d7bab6",
+        "observedProjectionSha256": "a6f7547f949c9aed967e76fac9e210971ac71d6b4141eb003e47e80271d7bab6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectLevelSixAdditionalOwnedSkillExpertise"
+    },
+    {
+      "branchAction": "doFillAbilityScoresOnly",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doFillAbilityScoresOnly",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4a1cd772c9e46f0ac1b1aa935093ea3a511af590c5a52106f8cccbcca500734a",
+        "observedProjectionSha256": "4a1cd772c9e46f0ac1b1aa935093ea3a511af590c5a52106f8cccbcca500734a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillAbilityScoresOnly"
+    },
+    {
+      "branchAction": "doFillInitialChoicesOnly",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doFillInitialChoicesOnly",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a835aaee08348988dfe28c942ce75185da70a1962066cf2a8446df571bdec7fb",
+        "observedProjectionSha256": "a835aaee08348988dfe28c942ce75185da70a1962066cf2a8446df571bdec7fb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillInitialChoicesOnly"
+    },
+    {
+      "branchAction": "doFillInitialManifest",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doFillInitialManifest",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "14b9358d440045a5cfd9b8ea5303f0b7f09eb883e602a934c3777b638b429719",
+        "observedProjectionSha256": "14b9358d440045a5cfd9b8ea5303f0b7f09eb883e602a934c3777b638b429719",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillInitialManifest"
+    },
+    {
+      "branchAction": "doFillManifestChoices",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doFillManifestChoices",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "cbe98626b4c36aa739effb42af3664950ac5225c491bd12f455e0e901123d61c",
+        "observedProjectionSha256": "cbe98626b4c36aa739effb42af3664950ac5225c491bd12f455e0e901123d61c",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillManifestChoices"
+    },
+    {
+      "branchAction": "doFillManifestLoadout",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doFillManifestLoadout",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "aab2e03e46f74de37ccf14c0dd141b1ca76ebb34ea062424fef7aa4559da3772",
+        "observedProjectionSha256": "aab2e03e46f74de37ccf14c0dd141b1ca76ebb34ea062424fef7aa4559da3772",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillManifestLoadout"
+    },
+    {
+      "branchAction": "doFillManifestPurchase",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doFillManifestPurchase",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "bc8c5f10e7d06240bd0497acfef600c563a99b1b432f9c1897f50c9d46993c52",
+        "observedProjectionSha256": "bc8c5f10e7d06240bd0497acfef600c563a99b1b432f9c1897f50c9d46993c52",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillManifestPurchase"
+    },
+    {
+      "branchAction": "doRejectClosedInitialProgressionHole",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doRejectClosedInitialProgressionHole",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "22bc5d998d87e9427f227fccfa9310ebd507a44a4561fa0c0de97392f4f50e23",
+        "observedProjectionSha256": "22bc5d998d87e9427f227fccfa9310ebd507a44a4561fa0c0de97392f4f50e23",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectClosedInitialProgressionHole"
+    },
+    {
+      "branchAction": "doRejectDuplicateFill",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doRejectDuplicateFill",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "bcd470333e749f9c5c2b346c0ca06e835b5cfab00148f6127a0acb4c96d31427",
+        "observedProjectionSha256": "bcd470333e749f9c5c2b346c0ca06e835b5cfab00148f6127a0acb4c96d31427",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectDuplicateFill"
+    },
+    {
+      "branchAction": "doRejectDuplicateLanguage",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doRejectDuplicateLanguage",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9f84121aeed278a2d7bcae8902eb44bf8f7250b6f6888f90e782ac7795c3921d",
+        "observedProjectionSha256": "9f84121aeed278a2d7bcae8902eb44bf8f7250b6f6888f90e782ac7795c3921d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectDuplicateLanguage"
+    },
+    {
+      "branchAction": "doRejectStaleInitialManifest",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doRejectStaleInitialManifest",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "996643ecbb188049606a20dda01c3d04a9d964d7785c163955217e3c48fe82d3",
+        "observedProjectionSha256": "996643ecbb188049606a20dda01c3d04a9d964d7785c163955217e3c48fe82d3",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectStaleInitialManifest"
+    },
+    {
+      "branchAction": "doRejectTooFewLanguages",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doRejectTooFewLanguages",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "adbde74248954669a2c8f41fe232029a3c3d4ea072373c6622f0f1761db0c4e5",
+        "observedProjectionSha256": "adbde74248954669a2c8f41fe232029a3c3d4ea072373c6622f0f1761db0c4e5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectTooFewLanguages"
+    },
+    {
+      "branchAction": "doRejectTooManyLanguages",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doRejectTooManyLanguages",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ba17449cc7131176699814341c78120df171dd2e333c16f2a0886c9f50bc5392",
+        "observedProjectionSha256": "ba17449cc7131176699814341c78120df171dd2e333c16f2a0886c9f50bc5392",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectTooManyLanguages"
+    },
+    {
+      "branchAction": "doRejectUnknownLoadoutArmor",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doRejectUnknownLoadoutArmor",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2194acf256dd5fcbc95c09236389bcaeac3c1974c8e0ddcc96d0573e27874a86",
+        "observedProjectionSha256": "2194acf256dd5fcbc95c09236389bcaeac3c1974c8e0ddcc96d0573e27874a86",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectUnknownLoadoutArmor"
+    },
+    {
+      "branchAction": "doRejectUnsupportedClassEquipment",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doRejectUnsupportedClassEquipment",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d6f817fc899331f54f51191b50149b687ec4ccea38617a17c6466897947ae0d4",
+        "observedProjectionSha256": "d6f817fc899331f54f51191b50149b687ec4ccea38617a17c6466897947ae0d4",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectUnsupportedClassEquipment"
+    },
+    {
+      "branchAction": "doRejectUnsupportedLanguage",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doRejectUnsupportedLanguage",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c84d32212190f607f91c0a05d7cd27253a54642d4c33e7db4a3612cb14f3db9d",
+        "observedProjectionSha256": "c84d32212190f607f91c0a05d7cd27253a54642d4c33e7db4a3612cb14f3db9d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectUnsupportedLanguage"
+    },
+    {
+      "branchAction": "doRejectWrongKindPrimaryClass",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_runtime.rs",
+      "observedActionTaken": "doRejectWrongKindPrimaryClass",
+      "qntFileSha256": "4d75053e9c7ecd7e89a8299349905c7f06207870cbe245a8a7f166b52fe6aa34",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "a958777d87b6176633cb9ae8e66c6a763c69599902494e37dc329e49dc8d582a",
+        "observedProjectionSha256": "a958777d87b6176633cb9ae8e66c6a763c69599902494e37dc329e49dc8d582a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectWrongKindPrimaryClass"
+    },
+    {
+      "branchAction": "doGainLevelTwoInvocations",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_warlock_eldritch_invocations_selected_identity.rs",
+      "observedActionTaken": "doGainLevelTwoInvocations",
+      "qntFileSha256": "aa258c7268f7f2ad3fc41280771be7fe14c5e7917c5c4866a7592e0e26ab4ec4",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "WarlockInvocationSelectionProjection.selected_invocations"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5a015cbc0225008ed4a82392d8226364670307218508c677a51a6048e6ddbda1",
+        "observedProjectionSha256": "5a015cbc0225008ed4a82392d8226364670307218508c677a51a6048e6ddbda1",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doGainLevelTwoInvocations"
+    },
+    {
+      "branchAction": "doRejectDuplicateInvocationSelections",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_warlock_eldritch_invocations_selected_identity.rs",
+      "observedActionTaken": "doRejectDuplicateInvocationSelections",
+      "qntFileSha256": "aa258c7268f7f2ad3fc41280771be7fe14c5e7917c5c4866a7592e0e26ab4ec4",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "WarlockInvocationSelectionProjection.selected_invocations"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6952bdfc5c3c39bdaf5794ac9051321a7827b007a426477713f68fefb29de5e9",
+        "observedProjectionSha256": "6952bdfc5c3c39bdaf5794ac9051321a7827b007a426477713f68fefb29de5e9",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectDuplicateInvocationSelections"
+    },
+    {
+      "branchAction": "doRejectPrerequisiteRetainedInvocationReplacement",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_warlock_eldritch_invocations_selected_identity.rs",
+      "observedActionTaken": "doRejectPrerequisiteRetainedInvocationReplacement",
+      "qntFileSha256": "aa258c7268f7f2ad3fc41280771be7fe14c5e7917c5c4866a7592e0e26ab4ec4",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "WarlockInvocationSelectionProjection.selected_invocations"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "9e7a2f41e11c68fe9fd2eca9d201e2d3638623b093071e17c045d7f37bce88b8",
+        "observedProjectionSha256": "9e7a2f41e11c68fe9fd2eca9d201e2d3638623b093071e17c045d7f37bce88b8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectPrerequisiteRetainedInvocationReplacement"
+    },
+    {
+      "branchAction": "doReplaceArmorWithEldritchMindOnWarlockLevelGain",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_warlock_eldritch_invocations_selected_identity.rs",
+      "observedActionTaken": "doReplaceArmorWithEldritchMindOnWarlockLevelGain",
+      "qntFileSha256": "aa258c7268f7f2ad3fc41280771be7fe14c5e7917c5c4866a7592e0e26ab4ec4",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "WarlockInvocationSelectionProjection.selected_invocations"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "135adc5dfa85fb16231ebc43947cd8fdcd57bc741c8276256cbae72908dac8da",
+        "observedProjectionSha256": "135adc5dfa85fb16231ebc43947cd8fdcd57bc741c8276256cbae72908dac8da",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceArmorWithEldritchMindOnWarlockLevelGain"
+    },
+    {
+      "branchAction": "doReplaceRepeatableInvocationByChoice",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_warlock_eldritch_invocations_selected_identity.rs",
+      "observedActionTaken": "doReplaceRepeatableInvocationByChoice",
+      "qntFileSha256": "aa258c7268f7f2ad3fc41280771be7fe14c5e7917c5c4866a7592e0e26ab4ec4",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "WarlockInvocationSelectionProjection.selected_invocations"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "365083a65e8e1439fd2263c66f4f2e7959b074ef8d05d69e02b5fd4f05c09d48",
+        "observedProjectionSha256": "365083a65e8e1439fd2263c66f4f2e7959b074ef8d05d69e02b5fd4f05c09d48",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceRepeatableInvocationByChoice"
+    },
+    {
+      "branchAction": "doSelectLevelOneArmorOfShadows",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_warlock_eldritch_invocations_selected_identity.rs",
+      "observedActionTaken": "doSelectLevelOneArmorOfShadows",
+      "qntFileSha256": "aa258c7268f7f2ad3fc41280771be7fe14c5e7917c5c4866a7592e0e26ab4ec4",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills",
+          "WarlockInvocationSelectionProjection.selected_invocations"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "590a17b1ab3425bb1b7293ec0dcdddeca1ca373dfba2633337e553131410bb88",
+        "observedProjectionSha256": "590a17b1ab3425bb1b7293ec0dcdddeca1ca373dfba2633337e553131410bb88",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectLevelOneArmorOfShadows"
+    },
+    {
+      "branchAction": "doFinalizeBarbarianWeaponMastery",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
+      "observedActionTaken": "doFinalizeBarbarianWeaponMastery",
+      "qntFileSha256": "ea01530d1fc5b2e41213dfd378b634bd53d58c6cba6a21628195b6e167aef01b",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e7f8dd53dcf06843ca7036b826a3eb3ec92d4c189e39fce31160a40f2a05bdb6",
+        "observedProjectionSha256": "e7f8dd53dcf06843ca7036b826a3eb3ec92d4c189e39fce31160a40f2a05bdb6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeBarbarianWeaponMastery"
+    },
+    {
+      "branchAction": "doFinalizeFighterWeaponMastery",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
+      "observedActionTaken": "doFinalizeFighterWeaponMastery",
+      "qntFileSha256": "ea01530d1fc5b2e41213dfd378b634bd53d58c6cba6a21628195b6e167aef01b",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "78818aaa5b45844df386b4e29e0f172342c13806eba7ce8ae2de05be40dd0717",
+        "observedProjectionSha256": "78818aaa5b45844df386b4e29e0f172342c13806eba7ce8ae2de05be40dd0717",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeFighterWeaponMastery"
+    },
+    {
+      "branchAction": "doFinalizePaladinWeaponMastery",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
+      "observedActionTaken": "doFinalizePaladinWeaponMastery",
+      "qntFileSha256": "ea01530d1fc5b2e41213dfd378b634bd53d58c6cba6a21628195b6e167aef01b",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "736e5b4f3357f520a06e2ee022d8e518628dbb9af15490a90e581f03a68d527c",
+        "observedProjectionSha256": "736e5b4f3357f520a06e2ee022d8e518628dbb9af15490a90e581f03a68d527c",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizePaladinWeaponMastery"
+    },
+    {
+      "branchAction": "doFinalizeRangerWeaponMastery",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
+      "observedActionTaken": "doFinalizeRangerWeaponMastery",
+      "qntFileSha256": "ea01530d1fc5b2e41213dfd378b634bd53d58c6cba6a21628195b6e167aef01b",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d55b401c3cef2b255d386ffc3522ae83817930422b5e328a0f3ed2002c0629ab",
+        "observedProjectionSha256": "d55b401c3cef2b255d386ffc3522ae83817930422b5e328a0f3ed2002c0629ab",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeRangerWeaponMastery"
+    },
+    {
+      "branchAction": "doFinalizeRogueWeaponMastery",
+      "branchFamily": "step",
+      "componentOwners": [
+        "CharacterCreationStateOwner"
+      ],
+      "driverPath": "cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs",
+      "observedActionTaken": "doFinalizeRogueWeaponMastery",
+      "qntFileSha256": "ea01530d1fc5b2e41213dfd378b634bd53d58c6cba6a21628195b6e167aef01b",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterCreationState.route",
+          "CharacterCreationState.draft",
+          "CreationSupportProfileAdmissionOwner.supportedFills"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "39c66da624a30c6eceeaaf1bd969819f6bacf2966a627d9201166f65afc47525",
+        "observedProjectionSha256": "39c66da624a30c6eceeaaf1bd969819f6bacf2966a627d9201166f65afc47525",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeRogueWeaponMastery"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "evidenceNotes": [
+    "Fixer refresh: expected qRoute witnesses are independent adapter-local QNT literal routes; observed replay helpers no longer feed expected_route assertions.",
+    "Production class feature semantics consume admitted support facts; authored selected labels remain only in adapter/test/evidence boundaries."
+  ]
+}

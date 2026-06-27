@@ -1729,3 +1729,125 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings`: pass.
 - `node scripts/check-cleanroom-harness.cjs`: pass.
 - `git diff --check a625d3e7190eb33396c17ee5dca7ae73f413b348...HEAD`: pass.
+
+## L15-RR08-CHARACTER-CREATION-ROUTES: Character Creation Routes
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Selected drivers: `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt`, `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt`, `cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt`, `cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt`, `cleanroom-input/qnt/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt`, `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt`, `cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt`, `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- Selected `cleanroom-input/qnt/character-creation-runtime/*.mbt.qnt` and route connectors
+- `cleanroom-input/raw/srd-5.2.1/Character-Creation.md`, `Classes/*.md`, `Rules-Glossary.md`, `Equipment.md`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md` and `CLEANROOM_ASSUMPTIONS.md`
+- Repo-local `src/**`, `tasks/**`, and Cargo tooling
+
+Behavior implemented:
+
+- Added shared character-owned creation state and qRoute events in `src/rules/character_creation.rs`.
+- Added `ProjectBuildFacts` routing plus adapter-local QNT literal expected-route witnesses in `src/qnt_adapters/character_creation_expected_routes.rs`; character-creation expected routes no longer call observed replay helpers.
+- Replaced production class-feature identity dispatch for level-2 feature projections, cleric/druid order projections, weapon mastery class counts, and metamagic option cost/effect facts with admitted support fact shapes in `src/rules/class_features.rs`.
+- Added missing selected-identity adapters and route evidence for the selected character-creation drivers; authored QNT action names and official selected labels remain quarantined in adapters/tests/evidence or selection-boundary fact mapping.
+
+Reviewer finding fixes:
+
+- Fixed `fixer-1-independent-route-evidence`: expected qRoute witnesses are independent adapter-local literals derived from the copied QNT route fixtures, not `replay_observed_route`.
+- Fixed `fixer-2-production-authored-identity-dispatch`: production rules now consume `ClassFeatureProjectionFacts`, `ClassOrderFacts`, `WeaponMasteryFacts`, and opaque metamagic choice keys instead of branching on selected official identity.
+- Fixed `fixer-3-report-honesty`: review, state-owner, engine-depth, decider, and validation-report artifacts now describe the repaired evidence boundary and no longer claim the pre-fix implementation had converged.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt#step:doProjectMonkFocusAndUncannyMetabolism` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectMonkFocusAndUncannyMetabolism#step:doProjectMonkFocusAndUncannyMetabolism` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt#step:doProjectSorcererFontAndMetamagic` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectSorcererFontAndMetamagic#step:doProjectSorcererFontAndMetamagic` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doProjectClericChannelDivinity` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectClericChannelDivinity#step:doProjectClericChannelDivinity` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doProjectDruidWildCompanion` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectDruidWildCompanion#step:doProjectDruidWildCompanion` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doProjectDruidWildShape` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectDruidWildShape#step:doProjectDruidWildShape` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doProjectMonksFocus` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectMonksFocus#step:doProjectMonksFocus` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doProjectMonkUncannyMetabolism` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectMonkUncannyMetabolism#step:doProjectMonkUncannyMetabolism` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doProjectWarlockPactMagic` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doProjectWarlockPactMagic#step:doProjectWarlockPactMagic` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doSelectBardExpertise` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectBardExpertise#step:doSelectBardExpertise` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doSelectPaladinFightingStyle` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectPaladinFightingStyle#step:doSelectPaladinFightingStyle` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doSelectRangerDeftExplorer` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectRangerDeftExplorer#step:doSelectRangerDeftExplorer` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doSelectRangerFightingStyle` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectRangerFightingStyle#step:doSelectRangerFightingStyle` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doSelectWizardEvocationSavant` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectWizardEvocationSavant#step:doSelectWizardEvocationSavant` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-selected-identity.mbt.qnt#step:doSelectWizardScholar` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectWizardScholar#step:doSelectWizardScholar` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt#step:doSelectClericProtectorOrder` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectClericProtectorOrder#step:doSelectClericProtectorOrder` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt#step:doSelectClericThaumaturgeOrder` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectClericThaumaturgeOrder#step:doSelectClericThaumaturgeOrder` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt#step:doSelectDruidMagicianOrder` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectDruidMagicianOrder#step:doSelectDruidMagicianOrder` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-cleric-druid-order-selected-identity.mbt.qnt#step:doSelectDruidWardenOrder` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectDruidWardenOrder#step:doSelectDruidWardenOrder` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt#step:doReplaceArcheryWithDefenseOnFighterLevelGain` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceArcheryWithDefenseOnFighterLevelGain#step:doReplaceArcheryWithDefenseOnFighterLevelGain` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt#step:doReplaceDefenseWithArcheryOnFighterLevelGain` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceDefenseWithArcheryOnFighterLevelGain#step:doReplaceDefenseWithArcheryOnFighterLevelGain` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt#step:doReplaceDefenseWithGreatWeaponFightingOnFighterLevelGain` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceDefenseWithGreatWeaponFightingOnFighterLevelGain#step:doReplaceDefenseWithGreatWeaponFightingOnFighterLevelGain` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt#step:doReplaceDefenseWithTwoWeaponFightingOnFighterLevelGain` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceDefenseWithTwoWeaponFightingOnFighterLevelGain#step:doReplaceDefenseWithTwoWeaponFightingOnFighterLevelGain` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt#step:doSelectArcheryFightingStyle` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectArcheryFightingStyle#step:doSelectArcheryFightingStyle` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt#step:doSelectDefenseFightingStyle` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectDefenseFightingStyle#step:doSelectDefenseFightingStyle` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt#step:doSelectGreatWeaponFightingStyle` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectGreatWeaponFightingStyle#step:doSelectGreatWeaponFightingStyle` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-fighter-fighting-style-selected-identity.mbt.qnt#step:doSelectTwoWeaponFightingStyle` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectTwoWeaponFightingStyle#step:doSelectTwoWeaponFightingStyle` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt#step:doSelectLevelOneOwnedSkillExpertise` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectLevelOneOwnedSkillExpertise#step:doSelectLevelOneOwnedSkillExpertise` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillAbilityScoresOnly` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillAbilityScoresOnly#step:doFillAbilityScoresOnly` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillInitialChoicesOnly` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillInitialChoicesOnly#step:doFillInitialChoicesOnly` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillInitialManifest` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillInitialManifest#step:doFillInitialManifest` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillManifestChoices` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillManifestChoices#step:doFillManifestChoices` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillManifestLoadout` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillManifestLoadout#step:doFillManifestLoadout` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doFillManifestPurchase` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFillManifestPurchase#step:doFillManifestPurchase` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectClosedInitialProgressionHole` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectClosedInitialProgressionHole#step:doRejectClosedInitialProgressionHole` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectDuplicateFill` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectDuplicateFill#step:doRejectDuplicateFill` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectDuplicateLanguage` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectDuplicateLanguage#step:doRejectDuplicateLanguage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectStaleInitialManifest` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectStaleInitialManifest#step:doRejectStaleInitialManifest` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectTooFewLanguages` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectTooFewLanguages#step:doRejectTooFewLanguages` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectTooManyLanguages` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectTooManyLanguages#step:doRejectTooManyLanguages` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectUnknownLoadoutArmor` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectUnknownLoadoutArmor#step:doRejectUnknownLoadoutArmor` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectUnsupportedClassEquipment` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectUnsupportedClassEquipment#step:doRejectUnsupportedClassEquipment` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectUnsupportedLanguage` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectUnsupportedLanguage#step:doRejectUnsupportedLanguage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt#step:doRejectWrongKindPrimaryClass` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectWrongKindPrimaryClass#step:doRejectWrongKindPrimaryClass` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt#step:doGainLevelTwoInvocations` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doGainLevelTwoInvocations#step:doGainLevelTwoInvocations` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt#step:doRejectDuplicateInvocationSelections` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doRejectDuplicateInvocationSelections#step:doRejectDuplicateInvocationSelections` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt#step:doReplaceArmorWithEldritchMindOnWarlockLevelGain` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceArmorWithEldritchMindOnWarlockLevelGain#step:doReplaceArmorWithEldritchMindOnWarlockLevelGain` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt#step:doReplaceRepeatableInvocationByChoice` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doReplaceRepeatableInvocationByChoice#step:doReplaceRepeatableInvocationByChoice` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt#step:doSelectLevelOneArmorOfShadows` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doSelectLevelOneArmorOfShadows#step:doSelectLevelOneArmorOfShadows` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt#step:doFinalizeBarbarianWeaponMastery` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeBarbarianWeaponMastery#step:doFinalizeBarbarianWeaponMastery` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt#step:doFinalizeFighterWeaponMastery` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeFighterWeaponMastery#step:doFinalizeFighterWeaponMastery` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt#step:doFinalizePaladinWeaponMastery` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizePaladinWeaponMastery#step:doFinalizePaladinWeaponMastery` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt#step:doFinalizeRangerWeaponMastery` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeRangerWeaponMastery#step:doFinalizeRangerWeaponMastery` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-creation-runtime/character-creation-weapon-mastery-containers-selected-identity.mbt.qnt#step:doFinalizeRogueWeaponMastery` | `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json#L15-RR08-CHARACTER-CREATION-ROUTES replay action=doFinalizeRogueWeaponMastery#step:doFinalizeRogueWeaponMastery` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR08-character-creation-routes.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Reproduction trace id prefix: `L15-RR08-CHARACTER-CREATION-ROUTES replay action=<branchAction>`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR08-CHARACTER-CREATION-ROUTES/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_` for in-scope L15-RR08 obligations. Source marks Rogue level 6 expertise and Warlock level 5 retained-prerequisite rejection outside this lane's level-1/2 acceptance denominator.
+
+Verification results:
+
+- `cargo test character_creation` passed.
+- `cargo test class_feature` passed.
+- `cargo test cleric_druid_order` passed.
+- `cargo test fighting_style` passed.
+- `cargo test rogue_expertise` passed.
+- `cargo test warlock_invocation` passed.
+- `cargo test weapon_mastery` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
