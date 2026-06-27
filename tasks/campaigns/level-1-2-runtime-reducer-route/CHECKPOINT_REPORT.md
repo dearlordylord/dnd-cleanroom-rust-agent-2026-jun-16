@@ -24,36 +24,36 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
 | CP6 Closure Sweep | complete | Closure audit recorded in `CP6_AUDIT.json` and `CP6_CLOSURE_REPORT.md`; every in-scope obligation is accepted or explicitly blocked. |
 | CP7 Post-CP6 Target Blocker Reduction | complete after source refresh | `L15-RRCP7-A` through `L15-RRCP7-E` merged and verified; source refresh `d5a70b23` moved nine fixture scenario transition rows out of the reducer-route denominator and supplied a generic spell base Armor Class route connector. |
-| CP8 Post-Refresh Mage Armor Route Acceptance | ready | One lane is queued: `L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES`, covering the three remaining Mage Armor admission/lifecycle rows against `battle-runtime-spell-base-armor-class-effect.route.mbt.qnt`. |
+| CP8 Post-Refresh Mage Armor Route Acceptance | complete | `L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES` merged and verified; the three remaining Mage Armor admission/lifecycle rows now replay through `SpellBaseArmorClassEffectRouteSubject`. |
 
 ## Last Known Verification
 
-At CP7 integration head `24ad8f3b493b2affa4dba3607a619f92bf54eb16`, followed by accounting head `673df2329de89144270ab0d977f5cce1bb670ade`:
+At CP8 integration head `5b1e976b6af7fadefa4ea5a065ae81de53b94d09`:
 
-- `cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture`: pass
-- `jq empty` over `tasks/RUN_LEDGER.json`, affected CP7-E history/evidence files, and `CP7_AUDIT.json`: pass
+- `cargo test mage_armor_adapter_replays_all_branches -- --nocapture`: pass
+- `cargo test mage_armor_projects_base_armor_class_and_duration -- --nocapture`: pass
+- `jq empty` over `tasks/RUN_LEDGER.json`, affected FU01E history/evidence files, `CP8_AUDIT.json`, and `STATE.json`: pass
 - `cargo fmt --check`: pass
 - `git diff --check HEAD~1...HEAD`: pass
 - `cargo test`: pass, `220` tests
 - `cargo clippy --all-targets -- -D warnings`: pass
-- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7e-cleanroom-harness.out` contained no CP7-E, Magic Weapon, or WeaponEnhancement-specific failures.
+- `node scripts/check-cleanroom-harness.cjs`: fails only on known stale validator hashes in `cleanroom-input/MANIFEST.md`; `/tmp/rrcp8-integration-harness.out` contained no CP8/FU01E/Mage Armor evidence, ledger, or artifact failures.
 
 ## Source Corpus Boundary
 
-CP7 exhausted the target-side work available from the copied cleanroom input package. Current accepted coverage is `656 / 668` in-scope obligations. The remaining `12` rows are not ready for another dirty Rust target lane.
+CP8 closes the post-refresh target-side dirty cleanroom rehearsal. Current accepted coverage is `659 / 659` refreshed in-scope obligations. The refreshed source inventory also marks `45` obligations out of scope, including the nine scenario sequencing rows moved out of the reducer-route denominator.
 
-Detailed handoff: `tasks/campaigns/level-1-2-runtime-reducer-route/SOURCE_CORPUS_HANDOFF.md`.
+Detailed source-refresh handoff: `tasks/campaigns/level-1-2-runtime-reducer-route/SOURCE_CORPUS_HANDOFF.md`.
 
 Remaining blocker groups:
 
-- `9` scenario transition rows in the after-hit and weapon-hosted drivers. Source must decide whether these are fixture sequencing rows that should leave the reducer-route denominator, or real reducer transitions that need explicit QNT route connectors.
-- `3` Mage Armor rows. Source must add a generic armor-class base active-effect / target-admission battle route connector before target replay can count them.
+- None in the refreshed in-scope denominator. The dirty Rust target now has accepted target replay evidence for every refreshed in-scope obligation in this campaign.
 
 Resolved by source refresh `d5a70b23ad05abd4188b1f0d37d9c6aba600cce5`:
 
 - The nine scenario transition rows are now out-of-scope transit-only fixture sequencing rows.
 - The Mage Armor selected-identity driver is now reducer-routed through `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt`.
-- Refreshed denominator: `659` in-scope obligations, `45` out-of-scope obligations. Accepted target evidence remains `656`, so `3` rows are ready for CP8 target replay.
+- Refreshed denominator: `659` in-scope obligations, `45` out-of-scope obligations. CP8 accepted the final `3` Mage Armor rows, bringing refreshed accepted coverage to `659 / 659`.
 
 ## Active Work
 
@@ -533,5 +533,20 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Remaining blockers: `12` target-side blockers, `0` source-QNT corpus blockers, `0` unresolved in-scope obligations.
 - Integration verification: focused weapon-hosted route adapter test, affected JSON parse checks, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`220` tests), and `cargo clippy --all-targets -- -D warnings` passed. `node scripts/check-cleanroom-harness.cjs` still fails on pre-existing stale global evidence/manifest debt; the saved output contained no CP7-E/Magic Weapon/WeaponEnhancement-specific failures.
 - Review/fixer notes: review confirmed the two accepted rows replay through observed reducer entrypoints and match `WeaponEnhancementItemTargetRouteSubject` with empty route holes, `BattleItemTargetBoundaryOwner` discovery, and no-fill resolution owned by `BattleActiveEffectOwner`. The only finding was a stale CP7 audit Run Ledger hash; the worker fixed it and rereview by inspection was clean.
-- Explicit non-goals preserved: `MagicWeaponTargetItem` was not added as reducer-owned hole/fill vocabulary; the nine scenario transition rows and three Mage Armor rows remain blocked.
+- Explicit non-goals preserved at CP7-E: `MagicWeaponTargetItem` was not added as reducer-owned hole/fill vocabulary; the nine scenario transition rows and three Mage Armor rows remained blocked until the later source refresh and CP8 acceptance.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-e`
+
+### L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES
+
+- Merge commit: `5b1e976b6af7fadefa4ea5a065ae81de53b94d09`
+- Lane commit(s): `e4e95b013982241e1c5d510ea4de44cc592c11cd`, `a8b96ec0aa91b4249b352009b1384292f917f7e2`
+- Selected rows: `doDiscoverMageArmorUnarmoredSelfTarget`, `doRejectMageArmorArmoredTarget`, and `doExpireMageArmorDuration`.
+- Route connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt`.
+- Obligations added: `3` accepted counted obligations; refreshed total accepted obligations moved from `656` to `659`.
+- New total driver coverage: `97 / 97 = 100.0%`
+- New total obligation coverage: `659 / 659 = 100.0%`
+- Remaining blockers: `0` target-side blockers, `0` source-QNT corpus blockers, `0` unresolved in-scope obligations.
+- Integration verification: focused Mage Armor route adapter test, focused Mage Armor base Armor Class/duration test, affected JSON parse checks, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`220` tests), and `cargo clippy --all-targets -- -D warnings` passed. `node scripts/check-cleanroom-harness.cjs` still fails only on known stale validator hashes in `cleanroom-input/MANIFEST.md`; the saved output contained no CP8/FU01E/Mage Armor-specific failures.
+- Review/fixer notes: initial review found the pre-existing base AC projection row still used the stale pre-refresh route shape. The follow-up commit refreshed that row to the generic connector shape: target-choice discovery, target-choice resolution, active-effect no-fill, and Armor Class no-fill. CP8 accounting still counts exactly the three newly accepted rows.
+- Production identity boundary: no production Mage Armor/name/id/provenance dispatch was introduced. Production reducer behavior uses `BattleArmorClassSpellEffectFill`, `BattleSubjectKind::ArmorClassSpellEffect`, route holes/fills, and owner groups. Selected spell identity remains adapter/evidence row identity only.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp8-a`

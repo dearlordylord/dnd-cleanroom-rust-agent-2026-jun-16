@@ -6,18 +6,18 @@ Integration worktree: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrco
 
 Integration branch: `ralph/rrconv-19-cleanroom`
 
-Last dirty-cleanroom accounting head: `673df2329de89144270ab0d977f5cce1bb670ade`
+Last dirty-cleanroom integration head: `5b1e976b6af7fadefa4ea5a065ae81de53b94d09`
 
 ## Status
 
-CP7 exhausted the target-side reducer-route work that could be accepted from the previous copied cleanroom input package.
+CP7 exhausted the target-side reducer-route work that could be accepted from the previous copied cleanroom input package. Source refresh `d5a70b23ad05abd4188b1f0d37d9c6aba600cce5` satisfied this handoff, and CP8 consumed the refreshed package in the dirty Rust target.
 
-Source refresh `d5a70b23ad05abd4188b1f0d37d9c6aba600cce5` satisfied this handoff:
+The source refresh:
 
 - the nine fixture scenario transition rows are now out-of-scope transit-only rows;
 - the three Mage Armor admission/lifecycle rows are now reducer-routed through `cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt`.
 
-Current target evidence coverage remains `656` accepted obligations, but the refreshed denominator is now `659` in-scope obligations. The next dirty cleanroom lane is target-side CP8 for the remaining three rows.
+CP8 accepted the remaining three Mage Armor rows. Current target evidence coverage is `659 / 659` refreshed in-scope obligations, with `45` out-of-scope obligations.
 
 ## Remaining Blocker Groups
 
@@ -55,7 +55,7 @@ Rows:
 - `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration`
 - `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget`
 
-Current evidence reason: resolved by refreshed generic spell base Armor Class route connector.
+Current evidence reason: resolved by refreshed generic spell base Armor Class route connector and accepted by CP8 target replay.
 
 Source-side work completed:
 
@@ -66,4 +66,4 @@ Source-side work completed:
 
 ## Next Campaign Boundary
 
-The next useful dirty-cleanroom phase is CP8. It should consume the regenerated package and launch only `L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES`.
+This handoff is closed. The next useful campaign boundary is not another target lane for these rows; it is deciding whether to clean up global stale validator hashes / old historical evidence debt, or to start a new source-QNT architecture campaign beyond this dirty cleanroom rehearsal.

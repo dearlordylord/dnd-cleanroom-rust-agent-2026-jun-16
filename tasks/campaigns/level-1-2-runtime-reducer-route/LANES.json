@@ -1262,7 +1262,7 @@
     {
       "laneId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES",
       "checkpointId": "CP8",
-      "status": "ready",
+      "status": "merged-verified",
       "parallelGroup": "cp8-post-source-refresh-target-acceptance",
       "routeTaskIds": [
         "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES"
@@ -1307,7 +1307,12 @@
         "Production code does not dispatch on Mage Armor name/id/provenance; selected identity remains fixture/admission/catalog data only.",
         "The nine scenario transition rows remain out-of-scope transit-only and are not accepted by target replay evidence."
       ],
-      "blockerHandling": "If the refreshed connector is still insufficient, record the exact missing generic owner/fill/subject fact instead of synthesizing a selected spell route."
+      "blockerHandling": "If the refreshed connector is still insufficient, record the exact missing generic owner/fill/subject fact instead of synthesizing a selected spell route.",
+      "laneHead": "a8b96ec0aa91b4249b352009b1384292f917f7e2",
+      "mergeCommit": "5b1e976b6af7fadefa4ea5a065ae81de53b94d09",
+      "acceptedObligations": 3,
+      "remainingBlockers": 0,
+      "completionNote": "Merged and verified in CP8; refreshed campaign coverage is 659/659 in-scope obligations."
     }
   ],
   "standardVerification": [

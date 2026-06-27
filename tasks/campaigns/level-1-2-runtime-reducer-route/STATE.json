@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "post-source-refresh-active",
+  "status": "post-source-refresh-complete",
   "dirtyCleanroomOnly": true,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "2cad93ab15f4b84898d00ce6efaa337746a6fa64",
+    "lastVerifiedIntegrationHead": "5b1e976b6af7fadefa4ea5a065ae81de53b94d09",
     "lastMergedLane": {
-      "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
-      "mergeCommit": "24ad8f3b493b2affa4dba3607a619f92bf54eb16",
-      "laneHead": "d08c66e271cae1d4f3ddd5eb1ca101ad5b11c14c",
-      "note": "CP7-E accepted exactly the two Magic Weapon item-target rows through observed reducer-entrypoint route events matching the copied WeaponEnhancementItemTargetRouteSubject qRoute. Scenario transition and Mage Armor rows remain blocked."
+      "laneId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES",
+      "mergeCommit": "5b1e976b6af7fadefa4ea5a065ae81de53b94d09",
+      "laneHead": "a8b96ec0aa91b4249b352009b1384292f917f7e2",
+      "note": "CP8 accepted exactly the three remaining Mage Armor admission/lifecycle rows through the generic SpellBaseArmorClassEffectRouteSubject connector; the pre-existing base AC projection row was refreshed to the same connector shape without counting as a new CP8 row."
     },
     "lastSourceRefresh": {
       "sourceCommitSha": "d5a70b23ad05abd4188b1f0d37d9c6aba600cce5",
@@ -40,13 +40,13 @@
   "coverageCurrent": {
     "acceptedUniqueDrivers": 97,
     "acceptedDriverCoveragePercent": 100,
-    "acceptedObligations": 656,
-    "acceptedObligationCoveragePercent": 99.5,
-    "blockedObligations": 3,
+    "acceptedObligations": 659,
+    "acceptedObligationCoveragePercent": 100,
+    "blockedObligations": 0,
     "outOfScopeObligations": 45,
     "unresolvedInScopeObligations": 0,
-    "acceptedUniqueDriversSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit",
-    "acceptedObligationsSource": "CP7_AUDIT.json remains the pre-refresh row-key audit for accepted target replay evidence. After source refresh d5a70b23, the canonical in-scope denominator is 659: nine scenario sequencing rows moved out of scope as transit-only fixture rows, and the three Mage Armor admission/lifecycle rows are now reducer-routed through cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt pending target replay acceptance."
+    "acceptedUniqueDriversSource": "CP8_AUDIT.json plus existing target replay evidence after source refresh d5a70b23",
+    "acceptedObligationsSource": "CP8 accepted the final three in-scope Mage Armor admission/lifecycle rows after the source refresh supplied cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt. Canonical in-scope denominator is 659; accepted obligation coverage is 659/659."
   },
   "completedBeforeCampaign": [
     "T001",
@@ -62,7 +62,7 @@
     "RRCONV-19F-RUST-ROUTE-EVENT-FROM-REDUCER-RESULT",
     "RRCONV-19G-RUST-SUBJECT-CONTINUATION-LIFECYCLE"
   ],
-  "activeCheckpoint": "CP8",
+  "activeCheckpoint": null,
   "checkpoints": [
     {
       "checkpointId": "CP0",
@@ -207,16 +207,16 @@
     {
       "checkpointId": "CP8",
       "name": "Post-Refresh Mage Armor Route Acceptance",
-      "status": "running",
+      "status": "complete",
       "dependsOn": [
         "CP7"
       ],
-      "runningLaneIds": [
+      "runningLaneIds": [],
+      "readyLaneIds": [],
+      "mergedLaneIds": [
         "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES"
       ],
-      "readyLaneIds": [],
-      "mergedLaneIds": [],
-      "notes": "Run exactly the three remaining Mage Armor rows through the refreshed generic SpellBaseArmorClassEffectRouteSubject connector. Do not reintroduce selected spell identity dispatch or route the nine scenario sequencing rows."
+      "notes": "Merged and verified CP8. The three remaining Mage Armor admission/lifecycle rows are accepted through observed BattleEntrypointTrace route events matching SpellBaseArmorClassEffectRouteSubject; scenario sequencing rows remain out of scope per refreshed source inventory."
     }
   ],
   "laneStatuses": {
@@ -274,35 +274,71 @@
     "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "merged-verified",
     "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "merged-verified",
     "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "merged-verified",
-    "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES": "running"
+    "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "673df2329de89144270ab0d977f5cce1bb670ade",
+    "head": "5b1e976b6af7fadefa4ea5a065ae81de53b94d09",
     "commands": [
-      "cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture",
-      "jq empty touched CP7-E JSON artifacts",
+      "jq empty touched CP8 JSON artifacts",
+      "cargo test mage_armor_adapter_replays_all_branches -- --nocapture",
+      "cargo test mage_armor_projects_base_armor_class_and_duration -- --nocapture",
       "cargo fmt --check",
       "git diff --check HEAD~1...HEAD",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings",
       "node scripts/check-cleanroom-harness.cjs"
     ],
-    "result": "passed except cleanroom harness failed on pre-existing stale global evidence/manifest debt",
+    "result": "passed except cleanroom harness failed only on known stale validator hashes in cleanroom-input/MANIFEST.md",
     "cargoTest": "220 passed",
-    "focusedTests": "Magic Weapon item-target route evidence passed in the weapon-hosted route adapter focused test",
-    "cleanroomHarness": "failed as expected on stale global manifest/evidence debt; /tmp/rrcp7e-cleanroom-harness.out contained no CP7-E, Magic Weapon, or WeaponEnhancement-specific failures",
-    "note": "No Rust changes after CP7-E. This state update records the source/corpus boundary after the verified CP7-E integration head and its accounting commit."
+    "focusedTests": "Mage Armor adapter replay and base Armor Class/duration projection tests passed",
+    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no CP8/FU01E/Mage Armor evidence, ledger, or artifact failures",
+    "review": "Rawls the 2nd re-review returned no blockers for commit a8b96ec0aa91b4249b352009b1384292f917f7e2"
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp8-a",
       "branch": "ralph/l15-rrcp8-a-mage-armor-generic-ac",
       "baseSha": "b4c04b7",
-      "status": "planned-for-launch"
-    }
-  ],
-  "completedLaneWorktrees": [
+      "status": "merged-verified",
+      "workerAgent": "019f0975-37fd-72f1-8c8d-ee7a0095f678",
+      "workerName": "Raman the 2nd",
+      "workerStatus": "complete-after-fix",
+      "workerCommit": "e4e95b013982241e1c5d510ea4de44cc592c11cd",
+      "followupCommit": "a8b96ec0aa91b4249b352009b1384292f917f7e2",
+      "acceptedRows": 3,
+      "blockedRows": 0,
+      "workerSummary": [
+        "Accepted the three remaining Mage Armor admission/lifecycle rows through observed reducer-entrypoint route events matching the generic SpellBaseArmorClassEffectRouteSubject connector.",
+        "Refreshed the pre-existing base AC projection row to the same connector shape without counting it as a new CP8 row.",
+        "Kept production routing shape-based; selected spell identity remains adapter/evidence row identity only."
+      ],
+      "reviewAgent": "019f098a-5c65-7fa2-839f-917244fa129d",
+      "reviewName": "Rawls the 2nd",
+      "reviewStatus": "clean-after-followup",
+      "reviewVerdict": "no blockers",
+      "reviewFindingsResolved": [
+        "Updated base AC projection replay to the generic connector shape: target-choice discovery, target-choice resolution, active-effect no-fill, and Armor Class no-fill.",
+        "Updated validation metadata to point at CP8/Mage Armor instead of stale CP7-E/Magic Weapon latest status."
+      ],
+      "mergeCommit": "5b1e976b6af7fadefa4ea5a065ae81de53b94d09",
+      "laneHead": "a8b96ec0aa91b4249b352009b1384292f917f7e2",
+      "integrationVerification": [
+        "jq empty touched CP8 JSON artifacts",
+        "cargo test mage_armor_adapter_replays_all_branches -- --nocapture",
+        "cargo test mage_armor_projects_base_armor_class_and_duration -- --nocapture",
+        "cargo fmt --check",
+        "git diff --check HEAD~1...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs"
+      ],
+      "integrationVerificationResult": "passed except cleanroom harness failed only on known stale validator hashes in cleanroom-input/MANIFEST.md",
+      "acceptedDriversAdded": 0,
+      "acceptedObligationsAdded": 3,
+      "remainingTargetBlockers": 0
+    },
     {
       "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-e",
@@ -2280,9 +2316,9 @@
     "If the integration HEAD changes outside this campaign, stop and reconcile before launching more Ralph workers."
   ],
   "sourceCorpusRefreshRequired": {
-    "status": "satisfied-by-source-refresh",
+    "status": "satisfied-and-target-accepted",
     "sourceCommitSha": "d5a70b23ad05abd4188b1f0d37d9c6aba600cce5",
     "report": "tasks/campaigns/level-1-2-runtime-reducer-route/SOURCE_CORPUS_HANDOFF.md",
-    "summary": "Source refresh supplied the generic spell base Armor Class route connector and moved the nine fixture scenario transition rows out of the reducer-route denominator. The next dirty target lane may attempt only the three Mage Armor admission/lifecycle rows."
+    "summary": "Source refresh supplied the generic spell base Armor Class route connector and moved nine fixture scenario transition rows out of the reducer-route denominator. CP8 target replay accepted the remaining three Mage Armor rows, closing refreshed in-scope coverage at 659/659."
   }
 }

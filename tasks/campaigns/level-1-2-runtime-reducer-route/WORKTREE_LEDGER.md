@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp8-a` | `ralph/l15-rrcp8-a-mage-armor-generic-ac` | `b4c04b7` | pending | planned-for-launch |
+| _none_ | | | | | |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -44,6 +44,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp8-a` | `ralph/l15-rrcp8-a-mage-armor-generic-ac` | `a8b96ec0aa91b4249b352009b1384292f917f7e2` | `5b1e976b6af7fadefa4ea5a065ae81de53b94d09` | removable |
 | L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c` | `ralph/l15-rr04c-rule-core-spell-ability` | `8b3bd015c34357b38962bfaada4e6f1d0ba3d500` | `ee30e831b0bc0fa49fa54100e54a45c32a43a60a` | removable |
 | L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04d` | `ralph/l15-rr04d-rule-core-feature-profile` | `3b522e37510064953d299db7cc4a739af9cd9d04` | `d0af3dc` | removable |
 | L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b` | `ralph/l15-rr04b-rule-core-movement-reaction-shove` | `22e6ff0ef095602ce05037382499f8715d0cef8e` | `727655c` | removable |

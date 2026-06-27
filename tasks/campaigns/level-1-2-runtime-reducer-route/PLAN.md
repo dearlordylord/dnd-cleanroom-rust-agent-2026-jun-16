@@ -315,13 +315,18 @@ scenario transition rows as out-of-scope transit-only rows and supplies
 `battle-runtime-spell-base-armor-class-effect.route.mbt.qnt` for the generic
 spell base Armor Class target-admission / active-effect lifecycle route.
 
+CP8 completion result: `L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES` merged at
+`5b1e976b6af7fadefa4ea5a065ae81de53b94d09` and accepted the final three
+refreshed in-scope Mage Armor rows. Current refreshed target evidence coverage
+is `659 / 659` obligations, with `45` out-of-scope obligations.
+
 ### CP8: Post-Refresh Mage Armor Route Acceptance
 
 Purpose:
 
-Consume the refreshed cleanroom package in the dirty Rust target and accept the
-three remaining Mage Armor admission/lifecycle rows only if they replay through
-observed shared reducer entrypoints and match the generic
+Completed. The dirty Rust target consumed the refreshed cleanroom package and
+accepted the three remaining Mage Armor admission/lifecycle rows through
+observed shared reducer entrypoints matching the generic
 `SpellBaseArmorClassEffectRouteSubject` connector.
 
 Lane:
@@ -332,10 +337,10 @@ Exit criteria:
 
 - `doDiscoverMageArmorUnarmoredSelfTarget`, `doRejectMageArmorArmoredTarget`,
   and `doExpireMageArmorDuration` have target replay evidence matched to the
-  generic connector;
-- no production selected spell identity dispatch is introduced;
+  generic connector: satisfied;
+- no production selected spell identity dispatch is introduced: satisfied;
 - scenario transition rows remain out-of-scope transit-only and are not counted
-  as accepted target replay.
+  as accepted target replay: satisfied.
 
 ## Standard Lane Lifecycle
 
