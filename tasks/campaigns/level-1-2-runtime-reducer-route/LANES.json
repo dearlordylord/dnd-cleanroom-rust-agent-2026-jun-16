@@ -469,7 +469,7 @@
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "fixing-review-findings",
+      "status": "merged-blocked-zero-accepted",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [

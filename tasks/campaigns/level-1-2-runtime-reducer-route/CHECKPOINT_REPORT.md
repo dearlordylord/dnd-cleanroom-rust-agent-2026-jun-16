@@ -20,8 +20,8 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP1 Battle Reducer Core Expansion | complete | `L15-RR03`, `L15-RR05`, and `L15-RR06` merged and verified. |
 | CP2 Rule-Core Component Connectors | complete | Four `L15-RR04` component sublanes merged and verified. |
 | CP3 Character Creation, Sheet, And Handoff | complete | RR08 creation, RR09 sheet, and RR10 handoff merged and verified. |
-| CP4 Feature And Catalog Substrates | running | CP4 small feature substrate batch A/B/C is merged and verified. FU01 and FU08 still need dedicated split planning before execution, so parent CP4 remains open. |
-| CP5 Remaining Battle Families | blocked-on-checkpoint | Depends on CP1, CP2, CP4. |
+| CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is recorded as zero accepted coverage with a source-QNT connector blocker. |
+| CP5 Remaining Battle Families | ready | CP1, CP2, and CP4 are complete. |
 | CP6 Closure Sweep | blocked-on-checkpoint | Runs after all implementation checkpoints. |
 
 ## Last Known Verification
@@ -63,7 +63,7 @@ At `1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9`:
   - `L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES` merged at `67bc22f`; lane head `6d89dd42b345c3253d36759d723c1fe4a3271c2c`.
   - `L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES` merged at `1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9`; lane head `582b2a71c6573c480d4ccddec15381308a2bd667`.
   - Integration verification passed: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`207 passed`), `cargo clippy --all-targets -- -D warnings`, and `cargo test adapter_replays_all_branches --quiet` (`76 passed`).
-  - CP4 remains running because FU01 and FU08 are still split/blocker-planning lanes.
+  - CP4 is now complete: FU01 and FU08 split lanes are merged, with FU01D recorded as honest zero-accepted blocker evidence.
 
 ## Coverage Delta Log
 
@@ -298,6 +298,18 @@ Template:
 - Integration verification: focused FU01C adapter test, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD...`, `cargo test` (`210 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
 - Review/fixer notes: first review found false durable ownership claims for nonexistent `BattleState.genericRouteSubjects`; fixer reframed evidence around real subject kinds and route events. Re-review found duplicate continuation ownership in `GenericRouteShape.next_holes`; follow-up fixer removed that field so `generic_route_next_holes(subject.kind, fill)` is the single continuation source. Final re-review returned clean.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c`
+
+### L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES
+
+- Merge commit: `91e141c8998682ebf6daf65e0ff5594aaf24551e`
+- Lane commit(s): `879b44d3d7dec602df492f4570429b9fc92cb6f0`, `97c2e1feb4da16f7f60c96dcf3a16374d748283c`, `b5a005e4cfb4b35b47a9b65f1dd688f61e059142`, `61a1bc984aa104b439c4adf3d2e43b0ad57e1674`
+- Drivers added: `0` accepted drivers.
+- Obligations added: `0` accepted obligations; all `16` FU01D protection/charm/ward rows are blocked because the copied cleanroom inputs still lack an executable generic protection/charm/ward connector substrate.
+- New total driver coverage: `77 / 97 = 79.4%`
+- New total obligation coverage: `513 / 668 = 76.8%`
+- Integration verification: focused FU01D adapter tests, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD...`, `cargo test` (`210 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: first review removed duplicated durable projection state and self-referential witnesses. Second review found accepted coverage was still dishonest without copied executable connector evidence. Follow-up fixer demoted all FU01D rows to blockers, removed stale accepted replay evidence/accounting, and final re-review fixed a stale validation header before returning clean.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d`
 
 ## CP4 Launch Plan
 

@@ -14,7 +14,6 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d` | `ralph/l15-rr07-fu01d-protection-charm-ward` | `410a784738fba3b80566eae292140327d4e30877` | Pasteur `019f07d6-63cd-7821-8803-074f626ac3e5`; reviewer Fermat the 2nd `019f07f1-7dcf-7472-9ca7-b32d4164cdb4`; fixer Kuhn the 2nd `019f07f5-821b-76c0-80ef-a88215f986bf`; re-reviewer Boole the 2nd `019f07fd-755a-7313-b7af-6e42908e71f6`; follow-up fixer Poincare the 2nd `019f0803-05d2-7320-a765-c1d22fbf3f77` | fixing connector/blocker honesty after `97c2e1feb4da16f7f60c96dcf3a16374d748283c` |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -65,3 +64,4 @@ When launching a lane:
 | L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b` | `ralph/l15-rr07-fu01b-spell-attack-damage` | `195a473783bc666f5413dabe0a2bf93ea18003df` | `6834ee18356e01eb9b00bd4b32f0169b75a7220d` | removable-after-operator-confirms-no-local-use |
 | L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01e` | `ralph/l15-rr07-fu01e-armor-reaction` | `c135ceb24f7b0f44d93f14763d55dbb9aaa8cf4f` | `4f69ca5c407cbc53c5e3a5a431cedf0f1d3148c9` | removable-after-operator-confirms-no-local-use |
 | L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c` | `ralph/l15-rr07-fu01c-weapon-buff-mark-smite` | `947f76c009833c8a0702e78956accfd1a3417da9` | `925c298ac923b894891a34331865839f5a1be371` | removable-after-operator-confirms-no-local-use |
+| L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d` | `ralph/l15-rr07-fu01d-protection-charm-ward` | `61a1bc984aa104b439c4adf3d2e43b0ad57e1674` | `91e141c8998682ebf6daf65e0ff5594aaf24551e` | removable-after-operator-confirms-no-local-use; zero accepted coverage, source-QNT connector blocker recorded |
