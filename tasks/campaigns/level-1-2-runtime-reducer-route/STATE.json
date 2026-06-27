@@ -74,16 +74,18 @@
     {
       "checkpointId": "CP2",
       "name": "Rule-Core Component Connectors",
-      "status": "ready-needs-split",
+      "status": "ready",
       "dependsOn": [
         "CP1"
       ],
       "readyLaneIds": [
-        "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS"
+        "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
+        "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
+        "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
+        "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS"
       ],
-      "splitRequiredLaneIds": [
-        "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS"
-      ]
+      "splitRequiredLaneIds": [],
+      "parentLaneId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS"
     },
     {
       "checkpointId": "CP3",
@@ -129,7 +131,7 @@
     "L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE": "merged",
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
-    "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "ready-needs-split",
+    "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "split-into-sublanes",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "blocked-on-checkpoint",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "blocked-on-checkpoint",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "blocked-on-checkpoint",
@@ -150,7 +152,11 @@
     "L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES": "blocked-on-checkpoint",
     "L15-RR20-BATTLE-COMPANION-OBJECT-BOUNDARY-ROUTES": "blocked-on-checkpoint",
     "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES": "blocked-on-checkpoint",
-    "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint"
+    "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint",
+    "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "ready",
+    "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "ready",
+    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "ready",
+    "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "ready"
   },
   "lastIntegrationVerification": {
     "head": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025",

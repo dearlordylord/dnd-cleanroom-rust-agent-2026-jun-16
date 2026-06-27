@@ -152,8 +152,12 @@ Lane:
 
 Parallelism:
 
-- split into sublanes before execution because it has `9` drivers and `140` obligations.
-- Maximum recommended split: 3 sublanes grouped by shared Rust module/write scope.
+- split into sublanes before execution because it has `9` drivers and `140` raw obligations.
+- Current split: 4 sublanes grouped by shared Rust module/write scope and kept under the preferred `70`-obligation lane cap:
+  - `L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS`
+  - `L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS`
+  - `L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS`
+  - `L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS`
 
 Exit criteria:
 

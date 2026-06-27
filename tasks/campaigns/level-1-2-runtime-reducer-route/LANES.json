@@ -106,7 +106,7 @@
     {
       "laneId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "checkpointId": "CP2",
-      "status": "ready-needs-split",
+      "status": "split-into-sublanes",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [
         "component-first"
@@ -124,12 +124,132 @@
         "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt",
         "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt"
       ],
-      "splitRecommendation": "Split into 3 sublanes before execution: HP/damage/stat-block, movement/reactions/shove, spells/features/ability-skill.",
+      "splitRecommendation": "Split into 4 sublanes to keep every lane under the preferred 70-obligation cap: damage/stat-block, movement/reactions/shove, spell/ability, and feature profile.",
       "purpose": "Prove reusable rule-core components before later battle and character routes depend on them.",
       "dependencies": [
         "CP1 complete"
       ],
-      "acceptanceSummary": "Component route evidence exists without turning rule-core witnesses into production battle-state owners."
+      "acceptanceSummary": "Component route evidence exists without turning rule-core witnesses into production battle-state owners.",
+      "splitIntoLaneIds": [
+        "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
+        "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
+        "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
+        "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS"
+      ]
+    },
+    {
+      "laneId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
+      "checkpointId": "CP2",
+      "status": "ready",
+      "parallelGroup": "cp2-rule-core-components",
+      "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
+      "routeClasses": [
+        "component-first"
+      ],
+      "driverCount": 3,
+      "branchObligations": 13,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt"
+      ],
+      "purpose": "Prove attack damage disposition, HP damage, and stat-block control component connectors before battle action routes depend on them.",
+      "dependencies": [
+        "CP1 complete"
+      ],
+      "expectedWriteScope": [
+        "src/qnt_adapters/rule_core_attack_damage_disposition.rs",
+        "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
+        "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Damage, HP, and stat-block control component evidence exists without turning rule-core witnesses into production battle-state owners."
+    },
+    {
+      "laneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
+      "checkpointId": "CP2",
+      "status": "ready",
+      "parallelGroup": "cp2-rule-core-components",
+      "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
+      "routeClasses": [
+        "component-first"
+      ],
+      "driverCount": 3,
+      "branchObligations": 38,
+      "currentOutOfScopeBranchObligations": 0,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt"
+      ],
+      "purpose": "Prove movement, reaction/continuation, and shove reusable component connectors before battle movement/effect routes depend on them.",
+      "dependencies": [
+        "CP1 complete"
+      ],
+      "expectedWriteScope": [
+        "src/qnt_adapters/rule_core_movement_mbt.rs",
+        "src/qnt_adapters/rule_core_reactions_mbt.rs",
+        "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Movement, reaction, and shove component evidence exists without creating battle reducer owners or fixture identity dispatch."
+    },
+    {
+      "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
+      "checkpointId": "CP2",
+      "status": "ready",
+      "parallelGroup": "cp2-rule-core-components",
+      "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
+      "routeClasses": [
+        "component-first"
+      ],
+      "driverCount": 2,
+      "branchObligations": 62,
+      "currentOutOfScopeBranchObligations": 6,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/rule-core-ability-skill-command.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt"
+      ],
+      "purpose": "Prove ability/skill/command and spell procedure component connectors before battle spell/effect and character routes depend on them.",
+      "dependencies": [
+        "CP1 complete"
+      ],
+      "expectedWriteScope": [
+        "src/qnt_adapters/rule_core_ability_skill_command_mbt.rs",
+        "src/qnt_adapters/rule_core_spells_mbt.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Ability/skill/command and spell component evidence exists as reusable rule-core facts, not battle adapter local replay state."
+    },
+    {
+      "laneId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
+      "checkpointId": "CP2",
+      "status": "ready",
+      "parallelGroup": "cp2-rule-core-components",
+      "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
+      "routeClasses": [
+        "component-first"
+      ],
+      "driverCount": 1,
+      "branchObligations": 27,
+      "currentOutOfScopeBranchObligations": 5,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt"
+      ],
+      "purpose": "Prove feature profile semantics component connector before battle feature substrate and later level-promotion routes depend on it.",
+      "dependencies": [
+        "CP1 complete"
+      ],
+      "expectedWriteScope": [
+        "src/qnt_adapters/rule_core_features_mbt.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ],
+      "acceptanceSummary": "Feature profile component evidence exists without admitting authored feature identity dispatch into production runtime semantics."
     },
     {
       "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
