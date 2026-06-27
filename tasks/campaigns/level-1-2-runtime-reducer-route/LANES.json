@@ -1057,7 +1057,7 @@
     {
       "laneId": "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
       "checkpointId": "CP7",
-      "status": "running",
+      "status": "merged-verified",
       "parallelGroup": "cp7-target-blocker-reduction",
       "routeTaskIds": [
         "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES"

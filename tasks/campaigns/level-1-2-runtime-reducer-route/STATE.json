@@ -36,13 +36,13 @@
   "coverageCurrent": {
     "acceptedUniqueDrivers": 97,
     "acceptedDriverCoveragePercent": 100,
-    "acceptedObligations": 643,
-    "acceptedObligationCoveragePercent": 96.3,
-    "blockedObligations": 25,
+    "acceptedObligations": 647,
+    "acceptedObligationCoveragePercent": 96.9,
+    "blockedObligations": 21,
     "outOfScopeObligations": 36,
     "unresolvedInScopeObligations": 0,
-    "acceptedUniqueDriversSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP6_AUDIT.json exact row-key audit",
-    "acceptedObligationsSource": "target replay evidence pass runs keyed by driverPath#branchFamily:branchAction; target blockers excluded from accepted coverage; FU01D source-QNT blockers removed after accepted copied-connector replay evidence"
+    "acceptedUniqueDriversSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit",
+    "acceptedObligationsSource": "target replay evidence pass runs keyed by driverPath#branchFamily:branchAction; target blockers excluded from accepted coverage; FU01D source-QNT blockers and four FU01C target blockers removed after accepted copied-connector replay evidence"
   },
   "completedBeforeCampaign": [
     "T001",
@@ -188,11 +188,11 @@
       "dependsOn": [
         "CP6"
       ],
-      "runningLaneIds": [
+      "runningLaneIds": [],
+      "mergedLaneIds": [
         "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES"
       ],
-      "mergedLaneIds": [],
-      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. First lane targets the four FU01C generic active-effect and marked-effect route gaps in battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt."
+      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. L15-RRCP7-A accepted the four FU01C generic active-effect and marked-effect route gaps in battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt; CP7_AUDIT.json now records 647 accepted obligations and 21 target blockers."
     }
   ],
   "laneStatuses": {
@@ -245,32 +245,77 @@
     "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES": "merged-verified",
     "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "merged-verified",
     "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified",
-    "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "running"
+    "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "2455ec2f9b3c5d8b696d9cc144f196e9393038c6",
+    "head": "f8a438ebff90eb79e274b207c5c286080aaf6726",
     "commands": [
-      "jq empty tasks/campaigns/level-1-2-runtime-reducer-route/CP6_AUDIT.json tasks/campaigns/level-1-2-runtime-reducer-route/STATE.json tasks/campaigns/level-1-2-runtime-reducer-route/LANES.json",
-      "git diff --check",
-      "cargo test route_replays_all_branches",
+      "cargo test level1_buff_mark_smite_adapter_replays_all_branches -- --nocapture",
+      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json",
+      "cargo fmt --check",
+      "git diff --check HEAD~1...HEAD",
+      "cargo test",
+      "cargo clippy --all-targets -- -D warnings",
       "node scripts/check-cleanroom-harness.cjs"
     ],
-    "result": "bookkeeping checks passed; cleanroom harness failed only on global stale non-FU01D evidence/ledger entries pinned to source 564376fd95218a209bb9eae5c9ccb54ca3e04a52 after cleanroom-input moved to source 53642cf0b1bc98f4426b6081fe37c98a960939fc",
-    "cargoTest": "route_replays_all_branches: 2 passed, 0 failed, 218 filtered out",
-    "cleanroomHarness": "failed as expected on stale non-FU01D manifest/evidence debt; not a FU01D failure"
+    "result": "focused FU01C checks, fmt, diff check, cargo test, and clippy passed; cleanroom harness failed only on pre-existing stale non-FU01C global evidence/manifest debt",
+    "cargoTest": "220 passed",
+    "focusedCargoTest": "level1_buff_mark_smite_adapter_replays_all_branches: 1 passed, 219 filtered out",
+    "targetReplayEvidenceCheck": "12 FU01C obligations covered",
+    "cleanroomHarness": "failed as expected on stale non-FU01C manifest/evidence debt; /tmp/rrcp7-cleanroom-harness.out contained no FU01C/buff-mark references"
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-a",
       "branch": "ralph/l15-rrcp7-a-buff-mark-active-effects",
       "baseSha": "e08d2f034615250ce4e543938b28cb98e05bf976",
-      "status": "running",
+      "status": "merged-verified",
       "workerAgent": "019f08bc-b2d8-7532-87be-036985dbe780",
-      "workerName": "Lovelace the 2nd"
-    }
-  ],
-  "completedLaneWorktrees": [
+      "workerName": "Lovelace the 2nd",
+      "workerStatus": "complete",
+      "workerCommit": "7bd0b47d48ce88979ab23112c3130e5ef4ba0bba",
+      "acceptedRows": 4,
+      "blockedRows": 0,
+      "workerSummary": [
+        "Added generic ConditionImmunityActiveEffect and MarkedEffect reducer subjects.",
+        "Promoted the four selected FU01C rows from target blockers to accepted route rows backed by BattleEntrypointTrace route events.",
+        "No durable BattleState fields were added."
+      ],
+      "reviewAgent": "019f08c8-ffec-7f30-b479-cf62d957bfb5",
+      "reviewName": "Jason the 2nd",
+      "reviewStatus": "findings",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "RUN_LEDGER.json recorded a globally failing cleanroom harness command as pass while VALIDATION_REPORT.md classified the same command as failed pre-existing non-FU01C debt."
+      ],
+      "fixerAgent": "019f08cc-a2ab-7ff0-9023-e511abb80b91",
+      "fixerName": "Feynman the 2nd",
+      "fixerStatus": "complete",
+      "fixerCommit": "a62478648dde859d7e814e1c99d8bdf7987b4af6",
+      "fixerSummary": [
+        "Changed the cleanroom harness ledger command to classified-nonblocking-fail with exitStatus 1 and a pre-existing non-FU01C debt classification."
+      ],
+      "rereviewAgent": "019f08cf-6f6d-7d53-b31d-7a022033d7c3",
+      "rereviewName": "Darwin the 2nd",
+      "rereviewStatus": "clean",
+      "rereviewVerdict": "clean",
+      "mergeCommit": "f8a438ebff90eb79e274b207c5c286080aaf6726",
+      "integrationVerification": [
+        "cargo test level1_buff_mark_smite_adapter_replays_all_branches -- --nocapture",
+        "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json",
+        "cargo fmt --check",
+        "git diff --check HEAD~1...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs"
+      ],
+      "integrationVerificationResult": "passed except cleanroom harness failed on pre-existing stale non-FU01C global evidence/manifest debt",
+      "acceptedDriversAdded": 0,
+      "acceptedObligationsAdded": 4,
+      "remainingTargetBlockers": 21
+    },
     {
       "laneId": "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-e",

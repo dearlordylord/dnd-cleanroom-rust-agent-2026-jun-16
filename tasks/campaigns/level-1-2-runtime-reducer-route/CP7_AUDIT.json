@@ -1,0 +1,399 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "level-1-2-runtime-reducer-route",
+  "integrationWorktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
+  "integrationBranch": "ralph/rrconv-19-cleanroom",
+  "auditedHead": "f8a438ebff90eb79e274b207c5c286080aaf6726",
+  "denominator": {
+    "source": "cleanroom-input/branch-coverage/reducer-route-inventory.json",
+    "denominatorId": "level-1-5-cleanroom-route-v1",
+    "driverAssignments": 97,
+    "routeAssignmentObligations": 704,
+    "canonicalInScopeObligations": 668,
+    "outOfScopeObligations": 36
+  },
+  "coverage": {
+    "ledgerSelectedDrivers": 97,
+    "acceptedPassDrivers": 97,
+    "acceptedPassObligations": 647,
+    "acceptedDriverCoveragePercent": 100,
+    "acceptedObligationCoveragePercent": 96.9,
+    "targetBlockerObligations": 21,
+    "sourceQntCorpusBlockerObligations": 0,
+    "totalBlockedObligations": 21,
+    "blockedDrivers": 4,
+    "unresolvedInScopeObligations": 0
+  },
+  "blockerSources": {
+    "targetReplayEvidenceRows": [
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doDiscoverWeaponHit",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doDiscoverWeaponHit#step:doDiscoverWeaponHit",
+        "reason": "pre-hit weapon target discovery is outside the after-hit rider route substrate"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doFillTargetChoice",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillTargetChoice#step:doFillTargetChoice",
+        "reason": "pre-hit weapon target fill is outside the after-hit rider route substrate"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doFinish",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFinish#step:doFinish",
+        "reason": "scenario transition has no reducer route surface"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doStartDivineSmiteFreeCast",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartDivineSmiteFreeCast#step:doStartDivineSmiteFreeCast",
+        "reason": "scenario transition has no reducer route surface"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doStartEnsnaringFailedSave",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartEnsnaringFailedSave#step:doStartEnsnaringFailedSave",
+        "reason": "scenario transition has no reducer route surface"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doStartEnsnaringSuccessfulSave",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartEnsnaringSuccessfulSave#step:doStartEnsnaringSuccessfulSave",
+        "reason": "scenario transition has no reducer route surface"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doStartSearingSmite",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartSearingSmite#step:doStartSearingSmite",
+        "reason": "scenario transition has no reducer route surface"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveChromaticOrbDuplicateDamageLeap",
+        "evidence": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveChromaticOrbDuplicateDamageLeap#step:doResolveChromaticOrbDuplicateDamageLeap",
+        "reason": "chained duplicate-damage leap is modeled in ChromaticOrbSequenceState, not production BattleState"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight",
+        "evidence": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveStarryWispObjectSpellAttackDamageAndDimLight#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight",
+        "reason": "object HP and dim-light emitter facts are modeled in StarryWispObjectState, not production BattleState"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doDiscoverMageArmorUnarmoredSelfTarget",
+        "evidence": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doDiscoverMageArmorUnarmoredSelfTarget#step:doDiscoverMageArmorUnarmoredSelfTarget",
+        "reason": "target admission discovery remains projection-only; no accepted armor-class spell effect resolution occurs in this row"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration",
+        "evidence": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doExpireMageArmorDuration#step:doExpireMageArmorDuration",
+        "reason": "duration expiry is an active-effect lifecycle row without a production BattleState expiry route in this lane"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget",
+        "evidence": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doRejectMageArmorArmoredTarget#step:doRejectMageArmorArmoredTarget",
+        "reason": "armored-target rejection is target admission projection, not an accepted armor-class spell effect route in this lane"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doDiscoverDivineFavorAttack",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverDivineFavorAttack#step:doDiscoverDivineFavorAttack",
+        "reason": "ordinary weapon target discovery is outside the rider route substrate"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doDiscoverMagicWeapon",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverMagicWeapon#step:doDiscoverMagicWeapon",
+        "reason": "MagicWeaponTargetItem is not present in the copied reducer-route hole vocabulary"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillDivineFavorHit",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorHit#step:doFillDivineFavorHit",
+        "reason": "ordinary weapon attack-roll fill is outside the rider route substrate"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillDivineFavorTarget",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorTarget#step:doFillDivineFavorTarget",
+        "reason": "ordinary weapon target fill is outside the rider route substrate"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFillMagicWeaponTarget",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillMagicWeaponTarget#step:doFillMagicWeaponTarget",
+        "reason": "MagicWeaponTargetItem is not present in the copied reducer-route fill vocabulary"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doFinish",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFinish#step:doFinish",
+        "reason": "scenario transition has no reducer route surface"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doStartDivineFavor",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doStartDivineFavor#step:doStartDivineFavor",
+        "reason": "scenario transition has no reducer route surface"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doStartMagicWeapon",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doStartMagicWeapon#step:doStartMagicWeapon",
+        "reason": "scenario transition has no reducer route surface"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doStartShillelagh",
+        "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doStartShillelagh#step:doStartShillelagh",
+        "reason": "scenario transition has no reducer route surface"
+      }
+    ],
+    "sourceQntCorpusRows": []
+  },
+  "outOfScopeRows": [
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doEnhanceAbilityChoiceOpen",
+      "reason": "Enhance Ability is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doEnhanceAbilityDex",
+      "reason": "Enhance Ability is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doEnhanceAbilityInvalidSkillFillRejected",
+      "reason": "Enhance Ability is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doBreakShiningConcentration",
+      "reason": "Shining Smite is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doChooseShiningSmite",
+      "reason": "Shining Smite is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doFillShiningSmiteDamage",
+      "reason": "Shining Smite is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doStartShiningSmite",
+      "reason": "Shining Smite is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveBlindnessDeafnessBlindedSavingThrow",
+      "reason": "Blindness/Deafness is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveBlindnessDeafnessDeafenedSavingThrow",
+      "reason": "Blindness/Deafness is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveHoldPersonFailedSavingThrow",
+      "reason": "Hold Person is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveHoldPersonRepeatSavingThrowSuccess",
+      "reason": "Hold Person is a level-2 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveHypnoticPatternFailedSavingThrow",
+      "reason": "Hypnotic Pattern is a level-3 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt#step:doBarbarianFastMovementDash",
+      "reason": "Barbarian Fast Movement is a level-5 feature."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt#step:doRangerRovingClimbSwimMovement",
+      "reason": "Ranger Roving is a level-6 feature."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt#step:doCounterspellAllowsSpellCastResume",
+      "reason": "Counterspell is a level-3 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt#step:doCounterspellEndsSpellCast",
+      "reason": "Counterspell is a level-3 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt#step:doResolveCounterspellMagicMissileCast",
+      "reason": "Counterspell is a level-3 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doCombatProwessMissToHit",
+      "reason": "Boon of Combat Prowess is an Epic Boon with level 19+ prerequisite."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doEvasionFailure",
+      "reason": "Evasion is a level-7 Rogue or Monk feature."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doEvasionSuccess",
+      "reason": "Evasion is a level-7 Rogue or Monk feature."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doMyceliumStepDash",
+      "reason": "No copied SRD 5.2.1 passage establishes Mycelium Step or its acquisition level."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doUncannyDodge",
+      "reason": "Rogue Uncanny Dodge is a level-5 feature."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt#step:doMassCureWoundsNeedsHealingRoll",
+      "reason": "Mass Cure Wounds is a level-5 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt#step:doMassCureWoundsNeedsTargetList",
+      "reason": "Mass Cure Wounds is a level-5 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt#step:doMassCureWoundsWounded",
+      "reason": "Mass Cure Wounds is a level-5 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt#step:doMassHealingWordNeedsHealingRoll",
+      "reason": "Mass Healing Word is a level-3 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt#step:doMassHealingWordNeedsTargetList",
+      "reason": "Mass Healing Word is a level-3 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt#step:doMassHealingWordWounded",
+      "reason": "Mass Healing Word is a level-3 spell."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt#step:doProjectSheetSpellcastingAndMetamagic",
+      "reason": "This projection fixture includes spell level 2/3 capacity facts beyond the current level-1/2 scope."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt#step:doRejectAmbiguousCreatedSpellSlotSource",
+      "reason": "This settlement rejection fixture uses a created level-3 spell slot beyond the current level-1/2 scope."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doFontOfMagicPointsToSlot",
+      "reason": "This Font of Magic branch creates a level-3 spell slot beyond the current level-1/2 scope."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doMetamagicBridgeUsesSharedPointPool",
+      "reason": "This metamagic bridge fixture uses a five-point Sorcery Point pool beyond the current level-1/2 scope."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doRejectFontOfMagicAmbiguousSlotSource",
+      "reason": "This rejection branch uses created level-3 slot ambiguity facts beyond the current level-1/2 scope."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/character-battle-runtime/character-sheet-feature-resources.mbt.qnt#step:doRejectFontOfMagicInsufficientPoints",
+      "reason": "This rejection branch uses higher-slot Font of Magic creation facts beyond the current level-1/2 scope."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/character-creation-runtime/character-creation-rogue-expertise-selected-identity.mbt.qnt#step:doSelectLevelSixAdditionalOwnedSkillExpertise",
+      "reason": "Rogue gains this additional Expertise projection at level 6."
+    },
+    {
+      "obligationId": "cleanroom-input/qnt/character-creation-runtime/character-creation-warlock-eldritch-invocations-selected-identity.mbt.qnt#step:doRejectPrerequisiteRetainedInvocationReplacement",
+      "reason": "This prerequisite-retained invocation replacement rejection uses Warlock level 5 facts."
+    }
+  ],
+  "unresolvedInScopeRows": [],
+  "evidenceAccountingNotes": {
+    "rowKey": "driverPath#branchFamily:branchAction",
+    "legacyEvidenceRefShape": "path#traceId#branchFamily:branchAction",
+    "ambiguousLegacyEvidenceRefs": [
+      {
+        "ref": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doDiscoverAttack#step:doDiscoverAttack",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doDiscoverAttack",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doDiscoverAttack"
+        ]
+      },
+      {
+        "ref": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollHit#step:doFillAttackRollHit",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillAttackRollHit",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillAttackRollHit",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollHit"
+        ]
+      },
+      {
+        "ref": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillAttackRollMiss#step:doFillAttackRollMiss",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillAttackRollMiss",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillAttackRollMiss",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillAttackRollMiss",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-skeleton.mbt.qnt#step:doFillAttackRollMiss"
+        ]
+      },
+      {
+        "ref": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillDamageDice#step:doFillDamageDice",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillDamageDice",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillDamageDice",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillDamageDice"
+        ]
+      },
+      {
+        "ref": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillHitAttackRoll#step:doFillHitAttackRoll",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doFillHitAttackRoll",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doFillHitAttackRoll"
+        ]
+      },
+      {
+        "ref": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doFillTargetChoice#step:doFillTargetChoice",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt#step:doFillTargetChoice",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doFillTargetChoice",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-multi-damage.mbt.qnt#step:doFillTargetChoice",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-size-gated-condition-rider.mbt.qnt#step:doFillTargetChoice",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doFillTargetChoice"
+        ]
+      },
+      {
+        "ref": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectAttackRollBeforeTargetChoice#step:doRejectAttackRollBeforeTargetChoice",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doRejectAttackRollBeforeTargetChoice",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doRejectAttackRollBeforeTargetChoice"
+        ]
+      },
+      {
+        "ref": "tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json#L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES replay action=doRejectDamageBeforeAttackRoll#step:doRejectDamageBeforeAttackRoll",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt#step:doRejectDamageBeforeAttackRoll",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-attack-ordering.mbt.qnt#step:doRejectDamageBeforeAttackRoll"
+        ]
+      },
+      {
+        "ref": "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doFollowGrovel#step:doFollowGrovel",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doFollowGrovel",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doFollowGrovel"
+        ]
+      },
+      {
+        "ref": "tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json#L15-RR06-BATTLE-SPELL-EFFECT-ROUTES replay action=doHaltSuppresses#step:doHaltSuppresses",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-command-option-next-turn.mbt.qnt#step:doHaltSuppresses",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt#step:doHaltSuppresses"
+        ]
+      },
+      {
+        "ref": "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doStutter#step:doStutter",
+        "obligations": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doStutter",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doStutter"
+        ]
+      }
+    ],
+    "recommendation": "Future evidence refs should include driverPath or obligationId; this CP6 audit computes closure by row key from evidence runs, not by unique legacy ref string.",
+    "fu01dRefresh": {
+      "decision": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json#decision:accepted",
+      "evidence": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
+      "acceptedDrivers": 2,
+      "acceptedObligations": 16,
+      "note": "FU01D source-QNT blocker rows were removed from closure blockers after copied executable route connectors and accepted reducer-entrypoint replay evidence landed at auditedHead."
+    }
+  },
+  "inputHashes": {
+    "runLedgerSha256": "97c3da85140f6280c2b17e3f074ac944e3e89c71498b73c6d72f11661d84fb8b",
+    "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+    "reducerRouteInventorySha256": "a7e709e8e8988aab49c2274d7c3481d79ff9e1a9188e87f1888324106acec471"
+  },
+  "cp7Refresh": {
+    "laneId": "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
+    "mergeCommit": "f8a438ebff90eb79e274b207c5c286080aaf6726",
+    "laneHead": "a62478648dde859d7e814e1c99d8bdf7987b4af6",
+    "decision": "tasks/history/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES/DECIDER_DECISION.json#decision:accepted",
+    "decisionSha256": "f478b492ec6517049ac58f83eedeeee68ec91702182122fcc6573e91096042bc",
+    "evidence": "tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json",
+    "evidenceSha256": "b7605804368717791178603ab0b46993e1e5adf504d48f760ee5de87a6c2f497",
+    "acceptedObligationsAdded": 4,
+    "removedTargetBlockerObligations": 4,
+    "note": "Four FU01C target blocker rows were accepted after generic condition-immunity active-effect and marked-effect reducer subjects produced observed BattleEntrypointTrace route evidence."
+  }
+}

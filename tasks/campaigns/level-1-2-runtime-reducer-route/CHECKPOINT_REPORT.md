@@ -23,15 +23,19 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is accepted after the copied route connector refresh. |
 | CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
 | CP6 Closure Sweep | complete | Closure audit recorded in `CP6_AUDIT.json` and `CP6_CLOSURE_REPORT.md`; every in-scope obligation is accepted or explicitly blocked. |
+| CP7 Post-CP6 Target Blocker Reduction | active | First lane `L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES` merged and verified; four FU01C target blockers are now accepted. |
 
 ## Last Known Verification
 
-At CP6 closure state refreshed over audited integration head `2455ec2f9b3c5d8b696d9cc144f196e9393038c6`:
+At CP7 integration head `f8a438ebff90eb79e274b207c5c286080aaf6726`:
 
-- `git diff --check`: pass
-- `cargo test route_replays_all_branches`: pass
-- JSON parse checks for edited JSON: pass
-- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale non-FU01D evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; not a FU01D failure.
+- `cargo test level1_buff_mark_smite_adapter_replays_all_branches -- --nocapture`: pass
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json`: pass, `12` obligations covered
+- `cargo fmt --check`: pass
+- `git diff --check HEAD~1...HEAD`: pass
+- `cargo test`: pass, `220` tests
+- `cargo clippy --all-targets -- -D warnings`: pass
+- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale non-FU01C evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7-cleanroom-harness.out` contained no FU01C/buff-mark references.
 
 ## Active Work
 
@@ -443,3 +447,17 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Unresolved in-scope obligations: `0`.
 - Accounting note: some legacy evidence refs in `tasks/RUN_LEDGER.json` are ambiguous by string because they omit `driverPath`; `CP6_AUDIT.json` computes closure by `driverPath#branchFamily:branchAction`.
 - Campaign status after CP6: complete for the dirty cleanroom rehearsal. Remaining gaps are target-side blockers only; FU01D is accepted and no source-QNT corpus blocker remains in this closure accounting.
+
+## CP7 Target Blocker Reduction
+
+- Audit artifact: `tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json`
+- `L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES` merge commit: `f8a438ebff90eb79e274b207c5c286080aaf6726`
+- Lane commit(s): `7bd0b47d48ce88979ab23112c3130e5ef4ba0bba`, `a62478648dde859d7e814e1c99d8bdf7987b4af6`
+- Drivers added: `0` net-new unique drivers; FU01C was already counted.
+- Obligations added: `4` accepted counted obligations; total accepted obligations moved from `643` to `647`.
+- New total driver coverage: `97 / 97 = 100.0%`
+- New total obligation coverage: `647 / 668 = 96.9%`
+- Remaining blockers: `21` target-side blockers, `0` source-QNT corpus blockers, `0` unresolved in-scope obligations.
+- Integration verification: focused FU01C adapter test, focused FU01C target replay evidence check, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`220 passed`), and `cargo clippy --all-targets -- -D warnings` passed. `node scripts/check-cleanroom-harness.cjs` still fails on pre-existing stale non-FU01C global evidence/manifest debt.
+- Review/fixer notes: review confirmed the four selected FU01C rows route through shared reducer entrypoints and `BattleEntrypointTrace.route_events`, with generic `ConditionImmunityActiveEffect` and `MarkedEffect` subjects and no new durable `BattleState` fields. Fixer corrected `RUN_LEDGER.json` so the known global harness failure is recorded as `classified-nonblocking-fail` rather than `pass`; rereview returned clean.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-a`
