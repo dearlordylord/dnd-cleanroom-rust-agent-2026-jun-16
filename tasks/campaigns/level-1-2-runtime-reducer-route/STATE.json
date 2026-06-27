@@ -2389,6 +2389,13 @@
       "BLOCKERS.json",
       "EVIDENCE/*.json",
       "STATE_OWNERS.md"
+    ],
+    "completionGates": [
+      {
+        "id": "programmatic-tracer-bullet-scenario",
+        "status": "pending",
+        "description": "Before the broader reducer-spine goal is considered done, run an SDK-style public programmatic surface scenario: create a character, hand off or project it into a simple battle, and drive at least one complete simple battle turn through public reducer/runtime APIs. Prefer the fresh target; if only the dirty cleanroom can run it, record that limitation."
+      }
     ]
   },
   "nextWorkRecommendations": [

@@ -321,6 +321,18 @@ Minimum verification after each implementation phase:
 The dirty cleanroom commands remain useful as reference checks only. Passing the
 dirty target harness does not prove fresh-run acceptance.
 
+Before the broader reducer-spine goal is considered done, run an SDK-style
+programmatic tracer-bullet scenario against the freshest usable target surface:
+
+- prefer the fresh cleanroom target if it can express the scenario;
+- otherwise run it against the dirty Rust cleanroom and record that limitation;
+- create a character programmatically;
+- project or hand off that character into a simple battle setup;
+- drive at least one complete simple battle turn through public reducer/runtime
+  APIs rather than test-only replay internals;
+- assert that the public programmatic surface is usable end to end, or record a
+  concrete blocker explaining which missing surface prevents it.
+
 ## Parallelism
 
 Use a simple checkpoint sequence until the reducer surface is stable:
@@ -359,6 +371,9 @@ The dry run is complete when:
   entrypoints;
 - the generic base Armor Class tracer is accepted or blocked with a source-input
   reason;
+- an SDK-style programmatic tracer-bullet scenario for character creation plus a
+  simple battle is run against the freshest usable target surface, with any
+  inability to run it recorded as a concrete blocker;
 - `FRESH_RUN_REPORT.md` clearly separates proven fresh-cleanroom behavior from
   dirty rehearsal evidence;
 - source-side QNT/guidance follow-up tasks are listed for every cleanroom-input
