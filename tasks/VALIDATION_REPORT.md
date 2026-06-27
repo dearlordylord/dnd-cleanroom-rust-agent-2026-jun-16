@@ -2771,8 +2771,8 @@ Selected drivers:
 Behavior implemented:
 
 - Accepted attack spell shape rows replay through production `BattleState` spell attack or save-gated reducer entrypoints and observed `ReducerRouteEvent.qRoute` evidence.
-- Accepted level-1 damage spell rows replay through production `BattleState` spell attack or save-gated reducer entrypoints and observed `ReducerRouteEvent.qRoute` evidence.
-- `doResolveChromaticOrbDuplicateDamageLeap` reuses the generic chained spell-attack sequence route substrate; `doResolveStarryWispObjectSpellAttackDamageAndDimLight` reuses the generic object-target spell-attack damage/light substrate. Both route traces are observed through `BattleEntrypointTrace`.
+- Accepted level-1 damage spell rows replay direct spell attack or save-gated rows through production `BattleState` reducer entrypoints and observed `ReducerRouteEvent.qRoute` evidence.
+- `doResolveChromaticOrbDuplicateDamageLeap` reuses the generic chained spell-attack sequence route substrate; `doResolveStarryWispObjectSpellAttackDamageAndDimLight` reuses the generic object-target spell-attack damage/light substrate. These two rows are accepted only as route-shape evidence observed through `BattleEntrypointTrace`; their selected damage-spell witness payloads remain projection-helper derived and do not claim full `BattleResolutionResult` semantics.
 
 Accepted rows:
 
@@ -2832,6 +2832,17 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `git diff --check 74d7988cd62baaf85b00a134deb7d84f4c513dc1...HEAD` passed.
 - `node scripts/check-cleanroom-harness.cjs` was run and failed on pre-existing global stale-manifest/report debt outside FU01B (for example T001/T002 evidence still records manifest `564376fd95218a209bb9eae5c9ccb54ca3e04a52` while the current cleanroom manifest is `53642cf0b1bc98f4426b6081fe37c98a960939fc`).
+
+Reviewer-fix verification results:
+
+- `cargo test attack_spell_shape_adapter_replays_all_branches` passed.
+- `cargo test level1_damage_spell_adapter_replays_all_branches` passed.
+- Combined FU01B `validateTargetReplayEvidence` check passed: 16 covered.
+- `cargo fmt --check` passed.
+- `cargo check` passed.
+- `jq empty` over `tasks/RUN_LEDGER.json` and affected FU01B/CP7 JSON artifacts passed.
+- `git diff --check 74d7988cd62baaf85b00a134deb7d84f4c513dc1...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` was rerun and classified as nonblocking failure on pre-existing stale non-FU01B global harness debt.
 
 
 ## L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES: Armor-Class Reaction Substrates

@@ -2625,15 +2625,15 @@
       "artifacts": {
         "deciderDecision": {
           "path": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "a274de3424bed94f671662a21db626375ff44e758dee1d7767dd4a88d7d83d7f"
+          "sha256": "39394acbb07147508e2db08414bd77a89cfda3d24f4f08194d98f72c9302b619"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "c74eaedbe771abb0eee1bbd31441ef10a17f37891adfb077ba07cd9abc9da054"
+          "sha256": "0ff8610aca007a4e96696b4def5680d1f78a6bc460b482b8f108307d1e294931"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "1c8cc3df7d7bc5f4870d036aa6b5076eb46378c257f3a359890ff5370c971f55"
+          "sha256": "912b8cda33785554cf211e2b44476a10d6fe7eee10d25565c207dcb0dfc73cf3"
         },
         "startGate": {
           "path": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/START_GATE.json",
@@ -2641,7 +2641,7 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "bfd21ab6e5d9fdc6d500bad0c4c5c5f88bf33fc210f3ca677a33e28a755d61f3"
+          "sha256": "9041142ba40747a2a29a21d2af9cbfd939aa2f08d4307aecf22fef8941513e82"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",
@@ -2663,6 +2663,14 @@
           "status": "pass"
         },
         {
+          "command": "cargo check",
+          "status": "pass"
+        },
+        {
+          "command": "jq empty tasks/RUN_LEDGER.json tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/DECIDER_DECISION.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/REVIEW_LOOP.json tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/STATE_OWNER_MANIFEST.json tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json",
+          "status": "pass"
+        },
+        {
           "command": "cargo test",
           "status": "pass"
         },
@@ -2673,6 +2681,13 @@
         {
           "command": "git diff --check 74d7988cd62baaf85b00a134deb7d84f4c513dc1...HEAD",
           "status": "pass"
+        },
+        {
+          "classification": "pre-existing stale non-FU01B global harness debt: older ledger/evidence/report entries are pinned to source 564376fd95218a209bb9eae5c9ccb54ca3e04a52 while cleanroom-input now reports 53642cf0b1bc98f4426b6081fe37c98a960939fc",
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "exitStatus": 1,
+          "nonblocking": true,
+          "status": "classified-nonblocking-fail"
         }
       ],
       "laneId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
@@ -2703,7 +2718,7 @@
             "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveStarryWispObjectSpellAttackDamageAndDimLight#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight"
           ],
           "path": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json",
-          "sha256": "e5b723157b25c4a4f6ef67198e37ddd7ae9d190ff87986bb06d0769cd751cc6f"
+          "sha256": "a0f3d90df89e6f0a3ad586e6020d2411784acf01d7890413311cda1d83f794c6"
         }
       ],
       "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"

@@ -258,11 +258,11 @@ Template:
 - Merge commit: `6834ee18356e01eb9b00bd4b32f0169b75a7220d`
 - Lane commit(s): `11f9f56bf2dccee87204371cb9a5d5f125e6402c`, `195a473783bc666f5413dabe0a2bf93ea18003df`
 - Drivers added: `2` net-new unique drivers.
-- Obligations added: `14` accepted counted obligations; `2` rows are recorded as target blockers. Total accepted obligations moved from `478` to `492`.
+- Obligations added: `16` accepted counted obligations; the two residual rows are accepted only as route-shape evidence. Total accepted obligations moved from `478` to `494`.
 - New total driver coverage: `73 / 97 = 75.3%`
-- New total obligation coverage: `492 / 668 = 73.7%`
+- New total obligation coverage: `494 / 668 = 74.0%`
 - Integration verification: focused FU01B adapter tests, FU08C mismatch regression, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check`, `cargo test` (`209 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
-- Review/fixer notes: Carson found stale FU01B artifacts and dishonest blocker witnesses. Schrodinger fixed artifacts/history/evidence and made the two blocker rows reject/report target-blocker status across observed replay, observed route, expected witness, and evidence. Turing re-reviewed clean.
+- Review/fixer notes: Carson found stale FU01B artifacts and dishonest blocker witnesses. Schrodinger fixed artifacts/history/evidence; this fixer pass keeps the two residual rows accepted only as route-shape evidence and removes claims that their selected damage-spell witness semantics are `BattleResolutionResult`-derived.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b`
 
 ### L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES

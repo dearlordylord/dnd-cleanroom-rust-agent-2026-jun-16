@@ -1,6 +1,6 @@
 {
   "durableFields": [],
-  "noDurableFieldsReason": "FU01B adds no durable production fields; accepted evidence reuses existing BattleState spell-attack/save-gated procedure state, generic chained spell-attack and object-target spell-attack route subjects, existing selected level-one projection facts, and route observer projections.",
+  "noDurableFieldsReason": "FU01B adds no durable production fields; accepted BattleState evidence covers spell-attack/save-gated procedure state for the direct rows and route-shape evidence for the two residual chained/object-target rows. The residual rows retain QNT-shaped selected level-one projection facts only as adapter witness payloads, not BattleResolutionResult-derived damage-spell semantics.",
   "nonDurableBoundaryApiSurface": [
     {
       "apiPath": "BattleState.spell_attack_procedure",
@@ -64,7 +64,7 @@
     },
     {
       "apiPath": "BattleSubjectKind.ChainedSpellAttackProcedure*",
-      "boundary": "checked generic chained spell-attack route subject family for Chromatic Orb duplicate damage leap evidence",
+      "boundary": "checked generic chained spell-attack route subject family for Chromatic Orb duplicate damage leap route-shape evidence",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
@@ -76,13 +76,13 @@
     },
     {
       "apiPath": "BattleSubjectKind.ObjectTargetSpellAttackDamage",
-      "boundary": "checked object-target spell-attack damage route subject for Starry Wisp object evidence",
+      "boundary": "checked object-target spell-attack damage route subject for Starry Wisp object route-shape evidence",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
     {
       "apiPath": "BattleSubjectKind.ObjectTargetSpellAttackLightEffect",
-      "boundary": "checked object-target spell-attack light-effect route subject for Starry Wisp object evidence",
+      "boundary": "checked object-target spell-attack light-effect route subject for Starry Wisp object route-shape evidence",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },

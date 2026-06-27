@@ -449,7 +449,8 @@
           "BattleSubjectKind.ChainedSpellAttackProcedure*",
           "BattleGenericRouteFill.DamageTypeChoice/TargetChoice/AttackRoll/RolledDice",
           "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute"
+          "ReducerRouteEvent.qRoute",
+          "route-shape only: selected damage-spell witness payload remains projection-helper derived, not BattleResolutionResult-derived"
         ],
         "comparator": "route-event-list",
         "expectedProjectionSha256": "35b0fe11d44c4f304b0ce8a3e62af4bacd5714bda74c20992fed24dcc4e8a45f",
@@ -458,7 +459,7 @@
         "tag": "state-match"
       },
       "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveChromaticOrbDuplicateDamageLeap",
-      "routeEvidenceBasis": "production BattleState ChainedSpellAttackProcedure generic route observed through BattleEntrypointTrace"
+      "routeEvidenceBasis": "route-shape evidence only: production BattleState ChainedSpellAttackProcedure generic route observed through BattleEntrypointTrace"
     },
     {
       "branchAction": "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
@@ -478,7 +479,8 @@
           "BattleSubjectKind.ObjectTargetSpellAttackLightEffect",
           "BattleGenericRouteFill.RolledDice/WithoutFill",
           "BattleEntrypointTrace.route_events",
-          "ReducerRouteEvent.qRoute"
+          "ReducerRouteEvent.qRoute",
+          "route-shape only: selected damage-spell witness payload remains projection-helper derived, not BattleResolutionResult-derived"
         ],
         "comparator": "route-event-list",
         "expectedProjectionSha256": "f79a10c701671a3c1167cf3788b2b00b89f7b06ddaddfc75971bd46bece54970",
@@ -487,7 +489,7 @@
         "tag": "state-match"
       },
       "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveStarryWispObjectSpellAttackDamageAndDimLight",
-      "routeEvidenceBasis": "production BattleState ObjectTargetSpellAttack generic route observed through BattleEntrypointTrace"
+      "routeEvidenceBasis": "route-shape evidence only: production BattleState ObjectTargetSpellAttack generic route observed through BattleEntrypointTrace"
     }
   ],
   "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",

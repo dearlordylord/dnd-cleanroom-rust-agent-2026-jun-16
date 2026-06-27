@@ -52,7 +52,7 @@
       "status": "pass"
     }
   ],
-  "rationale": "Accepted FU01B spell attack/save damage rows replay through production BattleState SpellAttack, SaveGatedSpell, ChainedSpellAttackProcedure, or ObjectTargetSpellAttack reducer routes observed via BattleEntrypointTrace. The formerly blocked Chromatic Orb and Starry Wisp rows now reuse the generic chained spell-attack sequence and object-target spell-attack substrates without selected spell identity dispatch.",
+  "rationale": "Accepted FU01B spell attack/save damage rows replay direct SpellAttack/SaveGatedSpell rows through production BattleState reducer routes observed via BattleEntrypointTrace. The Chromatic Orb and Starry Wisp residual rows are accepted only as route-shape evidence from generic ChainedSpellAttackProcedure/ObjectTargetSpellAttack route substrates; their selected damage-spell witness payloads remain projection-helper derived and do not claim full BattleResolutionResult-derived damage-spell semantics.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "targetBlockedRows": [],

@@ -1,7 +1,7 @@
 use crate::rules::battle_reducer_spine::{
     discover_save_gated_damage_subject_observed, discover_spell_attack_damage_subject_observed,
     resolve_battle_subject_observed, start_battle_observed, Actor, AttackRollFacts,
-    BattleEntrypointTrace, BattleResolutionRequest, BattleResolutionResult,
+    BattleEntrypointTrace, BattleHoleKind, BattleResolutionRequest, BattleResolutionResult,
     BattleSaveGatedDamageApplication, BattleSaveGatedSpellFill, BattleSaveGatedSpellProcedure,
     BattleSetup, BattleSpellActiveEffectKind, BattleSpellAttackFill, BattleSpellAttackProcedure,
     BattleState,
@@ -440,9 +440,80 @@ fn chromatic_orb_duplicate_damage_leap_route() -> Vec<ReducerRouteEvent> {
 }
 
 fn expected_chromatic_orb_duplicate_damage_leap_route() -> Vec<ReducerRouteEvent> {
-    battle_runtime_chained_attack_sequence::expected_route(
-        "doResolveStep1DuplicateDamageSlot1Limit",
-    )
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts(
+            ReducerRouteSubjectFamily::SpellAttack,
+            vec![BattleHoleKind::DamageTypeChoice],
+            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::DamageTypeChoice,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::SpellAttackProcedure,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::TargetSelection,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::SpellAttackProcedure,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::AttackRoll,
+            vec![BattleHoleKind::RolledDice],
+            ReducerRouteOwnerGroup::AttackRoll,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::RolledDice,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::RolledDice,
+            vec![BattleHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::SpellAttackProcedure,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::TargetSelection,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::TargetChoice,
+            vec![BattleHoleKind::AttackRoll],
+            ReducerRouteOwnerGroup::SpellAttackProcedure,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::AttackRoll,
+            vec![BattleHoleKind::RolledDice],
+            ReducerRouteOwnerGroup::AttackRoll,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::RolledDice,
+            Vec::new(),
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+        route_resolve_battle_subject(
+            ReducerRouteSubjectFamily::SpellAttack,
+            ReducerRouteFillKind::RolledDice,
+            Vec::new(),
+            ReducerRouteOwnerGroup::SpellAttackProcedure,
+        ),
+    ]
 }
 
 fn starry_wisp_object_damage_and_dim_light_route() -> Vec<ReducerRouteEvent> {

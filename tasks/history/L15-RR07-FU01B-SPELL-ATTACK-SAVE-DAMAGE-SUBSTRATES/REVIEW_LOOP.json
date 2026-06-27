@@ -12,9 +12,9 @@
       "checklist": "branch-coverage",
       "id": "fu01b-residual-bridges-accepted",
       "reasonableness": "reasonable",
-      "resolution": "Chromatic Orb duplicate-damage leap and Starry Wisp object damage/light rows now replay through shared generic reducer route substrates observed via BattleEntrypointTrace, and target replay evidence records pass refs instead of target blockers.",
+      "resolution": "Chromatic Orb duplicate-damage leap and Starry Wisp object damage/light rows now replay route-shape evidence through shared generic reducer route substrates observed via BattleEntrypointTrace, and target replay evidence records pass refs instead of target blockers.",
       "status": "fixed",
-      "summary": "Residual FU01B rows needed accepted route evidence through existing chained spell-attack and object-target spell-attack substrates."
+      "summary": "Residual FU01B rows needed accepted route-shape evidence through existing chained spell-attack and object-target spell-attack substrates."
     }
   ],
   "rounds": [
@@ -108,7 +108,7 @@
         }
       ],
       "round": 2,
-      "summary": "Convergence pass after promoting object/chained rows to accepted generic route evidence and refreshing FU01B artifacts; no reasonable findings remain."
+      "summary": "Convergence pass after promoting object/chained rows to accepted generic route-shape evidence and refreshing FU01B artifacts; no reasonable findings remain."
     }
   ],
   "schemaVersion": 1,

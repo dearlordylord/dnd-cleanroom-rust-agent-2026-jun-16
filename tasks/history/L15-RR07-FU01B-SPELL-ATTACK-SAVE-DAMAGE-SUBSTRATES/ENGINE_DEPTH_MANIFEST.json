@@ -32,7 +32,7 @@
       ]
     },
     {
-      "adapterScope": "Accepted level-1 damage spell branches replay through production BattleState SpellAttack, SaveGatedSpell, ChainedSpellAttackProcedure, and ObjectTargetSpellAttack reducer routes with route-event-list evidence.",
+      "adapterScope": "Accepted level-1 damage spell branches replay direct spell-attack/save-gated rows through production BattleState reducer routes, and accept the Chromatic Orb/Starry Wisp residual rows only as route-shape evidence through ChainedSpellAttackProcedure/ObjectTargetSpellAttack route events.",
       "path": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doResolveBurningHandsMixedConeSavingThrows",
@@ -73,7 +73,7 @@
       "module": "src/rules/battle_reducer_spine.rs"
     },
     {
-      "api": "BattleState generic chained spell-attack and object-target spell-attack route subjects",
+      "api": "BattleState generic chained spell-attack and object-target spell-attack route-shape subjects",
       "driver": "object/chained spell damage follow-up lanes",
       "module": "src/rules/battle_reducer_spine.rs"
     }
@@ -91,7 +91,7 @@
         "generic_route_subject_from_battle"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
-      "reason": "Owns production BattleState spell-attack, save-gated damage, chained spell-attack, and object-target spell-attack reducer routes used by accepted FU01B witnesses.",
+      "reason": "Owns production BattleState spell-attack/save-gated reducer routes used by direct FU01B witnesses and the generic chained/object-target route events used only as residual FU01B route-shape evidence.",
       "role": "domain-engine"
     },
     {
@@ -101,7 +101,7 @@
         "resolve_spell_save_damage"
       ],
       "path": "src/rules/spell_shapes.rs",
-      "reason": "Retains QNT-shaped spell attack/save damage projection facts while accepted route evidence flows through BattleState.",
+      "reason": "Retains QNT-shaped spell attack/save damage projection facts while direct accepted route evidence flows through BattleState.",
       "role": "runtime-projection"
     },
     {
@@ -112,7 +112,7 @@
         "project_starry_wisp_object_spell_attack_damage_and_dim_light"
       ],
       "path": "src/rules/level_one_damage_spells.rs",
-      "reason": "Retains QNT-shaped selected level-1 damage projection facts while route evidence flows through BattleState reducer entrypoints and shared generic route substrates.",
+      "reason": "Retains QNT-shaped selected level-1 damage projection facts. For Chromatic Orb and Starry Wisp these facts remain adapter witness payloads only; accepted evidence for those two rows is route-shape evidence from shared generic route substrates.",
       "role": "runtime-projection"
     }
   ],
