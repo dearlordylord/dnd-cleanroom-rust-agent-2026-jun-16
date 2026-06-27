@@ -564,3 +564,17 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Integration verification: `cargo fmt --check`, focused `battle_init_projection_adapter_replays_all_driver_branches`, `cargo test` (`220` tests), `cargo clippy --all-targets -- -D warnings`, and `git diff --check HEAD~1...HEAD` passed in the replay worktree before merge.
 - Scope note: this does not change fresh target acceptance and does not add new canonical dirty-campaign denominator coverage beyond the already recorded 659/659. It proves the refreshed copied QNT route connector can constrain the existing dirty Rust target for these Pact Slot branches.
 - Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-pact-slot-replay`
+
+### FC-07-PACT-SLOT-HANDOFF-REPLAY
+
+- Target commit: `f0ee8f8eb95192639afe5b6af17764dfe46c5303`
+- Setup commit: `8ec4bc46bfd961345c4f73115d8dc523c5d9163b`
+- Implementation commit: `c6385e25aa87bae5dcb718fbc765b61157c4e1ba`
+- Metadata fix commit: `f0ee8f8eb95192639afe5b6af17764dfe46c5303`
+- Worker: Halley the 2nd (`019f0a88-a545-76e1-9b1b-ee15007116e1`)
+- Evidence: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00/EVIDENCE/fc07-pact-slot-handoff-route.json`
+- Result: fresh target replay accepted the newly copied Pact Slot handoff route surfaces from source commit `b57772b459f1b75592fd45b9196fd60965b534d3`. Pure Pact Slot resource projection emits `HandoffResourceProjectionRouteSubject` through `CharacterBattleResourceProjectionOwner` and then enters runtime through `CharacterBattleInitProjectionOwner`; mixed ordinary Spell Slot/Pact Slot input rejects with `HandoffResourceDeltaFill` and `HandoffSpellResourceProjectionHoleFamily`.
+- Runtime shape: production state now distinguishes ordinary spell resources from Pact Slot resources through typed resource shapes. Mixed ordinary/Pact input is representable at the sheet handoff boundary only so the refreshed QNT rejection route can be observed; accepted battle state has no mixed variant.
+- Verification: `cargo fmt --check`, `cargo test` (`25` reducer-spine tests plus `3` SDK tests), `cargo clippy --all-targets -- -D warnings`, `python3 tools/verify_fc00.py`, `python3 tools/verify_sdk_tracer_bullet.py`, forbidden source/dirty-implementation path search, JSON parse checks, and `git diff --check 8ec4bc46bfd961345c4f73115d8dc523c5d9163b...HEAD` passed.
+- Residual risk: old FC-03/FC-04/FC-05 verifier scripts still pin historical source-input hashes and fail after the package refresh on `cleanroom-input/guidance/reducer-spine.md`; FC-07 records this as historical verifier drift, not a Pact Slot route/runtime failure.
+- Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-pact-slot-replay`

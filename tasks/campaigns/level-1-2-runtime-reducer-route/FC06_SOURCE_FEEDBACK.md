@@ -44,9 +44,10 @@ Evidence:
   branches in `character-battle-init-projection.mbt.qnt`. That was a source
   package gap at the time. The source gap is now resolved by commit
   `b57772b459f1b75592fd45b9196fd60965b534d3`. Dirty target replay evidence
-  now consumes those Pact Slot route surfaces in
+  consumes those Pact Slot route surfaces in
   `tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json`,
-  but no fresh target replay has yet accepted them.
+  and fresh target commit `f0ee8f8eb95192639afe5b6af17764dfe46c5303` now
+  accepts them without TypeScript source or dirty implementation input.
 - FC-05 by itself did not prove one integrated sheet-handoff-to-simple-turn
   scenario. That gap is now closed by the later encounter-composition source
   connector and fresh target evidence.
@@ -81,10 +82,10 @@ Resolution:
   `HandoffSpellResourceProjectionHoleFamily`, `HandoffResourceDeltaFill`,
   `CharacterBattleResourceProjectionOwner`, and
   `CharacterBattleInitProjectionOwner`.
-- This resolves the source-side vocabulary and route ownership gap. A future
-  fresh target replay can now consume the copied connector instead of inferring
-  Pact Slot ownership locally; the dirty target diagnostic replay has already
-  consumed it for the existing legacy harness.
+- This resolves the source-side vocabulary and route ownership gap. The dirty
+  target diagnostic replay consumed it for the existing legacy harness, and the
+  later fresh target replay consumed it through public handoff entrypoints
+  without inferring Pact Slot ownership locally.
 
 ### Encounter Composition Surface
 

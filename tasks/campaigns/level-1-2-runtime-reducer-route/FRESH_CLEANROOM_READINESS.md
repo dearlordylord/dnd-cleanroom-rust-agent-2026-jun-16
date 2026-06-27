@@ -76,9 +76,10 @@ generic connector route shape but was not counted as a new CP8 row.
   commit `0387d29f9282037637b4256c3c7f292bab7ef85c` and fresh target commit
   `893198ce66a35c8aad007ad8ac7a61c4631c64d9`. Pact Slot route surfaces are
   resolved by source commit `b57772b459f1b75592fd45b9196fd60965b534d3`.
-  Dirty target replay evidence now consumes those Pact Slot connector facts in
-  `tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json`,
-  but no fresh target replay has yet accepted them.
+  Dirty target replay evidence consumes those Pact Slot connector facts in
+  `tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json`;
+  fresh target commit `f0ee8f8eb95192639afe5b6af17764dfe46c5303` now also
+  accepts them through public handoff entrypoints.
 - It does not prove global harness cleanliness. `node
   scripts/check-cleanroom-harness.cjs` still fails on stale validator hashes in
   `cleanroom-input/MANIFEST.md` for:
@@ -134,12 +135,9 @@ The dirty Rust target campaign is closed for the refreshed in-scope denominator,
 the fresh SDK composition tracer is accepted, and the FC-06 source feedback is
 resolved in the copied source package. Next useful work is one of:
 
-- run a fresh target replay for the newly copied Pact Slot handoff route
-  surfaces if that behavior becomes an acceptance target; dirty diagnostic
-  replay is recorded in
-  `tasks/target-replay-evidence/pact-slot-handoff-init-projection-route.json`;
-- use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` as the accepted evidence for a full
-  integrated SDK tracer-bullet;
+- use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
+  `f0ee8f8eb95192639afe5b6af17764dfe46c5303` as the accepted evidence for the
+  integrated SDK tracer-bullet plus post-FC06 Pact Slot handoff replay;
 - clean the global stale validator-hash / historical evidence debt so the dirty
   harness can pass without exception;
 - promote the strongest route-connector lessons back into source-side QNT and
