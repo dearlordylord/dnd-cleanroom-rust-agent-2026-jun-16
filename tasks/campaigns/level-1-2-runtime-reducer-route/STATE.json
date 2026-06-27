@@ -2775,8 +2775,8 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fexp03-accepted-with-blockers",
-    "activeLane": null,
+    "status": "running",
+    "activeLane": "FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "9b2f81bfabb6f1afd7daede0455be054bb92d78c",
@@ -2895,10 +2895,10 @@
         ]
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
-    "activeLaneBaseCommit": null,
-    "workerAgent": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-04",
+    "activeBranch": "ralph/fexp-04-active-effect-lifecycle-roll-modifiers",
+    "activeLaneBaseCommit": "9b2f81bfabb6f1afd7daede0455be054bb92d78c",
+    "workerAgent": "Descartes the 3rd (019f0b25-79c7-74a3-bcff-59fa8e307d69)",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS"
   },

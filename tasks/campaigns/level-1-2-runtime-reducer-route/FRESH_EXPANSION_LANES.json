@@ -99,7 +99,7 @@
     {
       "laneId": "FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS",
       "checkpointId": "FEXP-CP3",
-      "status": "proposed",
+      "status": "running",
       "routeClass": "reducer-routed",
       "purpose": "Expand active-effect lifecycle, scalar buff, roll modifier, and turn-boundary cleanup substrates before selected active-effect drivers depend on them.",
       "drivers": [

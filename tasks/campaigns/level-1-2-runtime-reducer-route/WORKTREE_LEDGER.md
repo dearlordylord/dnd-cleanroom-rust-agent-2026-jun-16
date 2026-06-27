@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-04` | `ralph/fexp-04-active-effect-lifecycle-roll-modifiers` | `9b2f81bfabb6f1afd7daede0455be054bb92d78c` | Descartes the 3rd (`019f0b25-79c7-74a3-bcff-59fa8e307d69`) | pending | running |
 
 ## Historical RRCONV-19 Worktrees
 
