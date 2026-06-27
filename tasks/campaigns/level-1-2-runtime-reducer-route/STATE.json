@@ -199,7 +199,7 @@
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "fixing-review-findings",
-    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "fixing-review-findings",
+    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "rereviewing-after-fixer",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified"
@@ -302,7 +302,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
-      ]
+      ],
+      "fixerAgent": "pending",
+      "fixerName": "pending",
+      "fixerStatus": "pending-launch"
     },
     {
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
@@ -355,7 +358,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f",
       "branch": "ralph/l15-rr07-fu01f-spatial-light-area",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "fixing-review-findings",
+      "status": "rereviewing-after-fixer",
       "workerAgent": "019f07d7-0064-7062-9609-a2d22a704f0d",
       "workerName": "Einstein the 2nd",
       "workerCommit": "c4dbd72c098d85dc6fac652bd7b1758e5c6f61dc",
@@ -393,7 +396,21 @@
       ],
       "fixerAgent": "019f07e9-f35b-75a3-9f20-94f082dc3d6d",
       "fixerName": "Turing the 2nd",
-      "fixerStatus": "running"
+      "fixerStatus": "complete",
+      "fixerCommit": "15cfbe5193ed93e6119873732cccfa93c7f37349",
+      "fixerSummary": [
+        "Added public Spatial subject/fill and BattleState/BattleSetup spatial_route_subjects.",
+        "Observed spatial routes now go through start/discover/resolve observed entrypoints.",
+        "Expected spatial routes are independent literal witnesses."
+      ],
+      "fixerVerification": [
+        "cargo test level1_spatial_witness_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
+      ]
     }
   ],
   "completedLaneWorktrees": [
