@@ -4,8 +4,8 @@
 
 - Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Last completed current-snapshot queued branch set: `L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES`
-- Latest evidence: `tasks/target-replay-evidence/L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES.json`
+- Last completed current-snapshot queued branch set: `L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES`
+- Latest evidence: _none for FU01D_; the selected rows are source-QNT corpus blockers until a copied executable generic protection/charm/ward connector substrate exists.
 - Latest verification: cargo fmt --check, cargo test, cargo clippy, cleanroom harness, and git diff --check passed.
 
 ## L15-RR07-FU01F: Spatial Light/Area/Movement Substrates
@@ -2465,6 +2465,63 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD` passed.
+
+## L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES: Protection, charm, and ward substrates
+
+Selected drivers:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
+
+Behavior implemented:
+
+- Rust reducer and adapter replay remain as diagnostic substrate through `BattleState.protection_charm_ward` subjects.
+- No FU01D row is counted as accepted coverage because copied cleanroom inputs do not include an executable generic protection/charm/ward QNT connector substrate.
+- The copied reducer-route inventory already classifies both selected drivers as `source-qnt-corpus-blocker`; selected spell identity remains quarantined to adapters/tests/artifacts.
+
+Generated branch coverage:
+
+| Source-QNT blocker row | Reason | Status |
+| --- | --- | --- |
+| `doDiscoverAnimalFriendshipBeastTargetAdmission` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doResolveAnimalFriendshipFailedSaveCharmed` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doResolveAnimalFriendshipCasterDamageBreak` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doPreventProtectionFromEvilAndGoodScopedCharmAndPossession` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doCastSanctuaryWardCreation` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doInterdictDirectAttackFailedSaveLoss` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doInterdictDirectSpellSuccessfulSavePassThrough` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doRetargetDirectAttackToLegalReplacement` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doRejectIllegalReplacementTarget` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doExcludeAreaEffectFromInterdiction` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doEndWardOnWardedAttackRoll` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doEndWardOnWardedSpellCast` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| `doEndWardOnWardedDamageDealt` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+
+Target replay evidence:
+
+- _none_; the previous FU01D target replay evidence file was removed because it represented diagnostic Rust replay, not accepted copied-QNT connector evidence.
+
+Remaining gaps:
+
+- Add a copied executable generic protection/charm/ward QNT connector substrate before these rows may count for target replay coverage.
+
+Verification results:
+
+- `cargo test creature_type_protection_adapter_replays_all_branches` passed.
+- `cargo test sanctuary_selected_identity_adapter_replays_all_branches` passed.
+- `cargo fmt --check` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+
+Harness artifacts:
+
+- History: `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/`
+- Run ledger: `tasks/RUN_LEDGER.json` records accepted coverage only; FU01D is intentionally absent after demotion.
 
 ## L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES: Metamagic Reroll, Damage, Projection Substrates
 

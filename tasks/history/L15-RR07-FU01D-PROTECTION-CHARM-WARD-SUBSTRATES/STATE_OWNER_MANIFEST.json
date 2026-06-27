@@ -1,0 +1,76 @@
+{
+  "durableFields": [
+    {
+      "apiPath": "BattleState.protection_charm_ward.offered_subject",
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "domainInvariant": "At most one generic protection/charm/ward route subject is offered at a time; resolved creature-protection and sanctuary witnesses are derived at adapter boundaries from fill facts and canonical battle fields.",
+      "fieldPath": "BattleState.protection_charm_ward.offered_subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleSetup.protection_charm_ward",
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "domainInvariant": "Setup can admit one generic target-admission, active-effect, condition-lifecycle, saving-throw-roll-mode, or target-interdiction subject without carrying resolved projection state or authored spell identity dispatch.",
+      "fieldPath": "BattleSetup.protection_charm_ward",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleState.action_available",
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "domainInvariant": "Action availability is the battle-state source of whether the actor can still spend an action after resolving diagnostic protection/charm/ward rows.",
+      "fieldPath": "BattleState.action_available",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleState.fighter.spell_slots.first_level_expended",
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "domainInvariant": "First-level slot expenditure is the battle-state source of the spell resource consumed by diagnostic protection/charm rows.",
+      "fieldPath": "BattleState.fighter.spell_slots.first_level_expended",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleState.fighter.hp",
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "domainInvariant": "Fighter hit points are the battle-state source observed by ward teardown rows that deal damage.",
+      "fieldPath": "BattleState.fighter.hp",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    }
+  ],
+  "nonDurableBoundaryApiSurface": [
+    {
+      "apiPath": "BattleProtectionCharmWardProjection",
+      "boundary": "adapter-facing transient witness derived from branch fill and canonical BattleState action, spell-slot, and hit-point fields",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleEntrypointTrace.route_events",
+      "boundary": "production reducer route observer trace for diagnostic protection/charm/ward branches; not accepted coverage without copied-QNT connector evidence",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "ReducerRouteEvent.qRoute",
+      "boundary": "target replay route-event-list comparator projection",
+      "introducedIn": "src/qnt_adapters/battle_runtime_reducer_route.rs",
+      "owner": "executable-boundary-projection"
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
+}

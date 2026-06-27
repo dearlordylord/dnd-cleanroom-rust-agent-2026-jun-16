@@ -1,0 +1,26 @@
+{
+  "baseCheck": {
+    "ancestorCommand": "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
+    "declaredBaseSha": "410a784738fba3b80566eae292140327d4e30877",
+    "headSha": "410a784738fba3b80566eae292140327d4e30877",
+    "result": "pass"
+  },
+  "preImplementationStatus": {
+    "command": "git status --short",
+    "output": "",
+    "result": "clean"
+  },
+  "schemaVersion": 1,
+  "startHeadSha": "410a784738fba3b80566eae292140327d4e30877",
+  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
+  "taskScope": {
+    "assignmentId": "level-1-2-battle",
+    "laneId": "battle",
+    "parentRouteTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+    "routeClass": "protection-charm-ward-substrates",
+    "selectedDrivers": [
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt"
+    ]
+  }
+}

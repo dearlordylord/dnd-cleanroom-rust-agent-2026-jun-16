@@ -1,0 +1,108 @@
+{
+  "accumulatorGrowth": [],
+  "adapterModules": [
+    {
+      "adapterScope": "Diagnostic creature-type target admission, charm condition lifecycle, protection active-effect, and protection saving-throw roll-mode replay through production BattleState generic substrate subjects. Not accepted coverage until copied-QNT generic connector evidence exists.",
+      "path": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "doDiscoverAnimalFriendshipBeastTargetAdmission",
+        "doResolveAnimalFriendshipFailedSaveCharmed",
+        "doResolveAnimalFriendshipCasterDamageBreak",
+        "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
+        "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
+        "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
+        "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "expectedProjectionSha256",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "sourceBranchInventorySha256",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId",
+        "stateCheck",
+        "comparator",
+        "harnessTestPath"
+      ],
+      "targetReplayEvidence": []
+    },
+    {
+      "adapterScope": "Diagnostic ward creation, target interdiction, retargeting, bypass, and teardown replay through production BattleState generic substrate subjects. Not accepted coverage until copied-QNT generic connector evidence exists.",
+      "path": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "doCastSanctuaryWardCreation",
+        "doInterdictDirectAttackFailedSaveLoss",
+        "doInterdictDirectSpellSuccessfulSavePassThrough",
+        "doRetargetDirectAttackToLegalReplacement",
+        "doRejectIllegalReplacementTarget",
+        "doExcludeAreaEffectFromInterdiction",
+        "doEndWardOnWardedAttackRoll",
+        "doEndWardOnWardedSpellCast",
+        "doEndWardOnWardedDamageDealt",
+        "checkedTargetStateFields",
+        "cleanroomManifestSourceCommitSha",
+        "expectedProjectionSha256",
+        "mbt::actionTaken",
+        "mbt::nondetPicks",
+        "observedActionTaken",
+        "observedProjectionSha256",
+        "qntFileSha256",
+        "sourceBranchInventorySha256",
+        "targetProfile",
+        "targetProfileSha256",
+        "traceId",
+        "stateCheck",
+        "comparator",
+        "harnessTestPath"
+      ],
+      "targetReplayEvidence": []
+    }
+  ],
+  "expectedNextReuse": [
+    {
+      "api": "BattleState.protection_charm_ward generic substrate subjects",
+      "driver": "future generic protection/charm/ward copied-QNT connector plus selected-identity or substrate drivers",
+      "module": "src/rules/battle_reducer_spine.rs"
+    }
+  ],
+  "productionModulesExtended": [
+    {
+      "domainApis": [
+        "BattleProtectionCharmWardSubstrate",
+        "BattleProtectionCharmWardFill",
+        "start_protection_charm_ward_battle_observed",
+        "resolve_battle_subject_observed",
+        "BattleEntrypointTrace"
+      ],
+      "path": "src/rules/battle_reducer_spine.rs",
+      "reason": "Diagnostic generic target-admission, active-effect, condition-lifecycle, saving-throw-roll-mode, and target-interdiction reducer routes used by FU01D witnesses; not accepted coverage without copied-QNT connector substrate.",
+      "role": "domain-engine"
+    },
+    {
+      "domainApis": [
+        "CreatureTypeProtectionState",
+        "ProtectionTargetFacts",
+        "protection_relevant_effect_save_roll_mode"
+      ],
+      "path": "src/rules/creature_type_protection.rs",
+      "reason": "Retains QNT-shaped runtime projection facts while diagnostic route replay flows through BattleState.",
+      "role": "runtime-projection"
+    },
+    {
+      "domainApis": [
+        "SanctuarySelectedIdentityState",
+        "warded_projection",
+        "ended_projection"
+      ],
+      "path": "src/rules/sanctuary_selected_identity.rs",
+      "reason": "Retains QNT-shaped ward projection facts while diagnostic route replay flows through BattleState target interdiction and active-effect subjects.",
+      "role": "runtime-projection"
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
+}

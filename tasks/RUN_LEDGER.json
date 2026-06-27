@@ -1184,7 +1184,7 @@
           "sha256": "734488a30a4af617f30018eec98118b31c099983499196fd13e0c29980b64d01"
         }
       },
-      "assignmentId": "level-1-2-runtime-reducer-route",
+      "assignmentId": "level-1-2-battle",
       "commandResults": [
         {
           "command": "cargo test command_option_next_turn_adapter_replays_all_branches",
