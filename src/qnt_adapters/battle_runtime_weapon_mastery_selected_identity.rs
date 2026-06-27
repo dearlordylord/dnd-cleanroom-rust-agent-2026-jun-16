@@ -1,5 +1,7 @@
 use crate::rules::battle_reducer_spine::{
-    discover_battle_acts, resolve_battle_subject, start_weapon_mastery_property_battle, Actor,
+    discover_battle_acts, discover_battle_acts_observed, resolve_battle_subject,
+    resolve_battle_subject_observed, start_weapon_mastery_property_battle,
+    start_weapon_mastery_property_battle_observed, Actor, BattleEntrypointTrace,
     BattleResolutionRequest, BattleSubject, BattleSubjectKind, BattleWeaponMasteryPropertyFill,
 };
 use crate::rules::weapon_mastery_selected_identity::{
@@ -9,11 +11,8 @@ use crate::rules::weapon_mastery_selected_identity::{
 };
 
 use super::battle_runtime_reducer_route::{
-    route_resolve_battle_subject_from_route_holes, route_resolve_battle_subject_from_route_result,
-    route_resolve_battle_subject_without_fill_from_route_holes,
-    route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
-    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
-    ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+    observed_reducer_route, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 3] = [
@@ -78,9 +77,17 @@ pub fn expected_witness(observed_action_taken: &str) -> WeaponMasterySelectedIde
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
-        "doResolveSapMasteryPropertyHit" => sap_property_route(),
-        "doResolveToppleMasteryPropertyFailedSavingThrow" => topple_property_route(),
-        "doResolveCleaveMasteryPropertySecondTargetHit" => cleave_property_route(),
+        "doResolveSapMasteryPropertyHit" => {
+            observed_weapon_mastery_property_route(WeaponMasteryProperty::Sap, false, None)
+        }
+        "doResolveToppleMasteryPropertyFailedSavingThrow" => {
+            observed_weapon_mastery_property_route(WeaponMasteryProperty::Topple, true, None)
+        }
+        "doResolveCleaveMasteryPropertySecondTargetHit" => observed_weapon_mastery_property_route(
+            WeaponMasteryProperty::Cleave,
+            false,
+            Some(Actor::Goblin),
+        ),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
 }
@@ -230,105 +237,33 @@ fn weapon_mastery_subject(
         .expect("weapon mastery property subject should be discoverable")
 }
 
-fn sap_property_route() -> Vec<ReducerRouteEvent> {
-    let mut route = observed_weapon_hit_damage_route();
-    route.push(route_resolve_battle_subject_from_route_result(
-        ReducerRouteSubjectFamily::WeaponAttack,
-        ReducerRouteFillKind::RolledDice,
-        ReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        ReducerRouteOwnerGroup::HitPoint,
-    ));
-    route.push(route_resolve_battle_subject_without_fill_from_route_result(
-        ReducerRouteSubjectFamily::WeaponMasteryProperty,
-        ReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        ReducerRouteOwnerGroup::ActiveEffect,
-    ));
-    route
-}
-
-fn topple_property_route() -> Vec<ReducerRouteEvent> {
-    vec![
-        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-        route_resolve_battle_subject_from_route_holes(
-            ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            ReducerRouteFillKind::AttackRoll,
-            vec![ReducerRouteHoleKind::SavingThrowOutcome],
-            ReducerRouteOwnerGroup::ConditionLifecycle,
-        ),
-        route_resolve_battle_subject_from_route_holes(
-            ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            ReducerRouteFillKind::SavingThrowOutcome,
-            vec![ReducerRouteHoleKind::RolledDice],
-            ReducerRouteOwnerGroup::ConditionLifecycle,
-        ),
-    ]
-}
-
-fn cleave_property_route() -> Vec<ReducerRouteEvent> {
-    let mut route = observed_weapon_hit_damage_route();
-    route.push(route_resolve_battle_subject_from_route_holes(
-        ReducerRouteSubjectFamily::WeaponAttack,
-        ReducerRouteFillKind::RolledDice,
-        vec![ReducerRouteHoleKind::UnitFeatureDecision],
-        ReducerRouteOwnerGroup::HitPoint,
-    ));
-    route.push(route_resolve_battle_subject_without_fill_from_route_holes(
-        ReducerRouteSubjectFamily::WeaponMasteryProperty,
-        vec![ReducerRouteHoleKind::UnitFeatureDecision],
-        ReducerRouteOwnerGroup::FeatureResource,
-    ));
-    route.push(route_resolve_battle_subject_from_route_holes(
-        ReducerRouteSubjectFamily::WeaponMasteryProperty,
-        ReducerRouteFillKind::UnitFeatureDecision,
-        vec![ReducerRouteHoleKind::TargetChoice],
-        ReducerRouteOwnerGroup::FeatureResource,
-    ));
-    route.push(route_resolve_battle_subject_from_route_holes(
-        ReducerRouteSubjectFamily::WeaponMasteryProperty,
-        ReducerRouteFillKind::TargetChoice,
-        vec![ReducerRouteHoleKind::AttackRoll],
-        ReducerRouteOwnerGroup::TargetSelection,
-    ));
-    route.push(route_resolve_battle_subject_from_route_holes(
-        ReducerRouteSubjectFamily::WeaponMasteryProperty,
-        ReducerRouteFillKind::AttackRoll,
-        vec![ReducerRouteHoleKind::RolledDice],
-        ReducerRouteOwnerGroup::AttackRoll,
-    ));
-    route.push(route_resolve_battle_subject_from_route_result(
-        ReducerRouteSubjectFamily::WeaponMasteryProperty,
-        ReducerRouteFillKind::RolledDice,
-        ReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        ReducerRouteOwnerGroup::HitPoint,
-    ));
-    route.push(route_resolve_battle_subject_without_fill_from_route_result(
-        ReducerRouteSubjectFamily::WeaponMasteryProperty,
-        ReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        ReducerRouteOwnerGroup::FeatureResource,
-    ));
-    route
-}
-
-fn observed_weapon_hit_damage_route() -> Vec<ReducerRouteEvent> {
-    vec![
-        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-        route_resolve_battle_subject_from_route_holes(
-            ReducerRouteSubjectFamily::WeaponAttack,
-            ReducerRouteFillKind::TargetChoice,
-            vec![ReducerRouteHoleKind::AttackRoll],
-            ReducerRouteOwnerGroup::TargetSelection,
-        ),
-        route_resolve_battle_subject_from_route_holes(
-            ReducerRouteSubjectFamily::WeaponAttack,
-            ReducerRouteFillKind::AttackRoll,
-            vec![ReducerRouteHoleKind::RolledDice],
-            ReducerRouteOwnerGroup::AttackRoll,
-        ),
-    ]
+fn observed_weapon_mastery_property_route(
+    property: WeaponMasteryProperty,
+    saving_throw_failed: bool,
+    second_target: Option<Actor>,
+) -> Vec<ReducerRouteEvent> {
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start_weapon_mastery_property_battle_observed(&mut trace);
+    let discovery = discover_battle_acts_observed(&state, &mut trace);
+    let subject = discovery
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == BattleSubjectKind::WeaponMasteryProperty)
+        .expect("weapon mastery property subject should be discoverable");
+    let request = BattleResolutionRequest::weapon_mastery_property(
+        subject,
+        BattleWeaponMasteryPropertyFill {
+            property,
+            primary_target: Actor::Skeleton,
+            second_target,
+            damage: WEAPON_MASTERY_SAMPLE_WEAPON_DAMAGE,
+            saving_throw_failed,
+        },
+    )
+    .expect("weapon mastery property subject should match request");
+    let _result = resolve_battle_subject_observed(state, request, &mut trace);
+    observed_reducer_route(&trace, &[ReducerRouteSubjectFamily::WeaponMasteryProperty])
 }
 
 fn expected_sap_property_route() -> Vec<ReducerRouteEvent> {
@@ -336,29 +271,14 @@ fn expected_sap_property_route() -> Vec<ReducerRouteEvent> {
         ReducerRouteEvent::StartBattle {
             owner: ReducerRouteOwnerGroup::ActionEconomy,
         },
-        ReducerRouteEvent::ResolveBattleSubject {
-            subject: ReducerRouteSubjectFamily::WeaponAttack,
-            fill: ReducerRouteFillKind::TargetChoice,
-            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
-            holes: vec![ReducerRouteHoleKind::AttackRoll],
-            owner: ReducerRouteOwnerGroup::TargetSelection,
-        },
-        ReducerRouteEvent::ResolveBattleSubject {
-            subject: ReducerRouteSubjectFamily::WeaponAttack,
-            fill: ReducerRouteFillKind::AttackRoll,
-            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
-            holes: vec![ReducerRouteHoleKind::RolledDice],
-            owner: ReducerRouteOwnerGroup::AttackRoll,
-        },
-        ReducerRouteEvent::ResolveBattleSubject {
-            subject: ReducerRouteSubjectFamily::WeaponAttack,
-            fill: ReducerRouteFillKind::RolledDice,
-            outcome: ReducerRouteResolutionOutcome::Resolved,
-            holes: Vec::new(),
-            owner: ReducerRouteOwnerGroup::HitPoint,
-        },
-        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+        ReducerRouteEvent::DiscoverBattleActs {
             subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
+            fill: ReducerRouteFillKind::UnitFeatureDecision,
             outcome: ReducerRouteResolutionOutcome::Resolved,
             holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::ActiveEffect,
@@ -371,16 +291,14 @@ fn expected_topple_property_route() -> Vec<ReducerRouteEvent> {
         ReducerRouteEvent::StartBattle {
             owner: ReducerRouteOwnerGroup::ActionEconomy,
         },
-        ReducerRouteEvent::ResolveBattleSubject {
+        ReducerRouteEvent::DiscoverBattleActs {
             subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            fill: ReducerRouteFillKind::AttackRoll,
-            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
-            holes: vec![ReducerRouteHoleKind::SavingThrowOutcome],
-            owner: ReducerRouteOwnerGroup::ConditionLifecycle,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::FeatureResource,
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            fill: ReducerRouteFillKind::UnitFeatureDecision,
             outcome: ReducerRouteResolutionOutcome::NeedsHoles,
             holes: vec![ReducerRouteHoleKind::RolledDice],
             owner: ReducerRouteOwnerGroup::ConditionLifecycle,
@@ -393,63 +311,14 @@ fn expected_cleave_property_route() -> Vec<ReducerRouteEvent> {
         ReducerRouteEvent::StartBattle {
             owner: ReducerRouteOwnerGroup::ActionEconomy,
         },
-        ReducerRouteEvent::ResolveBattleSubject {
-            subject: ReducerRouteSubjectFamily::WeaponAttack,
-            fill: ReducerRouteFillKind::TargetChoice,
-            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
-            holes: vec![ReducerRouteHoleKind::AttackRoll],
-            owner: ReducerRouteOwnerGroup::TargetSelection,
-        },
-        ReducerRouteEvent::ResolveBattleSubject {
-            subject: ReducerRouteSubjectFamily::WeaponAttack,
-            fill: ReducerRouteFillKind::AttackRoll,
-            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
-            holes: vec![ReducerRouteHoleKind::RolledDice],
-            owner: ReducerRouteOwnerGroup::AttackRoll,
-        },
-        ReducerRouteEvent::ResolveBattleSubject {
-            subject: ReducerRouteSubjectFamily::WeaponAttack,
-            fill: ReducerRouteFillKind::RolledDice,
-            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
-            holes: vec![ReducerRouteHoleKind::UnitFeatureDecision],
-            owner: ReducerRouteOwnerGroup::HitPoint,
-        },
-        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+        ReducerRouteEvent::DiscoverBattleActs {
             subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
-            holes: vec![ReducerRouteHoleKind::UnitFeatureDecision],
+            holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::FeatureResource,
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
             fill: ReducerRouteFillKind::UnitFeatureDecision,
-            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
-            holes: vec![ReducerRouteHoleKind::TargetChoice],
-            owner: ReducerRouteOwnerGroup::FeatureResource,
-        },
-        ReducerRouteEvent::ResolveBattleSubject {
-            subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            fill: ReducerRouteFillKind::TargetChoice,
-            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
-            holes: vec![ReducerRouteHoleKind::AttackRoll],
-            owner: ReducerRouteOwnerGroup::TargetSelection,
-        },
-        ReducerRouteEvent::ResolveBattleSubject {
-            subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            fill: ReducerRouteFillKind::AttackRoll,
-            outcome: ReducerRouteResolutionOutcome::NeedsHoles,
-            holes: vec![ReducerRouteHoleKind::RolledDice],
-            owner: ReducerRouteOwnerGroup::AttackRoll,
-        },
-        ReducerRouteEvent::ResolveBattleSubject {
-            subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            fill: ReducerRouteFillKind::RolledDice,
-            outcome: ReducerRouteResolutionOutcome::Resolved,
-            holes: Vec::new(),
-            owner: ReducerRouteOwnerGroup::HitPoint,
-        },
-        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
-            subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
             outcome: ReducerRouteResolutionOutcome::Resolved,
             holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::FeatureResource,

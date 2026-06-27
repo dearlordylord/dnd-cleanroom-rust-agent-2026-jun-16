@@ -2078,7 +2078,7 @@
       "targetReplayEvidence": [
         {
           "path": "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json",
-          "sha256": "54c0a5dc4e33a2a043f18a4ab2a2043d0bf450369798019ccd0b6a75ca2794ec",
+          "sha256": "84023113707dd9e305672ceb471adc87d9ab9480a1ac78617bc7c1afb4f86e1d",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveSapMasteryPropertyHit#step:doResolveSapMasteryPropertyHit",
             "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveToppleMasteryPropertyFailedSavingThrow#step:doResolveToppleMasteryPropertyFailedSavingThrow",
@@ -2109,11 +2109,11 @@
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "a0e71744571c2b177d3b6802c370a95dd2cdb7f146037e4e6f72f8dc7c90a0ad"
+          "sha256": "25c0f8a10dec63934486585b4b1e3f9607534bb88e9028d8bdf95606b3ddb602"
         },
         "deciderDecision": {
           "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "b5787d3ee2310032166902e7993c8788c7f5d805fbad9538b934014351d15d86"
+          "sha256": "a1b9d613c7474002fd430f6a1de852e99623cf64ee0eb742c7eb83742eafb361"
         }
       }
     }

@@ -24,8 +24,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "1baf472f427fed566e746be6370903827f7655db6c14368360ecdbcd4c59818c",
-        "observedProjectionSha256": "1baf472f427fed566e746be6370903827f7655db6c14368360ecdbcd4c59818c",
+        "expectedProjectionSha256": "9696457ba0d4d3d91a3fbe8d932a3f5967c7bca9f2d29aa359b5054b3e697807",
+        "observedProjectionSha256": "9696457ba0d4d3d91a3fbe8d932a3f5967c7bca9f2d29aa359b5054b3e697807",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -51,8 +51,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "6b280635c365c4a2aac01c643779a1f65843e94741db68d5c2c36751467f2e6c",
-        "observedProjectionSha256": "6b280635c365c4a2aac01c643779a1f65843e94741db68d5c2c36751467f2e6c",
+        "expectedProjectionSha256": "eaf930626d8af1442e0632eeeec9dedee6a2fbac7dd06703d87387a45cfb3b0c",
+        "observedProjectionSha256": "eaf930626d8af1442e0632eeeec9dedee6a2fbac7dd06703d87387a45cfb3b0c",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -79,8 +79,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "8dd50f914357b46ced3dd5958ba112bd1cd0fcd0f6bd6eae7bc76233c1a3f737",
-        "observedProjectionSha256": "8dd50f914357b46ced3dd5958ba112bd1cd0fcd0f6bd6eae7bc76233c1a3f737",
+        "expectedProjectionSha256": "5319788617541f0cd979fee116e82ebfdee372be4ce75da848ce69cdd77c2f14",
+        "observedProjectionSha256": "5319788617541f0cd979fee116e82ebfdee372be4ce75da848ce69cdd77c2f14",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -108,8 +108,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "fe42ddfdad4acb9cd7e7825537bfceb40572ddf142afd251c24c2d4d88282795",
-        "observedProjectionSha256": "fe42ddfdad4acb9cd7e7825537bfceb40572ddf142afd251c24c2d4d88282795",
+        "expectedProjectionSha256": "3d5fa2880d7fd2531746c1d999480b9e4185d3d86a7a54880c445cd0e87e1523",
+        "observedProjectionSha256": "3d5fa2880d7fd2531746c1d999480b9e4185d3d86a7a54880c445cd0e87e1523",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -135,8 +135,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "c0884306d90ed58c3575c8d6afa9aa6489b48a9ea1251e36b8a9faf1bc2d65c1",
-        "observedProjectionSha256": "c0884306d90ed58c3575c8d6afa9aa6489b48a9ea1251e36b8a9faf1bc2d65c1",
+        "expectedProjectionSha256": "95db301a1ac844c03a4a1e83388b75e3aaa85d972bfec191e51e38dc2a62c942",
+        "observedProjectionSha256": "95db301a1ac844c03a4a1e83388b75e3aaa85d972bfec191e51e38dc2a62c942",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -162,8 +162,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "b518d80d8e4635f077f1efd2780281497dd27515e8f9d1a4201e809d01733331",
-        "observedProjectionSha256": "b518d80d8e4635f077f1efd2780281497dd27515e8f9d1a4201e809d01733331",
+        "expectedProjectionSha256": "46e6c5d885e6c88ea543463ef45f329ec0c5e549b5b3f1a12a97422afa721311",
+        "observedProjectionSha256": "46e6c5d885e6c88ea543463ef45f329ec0c5e549b5b3f1a12a97422afa721311",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -189,8 +189,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "315cc305b449d7f7286c023c5e778afb1d1e931be3428c15d4016d2c2ea2c9b3",
-        "observedProjectionSha256": "315cc305b449d7f7286c023c5e778afb1d1e931be3428c15d4016d2c2ea2c9b3",
+        "expectedProjectionSha256": "fb922d4683f61755ccf33ec0da0b311b2c4feced89e773fb58c5d3fcfc6d375c",
+        "observedProjectionSha256": "fb922d4683f61755ccf33ec0da0b311b2c4feced89e773fb58c5d3fcfc6d375c",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -216,8 +216,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "2232d39b737406b569ea85082c8090996d3cee1bff66ddce47160dc495c0d166",
-        "observedProjectionSha256": "2232d39b737406b569ea85082c8090996d3cee1bff66ddce47160dc495c0d166",
+        "expectedProjectionSha256": "679231051ac04820855124281cd8a8d85bc5eb3b0c03d90cdc4eadf6f403d054",
+        "observedProjectionSha256": "679231051ac04820855124281cd8a8d85bc5eb3b0c03d90cdc4eadf6f403d054",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -244,8 +244,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "c578d1deab768df71ed58b013104a162279e119bd6d7951ab57ffddd47cd6f7a",
-        "observedProjectionSha256": "c578d1deab768df71ed58b013104a162279e119bd6d7951ab57ffddd47cd6f7a",
+        "expectedProjectionSha256": "a7f8a762ae888649dded6b289a9ecfcb939364357ded6a69d52a280290b4a176",
+        "observedProjectionSha256": "a7f8a762ae888649dded6b289a9ecfcb939364357ded6a69d52a280290b4a176",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -272,8 +272,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "8e07d15d8fdab9bed5270dfa70d2e0b5382a49b2baabaa50d9a09a7955cb64f6",
-        "observedProjectionSha256": "8e07d15d8fdab9bed5270dfa70d2e0b5382a49b2baabaa50d9a09a7955cb64f6",
+        "expectedProjectionSha256": "71a638a21896d52930ffc7fdea21214091f5674d46a5348017f2347d4a4c340e",
+        "observedProjectionSha256": "71a638a21896d52930ffc7fdea21214091f5674d46a5348017f2347d4a4c340e",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -300,8 +300,8 @@
           "qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "7d6504be75a4f966b5e46a407c1625a55ce8df6be6565832a24739a9cc975b82",
-        "observedProjectionSha256": "7d6504be75a4f966b5e46a407c1625a55ce8df6be6565832a24739a9cc975b82",
+        "expectedProjectionSha256": "43ef13512f00bd28cd6570aa14538c3e9265f5112fb5bbdfcb8c102e4d106f38",
+        "observedProjectionSha256": "43ef13512f00bd28cd6570aa14538c3e9265f5112fb5bbdfcb8c102e4d106f38",
         "projection": "qRoute",
         "tag": "state-match"
       },
@@ -314,7 +314,7 @@
   "targetProfile": "rust",
   "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
   "evidenceNotes": [
-    "Fixer refresh: focused adapter tests compare observed reducer-routed qRoute output against independent adapter-local literal ReducerRouteEvent expected records.",
-    "Projection hashes are unchanged by the fixer because the accepted route payloads did not change; only expected-route construction independence changed."
+    "Fixer refresh: focused adapter tests compare route events emitted by BattleEntrypointTrace from production reducer observer entrypoints against independent literal ReducerRouteEvent expected records.",
+    "Projection hashes were refreshed because accepted qRoute payloads now represent reducer-observed start/discover/resolve entrypoint routes rather than adapter-synthesized internal reducer micro-routes."
   ]
 }

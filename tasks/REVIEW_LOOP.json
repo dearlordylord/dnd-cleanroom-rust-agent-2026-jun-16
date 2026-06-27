@@ -9,7 +9,7 @@
     },
     {
       "id": "rr07s-c-independent-route-witnesses",
-      "resolution": "Fixer pass replaced expected qRoute construction with independent adapter-local literal ReducerRouteEvent records; observed replay paths still use reducer-facing route helpers.",
+      "resolution": "Fixer pass routes observed qRoute evidence through BattleEntrypointTrace events emitted by production reducer observer entrypoints; expected qRoute construction remains independent literal ReducerRouteEvent records.",
       "status": "fixed"
     },
     {
@@ -68,7 +68,7 @@
           "status": "pass"
         }
       ],
-      "summary": "Fixer pass removed expected-route dependence on shared route helper constructors, verified RAW references for mastery properties, Dragonborn Breath Weapon, Innate Sorcery, and spell save/attack terminology, and confirmed no runtime branch dispatches on authored selected identity."
+      "summary": "Fixer pass moved observed route evidence from adapter-local route constructors to production reducer observer traces, verified RAW references for mastery properties, Dragonborn Breath Weapon, Innate Sorcery, and spell save/attack terminology, and confirmed no runtime branch dispatches on authored selected identity."
     },
     {
       "id": "rr07s-c-review-round-2",
@@ -114,7 +114,7 @@
           "status": "pass"
         }
       ],
-      "summary": "Convergence pass found no remaining reasonable findings. The remaining strong connascence is the intentional literal route witness duplication between expected adapter records and the copied QNT connector actions they witness."
+      "summary": "Convergence pass found no remaining reasonable findings. The remaining strong connascence is localized to literal expected route witnesses that intentionally assert the reducer-observed entrypoint route contract."
     }
   ]
 }

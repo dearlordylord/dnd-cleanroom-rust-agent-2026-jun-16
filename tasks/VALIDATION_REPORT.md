@@ -2079,10 +2079,10 @@ Verification results:
 
 Behavior implemented:
 
-- Weapon mastery selected-identity replay routes Sap, Topple, and Cleave by typed `WeaponMasteryProperty` facts through battle reducer subjects and owner route evidence.
-- Dragonborn Breath Weapon replay routes attack-action area-save damage replacement by `DragonbornBreathWeaponFacts`, including resource, area-shape, damage-roll, and Extra Attack continuation evidence.
-- Active feature spell-benefit replay routes Innate Sorcery by typed spell-benefit eligibility facts, not authored feature identity.
-- Focused adapter route checks now compare observed reducer-routed output against independent literal `ReducerRouteEvent` expected records; expected routes no longer call the shared `route_*` helpers used by observed replay.
+- Weapon mastery selected-identity replay routes Sap, Topple, and Cleave by typed `WeaponMasteryProperty` facts through reducer-observed start/discover/resolve entrypoint events.
+- Dragonborn Breath Weapon replay routes attack-action area-save damage replacement by `DragonbornBreathWeaponFacts`, including reducer-observed resource, area-shape, and damage-roll rejection outcomes. Extra Attack continuation remains validated in state projection rather than claimed as a separate observed route event.
+- Active feature spell-benefit replay routes Innate Sorcery by typed spell-benefit eligibility facts, not authored feature identity; route evidence is limited to reducer-observed feature-substrate entrypoint events.
+- Focused adapter route checks compare `BattleEntrypointTrace` route output emitted by production reducer observer entrypoints against independent literal `ReducerRouteEvent` expected records.
 - Selected authored identity remains confined to adapter branch labels, tests, and evidence payloads.
 
 Generated branch coverage:

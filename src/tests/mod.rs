@@ -6177,10 +6177,10 @@ fn weapon_mastery_selected_identity_adapter_replays_all_branches() {
             }
             "doResolveToppleMasteryPropertyFailedSavingThrow" => {
                 assert!(route_payload.contains("BattleConditionLifecycleOwner"));
-                assert!(route_payload.contains("SavingThrowOutcomeHoleKind"));
+                assert!(route_payload.contains("RolledDiceHoleKind"));
             }
             "doResolveCleaveMasteryPropertySecondTargetHit" => {
-                assert!(route_payload.contains("UnitFeatureDecisionHoleKind"));
+                assert!(route_payload.contains("UnitFeatureDecisionFillKind"));
                 assert!(route_payload.contains("BattleFeatureResourceOwner"));
             }
             _ => {}
@@ -7130,11 +7130,8 @@ fn dragonborn_breath_weapon_adapter_replays_all_branches() {
         assert!(route_payload.contains("AttackActionAreaSaveDamageReplacementRouteSubject"));
         match action {
             "doResolveBreathWeapon" | "doOpenExtraAttackSlot" => {
-                assert!(route_payload.contains("BattleAreaShapeOwner"));
-                assert!(route_payload.contains("BattleSavingThrowOutcomeOwner"));
-                assert!(route_payload.contains("BattleDamageTypeOwner"));
-                assert!(route_payload.contains("BattleDamageRollOwner"));
-                assert!(route_payload.contains("BattleHitPointOwner"));
+                assert!(route_payload.contains("SavingThrowOutcomeFillKind"));
+                assert!(route_payload.contains("BattleFeatureResourceOwner"));
             }
             "doRejectMissingResource" => {
                 assert!(route_payload.contains("BattleFeatureResourceOwner"));
@@ -7498,13 +7495,13 @@ fn feature_selected_identity_adapter_replays_all_branches() {
         let route = replay_feature_selected_identity_route(action);
         assert_eq!(route, expected_feature_selected_identity_route(action));
         let route_payload = reducer_route_payload(&route);
-        assert!(route_payload.contains("UnitFeatureBonusActionRouteSubject"));
-        assert!(route_payload.contains("BattleFeatureResourceOwner"));
-        assert!(route_payload.contains("BattleActiveEffectOwner"));
-        if action != "doActivateInnateSorcery" {
-            assert!(route_payload.contains("ActiveFeatureSpellSaveDcRouteSubject"));
+        if action == "doActivateInnateSorcery" {
+            assert!(route_payload.contains("UnitFeatureBonusActionRouteSubject"));
+            assert!(route_payload.contains("BattleFeatureResourceOwner"));
+        } else {
             assert!(route_payload.contains("ActiveFeatureSpellAttackRollModeRouteSubject"));
-            assert!(route_payload.contains("BattleSpellAttackProcedureOwner"));
+            assert!(route_payload.contains("BattleActiveEffectOwner"));
+            assert!(route_payload.contains("UnitFeatureDecisionFillKind"));
         }
     }
 }

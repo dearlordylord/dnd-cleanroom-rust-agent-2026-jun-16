@@ -1,6 +1,7 @@
 use crate::rules::battle_reducer_spine::{
-    BattleHoleKind, BattleResolutionInvalidReason, BattleResolutionOutcome, BattleResolutionResult,
-    BattleState, BattleSubject,
+    BattleEntrypointTrace, BattleHoleKind, BattleReducerRouteEvent, BattleReducerRouteFillKind,
+    BattleReducerRouteOwnerGroup, BattleResolutionInvalidReason, BattleResolutionOutcome,
+    BattleResolutionResult, BattleState, BattleSubject, BattleSubjectKind,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -20,7 +21,6 @@ pub enum ReducerRouteHoleKind {
     SpellTargetList,
     StatBlockRechargeRoll,
     TargetChoice,
-    UnitFeatureDecision,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -382,6 +382,75 @@ pub fn reducer_route_payload(route: &[ReducerRouteEvent]) -> String {
         .join("\n")
 }
 
+#[must_use]
+pub fn reducer_route_event_from_observed(event: &BattleReducerRouteEvent) -> ReducerRouteEvent {
+    match event {
+        BattleReducerRouteEvent::StartBattle { owner } => ReducerRouteEvent::StartBattle {
+            owner: reducer_route_owner(*owner),
+        },
+        BattleReducerRouteEvent::DiscoverBattleActs {
+            subject,
+            holes,
+            owner,
+        } => ReducerRouteEvent::DiscoverBattleActs {
+            subject: reducer_route_subject(*subject),
+            holes: reducer_route_holes_from_slice(holes),
+            owner: reducer_route_owner(*owner),
+        },
+        BattleReducerRouteEvent::ResolveBattleSubject {
+            subject,
+            fill,
+            outcome,
+            holes,
+            owner,
+        } => ReducerRouteEvent::ResolveBattleSubject {
+            subject: reducer_route_subject(*subject),
+            fill: reducer_route_fill(*fill),
+            outcome: reducer_route_outcome_from_battle(*outcome),
+            holes: reducer_route_holes_from_slice(holes),
+            owner: reducer_route_owner(*owner),
+        },
+        BattleReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject,
+            outcome,
+            holes,
+            owner,
+        } => ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: reducer_route_subject(*subject),
+            outcome: reducer_route_outcome_from_battle(*outcome),
+            holes: reducer_route_holes_from_slice(holes),
+            owner: reducer_route_owner(*owner),
+        },
+    }
+}
+
+#[must_use]
+pub fn observed_reducer_route(
+    trace: &BattleEntrypointTrace,
+    subjects: &[ReducerRouteSubjectFamily],
+) -> Vec<ReducerRouteEvent> {
+    trace
+        .route_events()
+        .iter()
+        .map(reducer_route_event_from_observed)
+        .filter(|event| route_event_matches_subjects(event, subjects))
+        .collect()
+}
+
+fn route_event_matches_subjects(
+    event: &ReducerRouteEvent,
+    subjects: &[ReducerRouteSubjectFamily],
+) -> bool {
+    match event {
+        ReducerRouteEvent::StartBattle { .. } => true,
+        ReducerRouteEvent::DiscoverBattleActs { subject, .. }
+        | ReducerRouteEvent::ResolveBattleSubject { subject, .. }
+        | ReducerRouteEvent::ResolveBattleSubjectWithoutFill { subject, .. } => {
+            subjects.contains(subject)
+        }
+    }
+}
+
 fn reducer_route_result_holes(result: &BattleResolutionResult) -> Vec<ReducerRouteHoleKind> {
     let holes = match result.outcome() {
         BattleResolutionOutcome::NeedsHoles | BattleResolutionOutcome::Invalid(_) => result
@@ -390,6 +459,128 @@ fn reducer_route_result_holes(result: &BattleResolutionResult) -> Vec<ReducerRou
         BattleResolutionOutcome::Resolved => &[],
     };
     reducer_route_holes_from_slice(holes)
+}
+
+const fn reducer_route_outcome_from_battle(
+    outcome: BattleResolutionOutcome,
+) -> ReducerRouteResolutionOutcome {
+    match outcome {
+        BattleResolutionOutcome::NeedsHoles => ReducerRouteResolutionOutcome::NeedsHoles,
+        BattleResolutionOutcome::Resolved => ReducerRouteResolutionOutcome::Resolved,
+        BattleResolutionOutcome::Invalid(reason) => ReducerRouteResolutionOutcome::Invalid(reason),
+    }
+}
+
+fn reducer_route_subject(subject: BattleSubjectKind) -> ReducerRouteSubjectFamily {
+    match subject {
+        BattleSubjectKind::EndTurn => ReducerRouteSubjectFamily::BattleAction,
+        BattleSubjectKind::WeaponAttack => ReducerRouteSubjectFamily::WeaponAttack,
+        BattleSubjectKind::Multiattack => ReducerRouteSubjectFamily::BattleAction,
+        BattleSubjectKind::SingleTargetSpellAttack | BattleSubjectKind::TypedSpellAttack => {
+            ReducerRouteSubjectFamily::SpellAttack
+        }
+        BattleSubjectKind::SlotSpell => ReducerRouteSubjectFamily::SlotSpell,
+        BattleSubjectKind::SaveGatedAreaDamage
+        | BattleSubjectKind::SaveGatedTargetListConditionChoice => {
+            ReducerRouteSubjectFamily::SaveGatedSpell
+        }
+        BattleSubjectKind::HitPointRestorationSingleTargetSpell
+        | BattleSubjectKind::HitPointRestorationTargetListSpell
+        | BattleSubjectKind::HitPointRestorationFeatureHealingPool => {
+            ReducerRouteSubjectFamily::HitPointRestoration
+        }
+        BattleSubjectKind::DeathSavingThrow => ReducerRouteSubjectFamily::DeathSavingThrow,
+        BattleSubjectKind::ConcentrationTeardown => {
+            ReducerRouteSubjectFamily::ConcentrationTeardown
+        }
+        BattleSubjectKind::StatBlockAction => ReducerRouteSubjectFamily::StatBlockAction,
+        BattleSubjectKind::CommandSpell => ReducerRouteSubjectFamily::CommandSpell,
+        BattleSubjectKind::ScalarBuffTargetSpell => ReducerRouteSubjectFamily::ScalarBuff,
+        BattleSubjectKind::WeaponMasteryProperty => {
+            ReducerRouteSubjectFamily::WeaponMasteryProperty
+        }
+        BattleSubjectKind::AttackActionAreaSaveDamageReplacement => {
+            ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement
+        }
+        BattleSubjectKind::UnitFeatureBonusAction => {
+            ReducerRouteSubjectFamily::UnitFeatureBonusAction
+        }
+        BattleSubjectKind::ActiveFeatureSpellSaveDc => {
+            ReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc
+        }
+        BattleSubjectKind::ActiveFeatureSpellAttackRollMode => {
+            ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode
+        }
+    }
+}
+
+const fn reducer_route_fill(fill: BattleReducerRouteFillKind) -> ReducerRouteFillKind {
+    match fill {
+        BattleReducerRouteFillKind::AttackRoll => ReducerRouteFillKind::AttackRoll,
+        BattleReducerRouteFillKind::ConcentrationSavingThrow => {
+            ReducerRouteFillKind::ConcentrationSavingThrow
+        }
+        BattleReducerRouteFillKind::ConditionChoice => ReducerRouteFillKind::ConditionChoice,
+        BattleReducerRouteFillKind::DamageTypeChoice => ReducerRouteFillKind::DamageTypeChoice,
+        BattleReducerRouteFillKind::DeathSavingThrow => ReducerRouteFillKind::DeathSavingThrow,
+        BattleReducerRouteFillKind::HitPointHealingDistribution => {
+            ReducerRouteFillKind::HitPointHealingDistribution
+        }
+        BattleReducerRouteFillKind::CommandOptionChoice => {
+            ReducerRouteFillKind::CommandOptionChoice
+        }
+        BattleReducerRouteFillKind::Movement => ReducerRouteFillKind::Movement,
+        BattleReducerRouteFillKind::RolledDice => ReducerRouteFillKind::RolledDice,
+        BattleReducerRouteFillKind::SavingThrowOutcome => ReducerRouteFillKind::SavingThrowOutcome,
+        BattleReducerRouteFillKind::SpellTargetAllocation => {
+            ReducerRouteFillKind::SpellTargetAllocation
+        }
+        BattleReducerRouteFillKind::SpellTargetList => ReducerRouteFillKind::SpellTargetList,
+        BattleReducerRouteFillKind::StatBlockRechargeRoll => {
+            ReducerRouteFillKind::StatBlockRechargeRoll
+        }
+        BattleReducerRouteFillKind::TargetChoice => ReducerRouteFillKind::TargetChoice,
+        BattleReducerRouteFillKind::UnitFeatureDecision => {
+            ReducerRouteFillKind::UnitFeatureDecision
+        }
+    }
+}
+
+const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRouteOwnerGroup {
+    match owner {
+        BattleReducerRouteOwnerGroup::ActionEconomy => ReducerRouteOwnerGroup::ActionEconomy,
+        BattleReducerRouteOwnerGroup::ActiveEffect => ReducerRouteOwnerGroup::ActiveEffect,
+        BattleReducerRouteOwnerGroup::AreaShape => ReducerRouteOwnerGroup::AreaShape,
+        BattleReducerRouteOwnerGroup::AttackRoll => ReducerRouteOwnerGroup::AttackRoll,
+        BattleReducerRouteOwnerGroup::AttackActionProcedure => {
+            ReducerRouteOwnerGroup::AttackActionProcedure
+        }
+        BattleReducerRouteOwnerGroup::Concentration => ReducerRouteOwnerGroup::Concentration,
+        BattleReducerRouteOwnerGroup::ConditionLifecycle => {
+            ReducerRouteOwnerGroup::ConditionLifecycle
+        }
+        BattleReducerRouteOwnerGroup::DamageRoll => ReducerRouteOwnerGroup::DamageRoll,
+        BattleReducerRouteOwnerGroup::DamageType => ReducerRouteOwnerGroup::DamageType,
+        BattleReducerRouteOwnerGroup::FeatureResource => ReducerRouteOwnerGroup::FeatureResource,
+        BattleReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle => {
+            ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle
+        }
+        BattleReducerRouteOwnerGroup::HitPoint => ReducerRouteOwnerGroup::HitPoint,
+        BattleReducerRouteOwnerGroup::HoleFrontier => ReducerRouteOwnerGroup::HoleFrontier,
+        BattleReducerRouteOwnerGroup::InterruptStack => ReducerRouteOwnerGroup::InterruptStack,
+        BattleReducerRouteOwnerGroup::MovementResource => ReducerRouteOwnerGroup::MovementResource,
+        BattleReducerRouteOwnerGroup::SavingThrowOutcome => {
+            ReducerRouteOwnerGroup::SavingThrowOutcome
+        }
+        BattleReducerRouteOwnerGroup::SpellAttackProcedure => {
+            ReducerRouteOwnerGroup::SpellAttackProcedure
+        }
+        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy => {
+            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy
+        }
+        BattleReducerRouteOwnerGroup::StatBlockAction => ReducerRouteOwnerGroup::StatBlockAction,
+        BattleReducerRouteOwnerGroup::TargetSelection => ReducerRouteOwnerGroup::TargetSelection,
+    }
 }
 
 const fn reducer_route_outcome(result: &BattleResolutionResult) -> ReducerRouteResolutionOutcome {
@@ -521,7 +712,6 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
         ReducerRouteHoleKind::SpellTargetList => "SpellTargetListHoleKind",
         ReducerRouteHoleKind::StatBlockRechargeRoll => "StatBlockRechargeRollHoleKind",
         ReducerRouteHoleKind::TargetChoice => "TargetChoiceHoleKind",
-        ReducerRouteHoleKind::UnitFeatureDecision => "UnitFeatureDecisionHoleKind",
     }
 }
 

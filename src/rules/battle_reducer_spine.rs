@@ -1574,6 +1574,74 @@ pub enum BattleEntrypointEvent {
     },
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReducerRouteFillKind {
+    AttackRoll,
+    ConcentrationSavingThrow,
+    ConditionChoice,
+    DamageTypeChoice,
+    DeathSavingThrow,
+    HitPointHealingDistribution,
+    CommandOptionChoice,
+    Movement,
+    RolledDice,
+    SavingThrowOutcome,
+    SpellTargetAllocation,
+    SpellTargetList,
+    StatBlockRechargeRoll,
+    TargetChoice,
+    UnitFeatureDecision,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReducerRouteOwnerGroup {
+    ActionEconomy,
+    ActiveEffect,
+    AreaShape,
+    AttackRoll,
+    AttackActionProcedure,
+    Concentration,
+    ConditionLifecycle,
+    DamageRoll,
+    DamageType,
+    FeatureResource,
+    HitPointAndZeroHpLifecycle,
+    HitPoint,
+    HoleFrontier,
+    InterruptStack,
+    MovementResource,
+    SavingThrowOutcome,
+    SpellAttackProcedure,
+    SpellSlotAndActionEconomy,
+    StatBlockAction,
+    TargetSelection,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum BattleReducerRouteEvent {
+    StartBattle {
+        owner: BattleReducerRouteOwnerGroup,
+    },
+    DiscoverBattleActs {
+        subject: BattleSubjectKind,
+        holes: Vec<BattleHoleKind>,
+        owner: BattleReducerRouteOwnerGroup,
+    },
+    ResolveBattleSubject {
+        subject: BattleSubjectKind,
+        fill: BattleReducerRouteFillKind,
+        outcome: BattleResolutionOutcome,
+        holes: Vec<BattleHoleKind>,
+        owner: BattleReducerRouteOwnerGroup,
+    },
+    ResolveBattleSubjectWithoutFill {
+        subject: BattleSubjectKind,
+        outcome: BattleResolutionOutcome,
+        holes: Vec<BattleHoleKind>,
+        owner: BattleReducerRouteOwnerGroup,
+    },
+}
+
 impl BattleEntrypointEvent {
     #[must_use]
     pub const fn kind(&self) -> BattleEntrypointKind {
@@ -1588,11 +1656,14 @@ impl BattleEntrypointEvent {
 
 pub trait BattleEntrypointObserver {
     fn observe_battle_entrypoint(&mut self, event: BattleEntrypointEvent);
+
+    fn observe_battle_reducer_route(&mut self, _event: BattleReducerRouteEvent) {}
 }
 
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct BattleEntrypointTrace {
     events: Vec<BattleEntrypointEvent>,
+    route_events: Vec<BattleReducerRouteEvent>,
 }
 
 impl BattleEntrypointTrace {
@@ -1600,11 +1671,20 @@ impl BattleEntrypointTrace {
     pub fn events(&self) -> &[BattleEntrypointEvent] {
         &self.events
     }
+
+    #[must_use]
+    pub fn route_events(&self) -> &[BattleReducerRouteEvent] {
+        &self.route_events
+    }
 }
 
 impl BattleEntrypointObserver for BattleEntrypointTrace {
     fn observe_battle_entrypoint(&mut self, event: BattleEntrypointEvent) {
         self.events.push(event);
+    }
+
+    fn observe_battle_reducer_route(&mut self, event: BattleReducerRouteEvent) {
+        self.route_events.push(event);
     }
 }
 
@@ -1690,6 +1770,9 @@ pub fn start_battle_observed(
     observer: &mut impl BattleEntrypointObserver,
 ) -> BattleStartResult {
     observer.observe_battle_entrypoint(BattleEntrypointEvent::StartBattle);
+    observer.observe_battle_reducer_route(BattleReducerRouteEvent::StartBattle {
+        owner: BattleReducerRouteOwnerGroup::ActionEconomy,
+    });
     start_battle(setup)
 }
 
@@ -1821,7 +1904,11 @@ pub fn start_spell_attack_ordering_battle() -> BattleState {
 pub fn start_fighter_skeleton_battle() -> BattleState {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-reducer-spine-contract.mbt.qnt start-battle projection.
-    start_battle(BattleSetup {
+    start_battle(fighter_skeleton_battle_setup()).state
+}
+
+fn fighter_skeleton_battle_setup() -> BattleSetup {
+    BattleSetup {
         initiative: Initiative {
             round: 1,
             already_acted: Vec::new(),
@@ -1831,13 +1918,24 @@ pub fn start_fighter_skeleton_battle() -> BattleState {
             },
         },
         ..BattleSetup::standard()
-    })
-    .state
+    }
 }
 
 #[must_use]
 pub fn start_weapon_mastery_property_battle() -> BattleState {
     // QNT: battle-runtime-weapon-mastery-selected-identity.mbt.qnt `init`.
+    start_battle(weapon_mastery_property_battle_setup()).state
+}
+
+#[must_use]
+pub fn start_weapon_mastery_property_battle_observed(
+    observer: &mut impl BattleEntrypointObserver,
+) -> BattleState {
+    // QNT: battle-runtime-weapon-mastery-selected-identity.mbt.qnt `init`.
+    start_battle_observed(weapon_mastery_property_battle_setup(), observer).state
+}
+
+fn weapon_mastery_property_battle_setup() -> BattleSetup {
     let mut setup = BattleSetup::standard();
     setup.initiative = Initiative {
         round: 1,
@@ -1858,12 +1956,24 @@ pub fn start_weapon_mastery_property_battle() -> BattleState {
         max_hp: WEAPON_MASTERY_TARGET_INITIAL_HIT_POINTS,
         ..setup.goblin
     };
-    start_battle(setup).state
+    setup
 }
 
 #[must_use]
 pub fn start_dragonborn_breath_weapon_battle() -> BattleState {
     // QNT: battle-runtime-dragonborn-breath-weapon.mbt.qnt `init`.
+    start_battle(dragonborn_breath_weapon_battle_setup()).state
+}
+
+#[must_use]
+pub fn start_dragonborn_breath_weapon_battle_observed(
+    observer: &mut impl BattleEntrypointObserver,
+) -> BattleState {
+    // QNT: battle-runtime-dragonborn-breath-weapon.mbt.qnt `init`.
+    start_battle_observed(dragonborn_breath_weapon_battle_setup(), observer).state
+}
+
+fn dragonborn_breath_weapon_battle_setup() -> BattleSetup {
     let mut setup = BattleSetup::standard();
     setup.initiative = Initiative {
         round: 1,
@@ -1885,7 +1995,7 @@ pub fn start_dragonborn_breath_weapon_battle() -> BattleState {
     };
     setup.feature_substrates.dragonborn_breath_weapon =
         BattleDragonbornBreathWeaponSubstrate::initial();
-    start_battle(setup).state
+    setup
 }
 
 #[must_use]
@@ -1904,6 +2014,14 @@ pub fn with_dragonborn_breath_weapon_uses_remaining(
 pub fn start_innate_sorcery_feature_battle() -> BattleState {
     // QNT: battle-runtime-feature-selected-identity.mbt.qnt `init`.
     start_fighter_skeleton_battle()
+}
+
+#[must_use]
+pub fn start_innate_sorcery_feature_battle_observed(
+    observer: &mut impl BattleEntrypointObserver,
+) -> BattleState {
+    // QNT: battle-runtime-feature-selected-identity.mbt.qnt `init`.
+    start_battle_observed(fighter_skeleton_battle_setup(), observer).state
 }
 
 #[must_use]
@@ -3592,6 +3710,13 @@ pub fn discover_battle_acts_observed(
     observer: &mut impl BattleEntrypointObserver,
 ) -> BattleActDiscoveryResult {
     let discovery = discover_battle_acts(state);
+    for act in discovery.available_acts() {
+        observer.observe_battle_reducer_route(BattleReducerRouteEvent::DiscoverBattleActs {
+            subject: act.subject.kind,
+            holes: act.holes.clone(),
+            owner: battle_discovery_route_owner(act.subject.kind),
+        });
+    }
     observer.observe_battle_entrypoint(BattleEntrypointEvent::DiscoverBattleActs {
         available_subjects: discovery
             .available_acts()
@@ -3600,6 +3725,43 @@ pub fn discover_battle_acts_observed(
             .collect(),
     });
     discovery
+}
+
+const fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerRouteOwnerGroup {
+    match kind {
+        BattleSubjectKind::WeaponAttack => BattleReducerRouteOwnerGroup::TargetSelection,
+        BattleSubjectKind::Multiattack => BattleReducerRouteOwnerGroup::AttackActionProcedure,
+        BattleSubjectKind::SingleTargetSpellAttack | BattleSubjectKind::TypedSpellAttack => {
+            BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
+        }
+        BattleSubjectKind::SlotSpell => BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        BattleSubjectKind::SaveGatedAreaDamage
+        | BattleSubjectKind::SaveGatedTargetListConditionChoice => {
+            BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
+        }
+        BattleSubjectKind::HitPointRestorationSingleTargetSpell
+        | BattleSubjectKind::HitPointRestorationTargetListSpell
+        | BattleSubjectKind::HitPointRestorationFeatureHealingPool => {
+            BattleReducerRouteOwnerGroup::HitPoint
+        }
+        BattleSubjectKind::DeathSavingThrow => {
+            BattleReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle
+        }
+        BattleSubjectKind::ConcentrationTeardown => BattleReducerRouteOwnerGroup::Concentration,
+        BattleSubjectKind::StatBlockAction => BattleReducerRouteOwnerGroup::StatBlockAction,
+        BattleSubjectKind::CommandSpell => BattleReducerRouteOwnerGroup::ActiveEffect,
+        BattleSubjectKind::ScalarBuffTargetSpell => BattleReducerRouteOwnerGroup::ActiveEffect,
+        BattleSubjectKind::WeaponMasteryProperty
+        | BattleSubjectKind::AttackActionAreaSaveDamageReplacement
+        | BattleSubjectKind::UnitFeatureBonusAction => {
+            BattleReducerRouteOwnerGroup::FeatureResource
+        }
+        BattleSubjectKind::ActiveFeatureSpellSaveDc
+        | BattleSubjectKind::ActiveFeatureSpellAttackRollMode => {
+            BattleReducerRouteOwnerGroup::ActiveEffect
+        }
+        BattleSubjectKind::EndTurn => BattleReducerRouteOwnerGroup::ActionEconomy,
+    }
 }
 
 fn push_reducer_spine_diagnostic_acts(
@@ -4057,12 +4219,194 @@ pub fn resolve_battle_subject_observed(
     observer: &mut impl BattleEntrypointObserver,
 ) -> BattleResolutionResult {
     let subject = request.subject().kind;
+    let fill = request.fill;
     let result = resolve_battle_subject(state, request);
+    observer.observe_battle_reducer_route(battle_resolution_route_event(subject, fill, &result));
     observer.observe_battle_entrypoint(BattleEntrypointEvent::ResolveBattleSubject {
         subject,
         outcome: result.outcome(),
     });
     result
+}
+
+fn battle_resolution_route_event(
+    subject: BattleSubjectKind,
+    fill: BattleFill,
+    result: &BattleResolutionResult,
+) -> BattleReducerRouteEvent {
+    let holes = result
+        .requested_holes()
+        .map_or_else(Vec::new, <[_]>::to_vec);
+    let outcome = result.outcome();
+    let owner = battle_resolution_route_owner(subject, fill, outcome, &holes);
+    match battle_reducer_route_fill_kind(fill) {
+        Some(fill) => BattleReducerRouteEvent::ResolveBattleSubject {
+            subject,
+            fill,
+            outcome,
+            holes,
+            owner,
+        },
+        None => BattleReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject,
+            outcome,
+            holes,
+            owner,
+        },
+    }
+}
+
+fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRouteFillKind> {
+    match fill {
+        BattleFill::NoFill => None,
+        BattleFill::TargetChoice(_) => Some(BattleReducerRouteFillKind::TargetChoice),
+        BattleFill::AttackRoll(_) => Some(BattleReducerRouteFillKind::AttackRoll),
+        BattleFill::DamageRoll(_) | BattleFill::SneakAttackDamageRoll(_) => {
+            Some(BattleReducerRouteFillKind::RolledDice)
+        }
+        BattleFill::ResolveMultiattack | BattleFill::SpendMultiattackDispatch => {
+            Some(BattleReducerRouteFillKind::UnitFeatureDecision)
+        }
+        BattleFill::SpellAttack(fill) => Some(match fill {
+            BattleSpellAttackFill::TargetChoice(_) => BattleReducerRouteFillKind::TargetChoice,
+            BattleSpellAttackFill::DamageTypeChoice => BattleReducerRouteFillKind::DamageTypeChoice,
+            BattleSpellAttackFill::AttackRoll(_) => BattleReducerRouteFillKind::AttackRoll,
+            BattleSpellAttackFill::DamageRoll(_) => BattleReducerRouteFillKind::RolledDice,
+        }),
+        BattleFill::SlotSpell(fill) => Some(match fill {
+            BattleSlotSpellFill::TargetAllocation(_) => {
+                BattleReducerRouteFillKind::SpellTargetAllocation
+            }
+            BattleSlotSpellFill::DamageRoll(_) => BattleReducerRouteFillKind::RolledDice,
+        }),
+        BattleFill::SaveGatedSpell(fill) => Some(match fill {
+            BattleSaveGatedSpellFill::SpellTargetList => {
+                BattleReducerRouteFillKind::SpellTargetList
+            }
+            BattleSaveGatedSpellFill::ConditionChoice => {
+                BattleReducerRouteFillKind::ConditionChoice
+            }
+            BattleSaveGatedSpellFill::SavingThrowOutcome => {
+                BattleReducerRouteFillKind::SavingThrowOutcome
+            }
+            BattleSaveGatedSpellFill::DamageRoll => BattleReducerRouteFillKind::RolledDice,
+        }),
+        BattleFill::HitPointRestoration(fill) => Some(match fill {
+            BattleHitPointRestorationFill::TargetChoice(_) => {
+                BattleReducerRouteFillKind::TargetChoice
+            }
+            BattleHitPointRestorationFill::SpellTargetList(_) => {
+                BattleReducerRouteFillKind::SpellTargetList
+            }
+            BattleHitPointRestorationFill::HealingRoll(_) => BattleReducerRouteFillKind::RolledDice,
+            BattleHitPointRestorationFill::HitPointHealingDistribution { .. } => {
+                BattleReducerRouteFillKind::HitPointHealingDistribution
+            }
+        }),
+        BattleFill::DeathSavingThrow(_) => Some(BattleReducerRouteFillKind::DeathSavingThrow),
+        BattleFill::Concentration(fill) => Some(match fill {
+            BattleConcentrationFill::SavingThrow(_) => {
+                BattleReducerRouteFillKind::ConcentrationSavingThrow
+            }
+            BattleConcentrationFill::CastSpell
+            | BattleConcentrationFill::DamageTaken(_)
+            | BattleConcentrationFill::VoluntaryEnd
+            | BattleConcentrationFill::CastReplacementSpell => {
+                BattleReducerRouteFillKind::UnitFeatureDecision
+            }
+        }),
+        BattleFill::CommandEffect(fill) => Some(match fill {
+            BattleCommandEffectFill::SpellTargetList(_) => {
+                BattleReducerRouteFillKind::SpellTargetList
+            }
+            BattleCommandEffectFill::CommandOptionChoice(_) => {
+                BattleReducerRouteFillKind::CommandOptionChoice
+            }
+            BattleCommandEffectFill::SavingThrowOutcome { .. }
+            | BattleCommandEffectFill::DropHeldObjectFacts { .. }
+            | BattleCommandEffectFill::FollowPendingOption(_)
+            | BattleCommandEffectFill::CleanupPendingOption(_)
+            | BattleCommandEffectFill::Complete => BattleReducerRouteFillKind::UnitFeatureDecision,
+            BattleCommandEffectFill::Movement { .. } => BattleReducerRouteFillKind::Movement,
+        }),
+        BattleFill::ScalarBuff(_) => Some(BattleReducerRouteFillKind::TargetChoice),
+        BattleFill::WeaponMasteryProperty(_)
+        | BattleFill::UnitFeatureBonusAction(_)
+        | BattleFill::ActiveFeatureSpellSaveDc(_)
+        | BattleFill::ActiveFeatureSpellAttackRollMode(_) => {
+            Some(BattleReducerRouteFillKind::UnitFeatureDecision)
+        }
+        BattleFill::AttackActionAreaSaveDamageReplacement(_) => {
+            Some(BattleReducerRouteFillKind::SavingThrowOutcome)
+        }
+        BattleFill::StatBlockAction { fill, .. } => Some(match fill {
+            StatBlockActionFill::TargetChoice(_) => BattleReducerRouteFillKind::TargetChoice,
+            StatBlockActionFill::AttackRoll(_) => BattleReducerRouteFillKind::AttackRoll,
+            StatBlockActionFill::DamageDice(_) => BattleReducerRouteFillKind::RolledDice,
+            StatBlockActionFill::RechargeRoll(_) => {
+                BattleReducerRouteFillKind::StatBlockRechargeRoll
+            }
+        }),
+    }
+}
+
+fn battle_resolution_route_owner(
+    subject: BattleSubjectKind,
+    fill: BattleFill,
+    outcome: BattleResolutionOutcome,
+    holes: &[BattleHoleKind],
+) -> BattleReducerRouteOwnerGroup {
+    match subject {
+        BattleSubjectKind::WeaponAttack => match battle_reducer_route_fill_kind(fill) {
+            Some(BattleReducerRouteFillKind::TargetChoice) => {
+                BattleReducerRouteOwnerGroup::TargetSelection
+            }
+            Some(BattleReducerRouteFillKind::AttackRoll) => {
+                BattleReducerRouteOwnerGroup::AttackRoll
+            }
+            Some(BattleReducerRouteFillKind::RolledDice) => BattleReducerRouteOwnerGroup::HitPoint,
+            _ => BattleReducerRouteOwnerGroup::AttackActionProcedure,
+        },
+        BattleSubjectKind::WeaponMasteryProperty => match (fill, outcome, holes) {
+            (
+                BattleFill::WeaponMasteryProperty(BattleWeaponMasteryPropertyFill {
+                    property: WeaponMasteryProperty::Topple,
+                    ..
+                }),
+                BattleResolutionOutcome::NeedsHoles,
+                _,
+            ) => BattleReducerRouteOwnerGroup::ConditionLifecycle,
+            (
+                BattleFill::WeaponMasteryProperty(BattleWeaponMasteryPropertyFill {
+                    property: WeaponMasteryProperty::Sap,
+                    ..
+                }),
+                BattleResolutionOutcome::Resolved,
+                _,
+            ) => BattleReducerRouteOwnerGroup::ActiveEffect,
+            _ => BattleReducerRouteOwnerGroup::FeatureResource,
+        },
+        BattleSubjectKind::AttackActionAreaSaveDamageReplacement => match outcome {
+            BattleResolutionOutcome::Invalid(_) if holes.contains(&BattleHoleKind::RolledDice) => {
+                BattleReducerRouteOwnerGroup::DamageRoll
+            }
+            BattleResolutionOutcome::Invalid(_)
+                if holes.contains(&BattleHoleKind::SavingThrowOutcome) =>
+            {
+                BattleReducerRouteOwnerGroup::AreaShape
+            }
+            BattleResolutionOutcome::Invalid(_) => BattleReducerRouteOwnerGroup::FeatureResource,
+            BattleResolutionOutcome::Resolved | BattleResolutionOutcome::NeedsHoles => {
+                BattleReducerRouteOwnerGroup::FeatureResource
+            }
+        },
+        BattleSubjectKind::UnitFeatureBonusAction => BattleReducerRouteOwnerGroup::FeatureResource,
+        BattleSubjectKind::ActiveFeatureSpellSaveDc
+        | BattleSubjectKind::ActiveFeatureSpellAttackRollMode => {
+            BattleReducerRouteOwnerGroup::ActiveEffect
+        }
+        _ => battle_discovery_route_owner(subject),
+    }
 }
 
 fn resolve_battle_subject_unchecked(
