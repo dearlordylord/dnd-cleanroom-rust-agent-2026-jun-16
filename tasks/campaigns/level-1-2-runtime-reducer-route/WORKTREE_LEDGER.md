@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FC-04-GENERIC-BASE-ARMOR-CLASS | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `f487298` campaign / `7b690c80e6fa4f3177ff41ccedf2083175b1b00c` target | Socrates the 2nd (`019f09f3-de14-78c3-b696-a672305e19c0`) | _pending_ | running |
 
 ## Historical RRCONV-19 Worktrees
 

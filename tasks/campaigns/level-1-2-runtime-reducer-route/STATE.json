@@ -2324,9 +2324,28 @@
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
   "freshCleanroomDryRun": {
-    "status": "fc-03-reviewed-accepted",
+    "status": "fc-04-running",
     "phase": "FC-04",
     "phaseName": "Generic Base Armor Class Regression",
+    "activePhase": {
+      "phase": "FC-04",
+      "phaseName": "Generic Base Armor Class Regression",
+      "status": "worker-running",
+      "targetBaseCommit": "7b690c80e6fa4f3177ff41ccedf2083175b1b00c",
+      "campaignLaunchCommit": "f487298",
+      "workerAgent": "019f09f3-de14-78c3-b696-a672305e19c0",
+      "workerName": "Socrates the 2nd",
+      "scope": "Implement generic base Armor Class effect route evidence through shared reducer entrypoints using battle-runtime-spell-base-armor-class-effect.route.mbt.qnt; selected spell identity remains limited to evidence/test/source-input citation boundaries.",
+      "preferredDriver": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
+      "requiredConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt",
+      "expectedSurfaces": [
+        "unarmored target admission",
+        "armored target rejection",
+        "base Armor Class projection",
+        "duration expiry cleanup"
+      ],
+      "acceptanceBoundary": "Production code must dispatch on generic target, active-effect, turn-boundary, and Armor Class owner surfaces, not selected spell identity."
+    },
     "previousPhase": {
       "phase": "FC-03",
       "phaseName": "Spell Attack Or Save-Gated Connector",
@@ -2515,7 +2534,7 @@
     ]
   },
   "nextWorkRecommendations": [
-    "Launch FC-04 Generic Base Armor Class Regression in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 using the fresh dry-run plan.",
+    "Continue supervising FC-04 Generic Base Armor Class Regression worker Socrates the 2nd (`019f09f3-de14-78c3-b696-a672305e19c0`) in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00.",
     "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
     "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
     "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."
