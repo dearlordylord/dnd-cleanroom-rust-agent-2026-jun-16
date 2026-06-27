@@ -283,7 +283,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
-      ]
+      ],
+      "reviewAgent": "019f07f1-7dcf-7472-9ca7-b32d4164cdb4",
+      "reviewName": "Fermat the 2nd",
+      "reviewStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
