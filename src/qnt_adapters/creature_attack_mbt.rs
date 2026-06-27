@@ -252,6 +252,7 @@ fn creature_attack_combatant() -> Combatant {
         sneak_attack_used_this_turn: false,
         recharge_available: false,
         spell_slots: crate::rules::battle_reducer_spine::BattleSpellSlotLedger::none(),
+        spell_active_effects: crate::rules::battle_reducer_spine::BattleSpellActiveEffects::none(),
     }
 }
 

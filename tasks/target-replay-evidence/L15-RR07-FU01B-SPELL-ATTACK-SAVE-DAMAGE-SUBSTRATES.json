@@ -1,0 +1,489 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-fu01b-spell-attack-save-damage-substrates",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doChillTouchHitPointRegainPrevention",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "observedActionTaken": "doChillTouchHitPointRegainPrevention",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SpellAttack route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "observedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doChillTouchHitPointRegainPrevention"
+    },
+    {
+      "branchAction": "doFireBoltHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "observedActionTaken": "doFireBoltHit",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SpellAttack route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "observedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doFireBoltHit"
+    },
+    {
+      "branchAction": "doGuidingBoltNextAttackAdvantage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "observedActionTaken": "doGuidingBoltNextAttackAdvantage",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SpellAttack route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "observedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doGuidingBoltNextAttackAdvantage"
+    },
+    {
+      "branchAction": "doInflictWoundsFailedSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "observedActionTaken": "doInflictWoundsFailedSave",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SaveGatedSpell route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.goblin.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "observedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doInflictWoundsFailedSave"
+    },
+    {
+      "branchAction": "doInflictWoundsSuccessfulSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "observedActionTaken": "doInflictWoundsSuccessfulSave",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SaveGatedSpell route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.goblin.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "observedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doInflictWoundsSuccessfulSave"
+    },
+    {
+      "branchAction": "doShockingGraspOpportunityAttackDenied",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs",
+      "observedActionTaken": "doShockingGraspOpportunityAttackDenied",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SpellAttack route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "observedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doShockingGraspOpportunityAttackDenied"
+    },
+    {
+      "branchAction": "doResolveBurningHandsMixedConeSavingThrows",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveBurningHandsMixedConeSavingThrows",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SaveGatedSpell route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.goblin.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "observedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveBurningHandsMixedConeSavingThrows"
+    },
+    {
+      "branchAction": "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SaveGatedSpell route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.goblin.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "observedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveIceKnifeHitAttackDamageAndBurstSavingThrows"
+    },
+    {
+      "branchAction": "doResolveIceKnifeMissBurstSavingThrows",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveIceKnifeMissBurstSavingThrows",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SaveGatedSpell route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.goblin.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "observedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveIceKnifeMissBurstSavingThrows"
+    },
+    {
+      "branchAction": "doResolvePoisonSpraySpellAttackDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "observedActionTaken": "doResolvePoisonSpraySpellAttackDamage",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SpellAttack route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "observedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolvePoisonSpraySpellAttackDamage"
+    },
+    {
+      "branchAction": "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SpellAttack route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "observedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveRayOfSicknessSpellAttackDamageAndPoisoned"
+    },
+    {
+      "branchAction": "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SaveGatedSpell route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.goblin.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "observedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveSacredFlameDexteritySavingThrowRadiantDamage"
+    },
+    {
+      "branchAction": "doResolveSorcerousBurstSpellAttackDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveSorcerousBurstSpellAttackDamage",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SpellAttack route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spell_attack_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "observedProjectionSha256": "68315de3e78a7c87c9899b6c81f5350874787326a3e323050e312d2fb4ceda15",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveSorcerousBurstSpellAttackDamage"
+    },
+    {
+      "branchAction": "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "production BattleState SaveGatedSpell route observed through BattleEntrypointTrace",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.save_gated_spell_procedure",
+          "BattleState.action_available",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.skeleton.hp",
+          "BattleState.goblin.hp",
+          "BattleState.skeleton.spell_active_effects",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "observedProjectionSha256": "d815c40c27977f3a571df03c636313e865ea6e715beab74265520b5d3234fca8",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage"
+    },
+    {
+      "branchAction": "doResolveChromaticOrbDuplicateDamageLeap",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveChromaticOrbDuplicateDamageLeap",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "blockerId": "FU01B-BLOCKED-CHROMATIC-ORB-CHAINED-DAMAGE",
+        "reason": "chained duplicate-damage leap is modeled in ChromaticOrbSequenceState, not production BattleState",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ChromaticOrbSequenceState",
+          "BattleState"
+        ],
+        "comparator": "target-blocker-v1",
+        "projection": "production-BattleState-route-admission",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveChromaticOrbDuplicateDamageLeap"
+    },
+    {
+      "branchAction": "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs",
+      "observedActionTaken": "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "blockerId": "FU01B-BLOCKED-STARRY-WISP-OBJECT-TARGET",
+        "reason": "object HP and dim-light emitter facts are modeled in StarryWispObjectState, not production BattleState",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "StarryWispObjectState",
+          "BattleState"
+        ],
+        "comparator": "target-blocker-v1",
+        "projection": "production-BattleState-route-admission",
+        "tag": "target-blocker"
+      },
+      "traceId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveStarryWispObjectSpellAttackDamageAndDimLight"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

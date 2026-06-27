@@ -609,9 +609,11 @@ use battle_runtime_adrenaline_rush::{
     BRANCH_ACTIONS as ADRENALINE_RUSH_BRANCH_ACTIONS,
 };
 use battle_runtime_attack_spell_shape_selected_identity::{
+    expected_route as expected_attack_spell_shape_route,
     expected_witness as expected_attack_spell_shape_witness,
     projection_payload as attack_spell_shape_projection_payload,
     replay_observed_action as replay_attack_spell_shape_action,
+    replay_observed_route as replay_attack_spell_shape_route,
     BRANCH_ACTIONS as ATTACK_SPELL_SHAPE_BRANCH_ACTIONS,
 };
 use battle_runtime_chained_attack_sequence::{
@@ -758,9 +760,14 @@ use battle_runtime_level1_buff_mark_smite_selected_identity::{
     BRANCH_ACTIONS as LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS,
 };
 use battle_runtime_level1_damage_spell_selected_identity::{
+    blocker_reason as level1_damage_spell_blocker_reason,
+    expected_route as expected_level1_damage_spell_route,
     expected_witness as expected_level1_damage_spell_witness,
     projection_payload as level1_damage_spell_projection_payload,
     replay_observed_action as replay_level1_damage_spell_action,
+    replay_observed_route as replay_level1_damage_spell_route,
+    ACCEPTED_BRANCH_ACTIONS as ACCEPTED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS,
+    BLOCKED_BRANCH_ACTIONS as BLOCKED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS,
     BRANCH_ACTIONS as LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_level1_spatial_witness_selected_identity::{
@@ -2409,10 +2416,14 @@ fn attack_spell_shape_adapter_replays_all_branches() {
     // spell-attack-damage-projection-core.qnt and spell-save-damage-projection-core.qnt.
     for action in ATTACK_SPELL_SHAPE_BRANCH_ACTIONS {
         let observed = replay_attack_spell_shape_action(action);
+        let observed_route = replay_attack_spell_shape_route(action);
+        let expected_route = expected_attack_spell_shape_route(action);
         assert_eq!(observed, expected_attack_spell_shape_witness(action));
+        assert_eq!(observed_route, expected_route);
         assert!(
             attack_spell_shape_projection_payload(&observed).contains("protocolResult=resolved")
         );
+        assert!(reducer_route_payload(&observed_route).contains("resolve_battle_subject"));
     }
 }
 
@@ -4517,12 +4528,25 @@ fn level1_damage_spell_adapter_replays_all_branches() {
     // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md,
     // Descriptions-E-L.md, Descriptions-M-P.md, Descriptions-Q-R.md, and
     // Descriptions-S-Z.md selected level-1 and cantrip damage spells.
-    for action in LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS {
+    assert_eq!(LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS.len(), 10);
+    assert_eq!(ACCEPTED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS.len(), 8);
+    assert_eq!(BLOCKED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS.len(), 2);
+    for action in ACCEPTED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS {
         let observed = replay_level1_damage_spell_action(action);
+        let observed_route = replay_level1_damage_spell_route(action);
+        let expected_route = expected_level1_damage_spell_route(action);
         assert_eq!(observed, expected_level1_damage_spell_witness(action));
+        assert_eq!(observed_route, expected_route);
         assert!(
             level1_damage_spell_projection_payload(&observed).contains("protocolResult=resolved")
         );
+        assert!(reducer_route_payload(&observed_route).contains("resolve_battle_subject"));
+    }
+    for (action, reason) in BLOCKED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS {
+        assert_eq!(level1_damage_spell_blocker_reason(action), Some(reason));
+        assert!(std::panic::catch_unwind(|| replay_level1_damage_spell_action(action)).is_err());
+        assert!(std::panic::catch_unwind(|| replay_level1_damage_spell_route(action)).is_err());
+        assert!(std::panic::catch_unwind(|| expected_level1_damage_spell_witness(action)).is_err());
     }
 }
 

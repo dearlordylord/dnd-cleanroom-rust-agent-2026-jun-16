@@ -2485,3 +2485,75 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD` passed.
+
+## L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES: Spell attack/save damage substrates
+
+Selected drivers:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt`
+
+Behavior implemented:
+
+- Accepted attack spell shape rows replay through production `BattleState` spell attack or save-gated reducer entrypoints and observed `ReducerRouteEvent.qRoute` evidence.
+- Accepted level-1 damage spell rows replay through production `BattleState` spell attack or save-gated reducer entrypoints and observed `ReducerRouteEvent.qRoute` evidence.
+- `doResolveChromaticOrbDuplicateDamageLeap` and `doResolveStarryWispObjectSpellAttackDamageAndDimLight` are not accepted as resolved witnesses. They are target blockers because the implemented Rust facts live in `ChromaticOrbSequenceState` and `StarryWispObjectState`, not production `BattleState` route subjects.
+
+Accepted rows:
+
+- Attack spell shape: `doFireBoltHit`, `doChillTouchHitPointRegainPrevention`, `doGuidingBoltNextAttackAdvantage`, `doInflictWoundsFailedSave`, `doInflictWoundsSuccessfulSave`, `doShockingGraspOpportunityAttackDenied`
+- Level 1 damage: `doResolveBurningHandsMixedConeSavingThrows`, `doResolveIceKnifeHitAttackDamageAndBurstSavingThrows`, `doResolveIceKnifeMissBurstSavingThrows`, `doResolvePoisonSpraySpellAttackDamage`, `doResolveRayOfSicknessSpellAttackDamageAndPoisoned`, `doResolveSacredFlameDexteritySavingThrowRadiantDamage`, `doResolveSorcerousBurstSpellAttackDamage`, `doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage`
+
+Target blockers:
+
+- `doResolveChromaticOrbDuplicateDamageLeap`: `target-blocker`, no production `BattleState` chained spell-attack route.
+- `doResolveStarryWispObjectSpellAttackDamageAndDimLight`: `target-blocker`, no production `BattleState` object-target damage/light route.
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md` source commit `564376fd95218a209bb9eae5c9ccb54ca3e04a52`.
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`.
+- SRD 5.2.1 spell attack, saving throw, damage, and hit point passages under `cleanroom-input/raw/srd-5.2.1/`.
+- Ubiquitous language: `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt#step:doChillTouchHitPointRegainPrevention` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doChillTouchHitPointRegainPrevention#step:doChillTouchHitPointRegainPrevention` | `src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt#step:doFireBoltHit` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doFireBoltHit#step:doFireBoltHit` | `src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt#step:doGuidingBoltNextAttackAdvantage` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doGuidingBoltNextAttackAdvantage#step:doGuidingBoltNextAttackAdvantage` | `src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt#step:doInflictWoundsFailedSave` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doInflictWoundsFailedSave#step:doInflictWoundsFailedSave` | `src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt#step:doInflictWoundsSuccessfulSave` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doInflictWoundsSuccessfulSave#step:doInflictWoundsSuccessfulSave` | `src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt#step:doShockingGraspOpportunityAttackDenied` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doShockingGraspOpportunityAttackDenied#step:doShockingGraspOpportunityAttackDenied` | `src/qnt_adapters/battle_runtime_attack_spell_shape_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveBurningHandsMixedConeSavingThrows` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveBurningHandsMixedConeSavingThrows#step:doResolveBurningHandsMixedConeSavingThrows` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveIceKnifeHitAttackDamageAndBurstSavingThrows` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveIceKnifeHitAttackDamageAndBurstSavingThrows#step:doResolveIceKnifeHitAttackDamageAndBurstSavingThrows` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveIceKnifeMissBurstSavingThrows` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveIceKnifeMissBurstSavingThrows#step:doResolveIceKnifeMissBurstSavingThrows` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolvePoisonSpraySpellAttackDamage` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolvePoisonSpraySpellAttackDamage#step:doResolvePoisonSpraySpellAttackDamage` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveRayOfSicknessSpellAttackDamageAndPoisoned` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveRayOfSicknessSpellAttackDamageAndPoisoned#step:doResolveRayOfSicknessSpellAttackDamageAndPoisoned` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveSacredFlameDexteritySavingThrowRadiantDamage` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveSacredFlameDexteritySavingThrowRadiantDamage#step:doResolveSacredFlameDexteritySavingThrowRadiantDamage` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveSorcerousBurstSpellAttackDamage` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveSorcerousBurstSpellAttackDamage#step:doResolveSorcerousBurstSpellAttackDamage` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage#step:doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveChromaticOrbDuplicateDamageLeap` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveChromaticOrbDuplicateDamageLeap#step:doResolveChromaticOrbDuplicateDamageLeap` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `blocked` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight` | `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES blocker action=doResolveStarryWispObjectSpellAttackDamageAndDimLight#step:doResolveStarryWispObjectSpellAttackDamageAndDimLight` | `src/qnt_adapters/battle_runtime_level1_damage_spell_selected_identity.rs` | `blocked` |
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+- History: `tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/`
+- Target replay evidence: `tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Verification results:
+
+- `cargo test attack_spell_shape_adapter_replays_all_branches` passed.
+- `cargo test level1_damage_spell_adapter_replays_all_branches` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD` passed.

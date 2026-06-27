@@ -2620,6 +2620,91 @@
         }
       ],
       "taskId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "ec13de225c962586d879b8260e1d635a45711c334a044ea787ac1f4e5433f7e7"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "db02400f47fa8179c3e5d529065f172c5bcb7e00857e9536b71cbe7d7de90846"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "ae09a5cd05ebacaed050a001b658e8926e8e8e50f1e3536b5c4af35dc3781e7f"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/START_GATE.json",
+          "sha256": "ff58e49ac1e7ad27bed59796d6ba48bf88d62e5a9bc49da4fcf1fc1d4382c965"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "6ea4c76994f50e75050def00267feb654a0cecbd82ebeb8d99ebdef4744806d1"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo test attack_spell_shape_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test level1_damage_spell_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doChillTouchHitPointRegainPrevention#step:doChillTouchHitPointRegainPrevention",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doFireBoltHit#step:doFireBoltHit",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doGuidingBoltNextAttackAdvantage#step:doGuidingBoltNextAttackAdvantage",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doInflictWoundsFailedSave#step:doInflictWoundsFailedSave",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doInflictWoundsSuccessfulSave#step:doInflictWoundsSuccessfulSave",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doShockingGraspOpportunityAttackDenied#step:doShockingGraspOpportunityAttackDenied",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveBurningHandsMixedConeSavingThrows#step:doResolveBurningHandsMixedConeSavingThrows",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveIceKnifeHitAttackDamageAndBurstSavingThrows#step:doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveIceKnifeMissBurstSavingThrows#step:doResolveIceKnifeMissBurstSavingThrows",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolvePoisonSpraySpellAttackDamage#step:doResolvePoisonSpraySpellAttackDamage",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveRayOfSicknessSpellAttackDamageAndPoisoned#step:doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveSacredFlameDexteritySavingThrowRadiantDamage#step:doResolveSacredFlameDexteritySavingThrowRadiantDamage",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveSorcerousBurstSpellAttackDamage#step:doResolveSorcerousBurstSpellAttackDamage",
+            "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json#L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES route action=doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage#step:doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES.json",
+          "sha256": "f45e7f3e07e3443fcb630b8292e5719aec426ea17189360d3b68b384b90e1276"
+        }
+      ],
+      "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

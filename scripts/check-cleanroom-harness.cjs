@@ -842,7 +842,9 @@ function validateEvidenceDocs({
   );
   issues.push(...targetEvidenceResult.issues);
   const coveredObligationIds = new Set(targetEvidenceResult.covered);
+  const targetBlockedObligationIds = new Set(targetEvidenceResult.targetBlocked ?? []);
   const coveredEvidenceRefsByObligation = new Map();
+  const targetBlockedEvidenceRefsByObligation = new Map();
   const checkedTargetStateFields = new Set();
   for (const filePath of evidenceFiles) {
     const context = repoPath(rootPath, filePath);
@@ -882,9 +884,44 @@ function validateEvidenceDocs({
       }
     }
   }
+  for (const filePath of evidenceFiles) {
+    const context = repoPath(rootPath, filePath);
+    if (!actualEvidencePaths.has(context)) continue;
+    if (!declared.has(context)) continue;
+    const evidence = readJson(filePath);
+    if (!Array.isArray(evidence.runs)) continue;
+    for (const run of evidence.runs) {
+      if (!isRecord(run)) continue;
+      const obligationId = `${run.driverPath}#${run.branchFamily}:${run.branchAction}`;
+      if (!targetBlockedObligationIds.has(obligationId)) continue;
+      const singleRunEvidence = {
+        ...evidence,
+        runs: [run],
+      };
+      const singleRunResult = validateTargetReplayEvidence(
+        singleRunEvidence,
+        selected,
+        inventorySha,
+        {
+          expectedCleanroomManifestSourceCommitSha,
+          expectedTargetProfileSha256,
+          requireAllObligations: false,
+          routeInventory,
+        },
+      );
+      if (!(singleRunResult.targetBlocked ?? []).includes(obligationId)) continue;
+      const ref = targetReplayEvidenceRef(context, run);
+      if (!targetBlockedEvidenceRefsByObligation.has(obligationId)) {
+        targetBlockedEvidenceRefsByObligation.set(obligationId, new Set());
+      }
+      targetBlockedEvidenceRefsByObligation.get(obligationId).add(ref);
+    }
+  }
   return {
     coveredObligationIds,
     coveredEvidenceRefsByObligation,
+    targetBlockedObligationIds,
+    targetBlockedEvidenceRefsByObligation,
     checkedTargetStateFields,
   };
 }
@@ -1781,12 +1818,12 @@ function validateReportHonesty({
       issues.push(`tasks/VALIDATION_REPORT.md must include ${requiredText}`);
     }
   }
-  const seenCoveredObligations = new Set();
+  const seenObligations = new Set();
   for (const [lineIndex, line] of report.split("\n").entries()) {
     const cells = parseMarkdownTableLine(line);
     if (cells === undefined) continue;
     const status = plainCell(cells.at(-1)).toLowerCase();
-    if (status !== "covered") continue;
+    if (status !== "covered" && status !== "blocked") continue;
     const evidenceCell = plainCell(cells[1]);
     const obligationId = plainCell(cells[0]);
     if (
@@ -1804,29 +1841,29 @@ function validateReportHonesty({
     }
     if (!selectedObligationIds.has(obligationId)) {
       issues.push(
-        `tasks/VALIDATION_REPORT.md:${lineIndex + 1} marks unknown or unselected obligation ${obligationId} covered.`,
+        `tasks/VALIDATION_REPORT.md:${lineIndex + 1} marks unknown or unselected obligation ${obligationId} ${status}.`,
       );
       continue;
     }
-    const validEvidenceRefs =
-      evidenceSummary.coveredEvidenceRefsByObligation.get(obligationId) ??
-      new Set();
+    const validEvidenceRefs = status === "covered"
+      ? evidenceSummary.coveredEvidenceRefsByObligation.get(obligationId) ?? new Set()
+      : evidenceSummary.targetBlockedEvidenceRefsByObligation.get(obligationId) ?? new Set();
     if (validEvidenceRefs.size === 0) {
       issues.push(
-        `tasks/VALIDATION_REPORT.md:${lineIndex + 1} marks ${obligationId} covered but target replay evidence does not cover it.`,
+        `tasks/VALIDATION_REPORT.md:${lineIndex + 1} marks ${obligationId} ${status} but target replay evidence does not support it.`,
       );
     } else if (!validEvidenceRefs.has(evidenceCell)) {
       issues.push(
-        `tasks/VALIDATION_REPORT.md:${lineIndex + 1} cites ${evidenceCell}, but accepted target replay evidence for ${obligationId} is ${Array.from(validEvidenceRefs).join(", ")}.`,
+        `tasks/VALIDATION_REPORT.md:${lineIndex + 1} cites ${evidenceCell}, but ${status} target replay evidence for ${obligationId} is ${Array.from(validEvidenceRefs).join(", ")}.`,
       );
     } else {
-      seenCoveredObligations.add(obligationId);
+      seenObligations.add(obligationId);
     }
   }
   for (const obligationId of selectedObligationIds) {
-    if (!seenCoveredObligations.has(obligationId)) {
+    if (!seenObligations.has(obligationId)) {
       issues.push(
-        `tasks/VALIDATION_REPORT.md is missing covered row for selected obligation ${obligationId}.`,
+        `tasks/VALIDATION_REPORT.md is missing covered or blocked row for selected obligation ${obligationId}.`,
       );
     }
   }
@@ -1886,6 +1923,7 @@ function validateLedgerReportHonesty({
 
   const selectedObligationIds = new Set();
   const validEvidenceRefsByObligation = new Map();
+  const validBlockedRefsByObligation = new Map();
   for (const summary of ledgerSummaries) {
     const taskId = summary.entry.taskId;
     if (!report.includes(taskId)) {
@@ -1907,15 +1945,24 @@ function validateLedgerReportHonesty({
       }
       const acceptedRefs = validEvidenceRefsByObligation.get(obligation.obligationId);
       for (const ref of refs) acceptedRefs.add(ref);
+      const blockedRefs =
+        summary.evidenceSummary.targetBlockedEvidenceRefsByObligation.get(
+          obligation.obligationId,
+        ) ?? new Set();
+      if (!validBlockedRefsByObligation.has(obligation.obligationId)) {
+        validBlockedRefsByObligation.set(obligation.obligationId, new Set());
+      }
+      const targetBlockedRefs = validBlockedRefsByObligation.get(obligation.obligationId);
+      for (const ref of blockedRefs) targetBlockedRefs.add(ref);
     }
   }
 
-  const seenCoveredObligations = new Set();
+  const seenObligations = new Set();
   for (const [lineIndex, line] of report.split("\n").entries()) {
     const cells = parseMarkdownTableLine(line);
     if (cells === undefined) continue;
     const status = plainCell(cells.at(-1)).toLowerCase();
-    if (status !== "covered") continue;
+    if (status !== "covered" && status !== "blocked") continue;
     const obligationId = plainCell(cells[0]);
     const evidenceCell = plainCell(cells[1]);
     if (
@@ -1933,24 +1980,25 @@ function validateLedgerReportHonesty({
     }
     if (!selectedObligationIds.has(obligationId)) {
       issues.push(
-        `tasks/VALIDATION_REPORT.md:${lineIndex + 1} marks unknown or unselected obligation ${obligationId} covered.`,
+        `tasks/VALIDATION_REPORT.md:${lineIndex + 1} marks unknown or unselected obligation ${obligationId} ${status}.`,
       );
       continue;
     }
-    const validEvidenceRefs =
-      validEvidenceRefsByObligation.get(obligationId) ?? new Set();
+    const validEvidenceRefs = status === "covered"
+      ? validEvidenceRefsByObligation.get(obligationId) ?? new Set()
+      : validBlockedRefsByObligation.get(obligationId) ?? new Set();
     if (!validEvidenceRefs.has(evidenceCell)) {
       issues.push(
-        `tasks/VALIDATION_REPORT.md:${lineIndex + 1} cites ${evidenceCell}, but RUN_LEDGER accepted evidence for ${obligationId} is ${Array.from(validEvidenceRefs).join(", ")}.`,
+        `tasks/VALIDATION_REPORT.md:${lineIndex + 1} cites ${evidenceCell}, but RUN_LEDGER ${status} evidence for ${obligationId} is ${Array.from(validEvidenceRefs).join(", ")}.`,
       );
     } else {
-      seenCoveredObligations.add(obligationId);
+      seenObligations.add(obligationId);
     }
   }
   for (const obligationId of selectedObligationIds) {
-    if (!seenCoveredObligations.has(obligationId)) {
+    if (!seenObligations.has(obligationId)) {
       issues.push(
-        `tasks/VALIDATION_REPORT.md is missing covered row for ledger obligation ${obligationId}.`,
+        `tasks/VALIDATION_REPORT.md is missing covered or blocked row for ledger obligation ${obligationId}.`,
       );
     }
   }
