@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-06` | `ralph/fexp-06-character-creation-sheet-handoff-pack` | `eb05e8495eac993b69e17f68544edace6e56caee` | Lovelace the 3rd (`019f0b5f-46e6-71d3-b995-936b8fc7036d`) | pending | running |
+| FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-06` | `ralph/fexp-06-character-creation-sheet-handoff-pack` | `eb05e8495eac993b69e17f68544edace6e56caee` | Lovelace the 3rd (`019f0b5f-46e6-71d3-b995-936b8fc7036d`); salvage fixer Aquinas the 3rd (`019f0b71-0b57-7ae1-819e-4c06b8a8068c`) | pending | running |
 
 ## Historical RRCONV-19 Worktrees
 

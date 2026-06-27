@@ -2967,11 +2967,11 @@
     "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-06",
     "activeBranch": "ralph/fexp-06-character-creation-sheet-handoff-pack",
     "activeLaneBaseCommit": "eb05e8495eac993b69e17f68544edace6e56caee",
-    "workerAgent": "Lovelace the 3rd (019f0b5f-46e6-71d3-b995-936b8fc7036d)",
+    "workerAgent": "Lovelace the 3rd (019f0b5f-46e6-71d3-b995-936b8fc7036d); salvage fixer Aquinas the 3rd (019f0b71-0b57-7ae1-819e-4c06b8a8068c)",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",
     "nextWorkRecommendations": [
-      "FEXP-06 is running from accepted fresh target head eb05e8495eac993b69e17f68544edace6e56caee.",
+      "FEXP-06 salvage fixer is running from accepted fresh target head eb05e8495eac993b69e17f68544edace6e56caee after the first worker left partial runtime/test/example edits without evidence/verifier artifacts.",
       "Review worker output for character-side ownership, handoff projection boundaries, connector-derived expected records, and no production authored identity dispatch."
     ]
   },
