@@ -56,7 +56,7 @@
     {
       "laneId": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK",
       "checkpointId": "FEXP-CP2",
-      "status": "running",
+      "status": "merged",
       "routeClass": "catalog-after-substrate",
       "purpose": "Revisit the two FC-03 blocked selected spell groups only through generic spell-attack and save-gated connector substrates.",
       "drivers": [
@@ -72,7 +72,7 @@
         "BLOCKERS.json updates for any still-uncovered branches",
         "verifier update for unblocked branch subset"
       ],
-      "acceptanceSummary": "Selected spell fixtures are admitted only by typed spell attack/save-gated shapes; production code does not branch on spell identity."
+      "acceptanceSummary": "Accepted with blockers: generic spell-attack and save-gated substrates route through shared reducer entrypoints; residual selected spell effects outside that substrate remain blocked, and production code does not branch on spell identity."
     },
     {
       "laneId": "FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS",

@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: FEXP-01 accepted; continue from FEXP-02
+Status: FEXP-02 accepted-with-blockers; continue from FEXP-03
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639`
+- current accepted fresh target head: `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `b57772b459f1b75592fd45b9196fd60965b534d3`
 
@@ -109,6 +109,17 @@ Preferred lanes:
 
 - `FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK`
 - `FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS`
+
+Status:
+
+- `FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK` is accepted-with-blockers at fresh
+  target head `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc`;
+- generic spell-attack and save-gated substrates route through public reducer
+  entrypoints;
+- residual selected spell effects outside those generic substrates remain
+  explicit blockers;
+- continue this checkpoint with
+  `FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS`.
 
 Why second:
 

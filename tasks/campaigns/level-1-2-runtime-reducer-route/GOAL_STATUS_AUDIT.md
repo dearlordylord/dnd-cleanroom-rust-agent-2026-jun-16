@@ -9,7 +9,7 @@ Audit baseline:
 - dirty campaign branch: `ralph/rrconv-19-cleanroom`
 - dirty campaign head before this audit file: `15d158b`
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
-- accepted fresh target head: `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639`
+- accepted fresh target head: `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc`
 - current fresh gate: `python3 tools/verify_current_fresh_target.py`
 
 ## Objective
@@ -29,11 +29,12 @@ fresh cleanroom and which review checks prevent false positives.
 | --- | --- | --- | --- |
 | Dirty rehearsal routes the refreshed in-scope denominator through reducer-shaped evidence. | `STATE.json.coverageCurrent` records `97 / 97` accepted drivers and `659 / 659` accepted refreshed in-scope obligations; `CHECKPOINT_REPORT.md` records CP8 and Pact Slot replay evidence. | Proven for dirty rehearsal. | This is diagnostic evidence only. It must not be treated as final architecture proof. |
 | Accepted dirty evidence uses shared reducer entrypoints rather than local replay islands. | `FRESH_CLEANROOM_READINESS.md` summarizes the review loop that rejected adapter-local synthesis and required observed route events from reducer entrypoints; `CHECKPOINT_REPORT.md` records per-lane verification. | Proven for accepted dirty rows by campaign review artifacts. | The proof strength is bounded by the dirty target and its historical scaffolding. |
-| Fresh target can be built without reading TypeScript implementation or dirty `src/**` implementation files. | Fresh target state/evidence records `copiedDirtySrcImplementation: false`; `python3 tools/verify_current_fresh_target.py` passes; the accepted fresh target is at `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639`. | Proven for the FC-00 through FC-08 dry-run scope plus FEXP-00/FEXP-01 expansion lanes. | This does not prove a complete runtime can be generated from scratch in one larger fresh run. |
+| Fresh target can be built without reading TypeScript implementation or dirty `src/**` implementation files. | Fresh target state/evidence records `copiedDirtySrcImplementation: false`; `python3 tools/verify_current_fresh_target.py` passes; the accepted fresh target is at `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc`. | Proven for the FC-00 through FC-08 dry-run scope plus FEXP-00/FEXP-01/FEXP-02 expansion lanes. | This does not prove a complete runtime can be generated from scratch in one larger fresh run. |
 | Fresh target exposes the reducer-shaped surface. | `FRESH_RUN_REPORT.md`, `STATE_OWNERS.md`, and tests in the fresh target cover `start_battle`, `discover_battle_acts`, `resolve_battle_subject`, and turn advancement. | Proven for the dry-run target. | The surface is intentionally minimal and tracer-driven. |
 | Fresh target supports an SDK-style programmatic character plus simple battle scenario. | `FRESH_SDK_COMPOSITION_ACCEPTANCE.md`, `EVIDENCE/sdk-tracer-bullet-programmatic-surface.json`, and `python3 tools/verify_current_fresh_target.py` cover sheet creation, projection, encounter composition, battle entry, act resolution, HP mutation, action spend, and turn advancement. | Proven for the accepted tracer scenario. | This is a tracer-bullet scenario, not full character/battle runtime parity. |
 | FEXP-01 diagnostic battle route pack is accepted in the fresh target. | Fresh target head `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639` includes `EVIDENCE/fexp01-diagnostic-battle-route-pack.json`, `examples/fexp01_route_observations.rs`, and `tools/verify_fexp01.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for Magic Missile slot-spell route, HP restoration ordering, Death Saving Throw, and Concentration teardown. | The verifier parser is intentionally narrow for the accepted connector shapes; broader drivers still need their own lanes. |
-| Post-FC06 source feedback was resolved and replayed. | `FC06_SOURCE_FEEDBACK.md` records encounter composition and Pact Slot route-surface resolution; fresh target head `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639` includes the accepted Pact Slot replay, current verifier, FEXP-00 baseline lock, and FEXP-01 route pack. | Proven for the two recorded FC-06 feedback items. | Older FC-03/FC-04/FC-05 verifier artifacts are now historical snapshots, not current gates. |
+| FEXP-02 spell-attack/save-gated unblock lane is accepted with blockers in the fresh target. | Fresh target head `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc` includes `EVIDENCE/fexp02-spell-attack-save-gated-unblock.json`, `examples/fexp02_route_observations.rs`, and `tools/verify_fexp02.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for generic spell-attack and save-gated route substrates plus eight selected-identity branch subsets accepted only as substrate evidence. | Residual selected spell effects remain blocked outside the generic substrate; this is intentionally not full selected-spell coverage. |
+| Post-FC06 source feedback was resolved and replayed. | `FC06_SOURCE_FEEDBACK.md` records encounter composition and Pact Slot route-surface resolution; fresh target head `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc` includes the accepted Pact Slot replay, current verifier, FEXP-00 baseline lock, FEXP-01 route pack, and FEXP-02 spell substrate lane. | Proven for the two recorded FC-06 feedback items. | Older FC-03/FC-04/FC-05 verifier artifacts are now historical snapshots, not current gates. |
 | Production runtime semantics avoid authored identity dispatch. | Dirty campaign review artifacts and fresh verifier check production source for selected identity terms; accepted docs state identity remains in adapter/test/evidence boundaries. | Proven for sampled/accepted target scopes. | A future full fresh run still needs the same static and review gates across its whole production surface. |
 | Focused QNT slices are sufficient to guide a full independent runtime. | Dirty campaign plus fresh dry run prove multiple focused slices, route connectors, source feedback loops, and SDK tracer surfaces. | Not fully proven. | Current evidence is strong but partial: it proves a successful dry run and diagnostic dirty coverage, not a complete fresh runtime campaign from only the package. |
 | The final architecture is complete and ready to mark the thread goal achieved. | No artifact currently proves full fresh-cleanroom generation or complete runtime coverage independent of dirty scaffolding. | Not achieved. | Keep the goal active. The next proof step should be a larger fresh-cleanroom campaign or source-side guidance/QNT promotion based on this audit. |
@@ -56,6 +57,9 @@ This gate validates:
 - FC-03/FC-04/FC-05 historical snapshot classification.
 - FEXP-01 diagnostic battle route evidence, including connector-derived
   expected records and executable reducer-entrypoint observed records.
+- FEXP-02 spell-attack/save-gated substrate evidence, including connector-derived
+  expected records, executable reducer-entrypoint observed records, and explicit
+  blockers for residual selected spell effects outside the generic substrate.
 
 Dirty campaign state:
 
@@ -77,7 +81,7 @@ Expected state:
    campaign guidance, not from dirty `src/**`. The proposed campaign boundary
    is `FRESH_CLEANROOM_EXPANSION_PLAN.md` with lane definitions in
    `FRESH_EXPANSION_LANES.json`.
-2. Keep the accepted fresh target at `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639`
+2. Keep the accepted fresh target at `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc`
    as the baseline evidence target unless a newer package refresh supersedes it.
 3. Promote any additional route-connector lessons back into source-side QNT or
    curated cleanroom guidance before treating a fresh-run blocker as a target
@@ -98,6 +102,8 @@ The current evidence proves:
 - the fresh dry run independently accepted the reducer-spine tracer sequence,
   SDK composition tracer, post-feedback Pact Slot replay, and FEXP-01
   diagnostic battle route pack;
+- FEXP-02 independently accepted generic spell-attack/save-gated substrate
+  evidence with explicit blockers for remaining selected spell effects;
 - the current verifier makes that fresh evidence mechanically checkable.
 
 The current evidence does not yet prove:

@@ -2767,19 +2767,19 @@
     }
   },
   "nextWorkRecommendations": [
-    "Launch FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK from accepted fresh target head a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639 using FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json.",
-    "Use the accepted fresh target at a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639 as the current strongest evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, and FEXP-01 diagnostic battle route evidence, verified by python3 tools/verify_current_fresh_target.py.",
+    "Launch FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS from accepted fresh target head 773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc using FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json.",
+    "Use the accepted fresh target at 773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc as the current strongest evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-01 diagnostic battle route evidence, and FEXP-02 generic spell-attack/save-gated substrate evidence, verified by python3 tools/verify_current_fresh_target.py.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "running",
-    "activeLane": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK",
+    "status": "fexp02-accepted-with-blockers",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639",
+    "acceptedTargetHead": "773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -2830,14 +2830,45 @@
           "git diff --check 574c99d28ef2fe8779c500dad34879efa7aa4177...HEAD"
         ],
         "coverageClaim": "new runtime coverage accepted for Magic Missile slot-spell route, HP restoration ordering, Death Saving Throw, and Concentration teardown; verifier regenerates expected records from connector action bodies and observed records from public reducer entrypoints"
+      },
+      {
+        "laneId": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK",
+        "status": "accepted-with-blockers",
+        "baseCommit": "a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639",
+        "targetCommit": "773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc",
+        "workerAgent": "Laplace the 3rd (019f0aec-ebad-71b3-9962-b7cf6ecaf1d1)",
+        "reviewerAgent": "Sartre the 3rd (019f0afc-6172-7163-8386-fcfe12452809)",
+        "artifacts": [
+          "EVIDENCE/fexp02-spell-attack-save-gated-unblock.json",
+          "examples/fexp02_route_observations.rs",
+          "tools/verify_fexp02.py",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "BLOCKERS.json",
+          "STATE_OWNERS.md"
+        ],
+        "checks": [
+          "python3 tools/verify_current_fresh_target.py",
+          "python3 tools/verify_fexp02.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "static forbidden-boundary scan via current fresh target verifier",
+          "static production-source authored-identity dispatch search"
+        ],
+        "coverageClaim": "generic spell-attack and save-gated route substrates accepted through public reducer entrypoints; eight selected-identity branch subsets accepted only as substrate evidence, with residual selected spell effects blocked outside the generic substrate",
+        "blockers": [
+          "FEXP-02-attack-spell-shape-selected-identity-effects-outside-generic-substrate",
+          "FEXP-02-level1-damage-spell-selected-identity-effects-outside-generic-substrate"
+        ]
       }
     ],
-    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-02",
-    "activeBranch": "ralph/fexp-02-spell-attack-save-gated-unblock",
-    "activeLaneBaseCommit": "a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639",
-    "workerAgent": "Laplace the 3rd (019f0aec-ebad-71b3-9962-b7cf6ecaf1d1)",
+    "activeWorktree": null,
+    "activeBranch": null,
+    "activeLaneBaseCommit": null,
+    "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK"
+    "nextPlannedLane": "FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS"
   },
   "sdkTracerBullet": {
     "status": "reviewed-accepted",
