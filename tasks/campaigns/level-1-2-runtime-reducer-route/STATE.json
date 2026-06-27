@@ -253,7 +253,10 @@
         "node scripts/check-cleanroom-harness.cjs",
         "cargo test adapter_replays_all_branches (76 tests)",
         "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ]
+      ],
+      "fixer2Agent": "019f0736-5669-7d40-89ef-55b4c7cf8f92",
+      "fixer2Name": "Kant",
+      "fix2Status": "running"
     },
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
