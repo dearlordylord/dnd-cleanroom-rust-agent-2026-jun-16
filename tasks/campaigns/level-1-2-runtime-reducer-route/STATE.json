@@ -167,7 +167,7 @@
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "merged-verified",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "merged-verified",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
-    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "fixing",
+    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "rereviewing",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "fixing",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
@@ -192,7 +192,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a",
       "branch": "ralph/l15-rr07s-a-passive-roll-resource",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "fixing",
+      "status": "rereviewing",
       "workerAgent": "019f070a-d8bb-7111-b578-d4eee793076f",
       "workerName": "Copernicus",
       "commit": "d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62",
@@ -224,7 +224,25 @@
       ],
       "fixerAgent": "019f0721-7a01-7303-bae8-8591e16e1c2d",
       "fixerName": "Peirce",
-      "fixStatus": "running"
+      "fixStatus": "complete",
+      "fixCommit": "b857f65367b3a921406ad5c9c4627eadf45f460e",
+      "fixSummary": [
+        "Replaced projection-only witness comparisons with reducer-route comparisons for all five lane drivers.",
+        "Focused adapter tests now compare replay_observed_route(action) against independent expected_route(action) records before evidence claims qRoute / route-event-list.",
+        "Accepted all 17 lane obligations; no blockers reported by fixer."
+      ],
+      "fixVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "cargo test adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ],
+      "rereviewAgent": "019f0731-733c-7791-9b81-cc60adf5dc58",
+      "rereviewName": "Hooke",
+      "rereviewStatus": "running"
     },
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
@@ -306,7 +324,10 @@
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
         "focused route tests for weapon mastery, Dragonborn Breath Weapon, and feature selected identity"
-      ]
+      ],
+      "fixerAgent": "019f0730-cabf-77a3-801f-b5b9736f7e6b",
+      "fixerName": "Franklin",
+      "fixStatus": "running"
     }
   ],
   "completedLaneWorktrees": [
