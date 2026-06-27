@@ -187,7 +187,7 @@
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
-    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "reviewing",
+    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
@@ -217,7 +217,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a",
       "branch": "ralph/l15-rr07-fu01a-catalog-ready",
       "baseSha": "4b24c074161a5bbe2b52ef1125c5f7044e3172e0",
-      "status": "reviewing",
+      "status": "fixing-review-findings",
       "workerAgent": "019f0776-9fa7-7893-a111-b0aa8a7f73e3",
       "workerName": "Carver",
       "commit": "710ff08b6114640820b147e5d0b4a460693e73e2",
@@ -238,7 +238,23 @@
       ],
       "reviewAgent": "019f0788-0409-7902-b05c-616193548f50",
       "reviewName": "Godel",
-      "reviewStatus": "running"
+      "reviewStatus": "findings",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "Find Familiar route evidence is adapter-local: observed replay maps scenario outcome through local route_from_companion_substrate, expected_route shares local constructors, and companion subjects are not mapped from production BattleReducerRouteSubjectFamily."
+      ],
+      "reviewVerification": [
+        "Reviewer stayed inside cleanroom worktree; .claude/review-rules.md absent.",
+        "cargo fmt --check",
+        "focused Cargo tests",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check ...HEAD"
+      ],
+      "fixerAgent": "019f078b-5bbf-7423-8391-5e79c45293de",
+      "fixerName": "Einstein",
+      "fixerStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
