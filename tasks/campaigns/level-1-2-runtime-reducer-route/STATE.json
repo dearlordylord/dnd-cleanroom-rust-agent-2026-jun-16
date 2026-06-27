@@ -155,7 +155,7 @@
     "L15-RR20-BATTLE-COMPANION-OBJECT-BOUNDARY-ROUTES": "blocked-on-checkpoint",
     "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES": "blocked-on-checkpoint",
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint",
-    "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "implemented",
+    "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "reviewed-clean",
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "implemented",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "implemented",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "implemented"
@@ -201,7 +201,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04a",
       "branch": "ralph/l15-rr04a-rule-core-damage-statblock",
       "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "implemented-pending-review",
+      "status": "reviewed-clean-pending-merge",
       "workerAgent": "019f0670-c7a0-72d1-9fd3-cfeb18268fab",
       "workerName": "Cicero",
       "commit": "341a19fdd7eafbfd5f91750a6be106dc1b319c5e",
@@ -220,7 +220,10 @@
         "State-owner manifests no longer claim qComponentRoute owns semantic rule-core state/result fields.",
         "VALIDATION_REPORT.md top snapshot/header now names RR04A completion and removes stale RR06 fixer-scope text."
       ],
-      "rereviewStatus": "pending"
+      "rereviewStatus": "clean",
+      "rereviewAgent": "019f0681-d1de-7813-b55a-6f1c8d97ffc9",
+      "rereviewName": "Archimedes",
+      "rereviewResidualRisk": "Reviewer did not rerun Cargo/Node verification; integration merge must run gates."
     },
     {
       "laneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
