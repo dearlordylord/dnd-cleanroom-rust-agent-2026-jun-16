@@ -2324,13 +2324,40 @@
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
   "freshCleanroomDryRun": {
-    "status": "running",
-    "phase": "FC-00",
-    "phaseName": "Package Admission And Inventory Parser",
+    "status": "fc-00-reviewed-accepted",
+    "phase": "FC-01",
+    "phaseName": "Reducer Spine Substrate",
+    "previousPhase": {
+      "phase": "FC-00",
+      "phaseName": "Package Admission And Inventory Parser",
+      "status": "reviewed-accepted",
+      "targetCommit": "cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3",
+      "workerAgent": "019f09a7-f614-70a3-9397-b8fca74e1979",
+      "workerName": "Dewey the 2nd",
+      "reviewerAgent": "019f09ad-f0e6-7152-a82d-66ce21331f75",
+      "reviewerName": "James the 2nd",
+      "reviewVerdict": "clean",
+      "verification": [
+        "python3 tools/verify_fc00.py",
+        "python3 tools/fc00_inventory.py generate",
+        "git status --short"
+      ],
+      "artifacts": [
+        "FRESH_RUN_STATE.json",
+        "FRESH_RUN_REPORT.md",
+        "BLOCKERS.json",
+        "EVIDENCE/fc00-package-admission.json",
+        "STATE_OWNERS.md"
+      ],
+      "accepted": {
+        "driverFiles": 97,
+        "inScopeObligations": 659,
+        "outOfScopeObligations": 45,
+        "blockers": 0
+      }
+    },
     "targetDirectory": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "campaignInputCommit": "de7c090391ea62931d27640b6ad76015b65c88c5",
-    "workerAgent": "019f09a7-f614-70a3-9397-b8fca74e1979",
-    "workerName": "Dewey the 2nd",
     "launchedFromPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
     "allowedDirtyInputRoots": [
       "cleanroom-input/**",
@@ -2355,7 +2382,7 @@
     ]
   },
   "nextWorkRecommendations": [
-    "Wait for and review FC-00 fresh package admission in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00.",
+    "Launch FC-01 Reducer Spine Substrate in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 using the fresh dry-run plan.",
     "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
     "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
     "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."

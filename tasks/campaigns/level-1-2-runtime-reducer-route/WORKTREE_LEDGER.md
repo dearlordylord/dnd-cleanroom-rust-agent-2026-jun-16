@@ -14,7 +14,13 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| FC-00-FRESH-PACKAGE-ADMISSION | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target | `de7c090391ea62931d27640b6ad76015b65c88c5` | Dewey the 2nd (`019f09a7-f614-70a3-9397-b8fca74e1979`) | running package admission and inventory parser |
+| _none_ | | | | | |
+
+## Active Fresh Dry Run Targets
+
+| Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| _none_ | | | | | | |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -78,3 +84,9 @@ When launching a lane:
 | L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-c` | `ralph/l15-rrcp7-c-weapon-prehit` | `855e702770866c18ae5b657367b95af8410efbe9` | `554e2e2c0adae1127496d4a12023ae5ac8979f88` | removable |
 | L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-d` | `ralph/l15-rrcp7-d-mage-armor` | `61b1534b2cfc9b3d403ca358864beeb6266c0e66` | `ffc162a61eeea40b0e922b28c7cdeff95281728d` | removable; zero accepted coverage, Mage Armor route connector blocker recorded |
 | L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-e` | `ralph/l15-rrcp7-e-magic-weapon` | `d08c66e271cae1d4f3ddd5eb1ca101ad5b11c14c` | `24ad8f3b493b2affa4dba3607a619f92bf54eb16` | removable |
+
+## Completed Fresh Dry Run Targets
+
+| Phase | Path | Branch | Target Commit | Input Commit | Worker | Reviewer | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| FC-00-FRESH-PACKAGE-ADMISSION | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3` | `de7c090391ea62931d27640b6ad76015b65c88c5` | Dewey the 2nd (`019f09a7-f614-70a3-9397-b8fca74e1979`) | James the 2nd (`019f09ad-f0e6-7152-a82d-66ce21331f75`) | FC-00 accepted; ready for FC-01 |
