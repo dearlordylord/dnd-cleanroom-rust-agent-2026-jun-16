@@ -290,6 +290,13 @@
           "queue": [
             "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt"
           ]
+        },
+        {
+          "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
+          "queue": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt"
+          ]
         }
       ]
     },

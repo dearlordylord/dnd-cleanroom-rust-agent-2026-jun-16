@@ -60,13 +60,31 @@
     },
     {
       "apiPath": "BattleEntrypointTrace.route_events",
-      "boundary": "production reducer route observer trace for diagnostic protection/charm/ward branches; not accepted coverage without copied-QNT connector evidence",
+      "boundary": "production reducer route observer trace for accepted FU01D protection/charm/ward route replay derived from copied route connectors",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "executable-boundary-projection"
     },
     {
       "apiPath": "ReducerRouteEvent.qRoute",
       "boundary": "target replay route-event-list comparator projection",
+      "introducedIn": "src/qnt_adapters/battle_runtime_reducer_route.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
+      "boundary": "non-durable target replay artifact recording accepted FU01D route-event projections against copied route connectors",
+      "introducedIn": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind generic FU01D route subject",
+      "boundary": "checked target replay field proving FU01D branches route through generic reducer subject kinds rather than authored identity",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleReducerRouteSubjectFamily generic FU01D route subject",
+      "boundary": "checked target replay field proving FU01D qRoute projections use copied generic subject families",
       "introducedIn": "src/qnt_adapters/battle_runtime_reducer_route.rs",
       "owner": "executable-boundary-projection"
     }

@@ -14,8 +14,8 @@
   "startHeadSha": "410a784738fba3b80566eae292140327d4e30877",
   "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
   "taskScope": {
-    "assignmentId": "level-1-2-battle",
-    "laneId": "battle",
+    "assignmentId": "level-1-2-runtime-reducer-route",
+    "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
     "parentRouteTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
     "routeClass": "protection-charm-ward-substrates",
     "selectedDrivers": [

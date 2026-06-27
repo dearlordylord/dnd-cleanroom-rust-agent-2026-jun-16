@@ -35,8 +35,6 @@ module battleRuntimeReducerRoute {
     | InterruptStackResumeRouteSubject
     | RollModifierEffectRouteSubject
     | SpellDamageReductionRouteSubject
-    | ArmorClassSpellEffectRouteSubject
-    | ReactionSpellRouteSubject
     | ScalarBuffEffectRouteSubject
     | RepeatSaveConditionEffectRouteSubject
     | TurnBoundaryEffectLifecycleRouteSubject
@@ -58,6 +56,10 @@ module battleRuntimeReducerRoute {
     | SpecialSpeedProjectionRouteSubject
     | ForcedMovementRouteSubject
     | ActiveFormLifecycleRouteSubject
+    | CreatureTypeTargetAdmissionRouteSubject
+    | ProtectionCharmActiveEffectRouteSubject
+    | CharmSourceDamageBreakRouteSubject
+    | WardedTargetInterdictionRouteSubject
     | MetamagicSpellGovernorRouteSubject
     | MetamagicBonusActionCastingTimeRouteSubject
     | MetamagicSavingThrowProtectionRouteSubject
@@ -90,7 +92,6 @@ module battleRuntimeReducerRoute {
     | BattleItemTargetBoundaryOwner
     | BattleMovementResourceOwner
     | BattleInterruptStackOwner
-    | BattleReactionOwner
     | BattleFeatureResourceOwner
     | BattleTemporaryHitPointOwner
     | BattleTurnBoundaryOwner

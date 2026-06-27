@@ -1,12 +1,12 @@
 {
   "files": [
     {
-      "baseSha256": "4c2c6baadcf6aba84302d1da1832972e429d18096af268017a5f42487e3aa720",
+      "baseSha256": "4a02c5241cb3842e2f9228302ea4f28bd8472c33a2936d7d79b2348205096ae2",
       "patchedSha256": "5b7f4913a2c6455c556e13a276107337219804698ffd087c64d536cf66c6e06c",
       "path": "scripts/cleanroom-branch-coverage-check.cjs"
     },
     {
-      "baseSha256": "c85854cc3d40293d7bc469e61f77f49d02b6e7787a0693cd844efc365b025bb3",
+      "baseSha256": "bf3a3120ef5bb10b0a11093bb3bbe8d911199f720cc4cba050d4080e78ba5130",
       "patchedSha256": "0ed7656ef183599a8f54c604219ad34e51a0addb757d4be34deb694938db82f1",
       "path": "scripts/check-cleanroom-harness.cjs"
     }
@@ -14,5 +14,5 @@
   "patchId": "L15-RR07-FU01B-target-blocker-evidence-result",
   "rationale": "Allow target replay evidence to record explicit target-blocker rows for selected obligations that lack production BattleState route subjects, without counting those rows as accepted pass evidence refs.",
   "schemaVersion": 1,
-  "sourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52"
+  "sourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc"
 }

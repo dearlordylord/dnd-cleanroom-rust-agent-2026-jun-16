@@ -682,9 +682,11 @@ use battle_runtime_condition_saving_throw_selected_identity::{
     OUT_OF_SCOPE_BRANCH_ACTIONS as CONDITION_SAVING_THROW_OUT_OF_SCOPE_BRANCH_ACTIONS,
 };
 use battle_runtime_creature_type_protection_and_charm_selected_identity::{
+    expected_route as expected_creature_type_protection_route,
     expected_witness as expected_creature_type_protection_witness,
     projection_payload as creature_type_protection_projection_payload,
     replay_observed_action as replay_creature_type_protection_action,
+    replay_observed_route as replay_creature_type_protection_route,
     BRANCH_ACTIONS as CREATURE_TYPE_PROTECTION_BRANCH_ACTIONS,
 };
 use battle_runtime_danger_sense_selected_identity::{
@@ -890,9 +892,11 @@ use battle_runtime_roll_modifier_buff_selected_identity::{
     BRANCH_ACTIONS as ROLL_MODIFIER_BUFF_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_sanctuary_selected_identity::{
+    expected_route as expected_sanctuary_selected_identity_route,
     expected_witness as expected_sanctuary_selected_identity_witness,
     projection_payload as sanctuary_selected_identity_projection_payload,
     replay_observed_action as replay_sanctuary_selected_identity_action,
+    replay_observed_route as replay_sanctuary_selected_identity_route,
     BRANCH_ACTIONS as SANCTUARY_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_save_gated_spell_ordering::{
@@ -3866,6 +3870,18 @@ fn creature_type_protection_adapter_replays_all_branches() {
 }
 
 #[test]
+fn creature_type_protection_route_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-creature-type-protection-and-charm-selected-identity.route.mbt.qnt.
+    for action in CREATURE_TYPE_PROTECTION_BRANCH_ACTIONS {
+        assert_eq!(
+            replay_creature_type_protection_route(action),
+            expected_creature_type_protection_route(action)
+        );
+    }
+}
+
+#[test]
 fn creature_type_protection_projects_charm_and_scoped_protection_rules() {
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
     // "Animal Friendship" and "Charm Person"; RAW:
@@ -5407,6 +5423,18 @@ fn sanctuary_selected_identity_adapter_replays_all_branches() {
         );
         assert!(sanctuary_selected_identity_projection_payload(&observed)
             .contains("protocolResult=resolved"));
+    }
+}
+
+#[test]
+fn sanctuary_selected_identity_route_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sanctuary-selected-identity.route.mbt.qnt.
+    for action in SANCTUARY_SELECTED_IDENTITY_BRANCH_ACTIONS {
+        assert_eq!(
+            replay_sanctuary_selected_identity_route(action),
+            expected_sanctuary_selected_identity_route(action)
+        );
     }
 }
 

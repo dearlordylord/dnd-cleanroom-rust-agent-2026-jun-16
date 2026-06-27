@@ -24,6 +24,7 @@ pub enum ReducerRouteHoleKind {
     Movement,
     RolledDice,
     SavingThrowOutcome,
+    SanctuaryInterdictionOutcome,
     SkillChoice,
     SpellTargetAllocation,
     SpellTargetList,
@@ -49,6 +50,7 @@ pub enum ReducerRouteFillKind {
     Movement,
     RolledDice,
     SavingThrowOutcome,
+    SanctuaryInterdictionOutcome,
     SkillChoice,
     SpellTargetAllocation,
     SpellTargetList,
@@ -120,6 +122,10 @@ pub enum ReducerRouteSubjectFamily {
     CompanionTouchDelivery,
     CompanionReactionAttack,
     ObjectTargetSpellAttack,
+    CreatureTypeTargetAdmission,
+    ProtectionCharmActiveEffect,
+    CharmSourceDamageBreak,
+    WardedTargetInterdiction,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -808,6 +814,18 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::ObjectTargetSpellAttack => {
             ReducerRouteSubjectFamily::ObjectTargetSpellAttack
         }
+        BattleReducerRouteSubjectFamily::CreatureTypeTargetAdmission => {
+            ReducerRouteSubjectFamily::CreatureTypeTargetAdmission
+        }
+        BattleReducerRouteSubjectFamily::ProtectionCharmActiveEffect => {
+            ReducerRouteSubjectFamily::ProtectionCharmActiveEffect
+        }
+        BattleReducerRouteSubjectFamily::CharmSourceDamageBreak => {
+            ReducerRouteSubjectFamily::CharmSourceDamageBreak
+        }
+        BattleReducerRouteSubjectFamily::WardedTargetInterdiction => {
+            ReducerRouteSubjectFamily::WardedTargetInterdiction
+        }
     }
 }
 
@@ -833,6 +851,9 @@ const fn reducer_route_fill(fill: BattleReducerRouteFillKind) -> ReducerRouteFil
         BattleReducerRouteFillKind::Movement => ReducerRouteFillKind::Movement,
         BattleReducerRouteFillKind::RolledDice => ReducerRouteFillKind::RolledDice,
         BattleReducerRouteFillKind::SavingThrowOutcome => ReducerRouteFillKind::SavingThrowOutcome,
+        BattleReducerRouteFillKind::SanctuaryInterdictionOutcome => {
+            ReducerRouteFillKind::SanctuaryInterdictionOutcome
+        }
         BattleReducerRouteFillKind::SkillChoice => ReducerRouteFillKind::SkillChoice,
         BattleReducerRouteFillKind::SpellTargetAllocation => {
             ReducerRouteFillKind::SpellTargetAllocation
@@ -977,6 +998,9 @@ fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
         BattleHoleKind::Movement => ReducerRouteHoleKind::Movement,
         BattleHoleKind::RolledDice => ReducerRouteHoleKind::RolledDice,
         BattleHoleKind::SavingThrowOutcome => ReducerRouteHoleKind::SavingThrowOutcome,
+        BattleHoleKind::SanctuaryInterdictionOutcome => {
+            ReducerRouteHoleKind::SanctuaryInterdictionOutcome
+        }
         BattleHoleKind::SkillChoice => ReducerRouteHoleKind::SkillChoice,
         BattleHoleKind::SpellTargetAllocation => ReducerRouteHoleKind::SpellTargetAllocation,
         BattleHoleKind::SpellTargetList => ReducerRouteHoleKind::SpellTargetList,
@@ -1008,6 +1032,9 @@ const fn reducer_route_route_hole(hole: BattleReducerRouteHoleKind) -> ReducerRo
         BattleReducerRouteHoleKind::Movement => ReducerRouteHoleKind::Movement,
         BattleReducerRouteHoleKind::RolledDice => ReducerRouteHoleKind::RolledDice,
         BattleReducerRouteHoleKind::SavingThrowOutcome => ReducerRouteHoleKind::SavingThrowOutcome,
+        BattleReducerRouteHoleKind::SanctuaryInterdictionOutcome => {
+            ReducerRouteHoleKind::SanctuaryInterdictionOutcome
+        }
         BattleReducerRouteHoleKind::SkillChoice => ReducerRouteHoleKind::SkillChoice,
         BattleReducerRouteHoleKind::SpellTargetAllocation => {
             ReducerRouteHoleKind::SpellTargetAllocation
@@ -1097,6 +1124,9 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
         ReducerRouteHoleKind::Movement => "MovementHoleKind",
         ReducerRouteHoleKind::RolledDice => "RolledDiceHoleKind",
         ReducerRouteHoleKind::SavingThrowOutcome => "SavingThrowOutcomeHoleKind",
+        ReducerRouteHoleKind::SanctuaryInterdictionOutcome => {
+            "SanctuaryInterdictionOutcomeHoleKind"
+        }
         ReducerRouteHoleKind::SkillChoice => "SkillChoiceHoleKind",
         ReducerRouteHoleKind::SpellTargetAllocation => "SpellTargetAllocationHoleKind",
         ReducerRouteHoleKind::SpellTargetList => "SpellTargetListHoleKind",
@@ -1125,6 +1155,9 @@ fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
         ReducerRouteFillKind::Movement => "MovementFillKind",
         ReducerRouteFillKind::RolledDice => "RolledDiceFillKind",
         ReducerRouteFillKind::SavingThrowOutcome => "SavingThrowOutcomeFillKind",
+        ReducerRouteFillKind::SanctuaryInterdictionOutcome => {
+            "SanctuaryInterdictionOutcomeFillKind"
+        }
         ReducerRouteFillKind::SkillChoice => "SkillChoiceFillKind",
         ReducerRouteFillKind::SpellTargetAllocation => "SpellTargetAllocationFillKind",
         ReducerRouteFillKind::SpellTargetList => "SpellTargetListFillKind",
@@ -1274,6 +1307,16 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         }
         ReducerRouteSubjectFamily::ZeroHitPointStabilization => {
             "ZeroHitPointStabilizationRouteSubject"
+        }
+        ReducerRouteSubjectFamily::CreatureTypeTargetAdmission => {
+            "CreatureTypeTargetAdmissionRouteSubject"
+        }
+        ReducerRouteSubjectFamily::ProtectionCharmActiveEffect => {
+            "ProtectionCharmActiveEffectRouteSubject"
+        }
+        ReducerRouteSubjectFamily::CharmSourceDamageBreak => "CharmSourceDamageBreakRouteSubject",
+        ReducerRouteSubjectFamily::WardedTargetInterdiction => {
+            "WardedTargetInterdictionRouteSubject"
         }
     }
 }

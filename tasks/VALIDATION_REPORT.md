@@ -77,11 +77,11 @@ Verification results:
 
 ## Work Loop Status
 
-- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Manifest source commit SHA: `53642cf0b1bc98f4426b6081fe37c98a960939fc`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
-- Last completed current-snapshot queued branch set: `L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES`
-- Latest evidence: `tasks/target-replay-evidence/L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES.json`
-- Latest verification: focused CP5 adapter tests, cargo fmt --check, cleanroom harness, git diff --check, cargo test, and cargo clippy passed.
+- Last completed current-snapshot queued branch set: `L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES`
+- Latest evidence: `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json` covers all 16 selected FU01D rows via copied route connectors and reducer-entrypoint route replay.
+- Latest verification: focused FU01D evidence check, cargo fmt --check, focused FU01D tests, cargo test, cargo clippy, and git diff --check passed; cleanroom harness is blocked by global stale-manifest evidence outside FU01D.
 
 ## L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES: Companion/Object-Boundary Routes
 
@@ -160,11 +160,11 @@ Verification results:
 
 ## Work Loop Status
 
-- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Manifest source commit SHA: `53642cf0b1bc98f4426b6081fe37c98a960939fc`
 - Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
 - Last completed current-snapshot queued branch set: `L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES`
-- Latest evidence: _none for FU01D_; the selected rows are source-QNT corpus blockers until a copied executable generic protection/charm/ward connector substrate exists.
-- Latest verification: cargo fmt --check, cargo test, cargo clippy, cleanroom harness, and git diff --check passed.
+- Latest evidence: `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json` covers all 16 selected FU01D rows via copied route connectors and reducer-entrypoint route replay.
+- Latest verification: focused FU01D evidence check, cargo fmt --check, focused FU01D tests, cargo test, cargo clippy, and git diff --check passed; cleanroom harness is blocked by global stale-manifest evidence outside FU01D.
 
 ## L15-RR07-FU01F: Spatial Light/Area/Movement Substrates
 
@@ -2626,60 +2626,86 @@ Verification results:
 
 ## L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES: Protection, charm, and ward substrates
 
-Selected drivers:
+- Manifest source commit SHA: `53642cf0b1bc98f4426b6081fe37c98a960939fc`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Reducer route inventory SHA: `5cf6958f276e0f7d0632b1872cc419d0b6cdef2a3b04c8bc4e6fc12b2663231f`
+- Drivers: `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt`, `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
 
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
+Allowed inputs used:
+
+- Selected copied QNT drivers: `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt`, `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
+- Copied route connectors: `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.route.mbt.qnt`, `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.route.mbt.qnt`
+- Copied route inventory: `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- RAW and domain language: `cleanroom-input/raw/srd-5.2.1/**`, `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
 
 Behavior implemented:
 
-- Rust reducer and adapter replay remain as diagnostic substrate through `BattleState.protection_charm_ward` subjects.
-- No FU01D row is counted as accepted coverage because copied cleanroom inputs do not include an executable generic protection/charm/ward QNT connector substrate.
-- The copied reducer-route inventory already classifies both selected drivers as `source-qnt-corpus-blocker`; selected spell identity remains quarantined to adapters/tests/artifacts.
+- Added generic reducer-route subject, fill, owner, and hole support for creature-type target admission, protection/charm active effects, charm source damage break, and warded target interdiction.
+- Replayed the copied route connectors through `start_battle_observed`, `discover_generic_route_subject_observed`, and `resolve_battle_subject_observed`, with expected route witnesses kept in adapter quarantine.
+- Kept selected spell identity out of production dispatch; production routing is by generic route shape derived from copied QNT/RAW.
 
 Generated branch coverage:
 
-| Source-QNT blocker row | Reason | Status |
-| --- | --- | --- |
-| `doDiscoverAnimalFriendshipBeastTargetAdmission` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doResolveAnimalFriendshipFailedSaveCharmed` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doResolveAnimalFriendshipCasterDamageBreak` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doPreventProtectionFromEvilAndGoodScopedCharmAndPossession` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doCastSanctuaryWardCreation` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doInterdictDirectAttackFailedSaveLoss` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doInterdictDirectSpellSuccessfulSavePassThrough` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doRetargetDirectAttackToLegalReplacement` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doRejectIllegalReplacementTarget` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doExcludeAreaEffectFromInterdiction` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doEndWardOnWardedAttackRoll` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doEndWardOnWardedSpellCast` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
-| `doEndWardOnWardedDamageDealt` | copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate | `source-qnt-corpus-blocker` |
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doDiscoverAnimalFriendshipBeastTargetAdmission` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doDiscoverAnimalFriendshipBeastTargetAdmission#step:doDiscoverAnimalFriendshipBeastTargetAdmission` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveAnimalFriendshipFailedSaveCharmed` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveAnimalFriendshipFailedSaveCharmed#step:doResolveAnimalFriendshipFailedSaveCharmed` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveAnimalFriendshipCasterDamageBreak` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveAnimalFriendshipCasterDamageBreak#step:doResolveAnimalFriendshipCasterDamageBreak` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection#step:doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage#step:doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doPreventProtectionFromEvilAndGoodScopedCharmAndPossession` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doPreventProtectionFromEvilAndGoodScopedCharmAndPossession#step:doPreventProtectionFromEvilAndGoodScopedCharmAndPossession` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage#step:doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doCastSanctuaryWardCreation` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doCastSanctuaryWardCreation#step:doCastSanctuaryWardCreation` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doInterdictDirectAttackFailedSaveLoss` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doInterdictDirectAttackFailedSaveLoss#step:doInterdictDirectAttackFailedSaveLoss` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doInterdictDirectSpellSuccessfulSavePassThrough` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doInterdictDirectSpellSuccessfulSavePassThrough#step:doInterdictDirectSpellSuccessfulSavePassThrough` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doRetargetDirectAttackToLegalReplacement` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doRetargetDirectAttackToLegalReplacement#step:doRetargetDirectAttackToLegalReplacement` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doRejectIllegalReplacementTarget` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doRejectIllegalReplacementTarget#step:doRejectIllegalReplacementTarget` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doExcludeAreaEffectFromInterdiction` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doExcludeAreaEffectFromInterdiction#step:doExcludeAreaEffectFromInterdiction` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedAttackRoll` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doEndWardOnWardedAttackRoll#step:doEndWardOnWardedAttackRoll` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedSpellCast` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doEndWardOnWardedSpellCast#step:doEndWardOnWardedSpellCast` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedDamageDealt` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doEndWardOnWardedDamageDealt#step:doEndWardOnWardedDamageDealt` | `src/tests/mod.rs` | `covered` |
+
+Accepted/demoted/blocker rows:
+
+| Row type | Count | Notes |
+| --- | ---: | --- |
+| Accepted | 16 | All selected FU01D branch actions route through production reducer entrypoints and copied route connectors. |
+| Demoted | 0 | None. |
+| Blocker | 0 | None. |
 
 Target replay evidence:
 
-- _none_; the previous FU01D target replay evidence file was removed because it represented diagnostic Rust replay, not accepted copied-QNT connector evidence.
-
-Remaining gaps:
-
-- Add a copied executable generic protection/charm/ward QNT connector substrate before these rows may count for target replay coverage.
-
-Verification results:
-
-- `cargo test creature_type_protection_adapter_replays_all_branches` passed.
-- `cargo test sanctuary_selected_identity_adapter_replays_all_branches` passed.
-- `cargo fmt --check` passed.
-- `node scripts/check-cleanroom-harness.cjs` passed.
-- `git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD` passed.
-- `cargo test` passed.
-- `cargo clippy --all-targets -- -D warnings` passed.
+- Evidence file: `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Reproduction trace id prefix: `L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=<action>`
 
 Harness artifacts:
 
-- History: `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/`
-- Run ledger: `tasks/RUN_LEDGER.json` records accepted coverage only; FU01D is intentionally absent after demotion.
+- Start gate: `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_` for the selected FU01D rows.
+
+Verification results:
+
+- `node focused FU01D validateTargetReplayEvidence check` passed: 16 covered, 0 blocked.
+- `cargo fmt --check` passed.
+- `cargo test route_replays_all_branches` passed.
+- `cargo test creature_type_protection_adapter_replays_all_branches` passed.
+- `cargo test sanctuary_selected_identity_adapter_replays_all_branches` passed.
+- `cargo test` passed: 220 passed, 0 failed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed only at the global refreshed-manifest layer: older ledger entries/evidence files still cite source commit `564376fd95218a209bb9eae5c9ccb54ca3e04a52` while `cleanroom-input/MANIFEST.md` now cites `53642cf0b1bc98f4426b6081fe37c98a960939fc`; no FU01D-specific issue remained after the state-owner manifest fix.
+
 
 ## L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES: Metamagic Reroll, Damage, Projection Substrates
 

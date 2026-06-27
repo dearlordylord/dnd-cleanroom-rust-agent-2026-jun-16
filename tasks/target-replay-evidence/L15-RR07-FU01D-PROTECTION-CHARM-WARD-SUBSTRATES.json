@@ -1,0 +1,476 @@
+{
+  "cleanroomManifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
+  "generatedBy": {
+    "name": "rust-cleanroom-fu01d-protection-charm-ward-substrates",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doDiscoverAnimalFriendshipBeastTargetAdmission",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "observedActionTaken": "doDiscoverAnimalFriendshipBeastTargetAdmission",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "b8526e3b624e585ad77cde0d2662e1a06f138c57b02e387bb03d495ac49cd98a",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "262d82acc67d245e8f44c0bf4bb242feb86b25f9e69f3358d78f30f79c39a936",
+        "observedProjectionSha256": "262d82acc67d245e8f44c0bf4bb242feb86b25f9e69f3358d78f30f79c39a936",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doDiscoverAnimalFriendshipBeastTargetAdmission"
+    },
+    {
+      "branchAction": "doResolveAnimalFriendshipFailedSaveCharmed",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "observedActionTaken": "doResolveAnimalFriendshipFailedSaveCharmed",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "b8526e3b624e585ad77cde0d2662e1a06f138c57b02e387bb03d495ac49cd98a",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2695ced26387124b9a96c8f61e1e25efc3e17663785b5a8fe73dde6dea590210",
+        "observedProjectionSha256": "2695ced26387124b9a96c8f61e1e25efc3e17663785b5a8fe73dde6dea590210",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveAnimalFriendshipFailedSaveCharmed"
+    },
+    {
+      "branchAction": "doResolveAnimalFriendshipCasterDamageBreak",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "observedActionTaken": "doResolveAnimalFriendshipCasterDamageBreak",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "b8526e3b624e585ad77cde0d2662e1a06f138c57b02e387bb03d495ac49cd98a",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "aa29ab39274d5c6cac5bbe6fd37b530dbc95f4d64d6fbed7a2e77cad0dcbd48d",
+        "observedProjectionSha256": "aa29ab39274d5c6cac5bbe6fd37b530dbc95f4d64d6fbed7a2e77cad0dcbd48d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveAnimalFriendshipCasterDamageBreak"
+    },
+    {
+      "branchAction": "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "observedActionTaken": "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "b8526e3b624e585ad77cde0d2662e1a06f138c57b02e387bb03d495ac49cd98a",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "143ee92eba8a1a7dbee83264bbb743bfaad14bcf1b1682847e24bcc9c214e225",
+        "observedProjectionSha256": "143ee92eba8a1a7dbee83264bbb743bfaad14bcf1b1682847e24bcc9c214e225",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection"
+    },
+    {
+      "branchAction": "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "observedActionTaken": "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "b8526e3b624e585ad77cde0d2662e1a06f138c57b02e387bb03d495ac49cd98a",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4d578278222cc59231cc38494279d20c741bed8fe194087a0d83bdba47f50b45",
+        "observedProjectionSha256": "4d578278222cc59231cc38494279d20c741bed8fe194087a0d83bdba47f50b45",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage"
+    },
+    {
+      "branchAction": "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "observedActionTaken": "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "b8526e3b624e585ad77cde0d2662e1a06f138c57b02e387bb03d495ac49cd98a",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "842d70f8be473ebebdb2606672f9c5ede094e2f2f5e7a28e176c61cf1e59cd11",
+        "observedProjectionSha256": "842d70f8be473ebebdb2606672f9c5ede094e2f2f5e7a28e176c61cf1e59cd11",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doPreventProtectionFromEvilAndGoodScopedCharmAndPossession"
+    },
+    {
+      "branchAction": "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "observedActionTaken": "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
+      "qntFileSha256": "a6e8fbb495c3f01f51297148e02b970dfde9d6e1acbb6297cd08a3ac5995edc0",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "b8526e3b624e585ad77cde0d2662e1a06f138c57b02e387bb03d495ac49cd98a",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "db0d46debdccd5a7e0c12281665e4d8b1bd9dad0d3328e23cca0e662849c4507",
+        "observedProjectionSha256": "db0d46debdccd5a7e0c12281665e4d8b1bd9dad0d3328e23cca0e662849c4507",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage"
+    },
+    {
+      "branchAction": "doCastSanctuaryWardCreation",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "observedActionTaken": "doCastSanctuaryWardCreation",
+      "qntFileSha256": "ba22087a57edfd67d90d502db97b956297a5c8d58ff0b6e27542c32598ddb6e7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "299839bf0f573c3d74b237923fa50c74b5d0d2b46430cda48ca8a3e1be5798b7",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f3fc19c37b582d08be578bbb4bb79d80c02d068bc0139ca06de4c7ddc6de9674",
+        "observedProjectionSha256": "f3fc19c37b582d08be578bbb4bb79d80c02d068bc0139ca06de4c7ddc6de9674",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doCastSanctuaryWardCreation"
+    },
+    {
+      "branchAction": "doInterdictDirectAttackFailedSaveLoss",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "observedActionTaken": "doInterdictDirectAttackFailedSaveLoss",
+      "qntFileSha256": "ba22087a57edfd67d90d502db97b956297a5c8d58ff0b6e27542c32598ddb6e7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "299839bf0f573c3d74b237923fa50c74b5d0d2b46430cda48ca8a3e1be5798b7",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "30b03b2225b857a903815ac83da8594c56459f07fd2ef668f67222b9a35777b6",
+        "observedProjectionSha256": "30b03b2225b857a903815ac83da8594c56459f07fd2ef668f67222b9a35777b6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doInterdictDirectAttackFailedSaveLoss"
+    },
+    {
+      "branchAction": "doInterdictDirectSpellSuccessfulSavePassThrough",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "observedActionTaken": "doInterdictDirectSpellSuccessfulSavePassThrough",
+      "qntFileSha256": "ba22087a57edfd67d90d502db97b956297a5c8d58ff0b6e27542c32598ddb6e7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "299839bf0f573c3d74b237923fa50c74b5d0d2b46430cda48ca8a3e1be5798b7",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "63157a1ade8474eb656c1a8643a0c3e8bbc57cbc6ef3080cfe1271a828529744",
+        "observedProjectionSha256": "63157a1ade8474eb656c1a8643a0c3e8bbc57cbc6ef3080cfe1271a828529744",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doInterdictDirectSpellSuccessfulSavePassThrough"
+    },
+    {
+      "branchAction": "doRetargetDirectAttackToLegalReplacement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "observedActionTaken": "doRetargetDirectAttackToLegalReplacement",
+      "qntFileSha256": "ba22087a57edfd67d90d502db97b956297a5c8d58ff0b6e27542c32598ddb6e7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "299839bf0f573c3d74b237923fa50c74b5d0d2b46430cda48ca8a3e1be5798b7",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6c13fd53278fc3bdec212eac36366d44ce9fe1807c631e9302485607a7372809",
+        "observedProjectionSha256": "6c13fd53278fc3bdec212eac36366d44ce9fe1807c631e9302485607a7372809",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doRetargetDirectAttackToLegalReplacement"
+    },
+    {
+      "branchAction": "doRejectIllegalReplacementTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "observedActionTaken": "doRejectIllegalReplacementTarget",
+      "qntFileSha256": "ba22087a57edfd67d90d502db97b956297a5c8d58ff0b6e27542c32598ddb6e7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "299839bf0f573c3d74b237923fa50c74b5d0d2b46430cda48ca8a3e1be5798b7",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "3d38b4d82661903b856bb077720946f635924d9e052b480437476fb262049b6f",
+        "observedProjectionSha256": "3d38b4d82661903b856bb077720946f635924d9e052b480437476fb262049b6f",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doRejectIllegalReplacementTarget"
+    },
+    {
+      "branchAction": "doExcludeAreaEffectFromInterdiction",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "observedActionTaken": "doExcludeAreaEffectFromInterdiction",
+      "qntFileSha256": "ba22087a57edfd67d90d502db97b956297a5c8d58ff0b6e27542c32598ddb6e7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "299839bf0f573c3d74b237923fa50c74b5d0d2b46430cda48ca8a3e1be5798b7",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "1c9af622ed9fa145abf5b8460e271b25152a21f3feaa5968b4ab173d0ede648f",
+        "observedProjectionSha256": "1c9af622ed9fa145abf5b8460e271b25152a21f3feaa5968b4ab173d0ede648f",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doExcludeAreaEffectFromInterdiction"
+    },
+    {
+      "branchAction": "doEndWardOnWardedAttackRoll",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "observedActionTaken": "doEndWardOnWardedAttackRoll",
+      "qntFileSha256": "ba22087a57edfd67d90d502db97b956297a5c8d58ff0b6e27542c32598ddb6e7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "299839bf0f573c3d74b237923fa50c74b5d0d2b46430cda48ca8a3e1be5798b7",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "0e50a8f0349b6fca83bdb711737ac0f2ebc9943fd950086b77a0e174b348b130",
+        "observedProjectionSha256": "0e50a8f0349b6fca83bdb711737ac0f2ebc9943fd950086b77a0e174b348b130",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doEndWardOnWardedAttackRoll"
+    },
+    {
+      "branchAction": "doEndWardOnWardedSpellCast",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "observedActionTaken": "doEndWardOnWardedSpellCast",
+      "qntFileSha256": "ba22087a57edfd67d90d502db97b956297a5c8d58ff0b6e27542c32598ddb6e7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "299839bf0f573c3d74b237923fa50c74b5d0d2b46430cda48ca8a3e1be5798b7",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "dc7961a49dc7c00bd4873c8f6255c6a1a139b330a5e1b7aa6f57b922eac79d3e",
+        "observedProjectionSha256": "dc7961a49dc7c00bd4873c8f6255c6a1a139b330a5e1b7aa6f57b922eac79d3e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doEndWardOnWardedSpellCast"
+    },
+    {
+      "branchAction": "doEndWardOnWardedDamageDealt",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
+      "observedActionTaken": "doEndWardOnWardedDamageDealt",
+      "qntFileSha256": "ba22087a57edfd67d90d502db97b956297a5c8d58ff0b6e27542c32598ddb6e7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorSha256": "299839bf0f573c3d74b237923fa50c74b5d0d2b46430cda48ca8a3e1be5798b7",
+      "routeEvidenceBasis": "copied route connector replay observed through BattleEntrypointTrace via start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleSubjectKind generic FU01D route subject",
+          "BattleReducerRouteSubjectFamily generic FU01D route subject",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "50e25cf3f43cd04e335a348e9b8b1bd39e0e918d22e96dc5f0573e16c52fa352",
+        "observedProjectionSha256": "50e25cf3f43cd04e335a348e9b8b1bd39e0e918d22e96dc5f0573e16c52fa352",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doEndWardOnWardedDamageDealt"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

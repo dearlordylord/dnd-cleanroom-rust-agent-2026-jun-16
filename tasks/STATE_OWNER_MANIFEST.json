@@ -1,60 +1,94 @@
 {
   "durableFields": [
     {
+      "apiPath": "BattleState.protection_charm_ward.offered_subject",
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.ability_check_choice_search",
+      "domainInvariant": "At most one generic protection/charm/ward route subject is offered at a time; resolved creature-protection and sanctuary witnesses are derived at adapter boundaries from fill facts and canonical battle fields.",
+      "fieldPath": "BattleState.protection_charm_ward.offered_subject",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
     {
+      "apiPath": "BattleSetup.protection_charm_ward",
       "derivability": {
         "tag": "canonical-source"
       },
+      "domainInvariant": "Setup can admit one generic target-admission, active-effect, condition-lifecycle, saving-throw-roll-mode, or target-interdiction subject without carrying resolved projection state or authored spell identity dispatch.",
+      "fieldPath": "BattleSetup.protection_charm_ward",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    },
+    {
+      "apiPath": "BattleState.action_available",
+      "derivability": {
+        "tag": "canonical-source"
+      },
+      "domainInvariant": "Action availability is the battle-state source of whether the actor can still spend an action after resolving diagnostic protection/charm/ward rows.",
       "fieldPath": "BattleState.action_available",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
     {
+      "apiPath": "BattleState.fighter.spell_slots.first_level_expended",
       "derivability": {
         "tag": "canonical-source"
       },
-      "fieldPath": "BattleState.concentration",
+      "domainInvariant": "First-level slot expenditure is the battle-state source of the spell resource consumed by diagnostic protection/charm rows.",
+      "fieldPath": "BattleState.fighter.spell_slots.first_level_expended",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "battle-state"
     },
     {
+      "apiPath": "BattleState.fighter.hp",
       "derivability": {
-        "boundary": "public reducer resolution result",
-        "sourceField": "BattleResolutionResult",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
-      "fieldPath": "BattleResolutionResult.outcome",
+      "domainInvariant": "Fighter hit points are the battle-state source observed by ward teardown rows that deal damage.",
+      "fieldPath": "BattleState.fighter.hp",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-state"
+    }
+  ],
+  "nonDurableBoundaryApiSurface": [
+    {
+      "apiPath": "BattleProtectionCharmWardProjection",
+      "boundary": "adapter-facing transient witness derived from branch fill and canonical BattleState action, spell-slot, and hit-point fields",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "executable-boundary-projection"
     },
     {
-      "derivability": {
-        "boundary": "production reducer route observer",
-        "sourceField": "BattleEntrypointTrace.route_events",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "ReducerRouteEvent.AbilityCheckSearch",
+      "apiPath": "BattleEntrypointTrace.route_events",
+      "boundary": "production reducer route observer trace for accepted FU01D protection/charm/ward route replay derived from copied route connectors",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
       "owner": "executable-boundary-projection"
     },
     {
-      "derivability": {
-        "boundary": "production reducer route observer",
-        "sourceField": "BattleEntrypointTrace.route_events",
-        "tag": "stored-executable-boundary-projection"
-      },
-      "fieldPath": "ReducerRouteEvent.RollModifierEffect",
+      "apiPath": "ReducerRouteEvent.qRoute",
+      "boundary": "target replay route-event-list comparator projection",
+      "introducedIn": "src/qnt_adapters/battle_runtime_reducer_route.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
+      "boundary": "non-durable target replay artifact recording accepted FU01D route-event projections against copied route connectors",
+      "introducedIn": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind generic FU01D route subject",
+      "boundary": "checked target replay field proving FU01D branches route through generic reducer subject kinds rather than authored identity",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleReducerRouteSubjectFamily generic FU01D route subject",
+      "boundary": "checked target replay field proving FU01D qRoute projections use copied generic subject families",
+      "introducedIn": "src/qnt_adapters/battle_runtime_reducer_route.rs",
       "owner": "executable-boundary-projection"
     }
   ],
   "schemaVersion": 1,
-  "taskId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES"
+  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
 }

@@ -1214,6 +1214,32 @@ pub enum BattleSubjectKind {
     ObjectTargetSpellAttackDamage,
     ObjectTargetSpellAttackLightEffect,
     ObjectTargetSpellAttackStaleReplay,
+    CreatureTypeTargetAdmission,
+    ProtectionCharmTargetChoice,
+    ProtectionCharmTargetChoiceThenSave,
+    ProtectionCharmSavingThrowOutcome,
+    ProtectionCharmConditionLifecycle,
+    ProtectionCharmActiveEffect,
+    ProtectionCharmConcentration,
+    ProtectionCharmAttackRollMode,
+    ProtectionCharmCreatureState,
+    ProtectionCharmSavingThrowRollMode,
+    CharmSourceDamageBreakHitPoint,
+    CharmSourceDamageBreakConditionLifecycle,
+    CharmSourceDamageBreakActiveEffect,
+    WardedTargetCreationTargetChoice,
+    WardedTargetCreationActiveEffect,
+    WardedInterdictionOutcome,
+    WardedInterdictionOutcomeThenTargetChoice,
+    WardedInterdictionActionEconomy,
+    WardedInterdictionHoleFrontier,
+    WardedInterdictionReplacementTarget,
+    WardedInterdictionReplacementRejected,
+    WardedAreaEffectExclusion,
+    WardedAttackRollEarlyEnd,
+    WardedSpellCastEarlyEnd,
+    WardedDamageEarlyEnd,
+    WardedActiveEffectCleanup,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1329,6 +1355,7 @@ pub enum BattleGenericRouteFill {
     InterruptDecision,
     RolledDice,
     SavingThrowOutcome,
+    SanctuaryInterdictionOutcome,
     SkillChoice,
     TargetAbilityChoices,
     TargetChoice,
@@ -1934,6 +1961,7 @@ pub enum BattleHoleKind {
     SpellTargetList,
     ConditionChoice,
     SavingThrowOutcome,
+    SanctuaryInterdictionOutcome,
     HitPointHealingDistribution,
     DeathSavingThrow,
     ConcentrationSavingThrow,
@@ -2377,6 +2405,7 @@ pub enum BattleReducerRouteFillKind {
     Movement,
     RolledDice,
     SavingThrowOutcome,
+    SanctuaryInterdictionOutcome,
     SkillChoice,
     SpellTargetAllocation,
     SpellTargetList,
@@ -2403,6 +2432,7 @@ pub enum BattleReducerRouteHoleKind {
     Movement,
     RolledDice,
     SavingThrowOutcome,
+    SanctuaryInterdictionOutcome,
     SkillChoice,
     SpellTargetAllocation,
     SpellTargetList,
@@ -2467,6 +2497,10 @@ pub enum BattleReducerRouteSubjectFamily {
     CompanionTouchDelivery,
     CompanionReactionAttack,
     ObjectTargetSpellAttack,
+    CreatureTypeTargetAdmission,
+    ProtectionCharmActiveEffect,
+    CharmSourceDamageBreak,
+    WardedTargetInterdiction,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -3619,6 +3653,9 @@ fn battle_reducer_route_hole(hole: BattleHoleKind) -> BattleReducerRouteHoleKind
         BattleHoleKind::Movement => BattleReducerRouteHoleKind::Movement,
         BattleHoleKind::RolledDice => BattleReducerRouteHoleKind::RolledDice,
         BattleHoleKind::SavingThrowOutcome => BattleReducerRouteHoleKind::SavingThrowOutcome,
+        BattleHoleKind::SanctuaryInterdictionOutcome => {
+            BattleReducerRouteHoleKind::SanctuaryInterdictionOutcome
+        }
         BattleHoleKind::SkillChoice => BattleReducerRouteHoleKind::SkillChoice,
         BattleHoleKind::SpellTargetAllocation => BattleReducerRouteHoleKind::SpellTargetAllocation,
         BattleHoleKind::SpellTargetList => BattleReducerRouteHoleKind::SpellTargetList,
@@ -7288,14 +7325,40 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::ObjectTargetSpellAttackDamage
             | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
             | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay
+            | BattleSubjectKind::CreatureTypeTargetAdmission
+            | BattleSubjectKind::ProtectionCharmTargetChoice
+            | BattleSubjectKind::ProtectionCharmTargetChoiceThenSave
+            | BattleSubjectKind::ProtectionCharmSavingThrowOutcome
+            | BattleSubjectKind::ProtectionCharmConditionLifecycle
+            | BattleSubjectKind::ProtectionCharmActiveEffect
+            | BattleSubjectKind::ProtectionCharmConcentration
+            | BattleSubjectKind::ProtectionCharmAttackRollMode
+            | BattleSubjectKind::ProtectionCharmCreatureState
+            | BattleSubjectKind::ProtectionCharmSavingThrowRollMode
+            | BattleSubjectKind::CharmSourceDamageBreakHitPoint
+            | BattleSubjectKind::CharmSourceDamageBreakConditionLifecycle
+            | BattleSubjectKind::CharmSourceDamageBreakActiveEffect
+            | BattleSubjectKind::WardedTargetCreationTargetChoice
+            | BattleSubjectKind::WardedTargetCreationActiveEffect
+            | BattleSubjectKind::WardedInterdictionOutcome
+            | BattleSubjectKind::WardedInterdictionOutcomeThenTargetChoice
+            | BattleSubjectKind::WardedInterdictionActionEconomy
+            | BattleSubjectKind::WardedInterdictionHoleFrontier
+            | BattleSubjectKind::WardedInterdictionReplacementTarget
+            | BattleSubjectKind::WardedInterdictionReplacementRejected
+            | BattleSubjectKind::WardedAreaEffectExclusion
+            | BattleSubjectKind::WardedAttackRollEarlyEnd
+            | BattleSubjectKind::WardedSpellCastEarlyEnd
+            | BattleSubjectKind::WardedDamageEarlyEnd
+            | BattleSubjectKind::WardedActiveEffectCleanup
     )
 }
 
 fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteHoleKind::{
         AbilityCheck, AbilityChoice, AttackRoll, ConcentrationSavingThrow, DamageTypeChoice,
-        InterruptDecision, RolledDice, SavingThrowOutcome, SkillChoice, TargetAbilityChoices,
-        TargetChoice,
+        InterruptDecision, RolledDice, SanctuaryInterdictionOutcome, SavingThrowOutcome,
+        SkillChoice, TargetAbilityChoices, TargetChoice,
     };
     use BattleReducerRouteOwnerGroup::{
         AbilityCheckRollMode, ActiveEffect, AttackRoll as AttackRollOwner, Concentration,
@@ -7306,9 +7369,10 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     };
     use BattleReducerRouteSubjectFamily::{
         AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
-        CompanionTouchDelivery, HeldWeaponActiveEffect, InterruptStackResume,
-        ObjectTargetSpellAttack, ReactionSpell, SaveGatedSpell, ScalarBuffEffect, SpellAttack,
-        SpellHostedWeaponAttack, WeaponAttack, WeaponDamageRider,
+        CompanionTouchDelivery, CreatureTypeTargetAdmission, HeldWeaponActiveEffect,
+        InterruptStackResume, ObjectTargetSpellAttack, ProtectionCharmActiveEffect, ReactionSpell,
+        SaveGatedSpell, ScalarBuffEffect, SpellAttack, SpellHostedWeaponAttack,
+        WardedTargetInterdiction, WeaponAttack, WeaponDamageRider,
     };
 
     match kind {
@@ -7870,6 +7934,162 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: Vec::new(),
             discover_owner: HoleFrontier,
             resolve_owner: HoleFrontier,
+        },
+        BattleSubjectKind::CreatureTypeTargetAdmission => GenericRouteShape {
+            subject: CreatureTypeTargetAdmission,
+            holes: vec![TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::ProtectionCharmTargetChoice => GenericRouteShape {
+            subject: ProtectionCharmActiveEffect,
+            holes: vec![TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::ProtectionCharmTargetChoiceThenSave => GenericRouteShape {
+            subject: ProtectionCharmActiveEffect,
+            holes: vec![TargetChoice, SavingThrowOutcome],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::ProtectionCharmSavingThrowOutcome => GenericRouteShape {
+            subject: ProtectionCharmActiveEffect,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: BattleReducerRouteOwnerGroup::SavingThrowOutcome,
+        },
+        BattleSubjectKind::ProtectionCharmConditionLifecycle => GenericRouteShape {
+            subject: ProtectionCharmActiveEffect,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ConditionLifecycle,
+        },
+        BattleSubjectKind::ProtectionCharmActiveEffect => GenericRouteShape {
+            subject: ProtectionCharmActiveEffect,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::ProtectionCharmConcentration => GenericRouteShape {
+            subject: ProtectionCharmActiveEffect,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: Concentration,
+        },
+        BattleSubjectKind::ProtectionCharmAttackRollMode => GenericRouteShape {
+            subject: ProtectionCharmActiveEffect,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: AttackRollOwner,
+        },
+        BattleSubjectKind::ProtectionCharmCreatureState => GenericRouteShape {
+            subject: ProtectionCharmActiveEffect,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: BattleReducerRouteOwnerGroup::CreatureState,
+        },
+        BattleSubjectKind::ProtectionCharmSavingThrowRollMode => GenericRouteShape {
+            subject: ProtectionCharmActiveEffect,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        },
+        BattleSubjectKind::CharmSourceDamageBreakHitPoint => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::CharmSourceDamageBreak,
+            holes: Vec::new(),
+            discover_owner: HitPoint,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::CharmSourceDamageBreakConditionLifecycle => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::CharmSourceDamageBreak,
+            holes: Vec::new(),
+            discover_owner: HitPoint,
+            resolve_owner: ConditionLifecycle,
+        },
+        BattleSubjectKind::CharmSourceDamageBreakActiveEffect => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::CharmSourceDamageBreak,
+            holes: Vec::new(),
+            discover_owner: HitPoint,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::WardedTargetCreationTargetChoice => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: vec![TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::WardedTargetCreationActiveEffect => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::WardedInterdictionOutcome => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: vec![SanctuaryInterdictionOutcome],
+            discover_owner: ActiveEffect,
+            resolve_owner: BattleReducerRouteOwnerGroup::SavingThrowOutcome,
+        },
+        BattleSubjectKind::WardedInterdictionOutcomeThenTargetChoice => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: vec![SanctuaryInterdictionOutcome, TargetChoice],
+            discover_owner: ActiveEffect,
+            resolve_owner: BattleReducerRouteOwnerGroup::SavingThrowOutcome,
+        },
+        BattleSubjectKind::WardedInterdictionActionEconomy => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: BattleReducerRouteOwnerGroup::ActionEconomy,
+        },
+        BattleSubjectKind::WardedInterdictionHoleFrontier => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: HoleFrontier,
+        },
+        BattleSubjectKind::WardedInterdictionReplacementTarget => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: vec![SanctuaryInterdictionOutcome, TargetChoice],
+            discover_owner: ActiveEffect,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::WardedInterdictionReplacementRejected => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: vec![TargetChoice],
+            discover_owner: ActiveEffect,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::WardedAreaEffectExclusion => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: Vec::new(),
+            discover_owner: BattleReducerRouteOwnerGroup::AreaShape,
+            resolve_owner: BattleReducerRouteOwnerGroup::AreaShape,
+        },
+        BattleSubjectKind::WardedAttackRollEarlyEnd => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: AttackRollOwner,
+        },
+        BattleSubjectKind::WardedSpellCastEarlyEnd => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: SpellSlotAndActionEconomy,
+        },
+        BattleSubjectKind::WardedDamageEarlyEnd => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::WardedActiveEffectCleanup => GenericRouteShape {
+            subject: WardedTargetInterdiction,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
         },
         BattleSubjectKind::EndTurn
         | BattleSubjectKind::AbilityCheckSearch
@@ -8525,6 +8745,9 @@ const fn generic_route_fill_kind(fill: BattleGenericRouteFill) -> BattleReducerR
         BattleGenericRouteFill::RolledDice => BattleReducerRouteFillKind::RolledDice,
         BattleGenericRouteFill::SavingThrowOutcome => {
             BattleReducerRouteFillKind::SavingThrowOutcome
+        }
+        BattleGenericRouteFill::SanctuaryInterdictionOutcome => {
+            BattleReducerRouteFillKind::SanctuaryInterdictionOutcome
         }
         BattleGenericRouteFill::SkillChoice => BattleReducerRouteFillKind::SkillChoice,
         BattleGenericRouteFill::TargetAbilityChoices => {
@@ -9236,6 +9459,32 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::ObjectTargetSpellAttackDamage
             | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
             | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay
+            | BattleSubjectKind::CreatureTypeTargetAdmission
+            | BattleSubjectKind::ProtectionCharmTargetChoice
+            | BattleSubjectKind::ProtectionCharmTargetChoiceThenSave
+            | BattleSubjectKind::ProtectionCharmSavingThrowOutcome
+            | BattleSubjectKind::ProtectionCharmConditionLifecycle
+            | BattleSubjectKind::ProtectionCharmActiveEffect
+            | BattleSubjectKind::ProtectionCharmConcentration
+            | BattleSubjectKind::ProtectionCharmAttackRollMode
+            | BattleSubjectKind::ProtectionCharmCreatureState
+            | BattleSubjectKind::ProtectionCharmSavingThrowRollMode
+            | BattleSubjectKind::CharmSourceDamageBreakHitPoint
+            | BattleSubjectKind::CharmSourceDamageBreakConditionLifecycle
+            | BattleSubjectKind::CharmSourceDamageBreakActiveEffect
+            | BattleSubjectKind::WardedTargetCreationTargetChoice
+            | BattleSubjectKind::WardedTargetCreationActiveEffect
+            | BattleSubjectKind::WardedInterdictionOutcome
+            | BattleSubjectKind::WardedInterdictionOutcomeThenTargetChoice
+            | BattleSubjectKind::WardedInterdictionActionEconomy
+            | BattleSubjectKind::WardedInterdictionHoleFrontier
+            | BattleSubjectKind::WardedInterdictionReplacementTarget
+            | BattleSubjectKind::WardedInterdictionReplacementRejected
+            | BattleSubjectKind::WardedAreaEffectExclusion
+            | BattleSubjectKind::WardedAttackRollEarlyEnd
+            | BattleSubjectKind::WardedSpellCastEarlyEnd
+            | BattleSubjectKind::WardedDamageEarlyEnd
+            | BattleSubjectKind::WardedActiveEffectCleanup
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,
@@ -9450,6 +9699,14 @@ fn generic_route_fill_matches_subject(
         BattleSubjectKind::SpellHostedWeaponAttackTargetChoice => {
             fill == BattleGenericRouteFill::TargetChoice
         }
+        BattleSubjectKind::CreatureTypeTargetAdmission
+        | BattleSubjectKind::ProtectionCharmTargetChoice
+        | BattleSubjectKind::ProtectionCharmTargetChoiceThenSave
+        | BattleSubjectKind::WardedTargetCreationTargetChoice
+        | BattleSubjectKind::WardedInterdictionReplacementTarget
+        | BattleSubjectKind::WardedInterdictionReplacementRejected => {
+            fill == BattleGenericRouteFill::TargetChoice
+        }
         BattleSubjectKind::RollModifierEffectSkillChoice => {
             fill == BattleGenericRouteFill::SkillChoice
         }
@@ -9462,8 +9719,13 @@ fn generic_route_fill_matches_subject(
         BattleSubjectKind::RollModifierEffectSavingThrow
         | BattleSubjectKind::RepeatSaveConditionEffectInitialSave
         | BattleSubjectKind::RepeatSaveConditionEffectRepeatSave
-        | BattleSubjectKind::TurnBoundaryEffectLifecycleTargetStartSave => {
+        | BattleSubjectKind::TurnBoundaryEffectLifecycleTargetStartSave
+        | BattleSubjectKind::ProtectionCharmSavingThrowOutcome => {
             fill == BattleGenericRouteFill::SavingThrowOutcome
+        }
+        BattleSubjectKind::WardedInterdictionOutcome
+        | BattleSubjectKind::WardedInterdictionOutcomeThenTargetChoice => {
+            fill == BattleGenericRouteFill::SanctuaryInterdictionOutcome
         }
         BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
         | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
@@ -9535,7 +9797,24 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::ObjectTargetSpellAttackBoundary
         | BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection
         | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
-        | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay => {
+        | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay
+        | BattleSubjectKind::ProtectionCharmConditionLifecycle
+        | BattleSubjectKind::ProtectionCharmActiveEffect
+        | BattleSubjectKind::ProtectionCharmConcentration
+        | BattleSubjectKind::ProtectionCharmAttackRollMode
+        | BattleSubjectKind::ProtectionCharmCreatureState
+        | BattleSubjectKind::ProtectionCharmSavingThrowRollMode
+        | BattleSubjectKind::CharmSourceDamageBreakHitPoint
+        | BattleSubjectKind::CharmSourceDamageBreakConditionLifecycle
+        | BattleSubjectKind::CharmSourceDamageBreakActiveEffect
+        | BattleSubjectKind::WardedTargetCreationActiveEffect
+        | BattleSubjectKind::WardedInterdictionActionEconomy
+        | BattleSubjectKind::WardedInterdictionHoleFrontier
+        | BattleSubjectKind::WardedAreaEffectExclusion
+        | BattleSubjectKind::WardedAttackRollEarlyEnd
+        | BattleSubjectKind::WardedSpellCastEarlyEnd
+        | BattleSubjectKind::WardedDamageEarlyEnd
+        | BattleSubjectKind::WardedActiveEffectCleanup => {
             fill == BattleGenericRouteFill::WithoutFill
         }
         BattleSubjectKind::CompanionTouchDelivery => matches!(
@@ -9656,6 +9935,18 @@ fn generic_route_next_holes(
         (BattleSubjectKind::HeldWeaponActiveEffectTargetChoice, _) => {
             vec![BattleHoleKind::AttackRoll]
         }
+        (
+            BattleSubjectKind::ProtectionCharmTargetChoiceThenSave,
+            BattleGenericRouteFill::TargetChoice,
+        ) => vec![BattleHoleKind::SavingThrowOutcome],
+        (
+            BattleSubjectKind::WardedInterdictionOutcomeThenTargetChoice,
+            BattleGenericRouteFill::SanctuaryInterdictionOutcome,
+        ) => vec![BattleHoleKind::TargetChoice],
+        (
+            BattleSubjectKind::WardedInterdictionReplacementRejected,
+            BattleGenericRouteFill::TargetChoice,
+        ) => vec![BattleHoleKind::TargetChoice],
         (
             BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
             | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll,

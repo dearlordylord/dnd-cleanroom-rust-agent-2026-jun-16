@@ -599,6 +599,7 @@ fn weapon_holes(holes: Vec<BattleHoleKind>) -> Vec<ReducerSpineHole> {
             | BattleHoleKind::DamageTypeChoice
             | BattleHoleKind::ConditionChoice
             | BattleHoleKind::SavingThrowOutcome
+            | BattleHoleKind::SanctuaryInterdictionOutcome
             | BattleHoleKind::HitPointHealingDistribution
             | BattleHoleKind::DeathSavingThrow
             | BattleHoleKind::ConcentrationSavingThrow

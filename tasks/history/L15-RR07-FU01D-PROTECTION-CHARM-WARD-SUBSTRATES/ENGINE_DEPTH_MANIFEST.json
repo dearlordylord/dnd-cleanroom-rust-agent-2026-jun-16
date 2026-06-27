@@ -2,7 +2,7 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "adapterScope": "Diagnostic creature-type target admission, charm condition lifecycle, protection active-effect, and protection saving-throw roll-mode replay through production BattleState generic substrate subjects. Not accepted coverage until copied-QNT generic connector evidence exists.",
+      "adapterScope": "Creature-type target admission, charm condition lifecycle, protection active-effect, attack-roll mode, and protection saving-throw roll-mode replay through copied generic route connector subjects. Accepted coverage is observed through BattleEntrypointTrace route events, not local self-comparison helpers.",
       "path": "src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doDiscoverAnimalFriendshipBeastTargetAdmission",
@@ -28,10 +28,12 @@
         "comparator",
         "harnessTestPath"
       ],
-      "targetReplayEvidence": []
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json"
+      ]
     },
     {
-      "adapterScope": "Diagnostic ward creation, target interdiction, retargeting, bypass, and teardown replay through production BattleState generic substrate subjects. Not accepted coverage until copied-QNT generic connector evidence exists.",
+      "adapterScope": "Ward creation, target interdiction, retargeting, bypass, and teardown replay through copied generic warded-target route connector subjects. Accepted coverage is observed through BattleEntrypointTrace route events, not local self-comparison helpers.",
       "path": "src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doCastSanctuaryWardCreation",
@@ -59,13 +61,15 @@
         "comparator",
         "harnessTestPath"
       ],
-      "targetReplayEvidence": []
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json"
+      ]
     }
   ],
   "expectedNextReuse": [
     {
-      "api": "BattleState.protection_charm_ward generic substrate subjects",
-      "driver": "future generic protection/charm/ward copied-QNT connector plus selected-identity or substrate drivers",
+      "api": "BattleState generic route subjects and BattleEntrypointTrace.route_events",
+      "driver": "future copied QNT route connectors requiring generic subject, fill, owner, and hole replay through reducer entrypoints",
       "module": "src/rules/battle_reducer_spine.rs"
     }
   ],
@@ -79,7 +83,7 @@
         "BattleEntrypointTrace"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
-      "reason": "Diagnostic generic target-admission, active-effect, condition-lifecycle, saving-throw-roll-mode, and target-interdiction reducer routes used by FU01D witnesses; not accepted coverage without copied-QNT connector substrate.",
+      "reason": "Generic reducer-route subject, fill, owner, and hole support used by the copied FU01D route connectors for target admission, active effects, condition lifecycle, saving-throw roll mode, attack roll mode, target interdiction, and ward cleanup.",
       "role": "domain-engine"
     },
     {

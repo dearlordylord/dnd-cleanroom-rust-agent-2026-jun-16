@@ -127,7 +127,7 @@
         "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
         "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
       ],
-      "notes": "CP4 complete. FU01D merged as honest zero-accepted blocker evidence pending a copied executable generic protection/charm/ward connector substrate; all other CP4 split lanes merged and verified.",
+      "notes": "CP4 complete. FU01D was refreshed after source commit 53642cf0b1bc98f4426b6081fe37c98a960939fc added copied executable protection/charm/ward route connectors; the selected FU01D rows are now accepted by reducer-entrypoint route replay evidence.",
       "splitLaneIds": [
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
@@ -219,7 +219,7 @@
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "merged-blocked-zero-accepted",
+    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "merged-verified-after-source-refresh",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
@@ -589,7 +589,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d",
       "branch": "ralph/l15-rr07-fu01d-protection-charm-ward",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "merged-blocked-zero-accepted",
+      "status": "merged-verified-after-source-refresh",
       "workerAgent": "019f07d6-63cd-7821-8803-074f626ac3e5",
       "workerName": "Pasteur",
       "workerCommit": "879b44d3d7dec602df492f4570429b9fc92cb6f0",
@@ -696,7 +696,13 @@
       "integrationVerificationResult": "passed; cargo test 210 passed",
       "acceptedDriversAdded": 0,
       "acceptedObligationsAdded": 0,
-      "blockedObligations": 16
+      "blockedObligations": 16,
+      "refreshSourceCommit": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
+      "refreshSummary": [
+        "Copied route connectors are now present for creature-type protection/charm and sanctuary selected-identity drivers.",
+        "All 16 FU01D selected rows replay through generic reducer route subject, fill, owner, and hole shapes.",
+        "No selected FU01D rows remain blocked after the refresh."
+      ]
     },
     {
       "laneId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",

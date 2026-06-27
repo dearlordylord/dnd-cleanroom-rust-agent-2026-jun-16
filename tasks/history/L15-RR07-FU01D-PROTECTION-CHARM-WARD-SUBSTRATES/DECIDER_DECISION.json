@@ -1,5 +1,22 @@
 {
-  "acceptedRows": [],
+  "acceptedRows": [
+    "doDiscoverAnimalFriendshipBeastTargetAdmission",
+    "doResolveAnimalFriendshipFailedSaveCharmed",
+    "doResolveAnimalFriendshipCasterDamageBreak",
+    "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
+    "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
+    "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
+    "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
+    "doCastSanctuaryWardCreation",
+    "doInterdictDirectAttackFailedSaveLoss",
+    "doInterdictDirectSpellSuccessfulSavePassThrough",
+    "doRetargetDirectAttackToLegalReplacement",
+    "doRejectIllegalReplacementTarget",
+    "doExcludeAreaEffectFromInterdiction",
+    "doEndWardOnWardedAttackRoll",
+    "doEndWardOnWardedSpellCast",
+    "doEndWardOnWardedDamageDealt"
+  ],
   "decision": "accepted",
   "deterministicGates": [
     {
@@ -35,90 +52,9 @@
       "status": "pass"
     }
   ],
-  "rationale": "No FU01D protection/charm/ward rows are accepted as covered. Rust reducer/adapter replay remains useful diagnostic substrate, but copied cleanroom inputs contain only route vocabulary plus selected drivers; they do not contain an executable generic protection/charm/ward QNT connector substrate. Every row is explicitly target-blocked until that copied-QNT/source connector exists.",
+  "rationale": "Accepted all selected FU01D rows after the cleanroom-input refresh added copied executable route connectors. Replay is observed through reducer entrypoints and routes only by generic subject, fill, owner, and hole shape from copied QNT and RAW/domain inputs; no production authored-identity dispatch was added.",
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "targetBlockedRows": [
-    {
-      "action": "doDiscoverAnimalFriendshipBeastTargetAdmission",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doResolveAnimalFriendshipFailedSaveCharmed",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doResolveAnimalFriendshipCasterDamageBreak",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doCastSanctuaryWardCreation",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doInterdictDirectAttackFailedSaveLoss",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doInterdictDirectSpellSuccessfulSavePassThrough",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doRetargetDirectAttackToLegalReplacement",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doRejectIllegalReplacementTarget",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doExcludeAreaEffectFromInterdiction",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doEndWardOnWardedAttackRoll",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doEndWardOnWardedSpellCast",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    },
-    {
-      "action": "doEndWardOnWardedDamageDealt",
-      "blockerId": "FU01D-BLOCKED-GENERIC-PROTECTION-CHARM-WARD-CONNECTOR",
-      "reason": "copied source-QNT route inventory still treats generic protection/charm/ward route rows as source-QNT corpus blockers; the cleanroom inputs provide route vocabulary and Rust diagnostic replay, but no executable copied-QNT generic connector substrate"
-    }
-  ],
+  "targetBlockedRows": [],
   "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
 }

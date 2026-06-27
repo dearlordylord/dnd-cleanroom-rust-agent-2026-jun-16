@@ -3463,9 +3463,101 @@
         }
       ],
       "taskId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES"
+    },
+    {
+      "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
+      "manifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "sourceReducerRouteInventorySha256": "5cf6958f276e0f7d0632b1872cc419d0b6cdef2a3b04c8bc4e6fc12b2663231f",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt"
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/START_GATE.json",
+          "sha256": "e57b907d8b3dea5a32aa986d8bc08ce16e04822bc619c101462fde4c7484c458"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "07afb6fe9c1eaf77b1600f13aae4f97abd2b8a4ed53fd3a13c459c8f9f0f8017"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "4b1d35033a601feeb9ca465fd9d9801bcbbf50155f25ed39cf90091393a9b454"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "75d6f8237dfc1b5d2d426db4d12f1d59bca32461156ff5ff5df22a669e6d66b9"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "83a3e69ec3f6cc39cd19a8026b945949b29994b8acf850a76d52281316f03e1c"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json",
+          "sha256": "3116be594a513a637c643abed585ea8b9ae0693f668d7ba6d3df5ba736b16c63",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doDiscoverAnimalFriendshipBeastTargetAdmission#step:doDiscoverAnimalFriendshipBeastTargetAdmission",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveAnimalFriendshipFailedSaveCharmed#step:doResolveAnimalFriendshipFailedSaveCharmed",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveAnimalFriendshipCasterDamageBreak#step:doResolveAnimalFriendshipCasterDamageBreak",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection#step:doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage#step:doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doPreventProtectionFromEvilAndGoodScopedCharmAndPossession#step:doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage#step:doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doCastSanctuaryWardCreation#step:doCastSanctuaryWardCreation",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doInterdictDirectAttackFailedSaveLoss#step:doInterdictDirectAttackFailedSaveLoss",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doInterdictDirectSpellSuccessfulSavePassThrough#step:doInterdictDirectSpellSuccessfulSavePassThrough",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doRetargetDirectAttackToLegalReplacement#step:doRetargetDirectAttackToLegalReplacement",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doRejectIllegalReplacementTarget#step:doRejectIllegalReplacementTarget",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doExcludeAreaEffectFromInterdiction#step:doExcludeAreaEffectFromInterdiction",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doEndWardOnWardedAttackRoll#step:doEndWardOnWardedAttackRoll",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doEndWardOnWardedSpellCast#step:doEndWardOnWardedSpellCast",
+            "tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES route action=doEndWardOnWardedDamageDealt#step:doEndWardOnWardedDamageDealt"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "node focused FU01D validateTargetReplayEvidence check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test route_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test creature_type_protection_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test sanctuary_selected_identity_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD",
+          "status": "pass"
+        }
+      ]
     }
   ],
-  "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "manifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
   "schemaVersion": 1,
   "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32"
 }

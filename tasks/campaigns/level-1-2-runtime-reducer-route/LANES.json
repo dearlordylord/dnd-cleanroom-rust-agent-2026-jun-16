@@ -469,11 +469,11 @@
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "merged-blocked-zero-accepted",
+      "status": "merged-verified-after-source-refresh",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
-        "source-qnt-corpus-blocker"
+        "reducer-routed"
       ],
       "driverCount": 2,
       "branchObligations": 16,
@@ -498,8 +498,8 @@
         "src/tests/mod.rs",
         "tasks/**"
       ],
-      "acceptanceSummary": "Protection, charm, and ward behavior is admitted by generic route facts, not selected spell identity.",
-      "blockerHandling": "If generic ward/protection route surface cannot be defined from copied QNT and RAW facts, leave affected branches blocked with explicit source-QNT/corpus evidence."
+      "acceptanceSummary": "Accepted all 16 protection, charm, and ward rows through copied generic route connectors and reducer-entrypoint route replay; selected spell identity remains outside production dispatch.",
+      "blockerHandling": "No FU01D selected rows remain blocked after the copied route connector refresh; future rows still require copied QNT/RAW-derived generic route subjects before acceptance."
     },
     {
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",

@@ -766,6 +766,7 @@ fn holes_from_spine(holes: &[BattleHoleKind]) -> Vec<WeaponAttackSkeletonHole> {
             | BattleHoleKind::DamageTypeChoice
             | BattleHoleKind::ConditionChoice
             | BattleHoleKind::SavingThrowOutcome
+            | BattleHoleKind::SanctuaryInterdictionOutcome
             | BattleHoleKind::HitPointHealingDistribution
             | BattleHoleKind::DeathSavingThrow
             | BattleHoleKind::ConcentrationSavingThrow

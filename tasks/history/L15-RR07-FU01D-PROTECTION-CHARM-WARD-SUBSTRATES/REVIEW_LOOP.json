@@ -6,12 +6,13 @@
       "severity": "blocking",
       "status": "fixed",
       "reasonableness": "reasonable",
-      "finding": "FU01D claimed accepted coverage for creature-type protection/charm and sanctuary rows even though the copied reducer-route inventory still marks the corresponding route rows as source-QNT corpus blockers and no executable copied-QNT generic connector substrate is present.",
-      "resolution": "Demoted every FU01D row to target-blocker evidence and moved the decider row list from acceptedRows to targetBlockedRows while preserving the Rust replay code as diagnostic substrate only."
+      "finding": "The earlier FU01D attempt could not count rows because copied cleanroom inputs did not include executable generic protection/charm/ward route connectors.",
+      "resolution": "Superseded by source refresh 53642cf0b1bc98f4426b6081fe37c98a960939fc, which copied the focused route connectors. The refreshed artifacts now count only rows with reducer-entrypoint route replay evidence against those connectors."
     }
   ],
   "rounds": [
     {
+      "round": 1,
       "passes": [
         {
           "checklist": "raw-qnt-traceability",
@@ -54,10 +55,10 @@
           "status": "pass"
         }
       ],
-      "round": 1,
-      "summary": "Reviewer loop found the report-honesty blocker: Rust qRoute replay exists, but the copied cleanroom QNT inputs do not include an executable generic protection/charm/ward connector substrate, so the rows cannot be counted as accepted coverage."
+      "summary": "Reviewed refreshed copied QNT route connectors, selected drivers, RAW/domain language for Animal Friendship, Protection from Evil and Good, Sanctuary, Charmed, concentration, target, and area-effect terminology. The implemented replay uses generic subject, fill, owner, and hole shape; no production authored-identity dispatch is present."
     },
     {
+      "round": 2,
       "passes": [
         {
           "checklist": "raw-qnt-traceability",
@@ -100,8 +101,7 @@
           "status": "pass"
         }
       ],
-      "round": 2,
-      "summary": "Convergence pass after demotion: FU01D artifacts no longer claim accepted coverage; all rows are explicit target/source-QNT connector blockers and the diagnostic Rust substrate remains quarantined."
+      "summary": "Convergence pass after artifact refresh: accepted FU01D rows are backed by target replay evidence observed through reducer entrypoints; checked state fields are recorded in the state-owner manifest; report rows cite RUN_LEDGER evidence refs."
     }
   ],
   "schemaVersion": 1,

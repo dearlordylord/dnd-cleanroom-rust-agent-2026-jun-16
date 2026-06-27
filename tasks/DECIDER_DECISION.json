@@ -1,14 +1,21 @@
 {
   "acceptedRows": [
-    "doGuidanceInvalidAbilityFillRejected",
-    "doGuidanceSkillAthletics",
-    "doGuidanceSkillChoiceOpen",
-    "doSearchAbilityCheckOpen",
-    "doSearchFails",
-    "doSearchInvalidAbilityFillRejected",
-    "doSearchInvalidTargetRejected",
-    "doSearchSucceeds",
-    "doSearchTargetChoiceOpen"
+    "doDiscoverAnimalFriendshipBeastTargetAdmission",
+    "doResolveAnimalFriendshipFailedSaveCharmed",
+    "doResolveAnimalFriendshipCasterDamageBreak",
+    "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection",
+    "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage",
+    "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession",
+    "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage",
+    "doCastSanctuaryWardCreation",
+    "doInterdictDirectAttackFailedSaveLoss",
+    "doInterdictDirectSpellSuccessfulSavePassThrough",
+    "doRetargetDirectAttackToLegalReplacement",
+    "doRejectIllegalReplacementTarget",
+    "doExcludeAreaEffectFromInterdiction",
+    "doEndWardOnWardedAttackRoll",
+    "doEndWardOnWardedSpellCast",
+    "doEndWardOnWardedDamageDealt"
   ],
   "decision": "accepted",
   "deterministicGates": [
@@ -45,23 +52,9 @@
       "status": "pass"
     }
   ],
-  "outOfScopeRows": [
-    {
-      "action": "doEnhanceAbilityChoiceOpen",
-      "reason": "Enhance Ability branches are marked out-of-scope in the copied branch inventory because Enhance Ability is a level-2 spell."
-    },
-    {
-      "action": "doEnhanceAbilityInvalidSkillFillRejected",
-      "reason": "Enhance Ability branches are marked out-of-scope in the copied branch inventory because Enhance Ability is a level-2 spell."
-    },
-    {
-      "action": "doEnhanceAbilityDex",
-      "reason": "Enhance Ability branches are marked out-of-scope in the copied branch inventory because Enhance Ability is a level-2 spell."
-    }
-  ],
-  "rationale": "Accepted rows replay through typed ability/search substrates and public BattleState reducer entrypoints, with qRoute evidence emitted for AbilityCheckSearchRouteSubject and RollModifierEffectRouteSubject. Enhance Ability rows are recorded only as out-of-scope branch metadata because the copied inventory marks them out-of-scope.",
+  "rationale": "Accepted all selected FU01D rows after the cleanroom-input refresh added copied executable route connectors. Replay is observed through reducer entrypoints and routes only by generic subject, fill, owner, and hole shape from copied QNT and RAW/domain inputs; no production authored-identity dispatch was added.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "targetBlockedRows": [],
-  "taskId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES"
+  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
 }

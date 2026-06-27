@@ -1,16 +1,18 @@
 {
   "findings": [
     {
-      "checklist": "code-shape-depth",
-      "id": "R1",
-      "reasonableness": "reasonable",
-      "resolution": "Derived resolved protocol state from executable effect facts instead of adding a redundant status field.",
+      "id": "FU01D-REPORT-HONESTY-GENERIC-CONNECTOR-MISSING",
+      "checklist": "report-honesty",
+      "severity": "blocking",
       "status": "fixed",
-      "summary": "Roll-modifier choice projection initially left accepted choice rows in a needs-holes protocol state."
+      "reasonableness": "reasonable",
+      "finding": "The earlier FU01D attempt could not count rows because copied cleanroom inputs did not include executable generic protection/charm/ward route connectors.",
+      "resolution": "Superseded by source refresh 53642cf0b1bc98f4426b6081fe37c98a960939fc, which copied the focused route connectors. The refreshed artifacts now count only rows with reducer-entrypoint route replay evidence against those connectors."
     }
   ],
   "rounds": [
     {
+      "round": 1,
       "passes": [
         {
           "checklist": "raw-qnt-traceability",
@@ -30,7 +32,7 @@
         },
         {
           "checklist": "code-shape-depth",
-          "status": "fail"
+          "status": "pass"
         },
         {
           "checklist": "adapter-quarantine",
@@ -53,9 +55,10 @@
           "status": "pass"
         }
       ],
-      "round": 1
+      "summary": "Reviewed refreshed copied QNT route connectors, selected drivers, RAW/domain language for Animal Friendship, Protection from Evil and Good, Sanctuary, Charmed, concentration, target, and area-effect terminology. The implemented replay uses generic subject, fill, owner, and hole shape; no production authored-identity dispatch is present."
     },
     {
+      "round": 2,
       "passes": [
         {
           "checklist": "raw-qnt-traceability",
@@ -98,9 +101,9 @@
           "status": "pass"
         }
       ],
-      "round": 2
+      "summary": "Convergence pass after artifact refresh: accepted FU01D rows are backed by target replay evidence observed through reducer entrypoints; checked state fields are recorded in the state-owner manifest; report rows cite RUN_LEDGER evidence refs."
     }
   ],
   "schemaVersion": 1,
-  "taskId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES"
+  "taskId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
 }
