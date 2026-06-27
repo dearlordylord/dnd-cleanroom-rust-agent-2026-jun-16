@@ -169,7 +169,7 @@
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
     "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "fixing",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
-    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "rereviewing",
+    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "fixing",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
   },
   "lastIntegrationVerification": {
@@ -307,7 +307,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c",
       "branch": "ralph/l15-rr07s-c-weapon-breath-feature",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "rereviewing",
+      "status": "fixing",
       "workerAgent": "019f070b-ff89-7fd2-8978-44745a13ef82",
       "workerName": "Kuhn",
       "commit": "3da4fbbd6d0630c096d0d386f28cc0ce02fb432b",
@@ -361,7 +361,18 @@
       ],
       "rereviewAgent": "019f0739-45c1-70a3-b026-5757480663b5",
       "rereviewName": "Dewey",
-      "rereviewStatus": "running"
+      "rereviewStatus": "findings",
+      "rereviewVerdict": "findings",
+      "rereviewFindings": [
+        "Observed route witnesses are still adapter-synthesized, not reducer-observed. The three lane adapters build observed Vec<ReducerRouteEvent> values with qnt_adapters route constructors and literal subjects/holes/outcomes rather than using start_battle_observed, discover_battle_acts_observed, or resolve_battle_subject_observed.",
+        "Artifacts still overclaim reducer-routed route evidence: target replay evidence and VALIDATION_REPORT say observed reducer-routed qRoute output is compared against independent literal expected records, but observed qRoute remains adapter-local synthesis."
+      ],
+      "rereviewVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "focused tests for weapon mastery selected identity, Dragonborn Breath Weapon, and feature selected identity",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ]
     }
   ],
   "completedLaneWorktrees": [
