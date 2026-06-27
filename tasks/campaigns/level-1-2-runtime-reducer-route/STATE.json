@@ -271,7 +271,17 @@
       "fourthRereviewFindings": [
         "Route examples align with copied connector, but tests still compare observed replay to Rust-local expected routes and do not mechanically check against battle-runtime-command-ordering.route.mbt.qnt.",
         "Evidence rows still claim qRoute/routeConnectorPath/routeEvidenceBasis without a mechanical connector check, so Rust expected tables could drift from copied connector."
-      ]
+      ],
+      "fifthFixerAgent": "019f065b-7727-78a1-a409-166c44b1d243",
+      "fifthFixerName": "Lagrange",
+      "fifthFixStatus": "committed",
+      "fifthFixCommit": "6a84db8e051e1f9a045f51bf1164a87103e4591f",
+      "fifthFixerResolution": [
+        "Added mechanical copied-QNT connector check for doFollowGrovel and doApproachMovementContinues.",
+        "New test compares Rust expected terminal route events against facts parsed from battle-runtime-command-ordering.route.mbt.qnt.",
+        "doApproachMovementContinues check also inspects copied runtimeCommandDiscoverRoute helper for subject/hole projection drift."
+      ],
+      "fifthRereviewStatus": "pending"
     }
   ],
   "completedLaneWorktrees": [
