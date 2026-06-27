@@ -122,7 +122,7 @@
     {
       "laneId": "FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY",
       "checkpointId": "FEXP-CP3",
-      "status": "proposed",
+      "status": "running",
       "routeClass": "reducer-routed",
       "purpose": "Add reaction casting-time and interrupt-stack resume routing before broader reaction spell selected-identity branches are attempted.",
       "drivers": [

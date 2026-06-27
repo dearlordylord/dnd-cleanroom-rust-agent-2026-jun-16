@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-05` | `ralph/fexp-05-reaction-interrupt-boundary` | `e8b0310e647ad471089fcd34737b8fd70211b373` | Godel the 3rd (`019f0b48-0163-76d3-8922-f799f484f4b0`) | pending | running |
 
 ## Historical RRCONV-19 Worktrees
 

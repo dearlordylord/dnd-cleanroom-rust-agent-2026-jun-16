@@ -2775,8 +2775,8 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fexp04-accepted-with-blockers",
-    "activeLane": null,
+    "status": "running",
+    "activeLane": "FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "e8b0310e647ad471089fcd34737b8fd70211b373",
@@ -2929,10 +2929,10 @@
         ]
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
-    "activeLaneBaseCommit": null,
-    "workerAgent": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-05",
+    "activeBranch": "ralph/fexp-05-reaction-interrupt-boundary",
+    "activeLaneBaseCommit": "e8b0310e647ad471089fcd34737b8fd70211b373",
+    "workerAgent": "Godel the 3rd (019f0b48-0163-76d3-8922-f799f484f4b0)",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY"
   },
