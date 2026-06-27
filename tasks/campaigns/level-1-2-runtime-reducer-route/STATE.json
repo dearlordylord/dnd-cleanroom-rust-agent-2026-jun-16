@@ -139,14 +139,21 @@
     {
       "checkpointId": "CP5",
       "name": "Remaining Battle Families",
-      "status": "split-ready",
+      "status": "running",
       "dependsOn": [
         "CP1",
         "CP2",
         "CP4"
       ],
-      "notes": "Split into six ready sublanes with disjoint driver sets; launch from current integration head.",
-      "runningLaneIds": [],
+      "notes": "Six CP5 sublanes launched from integration head 73c5ccea0ee7425952f231485325df5a45a0f36a.",
+      "runningLaneIds": [
+        "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
+        "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
+        "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
+        "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES",
+        "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
+        "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES"
+      ],
       "mergedLaneIds": [],
       "splitLaneIds": [
         "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
@@ -214,12 +221,12 @@
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified",
     "CP5-REMAINING-BATTLE-FAMILIES": "split-via-sublanes",
-    "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES": "ready",
-    "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES": "ready",
-    "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES": "ready",
-    "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES": "ready",
-    "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "ready",
-    "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "ready"
+    "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES": "worker-running",
+    "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES": "worker-running",
+    "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES": "worker-running",
+    "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES": "worker-running",
+    "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "worker-running",
+    "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "worker-running"
   },
   "lastIntegrationVerification": {
     "head": "91e141c8998682ebf6daf65e0ff5594aaf24551e",
@@ -235,7 +242,62 @@
     "result": "passed",
     "cargoTest": "210 passed"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-a",
+      "branch": "ralph/l15-rrcp5-a-rider-weapon",
+      "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
+      "status": "worker-running",
+      "workerAgent": "019f0814-4361-7420-9980-4380319e11c1",
+      "workerName": "Heisenberg the 2nd"
+    },
+    {
+      "laneId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-b",
+      "branch": "ralph/l15-rrcp5-b-active-effects",
+      "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
+      "status": "worker-running",
+      "workerAgent": "019f0814-43dd-7670-b3bd-6761af286704",
+      "workerName": "Hypatia the 2nd"
+    },
+    {
+      "laneId": "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-c",
+      "branch": "ralph/l15-rrcp5-c-reactions",
+      "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
+      "status": "worker-running",
+      "workerAgent": "019f0814-4433-7fb1-8f8e-80862b5967b4",
+      "workerName": "Planck the 2nd"
+    },
+    {
+      "laneId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-d",
+      "branch": "ralph/l15-rrcp5-d-companion-object",
+      "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
+      "status": "worker-running",
+      "workerAgent": "019f0814-446b-78a3-8f87-54aea8e638d8",
+      "workerName": "Hume the 2nd"
+    },
+    {
+      "laneId": "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-e",
+      "branch": "ralph/l15-rrcp5-e-ability-search",
+      "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
+      "status": "worker-running",
+      "workerAgent": "019f0814-452a-77b2-8a73-ea35806cd964",
+      "workerName": "Locke the 2nd"
+    },
+    {
+      "laneId": "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-f",
+      "branch": "ralph/l15-rrcp5-f-spell-attack-sequence",
+      "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
+      "status": "worker-running",
+      "workerAgent": "019f0814-4594-7963-ac7d-9d95ffdf6990",
+      "workerName": "Helmholtz the 2nd"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",

@@ -14,6 +14,12 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-a` | `ralph/l15-rrcp5-a-rider-weapon` | `73c5ccea0ee7425952f231485325df5a45a0f36a` | Heisenberg the 2nd `019f0814-4361-7420-9980-4380319e11c1` | worker-running |
+| L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-b` | `ralph/l15-rrcp5-b-active-effects` | `73c5ccea0ee7425952f231485325df5a45a0f36a` | Hypatia the 2nd `019f0814-43dd-7670-b3bd-6761af286704` | worker-running |
+| L15-RRCP5-C-REACTION-INTERRUPT-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-c` | `ralph/l15-rrcp5-c-reactions` | `73c5ccea0ee7425952f231485325df5a45a0f36a` | Planck the 2nd `019f0814-4433-7fb1-8f8e-80862b5967b4` | worker-running |
+| L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-d` | `ralph/l15-rrcp5-d-companion-object` | `73c5ccea0ee7425952f231485325df5a45a0f36a` | Hume the 2nd `019f0814-446b-78a3-8f87-54aea8e638d8` | worker-running |
+| L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-e` | `ralph/l15-rrcp5-e-ability-search` | `73c5ccea0ee7425952f231485325df5a45a0f36a` | Locke the 2nd `019f0814-452a-77b2-8a73-ea35806cd964` | worker-running |
+| L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-f` | `ralph/l15-rrcp5-f-spell-attack-sequence` | `73c5ccea0ee7425952f231485325df5a45a0f36a` | Helmholtz the 2nd `019f0814-4594-7963-ac7d-9d95ffdf6990` | worker-running |
 
 ## Historical RRCONV-19 Worktrees
 
