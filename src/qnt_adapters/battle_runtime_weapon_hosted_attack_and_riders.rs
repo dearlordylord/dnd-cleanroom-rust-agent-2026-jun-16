@@ -1,9 +1,10 @@
 use super::battle_runtime_reducer_route::{
-    observed_reducer_route, route_discover_battle_acts_from_route_holes,
+    expected_weapon_attack_setup_route, observed_reducer_route,
+    replay_observed_weapon_attack_setup_route, route_discover_battle_acts_from_route_holes,
     route_resolve_battle_subject_from_route_result,
     route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
     ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
-    ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+    ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily, WeaponAttackSetupRouteEnd,
 };
 use crate::rules::battle_reducer_spine::{
     discover_generic_route_subject_observed, resolve_battle_subject_observed,
@@ -49,7 +50,7 @@ pub const BRANCH_ACTIONS: [&str; 23] = [
     "doFinish",
 ];
 
-pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 14] = [
+pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 17] = [
     "doDiscoverTrueStrike",
     "doFillTrueStrikeRadiantTarget",
     "doFillTrueStrikeHit",
@@ -61,12 +62,15 @@ pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 14] = [
     "doFillShillelaghDamage",
     "doCleanShillelaghLetGo",
     "doCastDivineFavor",
+    "doDiscoverDivineFavorAttack",
+    "doFillDivineFavorTarget",
+    "doFillDivineFavorHit",
     "doFillDivineFavorDamage",
     "doCleanDivineFavorDuration",
     "doCleanMagicWeaponDuration",
 ];
 
-pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 9] = [
+pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 6] = [
     (
         "doStartShillelagh",
         "scenario transition has no reducer route surface",
@@ -74,18 +78,6 @@ pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 9] = [
     (
         "doStartDivineFavor",
         "scenario transition has no reducer route surface",
-    ),
-    (
-        "doDiscoverDivineFavorAttack",
-        "ordinary weapon target discovery is outside the rider route substrate",
-    ),
-    (
-        "doFillDivineFavorTarget",
-        "ordinary weapon target fill is outside the rider route substrate",
-    ),
-    (
-        "doFillDivineFavorHit",
-        "ordinary weapon attack-roll fill is outside the rider route substrate",
     ),
     (
         "doStartMagicWeapon",
@@ -519,6 +511,15 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             BattleSubjectKind::WeaponDamageRiderActiveEffect,
             BattleGenericRouteFill::WithoutFill,
         )]),
+        "doDiscoverDivineFavorAttack" => {
+            replay_observed_weapon_attack_setup_route(WeaponAttackSetupRouteEnd::Discovered)
+        }
+        "doFillDivineFavorTarget" => {
+            replay_observed_weapon_attack_setup_route(WeaponAttackSetupRouteEnd::TargetFilled)
+        }
+        "doFillDivineFavorHit" => {
+            replay_observed_weapon_attack_setup_route(WeaponAttackSetupRouteEnd::HitFilled)
+        }
         "doFillDivineFavorDamage" => replay_generic_route_sequence(&[(
             BattleSubjectKind::WeaponDamageRiderDamage,
             BattleGenericRouteFill::RolledDice,
@@ -648,6 +649,15 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
             ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
             ReducerRouteOwnerGroup::ActiveEffect,
         ),
+        "doDiscoverDivineFavorAttack" => {
+            expected_weapon_attack_setup_route(WeaponAttackSetupRouteEnd::Discovered)
+        }
+        "doFillDivineFavorTarget" => {
+            expected_weapon_attack_setup_route(WeaponAttackSetupRouteEnd::TargetFilled)
+        }
+        "doFillDivineFavorHit" => {
+            expected_weapon_attack_setup_route(WeaponAttackSetupRouteEnd::HitFilled)
+        }
         "doFillDivineFavorDamage" => expected_damage_route(
             ReducerRouteSubjectFamily::WeaponDamageRider,
             ReducerRouteOwnerGroup::ActiveEffect,

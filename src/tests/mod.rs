@@ -6561,8 +6561,15 @@ fn after_hit_damage_riders_route_adapter_replays_accepted_branches() {
             reducer_route_payload(&expected_after_hit_damage_riders_route(action))
         );
         let route_payload = reducer_route_payload(&route);
-        assert!(route_payload.contains("AfterHitDamageRiderRouteSubject"));
-        assert!(route_payload.contains("resolve_battle_subject"));
+        assert!(
+            route_payload.contains("AfterHitDamageRiderRouteSubject")
+                || route_payload.contains("WeaponAttackRouteSubject")
+        );
+        if action == "doDiscoverWeaponHit" {
+            assert!(route_payload.contains("discover_battle_acts"));
+        } else {
+            assert!(route_payload.contains("resolve_battle_subject"));
+        }
     }
 
     for (action, reason) in BLOCKED_AFTER_HIT_DAMAGE_RIDERS_ROUTE_BRANCH_ACTIONS {
@@ -6615,8 +6622,13 @@ fn weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches() {
             route_payload.contains("SpellHostedWeaponAttackRouteSubject")
                 || route_payload.contains("HeldWeaponActiveEffectRouteSubject")
                 || route_payload.contains("WeaponDamageRiderRouteSubject")
+                || route_payload.contains("WeaponAttackRouteSubject")
         );
-        assert!(route_payload.contains("resolve_battle_subject"));
+        if action == "doDiscoverDivineFavorAttack" {
+            assert!(route_payload.contains("discover_battle_acts"));
+        } else {
+            assert!(route_payload.contains("resolve_battle_subject"));
+        }
     }
 
     for (action, reason) in BLOCKED_WEAPON_HOSTED_ATTACK_AND_RIDERS_ROUTE_BRANCH_ACTIONS {

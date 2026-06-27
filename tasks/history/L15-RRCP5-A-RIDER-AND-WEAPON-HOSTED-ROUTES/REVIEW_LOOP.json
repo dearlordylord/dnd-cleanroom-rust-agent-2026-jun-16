@@ -92,6 +92,52 @@
       ],
       "round": 2,
       "summary": "Convergence pass after separating accepted reducer-routed rows from target blockers; no reasonable findings remain."
+    },
+    {
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "pass"
+        }
+      ],
+      "round": 3,
+      "summary": "CP7-C refresh accepted exactly five generic WeaponAttack setup rows through BattleEntrypointTrace.route_events. Scenario transitions and MagicWeaponTargetItem rows remain blocked; no authored identity dispatch or adapter-local observed route synthesis was introduced."
     }
   ],
   "schemaVersion": 1,

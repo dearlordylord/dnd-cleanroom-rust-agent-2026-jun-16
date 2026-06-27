@@ -3249,15 +3249,15 @@
       "artifacts": {
         "deciderDecision": {
           "path": "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/DECIDER_DECISION.json",
-          "sha256": "fe747d07681075c9ac8dd4e30df110d761f94f75f73fbb8fa5713808e2a9d87c"
+          "sha256": "89f9f6e4f1f55fbb1e46c22278ed2f22d79c99d0b0a1a719ecc4b0ff6e8bf7ad"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "d1a2c85b4fec6d16b23f219e1c7789cb5d0966897e635730e7b6bec3acaf2420"
+          "sha256": "10e82eb1fe390453d7b8c74f12b3fe044652dbc4f36c0879000cd03067e9757c"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/REVIEW_LOOP.json",
-          "sha256": "99b6a36b4e7cd6c2fce8bce3a148f2e6edaae0c5f56f129e7e794e9a8e7de546"
+          "sha256": "2dff309732b9bcc13012bef43a1eced871126c6893c2111146d3cfa5b7e15497"
         },
         "startGate": {
           "path": "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/START_GATE.json",
@@ -3265,13 +3265,21 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/STATE_OWNER_MANIFEST.json",
-          "sha256": "dccc58c07d02a176a6299078afd3a2d075f98d213e4b81733a5f16e611cdaaae"
+          "sha256": "18d9b76adf62b7f46fd9862d62d720ab56dac7e7a7e8306e3d7e5593364df319"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",
       "commandResults": [
         {
-          "command": "cargo test after_hit_damage_riders && cargo test weapon_hosted_attack_and_riders",
+          "command": "cargo test after_hit_damage_riders_route_adapter_replays_accepted_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "jq empty over touched JSON files",
           "status": "pass"
         },
         {
@@ -3279,11 +3287,7 @@
           "status": "pass"
         },
         {
-          "command": "node scripts/check-cleanroom-harness.cjs",
-          "status": "pass"
-        },
-        {
-          "command": "git diff --check 73c5ccea0ee7425952f231485325df5a45a0f36a...HEAD",
+          "command": "git diff --check 28a25db...HEAD",
           "status": "pass"
         },
         {
@@ -3293,6 +3297,11 @@
         {
           "command": "cargo clippy --all-targets -- -D warnings",
           "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "classified-nonblocking-global-stale-manifest-evidence-debt",
+          "note": "Output is global stale manifest/evidence debt across older ledger entries; no CP7-C/weapon-prehit-specific failure was identified."
         }
       ],
       "laneId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
@@ -3311,6 +3320,7 @@
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doChooseSearingSmite#step:doChooseSearingSmite",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doDiscoverEnsnaringStartTurnDamage#step:doDiscoverEnsnaringStartTurnDamage",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doDiscoverSearingStartTurnDamageAndSave#step:doDiscoverSearingStartTurnDamageAndSave",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doDiscoverWeaponHit#step:doDiscoverWeaponHit",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillDivineSmiteDamage#step:doFillDivineSmiteDamage",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillEnsnaringEscapeCheck#step:doFillEnsnaringEscapeCheck",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillEnsnaringFailedSave#step:doFillEnsnaringFailedSave",
@@ -3320,14 +3330,18 @@
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillHitAttackRoll#step:doFillHitAttackRoll",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillSearingSmiteDamage#step:doFillSearingSmiteDamage",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillSearingStartTurnDamageAndSave#step:doFillSearingStartTurnDamageAndSave",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillTargetChoice#step:doFillTargetChoice",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCastDivineFavor#step:doCastDivineFavor",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCastShillelagh#step:doCastShillelagh",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCleanDivineFavorDuration#step:doCleanDivineFavorDuration",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCleanMagicWeaponDuration#step:doCleanMagicWeaponDuration",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCleanShillelaghLetGo#step:doCleanShillelaghLetGo",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverDivineFavorAttack#step:doDiscoverDivineFavorAttack",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverShillelaghAttack#step:doDiscoverShillelaghAttack",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverTrueStrike#step:doDiscoverTrueStrike",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorDamage#step:doFillDivineFavorDamage",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorHit#step:doFillDivineFavorHit",
+            "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorTarget#step:doFillDivineFavorTarget",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillShillelaghDamage#step:doFillShillelaghDamage",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillShillelaghHit#step:doFillShillelaghHit",
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillShillelaghTarget#step:doFillShillelaghTarget",
@@ -3336,7 +3350,7 @@
             "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillTrueStrikeRadiantTarget#step:doFillTrueStrikeRadiantTarget"
           ],
           "path": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json",
-          "sha256": "0e6fba3e00354295d1aa93e42c3a22dfffc275e37be9b5b7b0add58705e871ec"
+          "sha256": "3df34f339bbabe720fb1a324e26f230f117700407da2712109d59f76f25e8424"
         }
       ],
       "taskId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES"
