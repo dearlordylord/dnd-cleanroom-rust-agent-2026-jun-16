@@ -390,8 +390,19 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Review/fixer notes: first review found self-confirming expected routes and stale lane ids; fixer replaced expected routes with independent copied witnesses, kept observed replay on public reducer entrypoints, renamed artifacts to `L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES`, and re-review returned clean.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-b`
 
+### L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES
+
+- Merge commit: `a0a88e469f71f5069f4f01c19bbdbc2745660155`
+- Lane commit(s): `bef84dac88c28fa00250c29d752904dafbb1f036`, `5ecdd9ef43f9598fe19fdda58fcab4596c0c68c2`
+- Drivers added: `2` net-new unique drivers.
+- Obligations added: `29` accepted counted obligations; `20` rows remain target-blocked.
+- New total driver coverage: `88 / 97 = 90.7%`
+- New total obligation coverage: `605 / 668 = 90.6%`
+- Integration verification: focused after-hit rider and weapon-hosted adapter tests, `node scripts/check-cleanroom-harness.cjs`, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`217 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: first review found unsupported illumination rows, duplicate `doFinish` ids, and self-comparison witness coverage. Fixer removed unsupported production `AfterHitDamageRiderIllumination*` route subjects, kept Shining rows blocked, qualified blocker/trace ids, and tied accepted coverage to reducer route evidence. Re-review returned clean.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-a`
+
 ## CP5 Current Queue
 
-- `L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES`: fixer Goodall the 2nd completed at `5ecdd9ef43f9598fe19fdda58fcab4596c0c68c2`; Descartes the 2nd re-reviewed clean; ready to merge.
-- `L15-RRCP5-C-REACTION-INTERRUPT-ROUTES`: re-review found scenario-local route emission remained; targeted fixer Euler the 2nd is running.
-- `L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES`: fixer Singer the 2nd completed at `015af29280a59f87abaf9aa677d8f6f8cd4135a2`; awaits re-review.
+- `L15-RRCP5-C-REACTION-INTERRUPT-ROUTES`: fixer Euler the 2nd completed at `6300fce274c2c9774e0e159b068463d50a8958e2`; Banach the 2nd re-reviewed clean; ready to merge.
+- `L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES`: re-review found `tasks/ENGINE_DEPTH_MANIFEST.json` still lists three out-of-scope Enhance Ability rows; needs narrow artifact fixer.

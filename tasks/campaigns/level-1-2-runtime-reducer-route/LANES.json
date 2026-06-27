@@ -897,7 +897,7 @@
     {
       "laneId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
       "checkpointId": "CP5",
-      "status": "ready-to-merge-after-clean-review",
+      "status": "merged-verified",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR15-AFTER-HIT-RIDER-OWNER-SPLIT",
@@ -956,7 +956,7 @@
     {
       "laneId": "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
       "checkpointId": "CP5",
-      "status": "ready-to-merge-after-fixer",
+      "status": "ready-to-merge-after-clean-review",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES"
@@ -1007,7 +1007,7 @@
     {
       "laneId": "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
       "checkpointId": "CP5",
-      "status": "fixed-awaiting-review",
+      "status": "review-findings-after-fixer",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES"
