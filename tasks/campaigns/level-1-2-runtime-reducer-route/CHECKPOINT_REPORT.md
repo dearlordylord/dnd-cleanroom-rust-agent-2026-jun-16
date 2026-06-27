@@ -353,3 +353,15 @@ Initial ready lanes after the split: `L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRA
 - `L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES`: chained attack sequence and independent spell-attack sequence (`2` drivers, `18` obligations).
 
 All CP5 lanes must preserve the campaign rule: accepted coverage requires reducer-routed evidence through public reducer entrypoints and copied executable connector evidence where the inventory demands it; otherwise rows are blockers, not accepted coverage.
+
+### L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES
+
+- Merge commit: `964d6672c999db82c4d297543315a65d054f7703`
+- Lane commit(s): `4e84842fa5a27bb1db91cf855a76d5e9cc9860da`
+- Drivers added: `2` net-new unique drivers.
+- Obligations added: `18` accepted counted obligations; no blockers.
+- New total driver coverage: `79 / 97 = 81.4%`
+- New total obligation coverage: `531 / 668 = 79.5%`
+- Integration verification: focused chained attack and independent spell-attack adapter tests, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`210 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: reviewer returned clean; observed replay uses public reducer entrypoints, route evidence covers exactly `10` RR16 plus `8` RR22 obligations, and no production spell-name/selected-identity dispatch was introduced.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-f`

@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "91e141c8998682ebf6daf65e0ff5594aaf24551e",
+    "lastVerifiedIntegrationHead": "964d6672c999db82c4d297543315a65d054f7703",
     "lastMergedLane": {
-      "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
-      "mergeCommit": "91e141c8998682ebf6daf65e0ff5594aaf24551e",
-      "laneHead": "61a1bc984aa104b439c4adf3d2e43b0ad57e1674"
+      "laneId": "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES",
+      "mergeCommit": "964d6672c999db82c4d297543315a65d054f7703",
+      "laneHead": "4e84842fa5a27bb1db91cf855a76d5e9cc9860da"
     }
   },
   "denominator": {
@@ -33,10 +33,10 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 77,
-    "acceptedDriverCoveragePercent": 79.4,
-    "acceptedObligations": 513,
-    "acceptedObligationCoveragePercent": 76.8,
+    "acceptedUniqueDrivers": 79,
+    "acceptedDriverCoveragePercent": 81.4,
+    "acceptedObligations": 531,
+    "acceptedObligationCoveragePercent": 79.5,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers plus completed-before-campaign baseline",
     "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json accepted in-scope obligations for unique selected drivers; target-blocker rows excluded"
   },
@@ -151,10 +151,11 @@
         "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
         "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
         "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES",
-        "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
+        "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES"
+      ],
+      "mergedLaneIds": [
         "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES"
       ],
-      "mergedLaneIds": [],
       "splitLaneIds": [
         "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
         "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
@@ -222,20 +223,20 @@
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified",
     "CP5-REMAINING-BATTLE-FAMILIES": "split-via-sublanes",
     "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES": "fixing-review-findings",
-    "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES": "reviewing",
+    "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES": "fixing-review-findings",
     "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES": "fixing-review-findings",
     "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES": "ready-to-merge",
-    "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "worker-running",
-    "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "ready-to-merge"
+    "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "reviewing",
+    "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "91e141c8998682ebf6daf65e0ff5594aaf24551e",
+    "head": "964d6672c999db82c4d297543315a65d054f7703",
     "commands": [
-      "cargo test creature_type_protection_adapter_replays_all_branches",
-      "cargo test sanctuary_selected_identity_adapter_replays_all_branches",
+      "cargo test chained_attack_sequence_adapter_replays_all_branches",
+      "cargo test eldritch_blast_adapter_replays_all_branches",
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
-      "git diff --check HEAD...",
+      "git diff --check HEAD~1...HEAD",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings"
     ],
@@ -277,7 +278,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-b",
       "branch": "ralph/l15-rrcp5-b-active-effects",
       "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
-      "status": "reviewing",
+      "status": "fixing-review-findings",
       "workerAgent": "019f0814-43dd-7670-b3bd-6761af286704",
       "workerName": "Hypatia the 2nd",
       "workerStatus": "complete",
@@ -288,8 +289,16 @@
         "Accepted all 33 active-effect lifecycle rows across five drivers."
       ],
       "reviewAgent": "019f0829-e152-7e70-ba02-bebd74ae6083",
-      "reviewStatus": "running",
-      "reviewName": "Franklin the 2nd"
+      "reviewStatus": "findings",
+      "reviewName": "Franklin the 2nd",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "Expected routes are self-confirming because expected_route calls replay_observed_route across five adapters.",
+        "Artifacts use L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES instead of L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES."
+      ],
+      "followupFixerAgent": "019f082c-ea7d-7fe3-ac6d-84b40a066120",
+      "followupFixerName": "Nietzsche the 2nd",
+      "followupFixerStatus": "running"
     },
     {
       "laneId": "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
@@ -348,16 +357,29 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-e",
       "branch": "ralph/l15-rrcp5-e-ability-search",
       "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
-      "status": "worker-running",
+      "status": "reviewing",
       "workerAgent": "019f0814-452a-77b2-8a73-ea35806cd964",
-      "workerName": "Locke the 2nd"
-    },
+      "workerName": "Locke the 2nd",
+      "workerStatus": "complete",
+      "workerCommit": "4ce08a7458f4e5ad81b11c5dc67025b80422ad35",
+      "acceptedRows": 9,
+      "blockedRows": 0,
+      "outOfScopeRows": 3,
+      "workerSummary": [
+        "Accepted 9 Search/Guidance rows; 3 Enhance Ability rows out of scope per copied inventory."
+      ],
+      "reviewAgent": "019f082c-eb05-7201-a014-674979fa7655",
+      "reviewName": "Ohm the 2nd",
+      "reviewStatus": "running"
+    }
+  ],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-f",
       "branch": "ralph/l15-rrcp5-f-spell-attack-sequence",
       "baseSha": "73c5ccea0ee7425952f231485325df5a45a0f36a",
-      "status": "ready-to-merge",
+      "status": "merged-verified",
       "workerAgent": "019f0814-4594-7963-ac7d-9d95ffdf6990",
       "workerName": "Helmholtz the 2nd",
       "workerStatus": "complete",
@@ -383,10 +405,20 @@
       "reviewSummary": [
         "Observed replay uses public reducer entrypoints.",
         "Route evidence covers exactly 10 RR16 plus 8 RR22 obligations, no blockers, no duplicate task-id corruption, no production spell-name/selected-identity dispatch."
-      ]
-    }
-  ],
-  "completedLaneWorktrees": [
+      ],
+      "mergeCommit": "964d6672c999db82c4d297543315a65d054f7703",
+      "completedStatus": "removable-after-operator-confirms-no-local-use",
+      "integrationVerification": [
+        "cargo test chained_attack_sequence_adapter_replays_all_branches",
+        "cargo test eldritch_blast_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check HEAD~1...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings"
+      ],
+      "integrationVerificationResult": "passed; cargo test 210 passed"
+    },
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d",
