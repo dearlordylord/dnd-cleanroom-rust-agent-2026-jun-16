@@ -2767,21 +2767,43 @@
     }
   },
   "nextWorkRecommendations": [
-    "Use tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json as the next executable fresh-cleanroom campaign boundary.",
-    "Use the accepted fresh target at a30e6729711ddc3f595cf008931ba5cd6265c58a as the current strongest evidence for SDK composition plus Pact Slot handoff replay, verified by python3 tools/verify_current_fresh_target.py.",
+    "Launch FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK from accepted fresh target head 574c99d28ef2fe8779c500dad34879efa7aa4177 using FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json.",
+    "Use the accepted fresh target at 574c99d28ef2fe8779c500dad34879efa7aa4177 as the current strongest evidence for SDK composition, Pact Slot handoff replay, and FEXP-00 expansion baseline lock, verified by python3 tools/verify_current_fresh_target.py.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "running",
-    "activeLane": "FEXP-00-BASELINE-LOCK",
+    "status": "baseline-accepted",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-00",
-    "activeBranch": "ralph/fexp-00-baseline-lock",
-    "workerAgent": "Kant the 2nd (019f0abd-0855-7ba1-9b55-eb0c84d83f7c)",
+    "acceptedTargetHead": "574c99d28ef2fe8779c500dad34879efa7aa4177",
+    "completedLanes": [
+      {
+        "laneId": "FEXP-00-BASELINE-LOCK",
+        "status": "accepted",
+        "baseCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
+        "targetCommit": "574c99d28ef2fe8779c500dad34879efa7aa4177",
+        "workerAgent": "Kant the 2nd (019f0abd-0855-7ba1-9b55-eb0c84d83f7c)",
+        "reviewerAgent": "Newton the 2nd (019f0ac0-b67b-71e1-87b8-1e4087aad7db)",
+        "artifacts": [
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md"
+        ],
+        "checks": [
+          "python3 -m json.tool FRESH_EXPANSION_STATE.json",
+          "python3 tools/verify_current_fresh_target.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "recorded forbidden-path scan over FEXP files",
+          "git diff --check a30e6729711ddc3f595cf008931ba5cd6265c58a...HEAD"
+        ],
+        "coverageClaim": "baseline expansion state only; no new runtime coverage claimed"
+      }
+    ],
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK"
   },

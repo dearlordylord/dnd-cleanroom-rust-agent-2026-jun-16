@@ -36,10 +36,15 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`a30e6729711ddc3f595cf008931ba5cd6265c58a`
+`574c99d28ef2fe8779c500dad34879efa7aa4177`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
+
+Current expansion baseline:
+`FEXP-00-BASELINE-LOCK` is accepted at
+`574c99d28ef2fe8779c500dad34879efa7aa4177`; it adds expansion bookkeeping only
+and claims no new runtime route coverage.
 
 ## Hard Boundaries
 

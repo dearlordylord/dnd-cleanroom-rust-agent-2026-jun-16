@@ -14,7 +14,7 @@
     {
       "laneId": "FEXP-00-BASELINE-LOCK",
       "checkpointId": "FEXP-CP0",
-      "status": "running",
+      "status": "merged",
       "purpose": "Lock the accepted fresh target baseline and create expansion-state bookkeeping before implementation lanes.",
       "drivers": [],
       "expectedOutputs": [
