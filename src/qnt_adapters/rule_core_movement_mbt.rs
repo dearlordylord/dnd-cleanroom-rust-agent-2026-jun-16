@@ -60,7 +60,140 @@ pub fn replay_observed_action(observed_action_taken: &str) -> MovementState {
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> MovementState {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doDash" => MovementState {
+            dash_bonus_feet: 30,
+            action_available: false,
+            protocol: MovementProtocol::Resolved,
+            ..initial_movement_witness()
+        },
+        "doDeclineOpportunityAttack" => expected_fighter_movement_spent(10),
+        "doDiscoverEscapeGrapple" => MovementState {
+            current_actor: MovementActor::GrappledTarget,
+            action_available: true,
+            grapple_active: true,
+            grapple_escape_dc: 10,
+            protocol: MovementProtocol::NeedsHoles(vec![MovementHole::GrappleOutcome]),
+            ..initial_movement_witness()
+        },
+        "doDiscoverGrapple" => MovementState {
+            protocol: MovementProtocol::NeedsHoles(vec![MovementHole::TargetChoice]),
+            ..initial_movement_witness()
+        },
+        "doDiscoverMovement" => MovementState {
+            protocol: MovementProtocol::NeedsHoles(vec![MovementHole::Movement]),
+            ..initial_movement_witness()
+        },
+        "doDisengage" => MovementState {
+            disengaged: true,
+            action_available: false,
+            protocol: MovementProtocol::Resolved,
+            ..initial_movement_witness()
+        },
+        "doMoveProvokesOpportunityAttack" => MovementState {
+            protocol: MovementProtocol::NeedsHoles(vec![MovementHole::ReactionDecision]),
+            pending_opportunity_attack: true,
+            ..initial_movement_witness()
+        },
+        "doMoveThreatSuppressedByDisengage" => MovementState {
+            movement_spent_feet: 10,
+            disengaged: true,
+            action_available: false,
+            protocol: MovementProtocol::Resolved,
+            ..initial_movement_witness()
+        },
+        "doRejectDashAfterActionSpent" => MovementState {
+            dash_bonus_feet: 30,
+            action_available: false,
+            protocol: MovementProtocol::Invalid {
+                holes: Vec::new(),
+                reason: MovementInvalidReason::StaleSubject,
+            },
+            ..initial_movement_witness()
+        },
+        "doRejectMovementOverspend" => MovementState {
+            protocol: MovementProtocol::Invalid {
+                holes: vec![MovementHole::Movement],
+                reason: MovementInvalidReason::InvalidFill,
+            },
+            ..initial_movement_witness()
+        },
+        "doReleaseGrapple" => MovementState {
+            action_available: false,
+            protocol: MovementProtocol::Resolved,
+            ..initial_movement_witness()
+        },
+        "doResolveEscapeFailure" => MovementState {
+            current_actor: MovementActor::GrappledTarget,
+            action_available: false,
+            grapple_active: true,
+            grapple_escape_dc: 10,
+            protocol: MovementProtocol::Resolved,
+            ..initial_movement_witness()
+        },
+        "doResolveEscapeSuccess" => MovementState {
+            current_actor: MovementActor::GrappledTarget,
+            action_available: false,
+            protocol: MovementProtocol::Resolved,
+            ..initial_movement_witness()
+        },
+        "doResolveGrappleFailure" => MovementState {
+            action_available: false,
+            protocol: MovementProtocol::Resolved,
+            ..initial_movement_witness()
+        },
+        "doResolveGrappleSuccess" => MovementState {
+            action_available: false,
+            grapple_active: true,
+            grapple_escape_dc: 10,
+            protocol: MovementProtocol::Resolved,
+            ..initial_movement_witness()
+        },
+        "doSelectGrappleTarget" => MovementState {
+            protocol: MovementProtocol::NeedsHoles(vec![MovementHole::GrappleOutcome]),
+            ..initial_movement_witness()
+        },
+        "doSpendFullMovement" => expected_fighter_movement_spent(30),
+        "doSpendMovement" => expected_fighter_movement_spent(10),
+        "doSpendShortMovement" => expected_fighter_movement_spent(5),
+        "doStandFromProne" => MovementState {
+            movement_spent_feet: 15,
+            prone: false,
+            protocol: MovementProtocol::Resolved,
+            ..initial_movement_witness()
+        },
+        "doStartGrappledTargetTurn" => MovementState {
+            current_actor: MovementActor::GrappledTarget,
+            grapple_active: true,
+            grapple_escape_dc: 10,
+            protocol: MovementProtocol::Resolved,
+            ..initial_movement_witness()
+        },
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn expected_fighter_movement_spent(movement_spent_feet: i16) -> MovementState {
+    MovementState {
+        movement_spent_feet,
+        protocol: MovementProtocol::Resolved,
+        ..initial_movement_witness()
+    }
+}
+
+fn initial_movement_witness() -> MovementState {
+    MovementState {
+        current_actor: MovementActor::Fighter,
+        movement_spent_feet: 0,
+        dash_bonus_feet: 0,
+        prone: true,
+        disengaged: false,
+        action_available: true,
+        grapple_active: false,
+        grapple_escape_dc: 0,
+        protocol: MovementProtocol::Init,
+        pending_opportunity_attack: false,
+    }
 }
 
 pub fn projection_payload(state: &MovementState) -> String {

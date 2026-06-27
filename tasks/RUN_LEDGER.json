@@ -1353,6 +1353,114 @@
         }
       ],
       "taskId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/DECIDER_DECISION.json",
+          "sha256": "87e040f24e82885eccc03a17099defa5a3af30dc59650eda83f800844c00d1ce"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "edb4b05876e8a22c7e2af337144727b66b0fe415edfc5dca4a315e1f8bf33dc9"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/REVIEW_LOOP.json",
+          "sha256": "ba04e1eba8362c9040ee7a89ab0d2f8051beb7b5d571b1d465d0bfa10a8e8ba8"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/START_GATE.json",
+          "sha256": "cca1f1e81dce8fbb214bc13bdca6ba896b25030eb604d5f508c5680793542f38"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/STATE_OWNER_MANIFEST.json",
+          "sha256": "55916afb3b59b3e6ab8d70be96ea2dac0ccb76849e76fe648d3ff0894a44927c"
+        }
+      },
+      "assignmentId": "level-1-2-rules-core",
+      "campaignLaneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
+      "commandResults": [
+        {
+          "command": "cargo test adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check a625d3e7190eb33396c17ee5dca7ae73f413b348...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "rules-core",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "parentRouteTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDash#step:doDash",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDeclineOpportunityAttack#step:doDeclineOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverEscapeGrapple#step:doDiscoverEscapeGrapple",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverGrapple#step:doDiscoverGrapple",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverMovement#step:doDiscoverMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDisengage#step:doDisengage",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doMoveProvokesOpportunityAttack#step:doMoveProvokesOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doMoveThreatSuppressedByDisengage#step:doMoveThreatSuppressedByDisengage",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doRejectDashAfterActionSpent#step:doRejectDashAfterActionSpent",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doRejectMovementOverspend#step:doRejectMovementOverspend",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doReleaseGrapple#step:doReleaseGrapple",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveEscapeFailure#step:doResolveEscapeFailure",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveEscapeSuccess#step:doResolveEscapeSuccess",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveGrappleFailure#step:doResolveGrappleFailure",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveGrappleSuccess#step:doResolveGrappleSuccess",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSelectGrappleTarget#step:doSelectGrappleTarget",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendFullMovement#step:doSpendFullMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendMovement#step:doSpendMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendShortMovement#step:doSpendShortMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doStandFromProne#step:doStandFromProne",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doStartGrappledTargetTurn#step:doStartGrappledTargetTurn",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doBreakReactorConcentrationAfterLargeDamage#step:doBreakReactorConcentrationAfterLargeDamage",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doDeclineOpportunityAttack#step:doDeclineOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doDeclineReadiedMovement#step:doDeclineReadiedMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doHoldReactorConcentrationAfterSmallDamage#step:doHoldReactorConcentrationAfterSmallDamage",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doOfferOpportunityAttack#step:doOfferOpportunityAttack",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doOfferReadiedMovement#step:doOfferReadiedMovement",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doReadyMovementFixture#step:doReadyMovementFixture",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doRejectReadiedMovementZero#step:doRejectReadiedMovementZero",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doStartReactorConcentrationFixture#step:doStartReactorConcentrationFixture",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doTakeReadiedMovementFill#step:doTakeReadiedMovementFill",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doTakeReadiedMovementShort#step:doTakeReadiedMovementShort",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doInvalidPushDistance#step:doInvalidPushDistance",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsProne#step:doSaveFailsProne",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPush#step:doSaveFailsPush",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPushBlocked#step:doSaveFailsPushBlocked",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPushNoLegalDestination#step:doSaveFailsPushNoLegalDestination",
+            "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveSucceeds#step:doSaveSucceeds"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json",
+          "sha256": "495667e314628a957b9a8a830116f13420ae7f7884aa6536424f56aecba08846"
+        }
+      ],
+      "taskId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

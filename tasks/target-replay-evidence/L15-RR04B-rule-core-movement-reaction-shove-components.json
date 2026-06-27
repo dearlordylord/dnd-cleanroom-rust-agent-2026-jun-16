@@ -1,0 +1,1239 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-quint-connect-rule-core-component-adapters",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doDash",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doDash",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "5d45dd4af995bb564e6a45f5fc257e47d4f5146c0eb7980f95f6cb3a1016a8e7",
+        "observedProjectionSha256": "5d45dd4af995bb564e6a45f5fc257e47d4f5146c0eb7980f95f6cb3a1016a8e7",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDash"
+    },
+    {
+      "branchAction": "doDeclineOpportunityAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doDeclineOpportunityAttack",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "59f4d4e3972080e9927d57c0521fdb1c9fd08f92155dc6fbb7e07eae376228a3",
+        "observedProjectionSha256": "59f4d4e3972080e9927d57c0521fdb1c9fd08f92155dc6fbb7e07eae376228a3",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDeclineOpportunityAttack"
+    },
+    {
+      "branchAction": "doDiscoverEscapeGrapple",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doDiscoverEscapeGrapple",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "803b46116c1da201a0d4f289ccef9d2a8a6b8c9d5778313ea9c261607741613c",
+        "observedProjectionSha256": "803b46116c1da201a0d4f289ccef9d2a8a6b8c9d5778313ea9c261607741613c",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverEscapeGrapple"
+    },
+    {
+      "branchAction": "doDiscoverGrapple",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doDiscoverGrapple",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c13678097d91eb33308d8e062c5eb63e99094f6b05933175310d417287e270cf",
+        "observedProjectionSha256": "c13678097d91eb33308d8e062c5eb63e99094f6b05933175310d417287e270cf",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverGrapple"
+    },
+    {
+      "branchAction": "doDiscoverMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doDiscoverMovement",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "decbef7817d884a3384139cd505fa2903405c22cf4af716db2b8d6c072a83de8",
+        "observedProjectionSha256": "decbef7817d884a3384139cd505fa2903405c22cf4af716db2b8d6c072a83de8",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverMovement"
+    },
+    {
+      "branchAction": "doDisengage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doDisengage",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "4c3b6d29bb684bddbf2202b825f33e966d382e728e7b97cdd7fba0ee49f8e2a5",
+        "observedProjectionSha256": "4c3b6d29bb684bddbf2202b825f33e966d382e728e7b97cdd7fba0ee49f8e2a5",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDisengage"
+    },
+    {
+      "branchAction": "doMoveProvokesOpportunityAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doMoveProvokesOpportunityAttack",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "6afd01c94171c1e5fb5607ecacc4c4c50aaa20d139155e70f1d57c57419b46dc",
+        "observedProjectionSha256": "6afd01c94171c1e5fb5607ecacc4c4c50aaa20d139155e70f1d57c57419b46dc",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doMoveProvokesOpportunityAttack"
+    },
+    {
+      "branchAction": "doMoveThreatSuppressedByDisengage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doMoveThreatSuppressedByDisengage",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "426d0ac2ddbf9e1a1989c633060c1f5c70ec83047de0fc2bfe6856401cd4db5a",
+        "observedProjectionSha256": "426d0ac2ddbf9e1a1989c633060c1f5c70ec83047de0fc2bfe6856401cd4db5a",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doMoveThreatSuppressedByDisengage"
+    },
+    {
+      "branchAction": "doRejectDashAfterActionSpent",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doRejectDashAfterActionSpent",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "6df09a80087f75bce1dfb52334ae966b2f042a8a41862fb2bd6cf46f59727878",
+        "observedProjectionSha256": "6df09a80087f75bce1dfb52334ae966b2f042a8a41862fb2bd6cf46f59727878",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doRejectDashAfterActionSpent"
+    },
+    {
+      "branchAction": "doRejectMovementOverspend",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doRejectMovementOverspend",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "ec0a41798a908468a98e6b5d16c8b8238820d55b1d0161d2ed2cd8d98d658c79",
+        "observedProjectionSha256": "ec0a41798a908468a98e6b5d16c8b8238820d55b1d0161d2ed2cd8d98d658c79",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doRejectMovementOverspend"
+    },
+    {
+      "branchAction": "doReleaseGrapple",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doReleaseGrapple",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "b849e65492fcf0bc8e27c33f9caa34219ac33e6071ae20168e493b36453263b4",
+        "observedProjectionSha256": "b849e65492fcf0bc8e27c33f9caa34219ac33e6071ae20168e493b36453263b4",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doReleaseGrapple"
+    },
+    {
+      "branchAction": "doResolveEscapeFailure",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doResolveEscapeFailure",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "19c5dab52eb1d65ff00f2f28e7a810159dcbd3f51da802be7b6086e290f07311",
+        "observedProjectionSha256": "19c5dab52eb1d65ff00f2f28e7a810159dcbd3f51da802be7b6086e290f07311",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveEscapeFailure"
+    },
+    {
+      "branchAction": "doResolveEscapeSuccess",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doResolveEscapeSuccess",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "fbdca4c99b7d5f266a3f8fadb1c3f407b3114ea262f6c6101854b1a73f49246f",
+        "observedProjectionSha256": "fbdca4c99b7d5f266a3f8fadb1c3f407b3114ea262f6c6101854b1a73f49246f",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveEscapeSuccess"
+    },
+    {
+      "branchAction": "doResolveGrappleFailure",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doResolveGrappleFailure",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "5399625b89d3894fee387f7f535a34955a24fd02bdbbfb54f4de753f450cffbf",
+        "observedProjectionSha256": "5399625b89d3894fee387f7f535a34955a24fd02bdbbfb54f4de753f450cffbf",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveGrappleFailure"
+    },
+    {
+      "branchAction": "doResolveGrappleSuccess",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doResolveGrappleSuccess",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "6549a4a8e8441dd6f8705b7ea2a8040e26c27d7e7408b016398d7898e197a6b6",
+        "observedProjectionSha256": "6549a4a8e8441dd6f8705b7ea2a8040e26c27d7e7408b016398d7898e197a6b6",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveGrappleSuccess"
+    },
+    {
+      "branchAction": "doSelectGrappleTarget",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doSelectGrappleTarget",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "ece05212db8513702da4a2af5b3254017c3bc9e9d332537a210f17d00acb5b1c",
+        "observedProjectionSha256": "ece05212db8513702da4a2af5b3254017c3bc9e9d332537a210f17d00acb5b1c",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSelectGrappleTarget"
+    },
+    {
+      "branchAction": "doSpendFullMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doSpendFullMovement",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "a0843763cd564c578d14719cda5fd787b531756be1f4a3d783cb485f55bdd27c",
+        "observedProjectionSha256": "a0843763cd564c578d14719cda5fd787b531756be1f4a3d783cb485f55bdd27c",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendFullMovement"
+    },
+    {
+      "branchAction": "doSpendMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doSpendMovement",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "e53f9479364645bd83df1a027b04d567f5c5c99be516312d0c8f351f474705f6",
+        "observedProjectionSha256": "e53f9479364645bd83df1a027b04d567f5c5c99be516312d0c8f351f474705f6",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendMovement"
+    },
+    {
+      "branchAction": "doSpendShortMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doSpendShortMovement",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "4448dfa75a0a3dd951d0e194c0e56959c4078c94287dd01f888037904491fd0e",
+        "observedProjectionSha256": "4448dfa75a0a3dd951d0e194c0e56959c4078c94287dd01f888037904491fd0e",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendShortMovement"
+    },
+    {
+      "branchAction": "doStandFromProne",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doStandFromProne",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "49f105d6309cf48d9daf78579413f146ba63269b4cc15f80e108f8ac1e749de2",
+        "observedProjectionSha256": "49f105d6309cf48d9daf78579413f146ba63269b4cc15f80e108f8ac1e749de2",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doStandFromProne"
+    },
+    {
+      "branchAction": "doStartGrappledTargetTurn",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_movement_mbt.rs",
+      "observedActionTaken": "doStartGrappledTargetTurn",
+      "qntFileSha256": "af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MovementState.current_actor",
+          "MovementState.movement_spent_feet",
+          "MovementState.dash_bonus_feet",
+          "MovementState.prone",
+          "MovementState.disengaged",
+          "MovementState.action_available",
+          "MovementState.grapple_active",
+          "MovementState.grapple_escape_dc",
+          "MovementState.protocol",
+          "MovementState.pending_opportunity_attack"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "333dcdc34465eba84073d745c8736761a8ba0a30ba5fd32c042ef189cb7ec145",
+        "observedProjectionSha256": "333dcdc34465eba84073d745c8736761a8ba0a30ba5fd32c042ef189cb7ec145",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doStartGrappledTargetTurn"
+    },
+    {
+      "branchAction": "doBreakReactorConcentrationAfterLargeDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doBreakReactorConcentrationAfterLargeDamage",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "1deb3563c9e35fa51967dad1d42d460d1f31604cf500ad5974468e715bfcd2f9",
+        "observedProjectionSha256": "1deb3563c9e35fa51967dad1d42d460d1f31604cf500ad5974468e715bfcd2f9",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doBreakReactorConcentrationAfterLargeDamage"
+    },
+    {
+      "branchAction": "doDeclineOpportunityAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doDeclineOpportunityAttack",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "f5545fd732410584ce1edfc7a6bddcdce494a4abe3d7a071312192484b1bec52",
+        "observedProjectionSha256": "f5545fd732410584ce1edfc7a6bddcdce494a4abe3d7a071312192484b1bec52",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doDeclineOpportunityAttack"
+    },
+    {
+      "branchAction": "doDeclineReadiedMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doDeclineReadiedMovement",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "1c4b6505b20154b8563e918faa0d7f4f0841eaee65716ad200564f24854371e1",
+        "observedProjectionSha256": "1c4b6505b20154b8563e918faa0d7f4f0841eaee65716ad200564f24854371e1",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doDeclineReadiedMovement"
+    },
+    {
+      "branchAction": "doHoldReactorConcentrationAfterSmallDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doHoldReactorConcentrationAfterSmallDamage",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "a57b98491ff85051a18c8e0c6053356a4e746dfada5d0ece6dcc99c0e7fd4f10",
+        "observedProjectionSha256": "a57b98491ff85051a18c8e0c6053356a4e746dfada5d0ece6dcc99c0e7fd4f10",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doHoldReactorConcentrationAfterSmallDamage"
+    },
+    {
+      "branchAction": "doOfferOpportunityAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doOfferOpportunityAttack",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "9a2d9fe49a2b9cd5b51ea6b27ab5c91837155a88c4920727b055f14bcccb4b90",
+        "observedProjectionSha256": "9a2d9fe49a2b9cd5b51ea6b27ab5c91837155a88c4920727b055f14bcccb4b90",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doOfferOpportunityAttack"
+    },
+    {
+      "branchAction": "doOfferReadiedMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doOfferReadiedMovement",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c21b5499e42eb99afa3eacc4180b1c0177ce0e6eac0c263a3758602f30a733d2",
+        "observedProjectionSha256": "c21b5499e42eb99afa3eacc4180b1c0177ce0e6eac0c263a3758602f30a733d2",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doOfferReadiedMovement"
+    },
+    {
+      "branchAction": "doReadyMovementFixture",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doReadyMovementFixture",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "2a9afdaebfe4dcda5d66f6fc208e697005f7f14718c961ddc274d316730c81f6",
+        "observedProjectionSha256": "2a9afdaebfe4dcda5d66f6fc208e697005f7f14718c961ddc274d316730c81f6",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doReadyMovementFixture"
+    },
+    {
+      "branchAction": "doRejectReadiedMovementZero",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doRejectReadiedMovementZero",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "b35e7fe169526c55f4f42c9357029c4da3169f27c11b40584d2eeed10fd2c2f7",
+        "observedProjectionSha256": "b35e7fe169526c55f4f42c9357029c4da3169f27c11b40584d2eeed10fd2c2f7",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doRejectReadiedMovementZero"
+    },
+    {
+      "branchAction": "doStartReactorConcentrationFixture",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doStartReactorConcentrationFixture",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "f718e939e598531f7183df3ec1d1867bcd81bed2deb86937cd4fa8fd94443a4d",
+        "observedProjectionSha256": "f718e939e598531f7183df3ec1d1867bcd81bed2deb86937cd4fa8fd94443a4d",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doStartReactorConcentrationFixture"
+    },
+    {
+      "branchAction": "doTakeReadiedMovementFill",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doTakeReadiedMovementFill",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c48e0b9b0e29c5dff38f652f7cfbdd158e84cf4f71c443271823cf0d13a7ca39",
+        "observedProjectionSha256": "c48e0b9b0e29c5dff38f652f7cfbdd158e84cf4f71c443271823cf0d13a7ca39",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doTakeReadiedMovementFill"
+    },
+    {
+      "branchAction": "doTakeReadiedMovementShort",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_reactions_mbt.rs",
+      "observedActionTaken": "doTakeReadiedMovementShort",
+      "qntFileSha256": "7a5758425ed53864578360caaff906d35179770a41054c2b2d5c2ce3093042ef",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "RuleCoreReactionState.interrupted_movement_spent_feet",
+          "RuleCoreReactionState.reactor_reaction_available",
+          "RuleCoreReactionState.reactor_readied_movement_held",
+          "RuleCoreReactionState.reactor_readied_spell_held",
+          "RuleCoreReactionState.reactor_movement_spent_feet",
+          "RuleCoreReactionState.interrupted_concentration",
+          "RuleCoreReactionState.reactor_concentration",
+          "RuleCoreReactionState.reaction_window",
+          "RuleCoreReactionState.pending_trigger",
+          "RuleCoreReactionState.protocol",
+          "RuleCoreReactionState.last_concentration_save_dc"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "e2774f327e7fc3a44857b0819c89e4d9bc980fc3fdfc86edf7b1ecb44286b7cc",
+        "observedProjectionSha256": "e2774f327e7fc3a44857b0819c89e4d9bc980fc3fdfc86edf7b1ecb44286b7cc",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doTakeReadiedMovementShort"
+    },
+    {
+      "branchAction": "doInvalidPushDistance",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "observedActionTaken": "doInvalidPushDistance",
+      "qntFileSha256": "e004f45672823419e675a8da3a60c9cea02beac5770a49856a9889037de97414",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "33be7eae29a1ba5eec68f3045778d36787375622571883cea4f57d587854d8f8",
+        "observedProjectionSha256": "33be7eae29a1ba5eec68f3045778d36787375622571883cea4f57d587854d8f8",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doInvalidPushDistance"
+    },
+    {
+      "branchAction": "doSaveFailsProne",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "observedActionTaken": "doSaveFailsProne",
+      "qntFileSha256": "e004f45672823419e675a8da3a60c9cea02beac5770a49856a9889037de97414",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "dede11d88e3f74aab8aaa8c75732b42b242856c572e43e763a32b1653fa7b387",
+        "observedProjectionSha256": "dede11d88e3f74aab8aaa8c75732b42b242856c572e43e763a32b1653fa7b387",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsProne"
+    },
+    {
+      "branchAction": "doSaveFailsPush",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "observedActionTaken": "doSaveFailsPush",
+      "qntFileSha256": "e004f45672823419e675a8da3a60c9cea02beac5770a49856a9889037de97414",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "3f3691c793b398ac58404936ff06fc66c14c05e486b3c258f3e916fa26e0e276",
+        "observedProjectionSha256": "3f3691c793b398ac58404936ff06fc66c14c05e486b3c258f3e916fa26e0e276",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPush"
+    },
+    {
+      "branchAction": "doSaveFailsPushBlocked",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "observedActionTaken": "doSaveFailsPushBlocked",
+      "qntFileSha256": "e004f45672823419e675a8da3a60c9cea02beac5770a49856a9889037de97414",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "d8db8da36468c26fe6bfc95b362ddf192a43ac6b1c07b731786e645c5ad520ca",
+        "observedProjectionSha256": "d8db8da36468c26fe6bfc95b362ddf192a43ac6b1c07b731786e645c5ad520ca",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPushBlocked"
+    },
+    {
+      "branchAction": "doSaveFailsPushNoLegalDestination",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "observedActionTaken": "doSaveFailsPushNoLegalDestination",
+      "qntFileSha256": "e004f45672823419e675a8da3a60c9cea02beac5770a49856a9889037de97414",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "c02e5941aaa49f75b749020b14058a764caa0cb7744a6f245ce97059895bdd66",
+        "observedProjectionSha256": "c02e5941aaa49f75b749020b14058a764caa0cb7744a6f245ce97059895bdd66",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPushNoLegalDestination"
+    },
+    {
+      "branchAction": "doSaveSucceeds",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_shove_outcome_mbt.rs",
+      "observedActionTaken": "doSaveSucceeds",
+      "qntFileSha256": "e004f45672823419e675a8da3a60c9cea02beac5770a49856a9889037de97414",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ShoveOutcomeState.last_scenario",
+          "ShoveOutcomeState.accepted",
+          "ShoveOutcomeState.target_prone",
+          "ShoveOutcomeState.push_emitted",
+          "ShoveOutcomeState.push_disposition_kind",
+          "ShoveOutcomeState.push_blocked_reason",
+          "ShoveOutcomeState.push_distance_feet",
+          "ShoveOutcomeState.push_provokes_opportunity_attacks",
+          "ShoveOutcomeState.action_available",
+          "ShoveOutcomeState.replay_index"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "23eaa83bbf63ad5d7042aca7b31d3688c73f8e8cd4fcf340ab44818b613064b0",
+        "observedProjectionSha256": "23eaa83bbf63ad5d7042aca7b31d3688c73f8e8cd4fcf340ab44818b613064b0",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveSucceeds"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

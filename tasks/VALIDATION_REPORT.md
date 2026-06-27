@@ -7,9 +7,9 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS`
-- Next queued driver: `<none for reducer-spine-diagnostic-battle>`
-- Next task id: `<none for RR04A re-review fixer scope>`
+- Last completed current-snapshot queued branch set: `L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS`
+- Next queued driver: `<orchestrator-owned>`
+- Next task id: `<orchestrator-owned>`
 
 Completion rule: a queued branch set is complete only when this report has an entry that names the exact `.mbt.qnt` driver, records the current manifest source commit SHA, records the current source branch inventory SHA, lists the allowed inputs used, renders branch coverage from harness-generated target replay evidence, and records verification results.
 
@@ -1183,6 +1183,152 @@ Verification results:
 - `cargo test attack_damage_disposition_adapter_replays_all_branches` passed.
 - `cargo test hit_point_damage_adapter_replays_all_branches` passed.
 - `cargo test stat_block_controls_adapter_replays_all_branches` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check a625d3e7190eb33396c17ee5dca7ae73f413b348...HEAD` passed.
+
+## L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS: Movement, Reaction, and Shove Rule-Core Components
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Campaign lane id: `L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS`
+- Parent route task id: `L15-RR04-RULE-CORE-COMPONENT-CONNECTORS`
+- Drivers:
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt`
+- Branch obligations:
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDash`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDeclineOpportunityAttack`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDiscoverEscapeGrapple`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDiscoverGrapple`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDiscoverMovement`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDisengage`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doMoveProvokesOpportunityAttack`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doMoveThreatSuppressedByDisengage`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doRejectDashAfterActionSpent`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doRejectMovementOverspend`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doReleaseGrapple`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveEscapeFailure`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveEscapeSuccess`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveGrappleFailure`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveGrappleSuccess`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSelectGrappleTarget`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSpendFullMovement`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSpendMovement`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSpendShortMovement`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doStandFromProne`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doStartGrappledTargetTurn`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doBreakReactorConcentrationAfterLargeDamage`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doDeclineOpportunityAttack`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doDeclineReadiedMovement`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doHoldReactorConcentrationAfterSmallDamage`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doOfferOpportunityAttack`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doOfferReadiedMovement`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doReadyMovementFixture`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doRejectReadiedMovementZero`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doStartReactorConcentrationFixture`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doTakeReadiedMovementFill`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doTakeReadiedMovementShort`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doInvalidPushDistance`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsProne`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsPush`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsPushBlocked`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsPushNoLegalDestination`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveSucceeds`
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt`
+- `cleanroom-input/qnt/shared-algebras/proofs/rule-core/movement-spatial-grapple.qnt`
+- `cleanroom-input/qnt/shared-algebras/proofs/rule-core/reactions-continuations-concentration.qnt`
+- `cleanroom-input/qnt/shared-algebras/proofs/rule-core/shove-outcome.qnt`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+- `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+- `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+- Repo-local `src/**`, `tasks/**`, and Cargo tooling
+
+Behavior implemented:
+
+- Replayed the movement, reaction, and shove selected rule-core drivers through component owner modules: `src/rules/rule_core_movement.rs`, `src/rules/rule_core_reactions.rs`, and `src/rules/rule_core_shove_outcome.rs`.
+- Kept QNT action names and projection hashes in `src/qnt_adapters/**` and `tasks/target-replay-evidence/**`; no production battle reducer owner or authored-identity dispatch was added.
+- Recorded component projection ownership for `MovementState`, `RuleCoreReactionState`, and `ShoveOutcomeState` in `tasks/STATE_OWNER_MANIFEST.json`.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDash` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDash#step:doDash` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDeclineOpportunityAttack` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDeclineOpportunityAttack#step:doDeclineOpportunityAttack` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDiscoverEscapeGrapple` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverEscapeGrapple#step:doDiscoverEscapeGrapple` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDiscoverGrapple` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverGrapple#step:doDiscoverGrapple` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDiscoverMovement` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDiscoverMovement#step:doDiscoverMovement` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doDisengage` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doDisengage#step:doDisengage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doMoveProvokesOpportunityAttack` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doMoveProvokesOpportunityAttack#step:doMoveProvokesOpportunityAttack` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doMoveThreatSuppressedByDisengage` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doMoveThreatSuppressedByDisengage#step:doMoveThreatSuppressedByDisengage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doRejectDashAfterActionSpent` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doRejectDashAfterActionSpent#step:doRejectDashAfterActionSpent` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doRejectMovementOverspend` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doRejectMovementOverspend#step:doRejectMovementOverspend` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doReleaseGrapple` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doReleaseGrapple#step:doReleaseGrapple` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveEscapeFailure` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveEscapeFailure#step:doResolveEscapeFailure` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveEscapeSuccess` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveEscapeSuccess#step:doResolveEscapeSuccess` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveGrappleFailure` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveGrappleFailure#step:doResolveGrappleFailure` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doResolveGrappleSuccess` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doResolveGrappleSuccess#step:doResolveGrappleSuccess` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSelectGrappleTarget` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSelectGrappleTarget#step:doSelectGrappleTarget` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSpendFullMovement` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendFullMovement#step:doSpendFullMovement` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSpendMovement` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendMovement#step:doSpendMovement` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doSpendShortMovement` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doSpendShortMovement#step:doSpendShortMovement` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doStandFromProne` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doStandFromProne#step:doStandFromProne` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt#step:doStartGrappledTargetTurn` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-movement.mbt.qnt seed=1 action=doStartGrappledTargetTurn#step:doStartGrappledTargetTurn` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doBreakReactorConcentrationAfterLargeDamage` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doBreakReactorConcentrationAfterLargeDamage#step:doBreakReactorConcentrationAfterLargeDamage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doDeclineOpportunityAttack` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doDeclineOpportunityAttack#step:doDeclineOpportunityAttack` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doDeclineReadiedMovement` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doDeclineReadiedMovement#step:doDeclineReadiedMovement` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doHoldReactorConcentrationAfterSmallDamage` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doHoldReactorConcentrationAfterSmallDamage#step:doHoldReactorConcentrationAfterSmallDamage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doOfferOpportunityAttack` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doOfferOpportunityAttack#step:doOfferOpportunityAttack` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doOfferReadiedMovement` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doOfferReadiedMovement#step:doOfferReadiedMovement` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doReadyMovementFixture` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doReadyMovementFixture#step:doReadyMovementFixture` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doRejectReadiedMovementZero` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doRejectReadiedMovementZero#step:doRejectReadiedMovementZero` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doStartReactorConcentrationFixture` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doStartReactorConcentrationFixture#step:doStartReactorConcentrationFixture` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doTakeReadiedMovementFill` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doTakeReadiedMovementFill#step:doTakeReadiedMovementFill` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt#step:doTakeReadiedMovementShort` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-reactions.mbt.qnt seed=1 action=doTakeReadiedMovementShort#step:doTakeReadiedMovementShort` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doInvalidPushDistance` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doInvalidPushDistance#step:doInvalidPushDistance` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsProne` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsProne#step:doSaveFailsProne` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsPush` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPush#step:doSaveFailsPush` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsPushBlocked` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPushBlocked#step:doSaveFailsPushBlocked` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveFailsPushNoLegalDestination` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveFailsPushNoLegalDestination#step:doSaveFailsPushNoLegalDestination` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt#step:doSaveSucceeds` | `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json#L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS driverPath=cleanroom-input/qnt/battle-runtime/rule-core-shove-outcome.mbt.qnt seed=1 action=doSaveSucceeds#step:doSaveSucceeds` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR04B-rule-core-movement-reaction-shove-components.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS seed=1`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo test adapter_replays_all_branches` passed.
 - `cargo fmt --check` passed.
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.

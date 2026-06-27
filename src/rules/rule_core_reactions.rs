@@ -56,7 +56,7 @@ pub struct RuleCoreReactionState {
 pub enum RuleCoreReactionSubject {
     OfferOpportunityAttack,
     ReactionDecision(RuleCoreReactionDecision),
-    ReadyMovementFixture,
+    ReadyMovement,
     OfferReadiedMovement,
     StartReactorConcentration,
     ResolveReactorConcentrationAfterDamage {
@@ -104,7 +104,7 @@ pub fn resolve_rule_core_reaction_subject(
         RuleCoreReactionSubject::ReactionDecision(
             RuleCoreReactionDecision::TakeReadiedMovement { distance_feet },
         ) => take_readied_movement_from(state, distance_feet),
-        RuleCoreReactionSubject::ReadyMovementFixture => ready_movement_fixture_from(state),
+        RuleCoreReactionSubject::ReadyMovement => ready_movement_from(state),
         RuleCoreReactionSubject::OfferReadiedMovement => offer_readied_movement_from(state),
         RuleCoreReactionSubject::StartReactorConcentration => {
             start_reactor_concentration_from(state)
@@ -131,13 +131,13 @@ pub fn decline_reaction_opportunity_attack() -> RuleCoreReactionState {
 }
 
 #[must_use]
-pub fn ready_reaction_movement_fixture() -> RuleCoreReactionState {
-    ready_movement_fixture_from(rule_core_reactions_initial_state())
+pub fn ready_movement_reaction() -> RuleCoreReactionState {
+    ready_movement_from(rule_core_reactions_initial_state())
 }
 
 #[must_use]
 pub fn offer_readied_movement_reaction() -> RuleCoreReactionState {
-    offer_readied_movement_from(ready_reaction_movement_fixture())
+    offer_readied_movement_from(ready_movement_reaction())
 }
 
 #[must_use]
@@ -191,7 +191,7 @@ fn offer_opportunity_attack_from(state: RuleCoreReactionState) -> RuleCoreReacti
     }
 }
 
-fn ready_movement_fixture_from(state: RuleCoreReactionState) -> RuleCoreReactionState {
+fn ready_movement_from(state: RuleCoreReactionState) -> RuleCoreReactionState {
     RuleCoreReactionState {
         reactor_readied_movement_held: true,
         protocol: RuleCoreReactionProtocol::Resolved,

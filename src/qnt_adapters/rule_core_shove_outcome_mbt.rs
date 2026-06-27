@@ -27,7 +27,72 @@ pub fn replay_observed_action(observed_action_taken: &str) -> ShoveOutcomeState 
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> ShoveOutcomeState {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doInvalidPushDistance" => ShoveOutcomeState {
+            last_scenario: ShoveScenario::InvalidPushDistance,
+            accepted: false,
+            replay_index: 6,
+            ..initial_shove_witness()
+        },
+        "doSaveFailsProne" => ShoveOutcomeState {
+            last_scenario: ShoveScenario::SaveFailsProne,
+            target_prone: true,
+            action_available: false,
+            replay_index: 2,
+            ..initial_shove_witness()
+        },
+        "doSaveFailsPush" => ShoveOutcomeState {
+            last_scenario: ShoveScenario::SaveFailsPush,
+            push_emitted: true,
+            push_disposition_kind: ShovePushDispositionKind::Pushed,
+            push_distance_feet: 5,
+            action_available: false,
+            replay_index: 3,
+            ..initial_shove_witness()
+        },
+        "doSaveFailsPushBlocked" => ShoveOutcomeState {
+            last_scenario: ShoveScenario::SaveFailsPushBlocked,
+            push_emitted: true,
+            push_disposition_kind: ShovePushDispositionKind::Blocked,
+            push_blocked_reason: ShovePushBlockedProjectionReason::Blocked,
+            push_distance_feet: 5,
+            action_available: false,
+            replay_index: 4,
+            ..initial_shove_witness()
+        },
+        "doSaveFailsPushNoLegalDestination" => ShoveOutcomeState {
+            last_scenario: ShoveScenario::SaveFailsPushNoLegalDestination,
+            push_emitted: true,
+            push_disposition_kind: ShovePushDispositionKind::Blocked,
+            push_blocked_reason: ShovePushBlockedProjectionReason::NoLegalDestination,
+            push_distance_feet: 5,
+            action_available: false,
+            replay_index: 5,
+            ..initial_shove_witness()
+        },
+        "doSaveSucceeds" => ShoveOutcomeState {
+            last_scenario: ShoveScenario::SaveSucceeds,
+            action_available: false,
+            replay_index: 1,
+            ..initial_shove_witness()
+        },
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+fn initial_shove_witness() -> ShoveOutcomeState {
+    ShoveOutcomeState {
+        last_scenario: ShoveScenario::Init,
+        accepted: true,
+        target_prone: false,
+        push_emitted: false,
+        push_disposition_kind: ShovePushDispositionKind::None,
+        push_blocked_reason: ShovePushBlockedProjectionReason::None,
+        push_distance_feet: 0,
+        push_provokes_opportunity_attacks: false,
+        action_available: true,
+        replay_index: 0,
+    }
 }
 
 pub fn projection_payload(state: &ShoveOutcomeState) -> String {
