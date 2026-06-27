@@ -197,8 +197,8 @@
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "ready",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
-    "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "running",
-    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "running"
+    "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "review-needed",
+    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "review-needed"
   },
   "lastIntegrationVerification": {
     "head": "5a6e5d2d1975788acef1373786eb94dd0074407e",
@@ -244,18 +244,45 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08b",
       "branch": "ralph/l15-rr07-fu08b-metamagic-save-range",
       "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
-      "status": "running",
+      "status": "review-needed",
       "workerAgent": "019f079d-ab15-71b0-8240-dd4bfa6a1ab1",
-      "workerName": "Galileo"
+      "workerName": "Galileo",
+      "commit": "3727abed465765fbc2b3f223076ed265d31393ff",
+      "workerSummary": [
+        "Accepted all 9 Careful/Heightened/Distant/Twinned metamagic rows.",
+        "No blockers or demotions reported."
+      ],
+      "workerVerification": [
+        "git merge-base --is-ancestor 6bad2c3509996b8cafab2a1d0258e3062e8ff60b HEAD",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08c",
       "branch": "ralph/l15-rr07-fu08c-metamagic-reroll-damage",
       "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
-      "status": "running",
+      "status": "review-needed",
       "workerAgent": "019f079e-94a7-7e00-99a3-808e4091635d",
-      "workerName": "Tesla"
+      "workerName": "Tesla",
+      "commit": "a6e33d9bad73f82e20e0373986738e943d45233d",
+      "workerSummary": [
+        "Accepted all 7 Empowered/Seeking/Subtle/Transmuted/Extended metamagic rows.",
+        "No blockers or demotions reported."
+      ],
+      "workerVerification": [
+        "git merge-base --is-ancestor 6bad2c3509996b8cafab2a1d0258e3062e8ff60b HEAD",
+        "focused adapter tests for Empowered, Seeking, Subtle, Transmuted, Extended",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
+      ]
     }
   ],
   "completedLaneWorktrees": [
