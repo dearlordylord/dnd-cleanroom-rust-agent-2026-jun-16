@@ -14,6 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-a` | `ralph/l15-rrcp7-a-buff-mark-active-effects` | `e08d2f034615250ce4e543938b28cb98e05bf976` | `019f08bc-b2d8-7532-87be-036985dbe780` Lovelace the 2nd | running |
 
 ## Historical RRCONV-19 Worktrees
 
