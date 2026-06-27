@@ -66,6 +66,7 @@ pub enum ReducerRouteSubjectFamily {
     ForcedMovement,
     HitPointRestoration,
     MovementResource,
+    RepeatSaveConditionEffect,
     SaveGatedSpell,
     SlotSpell,
     SpellAttack,
@@ -86,6 +87,10 @@ pub enum ReducerRouteSubjectFamily {
     RollModifierEffect,
     ScalarBuffEffect,
     SpellDamageReduction,
+    CompanionLifecycle,
+    CompanionSharedSenses,
+    CompanionTouchDelivery,
+    CompanionReactionAttack,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -98,6 +103,7 @@ pub enum ReducerRouteOwnerGroup {
     AttackActionProcedure,
     Concentration,
     ConditionLifecycle,
+    Companion,
     CreatureSpaceMovement,
     CreatureState,
     DamageAdjustment,
@@ -898,6 +904,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::AttackActionProcedure => "BattleAttackActionProcedureOwner",
         ReducerRouteOwnerGroup::Concentration => "BattleConcentrationOwner",
         ReducerRouteOwnerGroup::ConditionLifecycle => "BattleConditionLifecycleOwner",
+        ReducerRouteOwnerGroup::Companion => "BattleCompanionOwner",
         ReducerRouteOwnerGroup::CreatureSpaceMovement => "BattleCreatureSpaceMovementOwner",
         ReducerRouteOwnerGroup::CreatureState => "BattleCreatureStateOwner",
         ReducerRouteOwnerGroup::DamageAdjustment => "BattleDamageAdjustmentOwner",
@@ -947,6 +954,10 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::BattleAction => "BattleActionRouteSubject",
         ReducerRouteSubjectFamily::ConcentrationTeardown => "ConcentrationTeardownRouteSubject",
         ReducerRouteSubjectFamily::CommandSpell => "CommandSpellRouteSubject",
+        ReducerRouteSubjectFamily::CompanionLifecycle => "CompanionLifecycleRouteSubject",
+        ReducerRouteSubjectFamily::CompanionSharedSenses => "CompanionSharedSensesRouteSubject",
+        ReducerRouteSubjectFamily::CompanionTouchDelivery => "CompanionTouchDeliveryRouteSubject",
+        ReducerRouteSubjectFamily::CompanionReactionAttack => "CompanionReactionAttackRouteSubject",
         ReducerRouteSubjectFamily::CreatureAttack => "CreatureAttackRouteSubject",
         ReducerRouteSubjectFamily::CreatureSpaceMovementPermission => {
             "CreatureSpaceMovementPermissionRouteSubject"
@@ -962,6 +973,9 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::PassiveDamageAdjustment => "PassiveDamageAdjustmentRouteSubject",
         ReducerRouteSubjectFamily::PassiveSavingThrowRollMode => {
             "PassiveSavingThrowRollModeRouteSubject"
+        }
+        ReducerRouteSubjectFamily::RepeatSaveConditionEffect => {
+            "RepeatSaveConditionEffectRouteSubject"
         }
         ReducerRouteSubjectFamily::RollModifierEffect => "RollModifierEffectRouteSubject",
         ReducerRouteSubjectFamily::SaveGatedSpell => "SaveGatedSpellRouteSubject",

@@ -10,6 +10,8 @@ mod battle_runtime_command_option_next_turn;
 mod battle_runtime_command_ordering;
 #[path = "../qnt_adapters/battle_runtime_concentration_break_teardown.rs"]
 mod battle_runtime_concentration_break_teardown;
+#[path = "../qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs"]
+mod battle_runtime_condition_saving_throw_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs"]
 mod battle_runtime_creature_type_protection_and_charm_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_danger_sense_selected_identity.rs"]
@@ -643,6 +645,16 @@ use battle_runtime_concentration_break_teardown::{
     replay_observed_route as replay_concentration_break_teardown_route, sampled_damage_total,
     BRANCH_ACTIONS as CONCENTRATION_BREAK_TEARDOWN_BRANCH_ACTIONS,
 };
+use battle_runtime_condition_saving_throw_selected_identity::{
+    expected_route as expected_condition_saving_throw_route,
+    expected_witness as expected_condition_saving_throw_witness,
+    out_of_scope_reason as condition_saving_throw_out_of_scope_reason,
+    projection_payload as condition_saving_throw_projection_payload,
+    replay_observed_action as replay_condition_saving_throw_action,
+    replay_observed_route as replay_condition_saving_throw_route,
+    BRANCH_ACTIONS as CONDITION_SAVING_THROW_BRANCH_ACTIONS,
+    OUT_OF_SCOPE_BRANCH_ACTIONS as CONDITION_SAVING_THROW_OUT_OF_SCOPE_BRANCH_ACTIONS,
+};
 use battle_runtime_creature_type_protection_and_charm_selected_identity::{
     expected_witness as expected_creature_type_protection_witness,
     projection_payload as creature_type_protection_projection_payload,
@@ -702,9 +714,11 @@ use battle_runtime_find_familiar_companion_lifecycle::{
     BRANCH_ACTIONS as FIND_FAMILIAR_COMPANION_BRANCH_ACTIONS,
 };
 use battle_runtime_find_familiar_selected_identity::{
+    expected_route as expected_find_familiar_selected_identity_route,
     expected_witness as expected_find_familiar_selected_identity_witness,
     projection_payload as find_familiar_selected_identity_projection_payload,
     replay_observed_action as replay_find_familiar_selected_identity_action,
+    replay_observed_route as replay_find_familiar_selected_identity_route,
     BRANCH_ACTIONS as FIND_FAMILIAR_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_halfling_nimbleness_selected_identity::{
@@ -978,9 +992,11 @@ use battle_runtime_stat_block_size_gated_condition_rider::{
     BRANCH_ACTIONS as STAT_BLOCK_SIZE_GATED_BRANCH_ACTIONS,
 };
 use battle_runtime_thaumaturgy_selected_identity::{
+    expected_route as expected_thaumaturgy_selected_identity_route,
     expected_witness as expected_thaumaturgy_selected_identity_witness,
     projection_payload as thaumaturgy_selected_identity_projection_payload,
     replay_observed_action as replay_thaumaturgy_selected_identity_action,
+    replay_observed_route as replay_thaumaturgy_selected_identity_route,
     BRANCH_ACTIONS as THAUMATURGY_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_turn_boundary_effect_lifecycle::{
@@ -5263,6 +5279,38 @@ fn save_gated_spell_ordering_tracks_area_damage_and_condition_paths() {
 }
 
 #[test]
+fn condition_saving_throw_selected_identity_routes_in_scope_substrate_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-condition-saving-throw-selected-identity.mbt.qnt,
+    // battle-runtime-save-gated-spell-ordering.route.mbt.qnt, and
+    // battle-runtime-sleep-repeat-save.route.mbt.qnt. RAW:
+    // cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md
+    // "Saving Throws"; selected level-2/3 branches are recorded out of scope
+    // for this lane.
+    for action in CONDITION_SAVING_THROW_BRANCH_ACTIONS {
+        let observed = replay_condition_saving_throw_action(action);
+        assert_eq!(observed, expected_condition_saving_throw_witness(action));
+        assert!(condition_saving_throw_projection_payload(&observed).contains("protocolResult="));
+
+        let route = replay_condition_saving_throw_route(action);
+        assert_eq!(route, expected_condition_saving_throw_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(
+            route_payload.contains("SaveGatedSpellRouteSubject")
+                || route_payload.contains("RepeatSaveConditionEffectRouteSubject")
+        );
+    }
+
+    for (action, reason) in CONDITION_SAVING_THROW_OUT_OF_SCOPE_BRANCH_ACTIONS {
+        assert_eq!(
+            condition_saving_throw_out_of_scope_reason(action),
+            Some(reason)
+        );
+        assert!(expected_condition_saving_throw_route(action).is_empty());
+    }
+}
+
+#[test]
 fn spell_attack_ordering_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-spell-attack-ordering.mbt.qnt and
@@ -5706,6 +5754,9 @@ fn thaumaturgy_selected_identity_adapter_replays_all_branches() {
         );
         assert!(thaumaturgy_selected_identity_projection_payload(&observed)
             .contains("protocolResult=resolved"));
+        let route = replay_thaumaturgy_selected_identity_route(action);
+        assert_eq!(route, expected_thaumaturgy_selected_identity_route(action));
+        assert!(reducer_route_payload(&route).contains("RollModifierEffectRouteSubject"));
     }
 }
 
@@ -7993,6 +8044,12 @@ fn find_familiar_selected_identity_adapter_replays_all_branches() {
             find_familiar_selected_identity_projection_payload(&observed)
                 .contains("qOwnerActionAvailable=")
         );
+        let route = replay_find_familiar_selected_identity_route(action);
+        assert_eq!(
+            route,
+            expected_find_familiar_selected_identity_route(action)
+        );
+        assert!(reducer_route_payload(&route).contains("Companion"));
     }
 }
 
