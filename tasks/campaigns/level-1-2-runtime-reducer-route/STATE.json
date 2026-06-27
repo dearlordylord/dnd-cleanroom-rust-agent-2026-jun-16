@@ -167,7 +167,7 @@
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "merged-verified",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "merged-verified",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
-    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "reviewing",
+    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "findings",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "running",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
@@ -192,7 +192,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a",
       "branch": "ralph/l15-rr07s-a-passive-roll-resource",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "reviewing",
+      "status": "findings",
       "workerAgent": "019f070a-d8bb-7111-b578-d4eee793076f",
       "workerName": "Copernicus",
       "commit": "d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62",
@@ -211,7 +211,17 @@
       ],
       "reviewAgent": "019f071c-a15c-7763-9148-3f7cfdcc6211",
       "reviewName": "Herschel",
-      "reviewStatus": "running"
+      "reviewStatus": "findings",
+      "reviewFindings": [
+        "Target replay evidence mislabels projection witnesses as route evidence: accepted rows declare literal-projection-witness while also claiming comparator route-event-list and projection qRoute.",
+        "Lane tests compare observed state witnesses to expected_witness rather than observed reducer routes to independent expected route records, so route-event acceptance is overclaimed."
+      ],
+      "reviewVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
+        "cargo test adapter_replays_all_branches"
+      ]
     },
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
