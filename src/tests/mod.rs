@@ -4526,9 +4526,9 @@ fn level1_damage_spell_adapter_replays_all_branches() {
     }
     for (action, reason) in BLOCKED_LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS {
         assert_eq!(level1_damage_spell_blocker_reason(action), Some(reason));
-        assert!(expected_level1_damage_spell_witness(action)
-            .protocol_holes
-            .is_empty());
+        assert!(std::panic::catch_unwind(|| replay_level1_damage_spell_action(action)).is_err());
+        assert!(std::panic::catch_unwind(|| replay_level1_damage_spell_route(action)).is_err());
+        assert!(std::panic::catch_unwind(|| expected_level1_damage_spell_witness(action)).is_err());
     }
 }
 

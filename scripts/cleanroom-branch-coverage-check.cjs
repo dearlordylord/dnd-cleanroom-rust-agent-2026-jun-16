@@ -1625,6 +1625,43 @@ function requiredTargetObligations(inventory) {
   );
 }
 
+function validateTargetBlocker(run, context, issues) {
+  if (
+    !isRecord(run.result) ||
+    typeof run.result.blockerId !== "string" ||
+    run.result.blockerId.trim() === "" ||
+    typeof run.result.reason !== "string" ||
+    run.result.reason.trim() === ""
+  ) {
+    issues.push(`${context}: target-blocker result requires blockerId and reason.`);
+  }
+  if (!isRecord(run.stateCheck) || run.stateCheck.tag !== "target-blocker") {
+    issues.push(`${context}: target-blocker replay requires stateCheck tag target-blocker.`);
+    return;
+  }
+  if (
+    typeof run.stateCheck.projection !== "string" ||
+    run.stateCheck.projection.trim() === ""
+  ) {
+    issues.push(`${context}: target-blocker stateCheck requires projection.`);
+  }
+  if (
+    typeof run.stateCheck.comparator !== "string" ||
+    run.stateCheck.comparator.trim() === ""
+  ) {
+    issues.push(`${context}: target-blocker stateCheck requires comparator.`);
+  }
+  if (
+    !Array.isArray(run.stateCheck.checkedTargetStateFields) ||
+    run.stateCheck.checkedTargetStateFields.length === 0 ||
+    run.stateCheck.checkedTargetStateFields.some(
+      (field) => typeof field !== "string" || field.trim() === "",
+    )
+  ) {
+    issues.push(`${context}: target-blocker stateCheck requires checkedTargetStateFields.`);
+  }
+}
+
 function validateTargetReplayEvidence(
   evidence,
   inventory,
@@ -1696,6 +1733,7 @@ function validateTargetReplayEvidence(
     obligationsById.set(obligation.obligationId, obligation);
   }
   const covered = new Set();
+  const targetBlocked = new Set();
   const sampledInputsByObligation = new Map();
   for (const input of inventory.sampledInputs ?? []) {
     const obligationId = `${input.driverPath}#${input.branchFamily}:${input.branchAction}`;
@@ -1805,20 +1843,29 @@ function validateTargetReplayEvidence(
     }
     if (run.result?.tag === "pass" && issues.length === issueCountBeforeRun) {
       covered.add(obligationId);
-    } else if (run.result?.tag !== "pass" && run.result?.tag !== "fail") {
-      issues.push(`${context}: result tag must be pass or fail.`);
+    } else if (run.result?.tag === "target-blocker") {
+      validateTargetBlocker(run, context, issues);
+      if (issues.length === issueCountBeforeRun) {
+        targetBlocked.add(obligationId);
+      }
+    } else if (run.result?.tag !== "fail") {
+      issues.push(`${context}: result tag must be pass, fail, or target-blocker.`);
     }
   }
   if (requireAllObligations) {
     for (const obligation of requiredTargetObligations(inventory)) {
-      if (!covered.has(obligation.obligationId)) {
+      if (!covered.has(obligation.obligationId) && !targetBlocked.has(obligation.obligationId)) {
         issues.push(
           `${obligation.obligationId}: missing passing target replay evidence.`,
         );
       }
     }
   }
-  return { issues, covered: Array.from(covered).sort() };
+  return {
+    issues,
+    covered: Array.from(covered).sort(),
+    targetBlocked: Array.from(targetBlocked).sort(),
+  };
 }
 
 function md(value) {

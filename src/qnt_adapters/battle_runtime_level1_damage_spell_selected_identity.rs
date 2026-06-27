@@ -187,16 +187,6 @@ pub fn expected_witness(observed_action_taken: &str) -> LevelOneDamageSpellWitne
             secondary_target_hp: 9,
             scenario_outcome: "BurningHandsMixedConeSavingThrows",
         }),
-        "doResolveChromaticOrbDuplicateDamageLeap" => expected(ExpectedLevelOneDamageSpell {
-            action_available: false,
-            spell_slot_spent_this_turn: true,
-            level1_slots_remaining: 0,
-            primary_target_hp: 3,
-            primary_target_poisoned: false,
-            primary_target_next_attack_roll_disadvantage: false,
-            secondary_target_hp: 9,
-            scenario_outcome: "ChromaticOrbDuplicateDamageLeap",
-        }),
         "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows" => {
             expected(ExpectedLevelOneDamageSpell {
                 action_available: false,
@@ -263,18 +253,6 @@ pub fn expected_witness(observed_action_taken: &str) -> LevelOneDamageSpellWitne
             secondary_target_hp: 12,
             scenario_outcome: "SorcerousBurstSpellAttackDamage",
         }),
-        "doResolveStarryWispObjectSpellAttackDamageAndDimLight" => {
-            expected(ExpectedLevelOneDamageSpell {
-                action_available: false,
-                spell_slot_spent_this_turn: false,
-                level1_slots_remaining: 1,
-                primary_target_hp: 12,
-                primary_target_poisoned: false,
-                primary_target_next_attack_roll_disadvantage: false,
-                secondary_target_hp: 12,
-                scenario_outcome: "StarryWispObjectSpellAttackDamageAndDimLight",
-            })
-        }
         "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage" => {
             expected(ExpectedLevelOneDamageSpell {
                 action_available: false,
@@ -287,6 +265,9 @@ pub fn expected_witness(observed_action_taken: &str) -> LevelOneDamageSpellWitne
                 scenario_outcome:
                     "ViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
             })
+        }
+        action if blocker_reason(action).is_some() => {
+            panic!("{}: {}", action, blocker_reason(action).unwrap())
         }
         action => panic!("unsupported expected mbt::actionTaken {action}"),
     }
