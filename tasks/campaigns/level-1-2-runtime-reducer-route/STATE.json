@@ -2361,6 +2361,16 @@
     "status": "accepted-through-sdk-composition-plus-pact-slot-replay",
     "phase": "FC-07-PACT-SLOT-HANDOFF-REPLAY",
     "phaseName": "Post-FC06 Pact Slot Handoff Replay",
+    "postFc07VerifierRefresh": {
+      "phase": "FC-08-FRESH-VERIFIER-REFRESH",
+      "phaseName": "Fresh Verifier Refresh After Input Package Update",
+      "status": "running",
+      "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-verifier-refresh",
+      "targetBranch": "ralph/fresh-verifier-refresh",
+      "baseCommit": "f0ee8f8eb95192639afe5b6af17764dfe46c5303",
+      "workerAgent": "Ampere the 2nd (019f0aa1-145d-7c41-bfff-114cb4d6427d)",
+      "scope": "Repair fresh-run verifier story after the cleanroom-input refresh so historical FC-03/FC-04/FC-05 evidence is not incorrectly revalidated against the b57772b input package, while current FC-07 evidence remains strictly validated."
+    },
     "postFc06PactSlotReplay": {
       "phase": "FC-07-PACT-SLOT-HANDOFF-REPLAY",
       "phaseName": "Post-FC06 Pact Slot Handoff Replay",

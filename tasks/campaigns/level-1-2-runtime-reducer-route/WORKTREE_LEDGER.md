@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FC-08-FRESH-VERIFIER-REFRESH | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-verifier-refresh` | `ralph/fresh-verifier-refresh` | `f0ee8f8eb95192639afe5b6af17764dfe46c5303` | Ampere the 2nd (`019f0aa1-145d-7c41-bfff-114cb4d6427d`) | pending | running |
 
 ## Historical RRCONV-19 Worktrees
 
