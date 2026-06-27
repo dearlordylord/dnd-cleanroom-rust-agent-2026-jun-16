@@ -2324,29 +2324,47 @@
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
   "freshCleanroomDryRun": {
-    "status": "fc-04-running",
-    "phase": "FC-04",
-    "phaseName": "Generic Base Armor Class Regression",
-    "activePhase": {
+    "status": "fc-04-reviewed-accepted",
+    "phase": "FC-05",
+    "phaseName": "Character, Sheet, Or Handoff Seed",
+    "previousPhase": {
       "phase": "FC-04",
       "phaseName": "Generic Base Armor Class Regression",
-      "status": "worker-running",
+      "status": "reviewed-accepted",
       "targetBaseCommit": "7b690c80e6fa4f3177ff41ccedf2083175b1b00c",
       "campaignLaunchCommit": "f487298",
+      "campaignAcceptanceCommit": "7a74d1a",
+      "runtimeCommit": "9f86b3468a689d894096267d0fcde8de7d4a9388",
+      "targetHead": "101603476fd473483f4480f55bea9c3555d9aefa",
       "workerAgent": "019f09f3-de14-78c3-b696-a672305e19c0",
       "workerName": "Socrates the 2nd",
-      "scope": "Implement generic base Armor Class effect route evidence through shared reducer entrypoints using battle-runtime-spell-base-armor-class-effect.route.mbt.qnt; selected spell identity remains limited to evidence/test/source-input citation boundaries.",
+      "reviewerAgent": "019f0a02-f2c7-7253-b65d-8fddd58a642c",
+      "reviewerName": "Sartre the 2nd",
+      "finalReviewVerdict": "clean",
+      "scope": "Generic base Armor Class effect route evidence through shared reducer entrypoints using battle-runtime-spell-base-armor-class-effect.route.mbt.qnt; selected spell identity remains limited to evidence/test/source-input citation boundaries.",
       "preferredDriver": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
       "requiredConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt",
-      "expectedSurfaces": [
+      "acceptedSurfaces": [
         "unarmored target admission",
         "armored target rejection",
         "base Armor Class projection",
         "duration expiry cleanup"
       ],
-      "acceptanceBoundary": "Production code must dispatch on generic target, active-effect, turn-boundary, and Armor Class owner surfaces, not selected spell identity."
+      "verification": [
+        "cargo fmt --check",
+        "cargo test (17 passed)",
+        "cargo clippy --all-targets -- -D warnings",
+        "python3 tools/verify_fc00.py",
+        "python3 tools/verify_fc01.py",
+        "python3 tools/verify_fc02.py",
+        "python3 tools/verify_fc03.py",
+        "python3 tools/verify_fc04.py",
+        "git diff --check 7b690c80e6fa4f3177ff41ccedf2083175b1b00c...HEAD",
+        "git status --short"
+      ],
+      "residualRisk": "The target worktree did not contain .claude/review-rules.md inside the allowed fresh-cleanroom review boundary; reviewer used the campaign/source package boundaries and AGENTS instructions."
     },
-    "previousPhase": {
+    "earlierReviewedPhase": {
       "phase": "FC-03",
       "phaseName": "Spell Attack Or Save-Gated Connector",
       "status": "reviewed-accepted-with-blockers",
@@ -2379,7 +2397,7 @@
       ],
       "residualRisk": "FC-03 proves route/hole-owner evidence only. It does not prove concrete save-gated HP damage application; the final BattleHitPointOwner event is route ownership, not effect parity."
     },
-    "earlierReviewedPhase": {
+    "earlierReviewedPhaseFc02": {
       "phase": "FC-02",
       "phaseName": "Minimal Battle Action Route",
       "status": "reviewed-accepted",
@@ -2470,6 +2488,12 @@
         "status": "reviewed-accepted-with-blockers",
         "runtimeCommit": "20de2c92377db2e212fbcc179b74d1d6d5993878",
         "targetHead": "7b690c80e6fa4f3177ff41ccedf2083175b1b00c"
+      },
+      {
+        "phase": "FC-04",
+        "status": "reviewed-accepted",
+        "runtimeCommit": "9f86b3468a689d894096267d0fcde8de7d4a9388",
+        "targetHead": "101603476fd473483f4480f55bea9c3555d9aefa"
       }
     ],
     "previousAcceptedPhase": {
@@ -2534,7 +2558,7 @@
     ]
   },
   "nextWorkRecommendations": [
-    "Continue supervising FC-04 Generic Base Armor Class Regression worker Socrates the 2nd (`019f09f3-de14-78c3-b696-a672305e19c0`) in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00.",
+    "Launch FC-05 Character, Sheet, Or Handoff Seed in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 using the fresh dry-run plan.",
     "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
     "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
     "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."

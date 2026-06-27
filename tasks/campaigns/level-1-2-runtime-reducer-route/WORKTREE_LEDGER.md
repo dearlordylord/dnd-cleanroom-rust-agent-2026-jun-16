@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FC-04-GENERIC-BASE-ARMOR-CLASS | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `f487298` campaign / `7b690c80e6fa4f3177ff41ccedf2083175b1b00c` target | Socrates the 2nd (`019f09f3-de14-78c3-b696-a672305e19c0`) | _pending_ | running |
+| _none_ | | | | | | |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -93,3 +93,4 @@ When launching a lane:
 | FC-01-REDUCER-SPINE-SUBSTRATE | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `1f26d3e4fc792912e9b84f8e2cf242f3869c3807` | `a58f893` campaign / `cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3` target | Zeno the 2nd (`019f09b1-9bad-7da0-ab9b-5b6b9e3dd2c9`) | Dalton the 2nd (`019f09cd-58b1-7e41-b16c-845ac7fb3035`) | FC-01 accepted after two route-honesty lifecycle fixes; ready for FC-02 |
 | FC-02-MINIMAL-BATTLE-ACTION-ROUTE | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `9b4232da35ca3532ac6815475c2998a21c734452` | `74d38f9` campaign / `1f26d3e4fc792912e9b84f8e2cf242f3869c3807` target | Noether the 2nd (`019f09d2-d8b3-7fb2-a66c-b30dccae865e`) | Sagan the 2nd (`019f09dd-a4cf-7761-8763-876b4888bf79`) | FC-02 accepted; ready for FC-03 |
 | FC-03-SPELL-CONNECTOR | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `7b690c80e6fa4f3177ff41ccedf2083175b1b00c` | `c62945c3cf70653db7aa363ebbaeb945de04d4ec` campaign / `9b4232da35ca3532ac6815475c2998a21c734452` target | Volta the 2nd (`019f09e3-eb5a-7843-983c-df5cee14caef`) | Faraday the 2nd (`019f09ee-0dae-7603-8190-9030e94ed671`) | FC-03 accepted-with-blockers; ready for FC-04 |
+| FC-04-GENERIC-BASE-ARMOR-CLASS | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `101603476fd473483f4480f55bea9c3555d9aefa` | `f487298` campaign / `7b690c80e6fa4f3177ff41ccedf2083175b1b00c` target | Socrates the 2nd (`019f09f3-de14-78c3-b696-a672305e19c0`) | Sartre the 2nd (`019f0a02-f2c7-7253-b65d-8fddd58a642c`) | FC-04 accepted; ready for FC-05 |
