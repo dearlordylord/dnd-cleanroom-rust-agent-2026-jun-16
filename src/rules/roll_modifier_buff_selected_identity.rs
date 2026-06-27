@@ -33,6 +33,43 @@ pub enum RollModifierBuffProtocol {
     Resolved,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum RollModifierBuffTarget {
+    Caster,
+    PrimaryTarget,
+    PrimaryAndSecondaryTargets,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct D20RollModifierBuff {
+    pub target: RollModifierBuffTarget,
+    pub sign: RollModifierBuffSign,
+    pub attack_roll: bool,
+    pub saving_throw: bool,
+    pub ability_check: bool,
+    pub skill: RollModifierBuffSkill,
+    pub rejects_unselected_target: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct DamageReductionBuff {
+    pub target: RollModifierBuffTarget,
+    pub damage_type: RollModifierBuffDamageType,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ArmorClassBuff {
+    pub target: RollModifierBuffTarget,
+    pub bonus: u8,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum RollModifierBuffSubstrate {
+    D20Modifier(D20RollModifierBuff),
+    DamageReduction(DamageReductionBuff),
+    ArmorClass(ArmorClassBuff),
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct RollModifierBuffSelectedIdentityState {
     pub caster_concentrating: bool,
@@ -64,21 +101,55 @@ pub fn roll_modifier_buff_selected_identity_initial_state() -> RollModifierBuffS
 }
 
 #[must_use]
+pub fn project_roll_modifier_buff_substrate(
+    substrate: RollModifierBuffSubstrate,
+    scenario_outcome: RollModifierBuffScenarioOutcome,
+) -> RollModifierBuffSelectedIdentityState {
+    // QNT: battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt.
+    // The selected identity boundary chooses one of these typed substrates; the
+    // projection below dispatches only on the executable substrate shape.
+    let mut state = base_projection(scenario_outcome, RollModifierBuffProtocol::Resolved);
+    state.caster_concentrating = true;
+    match substrate {
+        RollModifierBuffSubstrate::D20Modifier(buff) => {
+            apply_effect_count(&mut state, buff.target);
+            state.d20_modifier_sign = buff.sign;
+            state.d20_modifier_attack_roll = buff.attack_roll;
+            state.d20_modifier_saving_throw = buff.saving_throw;
+            state.d20_modifier_ability_check = buff.ability_check;
+            state.d20_modifier_skill = buff.skill;
+            state.invalid_target_rejected = buff.rejects_unselected_target;
+        }
+        RollModifierBuffSubstrate::DamageReduction(buff) => {
+            apply_effect_count(&mut state, buff.target);
+            state.damage_reduction_type = buff.damage_type;
+            state.damage_reduction_used = buff.damage_type != RollModifierBuffDamageType::None;
+        }
+        RollModifierBuffSubstrate::ArmorClass(buff) => {
+            apply_effect_count(&mut state, buff.target);
+            state.primary_target_armor_class += buff.bonus;
+        }
+    }
+    state
+}
+
+#[must_use]
 pub fn project_bless_attack_and_save_modifier() -> RollModifierBuffSelectedIdentityState {
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
     // "Bless"; QNT:
     // battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt.
-    let mut state = base_projection(
+    project_roll_modifier_buff_substrate(
+        RollModifierBuffSubstrate::D20Modifier(D20RollModifierBuff {
+            target: RollModifierBuffTarget::PrimaryAndSecondaryTargets,
+            sign: RollModifierBuffSign::Plus,
+            attack_roll: true,
+            saving_throw: true,
+            ability_check: false,
+            skill: RollModifierBuffSkill::None,
+            rejects_unselected_target: false,
+        }),
         RollModifierBuffScenarioOutcome::Bless,
-        RollModifierBuffProtocol::Resolved,
-    );
-    state.caster_concentrating = true;
-    state.primary_target_effect_count = 1;
-    state.secondary_target_effect_count = 1;
-    state.d20_modifier_sign = RollModifierBuffSign::Plus;
-    state.d20_modifier_attack_roll = true;
-    state.d20_modifier_saving_throw = true;
-    state
+    )
 }
 
 #[must_use]
@@ -86,16 +157,18 @@ pub fn project_bane_failed_save_penalty() -> RollModifierBuffSelectedIdentitySta
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
     // "Bane"; QNT:
     // battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt.
-    let mut state = base_projection(
+    project_roll_modifier_buff_substrate(
+        RollModifierBuffSubstrate::D20Modifier(D20RollModifierBuff {
+            target: RollModifierBuffTarget::PrimaryTarget,
+            sign: RollModifierBuffSign::Minus,
+            attack_roll: true,
+            saving_throw: true,
+            ability_check: false,
+            skill: RollModifierBuffSkill::None,
+            rejects_unselected_target: false,
+        }),
         RollModifierBuffScenarioOutcome::Bane,
-        RollModifierBuffProtocol::Resolved,
-    );
-    state.caster_concentrating = true;
-    state.primary_target_effect_count = 1;
-    state.d20_modifier_sign = RollModifierBuffSign::Minus;
-    state.d20_modifier_attack_roll = true;
-    state.d20_modifier_saving_throw = true;
-    state
+    )
 }
 
 #[must_use]
@@ -103,17 +176,18 @@ pub fn project_guidance_skill_ability_check_modifier() -> RollModifierBuffSelect
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md
     // "Guidance"; QNT:
     // battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt.
-    let mut state = base_projection(
+    project_roll_modifier_buff_substrate(
+        RollModifierBuffSubstrate::D20Modifier(D20RollModifierBuff {
+            target: RollModifierBuffTarget::Caster,
+            sign: RollModifierBuffSign::Plus,
+            attack_roll: false,
+            saving_throw: false,
+            ability_check: true,
+            skill: RollModifierBuffSkill::Stealth,
+            rejects_unselected_target: true,
+        }),
         RollModifierBuffScenarioOutcome::Guidance,
-        RollModifierBuffProtocol::Resolved,
-    );
-    state.caster_concentrating = true;
-    state.caster_effect_count = 1;
-    state.d20_modifier_sign = RollModifierBuffSign::Plus;
-    state.d20_modifier_ability_check = true;
-    state.d20_modifier_skill = RollModifierBuffSkill::Stealth;
-    state.invalid_target_rejected = true;
-    state
+    )
 }
 
 #[must_use]
@@ -121,15 +195,13 @@ pub fn project_resistance_matching_damage_reduction() -> RollModifierBuffSelecte
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-Q-R.md
     // "Resistance"; QNT:
     // battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt.
-    let mut state = base_projection(
+    project_roll_modifier_buff_substrate(
+        RollModifierBuffSubstrate::DamageReduction(DamageReductionBuff {
+            target: RollModifierBuffTarget::Caster,
+            damage_type: RollModifierBuffDamageType::Bludgeoning,
+        }),
         RollModifierBuffScenarioOutcome::Resistance,
-        RollModifierBuffProtocol::Resolved,
-    );
-    state.caster_concentrating = true;
-    state.caster_effect_count = 1;
-    state.damage_reduction_type = RollModifierBuffDamageType::Bludgeoning;
-    state.damage_reduction_used = true;
-    state
+    )
 }
 
 #[must_use]
@@ -137,14 +209,27 @@ pub fn project_shield_of_faith_armor_class_bonus() -> RollModifierBuffSelectedId
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
     // "Shield of Faith"; QNT:
     // battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt.
-    let mut state = base_projection(
+    project_roll_modifier_buff_substrate(
+        RollModifierBuffSubstrate::ArmorClass(ArmorClassBuff {
+            target: RollModifierBuffTarget::PrimaryTarget,
+            bonus: 2,
+        }),
         RollModifierBuffScenarioOutcome::ShieldOfFaith,
-        RollModifierBuffProtocol::Resolved,
-    );
-    state.caster_concentrating = true;
-    state.primary_target_effect_count = 1;
-    state.primary_target_armor_class = 12;
-    state
+    )
+}
+
+fn apply_effect_count(
+    state: &mut RollModifierBuffSelectedIdentityState,
+    target: RollModifierBuffTarget,
+) {
+    match target {
+        RollModifierBuffTarget::Caster => state.caster_effect_count = 1,
+        RollModifierBuffTarget::PrimaryTarget => state.primary_target_effect_count = 1,
+        RollModifierBuffTarget::PrimaryAndSecondaryTargets => {
+            state.primary_target_effect_count = 1;
+            state.secondary_target_effect_count = 1;
+        }
+    }
 }
 
 fn base_projection(

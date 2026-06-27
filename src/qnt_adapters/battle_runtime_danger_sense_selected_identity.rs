@@ -34,7 +34,29 @@ pub fn replay_observed_action(observed_action_taken: &str) -> DangerSenseWitness
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> DangerSenseWitness {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doProjectDangerSenseDexterityAdvantage" => DangerSenseWitness {
+            scenario_outcome: "DangerSenseDexterityAdvantage",
+            source_unit_id: "barbarian_danger_sense",
+            dexterity_roll_mode_count: 1,
+            constitution_roll_mode_count: 0,
+            suppressed: false,
+            accepted: true,
+            protocol_result: "resolved",
+            protocol_holes: Vec::new(),
+        },
+        "doSuppressDangerSenseWhileIncapacitated" => DangerSenseWitness {
+            scenario_outcome: "DangerSenseIncapacitatedSuppressed",
+            source_unit_id: "barbarian_danger_sense",
+            dexterity_roll_mode_count: 0,
+            constitution_roll_mode_count: 0,
+            suppressed: true,
+            accepted: true,
+            protocol_result: "resolved",
+            protocol_holes: Vec::new(),
+        },
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &DangerSenseWitness) -> String {

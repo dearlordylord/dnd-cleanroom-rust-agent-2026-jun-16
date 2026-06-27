@@ -7,6 +7,10 @@
 use crate::rules::attack_damage_disposition::{
     apply_resolved_damage_to_positive_hit_points, CreatureKind, CreatureVitals,
 };
+use crate::rules::battle_features::{
+    resolve_adrenaline_rush_bonus_action_dash, AdrenalineRushFacts, AdrenalineRushRejection,
+    AdrenalineRushResult, BattleTurnFeatureState,
+};
 use crate::rules::command_options::{
     command_fill_order_accepted_stage, command_fill_order_error, command_fill_order_result,
     command_fill_order_runtime_result, command_hole_frontier, command_next_turn_initial_state,
@@ -23,6 +27,9 @@ use crate::rules::concentration::{
     ConcentrationSavingThrowFacts, ConcentrationState,
 };
 use crate::rules::creature_size::CreatureSize;
+use crate::rules::feature_resources::{
+    resource_pool_remaining, spend_resource_pool, ResourcePoolFacts,
+};
 use crate::rules::hit_point_restoration_ordering::{
     hit_point_restoration_fill_order_accepted_stage, hit_point_restoration_fill_order_error,
     hit_point_restoration_fill_order_result, hit_point_restoration_fill_order_runtime_result,
@@ -242,6 +249,7 @@ pub struct BattleState {
     pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
+    pub feature_resources: BattleFeatureResources,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
     pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -269,6 +277,7 @@ pub struct BattleSetup {
     pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
+    pub feature_resources: BattleFeatureResources,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
     pub level_one_plus_spell_casters_this_turn: Vec<Actor>,
     pub quickened_level_one_plus_spell_casters_this_turn: Vec<Actor>,
@@ -308,6 +317,7 @@ impl BattleSetup {
             hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Inactive,
             spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
             command_effect_procedure: BattleCommandEffectProcedure::Inactive,
+            feature_resources: BattleFeatureResources::standard(),
             spell_slot_uses_this_turn: Vec::new(),
             level_one_plus_spell_casters_this_turn: Vec::new(),
             quickened_level_one_plus_spell_casters_this_turn: Vec::new(),
@@ -323,6 +333,23 @@ impl BattleSetup {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct BattleStartResult {
     pub state: BattleState,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleFeatureResources {
+    pub bonus_action_dash_temporary_hit_points: ResourcePoolFacts,
+}
+
+impl BattleFeatureResources {
+    #[must_use]
+    pub const fn standard() -> Self {
+        Self {
+            bonus_action_dash_temporary_hit_points: ResourcePoolFacts {
+                capacity: 3,
+                expended: 0,
+            },
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -1466,6 +1493,7 @@ pub fn start_battle(setup: BattleSetup) -> BattleStartResult {
             hit_point_restoration_procedure: setup.hit_point_restoration_procedure,
             spell_attack_procedure: setup.spell_attack_procedure,
             command_effect_procedure: setup.command_effect_procedure,
+            feature_resources: setup.feature_resources,
             spell_slot_uses_this_turn: setup.spell_slot_uses_this_turn,
             level_one_plus_spell_casters_this_turn: setup.level_one_plus_spell_casters_this_turn,
             quickened_level_one_plus_spell_casters_this_turn: setup
@@ -1491,6 +1519,96 @@ pub fn start_battle_observed(
 #[must_use]
 pub fn start_standard_battle() -> BattleState {
     start_battle(BattleSetup::standard()).state
+}
+
+#[must_use]
+pub fn resolve_bonus_action_dash_temporary_hit_points_feature_battle(
+    mut state: BattleState,
+    actor: Actor,
+    proficiency_bonus: i16,
+) -> BattleResolutionResult {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Character-Origins.md "Orc",
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Dash",
+    // "Bonus Actions", and "Temporary Hit Points"; QNT:
+    // battle-runtime-adrenaline-rush.mbt.qnt. The battle spine owns turn
+    // action state, combatant vitals, speed, and the typed feature resource
+    // pool; the selected feature identity is not used by this reducer path.
+    let combatant = combatant_for(&state, actor);
+    let projection = resolve_adrenaline_rush_bonus_action_dash(AdrenalineRushFacts {
+        turn: BattleTurnFeatureState {
+            actor_temporary_hit_points: combatant.temporary_hp,
+            bonus_action_available: state.bonus_action_available,
+            dash_bonus_feet: state.dash_movement_bonus_feet,
+            feature_uses_remaining: resource_pool_remaining(
+                state
+                    .feature_resources
+                    .bonus_action_dash_temporary_hit_points,
+            ),
+        },
+        speed_feet: combatant.speed_feet,
+        proficiency_bonus,
+        actor_owns_turn: actor == current_actor(&state),
+        actor_unconscious: combatant.unconscious,
+        actor_incapacitated: combatant.incapacitated,
+    });
+
+    match projection.result {
+        AdrenalineRushResult::Resolved => {
+            let resource_pool = state
+                .feature_resources
+                .bonus_action_dash_temporary_hit_points;
+            let Ok(spent_pool) = spend_resource_pool(resource_pool, 1) else {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::InvalidFill,
+                    Vec::new(),
+                );
+            };
+            state
+                .feature_resources
+                .bonus_action_dash_temporary_hit_points = spent_pool;
+            let actor_state = combatant_for_mut(&mut state, actor);
+            actor_state.temporary_hp = projection.turn.actor_temporary_hit_points;
+            state.bonus_action_available = projection.turn.bonus_action_available;
+            state.dash_movement_bonus_feet = projection.turn.dash_bonus_feet;
+            BattleResolutionResult::Resolved { state }
+        }
+        AdrenalineRushResult::Invalid(reason) => BattleResolutionResult::Invalid {
+            state,
+            reason: adrenaline_rush_invalid_reason(reason),
+            holes: Vec::new(),
+        },
+    }
+}
+
+#[must_use]
+pub fn bonus_action_dash_temporary_hit_points_feature_turn_state(
+    state: &BattleState,
+    actor: Actor,
+) -> BattleTurnFeatureState {
+    let combatant = combatant_for(state, actor);
+    BattleTurnFeatureState {
+        actor_temporary_hit_points: combatant.temporary_hp,
+        bonus_action_available: state.bonus_action_available,
+        dash_bonus_feet: state.dash_movement_bonus_feet,
+        feature_uses_remaining: resource_pool_remaining(
+            state
+                .feature_resources
+                .bonus_action_dash_temporary_hit_points,
+        ),
+    }
+}
+
+const fn adrenaline_rush_invalid_reason(
+    reason: AdrenalineRushRejection,
+) -> BattleResolutionInvalidReason {
+    match reason {
+        AdrenalineRushRejection::WrongActor => BattleResolutionInvalidReason::WrongActor,
+        AdrenalineRushRejection::StaleSubject
+        | AdrenalineRushRejection::NoUsesRemaining
+        | AdrenalineRushRejection::UnableToAct => BattleResolutionInvalidReason::StaleSubject,
+        AdrenalineRushRejection::InvalidFill => BattleResolutionInvalidReason::InvalidFill,
+    }
 }
 
 #[must_use]

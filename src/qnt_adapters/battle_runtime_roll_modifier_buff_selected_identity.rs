@@ -28,7 +28,58 @@ pub fn replay_observed_action(
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> RollModifierBuffSelectedIdentityState {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doBlessAttackAndSaveModifier" => RollModifierBuffSelectedIdentityState {
+            caster_concentrating: true,
+            primary_target_effect_count: 1,
+            secondary_target_effect_count: 1,
+            d20_modifier_sign: RollModifierBuffSign::Plus,
+            d20_modifier_attack_roll: true,
+            d20_modifier_saving_throw: true,
+            scenario_outcome: RollModifierBuffScenarioOutcome::Bless,
+            protocol: RollModifierBuffProtocol::Resolved,
+            ..initial_expected()
+        },
+        "doBaneFailedSavePenalty" => RollModifierBuffSelectedIdentityState {
+            caster_concentrating: true,
+            primary_target_effect_count: 1,
+            d20_modifier_sign: RollModifierBuffSign::Minus,
+            d20_modifier_attack_roll: true,
+            d20_modifier_saving_throw: true,
+            scenario_outcome: RollModifierBuffScenarioOutcome::Bane,
+            protocol: RollModifierBuffProtocol::Resolved,
+            ..initial_expected()
+        },
+        "doGuidanceSkillAbilityCheckModifier" => RollModifierBuffSelectedIdentityState {
+            caster_concentrating: true,
+            caster_effect_count: 1,
+            d20_modifier_sign: RollModifierBuffSign::Plus,
+            d20_modifier_ability_check: true,
+            d20_modifier_skill: RollModifierBuffSkill::Stealth,
+            invalid_target_rejected: true,
+            scenario_outcome: RollModifierBuffScenarioOutcome::Guidance,
+            protocol: RollModifierBuffProtocol::Resolved,
+            ..initial_expected()
+        },
+        "doResistanceReducesMatchingDamage" => RollModifierBuffSelectedIdentityState {
+            caster_concentrating: true,
+            caster_effect_count: 1,
+            damage_reduction_type: RollModifierBuffDamageType::Bludgeoning,
+            damage_reduction_used: true,
+            scenario_outcome: RollModifierBuffScenarioOutcome::Resistance,
+            protocol: RollModifierBuffProtocol::Resolved,
+            ..initial_expected()
+        },
+        "doShieldOfFaithArmorClassBonus" => RollModifierBuffSelectedIdentityState {
+            caster_concentrating: true,
+            primary_target_effect_count: 1,
+            primary_target_armor_class: 12,
+            scenario_outcome: RollModifierBuffScenarioOutcome::ShieldOfFaith,
+            protocol: RollModifierBuffProtocol::Resolved,
+            ..initial_expected()
+        },
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(state: &RollModifierBuffSelectedIdentityState) -> String {
@@ -113,5 +164,27 @@ fn protocol_ref(protocol: RollModifierBuffProtocol) -> &'static str {
     match protocol {
         RollModifierBuffProtocol::Init => "init",
         RollModifierBuffProtocol::Resolved => "resolved",
+    }
+}
+
+fn initial_expected() -> RollModifierBuffSelectedIdentityState {
+    RollModifierBuffSelectedIdentityState {
+        caster_concentrating: false,
+        caster_hp: 12,
+        caster_effect_count: 0,
+        primary_target_effect_count: 0,
+        secondary_target_effect_count: 0,
+        primary_target_armor_class: 10,
+        primary_target_hp: 12,
+        d20_modifier_sign: RollModifierBuffSign::None,
+        d20_modifier_attack_roll: false,
+        d20_modifier_saving_throw: false,
+        d20_modifier_ability_check: false,
+        d20_modifier_skill: RollModifierBuffSkill::None,
+        invalid_target_rejected: false,
+        damage_reduction_type: RollModifierBuffDamageType::None,
+        damage_reduction_used: false,
+        scenario_outcome: RollModifierBuffScenarioOutcome::Init,
+        protocol: RollModifierBuffProtocol::Init,
     }
 }
