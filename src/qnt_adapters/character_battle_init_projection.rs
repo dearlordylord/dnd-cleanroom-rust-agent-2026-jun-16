@@ -394,11 +394,8 @@ fn expected_route_after_reject_build_maximum() -> Vec<CharacterBattleRouteEvent>
         ),
         expected_reject_character_battle_handoff(
             CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-            CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
-            vec![
-                CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
-                CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
-            ],
+            CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
+            vec![CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily],
             CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
         ),
         expected_reject_character_battle_handoff(
@@ -495,11 +492,8 @@ fn expected_route_after_reject_mixed_spell_and_pact_slot_init() -> Vec<Character
         ),
         expected_reject_character_battle_handoff(
             CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-            CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
-            vec![
-                CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
-                CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
-            ],
+            CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
+            vec![CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily],
             CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
         ),
     ]
@@ -541,11 +535,8 @@ fn expected_route_after_reject_stable_recovery_progress() -> Vec<CharacterBattle
         ),
         expected_reject_character_battle_handoff(
             CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-            CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
-            vec![
-                CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
-                CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
-            ],
+            CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
+            vec![CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily],
             CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
         ),
         expected_reject_character_battle_handoff(
@@ -618,11 +609,8 @@ fn append_pure_pact_magic_slot_route(route: &mut Vec<CharacterBattleRouteEvent>)
 fn append_reject_mixed_spell_and_pact_slot_init_route(route: &mut Vec<CharacterBattleRouteEvent>) {
     route.push(route_reject_character_battle_handoff(
         CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffSheetProjectionFill,
-        vec![
-            CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
-            CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
-        ],
+        CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
+        vec![CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily],
         CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
     ));
 }

@@ -1,0 +1,167 @@
+{
+  "cleanroomManifestSourceCommitSha": "b57772b459f1b75592fd45b9196fd60965b534d3",
+  "generatedBy": {
+    "name": "rust-cleanroom-pact-slot-handoff-init-projection-route-refresh",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doProjectSheetHitPointsArmorClassConditionsAndProfiles",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/tests/mod.rs",
+      "observedActionTaken": "doProjectSheetHitPointsArmorClassConditionsAndProfiles",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes",
+          "CharacterBattleRouteEvent.fill"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "48af09d3c084863f55544f672f6d98c510e60ed3f352d514d14ca394d798892e",
+        "observedProjectionSha256": "48af09d3c084863f55544f672f6d98c510e60ed3f352d514d14ca394d798892e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "pact-slot-handoff-init-projection-route action=doProjectSheetHitPointsArmorClassConditionsAndProfiles"
+    },
+    {
+      "branchAction": "doProjectPurePactMagicSlot",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/tests/mod.rs",
+      "observedActionTaken": "doProjectPurePactMagicSlot",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes",
+          "CharacterBattleRouteEvent.fill"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "31567c22c3c132dc8b824576d52c226217a34533fadd5d2d196e0ee551a03fe9",
+        "observedProjectionSha256": "31567c22c3c132dc8b824576d52c226217a34533fadd5d2d196e0ee551a03fe9",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "pact-slot-handoff-init-projection-route action=doProjectPurePactMagicSlot"
+    },
+    {
+      "branchAction": "doRejectMixedSpellAndPactSlotInit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/tests/mod.rs",
+      "observedActionTaken": "doRejectMixedSpellAndPactSlotInit",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes",
+          "CharacterBattleRouteEvent.fill"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7073563d087992c0a1599e7826e5d3c7185e65476520f3b35c7e76433570d06c",
+        "observedProjectionSha256": "7073563d087992c0a1599e7826e5d3c7185e65476520f3b35c7e76433570d06c",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "pact-slot-handoff-init-projection-route action=doRejectMixedSpellAndPactSlotInit"
+    },
+    {
+      "branchAction": "doRejectBuildMaximumAboveBuildMaximum",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/tests/mod.rs",
+      "observedActionTaken": "doRejectBuildMaximumAboveBuildMaximum",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes",
+          "CharacterBattleRouteEvent.fill"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "29c4634835e424d05984b9a625f2763d94020668001eafdc0a7cb4188b787587",
+        "observedProjectionSha256": "29c4634835e424d05984b9a625f2763d94020668001eafdc0a7cb4188b787587",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "pact-slot-handoff-init-projection-route action=doRejectBuildMaximumAboveBuildMaximum"
+    },
+    {
+      "branchAction": "doRejectStableRecoveryProgressDuringInit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "driverProjectionKind": "reducer-route-witness",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/tests/mod.rs",
+      "observedActionTaken": "doRejectStableRecoveryProgressDuringInit",
+      "qntFileSha256": "e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "routeEvidenceBasis": "independent-adapter-local-literal-route-witness",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "CharacterBattleRouteOwner.qRoute",
+          "CharacterBattleRouteEvent.owner",
+          "CharacterBattleRouteEvent.subject",
+          "CharacterBattleRouteEvent.holes",
+          "CharacterBattleRouteEvent.fill"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "79dddc6e81c28c9363fe94224edeffa2ed6a9eff15c85aefd8bb6d7cee618a2f",
+        "observedProjectionSha256": "79dddc6e81c28c9363fe94224edeffa2ed6a9eff15c85aefd8bb6d7cee618a2f",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "pact-slot-handoff-init-projection-route action=doRejectStableRecoveryProgressDuringInit"
+    }
+  ],
+  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
