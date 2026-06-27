@@ -2767,19 +2767,19 @@
     }
   },
   "nextWorkRecommendations": [
-    "Launch FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS from accepted fresh target head 9b2f81bfabb6f1afd7daede0455be054bb92d78c using FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json.",
-    "Use the accepted fresh target at 9b2f81bfabb6f1afd7daede0455be054bb92d78c as the current strongest evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-01 diagnostic battle route evidence, FEXP-02 generic spell-attack/save-gated substrate evidence, and FEXP-03 chained/object spell-attack evidence, verified by python3 tools/verify_current_fresh_target.py.",
+    "Launch FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY from accepted fresh target head e8b0310e647ad471089fcd34737b8fd70211b373 using FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json.",
+    "Use the accepted fresh target at e8b0310e647ad471089fcd34737b8fd70211b373 as the current strongest evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-01 diagnostic battle route evidence, FEXP-02 generic spell-attack/save-gated substrate evidence, FEXP-03 chained/object spell-attack evidence, and FEXP-04 active-effect lifecycle evidence, verified by python3 tools/verify_current_fresh_target.py.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "running",
-    "activeLane": "FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS",
+    "status": "fexp04-accepted-with-blockers",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "9b2f81bfabb6f1afd7daede0455be054bb92d78c",
+    "acceptedTargetHead": "e8b0310e647ad471089fcd34737b8fd70211b373",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -2893,14 +2893,48 @@
         "blockers": [
           "FEXP-03-object-stale-replay-isolated-route-surface-not-publicly-observable"
         ]
+      },
+      {
+        "laneId": "FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS",
+        "status": "accepted-with-blockers",
+        "baseCommit": "9b2f81bfabb6f1afd7daede0455be054bb92d78c",
+        "targetCommit": "e8b0310e647ad471089fcd34737b8fd70211b373",
+        "workerAgent": "Descartes the 3rd (019f0b25-79c7-74a3-bcff-59fa8e307d69); verifier fixer Hooke the 3rd (019f0b3b-f745-7b83-8c2f-b2abd59b26aa)",
+        "reviewerAgent": "Einstein the 3rd (019f0b39-8e03-77d3-bba5-25ae339eafdf)",
+        "artifacts": [
+          "EVIDENCE/fexp04-active-effect-lifecycle-and-roll-modifiers.json",
+          "examples/fexp04_route_observations.rs",
+          "tools/verify_fexp04.py",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "BLOCKERS.json",
+          "STATE_OWNERS.md"
+        ],
+        "checks": [
+          "python3 -m py_compile tools/verify_fexp04.py",
+          "python3 tools/verify_current_fresh_target.py",
+          "python3 tools/verify_fexp04.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check 9b2f81bfabb6f1afd7daede0455be054bb92d78c...HEAD",
+          "static forbidden-boundary scan via current fresh target verifier",
+          "static production-source authored-identity dispatch search"
+        ],
+        "coverageClaim": "generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, and turn-boundary cleanup route surfaces accepted through public reducer entrypoints with expected records mechanically derived from copied QNT connector action bodies/helper vocabulary",
+        "blockers": [
+          "FEXP-04-roll-modifier-concentration-break-route-not-publicly-observable",
+          "FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression",
+          "FEXP-04-exact-roll-choice-payloads-not-admitted-by-route-fills"
+        ]
       }
     ],
-    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-04",
-    "activeBranch": "ralph/fexp-04-active-effect-lifecycle-roll-modifiers",
-    "activeLaneBaseCommit": "9b2f81bfabb6f1afd7daede0455be054bb92d78c",
-    "workerAgent": "Descartes the 3rd (019f0b25-79c7-74a3-bcff-59fa8e307d69)",
+    "activeWorktree": null,
+    "activeBranch": null,
+    "activeLaneBaseCommit": null,
+    "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS"
+    "nextPlannedLane": "FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY"
   },
   "sdkTracerBullet": {
     "status": "reviewed-accepted",

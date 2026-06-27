@@ -99,7 +99,7 @@
     {
       "laneId": "FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS",
       "checkpointId": "FEXP-CP3",
-      "status": "running",
+      "status": "merged",
       "routeClass": "reducer-routed",
       "purpose": "Expand active-effect lifecycle, scalar buff, roll modifier, and turn-boundary cleanup substrates before selected active-effect drivers depend on them.",
       "drivers": [
@@ -117,7 +117,7 @@
         "active-effect owner derivability records",
         "verifier update for FEXP-04 evidence"
       ],
-      "acceptanceSummary": "Active-effect projection and cleanup are battle-owned lifecycle facts, not selected-identity branches or local effect ledgers."
+      "acceptanceSummary": "Accepted with blockers: generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, and turn-boundary cleanup surfaces route through public reducer entrypoints; residual concentration-break cleanup, cumulative scalar sequencing, and exact roll-choice payloads remain source-input blockers."
     },
     {
       "laneId": "FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY",

@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: FEXP-04 running from accepted fresh target head `9b2f81bfabb6f1afd7daede0455be054bb92d78c`
+Status: FEXP-04 accepted-with-blockers; continue from FEXP-05
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `9b2f81bfabb6f1afd7daede0455be054bb92d78c`
+- current accepted fresh target head: `e8b0310e647ad471089fcd34737b8fd70211b373`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `b57772b459f1b75592fd45b9196fd60965b534d3`
 
@@ -143,6 +143,17 @@ Preferred lanes:
 
 - `FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS`
 - `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY`
+
+Status:
+
+- `FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS` is accepted-with-blockers
+  at fresh target head `e8b0310e647ad471089fcd34737b8fd70211b373`;
+- generic roll-modifier active-effect, scalar-buff active-effect,
+  targeted-speed scalar buff, and turn-boundary cleanup surfaces route through
+  public reducer entrypoints;
+- residual concentration-break cleanup, cumulative scalar sequencing, and exact
+  roll-choice payloads remain source-input blockers;
+- continue this checkpoint with `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY`.
 
 Why third:
 

@@ -3,7 +3,7 @@
 Campaign: `level-1-2-runtime-reducer-route`
 
 Status: accepted through the SDK tracer-bullet composition checkpoint, Pact
-Slot handoff replay, FEXP-03 chained/object spell expansion, and current
+Slot handoff replay, FEXP-04 active-effect expansion, and current
 fresh-target verifier.
 
 ## Purpose
@@ -37,7 +37,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`9b2f81bfabb6f1afd7daede0455be054bb92d78c`
+`e8b0310e647ad471089fcd34737b8fd70211b373`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -57,6 +57,11 @@ explicit blockers outside the generic substrate.
 spell-attack sequence, chained duplicate-damage leap, and object-target
 spell-attack route evidence; isolated object stale replay remains explicitly
 blocked.
+`FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS` is accepted-with-blockers
+at `e8b0310e647ad471089fcd34737b8fd70211b373` with generic roll-modifier,
+scalar-buff, targeted-speed, and turn-boundary lifecycle route evidence;
+residual concentration-break cleanup, cumulative scalar sequencing, and exact
+roll-choice payloads remain explicitly blocked.
 
 ## Hard Boundaries
 
