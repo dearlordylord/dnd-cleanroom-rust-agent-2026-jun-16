@@ -249,7 +249,15 @@
       "status": "implemented-pending-review",
       "workerAgent": "019f0671-d268-7f62-b173-674d8d90738f",
       "workerName": "Mill",
-      "commit": "063ceefb6b07dec0d5afb7c4435d2687d48dc621"
+      "commit": "063ceefb6b07dec0d5afb7c4435d2687d48dc621",
+      "reviewAgent": "019f067c-1408-76d3-ade3-0e83ab165998",
+      "reviewName": "Banach",
+      "reviewStatus": "findings",
+      "reviewFindings": [
+        "Feature profile evidence is adapter-local: replay_observed_action calls expected_witness and proves constant componentRoute hash rather than reusable component owner semantics.",
+        "STATE_OWNER_MANIFEST records RuleCoreFeatureProfileSemanticsOwner.componentRoute as durable field in src/rules/battle_features.rs despite adapter-local field and no production module extension.",
+        "VALIDATION_REPORT exclusion summary omits doUncannyDodge out-of-scope reason."
+      ]
     }
   ],
   "completedLaneWorktrees": [
