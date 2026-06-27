@@ -89,28 +89,16 @@
       "owner": "executable-boundary-projection"
     },
     {
-      "apiPath": "MageArmorState.self_target_admitted",
-      "boundary": "target-blocker checked projection field",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
-      "owner": "harness-witness-protocol"
+      "apiPath": "BattleSubjectKind::ArmorClassTargetAdmission",
+      "boundary": "generic CP7-D target-admission route-shape subject observed through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
     },
     {
-      "apiPath": "MageArmorState.mage_armor_duration_ticks",
-      "boundary": "target-blocker checked projection field",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
-      "owner": "harness-witness-protocol"
-    },
-    {
-      "apiPath": "MageArmorState.mage_armor_effect_present",
-      "boundary": "target-blocker checked projection field",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
-      "owner": "harness-witness-protocol"
-    },
-    {
-      "apiPath": "MageArmorState.armored_target_rejected",
-      "boundary": "target-blocker checked projection field",
-      "introducedIn": "src/rules/level_one_armor_spells.rs",
-      "owner": "harness-witness-protocol"
+      "apiPath": "BattleSubjectKind::ArmorClassActiveEffectCleanup",
+      "boundary": "generic CP7-D active-effect lifecycle route-shape subject observed through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
     }
   ],
   "schemaVersion": 1,

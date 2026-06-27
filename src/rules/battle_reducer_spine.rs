@@ -1108,6 +1108,8 @@ pub enum BattleSubjectKind {
     StatBlockAction,
     CommandSpell,
     ArmorClassSpellEffect,
+    ArmorClassTargetAdmission,
+    ArmorClassActiveEffectCleanup,
     ReactionSpell,
     ReactionSpellDamage,
     ReactionSpellInterruptDecision,
@@ -7333,6 +7335,8 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::ObjectTargetSpellAttackDamage
             | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
             | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay
+            | BattleSubjectKind::ArmorClassTargetAdmission
+            | BattleSubjectKind::ArmorClassActiveEffectCleanup
             | BattleSubjectKind::CreatureTypeTargetAdmission
             | BattleSubjectKind::ProtectionCharmTargetChoice
             | BattleSubjectKind::ProtectionCharmTargetChoiceThenSave
@@ -7962,6 +7966,18 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: Vec::new(),
             discover_owner: HoleFrontier,
             resolve_owner: HoleFrontier,
+        },
+        BattleSubjectKind::ArmorClassTargetAdmission => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::ArmorClassSpellEffect,
+            holes: vec![TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::ArmorClassActiveEffectCleanup => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::ArmorClassSpellEffect,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
         },
         BattleSubjectKind::CreatureTypeTargetAdmission => GenericRouteShape {
             subject: CreatureTypeTargetAdmission,
@@ -9494,6 +9510,8 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::ObjectTargetSpellAttackDamage
             | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
             | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay
+            | BattleSubjectKind::ArmorClassTargetAdmission
+            | BattleSubjectKind::ArmorClassActiveEffectCleanup
             | BattleSubjectKind::CreatureTypeTargetAdmission
             | BattleSubjectKind::ProtectionCharmTargetChoice
             | BattleSubjectKind::ProtectionCharmTargetChoiceThenSave
@@ -9734,7 +9752,8 @@ fn generic_route_fill_matches_subject(
         BattleSubjectKind::SpellHostedWeaponAttackTargetChoice => {
             fill == BattleGenericRouteFill::TargetChoice
         }
-        BattleSubjectKind::CreatureTypeTargetAdmission
+        BattleSubjectKind::ArmorClassTargetAdmission
+        | BattleSubjectKind::CreatureTypeTargetAdmission
         | BattleSubjectKind::ProtectionCharmTargetChoice
         | BattleSubjectKind::ProtectionCharmTargetChoiceThenSave
         | BattleSubjectKind::WardedTargetCreationTargetChoice
@@ -9835,6 +9854,7 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::ObjectTargetSpellAttackBoundaryRejection
         | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
         | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay
+        | BattleSubjectKind::ArmorClassActiveEffectCleanup
         | BattleSubjectKind::ProtectionCharmConditionLifecycle
         | BattleSubjectKind::ProtectionCharmActiveEffect
         | BattleSubjectKind::ProtectionCharmConcentration
@@ -10148,7 +10168,9 @@ fn generic_route_next_holes(
             | BattleSubjectKind::ObjectTargetSpellAttackAttackHit
             | BattleSubjectKind::ObjectTargetSpellAttackDamage
             | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
-            | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay,
+            | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay
+            | BattleSubjectKind::ArmorClassTargetAdmission
+            | BattleSubjectKind::ArmorClassActiveEffectCleanup,
             _,
         ) => Vec::new(),
         (BattleSubjectKind::MarkedEffectDamageAndTransfer, BattleGenericRouteFill::RolledDice) => {

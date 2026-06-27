@@ -4904,10 +4904,15 @@ fn mage_armor_adapter_replays_all_branches() {
             reducer_route_payload(&route),
             reducer_route_payload(&expected_mage_armor_route(action))
         );
-        let route_payload = reducer_route_payload(&route);
-        assert!(route_payload.contains("ArmorClassSpellEffectRouteSubject"));
-        assert!(route_payload.contains("BattleActiveEffectOwner"));
     }
+    let route_payload = MAGE_ARMOR_ACCEPTED_ROUTE_BRANCH_ACTIONS
+        .iter()
+        .map(|action| reducer_route_payload(&replay_mage_armor_route(action)))
+        .collect::<Vec<_>>()
+        .join("\n");
+    assert!(route_payload.contains("ArmorClassSpellEffectRouteSubject"));
+    assert!(route_payload.contains("BattleTargetSelectionOwner"));
+    assert!(route_payload.contains("BattleActiveEffectOwner"));
 }
 
 #[test]

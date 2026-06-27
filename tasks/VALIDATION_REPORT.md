@@ -2865,6 +2865,8 @@ Allowed inputs used:
 
 Behavior implemented:
 
+- Accepted CP7-D Mage Armor target-admission discovery and armored-target rejection as generic ArmorClass target-admission route-shape evidence observed through `BattleEntrypointTrace.route_events`.
+- Accepted CP7-D Mage Armor duration expiry as generic ArmorClass active-effect lifecycle route-shape evidence observed through `BattleEntrypointTrace.route_events`.
 - Accepted Mage Armor base AC projection through generic `ArmorClassSpellEffect` route using `armor_class_projection` and active-effect state.
 - Accepted Shield and Hellish Rebuke selected rows through generic `ReactionSpell` fills for armor-class interruption and failed-save damage.
 - Counterspell remains out of scope because it is level 3.
@@ -2873,9 +2875,9 @@ Generated branch coverage:
 
 | Obligation | Target replay evidence | Diagnostic tests | Status |
 | --- | --- | --- | --- |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doDiscoverMageArmorUnarmoredSelfTarget` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doDiscoverMageArmorUnarmoredSelfTarget#step:doDiscoverMageArmorUnarmoredSelfTarget` | `src/tests/mod.rs` | `blocked` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doExpireMageArmorDuration#step:doExpireMageArmorDuration` | `src/tests/mod.rs` | `blocked` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doRejectMageArmorArmoredTarget#step:doRejectMageArmorArmoredTarget` | `src/tests/mod.rs` | `blocked` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doDiscoverMageArmorUnarmoredSelfTarget` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doDiscoverMageArmorUnarmoredSelfTarget#step:doDiscoverMageArmorUnarmoredSelfTarget` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doExpireMageArmorDuration#step:doExpireMageArmorDuration` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doRejectMageArmorArmoredTarget#step:doRejectMageArmorArmoredTarget` | `src/tests/mod.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doResolveMageArmorBaseArmorClassProjection` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveMageArmorBaseArmorClassProjection#step:doResolveMageArmorBaseArmorClassProjection` | `src/tests/mod.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt#step:doResolveHellishRebukeFailedSavingThrow` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveHellishRebukeFailedSavingThrow#step:doResolveHellishRebukeFailedSavingThrow` | `src/tests/mod.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt#step:doResolveShieldReactionSpellHit` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveShieldReactionSpellHit#step:doResolveShieldReactionSpellHit` | `src/tests/mod.rs` | `covered` |
@@ -2897,7 +2899,6 @@ Harness artifacts:
 
 Remaining gaps:
 
-- `doDiscoverMageArmorUnarmoredSelfTarget`, `doRejectMageArmorArmoredTarget`, and `doExpireMageArmorDuration` are target-blocked for this lane.
 - `doResolveCounterspellMagicMissileCast` is out of scope.
 
 Verification results:

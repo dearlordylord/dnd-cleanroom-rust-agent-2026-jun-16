@@ -2,6 +2,7 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
+      "adapterScope": "Mage Armor selected-identity projection rows replay accepted CP7-D target-admission and active-effect lifecycle route-shape evidence through generic ArmorClass route subjects observed via BattleEntrypointTrace; base AC projection remains a production ArmorClassSpellEffect route.",
       "path": "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doDiscoverMageArmorUnarmoredSelfTarget",
@@ -81,11 +82,14 @@
     {
       "domainApis": [
         "BattleSubjectKind::ArmorClassSpellEffect",
+        "BattleSubjectKind::ArmorClassTargetAdmission",
+        "BattleSubjectKind::ArmorClassActiveEffectCleanup",
         "BattleSubjectKind::ReactionSpell",
         "BattleArmorClassBaseEffect",
         "resolve_battle_subject_observed"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
+      "reason": "Adds generic ArmorClass target-admission and active-effect cleanup route shapes with route owners derived from existing FU01D generic target-admission and CP5 active-effect lifecycle cleanroom evidence.",
       "role": "domain-engine"
     },
     {
