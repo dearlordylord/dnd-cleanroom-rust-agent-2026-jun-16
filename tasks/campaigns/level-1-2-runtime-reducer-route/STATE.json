@@ -167,7 +167,7 @@
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "merged-verified",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "merged-verified",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
-    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "fixing",
+    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "rereviewing",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "review-clean-merge-ready",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
@@ -192,7 +192,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a",
       "branch": "ralph/l15-rr07s-a-passive-roll-resource",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "fixing",
+      "status": "rereviewing",
       "workerAgent": "019f070a-d8bb-7111-b578-d4eee793076f",
       "workerName": "Copernicus",
       "commit": "d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62",
@@ -288,7 +288,21 @@
       ],
       "fixer3Agent": "019f0743-c359-70d2-8e7e-fdf4a94a63a1",
       "fixer3Name": "Arendt",
-      "fix3Status": "running"
+      "fix3Status": "complete",
+      "fix3Commit": "582b2a71c6573c480d4ccddec15381308a2bd667",
+      "fix3Summary": [
+        "Removed adapter-local accepted route synthesis; no BattleReducerRouteTrace::default plus local observe_battle_route_* calls remain in the cited adapters.",
+        "Accepted observed routes now come from production observer entrypoints in battle_reducer_spine and battle_features; adapters select branches and translate returned production traces for comparison.",
+        "Accepted all 17 lane A obligations; no blockers reported by fixer."
+      ],
+      "fix3Verification": [
+        "cargo fmt --check",
+        "cargo test adapter_replays_all_branches",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
