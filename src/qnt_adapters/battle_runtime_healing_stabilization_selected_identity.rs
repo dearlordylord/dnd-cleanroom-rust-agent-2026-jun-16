@@ -3,6 +3,12 @@ use crate::rules::hit_points::{
     HealingStabilizationProtocol, HealingStabilizationScenarioOutcome, HealingStabilizationState,
 };
 
+use super::battle_runtime_reducer_route::{
+    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_route_holes,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+};
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct HealingStabilizationSelectedIdentityWitness {
     pub target_hp: i16,
@@ -30,7 +36,36 @@ pub fn replay_observed_action(
 pub fn expected_witness(
     observed_action_taken: &str,
 ) -> HealingStabilizationSelectedIdentityWitness {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doResolveSpareTheDyingStable" => HealingStabilizationSelectedIdentityWitness {
+            target_hp: 0,
+            target_stable: true,
+            target_unconscious: true,
+            target_death_successes: 0,
+            target_death_failures: 0,
+            action_available: false,
+            scenario_outcome: "Resolved",
+            protocol_result: "resolved",
+            protocol_holes: vec![],
+        },
+        action => panic!("unsupported expected mbt::actionTaken {action}"),
+    }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doResolveSpareTheDyingStable" => route_after_resolve_spare_the_dying_stabilization(),
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doResolveSpareTheDyingStable" => {
+            expected_route_after_resolve_spare_the_dying_stabilization()
+        }
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &HealingStabilizationSelectedIdentityWitness) -> String {
@@ -50,6 +85,43 @@ pub fn projection_payload(witness: &HealingStabilizationSelectedIdentityWitness)
 
 fn resolved_spare_the_dying() -> HealingStabilizationState {
     resolve_spare_the_dying_stabilization(healing_stabilization_initial_state())
+}
+
+fn route_after_resolve_spare_the_dying_stabilization() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts_from_route_holes(
+            ReducerRouteSubjectFamily::ZeroHitPointStabilization,
+            vec![ReducerRouteHoleKind::TargetChoice],
+            ReducerRouteOwnerGroup::ActionEconomy,
+        ),
+        route_resolve_battle_subject_from_route_holes(
+            ReducerRouteSubjectFamily::ZeroHitPointStabilization,
+            ReducerRouteFillKind::TargetChoice,
+            Vec::new(),
+            ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
+        ),
+    ]
+}
+
+fn expected_route_after_resolve_spare_the_dying_stabilization() -> Vec<ReducerRouteEvent> {
+    vec![
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::ZeroHitPointStabilization,
+            holes: vec![ReducerRouteHoleKind::TargetChoice],
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::ZeroHitPointStabilization,
+            fill: ReducerRouteFillKind::TargetChoice,
+            outcome: super::battle_runtime_reducer_route::ReducerRouteResolutionOutcome::Resolved,
+            holes: vec![],
+            owner: ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
+        },
+    ]
 }
 
 fn witness_from_state(

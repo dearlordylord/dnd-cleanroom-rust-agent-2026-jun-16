@@ -44,6 +44,8 @@ mod battle_runtime_level1_spatial_witness_selected_identity;
 mod battle_runtime_mage_armor_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_magic_missile.rs"]
 mod battle_runtime_magic_missile;
+#[path = "../qnt_adapters/battle_runtime_movement_forced_movement_selected_identity.rs"]
+mod battle_runtime_movement_forced_movement_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_quickened_spell_governor.rs"]
 mod battle_runtime_quickened_spell_governor;
 #[path = "../qnt_adapters/battle_runtime_reaction_casting_time.rs"]
@@ -658,9 +660,11 @@ use battle_runtime_dragonborn_breath_weapon::{
     BRANCH_ACTIONS as DRAGONBORN_BREATH_WEAPON_BRANCH_ACTIONS,
 };
 use battle_runtime_druid_wild_shape_form_lifecycle::{
+    expected_route as expected_druid_wild_shape_route,
     expected_witness as expected_druid_wild_shape_witness,
     projection_payload as druid_wild_shape_projection_payload,
     replay_observed_action as replay_druid_wild_shape_action,
+    replay_observed_route as replay_druid_wild_shape_route,
     BRANCH_ACTIONS as DRUID_WILD_SHAPE_BRANCH_ACTIONS,
 };
 use battle_runtime_eldritch_blast::{
@@ -688,9 +692,11 @@ use battle_runtime_find_familiar_selected_identity::{
     BRANCH_ACTIONS as FIND_FAMILIAR_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_healing_stabilization_selected_identity::{
+    expected_route as expected_healing_stabilization_route,
     expected_witness as expected_healing_stabilization_witness,
     projection_payload as healing_stabilization_projection_payload,
     replay_observed_action as replay_healing_stabilization_action,
+    replay_observed_route as replay_healing_stabilization_route,
     BRANCH_ACTIONS as HEALING_STABILIZATION_BRANCH_ACTIONS,
 };
 use battle_runtime_hit_point_restoration_ordering::{
@@ -739,6 +745,15 @@ use battle_runtime_magic_missile::{
     replay_observed_route as replay_magic_missile_route,
     BRANCH_ACTIONS as MAGIC_MISSILE_BRANCH_ACTIONS,
     DAMAGE_SAMPLE_DART_ROLL_TOTALS as MAGIC_MISSILE_DAMAGE_SAMPLES,
+};
+use battle_runtime_movement_forced_movement_selected_identity::{
+    expected_route as expected_movement_forced_movement_route,
+    expected_witness as expected_movement_forced_movement_witness,
+    projection_payload as movement_forced_movement_projection_payload,
+    replay_observed_action as replay_movement_forced_movement_action,
+    replay_observed_route as replay_movement_forced_movement_route,
+    BRANCH_ACTIONS as MOVEMENT_FORCED_MOVEMENT_BRANCH_ACTIONS,
+    OUT_OF_SCOPE_BRANCH_ACTIONS as MOVEMENT_FORCED_MOVEMENT_OUT_OF_SCOPE_BRANCH_ACTIONS,
 };
 use battle_runtime_quickened_spell_governor::{
     expected_witness as expected_quickened_spell_witness,
@@ -3883,6 +3898,11 @@ fn healing_stabilization_adapter_replays_spare_the_dying_branch() {
         let observed = replay_healing_stabilization_action(action);
         assert_eq!(observed, expected_healing_stabilization_witness(action));
         assert!(healing_stabilization_projection_payload(&observed).contains("qTargetStable=true"));
+        let route = replay_healing_stabilization_route(action);
+        assert_eq!(route, expected_healing_stabilization_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("ZeroHitPointStabilizationRouteSubject"));
+        assert!(route_payload.contains("BattleHitPointAndZeroHpLifecycleOwner"));
     }
 }
 
@@ -7196,7 +7216,72 @@ fn druid_wild_shape_form_lifecycle_adapter_replays_all_branches() {
         let observed = replay_druid_wild_shape_action(action);
         assert_eq!(observed, expected_druid_wild_shape_witness(action));
         assert!(druid_wild_shape_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_druid_wild_shape_route(action);
+        assert_eq!(route, expected_druid_wild_shape_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("ActiveFormLifecycleRouteSubject"));
+        assert!(route_payload.contains("BattleMovementResourceOwner"));
+        match action {
+            "doBeginNextTurn" => assert!(route_payload.contains("BattleTurnBoundaryOwner")),
+            "doDeathReversion" | "doStutter" => {
+                assert!(route_payload.contains("BattleHitPointAndZeroHpLifecycleOwner"));
+            }
+            "doIncapacitatedReversion" => {
+                assert!(route_payload.contains("BattleConditionLifecycleOwner"));
+            }
+            _ => {}
+        }
     }
+}
+
+#[test]
+fn movement_forced_movement_selected_identity_adapter_replays_in_scope_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-movement-forced-movement-selected-identity.mbt.qnt and
+    // .route.mbt.qnt. Ranger Roving and Barbarian Fast Movement are recorded
+    // as out-of-scope for this lane in the branch inventory.
+    for action in MOVEMENT_FORCED_MOVEMENT_BRANCH_ACTIONS {
+        let observed = replay_movement_forced_movement_action(action);
+        assert_eq!(observed, expected_movement_forced_movement_witness(action));
+        assert!(movement_forced_movement_projection_payload(&observed)
+            .contains("protocolResult=resolved"));
+        let route = replay_movement_forced_movement_route(action);
+        assert_eq!(route, expected_movement_forced_movement_route(action));
+        let route_payload = reducer_route_payload(&route);
+
+        match action {
+            "doDissonantWhispersForcedReactionMovement" => {
+                assert!(route_payload.contains("ForcedMovementRouteSubject"));
+                assert!(route_payload.contains("MovementFillKind"));
+                assert!(route_payload.contains("BattleMovementResourceOwner"));
+                assert!(route_payload.contains("BattleInterruptStackOwner"));
+            }
+            "doCommandFleeTargetTurn" => {
+                assert!(route_payload.contains("ForcedMovementRouteSubject"));
+                assert!(route_payload.contains("BattleActiveEffectOwner"));
+                assert!(route_payload.contains("BattleTurnBoundaryOwner"));
+            }
+            "doExpeditiousRetreatImmediateDash" => {
+                assert!(route_payload.contains("MovementResourceRouteSubject"));
+                assert!(route_payload.contains("BattleSpellSlotAndActionEconomyOwner"));
+                assert!(route_payload.contains("BattleActiveEffectOwner"));
+            }
+            "doMonkUnarmoredMovementDash" => {
+                assert!(route_payload.contains("MovementResourceRouteSubject"));
+                assert!(route_payload.contains("BattleCreatureStateOwner"));
+                assert!(route_payload.contains("BattleMovementResourceOwner"));
+            }
+            _ => {}
+        }
+    }
+
+    assert_eq!(
+        MOVEMENT_FORCED_MOVEMENT_OUT_OF_SCOPE_BRANCH_ACTIONS,
+        [
+            "doBarbarianFastMovementDash",
+            "doRangerRovingClimbSwimMovement"
+        ]
+    );
 }
 
 #[test]

@@ -20,6 +20,7 @@ pub enum ReducerRouteHoleKind {
     SpellTargetList,
     StatBlockRechargeRoll,
     TargetChoice,
+    WildShapeEquipmentDisposition,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -38,6 +39,7 @@ pub enum ReducerRouteFillKind {
     SpellTargetList,
     StatBlockRechargeRoll,
     TargetChoice,
+    WildShapeEquipmentDisposition,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -48,18 +50,22 @@ pub enum ReducerRouteResolveFill {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReducerRouteSubjectFamily {
+    ActiveFormLifecycle,
     ConcentrationTeardown,
     CommandSpell,
     CreatureAttack,
     BattleAction,
     DeathSavingThrow,
+    ForcedMovement,
     HitPointRestoration,
+    MovementResource,
     SaveGatedSpell,
     SlotSpell,
     SpellAttack,
     ScalarBuff,
     StatBlockAction,
     WeaponAttack,
+    ZeroHitPointStabilization,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -69,6 +75,8 @@ pub enum ReducerRouteOwnerGroup {
     AttackRoll,
     Concentration,
     ConditionLifecycle,
+    CreatureState,
+    FeatureResource,
     HitPointAndZeroHpLifecycle,
     HitPoint,
     HoleFrontier,
@@ -77,6 +85,8 @@ pub enum ReducerRouteOwnerGroup {
     SpellSlotAndActionEconomy,
     StatBlockAction,
     TargetSelection,
+    TemporaryHitPoint,
+    TurnBoundary,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -507,6 +517,9 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
         ReducerRouteHoleKind::SpellTargetList => "SpellTargetListHoleKind",
         ReducerRouteHoleKind::StatBlockRechargeRoll => "StatBlockRechargeRollHoleKind",
         ReducerRouteHoleKind::TargetChoice => "TargetChoiceHoleKind",
+        ReducerRouteHoleKind::WildShapeEquipmentDisposition => {
+            "WildShapeEquipmentDispositionHoleKind"
+        }
     }
 }
 
@@ -526,6 +539,9 @@ fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
         ReducerRouteFillKind::SpellTargetList => "SpellTargetListFillKind",
         ReducerRouteFillKind::StatBlockRechargeRoll => "StatBlockRechargeRollFillKind",
         ReducerRouteFillKind::TargetChoice => "TargetChoiceFillKind",
+        ReducerRouteFillKind::WildShapeEquipmentDisposition => {
+            "WildShapeEquipmentDispositionFillKind"
+        }
     }
 }
 
@@ -536,6 +552,8 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::AttackRoll => "BattleAttackRollOwner",
         ReducerRouteOwnerGroup::Concentration => "BattleConcentrationOwner",
         ReducerRouteOwnerGroup::ConditionLifecycle => "BattleConditionLifecycleOwner",
+        ReducerRouteOwnerGroup::CreatureState => "BattleCreatureStateOwner",
+        ReducerRouteOwnerGroup::FeatureResource => "BattleFeatureResourceOwner",
         ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle => {
             "BattleHitPointAndZeroHpLifecycleOwner"
         }
@@ -546,6 +564,8 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::SpellSlotAndActionEconomy => "BattleSpellSlotAndActionEconomyOwner",
         ReducerRouteOwnerGroup::StatBlockAction => "BattleStatBlockActionOwner",
         ReducerRouteOwnerGroup::TargetSelection => "BattleTargetSelectionOwner",
+        ReducerRouteOwnerGroup::TemporaryHitPoint => "BattleTemporaryHitPointOwner",
+        ReducerRouteOwnerGroup::TurnBoundary => "BattleTurnBoundaryOwner",
     }
 }
 
@@ -570,18 +590,24 @@ fn outcome_ref(outcome: ReducerRouteResolutionOutcome) -> &'static str {
 
 fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
     match subject {
+        ReducerRouteSubjectFamily::ActiveFormLifecycle => "ActiveFormLifecycleRouteSubject",
         ReducerRouteSubjectFamily::BattleAction => "BattleActionRouteSubject",
         ReducerRouteSubjectFamily::ConcentrationTeardown => "ConcentrationTeardownRouteSubject",
         ReducerRouteSubjectFamily::CommandSpell => "CommandSpellRouteSubject",
         ReducerRouteSubjectFamily::CreatureAttack => "CreatureAttackRouteSubject",
         ReducerRouteSubjectFamily::DeathSavingThrow => "DeathSavingThrowRouteSubject",
+        ReducerRouteSubjectFamily::ForcedMovement => "ForcedMovementRouteSubject",
         ReducerRouteSubjectFamily::HitPointRestoration => "HitPointRestorationRouteSubject",
+        ReducerRouteSubjectFamily::MovementResource => "MovementResourceRouteSubject",
         ReducerRouteSubjectFamily::SaveGatedSpell => "SaveGatedSpellRouteSubject",
         ReducerRouteSubjectFamily::SlotSpell => "SlotSpellRouteSubject",
         ReducerRouteSubjectFamily::SpellAttack => "SpellAttackRouteSubject",
         ReducerRouteSubjectFamily::ScalarBuff => "ScalarBuffRouteSubject",
         ReducerRouteSubjectFamily::StatBlockAction => "StatBlockActionRouteSubject",
         ReducerRouteSubjectFamily::WeaponAttack => "WeaponAttackRouteSubject",
+        ReducerRouteSubjectFamily::ZeroHitPointStabilization => {
+            "ZeroHitPointStabilizationRouteSubject"
+        }
     }
 }
 

@@ -2069,3 +2069,46 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed after artifact update.
 - `git diff --check 6af492188311839dd4839b464b2e7049e3330568...HEAD` passed.
+
+## L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES
+
+Scope inputs:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt`
+- Route connectors: `battle-runtime-zero-hit-point-stabilization.route.mbt.qnt`, `battle-runtime-druid-wild-shape-form-lifecycle.route.mbt.qnt`, and `battle-runtime-movement-forced-movement-selected-identity.route.mbt.qnt`
+
+Behavior implemented:
+
+- Added reducer route evidence for zero-HP stabilization through `ZeroHitPointStabilizationRouteSubject`, `BattleActionEconomyOwner`, and `BattleHitPointAndZeroHpLifecycleOwner`.
+- Added active-form lifecycle evidence through action-economy, feature-resource, Temporary Hit Point, active-effect, creature-state, movement-resource, condition-lifecycle, HP/zero-HP, and turn-boundary owners.
+- Added in-scope movement/forced-movement evidence for Dissonant Whispers, Command Flee, Expeditious Retreat, and Monk unarmored movement through forced-movement and movement-resource route subjects.
+- Kept selected identity names at adapter/test/evidence boundaries; runtime route evidence uses typed route subjects, owner groups, holes, and fills.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-healing-stabilization-selected-identity.mbt.qnt#step:doResolveSpareTheDyingStable` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doResolveSpareTheDyingStable#step:doResolveSpareTheDyingStable` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doAssumeRidingHorse` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doAssumeRidingHorse#step:doAssumeRidingHorse` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doBeginNextTurn` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doBeginNextTurn#step:doBeginNextTurn` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doDeathReversion` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doDeathReversion#step:doDeathReversion` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doDismissForm` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doDismissForm#step:doDismissForm` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doIncapacitatedReversion` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doIncapacitatedReversion#step:doIncapacitatedReversion` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doReuseAsCat` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doReuseAsCat#step:doReuseAsCat` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-druid-wild-shape-form-lifecycle.mbt.qnt#step:doStutter` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doStutter#step:doStutter` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt#step:doCommandFleeTargetTurn` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doCommandFleeTargetTurn#step:doCommandFleeTargetTurn` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt#step:doDissonantWhispersForcedReactionMovement` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doDissonantWhispersForcedReactionMovement#step:doDissonantWhispersForcedReactionMovement` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt#step:doExpeditiousRetreatImmediateDash` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doExpeditiousRetreatImmediateDash#step:doExpeditiousRetreatImmediateDash` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt#step:doMonkUnarmoredMovementDash` | `tasks/target-replay-evidence/L15-RR07S-B-zero-hp-form-movement-substrates.json#L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES route action=doMonkUnarmoredMovementDash#step:doMonkUnarmoredMovementDash` | `src/tests/mod.rs` | `covered` |
+
+Blocked/out-of-lane obligations:
+
+- `doBarbarianFastMovementDash` remains assigned to the later level-5 promotion lane.
+- `doRangerRovingClimbSwimMovement` remains outside the level 1-5 denominator for this lane.
+
+Verification results:
+
+- Focused adapter tests passed for stabilization, Wild Shape form lifecycle, and movement/forced movement.
+- Full verification commands are recorded in `tasks/RUN_LEDGER.json` for this task.
