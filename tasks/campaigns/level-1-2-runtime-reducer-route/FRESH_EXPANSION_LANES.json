@@ -143,7 +143,7 @@
     {
       "laneId": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",
       "checkpointId": "FEXP-CP4",
-      "status": "running",
+      "status": "merged",
       "routeClass": "reducer-routed",
       "purpose": "Grow character creation, sheet, and handoff surfaces beyond the SDK tracer while preserving character-side ownership and battle handoff boundaries.",
       "drivers": [
@@ -164,7 +164,7 @@
         "SDK tracer extension if public surface changes",
         "verifier update for FEXP-06 evidence"
       ],
-      "acceptanceSummary": "Character-side durable facts stay character-owned until explicit handoff; battle state consumes projections rather than duplicating character state."
+      "acceptanceSummary": "Accepted with blockers: character creation finalization, sheet hit-point route projection, short-rest Pact-slot completion, and happy-path battle settlement surfaces route through public character/sheet/handoff entrypoints; expected records are mechanically derived from copied QNT connector action bodies/helper vocabulary. Partial/rejection/resource/conflict branches remain explicit source-input blockers."
     },
     {
       "laneId": "FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES",

@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: FEXP-06 running from accepted fresh target head `eb05e8495eac993b69e17f68544edace6e56caee`
+Status: FEXP-06 accepted-with-blockers; next lane is FEXP-07 from accepted fresh target head `0d5200e43fd7e9f094a93585f00eaf6bd2266c75`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `eb05e8495eac993b69e17f68544edace6e56caee`
+- current accepted fresh target head: `0d5200e43fd7e9f094a93585f00eaf6bd2266c75`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `b57772b459f1b75592fd45b9196fd60965b534d3`
 
@@ -177,6 +177,18 @@ sheet, and handoff route connectors from the current package.
 Preferred lanes:
 
 - `FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK`
+
+Status:
+
+- `FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK` is accepted-with-blockers at
+  fresh target head `0d5200e43fd7e9f094a93585f00eaf6bd2266c75`;
+- character creation finalization, sheet hit-point route projection, short-rest
+  Pact-slot completion, and happy-path battle settlement surfaces route through
+  public character/sheet/handoff entrypoints;
+- expected records are mechanically derived from copied QNT connector action
+  bodies/helper vocabulary;
+- partial/rejection/resource/conflict branches remain explicit source-input
+  blockers.
 
 Why fourth:
 

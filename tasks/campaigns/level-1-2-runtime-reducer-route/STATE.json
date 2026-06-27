@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-expansion-fexp06-running",
+  "status": "fresh-expansion-fexp06-accepted-with-blockers",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -2775,11 +2775,11 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "running",
-    "activeLane": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",
+    "status": "fexp06-accepted-with-blockers",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "eb05e8495eac993b69e17f68544edace6e56caee",
+    "acceptedTargetHead": "0d5200e43fd7e9f094a93585f00eaf6bd2266c75",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -2962,17 +2962,54 @@
           "FEXP-05-selected-reaction-spell-projections-need-generic-source-shapes",
           "FEXP-05-interrupt-trigger-taxonomy-not-admitted-by-route-inputs"
         ]
+      },
+      {
+        "laneId": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",
+        "status": "accepted-with-blockers",
+        "baseCommit": "eb05e8495eac993b69e17f68544edace6e56caee",
+        "targetCommit": "0d5200e43fd7e9f094a93585f00eaf6bd2266c75",
+        "workerAgent": "Lovelace the 3rd (019f0b5f-46e6-71d3-b995-936b8fc7036d); salvage fixer Aquinas the 3rd (019f0b71-0b57-7ae1-819e-4c06b8a8068c); verifier fixer James the 3rd (019f0b77-ea66-70e1-9081-5c0d05964e14)",
+        "reviewerAgent": "orchestrator review plus James the 3rd verifier review/fix (019f0b77-ea66-70e1-9081-5c0d05964e14)",
+        "artifacts": [
+          "EVIDENCE/fexp06-character-creation-sheet-handoff-pack.json",
+          "examples/fexp06_route_observations.rs",
+          "tools/verify_fexp06.py",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "BLOCKERS.json",
+          "STATE_OWNERS.md"
+        ],
+        "checks": [
+          "git merge-base --is-ancestor eb05e8495eac993b69e17f68544edace6e56caee HEAD",
+          "python3 -m py_compile tools/verify_fexp06.py",
+          "python3 tools/verify_current_fresh_target.py",
+          "python3 tools/verify_fexp06.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check eb05e8495eac993b69e17f68544edace6e56caee...HEAD",
+          "static forbidden-boundary scan via current fresh target verifier",
+          "static production-source authored-identity dispatch search"
+        ],
+        "coverageClaim": "character creation finalization, sheet hit-point route projection, short-rest Pact-slot completion, and happy-path battle settlement route surfaces accepted through public character/sheet/handoff entrypoints with expected records mechanically derived from copied QNT connector action bodies/helper vocabulary",
+        "blockers": [
+          "FEXP-06-creation-rejection-and-partial-fill-branches-not-accepted",
+          "FEXP-06-sheet-spell-resource-rejection-rest-feature-branches-not-accepted",
+          "FEXP-06-battle-settlement-conflict-and-zero-hp-branches-not-accepted",
+          "FEXP-06-non-route-projection-fields-not-runtime-settled"
+        ],
+        "residualRisk": "James the 3rd reported an initial discovery command listed sibling AGENTS.md paths before stopping; no sibling contents were used for substantive reads/edits, and accepted evidence/verifier paths are confined to the fresh target and copied inputs."
       }
     ],
-    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-06",
-    "activeBranch": "ralph/fexp-06-character-creation-sheet-handoff-pack",
-    "activeLaneBaseCommit": "eb05e8495eac993b69e17f68544edace6e56caee",
-    "workerAgent": "Lovelace the 3rd (019f0b5f-46e6-71d3-b995-936b8fc7036d); salvage fixer Aquinas the 3rd (019f0b71-0b57-7ae1-819e-4c06b8a8068c)",
+    "activeWorktree": null,
+    "activeBranch": null,
+    "activeLaneBaseCommit": null,
+    "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",
+    "nextPlannedLane": "FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES",
     "nextWorkRecommendations": [
-      "FEXP-06 salvage fixer is running from accepted fresh target head eb05e8495eac993b69e17f68544edace6e56caee after the first worker left partial runtime/test/example edits without evidence/verifier artifacts.",
-      "Review worker output for character-side ownership, handoff projection boundaries, connector-derived expected records, and no production authored identity dispatch."
+      "Launch FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES from accepted fresh target head 0d5200e43fd7e9f094a93585f00eaf6bd2266c75.",
+      "Keep selected/catalog-heavy behavior admitted only through generic substrate connectors; stop on blockers rather than introducing authored identity dispatch."
     ]
   },
   "sdkTracerBullet": {
