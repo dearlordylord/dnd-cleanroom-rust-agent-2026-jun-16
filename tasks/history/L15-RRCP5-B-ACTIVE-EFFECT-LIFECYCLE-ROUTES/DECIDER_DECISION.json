@@ -69,9 +69,9 @@
       "status": "pass"
     }
   ],
-  "rationale": "All CP5 selected rows replay through public battle reducer entrypoints and qRoute-compatible route-event-list evidence. Production routing uses generic reducer subject shapes, owner groups, and procedure facts rather than authored identity.",
+  "rationale": "All CP5 selected rows replay through public battle reducer entrypoints and compare against independent copied connector-shaped expected-route witnesses. Production routing uses generic reducer subject shapes, owner groups, and procedure facts rather than authored identity.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "targetBlockedRows": [],
-  "taskId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES"
+  "taskId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES"
 }

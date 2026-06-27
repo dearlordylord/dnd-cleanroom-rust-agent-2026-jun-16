@@ -11,7 +11,11 @@ use crate::rules::roll_modifier_active_effects::{
 };
 
 use super::battle_runtime_reducer_route::{
-    replay_generic_battle_route, GenericBattleRouteStep, ReducerRouteEvent,
+    replay_generic_battle_route, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_route_holes,
+    route_resolve_battle_subject_without_fill_from_route_holes, route_start_battle,
+    GenericBattleRouteStep, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 16] = [
@@ -168,7 +172,63 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doDiscoverBaneSave" => vec![
+            start(),
+            discover(
+                vec![ReducerRouteHoleKind::SavingThrowOutcome],
+                spell_owner(),
+            ),
+        ],
+        "doCastBaneFailed" => saving_throw_modifier_route(),
+        "doCastBless" | "doCastPassWithoutTrace" | "doStutter" => {
+            direct_concentration_expected_route()
+        }
+        "doDiscoverGuidanceSkillChoice" => vec![
+            start(),
+            discover(vec![ReducerRouteHoleKind::SkillChoice], spell_owner()),
+        ],
+        "doCastGuidanceStealth" => choice_modifier_route(
+            ReducerRouteHoleKind::SkillChoice,
+            ReducerRouteFillKind::SkillChoice,
+        ),
+        "doDiscoverEnhanceAbilityChoice" => vec![
+            start(),
+            discover(vec![ReducerRouteHoleKind::AbilityChoice], spell_owner()),
+        ],
+        "doCastEnhanceDex" => choice_modifier_route(
+            ReducerRouteHoleKind::AbilityChoice,
+            ReducerRouteFillKind::AbilityChoice,
+        ),
+        "doDiscoverEnhanceTargetAbilityChoices" => vec![
+            start(),
+            discover(
+                vec![ReducerRouteHoleKind::TargetAbilityChoices],
+                spell_owner(),
+            ),
+        ],
+        "doCastEnhancePerTarget" => choice_modifier_route(
+            ReducerRouteHoleKind::TargetAbilityChoices,
+            ReducerRouteFillKind::TargetAbilityChoices,
+        ),
+        "doCastEnthrall" => saving_throw_modifier_route(),
+        "doDiscoverThaumaturgyCount" => vec![
+            start(),
+            discover(Vec::new(), ReducerRouteOwnerGroup::ActiveEffect),
+        ],
+        "doCastThaumaturgyBoomingVoice" | "doCastThaumaturgyCancelled" => vec![
+            start(),
+            discover(Vec::new(), ReducerRouteOwnerGroup::ActiveEffect),
+            resolve_without_fill(ReducerRouteOwnerGroup::ActiveEffect),
+        ],
+        "doBreakConcentration" => {
+            let mut route = direct_concentration_expected_route();
+            route.push(resolve_without_fill(ReducerRouteOwnerGroup::Concentration));
+            route.push(resolve_without_fill(ReducerRouteOwnerGroup::ActiveEffect));
+            route
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(state: &RollModifierActiveEffectsState) -> String {
@@ -323,4 +383,78 @@ fn direct_concentration_observed_route() -> Vec<ReducerRouteEvent> {
             fill: BattleGenericRouteFill::WithoutFill,
         },
     ])
+}
+
+fn saving_throw_modifier_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        start(),
+        discover(
+            vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            spell_owner(),
+        ),
+        resolve(
+            ReducerRouteFillKind::SavingThrowOutcome,
+            Vec::new(),
+            ReducerRouteOwnerGroup::ActiveEffect,
+        ),
+        resolve_without_fill(ReducerRouteOwnerGroup::Concentration),
+    ]
+}
+
+fn direct_concentration_expected_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        start(),
+        discover(Vec::new(), spell_owner()),
+        resolve_without_fill(ReducerRouteOwnerGroup::ActiveEffect),
+        resolve_without_fill(ReducerRouteOwnerGroup::Concentration),
+    ]
+}
+
+fn choice_modifier_route(
+    hole: ReducerRouteHoleKind,
+    fill: ReducerRouteFillKind,
+) -> Vec<ReducerRouteEvent> {
+    vec![
+        start(),
+        discover(vec![hole], spell_owner()),
+        resolve(fill, Vec::new(), ReducerRouteOwnerGroup::ActiveEffect),
+        resolve_without_fill(ReducerRouteOwnerGroup::Concentration),
+    ]
+}
+
+fn start() -> ReducerRouteEvent {
+    route_start_battle(ReducerRouteOwnerGroup::ActionEconomy)
+}
+
+fn discover(holes: Vec<ReducerRouteHoleKind>, owner: ReducerRouteOwnerGroup) -> ReducerRouteEvent {
+    route_discover_battle_acts_from_route_holes(
+        ReducerRouteSubjectFamily::RollModifierEffect,
+        holes,
+        owner,
+    )
+}
+
+fn resolve(
+    fill: ReducerRouteFillKind,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::RollModifierEffect,
+        fill,
+        holes,
+        owner,
+    )
+}
+
+fn resolve_without_fill(owner: ReducerRouteOwnerGroup) -> ReducerRouteEvent {
+    route_resolve_battle_subject_without_fill_from_route_holes(
+        ReducerRouteSubjectFamily::RollModifierEffect,
+        Vec::new(),
+        owner,
+    )
+}
+
+fn spell_owner() -> ReducerRouteOwnerGroup {
+    ReducerRouteOwnerGroup::SpellSlotAndActionEconomy
 }

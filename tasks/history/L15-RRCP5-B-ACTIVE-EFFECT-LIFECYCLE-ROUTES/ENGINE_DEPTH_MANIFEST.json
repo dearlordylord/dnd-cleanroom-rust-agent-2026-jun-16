@@ -2,7 +2,7 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "adapterScope": "Replays copied CP5 qRoute obligations through public battle reducer entrypoints and compares route-event-list evidence.",
+      "adapterScope": "Replays copied CP5 qRoute obligations through public battle reducer entrypoints and compares independent copied expected-route witnesses.",
       "path": "src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs",
       "quarantinedWitnessNames": [
         "mbt::actionTaken",
@@ -14,11 +14,11 @@
         "routeConnectorPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/L15-RR18-CP5-active-effect-lifecycle-routes.json"
+        "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json"
       ]
     },
     {
-      "adapterScope": "Replays copied CP5 qRoute obligations through public battle reducer entrypoints and compares route-event-list evidence.",
+      "adapterScope": "Replays copied CP5 qRoute obligations through public battle reducer entrypoints and compares independent copied expected-route witnesses.",
       "path": "src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs",
       "quarantinedWitnessNames": [
         "mbt::actionTaken",
@@ -30,11 +30,11 @@
         "routeConnectorPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/L15-RR18-CP5-active-effect-lifecycle-routes.json"
+        "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json"
       ]
     },
     {
-      "adapterScope": "Replays copied CP5 qRoute obligations through public battle reducer entrypoints and compares route-event-list evidence.",
+      "adapterScope": "Replays copied CP5 qRoute obligations through public battle reducer entrypoints and compares independent copied expected-route witnesses.",
       "path": "src/qnt_adapters/battle_runtime_sleep_repeat_save.rs",
       "quarantinedWitnessNames": [
         "mbt::actionTaken",
@@ -46,11 +46,11 @@
         "routeConnectorPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/L15-RR18-CP5-active-effect-lifecycle-routes.json"
+        "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json"
       ]
     },
     {
-      "adapterScope": "Replays copied CP5 qRoute obligations through public battle reducer entrypoints and compares route-event-list evidence.",
+      "adapterScope": "Replays copied CP5 qRoute obligations through public battle reducer entrypoints and compares independent copied expected-route witnesses.",
       "path": "src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs",
       "quarantinedWitnessNames": [
         "mbt::actionTaken",
@@ -62,11 +62,11 @@
         "routeConnectorPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/L15-RR18-CP5-active-effect-lifecycle-routes.json"
+        "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json"
       ]
     },
     {
-      "adapterScope": "Replays copied CP5 qRoute obligations through public battle reducer entrypoints and compares route-event-list evidence.",
+      "adapterScope": "Replays copied CP5 qRoute obligations through public battle reducer entrypoints and compares independent copied expected-route witnesses.",
       "path": "src/qnt_adapters/battle_runtime_zero_hit_point_mid_resolution.rs",
       "quarantinedWitnessNames": [
         "mbt::actionTaken",
@@ -78,7 +78,7 @@
         "routeConnectorPath"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/L15-RR18-CP5-active-effect-lifecycle-routes.json"
+        "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json"
       ]
     },
     {
@@ -133,7 +133,7 @@
         "targetProfileSha256"
       ],
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/L15-RR18-CP5-active-effect-lifecycle-routes.json"
+        "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json"
       ]
     }
   ],
@@ -159,5 +159,5 @@
     }
   ],
   "schemaVersion": 1,
-  "taskId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES"
+  "taskId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES"
 }

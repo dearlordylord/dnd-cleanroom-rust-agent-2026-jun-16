@@ -45,7 +45,7 @@
         }
       ],
       "round": 1,
-      "summary": "Checked RAW/QNT traceability, active-effect lifecycle route ownership, adapter quarantine, state ownership, and route evidence after implementation."
+      "summary": "Checked RAW/QNT traceability, active-effect lifecycle route ownership, adapter quarantine, state ownership, and independent copied expected-route evidence after implementation."
     },
     {
       "passes": [
@@ -91,9 +91,9 @@
         }
       ],
       "round": 2,
-      "summary": "Convergence pass after focused route tests and formatter updates; no reasonable findings remain."
+      "summary": "Convergence pass after replacing self-confirming expected_route delegation with copied route witnesses, focused route tests, and formatter updates; no reasonable findings remain."
     }
   ],
   "schemaVersion": 1,
-  "taskId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES"
+  "taskId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES"
 }

@@ -18,7 +18,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -32,7 +32,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doBreakConcentration"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doBreakConcentration"
     },
     {
       "branchAction": "doCastBaneFailed",
@@ -47,7 +47,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -61,7 +61,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastBaneFailed"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastBaneFailed"
     },
     {
       "branchAction": "doCastBless",
@@ -76,7 +76,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -90,7 +90,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastBless"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastBless"
     },
     {
       "branchAction": "doCastEnhanceDex",
@@ -105,7 +105,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -119,7 +119,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnhanceDex"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnhanceDex"
     },
     {
       "branchAction": "doCastEnhancePerTarget",
@@ -134,7 +134,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -148,7 +148,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnhancePerTarget"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnhancePerTarget"
     },
     {
       "branchAction": "doCastEnthrall",
@@ -163,7 +163,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -177,7 +177,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnthrall"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnthrall"
     },
     {
       "branchAction": "doCastGuidanceStealth",
@@ -192,7 +192,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -206,7 +206,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastGuidanceStealth"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastGuidanceStealth"
     },
     {
       "branchAction": "doCastPassWithoutTrace",
@@ -221,7 +221,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -235,7 +235,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastPassWithoutTrace"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastPassWithoutTrace"
     },
     {
       "branchAction": "doCastThaumaturgyBoomingVoice",
@@ -250,7 +250,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -264,7 +264,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastThaumaturgyBoomingVoice"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastThaumaturgyBoomingVoice"
     },
     {
       "branchAction": "doCastThaumaturgyCancelled",
@@ -279,7 +279,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -293,7 +293,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastThaumaturgyCancelled"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastThaumaturgyCancelled"
     },
     {
       "branchAction": "doDiscoverBaneSave",
@@ -308,7 +308,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -322,7 +322,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverBaneSave"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverBaneSave"
     },
     {
       "branchAction": "doDiscoverEnhanceAbilityChoice",
@@ -337,7 +337,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -351,7 +351,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverEnhanceAbilityChoice"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverEnhanceAbilityChoice"
     },
     {
       "branchAction": "doDiscoverEnhanceTargetAbilityChoices",
@@ -366,7 +366,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -380,7 +380,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverEnhanceTargetAbilityChoices"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverEnhanceTargetAbilityChoices"
     },
     {
       "branchAction": "doDiscoverGuidanceSkillChoice",
@@ -395,7 +395,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -409,7 +409,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverGuidanceSkillChoice"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverGuidanceSkillChoice"
     },
     {
       "branchAction": "doDiscoverThaumaturgyCount",
@@ -424,7 +424,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -438,7 +438,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverThaumaturgyCount"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverThaumaturgyCount"
     },
     {
       "branchAction": "doStutter",
@@ -453,7 +453,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -467,7 +467,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doStutter"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doStutter"
     },
     {
       "branchAction": "doCastAid",
@@ -482,7 +482,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -496,7 +496,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastAid"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastAid"
     },
     {
       "branchAction": "doCastFalseLife",
@@ -511,7 +511,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -525,7 +525,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastFalseLife"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastFalseLife"
     },
     {
       "branchAction": "doCastLongstrider",
@@ -540,7 +540,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -554,7 +554,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastLongstrider"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastLongstrider"
     },
     {
       "branchAction": "doCastShieldOfFaith",
@@ -569,7 +569,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -583,7 +583,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastShieldOfFaith"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastShieldOfFaith"
     },
     {
       "branchAction": "doCastSpiderClimb",
@@ -598,7 +598,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -612,7 +612,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastSpiderClimb"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastSpiderClimb"
     },
     {
       "branchAction": "doStutter",
@@ -627,7 +627,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -641,7 +641,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doStutter"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doStutter"
     },
     {
       "branchAction": "doBreakConcentrationBeforeRepeat",
@@ -656,7 +656,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -670,7 +670,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doBreakConcentrationBeforeRepeat"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doBreakConcentrationBeforeRepeat"
     },
     {
       "branchAction": "doDiscoverRepeatSave",
@@ -685,7 +685,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -699,7 +699,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverRepeatSave"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverRepeatSave"
     },
     {
       "branchAction": "doEndCasterTurn",
@@ -714,7 +714,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -728,7 +728,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndCasterTurn"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndCasterTurn"
     },
     {
       "branchAction": "doEndCasterTurnAfterConcentrationBreak",
@@ -743,7 +743,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -757,7 +757,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndCasterTurnAfterConcentrationBreak"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndCasterTurnAfterConcentrationBreak"
     },
     {
       "branchAction": "doEndTargetTurnAfterConcentrationBreak",
@@ -772,7 +772,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -786,7 +786,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndTargetTurnAfterConcentrationBreak"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndTargetTurnAfterConcentrationBreak"
     },
     {
       "branchAction": "doFillInitialSaveFailure",
@@ -801,7 +801,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -815,7 +815,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillInitialSaveFailure"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillInitialSaveFailure"
     },
     {
       "branchAction": "doFillRepeatSaveFailure",
@@ -830,7 +830,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -844,7 +844,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillRepeatSaveFailure"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillRepeatSaveFailure"
     },
     {
       "branchAction": "doFillRepeatSaveSuccess",
@@ -859,7 +859,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -873,7 +873,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillRepeatSaveSuccess"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillRepeatSaveSuccess"
     },
     {
       "branchAction": "doResolveSourceNextTurn",
@@ -888,7 +888,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -902,7 +902,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveSourceNextTurn"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveSourceNextTurn"
     },
     {
       "branchAction": "doResolveTargetStartTurn",
@@ -917,7 +917,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -931,7 +931,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveTargetStartTurn"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveTargetStartTurn"
     },
     {
       "branchAction": "doResolveEldritchBlast",
@@ -946,7 +946,7 @@
         "tag": "pass"
       },
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.route.mbt.qnt",
-      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to copied connector-shaped expectations.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare qRoute-compatible route-event lists emitted by public battle reducer entrypoints to independent copied connector-shaped expected-route witnesses.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -960,7 +960,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveEldritchBlast"
+      "traceId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveEldritchBlast"
     }
   ],
   "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",

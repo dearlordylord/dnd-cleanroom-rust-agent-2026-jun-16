@@ -8,7 +8,11 @@ use crate::rules::sleep_repeat_save::{
 };
 
 use super::battle_runtime_reducer_route::{
-    replay_generic_battle_route, GenericBattleRouteStep, ReducerRouteEvent,
+    replay_generic_battle_route, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_route_holes,
+    route_resolve_battle_subject_without_fill_from_route_holes, route_start_battle,
+    GenericBattleRouteStep, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 8] = [
@@ -162,7 +166,59 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doFillInitialSaveFailure" => expected_initial_save_failure_route(),
+        "doBreakConcentrationBeforeRepeat" => {
+            let mut route = expected_initial_save_failure_route();
+            append_expected_concentration_break_before_repeat_route(&mut route);
+            route
+        }
+        "doEndCasterTurn" => {
+            let mut route = expected_initial_save_failure_route();
+            append_expected_turn_boundary_route(&mut route);
+            route
+        }
+        "doEndCasterTurnAfterConcentrationBreak" => {
+            let mut route = expected_route("doBreakConcentrationBeforeRepeat");
+            append_expected_turn_boundary_route(&mut route);
+            route
+        }
+        "doEndTargetTurnAfterConcentrationBreak" => {
+            let mut route = expected_route("doEndCasterTurnAfterConcentrationBreak");
+            append_expected_turn_boundary_route(&mut route);
+            route
+        }
+        "doDiscoverRepeatSave" => {
+            let mut route = expected_route("doEndCasterTurn");
+            route.push(expected_discover(
+                vec![ReducerRouteHoleKind::SavingThrowOutcome],
+                ReducerRouteOwnerGroup::TurnBoundary,
+            ));
+            route
+        }
+        "doFillRepeatSaveSuccess" => {
+            let mut route = expected_route("doDiscoverRepeatSave");
+            route.extend([
+                expected_resolve(
+                    ReducerRouteFillKind::SavingThrowOutcome,
+                    Vec::new(),
+                    ReducerRouteOwnerGroup::ConditionLifecycle,
+                ),
+                expected_resolve_without_fill(ReducerRouteOwnerGroup::ActiveEffect),
+            ]);
+            route
+        }
+        "doFillRepeatSaveFailure" => {
+            let mut route = expected_route("doDiscoverRepeatSave");
+            route.push(expected_resolve(
+                ReducerRouteFillKind::SavingThrowOutcome,
+                Vec::new(),
+                ReducerRouteOwnerGroup::ConditionLifecycle,
+            ));
+            route
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(state: &SleepRepeatSaveState) -> String {
@@ -268,4 +324,67 @@ fn discover(kind: BattleSubjectKind) -> GenericBattleRouteStep {
 
 fn resolve(kind: BattleSubjectKind, fill: BattleGenericRouteFill) -> GenericBattleRouteStep {
     GenericBattleRouteStep::Resolve { kind, fill }
+}
+
+fn expected_initial_save_failure_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        expected_discover(
+            vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        ),
+        expected_resolve(
+            ReducerRouteFillKind::SavingThrowOutcome,
+            Vec::new(),
+            ReducerRouteOwnerGroup::ConditionLifecycle,
+        ),
+        expected_resolve_without_fill(ReducerRouteOwnerGroup::ActiveEffect),
+        expected_resolve_without_fill(ReducerRouteOwnerGroup::Concentration),
+    ]
+}
+
+fn append_expected_concentration_break_before_repeat_route(route: &mut Vec<ReducerRouteEvent>) {
+    route.extend([
+        expected_resolve_without_fill(ReducerRouteOwnerGroup::Concentration),
+        expected_resolve_without_fill(ReducerRouteOwnerGroup::ActiveEffect),
+        expected_resolve_without_fill(ReducerRouteOwnerGroup::ConditionLifecycle),
+    ]);
+}
+
+fn append_expected_turn_boundary_route(route: &mut Vec<ReducerRouteEvent>) {
+    route.push(expected_resolve_without_fill(
+        ReducerRouteOwnerGroup::TurnBoundary,
+    ));
+}
+
+fn expected_discover(
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_discover_battle_acts_from_route_holes(
+        ReducerRouteSubjectFamily::RepeatSaveConditionEffect,
+        holes,
+        owner,
+    )
+}
+
+fn expected_resolve(
+    fill: ReducerRouteFillKind,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::RepeatSaveConditionEffect,
+        fill,
+        holes,
+        owner,
+    )
+}
+
+fn expected_resolve_without_fill(owner: ReducerRouteOwnerGroup) -> ReducerRouteEvent {
+    route_resolve_battle_subject_without_fill_from_route_holes(
+        ReducerRouteSubjectFamily::RepeatSaveConditionEffect,
+        Vec::new(),
+        owner,
+    )
 }

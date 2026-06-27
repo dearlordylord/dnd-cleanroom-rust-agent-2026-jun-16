@@ -1,5 +1,9 @@
 use super::battle_runtime_reducer_route::{
-    replay_generic_battle_route, GenericBattleRouteStep, ReducerRouteEvent,
+    replay_generic_battle_route, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_route_holes,
+    route_resolve_battle_subject_without_fill_from_route_holes, route_start_battle,
+    GenericBattleRouteStep, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
 };
 use crate::rules::{
     battle_reducer_spine::{
@@ -53,7 +57,11 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doResolveTargetStartTurn" => expected_target_start_turn_route(),
+        "doResolveSourceNextTurn" => expected_source_next_turn_route(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(state: &TurnBoundaryEffectLifecycleState) -> String {
@@ -259,4 +267,68 @@ fn discover(kind: BattleSubjectKind) -> GenericBattleRouteStep {
 
 fn resolve(kind: BattleSubjectKind, fill: BattleGenericRouteFill) -> GenericBattleRouteStep {
     GenericBattleRouteStep::Resolve { kind, fill }
+}
+
+fn expected_target_start_turn_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        expected_discover(vec![
+            ReducerRouteHoleKind::RolledDice,
+            ReducerRouteHoleKind::SavingThrowOutcome,
+        ]),
+        expected_resolve(
+            ReducerRouteFillKind::RolledDice,
+            vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+        expected_resolve(
+            ReducerRouteFillKind::SavingThrowOutcome,
+            Vec::new(),
+            ReducerRouteOwnerGroup::ActiveEffect,
+        ),
+    ]
+}
+
+fn expected_source_next_turn_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_target_start_turn_route();
+    route.extend([
+        expected_discover(vec![ReducerRouteHoleKind::RolledDice]),
+        expected_resolve(
+            ReducerRouteFillKind::RolledDice,
+            Vec::new(),
+            ReducerRouteOwnerGroup::HitPoint,
+        ),
+        expected_resolve_without_fill(ReducerRouteOwnerGroup::ActiveEffect),
+        expected_resolve_without_fill(ReducerRouteOwnerGroup::TurnBoundary),
+    ]);
+    route
+}
+
+fn expected_discover(holes: Vec<ReducerRouteHoleKind>) -> ReducerRouteEvent {
+    route_discover_battle_acts_from_route_holes(
+        ReducerRouteSubjectFamily::TurnBoundaryEffectLifecycle,
+        holes,
+        ReducerRouteOwnerGroup::TurnBoundary,
+    )
+}
+
+fn expected_resolve(
+    fill: ReducerRouteFillKind,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_from_route_holes(
+        ReducerRouteSubjectFamily::TurnBoundaryEffectLifecycle,
+        fill,
+        holes,
+        owner,
+    )
+}
+
+fn expected_resolve_without_fill(owner: ReducerRouteOwnerGroup) -> ReducerRouteEvent {
+    route_resolve_battle_subject_without_fill_from_route_holes(
+        ReducerRouteSubjectFamily::TurnBoundaryEffectLifecycle,
+        Vec::new(),
+        owner,
+    )
 }

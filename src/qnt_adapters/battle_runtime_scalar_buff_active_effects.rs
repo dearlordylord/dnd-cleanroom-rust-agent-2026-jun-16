@@ -7,7 +7,9 @@ use crate::rules::scalar_buff_active_effects::{
 };
 
 use super::battle_runtime_reducer_route::{
-    replay_generic_battle_route, GenericBattleRouteStep, ReducerRouteEvent,
+    replay_generic_battle_route, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_without_fill_from_route_holes, route_start_battle,
+    GenericBattleRouteStep, ReducerRouteEvent, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 6] = [
@@ -47,7 +49,14 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doCastShieldOfFaith" => expected_shield_of_faith_route(),
+        "doCastLongstrider" => expected_longstrider_route(),
+        "doCastSpiderClimb" => expected_spider_climb_route(),
+        "doCastAid" => expected_aid_route(),
+        "doCastFalseLife" | "doStutter" => expected_false_life_route(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(state: &ScalarBuffActiveEffectsState) -> String {
@@ -173,4 +182,73 @@ fn resolve(kind: BattleSubjectKind) -> GenericBattleRouteStep {
         kind,
         fill: BattleGenericRouteFill::WithoutFill,
     }
+}
+
+fn expected_shield_of_faith_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        expected_start(),
+        expected_discover(ReducerRouteOwnerGroup::SpellSlotAndActionEconomy),
+        expected_resolve(ReducerRouteOwnerGroup::ActiveEffect),
+        expected_resolve(ReducerRouteOwnerGroup::Concentration),
+    ]
+}
+
+fn expected_longstrider_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_shield_of_faith_route();
+    route.extend([
+        expected_discover(ReducerRouteOwnerGroup::SpellSlotAndActionEconomy),
+        expected_resolve(ReducerRouteOwnerGroup::ActiveEffect),
+        expected_resolve(ReducerRouteOwnerGroup::MovementResource),
+    ]);
+    route
+}
+
+fn expected_spider_climb_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_longstrider_route();
+    route.extend([
+        expected_discover(ReducerRouteOwnerGroup::SpellSlotAndActionEconomy),
+        expected_resolve(ReducerRouteOwnerGroup::ActiveEffect),
+        expected_resolve(ReducerRouteOwnerGroup::MovementResource),
+        expected_resolve(ReducerRouteOwnerGroup::Concentration),
+    ]);
+    route
+}
+
+fn expected_aid_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_spider_climb_route();
+    route.extend([
+        expected_discover(ReducerRouteOwnerGroup::SpellSlotAndActionEconomy),
+        expected_resolve(ReducerRouteOwnerGroup::ActiveEffect),
+        expected_resolve(ReducerRouteOwnerGroup::HitPoint),
+    ]);
+    route
+}
+
+fn expected_false_life_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_aid_route();
+    route.extend([
+        expected_discover(ReducerRouteOwnerGroup::SpellSlotAndActionEconomy),
+        expected_resolve(ReducerRouteOwnerGroup::TemporaryHitPoint),
+    ]);
+    route
+}
+
+fn expected_start() -> ReducerRouteEvent {
+    route_start_battle(ReducerRouteOwnerGroup::ActionEconomy)
+}
+
+fn expected_discover(owner: ReducerRouteOwnerGroup) -> ReducerRouteEvent {
+    route_discover_battle_acts_from_route_holes(
+        ReducerRouteSubjectFamily::ScalarBuffEffect,
+        Vec::new(),
+        owner,
+    )
+}
+
+fn expected_resolve(owner: ReducerRouteOwnerGroup) -> ReducerRouteEvent {
+    route_resolve_battle_subject_without_fill_from_route_holes(
+        ReducerRouteSubjectFamily::ScalarBuffEffect,
+        Vec::new(),
+        owner,
+    )
 }
