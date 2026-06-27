@@ -8,12 +8,12 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "5b1e976b6af7fadefa4ea5a065ae81de53b94d09",
+    "lastVerifiedIntegrationHead": "e2568c0a0c8af60bec2fddfc92cd84f2b552bdd6",
     "lastMergedLane": {
-      "laneId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES",
-      "mergeCommit": "5b1e976b6af7fadefa4ea5a065ae81de53b94d09",
-      "laneHead": "a8b96ec0aa91b4249b352009b1384292f917f7e2",
-      "note": "CP8 accepted exactly the three remaining Mage Armor admission/lifecycle rows through the generic SpellBaseArmorClassEffectRouteSubject connector; the pre-existing base AC projection row was refreshed to the same connector shape without counting as a new CP8 row."
+      "laneId": "PACT-SLOT-HANDOFF-INIT-PROJECTION-ROUTE-REFRESH",
+      "mergeCommit": "1abe8f87fcff9e72efd2e006f549373ff9f00b83",
+      "laneHead": "23eca8a08e055864630161ad953c65f00fb9027b",
+      "note": "Diagnostic dirty target replay refresh only. The worker consumed source commit b57772b459f1b75592fd45b9196fd60965b534d3 Pact Slot route connector facts and added replay evidence for the character-battle init projection driver; bookkeeping commit e2568c0a0c8af60bec2fddfc92cd84f2b552bdd6 records verification and does not alter fresh target acceptance."
     },
     "lastSourceRefresh": {
       "sourceCommitSha": "b57772b459f1b75592fd45b9196fd60965b534d3",
