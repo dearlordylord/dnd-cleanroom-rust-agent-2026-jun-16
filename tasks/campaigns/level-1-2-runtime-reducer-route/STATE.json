@@ -273,7 +273,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
-      ]
+      ],
+      "rereviewAgent": "019f07f6-bb3e-71a0-90fd-c4ae37336937",
+      "rereviewName": "Mill the 2nd",
+      "rereviewStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
@@ -381,7 +384,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
-      ]
+      ],
+      "rereviewAgent": "019f07f6-fc15-76e2-9297-8be46ec69e71",
+      "rereviewName": "Ptolemy the 2nd",
+      "rereviewStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
