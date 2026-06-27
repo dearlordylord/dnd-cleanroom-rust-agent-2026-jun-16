@@ -157,7 +157,7 @@
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint",
     "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "reviewed-clean",
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "reviewed-clean",
-    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "implemented",
+    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "fix-committed",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "reviewed-clean"
   },
   "lastIntegrationVerification": {
@@ -261,7 +261,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c",
       "branch": "ralph/l15-rr04c-rule-core-spell-ability",
       "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "implemented-pending-review",
+      "status": "fix-committed-pending-rereview",
       "workerAgent": "019f0671-762b-7002-954d-a26a7c37c13c",
       "workerName": "Avicenna",
       "commit": "399690a03ae83538875768950e5d985c932a723f",
@@ -272,7 +272,18 @@
         "Reusable rule-core component facts are not established; ability/spell behavior lives in adapter-local replay state and helpers.",
         "Accepted replay tests/evidence are self-referential: expected_witness calls replay_observed_action and evidence checks constant qComponentRoute hashes.",
         "Six out-of-scope mass spell rows are excluded from evidence, but Rust test name/count overclaims all branches."
-      ]
+      ],
+      "fixerAgent": "019f068a-5562-7820-8218-e3ad903bf55c",
+      "fixerName": "Lovelace",
+      "fixCommit": "8b3bd015c34357b38962bfaada4e6f1d0ba3d500",
+      "fixSummary": [
+        "Moved reusable component route facts from adapter-local replay into src/rules/rule_core_components.rs.",
+        "Replaced self-referential expected witnesses with independent literal expected witnesses.",
+        "Upgraded accepted evidence to qComponentRoute plus qProjectionPayload hashes.",
+        "Split spell evidence into 24 accepted in-scope branches and 6 non-acceptance regression rows.",
+        "Downgraded broad semantics claims to shared route facts and selected existing rule fields."
+      ],
+      "rereviewStatus": "pending"
     },
     {
       "laneId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
