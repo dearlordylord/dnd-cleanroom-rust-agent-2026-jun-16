@@ -158,10 +158,10 @@
     "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "merged-verified",
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "merged-verified",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "reviewed-clean",
-    "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "reviewed-clean"
+    "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "727655c",
+    "head": "d0af3dc",
     "commands": [
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
@@ -172,7 +172,7 @@
       "cargo test adapter_replays_all_branches --quiet"
     ],
     "result": "passed",
-    "cargoTest": "185 passed",
+    "cargoTest": "186 passed",
     "adapterReplaySmoke": "70 passed"
   },
   "activeLaneWorktrees": [
@@ -207,13 +207,15 @@
       "rereviewAgent": "019f0698-bffd-7d42-a34e-20753fac7291",
       "rereviewName": "Popper",
       "rereviewResidualRisk": "Reviewer ran harness, focused ability/spell tests, and diff whitespace; full cargo test and clippy remain integration merge gates. .claude/review-rules.md is absent in the cleanroom worktree."
-    },
+    }
+  ],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04d",
       "branch": "ralph/l15-rr04d-rule-core-feature-profile",
       "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "reviewed-clean-pending-merge",
+      "status": "removable-after-operator-confirms-no-local-use",
       "workerAgent": "019f0671-d268-7f62-b173-674d8d90738f",
       "workerName": "Mill",
       "commit": "063ceefb6b07dec0d5afb7c4435d2687d48dc621",
@@ -237,10 +239,25 @@
       "rereviewStatus": "clean",
       "rereviewAgent": "019f0689-f2da-7572-b85b-006e07d91bca",
       "rereviewName": "Wegener",
-      "rereviewResidualRisk": ".claude/review-rules.md is absent in the cleanroom worktree; accepted feature-profile evidence remains intentionally adapter-only and must not be treated as production reusable feature-component reducer semantics."
-    }
-  ],
-  "completedLaneWorktrees": [
+      "rereviewResidualRisk": ".claude/review-rules.md is absent in the cleanroom worktree; accepted feature-profile evidence remains intentionally adapter-only and must not be treated as production reusable feature-component reducer semantics.",
+      "laneHead": "3b522e37510064953d299db7cc4a739af9cd9d04",
+      "mergeCommit": "d0af3dc",
+      "integrationVerification": {
+        "head": "d0af3dc",
+        "commands": [
+          "cargo fmt --check",
+          "node scripts/check-cleanroom-harness.cjs",
+          "node -e <parse campaign/task json>",
+          "git diff --check HEAD~1...HEAD",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "cargo test adapter_replays_all_branches --quiet"
+        ],
+        "result": "passed",
+        "cargoTest": "186 passed",
+        "adapterReplaySmoke": "70 passed"
+      }
+    },
     {
       "laneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b",
