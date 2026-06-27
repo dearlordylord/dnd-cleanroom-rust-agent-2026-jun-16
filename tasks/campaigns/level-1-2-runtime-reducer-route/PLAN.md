@@ -294,6 +294,21 @@ Exit criteria:
 - source-QNT/corpus gaps discovered during target work are recorded as source
   blockers instead of inferred from TypeScript or dirty target history.
 
+Status after `L15-RRCP7-E`: blocked on source/corpus refresh.
+
+CP7 accepted every remaining target-side row that was derivable from the copied
+cleanroom input package. The remaining twelve rows are recorded in
+`SOURCE_CORPUS_HANDOFF.md`:
+
+- nine scenario transition rows need a source-side denominator or route-surface
+  decision;
+- three Mage Armor rows need a generic armor-class target-admission /
+  active-effect lifecycle route connector before target acceptance.
+
+Do not launch another dirty cleanroom target lane for these rows until the
+source QNT/branch inventory package is refreshed or the denominator is
+intentionally changed.
+
 ## Standard Lane Lifecycle
 
 1. Mark lane `ready` -> `running` in `STATE.json`.

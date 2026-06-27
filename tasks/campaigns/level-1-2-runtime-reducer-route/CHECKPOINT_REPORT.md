@@ -23,11 +23,11 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is accepted after the copied route connector refresh. |
 | CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
 | CP6 Closure Sweep | complete | Closure audit recorded in `CP6_AUDIT.json` and `CP6_CLOSURE_REPORT.md`; every in-scope obligation is accepted or explicitly blocked. |
-| CP7 Post-CP6 Target Blocker Reduction | active | `L15-RRCP7-A` through `L15-RRCP7-E` merged and verified; thirteen target blockers are accepted after CP6, and twelve target blockers remain. |
+| CP7 Post-CP6 Target Blocker Reduction | blocked on source/corpus refresh | `L15-RRCP7-A` through `L15-RRCP7-E` merged and verified; thirteen target blockers are accepted after CP6, and twelve blockers remain. Those rows now require source QNT/corpus route support or a denominator decision before another dirty cleanroom lane can honestly accept them. |
 
 ## Last Known Verification
 
-At CP7 integration head `24ad8f3b493b2affa4dba3607a619f92bf54eb16`:
+At CP7 integration head `24ad8f3b493b2affa4dba3607a619f92bf54eb16`, followed by accounting head `673df2329de89144270ab0d977f5cce1bb670ade`:
 
 - `cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture`: pass
 - `jq empty` over `tasks/RUN_LEDGER.json`, affected CP7-E history/evidence files, and `CP7_AUDIT.json`: pass
@@ -36,6 +36,17 @@ At CP7 integration head `24ad8f3b493b2affa4dba3607a619f92bf54eb16`:
 - `cargo test`: pass, `220` tests
 - `cargo clippy --all-targets -- -D warnings`: pass
 - `node scripts/check-cleanroom-harness.cjs`: fails only on global stale evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7e-cleanroom-harness.out` contained no CP7-E, Magic Weapon, or WeaponEnhancement-specific failures.
+
+## Source Corpus Boundary
+
+CP7 exhausted the target-side work available from the copied cleanroom input package. Current accepted coverage is `656 / 668` in-scope obligations. The remaining `12` rows are not ready for another dirty Rust target lane.
+
+Detailed handoff: `tasks/campaigns/level-1-2-runtime-reducer-route/SOURCE_CORPUS_HANDOFF.md`.
+
+Remaining blocker groups:
+
+- `9` scenario transition rows in the after-hit and weapon-hosted drivers. Source must decide whether these are fixture sequencing rows that should leave the reducer-route denominator, or real reducer transitions that need explicit QNT route connectors.
+- `3` Mage Armor rows. Source must add a generic armor-class base active-effect / target-admission battle route connector before target replay can count them.
 
 ## Active Work
 

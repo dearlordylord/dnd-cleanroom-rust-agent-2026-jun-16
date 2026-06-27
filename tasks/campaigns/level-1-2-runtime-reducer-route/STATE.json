@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "post-cp7-active",
+  "status": "blocked-on-source-corpus-refresh",
   "dirtyCleanroomOnly": true,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "24ad8f3b493b2affa4dba3607a619f92bf54eb16",
+    "lastVerifiedIntegrationHead": "673df2329de89144270ab0d977f5cce1bb670ade",
     "lastMergedLane": {
       "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
       "mergeCommit": "24ad8f3b493b2affa4dba3607a619f92bf54eb16",
@@ -42,7 +42,7 @@
     "outOfScopeObligations": 36,
     "unresolvedInScopeObligations": 0,
     "acceptedUniqueDriversSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit",
-    "acceptedObligationsSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit; CP7 accepted four FU01C target blockers, two FU01B residual route-shape blockers, five CP7-C ordinary/pre-hit weapon setup blockers, and two CP7-E Magic Weapon item-target blockers after reducer-entrypoint replay evidence. CP7-D added no accepted rows and keeps the three Mage Armor admission/lifecycle rows blocked pending source/corpus route support."
+    "acceptedObligationsSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit; CP7 accepted four FU01C target blockers, two FU01B residual route-shape blockers, five CP7-C ordinary/pre-hit weapon setup blockers, and two CP7-E Magic Weapon item-target blockers after reducer-entrypoint replay evidence. CP7-D added no accepted rows and keeps the three Mage Armor admission/lifecycle rows blocked pending source/corpus route support. The remaining nine scenario transition rows require a source-side denominator or route-surface decision before any target acceptance."
   },
   "completedBeforeCampaign": [
     "T001",
@@ -184,7 +184,7 @@
     {
       "checkpointId": "CP7",
       "name": "Post-CP6 Target Blocker Reduction",
-      "status": "active",
+      "status": "blocked-on-source-corpus-refresh",
       "dependsOn": [
         "CP6"
       ],
@@ -197,7 +197,8 @@
         "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES"
       ],
       "readyLaneIds": [],
-      "notes": "CP7-E merged and verified, moving accepted obligations to 656/668 and target blockers to 12. Remaining blockers are nine scenario transition rows and three Mage Armor route-owner rows; both require source/corpus connector or denominator work before target acceptance."
+      "notes": "CP7 target-side blocker reduction is exhausted at 656/668 accepted obligations. The remaining twelve rows are not ready for another dirty target lane: nine are scenario transition rows requiring a source-side denominator or route-surface decision, and three Mage Armor rows require a generic armor-class battle route connector in the source/corpus package.",
+      "nextBoundary": "Refresh source QNT/branch inventory/cleanroom input package before launching CP8 or any further dirty cleanroom target lane."
     }
   ],
   "laneStatuses": {
@@ -257,7 +258,7 @@
     "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "24ad8f3b493b2affa4dba3607a619f92bf54eb16",
+    "head": "673df2329de89144270ab0d977f5cce1bb670ade",
     "commands": [
       "cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture",
       "jq empty touched CP7-E JSON artifacts",
@@ -270,7 +271,8 @@
     "result": "passed except cleanroom harness failed on pre-existing stale global evidence/manifest debt",
     "cargoTest": "220 passed",
     "focusedTests": "Magic Weapon item-target route evidence passed in the weapon-hosted route adapter focused test",
-    "cleanroomHarness": "failed as expected on stale global manifest/evidence debt; /tmp/rrcp7e-cleanroom-harness.out contained no CP7-E, Magic Weapon, or WeaponEnhancement-specific failures"
+    "cleanroomHarness": "failed as expected on stale global manifest/evidence debt; /tmp/rrcp7e-cleanroom-harness.out contained no CP7-E, Magic Weapon, or WeaponEnhancement-specific failures",
+    "note": "No Rust changes after CP7-E. This state update records the source/corpus boundary after the verified CP7-E integration head and its accounting commit."
   },
   "activeLaneWorktrees": [],
   "completedLaneWorktrees": [
@@ -2249,5 +2251,22 @@
     "Update this file after every lane status change, merge, checkpoint transition, and integration verification.",
     "Resolve each lane base from the integration worktree HEAD at launch time.",
     "If the integration HEAD changes outside this campaign, stop and reconcile before launching more Ralph workers."
-  ]
+  ],
+  "sourceCorpusRefreshRequired": {
+    "status": "required-before-next-cleanroom-target-lane",
+    "report": "tasks/campaigns/level-1-2-runtime-reducer-route/SOURCE_CORPUS_HANDOFF.md",
+    "summary": "CP7 exhausted target-side reducer-route work available from the copied cleanroom input package. The remaining twelve rows need source/corpus changes or denominator decisions before another dirty cleanroom lane can honestly accept them.",
+    "blockerGroups": [
+      {
+        "group": "scenario-transition-denominator-or-route-surface",
+        "obligations": 9,
+        "recommendation": "Review source branch-scope and route inventory generation. If these doStart/doFinish rows are fixture scenario sequencing, exclude them from reducer-route obligations. If source decides they are real reducer transitions, add explicit QNT route connectors and regenerate the cleanroom input package before target work."
+      },
+      {
+        "group": "battle-armor-class-active-effect-route-owner",
+        "obligations": 3,
+        "recommendation": "Add a source QNT route connector for a generic armor-class target-admission and active-effect lifecycle owner covering unarmored admission, armored-target rejection, and duration expiry. Regenerate cleanroom input before target work."
+      }
+    ]
+  }
 }
