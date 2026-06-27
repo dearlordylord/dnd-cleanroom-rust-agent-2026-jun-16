@@ -15,7 +15,7 @@
       "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
       "result": {
         "blockerId": "L15-RRCP5-A-doBreakShiningConcentration",
-        "reason": "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "reason": "Shining Smite is out of scope for this level-1/2 cleanroom route lane",
         "tag": "target-blocker"
       },
       "sampledInputs": [],
@@ -28,7 +28,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doBreakShiningConcentration"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doBreakShiningConcentration"
     },
     {
       "branchAction": "doChooseDivineSmiteFreeCast",
@@ -56,7 +56,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseDivineSmiteFreeCast"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doChooseDivineSmiteFreeCast"
     },
     {
       "branchAction": "doChooseDivineSmiteSlot",
@@ -84,7 +84,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseDivineSmiteSlot"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doChooseDivineSmiteSlot"
     },
     {
       "branchAction": "doChooseEnsnaringStrike",
@@ -112,7 +112,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseEnsnaringStrike"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doChooseEnsnaringStrike"
     },
     {
       "branchAction": "doChooseSearingSmite",
@@ -140,7 +140,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseSearingSmite"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doChooseSearingSmite"
     },
     {
       "branchAction": "doChooseShiningSmite",
@@ -152,7 +152,7 @@
       "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
       "result": {
         "blockerId": "L15-RRCP5-A-doChooseShiningSmite",
-        "reason": "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "reason": "Shining Smite is out of scope for this level-1/2 cleanroom route lane",
         "tag": "target-blocker"
       },
       "sampledInputs": [],
@@ -165,7 +165,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doChooseShiningSmite"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doChooseShiningSmite"
     },
     {
       "branchAction": "doDiscoverEnsnaringStartTurnDamage",
@@ -193,7 +193,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverEnsnaringStartTurnDamage"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doDiscoverEnsnaringStartTurnDamage"
     },
     {
       "branchAction": "doDiscoverSearingStartTurnDamageAndSave",
@@ -221,7 +221,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverSearingStartTurnDamageAndSave"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doDiscoverSearingStartTurnDamageAndSave"
     },
     {
       "branchAction": "doDiscoverWeaponHit",
@@ -246,7 +246,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverWeaponHit"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doDiscoverWeaponHit"
     },
     {
       "branchAction": "doFillDivineSmiteDamage",
@@ -283,7 +283,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillDivineSmiteDamage"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillDivineSmiteDamage"
     },
     {
       "branchAction": "doFillEnsnaringEscapeCheck",
@@ -311,7 +311,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringEscapeCheck"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillEnsnaringEscapeCheck"
     },
     {
       "branchAction": "doFillEnsnaringFailedSave",
@@ -339,7 +339,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringFailedSave"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillEnsnaringFailedSave"
     },
     {
       "branchAction": "doFillEnsnaringStartTurnDamage",
@@ -372,7 +372,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringStartTurnDamage"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillEnsnaringStartTurnDamage"
     },
     {
       "branchAction": "doFillEnsnaringSuccessfulSave",
@@ -400,7 +400,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringSuccessfulSave"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillEnsnaringSuccessfulSave"
     },
     {
       "branchAction": "doFillEnsnaringWeaponDamage",
@@ -433,7 +433,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillEnsnaringWeaponDamage"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillEnsnaringWeaponDamage"
     },
     {
       "branchAction": "doFillHitAttackRoll",
@@ -461,7 +461,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillHitAttackRoll"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillHitAttackRoll"
     },
     {
       "branchAction": "doFillSearingSmiteDamage",
@@ -498,7 +498,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillSearingSmiteDamage"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillSearingSmiteDamage"
     },
     {
       "branchAction": "doFillSearingStartTurnDamageAndSave",
@@ -531,7 +531,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillSearingStartTurnDamageAndSave"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillSearingStartTurnDamageAndSave"
     },
     {
       "branchAction": "doFillShiningSmiteDamage",
@@ -543,7 +543,7 @@
       "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
       "result": {
         "blockerId": "L15-RRCP5-A-doFillShiningSmiteDamage",
-        "reason": "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "reason": "Shining Smite is out of scope for this level-1/2 cleanroom route lane",
         "tag": "target-blocker"
       },
       "sampledInputs": [
@@ -565,7 +565,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShiningSmiteDamage"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillShiningSmiteDamage"
     },
     {
       "branchAction": "doFillTargetChoice",
@@ -590,7 +590,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTargetChoice"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFillTargetChoice"
     },
     {
       "branchAction": "doFinish",
@@ -601,7 +601,7 @@
       "observedActionTaken": "doFinish",
       "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
       "result": {
-        "blockerId": "L15-RRCP5-A-doFinish",
+        "blockerId": "L15-RRCP5-A-after-hit-damage-riders-doFinish",
         "reason": "scenario transition has no reducer route surface",
         "tag": "target-blocker"
       },
@@ -615,7 +615,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFinish"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doFinish"
     },
     {
       "branchAction": "doStartDivineSmiteFreeCast",
@@ -640,7 +640,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartDivineSmiteFreeCast"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartDivineSmiteFreeCast"
     },
     {
       "branchAction": "doStartEnsnaringFailedSave",
@@ -665,7 +665,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartEnsnaringFailedSave"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartEnsnaringFailedSave"
     },
     {
       "branchAction": "doStartEnsnaringSuccessfulSave",
@@ -690,7 +690,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartEnsnaringSuccessfulSave"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartEnsnaringSuccessfulSave"
     },
     {
       "branchAction": "doStartSearingSmite",
@@ -715,7 +715,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartSearingSmite"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartSearingSmite"
     },
     {
       "branchAction": "doStartShiningSmite",
@@ -727,7 +727,7 @@
       "qntFileSha256": "3561bd1381527a492de03e0805102fc0721b399b162fb697b8dee1c7f1c17276",
       "result": {
         "blockerId": "L15-RRCP5-A-doStartShiningSmite",
-        "reason": "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "reason": "Shining Smite is out of scope for this level-1/2 cleanroom route lane",
         "tag": "target-blocker"
       },
       "sampledInputs": [],
@@ -740,7 +740,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartShiningSmite"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartShiningSmite"
     },
     {
       "branchAction": "doCastDivineFavor",
@@ -768,7 +768,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCastDivineFavor"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCastDivineFavor"
     },
     {
       "branchAction": "doCastShillelagh",
@@ -796,7 +796,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCastShillelagh"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCastShillelagh"
     },
     {
       "branchAction": "doCleanDivineFavorDuration",
@@ -824,7 +824,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCleanDivineFavorDuration"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCleanDivineFavorDuration"
     },
     {
       "branchAction": "doCleanMagicWeaponDuration",
@@ -852,7 +852,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCleanMagicWeaponDuration"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCleanMagicWeaponDuration"
     },
     {
       "branchAction": "doCleanShillelaghLetGo",
@@ -880,7 +880,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doCleanShillelaghLetGo"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doCleanShillelaghLetGo"
     },
     {
       "branchAction": "doDiscoverDivineFavorAttack",
@@ -905,7 +905,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverDivineFavorAttack"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverDivineFavorAttack"
     },
     {
       "branchAction": "doDiscoverMagicWeapon",
@@ -930,7 +930,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverMagicWeapon"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverMagicWeapon"
     },
     {
       "branchAction": "doDiscoverShillelaghAttack",
@@ -958,7 +958,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverShillelaghAttack"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverShillelaghAttack"
     },
     {
       "branchAction": "doDiscoverTrueStrike",
@@ -986,7 +986,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doDiscoverTrueStrike"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doDiscoverTrueStrike"
     },
     {
       "branchAction": "doFillDivineFavorDamage",
@@ -1023,7 +1023,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillDivineFavorDamage"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorDamage"
     },
     {
       "branchAction": "doFillDivineFavorHit",
@@ -1048,7 +1048,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillDivineFavorHit"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorHit"
     },
     {
       "branchAction": "doFillDivineFavorTarget",
@@ -1073,7 +1073,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillDivineFavorTarget"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillDivineFavorTarget"
     },
     {
       "branchAction": "doFillMagicWeaponTarget",
@@ -1098,7 +1098,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillMagicWeaponTarget"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillMagicWeaponTarget"
     },
     {
       "branchAction": "doFillShillelaghDamage",
@@ -1131,7 +1131,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShillelaghDamage"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillShillelaghDamage"
     },
     {
       "branchAction": "doFillShillelaghHit",
@@ -1159,7 +1159,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShillelaghHit"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillShillelaghHit"
     },
     {
       "branchAction": "doFillShillelaghTarget",
@@ -1187,7 +1187,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillShillelaghTarget"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillShillelaghTarget"
     },
     {
       "branchAction": "doFillTrueStrikeDamage",
@@ -1224,7 +1224,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTrueStrikeDamage"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillTrueStrikeDamage"
     },
     {
       "branchAction": "doFillTrueStrikeHit",
@@ -1252,7 +1252,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTrueStrikeHit"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillTrueStrikeHit"
     },
     {
       "branchAction": "doFillTrueStrikeRadiantTarget",
@@ -1280,7 +1280,7 @@
         "projection": "qRoute",
         "tag": "state-match"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFillTrueStrikeRadiantTarget"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFillTrueStrikeRadiantTarget"
     },
     {
       "branchAction": "doFinish",
@@ -1291,7 +1291,7 @@
       "observedActionTaken": "doFinish",
       "qntFileSha256": "0777a28b30cfa2dbc39b4d36e415c25109c2e0d5a316364c0589d1d219bc157a",
       "result": {
-        "blockerId": "L15-RRCP5-A-doFinish",
+        "blockerId": "L15-RRCP5-A-weapon-hosted-attack-and-riders-doFinish",
         "reason": "scenario transition has no reducer route surface",
         "tag": "target-blocker"
       },
@@ -1305,7 +1305,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doFinish"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doFinish"
     },
     {
       "branchAction": "doStartDivineFavor",
@@ -1330,7 +1330,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartDivineFavor"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doStartDivineFavor"
     },
     {
       "branchAction": "doStartMagicWeapon",
@@ -1355,7 +1355,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartMagicWeapon"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doStartMagicWeapon"
     },
     {
       "branchAction": "doStartShillelagh",
@@ -1380,7 +1380,7 @@
         "projection": "qRoute",
         "tag": "target-blocker"
       },
-      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES route action=doStartShillelagh"
+      "traceId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=weapon-hosted-attack-and-riders route action=doStartShillelagh"
     }
   ],
   "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",

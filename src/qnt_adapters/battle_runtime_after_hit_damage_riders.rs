@@ -1,8 +1,7 @@
 use super::battle_runtime_reducer_route::{
     observed_reducer_route, route_discover_battle_acts_from_route_holes,
-    route_resolve_battle_subject_from_route_result,
-    route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
-    ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    route_resolve_battle_subject_from_route_result, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
     ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
 };
 use crate::rules::battle_reducer_spine::{
@@ -69,15 +68,15 @@ pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 11] = [
     ),
     (
         "doChooseShiningSmite",
-        "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "Shining Smite is out of scope for this level-1/2 cleanroom route lane",
     ),
     (
         "doFillShiningSmiteDamage",
-        "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "Shining Smite is out of scope for this level-1/2 cleanroom route lane",
     ),
     (
         "doBreakShiningConcentration",
-        "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "Shining Smite is out of scope for this level-1/2 cleanroom route lane",
     ),
     (
         "doStartDivineSmiteFreeCast",
@@ -97,7 +96,7 @@ pub const BLOCKED_ROUTE_BRANCH_ACTIONS: [(&str, &str); 11] = [
     ),
     (
         "doStartShiningSmite",
-        "Shining Smite rows are out of scope in the copied level-1 inventory",
+        "Shining Smite is out of scope for this level-1/2 cleanroom route lane",
     ),
     (
         "doFinish",
@@ -372,27 +371,6 @@ fn expected_single_fill_route(
             fill,
             outcome,
             next_holes,
-            resolution_owner,
-        ),
-    ]
-}
-
-#[allow(dead_code)]
-fn expected_without_fill_route(
-    discovery_owner: ReducerRouteOwnerGroup,
-    resolution_owner: ReducerRouteOwnerGroup,
-) -> Vec<ReducerRouteEvent> {
-    vec![
-        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::AfterHitDamageRider,
-            Vec::new(),
-            discovery_owner,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::AfterHitDamageRider,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
             resolution_owner,
         ),
     ]

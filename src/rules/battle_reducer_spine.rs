@@ -1133,10 +1133,6 @@ pub enum BattleSubjectKind {
     AfterHitDamageRiderEscapeCheck,
     AfterHitDamageRiderEscapeConditionCleanup,
     AfterHitDamageRiderEscapeConcentrationCleanup,
-    AfterHitDamageRiderIlluminationEffect,
-    AfterHitDamageRiderIlluminationConcentration,
-    AfterHitDamageRiderIlluminationConcentrationBreak,
-    AfterHitDamageRiderIlluminationEffectCleanup,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -3462,11 +3458,7 @@ fn battle_reducer_route_subject_family(
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
         | BattleSubjectKind::AfterHitDamageRiderEscapeCheck
         | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationEffect
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentration
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentrationBreak
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationEffectCleanup) => {
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup) => {
             generic_route_shape(kind).subject
         }
     }
@@ -6766,11 +6758,7 @@ fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerRouteOw
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
         | BattleSubjectKind::AfterHitDamageRiderEscapeCheck
         | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationEffect
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentration
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentrationBreak
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationEffectCleanup) => {
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup) => {
             generic_route_shape(kind).discover_owner
         }
         BattleSubjectKind::EndTurn => BattleReducerRouteOwnerGroup::ActionEconomy,
@@ -7000,10 +6988,6 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::AfterHitDamageRiderEscapeCheck
             | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationEffect
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentration
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentrationBreak
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationEffectCleanup
     )
 }
 
@@ -7186,30 +7170,6 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             discover_owner: Concentration,
             resolve_owner: Concentration,
         },
-        BattleSubjectKind::AfterHitDamageRiderIlluminationEffect => GenericRouteShape {
-            subject: AfterHitDamageRider,
-            holes: vec![BattleReducerRouteHoleKind::InterruptDecision],
-            discover_owner: ActiveEffect,
-            resolve_owner: ActiveEffect,
-        },
-        BattleSubjectKind::AfterHitDamageRiderIlluminationConcentration => GenericRouteShape {
-            subject: AfterHitDamageRider,
-            holes: vec![BattleReducerRouteHoleKind::InterruptDecision],
-            discover_owner: Concentration,
-            resolve_owner: Concentration,
-        },
-        BattleSubjectKind::AfterHitDamageRiderIlluminationConcentrationBreak => GenericRouteShape {
-            subject: AfterHitDamageRider,
-            holes: Vec::new(),
-            discover_owner: Concentration,
-            resolve_owner: Concentration,
-        },
-        BattleSubjectKind::AfterHitDamageRiderIlluminationEffectCleanup => GenericRouteShape {
-            subject: AfterHitDamageRider,
-            holes: Vec::new(),
-            discover_owner: ActiveEffect,
-            resolve_owner: ActiveEffect,
-        },
         BattleSubjectKind::EndTurn
         | BattleSubjectKind::WeaponAttack
         | BattleSubjectKind::Multiattack
@@ -7344,12 +7304,8 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
         | BattleSubjectKind::AfterHitDamageRiderEscapeCheck
         | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationEffect
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentration
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentrationBreak
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationEffectCleanup
-        | BattleSubjectKind::EndTurn => false,
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => false,
+        BattleSubjectKind::EndTurn => false,
     }
 }
 
@@ -7473,11 +7429,7 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
         | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
         | BattleSubjectKind::AfterHitDamageRiderEscapeCheck
         | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationEffect
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentration
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentrationBreak
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationEffectCleanup => false,
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => false,
     }
 }
 
@@ -8345,10 +8297,6 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::AfterHitDamageRiderEscapeCheck
             | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationEffect
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentration
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentrationBreak
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationEffectCleanup
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,
@@ -8408,9 +8356,7 @@ fn generic_route_fill_matches_subject(
         BattleSubjectKind::AfterHitDamageRiderInterruptDecision
         | BattleSubjectKind::AfterHitDamageRiderSaveGatedInterruptDecision
         | BattleSubjectKind::AfterHitDamageRiderSlotSpend
-        | BattleSubjectKind::AfterHitDamageRiderFreeCastSpend
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationEffect
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentration => {
+        | BattleSubjectKind::AfterHitDamageRiderFreeCastSpend => {
             fill == BattleGenericRouteFill::InterruptDecision
         }
         BattleSubjectKind::AfterHitDamageRiderSaveGatedSlotAndActionEconomySpend
@@ -8436,9 +8382,7 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::HeldWeaponActiveEffectApply
         | BattleSubjectKind::HeldWeaponActiveEffectCleanup
         | BattleSubjectKind::ScalarBuffEffectSpeedDelta
-        | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentrationBreak
-        | BattleSubjectKind::AfterHitDamageRiderIlluminationEffectCleanup => {
+        | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint => {
             fill == BattleGenericRouteFill::WithoutFill
         }
         BattleSubjectKind::AfterHitDamageRiderEscapeCheck
@@ -8499,9 +8443,7 @@ fn generic_route_next_holes(
             | BattleSubjectKind::AfterHitDamageRiderFreeCastSpend
             | BattleSubjectKind::AfterHitDamageRiderSaveGatedSlotAndActionEconomySpend
             | BattleSubjectKind::AfterHitDamageRiderSaveGatedCondition
-            | BattleSubjectKind::AfterHitDamageRiderSaveGatedConcentration
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationEffect
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentration,
+            | BattleSubjectKind::AfterHitDamageRiderSaveGatedConcentration,
             _,
         ) => vec![BattleHoleKind::RolledDice],
         (BattleSubjectKind::AfterHitDamageRiderSaveGatedInterruptDecision, _) => {
@@ -8530,9 +8472,7 @@ fn generic_route_next_holes(
             | BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup
             | BattleSubjectKind::AfterHitDamageRiderEscapeCheck
             | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
-            | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationConcentrationBreak
-            | BattleSubjectKind::AfterHitDamageRiderIlluminationEffectCleanup,
+            | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup,
             _,
         ) => Vec::new(),
         (

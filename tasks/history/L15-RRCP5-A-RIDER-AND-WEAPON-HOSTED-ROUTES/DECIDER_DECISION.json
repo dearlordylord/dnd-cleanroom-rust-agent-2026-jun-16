@@ -65,19 +65,29 @@
       "status": "pass"
     }
   ],
-  "rationale": "Accepted CP5 rows replay through production BattleSubjectKind diagnostic route subjects emitted as BattleEntrypointTrace route events and compared through adapter qRoute projection for after-hit rider, spell-hosted weapon attack, held-weapon active-effect, and weapon damage rider substrates. Pre-hit weapon steps, pure scenario transitions, MagicWeaponTargetItem holes absent from copied route vocabulary, and Shining Smite level-2 rows remain target-blocked.",
+  "rationale": "Accepted CP5 rows replay through production BattleSubjectKind diagnostic route subjects emitted as BattleEntrypointTrace route events and compared through adapter qRoute projection for after-hit rider, spell-hosted weapon attack, held-weapon active-effect, and weapon damage rider substrates. Pre-hit weapon steps, pure scenario transitions, ordinary weapon-hosted target/attack-roll rows, MagicWeaponTargetItem holes absent from the copied reducer-route vocabulary, and out-of-scope Shining Smite rows remain target-blocked. Component projection smoke is not counted as accepted route evidence.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "targetBlockedRows": [
     {
       "action": "doBreakShiningConcentration",
       "blockerId": "L15-RRCP5-A-doBreakShiningConcentration",
-      "reason": "Shining Smite rows are out of scope in the copied level-1 inventory"
+      "reason": "Shining Smite is out of scope for this level-1/2 cleanroom route lane"
     },
     {
       "action": "doChooseShiningSmite",
       "blockerId": "L15-RRCP5-A-doChooseShiningSmite",
-      "reason": "Shining Smite rows are out of scope in the copied level-1 inventory"
+      "reason": "Shining Smite is out of scope for this level-1/2 cleanroom route lane"
+    },
+    {
+      "action": "doDiscoverDivineFavorAttack",
+      "blockerId": "L15-RRCP5-A-doDiscoverDivineFavorAttack",
+      "reason": "ordinary weapon target discovery is outside the rider route substrate"
+    },
+    {
+      "action": "doDiscoverMagicWeapon",
+      "blockerId": "L15-RRCP5-A-doDiscoverMagicWeapon",
+      "reason": "MagicWeaponTargetItem is not present in the copied reducer-route hole vocabulary"
     },
     {
       "action": "doDiscoverWeaponHit",
@@ -85,9 +95,24 @@
       "reason": "pre-hit weapon target discovery is outside the after-hit rider route substrate"
     },
     {
+      "action": "doFillDivineFavorHit",
+      "blockerId": "L15-RRCP5-A-doFillDivineFavorHit",
+      "reason": "ordinary weapon attack-roll fill is outside the rider route substrate"
+    },
+    {
+      "action": "doFillDivineFavorTarget",
+      "blockerId": "L15-RRCP5-A-doFillDivineFavorTarget",
+      "reason": "ordinary weapon target fill is outside the rider route substrate"
+    },
+    {
+      "action": "doFillMagicWeaponTarget",
+      "blockerId": "L15-RRCP5-A-doFillMagicWeaponTarget",
+      "reason": "MagicWeaponTargetItem is not present in the copied reducer-route fill vocabulary"
+    },
+    {
       "action": "doFillShiningSmiteDamage",
       "blockerId": "L15-RRCP5-A-doFillShiningSmiteDamage",
-      "reason": "Shining Smite rows are out of scope in the copied level-1 inventory"
+      "reason": "Shining Smite is out of scope for this level-1/2 cleanroom route lane"
     },
     {
       "action": "doFillTargetChoice",
@@ -96,7 +121,17 @@
     },
     {
       "action": "doFinish",
-      "blockerId": "L15-RRCP5-A-doFinish",
+      "blockerId": "L15-RRCP5-A-after-hit-damage-riders-doFinish",
+      "reason": "scenario transition has no reducer route surface"
+    },
+    {
+      "action": "doFinish",
+      "blockerId": "L15-RRCP5-A-weapon-hosted-attack-and-riders-doFinish",
+      "reason": "scenario transition has no reducer route surface"
+    },
+    {
+      "action": "doStartDivineFavor",
+      "blockerId": "L15-RRCP5-A-doStartDivineFavor",
       "reason": "scenario transition has no reducer route surface"
     },
     {
@@ -115,59 +150,24 @@
       "reason": "scenario transition has no reducer route surface"
     },
     {
-      "action": "doStartSearingSmite",
-      "blockerId": "L15-RRCP5-A-doStartSearingSmite",
-      "reason": "scenario transition has no reducer route surface"
-    },
-    {
-      "action": "doStartShiningSmite",
-      "blockerId": "L15-RRCP5-A-doStartShiningSmite",
-      "reason": "Shining Smite rows are out of scope in the copied level-1 inventory"
-    },
-    {
-      "action": "doDiscoverDivineFavorAttack",
-      "blockerId": "L15-RRCP5-A-doDiscoverDivineFavorAttack",
-      "reason": "ordinary weapon target discovery is outside the rider route substrate"
-    },
-    {
-      "action": "doDiscoverMagicWeapon",
-      "blockerId": "L15-RRCP5-A-doDiscoverMagicWeapon",
-      "reason": "MagicWeaponTargetItem is not present in the copied reducer-route hole vocabulary"
-    },
-    {
-      "action": "doFillDivineFavorHit",
-      "blockerId": "L15-RRCP5-A-doFillDivineFavorHit",
-      "reason": "ordinary weapon attack-roll fill is outside the rider route substrate"
-    },
-    {
-      "action": "doFillDivineFavorTarget",
-      "blockerId": "L15-RRCP5-A-doFillDivineFavorTarget",
-      "reason": "ordinary weapon target fill is outside the rider route substrate"
-    },
-    {
-      "action": "doFillMagicWeaponTarget",
-      "blockerId": "L15-RRCP5-A-doFillMagicWeaponTarget",
-      "reason": "MagicWeaponTargetItem is not present in the copied reducer-route fill vocabulary"
-    },
-    {
-      "action": "doFinish",
-      "blockerId": "L15-RRCP5-A-doFinish",
-      "reason": "scenario transition has no reducer route surface"
-    },
-    {
-      "action": "doStartDivineFavor",
-      "blockerId": "L15-RRCP5-A-doStartDivineFavor",
-      "reason": "scenario transition has no reducer route surface"
-    },
-    {
       "action": "doStartMagicWeapon",
       "blockerId": "L15-RRCP5-A-doStartMagicWeapon",
+      "reason": "scenario transition has no reducer route surface"
+    },
+    {
+      "action": "doStartSearingSmite",
+      "blockerId": "L15-RRCP5-A-doStartSearingSmite",
       "reason": "scenario transition has no reducer route surface"
     },
     {
       "action": "doStartShillelagh",
       "blockerId": "L15-RRCP5-A-doStartShillelagh",
       "reason": "scenario transition has no reducer route surface"
+    },
+    {
+      "action": "doStartShiningSmite",
+      "blockerId": "L15-RRCP5-A-doStartShiningSmite",
+      "reason": "Shining Smite is out of scope for this level-1/2 cleanroom route lane"
     }
   ],
   "taskId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES"

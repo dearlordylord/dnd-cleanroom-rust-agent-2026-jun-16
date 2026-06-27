@@ -1078,8 +1078,8 @@ use battle_runtime_weapon_attack_skeleton::{
 };
 use battle_runtime_weapon_hosted_attack_and_riders::{
     blocker_reason as weapon_hosted_attack_and_riders_blocker_reason,
+    expected_projection_smoke as expected_weapon_hosted_attack_and_riders_projection_smoke,
     expected_route as expected_weapon_hosted_attack_and_riders_route,
-    expected_witness as expected_weapon_hosted_attack_and_riders_witness,
     projection_payload as weapon_hosted_attack_and_riders_projection_payload,
     replay_divine_favor_damage_sample, replay_observed_action as replay_weapon_hosted_action,
     replay_observed_route as replay_weapon_hosted_route, replay_shillelagh_damage_sample,
@@ -6414,7 +6414,7 @@ fn after_hit_damage_riders_route_adapter_replays_accepted_branches() {
 }
 
 #[test]
-fn weapon_hosted_attack_and_riders_adapter_replays_all_branches() {
+fn weapon_hosted_attack_and_riders_projection_smoke_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt; RAW:
     // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
@@ -6422,12 +6422,13 @@ fn weapon_hosted_attack_and_riders_adapter_replays_all_branches() {
     // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
     // "Divine Favor", and
     // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-M-P.md
-    // "Magic Weapon".
+    // "Magic Weapon". This is component projection smoke only; accepted route
+    // coverage is owned by `weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches`.
     for action in WEAPON_HOSTED_ATTACK_AND_RIDERS_BRANCH_ACTIONS {
         let observed = replay_weapon_hosted_action(action);
         assert_eq!(
             observed,
-            expected_weapon_hosted_attack_and_riders_witness(action)
+            expected_weapon_hosted_attack_and_riders_projection_smoke(action)
         );
         assert!(
             weapon_hosted_attack_and_riders_projection_payload(&observed)
@@ -6438,7 +6439,7 @@ fn weapon_hosted_attack_and_riders_adapter_replays_all_branches() {
 
 #[test]
 fn weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches() {
-    // QNT/RAW citations match `weapon_hosted_attack_and_riders_adapter_replays_all_branches`;
+    // QNT/RAW citations match `weapon_hosted_attack_and_riders_projection_smoke_replays_all_branches`;
     // route ownership is checked against the copied reducer-route connectors.
     assert_eq!(
         WEAPON_HOSTED_ATTACK_AND_RIDERS_BRANCH_ACTIONS.len(),
@@ -6471,7 +6472,7 @@ fn weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches() {
 
 #[test]
 fn weapon_hosted_attack_and_riders_projects_spells_damage_and_cleanup() {
-    // RAW/QNT citations match `weapon_hosted_attack_and_riders_adapter_replays_all_branches`.
+    // RAW/QNT citations match `weapon_hosted_attack_and_riders_projection_smoke_replays_all_branches`.
     let initial = weapon_hosted_attack_and_riders_initial_state();
     assert_eq!(initial.scenario, WeaponHostedScenario::TrueStrikeRadiantHit);
     assert_eq!(initial.phase, WeaponHostedPhase::Fresh);
