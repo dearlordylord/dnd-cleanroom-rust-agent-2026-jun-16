@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| FC-06-SOURCE-FEEDBACK-AUDIT | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19` | `ralph/rrconv-19-cleanroom` | `4c21cf8d99802bd8f0e6d90aed49e6e84ce694d7` | pending | launch-recorded |
 
 ## Active Fresh Dry Run Targets
 
