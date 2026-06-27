@@ -2330,12 +2330,23 @@
     "activePhase": {
       "phase": "FC-01",
       "phaseName": "Reducer Spine Substrate",
-      "status": "running",
+      "status": "review-blocked-fixer-queued",
       "targetBaseCommit": "cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3",
       "campaignLaunchCommit": "a58f893",
       "workerAgent": "019f09b1-9bad-7da0-ab9b-5b6b9e3dd2c9",
       "workerName": "Zeno the 2nd",
-      "scope": "Minimal shared BattleState reducer surface, typed subject/fill/hole/outcome/route-event vocabulary, route observation emitted by reducer entrypoints, and FC-01 evidence/state-owner artifacts."
+      "reviewerAgent": "019f09c0-264c-73c3-aadb-cd9e27f62e79",
+      "reviewerName": "Dirac the 2nd",
+      "scope": "Minimal shared BattleState reducer surface, typed subject/fill/hole/outcome/route-event vocabulary, route observation emitted by reducer entrypoints, and FC-01 evidence/state-owner artifacts.",
+      "currentTargetHead": "5cb75ce8e6e0a522860d65b41a1b7b7cb8fe41dd",
+      "reviewFindings": [
+        {
+          "severity": "high",
+          "status": "fixer-queued",
+          "summary": "resolve_battle_subject accepts foreign subjects from another BattleState when id/generation/actor collide, allowing adapter-local helper synthesis and caller-influenced observed route evidence.",
+          "requiredFix": "Require reducer-owned subject identity from the same BattleState, validate full subject/profile/hole state or add a state-scoped token, and emit route events from stored reducer subject data rather than caller-supplied subject data."
+        }
+      ]
     },
     "previousPhase": {
       "phase": "FC-00",
@@ -2399,7 +2410,7 @@
     ]
   },
   "nextWorkRecommendations": [
-    "Wait for and review FC-01 Reducer Spine Substrate in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00.",
+    "Wait for FC-01 fixer in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00, then re-review the foreign-subject collision route-honesty blocker.",
     "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
     "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
     "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."
