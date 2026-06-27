@@ -1135,7 +1135,7 @@
     {
       "laneId": "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",
       "checkpointId": "CP7",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "cp7-target-blocker-reduction",
       "routeTaskIds": [
         "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES"

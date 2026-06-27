@@ -14,6 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-c` | `ralph/l15-rrcp7-c-weapon-prehit` | `28a25db` | `019f0901-5ace-7fc0-8f7f-f7ec9f28400f` Kierkegaard the 2nd | running |
 
 ## Historical RRCONV-19 Worktrees
 
