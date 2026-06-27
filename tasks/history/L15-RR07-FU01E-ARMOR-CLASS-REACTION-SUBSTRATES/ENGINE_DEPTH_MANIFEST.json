@@ -83,6 +83,8 @@
         "BattleSubjectKind::ArmorClassSpellEffect",
         "BattleSubjectKind::ReactionSpell",
         "BattleArmorClassBaseEffect",
+        "BattleArmorClassTargetAdmissionFacts",
+        "BattleArmorClassEffectTargetFacts",
         "resolve_battle_subject_observed"
       ],
       "path": "src/rules/battle_reducer_spine.rs",

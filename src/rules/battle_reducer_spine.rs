@@ -983,7 +983,17 @@ pub enum BattleScalarBuffFill {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleArmorClassSpellEffectFill {
+    TargetAdmission(BattleArmorClassTargetAdmissionFacts),
     BaseArmorClassProjection(BattleArmorClassBaseProjectionFacts),
+    DurationBoundary(BattleArmorClassEffectTargetFacts),
+    ActiveEffectEnd(BattleArmorClassEffectTargetFacts),
+    ArmorClassProjection(BattleArmorClassEffectTargetFacts),
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleArmorClassTargetAdmissionFacts {
+    pub target: Actor,
+    pub target_wears_armor: bool,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -992,6 +1002,11 @@ pub struct BattleArmorClassBaseProjectionFacts {
     pub base_armor_class: i8,
     pub dexterity_modifier: i8,
     pub duration_ticks: u16,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleArmorClassEffectTargetFacts {
+    pub target: Actor,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -2558,6 +2573,7 @@ pub enum BattleReducerRouteOwnerGroup {
     TargetSelection,
     TemporaryHitPoint,
     TurnBoundary,
+    ArmorClass,
 }
 
 pub type BattleReducerRouteResolutionOutcome = BattleResolutionOutcome;
@@ -4935,6 +4951,16 @@ fn resolve_armor_class_spell_effect_subject(
     fill: BattleArmorClassSpellEffectFill,
 ) -> BattleResolutionResult {
     match fill {
+        BattleArmorClassSpellEffectFill::TargetAdmission(facts) => {
+            if facts.target_wears_armor {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::WrongTarget,
+                    vec![BattleHoleKind::TargetChoice],
+                );
+            }
+            BattleResolutionResult::Resolved { state }
+        }
         BattleArmorClassSpellEffectFill::BaseArmorClassProjection(facts) => {
             if !can_actor_expend_spell_slot_this_turn(&state, current_actor(&state)) {
                 return invalid_with_holes(
@@ -4955,6 +4981,51 @@ fn resolve_armor_class_spell_effect_subject(
             state = expend_combatant_spell_slot(state, actor, BattleSpellSlotLevel::First);
             state = commit_actor_spell_slot_use(state, actor);
             state.action_available = false;
+            BattleResolutionResult::Resolved { state }
+        }
+        BattleArmorClassSpellEffectFill::DurationBoundary(facts) => {
+            let effect = &mut combatant_for_mut(&mut state, facts.target)
+                .spell_active_effects
+                .armor_class_base_effect;
+            let BattleArmorClassBaseEffect::Active { duration_ticks, .. } = effect else {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            };
+            if *duration_ticks == 0 {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            *duration_ticks = 0;
+            BattleResolutionResult::Resolved { state }
+        }
+        BattleArmorClassSpellEffectFill::ActiveEffectEnd(facts) => {
+            let effect = &mut combatant_for_mut(&mut state, facts.target)
+                .spell_active_effects
+                .armor_class_base_effect;
+            let BattleArmorClassBaseEffect::Active { duration_ticks, .. } = *effect else {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            };
+            if duration_ticks != 0 {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            *effect = BattleArmorClassBaseEffect::None;
+            BattleResolutionResult::Resolved { state }
+        }
+        BattleArmorClassSpellEffectFill::ArmorClassProjection(_facts) => {
             BattleResolutionResult::Resolved { state }
         }
     }
@@ -6866,6 +6937,7 @@ pub fn discover_battle_acts(state: &BattleState) -> BattleActDiscoveryResult {
     let actor = current_actor(state);
     let mut acts = Vec::new();
     push_reaction_spell_acts(state, actor, &mut acts);
+    push_armor_class_active_effect_acts(state, actor, &mut acts);
     if !state.action_available {
         push_metamagic_option_spell_acts(state, actor, &mut acts);
         return BattleActDiscoveryResult::from_state(state, acts);
@@ -6889,6 +6961,23 @@ fn push_reaction_spell_acts(state: &BattleState, actor: Actor, acts: &mut Vec<Av
         subject: diagnostic_subject(BattleSubjectKind::ReactionSpell, actor, None),
         holes: Vec::new(),
     });
+}
+
+fn push_armor_class_active_effect_acts(
+    state: &BattleState,
+    actor: Actor,
+    acts: &mut Vec<AvailableBattleAct>,
+) {
+    if combatant_for(state, actor)
+        .spell_active_effects
+        .armor_class_base_effect
+        .is_active()
+    {
+        acts.push(AvailableBattleAct {
+            subject: diagnostic_subject(BattleSubjectKind::ArmorClassSpellEffect, actor, None),
+            holes: Vec::new(),
+        });
+    }
 }
 
 fn reaction_spell_opportunity_open(state: &BattleState) -> bool {
@@ -6949,7 +7038,7 @@ pub fn discover_battle_acts_observed(
                     .map(battle_reducer_route_hole)
                     .collect(),
             ),
-            owner: battle_discovery_route_owner(act.subject.kind),
+            owner: battle_discovery_route_owner(act),
         });
     }
     observer.observe_battle_entrypoint(BattleEntrypointEvent::DiscoverBattleActs {
@@ -6962,7 +7051,19 @@ pub fn discover_battle_acts_observed(
     discovery
 }
 
-fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerRouteOwnerGroup {
+fn battle_discovery_route_owner(act: &AvailableBattleAct) -> BattleReducerRouteOwnerGroup {
+    match act.subject.kind {
+        BattleSubjectKind::ArmorClassSpellEffect
+            if act.holes.contains(&BattleHoleKind::TargetChoice) =>
+        {
+            BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
+        }
+        BattleSubjectKind::ArmorClassSpellEffect => BattleReducerRouteOwnerGroup::ActiveEffect,
+        kind => battle_discovery_route_owner_for_kind(kind),
+    }
+}
+
+fn battle_discovery_route_owner_for_kind(kind: BattleSubjectKind) -> BattleReducerRouteOwnerGroup {
     match kind {
         BattleSubjectKind::WeaponAttack => BattleReducerRouteOwnerGroup::TargetSelection,
         BattleSubjectKind::Multiattack => BattleReducerRouteOwnerGroup::AttackActionProcedure,
@@ -6985,9 +7086,7 @@ fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerRouteOw
         BattleSubjectKind::ConcentrationTeardown => BattleReducerRouteOwnerGroup::Concentration,
         BattleSubjectKind::StatBlockAction => BattleReducerRouteOwnerGroup::StatBlockAction,
         BattleSubjectKind::CommandSpell => BattleReducerRouteOwnerGroup::ActiveEffect,
-        BattleSubjectKind::ArmorClassSpellEffect => {
-            BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
-        }
+        BattleSubjectKind::ArmorClassSpellEffect => BattleReducerRouteOwnerGroup::ActiveEffect,
         BattleSubjectKind::ReactionSpell => BattleReducerRouteOwnerGroup::Reaction,
         BattleSubjectKind::ScalarBuffTargetSpell => BattleReducerRouteOwnerGroup::ActiveEffect,
         BattleSubjectKind::WeaponMasteryProperty
@@ -7056,7 +7155,7 @@ fn push_reducer_spine_diagnostic_acts(
         });
         acts.push(AvailableBattleAct {
             subject: diagnostic_subject(BattleSubjectKind::ArmorClassSpellEffect, actor, None),
-            holes: Vec::new(),
+            holes: vec![BattleHoleKind::TargetChoice],
         });
         acts.push(AvailableBattleAct {
             subject: diagnostic_subject(BattleSubjectKind::ConcentrationTeardown, actor, None),
@@ -8304,10 +8403,35 @@ fn scalar_buff_route_subject_is_live(state: &BattleState, subject: BattleSubject
 fn armor_class_spell_effect_route_subject_is_live(
     state: &BattleState,
     subject: BattleSubject,
+    fill: BattleArmorClassSpellEffectFill,
 ) -> bool {
-    state.action_available
-        && diagnostic_subject_shape_matches(subject, BattleSubjectKind::ArmorClassSpellEffect, None)
-        && route_subject_discoverable_now(state, subject)
+    if !diagnostic_subject_shape_matches(subject, BattleSubjectKind::ArmorClassSpellEffect, None) {
+        return false;
+    }
+
+    match fill {
+        BattleArmorClassSpellEffectFill::TargetAdmission(_)
+        | BattleArmorClassSpellEffectFill::BaseArmorClassProjection(_) => {
+            state.action_available && route_subject_discoverable_now(state, subject)
+        }
+        BattleArmorClassSpellEffectFill::DurationBoundary(facts) => {
+            combatant_for(state, facts.target)
+                .spell_active_effects
+                .armor_class_base_effect
+                .is_active()
+                && route_subject_discoverable_now(state, subject)
+        }
+        BattleArmorClassSpellEffectFill::ActiveEffectEnd(facts) => matches!(
+            combatant_for(state, facts.target)
+                .spell_active_effects
+                .armor_class_base_effect,
+            BattleArmorClassBaseEffect::Active {
+                duration_ticks: 0,
+                ..
+            }
+        ),
+        BattleArmorClassSpellEffectFill::ArmorClassProjection(_) => !state.action_available,
+    }
 }
 
 fn reaction_spell_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
@@ -8745,9 +8869,16 @@ fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRoute
             | BattleCommandEffectFill::Complete => BattleReducerRouteFillKind::UnitFeatureDecision,
             BattleCommandEffectFill::Movement { .. } => BattleReducerRouteFillKind::Movement,
         }),
-        BattleFill::ArmorClassSpellEffect(_) | BattleFill::ReactionSpell(_) => {
-            Some(BattleReducerRouteFillKind::UnitFeatureDecision)
-        }
+        BattleFill::ArmorClassSpellEffect(fill) => match fill {
+            BattleArmorClassSpellEffectFill::TargetAdmission(_) => {
+                Some(BattleReducerRouteFillKind::TargetChoice)
+            }
+            BattleArmorClassSpellEffectFill::BaseArmorClassProjection(_)
+            | BattleArmorClassSpellEffectFill::DurationBoundary(_)
+            | BattleArmorClassSpellEffectFill::ActiveEffectEnd(_)
+            | BattleArmorClassSpellEffectFill::ArmorClassProjection(_) => None,
+        },
+        BattleFill::ReactionSpell(_) => Some(BattleReducerRouteFillKind::UnitFeatureDecision),
         BattleFill::ScalarBuff(_) => Some(BattleReducerRouteFillKind::TargetChoice),
         BattleFill::WeaponMasteryProperty(_)
         | BattleFill::UnitFeatureBonusAction(_)
@@ -8954,7 +9085,22 @@ fn battle_resolution_route_owner(
         | BattleSubjectKind::ActiveFeatureSpellAttackRollMode => {
             BattleReducerRouteOwnerGroup::ActiveEffect
         }
-        BattleSubjectKind::ArmorClassSpellEffect => BattleReducerRouteOwnerGroup::ActiveEffect,
+        BattleSubjectKind::ArmorClassSpellEffect => match fill {
+            BattleFill::ArmorClassSpellEffect(
+                BattleArmorClassSpellEffectFill::TargetAdmission(_),
+            ) => BattleReducerRouteOwnerGroup::TargetSelection,
+            BattleFill::ArmorClassSpellEffect(
+                BattleArmorClassSpellEffectFill::BaseArmorClassProjection(_)
+                | BattleArmorClassSpellEffectFill::ActiveEffectEnd(_),
+            ) => BattleReducerRouteOwnerGroup::ActiveEffect,
+            BattleFill::ArmorClassSpellEffect(
+                BattleArmorClassSpellEffectFill::DurationBoundary(_),
+            ) => BattleReducerRouteOwnerGroup::TurnBoundary,
+            BattleFill::ArmorClassSpellEffect(
+                BattleArmorClassSpellEffectFill::ArmorClassProjection(_),
+            ) => BattleReducerRouteOwnerGroup::ArmorClass,
+            _ => BattleReducerRouteOwnerGroup::ActiveEffect,
+        },
         BattleSubjectKind::ReactionSpell => match fill {
             BattleFill::ReactionSpell(BattleReactionSpellFill::ArmorClassInterruption(_)) => {
                 BattleReducerRouteOwnerGroup::ActiveEffect
@@ -9045,10 +9191,10 @@ fn battle_resolution_route_owner(
                 spatial_route_owner(subject)
             }
             BattleResolutionOutcome::Invalid(_) => {
-                battle_discovery_route_owner(BattleSubjectKind::Spatial(subject))
+                battle_discovery_route_owner_for_kind(BattleSubjectKind::Spatial(subject))
             }
         },
-        _ => battle_discovery_route_owner(subject),
+        _ => battle_discovery_route_owner_for_kind(subject),
     }
 }
 
@@ -9176,7 +9322,7 @@ fn resolve_battle_subject_unchecked(
             resolve_command_effect_battle_subject(state, subject, fill)
         }
         (BattleSubjectKind::ArmorClassSpellEffect, BattleFill::ArmorClassSpellEffect(fill)) => {
-            if !armor_class_spell_effect_route_subject_is_live(&state, subject) {
+            if !armor_class_spell_effect_route_subject_is_live(&state, subject, fill) {
                 return invalid_with_holes(
                     state,
                     BattleResolutionInvalidReason::StaleSubject,

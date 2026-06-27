@@ -1,0 +1,39 @@
+{
+  "acceptedRows": [
+    {
+      "evidenceRef": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doDiscoverMageArmorUnarmoredSelfTarget#step:doDiscoverMageArmorUnarmoredSelfTarget",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doDiscoverMageArmorUnarmoredSelfTarget",
+      "routeSurface": "SpellBaseArmorClassEffectRouteSubject target admission"
+    },
+    {
+      "evidenceRef": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doRejectMageArmorArmoredTarget#step:doRejectMageArmorArmoredTarget",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget",
+      "routeSurface": "SpellBaseArmorClassEffectRouteSubject armored target rejection"
+    },
+    {
+      "evidenceRef": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doExpireMageArmorDuration#step:doExpireMageArmorDuration",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration",
+      "routeSurface": "SpellBaseArmorClassEffectRouteSubject duration expiry"
+    }
+  ],
+  "acceptedRowsCount": 3,
+  "cleanroomManifestSourceCommitSha": "d5a70b23ad05abd4188b1f0d37d9c6aba600cce5",
+  "declaredBaseSha": "b4c04b7",
+  "evidenceFileNote": "The FU01E target replay evidence file also contains pre-CP8 base-projection and reaction rows. The CP8 delta accepted exactly the three selectedBranchActions in this audit against the refreshed d5a70b23 cleanroom package; the pre-existing base Armor Class projection row was refreshed to the same generic SpellBaseArmorClassEffectRouteSubject connector shape but is not counted as a new CP8 accepted row.",
+  "genericArmorClassRouteConnectorSha256": "9e84c94cb89313d8a788ca1163aa86bd1b727c72a1175044e1aeb2951ccda060",
+  "laneId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES",
+  "mageArmorSelectedQntSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
+  "remainingBlockers": [],
+  "remainingBlockersCount": 0,
+  "reducerRouteInventorySha256": "e76d003bcff671c3567e35f9ee3e15bec5801e4807fdfe35e2fdc937d3f0e13c",
+  "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt",
+  "scenarioTransitionRowsAccepted": 0,
+  "selectedBranchActions": [
+    "doDiscoverMageArmorUnarmoredSelfTarget",
+    "doRejectMageArmorArmoredTarget",
+    "doExpireMageArmorDuration"
+  ],
+  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+  "summary": "Accepted exactly the three remaining Mage Armor admission/lifecycle rows through observed BattleEntrypointTrace.route_events matching the generic SpellBaseArmorClassEffectRouteSubject connector. Production reducer code uses generic target-admission, active-effect, turn-boundary, and Armor Class owner semantics; selected spell identity remains adapter/evidence row identity only. The pre-existing base projection row was refreshed to the connector's target-admission plus active-effect no-fill plus Armor Class no-fill shape; ArmorClassProjection is a state-read/no-op owner projection and is live only in post-action states.",
+  "taskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES"
+}

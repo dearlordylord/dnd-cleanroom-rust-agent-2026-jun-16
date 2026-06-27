@@ -168,6 +168,7 @@ pub enum ReducerRouteOwnerGroup {
     TargetSelection,
     TemporaryHitPoint,
     TurnBoundary,
+    ArmorClass,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1050,6 +1051,7 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
             ReducerRouteOwnerGroup::TemporaryHitPoint
         }
         BattleReducerRouteOwnerGroup::TurnBoundary => ReducerRouteOwnerGroup::TurnBoundary,
+        BattleReducerRouteOwnerGroup::ArmorClass => ReducerRouteOwnerGroup::ArmorClass,
     }
 }
 
@@ -1327,6 +1329,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::TargetSelection => "BattleTargetSelectionOwner",
         ReducerRouteOwnerGroup::TemporaryHitPoint => "BattleTemporaryHitPointOwner",
         ReducerRouteOwnerGroup::TurnBoundary => "BattleTurnBoundaryOwner",
+        ReducerRouteOwnerGroup::ArmorClass => "BattleArmorClassOwner",
     }
 }
 
@@ -1408,7 +1411,7 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::ZeroHitPointSpellEffectTeardown => {
             "ZeroHitPointSpellEffectTeardownRouteSubject"
         }
-        ReducerRouteSubjectFamily::ArmorClassSpellEffect => "ArmorClassSpellEffectRouteSubject",
+        ReducerRouteSubjectFamily::ArmorClassSpellEffect => "SpellBaseArmorClassEffectRouteSubject",
         ReducerRouteSubjectFamily::ReactionSpell => "ReactionSpellRouteSubject",
         ReducerRouteSubjectFamily::SpellDamageReduction => "SpellDamageReductionRouteSubject",
         ReducerRouteSubjectFamily::StatBlockAction => "StatBlockActionRouteSubject",
