@@ -157,13 +157,7 @@ fn scalar_buff_subject(state: &BattleState) -> BattleSubject {
         .iter()
         .map(|act| act.subject)
         .find(|subject| subject.kind == BattleSubjectKind::ScalarBuffTargetSpell)
-        .unwrap_or(BattleSubject {
-            kind: BattleSubjectKind::ScalarBuffTargetSpell,
-            actor: Actor::Fighter,
-            target: None,
-            stage: crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage::Resolved,
-            damage_modifier: 0,
-        })
+        .expect("scalar buff target act should be discoverable before replay")
 }
 
 fn scalar_buff_route_event(
@@ -221,4 +215,18 @@ fn joined_holes(holes: &[ScalarBuffTargetHole]) -> String {
         })
         .collect::<Vec<_>>()
         .join(",")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic(expected = "scalar buff target act should be discoverable before replay")]
+    fn scalar_buff_subject_reports_missing_discovery() {
+        let mut state = start_standard_battle();
+        state.action_available = false;
+
+        let _ = scalar_buff_subject(&state);
+    }
 }
