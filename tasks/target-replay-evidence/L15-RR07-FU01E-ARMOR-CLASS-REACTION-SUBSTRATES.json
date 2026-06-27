@@ -14,24 +14,22 @@
       "observedActionTaken": "doDiscoverMageArmorUnarmoredSelfTarget",
       "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
       "result": {
-        "tag": "pass"
+        "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DISCOVERY",
+        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
+        "tag": "target-blocker"
       },
-      "routeEvidenceBasis": "accepted CP7-D generic target-admission route-shape evidence observed through BattleEntrypointTrace.route_events via production reducer observer entrypoints; expected qRoute witness is hand-authored from cleanroom FU01D target-admission route-owner evidence and does not claim full selected Mage Armor semantics",
+      "routeEvidenceBasis": "target blocker: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleSubjectKind::ArmorClassTargetAdmission generic target-admission route subject",
-          "BattleReducerRouteSubjectFamily::ArmorClassSpellEffect",
-          "BattleEntrypointTrace.route_events",
+          "MageArmorState.self_target_admitted",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "886d8743795fe4aebca9d957e07356676a2598ee34c26e79521e3dc384093d41",
-        "observedProjectionSha256": "886d8743795fe4aebca9d957e07356676a2598ee34c26e79521e3dc384093d41",
         "projection": "qRoute",
-        "tag": "state-match"
+        "tag": "target-blocker"
       },
-      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doDiscoverMageArmorUnarmoredSelfTarget"
+      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doDiscoverMageArmorUnarmoredSelfTarget"
     },
     {
       "branchAction": "doExpireMageArmorDuration",
@@ -42,24 +40,23 @@
       "observedActionTaken": "doExpireMageArmorDuration",
       "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
       "result": {
-        "tag": "pass"
+        "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DURATION-EXPIRY",
+        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class active-effect lifecycle route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
+        "tag": "target-blocker"
       },
-      "routeEvidenceBasis": "accepted CP7-D generic active-effect lifecycle route-shape evidence observed through BattleEntrypointTrace.route_events via production reducer observer entrypoints; expected qRoute witness is hand-authored from cleanroom active-effect lifecycle route-owner evidence and does not claim full selected Mage Armor duration semantics",
+      "routeEvidenceBasis": "target blocker: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class active-effect lifecycle route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleSubjectKind::ArmorClassActiveEffectCleanup generic active-effect lifecycle route subject",
-          "BattleReducerRouteSubjectFamily::ArmorClassSpellEffect",
-          "BattleEntrypointTrace.route_events",
+          "MageArmorState.mage_armor_duration_ticks",
+          "MageArmorState.mage_armor_effect_present",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "aa7199fc6cf10ea0094fe2cd88118321285b9af77f60ab5ef7597b42b8ce8e41",
-        "observedProjectionSha256": "aa7199fc6cf10ea0094fe2cd88118321285b9af77f60ab5ef7597b42b8ce8e41",
         "projection": "qRoute",
-        "tag": "state-match"
+        "tag": "target-blocker"
       },
-      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doExpireMageArmorDuration"
+      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doExpireMageArmorDuration"
     },
     {
       "branchAction": "doRejectMageArmorArmoredTarget",
@@ -70,24 +67,22 @@
       "observedActionTaken": "doRejectMageArmorArmoredTarget",
       "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
       "result": {
-        "tag": "pass"
+        "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-ARMORED-REJECTION",
+        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
+        "tag": "target-blocker"
       },
-      "routeEvidenceBasis": "accepted CP7-D generic target-admission rejection route-shape evidence observed through BattleEntrypointTrace.route_events via production reducer observer entrypoints; expected qRoute witness is hand-authored from cleanroom FU01D target-admission route-owner evidence and does not claim full selected Mage Armor armored-target semantics",
+      "routeEvidenceBasis": "target blocker: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "BattleSubjectKind::ArmorClassTargetAdmission generic target-admission route subject",
-          "BattleReducerRouteSubjectFamily::ArmorClassSpellEffect",
-          "BattleEntrypointTrace.route_events",
+          "MageArmorState.armored_target_rejected",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "6555c76ea671b103246048e94adb2d61d590b801283898bd2293029875173de9",
-        "observedProjectionSha256": "6555c76ea671b103246048e94adb2d61d590b801283898bd2293029875173de9",
         "projection": "qRoute",
-        "tag": "state-match"
+        "tag": "target-blocker"
       },
-      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doRejectMageArmorArmoredTarget"
+      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doRejectMageArmorArmoredTarget"
     },
     {
       "branchAction": "doResolveMageArmorBaseArmorClassProjection",

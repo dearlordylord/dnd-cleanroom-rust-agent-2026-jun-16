@@ -12,11 +12,10 @@ use crate::rules::level_one_armor_spells::{
 };
 
 use super::battle_runtime_reducer_route::{
-    observed_reducer_route, replay_generic_battle_route,
-    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_route_result,
-    route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
-    GenericBattleRouteStep, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
-    ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+    observed_reducer_route, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_route_result, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome,
+    ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 4] = [
@@ -26,12 +25,7 @@ pub const BRANCH_ACTIONS: [&str; 4] = [
     "doResolveMageArmorBaseArmorClassProjection",
 ];
 
-pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 4] = [
-    "doDiscoverMageArmorUnarmoredSelfTarget",
-    "doExpireMageArmorDuration",
-    "doRejectMageArmorArmoredTarget",
-    "doResolveMageArmorBaseArmorClassProjection",
-];
+pub const ACCEPTED_ROUTE_BRANCH_ACTIONS: [&str; 1] = ["doResolveMageArmorBaseArmorClassProjection"];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> MageArmorState {
     match observed_action_taken {
@@ -55,34 +49,6 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
-        "doDiscoverMageArmorUnarmoredSelfTarget" => {
-            expected_mage_armor_target_admission_discovery_route()
-        }
-        "doRejectMageArmorArmoredTarget" => {
-            let mut route = expected_mage_armor_target_admission_discovery_route();
-            route.push(route_resolve_battle_subject_from_route_result(
-                ReducerRouteSubjectFamily::ArmorClassSpellEffect,
-                ReducerRouteFillKind::TargetChoice,
-                ReducerRouteResolutionOutcome::Resolved,
-                Vec::new(),
-                ReducerRouteOwnerGroup::TargetSelection,
-            ));
-            route
-        }
-        "doExpireMageArmorDuration" => vec![
-            route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-            route_discover_battle_acts_from_route_holes(
-                ReducerRouteSubjectFamily::ArmorClassSpellEffect,
-                Vec::new(),
-                ReducerRouteOwnerGroup::ActiveEffect,
-            ),
-            route_resolve_battle_subject_without_fill_from_route_result(
-                ReducerRouteSubjectFamily::ArmorClassSpellEffect,
-                ReducerRouteResolutionOutcome::Resolved,
-                Vec::new(),
-                ReducerRouteOwnerGroup::ActiveEffect,
-            ),
-        ],
         "doResolveMageArmorBaseArmorClassProjection" => vec![
             route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
             route_discover_battle_acts_from_route_holes(
@@ -100,17 +66,6 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         ],
         action => panic!("unsupported expected route mbt::actionTaken {action}"),
     }
-}
-
-fn expected_mage_armor_target_admission_discovery_route() -> Vec<ReducerRouteEvent> {
-    vec![
-        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::ArmorClassSpellEffect,
-            vec![ReducerRouteHoleKind::TargetChoice],
-            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
-        ),
-    ]
 }
 
 pub fn projection_payload(state: &MageArmorState) -> String {
@@ -150,32 +105,6 @@ fn replay_observed_state_and_route(
     observed_action_taken: &str,
 ) -> (BattleState, Vec<ReducerRouteEvent>) {
     match observed_action_taken {
-        "doDiscoverMageArmorUnarmoredSelfTarget" => (
-            initial_mage_armor_battle_state(),
-            replay_generic_battle_route(&[GenericBattleRouteStep::Discover(
-                BattleSubjectKind::ArmorClassTargetAdmission,
-            )]),
-        ),
-        "doRejectMageArmorArmoredTarget" => (
-            initial_mage_armor_battle_state(),
-            replay_generic_battle_route(&[
-                GenericBattleRouteStep::Discover(BattleSubjectKind::ArmorClassTargetAdmission),
-                GenericBattleRouteStep::Resolve {
-                    kind: BattleSubjectKind::ArmorClassTargetAdmission,
-                    fill: crate::rules::battle_reducer_spine::BattleGenericRouteFill::TargetChoice,
-                },
-            ]),
-        ),
-        "doExpireMageArmorDuration" => (
-            initial_mage_armor_battle_state(),
-            replay_generic_battle_route(&[
-                GenericBattleRouteStep::Discover(BattleSubjectKind::ArmorClassActiveEffectCleanup),
-                GenericBattleRouteStep::Resolve {
-                    kind: BattleSubjectKind::ArmorClassActiveEffectCleanup,
-                    fill: crate::rules::battle_reducer_spine::BattleGenericRouteFill::WithoutFill,
-                },
-            ]),
-        ),
         "doResolveMageArmorBaseArmorClassProjection" => {
             let mut observer = BattleEntrypointTrace::default();
             let state = start_battle_observed(mage_armor_setup(), &mut observer).state;
@@ -206,11 +135,6 @@ fn replay_observed_state_and_route(
         }
         action => panic!("unsupported routed mbt::actionTaken {action}"),
     }
-}
-
-fn initial_mage_armor_battle_state() -> BattleState {
-    let mut observer = BattleEntrypointTrace::default();
-    start_battle_observed(mage_armor_setup(), &mut observer).state
 }
 
 fn mage_armor_setup() -> BattleSetup {

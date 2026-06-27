@@ -15,13 +15,13 @@
   "coverage": {
     "ledgerSelectedDrivers": 97,
     "acceptedPassDrivers": 97,
-    "acceptedPassObligations": 657,
+    "acceptedPassObligations": 654,
     "acceptedDriverCoveragePercent": 100,
-    "acceptedObligationCoveragePercent": 98.4,
-    "targetBlockerObligations": 11,
+    "acceptedObligationCoveragePercent": 97.9,
+    "targetBlockerObligations": 14,
     "sourceQntCorpusBlockerObligations": 0,
-    "totalBlockedObligations": 11,
-    "blockedDrivers": 2,
+    "totalBlockedObligations": 14,
+    "blockedDrivers": 3,
     "unresolvedInScopeObligations": 0
   },
   "blockerSources": {
@@ -50,6 +50,21 @@
         "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt#step:doStartSearingSmite",
         "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json#L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES driver=after-hit-damage-riders route action=doStartSearingSmite#step:doStartSearingSmite",
         "reason": "scenario transition has no reducer route surface"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doDiscoverMageArmorUnarmoredSelfTarget",
+        "evidence": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doDiscoverMageArmorUnarmoredSelfTarget#step:doDiscoverMageArmorUnarmoredSelfTarget",
+        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration",
+        "evidence": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doExpireMageArmorDuration#step:doExpireMageArmorDuration",
+        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class active-effect lifecycle route subject owner; accepting this row would require source/corpus route support rather than target-side inference"
+      },
+      {
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget",
+        "evidence": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doRejectMageArmorArmoredTarget#step:doRejectMageArmorArmoredTarget",
+        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference"
       },
       {
         "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt#step:doDiscoverMagicWeapon",
@@ -377,20 +392,5 @@
     "laneHead": "855e702770866c18ae5b657367b95af8410efbe9",
     "mergeCommit": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
     "workerCommit": "2c27a3c83162374661ccc229ac9332c96605c966"
-  },
-  "cp7dRefresh": {
-    "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",
-    "acceptedRows": [
-      "doDiscoverMageArmorUnarmoredSelfTarget",
-      "doExpireMageArmorDuration",
-      "doRejectMageArmorArmoredTarget"
-    ],
-    "acceptedObligationsAfterRefresh": 657,
-    "targetBlockersAfterRefresh": 11,
-    "evidence": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json",
-    "note": "Accepted rows are generic ArmorClass target-admission and active-effect lifecycle route-shape evidence observed through BattleEntrypointTrace.route_events; no full selected Mage Armor semantics are claimed.",
-    "evidenceSha256": "4dbed091630c52d5d565fa5b58573c33f6c52c2d999e5e810eeff591cafc0186",
-    "decisionSha256": "908e84542029b48ee12e4b0495e8637aec0af13b104999eab10603f442dfdb46",
-    "runLedgerSha256": "89ea241f7894f4521cf91f77080a33a076f17d82b66e43b881dec10363429545"
   }
 }
