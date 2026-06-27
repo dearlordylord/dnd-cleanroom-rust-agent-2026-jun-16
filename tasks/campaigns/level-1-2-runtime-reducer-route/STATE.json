@@ -2324,37 +2324,65 @@
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
   "freshCleanroomDryRun": {
-    "status": "fc-01-running",
-    "phase": "FC-01",
-    "phaseName": "Reducer Spine Substrate",
-    "activePhase": {
+    "status": "fc-01-reviewed-accepted",
+    "phase": "FC-02",
+    "phaseName": "Minimal Battle Action Route",
+    "previousPhase": {
       "phase": "FC-01",
       "phaseName": "Reducer Spine Substrate",
-      "status": "review-blocked-fixer-queued",
+      "status": "reviewed-accepted",
       "targetBaseCommit": "cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3",
       "campaignLaunchCommit": "a58f893",
+      "runtimeCommit": "4693458c433a28f85241358ce5febcca69dfed7b",
+      "targetHead": "1f26d3e4fc792912e9b84f8e2cf242f3869c3807",
       "workerAgent": "019f09b1-9bad-7da0-ab9b-5b6b9e3dd2c9",
       "workerName": "Zeno the 2nd",
-      "reviewerAgent": "019f09c0-264c-73c3-aadb-cd9e27f62e79",
-      "reviewerName": "Dirac the 2nd",
+      "reviewerAgents": [
+        "019f09c0-264c-73c3-aadb-cd9e27f62e79",
+        "019f09c6-ece9-7982-aa6a-e755e2f8024e",
+        "019f09cd-58b1-7e41-b16c-845ac7fb3035"
+      ],
+      "finalReviewerName": "Dalton the 2nd",
+      "finalReviewVerdict": "clean",
       "scope": "Minimal shared BattleState reducer surface, typed subject/fill/hole/outcome/route-event vocabulary, route observation emitted by reducer entrypoints, and FC-01 evidence/state-owner artifacts.",
-      "currentTargetHead": "5cb75ce8e6e0a522860d65b41a1b7b7cb8fe41dd",
       "reviewFindings": [
         {
           "severity": "high",
-          "status": "fixed-awaiting-final-review",
+          "status": "fixed-reviewed-clean",
           "summary": "resolve_battle_subject accepts foreign subjects from another BattleState when id/generation/actor collide, allowing adapter-local helper synthesis and caller-influenced observed route evidence.",
           "requiredFix": "Require reducer-owned subject identity from the same BattleState, validate full subject/profile/hole state or add a state-scoped token, and emit route events from stored reducer subject data rather than caller-supplied subject data."
         },
         {
           "severity": "high",
-          "status": "fixer-queued",
+          "status": "fixed-reviewed-clean",
           "summary": "resolve_battle_subject removes the stored SubjectProgress before target validation; invalid target input can erase the reducer-owned subject frontier and make a later valid fill look undiscovered.",
           "requiredFix": "Validate before removal or reinsert the stored progress on validation failure, then add regression coverage proving invalid table input does not consume the open subject frontier."
         }
+      ],
+      "verification": [
+        "cargo fmt --check",
+        "cargo test (8 passed)",
+        "cargo clippy --all-targets -- -D warnings",
+        "python3 tools/verify_fc00.py",
+        "python3 tools/verify_fc01.py",
+        "git diff --check cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3...HEAD",
+        "git status --short"
       ]
     },
-    "previousPhase": {
+    "completedPhases": [
+      {
+        "phase": "FC-00",
+        "status": "reviewed-accepted",
+        "targetCommit": "cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3"
+      },
+      {
+        "phase": "FC-01",
+        "status": "reviewed-accepted",
+        "runtimeCommit": "4693458c433a28f85241358ce5febcca69dfed7b",
+        "targetHead": "1f26d3e4fc792912e9b84f8e2cf242f3869c3807"
+      }
+    ],
+    "previousAcceptedPhase": {
       "phase": "FC-00",
       "phaseName": "Package Admission And Inventory Parser",
       "status": "reviewed-accepted",
@@ -2416,7 +2444,7 @@
     ]
   },
   "nextWorkRecommendations": [
-    "Wait for FC-01 fixer in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00, then re-review the foreign-subject collision route-honesty blocker.",
+    "Launch FC-02 Minimal Battle Action Route in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 using the fresh dry-run plan.",
     "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
     "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
     "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."

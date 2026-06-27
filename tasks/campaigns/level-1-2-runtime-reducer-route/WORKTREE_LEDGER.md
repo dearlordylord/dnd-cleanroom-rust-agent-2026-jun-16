@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FC-01-REDUCER-SPINE-SUBSTRATE | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `a58f893` campaign / `cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3` target | Zeno the 2nd (`019f09b1-9bad-7da0-ab9b-5b6b9e3dd2c9`) | Dirac/Erdos reviewers | review blocker: invalid target fill can consume subject frontier; fixer queued |
+| _none_ | | | | | | |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -90,3 +90,4 @@ When launching a lane:
 | Phase | Path | Branch | Target Commit | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | FC-00-FRESH-PACKAGE-ADMISSION | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3` | `de7c090391ea62931d27640b6ad76015b65c88c5` | Dewey the 2nd (`019f09a7-f614-70a3-9397-b8fca74e1979`) | James the 2nd (`019f09ad-f0e6-7152-a82d-66ce21331f75`) | FC-00 accepted; ready for FC-01 |
+| FC-01-REDUCER-SPINE-SUBSTRATE | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `1f26d3e4fc792912e9b84f8e2cf242f3869c3807` | `a58f893` campaign / `cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3` target | Zeno the 2nd (`019f09b1-9bad-7da0-ab9b-5b6b9e3dd2c9`) | Dalton the 2nd (`019f09cd-58b1-7e41-b16c-845ac7fb3035`) | FC-01 accepted after two route-honesty lifecycle fixes; ready for FC-02 |
