@@ -22,18 +22,17 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP3 Character Creation, Sheet, And Handoff | complete | RR08 creation, RR09 sheet, and RR10 handoff merged and verified. |
 | CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is recorded as zero accepted coverage with a source-QNT connector blocker. |
 | CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
-| CP6 Closure Sweep | ready | Runs after all implementation checkpoints. |
+| CP6 Closure Sweep | complete | Closure audit recorded in `CP6_AUDIT.json` and `CP6_CLOSURE_REPORT.md`; every in-scope obligation is accepted or explicitly blocked. |
 
 ## Last Known Verification
 
-At `1b0d0dbc1615de1efdafce3f74b1b6372e2df8d9`:
+At CP6 closure state over audited integration head `d941600280ca6d865cfefc90e1c51e857f0aec91` plus CP6 bookkeeping changes:
 
-- `cargo fmt --check`: pass
-- `cargo test`: pass, `207 passed`
-- `cargo clippy --all-targets -- -D warnings`: pass
 - `node scripts/check-cleanroom-harness.cjs`: pass
+- `cargo fmt --check`: pass
 - `git diff --check HEAD~1...HEAD`: pass
-- `cargo test adapter_replays_all_branches --quiet`: pass, `76 passed`
+- `cargo test`: pass, `218 passed`
+- `cargo clippy --all-targets -- -D warnings`: pass
 
 ## Active Work
 
@@ -432,3 +431,14 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - CP5 net accepted coverage: `13` drivers and `105` obligations.
 - Campaign accepted coverage after CP5: `91 / 97 = 93.8%` drivers and `618 / 668 = 92.5%` obligations.
 - CP6 closure sweep is now ready.
+
+## CP6 Closure Sweep
+
+- Audit artifact: `tasks/campaigns/level-1-2-runtime-reducer-route/CP6_AUDIT.json`
+- Closure report: `tasks/campaigns/level-1-2-runtime-reducer-route/CP6_CLOSURE_REPORT.md`
+- Accepted pass coverage by exact row key: `95 / 97 = 97.9%` drivers and `627 / 668 = 93.9%` in-scope obligations.
+- Explicit blockers: `41` in-scope obligations, split into `25` target-implementation blockers with target replay evidence and `16` source-QNT corpus blockers from `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/DECIDER_DECISION.json`.
+- Out-of-scope obligations: `36`, from the copied source branch inventory.
+- Unresolved in-scope obligations: `0`.
+- Accounting note: some legacy evidence refs in `tasks/RUN_LEDGER.json` are ambiguous by string because they omit `driverPath`; `CP6_AUDIT.json` computes closure by `driverPath#branchFamily:branchAction`.
+- Campaign status after CP6: complete for the dirty cleanroom rehearsal, with the FU01D generic protection/charm/ward copied-QNT connector substrate recorded as the remaining source-side blocker before those two drivers can become accepted coverage.

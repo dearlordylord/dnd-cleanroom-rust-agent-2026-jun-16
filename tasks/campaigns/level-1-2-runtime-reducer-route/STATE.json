@@ -1,18 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "running",
+  "status": "complete",
   "dirtyCleanroomOnly": true,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "e1cb8616d0a3fbe2aa59a69d7eeba28da6e7622d",
+    "lastVerifiedIntegrationHead": "d941600280ca6d865cfefc90e1c51e857f0aec91",
     "lastMergedLane": {
-      "laneId": "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
-      "mergeCommit": "e1cb8616d0a3fbe2aa59a69d7eeba28da6e7622d",
-      "laneHead": "3dd749a6440a073c10d303d56e05b8ad40af024c"
+      "laneId": "CP6-CLOSURE-SWEEP",
+      "mergeCommit": null,
+      "laneHead": null,
+      "note": "CP6 is campaign bookkeeping over integration head d941600280ca6d865cfefc90e1c51e857f0aec91; final commit SHA is external to this self-referential state file."
     }
   },
   "denominator": {
@@ -33,12 +34,15 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 91,
-    "acceptedDriverCoveragePercent": 93.8,
-    "acceptedObligations": 618,
-    "acceptedObligationCoveragePercent": 92.5,
-    "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers plus completed-before-campaign baseline",
-    "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json accepted in-scope obligations for unique selected drivers; target-blocker rows excluded"
+    "acceptedUniqueDrivers": 95,
+    "acceptedDriverCoveragePercent": 97.9,
+    "acceptedObligations": 627,
+    "acceptedObligationCoveragePercent": 93.9,
+    "blockedObligations": 41,
+    "outOfScopeObligations": 36,
+    "unresolvedInScopeObligations": 0,
+    "acceptedUniqueDriversSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP6_AUDIT.json exact row-key audit",
+    "acceptedObligationsSource": "target replay evidence pass runs keyed by driverPath#branchFamily:branchAction; source-QNT and target blockers excluded from accepted coverage"
   },
   "completedBeforeCampaign": [
     "T001",
@@ -167,7 +171,7 @@
     {
       "checkpointId": "CP6",
       "name": "Closure Sweep",
-      "status": "ready",
+      "status": "complete",
       "dependsOn": [
         "CP1",
         "CP2",
@@ -175,7 +179,7 @@
         "CP4",
         "CP5"
       ],
-      "notes": "Ready for closure sweep after CP5 completion."
+      "notes": "Closure sweep complete. CP6_AUDIT.json records 627 accepted pass obligations, 41 explicit blockers, 36 out-of-scope obligations, and 0 unresolved in-scope obligations."
     }
   ],
   "laneStatuses": {
@@ -230,9 +234,8 @@
     "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "e1cb8616d0a3fbe2aa59a69d7eeba28da6e7622d",
+    "head": "d941600280ca6d865cfefc90e1c51e857f0aec91 plus CP6 bookkeeping changes",
     "commands": [
-      "cargo test ability_check_choice_search_adapter_replays_accepted_branches -- --nocapture",
       "node scripts/check-cleanroom-harness.cjs",
       "cargo fmt --check",
       "git diff --check HEAD~1...HEAD",
@@ -240,7 +243,9 @@
       "cargo clippy --all-targets -- -D warnings"
     ],
     "result": "passed",
-    "cargoTest": "218 passed"
+    "cargoTest": "218 passed",
+    "clippy": "passed",
+    "cleanroomHarness": "passed"
   },
   "activeLaneWorktrees": [],
   "completedLaneWorktrees": [
