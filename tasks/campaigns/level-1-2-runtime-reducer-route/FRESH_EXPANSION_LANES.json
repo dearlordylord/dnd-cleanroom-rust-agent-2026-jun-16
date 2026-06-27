@@ -77,7 +77,7 @@
     {
       "laneId": "FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS",
       "checkpointId": "FEXP-CP2",
-      "status": "proposed",
+      "status": "running",
       "routeClass": "reducer-routed",
       "purpose": "Add generic chained spell-attack and object-target spell-attack procedure routes that support later selected damage spell groups.",
       "drivers": [

@@ -2,7 +2,7 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: FEXP-02 accepted-with-blockers; continue from FEXP-03
+Status: FEXP-03 running from accepted fresh target head `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc`
 
 Baseline evidence:
 

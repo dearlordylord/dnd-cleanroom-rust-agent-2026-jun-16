@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-03` | `ralph/fexp-03-chained-and-object-spell-attacks` | `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc` | Chandrasekhar the 3rd (`019f0b07-2145-7db1-8697-30577ff5d51a`) | pending | running |
 
 ## Historical RRCONV-19 Worktrees
 
