@@ -923,7 +923,7 @@
     {
       "laneId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
       "checkpointId": "CP5",
-      "status": "fixing-review-findings",
+      "status": "ready-to-merge-after-fixer",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR18-BATTLE-ACTIVE-EFFECT-LIFECYCLE-ROUTES"
@@ -956,7 +956,7 @@
     {
       "laneId": "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
       "checkpointId": "CP5",
-      "status": "fixing-review-findings",
+      "status": "ready-to-merge-after-fixer",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES"
@@ -981,7 +981,7 @@
     {
       "laneId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES",
       "checkpointId": "CP5",
-      "status": "ready-to-merge",
+      "status": "merged-verified",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR20-BATTLE-COMPANION-OBJECT-BOUNDARY-ROUTES"
@@ -1007,7 +1007,7 @@
     {
       "laneId": "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
       "checkpointId": "CP5",
-      "status": "reviewing",
+      "status": "review-findings",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES"

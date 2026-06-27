@@ -365,3 +365,22 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Integration verification: focused chained attack and independent spell-attack adapter tests, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`210 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
 - Review/fixer notes: reviewer returned clean; observed replay uses public reducer entrypoints, route evidence covers exactly `10` RR16 plus `8` RR22 obligations, and no production spell-name/selected-identity dispatch was introduced.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-f`
+
+### L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES
+
+- Merge commit: `5818c1573fae64e63fbab82900b3f41dc06576d1`
+- Lane commit(s): `122431e66c696399d504924546879dd2da3d7e90`
+- Drivers added: `2` net-new unique drivers.
+- Obligations added: `12` accepted counted obligations; no blockers.
+- New total driver coverage: `81 / 97 = 83.5%`
+- New total obligation coverage: `543 / 668 = 81.3%`
+- Integration verification: focused Starry Wisp object and Find Familiar companion lifecycle adapter tests, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check`, `cargo test` (`210 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: reviewer returned clean; observed replay uses public reducer entrypoints, expected routes are independently enumerated, the object-target boundary owner is distinct from generic target selection, and production dispatch is by companion/object-target route shape rather than authored identity.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-d`
+
+## CP5 Current Queue
+
+- `L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES`: fixer Goodall the 2nd `019f082b-82c8-7943-9f72-ef80dfd79b8b` still running after review found illumination evidence mismatch, duplicate trace id `L15-RRCP5-A-doFinish`, and self-comparison witness coverage.
+- `L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES`: fixer Nietzsche the 2nd completed at `83cf6603eca84c380fd434150b662c4341d45126`; ready for merge review.
+- `L15-RRCP5-C-REACTION-INTERRUPT-ROUTES`: fixer Kepler the 2nd completed at `8b97ed1fa16870bc42689ca3176a92b191e91a91`; ready for merge review.
+- `L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES`: reviewer Ohm the 2nd found evidence/report denominator mismatch because three out-of-scope Enhance Ability rows are recorded as passing target replay evidence; needs fixer before merge.
