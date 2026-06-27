@@ -2604,9 +2604,11 @@
     "completionGates": [
       {
         "id": "programmatic-tracer-bullet-scenario",
-        "status": "pending-after-fc05",
+        "status": "worker-running",
         "description": "Before the broader reducer-spine goal is considered done, run an SDK-style public programmatic surface scenario: create a character, hand off or project it into a simple battle, and drive at least one complete simple battle turn through public reducer/runtime APIs. Prefer the fresh target; if only the dirty cleanroom can run it, record that limitation.",
-        "lastUpdated": "2026-06-27"
+        "lastUpdated": "2026-06-27",
+        "workerAgent": "019f0a07-f2ad-7f72-985f-dad61f35ea1e",
+        "targetBaseCommit": "380cf29e49d509bc0f246cf9aa022f226e42efd8"
       }
     ],
     "earlierReviewedPhaseFc04": {
@@ -2654,10 +2656,14 @@
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception."
   ],
   "sdkTracerBullet": {
-    "status": "pending-after-fc05",
+    "status": "worker-running",
     "preferredTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "fallbackTarget": "dirty cleanroom only if the fresh target cannot express the scenario yet",
     "requiredScenario": "Use public/programmatic APIs to create a synthetic character sheet, project or hand off the character into a simple battle, discover and resolve at least one battle act, and advance a complete simple turn.",
-    "evidenceRequirement": "Record whether the surface is full-fledged or limited, and ensure any battle behavior goes through reducer entrypoints rather than local replay helpers."
+    "evidenceRequirement": "Record whether the surface is full-fledged or limited, and ensure any battle behavior goes through reducer entrypoints rather than local replay helpers.",
+    "workerAgent": "019f0a07-f2ad-7f72-985f-dad61f35ea1e",
+    "workerName": "Godel the 2nd",
+    "targetBaseCommit": "380cf29e49d509bc0f246cf9aa022f226e42efd8",
+    "campaignLaunchCommit": "bf33b3b"
   }
 }

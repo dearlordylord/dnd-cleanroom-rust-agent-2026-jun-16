@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| SDK-TRACER-BULLET-PROGRAMMATIC-SURFACE | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `bf33b3b` campaign / `380cf29e49d509bc0f246cf9aa022f226e42efd8` target | Godel the 2nd (`019f0a07-f2ad-7f72-985f-dad61f35ea1e`) | _pending_ | running |
 
 ## Historical RRCONV-19 Worktrees
 
