@@ -14,6 +14,8 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a` | `ralph/l15-rr07-fu01a-catalog-ready` | `4b24c074161a5bbe2b52ef1125c5f7044e3172e0` | Carver `019f0776-9fa7-7893-a111-b0aa8a7f73e3` | running |
+| L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08a` | `ralph/l15-rr07-fu08a-metamagic-governor` | `4b24c074161a5bbe2b52ef1125c5f7044e3172e0` | Halley `019f0777-14c3-7af1-aef6-cd902821a7ae` | running |
 
 ## Historical RRCONV-19 Worktrees
 

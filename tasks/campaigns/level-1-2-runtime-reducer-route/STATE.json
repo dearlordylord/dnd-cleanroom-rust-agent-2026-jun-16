@@ -108,13 +108,16 @@
         "CP2",
         "CP3"
       ],
-      "runningLaneIds": [],
+      "runningLaneIds": [
+        "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
+        "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE"
+      ],
       "mergedLaneIds": [
         "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
         "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
         "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES"
       ],
-      "notes": "CP4 small feature substrate batch merged and verified. FU01 and FU08 are now split into executable sublanes; FU01A and FU08A are the initial ready lanes.",
+      "notes": "FU01A and FU08A are running from base 4b24c074161a5bbe2b52ef1125c5f7044e3172e0. CP4 small feature substrate batch remains merged and verified.",
       "splitLaneIds": [
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
@@ -184,13 +187,13 @@
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
-    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "ready",
+    "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "running",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "ready-after-fu01a-or-serial-route-vocabulary",
-    "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "ready",
+    "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "running",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "blocked-on-fu08a",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "blocked-on-fu08a"
   },
@@ -208,7 +211,26 @@
     "cargoTest": "207 passed",
     "adapterReplaySmoke": "76 passed"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a",
+      "branch": "ralph/l15-rr07-fu01a-catalog-ready",
+      "baseSha": "4b24c074161a5bbe2b52ef1125c5f7044e3172e0",
+      "status": "running",
+      "workerAgent": "019f0776-9fa7-7893-a111-b0aa8a7f73e3",
+      "workerName": "Carver"
+    },
+    {
+      "laneId": "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08a",
+      "branch": "ralph/l15-rr07-fu08a-metamagic-governor",
+      "baseSha": "4b24c074161a5bbe2b52ef1125c5f7044e3172e0",
+      "status": "running",
+      "workerAgent": "019f0777-14c3-7af1-aef6-cd902821a7ae",
+      "workerName": "Halley"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
