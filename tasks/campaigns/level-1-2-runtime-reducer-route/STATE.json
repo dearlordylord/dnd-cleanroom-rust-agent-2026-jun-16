@@ -156,12 +156,12 @@
     "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES": "blocked-on-checkpoint",
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint",
     "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "merged-verified",
-    "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "reviewed-clean",
-    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "fix-committed",
+    "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "merged-verified",
+    "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "reviewed-clean",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "reviewed-clean"
   },
   "lastIntegrationVerification": {
-    "head": "b20ce8ff40dc438d93d9e09582078af4d0fa8e24",
+    "head": "727655c",
     "commands": [
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
@@ -177,42 +177,11 @@
   },
   "activeLaneWorktrees": [
     {
-      "laneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b",
-      "branch": "ralph/l15-rr04b-rule-core-movement-reaction-shove",
-      "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "reviewed-clean-pending-merge",
-      "workerAgent": "019f0671-240b-7540-9f83-d8c2b4e83b30",
-      "workerName": "Russell",
-      "commit": "629d9ef2c992042ddf007a6517f7e428478598d1",
-      "reviewAgent": "019f0678-5397-7e20-b042-9349633364b4",
-      "reviewName": "Sagan",
-      "reviewStatus": "findings",
-      "reviewFindings": [
-        "Movement and shove expected witnesses are self-referential: expected paths call observed replay paths.",
-        "Production rule_core_reactions exposes ReadyMovementFixture / ready_reaction_movement_fixture fixture identity.",
-        "Evidence refs are not unique because duplicate doDeclineOpportunityAttack omits driverPath in ref format."
-      ],
-      "fixerAgent": "019f067e-319f-7030-9d46-baabf7e5f9c2",
-      "fixerName": "Epicurus",
-      "fixStatus": "committed",
-      "fixCommit": "22e6ff0ef095602ce05037382499f8715d0cef8e",
-      "fixerResolution": [
-        "Movement and shove expected witnesses now use literal QNT-derived expected states instead of observed replay paths.",
-        "Production reaction fixture identity renamed to domain readied-movement names.",
-        "Evidence refs now include driverPath to disambiguate duplicate action names."
-      ],
-      "rereviewStatus": "clean",
-      "rereviewAgent": "019f0686-fd03-7fa1-99a9-bdc1285919c1",
-      "rereviewName": "Hubble",
-      "rereviewResidualRisk": "Reviewer ran focused adapter/harness/diff checks but did not rerun full cargo test or clippy; integration merge must run gates."
-    },
-    {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c",
       "branch": "ralph/l15-rr04c-rule-core-spell-ability",
       "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "fix-committed-pending-rereview",
+      "status": "reviewed-clean-pending-merge",
       "workerAgent": "019f0671-762b-7002-954d-a26a7c37c13c",
       "workerName": "Avicenna",
       "commit": "399690a03ae83538875768950e5d985c932a723f",
@@ -234,7 +203,10 @@
         "Split spell evidence into 24 accepted in-scope branches and 6 non-acceptance regression rows.",
         "Downgraded broad semantics claims to shared route facts and selected existing rule fields."
       ],
-      "rereviewStatus": "pending"
+      "rereviewStatus": "clean",
+      "rereviewAgent": "019f0698-bffd-7d42-a34e-20753fac7291",
+      "rereviewName": "Popper",
+      "rereviewResidualRisk": "Reviewer ran harness, focused ability/spell tests, and diff whitespace; full cargo test and clippy remain integration merge gates. .claude/review-rules.md is absent in the cleanroom worktree."
     },
     {
       "laneId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
@@ -269,6 +241,54 @@
     }
   ],
   "completedLaneWorktrees": [
+    {
+      "laneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b",
+      "branch": "ralph/l15-rr04b-rule-core-movement-reaction-shove",
+      "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
+      "status": "removable-after-operator-confirms-no-local-use",
+      "workerAgent": "019f0671-240b-7540-9f83-d8c2b4e83b30",
+      "workerName": "Russell",
+      "commit": "629d9ef2c992042ddf007a6517f7e428478598d1",
+      "reviewAgent": "019f0678-5397-7e20-b042-9349633364b4",
+      "reviewName": "Sagan",
+      "reviewStatus": "findings",
+      "reviewFindings": [
+        "Movement and shove expected witnesses are self-referential: expected paths call observed replay paths.",
+        "Production rule_core_reactions exposes ReadyMovementFixture / ready_reaction_movement_fixture fixture identity.",
+        "Evidence refs are not unique because duplicate doDeclineOpportunityAttack omits driverPath in ref format."
+      ],
+      "fixerAgent": "019f067e-319f-7030-9d46-baabf7e5f9c2",
+      "fixerName": "Epicurus",
+      "fixStatus": "committed",
+      "fixCommit": "22e6ff0ef095602ce05037382499f8715d0cef8e",
+      "fixerResolution": [
+        "Movement and shove expected witnesses now use literal QNT-derived expected states instead of observed replay paths.",
+        "Production reaction fixture identity renamed to domain readied-movement names.",
+        "Evidence refs now include driverPath to disambiguate duplicate action names."
+      ],
+      "rereviewStatus": "clean",
+      "rereviewAgent": "019f0686-fd03-7fa1-99a9-bdc1285919c1",
+      "rereviewName": "Hubble",
+      "rereviewResidualRisk": "Reviewer ran focused adapter/harness/diff checks but did not rerun full cargo test or clippy; integration merge must run gates.",
+      "laneHead": "22e6ff0ef095602ce05037382499f8715d0cef8e",
+      "mergeCommit": "727655c",
+      "integrationVerification": {
+        "head": "727655c",
+        "commands": [
+          "cargo fmt --check",
+          "node scripts/check-cleanroom-harness.cjs",
+          "node -e <parse campaign/task json>",
+          "git diff --check HEAD~1...HEAD",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "cargo test adapter_replays_all_branches --quiet"
+        ],
+        "result": "passed",
+        "cargoTest": "185 passed",
+        "adapterReplaySmoke": "70 passed"
+      }
+    },
     {
       "laneId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04a",

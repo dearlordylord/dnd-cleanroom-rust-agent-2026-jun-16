@@ -14,8 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b` | `ralph/l15-rr04b-rule-core-movement-reaction-shove` | `a625d3e7190eb33396c17ee5dca7ae73f413b348` | Russell `019f0671-240b-7540-9f83-d8c2b4e83b30`; reviewer Sagan `019f0678-5397-7e20-b042-9349633364b4`; fixer Epicurus `019f067e-319f-7030-9d46-baabf7e5f9c2`; re-reviewer Hubble `019f0686-fd03-7fa1-99a9-bdc1285919c1` | reviewed-clean-pending-merge, lane head `22e6ff0ef095602ce05037382499f8715d0cef8e` |
-| L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c` | `ralph/l15-rr04c-rule-core-spell-ability` | `a625d3e7190eb33396c17ee5dca7ae73f413b348` | Avicenna `019f0671-762b-7002-954d-a26a7c37c13c`; reviewer Beauvoir `019f0683-b5dd-7961-882f-a135f88e97b4`; fixer Lovelace `019f068a-5562-7820-8218-e3ad903bf55c` | fix-committed-pending-rereview, lane head `8b3bd015c34357b38962bfaada4e6f1d0ba3d500` |
+| L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04c` | `ralph/l15-rr04c-rule-core-spell-ability` | `a625d3e7190eb33396c17ee5dca7ae73f413b348` | Avicenna `019f0671-762b-7002-954d-a26a7c37c13c`; reviewer Beauvoir `019f0683-b5dd-7961-882f-a135f88e97b4`; fixer Lovelace `019f068a-5562-7820-8218-e3ad903bf55c`; re-reviewer Popper `019f0698-bffd-7d42-a34e-20753fac7291` | reviewed-clean-pending-merge, lane head `8b3bd015c34357b38962bfaada4e6f1d0ba3d500` |
 | L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04d` | `ralph/l15-rr04d-rule-core-feature-profile` | `a625d3e7190eb33396c17ee5dca7ae73f413b348` | Mill `019f0671-d268-7f62-b173-674d8d90738f`; reviewer Banach `019f067c-1408-76d3-ade3-0e83ab165998`; fixer Rawls `019f0680-6c4f-7ca1-8c5a-d1ccfaa86d2c`; re-reviewer Wegener `019f0689-f2da-7572-b85b-006e07d91bca` | reviewed-clean-pending-merge, lane head `3b522e37510064953d299db7cc4a739af9cd9d04` |
 
 ## Historical RRCONV-19 Worktrees
@@ -46,6 +45,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b` | `ralph/l15-rr04b-rule-core-movement-reaction-shove` | `22e6ff0ef095602ce05037382499f8715d0cef8e` | `727655c` | removable-after-operator-confirms-no-local-use |
 | L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04a` | `ralph/l15-rr04a-rule-core-damage-statblock` | `9d3ee41d081b7cade2daaba50c0730b412b5fc92` | `b20ce8ff40dc438d93d9e09582078af4d0fa8e24` | removable-after-operator-confirms-no-local-use |
 | L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr03` | `ralph/l15-rr03-diagnostic-queue` | `7ef32d308d51fb54d1032d01b937d168fa63bb64` | `4c7e12d7645360adb7ab23af61144ceb243c13fe` | removable-after-operator-confirms-no-local-use |
 | L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr05` | `ralph/l15-rr05-attack-statblock` | `1b928b16bfed2c87ad95efb6aae0a5d384fdb903` | `a235602664bbae19c3bfac5e38b85b1bbc4c23a5` | removable-after-operator-confirms-no-local-use |
