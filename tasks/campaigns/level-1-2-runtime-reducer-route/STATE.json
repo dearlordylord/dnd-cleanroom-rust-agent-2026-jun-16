@@ -196,7 +196,7 @@
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "fixing-review-findings",
+    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "rereviewing-after-fixer",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "rereviewing-after-fixer",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "rereviewing-after-fixer",
@@ -222,7 +222,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c",
       "branch": "ralph/l15-rr07-fu01c-weapon-buff-mark-smite",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "fixing-review-findings",
+      "status": "rereviewing-after-fixer",
       "workerAgent": "019f07d6-14be-7123-8467-097ce9bee9db",
       "workerName": "Bernoulli",
       "workerCommit": "bf62c115801af2ff95e7df2418316747f99af010",
@@ -258,7 +258,22 @@
       ],
       "fixerAgent": "019f07ef-91e9-7bd0-a4f3-e299a1e932e5",
       "fixerName": "Bernoulli the 2nd",
-      "fixerStatus": "running"
+      "fixerStatus": "complete",
+      "fixerCommit": "45f5bbb71c2d7d2ac946112dacdc63e94c7b4af4",
+      "fixerSummary": [
+        "Removed false BattleState.genericRouteSubjects ownership claims.",
+        "Reframed accepted evidence around real BattleSubjectKind, route families, BattleEntrypointTrace.route_events, and ReducerRouteEvent.qRoute.",
+        "Kept condition-immunity and marked-transfer rows as blockers."
+      ],
+      "fixerVerification": [
+        "rg -n \"genericRouteSubjects\" tasks src: no matches",
+        "cargo test level1_buff_mark_smite_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
