@@ -168,7 +168,7 @@
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "merged-verified",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
     "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "reviewing",
-    "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "reviewing",
+    "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "running",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
   },
@@ -218,7 +218,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-b",
       "branch": "ralph/l15-rr07s-b-zero-hp-form-movement",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "reviewing",
+      "status": "review-clean-merge-ready",
       "workerAgent": "019f070b-2c30-7de1-bece-a71c78a04a4b",
       "workerName": "Newton",
       "commit": "81fd387c6dda4b00c28a752492d6aa0d2fee4d3d",
@@ -237,7 +237,25 @@
       ],
       "reviewAgent": "019f071a-2cf3-7a21-8176-bc3148c52163",
       "reviewName": "Ramanujan",
-      "reviewStatus": "running"
+      "reviewStatus": "clean",
+      "reviewVerdict": "clean",
+      "reviewSummary": [
+        "No production selected-identity dispatch found; lane action/catalog strings remain confined to adapters/tests/artifacts.",
+        "Expected routes are independent literal ReducerRouteEvent records, not observed replay helpers.",
+        "Tests compare observed reducer routes to expected routes for stabilization, all Wild Shape branches, and accepted movement branches.",
+        "Artifacts honestly list 12 accepted obligations and keep Barbarian Fast Movement / Ranger Roving blocked or out-of-lane.",
+        "No durable runtime state added."
+      ],
+      "reviewVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "cargo test adapter_replays",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git status --short clean"
+      ]
     },
     {
       "laneId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
