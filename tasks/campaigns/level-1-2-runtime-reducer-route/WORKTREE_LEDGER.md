@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| FC-00-FRESH-PACKAGE-ADMISSION | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target | `de7c090391ea62931d27640b6ad76015b65c88c5` | Dewey the 2nd (`019f09a7-f614-70a3-9397-b8fca74e1979`) | running package admission and inventory parser |
 
 ## Historical RRCONV-19 Worktrees
 

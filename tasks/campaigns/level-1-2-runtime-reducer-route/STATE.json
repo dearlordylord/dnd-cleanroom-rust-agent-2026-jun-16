@@ -2323,8 +2323,39 @@
   },
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
+  "freshCleanroomDryRun": {
+    "status": "running",
+    "phase": "FC-00",
+    "phaseName": "Package Admission And Inventory Parser",
+    "targetDirectory": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
+    "campaignInputCommit": "de7c090391ea62931d27640b6ad76015b65c88c5",
+    "workerAgent": "019f09a7-f614-70a3-9397-b8fca74e1979",
+    "workerName": "Dewey the 2nd",
+    "launchedFromPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
+    "allowedDirtyInputRoots": [
+      "cleanroom-input/**",
+      "tasks/campaigns/level-1-2-runtime-reducer-route/PLAN.md",
+      "tasks/campaigns/level-1-2-runtime-reducer-route/PROMPTS.md",
+      "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
+      "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
+      "tasks/campaigns/level-1-2-runtime-reducer-route/README.md",
+      "tasks/campaigns/level-1-2-runtime-reducer-route/STATE.json"
+    ],
+    "forbiddenInputs": [
+      "/workspace/typescript/dnd",
+      "dirty cleanroom src/**",
+      "sibling source repositories"
+    ],
+    "expectedArtifacts": [
+      "FRESH_RUN_STATE.json",
+      "FRESH_RUN_REPORT.md",
+      "BLOCKERS.json",
+      "EVIDENCE/*.json",
+      "STATE_OWNERS.md"
+    ]
+  },
   "nextWorkRecommendations": [
-    "Launch the fresh cleanroom dry run described in FRESH_CLEANROOM_DRY_RUN_PLAN.md.",
+    "Wait for and review FC-00 fresh package admission in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00.",
     "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
     "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
     "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."
