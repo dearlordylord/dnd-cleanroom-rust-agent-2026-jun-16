@@ -2931,11 +2931,11 @@
       "artifacts": {
         "deciderDecision": {
           "path": "tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/DECIDER_DECISION.json",
-          "sha256": "13bbefe0b4ca613c53bfeeb54bb27ccfdf4f338b6e648a476888e5b50d1910a1"
+          "sha256": "8976d1b7785ebc5a8aeaea0210c2b126a8ff7149449ada3a0db3c0e266e70d75"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "18a94923242a6ab2dbce50ae9681459e5afaadd48792022b00087f96baadea05"
+          "sha256": "3abaf118bcb7487f422e6554c9b6595e33fad7ad179f6155fd2440afa758e51c"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/REVIEW_LOOP.json",
@@ -2953,7 +2953,7 @@
       "assignmentId": "level-1-2-runtime-reducer-route",
       "commandResults": [
         {
-          "command": "cargo test ability_check_choice_search_adapter_replays_all_branches -- --nocapture",
+          "command": "cargo test ability_check_choice_search_adapter_replays_accepted_branches -- --nocapture",
           "status": "pass"
         },
         {
@@ -2997,7 +2997,7 @@
             "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchTargetChoiceOpen#step:doSearchTargetChoiceOpen"
           ],
           "path": "tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json",
-          "sha256": "f7ca3507622f370412a36aec742e2f4624ac4608854ecc4dab970b632e7084d4"
+          "sha256": "9f94103e4480d6f10e3c82fbbc2cf70263971a30937f11063a94dcaea59e62f9"
         }
       ],
       "taskId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES"

@@ -605,10 +605,12 @@ use crate::rules::character_battle_handoff::character_battle_route_payload;
 use battle_runtime_ability_check_choice_search::{
     expected_route as expected_ability_check_choice_search_route,
     expected_witness as expected_ability_check_choice_search_witness,
+    out_of_scope_reason as ability_check_choice_search_out_of_scope_reason,
     projection_payload as ability_check_choice_search_projection_payload,
     replay_observed_action as replay_ability_check_choice_search_action,
     replay_observed_route as replay_ability_check_choice_search_route,
     BRANCH_ACTIONS as ABILITY_CHECK_CHOICE_SEARCH_BRANCH_ACTIONS,
+    OUT_OF_SCOPE_BRANCH_ACTIONS as ABILITY_CHECK_CHOICE_SEARCH_OUT_OF_SCOPE_BRANCH_ACTIONS,
 };
 use battle_runtime_adrenaline_rush::{
     expected_route as expected_adrenaline_rush_route,
@@ -2356,14 +2358,16 @@ fn adrenaline_rush_adapter_replays_all_branches() {
 }
 
 #[test]
-fn ability_check_choice_search_adapter_replays_all_branches() {
+fn ability_check_choice_search_adapter_replays_accepted_branches() {
     // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Ability
     // Checks" and "Search"; Rules-Glossary.md "Hide" and "Search";
-    // Spells/Descriptions-E-L.md "Enhance Ability" and "Guidance".
+    // Spells/Descriptions-E-L.md "Guidance". Enhance Ability rows are
+    // recorded out of scope for this lane because they are level-2 spell
+    // branches.
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-ability-check-choice-search.mbt.qnt and
     // battle-runtime-ability-check-choice-search.route.mbt.qnt.
-    assert_eq!(ABILITY_CHECK_CHOICE_SEARCH_BRANCH_ACTIONS.len(), 12);
+    assert_eq!(ABILITY_CHECK_CHOICE_SEARCH_BRANCH_ACTIONS.len(), 9);
     for action in ABILITY_CHECK_CHOICE_SEARCH_BRANCH_ACTIONS {
         let observed = replay_ability_check_choice_search_action(action);
         assert_eq!(
@@ -2386,6 +2390,19 @@ fn ability_check_choice_search_adapter_replays_all_branches() {
         } else {
             assert!(route_payload.contains("RollModifierEffectRouteSubject"));
         }
+    }
+
+    assert_eq!(
+        ABILITY_CHECK_CHOICE_SEARCH_OUT_OF_SCOPE_BRANCH_ACTIONS.len(),
+        3
+    );
+    for (action, reason) in ABILITY_CHECK_CHOICE_SEARCH_OUT_OF_SCOPE_BRANCH_ACTIONS {
+        assert_eq!(
+            ability_check_choice_search_out_of_scope_reason(action),
+            Some(reason)
+        );
+        assert!(expected_ability_check_choice_search_route(action).is_empty());
+        assert!(replay_ability_check_choice_search_route(action).is_empty());
     }
 }
 

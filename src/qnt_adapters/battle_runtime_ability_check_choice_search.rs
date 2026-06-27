@@ -7,10 +7,10 @@ use crate::rules::battle_reducer_spine::{
     ability_check_choice_search_projection_from_battle,
     ability_check_choice_search_projection_from_battle_result, discover_battle_acts_observed,
     resolve_battle_subject_observed, start_battle_observed,
-    start_roll_modifier_ability_choice_battle, start_roll_modifier_skill_choice_battle,
-    start_search_ability_check_battle, Actor, BattleAbilityCheckSearchFill, BattleEntrypointTrace,
-    BattleResolutionInvalidReason, BattleResolutionRequest, BattleResolutionResult,
-    BattleRollModifierEffectFill, BattleState, BattleSubject, BattleSubjectKind,
+    start_roll_modifier_skill_choice_battle, start_search_ability_check_battle, Actor,
+    BattleAbilityCheckSearchFill, BattleEntrypointTrace, BattleResolutionInvalidReason,
+    BattleResolutionRequest, BattleResolutionResult, BattleRollModifierEffectFill, BattleState,
+    BattleSubject, BattleSubjectKind,
 };
 
 use super::battle_runtime_reducer_route::{
@@ -21,7 +21,7 @@ use super::battle_runtime_reducer_route::{
     ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
 };
 
-pub const BRANCH_ACTIONS: [&str; 12] = [
+pub const BRANCH_ACTIONS: [&str; 9] = [
     "doSearchTargetChoiceOpen",
     "doSearchAbilityCheckOpen",
     "doSearchInvalidTargetRejected",
@@ -31,9 +31,21 @@ pub const BRANCH_ACTIONS: [&str; 12] = [
     "doGuidanceSkillChoiceOpen",
     "doGuidanceInvalidAbilityFillRejected",
     "doGuidanceSkillAthletics",
-    "doEnhanceAbilityChoiceOpen",
-    "doEnhanceAbilityInvalidSkillFillRejected",
-    "doEnhanceAbilityDex",
+];
+
+pub const OUT_OF_SCOPE_BRANCH_ACTIONS: [(&str, &str); 3] = [
+    (
+        "doEnhanceAbilityChoiceOpen",
+        "Enhance Ability is a level-2 spell branch for a later route lane.",
+    ),
+    (
+        "doEnhanceAbilityInvalidSkillFillRejected",
+        "Enhance Ability is a level-2 spell branch for a later route lane.",
+    ),
+    (
+        "doEnhanceAbilityDex",
+        "Enhance Ability is a level-2 spell branch for a later route lane.",
+    ),
 ];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> AbilityCheckChoiceSearchProjection {
@@ -91,29 +103,8 @@ pub fn replay_observed_action(observed_action_taken: &str) -> AbilityCheckChoice
             );
             ability_check_choice_search_projection_from_battle_result(&result)
         }
-        "doEnhanceAbilityChoiceOpen" => {
-            let result = resolve_roll_modifier_target(start_roll_modifier_ability_choice_battle());
-            ability_check_choice_search_projection_from_battle_result(&result)
-        }
-        "doEnhanceAbilityInvalidSkillFillRejected" => {
-            let (state, subject) =
-                roll_modifier_choice_open(start_roll_modifier_ability_choice_battle());
-            let result = resolve_roll_modifier(
-                state,
-                subject,
-                BattleRollModifierEffectFill::SkillChoice(AbilityCheckSearchSkill::Athletics),
-            );
-            ability_check_choice_search_projection_from_battle_result(&result)
-        }
-        "doEnhanceAbilityDex" => {
-            let (state, subject) =
-                roll_modifier_choice_open(start_roll_modifier_ability_choice_battle());
-            let result = resolve_roll_modifier(
-                state,
-                subject,
-                BattleRollModifierEffectFill::AbilityChoice(AbilityCheckSearchAbility::Dexterity),
-            );
-            ability_check_choice_search_projection_from_battle_result(&result)
+        action if out_of_scope_reason(action).is_some() => {
+            panic!("out-of-scope ability-check/search choice branch: {action}")
         }
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
@@ -184,32 +175,9 @@ pub fn expected_witness(observed_action_taken: &str) -> AbilityCheckChoiceSearch
                 ..ProjectionChoices::none()
             },
         ),
-        "doEnhanceAbilityChoiceOpen" => expected_projection(
-            AbilityCheckSearchProtocol::NeedsHoles,
-            vec![AbilityCheckSearchHole::AbilityChoice],
-            false,
-            true,
-            ProjectionChoices::none(),
-        ),
-        "doEnhanceAbilityInvalidSkillFillRejected" => expected_projection(
-            AbilityCheckSearchProtocol::Invalid,
-            Vec::new(),
-            false,
-            true,
-            ProjectionChoices::none(),
-        ),
-        "doEnhanceAbilityDex" => expected_projection(
-            AbilityCheckSearchProtocol::Resolved,
-            Vec::new(),
-            false,
-            false,
-            ProjectionChoices {
-                target_effect_count: 1,
-                ability_check_mode_ability: Some(AbilityCheckSearchAbility::Dexterity),
-                target_dexterity_roll_mode: AbilityCheckSearchRollMode::Advantage,
-                ..ProjectionChoices::none()
-            },
-        ),
+        action if out_of_scope_reason(action).is_some() => {
+            panic!("out-of-scope ability-check/search choice branch: {action}")
+        }
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
 }
@@ -247,19 +215,7 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             BattleRollModifierEffectFill::SkillChoice(AbilityCheckSearchSkill::Athletics),
             true,
         ),
-        "doEnhanceAbilityChoiceOpen" => {
-            observed_roll_modifier_target_route(start_roll_modifier_ability_choice_battle())
-        }
-        "doEnhanceAbilityInvalidSkillFillRejected" => observed_roll_modifier_choice_route(
-            start_roll_modifier_ability_choice_battle(),
-            BattleRollModifierEffectFill::SkillChoice(AbilityCheckSearchSkill::Athletics),
-            false,
-        ),
-        "doEnhanceAbilityDex" => observed_roll_modifier_choice_route(
-            start_roll_modifier_ability_choice_battle(),
-            BattleRollModifierEffectFill::AbilityChoice(AbilityCheckSearchAbility::Dexterity),
-            true,
-        ),
+        action if out_of_scope_reason(action).is_some() => return Vec::new(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     };
     observed_reducer_route(
@@ -316,19 +272,15 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
             ReducerRouteHoleKind::SkillChoice,
             ReducerRouteFillKind::SkillChoice,
         ),
-        "doEnhanceAbilityChoiceOpen" => {
-            roll_modifier_opening_route(ReducerRouteHoleKind::AbilityChoice)
-        }
-        "doEnhanceAbilityInvalidSkillFillRejected" => roll_modifier_invalid_choice_route(
-            ReducerRouteHoleKind::AbilityChoice,
-            ReducerRouteFillKind::SkillChoice,
-        ),
-        "doEnhanceAbilityDex" => roll_modifier_accepted_choice_route(
-            ReducerRouteHoleKind::AbilityChoice,
-            ReducerRouteFillKind::AbilityChoice,
-        ),
+        action if out_of_scope_reason(action).is_some() => Vec::new(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
+}
+
+pub fn out_of_scope_reason(observed_action_taken: &str) -> Option<&'static str> {
+    OUT_OF_SCOPE_BRANCH_ACTIONS
+        .iter()
+        .find_map(|(action, reason)| (*action == observed_action_taken).then_some(*reason))
 }
 
 pub fn projection_payload(state: &AbilityCheckChoiceSearchProjection) -> String {

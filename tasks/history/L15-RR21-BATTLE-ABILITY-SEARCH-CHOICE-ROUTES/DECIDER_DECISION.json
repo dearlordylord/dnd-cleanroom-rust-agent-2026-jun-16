@@ -59,7 +59,7 @@
       "reason": "Enhance Ability branches are marked out-of-scope in the copied branch inventory because Enhance Ability is a level-2 spell."
     }
   ],
-  "rationale": "Accepted rows replay through typed ability/search substrates and public BattleState reducer entrypoints, with qRoute evidence emitted for AbilityCheckSearchRouteSubject and RollModifierEffectRouteSubject. Enhance Ability rows are implemented and replayed as diagnostic adapter rows but not counted as accepted coverage because the copied inventory marks them out-of-scope.",
+  "rationale": "Accepted rows replay through typed ability/search substrates and public BattleState reducer entrypoints, with qRoute evidence emitted for AbilityCheckSearchRouteSubject and RollModifierEffectRouteSubject. Enhance Ability rows are recorded only as out-of-scope branch metadata because the copied inventory marks them out-of-scope.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "targetBlockedRows": [],

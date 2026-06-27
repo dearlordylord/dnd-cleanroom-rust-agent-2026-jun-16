@@ -1,9 +1,9 @@
 {
   "accumulatorGrowth": [
     {
-      "addedEntries": 12,
+      "addedEntries": 9,
       "owner": "adapter",
-      "reason": "branch witness dispatch table quarantined in qnt adapter"
+      "reason": "accepted branch witness dispatch table quarantined in qnt adapter"
     }
   ],
   "adapterModules": [
