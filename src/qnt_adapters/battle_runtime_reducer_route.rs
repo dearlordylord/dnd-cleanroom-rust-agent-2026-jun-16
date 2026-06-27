@@ -58,14 +58,20 @@ pub enum ReducerRouteResolveFill {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReducerRouteSubjectFamily {
     ActiveFormLifecycle,
+    AreaHazard,
+    AreaObscurement,
     ConcentrationTeardown,
     CommandSpell,
     CreatureAttack,
     BattleAction,
     DeathSavingThrow,
+    FallingMitigation,
     ForcedMovement,
     HitPointRestoration,
+    LightProjection,
     MovementResource,
+    ObjectBoundaryEffect,
+    OutlineEffect,
     RepeatSaveConditionEffect,
     SaveGatedSpell,
     SlotSpell,
@@ -501,6 +507,7 @@ pub fn setup_from_battle_state(state: BattleState) -> BattleSetup {
         hit_point_restoration_procedure: state.hit_point_restoration_procedure,
         spell_attack_procedure: state.spell_attack_procedure,
         command_effect_procedure: state.command_effect_procedure,
+        spatial_route_subjects: state.spatial_route_subjects,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
         spell_slot_uses_this_turn: state.spell_slot_uses_this_turn,
@@ -547,6 +554,7 @@ pub fn battle_setup_from_state(state: BattleState) -> BattleSetup {
         hit_point_restoration_procedure: state.hit_point_restoration_procedure,
         spell_attack_procedure: state.spell_attack_procedure,
         command_effect_procedure: state.command_effect_procedure,
+        spatial_route_subjects: state.spatial_route_subjects,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
         spell_slot_uses_this_turn: state.spell_slot_uses_this_turn,
@@ -588,6 +596,10 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::ActiveFormLifecycle => {
             ReducerRouteSubjectFamily::ActiveFormLifecycle
         }
+        BattleReducerRouteSubjectFamily::AreaHazard => ReducerRouteSubjectFamily::AreaHazard,
+        BattleReducerRouteSubjectFamily::AreaObscurement => {
+            ReducerRouteSubjectFamily::AreaObscurement
+        }
         BattleReducerRouteSubjectFamily::ConcentrationTeardown => {
             ReducerRouteSubjectFamily::ConcentrationTeardown
         }
@@ -599,15 +611,25 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::DeathSavingThrow => {
             ReducerRouteSubjectFamily::DeathSavingThrow
         }
+        BattleReducerRouteSubjectFamily::FallingMitigation => {
+            ReducerRouteSubjectFamily::FallingMitigation
+        }
         BattleReducerRouteSubjectFamily::ForcedMovement => {
             ReducerRouteSubjectFamily::ForcedMovement
         }
         BattleReducerRouteSubjectFamily::HitPointRestoration => {
             ReducerRouteSubjectFamily::HitPointRestoration
         }
+        BattleReducerRouteSubjectFamily::LightProjection => {
+            ReducerRouteSubjectFamily::LightProjection
+        }
         BattleReducerRouteSubjectFamily::MovementResource => {
             ReducerRouteSubjectFamily::MovementResource
         }
+        BattleReducerRouteSubjectFamily::ObjectBoundaryEffect => {
+            ReducerRouteSubjectFamily::ObjectBoundaryEffect
+        }
+        BattleReducerRouteSubjectFamily::OutlineEffect => ReducerRouteSubjectFamily::OutlineEffect,
         BattleReducerRouteSubjectFamily::SaveGatedSpell => {
             ReducerRouteSubjectFamily::SaveGatedSpell
         }
@@ -1041,6 +1063,8 @@ fn outcome_ref(outcome: ReducerRouteResolutionOutcome) -> &'static str {
 fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
     match subject {
         ReducerRouteSubjectFamily::ActiveFormLifecycle => "ActiveFormLifecycleRouteSubject",
+        ReducerRouteSubjectFamily::AreaHazard => "AreaHazardRouteSubject",
+        ReducerRouteSubjectFamily::AreaObscurement => "AreaObscurementRouteSubject",
         ReducerRouteSubjectFamily::BattleAction => "BattleActionRouteSubject",
         ReducerRouteSubjectFamily::ConcentrationTeardown => "ConcentrationTeardownRouteSubject",
         ReducerRouteSubjectFamily::CommandSpell => "CommandSpellRouteSubject",
@@ -1054,9 +1078,13 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         }
         ReducerRouteSubjectFamily::CreatureStatProjection => "CreatureStatProjectionRouteSubject",
         ReducerRouteSubjectFamily::DeathSavingThrow => "DeathSavingThrowRouteSubject",
+        ReducerRouteSubjectFamily::FallingMitigation => "FallingMitigationRouteSubject",
         ReducerRouteSubjectFamily::ForcedMovement => "ForcedMovementRouteSubject",
         ReducerRouteSubjectFamily::HitPointRestoration => "HitPointRestorationRouteSubject",
+        ReducerRouteSubjectFamily::LightProjection => "LightProjectionRouteSubject",
         ReducerRouteSubjectFamily::MovementResource => "MovementResourceRouteSubject",
+        ReducerRouteSubjectFamily::ObjectBoundaryEffect => "ObjectBoundaryEffectRouteSubject",
+        ReducerRouteSubjectFamily::OutlineEffect => "OutlineEffectRouteSubject",
         ReducerRouteSubjectFamily::PassiveAbilityCheckRollMode => {
             "PassiveAbilityCheckRollModeRouteSubject"
         }

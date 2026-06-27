@@ -771,9 +771,12 @@ use battle_runtime_level1_damage_spell_selected_identity::{
     BRANCH_ACTIONS as LEVEL1_DAMAGE_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_level1_spatial_witness_selected_identity::{
+    expected_route as expected_level1_spatial_route,
     expected_witness as expected_level1_spatial_witness,
     projection_payload as level1_spatial_projection_payload,
     replay_observed_action as replay_level1_spatial_action,
+    replay_observed_route as replay_level1_spatial_route,
+    ACCEPTED_BRANCH_ACTIONS as ACCEPTED_LEVEL1_SPATIAL_BRANCH_ACTIONS,
     BRANCH_ACTIONS as LEVEL1_SPATIAL_BRANCH_ACTIONS,
 };
 use battle_runtime_mage_armor_selected_identity::{
@@ -4607,11 +4610,30 @@ fn level1_spatial_witness_adapter_replays_all_branches() {
     // cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md,
     // Descriptions-E-L.md, Descriptions-M-P.md, and Descriptions-S-Z.md
     // selected level-1 and cantrip spatial spells.
-    for action in LEVEL1_SPATIAL_BRANCH_ACTIONS {
+    assert_eq!(LEVEL1_SPATIAL_BRANCH_ACTIONS.len(), 10);
+    assert_eq!(ACCEPTED_LEVEL1_SPATIAL_BRANCH_ACTIONS.len(), 10);
+    for action in ACCEPTED_LEVEL1_SPATIAL_BRANCH_ACTIONS {
         let observed = replay_level1_spatial_action(action);
+        let observed_route = replay_level1_spatial_route(action);
+        let expected_route = expected_level1_spatial_route(action);
         assert_eq!(observed, expected_level1_spatial_witness(action));
+        assert_eq!(observed_route, expected_route);
         assert!(level1_spatial_projection_payload(&observed).contains("protocolResult=resolved"));
+        assert!(reducer_route_payload(&observed_route).contains("resolve_battle_subject"));
     }
+    let route_payloads = ACCEPTED_LEVEL1_SPATIAL_BRANCH_ACTIONS
+        .iter()
+        .map(|action| reducer_route_payload(&replay_level1_spatial_route(action)))
+        .collect::<Vec<_>>()
+        .join("\n");
+    assert!(route_payloads.contains("LightProjectionRouteSubject"));
+    assert!(route_payloads.contains("OutlineEffectRouteSubject"));
+    assert!(route_payloads.contains("FallingMitigationRouteSubject"));
+    assert!(route_payloads.contains("AreaObscurementRouteSubject"));
+    assert!(route_payloads.contains("AreaHazardRouteSubject"));
+    assert!(route_payloads.contains("MovementResourceRouteSubject"));
+    assert!(route_payloads.contains("ObjectBoundaryEffectRouteSubject"));
+    assert!(route_payloads.contains("ForcedMovementRouteSubject"));
 }
 
 #[test]

@@ -1,0 +1,292 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-fu01f-spatial-light-area-movement-substrates",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doDancingLightsMovableDimLight",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "observedActionTaken": "doDancingLightsMovableDimLight",
+      "qntFileSha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "generic LightProjection route subject observed through public BattleState start/discover/resolve entrypoints",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(LightProjection)",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6c5615213973a3e85a25f7c3cb9f50fb3c530cb9ba852f6c633c3eb58ab4cf5b",
+        "observedProjectionSha256": "6c5615213973a3e85a25f7c3cb9f50fb3c530cb9ba852f6c633c3eb58ab4cf5b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01F route action=doDancingLightsMovableDimLight"
+    },
+    {
+      "branchAction": "doFaerieFireOutlineAdvantageInvisibleDimLight",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "observedActionTaken": "doFaerieFireOutlineAdvantageInvisibleDimLight",
+      "qntFileSha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "generic OutlineEffect route subject observed through public BattleState start/discover/resolve entrypoints",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(OutlineEffect)",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "30668e3c4965bf7968fee746da3c5e3e60a9637cc918c2bdda72de6f25e8c406",
+        "observedProjectionSha256": "30668e3c4965bf7968fee746da3c5e3e60a9637cc918c2bdda72de6f25e8c406",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01F route action=doFaerieFireOutlineAdvantageInvisibleDimLight"
+    },
+    {
+      "branchAction": "doFeatherFallReactionMitigationLanding",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "observedActionTaken": "doFeatherFallReactionMitigationLanding",
+      "qntFileSha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "generic FallingMitigation route subject observed through public BattleState start/discover/resolve entrypoints",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(FallingMitigation)",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "69dcaef2ccb3770f1168e24f8852ea3f3334161c6b9e52b39ed2dd0364338fb9",
+        "observedProjectionSha256": "69dcaef2ccb3770f1168e24f8852ea3f3334161c6b9e52b39ed2dd0364338fb9",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01F route action=doFeatherFallReactionMitigationLanding"
+    },
+    {
+      "branchAction": "doFogCloudAreaIdentityObscurementStrongWindCleanup",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "observedActionTaken": "doFogCloudAreaIdentityObscurementStrongWindCleanup",
+      "qntFileSha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "generic AreaObscurement route subject observed through public BattleState start/discover/resolve entrypoints",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(AreaObscurement)",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "4039502d1d279c397c8e8152858f3cb5ebb720803bd0fecaf75793902e2f1214",
+        "observedProjectionSha256": "4039502d1d279c397c8e8152858f3cb5ebb720803bd0fecaf75793902e2f1214",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01F route action=doFogCloudAreaIdentityObscurementStrongWindCleanup"
+    },
+    {
+      "branchAction": "doGreaseCastGroundHazardSavingThrows",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "observedActionTaken": "doGreaseCastGroundHazardSavingThrows",
+      "qntFileSha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "generic AreaHazard route subject observed through public BattleState start/discover/resolve entrypoints",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(AreaHazard)",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7e7482cc6a4b49627abe05889b34376722dffb2ff82823747bdc58509c4f0680",
+        "observedProjectionSha256": "7e7482cc6a4b49627abe05889b34376722dffb2ff82823747bdc58509c4f0680",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01F route action=doGreaseCastGroundHazardSavingThrows"
+    },
+    {
+      "branchAction": "doGreaseMovementAndTurnTriggers",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "observedActionTaken": "doGreaseMovementAndTurnTriggers",
+      "qntFileSha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "generic MovementResource route subject observed through public BattleState start/discover/resolve entrypoints",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(MovementReplacement)",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "1c28df49cd9aff7448dd2288da5fa34d6fd5f93a80a374eb3a8a57e3b6dcf010",
+        "observedProjectionSha256": "1c28df49cd9aff7448dd2288da5fa34d6fd5f93a80a374eb3a8a57e3b6dcf010",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01F route action=doGreaseMovementAndTurnTriggers"
+    },
+    {
+      "branchAction": "doJumpMovementReplacementLandingWitness",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "observedActionTaken": "doJumpMovementReplacementLandingWitness",
+      "qntFileSha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "generic MovementResource route subject observed through public BattleState start/discover/resolve entrypoints",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(MovementReplacement)",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "1c28df49cd9aff7448dd2288da5fa34d6fd5f93a80a374eb3a8a57e3b6dcf010",
+        "observedProjectionSha256": "1c28df49cd9aff7448dd2288da5fa34d6fd5f93a80a374eb3a8a57e3b6dcf010",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01F route action=doJumpMovementReplacementLandingWitness"
+    },
+    {
+      "branchAction": "doLightObjectEmitterProjectionReplacementCleanup",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "observedActionTaken": "doLightObjectEmitterProjectionReplacementCleanup",
+      "qntFileSha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "generic ObjectBoundaryEffect route subject observed through public BattleState start/discover/resolve entrypoints",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(ObjectBoundary)",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "aa19c49cd154e619ff6d6d1878fd295cc45cb90653c518761065f805ef87e0d6",
+        "observedProjectionSha256": "aa19c49cd154e619ff6d6d1878fd295cc45cb90653c518761065f805ef87e0d6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01F route action=doLightObjectEmitterProjectionReplacementCleanup"
+    },
+    {
+      "branchAction": "doProduceFlameHeldLightProjectionHurlCleanup",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "observedActionTaken": "doProduceFlameHeldLightProjectionHurlCleanup",
+      "qntFileSha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "generic LightProjection route subject observed through public BattleState start/discover/resolve entrypoints",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(LightProjection)",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "6c5615213973a3e85a25f7c3cb9f50fb3c530cb9ba852f6c633c3eb58ab4cf5b",
+        "observedProjectionSha256": "6c5615213973a3e85a25f7c3cb9f50fb3c530cb9ba852f6c633c3eb58ab4cf5b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01F route action=doProduceFlameHeldLightProjectionHurlCleanup"
+    },
+    {
+      "branchAction": "doThunderwaveSavePushObjectsBoom",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_spatial_witness_selected_identity.rs",
+      "observedActionTaken": "doThunderwaveSavePushObjectsBoom",
+      "qntFileSha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3",
+      "result": {
+        "tag": "pass"
+      },
+      "routeEvidenceBasis": "generic ForcedMovement route subject observed through public BattleState start/discover/resolve entrypoints",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_route_subjects",
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.Spatial(ForcedMovement)",
+          "ReducerRouteEvent.qRoute"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5d3803fc58c375788b9e024730389f091d1b089bda51660288272c73cb0f73d7",
+        "observedProjectionSha256": "5d3803fc58c375788b9e024730389f091d1b089bda51660288272c73cb0f73d7",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU01F route action=doThunderwaveSavePushObjectsBoom"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

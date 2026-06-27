@@ -2705,6 +2705,83 @@
         }
       ],
       "taskId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "53f0aba8cdee1b1b574bda5c598f63ad6af787b5fbc8ac4e5d890c41eb30f1cd"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "13742c5a9bccc9d69c232da1d384a8d2106216f4e58ca9bc6e9ce931f2f01d45"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "f49190445d69788bdcebbaf2ee6c656cb7a3bb343e41fc9b03dff65d6f7a63d2"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES/START_GATE.json",
+          "sha256": "d08c276eb563070e40386f50b4c74fc823b2ee85efa49768dc8a8b8bf11f248d"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "70e224be96bd36eb1555b103c05b65b2034823e2d34f81ab7cd53abc68b1bbc3"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo test level1_spatial_witness_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "parentRouteTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doDancingLightsMovableDimLight#step:doDancingLightsMovableDimLight",
+            "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doFaerieFireOutlineAdvantageInvisibleDimLight#step:doFaerieFireOutlineAdvantageInvisibleDimLight",
+            "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doFeatherFallReactionMitigationLanding#step:doFeatherFallReactionMitigationLanding",
+            "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doFogCloudAreaIdentityObscurementStrongWindCleanup#step:doFogCloudAreaIdentityObscurementStrongWindCleanup",
+            "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doGreaseCastGroundHazardSavingThrows#step:doGreaseCastGroundHazardSavingThrows",
+            "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doGreaseMovementAndTurnTriggers#step:doGreaseMovementAndTurnTriggers",
+            "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doJumpMovementReplacementLandingWitness#step:doJumpMovementReplacementLandingWitness",
+            "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doLightObjectEmitterProjectionReplacementCleanup#step:doLightObjectEmitterProjectionReplacementCleanup",
+            "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doProduceFlameHeldLightProjectionHurlCleanup#step:doProduceFlameHeldLightProjectionHurlCleanup",
+            "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json#L15-RR07-FU01F route action=doThunderwaveSavePushObjectsBoom#step:doThunderwaveSavePushObjectsBoom"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json",
+          "sha256": "468c4cd7a4d70cdc5113d4ff8e8a721b1504e676ab1c627e76041366fdee4cb5"
+        }
+      ],
+      "taskId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
