@@ -284,6 +284,12 @@
             "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt"
           ]
+        },
+        {
+          "laneId": "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES",
+          "queue": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt"
+          ]
         }
       ]
     },

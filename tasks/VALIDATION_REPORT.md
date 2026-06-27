@@ -1,5 +1,80 @@
 # Validation Report
 
+## L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES: Ability/Search Choice Routes
+
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt`
+- Route connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt`
+- Evidence file: `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json`
+- Accepted rows: doGuidanceInvalidAbilityFillRejected, doGuidanceSkillAthletics, doGuidanceSkillChoiceOpen, doSearchAbilityCheckOpen, doSearchFails, doSearchInvalidAbilityFillRejected, doSearchInvalidTargetRejected, doSearchSucceeds, doSearchTargetChoiceOpen.
+- Target blockers: `_none_`
+- Out-of-scope diagnostic rows: doEnhanceAbilityChoiceOpen, doEnhanceAbilityInvalidSkillFillRejected, doEnhanceAbilityDex.
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+- `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+- `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+- `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-E-L.md`
+- Repo-local `src/**`, `tasks/**`, and Rust/Cargo tooling
+
+Behavior implemented:
+
+- Added typed ability-check/search and roll-modifier choice substrates for target choice, ability-check fills, skill-choice fills, and ability-choice fills.
+- Routed Search through action economy, target selection, ability-check, and hole-frontier owners using public reducer discovery/resolution entrypoints.
+- Routed Guidance-style skill choices and Enhance-style ability choices through spell/action, target-selection, active-effect, concentration, and hole-frontier owner evidence.
+- Kept copied QNT branch action names quarantined in the qnt adapter; production dispatch uses reducer subject/fill/hole shapes and typed substrates.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doGuidanceInvalidAbilityFillRejected` | `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doGuidanceInvalidAbilityFillRejected#step:doGuidanceInvalidAbilityFillRejected` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doGuidanceSkillAthletics` | `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doGuidanceSkillAthletics#step:doGuidanceSkillAthletics` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doGuidanceSkillChoiceOpen` | `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doGuidanceSkillChoiceOpen#step:doGuidanceSkillChoiceOpen` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doSearchAbilityCheckOpen` | `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchAbilityCheckOpen#step:doSearchAbilityCheckOpen` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doSearchFails` | `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchFails#step:doSearchFails` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doSearchInvalidAbilityFillRejected` | `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchInvalidAbilityFillRejected#step:doSearchInvalidAbilityFillRejected` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doSearchInvalidTargetRejected` | `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchInvalidTargetRejected#step:doSearchInvalidTargetRejected` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doSearchSucceeds` | `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchSucceeds#step:doSearchSucceeds` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt#step:doSearchTargetChoiceOpen` | `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json#L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=doSearchTargetChoiceOpen#step:doSearchTargetChoiceOpen` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Quint binding: Rust quint-connect harness
+- Reproduction seed or trace id: `L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES route action=<branchAction>`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_` for the nine in-scope Search/Guidance rows.
+- The three Enhance Ability rows remain out-of-scope in the copied inventory because Enhance Ability is level 2; they are route-empty and not accepted coverage rows.
+
+Verification results:
+
+- `cargo test ability_check_choice_search_adapter_replays_accepted_branches -- --nocapture` passed.
+- `cargo fmt --check` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 73c5ccea0ee7425952f231485325df5a45a0f36a...HEAD` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+
 ## Work Loop Status
 
 - Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`

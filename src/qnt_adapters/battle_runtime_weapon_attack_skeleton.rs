@@ -761,6 +761,7 @@ fn holes_from_spine(holes: &[BattleHoleKind]) -> Vec<WeaponAttackSkeletonHole> {
             BattleHoleKind::RolledDice => WeaponAttackSkeletonHole::DamageRoll,
             BattleHoleKind::SpellTargetAllocation
             | BattleHoleKind::AbilityCheck
+            | BattleHoleKind::AbilityChoice
             | BattleHoleKind::SpellTargetList
             | BattleHoleKind::DamageTypeChoice
             | BattleHoleKind::ConditionChoice
@@ -770,6 +771,7 @@ fn holes_from_spine(holes: &[BattleHoleKind]) -> Vec<WeaponAttackSkeletonHole> {
             | BattleHoleKind::ConcentrationSavingThrow
             | BattleHoleKind::StatBlockRechargeRoll
             | BattleHoleKind::CommandOptionChoice
+            | BattleHoleKind::SkillChoice
             | BattleHoleKind::InterruptDecision
             | BattleHoleKind::Movement => {
                 panic!("weapon projection received non-weapon reducer hole {hole:?}")

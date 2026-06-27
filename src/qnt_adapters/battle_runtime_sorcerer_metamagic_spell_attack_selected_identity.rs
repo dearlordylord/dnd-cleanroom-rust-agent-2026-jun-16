@@ -146,6 +146,7 @@ fn setup_from_state(state: crate::rules::battle_reducer_spine::BattleState) -> B
         spell_attack_procedure: state.spell_attack_procedure,
         command_effect_procedure: state.command_effect_procedure,
         spatial_route_subjects: state.spatial_route_subjects,
+        ability_check_choice_search: state.ability_check_choice_search,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
         spell_slot_uses_this_turn: state.spell_slot_uses_this_turn,
