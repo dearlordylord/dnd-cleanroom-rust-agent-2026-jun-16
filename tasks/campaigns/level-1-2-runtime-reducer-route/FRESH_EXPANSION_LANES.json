@@ -143,7 +143,7 @@
     {
       "laneId": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",
       "checkpointId": "FEXP-CP4",
-      "status": "proposed",
+      "status": "running",
       "routeClass": "reducer-routed",
       "purpose": "Grow character creation, sheet, and handoff surfaces beyond the SDK tracer while preserving character-side ownership and battle handoff boundaries.",
       "drivers": [

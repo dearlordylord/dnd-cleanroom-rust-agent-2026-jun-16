@@ -26,6 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
+| FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-06` | `ralph/fexp-06-character-creation-sheet-handoff-pack` | `eb05e8495eac993b69e17f68544edace6e56caee` | Lovelace the 3rd (`019f0b5f-46e6-71d3-b995-936b8fc7036d`) | pending | running |
 
 ## Historical RRCONV-19 Worktrees
 

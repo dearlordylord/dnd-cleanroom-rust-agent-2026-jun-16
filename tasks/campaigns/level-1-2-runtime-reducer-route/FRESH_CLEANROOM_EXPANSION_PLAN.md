@@ -2,7 +2,7 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: FEXP-05 accepted-with-blockers; next lane is FEXP-06 from accepted fresh target head `eb05e8495eac993b69e17f68544edace6e56caee`
+Status: FEXP-06 running from accepted fresh target head `eb05e8495eac993b69e17f68544edace6e56caee`
 
 Baseline evidence:
 

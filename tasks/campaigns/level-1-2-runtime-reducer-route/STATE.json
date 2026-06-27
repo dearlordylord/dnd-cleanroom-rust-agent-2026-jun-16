@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-expansion-fexp05-accepted-with-blockers",
+  "status": "fresh-expansion-fexp06-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -2775,8 +2775,8 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fexp05-accepted-with-blockers",
-    "activeLane": null,
+    "status": "running",
+    "activeLane": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "eb05e8495eac993b69e17f68544edace6e56caee",
@@ -2964,16 +2964,15 @@
         ]
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
-    "activeLaneBaseCommit": null,
-    "workerAgent": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-06",
+    "activeBranch": "ralph/fexp-06-character-creation-sheet-handoff-pack",
+    "activeLaneBaseCommit": "eb05e8495eac993b69e17f68544edace6e56caee",
+    "workerAgent": "Lovelace the 3rd (019f0b5f-46e6-71d3-b995-936b8fc7036d)",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",
     "nextWorkRecommendations": [
-      "Launch FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK from accepted fresh target head eb05e8495eac993b69e17f68544edace6e56caee.",
-      "Keep workers inside the fresh target and copied cleanroom inputs; do not read /workspace/typescript/dnd, dirty cleanroom src/**, or sibling source repositories.",
-      "Require observed handoff/character route evidence from public reducer or character-side entrypoints and connector-derived expected records before accepting the lane."
+      "FEXP-06 is running from accepted fresh target head eb05e8495eac993b69e17f68544edace6e56caee.",
+      "Review worker output for character-side ownership, handoff projection boundaries, connector-derived expected records, and no production authored identity dispatch."
     ]
   },
   "sdkTracerBullet": {
