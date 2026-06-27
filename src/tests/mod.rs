@@ -156,6 +156,8 @@ mod character_sheet_weapon_mastery_containers_selected_identity;
 mod creature_attack_mbt;
 #[path = "../qnt_adapters/rule_core_attack_damage_disposition.rs"]
 mod rule_core_attack_damage_disposition;
+#[path = "../qnt_adapters/rule_core_features_mbt.rs"]
+mod rule_core_features_mbt;
 #[path = "../qnt_adapters/rule_core_hit_point_damage_mbt.rs"]
 mod rule_core_hit_point_damage_mbt;
 #[path = "../qnt_adapters/rule_core_movement_mbt.rs"]
@@ -1064,6 +1066,12 @@ use rule_core_attack_damage_disposition::{
     projection_payload as attack_damage_disposition_projection_payload,
     replay_observed_action as replay_attack_damage_disposition_action,
     BRANCH_ACTIONS as ATTACK_DAMAGE_DISPOSITION_BRANCH_ACTIONS,
+};
+use rule_core_features_mbt::{
+    expected_witness as expected_rule_core_features_witness,
+    projection_payload as rule_core_features_projection_payload,
+    replay_observed_action as replay_rule_core_features_action,
+    BRANCH_ACTIONS as RULE_CORE_FEATURES_BRANCH_ACTIONS,
 };
 use rule_core_hit_point_damage_mbt::{
     expected_witness as expected_hit_point_damage_witness,
@@ -2970,6 +2978,27 @@ fn stat_block_controls_adapter_replays_all_branches() {
         assert_eq!(observed, expected_stat_block_control_witness(action));
         assert!(stat_block_control_projection_payload(&observed)
             .contains("qMultiattackContinuationOpen="));
+    }
+}
+
+#[test]
+fn rule_core_features_adapter_replays_active_component_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt
+    // and shared-algebras/proofs/rule-core/unit-feature-*.qnt; RAW:
+    // Classes/Fighter.md "Second Wind", "Action Surge", "Tactical Mind",
+    // and "Improved Critical"; Classes/Rogue.md "Sneak Attack" and
+    // "Cunning Action"; Classes/Barbarian.md "Rage", "Reckless Attack",
+    // and "Frenzy"; Classes/Monk.md "Deflect Attacks"; Feats.md
+    // "Archery", "Defense", and "Savage Attacker"; Playing-the-Game.md
+    // "Actions", "Damage and Healing"; Rules-Glossary.md "Reaction".
+    assert_eq!(RULE_CORE_FEATURES_BRANCH_ACTIONS.len(), 22);
+    for action in RULE_CORE_FEATURES_BRANCH_ACTIONS {
+        let observed = replay_rule_core_features_action(action);
+        assert_eq!(observed, expected_rule_core_features_witness(action));
+        let payload = rule_core_features_projection_payload(&observed);
+        assert!(payload.contains("protocolResult="));
+        assert!(payload.contains("qComponentRoute="));
+        assert!(payload.contains("RuleCoreFeatureProfileSemanticsOwner"));
     }
 }
 

@@ -1264,6 +1264,94 @@
         }
       ],
       "taskId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS/DECIDER_DECISION.json",
+          "sha256": "195222ed5be8c2ae1373147986ae1991c8877ab3fe870ae359312c10f92ae9fd"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "51301851ea40bbd3cec975d5d668cedd3a8a581a794eeb0aa241cdf19499185b"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS/REVIEW_LOOP.json",
+          "sha256": "173bfdce6ec3ef74cb73944ca7aa1c6a1d394f1cfcfc064d43a2a55d1ff406e2"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS/START_GATE.json",
+          "sha256": "d6bc5fd01b2943b479e7a4b4bf2d6fbff4d2432b415b3239a189ebd4cff85075"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS/STATE_OWNER_MANIFEST.json",
+          "sha256": "8b2769ea1dc97bb41390d5363883bae8440107435d761388715a4eca433371b7"
+        }
+      },
+      "assignmentId": "level-1-2-full",
+      "commandResults": [
+        {
+          "command": "cargo test rule_core_features_adapter_replays_active_component_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check a625d3e7190eb33396c17ee5dca7ae73f413b348...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "rules-core",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doActionSurgeActivate#step:doActionSurgeActivate",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doActionSurgeRejectTwice#step:doActionSurgeRejectTwice",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doActionSurgeSpendAttack#step:doActionSurgeSpendAttack",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doArcheryAttackRollBonus#step:doArcheryAttackRollBonus",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doCunningDash#step:doCunningDash",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doCunningDisengage#step:doCunningDisengage",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doCunningHide#step:doCunningHide",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doCuttingWordsDamage#step:doCuttingWordsDamage",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doDefenseArmorClass#step:doDefenseArmorClass",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doDeflectAttacksDamageReduction#step:doDeflectAttacksDamageReduction",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doDiscoverSecondWind#step:doDiscoverSecondWind",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doFrenzy#step:doFrenzy",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doImprovedCritical#step:doImprovedCritical",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doRageActivateAndDamage#step:doRageActivateAndDamage",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doRecklessAttack#step:doRecklessAttack",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doResolveSecondWindHigh#step:doResolveSecondWindHigh",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doResolveSecondWindLow#step:doResolveSecondWindLow",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doSavageAttackerDamage#step:doSavageAttackerDamage",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doSneakAttack#step:doSneakAttack",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doTacticalMindConvertedSuccess#step:doTacticalMindConvertedSuccess",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doTacticalMindStillFailed#step:doTacticalMindStillFailed",
+            "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json#L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS replay action=doZeroHitPointReplacement#step:doZeroHitPointReplacement"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR04D-rule-core-feature-profile-components.json",
+          "sha256": "d7903fead8ff64c0a09d735debb2a02a7231d6d961366e8ae54a43ea4230d732"
+        }
+      ],
+      "taskId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
