@@ -255,7 +255,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
-      ]
+      ],
+      "fixerAgent": "019f07ef-91e9-7bd0-a4f3-e299a1e932e5",
+      "fixerName": "Bernoulli the 2nd",
+      "fixerStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
