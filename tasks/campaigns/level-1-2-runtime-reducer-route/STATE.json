@@ -302,7 +302,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ]
+      ],
+      "rereview3Agent": "019f0757-f7ea-7d50-aade-065a0f11916e",
+      "rereview3Name": "Curie",
+      "rereview3Status": "running"
     },
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
