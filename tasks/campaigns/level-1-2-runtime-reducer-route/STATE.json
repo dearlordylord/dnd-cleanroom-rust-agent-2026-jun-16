@@ -135,7 +135,7 @@
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
-    "L15-RR08-CHARACTER-CREATION-ROUTES": "fix-committed-pending-rereview",
+    "L15-RR08-CHARACTER-CREATION-ROUTES": "rereviewing",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "review-clean-merge-ready",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "ready",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
@@ -182,7 +182,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08",
       "branch": "ralph/l15-rr08-character-creation",
       "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
-      "status": "fix-committed-pending-rereview",
+      "status": "rereviewing",
       "workerAgent": "019f06a6-8ed9-7560-9daa-6922b4bb277d",
       "workerName": "Harvey",
       "commit": "8416ee533fed413f9f072b982e0d425d89d90bac",
@@ -220,7 +220,10 @@
       ],
       "mergeRisk": [
         "Touches src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs, which also changed in RR09; require re-review before any CP3 merge."
-      ]
+      ],
+      "reReviewAgent": "019f06cd-b784-7a62-99fe-39612ff205f4",
+      "reReviewName": "Meitner",
+      "reReviewStatus": "running"
     },
     {
       "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
