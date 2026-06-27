@@ -199,7 +199,7 @@
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "worker-running",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "worker-running",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "worker-complete-review-pending",
-    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "worker-complete-review-pending",
+    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified"
@@ -264,7 +264,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f",
       "branch": "ralph/l15-rr07-fu01f-spatial-light-area",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "worker-complete-review-pending",
+      "status": "fixing-review-findings",
       "workerAgent": "019f07d7-0064-7062-9609-a2d22a704f0d",
       "workerName": "Einstein the 2nd",
       "workerCommit": "c4dbd72c098d85dc6fac652bd7b1758e5c6f61dc",
@@ -279,6 +279,24 @@
         "cargo test",
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES.json",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
+      ],
+      "reviewAgent": "019f07e6-ca63-78f2-b9dc-985abfae0d24",
+      "reviewName": "Laplace the 2nd",
+      "reviewStatus": "findings",
+      "reviewVerdict": "findings",
+      "reviewFindings": [
+        "Observed route evidence bypasses BattleState entrypoints by building a fresh BattleReducerRouteTrace and calling observe_spatial_route_subject directly.",
+        "expected_route returns replay_observed_route directly, so expected route witnesses are self-referential.",
+        "Task acceptance artifacts overstate evidence because expected and observed route hashes are produced by the same helper."
+      ],
+      "reviewVerification": [
+        "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
+        "cargo test level1_spatial_witness_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
       ]
