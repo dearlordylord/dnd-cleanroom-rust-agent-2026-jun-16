@@ -169,7 +169,7 @@
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
     "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "fixing",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
-    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "rereviewing",
+    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "review-clean-merge-ready",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
   },
   "lastIntegrationVerification": {
@@ -339,7 +339,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c",
       "branch": "ralph/l15-rr07s-c-weapon-breath-feature",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "rereviewing",
+      "status": "review-clean-merge-ready",
       "workerAgent": "019f070b-ff89-7fd2-8978-44745a13ef82",
       "workerName": "Kuhn",
       "commit": "3da4fbbd6d0630c096d0d386f28cc0ce02fb432b",
@@ -425,7 +425,21 @@
       ],
       "rereview2Agent": "019f074b-83da-7fb3-a98a-d833225f491e",
       "rereview2Name": "Noether",
-      "rereview2Status": "running"
+      "rereview2Status": "clean",
+      "rereview2Verdict": "clean",
+      "rereview2Summary": [
+        "Observed routes for Weapon Mastery, Dragonborn Breath Weapon, and feature selected identity are emitted through reducer observer entrypoints and translated from BattleEntrypointTrace, not adapter-synthesized.",
+        "Expected routes are independent literal ReducerRouteEvent lists.",
+        "Extra Attack continuation is represented as state projection only; no internal micro-route is claimed as observed route evidence.",
+        "src/rules dispatch uses typed runtime facts/enums, not selected authored identity strings/ids/slugs.",
+        "BattleState.feature_substrates remains the single battle-state owner for the new substrate facts."
+      ],
+      "rereview2Verification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "node scripts/check-cleanroom-harness.cjs",
+        "cargo test adapter_replays_all_branches (75 passed)",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ]
     }
   ],
   "completedLaneWorktrees": [
