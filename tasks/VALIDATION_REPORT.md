@@ -64,11 +64,11 @@ Harness artifacts:
 Remaining gaps:
 
 - `_none_` for the nine in-scope Search/Guidance rows.
-- The three Enhance Ability rows remain out-of-scope in the copied inventory because Enhance Ability is level 2; they replay in the adapter but are not accepted coverage rows.
+- The three Enhance Ability rows remain out-of-scope in the copied inventory because Enhance Ability is level 2; they are route-empty and not accepted coverage rows.
 
 Verification results:
 
-- `cargo test ability_check_choice_search_adapter_replays_all_branches -- --nocapture` passed.
+- `cargo test ability_check_choice_search_adapter_replays_accepted_branches -- --nocapture` passed.
 - `cargo fmt --check` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check 73c5ccea0ee7425952f231485325df5a45a0f36a...HEAD` passed.
