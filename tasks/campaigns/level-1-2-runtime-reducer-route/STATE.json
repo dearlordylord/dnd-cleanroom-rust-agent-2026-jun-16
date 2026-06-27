@@ -358,7 +358,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ]
+      ],
+      "rereviewAgent": "019f0739-45c1-70a3-b026-5757480663b5",
+      "rereviewName": "Dewey",
+      "rereviewStatus": "running"
     }
   ],
   "completedLaneWorktrees": [
