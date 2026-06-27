@@ -112,6 +112,8 @@ pub enum ReducerRouteSubjectFamily {
     CreatureStatProjection,
     RollModifierEffect,
     ScalarBuffEffect,
+    ConditionImmunityActiveEffect,
+    MarkedEffect,
     TurnBoundaryEffectLifecycle,
     ZeroHitPointSpellEffectTeardown,
     ArmorClassSpellEffect,
@@ -783,6 +785,10 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::ScalarBuffEffect => {
             ReducerRouteSubjectFamily::ScalarBuffEffect
         }
+        BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect => {
+            ReducerRouteSubjectFamily::ConditionImmunityActiveEffect
+        }
+        BattleReducerRouteSubjectFamily::MarkedEffect => ReducerRouteSubjectFamily::MarkedEffect,
         BattleReducerRouteSubjectFamily::RepeatSaveConditionEffect => {
             ReducerRouteSubjectFamily::RepeatSaveConditionEffect
         }
@@ -1279,6 +1285,10 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::SpellHostedWeaponAttack => "SpellHostedWeaponAttackRouteSubject",
         ReducerRouteSubjectFamily::ScalarBuff => "ScalarBuffRouteSubject",
         ReducerRouteSubjectFamily::ScalarBuffEffect => "ScalarBuffEffectRouteSubject",
+        ReducerRouteSubjectFamily::ConditionImmunityActiveEffect => {
+            "ConditionImmunityActiveEffectRouteSubject"
+        }
+        ReducerRouteSubjectFamily::MarkedEffect => "MarkedEffectRouteSubject",
         ReducerRouteSubjectFamily::TurnBoundaryEffectLifecycle => {
             "TurnBoundaryEffectLifecycleRouteSubject"
         }

@@ -1154,6 +1154,9 @@ pub enum BattleSubjectKind {
     ScalarBuffEffectSpeedDelta,
     ScalarBuffEffectHitPoint,
     ScalarBuffEffectTemporaryHitPoint,
+    ConditionImmunityActiveEffectTurnStartTemporaryHitPoint,
+    ConditionImmunityActiveEffectCleanup,
+    MarkedEffectDamageAndTransfer,
     AfterHitDamageRiderInterruptDecision,
     AfterHitDamageRiderSaveGatedInterruptDecision,
     AfterHitDamageRiderSlotSpend,
@@ -2485,6 +2488,8 @@ pub enum BattleReducerRouteSubjectFamily {
     CreatureStatProjection,
     RollModifierEffect,
     ScalarBuffEffect,
+    ConditionImmunityActiveEffect,
+    MarkedEffect,
     RepeatSaveConditionEffect,
     TurnBoundaryEffectLifecycle,
     ZeroHitPointSpellEffectTeardown,
@@ -7253,6 +7258,9 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::ScalarBuffEffectSpeedDelta
             | BattleSubjectKind::ScalarBuffEffectHitPoint
             | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+            | BattleSubjectKind::ConditionImmunityActiveEffectTurnStartTemporaryHitPoint
+            | BattleSubjectKind::ConditionImmunityActiveEffectCleanup
+            | BattleSubjectKind::MarkedEffectDamageAndTransfer
             | BattleSubjectKind::AfterHitDamageRiderInterruptDecision
             | BattleSubjectKind::AfterHitDamageRiderSaveGatedInterruptDecision
             | BattleSubjectKind::AfterHitDamageRiderSlotSpend
@@ -7370,8 +7378,8 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteSubjectFamily::{
         AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
         CompanionTouchDelivery, CreatureTypeTargetAdmission, HeldWeaponActiveEffect,
-        InterruptStackResume, ObjectTargetSpellAttack, ProtectionCharmActiveEffect, ReactionSpell,
-        SaveGatedSpell, ScalarBuffEffect, SpellAttack, SpellHostedWeaponAttack,
+        InterruptStackResume, MarkedEffect, ObjectTargetSpellAttack, ProtectionCharmActiveEffect,
+        ReactionSpell, SaveGatedSpell, ScalarBuffEffect, SpellAttack, SpellHostedWeaponAttack,
         WardedTargetInterdiction, WeaponAttack, WeaponDamageRider,
     };
 
@@ -7520,6 +7528,26 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: Vec::new(),
             discover_owner: SpellSlotAndActionEconomy,
             resolve_owner: TemporaryHitPoint,
+        },
+        BattleSubjectKind::ConditionImmunityActiveEffectTurnStartTemporaryHitPoint => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
+                holes: Vec::new(),
+                discover_owner: ActiveEffect,
+                resolve_owner: TemporaryHitPoint,
+            }
+        }
+        BattleSubjectKind::ConditionImmunityActiveEffectCleanup => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ConditionLifecycle,
+        },
+        BattleSubjectKind::MarkedEffectDamageAndTransfer => GenericRouteShape {
+            subject: MarkedEffect,
+            holes: vec![RolledDice, TargetChoice],
+            discover_owner: ActiveEffect,
+            resolve_owner: HitPointAndZeroHpLifecycle,
         },
         BattleSubjectKind::RepeatSaveConditionEffectInitialSave => GenericRouteShape {
             subject: BattleReducerRouteSubjectFamily::RepeatSaveConditionEffect,
@@ -8798,6 +8826,10 @@ fn battle_resolution_route_owner(
                 BattleSubjectKind::AfterHitDamageRiderTurnStartSaveCleanup,
                 BattleFill::GenericRoute(BattleGenericRouteFill::SavingThrowOutcome),
             ) => BattleReducerRouteOwnerGroup::ActiveEffect,
+            (
+                BattleSubjectKind::MarkedEffectDamageAndTransfer,
+                BattleFill::GenericRoute(BattleGenericRouteFill::TargetChoice),
+            ) => BattleReducerRouteOwnerGroup::ActiveEffect,
             _ => generic_route_shape(kind).resolve_owner,
         },
         BattleSubjectKind::AbilityCheckSearch => match fill {
@@ -9387,6 +9419,9 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::ScalarBuffEffectSpeedDelta
             | BattleSubjectKind::ScalarBuffEffectHitPoint
             | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+            | BattleSubjectKind::ConditionImmunityActiveEffectTurnStartTemporaryHitPoint
+            | BattleSubjectKind::ConditionImmunityActiveEffectCleanup
+            | BattleSubjectKind::MarkedEffectDamageAndTransfer
             | BattleSubjectKind::AfterHitDamageRiderInterruptDecision
             | BattleSubjectKind::AfterHitDamageRiderSaveGatedInterruptDecision
             | BattleSubjectKind::AfterHitDamageRiderSlotSpend
@@ -9781,6 +9816,8 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::ScalarBuffEffectSpeedDelta
         | BattleSubjectKind::ScalarBuffEffectHitPoint
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+        | BattleSubjectKind::ConditionImmunityActiveEffectTurnStartTemporaryHitPoint
+        | BattleSubjectKind::ConditionImmunityActiveEffectCleanup
         | BattleSubjectKind::RepeatSaveConditionEffectConditionLifecycle
         | BattleSubjectKind::RepeatSaveConditionEffectActiveEffect
         | BattleSubjectKind::RepeatSaveConditionEffectConcentration
@@ -9817,6 +9854,10 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::WardedActiveEffectCleanup => {
             fill == BattleGenericRouteFill::WithoutFill
         }
+        BattleSubjectKind::MarkedEffectDamageAndTransfer => matches!(
+            fill,
+            BattleGenericRouteFill::RolledDice | BattleGenericRouteFill::TargetChoice
+        ),
         BattleSubjectKind::CompanionTouchDelivery => matches!(
             fill,
             BattleGenericRouteFill::TargetChoice
@@ -10063,6 +10104,8 @@ fn generic_route_next_holes(
             | BattleSubjectKind::ScalarBuffEffectSpeedDelta
             | BattleSubjectKind::ScalarBuffEffectHitPoint
             | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
+            | BattleSubjectKind::ConditionImmunityActiveEffectTurnStartTemporaryHitPoint
+            | BattleSubjectKind::ConditionImmunityActiveEffectCleanup
             | BattleSubjectKind::RepeatSaveConditionEffectInitialSave
             | BattleSubjectKind::RepeatSaveConditionEffectRepeatSave
             | BattleSubjectKind::RepeatSaveConditionEffectConditionLifecycle
@@ -10107,6 +10150,13 @@ fn generic_route_next_holes(
             | BattleSubjectKind::ObjectTargetSpellAttackLightEffect
             | BattleSubjectKind::ObjectTargetSpellAttackStaleReplay,
             _,
+        ) => Vec::new(),
+        (BattleSubjectKind::MarkedEffectDamageAndTransfer, BattleGenericRouteFill::RolledDice) => {
+            vec![BattleHoleKind::TargetChoice]
+        }
+        (
+            BattleSubjectKind::MarkedEffectDamageAndTransfer,
+            BattleGenericRouteFill::TargetChoice,
         ) => Vec::new(),
         (BattleSubjectKind::ChainedSpellAttackProcedureDamageTypeChoice, _) => {
             vec![BattleHoleKind::TargetChoice]
