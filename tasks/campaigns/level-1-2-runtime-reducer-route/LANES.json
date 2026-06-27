@@ -1175,6 +1175,49 @@
         "tasks/VALIDATION_REPORT.md"
       ],
       "acceptanceSummary": "Merged and verified. The five selected rows replay through observed BattleEntrypointTrace.route_events using generic WeaponAttack route subjects/fills and independent expected qRoute witnesses. Scenario transition rows and MagicWeaponTargetItem rows remain blocked."
+    },
+    {
+      "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",
+      "checkpointId": "CP7",
+      "status": "ready",
+      "parallelGroup": "cp7-target-blocker-reduction",
+      "routeTaskIds": [
+        "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"
+      ],
+      "routeClasses": [
+        "reducer-routed",
+        "research-gated"
+      ],
+      "driverCount": 1,
+      "branchObligations": 3,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt"
+      ],
+      "selectedBranchActions": [
+        "doDiscoverMageArmorUnarmoredSelfTarget",
+        "doRejectMageArmorArmoredTarget",
+        "doExpireMageArmorDuration"
+      ],
+      "purpose": "Reduce CP7 target-side blockers by first identifying the generic route owners for Mage Armor target admission/rejection and duration expiry from existing cleanroom evidence, then accepting only rows that replay through production reducer entrypoints without selected spell identity dispatch.",
+      "dependencies": [
+        "CP7 active",
+        "FU01E armor-class selected-identity artifacts present",
+        "FU01D generic target-admission route evidence present for comparison",
+        "active-effect lifecycle route evidence present for comparison"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/level_one_armor_spells.rs",
+        "src/qnt_adapters/battle_runtime_mage_armor_selected_identity.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json",
+        "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/**",
+        "tasks/RUN_LEDGER.json",
+        "tasks/VALIDATION_REPORT.md",
+        "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json"
+      ],
+      "acceptanceSummary": "Before implementation, document the route-owner decision from cleanroom evidence. Admission/rejection may be accepted only as generic target-admission route evidence; expiry may be accepted only as generic active-effect lifecycle route evidence. If the owner cannot be derived without source knowledge, keep rows blocked and record the blocker honestly."
     }
   ],
   "standardVerification": [

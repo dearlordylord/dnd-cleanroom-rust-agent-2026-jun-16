@@ -489,3 +489,10 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Review/fixer notes: review accepted the route implementation and classified the `Actor::Goblin` target as fixture fill data, not production identity dispatch. The only finding was stale CP7 audit head metadata; the worker fixed it and rereview returned clean.
 - Explicit non-goals preserved: the nine scenario transition rows and two `MagicWeaponTargetItem` rows remain blocked.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-c`
+
+### L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES
+
+- Status: queued.
+- Selected rows: `doDiscoverMageArmorUnarmoredSelfTarget`, `doRejectMageArmorArmoredTarget`, and `doExpireMageArmorDuration`.
+- Research gate: identify the route owner from cleanroom evidence before implementation. Admission/rejection may be accepted only as generic target-admission route evidence; expiry may be accepted only as generic active-effect lifecycle route evidence.
+- Explicit non-goal: do not accept projection-only `MageArmorState` comparisons as reducer-routed evidence.
