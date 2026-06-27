@@ -219,9 +219,15 @@ Template:
 
 ### L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES
 
-- Current status: fix-applied-pending-rereview.
-- Lane commit(s): `710ff08b6114640820b147e5d0b4a460693e73e2`, `c1945b17d33c5f97ed0779284007039fb7dd090a`
-- Review/fixer notes: first reviewer found Find Familiar observed route evidence was adapter-local; fixer added production companion route ownership and Find Familiar route observation, retained the four Find Familiar accepted rows, and left existing level-2/3 condition-save rows out of scope.
+- Merge commit: `5a6e5d2d1975788acef1373786eb94dd0074407e`
+- Lane commit(s): `710ff08b6114640820b147e5d0b4a460693e73e2`, `c1945b17d33c5f97ed0779284007039fb7dd090a`, `86290c012cdefb8afdcc526a8caa58da190b407b`
+- Drivers added: `3` net-new unique drivers.
+- Obligations added: `9` net-new counted obligations; total accepted obligations moved from `462` to `471`.
+- New total driver coverage: `66 / 97 = 68.0%`
+- New total obligation coverage: `471 / 668 = 70.5%`
+- Integration verification: `node scripts/check-cleanroom-harness.cjs`, `cargo fmt --check`, `git diff --check --cached`, `cargo test` (`208 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: first reviewer found Find Familiar observed route evidence was adapter-local; fixer added production companion route ownership and Find Familiar route observation, retained the four Find Familiar accepted rows, and left existing level-2/3 condition-save rows out of scope. Re-review confirmed the code path clean; artifact fixer aligned RUN_LEDGER with VALIDATION_REPORT.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a`
 
 ## CP4 Launch Plan
 

@@ -140,7 +140,7 @@
     {
       "laneId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
       "checkpointId": "CP2",
-      "status": "merged",
+      "status": "merged-verified",
       "parallelGroup": "cp2-rule-core-components",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [
@@ -170,7 +170,7 @@
     {
       "laneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
       "checkpointId": "CP2",
-      "status": "merged",
+      "status": "merged-verified",
       "parallelGroup": "cp2-rule-core-components",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [
@@ -200,7 +200,7 @@
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
       "checkpointId": "CP2",
-      "status": "merged",
+      "status": "merged-verified",
       "parallelGroup": "cp2-rule-core-components",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [
@@ -228,7 +228,7 @@
     {
       "laneId": "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS",
       "checkpointId": "CP2",
-      "status": "merged",
+      "status": "merged-verified",
       "parallelGroup": "cp2-rule-core-components",
       "routeTaskId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "routeClasses": [
@@ -359,7 +359,7 @@
     {
       "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "review-clean-merge-ready",
+      "status": "merged-verified",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
@@ -398,7 +398,7 @@
     {
       "laneId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready-after-fu01a-or-serial-route-vocabulary",
+      "status": "ready",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
@@ -436,7 +436,7 @@
     {
       "laneId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready-after-fu01a-or-serial-route-vocabulary",
+      "status": "ready",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
@@ -469,7 +469,7 @@
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready-after-fu01a-or-serial-route-vocabulary",
+      "status": "ready",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
@@ -504,7 +504,7 @@
     {
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready-after-fu01a-or-serial-route-vocabulary",
+      "status": "ready",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
@@ -541,7 +541,7 @@
     {
       "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready-after-fu01a-or-serial-route-vocabulary",
+      "status": "ready",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
@@ -637,7 +637,7 @@
     {
       "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready-after-fu08a-merge",
+      "status": "ready",
       "parallelGroup": "cp4-fu08-metamagic",
       "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
       "routeClasses": [
@@ -676,7 +676,7 @@
     {
       "laneId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "ready-after-fu08a-merge",
+      "status": "ready",
       "parallelGroup": "cp4-fu08-metamagic",
       "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
       "routeClasses": [
