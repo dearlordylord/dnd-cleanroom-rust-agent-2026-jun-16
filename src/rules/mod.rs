@@ -7,6 +7,7 @@ pub mod chained_spell_attacks;
 pub mod character_battle_handoff;
 pub mod character_creation;
 pub mod character_lifecycle;
+pub mod character_sheet;
 pub mod class_features;
 pub mod command_options;
 pub mod concentration;

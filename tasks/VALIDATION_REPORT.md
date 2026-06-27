@@ -7,7 +7,7 @@
 - Scope file: `tasks/LEVEL_1_2_SCOPE.md`
 - Work Loop instructions: `tasks/WORK_LOOP.md`
 - Machine-readable run ledger: `tasks/RUN_LEDGER.json`
-- Last completed current-snapshot queued branch set: `L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS`
+- Last completed current-snapshot queued branch set: `L15-RR09-CHARACTER-SHEET-ROUTES`
 - Next queued driver: `<orchestrator-owned>`
 - Next task id: `<orchestrator-owned>`
 
@@ -1729,6 +1729,139 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings`: pass.
 - `node scripts/check-cleanroom-harness.cjs`: pass.
 - `git diff --check a625d3e7190eb33396c17ee5dca7ae73f413b348...HEAD`: pass.
+
+## L15-RR09-CHARACTER-SHEET-ROUTES: Character Sheet Routes
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Selected driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt`
+- Selected driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-arcane-recovery-selected-identity.mbt.qnt`
+- Selected driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt`
+- Selected driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt`
+- Selected driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt`
+- Selected driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt`
+- Selected driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt`
+- Selected driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt`
+- Selected driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt`
+- Selected driver: `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt`
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/character-sheet-runtime/character-sheet-reducer-route.qnt`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- `cleanroom-input/domain/CLEANROOM_ASSUMPTIONS.md`
+- `cleanroom-input/raw/srd-5.2.1/Character-Creation.md`
+- `cleanroom-input/raw/srd-5.2.1/Classes/Wizard.md`
+- `cleanroom-input/raw/srd-5.2.1/Classes/Warlock.md`
+- `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+- Repo-local `src/**`, `tasks/**`, and Cargo tooling
+
+Behavior implemented:
+
+- Routed selected level-1/2 Character Sheet projections through reusable sheet-owned slot/resource facts and QNT-shaped route events.
+- `src/tests/mod.rs` now replays and compares route values for the previously projection-only Ability Check, Healing Resource, Spellbook Ritual, and Weapon Mastery selected drivers, using expected routes transcribed from the copied `.route.mbt.qnt` shapes.
+- Kept authored ids in adapters, tests, and evidence payloads; production sheet functions consume shape facts and state projections.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt#step:doProjectExpertise` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectExpertise#step:doProjectExpertise` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt#step:doProjectJackOfAllTradesLevelTwo` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectJackOfAllTradesLevelTwo#step:doProjectJackOfAllTradesLevelTwo` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt#step:doProjectJackOfAllTradesRoundedDown` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectJackOfAllTradesRoundedDown#step:doProjectJackOfAllTradesRoundedDown` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt#step:doProjectSkillProficiency` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectSkillProficiency#step:doProjectSkillProficiency` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt#step:doRejectMissingBardLevelTwo` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectMissingBardLevelTwo#step:doRejectMissingBardLevelTwo` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt#step:doRejectOtherProficiencyBonus` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectOtherProficiencyBonus#step:doRejectOtherProficiencyBonus` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-arcane-recovery-selected-identity.mbt.qnt#step:doRecoverSecondLevelSpellSlot` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRecoverSecondLevelSpellSlot#step:doRecoverSecondLevelSpellSlot` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-arcane-recovery-selected-identity.mbt.qnt#step:doRejectPactSlotArcaneRecovery` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectPactSlotArcaneRecovery#step:doRejectPactSlotArcaneRecovery` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-arcane-recovery-selected-identity.mbt.qnt#step:doResetArcaneRecoveryOnLongRest` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doResetArcaneRecoveryOnLongRest#step:doResetArcaneRecoveryOnLongRest` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doProjectHeavyArmorWithShield` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectHeavyArmorWithShield#step:doProjectHeavyArmorWithShield` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doProjectLightArmor` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectLightArmor#step:doProjectLightArmor` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doProjectMediumArmorDexCap` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectMediumArmorDexCap#step:doProjectMediumArmorDexCap` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doSelectBarbarianUnarmoredDefense` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectBarbarianUnarmoredDefense#step:doSelectBarbarianUnarmoredDefense` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doSelectBarbarianUnarmoredDefenseWithShield` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectBarbarianUnarmoredDefenseWithShield#step:doSelectBarbarianUnarmoredDefenseWithShield` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt#step:doSelectMonkUnarmoredDefense` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectMonkUnarmoredDefense#step:doSelectMonkUnarmoredDefense` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt#step:doProjectBardJackOfAllTrades` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectBardJackOfAllTrades#step:doProjectBardJackOfAllTrades` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt#step:doProjectClericLifeDomainSpells` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectClericLifeDomainSpells#step:doProjectClericLifeDomainSpells` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt#step:doProjectDruidCircleLandSpells` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectDruidCircleLandSpells#step:doProjectDruidCircleLandSpells` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt#step:doProjectPaladinOathDevotionSpells` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectPaladinOathDevotionSpells#step:doProjectPaladinOathDevotionSpells` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt#step:doProjectPaladinsSmite` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectPaladinsSmite#step:doProjectPaladinsSmite` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt#step:doProjectRangerFavoredEnemy` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectRangerFavoredEnemy#step:doProjectRangerFavoredEnemy` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt#step:doProjectSorcererDraconicSpells` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectSorcererDraconicSpells#step:doProjectSorcererDraconicSpells` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt#step:doProjectWarlockFiendSpells` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectWarlockFiendSpells#step:doProjectWarlockFiendSpells` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt#step:doLayOnHandsRestoreHpAndRemovePoisoned` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doLayOnHandsRestoreHpAndRemovePoisoned#step:doLayOnHandsRestoreHpAndRemovePoisoned` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectFighterLevelOne` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectFighterLevelOne#step:doProjectFighterLevelOne` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectFighterLevelTwo` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectFighterLevelTwo#step:doProjectFighterLevelTwo` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectMinimumHigherLevelGain` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectMinimumHigherLevelGain#step:doProjectMinimumHigherLevelGain` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectReducedEffectiveMaximum` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectReducedEffectiveMaximum#step:doProjectReducedEffectiveMaximum` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectSorcererDraconicResilience` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectSorcererDraconicResilience#step:doProjectSorcererDraconicResilience` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt#step:doProjectWizardFighterMulticlass` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectWizardFighterMulticlass#step:doProjectWizardFighterMulticlass` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doCompleteLongRestRestoresHpHitPointDiceAndMaximum` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doCompleteLongRestRestoresHpHitPointDiceAndMaximum#step:doCompleteLongRestRestoresHpHitPointDiceAndMaximum` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doInterruptLongRestBeforeOneHourNoBenefit` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptLongRestBeforeOneHourNoBenefit#step:doInterruptLongRestBeforeOneHourNoBenefit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doInterruptLongRestWithShortRestBenefits` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptLongRestWithShortRestBenefits#step:doInterruptLongRestWithShortRestBenefits` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doInterruptShortRestNoBenefit` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptShortRestNoBenefit#step:doInterruptShortRestNoBenefit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestBeforeSixteenHourWait` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectLongRestBeforeSixteenHourWait#step:doRejectLongRestBeforeSixteenHourWait` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestDurationTooShort` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectLongRestDurationTooShort#step:doRejectLongRestDurationTooShort` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestInterruptionAtRequiredDuration` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectLongRestInterruptionAtRequiredDuration#step:doRejectLongRestInterruptionAtRequiredDuration` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestPhysicalExertionTooShort` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectLongRestPhysicalExertionTooShort#step:doRejectLongRestPhysicalExertionTooShort` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectLongRestStartAtZeroHp` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectLongRestStartAtZeroHp#step:doRejectLongRestStartAtZeroHp` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectShortRestDurationTooShort` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectShortRestDurationTooShort#step:doRejectShortRestDurationTooShort` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doRejectShortRestStartAtZeroHp` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectShortRestStartAtZeroHp#step:doRejectShortRestStartAtZeroHp` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doSpendShortRestHitPointDiceSequentially` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSpendShortRestHitPointDiceSequentially#step:doSpendShortRestHitPointDiceSequentially` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt#step:doSpendShortRestHitPointDie` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSpendShortRestHitPointDie#step:doSpendShortRestHitPointDie` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots#step:doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doInterruptLongRestBeforeOneHourNoSlotBenefit` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptLongRestBeforeOneHourNoSlotBenefit#step:doInterruptLongRestBeforeOneHourNoSlotBenefit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doInterruptLongRestWithShortRestSlotBenefits` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptLongRestWithShortRestSlotBenefits#step:doInterruptLongRestWithShortRestSlotBenefits` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doInterruptShortRestNoSlotBenefit` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInterruptShortRestNoSlotBenefit#step:doInterruptShortRestNoSlotBenefit` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doMagicalCunningRecoversPactSlots` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doMagicalCunningRecoversPactSlots#step:doMagicalCunningRecoversPactSlots` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doRejectArcaneRecoveryPactSlotRefund` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectArcaneRecoveryPactSlotRefund#step:doRejectArcaneRecoveryPactSlotRefund` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doRejectMagicalCunningWithoutExpendedPactSlots` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectMagicalCunningWithoutExpendedPactSlots#step:doRejectMagicalCunningWithoutExpendedPactSlots` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doRejectMismatchedOrdinarySpellSlotCapacity` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectMismatchedOrdinarySpellSlotCapacity#step:doRejectMismatchedOrdinarySpellSlotCapacity` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doRejectPactSlotExpenditureOverCapacity` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectPactSlotExpenditureOverCapacity#step:doRejectPactSlotExpenditureOverCapacity` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doShortRestArcaneRecoveryRefundsOrdinarySpellSlot` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doShortRestArcaneRecoveryRefundsOrdinarySpellSlot#step:doShortRestArcaneRecoveryRefundsOrdinarySpellSlot` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt#step:doShortRestRestoresPactSlotsOnly` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doShortRestRestoresPactSlotsOnly#step:doShortRestRestoresPactSlotsOnly` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt#step:doInvokeSpellbookRitual` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doInvokeSpellbookRitual#step:doInvokeSpellbookRitual` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt#step:doRejectMissingRitualAccessFeature` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectMissingRitualAccessFeature#step:doRejectMissingRitualAccessFeature` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt#step:doRejectNonLeveledRitualSpellbookSpell` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectNonLeveledRitualSpellbookSpell#step:doRejectNonLeveledRitualSpellbookSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt#step:doRejectNonRitualSpellbookSpell` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectNonRitualSpellbookSpell#step:doRejectNonRitualSpellbookSpell` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt#step:doRejectPreparedOnlyRitual` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectPreparedOnlyRitual#step:doRejectPreparedOnlyRitual` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doAcceptOneChangeWeaponMasteryReselection` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doAcceptOneChangeWeaponMasteryReselection#step:doAcceptOneChangeWeaponMasteryReselection` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doRejectTooManyChangesWeaponMasteryReselection` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doRejectTooManyChangesWeaponMasteryReselection#step:doRejectTooManyChangesWeaponMasteryReselection` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doReselectPaladinWeaponMasteryOnLongRest` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doReselectPaladinWeaponMasteryOnLongRest#step:doReselectPaladinWeaponMasteryOnLongRest` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doReselectRangerWeaponMasteryOnLongRest` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doReselectRangerWeaponMasteryOnLongRest#step:doReselectRangerWeaponMasteryOnLongRest` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doReselectRogueWeaponMasteryOnLongRest` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doReselectRogueWeaponMasteryOnLongRest#step:doReselectRogueWeaponMasteryOnLongRest` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doSelectPaladinWeaponMastery` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectPaladinWeaponMastery#step:doSelectPaladinWeaponMastery` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doSelectRangerWeaponMastery` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectRangerWeaponMastery#step:doSelectRangerWeaponMastery` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt#step:doSelectRogueWeaponMastery` | `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doSelectRogueWeaponMastery#step:doSelectRogueWeaponMastery` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json`
+- Target profile: `rust`
+- Reproduction seed or trace id: `L15-RR09-CHARACTER-SHEET-ROUTES route action=<branchAction>`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
 
 ## L15-RR08-CHARACTER-CREATION-ROUTES: Character Creation Routes
 

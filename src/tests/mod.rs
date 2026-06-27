@@ -146,8 +146,12 @@ mod character_creation_weapon_mastery_containers_selected_identity;
 mod character_layer_projection_lifecycle;
 #[path = "../qnt_adapters/character_sheet_ability_check_proficiency_bonus.rs"]
 mod character_sheet_ability_check_proficiency_bonus;
+#[path = "../qnt_adapters/character_sheet_arcane_recovery_selected_identity.rs"]
+mod character_sheet_arcane_recovery_selected_identity;
 #[path = "../qnt_adapters/character_sheet_armor_class_base_selected_identity.rs"]
 mod character_sheet_armor_class_base_selected_identity;
+#[path = "../qnt_adapters/character_sheet_class_feature_selected_identity.rs"]
+mod character_sheet_class_feature_selected_identity;
 #[path = "../qnt_adapters/character_sheet_feature_resources.rs"]
 mod character_sheet_feature_resources;
 #[path = "../qnt_adapters/character_sheet_healing_resource_selected_identity.rs"]
@@ -156,6 +160,10 @@ mod character_sheet_healing_resource_selected_identity;
 mod character_sheet_hit_point_maximum;
 #[path = "../qnt_adapters/character_sheet_hp_rest_hit_dice.rs"]
 mod character_sheet_hp_rest_hit_dice;
+#[path = "../qnt_adapters/character_sheet_reducer_route.rs"]
+mod character_sheet_reducer_route;
+#[path = "../qnt_adapters/character_sheet_spell_slots_pact_slots.rs"]
+mod character_sheet_spell_slots_pact_slots;
 #[path = "../qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs"]
 mod character_sheet_spellbook_ritual_selected_identity;
 #[path = "../qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs"]
@@ -1060,9 +1068,18 @@ use character_layer_projection_lifecycle::{
 use character_sheet_ability_check_proficiency_bonus::{
     expected_expertise_witness, expected_jack_of_all_trades_level_two_witness,
     expected_jack_of_all_trades_rounded_down_witness, expected_missing_bard_level_two_witness,
-    expected_other_proficiency_bonus_witness, expected_skill_proficiency_witness,
-    projection_payload as ability_check_projection_payload,
+    expected_other_proficiency_bonus_witness, expected_route as expected_ability_check_route,
+    expected_skill_proficiency_witness, projection_payload as ability_check_projection_payload,
     replay_observed_action as replay_ability_check_action,
+    replay_observed_route as replay_ability_check_route,
+};
+use character_sheet_arcane_recovery_selected_identity::{
+    expected_route as expected_arcane_recovery_route,
+    expected_witness as expected_arcane_recovery_witness,
+    projection_payload as arcane_recovery_projection_payload,
+    replay_observed_action as replay_arcane_recovery_action,
+    replay_observed_route as replay_arcane_recovery_route,
+    BRANCH_ACTIONS as ARCANE_RECOVERY_BRANCH_ACTIONS,
 };
 use character_sheet_armor_class_base_selected_identity::{
     expected_barbarian_unarmored_defense_with_shield_witness,
@@ -1071,6 +1088,14 @@ use character_sheet_armor_class_base_selected_identity::{
     expected_monk_unarmored_defense_witness, projection_payload as armor_class_projection_payload,
     replay_observed_action as replay_armor_class_action,
 };
+use character_sheet_class_feature_selected_identity::{
+    expected_route as expected_sheet_class_feature_route,
+    expected_witness as expected_sheet_class_feature_witness,
+    projection_payload as sheet_class_feature_projection_payload,
+    replay_observed_action as replay_sheet_class_feature_action,
+    replay_observed_route as replay_sheet_class_feature_route,
+    BRANCH_ACTIONS as SHEET_CLASS_FEATURE_BRANCH_ACTIONS,
+};
 use character_sheet_feature_resources::{
     expected_witness as expected_sheet_feature_resource_witness,
     projection_payload as sheet_feature_resource_projection_payload,
@@ -1078,8 +1103,10 @@ use character_sheet_feature_resources::{
     BRANCH_ACTIONS as SHEET_FEATURE_RESOURCE_BRANCH_ACTIONS,
 };
 use character_sheet_healing_resource_selected_identity::{
-    expected_lay_on_hands_witness, projection_payload as healing_resource_projection_payload,
+    expected_lay_on_hands_witness, expected_route as expected_healing_resource_route,
+    projection_payload as healing_resource_projection_payload,
     replay_observed_action as replay_healing_resource_action,
+    replay_observed_route as replay_healing_resource_route,
 };
 use character_sheet_hit_point_maximum::{
     expected_witness as expected_hit_point_maximum_witness,
@@ -1093,16 +1120,28 @@ use character_sheet_hp_rest_hit_dice::{
     replay_observed_action as replay_hp_rest_hit_dice_action,
     BRANCH_ACTIONS as HP_REST_HIT_DICE_BRANCH_ACTIONS,
 };
+use character_sheet_reducer_route::character_sheet_route_payload;
+use character_sheet_spell_slots_pact_slots::{
+    expected_route as expected_spell_slots_route, expected_witness as expected_spell_slots_witness,
+    projection_payload as spell_slots_projection_payload,
+    replay_observed_action as replay_spell_slots_action,
+    replay_observed_route as replay_spell_slots_route,
+    BRANCH_ACTIONS as SPELL_SLOTS_BRANCH_ACTIONS,
+};
 use character_sheet_spellbook_ritual_selected_identity::{
+    expected_route as expected_spellbook_ritual_route,
     expected_witness as expected_spellbook_ritual_witness,
     projection_payload as spellbook_ritual_projection_payload,
     replay_observed_action as replay_spellbook_ritual_action,
+    replay_observed_route as replay_spellbook_ritual_route,
     BRANCH_ACTIONS as SPELLBOOK_RITUAL_BRANCH_ACTIONS,
 };
 use character_sheet_weapon_mastery_containers_selected_identity::{
+    expected_route as expected_sheet_weapon_mastery_route,
     expected_witness as expected_sheet_weapon_mastery_witness,
     projection_payload as sheet_weapon_mastery_projection_payload,
     replay_observed_action as replay_sheet_weapon_mastery_action,
+    replay_observed_route as replay_sheet_weapon_mastery_route,
     BRANCH_ACTIONS as SHEET_WEAPON_MASTERY_BRANCH_ACTIONS,
 };
 use creature_attack_mbt::{
@@ -1589,6 +1628,21 @@ fn ability_check_proficiency_adapter_replays_all_branches() {
     assert_eq!(other, expected_other_proficiency_bonus_witness());
     assert_eq!(missing_bard, expected_missing_bard_level_two_witness());
     assert!(ability_check_projection_payload(&expertise).contains("bonus=6"));
+
+    for action in [
+        "doProjectJackOfAllTradesLevelTwo",
+        "doProjectJackOfAllTradesRoundedDown",
+        "doProjectSkillProficiency",
+        "doProjectExpertise",
+        "doRejectOtherProficiencyBonus",
+        "doRejectMissingBardLevelTwo",
+    ] {
+        let observed_route = replay_ability_check_route(action);
+        assert_eq!(observed_route, expected_ability_check_route(action));
+        assert!(
+            character_sheet_route_payload(&observed_route).contains("SheetAbilityCheckProjection")
+        );
+    }
 }
 
 #[test]
@@ -1616,6 +1670,24 @@ fn ability_check_proficiency_prefers_training_over_jack_of_all_trades() {
     assert_eq!(proficient.bonus, 3);
     assert_eq!(blocked_jack.kind, AbilityCheckProficiencyBonusKind::None);
     assert_eq!(blocked_jack.bonus, 0);
+}
+
+#[test]
+fn sheet_arcane_recovery_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/character-sheet-runtime/
+    // character-sheet-arcane-recovery-selected-identity.mbt.qnt and
+    // character-sheet-arcane-recovery-selected-identity.route.mbt.qnt;
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Wizard.md
+    // "Level 1: Arcane Recovery".
+    for action in ARCANE_RECOVERY_BRANCH_ACTIONS {
+        let observed = replay_arcane_recovery_action(action);
+        let observed_route = replay_arcane_recovery_route(action);
+
+        assert_eq!(observed, expected_arcane_recovery_witness(action));
+        assert_eq!(observed_route, expected_arcane_recovery_route(action));
+        assert!(arcane_recovery_projection_payload(&observed).contains("featureUnitId="));
+        assert!(character_sheet_route_payload(&observed_route).contains("SheetSpellResource"));
+    }
 }
 
 #[test]
@@ -1683,15 +1755,40 @@ fn armor_class_projection_caps_medium_dex_and_requires_trained_shield() {
 }
 
 #[test]
+fn sheet_class_feature_selected_identity_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/character-sheet-runtime/
+    // character-sheet-class-feature-selected-identity.mbt.qnt and
+    // character-sheet-class-feature-selected-identity.route.mbt.qnt;
+    // RAW: Character-Creation.md "Record Class Features" and
+    // Spells/Gaining-and-Casting.md "Always-Prepared Spells".
+    for action in SHEET_CLASS_FEATURE_BRANCH_ACTIONS {
+        let observed = replay_sheet_class_feature_action(action);
+        let observed_route = replay_sheet_class_feature_route(action);
+
+        assert_eq!(observed, expected_sheet_class_feature_witness(action));
+        assert_eq!(observed_route, expected_sheet_class_feature_route(action));
+        assert!(sheet_class_feature_projection_payload(&observed).contains("accepted=true"));
+        assert!(character_sheet_route_payload(&observed_route)
+            .contains("SheetSelectedReferenceProjection"));
+    }
+}
+
+#[test]
 fn healing_resource_adapter_replays_lay_on_hands_branch() {
     // QNT: cleanroom-input/qnt/character-sheet-runtime/
     // character-sheet-healing-resource-selected-identity.mbt.qnt;
     // shared algebra: cleanroom-input/qnt/shared-algebras/proofs/rule-core/
     // lay-on-hands-resource.qnt.
     let observed = replay_healing_resource_action("doLayOnHandsRestoreHpAndRemovePoisoned");
+    let observed_route = replay_healing_resource_route("doLayOnHandsRestoreHpAndRemovePoisoned");
 
     assert_eq!(observed, expected_lay_on_hands_witness());
+    assert_eq!(
+        observed_route,
+        expected_healing_resource_route("doLayOnHandsRestoreHpAndRemovePoisoned")
+    );
     assert!(healing_resource_projection_payload(&observed).contains("poolRemaining=3"));
+    assert!(character_sheet_route_payload(&observed_route).contains("SheetFeatureResource"));
 }
 
 #[test]
@@ -1814,6 +1911,24 @@ fn hp_rest_hit_dice_spending_caps_healing_and_long_rest_resets() {
 }
 
 #[test]
+fn sheet_spell_slots_pact_slots_adapter_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/character-sheet-runtime/
+    // character-sheet-spell-slots-pact-slots.mbt.qnt and
+    // character-sheet-spell-slots-pact-slots.route.mbt.qnt; RAW:
+    // Spells/Gaining-and-Casting.md "Spell Slots", Warlock.md "Pact Magic"
+    // and "Magical Cunning", Wizard.md "Arcane Recovery".
+    for action in SPELL_SLOTS_BRANCH_ACTIONS {
+        let observed = replay_spell_slots_action(action);
+        let observed_route = replay_spell_slots_route(action);
+
+        assert_eq!(observed, expected_spell_slots_witness(action));
+        assert_eq!(observed_route, expected_spell_slots_route(action));
+        assert!(spell_slots_projection_payload(&observed).contains("replayIndex="));
+        assert!(character_sheet_route_payload(&observed_route).contains("Sheet"));
+    }
+}
+
+#[test]
 fn spellbook_ritual_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/character-sheet-runtime/
     // character-sheet-spellbook-ritual-selected-identity.mbt.qnt;
@@ -1821,8 +1936,12 @@ fn spellbook_ritual_adapter_replays_all_branches() {
     // spellbook-ritual-access.qnt.
     for action in SPELLBOOK_RITUAL_BRANCH_ACTIONS {
         let observed = replay_spellbook_ritual_action(action);
+        let observed_route = replay_spellbook_ritual_route(action);
         assert_eq!(observed, expected_spellbook_ritual_witness(action));
+        assert_eq!(observed_route, expected_spellbook_ritual_route(action));
         assert!(spellbook_ritual_projection_payload(&observed).contains("lastResult="));
+        assert!(character_sheet_route_payload(&observed_route)
+            .contains("SheetSelectedReferenceProjection"));
     }
 }
 
@@ -1880,8 +1999,12 @@ fn sheet_weapon_mastery_adapter_replays_all_branches() {
     // weapon-mastery-reselection.qnt.
     for action in SHEET_WEAPON_MASTERY_BRANCH_ACTIONS {
         let observed = replay_sheet_weapon_mastery_action(action);
+        let observed_route = replay_sheet_weapon_mastery_route(action);
         assert_eq!(observed, expected_sheet_weapon_mastery_witness(action));
+        assert_eq!(observed_route, expected_sheet_weapon_mastery_route(action));
         assert!(sheet_weapon_mastery_projection_payload(&observed).contains("choiceCount=2"));
+        assert!(character_sheet_route_payload(&observed_route)
+            .contains("SheetSelectedReferenceProjection"));
     }
 }
 

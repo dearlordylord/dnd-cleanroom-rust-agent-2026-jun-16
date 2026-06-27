@@ -1,4 +1,5 @@
 {
+  "schemaVersion": 1,
   "assignments": [
     {
       "assignmentId": "reducer-spine-diagnostic-battle",
@@ -169,6 +170,21 @@
           ]
         },
         {
+          "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
+          "queue": [
+            "cleanroom-input/qnt/character-sheet-runtime/character-sheet-ability-check-proficiency-bonus.mbt.qnt",
+            "cleanroom-input/qnt/character-sheet-runtime/character-sheet-arcane-recovery-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-sheet-runtime/character-sheet-armor-class-base-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-sheet-runtime/character-sheet-class-feature-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-sheet-runtime/character-sheet-healing-resource-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt",
+            "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hp-rest-hit-dice.mbt.qnt",
+            "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt",
+            "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spellbook-ritual-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt"
+          ]
+        },
+        {
           "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
           "queue": [
             "cleanroom-input/qnt/character-creation-runtime/character-creation-class-feature-projections.mbt.qnt",
@@ -330,6 +346,5 @@
         }
       ]
     }
-  ],
-  "schemaVersion": 1
+  ]
 }
