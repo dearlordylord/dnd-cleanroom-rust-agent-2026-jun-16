@@ -1465,6 +1465,7 @@ pub enum BattleConcentrationFill {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleResolutionInvalidReason {
     InvalidFill,
+    MetamagicOptionEffectMismatch,
     StaleSubject,
     WrongActor,
     WrongTarget,
@@ -4195,6 +4196,13 @@ fn resolve_metamagic_option_spell_subject(
     subject: BattleSubject,
     fill: BattleMetamagicOptionSpellFill,
 ) -> BattleResolutionResult {
+    if !metamagic_option_effect_matches_modification(fill.option_facts.modification, fill.effect) {
+        return BattleResolutionResult::Invalid {
+            state,
+            reason: BattleResolutionInvalidReason::MetamagicOptionEffectMismatch,
+            holes: Vec::new(),
+        };
+    }
     if !fill.option_facts.selected_option_admitted {
         return rejected_metamagic_option_spell_result(
             state,
@@ -4302,6 +4310,46 @@ fn resolve_metamagic_option_spell_subject(
     }
 
     BattleResolutionResult::Resolved { state }
+}
+
+const fn metamagic_option_effect_matches_modification(
+    modification: BattleMetamagicSpellModification,
+    effect: BattleMetamagicOptionSpellEffect,
+) -> bool {
+    match modification {
+        BattleMetamagicSpellModification::ActionCastingTimeToBonusAction => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::HitPointRestoration { .. }
+                | BattleMetamagicOptionSpellEffect::SaveGatedCondition
+                | BattleMetamagicOptionSpellEffect::SaveGatedConditionImmunity
+                | BattleMetamagicOptionSpellEffect::DirectCondition
+                | BattleMetamagicOptionSpellEffect::RollModifier
+                | BattleMetamagicOptionSpellEffect::SaveGatedDamage { .. }
+                | BattleMetamagicOptionSpellEffect::SpellAttack { .. }
+                | BattleMetamagicOptionSpellEffect::SpellAttackSequence { .. }
+        ),
+        BattleMetamagicSpellModification::SpellDamageDiceReroll => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::DamageReroll { .. }
+        ),
+        BattleMetamagicSpellModification::MissedSpellAttackD20Reroll => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::SpellAttackReroll { .. }
+        ),
+        BattleMetamagicSpellModification::SpellComponentSuppression => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::ComponentSuppressedHitPointBuff { .. }
+        ),
+        BattleMetamagicSpellModification::SpellDamageTypeSubstitution => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSaveGatedDamage { .. }
+                | BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSpellAttack { .. }
+        ),
+        BattleMetamagicSpellModification::SpellDurationExtension => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::DurationExtension { .. }
+        ),
+    }
 }
 
 fn rejected_metamagic_option_spell_result(
@@ -4640,6 +4688,7 @@ fn scalar_buff_protocol_from_result(result: &BattleResolutionResult) -> ScalarBu
         }
         BattleResolutionOutcome::Invalid(
             BattleResolutionInvalidReason::InvalidFill
+            | BattleResolutionInvalidReason::MetamagicOptionEffectMismatch
             | BattleResolutionInvalidReason::WrongActor
             | BattleResolutionInvalidReason::WrongTarget,
         ) => ScalarBuffTargetProtocol::Invalid(ScalarBuffTargetInvalidReason::StaleSubject),
@@ -6235,6 +6284,9 @@ fn battle_resolution_route_owner(
             BattleResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill) => {
                 BattleReducerRouteOwnerGroup::FeatureResource
             }
+            BattleResolutionOutcome::Invalid(
+                BattleResolutionInvalidReason::MetamagicOptionEffectMismatch,
+            ) => BattleReducerRouteOwnerGroup::FeatureResource,
             BattleResolutionOutcome::Invalid(
                 BattleResolutionInvalidReason::WrongActor
                 | BattleResolutionInvalidReason::WrongTarget,

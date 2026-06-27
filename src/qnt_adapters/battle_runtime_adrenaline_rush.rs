@@ -226,6 +226,9 @@ fn invalid_reason_ref(
 fn battle_invalid_reason_ref(reason: BattleResolutionInvalidReason) -> &'static str {
     match reason {
         BattleResolutionInvalidReason::InvalidFill => "invalidFill",
+        BattleResolutionInvalidReason::MetamagicOptionEffectMismatch => {
+            "metamagicOptionEffectMismatch"
+        }
         BattleResolutionInvalidReason::StaleSubject => "staleSubject",
         BattleResolutionInvalidReason::WrongActor => "wrongActor",
         BattleResolutionInvalidReason::WrongTarget => "wrongTarget",

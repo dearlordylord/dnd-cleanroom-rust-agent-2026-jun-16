@@ -988,6 +988,9 @@ fn outcome_ref(outcome: ReducerRouteResolutionOutcome) -> &'static str {
         ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill) => {
             "invalid:InvalidFill"
         }
+        ReducerRouteResolutionOutcome::Invalid(
+            BattleResolutionInvalidReason::MetamagicOptionEffectMismatch,
+        ) => "invalid:MetamagicOptionEffectMismatch",
         ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::StaleSubject) => {
             "invalid:StaleSubject"
         }

@@ -290,6 +290,7 @@ fn invalid_protocol(reason: BattleResolutionInvalidReason) -> DeathSavingThrowPr
             DeathSavingThrowProtocol::Invalid(DeathSavingThrowInvalidReason::WrongActor)
         }
         BattleResolutionInvalidReason::InvalidFill
+        | BattleResolutionInvalidReason::MetamagicOptionEffectMismatch
         | BattleResolutionInvalidReason::StaleSubject
         | BattleResolutionInvalidReason::WrongTarget => {
             DeathSavingThrowProtocol::Invalid(DeathSavingThrowInvalidReason::InvalidFill)

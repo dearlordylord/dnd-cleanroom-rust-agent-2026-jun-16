@@ -6867,6 +6867,70 @@ fn empowered_spell_projects_damage_reroll_case() {
 }
 
 #[test]
+fn metamagic_option_spell_rejects_mismatched_option_facts_and_effect() {
+    use crate::rules::battle_reducer_spine::{
+        discover_battle_acts, resolve_battle_subject, start_metamagic_option_spell_battle,
+        BattleMetamagicOptionFacts, BattleMetamagicOptionSpellEffect,
+        BattleMetamagicOptionSpellFill, BattleMetamagicOptionSpellProjection,
+        BattleResolutionInvalidReason, BattleResolutionRequest, BattleResolutionResult,
+        BattleSubjectKind,
+    };
+    use crate::rules::feature_resources::resource_pool_remaining;
+
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Metamagic"; component suppression and damage dice rerolls are distinct
+    // option modifications, so a fill cannot use one option's facts to route
+    // and another option's effect to project.
+    let state = start_metamagic_option_spell_battle(4);
+    let subject = discover_battle_acts(&state)
+        .into_available_acts()
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::MetamagicOptionSpell)
+        .expect("metamagic option spell subject should be discoverable")
+        .subject;
+    let request = BattleResolutionRequest::metamagic_option_spell(
+        subject,
+        BattleMetamagicOptionSpellFill {
+            option_facts: BattleMetamagicOptionFacts::spell_component_suppression(),
+            effect: BattleMetamagicOptionSpellEffect::DamageReroll {
+                target_hit_points_after: 1,
+                target_active_effect_count: 1,
+            },
+            options_already_applied_to_spell: 0,
+            selected_second_option_supported: true,
+            spell_uses_level_one_plus_slot: true,
+        },
+    )
+    .expect("metamagic option subject should accept metamagic option fills");
+
+    let BattleResolutionResult::Invalid {
+        state,
+        reason,
+        holes,
+    } = resolve_battle_subject(state, request)
+    else {
+        panic!("mismatched metamagic option facts and effect should be rejected");
+    };
+
+    assert_eq!(
+        reason,
+        BattleResolutionInvalidReason::MetamagicOptionEffectMismatch
+    );
+    assert!(holes.is_empty());
+    assert!(state.action_available);
+    assert!(state.bonus_action_available);
+    assert_eq!(
+        resource_pool_remaining(state.feature_resources.sorcery_points),
+        4
+    );
+    assert_eq!(state.skeleton.hp, 10);
+    assert_eq!(
+        state.feature_substrates.metamagic_option_spell.projection,
+        BattleMetamagicOptionSpellProjection::Init
+    );
+}
+
+#[test]
 fn extended_spell_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt;
