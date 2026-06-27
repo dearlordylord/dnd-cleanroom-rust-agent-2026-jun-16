@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-01` | `ralph/fexp-01-diagnostic-battle-route-pack` | `574c99d28ef2fe8779c500dad34879efa7aa4177` | Mencius the 2nd (`019f0acb-0a8f-79b0-a25a-d17dc816d6cd`) | pending | running |
+| _none_ | | | | | | |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -111,4 +111,5 @@ When launching a lane:
 
 | Lane | Path | Branch | Target Commit | Base Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`; removed branch worktree `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-01` | standalone fresh target `master` / removed `ralph/fexp-01-diagnostic-battle-route-pack` worktree | `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639` | `574c99d28ef2fe8779c500dad34879efa7aa4177` | Mencius the 2nd (`019f0acb-0a8f-79b0-a25a-d17dc816d6cd`) plus Gibbs the 2nd (`019f0ada-caf7-7081-b7bc-6a82930b2cb2`) | Maxwell the 2nd (`019f0ad6-dfc1-7490-beb9-7d5d7017a3e4`) and Nash the 2nd (`019f0ae4-031f-7ae0-9247-8958c1d51d9b`) | accepted and merged; route evidence strengthened to regenerate expected records from connector action bodies and observed records from public reducer entrypoint example; branch worktree removed after merge |
 | FEXP-00-BASELINE-LOCK | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`; removed branch worktree `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-00` | standalone fresh target `master` / removed `ralph/fexp-00-baseline-lock` worktree | `574c99d28ef2fe8779c500dad34879efa7aa4177` | `a30e6729711ddc3f595cf008931ba5cd6265c58a` | Kant the 2nd (`019f0abd-0855-7ba1-9b55-eb0c84d83f7c`) | Newton the 2nd (`019f0ac0-b67b-71e1-87b8-1e4087aad7db`) | accepted and merged; baseline expansion state only, no runtime coverage claimed; branch worktree removed after merge |

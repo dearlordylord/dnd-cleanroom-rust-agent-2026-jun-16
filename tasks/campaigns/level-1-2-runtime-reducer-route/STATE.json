@@ -2767,19 +2767,19 @@
     }
   },
   "nextWorkRecommendations": [
-    "Launch FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK from accepted fresh target head 574c99d28ef2fe8779c500dad34879efa7aa4177 using FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json.",
-    "Use the accepted fresh target at 574c99d28ef2fe8779c500dad34879efa7aa4177 as the current strongest evidence for SDK composition, Pact Slot handoff replay, and FEXP-00 expansion baseline lock, verified by python3 tools/verify_current_fresh_target.py.",
+    "Launch FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK from accepted fresh target head a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639 using FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json.",
+    "Use the accepted fresh target at a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639 as the current strongest evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, and FEXP-01 diagnostic battle route evidence, verified by python3 tools/verify_current_fresh_target.py.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "running",
-    "activeLane": "FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK",
+    "status": "fexp01-accepted",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "574c99d28ef2fe8779c500dad34879efa7aa4177",
+    "acceptedTargetHead": "a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -2802,14 +2802,42 @@
           "git diff --check a30e6729711ddc3f595cf008931ba5cd6265c58a...HEAD"
         ],
         "coverageClaim": "baseline expansion state only; no new runtime coverage claimed"
+      },
+      {
+        "laneId": "FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK",
+        "status": "accepted",
+        "baseCommit": "574c99d28ef2fe8779c500dad34879efa7aa4177",
+        "targetCommit": "a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639",
+        "workerAgent": "Mencius the 2nd (019f0acb-0a8f-79b0-a25a-d17dc816d6cd); fixer Gibbs the 2nd (019f0ada-caf7-7081-b7bc-6a82930b2cb2)",
+        "reviewerAgent": "Maxwell the 2nd (019f0ad6-dfc1-7490-beb9-7d5d7017a3e4); clean re-review Nash the 2nd (019f0ae4-031f-7ae0-9247-8958c1d51d9b)",
+        "artifacts": [
+          "EVIDENCE/fexp01-diagnostic-battle-route-pack.json",
+          "examples/fexp01_route_observations.rs",
+          "tools/verify_fexp01.py",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "STATE_OWNERS.md"
+        ],
+        "checks": [
+          "python3 tools/verify_current_fresh_target.py",
+          "python3 tools/verify_fexp01.py",
+          "cargo run --quiet --example fexp01_route_observations",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "static forbidden-path scan over fresh target files",
+          "static production-source authored-identity dispatch search",
+          "git diff --check 574c99d28ef2fe8779c500dad34879efa7aa4177...HEAD"
+        ],
+        "coverageClaim": "new runtime coverage accepted for Magic Missile slot-spell route, HP restoration ordering, Death Saving Throw, and Concentration teardown; verifier regenerates expected records from connector action bodies and observed records from public reducer entrypoints"
       }
     ],
-    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-01",
-    "activeBranch": "ralph/fexp-01-diagnostic-battle-route-pack",
-    "activeLaneBaseCommit": "574c99d28ef2fe8779c500dad34879efa7aa4177",
-    "workerAgent": "Mencius the 2nd (019f0acb-0a8f-79b0-a25a-d17dc816d6cd)",
+    "activeWorktree": null,
+    "activeBranch": null,
+    "activeLaneBaseCommit": null,
+    "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK"
+    "nextPlannedLane": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK"
   },
   "sdkTracerBullet": {
     "status": "reviewed-accepted",

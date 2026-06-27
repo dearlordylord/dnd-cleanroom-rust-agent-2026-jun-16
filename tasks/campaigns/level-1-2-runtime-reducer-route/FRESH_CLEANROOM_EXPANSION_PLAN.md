@@ -2,12 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: proposed next campaign boundary
+Status: FEXP-01 accepted; continue from FEXP-02
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
-- accepted fresh target head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
+- expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
+- current accepted fresh target head: `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `b57772b459f1b75592fd45b9196fd60965b534d3`
 
@@ -82,6 +83,12 @@ evidence for the remaining small diagnostic battle connectors.
 Preferred lane:
 
 - `FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK`
+
+Status:
+
+- accepted at fresh target head `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639`;
+- verifier regenerates expected records from connector action bodies and
+  observed records from the Rust public reducer-entrypoint example.
 
 Why first:
 

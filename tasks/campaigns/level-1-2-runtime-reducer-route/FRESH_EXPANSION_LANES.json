@@ -30,7 +30,7 @@
     {
       "laneId": "FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK",
       "checkpointId": "FEXP-CP1",
-      "status": "running",
+      "status": "merged",
       "routeClass": "reducer-routed",
       "purpose": "Convert FC-01 diagnostic reducer substrate support into focused current-package route evidence for small battle lifecycle drivers.",
       "drivers": [
@@ -51,7 +51,7 @@
         "STATE_OWNERS.md additions if new durable owners are introduced",
         "verifier update for FEXP-01 evidence"
       ],
-      "acceptanceSummary": "Observed route events for slot-spell, HP restoration, Death Saving Throw, and Concentration teardown come from reducer entrypoints with independent connector-derived expected records."
+      "acceptanceSummary": "Observed route events for slot-spell, HP restoration, Death Saving Throw, and Concentration teardown come from reducer entrypoints. The verifier regenerates expected records from connector action bodies and observed records from a Rust public-entrypoint example."
     },
     {
       "laneId": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK",
