@@ -372,7 +372,10 @@
         "node scripts/check-cleanroom-harness.cjs",
         "focused tests for weapon mastery selected identity, Dragonborn Breath Weapon, and feature selected identity",
         "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
-      ]
+      ],
+      "fixer2Agent": "019f073c-aa3b-7182-8769-82593a36eb71",
+      "fixer2Name": "Averroes",
+      "fix2Status": "running"
     }
   ],
   "completedLaneWorktrees": [
