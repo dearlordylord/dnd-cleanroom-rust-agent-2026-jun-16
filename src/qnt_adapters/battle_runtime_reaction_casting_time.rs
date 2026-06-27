@@ -1,14 +1,14 @@
 use crate::rules::battle_reducer_spine::{
     reaction_casting_time_projection_from_battle, resolve_hellish_rebuke_after_damage_battle,
-    start_reaction_casting_time_battle, BattleReactionCastingContinuation,
-    BattleReactionCastingOutcome, BattleReactionCastingTimeProjection,
-    BattleReactionCastingTrigger,
+    resolve_hellish_rebuke_after_damage_battle_observed, start_reaction_casting_time_battle,
+    BattleReactionCastingContinuation, BattleReactionCastingOutcome,
+    BattleReactionCastingTimeProjection, BattleReactionCastingTrigger, BattleReducerRouteTrace,
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_route_holes,
-    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
-    ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+    reducer_route_events_from_battle_trace, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_route_holes, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -68,7 +68,17 @@ pub fn expected_witness(observed_action_taken: &str) -> ReactionCastingTimeWitne
 }
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    expected_route(observed_action_taken)
+    match observed_action_taken {
+        "doHellishRebukeAfterDamage" => {
+            let mut trace = BattleReducerRouteTrace::default();
+            let _ = resolve_hellish_rebuke_after_damage_battle_observed(
+                start_reaction_casting_time_battle(),
+                &mut trace,
+            );
+            reducer_route_events_from_battle_trace(&trace)
+        }
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {

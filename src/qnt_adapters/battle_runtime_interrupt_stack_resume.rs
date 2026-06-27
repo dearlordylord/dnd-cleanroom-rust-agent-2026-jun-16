@@ -1,8 +1,11 @@
 use crate::rules::battle_reducer_spine::{
     interrupt_stack_resume_projection_from_battle,
     resolve_interrupted_attack_after_reaction_mutation_battle,
-    resolve_nested_interrupt_decline_battle, resolve_recorded_attack_replay_from_root_battle,
-    start_interrupt_stack_resume_battle,
+    resolve_interrupted_attack_after_reaction_mutation_battle_observed,
+    resolve_nested_interrupt_decline_battle, resolve_nested_interrupt_decline_battle_observed,
+    resolve_recorded_attack_replay_from_root_battle,
+    resolve_recorded_attack_replay_from_root_battle_observed, start_interrupt_stack_resume_battle,
+    BattleReducerRouteTrace,
 };
 use crate::rules::interrupt_stack_resume::{
     interrupt_stack_resume_initial_state, resolve_interrupted_attack_after_reaction_mutation,
@@ -12,10 +15,10 @@ use crate::rules::interrupt_stack_resume::{
 };
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject,
-    route_resolve_battle_subject_from_route_holes, route_resolve_battle_subject_without_fill,
-    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
-    ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+    reducer_route_events_from_battle_trace, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject, route_resolve_battle_subject_from_route_holes,
+    route_resolve_battle_subject_without_fill, route_start_battle, ReducerRouteEvent,
+    ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -61,7 +64,23 @@ pub fn expected_witness(observed_action_taken: &str) -> InterruptStackResumeWitn
 }
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    expected_route(observed_action_taken)
+    let mut trace = BattleReducerRouteTrace::default();
+    let initial = start_interrupt_stack_resume_battle();
+    match observed_action_taken {
+        "doNestedDeclineResumesOuterInterrupt" => {
+            let _ = resolve_nested_interrupt_decline_battle_observed(initial, &mut trace);
+        }
+        "doReplayRecordedProcedureFromRoot" => {
+            let _ = resolve_recorded_attack_replay_from_root_battle_observed(initial, &mut trace);
+        }
+        "doShieldMutationResumesInterruptedAttack" => {
+            let _ = resolve_interrupted_attack_after_reaction_mutation_battle_observed(
+                initial, &mut trace,
+            );
+        }
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    };
+    reducer_route_events_from_battle_trace(&trace)
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {

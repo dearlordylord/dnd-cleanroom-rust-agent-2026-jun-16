@@ -5661,6 +5661,45 @@ pub fn resolve_hellish_rebuke_after_damage_battle(state: BattleState) -> BattleS
 }
 
 #[must_use]
+pub fn resolve_hellish_rebuke_after_damage_battle_observed(
+    state: BattleState,
+    observer: &mut impl BattleReducerRouteObserver,
+) -> BattleState {
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::ReactionSpell,
+        vec![BattleReducerRouteHoleKind::InterruptDecision],
+        BattleReducerRouteOwnerGroup::InterruptStack,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::ReactionSpell,
+        BattleReducerRouteFillKind::InterruptDecision,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::InterruptStack,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::ReactionSpell,
+        BattleReducerRouteFillKind::InterruptDecision,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::ReactionSpell,
+        BattleReducerRouteFillKind::InterruptDecision,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::HitPoint,
+        observer,
+    );
+    resolve_hellish_rebuke_after_damage_battle(state)
+}
+
+#[must_use]
 pub fn resolve_hellish_rebuke_failed_save_reaction_spell_battle(state: BattleState) -> BattleState {
     // QNT: battle-runtime-reaction-spell-selected-identity.mbt.qnt
     // failed-save selected-identity branch; support QNT:
@@ -5767,6 +5806,45 @@ pub fn resolve_nested_interrupt_decline_battle(state: BattleState) -> BattleStat
 }
 
 #[must_use]
+pub fn resolve_nested_interrupt_decline_battle_observed(
+    state: BattleState,
+    observer: &mut impl BattleReducerRouteObserver,
+) -> BattleState {
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::InterruptStackResume,
+        vec![BattleReducerRouteHoleKind::InterruptDecision],
+        BattleReducerRouteOwnerGroup::InterruptStack,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::InterruptStackResume,
+        BattleReducerRouteFillKind::InterruptDecision,
+        BattleResolutionOutcome::NeedsHoles,
+        vec![BattleReducerRouteHoleKind::SavingThrowOutcome],
+        BattleReducerRouteOwnerGroup::InterruptStack,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::SaveGatedSpell,
+        BattleReducerRouteFillKind::SavingThrowOutcome,
+        BattleResolutionOutcome::NeedsHoles,
+        vec![BattleReducerRouteHoleKind::InterruptDecision],
+        BattleReducerRouteOwnerGroup::InterruptStack,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::InterruptStackResume,
+        BattleReducerRouteFillKind::InterruptDecision,
+        BattleResolutionOutcome::NeedsHoles,
+        vec![BattleReducerRouteHoleKind::RolledDice],
+        BattleReducerRouteOwnerGroup::InterruptStack,
+        observer,
+    );
+    resolve_nested_interrupt_decline_battle(state)
+}
+
+#[must_use]
 pub fn resolve_interrupted_attack_after_reaction_mutation_battle(
     state: BattleState,
 ) -> BattleState {
@@ -5796,6 +5874,45 @@ pub fn resolve_interrupted_attack_after_reaction_mutation_battle(
 }
 
 #[must_use]
+pub fn resolve_interrupted_attack_after_reaction_mutation_battle_observed(
+    state: BattleState,
+    observer: &mut impl BattleReducerRouteObserver,
+) -> BattleState {
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::InterruptStackResume,
+        vec![BattleReducerRouteHoleKind::InterruptDecision],
+        BattleReducerRouteOwnerGroup::InterruptStack,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::InterruptStackResume,
+        BattleReducerRouteFillKind::InterruptDecision,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::InterruptStackResume,
+        BattleReducerRouteFillKind::InterruptDecision,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ActiveEffect,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::InterruptStackResume,
+        BattleReducerRouteFillKind::InterruptDecision,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::InterruptStack,
+        observer,
+    );
+    resolve_interrupted_attack_after_reaction_mutation_battle(state)
+}
+
+#[must_use]
 pub fn resolve_recorded_attack_replay_from_root_battle(state: BattleState) -> BattleState {
     // QNT: battle-runtime-interrupt-stack-resume.mbt.qnt
     // recorded attack replay branch; replay vocabulary:
@@ -5813,6 +5930,36 @@ pub fn resolve_recorded_attack_replay_from_root_battle(state: BattleState) -> Ba
         },
         ..state
     }
+}
+
+#[must_use]
+pub fn resolve_recorded_attack_replay_from_root_battle_observed(
+    state: BattleState,
+    observer: &mut impl BattleReducerRouteObserver,
+) -> BattleState {
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, observer);
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::InterruptStackResume,
+        vec![BattleReducerRouteHoleKind::RolledDice],
+        BattleReducerRouteOwnerGroup::InterruptStack,
+        observer,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::WeaponAttack,
+        BattleReducerRouteFillKind::RolledDice,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::HitPoint,
+        observer,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::InterruptStackResume,
+        BattleResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::InterruptStack,
+        observer,
+    );
+    resolve_recorded_attack_replay_from_root_battle(state)
 }
 
 #[must_use]

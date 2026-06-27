@@ -3464,7 +3464,7 @@ Verification results: recorded in RUN_LEDGER commandResults; this lane requires 
 
 ## L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES
 
-Behavior implemented: accepted interrupt-stack and reaction casting-time rows compare qRoute route-event-list evidence against copied connector-shaped expected routes. Runtime projection remains owned by existing BattleState interrupt/reaction fields and reaction/interrupt owner helpers; no authored spell identity dispatch was added.
+Behavior implemented: accepted interrupt-stack and reaction casting-time rows compare production `BattleReducerRouteTrace` qRoute observations against copied connector-shaped expected routes. Runtime projection remains owned by existing BattleState interrupt/reaction fields and reaction/interrupt owner helpers; no authored spell identity dispatch was added.
 
 Evidence: `tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json`
 
@@ -3474,3 +3474,10 @@ Evidence: `tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTE
 | cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt#step:doReplayRecordedProcedureFromRoot | tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doReplayRecordedProcedureFromRoot#step:doReplayRecordedProcedureFromRoot | pass | covered |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt#step:doShieldMutationResumesInterruptedAttack | tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doShieldMutationResumesInterruptedAttack#step:doShieldMutationResumesInterruptedAttack | pass | covered |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt#step:doHellishRebukeAfterDamage | tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES route action=doHellishRebukeAfterDamage#step:doHellishRebukeAfterDamage | pass | covered |
+
+Blocked rows:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt#step:doCounterspellAllowsSpellCastResume`: `RR19-BLOCKED-COUNTERSPELL-RESUME-LEVEL3`, recorded in `tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#blockedRuns`.
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt#step:doCounterspellEndsSpellCast`: `RR19-BLOCKED-COUNTERSPELL-END-LEVEL3`, recorded in `tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#blockedRuns`.
+
+Remaining gaps: Counterspell reaction casting-time routes stay blocked for this cleanroom lane because the current target scope does not include the level-3 Counterspell continuation substrate.
