@@ -212,7 +212,16 @@
       "reviewFindings": [
         "STATE_OWNER_MANIFEST overclaims qComponentRoute ownership for rule-core result/state fields that are semantic state facts, not route projection fields.",
         "VALIDATION_REPORT.md header is stale and contradicts RR04A completion record."
-      ]
+      ],
+      "fixerAgent": "019f067d-e564-7380-861f-837a1b321272",
+      "fixerName": "Poincare",
+      "fixStatus": "committed",
+      "fixCommit": "9d3ee41d081b7cade2daaba50c0730b412b5fc92",
+      "fixerResolution": [
+        "State-owner manifests no longer claim qComponentRoute owns semantic rule-core state/result fields.",
+        "VALIDATION_REPORT.md top snapshot/header now names RR04A completion and removes stale RR06 fixer-scope text."
+      ],
+      "rereviewStatus": "pending"
     },
     {
       "laneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
