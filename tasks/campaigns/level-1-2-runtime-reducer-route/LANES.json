@@ -501,7 +501,7 @@
     {
       "laneId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "reviewing",
+      "status": "fixing",
       "parallelGroup": "cp4-small-feature-substrates",
       "routeTaskIds": [
         "L15-RR07-FU06-WEAPON-MASTERY-PROPERTY-SUBSTRATES",
