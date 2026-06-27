@@ -56,7 +56,7 @@
     {
       "laneId": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK",
       "checkpointId": "FEXP-CP2",
-      "status": "proposed",
+      "status": "running",
       "routeClass": "catalog-after-substrate",
       "purpose": "Revisit the two FC-03 blocked selected spell groups only through generic spell-attack and save-gated connector substrates.",
       "drivers": [

@@ -2775,8 +2775,8 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fexp01-accepted",
-    "activeLane": null,
+    "status": "running",
+    "activeLane": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639",
@@ -2832,10 +2832,10 @@
         "coverageClaim": "new runtime coverage accepted for Magic Missile slot-spell route, HP restoration ordering, Death Saving Throw, and Concentration teardown; verifier regenerates expected records from connector action bodies and observed records from public reducer entrypoints"
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
-    "activeLaneBaseCommit": null,
-    "workerAgent": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-02",
+    "activeBranch": "ralph/fexp-02-spell-attack-save-gated-unblock",
+    "activeLaneBaseCommit": "a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639",
+    "workerAgent": "Laplace the 3rd (019f0aec-ebad-71b3-9962-b7cf6ecaf1d1)",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK"
   },

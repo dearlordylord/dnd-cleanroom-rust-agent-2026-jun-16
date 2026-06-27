@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-02` | `ralph/fexp-02-spell-attack-save-gated-unblock` | `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639` | Laplace the 3rd (`019f0aec-ebad-71b3-9962-b7cf6ecaf1d1`) | pending | running |
 
 ## Historical RRCONV-19 Worktrees
 
