@@ -168,7 +168,7 @@ Template:
 
 The small feature substrate batch is split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa`:
 
-- `L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES`: Adrenaline Rush, species passive traits, Danger Sense, and roll-modifier buff substrates (`5` drivers, `17` in-scope obligations). Worker: Copernicus `019f070a-d8bb-7111-b578-d4eee793076f`; committed `d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62`, pending review.
+- `L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES`: Adrenaline Rush, species passive traits, Danger Sense, and roll-modifier buff substrates (`5` drivers, `17` in-scope obligations). Worker: Copernicus `019f070a-d8bb-7111-b578-d4eee793076f`; committed `d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62`; reviewer Herschel `019f071c-a15c-7763-9148-3f7cfdcc6211` is checking the lane.
 - `L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES`: zero-HP stabilization, Wild Shape form lifecycle, and movement/forced-movement substrates (`3` drivers, `12` in-scope obligations; `2` out of scope). Worker: Newton `019f070b-2c30-7de1-bece-a71c78a04a4b`; committed `81fd387c6dda4b00c28a752492d6aa0d2fee4d3d`; reviewer Ramanujan `019f071a-2cf3-7a21-8176-bc3148c52163` is checking the lane.
 - `L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES`: weapon mastery property, Dragonborn Breath Weapon, and active feature spell-benefit substrates (`3` drivers, `11` in-scope obligations). Worker: Kuhn `019f070b-ff89-7fd2-8978-44745a13ef82`.
 
