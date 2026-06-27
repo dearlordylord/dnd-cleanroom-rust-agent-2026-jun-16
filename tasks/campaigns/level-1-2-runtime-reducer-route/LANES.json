@@ -423,7 +423,7 @@
     {
       "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "findings",
+      "status": "fixing",
       "parallelGroup": "cp4-small-feature-substrates",
       "routeTaskIds": [
         "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES",
