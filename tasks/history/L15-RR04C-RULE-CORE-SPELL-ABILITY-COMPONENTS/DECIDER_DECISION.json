@@ -34,7 +34,7 @@
       "status": "pass"
     }
   ],
-  "rationale": "RR04C component-first adapters replay selected in-scope rule-core ability/skill/command and spell branches through qComponentRoute evidence without adding durable battle-state ownership or authored-identity dispatch.",
+  "rationale": "RR04C component-first adapters now replay selected in-scope rule-core ability/skill/command and spell branches through shared component-route facts plus full adapter projection payload hashes. Reusable ownership is limited to the shared route event facts and selected existing rule fields; mass spell rows remain non-acceptance regression coverage.",
   "schemaVersion": 1,
   "taskId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS"
 }

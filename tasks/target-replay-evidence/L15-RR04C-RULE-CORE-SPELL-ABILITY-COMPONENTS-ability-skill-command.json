@@ -18,14 +18,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "bbc0db67288d9e9fff1cd140990b17517d2fed457a54f871800409edc10af9bb",
+        "observedProjectionSha256": "bbc0db67288d9e9fff1cd140990b17517d2fed457a54f871800409edc10af9bb",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandCastGrovel"
     },
@@ -42,14 +44,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "c4a4b72ca99ea2cb42b31997216d522cb571d0c7063d1e88daaab8e7968e5610",
+        "observedProjectionSha256": "c4a4b72ca99ea2cb42b31997216d522cb571d0c7063d1e88daaab8e7968e5610",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowApproachContinues"
     },
@@ -66,14 +70,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "4cdc24ebe78cee1547af00bed4d17bea40e3e7810001bce887c28816e5c1fae1",
+        "observedProjectionSha256": "4cdc24ebe78cee1547af00bed4d17bea40e3e7810001bce887c28816e5c1fae1",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowApproachNoMovement"
     },
@@ -90,14 +96,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "b9aac3156612366b6fcf1f531b8579ecd624a6d4f46a8dc2050021edb35e8616",
+        "observedProjectionSha256": "b9aac3156612366b6fcf1f531b8579ecd624a6d4f46a8dc2050021edb35e8616",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowApproachWithinFive"
     },
@@ -114,14 +122,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "5b247b7c285a5ed9097ccc1a0e04130c6bb2ea43fde96aeb7fb16a9fbcbcba49",
+        "observedProjectionSha256": "5b247b7c285a5ed9097ccc1a0e04130c6bb2ea43fde96aeb7fb16a9fbcbcba49",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowDrop"
     },
@@ -138,14 +148,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "d6374b0575b41272b9fac1da9e3d1eed3f98b02481a9737cf9d6a464dbc2dcfa",
+        "observedProjectionSha256": "d6374b0575b41272b9fac1da9e3d1eed3f98b02481a9737cf9d6a464dbc2dcfa",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowFlee"
     },
@@ -162,14 +174,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "52713cc6034ea8cddaee82e4556d3d09ad9b051c2a96147be37c5329ab1d5d67",
+        "observedProjectionSha256": "52713cc6034ea8cddaee82e4556d3d09ad9b051c2a96147be37c5329ab1d5d67",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowFleeNoMovement"
     },
@@ -186,14 +200,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "e0243703039883aa5fde0a2c9303256ddada88446419a6468d3d12cc557acef5",
+        "observedProjectionSha256": "e0243703039883aa5fde0a2c9303256ddada88446419a6468d3d12cc557acef5",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowFleeOpportunityAttack"
     },
@@ -210,14 +226,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "b9bd9f13224977cbc1063eb6dc2168b215826d2ed97b4f34cc9a87d236ea3a8b",
+        "observedProjectionSha256": "b9bd9f13224977cbc1063eb6dc2168b215826d2ed97b4f34cc9a87d236ea3a8b",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowFleePartialRejected"
     },
@@ -234,14 +252,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "1f6d26938abd94c9e627d27de1a221d2ff34a1202ccd2ce227aa1eed57952267",
+        "observedProjectionSha256": "1f6d26938abd94c9e627d27de1a221d2ff34a1202ccd2ce227aa1eed57952267",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandFollowGrovel"
     },
@@ -258,14 +278,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "89bdaec373a58e1830d5462f6215c59b475710a2dbf90c28e86ae3637a646f64",
+        "observedProjectionSha256": "89bdaec373a58e1830d5462f6215c59b475710a2dbf90c28e86ae3637a646f64",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doCommandHaltSuppresses"
     },
@@ -282,14 +304,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "2e8a840800aee61dbb9be21336b72da2c63da0da626776b3a6b24ba96c9ad3a4",
+        "observedProjectionSha256": "2e8a840800aee61dbb9be21336b72da2c63da0da626776b3a6b24ba96c9ad3a4",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doEnhanceAbilityChoice"
     },
@@ -306,14 +330,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "57aa97a283e69cdda27177b4b5cc1974d08a4ee266661f7fefacbdcf3dfd8085",
+        "observedProjectionSha256": "57aa97a283e69cdda27177b4b5cc1974d08a4ee266661f7fefacbdcf3dfd8085",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillAcrobatics"
     },
@@ -330,14 +356,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "f4d5932a9493b546e377a6704c185740ab324247dd2202742ecb9a277be9ad10",
+        "observedProjectionSha256": "f4d5932a9493b546e377a6704c185740ab324247dd2202742ecb9a277be9ad10",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillAnimalHandling"
     },
@@ -354,14 +382,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "fd17108bd9ac424a475067b7ab77b9ca6056bfe3413e61f84b16803abd02a502",
+        "observedProjectionSha256": "fd17108bd9ac424a475067b7ab77b9ca6056bfe3413e61f84b16803abd02a502",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillArcana"
     },
@@ -378,14 +408,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "789ec73309c6b8e56113cfc90551a01b22616f8cc443f8f697a57ecdb2a4e5f2",
+        "observedProjectionSha256": "789ec73309c6b8e56113cfc90551a01b22616f8cc443f8f697a57ecdb2a4e5f2",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillAthletics"
     },
@@ -402,14 +434,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "ded04af603b6dfb94bba3e7ee85682e2f8f6f89dba29a864381672a8ba6f20e9",
+        "observedProjectionSha256": "ded04af603b6dfb94bba3e7ee85682e2f8f6f89dba29a864381672a8ba6f20e9",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillDeception"
     },
@@ -426,14 +460,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "4a7b056168b185e69b8efc39466ab21f60c7163a6086ce9a26da26e28a400afc",
+        "observedProjectionSha256": "4a7b056168b185e69b8efc39466ab21f60c7163a6086ce9a26da26e28a400afc",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillHistory"
     },
@@ -450,14 +486,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "3779272652cbb87ace0b9a1641974a91c36c595045d9f2a468d1d1ffbb8f29bb",
+        "observedProjectionSha256": "3779272652cbb87ace0b9a1641974a91c36c595045d9f2a468d1d1ffbb8f29bb",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillInsight"
     },
@@ -474,14 +512,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "a01e00b692378f27f8c78165d242375c70539e0c61239d60d813314b5f4c685d",
+        "observedProjectionSha256": "a01e00b692378f27f8c78165d242375c70539e0c61239d60d813314b5f4c685d",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillIntimidation"
     },
@@ -498,14 +538,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "d1d5bd5f541130555112c0e790fc5996e29748741a1dc867841d0a81e04c7dcc",
+        "observedProjectionSha256": "d1d5bd5f541130555112c0e790fc5996e29748741a1dc867841d0a81e04c7dcc",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillInvestigation"
     },
@@ -522,14 +564,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "b2efa26c511179deb79d8f3bd877eb6cd0c867782bb89dd7c0f040c2b6e5154c",
+        "observedProjectionSha256": "b2efa26c511179deb79d8f3bd877eb6cd0c867782bb89dd7c0f040c2b6e5154c",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillMedicine"
     },
@@ -546,14 +590,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "2e6584d54615518ca2d21ba4b91f2a1b1ce12eda48fca9fadcb4afbfea94d027",
+        "observedProjectionSha256": "2e6584d54615518ca2d21ba4b91f2a1b1ce12eda48fca9fadcb4afbfea94d027",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillNature"
     },
@@ -570,14 +616,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "ad42ae81d5b7a99b356845de7488215d7eb3b77151a3f6293177829222b68b8d",
+        "observedProjectionSha256": "ad42ae81d5b7a99b356845de7488215d7eb3b77151a3f6293177829222b68b8d",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillPerception"
     },
@@ -594,14 +642,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "142acaa0d74d3bdd821b6963c91b341317b91a4c1e3e3b88e58fe74b355217ed",
+        "observedProjectionSha256": "142acaa0d74d3bdd821b6963c91b341317b91a4c1e3e3b88e58fe74b355217ed",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillPerformance"
     },
@@ -618,14 +668,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "7972687cd4e2bb296b847304008c2485542f88f00f36f3db9129c5b5243c3c58",
+        "observedProjectionSha256": "7972687cd4e2bb296b847304008c2485542f88f00f36f3db9129c5b5243c3c58",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillPersuasion"
     },
@@ -642,14 +694,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "3094447f8560461936082239e8e7d95cffb012dc608775e2785d7868e3a0fa0b",
+        "observedProjectionSha256": "3094447f8560461936082239e8e7d95cffb012dc608775e2785d7868e3a0fa0b",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillReligion"
     },
@@ -666,14 +720,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "a5573cb7c4b8a141853407520a55256c388075cbb5ac2edbde4f0941f48c6615",
+        "observedProjectionSha256": "a5573cb7c4b8a141853407520a55256c388075cbb5ac2edbde4f0941f48c6615",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillSleightOfHand"
     },
@@ -690,14 +746,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "4bc9d2ed7db3aeda6caffb25fb6ceb4f2d0d3f5c9fc7401569af2c92de4a2249",
+        "observedProjectionSha256": "4bc9d2ed7db3aeda6caffb25fb6ceb4f2d0d3f5c9fc7401569af2c92de4a2249",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillStealth"
     },
@@ -714,14 +772,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "7d9b150d8657e204fddb660fc66a43a339f5e75012abc6d42a4735da3ff97d35",
+        "observedProjectionSha256": "7d9b150d8657e204fddb660fc66a43a339f5e75012abc6d42a4735da3ff97d35",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doGuidanceSkillSurvival"
     },
@@ -738,14 +798,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "2ee3393c4c477e1a3189ce8afee9f3498b9aa0bb0eb667ec5da5de4d1f6c5ce4",
+        "observedProjectionSha256": "2ee3393c4c477e1a3189ce8afee9f3498b9aa0bb0eb667ec5da5de4d1f6c5ce4",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doSearchFails"
     },
@@ -762,14 +824,16 @@
       },
       "stateCheck": {
         "checkedTargetStateFields": [
+          "RuleCoreComponentRouteEvent.owner",
+          "RuleCoreComponentRouteEvent.kind",
           "CommandNextTurnState.pending_option",
           "CommandNextTurnState.reaction_window_open"
         ],
-        "comparator": "component-route-event-list",
-        "expectedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "observedProjectionSha256": "87b5ae1fff177c6eb8eb74923c42605ca2cb4dedb77948e11a9423163746b096",
-        "projection": "qComponentRoute",
-        "tag": "state-match"
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "4432d174aa7698916c216137dd05a877e130a3f6a0d42139d61197c993e9a834",
+        "observedProjectionSha256": "4432d174aa7698916c216137dd05a877e130a3f6a0d42139d61197c993e9a834",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
       },
       "traceId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doSearchSucceeds"
     }

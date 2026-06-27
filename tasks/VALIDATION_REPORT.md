@@ -13,8 +13,8 @@ Allowed inputs used:
 Behavior implemented:
 
 - Prior accepted ledger tasks remain recorded as cumulative branch coverage.
-- L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: ability, skill, Search, Enhance Ability, and Command component replay checks `RuleCoreAbilitySkillCommandOwner` via `qComponentRoute`.
-- L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: spell invocation, direct damage, attack/save damage, healing, Mage Armor, and readied-spell component replay checks `RuleCoreSpellProcedureProfileOwner` via `qComponentRoute`.
+- L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: ability, skill, Search, Enhance Ability, and Command component replay checks `RuleCoreAbilitySkillCommandOwner` via shared route facts plus full adapter projection payload hashes.
+- L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: accepted in-scope spell invocation, direct damage, attack/save damage, healing, Mage Armor, and readied-spell component replay checks `RuleCoreSpellProcedureProfileOwner` via shared route facts plus full adapter projection payload hashes; mass spell rows are non-acceptance regression coverage.
 - L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: no durable production battle-state fields were added for this component-first lane.
 
 Selected drivers by ledger task:
@@ -326,29 +326,29 @@ Target replay evidence:
 - L15-RR03-FINISH-CURRENT-DIAGNOSTIC-QUEUE: `tasks/target-replay-evidence/L15-RR03-reducer-route.json` (8 accepted refs, sha256 `dab4e9c67f4cd1fdfa486c9dfc4aeec0c3e9c0c6ca61905bb20f9bd2d922bec0`)
 - L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES: `tasks/target-replay-evidence/L15-RR05-attack-statblock-routes.json` (53 accepted refs, sha256 `d9b846e463d07cc131e3daafd5320f30eb4a3ce37a77eb2ebac4ad667c525759`)
 - L15-RR06-BATTLE-SPELL-EFFECT-ROUTES: `tasks/target-replay-evidence/L15-RR06-spell-effect-routes.json` (36 accepted refs, sha256 `6349cedd7dd73748fe3e31e98953c602a4f17e59107733d35d4f48676dc2468d`)
-- L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: `tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json` (32 accepted refs, sha256 `589b3f3db65b9798118526751fc8c55b33a0e6571ced90c903b9949e50a2e582`)
-- L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: `tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json` (24 accepted refs, sha256 `ab8ae09645bdbf2768d8666d285af56092ec0b18845f7bedd7a652b7cd7776fc`)
+- L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: `tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json` (32 accepted refs, sha256 `52cc18dc94fd282ace837b4073bd2e636968f16857a56ab5bec3c48fc59602ba`)
+- L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: `tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json` (24 accepted refs, sha256 `371a98f64b53a35e69c13992342cbc77cda94406dac2448726d2810ff271ea88`)
 
 Harness artifacts:
 
-- deciderDecision: `tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/DECIDER_DECISION.json` (sha256 `0b6872f56c04d30be358a57cf8f3bd28addafcef4eaf4cde43fd9eb3cea4a39f`)
-- engineDepth: `tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/ENGINE_DEPTH_MANIFEST.json` (sha256 `e8bc60f1316630eb765175bcf7902958fb54838a4aece89bfadc00e64eaf0e86`)
+- deciderDecision: `tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/DECIDER_DECISION.json` (sha256 `5311c8cbd29af2a649606ddff2f2400be08adb43fe096da1841576f2d32b4e44`)
+- engineDepth: `tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/ENGINE_DEPTH_MANIFEST.json` (sha256 `151c771427a312805565739b6937d106c4915b7be2ed3e53fe01ff5179adb0d0`)
 - reviewLoop: `tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/REVIEW_LOOP.json` (sha256 `a909c690742cb557d80efe48a568552889066ec9f30f426e5e810f0e51dac79b`)
 - startGate: `tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/START_GATE.json` (sha256 `420c51d37f78a798c447117a040d249364d34c9df04d108e0197beedcc829874`)
-- stateOwnerManifest: `tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/STATE_OWNER_MANIFEST.json` (sha256 `7457ff1ff8c48f8d2f569ab3736976029417b33d73ecc5969ac161ad03cdc6ca`)
+- stateOwnerManifest: `tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/STATE_OWNER_MANIFEST.json` (sha256 `d9829fe6458a57eeef59205a809f47cfac8470d62f21c0cf4b332e4651360bd0`)
 
 Remaining gaps:
 
-- L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: none. Six source-inventory spell rows are out-of-scope for accepted replay evidence and are listed in `tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json` source metadata; the focused Rust adapter test still replays them.
+- L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS: none. Six source-inventory spell rows are out-of-scope for accepted replay evidence and are listed in `tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json` source metadata; the focused Rust adapter has a separate non-acceptance regression test for them.
 
 Verification results:
 
-- `cargo test ability_skill_command_adapter_replays_all_branches -- --nocapture`: pass.
-- `cargo test rule_core_spells_adapter_replays_all_branches -- --nocapture`: pass.
+- `cargo test ability_skill_command -- --nocapture`: pass.
+- `cargo test rule_core_spells -- --nocapture`: pass.
 - `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/rule-core-ability-skill-command.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json`: pass, 32 obligations covered.
 - `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json`: pass, 24 obligations covered.
 - `cargo fmt --check`: pass.
-- `cargo test`: pass, 189 tests.
+- `cargo test`: pass, 190 tests.
 - `cargo clippy --all-targets -- -D warnings`: pass.
 - `node scripts/check-cleanroom-harness.cjs`: pass.
 - `git diff --check a625d3e7190eb33396c17ee5dca7ae73f413b348...HEAD`: pass.

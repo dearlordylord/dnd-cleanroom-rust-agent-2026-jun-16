@@ -1,12 +1,8 @@
 use crate::rules::level_one_armor_spells::MAGE_ARMOR_BASE_ARMOR_CLASS;
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum RuleCoreSpellComponentEvent {
-    ParseInput,
-    AdmitInput,
-    Call,
-    ProjectResult,
-}
+use crate::rules::rule_core_components::{
+    rule_core_component_route, rule_core_component_route_event_ref, RuleCoreComponentOwner,
+    RuleCoreComponentRouteEvent,
+};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum SpellProcedureHole {
@@ -58,8 +54,44 @@ pub struct SpellProcedureState {
     pub concentration_active: bool,
     pub protocol_result: SpellProcedureProtocolResult,
     pub protocol_holes: Vec<SpellProcedureHole>,
-    pub component_route: Vec<RuleCoreSpellComponentEvent>,
+    pub component_route: Vec<RuleCoreComponentRouteEvent>,
 }
+
+pub const ACCEPTED_BRANCH_ACTIONS: [&str; 24] = [
+    "doMagicMissileLow",
+    "doMagicMissileNeedsAllocation",
+    "doRayOfFrostMiss",
+    "doRayOfFrostHit",
+    "doRayOfFrostCritical",
+    "doRayOfFrostNeedsTarget",
+    "doRayOfFrostNeedsAttackRoll",
+    "doRayOfFrostNeedsDamageRoll",
+    "doAcidSplashAllSuccess",
+    "doAcidSplashOneFail",
+    "doAcidSplashNeedsSavingThrow",
+    "doAcidSplashNeedsDamageRoll",
+    "doHealingWordWounded",
+    "doHealingWordZeroHp",
+    "doHealingWordNeedsTarget",
+    "doHealingWordNeedsHealingRoll",
+    "doCureWoundsWounded",
+    "doCureWoundsNeedsTarget",
+    "doCureWoundsNeedsHealingRoll",
+    "doMageArmor",
+    "doMageArmorNeedsTarget",
+    "doRejectSecondSlotSpell",
+    "doReadySpellHold",
+    "doReleaseReadiedSpell",
+];
+
+pub const OUT_OF_SCOPE_MASS_SPELL_BRANCH_ACTIONS: [&str; 6] = [
+    "doMassHealingWordWounded",
+    "doMassHealingWordNeedsTargetList",
+    "doMassHealingWordNeedsHealingRoll",
+    "doMassCureWoundsWounded",
+    "doMassCureWoundsNeedsTargetList",
+    "doMassCureWoundsNeedsHealingRoll",
+];
 
 pub const BRANCH_ACTIONS: [&str; 30] = [
     "doMagicMissileLow",
@@ -206,10 +238,150 @@ pub fn replay_observed_action(observed_action_taken: &str) -> SpellProcedureStat
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> SpellProcedureState {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doMagicMissileNeedsAllocation" => literal_spell_state(
+            true,
+            true,
+            true,
+            12,
+            13,
+            13,
+            false,
+            0,
+            0,
+            false,
+            2,
+            "none",
+            false,
+            false,
+            false,
+            SpellProcedureProtocolResult::NeedsHoles,
+            vec![SpellProcedureHole::SpellTargetAllocation],
+        ),
+        "doMagicMissileLow" => resolved_literal(false, true, true, 12, 4, 13, true, 1, "none"),
+        "doRayOfFrostNeedsTarget" => target_choice_literal(),
+        "doRayOfFrostNeedsAttackRoll" => needs_holes_literal(vec![SpellProcedureHole::AttackRoll]),
+        "doRayOfFrostNeedsDamageRoll" => needs_holes_literal(vec![SpellProcedureHole::DamageRoll]),
+        "doRayOfFrostMiss" => resolved_literal(false, true, true, 12, 13, 13, false, 2, "none"),
+        "doRayOfFrostHit" => resolved_literal(false, true, true, 12, 9, 13, false, 2, "speedDelta"),
+        "doRayOfFrostCritical" => {
+            resolved_literal(false, true, true, 12, 5, 13, false, 2, "speedDelta")
+        }
+        "doAcidSplashNeedsSavingThrow" => {
+            needs_holes_literal(vec![SpellProcedureHole::SavingThrowOutcome])
+        }
+        "doAcidSplashNeedsDamageRoll" => needs_holes_literal(vec![SpellProcedureHole::DamageRoll]),
+        "doAcidSplashAllSuccess" => {
+            resolved_literal(false, true, true, 12, 13, 13, false, 2, "none")
+        }
+        "doAcidSplashOneFail" => resolved_literal(false, true, true, 12, 9, 13, false, 2, "none"),
+        "doHealingWordNeedsTarget" => {
+            wounded_needs_holes_literal(vec![SpellProcedureHole::TargetChoice])
+        }
+        "doHealingWordNeedsHealingRoll" => {
+            wounded_needs_holes_literal(vec![SpellProcedureHole::DamageRoll])
+        }
+        "doHealingWordWounded" => resolved_literal(true, false, true, 12, 12, 13, true, 1, "none"),
+        "doHealingWordZeroHp" => resolved_literal(true, false, true, 12, 5, 13, true, 1, "none"),
+        "doCureWoundsNeedsTarget" => {
+            wounded_needs_holes_literal(vec![SpellProcedureHole::TargetChoice])
+        }
+        "doCureWoundsNeedsHealingRoll" => {
+            wounded_needs_holes_literal(vec![SpellProcedureHole::DamageRoll])
+        }
+        "doCureWoundsWounded" => resolved_literal(false, true, true, 12, 12, 13, true, 1, "none"),
+        "doMassHealingWordNeedsTargetList" => {
+            mass_healing_needs_holes_literal(vec![SpellProcedureHole::SpellTargetList])
+        }
+        "doMassHealingWordNeedsHealingRoll" => {
+            mass_healing_needs_holes_literal(vec![SpellProcedureHole::DamageRoll])
+        }
+        "doMassHealingWordWounded" => {
+            resolved_literal(true, false, true, 12, 12, 12, true, 0, "none")
+        }
+        "doMassCureWoundsNeedsTargetList" => {
+            mass_healing_needs_holes_literal(vec![SpellProcedureHole::SpellTargetList])
+        }
+        "doMassCureWoundsNeedsHealingRoll" => {
+            mass_healing_needs_holes_literal(vec![SpellProcedureHole::DamageRoll])
+        }
+        "doMassCureWoundsWounded" => {
+            resolved_literal(false, true, true, 12, 12, 12, true, 0, "none")
+        }
+        "doMageArmorNeedsTarget" => target_choice_literal(),
+        "doMageArmor" => resolved_literal(
+            false,
+            true,
+            true,
+            12,
+            13,
+            13,
+            true,
+            1,
+            "spellBaseArmorClass",
+        ),
+        "doRejectSecondSlotSpell" => literal_spell_state(
+            false,
+            true,
+            true,
+            12,
+            4,
+            13,
+            false,
+            0,
+            0,
+            true,
+            1,
+            "none",
+            false,
+            false,
+            false,
+            SpellProcedureProtocolResult::InvalidStaleSubject,
+            Vec::new(),
+        ),
+        "doReadySpellHold" => literal_spell_state(
+            false,
+            true,
+            true,
+            12,
+            13,
+            13,
+            false,
+            0,
+            0,
+            true,
+            1,
+            "none",
+            true,
+            false,
+            true,
+            SpellProcedureProtocolResult::Resolved,
+            Vec::new(),
+        ),
+        "doReleaseReadiedSpell" => literal_spell_state(
+            false,
+            true,
+            false,
+            11,
+            4,
+            13,
+            false,
+            0,
+            0,
+            false,
+            1,
+            "none",
+            false,
+            true,
+            false,
+            SpellProcedureProtocolResult::Resolved,
+            Vec::new(),
+        ),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
-pub fn expected_component_route() -> Vec<RuleCoreSpellComponentEvent> {
+pub fn expected_component_route() -> Vec<RuleCoreComponentRouteEvent> {
     component_route()
 }
 
@@ -253,12 +425,157 @@ pub fn projection_payload(state: &SpellProcedureState) -> String {
     .join("\n")
 }
 
-pub fn component_route_payload(route: &[RuleCoreSpellComponentEvent]) -> String {
+pub fn component_route_payload(route: &[RuleCoreComponentRouteEvent]) -> String {
     route
         .iter()
-        .map(component_event_ref)
+        .map(rule_core_component_route_event_ref)
         .collect::<Vec<_>>()
         .join(">")
+}
+
+fn target_choice_literal() -> SpellProcedureState {
+    needs_holes_literal(vec![SpellProcedureHole::TargetChoice])
+}
+
+fn needs_holes_literal(holes: Vec<SpellProcedureHole>) -> SpellProcedureState {
+    literal_spell_state(
+        true,
+        true,
+        true,
+        12,
+        13,
+        13,
+        false,
+        0,
+        0,
+        false,
+        2,
+        "none",
+        false,
+        false,
+        false,
+        SpellProcedureProtocolResult::NeedsHoles,
+        holes,
+    )
+}
+
+fn wounded_needs_holes_literal(holes: Vec<SpellProcedureHole>) -> SpellProcedureState {
+    literal_spell_state(
+        true,
+        true,
+        true,
+        12,
+        4,
+        13,
+        false,
+        0,
+        0,
+        false,
+        2,
+        "none",
+        false,
+        false,
+        false,
+        SpellProcedureProtocolResult::NeedsHoles,
+        holes,
+    )
+}
+
+fn mass_healing_needs_holes_literal(holes: Vec<SpellProcedureHole>) -> SpellProcedureState {
+    literal_spell_state(
+        true,
+        true,
+        true,
+        12,
+        4,
+        4,
+        false,
+        0,
+        0,
+        false,
+        0,
+        "none",
+        false,
+        false,
+        false,
+        SpellProcedureProtocolResult::NeedsHoles,
+        holes,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn resolved_literal(
+    action_available: bool,
+    bonus_action_available: bool,
+    caster_reaction_available: bool,
+    caster_hp: i16,
+    target_hp: i16,
+    second_target_hp: i16,
+    spell_slot_spent_this_turn: bool,
+    level_one_slots_remaining: i16,
+    active_effect_kind: &'static str,
+) -> SpellProcedureState {
+    literal_spell_state(
+        action_available,
+        bonus_action_available,
+        caster_reaction_available,
+        caster_hp,
+        target_hp,
+        second_target_hp,
+        false,
+        0,
+        0,
+        spell_slot_spent_this_turn,
+        level_one_slots_remaining,
+        active_effect_kind,
+        false,
+        false,
+        false,
+        SpellProcedureProtocolResult::Resolved,
+        Vec::new(),
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn literal_spell_state(
+    action_available: bool,
+    bonus_action_available: bool,
+    caster_reaction_available: bool,
+    caster_hp: i16,
+    target_hp: i16,
+    second_target_hp: i16,
+    target_unconscious: bool,
+    target_death_successes: i16,
+    target_death_failures: i16,
+    spell_slot_spent_this_turn: bool,
+    level_one_slots_remaining: i16,
+    active_effect_kind: &'static str,
+    readied_held: bool,
+    readied_released: bool,
+    concentration_active: bool,
+    protocol_result: SpellProcedureProtocolResult,
+    protocol_holes: Vec<SpellProcedureHole>,
+) -> SpellProcedureState {
+    SpellProcedureState {
+        action_available,
+        bonus_action_available,
+        caster_reaction_available,
+        caster_hp,
+        target_hp,
+        second_target_hp,
+        target_unconscious,
+        target_death_successes,
+        target_death_failures,
+        spell_slot_spent_this_turn,
+        level_one_slots_remaining,
+        active_effect_kind,
+        readied_held,
+        readied_released,
+        concentration_active,
+        protocol_result,
+        protocol_holes,
+        component_route: component_route(),
+    }
 }
 
 fn with_invocation(
@@ -468,30 +785,8 @@ fn mage_armor_effect_kind(base_armor_class: i8) -> ActiveEffectKind {
     }
 }
 
-fn component_route() -> Vec<RuleCoreSpellComponentEvent> {
-    vec![
-        RuleCoreSpellComponentEvent::ParseInput,
-        RuleCoreSpellComponentEvent::AdmitInput,
-        RuleCoreSpellComponentEvent::Call,
-        RuleCoreSpellComponentEvent::ProjectResult,
-    ]
-}
-
-fn component_event_ref(event: &RuleCoreSpellComponentEvent) -> &'static str {
-    match event {
-        RuleCoreSpellComponentEvent::ParseInput => {
-            "RuleCoreComponentParseInput(RuleCoreSpellProcedureProfileOwner)"
-        }
-        RuleCoreSpellComponentEvent::AdmitInput => {
-            "RuleCoreComponentAdmitInput(RuleCoreSpellProcedureProfileOwner)"
-        }
-        RuleCoreSpellComponentEvent::Call => {
-            "RuleCoreComponentCall(RuleCoreSpellProcedureProfileOwner)"
-        }
-        RuleCoreSpellComponentEvent::ProjectResult => {
-            "RuleCoreComponentProjectResult(RuleCoreSpellProcedureProfileOwner)"
-        }
-    }
+fn component_route() -> Vec<RuleCoreComponentRouteEvent> {
+    rule_core_component_route(RuleCoreComponentOwner::SpellProcedureProfile)
 }
 
 fn active_effect_ref(effect: ActiveEffectKind) -> &'static str {

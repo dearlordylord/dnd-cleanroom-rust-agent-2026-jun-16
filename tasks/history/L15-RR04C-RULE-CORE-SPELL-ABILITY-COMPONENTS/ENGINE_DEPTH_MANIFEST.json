@@ -8,12 +8,13 @@
   ],
   "adapterModules": [
     {
-      "adapterScope": "RR04C RuleCoreAbilitySkillCommandOwner qComponentRoute replay over Search, Guidance/Enhance ability-check facts, and Command next-turn component helpers",
+      "adapterScope": "RR04C RuleCoreAbilitySkillCommandOwner shared component-route replay plus adapter projection witness over Search, Guidance/Enhance ability-check facts, and Command next-turn helpers",
       "path": "src/qnt_adapters/rule_core_ability_skill_command_mbt.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
+        "component-route-and-projection-payload-v1",
         "doCommandCastGrovel",
         "doCommandFollowApproachContinues",
         "doCommandFollowApproachNoMovement",
@@ -53,6 +54,7 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qComponentRoute",
+        "qProjectionPayload",
         "qntFileSha256",
         "sourceBranchInventorySha256",
         "stateCheck",
@@ -65,12 +67,13 @@
       ]
     },
     {
-      "adapterScope": "RR04C RuleCoreSpellProcedureProfileOwner qComponentRoute replay over spell invocation, damage, healing, armor, and readied-spell component facts",
+      "adapterScope": "RR04C RuleCoreSpellProcedureProfileOwner shared component-route replay plus adapter projection witness over accepted in-scope spell invocation, damage, healing, armor, and readied-spell facts",
       "path": "src/qnt_adapters/rule_core_spells_mbt.rs",
       "quarantinedWitnessNames": [
         "checkedTargetStateFields",
         "cleanroomManifestSourceCommitSha",
         "comparator",
+        "component-route-and-projection-payload-v1",
         "doAcidSplashAllSuccess",
         "doAcidSplashNeedsDamageRoll",
         "doAcidSplashNeedsSavingThrow",
@@ -102,6 +105,7 @@
         "observedActionTaken",
         "observedProjectionSha256",
         "qComponentRoute",
+        "qProjectionPayload",
         "qntFileSha256",
         "sourceBranchInventorySha256",
         "stateCheck",
@@ -116,15 +120,29 @@
   ],
   "expectedNextReuse": [
     {
+      "path": "src/rules/rule_core_components.rs",
+      "reuse": "Later component-first adapters can reuse the shared RuleCoreComponentRouteEvent owner/kind route facts instead of redefining route event enums locally."
+    },
+    {
       "path": "src/qnt_adapters/rule_core_ability_skill_command_mbt.rs",
-      "reuse": "Later battle spell/effect routes can consume RuleCoreAbilitySkillCommandOwner component evidence without building command or skill replay tables inside battle adapters."
+      "reuse": "Later battle routes may use this as adapter-only projection evidence for selected ability/skill/command QNT facts; it is not accepted as reusable command reducer ownership."
     },
     {
       "path": "src/qnt_adapters/rule_core_spells_mbt.rs",
-      "reuse": "Later spell routes can consume RuleCoreSpellProcedureProfileOwner component evidence before adding battle reducer ownership for selected spell subjects."
+      "reuse": "Later spell routes may use this as adapter-only projection evidence for accepted in-scope spell procedure QNT facts; mass healing rows remain non-acceptance regression coverage."
     }
   ],
   "productionModulesExtended": [
+    {
+      "domainApis": [
+        "RuleCoreComponentOwner",
+        "RuleCoreComponentRouteEvent",
+        "rule_core_component_route"
+      ],
+      "path": "src/rules/rule_core_components.rs",
+      "reason": "Shared owner/kind component route facts replace adapter-local component event enums.",
+      "role": "rule-facts"
+    },
     {
       "domainApis": [
         "CommandNextTurnState",

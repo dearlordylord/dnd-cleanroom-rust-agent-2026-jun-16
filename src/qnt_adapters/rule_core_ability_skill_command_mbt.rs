@@ -6,14 +6,10 @@ use crate::rules::command_options::{
     reject_command_flee_partial_movement, resolve_command_flee_full_movement,
     suppress_command_halt, CommandNextTurnOption, CommandNextTurnState, CommandTurnActor,
 };
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum RuleCoreAbilitySkillCommandComponentEvent {
-    ParseInput,
-    AdmitInput,
-    Call,
-    ProjectResult,
-}
+use crate::rules::rule_core_components::{
+    rule_core_component_route, rule_core_component_route_event_ref, RuleCoreComponentOwner,
+    RuleCoreComponentRouteEvent,
+};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum RuleCoreSkill {
@@ -60,7 +56,7 @@ pub struct AbilitySkillCommandState {
     pub d20_modifier_skill: &'static str,
     pub ability_check_mode_ability: &'static str,
     pub replay_index: i16,
-    pub component_route: Vec<RuleCoreAbilitySkillCommandComponentEvent>,
+    pub component_route: Vec<RuleCoreComponentRouteEvent>,
 }
 
 pub const BRANCH_ACTIONS: [&str; 32] = [
@@ -187,10 +183,254 @@ pub fn replay_observed_action(observed_action_taken: &str) -> AbilitySkillComman
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> AbilitySkillCommandState {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doSearchFails" => expected_projection(
+            "search-fails",
+            true,
+            false,
+            0,
+            0,
+            false,
+            true,
+            0,
+            "Goblin",
+            "none",
+            0,
+            false,
+            false,
+            "none",
+            "none",
+            1,
+        ),
+        "doSearchSucceeds" => expected_projection(
+            "search-succeeds",
+            false,
+            false,
+            0,
+            0,
+            false,
+            true,
+            0,
+            "Goblin",
+            "none",
+            0,
+            false,
+            false,
+            "none",
+            "none",
+            2,
+        ),
+        "doGuidanceSkillAcrobatics" => {
+            expected_guidance("guidance-skill-acrobatics", "acrobatics", 3)
+        }
+        "doGuidanceSkillAnimalHandling" => {
+            expected_guidance("guidance-skill-animal-handling", "animal_handling", 4)
+        }
+        "doGuidanceSkillArcana" => expected_guidance("guidance-skill-arcana", "arcana", 5),
+        "doGuidanceSkillAthletics" => expected_guidance("guidance-skill-athletics", "athletics", 6),
+        "doGuidanceSkillDeception" => expected_guidance("guidance-skill-deception", "deception", 7),
+        "doGuidanceSkillHistory" => expected_guidance("guidance-skill-history", "history", 8),
+        "doGuidanceSkillInsight" => expected_guidance("guidance-skill-insight", "insight", 9),
+        "doGuidanceSkillIntimidation" => {
+            expected_guidance("guidance-skill-intimidation", "intimidation", 10)
+        }
+        "doGuidanceSkillInvestigation" => {
+            expected_guidance("guidance-skill-investigation", "investigation", 11)
+        }
+        "doGuidanceSkillMedicine" => expected_guidance("guidance-skill-medicine", "medicine", 12),
+        "doGuidanceSkillNature" => expected_guidance("guidance-skill-nature", "nature", 13),
+        "doGuidanceSkillPerception" => {
+            expected_guidance("guidance-skill-perception", "perception", 14)
+        }
+        "doGuidanceSkillPerformance" => {
+            expected_guidance("guidance-skill-performance", "performance", 15)
+        }
+        "doGuidanceSkillPersuasion" => {
+            expected_guidance("guidance-skill-persuasion", "persuasion", 16)
+        }
+        "doGuidanceSkillReligion" => expected_guidance("guidance-skill-religion", "religion", 17),
+        "doGuidanceSkillSleightOfHand" => {
+            expected_guidance("guidance-skill-sleight-of-hand", "sleight_of_hand", 18)
+        }
+        "doGuidanceSkillStealth" => expected_guidance("guidance-skill-stealth", "stealth", 19),
+        "doGuidanceSkillSurvival" => expected_guidance("guidance-skill-survival", "survival", 20),
+        "doEnhanceAbilityChoice" => expected_projection(
+            "enhance-ability-choice",
+            false,
+            false,
+            1,
+            0,
+            false,
+            true,
+            0,
+            "Fighter",
+            "none",
+            0,
+            false,
+            false,
+            "none",
+            "dex",
+            21,
+        ),
+        "doCommandCastGrovel" => expected_command(
+            "command-cast-grovel",
+            false,
+            1,
+            false,
+            true,
+            0,
+            "Fighter",
+            "grovel",
+            0,
+            false,
+            false,
+            22,
+        ),
+        "doCommandFollowGrovel" => expected_command(
+            "command-follow-grovel",
+            true,
+            0,
+            true,
+            true,
+            0,
+            "Fighter",
+            "none",
+            0,
+            false,
+            false,
+            23,
+        ),
+        "doCommandFollowDrop" => expected_command(
+            "command-follow-drop",
+            false,
+            0,
+            true,
+            true,
+            0,
+            "Fighter",
+            "none",
+            1,
+            false,
+            false,
+            24,
+        ),
+        "doCommandHaltSuppresses" => expected_command(
+            "command-halt-suppresses",
+            false,
+            1,
+            false,
+            false,
+            30,
+            "Goblin",
+            "halt",
+            0,
+            false,
+            true,
+            25,
+        ),
+        "doCommandFollowApproachContinues" => expected_command(
+            "command-follow-approach-continues",
+            false,
+            0,
+            true,
+            true,
+            10,
+            "Goblin",
+            "none",
+            0,
+            false,
+            false,
+            26,
+        ),
+        "doCommandFollowApproachWithinFive" => expected_command(
+            "command-follow-approach-within-five",
+            false,
+            0,
+            true,
+            true,
+            10,
+            "Fighter",
+            "none",
+            0,
+            false,
+            false,
+            27,
+        ),
+        "doCommandFollowApproachNoMovement" => expected_command(
+            "command-follow-approach-no-movement",
+            false,
+            0,
+            true,
+            true,
+            0,
+            "Goblin",
+            "none",
+            0,
+            false,
+            false,
+            28,
+        ),
+        "doCommandFollowFlee" => expected_command(
+            "command-follow-flee",
+            false,
+            0,
+            true,
+            true,
+            30,
+            "Fighter",
+            "none",
+            0,
+            false,
+            false,
+            29,
+        ),
+        "doCommandFollowFleePartialRejected" => expected_command(
+            "command-follow-flee-partial-rejected",
+            false,
+            1,
+            true,
+            true,
+            0,
+            "Goblin",
+            "flee",
+            0,
+            false,
+            false,
+            30,
+        ),
+        "doCommandFollowFleeNoMovement" => expected_command(
+            "command-follow-flee-no-movement",
+            false,
+            0,
+            true,
+            true,
+            0,
+            "Fighter",
+            "none",
+            0,
+            false,
+            false,
+            31,
+        ),
+        "doCommandFollowFleeOpportunityAttack" => expected_command(
+            "command-follow-flee-opportunity-attack",
+            false,
+            1,
+            true,
+            true,
+            0,
+            "Goblin",
+            "flee",
+            0,
+            true,
+            false,
+            32,
+        ),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
-pub fn expected_component_route() -> Vec<RuleCoreAbilitySkillCommandComponentEvent> {
+pub fn expected_component_route() -> Vec<RuleCoreComponentRouteEvent> {
     component_route()
 }
 
@@ -223,12 +463,112 @@ pub fn projection_payload(state: &AbilitySkillCommandState) -> String {
     .join("\n")
 }
 
-pub fn component_route_payload(route: &[RuleCoreAbilitySkillCommandComponentEvent]) -> String {
+pub fn component_route_payload(route: &[RuleCoreComponentRouteEvent]) -> String {
     route
         .iter()
-        .map(component_event_ref)
+        .map(rule_core_component_route_event_ref)
         .collect::<Vec<_>>()
         .join(">")
+}
+
+fn expected_guidance(
+    scenario: &'static str,
+    skill: &'static str,
+    replay_index: i16,
+) -> AbilitySkillCommandState {
+    expected_projection(
+        scenario,
+        false,
+        false,
+        1,
+        1,
+        false,
+        true,
+        0,
+        "Fighter",
+        "none",
+        0,
+        false,
+        false,
+        skill,
+        "none",
+        replay_index,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn expected_command(
+    scenario: &'static str,
+    target_prone: bool,
+    target_effect_count: i16,
+    action_available: bool,
+    bonus_action_available: bool,
+    movement_spent_feet: i16,
+    current_actor: &'static str,
+    pending_command_option: &'static str,
+    dropped_object_count: i16,
+    reaction_window_open: bool,
+    halt_suppressed: bool,
+    replay_index: i16,
+) -> AbilitySkillCommandState {
+    expected_projection(
+        scenario,
+        false,
+        target_prone,
+        target_effect_count,
+        0,
+        action_available,
+        bonus_action_available,
+        movement_spent_feet,
+        current_actor,
+        pending_command_option,
+        dropped_object_count,
+        reaction_window_open,
+        halt_suppressed,
+        "none",
+        "none",
+        replay_index,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn expected_projection(
+    scenario: &'static str,
+    target_hidden: bool,
+    target_prone: bool,
+    target_effect_count: i16,
+    caster_effect_count: i16,
+    action_available: bool,
+    bonus_action_available: bool,
+    movement_spent_feet: i16,
+    current_actor: &'static str,
+    pending_command_option: &'static str,
+    dropped_object_count: i16,
+    reaction_window_open: bool,
+    halt_suppressed: bool,
+    d20_modifier_skill: &'static str,
+    ability_check_mode_ability: &'static str,
+    replay_index: i16,
+) -> AbilitySkillCommandState {
+    AbilitySkillCommandState {
+        last_scenario: scenario,
+        target_hidden,
+        target_prone,
+        target_effect_count,
+        caster_effect_count,
+        action_available,
+        bonus_action_available,
+        movement_spent_feet,
+        current_actor,
+        pending_command_option,
+        dropped_object_count,
+        reaction_window_open,
+        halt_suppressed,
+        d20_modifier_skill,
+        ability_check_mode_ability,
+        replay_index,
+        component_route: component_route(),
+    }
 }
 
 fn search_projection(
@@ -314,30 +654,8 @@ fn failed_save(option: CommandNextTurnOption) -> CommandNextTurnState {
     record_command_failed_save_pending(command_next_turn_initial_state(), option)
 }
 
-fn component_route() -> Vec<RuleCoreAbilitySkillCommandComponentEvent> {
-    vec![
-        RuleCoreAbilitySkillCommandComponentEvent::ParseInput,
-        RuleCoreAbilitySkillCommandComponentEvent::AdmitInput,
-        RuleCoreAbilitySkillCommandComponentEvent::Call,
-        RuleCoreAbilitySkillCommandComponentEvent::ProjectResult,
-    ]
-}
-
-fn component_event_ref(event: &RuleCoreAbilitySkillCommandComponentEvent) -> &'static str {
-    match event {
-        RuleCoreAbilitySkillCommandComponentEvent::ParseInput => {
-            "RuleCoreComponentParseInput(RuleCoreAbilitySkillCommandOwner)"
-        }
-        RuleCoreAbilitySkillCommandComponentEvent::AdmitInput => {
-            "RuleCoreComponentAdmitInput(RuleCoreAbilitySkillCommandOwner)"
-        }
-        RuleCoreAbilitySkillCommandComponentEvent::Call => {
-            "RuleCoreComponentCall(RuleCoreAbilitySkillCommandOwner)"
-        }
-        RuleCoreAbilitySkillCommandComponentEvent::ProjectResult => {
-            "RuleCoreComponentProjectResult(RuleCoreAbilitySkillCommandOwner)"
-        }
-    }
+fn component_route() -> Vec<RuleCoreComponentRouteEvent> {
+    rule_core_component_route(RuleCoreComponentOwner::AbilitySkillCommand)
 }
 
 fn actor_ref(actor: Option<CommandTurnActor>) -> &'static str {

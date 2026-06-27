@@ -2,8 +2,28 @@
   "durableFields": [
     {
       "derivability": {
-        "boundary": "RuleCoreAbilitySkillCommandOwner component projection",
-        "sourceField": "qComponentRoute",
+        "boundary": "shared rule-core component route event",
+        "sourceField": "RuleCoreComponentOwner",
+        "tag": "stored-executable-boundary-projection"
+      },
+      "fieldPath": "RuleCoreComponentRouteEvent.owner",
+      "introducedIn": "src/rules/rule_core_components.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "derivability": {
+        "boundary": "shared rule-core component route event",
+        "sourceField": "RuleCoreComponentRouteEventKind",
+        "tag": "stored-executable-boundary-projection"
+      },
+      "fieldPath": "RuleCoreComponentRouteEvent.kind",
+      "introducedIn": "src/rules/rule_core_components.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "derivability": {
+        "boundary": "RuleCoreAbilitySkillCommandOwner adapter projection witness",
+        "sourceField": "qPendingCommandOption",
         "tag": "stored-executable-boundary-projection"
       },
       "fieldPath": "CommandNextTurnState.pending_option",
@@ -12,8 +32,8 @@
     },
     {
       "derivability": {
-        "boundary": "RuleCoreAbilitySkillCommandOwner component projection",
-        "sourceField": "qComponentRoute",
+        "boundary": "RuleCoreAbilitySkillCommandOwner adapter projection witness",
+        "sourceField": "qReactionWindowOpen",
         "tag": "stored-executable-boundary-projection"
       },
       "fieldPath": "CommandNextTurnState.reaction_window_open",
@@ -22,8 +42,8 @@
     },
     {
       "derivability": {
-        "boundary": "RuleCoreSpellProcedureProfileOwner component projection",
-        "sourceField": "qComponentRoute",
+        "boundary": "RuleCoreSpellProcedureProfileOwner adapter projection witness",
+        "sourceField": "qActionAvailable",
         "tag": "stored-executable-boundary-projection"
       },
       "fieldPath": "MageArmorState.action_available",
@@ -32,8 +52,8 @@
     },
     {
       "derivability": {
-        "boundary": "RuleCoreSpellProcedureProfileOwner component projection",
-        "sourceField": "qComponentRoute",
+        "boundary": "RuleCoreSpellProcedureProfileOwner adapter projection witness",
+        "sourceField": "qLevel1SlotsRemaining",
         "tag": "stored-executable-boundary-projection"
       },
       "fieldPath": "MageArmorState.level_one_slots_expended",
@@ -41,16 +61,16 @@
       "owner": "executable-boundary-projection"
     }
   ],
-  "durableFieldsReason": "RR04C introduces no new battle-state fields. Checked replay fields are existing production rule-fact projections used to tie component-route evidence to reusable component owners rather than driver-local battle state.",
+  "durableFieldsReason": "RR04C introduces no new battle-state fields. Reusable production ownership is limited to the shared rule-core component route event facts and selected pre-existing rule fact fields; the broader QNT projection payload remains adapter evidence, not reusable component-owner semantics.",
   "nonDurableBoundaryApiSurface": [
     {
-      "apiPath": "RuleCoreAbilitySkillCommandOwner qComponentRoute",
+      "apiPath": "RuleCoreAbilitySkillCommandOwner qComponentRoute+qProjectionPayload",
       "boundary": "component-first replay evidence",
       "introducedIn": "src/qnt_adapters/rule_core_ability_skill_command_mbt.rs",
       "owner": "executable-boundary-projection"
     },
     {
-      "apiPath": "RuleCoreSpellProcedureProfileOwner qComponentRoute",
+      "apiPath": "RuleCoreSpellProcedureProfileOwner qComponentRoute+qProjectionPayload",
       "boundary": "component-first replay evidence",
       "introducedIn": "src/qnt_adapters/rule_core_spells_mbt.rs",
       "owner": "executable-boundary-projection"

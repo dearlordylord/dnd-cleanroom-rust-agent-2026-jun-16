@@ -1269,11 +1269,11 @@
       "artifacts": {
         "deciderDecision": {
           "path": "tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/DECIDER_DECISION.json",
-          "sha256": "0b6872f56c04d30be358a57cf8f3bd28addafcef4eaf4cde43fd9eb3cea4a39f"
+          "sha256": "5311c8cbd29af2a649606ddff2f2400be08adb43fe096da1841576f2d32b4e44"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "e8bc60f1316630eb765175bcf7902958fb54838a4aece89bfadc00e64eaf0e86"
+          "sha256": "151c771427a312805565739b6937d106c4915b7be2ed3e53fe01ff5179adb0d0"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/REVIEW_LOOP.json",
@@ -1285,17 +1285,17 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS/STATE_OWNER_MANIFEST.json",
-          "sha256": "7457ff1ff8c48f8d2f569ab3736976029417b33d73ecc5969ac161ad03cdc6ca"
+          "sha256": "d9829fe6458a57eeef59205a809f47cfac8470d62f21c0cf4b332e4651360bd0"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",
       "commandResults": [
         {
-          "command": "cargo test ability_skill_command_adapter_replays_all_branches -- --nocapture",
+          "command": "cargo test ability_skill_command -- --nocapture",
           "status": "pass"
         },
         {
-          "command": "cargo test rule_core_spells_adapter_replays_all_branches -- --nocapture",
+          "command": "cargo test rule_core_spells -- --nocapture",
           "status": "pass"
         },
         {
@@ -1364,7 +1364,7 @@
             "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doSearchSucceeds#step:doSearchSucceeds"
           ],
           "path": "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-ability-skill-command.json",
-          "sha256": "589b3f3db65b9798118526751fc8c55b33a0e6571ced90c903b9949e50a2e582"
+          "sha256": "52cc18dc94fd282ace837b4073bd2e636968f16857a56ab5bec3c48fc59602ba"
         },
         {
           "evidenceRefs": [
@@ -1394,7 +1394,7 @@
             "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json#L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS replay action=doReleaseReadiedSpell#step:doReleaseReadiedSpell"
           ],
           "path": "tasks/target-replay-evidence/L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS-spells.json",
-          "sha256": "ab8ae09645bdbf2768d8666d285af56092ec0b18845f7bedd7a652b7cd7776fc"
+          "sha256": "371a98f64b53a35e69c13992342cbc77cda94406dac2448726d2810ff271ea88"
         }
       ],
       "taskId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS"

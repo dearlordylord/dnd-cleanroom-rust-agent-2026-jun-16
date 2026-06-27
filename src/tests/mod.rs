@@ -1102,7 +1102,8 @@ use rule_core_spells_mbt::{
     expected_component_route as expected_spell_component_route,
     expected_witness as expected_spell_witness, projection_payload as spell_projection_payload,
     replay_observed_action as replay_spell_action, SpellProcedureProtocolResult,
-    BRANCH_ACTIONS as SPELL_BRANCH_ACTIONS,
+    ACCEPTED_BRANCH_ACTIONS as ACCEPTED_SPELL_BRANCH_ACTIONS,
+    BRANCH_ACTIONS as ALL_SPELL_BRANCH_ACTIONS, OUT_OF_SCOPE_MASS_SPELL_BRANCH_ACTIONS,
 };
 use rule_core_stat_block_controls_mbt::{
     expected_witness as expected_stat_block_control_witness,
@@ -2716,15 +2717,18 @@ fn hit_point_damage_projects_temporary_zero_and_massive_damage() {
 }
 
 #[test]
-fn rule_core_spells_adapter_replays_all_branches() {
+fn rule_core_spells_adapter_replays_accepted_component_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/rule-core-spells.mbt.qnt and
     // shared-algebras/proofs/rule-core spell procedure profiles. RAW:
     // cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md
     // "Spell Slots", "Casting Time", "Targets", and "Ready"; spell
     // descriptions for Magic Missile, Ray of Frost, Acid Splash, Healing Word,
-    // Cure Wounds, Mass Healing Word, Mass Cure Wounds, and Mage Armor.
-    assert_eq!(SPELL_BRANCH_ACTIONS.len(), 30);
-    for action in SPELL_BRANCH_ACTIONS {
+    // Cure Wounds, and Mage Armor. Mass healing spell rows remain copied
+    // driver actions, but are tracked as out-of-scope non-acceptance
+    // regressions because RR04C did not establish their reusable component
+    // owner facts.
+    assert_eq!(ACCEPTED_SPELL_BRANCH_ACTIONS.len(), 24);
+    for action in ACCEPTED_SPELL_BRANCH_ACTIONS {
         let observed = replay_spell_action(action);
         assert_eq!(observed, expected_spell_witness(action));
         assert_eq!(observed.component_route, expected_spell_component_route());
@@ -2733,8 +2737,29 @@ fn rule_core_spells_adapter_replays_all_branches() {
 }
 
 #[test]
+fn rule_core_spells_keeps_mass_spell_rows_as_non_acceptance_regression_coverage() {
+    // RAW/QNT citations match
+    // `rule_core_spells_adapter_replays_accepted_component_branches`.
+    assert_eq!(ALL_SPELL_BRANCH_ACTIONS.len(), 30);
+    assert_eq!(OUT_OF_SCOPE_MASS_SPELL_BRANCH_ACTIONS.len(), 6);
+    for action in OUT_OF_SCOPE_MASS_SPELL_BRANCH_ACTIONS {
+        let observed = replay_spell_action(action);
+        assert_eq!(observed, expected_spell_witness(action));
+        assert!(spell_projection_payload(&observed).contains("qComponentRoute="));
+    }
+
+    let mass_healing = replay_spell_action("doMassHealingWordWounded");
+    assert!(mass_healing.action_available);
+    assert!(!mass_healing.bonus_action_available);
+    assert_eq!(mass_healing.target_hp, 12);
+    assert_eq!(mass_healing.second_target_hp, 12);
+    assert_eq!(mass_healing.level_one_slots_remaining, 0);
+}
+
+#[test]
 fn rule_core_spells_projects_invocation_damage_healing_and_readied_response() {
-    // RAW/QNT citations match `rule_core_spells_adapter_replays_all_branches`.
+    // RAW/QNT citations match
+    // `rule_core_spells_adapter_replays_accepted_component_branches`.
     let missile = replay_spell_action("doMagicMissileLow");
     assert_eq!(missile.target_hp, 4);
     assert!(missile.spell_slot_spent_this_turn);
@@ -2747,13 +2772,6 @@ fn rule_core_spells_projects_invocation_damage_healing_and_readied_response() {
     let ray_critical = replay_spell_action("doRayOfFrostCritical");
     assert_eq!(ray_critical.target_hp, 5);
     assert_eq!(ray_critical.active_effect_kind, "speedDelta");
-
-    let mass_healing = replay_spell_action("doMassHealingWordWounded");
-    assert!(mass_healing.action_available);
-    assert!(!mass_healing.bonus_action_available);
-    assert_eq!(mass_healing.target_hp, 12);
-    assert_eq!(mass_healing.second_target_hp, 12);
-    assert_eq!(mass_healing.level_one_slots_remaining, 0);
 
     let held = replay_spell_action("doReadySpellHold");
     assert!(held.readied_held);
