@@ -2767,19 +2767,19 @@
     }
   },
   "nextWorkRecommendations": [
-    "Launch FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS from accepted fresh target head 773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc using FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json.",
-    "Use the accepted fresh target at 773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc as the current strongest evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-01 diagnostic battle route evidence, and FEXP-02 generic spell-attack/save-gated substrate evidence, verified by python3 tools/verify_current_fresh_target.py.",
+    "Launch FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS from accepted fresh target head 9b2f81bfabb6f1afd7daede0455be054bb92d78c using FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json.",
+    "Use the accepted fresh target at 9b2f81bfabb6f1afd7daede0455be054bb92d78c as the current strongest evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-01 diagnostic battle route evidence, FEXP-02 generic spell-attack/save-gated substrate evidence, and FEXP-03 chained/object spell-attack evidence, verified by python3 tools/verify_current_fresh_target.py.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "running",
-    "activeLane": "FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS",
+    "status": "fexp03-accepted-with-blockers",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc",
+    "acceptedTargetHead": "9b2f81bfabb6f1afd7daede0455be054bb92d78c",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -2861,14 +2861,46 @@
           "FEXP-02-attack-spell-shape-selected-identity-effects-outside-generic-substrate",
           "FEXP-02-level1-damage-spell-selected-identity-effects-outside-generic-substrate"
         ]
+      },
+      {
+        "laneId": "FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS",
+        "status": "accepted-with-blockers",
+        "baseCommit": "773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc",
+        "targetCommit": "9b2f81bfabb6f1afd7daede0455be054bb92d78c",
+        "workerAgent": "Chandrasekhar the 3rd (019f0b07-2145-7db1-8697-30577ff5d51a); fixer Kuhn the 3rd (019f0b1f-3bb8-74d3-becf-b97ce0a60140)",
+        "reviewerAgent": "Noether the 3rd (019f0b1c-6ef4-7742-847e-fa5d0522c03d)",
+        "artifacts": [
+          "EVIDENCE/fexp03-chained-and-object-spell-attacks.json",
+          "examples/fexp03_route_observations.rs",
+          "tools/verify_fexp03.py",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "BLOCKERS.json",
+          "STATE_OWNERS.md"
+        ],
+        "checks": [
+          "python3 -m json.tool FRESH_EXPANSION_STATE.json",
+          "python3 tools/verify_current_fresh_target.py",
+          "python3 tools/verify_fexp03.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check 773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc...HEAD",
+          "static forbidden-boundary scan via current fresh target verifier",
+          "static production-source authored-identity dispatch search"
+        ],
+        "coverageClaim": "generic independent spell-attack sequence, chained duplicate-damage leap, and object-target spell-attack route surfaces accepted through public reducer entrypoints; isolated object stale replay remains blocked rather than synthesized",
+        "blockers": [
+          "FEXP-03-object-stale-replay-isolated-route-surface-not-publicly-observable"
+        ]
       }
     ],
-    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-03",
-    "activeBranch": "ralph/fexp-03-chained-and-object-spell-attacks",
-    "activeLaneBaseCommit": "773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc",
-    "workerAgent": "Chandrasekhar the 3rd (019f0b07-2145-7db1-8697-30577ff5d51a)",
+    "activeWorktree": null,
+    "activeBranch": null,
+    "activeLaneBaseCommit": null,
+    "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS"
+    "nextPlannedLane": "FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS"
   },
   "sdkTracerBullet": {
     "status": "reviewed-accepted",

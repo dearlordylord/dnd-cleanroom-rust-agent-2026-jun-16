@@ -3,7 +3,7 @@
 Campaign: `level-1-2-runtime-reducer-route`
 
 Status: accepted through the SDK tracer-bullet composition checkpoint, Pact
-Slot handoff replay, FEXP-02 spell substrate expansion, and current
+Slot handoff replay, FEXP-03 chained/object spell expansion, and current
 fresh-target verifier.
 
 ## Purpose
@@ -37,7 +37,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc`
+`9b2f81bfabb6f1afd7daede0455be054bb92d78c`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -52,6 +52,11 @@ route coverage.
 `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc` with generic spell-attack and
 save-gated substrate route evidence; residual selected spell effects remain
 explicit blockers outside the generic substrate.
+`FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS` is accepted-with-blockers at
+`9b2f81bfabb6f1afd7daede0455be054bb92d78c` with generic independent
+spell-attack sequence, chained duplicate-damage leap, and object-target
+spell-attack route evidence; isolated object stale replay remains explicitly
+blocked.
 
 ## Hard Boundaries
 

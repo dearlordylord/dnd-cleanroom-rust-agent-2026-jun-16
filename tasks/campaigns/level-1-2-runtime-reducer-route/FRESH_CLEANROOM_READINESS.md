@@ -35,7 +35,7 @@ Authoritative state:
 - out-of-scope obligations: `45`
 - active lane worktrees: none
 - active fresh dry-run worktrees: none
-- strongest fresh target evidence: `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc`
+- strongest fresh target evidence: `9b2f81bfabb6f1afd7daede0455be054bb92d78c`
 
 The final CP8 lane accepted exactly these three newly accepted rows:
 
@@ -141,10 +141,11 @@ resolved in the copied source package, and the current fresh verifier is green.
 Next useful work is one of:
 
 - use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
-  `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc` as the accepted evidence for the
+  `9b2f81bfabb6f1afd7daede0455be054bb92d78c` as the accepted evidence for the
   integrated SDK tracer-bullet plus post-FC06 Pact Slot handoff replay plus
   FEXP-00 expansion baseline lock, FEXP-01 diagnostic battle route pack, and
-  FEXP-02 generic spell-attack/save-gated substrate lane, with `python3
+  FEXP-02 generic spell-attack/save-gated substrate lane plus FEXP-03
+  chained/object spell-attack substrate lane, with `python3
   tools/verify_current_fresh_target.py` as the current package gate;
 - clean the global stale validator-hash / historical evidence debt so the dirty
   harness can pass without exception;

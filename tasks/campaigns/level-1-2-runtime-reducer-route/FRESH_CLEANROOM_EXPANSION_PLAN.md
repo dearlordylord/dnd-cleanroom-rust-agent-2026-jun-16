@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: FEXP-03 running from accepted fresh target head `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc`
+Status: FEXP-03 accepted-with-blockers; continue from FEXP-04
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc`
+- current accepted fresh target head: `9b2f81bfabb6f1afd7daede0455be054bb92d78c`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `b57772b459f1b75592fd45b9196fd60965b534d3`
 
@@ -118,8 +118,12 @@ Status:
   entrypoints;
 - residual selected spell effects outside those generic substrates remain
   explicit blockers;
-- continue this checkpoint with
-  `FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS`.
+- `FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS` is accepted-with-blockers at fresh
+  target head `9b2f81bfabb6f1afd7daede0455be054bb92d78c`;
+- generic independent spell-attack sequence, chained duplicate-damage leap, and
+  object-target spell-attack surfaces route through public reducer entrypoints;
+- isolated object stale replay remains blocked because it is not publicly
+  observable without fabricating a same-battle stale object subject token.
 
 Why second:
 
