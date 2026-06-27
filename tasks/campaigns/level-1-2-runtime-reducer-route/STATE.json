@@ -135,7 +135,7 @@
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
-    "L15-RR08-CHARACTER-CREATION-ROUTES": "review-findings",
+    "L15-RR08-CHARACTER-CREATION-ROUTES": "fixing",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "fixing",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "ready",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
@@ -182,7 +182,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08",
       "branch": "ralph/l15-rr08-character-creation",
       "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
-      "status": "review-findings",
+      "status": "fixing",
       "workerAgent": "019f06a6-8ed9-7560-9daa-6922b4bb277d",
       "workerName": "Harvey",
       "commit": "8416ee533fed413f9f072b982e0d425d89d90bac",
@@ -198,7 +198,10 @@
         "Expected route witnesses are self-referential across character creation adapters and tests assert equality against non-independent expected routes.",
         "Production rule code dispatches on official selected identities in class_features.rs instead of admitted support facts.",
         "Evidence artifacts overclaim acceptance and authored-identity quarantine despite self-referential witnesses and production identity dispatch."
-      ]
+      ],
+      "fixerAgent": "019f06bd-b6ee-7771-81e1-d412340ae0e9",
+      "fixerName": "Kierkegaard",
+      "fixStatus": "running"
     },
     {
       "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",

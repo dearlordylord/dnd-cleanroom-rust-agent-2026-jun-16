@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR08-CHARACTER-CREATION-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08` | `ralph/l15-rr08-character-creation` | `9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9` | Harvey `019f06a6-8ed9-7560-9daa-6922b4bb277d`; reviewer Anscombe `019f06ba-0bd8-75f1-a90f-c644d3746cb3` | review-findings, lane head `8416ee533fed413f9f072b982e0d425d89d90bac` |
+| L15-RR08-CHARACTER-CREATION-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08` | `ralph/l15-rr08-character-creation` | `9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9` | Harvey `019f06a6-8ed9-7560-9daa-6922b4bb277d`; reviewer Anscombe `019f06ba-0bd8-75f1-a90f-c644d3746cb3`; fixer Kierkegaard `019f06bd-b6ee-7771-81e1-d412340ae0e9` | fixing, lane head `8416ee533fed413f9f072b982e0d425d89d90bac` |
 | L15-RR09-CHARACTER-SHEET-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09` | `ralph/l15-rr09-character-sheet` | `9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9` | Volta `019f06a6-f828-76d0-b989-42488be5d4b9`; reviewer Pauli `019f06b4-d8d0-7050-9873-35e567b871b6`; fixer Aristotle `019f06b9-b640-7042-ab31-0bec31939b48` | fixing, lane head `cf9a8974fc9285878f6a8276dff8aa3cda3f3682` |
 
 ## Historical RRCONV-19 Worktrees
