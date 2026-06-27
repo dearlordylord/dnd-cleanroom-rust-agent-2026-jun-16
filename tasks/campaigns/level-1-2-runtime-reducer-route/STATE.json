@@ -215,7 +215,15 @@
       "status": "implemented-pending-review",
       "workerAgent": "019f0671-240b-7540-9f83-d8c2b4e83b30",
       "workerName": "Russell",
-      "commit": "629d9ef2c992042ddf007a6517f7e428478598d1"
+      "commit": "629d9ef2c992042ddf007a6517f7e428478598d1",
+      "reviewAgent": "019f0678-5397-7e20-b042-9349633364b4",
+      "reviewName": "Sagan",
+      "reviewStatus": "findings",
+      "reviewFindings": [
+        "Movement and shove expected witnesses are self-referential: expected paths call observed replay paths.",
+        "Production rule_core_reactions exposes ReadyMovementFixture / ready_reaction_movement_fixture fixture identity.",
+        "Evidence refs are not unique because duplicate doDeclineOpportunityAttack omits driverPath in ref format."
+      ]
     },
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
