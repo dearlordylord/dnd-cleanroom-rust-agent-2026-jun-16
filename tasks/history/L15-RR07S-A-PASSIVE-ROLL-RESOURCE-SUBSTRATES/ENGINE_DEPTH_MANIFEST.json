@@ -7,7 +7,7 @@
   ],
   "adapterModules": [
     {
-      "adapterScope": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt selected-identity witness and reducer-route boundary; observed replay compares qRoute event lists through typed substrates.",
+      "adapterScope": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt selected-identity witness and reducer-route boundary; observed replay translates production observer-entrypoint qRoute event lists through typed substrates.",
       "path": "src/qnt_adapters/battle_runtime_adrenaline_rush.rs",
       "quarantinedWitnessNames": [
         "doAdrenalineRushDash",
@@ -33,7 +33,7 @@
       ]
     },
     {
-      "adapterScope": "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt selected-identity witness and reducer-route boundary; observed replay compares qRoute event lists through typed substrates.",
+      "adapterScope": "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt selected-identity witness and reducer-route boundary; observed replay translates production observer-entrypoint qRoute event lists through typed substrates.",
       "path": "src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doMoveThroughLargerCreatureSpace",
@@ -61,7 +61,7 @@
       ]
     },
     {
-      "adapterScope": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt selected-identity witness and reducer-route boundary; observed replay compares qRoute event lists through typed substrates.",
+      "adapterScope": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt selected-identity witness and reducer-route boundary; observed replay translates production observer-entrypoint qRoute event lists through typed substrates.",
       "path": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doDragonbornDamageResistance",
@@ -89,7 +89,7 @@
       ]
     },
     {
-      "adapterScope": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt selected-identity witness and reducer-route boundary; observed replay compares qRoute event lists through typed substrates.",
+      "adapterScope": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt selected-identity witness and reducer-route boundary; observed replay translates production observer-entrypoint qRoute event lists through typed substrates.",
       "path": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doProjectDangerSenseDexterityAdvantage",
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "adapterScope": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt selected-identity witness and reducer-route boundary; observed replay compares qRoute event lists through typed substrates.",
+      "adapterScope": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt selected-identity witness and reducer-route boundary; observed replay translates production observer-entrypoint qRoute event lists through typed substrates.",
       "path": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
       "quarantinedWitnessNames": [
         "doBlessAttackAndSaveModifier",
@@ -161,10 +161,22 @@
       "domainApis": [
         "BattleFeatureResources",
         "resolve_bonus_action_dash_temporary_hit_points_feature_battle",
-        "bonus_action_dash_temporary_hit_points_feature_turn_state"
+        "bonus_action_dash_temporary_hit_points_feature_turn_state",
+        "trace_adrenaline_rush_bonus_action_dash",
+        "trace_adrenaline_rush_bonus_action_dash_then_reject_second_dash",
+        "project_dragonborn_damage_resistance_observed",
+        "project_dwarven_resilience_observed",
+        "project_halfling_brave_observed",
+        "project_goliath_powerful_build_observed",
+        "trace_creature_space_traversal_sequence",
+        "project_bless_attack_and_save_modifier_observed",
+        "project_bane_failed_save_penalty_observed",
+        "project_guidance_skill_ability_check_modifier_observed",
+        "project_resistance_matching_damage_reduction_observed",
+        "project_shield_of_faith_armor_class_bonus_observed"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
-      "reason": "Routes feature-resource-backed bonus-action dash/temp-HP behavior through battle-owned state and typed feature facts.",
+      "reason": "Routes feature-resource-backed bonus-action dash/temp-HP behavior through battle-owned state and typed feature facts, and owns accepted observed qRoute emission for passive roll/resource substrate obligations.",
       "role": "domain-engine"
     },
     {
@@ -198,6 +210,8 @@
       "domainApis": [
         "DangerSenseFacts",
         "danger_sense_saving_throw_roll_mode",
+        "project_danger_sense_dexterity_advantage_observed",
+        "suppress_danger_sense_while_incapacitated_observed",
         "AdrenalineRushFacts",
         "resolve_adrenaline_rush_bonus_action_dash"
       ],

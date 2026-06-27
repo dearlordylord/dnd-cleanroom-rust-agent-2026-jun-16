@@ -1,13 +1,13 @@
 use crate::rules::battle_reducer_spine::{
-    observe_battle_route_discovery, observe_battle_route_resolution,
-    observe_battle_route_resolution_without_fill, observe_battle_route_start,
-    BattleReducerRouteFillKind, BattleReducerRouteHoleKind, BattleReducerRouteOwnerGroup,
-    BattleReducerRouteResolutionOutcome, BattleReducerRouteSubjectFamily, BattleReducerRouteTrace,
+    project_dragonborn_damage_resistance_observed, project_dwarven_resilience_observed,
+    project_goliath_powerful_build_observed, project_halfling_brave_observed,
+    trace_creature_space_traversal_sequence,
 };
 use crate::rules::species_passive_traits::{
     project_dragonborn_damage_resistance, project_dwarven_resilience,
-    project_goliath_powerful_build, project_halfling_brave, SpeciesPassiveProtocol,
-    SpeciesPassiveRollMode, SpeciesPassiveScenarioResult, SpeciesPassiveTraitState,
+    project_goliath_powerful_build, project_halfling_brave, CreatureSpaceTraversalFacts,
+    CreatureSpaceTraversalPermission, SpeciesPassiveProtocol, SpeciesPassiveRollMode,
+    SpeciesPassiveScenarioResult, SpeciesPassiveTraitState,
 };
 
 use super::battle_runtime_reducer_route::{
@@ -73,20 +73,13 @@ pub fn expected_witness(observed_action_taken: &str) -> SpeciesPassiveTraitState
 }
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    let mut trace = BattleReducerRouteTrace::default();
-    match replay_observed_action(observed_action_taken).scenario_result {
-        SpeciesPassiveScenarioResult::DragonbornDamageResistance => {
-            record_passive_route_after_damage_adjustment(&mut trace)
-        }
-        SpeciesPassiveScenarioResult::DwarvenResilience
-        | SpeciesPassiveScenarioResult::HalflingBrave => {
-            record_passive_route_after_saving_throw_roll_mode(&mut trace)
-        }
-        SpeciesPassiveScenarioResult::GoliathPowerfulBuild => {
-            record_passive_route_after_ability_check_roll_mode(&mut trace)
-        }
-        SpeciesPassiveScenarioResult::Init => panic!("init is not a replayed branch action"),
-    }
+    let (_state, trace) = match observed_action_taken {
+        "doDragonbornDamageResistance" => project_dragonborn_damage_resistance_observed(),
+        "doDwarvenResilience" => project_dwarven_resilience_observed(),
+        "doHalflingBrave" => project_halfling_brave_observed(),
+        "doGoliathPowerfulBuild" => project_goliath_powerful_build_observed(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    };
     reducer_route_events_from_battle_trace(&trace)
 }
 
@@ -147,21 +140,18 @@ pub fn projection_payload(state: &SpeciesPassiveTraitState) -> String {
 }
 
 pub fn observed_passive_route_after_accepted_creature_space_movement() -> Vec<ReducerRouteEvent> {
-    let mut trace = BattleReducerRouteTrace::default();
-    record_passive_route_after_ability_check_roll_mode(&mut trace);
-    record_accepted_creature_space_movement(&mut trace);
+    let (_results, trace) =
+        trace_creature_space_traversal_sequence(&[accepted_creature_space_traversal()]);
     reducer_route_events_from_battle_trace(&trace)
 }
 
 pub fn observed_passive_route_after_rejected_creature_space_movement(
     rejected_count_after_acceptance: usize,
 ) -> Vec<ReducerRouteEvent> {
-    let mut trace = BattleReducerRouteTrace::default();
-    record_passive_route_after_ability_check_roll_mode(&mut trace);
-    record_accepted_creature_space_movement(&mut trace);
-    for _ in 0..rejected_count_after_acceptance {
-        record_rejected_creature_space_movement(&mut trace);
-    }
+    let mut facts = Vec::with_capacity(rejected_count_after_acceptance + 1);
+    facts.push(accepted_creature_space_traversal());
+    facts.extend((0..rejected_count_after_acceptance).map(|_| rejected_creature_space_traversal()));
+    let (_results, trace) = trace_creature_space_traversal_sequence(&facts);
     reducer_route_events_from_battle_trace(&trace)
 }
 
@@ -313,136 +303,6 @@ fn append_rejected_creature_space_movement(route: &mut Vec<ReducerRouteEvent>) {
     ]);
 }
 
-fn record_passive_route_after_ability_check_roll_mode(trace: &mut BattleReducerRouteTrace) {
-    record_passive_route_after_saving_throw_roll_mode(trace);
-    record_ability_check_roll_mode(trace);
-}
-
-fn record_passive_route_after_damage_adjustment(trace: &mut BattleReducerRouteTrace) {
-    record_passive_route_after_creature_stat_projection(trace);
-    record_damage_adjustment(trace);
-}
-
-fn record_passive_route_after_saving_throw_roll_mode(trace: &mut BattleReducerRouteTrace) {
-    record_passive_route_after_damage_adjustment(trace);
-    record_saving_throw_roll_mode(trace);
-}
-
-fn record_passive_route_after_creature_stat_projection(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::CreatureState, trace);
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::CreatureStatProjection,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::CreatureState,
-        trace,
-    );
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::CreatureStatProjection,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::CreatureState,
-        trace,
-    );
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::CreatureStatProjection,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::MovementResource,
-        trace,
-    );
-}
-
-fn record_damage_adjustment(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::PassiveDamageAdjustment,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::DamageAdjustment,
-        trace,
-    );
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::PassiveDamageAdjustment,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::DamageAdjustment,
-        trace,
-    );
-}
-
-fn record_saving_throw_roll_mode(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
-        vec![BattleReducerRouteHoleKind::SavingThrowOutcome],
-        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
-        trace,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
-        BattleReducerRouteFillKind::SavingThrowOutcome,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
-        trace,
-    );
-}
-
-fn record_ability_check_roll_mode(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::PassiveAbilityCheckRollMode,
-        vec![BattleReducerRouteHoleKind::GrappleOutcome],
-        BattleReducerRouteOwnerGroup::AbilityCheckRollMode,
-        trace,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::PassiveAbilityCheckRollMode,
-        BattleReducerRouteFillKind::GrappleOutcome,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::AbilityCheckRollMode,
-        trace,
-    );
-}
-
-fn record_accepted_creature_space_movement(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
-        vec![BattleReducerRouteHoleKind::Movement],
-        BattleReducerRouteOwnerGroup::CreatureSpaceMovement,
-        trace,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
-        BattleReducerRouteFillKind::Movement,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::CreatureSpaceMovement,
-        trace,
-    );
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::MovementResource,
-        trace,
-    );
-}
-
-fn record_rejected_creature_space_movement(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
-        vec![BattleReducerRouteHoleKind::Movement],
-        BattleReducerRouteOwnerGroup::CreatureSpaceMovement,
-        trace,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
-        BattleReducerRouteFillKind::Movement,
-        BattleReducerRouteResolutionOutcome::NeedsHoles,
-        vec![BattleReducerRouteHoleKind::Movement],
-        BattleReducerRouteOwnerGroup::CreatureSpaceMovement,
-        trace,
-    );
-}
-
 fn roll_mode_ref(mode: SpeciesPassiveRollMode) -> &'static str {
     match mode {
         SpeciesPassiveRollMode::Normal => "normal",
@@ -464,6 +324,24 @@ fn protocol_ref(protocol: SpeciesPassiveProtocol) -> &'static str {
     match protocol {
         SpeciesPassiveProtocol::Init => "init",
         SpeciesPassiveProtocol::Resolved => "resolved",
+    }
+}
+
+fn accepted_creature_space_traversal() -> CreatureSpaceTraversalFacts {
+    CreatureSpaceTraversalFacts {
+        permission: Some(CreatureSpaceTraversalPermission::LargerCreatureSpaceNoStop),
+        mover_size_rank: 1,
+        occupied_creature_size_rank: 2,
+        stops_in_occupied_space: false,
+    }
+}
+
+fn rejected_creature_space_traversal() -> CreatureSpaceTraversalFacts {
+    CreatureSpaceTraversalFacts {
+        permission: Some(CreatureSpaceTraversalPermission::LargerCreatureSpaceNoStop),
+        mover_size_rank: 1,
+        occupied_creature_size_rank: 1,
+        stops_in_occupied_space: false,
     }
 }
 

@@ -1,8 +1,8 @@
 use crate::rules::battle_reducer_spine::{
-    observe_battle_route_discovery, observe_battle_route_resolution,
-    observe_battle_route_resolution_without_fill, observe_battle_route_start,
-    BattleReducerRouteFillKind, BattleReducerRouteHoleKind, BattleReducerRouteOwnerGroup,
-    BattleReducerRouteResolutionOutcome, BattleReducerRouteSubjectFamily, BattleReducerRouteTrace,
+    project_bane_failed_save_penalty_observed, project_bless_attack_and_save_modifier_observed,
+    project_guidance_skill_ability_check_modifier_observed,
+    project_resistance_matching_damage_reduction_observed,
+    project_shield_of_faith_armor_class_bonus_observed,
 };
 use crate::rules::roll_modifier_buff_selected_identity::{
     project_bane_failed_save_penalty, project_bless_attack_and_save_modifier,
@@ -97,17 +97,18 @@ pub fn expected_witness(observed_action_taken: &str) -> RollModifierBuffSelected
 }
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    let mut trace = BattleReducerRouteTrace::default();
-    match replay_observed_action(observed_action_taken).scenario_outcome {
-        RollModifierBuffScenarioOutcome::Bless => record_bless_route(&mut trace),
-        RollModifierBuffScenarioOutcome::Bane => record_bane_failed_save_route(&mut trace),
-        RollModifierBuffScenarioOutcome::Guidance => record_guidance_skill_route(&mut trace),
-        RollModifierBuffScenarioOutcome::Resistance => {
-            record_resistance_damage_reduction_route(&mut trace)
+    let (_state, trace) = match observed_action_taken {
+        "doBlessAttackAndSaveModifier" => project_bless_attack_and_save_modifier_observed(),
+        "doBaneFailedSavePenalty" => project_bane_failed_save_penalty_observed(),
+        "doGuidanceSkillAbilityCheckModifier" => {
+            project_guidance_skill_ability_check_modifier_observed()
         }
-        RollModifierBuffScenarioOutcome::ShieldOfFaith => record_shield_of_faith_route(&mut trace),
-        RollModifierBuffScenarioOutcome::Init => panic!("init is not a replayed branch action"),
-    }
+        "doResistanceReducesMatchingDamage" => {
+            project_resistance_matching_damage_reduction_observed()
+        }
+        "doShieldOfFaithArmorClassBonus" => project_shield_of_faith_armor_class_bonus_observed(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    };
     reducer_route_events_from_battle_trace(&trace)
 }
 
@@ -293,153 +294,6 @@ fn resolve_roll_modifier_without_fill(owner: ReducerRouteOwnerGroup) -> ReducerR
         Vec::new(),
         owner,
     )
-}
-
-fn record_bless_route(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, trace);
-    record_roll_modifier_discovery(Vec::new(), trace);
-    record_roll_modifier_resolution_without_fill(BattleReducerRouteOwnerGroup::ActiveEffect, trace);
-    record_roll_modifier_resolution_without_fill(
-        BattleReducerRouteOwnerGroup::Concentration,
-        trace,
-    );
-}
-
-fn record_bane_failed_save_route(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, trace);
-    record_roll_modifier_discovery(vec![BattleReducerRouteHoleKind::SavingThrowOutcome], trace);
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::RollModifierEffect,
-        BattleReducerRouteFillKind::SavingThrowOutcome,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::ActiveEffect,
-        trace,
-    );
-    record_roll_modifier_resolution_without_fill(
-        BattleReducerRouteOwnerGroup::Concentration,
-        trace,
-    );
-}
-
-fn record_guidance_skill_route(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, trace);
-    record_roll_modifier_discovery(vec![BattleReducerRouteHoleKind::SkillChoice], trace);
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::RollModifierEffect,
-        BattleReducerRouteFillKind::SkillChoice,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::ActiveEffect,
-        trace,
-    );
-    record_roll_modifier_resolution_without_fill(
-        BattleReducerRouteOwnerGroup::Concentration,
-        trace,
-    );
-}
-
-fn record_resistance_damage_reduction_route(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, trace);
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::SpellDamageReduction,
-        vec![BattleReducerRouteHoleKind::TargetChoice],
-        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
-        trace,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::SpellDamageReduction,
-        BattleReducerRouteFillKind::TargetChoice,
-        BattleReducerRouteResolutionOutcome::NeedsHoles,
-        vec![BattleReducerRouteHoleKind::DamageTypeChoice],
-        BattleReducerRouteOwnerGroup::TargetSelection,
-        trace,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::SpellDamageReduction,
-        BattleReducerRouteFillKind::DamageTypeChoice,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::ActiveEffect,
-        trace,
-    );
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::SpellDamageReduction,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::Concentration,
-        trace,
-    );
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::SpellDamageReduction,
-        vec![BattleReducerRouteHoleKind::RolledDice],
-        BattleReducerRouteOwnerGroup::DamageAdjustment,
-        trace,
-    );
-    observe_battle_route_resolution(
-        BattleReducerRouteSubjectFamily::SpellDamageReduction,
-        BattleReducerRouteFillKind::RolledDice,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::DamageAdjustment,
-        trace,
-    );
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::SpellDamageReduction,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::ActiveEffect,
-        trace,
-    );
-}
-
-fn record_shield_of_faith_route(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, trace);
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::ScalarBuffEffect,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
-        trace,
-    );
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::ScalarBuffEffect,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::ActiveEffect,
-        trace,
-    );
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::ScalarBuffEffect,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::Concentration,
-        trace,
-    );
-}
-
-fn record_roll_modifier_discovery(
-    holes: Vec<BattleReducerRouteHoleKind>,
-    trace: &mut BattleReducerRouteTrace,
-) {
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::RollModifierEffect,
-        holes,
-        BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
-        trace,
-    );
-}
-
-fn record_roll_modifier_resolution_without_fill(
-    owner: BattleReducerRouteOwnerGroup,
-    trace: &mut BattleReducerRouteTrace,
-) {
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::RollModifierEffect,
-        BattleReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        owner,
-        trace,
-    );
 }
 
 fn sign_ref(sign: RollModifierBuffSign) -> &'static str {

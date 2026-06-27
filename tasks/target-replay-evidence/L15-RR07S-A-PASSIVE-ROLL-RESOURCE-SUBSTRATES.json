@@ -17,7 +17,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -47,7 +47,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -75,7 +75,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -104,7 +104,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -132,7 +132,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -159,7 +159,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -187,7 +187,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -215,7 +215,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -243,7 +243,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -271,7 +271,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -298,7 +298,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -326,7 +326,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -354,7 +354,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -383,7 +383,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -411,7 +411,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -440,7 +440,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -468,7 +468,7 @@
       "result": {
         "tag": "pass"
       },
-      "routeEvidenceBasis": "Focused Rust adapter tests compare production BattleReducerRouteTrace-observed output to independent expected_route records before accepting this qRoute route-event-list row.",
+      "routeEvidenceBasis": "Focused Rust adapter tests compare traces emitted by production battle_reducer_spine/battle_features observer entrypoints to independent expected_route records before accepting this qRoute route-event-list row.",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [

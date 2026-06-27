@@ -57,6 +57,18 @@
       "owner": "harness-witness-protocol"
     },
     {
+      "apiPath": "battle_reducer_spine::route_observed",
+      "boundary": "production reducer-route observer entrypoints",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "battle_features::*_observed",
+      "boundary": "production reducer-route observer entrypoints",
+      "introducedIn": "src/rules/battle_features.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
       "apiPath": "BattleState.fighter.temporary_hp",
       "boundary": "battle combatant vitals projection",
       "introducedIn": "src/rules/battle_reducer_spine.rs",

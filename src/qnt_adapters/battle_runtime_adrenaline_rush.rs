@@ -1,10 +1,9 @@
 use crate::rules::battle_features::AdrenalineRushResult;
 use crate::rules::battle_reducer_spine::{
-    battle_reducer_route_holes, battle_reducer_route_outcome,
-    bonus_action_dash_temporary_hit_points_feature_turn_state, observe_battle_route_discovery,
-    observe_battle_route_resolution_without_fill, observe_battle_route_start,
-    resolve_bonus_action_dash_temporary_hit_points_feature_battle, start_standard_battle, Actor,
-    BattleReducerRouteOwnerGroup, BattleReducerRouteSubjectFamily, BattleReducerRouteTrace,
+    bonus_action_dash_temporary_hit_points_feature_turn_state,
+    resolve_bonus_action_dash_temporary_hit_points_feature_battle, start_standard_battle,
+    trace_adrenaline_rush_bonus_action_dash,
+    trace_adrenaline_rush_bonus_action_dash_then_reject_second_dash, Actor,
     BattleResolutionInvalidReason, BattleResolutionResult,
 };
 
@@ -63,55 +62,18 @@ pub fn expected_witness(observed_action_taken: &str) -> AdrenalineRushWitness {
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
         "doAdrenalineRushDash" => {
-            let result = resolve_bonus_action_dash_temporary_hit_points_feature_battle(
+            let (_result, trace) = trace_adrenaline_rush_bonus_action_dash(
                 adrenaline_rush_fixture_battle(),
                 Actor::Fighter,
                 3,
-            );
-            let mut trace = BattleReducerRouteTrace::default();
-            record_initial_feature_dash_route(&mut trace);
-            record_feature_dash_route_event(
-                &result,
-                BattleReducerRouteOwnerGroup::ActionEconomy,
-                &mut trace,
-            );
-            record_feature_dash_route_event(
-                &result,
-                BattleReducerRouteOwnerGroup::FeatureResource,
-                &mut trace,
-            );
-            record_feature_dash_route_event(
-                &result,
-                BattleReducerRouteOwnerGroup::MovementResource,
-                &mut trace,
-            );
-            record_feature_dash_route_event(
-                &result,
-                BattleReducerRouteOwnerGroup::TemporaryHitPoint,
-                &mut trace,
             );
             reducer_route_events_from_battle_trace(&trace)
         }
         "doRejectSecondDash" => {
-            let first_dash = resolve_bonus_action_dash_temporary_hit_points_feature_battle(
+            let (_result, trace) = trace_adrenaline_rush_bonus_action_dash_then_reject_second_dash(
                 adrenaline_rush_fixture_battle(),
                 Actor::Fighter,
                 3,
-            );
-            let first_dash_state = first_dash
-                .into_resolved_state()
-                .expect("first fixture dash resolves");
-            let second_dash = resolve_bonus_action_dash_temporary_hit_points_feature_battle(
-                first_dash_state,
-                Actor::Fighter,
-                3,
-            );
-            let mut trace = BattleReducerRouteTrace::default();
-            record_resolved_feature_dash_route(&mut trace);
-            record_feature_dash_route_event(
-                &second_dash,
-                BattleReducerRouteOwnerGroup::ActionEconomy,
-                &mut trace,
             );
             reducer_route_events_from_battle_trace(&trace)
         }
@@ -158,41 +120,6 @@ pub fn projection_payload(witness: &AdrenalineRushWitness) -> String {
     .join("\n")
 }
 
-fn record_resolved_feature_dash_route(trace: &mut BattleReducerRouteTrace) {
-    let result = resolve_bonus_action_dash_temporary_hit_points_feature_battle(
-        adrenaline_rush_fixture_battle(),
-        Actor::Fighter,
-        3,
-    );
-    record_initial_feature_dash_route(trace);
-    record_feature_dash_route_event(&result, BattleReducerRouteOwnerGroup::ActionEconomy, trace);
-    record_feature_dash_route_event(
-        &result,
-        BattleReducerRouteOwnerGroup::FeatureResource,
-        trace,
-    );
-    record_feature_dash_route_event(
-        &result,
-        BattleReducerRouteOwnerGroup::MovementResource,
-        trace,
-    );
-    record_feature_dash_route_event(
-        &result,
-        BattleReducerRouteOwnerGroup::TemporaryHitPoint,
-        trace,
-    );
-}
-
-fn record_initial_feature_dash_route(trace: &mut BattleReducerRouteTrace) {
-    observe_battle_route_start(BattleReducerRouteOwnerGroup::ActionEconomy, trace);
-    observe_battle_route_discovery(
-        BattleReducerRouteSubjectFamily::UnitFeatureBonusAction,
-        Vec::new(),
-        BattleReducerRouteOwnerGroup::FeatureResource,
-        trace,
-    );
-}
-
 fn expected_initial_feature_dash_route() -> Vec<ReducerRouteEvent> {
     vec![
         route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
@@ -202,20 +129,6 @@ fn expected_initial_feature_dash_route() -> Vec<ReducerRouteEvent> {
             ReducerRouteOwnerGroup::FeatureResource,
         ),
     ]
-}
-
-fn record_feature_dash_route_event(
-    result: &BattleResolutionResult,
-    owner: BattleReducerRouteOwnerGroup,
-    trace: &mut BattleReducerRouteTrace,
-) {
-    observe_battle_route_resolution_without_fill(
-        BattleReducerRouteSubjectFamily::UnitFeatureBonusAction,
-        battle_reducer_route_outcome(result),
-        battle_reducer_route_holes(result),
-        owner,
-        trace,
-    );
 }
 
 fn expected_feature_dash_resolution(owner: ReducerRouteOwnerGroup) -> ReducerRouteEvent {

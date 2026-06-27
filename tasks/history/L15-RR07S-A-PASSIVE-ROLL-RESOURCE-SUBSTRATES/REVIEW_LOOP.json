@@ -18,7 +18,12 @@
     {
       "id": "rr07s-route-evidence-honesty",
       "status": "fixed",
-      "resolution": "Accepted evidence rows now claim qRoute route-event-list only because focused adapter tests compare replay_observed_route(action) with independent expected_route(action); literal projection witnesses are no longer described as route evidence."
+      "resolution": "Accepted evidence rows claim qRoute route-event-list only because focused adapter tests compare production battle_reducer_spine/battle_features observer-entrypoint traces with independent expected_route(action); adapters translate returned traces and do not populate accepted observed routes locally."
+    },
+    {
+      "id": "rr07s-raman-adapter-authored-route-blocker",
+      "status": "fixed",
+      "resolution": "Removed adapter-local BattleReducerRouteTrace::default plus observe-helper route synthesis from the five cited adapters. Accepted observed routes are now emitted by src/rules/battle_reducer_spine.rs and src/rules/battle_features.rs observer entrypoints that call the production reducers/projectors and return traces for adapter translation."
     }
   ],
   "rounds": [
@@ -158,7 +163,53 @@
           "status": "pass"
         }
       ],
-      "summary": "Fixer pass added route replay assertions for all accepted passive/resource substrate obligations and updated evidence/report artifacts to stop using literal projection witnesses as route evidence."
+      "summary": "Fixer pass moved accepted observed route emission into production battle_reducer_spine/battle_features observer entrypoints, kept independent expected_route records, and updated evidence/report artifacts to stop overclaiming adapter-authored traces."
+    },
+    {
+      "id": "rr07s-raman-blocker-convergence",
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "pass"
+        }
+      ],
+      "summary": "Convergence pass found no adapter-local accepted route trace synthesis in the cited adapters; production rules contain route observer entrypoints and no selected-authored-identity dispatch in src/rules."
     }
   ],
   "schemaVersion": 1,

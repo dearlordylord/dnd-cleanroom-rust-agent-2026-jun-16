@@ -2046,11 +2046,11 @@
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "fa959ce5b2a44d8bffb2d7e9035f371120234357e8e4376dfdd919369ac5e584"
+          "sha256": "ed17d763af8e951ff0e286cfde1193939f90ff350a8646907ac145aa94b425b5"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "96eaad9020cd56302c45aa4c301280d20033318fde614ef23adf3929233fdf8f"
+          "sha256": "01aaf961778c03374c5943b071f0c47bfdbc267bd79dff91f37fe5618e4762c3"
         },
         "startGate": {
           "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/START_GATE.json",
@@ -2058,7 +2058,7 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "92c2f0df61eed5ff7e61062f41d0f8d00f086a2e67d71c97b5ba9c5af1df4f4e"
+          "sha256": "b95a357fffd60d1ec5d3be091160a1251e165d7aa94eaa839170b31e1e1506fb"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",
@@ -2112,7 +2112,7 @@
             "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doShieldOfFaithArmorClassBonus#step:doShieldOfFaithArmorClassBonus"
           ],
           "path": "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json",
-          "sha256": "bccd8dd691e191f04cefe8120f97ba1e563525f25362d59b9a60a46811a6d864"
+          "sha256": "6667a54b884404d6c80943bac071aaaf1439aa6e7634d26d597a186e2ef3cfab"
         }
       ],
       "taskId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES"

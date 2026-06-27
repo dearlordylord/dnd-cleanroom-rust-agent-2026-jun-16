@@ -289,6 +289,75 @@ pub fn suppress_danger_sense_while_incapacitated(_state: DangerSenseState) -> Da
 }
 
 #[must_use]
+pub fn project_danger_sense_dexterity_advantage_observed() -> (
+    DangerSenseState,
+    crate::rules::battle_reducer_spine::BattleReducerRouteTrace,
+) {
+    use crate::rules::battle_reducer_spine::{
+        observe_battle_route_discovery, observe_battle_route_resolution,
+        observe_battle_route_start, BattleReducerRouteFillKind, BattleReducerRouteHoleKind,
+        BattleReducerRouteOwnerGroup, BattleReducerRouteResolutionOutcome,
+        BattleReducerRouteSubjectFamily, BattleReducerRouteTrace,
+    };
+
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_battle_route_start(
+        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        &mut trace,
+    );
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+        vec![BattleReducerRouteHoleKind::SavingThrowOutcome],
+        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        &mut trace,
+    );
+    let state = project_danger_sense_dexterity_advantage(danger_sense_initial_state());
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+        BattleReducerRouteFillKind::SavingThrowOutcome,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        &mut trace,
+    );
+    (state, trace)
+}
+
+#[must_use]
+pub fn suppress_danger_sense_while_incapacitated_observed() -> (
+    DangerSenseState,
+    crate::rules::battle_reducer_spine::BattleReducerRouteTrace,
+) {
+    use crate::rules::battle_reducer_spine::{
+        observe_battle_route_discovery, observe_battle_route_resolution_without_fill,
+        observe_battle_route_start, BattleReducerRouteOwnerGroup,
+        BattleReducerRouteResolutionOutcome, BattleReducerRouteSubjectFamily,
+        BattleReducerRouteTrace,
+    };
+
+    let mut trace = BattleReducerRouteTrace::default();
+    observe_battle_route_start(
+        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        &mut trace,
+    );
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        &mut trace,
+    );
+    let state = suppress_danger_sense_while_incapacitated(danger_sense_initial_state());
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ConditionLifecycle,
+        &mut trace,
+    );
+    (state, trace)
+}
+
+#[must_use]
 pub fn dragonborn_breath_weapon_initial_state() -> DragonbornBreathWeaponState {
     DragonbornBreathWeaponState {
         target_hit_points: 20,
