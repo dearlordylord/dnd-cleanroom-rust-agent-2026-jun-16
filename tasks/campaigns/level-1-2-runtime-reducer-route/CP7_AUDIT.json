@@ -3,7 +3,7 @@
   "campaignId": "level-1-2-runtime-reducer-route",
   "integrationWorktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
   "integrationBranch": "ralph/rrconv-19-cleanroom",
-  "auditedHead": "b33d9bbc1080c0d7a96ab606da07d0f517417096",
+  "auditedHead": "2c27a3c83162374661ccc229ac9332c96605c966",
   "denominator": {
     "source": "cleanroom-input/branch-coverage/reducer-route-inventory.json",
     "denominatorId": "level-1-5-cleanroom-route-v1",
@@ -385,9 +385,10 @@
     "acceptedObligationsAfterRefresh": 654,
     "targetBlockersAfterRefresh": 14,
     "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json",
-    "note": "Accepted rows are generic WeaponAttack setup route evidence observed through BattleEntrypointTrace.route_events; no rider-selected or MagicWeaponTargetItem semantics are claimed.",
+    "note": "Accepted rows are generic WeaponAttack setup route evidence observed through BattleEntrypointTrace.route_events; no rider-selected or MagicWeaponTargetItem semantics are claimed. Top-level auditedHead is the CP7-C refresh commit whose evidence and coverage this audit reports.",
     "evidenceSha256": "3df34f339bbabe720fb1a324e26f230f117700407da2712109d59f76f25e8424",
     "decisionSha256": "89f9f6e4f1f55fbb1e46c22278ed2f22d79c99d0b0a1a719ecc4b0ff6e8bf7ad",
-    "runLedgerSha256": "5d3a906f4b984338e43f304525f257e8962f691c1e4114124361c3d338f8d463"
+    "runLedgerSha256": "5d3a906f4b984338e43f304525f257e8962f691c1e4114124361c3d338f8d463",
+    "laneHead": "2c27a3c83162374661ccc229ac9332c96605c966"
   }
 }
