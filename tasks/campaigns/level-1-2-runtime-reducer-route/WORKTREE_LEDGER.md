@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b` | `ralph/l15-rr07-fu01b-spell-attack-damage` | `6bad2c3509996b8cafab2a1d0258e3062e8ff60b` | Euler `019f079d-4d22-75e0-b100-3872c7e6bdc2`; fixer Schrodinger `019f07b0-2295-7dc1-9369-8f9508ebc5fa`; re-reviewer Turing `019f07ce-25c1-7ff3-a39b-92f5005a9529` | rereviewing after fixer commit `195a473783bc666f5413dabe0a2bf93ea18003df` |
+| L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b` | `ralph/l15-rr07-fu01b-spell-attack-damage` | `6bad2c3509996b8cafab2a1d0258e3062e8ff60b` | Euler `019f079d-4d22-75e0-b100-3872c7e6bdc2`; fixer Schrodinger `019f07b0-2295-7dc1-9369-8f9508ebc5fa`; re-reviewer Turing `019f07ce-25c1-7ff3-a39b-92f5005a9529` | review-clean-merge-ready at fixer commit `195a473783bc666f5413dabe0a2bf93ea18003df` |
 
 ## Historical RRCONV-19 Worktrees
 
