@@ -241,7 +241,17 @@
         "Movement and shove expected witnesses are self-referential: expected paths call observed replay paths.",
         "Production rule_core_reactions exposes ReadyMovementFixture / ready_reaction_movement_fixture fixture identity.",
         "Evidence refs are not unique because duplicate doDeclineOpportunityAttack omits driverPath in ref format."
-      ]
+      ],
+      "fixerAgent": "019f067e-319f-7030-9d46-baabf7e5f9c2",
+      "fixerName": "Epicurus",
+      "fixStatus": "committed",
+      "fixCommit": "22e6ff0ef095602ce05037382499f8715d0cef8e",
+      "fixerResolution": [
+        "Movement and shove expected witnesses now use literal QNT-derived expected states instead of observed replay paths.",
+        "Production reaction fixture identity renamed to domain readied-movement names.",
+        "Evidence refs now include driverPath to disambiguate duplicate action names."
+      ],
+      "rereviewStatus": "pending"
     },
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
