@@ -88,6 +88,11 @@ pub enum ReducerRouteSubjectFamily {
     RollModifierEffect,
     ScalarBuffEffect,
     SpellDamageReduction,
+    TargetAdmission,
+    ActiveEffect,
+    ConditionLifecycle,
+    SavingThrowRollMode,
+    TargetInterdiction,
     CompanionLifecycle,
     CompanionSharedSenses,
     CompanionTouchDelivery,
@@ -124,6 +129,8 @@ pub enum ReducerRouteOwnerGroup {
     SpellSlotAndActionEconomy,
     StatBlockAction,
     TargetSelection,
+    TargetAdmission,
+    TargetInterdiction,
     TemporaryHitPoint,
     TurnBoundary,
 }
@@ -501,6 +508,7 @@ pub fn setup_from_battle_state(state: BattleState) -> BattleSetup {
         hit_point_restoration_procedure: state.hit_point_restoration_procedure,
         spell_attack_procedure: state.spell_attack_procedure,
         command_effect_procedure: state.command_effect_procedure,
+        protection_charm_ward: state.protection_charm_ward,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
         spell_slot_uses_this_turn: state.spell_slot_uses_this_turn,
@@ -547,6 +555,7 @@ pub fn battle_setup_from_state(state: BattleState) -> BattleSetup {
         hit_point_restoration_procedure: state.hit_point_restoration_procedure,
         spell_attack_procedure: state.spell_attack_procedure,
         command_effect_procedure: state.command_effect_procedure,
+        protection_charm_ward: state.protection_charm_ward,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
         spell_slot_uses_this_turn: state.spell_slot_uses_this_turn,
@@ -663,6 +672,19 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::SpellDamageReduction => {
             ReducerRouteSubjectFamily::SpellDamageReduction
         }
+        BattleReducerRouteSubjectFamily::TargetAdmission => {
+            ReducerRouteSubjectFamily::TargetAdmission
+        }
+        BattleReducerRouteSubjectFamily::ActiveEffect => ReducerRouteSubjectFamily::ActiveEffect,
+        BattleReducerRouteSubjectFamily::ConditionLifecycle => {
+            ReducerRouteSubjectFamily::ConditionLifecycle
+        }
+        BattleReducerRouteSubjectFamily::SavingThrowRollMode => {
+            ReducerRouteSubjectFamily::SavingThrowRollMode
+        }
+        BattleReducerRouteSubjectFamily::TargetInterdiction => {
+            ReducerRouteSubjectFamily::TargetInterdiction
+        }
         BattleReducerRouteSubjectFamily::CompanionLifecycle => {
             ReducerRouteSubjectFamily::CompanionLifecycle
         }
@@ -763,6 +785,10 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
         }
         BattleReducerRouteOwnerGroup::StatBlockAction => ReducerRouteOwnerGroup::StatBlockAction,
         BattleReducerRouteOwnerGroup::TargetSelection => ReducerRouteOwnerGroup::TargetSelection,
+        BattleReducerRouteOwnerGroup::TargetAdmission => ReducerRouteOwnerGroup::TargetAdmission,
+        BattleReducerRouteOwnerGroup::TargetInterdiction => {
+            ReducerRouteOwnerGroup::TargetInterdiction
+        }
         BattleReducerRouteOwnerGroup::TemporaryHitPoint => {
             ReducerRouteOwnerGroup::TemporaryHitPoint
         }
@@ -1011,6 +1037,8 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::SpellSlotAndActionEconomy => "BattleSpellSlotAndActionEconomyOwner",
         ReducerRouteOwnerGroup::StatBlockAction => "BattleStatBlockActionOwner",
         ReducerRouteOwnerGroup::TargetSelection => "BattleTargetSelectionOwner",
+        ReducerRouteOwnerGroup::TargetAdmission => "BattleTargetAdmissionOwner",
+        ReducerRouteOwnerGroup::TargetInterdiction => "BattleTargetInterdictionOwner",
         ReducerRouteOwnerGroup::TemporaryHitPoint => "BattleTemporaryHitPointOwner",
         ReducerRouteOwnerGroup::TurnBoundary => "BattleTurnBoundaryOwner",
     }
@@ -1074,6 +1102,11 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::ScalarBuff => "ScalarBuffRouteSubject",
         ReducerRouteSubjectFamily::ScalarBuffEffect => "ScalarBuffEffectRouteSubject",
         ReducerRouteSubjectFamily::SpellDamageReduction => "SpellDamageReductionRouteSubject",
+        ReducerRouteSubjectFamily::TargetAdmission => "TargetAdmissionRouteSubject",
+        ReducerRouteSubjectFamily::ActiveEffect => "ActiveEffectRouteSubject",
+        ReducerRouteSubjectFamily::ConditionLifecycle => "ConditionLifecycleRouteSubject",
+        ReducerRouteSubjectFamily::SavingThrowRollMode => "SavingThrowRollModeRouteSubject",
+        ReducerRouteSubjectFamily::TargetInterdiction => "TargetInterdictionRouteSubject",
         ReducerRouteSubjectFamily::StatBlockAction => "StatBlockActionRouteSubject",
         ReducerRouteSubjectFamily::WeaponAttack => "WeaponAttackRouteSubject",
         ReducerRouteSubjectFamily::WeaponMasteryProperty => "WeaponMasteryPropertyRouteSubject",

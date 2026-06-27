@@ -1,9 +1,18 @@
+use crate::rules::battle_reducer_spine::{
+    discover_battle_acts_observed, protection_charm_ward_from_battle,
+    resolve_battle_subject_observed, start_protection_charm_ward_battle_observed,
+    BattleEntrypointTrace, BattleHoleKind, BattleProtectionCharmWardFill,
+    BattleProtectionCharmWardProjection, BattleProtectionCharmWardSubject, BattleResolutionRequest,
+    BattleResolutionResult, BattleSubjectKind,
+};
 use crate::rules::creature_type_protection::{
-    creature_type_protection_initial_state, discover_animal_friendship_target_admission,
-    project_protection_condition_and_possession_prevention, project_protection_scoped_attack_roll,
-    resolve_animal_friendship_damage_break, resolve_animal_friendship_failed_save,
-    resolve_protection_from_evil_and_good_target, resolve_protection_relevant_charm_save,
     CreatureTypeProtectionProtocol, CreatureTypeProtectionState, ProtectionScenarioOutcome,
+};
+
+use super::battle_runtime_reducer_route::{
+    observed_reducer_route, route_discover_battle_acts, route_resolve_battle_subject,
+    route_start_battle, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteOwnerGroup,
+    ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -43,34 +52,31 @@ pub const BRANCH_ACTIONS: [&str; 7] = [
 pub fn replay_observed_action(
     observed_action_taken: &str,
 ) -> CreatureTypeProtectionAndCharmWitness {
-    match observed_action_taken {
-        "doDiscoverAnimalFriendshipBeastTargetAdmission" => {
-            witness_from_state(discovered_animal_friendship_target())
-        }
-        "doResolveAnimalFriendshipFailedSaveCharmed" => {
-            witness_from_state(animal_friendship_failed_save())
-        }
-        "doResolveAnimalFriendshipCasterDamageBreak" => {
-            witness_from_state(animal_friendship_damage_break())
-        }
-        "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection" => {
-            witness_from_state(protection_known_willing_target())
-        }
-        "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage" => {
-            witness_from_state(protection_scoped_attack_projection())
-        }
-        "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession" => {
-            witness_from_state(protection_prevented_charm_and_possession())
-        }
-        "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage" => {
-            witness_from_state(protection_relevant_charm_save())
-        }
-        action => panic!("unsupported mbt::actionTaken {action}"),
-    }
+    witness_from_state(replay_observed_state_and_route(observed_action_taken).0)
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> CreatureTypeProtectionAndCharmWitness {
     replay_observed_action(observed_action_taken)
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    replay_observed_state_and_route(observed_action_taken).1
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    let fill = fill_for_action(observed_action_taken);
+    let subject = route_subject_family(fill.subject());
+    let owner = route_owner(fill.subject());
+    vec![
+        route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+        route_discover_battle_acts(subject, route_holes(fill.subject()), owner),
+        route_resolve_battle_subject(
+            subject,
+            ReducerRouteFillKind::UnitFeatureDecision,
+            Vec::new(),
+            owner,
+        ),
+    ]
 }
 
 pub fn projection_payload(witness: &CreatureTypeProtectionAndCharmWitness) -> String {
@@ -135,32 +141,124 @@ pub fn projection_payload(witness: &CreatureTypeProtectionAndCharmWitness) -> St
     .join("\n")
 }
 
-fn discovered_animal_friendship_target() -> CreatureTypeProtectionState {
-    discover_animal_friendship_target_admission(creature_type_protection_initial_state())
+fn replay_observed_state_and_route(
+    observed_action_taken: &str,
+) -> (CreatureTypeProtectionState, Vec<ReducerRouteEvent>) {
+    let fill = fill_for_action(observed_action_taken);
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start_protection_charm_ward_battle_observed(fill, &mut trace);
+    let discovery = discover_battle_acts_observed(&state, &mut trace);
+    let subject = discovery
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == route_subject_kind(fill.subject()))
+        .expect("protection/charm route subject should be discoverable");
+    let request = BattleResolutionRequest::protection_charm_ward(subject, fill)
+        .expect("protection/charm fill should match route subject");
+    let result = resolve_battle_subject_observed(state, request, &mut trace);
+    let BattleResolutionResult::Resolved { state } = result else {
+        panic!("{observed_action_taken} should resolve through protection/charm route")
+    };
+    let projection = protection_charm_ward_from_battle(&state);
+    let BattleProtectionCharmWardProjection::CreatureTypeProtection(protection) = projection else {
+        panic!("{observed_action_taken} should project creature type protection/charm facts")
+    };
+    (
+        protection.clone(),
+        observed_reducer_route(&trace, &[route_subject_family(fill.subject())]),
+    )
 }
 
-fn animal_friendship_failed_save() -> CreatureTypeProtectionState {
-    resolve_animal_friendship_failed_save(creature_type_protection_initial_state())
+fn fill_for_action(observed_action_taken: &str) -> BattleProtectionCharmWardFill {
+    match observed_action_taken {
+        "doDiscoverAnimalFriendshipBeastTargetAdmission" => {
+            BattleProtectionCharmWardFill::CreatureTypeConditionTargetAdmission
+        }
+        "doResolveAnimalFriendshipFailedSaveCharmed" => {
+            BattleProtectionCharmWardFill::CreatureTypeConditionFailedSave
+        }
+        "doResolveAnimalFriendshipCasterDamageBreak" => {
+            BattleProtectionCharmWardFill::CreatureTypeConditionDamageBreak
+        }
+        "doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection" => {
+            BattleProtectionCharmWardFill::CreatureTypeProtectionTargetAdmission
+        }
+        "doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage" => {
+            BattleProtectionCharmWardFill::CreatureTypeProtectionAttackRollMode
+        }
+        "doPreventProtectionFromEvilAndGoodScopedCharmAndPossession" => {
+            BattleProtectionCharmWardFill::CreatureTypeProtectionConditionInterdiction
+        }
+        "doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage" => {
+            BattleProtectionCharmWardFill::CreatureTypeProtectionRelevantSaveRollMode
+        }
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
-fn animal_friendship_damage_break() -> CreatureTypeProtectionState {
-    resolve_animal_friendship_damage_break(creature_type_protection_initial_state())
+fn route_subject_family(subject: BattleProtectionCharmWardSubject) -> ReducerRouteSubjectFamily {
+    match subject {
+        BattleProtectionCharmWardSubject::TargetAdmission => {
+            ReducerRouteSubjectFamily::TargetAdmission
+        }
+        BattleProtectionCharmWardSubject::ActiveEffect => ReducerRouteSubjectFamily::ActiveEffect,
+        BattleProtectionCharmWardSubject::ConditionLifecycle => {
+            ReducerRouteSubjectFamily::ConditionLifecycle
+        }
+        BattleProtectionCharmWardSubject::SavingThrowRollMode => {
+            ReducerRouteSubjectFamily::SavingThrowRollMode
+        }
+        BattleProtectionCharmWardSubject::TargetInterdiction => {
+            ReducerRouteSubjectFamily::TargetInterdiction
+        }
+    }
 }
 
-fn protection_known_willing_target() -> CreatureTypeProtectionState {
-    resolve_protection_from_evil_and_good_target(creature_type_protection_initial_state())
+fn route_subject_kind(subject: BattleProtectionCharmWardSubject) -> BattleSubjectKind {
+    match subject {
+        BattleProtectionCharmWardSubject::TargetAdmission => BattleSubjectKind::TargetAdmission,
+        BattleProtectionCharmWardSubject::ActiveEffect => BattleSubjectKind::ActiveEffect,
+        BattleProtectionCharmWardSubject::ConditionLifecycle => {
+            BattleSubjectKind::ConditionLifecycle
+        }
+        BattleProtectionCharmWardSubject::SavingThrowRollMode => {
+            BattleSubjectKind::SavingThrowRollMode
+        }
+        BattleProtectionCharmWardSubject::TargetInterdiction => {
+            BattleSubjectKind::TargetInterdiction
+        }
+    }
 }
 
-fn protection_scoped_attack_projection() -> CreatureTypeProtectionState {
-    project_protection_scoped_attack_roll(creature_type_protection_initial_state())
+fn route_owner(subject: BattleProtectionCharmWardSubject) -> ReducerRouteOwnerGroup {
+    match subject {
+        BattleProtectionCharmWardSubject::TargetAdmission => {
+            ReducerRouteOwnerGroup::TargetAdmission
+        }
+        BattleProtectionCharmWardSubject::ActiveEffect => ReducerRouteOwnerGroup::ActiveEffect,
+        BattleProtectionCharmWardSubject::ConditionLifecycle => {
+            ReducerRouteOwnerGroup::ConditionLifecycle
+        }
+        BattleProtectionCharmWardSubject::SavingThrowRollMode => {
+            ReducerRouteOwnerGroup::SavingThrowRollMode
+        }
+        BattleProtectionCharmWardSubject::TargetInterdiction => {
+            ReducerRouteOwnerGroup::TargetInterdiction
+        }
+    }
 }
 
-fn protection_prevented_charm_and_possession() -> CreatureTypeProtectionState {
-    project_protection_condition_and_possession_prevention(creature_type_protection_initial_state())
-}
-
-fn protection_relevant_charm_save() -> CreatureTypeProtectionState {
-    resolve_protection_relevant_charm_save(creature_type_protection_initial_state())
+fn route_holes(subject: BattleProtectionCharmWardSubject) -> Vec<BattleHoleKind> {
+    match subject {
+        BattleProtectionCharmWardSubject::TargetAdmission
+        | BattleProtectionCharmWardSubject::TargetInterdiction => {
+            vec![BattleHoleKind::TargetChoice]
+        }
+        BattleProtectionCharmWardSubject::ActiveEffect
+        | BattleProtectionCharmWardSubject::ConditionLifecycle
+        | BattleProtectionCharmWardSubject::SavingThrowRollMode => Vec::new(),
+    }
 }
 
 fn witness_from_state(state: CreatureTypeProtectionState) -> CreatureTypeProtectionAndCharmWitness {

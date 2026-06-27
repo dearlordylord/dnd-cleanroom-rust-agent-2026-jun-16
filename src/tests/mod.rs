@@ -658,9 +658,11 @@ use battle_runtime_condition_saving_throw_selected_identity::{
     OUT_OF_SCOPE_BRANCH_ACTIONS as CONDITION_SAVING_THROW_OUT_OF_SCOPE_BRANCH_ACTIONS,
 };
 use battle_runtime_creature_type_protection_and_charm_selected_identity::{
+    expected_route as expected_creature_type_protection_route,
     expected_witness as expected_creature_type_protection_witness,
     projection_payload as creature_type_protection_projection_payload,
     replay_observed_action as replay_creature_type_protection_action,
+    replay_observed_route as replay_creature_type_protection_route,
     BRANCH_ACTIONS as CREATURE_TYPE_PROTECTION_BRANCH_ACTIONS,
 };
 use battle_runtime_danger_sense_selected_identity::{
@@ -843,9 +845,11 @@ use battle_runtime_roll_modifier_buff_selected_identity::{
     BRANCH_ACTIONS as ROLL_MODIFIER_BUFF_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_sanctuary_selected_identity::{
+    expected_route as expected_sanctuary_selected_identity_route,
     expected_witness as expected_sanctuary_selected_identity_witness,
     projection_payload as sanctuary_selected_identity_projection_payload,
     replay_observed_action as replay_sanctuary_selected_identity_action,
+    replay_observed_route as replay_sanctuary_selected_identity_route,
     BRANCH_ACTIONS as SANCTUARY_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_save_gated_spell_ordering::{
@@ -3747,6 +3751,21 @@ fn creature_type_protection_adapter_replays_all_branches() {
         let observed = replay_creature_type_protection_action(action);
         assert_eq!(observed, expected_creature_type_protection_witness(action));
         assert!(creature_type_protection_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_creature_type_protection_route(action);
+        assert_eq!(route, expected_creature_type_protection_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(
+            route_payload.contains("TargetAdmissionRouteSubject")
+                || route_payload.contains("ActiveEffectRouteSubject")
+                || route_payload.contains("ConditionLifecycleRouteSubject")
+                || route_payload.contains("SavingThrowRollModeRouteSubject")
+        );
+        assert!(
+            route_payload.contains("BattleTargetAdmissionOwner")
+                || route_payload.contains("BattleActiveEffectOwner")
+                || route_payload.contains("BattleConditionLifecycleOwner")
+                || route_payload.contains("BattleSavingThrowRollModeOwner")
+        );
     }
 }
 
@@ -5195,6 +5214,17 @@ fn sanctuary_selected_identity_adapter_replays_all_branches() {
         );
         assert!(sanctuary_selected_identity_projection_payload(&observed)
             .contains("protocolResult=resolved"));
+        let route = replay_sanctuary_selected_identity_route(action);
+        assert_eq!(route, expected_sanctuary_selected_identity_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(
+            route_payload.contains("ActiveEffectRouteSubject")
+                || route_payload.contains("TargetInterdictionRouteSubject")
+        );
+        assert!(
+            route_payload.contains("BattleActiveEffectOwner")
+                || route_payload.contains("BattleTargetInterdictionOwner")
+        );
     }
 }
 

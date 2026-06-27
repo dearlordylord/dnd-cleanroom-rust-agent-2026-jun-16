@@ -2432,6 +2432,61 @@ Verification results:
 - `node scripts/check-cleanroom-harness.cjs` passed.
 - `git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD` passed.
 
+## L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES: Protection, charm, and ward substrates
+
+Selected drivers:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt`
+
+Behavior implemented:
+
+- Accepted creature-type target admission, charm condition lifecycle, protection active-effect, and protection saving-throw roll-mode rows replay through production `BattleState.protection_charm_ward` and observed `ReducerRouteEvent.qRoute` evidence.
+- Accepted ward creation, target interdiction, retargeting, area-effect bypass, and ward teardown rows replay through the same generic production reducer substrate.
+- Production dispatch uses typed subject and fill facts rather than selected spell identity.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doDiscoverAnimalFriendshipBeastTargetAdmission` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doDiscoverAnimalFriendshipBeastTargetAdmission#step:doDiscoverAnimalFriendshipBeastTargetAdmission` | `src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveAnimalFriendshipFailedSaveCharmed` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doResolveAnimalFriendshipFailedSaveCharmed#step:doResolveAnimalFriendshipFailedSaveCharmed` | `src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveAnimalFriendshipCasterDamageBreak` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doResolveAnimalFriendshipCasterDamageBreak#step:doResolveAnimalFriendshipCasterDamageBreak` | `src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection#step:doResolveProtectionFromEvilAndGoodKnownWillingTargetProtection` | `src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage#step:doProjectProtectionFromEvilAndGoodScopedAttackDisadvantage` | `src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doPreventProtectionFromEvilAndGoodScopedCharmAndPossession` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doPreventProtectionFromEvilAndGoodScopedCharmAndPossession#step:doPreventProtectionFromEvilAndGoodScopedCharmAndPossession` | `src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-creature-type-protection-and-charm-selected-identity.mbt.qnt#step:doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage#step:doResolveProtectionFromEvilAndGoodRelevantCharmSaveAdvantage` | `src/qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doCastSanctuaryWardCreation` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doCastSanctuaryWardCreation#step:doCastSanctuaryWardCreation` | `src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doInterdictDirectAttackFailedSaveLoss` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doInterdictDirectAttackFailedSaveLoss#step:doInterdictDirectAttackFailedSaveLoss` | `src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doInterdictDirectSpellSuccessfulSavePassThrough` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doInterdictDirectSpellSuccessfulSavePassThrough#step:doInterdictDirectSpellSuccessfulSavePassThrough` | `src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doRetargetDirectAttackToLegalReplacement` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doRetargetDirectAttackToLegalReplacement#step:doRetargetDirectAttackToLegalReplacement` | `src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doRejectIllegalReplacementTarget` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doRejectIllegalReplacementTarget#step:doRejectIllegalReplacementTarget` | `src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doExcludeAreaEffectFromInterdiction` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doExcludeAreaEffectFromInterdiction#step:doExcludeAreaEffectFromInterdiction` | `src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedAttackRoll` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doEndWardOnWardedAttackRoll#step:doEndWardOnWardedAttackRoll` | `src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedSpellCast` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doEndWardOnWardedSpellCast#step:doEndWardOnWardedSpellCast` | `src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt#step:doEndWardOnWardedDamageDealt` | `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json#L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES seed=1 action=doEndWardOnWardedDamageDealt#step:doEndWardOnWardedDamageDealt` | `src/qnt_adapters/battle_runtime_sanctuary_selected_identity.rs` | `covered` |
+
+Harness artifacts:
+
+- Start gate: `tasks/START_GATE.json`
+- Engine depth: `tasks/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/REVIEW_LOOP.json`
+- Decider decision: `tasks/DECIDER_DECISION.json`
+- History: `tasks/history/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES/`
+- Target replay evidence: `tasks/target-replay-evidence/L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Verification results:
+
+- `cargo test creature_type_protection_adapter_replays_all_branches` passed.
+- `cargo test sanctuary_selected_identity_adapter_replays_all_branches` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD` passed.
+
 ## L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES: Metamagic Reroll, Damage, Projection Substrates
 
 - Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`

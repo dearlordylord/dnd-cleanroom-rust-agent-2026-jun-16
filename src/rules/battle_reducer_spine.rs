@@ -33,6 +33,13 @@ use crate::rules::concentration::{
     ConcentrationSavingThrowFacts, ConcentrationState,
 };
 use crate::rules::creature_size::CreatureSize;
+use crate::rules::creature_type_protection::{
+    creature_type_protection_initial_state, discover_animal_friendship_target_admission,
+    project_protection_condition_and_possession_prevention, project_protection_scoped_attack_roll,
+    resolve_animal_friendship_damage_break, resolve_animal_friendship_failed_save,
+    resolve_protection_from_evil_and_good_target, resolve_protection_relevant_charm_save,
+    CreatureTypeProtectionState,
+};
 use crate::rules::feature_resources::{
     resource_pool_remaining, spend_resource_pool, ResourcePoolFacts,
 };
@@ -73,6 +80,13 @@ use crate::rules::rule_core_stat_block_controls::{
     stat_block_control_initial_state, stat_block_multiattack_continuation_open,
     StatBlockAttackSlot, StatBlockControlState, StatBlockDispatchSubject,
     StatBlockMultiattackProfile,
+};
+use crate::rules::sanctuary_selected_identity::{
+    cast_sanctuary_ward_creation, end_ward_on_warded_attack_roll, end_ward_on_warded_damage_dealt,
+    end_ward_on_warded_spell_cast, exclude_area_effect_from_interdiction,
+    interdict_direct_attack_failed_save_loss, interdict_direct_spell_successful_save_pass_through,
+    reject_illegal_replacement_target, retarget_direct_attack_to_legal_replacement,
+    sanctuary_selected_identity_initial_state, SanctuarySelectedIdentityState,
 };
 use crate::rules::save_gated_spell_ordering::{
     save_gated_spell_fill_order_accepted_stage, save_gated_spell_fill_order_error,
@@ -479,6 +493,100 @@ pub struct Combatant {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleProtectionCharmWardSubject {
+    TargetAdmission,
+    ActiveEffect,
+    ConditionLifecycle,
+    SavingThrowRollMode,
+    TargetInterdiction,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleProtectionCharmWardFill {
+    CreatureTypeConditionTargetAdmission,
+    CreatureTypeConditionFailedSave,
+    CreatureTypeConditionDamageBreak,
+    CreatureTypeProtectionTargetAdmission,
+    CreatureTypeProtectionAttackRollMode,
+    CreatureTypeProtectionConditionInterdiction,
+    CreatureTypeProtectionRelevantSaveRollMode,
+    WardingInterdictionCreation,
+    WardingInterdictionFailedSaveLoss,
+    WardingInterdictionSuccessfulSavePassThrough,
+    WardingInterdictionLegalReplacement,
+    WardingInterdictionIllegalReplacement,
+    WardingInterdictionAreaEffectExcluded,
+    WardingActiveEffectEndedByAttackRoll,
+    WardingActiveEffectEndedBySpellCast,
+    WardingActiveEffectEndedByDamageDealt,
+}
+
+impl BattleProtectionCharmWardFill {
+    #[must_use]
+    pub const fn subject(self) -> BattleProtectionCharmWardSubject {
+        match self {
+            Self::CreatureTypeConditionTargetAdmission => {
+                BattleProtectionCharmWardSubject::TargetAdmission
+            }
+            Self::CreatureTypeConditionFailedSave
+            | Self::CreatureTypeConditionDamageBreak
+            | Self::CreatureTypeProtectionConditionInterdiction => {
+                BattleProtectionCharmWardSubject::ConditionLifecycle
+            }
+            Self::CreatureTypeProtectionTargetAdmission
+            | Self::CreatureTypeProtectionAttackRollMode
+            | Self::WardingInterdictionCreation
+            | Self::WardingActiveEffectEndedByAttackRoll
+            | Self::WardingActiveEffectEndedBySpellCast
+            | Self::WardingActiveEffectEndedByDamageDealt => {
+                BattleProtectionCharmWardSubject::ActiveEffect
+            }
+            Self::CreatureTypeProtectionRelevantSaveRollMode => {
+                BattleProtectionCharmWardSubject::SavingThrowRollMode
+            }
+            Self::WardingInterdictionFailedSaveLoss
+            | Self::WardingInterdictionSuccessfulSavePassThrough
+            | Self::WardingInterdictionLegalReplacement
+            | Self::WardingInterdictionIllegalReplacement
+            | Self::WardingInterdictionAreaEffectExcluded => {
+                BattleProtectionCharmWardSubject::TargetInterdiction
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum BattleProtectionCharmWardProjection {
+    Init,
+    CreatureTypeProtection(CreatureTypeProtectionState),
+    WardingInterdiction(SanctuarySelectedIdentityState),
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct BattleProtectionCharmWardSubstrate {
+    pub offered_subject: Option<BattleProtectionCharmWardSubject>,
+    pub projection: BattleProtectionCharmWardProjection,
+}
+
+impl BattleProtectionCharmWardSubstrate {
+    #[must_use]
+    pub fn initial() -> Self {
+        Self {
+            offered_subject: None,
+            projection: BattleProtectionCharmWardProjection::Init,
+        }
+    }
+
+    #[must_use]
+    pub fn offered(fill: BattleProtectionCharmWardFill) -> Self {
+        Self {
+            offered_subject: Some(fill.subject()),
+            projection: BattleProtectionCharmWardProjection::Init,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleSpellActiveEffectKind {
     None,
     HitPointRegainPrevented,
@@ -576,6 +684,7 @@ pub struct BattleState {
     pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
+    pub protection_charm_ward: BattleProtectionCharmWardSubstrate,
     pub feature_substrates: BattleFeatureSubstrates,
     pub feature_resources: BattleFeatureResources,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
@@ -605,6 +714,7 @@ pub struct BattleSetup {
     pub hit_point_restoration_procedure: BattleHitPointRestorationProcedure,
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
+    pub protection_charm_ward: BattleProtectionCharmWardSubstrate,
     pub feature_substrates: BattleFeatureSubstrates,
     pub feature_resources: BattleFeatureResources,
     pub spell_slot_uses_this_turn: Vec<BattleTurnSpellSlotUse>,
@@ -646,6 +756,7 @@ impl BattleSetup {
             hit_point_restoration_procedure: BattleHitPointRestorationProcedure::Inactive,
             spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
             command_effect_procedure: BattleCommandEffectProcedure::Inactive,
+            protection_charm_ward: BattleProtectionCharmWardSubstrate::initial(),
             feature_substrates: BattleFeatureSubstrates::standard(),
             feature_resources: BattleFeatureResources::standard(),
             spell_slot_uses_this_turn: Vec::new(),
@@ -1042,6 +1153,11 @@ pub enum BattleSubjectKind {
     ActiveFeatureSpellSaveDc,
     ActiveFeatureSpellAttackRollMode,
     MetamagicOptionSpell,
+    TargetAdmission,
+    ActiveEffect,
+    ConditionLifecycle,
+    SavingThrowRollMode,
+    TargetInterdiction,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1135,6 +1251,7 @@ pub enum BattleFill {
     ActiveFeatureSpellSaveDc(BattleActiveFeatureSpellBenefitFill),
     ActiveFeatureSpellAttackRollMode(BattleActiveFeatureSpellBenefitFill),
     MetamagicOptionSpell(BattleMetamagicOptionSpellFill),
+    ProtectionCharmWard(BattleProtectionCharmWardFill),
     StatBlockAction {
         subject: StatBlockActionSubject,
         fill: StatBlockActionFill,
@@ -1610,6 +1727,19 @@ impl BattleResolutionRequest {
         Ok(Self {
             subject,
             fill: BattleFill::MetamagicOptionSpell(fill),
+        })
+    }
+
+    pub fn protection_charm_ward(
+        subject: BattleSubject,
+        fill: BattleProtectionCharmWardFill,
+    ) -> Result<Self, BattleResolutionRequestError> {
+        if protection_charm_ward_subject_kind(fill.subject()) != subject.kind {
+            return Err(BattleResolutionRequestError::SubjectKindMismatch);
+        }
+        Ok(Self {
+            subject,
+            fill: BattleFill::ProtectionCharmWard(fill),
         })
     }
 
@@ -2125,6 +2255,11 @@ pub enum BattleReducerRouteSubjectFamily {
     RollModifierEffect,
     ScalarBuffEffect,
     SpellDamageReduction,
+    TargetAdmission,
+    ActiveEffect,
+    ConditionLifecycle,
+    SavingThrowRollMode,
+    TargetInterdiction,
     CompanionLifecycle,
     CompanionSharedSenses,
     CompanionTouchDelivery,
@@ -2161,6 +2296,8 @@ pub enum BattleReducerRouteOwnerGroup {
     SpellSlotAndActionEconomy,
     StatBlockAction,
     TargetSelection,
+    TargetAdmission,
+    TargetInterdiction,
     TemporaryHitPoint,
     TurnBoundary,
 }
@@ -2382,6 +2519,7 @@ pub fn start_battle(setup: BattleSetup) -> BattleStartResult {
             hit_point_restoration_procedure: setup.hit_point_restoration_procedure,
             spell_attack_procedure: setup.spell_attack_procedure,
             command_effect_procedure: setup.command_effect_procedure,
+            protection_charm_ward: setup.protection_charm_ward,
             feature_substrates: setup.feature_substrates,
             feature_resources: setup.feature_resources,
             spell_slot_uses_this_turn: setup.spell_slot_uses_this_turn,
@@ -2412,6 +2550,33 @@ pub fn start_battle_observed(
 #[must_use]
 pub fn start_standard_battle() -> BattleState {
     start_battle(BattleSetup::standard()).state
+}
+
+#[must_use]
+pub fn start_protection_charm_ward_battle(fill: BattleProtectionCharmWardFill) -> BattleState {
+    start_battle(protection_charm_ward_setup(fill)).state
+}
+
+#[must_use]
+pub fn start_protection_charm_ward_battle_observed(
+    fill: BattleProtectionCharmWardFill,
+    observer: &mut impl BattleEntrypointObserver,
+) -> BattleState {
+    start_battle_observed(protection_charm_ward_setup(fill), observer).state
+}
+
+#[must_use]
+pub fn protection_charm_ward_from_battle(
+    state: &BattleState,
+) -> &BattleProtectionCharmWardProjection {
+    &state.protection_charm_ward.projection
+}
+
+fn protection_charm_ward_setup(fill: BattleProtectionCharmWardFill) -> BattleSetup {
+    let mut setup = BattleSetup::standard();
+    setup.protection_charm_ward = BattleProtectionCharmWardSubstrate::offered(fill);
+    setup.fighter.hp = sanctuary_selected_identity_initial_state().warded_hp;
+    setup
 }
 
 #[must_use]
@@ -3059,6 +3224,17 @@ const fn battle_reducer_route_subject_family(
         }
         BattleSubjectKind::MetamagicOptionSpell => {
             BattleReducerRouteSubjectFamily::MetamagicOptionSpell
+        }
+        BattleSubjectKind::TargetAdmission => BattleReducerRouteSubjectFamily::TargetAdmission,
+        BattleSubjectKind::ActiveEffect => BattleReducerRouteSubjectFamily::ActiveEffect,
+        BattleSubjectKind::ConditionLifecycle => {
+            BattleReducerRouteSubjectFamily::ConditionLifecycle
+        }
+        BattleSubjectKind::SavingThrowRollMode => {
+            BattleReducerRouteSubjectFamily::SavingThrowRollMode
+        }
+        BattleSubjectKind::TargetInterdiction => {
+            BattleReducerRouteSubjectFamily::TargetInterdiction
         }
     }
 }
@@ -6095,9 +6271,54 @@ pub fn discover_battle_acts(state: &BattleState) -> BattleActDiscoveryResult {
         return BattleActDiscoveryResult::from_state(state, acts);
     }
     push_reducer_spine_diagnostic_acts(state, actor, &mut acts);
+    push_protection_charm_ward_acts(state, actor, &mut acts);
     push_metamagic_option_spell_acts(state, actor, &mut acts);
     push_capability_weapon_acts(state, actor, &mut acts);
     BattleActDiscoveryResult::from_state(state, acts)
+}
+
+fn push_protection_charm_ward_acts(
+    state: &BattleState,
+    actor: Actor,
+    acts: &mut Vec<AvailableBattleAct>,
+) {
+    let Some(subject) = state.protection_charm_ward.offered_subject else {
+        return;
+    };
+    acts.push(AvailableBattleAct {
+        subject: diagnostic_subject(protection_charm_ward_subject_kind(subject), actor, None),
+        holes: protection_charm_ward_holes(subject),
+    });
+}
+
+const fn protection_charm_ward_subject_kind(
+    subject: BattleProtectionCharmWardSubject,
+) -> BattleSubjectKind {
+    match subject {
+        BattleProtectionCharmWardSubject::TargetAdmission => BattleSubjectKind::TargetAdmission,
+        BattleProtectionCharmWardSubject::ActiveEffect => BattleSubjectKind::ActiveEffect,
+        BattleProtectionCharmWardSubject::ConditionLifecycle => {
+            BattleSubjectKind::ConditionLifecycle
+        }
+        BattleProtectionCharmWardSubject::SavingThrowRollMode => {
+            BattleSubjectKind::SavingThrowRollMode
+        }
+        BattleProtectionCharmWardSubject::TargetInterdiction => {
+            BattleSubjectKind::TargetInterdiction
+        }
+    }
+}
+
+fn protection_charm_ward_holes(subject: BattleProtectionCharmWardSubject) -> Vec<BattleHoleKind> {
+    match subject {
+        BattleProtectionCharmWardSubject::TargetAdmission
+        | BattleProtectionCharmWardSubject::TargetInterdiction => {
+            vec![BattleHoleKind::TargetChoice]
+        }
+        BattleProtectionCharmWardSubject::ActiveEffect
+        | BattleProtectionCharmWardSubject::ConditionLifecycle
+        | BattleProtectionCharmWardSubject::SavingThrowRollMode => Vec::new(),
+    }
 }
 
 #[must_use]
@@ -6163,6 +6384,11 @@ const fn battle_discovery_route_owner(kind: BattleSubjectKind) -> BattleReducerR
             BattleReducerRouteOwnerGroup::ActiveEffect
         }
         BattleSubjectKind::MetamagicOptionSpell => BattleReducerRouteOwnerGroup::FeatureResource,
+        BattleSubjectKind::TargetAdmission => BattleReducerRouteOwnerGroup::TargetAdmission,
+        BattleSubjectKind::ActiveEffect => BattleReducerRouteOwnerGroup::ActiveEffect,
+        BattleSubjectKind::ConditionLifecycle => BattleReducerRouteOwnerGroup::ConditionLifecycle,
+        BattleSubjectKind::SavingThrowRollMode => BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        BattleSubjectKind::TargetInterdiction => BattleReducerRouteOwnerGroup::TargetInterdiction,
         BattleSubjectKind::EndTurn => BattleReducerRouteOwnerGroup::ActionEconomy,
     }
 }
@@ -6416,6 +6642,11 @@ fn save_gated_spell_subject_kind_matches(
         | BattleSubjectKind::UnitFeatureBonusAction
         | BattleSubjectKind::ActiveFeatureSpellSaveDc
         | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
+        | BattleSubjectKind::TargetAdmission
+        | BattleSubjectKind::ActiveEffect
+        | BattleSubjectKind::ConditionLifecycle
+        | BattleSubjectKind::SavingThrowRollMode
+        | BattleSubjectKind::TargetInterdiction
         | BattleSubjectKind::EndTurn => false,
     }
 }
@@ -6493,7 +6724,12 @@ fn feature_substrate_route_subject_is_live(state: &BattleState, subject: BattleS
         | BattleSubjectKind::ConcentrationTeardown
         | BattleSubjectKind::StatBlockAction
         | BattleSubjectKind::CommandSpell
-        | BattleSubjectKind::ScalarBuffTargetSpell => false,
+        | BattleSubjectKind::ScalarBuffTargetSpell
+        | BattleSubjectKind::TargetAdmission
+        | BattleSubjectKind::ActiveEffect
+        | BattleSubjectKind::ConditionLifecycle
+        | BattleSubjectKind::SavingThrowRollMode
+        | BattleSubjectKind::TargetInterdiction => false,
     }
 }
 
@@ -6510,6 +6746,21 @@ fn metamagic_option_spell_available(state: &BattleState) -> bool {
     (state.feature_substrates.quickened_spell.offered && state.bonus_action_available)
         || (state.feature_substrates.metamagic_spell.offered && state.action_available)
         || (state.feature_substrates.metamagic_option_spell.offered && state.action_available)
+}
+
+fn protection_charm_ward_route_subject_is_live(
+    state: &BattleState,
+    subject: BattleSubject,
+    fill: BattleProtectionCharmWardFill,
+) -> bool {
+    state.action_available
+        && state.protection_charm_ward.offered_subject == Some(fill.subject())
+        && diagnostic_subject_shape_matches(
+            subject,
+            protection_charm_ward_subject_kind(fill.subject()),
+            None,
+        )
+        && route_subject_discoverable_now(state, subject)
 }
 
 fn spell_attack_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
@@ -6779,7 +7030,8 @@ fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRoute
         | BattleFill::UnitFeatureBonusAction(_)
         | BattleFill::ActiveFeatureSpellSaveDc(_)
         | BattleFill::ActiveFeatureSpellAttackRollMode(_)
-        | BattleFill::MetamagicOptionSpell(_) => {
+        | BattleFill::MetamagicOptionSpell(_)
+        | BattleFill::ProtectionCharmWard(_) => {
             Some(BattleReducerRouteFillKind::UnitFeatureDecision)
         }
         BattleFill::AttackActionAreaSaveDamageReplacement(_) => {
@@ -6884,6 +7136,11 @@ fn battle_resolution_route_owner(
         | BattleSubjectKind::ActiveFeatureSpellAttackRollMode => {
             BattleReducerRouteOwnerGroup::ActiveEffect
         }
+        BattleSubjectKind::TargetAdmission => BattleReducerRouteOwnerGroup::TargetAdmission,
+        BattleSubjectKind::ActiveEffect => BattleReducerRouteOwnerGroup::ActiveEffect,
+        BattleSubjectKind::ConditionLifecycle => BattleReducerRouteOwnerGroup::ConditionLifecycle,
+        BattleSubjectKind::SavingThrowRollMode => BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        BattleSubjectKind::TargetInterdiction => BattleReducerRouteOwnerGroup::TargetInterdiction,
         BattleSubjectKind::MetamagicOptionSpell => match outcome {
             BattleResolutionOutcome::Invalid(BattleResolutionInvalidReason::StaleSubject) => {
                 BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
@@ -7130,6 +7387,23 @@ fn resolve_battle_subject_unchecked(
             resolve_metamagic_option_spell_subject(state, subject, fill)
         }
         (
+            BattleSubjectKind::TargetAdmission
+            | BattleSubjectKind::ActiveEffect
+            | BattleSubjectKind::ConditionLifecycle
+            | BattleSubjectKind::SavingThrowRollMode
+            | BattleSubjectKind::TargetInterdiction,
+            BattleFill::ProtectionCharmWard(fill),
+        ) => {
+            if !protection_charm_ward_route_subject_is_live(&state, subject, fill) {
+                return invalid_with_holes(
+                    state,
+                    BattleResolutionInvalidReason::StaleSubject,
+                    Vec::new(),
+                );
+            }
+            resolve_protection_charm_ward_subject(state, fill)
+        }
+        (
             BattleSubjectKind::StatBlockAction,
             BattleFill::StatBlockAction {
                 subject: stat_block_subject,
@@ -7189,6 +7463,7 @@ fn resolve_battle_subject_unchecked(
                 | BattleFill::ActiveFeatureSpellSaveDc(_)
                 | BattleFill::ActiveFeatureSpellAttackRollMode(_)
                 | BattleFill::MetamagicOptionSpell(_)
+                | BattleFill::ProtectionCharmWard(_)
                 | BattleFill::StatBlockAction { .. } => invalid(
                     state,
                     BattleResolutionInvalidReason::InvalidFill,
@@ -7226,6 +7501,11 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::ActiveFeatureSpellSaveDc
             | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
             | BattleSubjectKind::MetamagicOptionSpell
+            | BattleSubjectKind::TargetAdmission
+            | BattleSubjectKind::ActiveEffect
+            | BattleSubjectKind::ConditionLifecycle
+            | BattleSubjectKind::SavingThrowRollMode
+            | BattleSubjectKind::TargetInterdiction
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,
@@ -7551,6 +7831,114 @@ fn resolve_concentration_teardown_battle_subject(
             state,
             subject: _subject,
             holes,
+        }
+    }
+}
+
+fn resolve_protection_charm_ward_subject(
+    mut state: BattleState,
+    fill: BattleProtectionCharmWardFill,
+) -> BattleResolutionResult {
+    let projection = protection_charm_ward_projection(fill);
+    if let BattleProtectionCharmWardProjection::CreatureTypeProtection(protection) = &projection {
+        state.action_available = protection.action_available;
+        state.fighter.spell_slots.first_level_expended = protection.first_level_slots_expended;
+    }
+    if let BattleProtectionCharmWardProjection::WardingInterdiction(ward) = &projection {
+        state.fighter.hp = ward.warded_hp;
+    }
+    state.protection_charm_ward = BattleProtectionCharmWardSubstrate {
+        offered_subject: None,
+        projection,
+    };
+    BattleResolutionResult::Resolved { state }
+}
+
+fn protection_charm_ward_projection(
+    fill: BattleProtectionCharmWardFill,
+) -> BattleProtectionCharmWardProjection {
+    match fill {
+        BattleProtectionCharmWardFill::CreatureTypeConditionTargetAdmission => {
+            BattleProtectionCharmWardProjection::CreatureTypeProtection(
+                discover_animal_friendship_target_admission(
+                    creature_type_protection_initial_state(),
+                ),
+            )
+        }
+        BattleProtectionCharmWardFill::CreatureTypeConditionFailedSave => {
+            BattleProtectionCharmWardProjection::CreatureTypeProtection(
+                resolve_animal_friendship_failed_save(creature_type_protection_initial_state()),
+            )
+        }
+        BattleProtectionCharmWardFill::CreatureTypeConditionDamageBreak => {
+            BattleProtectionCharmWardProjection::CreatureTypeProtection(
+                resolve_animal_friendship_damage_break(creature_type_protection_initial_state()),
+            )
+        }
+        BattleProtectionCharmWardFill::CreatureTypeProtectionTargetAdmission => {
+            BattleProtectionCharmWardProjection::CreatureTypeProtection(
+                resolve_protection_from_evil_and_good_target(
+                    creature_type_protection_initial_state(),
+                ),
+            )
+        }
+        BattleProtectionCharmWardFill::CreatureTypeProtectionAttackRollMode => {
+            BattleProtectionCharmWardProjection::CreatureTypeProtection(
+                project_protection_scoped_attack_roll(creature_type_protection_initial_state()),
+            )
+        }
+        BattleProtectionCharmWardFill::CreatureTypeProtectionConditionInterdiction => {
+            BattleProtectionCharmWardProjection::CreatureTypeProtection(
+                project_protection_condition_and_possession_prevention(
+                    creature_type_protection_initial_state(),
+                ),
+            )
+        }
+        BattleProtectionCharmWardFill::CreatureTypeProtectionRelevantSaveRollMode => {
+            BattleProtectionCharmWardProjection::CreatureTypeProtection(
+                resolve_protection_relevant_charm_save(creature_type_protection_initial_state()),
+            )
+        }
+        BattleProtectionCharmWardFill::WardingInterdictionCreation => {
+            BattleProtectionCharmWardProjection::WardingInterdiction(cast_sanctuary_ward_creation())
+        }
+        BattleProtectionCharmWardFill::WardingInterdictionFailedSaveLoss => {
+            BattleProtectionCharmWardProjection::WardingInterdiction(
+                interdict_direct_attack_failed_save_loss(),
+            )
+        }
+        BattleProtectionCharmWardFill::WardingInterdictionSuccessfulSavePassThrough => {
+            BattleProtectionCharmWardProjection::WardingInterdiction(
+                interdict_direct_spell_successful_save_pass_through(),
+            )
+        }
+        BattleProtectionCharmWardFill::WardingInterdictionLegalReplacement => {
+            BattleProtectionCharmWardProjection::WardingInterdiction(
+                retarget_direct_attack_to_legal_replacement(),
+            )
+        }
+        BattleProtectionCharmWardFill::WardingInterdictionIllegalReplacement => {
+            BattleProtectionCharmWardProjection::WardingInterdiction(
+                reject_illegal_replacement_target(),
+            )
+        }
+        BattleProtectionCharmWardFill::WardingInterdictionAreaEffectExcluded => {
+            BattleProtectionCharmWardProjection::WardingInterdiction(
+                exclude_area_effect_from_interdiction(),
+            )
+        }
+        BattleProtectionCharmWardFill::WardingActiveEffectEndedByAttackRoll => {
+            BattleProtectionCharmWardProjection::WardingInterdiction(
+                end_ward_on_warded_attack_roll(),
+            )
+        }
+        BattleProtectionCharmWardFill::WardingActiveEffectEndedBySpellCast => {
+            BattleProtectionCharmWardProjection::WardingInterdiction(end_ward_on_warded_spell_cast())
+        }
+        BattleProtectionCharmWardFill::WardingActiveEffectEndedByDamageDealt => {
+            BattleProtectionCharmWardProjection::WardingInterdiction(
+                end_ward_on_warded_damage_dealt(),
+            )
         }
     }
 }

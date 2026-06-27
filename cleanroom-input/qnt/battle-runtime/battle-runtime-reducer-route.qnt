@@ -36,6 +36,11 @@ module battleRuntimeReducerRoute {
     | RollModifierEffectRouteSubject
     | SpellDamageReductionRouteSubject
     | ScalarBuffEffectRouteSubject
+    | TargetAdmissionRouteSubject
+    | ActiveEffectRouteSubject
+    | ConditionLifecycleRouteSubject
+    | SavingThrowRollModeRouteSubject
+    | TargetInterdictionRouteSubject
     | RepeatSaveConditionEffectRouteSubject
     | TurnBoundaryEffectLifecycleRouteSubject
     | ZeroHitPointSpellEffectTeardownRouteSubject
@@ -100,6 +105,8 @@ module battleRuntimeReducerRoute {
     | BattleAbilityCheckRollModeOwner
     | BattleCreatureSpaceMovementOwner
     | BattleCreatureStateOwner
+    | BattleTargetAdmissionOwner
+    | BattleTargetInterdictionOwner
 
   type ReducerRouteEvent =
     | RouteStartBattle({ owner: ReducerRouteOwnerGroup })
