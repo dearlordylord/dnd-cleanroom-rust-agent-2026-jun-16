@@ -359,7 +359,7 @@
     {
       "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "fixing-rereview-artifact-finding",
+      "status": "review-clean-merge-ready",
       "parallelGroup": "cp4-fu01-spell-identity",
       "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
       "routeClasses": [
