@@ -156,9 +156,9 @@
     "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES": "blocked-on-checkpoint",
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint",
     "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "reviewed-clean",
-    "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "implemented",
+    "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "reviewed-clean",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "implemented",
-    "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "implemented"
+    "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "reviewed-clean"
   },
   "lastIntegrationVerification": {
     "head": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025",
@@ -230,7 +230,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b",
       "branch": "ralph/l15-rr04b-rule-core-movement-reaction-shove",
       "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "implemented-pending-review",
+      "status": "reviewed-clean-pending-merge",
       "workerAgent": "019f0671-240b-7540-9f83-d8c2b4e83b30",
       "workerName": "Russell",
       "commit": "629d9ef2c992042ddf007a6517f7e428478598d1",
@@ -251,7 +251,10 @@
         "Production reaction fixture identity renamed to domain readied-movement names.",
         "Evidence refs now include driverPath to disambiguate duplicate action names."
       ],
-      "rereviewStatus": "pending"
+      "rereviewStatus": "clean",
+      "rereviewAgent": "019f0686-fd03-7fa1-99a9-bdc1285919c1",
+      "rereviewName": "Hubble",
+      "rereviewResidualRisk": "Reviewer ran focused adapter/harness/diff checks but did not rerun full cargo test or clippy; integration merge must run gates."
     },
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
@@ -276,7 +279,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04d",
       "branch": "ralph/l15-rr04d-rule-core-feature-profile",
       "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "implemented-pending-review",
+      "status": "reviewed-clean-pending-merge",
       "workerAgent": "019f0671-d268-7f62-b173-674d8d90738f",
       "workerName": "Mill",
       "commit": "063ceefb6b07dec0d5afb7c4435d2687d48dc621",
@@ -297,7 +300,10 @@
         "Removed false durable componentRoute state-owner claim; recorded qComponentRoute as non-durable boundary API.",
         "Added doUncannyDodge level-5 exclusion reason."
       ],
-      "rereviewStatus": "pending"
+      "rereviewStatus": "clean",
+      "rereviewAgent": "019f0689-f2da-7572-b85b-006e07d91bca",
+      "rereviewName": "Wegener",
+      "rereviewResidualRisk": ".claude/review-rules.md is absent in the cleanroom worktree; accepted feature-profile evidence remains intentionally adapter-only and must not be treated as production reusable feature-component reducer semantics."
     }
   ],
   "completedLaneWorktrees": [
