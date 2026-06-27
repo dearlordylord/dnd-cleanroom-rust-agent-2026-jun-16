@@ -2324,9 +2324,19 @@
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
   "freshCleanroomDryRun": {
-    "status": "fc-00-reviewed-accepted",
+    "status": "fc-01-running",
     "phase": "FC-01",
     "phaseName": "Reducer Spine Substrate",
+    "activePhase": {
+      "phase": "FC-01",
+      "phaseName": "Reducer Spine Substrate",
+      "status": "running",
+      "targetBaseCommit": "cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3",
+      "campaignLaunchCommit": "a58f893",
+      "workerAgent": "019f09b1-9bad-7da0-ab9b-5b6b9e3dd2c9",
+      "workerName": "Zeno the 2nd",
+      "scope": "Minimal shared BattleState reducer surface, typed subject/fill/hole/outcome/route-event vocabulary, route observation emitted by reducer entrypoints, and FC-01 evidence/state-owner artifacts."
+    },
     "previousPhase": {
       "phase": "FC-00",
       "phaseName": "Package Admission And Inventory Parser",
@@ -2382,7 +2392,7 @@
     ]
   },
   "nextWorkRecommendations": [
-    "Launch FC-01 Reducer Spine Substrate in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 using the fresh dry-run plan.",
+    "Wait for and review FC-01 Reducer Spine Substrate in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00.",
     "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
     "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
     "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."

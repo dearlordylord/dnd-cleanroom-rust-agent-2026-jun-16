@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FC-01-REDUCER-SPINE-SUBSTRATE | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `a58f893` campaign / `cd2e1ffaf726bd3d315c0c4babf3a498ce3f89a3` target | Zeno the 2nd (`019f09b1-9bad-7da0-ab9b-5b6b9e3dd2c9`) | pending | running reducer spine substrate |
 
 ## Historical RRCONV-19 Worktrees
 
