@@ -71,7 +71,9 @@ Expected state:
 ## Remaining Work To Prove The Full Objective
 
 1. Run a larger fresh cleanroom campaign from the accepted input package and
-   campaign guidance, not from dirty `src/**`.
+   campaign guidance, not from dirty `src/**`. The proposed campaign boundary
+   is `FRESH_CLEANROOM_EXPANSION_PLAN.md` with lane definitions in
+   `FRESH_EXPANSION_LANES.json`.
 2. Keep the accepted fresh target at `a30e6729711ddc3f595cf008931ba5cd6265c58a`
    as the baseline evidence target unless a newer package refresh supersedes it.
 3. Promote any additional route-connector lessons back into source-side QNT or

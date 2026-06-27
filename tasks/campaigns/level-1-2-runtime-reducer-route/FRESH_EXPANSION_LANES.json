@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "fresh-cleanroom-expansion-after-fc08",
+  "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
+  "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
+  "currentVerifier": "python3 tools/verify_current_fresh_target.py",
+  "sourcePackageCommit": "b57772b459f1b75592fd45b9196fd60965b534d3",
+  "laneSizingPolicy": {
+    "recommendedMaxDrivers": 5,
+    "recommendedMaxBranchObligations": 35,
+    "reason": "Fresh expansion lanes should stay smaller than dirty rehearsal lanes because each accepted row must also strengthen verifier coverage and cleanroom-boundary evidence."
+  },
+  "lanes": [
+    {
+      "laneId": "FEXP-00-BASELINE-LOCK",
+      "checkpointId": "FEXP-CP0",
+      "status": "proposed",
+      "purpose": "Lock the accepted fresh target baseline and create expansion-state bookkeeping before implementation lanes.",
+      "drivers": [],
+      "expectedOutputs": [
+        "FRESH_EXPANSION_STATE.json",
+        "baseline verifier run recorded"
+      ],
+      "requiredChecks": [
+        "python3 tools/verify_current_fresh_target.py",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings"
+      ]
+    },
+    {
+      "laneId": "FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK",
+      "checkpointId": "FEXP-CP1",
+      "status": "proposed",
+      "routeClass": "reducer-routed",
+      "purpose": "Convert FC-01 diagnostic reducer substrate support into focused current-package route evidence for small battle lifecycle drivers.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-magic-missile.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-death-saving-throw.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "EVIDENCE/fexp01-diagnostic-battle-route-pack.json",
+        "focused reducer-spine tests",
+        "STATE_OWNERS.md additions if new durable owners are introduced",
+        "verifier update for FEXP-01 evidence"
+      ],
+      "acceptanceSummary": "Observed route events for slot-spell, HP restoration, Death Saving Throw, and Concentration teardown come from reducer entrypoints with independent connector-derived expected records."
+    },
+    {
+      "laneId": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK",
+      "checkpointId": "FEXP-CP2",
+      "status": "proposed",
+      "routeClass": "catalog-after-substrate",
+      "purpose": "Revisit the two FC-03 blocked selected spell groups only through generic spell-attack and save-gated connector substrates.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "EVIDENCE/fexp02-spell-attack-save-gated-unblock.json",
+        "BLOCKERS.json updates for any still-uncovered branches",
+        "verifier update for unblocked branch subset"
+      ],
+      "acceptanceSummary": "Selected spell fixtures are admitted only by typed spell attack/save-gated shapes; production code does not branch on spell identity."
+    },
+    {
+      "laneId": "FEXP-03-CHAINED-AND-OBJECT-SPELL-ATTACKS",
+      "checkpointId": "FEXP-CP2",
+      "status": "proposed",
+      "routeClass": "reducer-routed",
+      "purpose": "Add generic chained spell-attack and object-target spell-attack procedure routes that support later selected damage spell groups.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "EVIDENCE/fexp03-chained-and-object-spell-attacks.json",
+        "spell attack procedure owner state-owner records",
+        "verifier update for FEXP-03 evidence"
+      ],
+      "acceptanceSummary": "Chained and independent spell attack fills route through generic SpellAttackProcedure owners without collapsing them into one attack replay island."
+    },
+    {
+      "laneId": "FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS",
+      "checkpointId": "FEXP-CP3",
+      "status": "proposed",
+      "routeClass": "reducer-routed",
+      "purpose": "Expand active-effect lifecycle, scalar buff, roll modifier, and turn-boundary cleanup substrates before selected active-effect drivers depend on them.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "EVIDENCE/fexp04-active-effect-lifecycle-and-roll-modifiers.json",
+        "active-effect owner derivability records",
+        "verifier update for FEXP-04 evidence"
+      ],
+      "acceptanceSummary": "Active-effect projection and cleanup are battle-owned lifecycle facts, not selected-identity branches or local effect ledgers."
+    },
+    {
+      "laneId": "FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY",
+      "checkpointId": "FEXP-CP3",
+      "status": "proposed",
+      "routeClass": "reducer-routed",
+      "purpose": "Add reaction casting-time and interrupt-stack resume routing before broader reaction spell selected-identity branches are attempted.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "EVIDENCE/fexp05-reaction-interrupt-and-boundary.json",
+        "BLOCKERS.json entries for any reaction AC active-effect branch without generic substrate",
+        "verifier update for FEXP-05 evidence"
+      ],
+      "acceptanceSummary": "Reaction and interrupt routes use generic timing, stack, and fill shapes; selected reaction spell identity remains evidence-only."
+    },
+    {
+      "laneId": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",
+      "checkpointId": "FEXP-CP4",
+      "status": "proposed",
+      "routeClass": "reducer-routed",
+      "purpose": "Grow character creation, sheet, and handoff surfaces beyond the SDK tracer while preserving character-side ownership and battle handoff boundaries.",
+      "drivers": [
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.route.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "EVIDENCE/fexp06-character-creation-sheet-handoff-pack.json",
+        "character-side state-owner records",
+        "SDK tracer extension if public surface changes",
+        "verifier update for FEXP-06 evidence"
+      ],
+      "acceptanceSummary": "Character-side durable facts stay character-owned until explicit handoff; battle state consumes projections rather than duplicating character state."
+    },
+    {
+      "laneId": "FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES",
+      "checkpointId": "FEXP-CP5",
+      "status": "proposed",
+      "routeClass": "substrate-first",
+      "purpose": "Probe high-risk feature/species/metamagic selected drivers only through generic substrate connectors.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "EVIDENCE/fexp07-feature-species-metamagic-substrates.json",
+        "BLOCKERS.json entries for any identity-only branch",
+        "verifier update for accepted substrate subset"
+      ],
+      "acceptanceSummary": "Feature, species, and metamagic effects are admitted by typed runtime resources and active-effect shapes, never by authored option identity dispatch."
+    }
+  ]
+}

@@ -19,6 +19,8 @@ Primary files:
 - `PROMPTS.md`: copyable Ralph worker, reviewer, and fixer briefs.
 - `FRESH_CLEANROOM_READINESS.md`: post-CP8 closure evidence, limits, and next work for a future fresh cleanroom run.
 - `FRESH_CLEANROOM_DRY_RUN_PLAN.md`: executable first fresh-cleanroom dry-run sequence, boundaries, gates, and required artifacts.
+- `FRESH_CLEANROOM_EXPANSION_PLAN.md`: proposed next larger fresh-cleanroom campaign after FC-08, with checkpoints and acceptance gates.
+- `FRESH_EXPANSION_LANES.json`: machine-readable proposed lane list for the next larger fresh-cleanroom campaign.
 - `FRESH_SDK_COMPOSITION_ACCEPTANCE.md`: accepted fresh-target evidence for the integrated sheet-to-composed-encounter-to-simple-turn SDK tracer.
 - `GOAL_STATUS_AUDIT.md`: requirement-by-requirement status of the active goal, including what is proven and why the global objective remains active.
 
