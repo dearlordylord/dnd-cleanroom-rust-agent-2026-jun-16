@@ -89,9 +89,13 @@
     {
       "checkpointId": "CP3",
       "name": "Character Creation, Sheet, And Handoff",
-      "status": "ready",
+      "status": "running",
       "dependsOn": [
         "CP2"
+      ],
+      "runningLaneIds": [
+        "L15-RR08-CHARACTER-CREATION-ROUTES",
+        "L15-RR09-CHARACTER-SHEET-ROUTES"
       ]
     },
     {
@@ -131,8 +135,8 @@
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
-    "L15-RR08-CHARACTER-CREATION-ROUTES": "ready",
-    "L15-RR09-CHARACTER-SHEET-ROUTES": "ready",
+    "L15-RR08-CHARACTER-CREATION-ROUTES": "running",
+    "L15-RR09-CHARACTER-SHEET-ROUTES": "running",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "ready",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
     "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
@@ -172,7 +176,26 @@
     "cargoTest": "191 passed",
     "adapterReplaySmoke": "71 passed"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08",
+      "branch": "ralph/l15-rr08-character-creation",
+      "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
+      "status": "running",
+      "workerAgent": "019f06a6-8ed9-7560-9daa-6922b4bb277d",
+      "workerName": "Harvey"
+    },
+    {
+      "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09",
+      "branch": "ralph/l15-rr09-character-sheet",
+      "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
+      "status": "running",
+      "workerAgent": "019f06a6-f828-76d0-b989-42488be5d4b9",
+      "workerName": "Volta"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",

@@ -19,7 +19,7 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP0 Bootstrap | complete | Source baseline pinned at `6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0`; campaign-control files live on the integration branch. |
 | CP1 Battle Reducer Core Expansion | complete | `L15-RR03`, `L15-RR05`, and `L15-RR06` merged and verified. |
 | CP2 Rule-Core Component Connectors | complete | Four `L15-RR04` component sublanes merged and verified. |
-| CP3 Character Creation, Sheet, And Handoff | ready | Depends on CP2. Creation and sheet can run in parallel; handoff merges after both. |
+| CP3 Character Creation, Sheet, And Handoff | running | RR08 creation and RR09 sheet lanes launched from `9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9`; RR10 handoff waits for both. |
 | CP4 Feature And Catalog Substrates | blocked-on-checkpoint | Depends on CP2 and CP3. Split large FU lanes before execution. |
 | CP5 Remaining Battle Families | blocked-on-checkpoint | Depends on CP1, CP2, CP4. |
 | CP6 Closure Sweep | blocked-on-checkpoint | Runs after all implementation checkpoints. |
@@ -46,7 +46,10 @@ At `ee30e831b0bc0fa49fa54100e54a45c32a43a60a`:
   - `L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS` merged at `727655c`
   - `L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS` merged at `d0af3dc`
   - `L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS` merged at `ee30e831b0bc0fa49fa54100e54a45c32a43a60a`
-- CP3 is ready to launch: `L15-RR08`, `L15-RR09`, and then `L15-RR10` after creation/sheet converge.
+- CP3 running:
+  - `L15-RR08-CHARACTER-CREATION-ROUTES` launched in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08` with worker Harvey `019f06a6-8ed9-7560-9daa-6922b4bb277d`
+  - `L15-RR09-CHARACTER-SHEET-ROUTES` launched in `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09` with worker Volta `019f06a6-f828-76d0-b989-42488be5d4b9`
+  - `L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES` remains ready but not launchable until RR08 and RR09 converge.
 
 ## Coverage Delta Log
 

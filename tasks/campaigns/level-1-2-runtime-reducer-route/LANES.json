@@ -254,7 +254,7 @@
     {
       "laneId": "L15-RR08-CHARACTER-CREATION-ROUTES",
       "checkpointId": "CP3",
-      "status": "ready",
+      "status": "running",
       "routeTaskId": "L15-RR08-CHARACTER-CREATION-ROUTES",
       "routeClasses": [
         "reducer-routed"
@@ -280,7 +280,7 @@
     {
       "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
       "checkpointId": "CP3",
-      "status": "ready",
+      "status": "running",
       "routeTaskId": "L15-RR09-CHARACTER-SHEET-ROUTES",
       "routeClasses": [
         "reducer-routed"
