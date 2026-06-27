@@ -3,9 +3,16 @@ use crate::rules::battle_features::{
     suppress_danger_sense_while_incapacitated, DangerSenseProtocol, DangerSenseScenarioOutcome,
     DangerSenseState,
 };
+use crate::rules::battle_reducer_spine::{
+    observe_battle_route_discovery, observe_battle_route_resolution,
+    observe_battle_route_resolution_without_fill, observe_battle_route_start,
+    BattleReducerRouteFillKind, BattleReducerRouteHoleKind, BattleReducerRouteOwnerGroup,
+    BattleReducerRouteResolutionOutcome, BattleReducerRouteSubjectFamily, BattleReducerRouteTrace,
+};
 
 use super::battle_runtime_reducer_route::{
-    route_discover_battle_acts_from_route_holes, route_resolve_battle_subject_from_route_result,
+    reducer_route_events_from_battle_trace, route_discover_battle_acts_from_route_holes,
+    route_resolve_battle_subject_from_route_result,
     route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
     ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
     ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
@@ -67,11 +74,13 @@ pub fn expected_witness(observed_action_taken: &str) -> DangerSenseWitness {
 }
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    let mut trace = BattleReducerRouteTrace::default();
     match replay_observed_action(observed_action_taken).scenario_outcome {
-        "DangerSenseDexterityAdvantage" => observed_dexterity_advantage_route(),
-        "DangerSenseIncapacitatedSuppressed" => observed_incapacitated_suppression_route(),
+        "DangerSenseDexterityAdvantage" => record_dexterity_advantage_route(&mut trace),
+        "DangerSenseIncapacitatedSuppressed" => record_incapacitated_suppression_route(&mut trace),
         action => panic!("unsupported danger sense replay outcome {action}"),
     }
+    reducer_route_events_from_battle_trace(&trace)
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
@@ -109,39 +118,39 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     }
 }
 
-fn observed_dexterity_advantage_route() -> Vec<ReducerRouteEvent> {
-    vec![
-        route_start_battle(ReducerRouteOwnerGroup::SavingThrowRollMode),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
-            vec![ReducerRouteHoleKind::SavingThrowOutcome],
-            ReducerRouteOwnerGroup::SavingThrowRollMode,
-        ),
-        route_resolve_battle_subject_from_route_result(
-            ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
-            ReducerRouteFillKind::SavingThrowOutcome,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::SavingThrowRollMode,
-        ),
-    ]
+fn record_dexterity_advantage_route(trace: &mut BattleReducerRouteTrace) {
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::SavingThrowRollMode, trace);
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+        vec![BattleReducerRouteHoleKind::SavingThrowOutcome],
+        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        trace,
+    );
+    observe_battle_route_resolution(
+        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+        BattleReducerRouteFillKind::SavingThrowOutcome,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        trace,
+    );
 }
 
-fn observed_incapacitated_suppression_route() -> Vec<ReducerRouteEvent> {
-    vec![
-        route_start_battle(ReducerRouteOwnerGroup::SavingThrowRollMode),
-        route_discover_battle_acts_from_route_holes(
-            ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
-            Vec::new(),
-            ReducerRouteOwnerGroup::SavingThrowRollMode,
-        ),
-        route_resolve_battle_subject_without_fill_from_route_result(
-            ReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
-            ReducerRouteResolutionOutcome::Resolved,
-            Vec::new(),
-            ReducerRouteOwnerGroup::ConditionLifecycle,
-        ),
-    ]
+fn record_incapacitated_suppression_route(trace: &mut BattleReducerRouteTrace) {
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::SavingThrowRollMode, trace);
+    observe_battle_route_discovery(
+        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::SavingThrowRollMode,
+        trace,
+    );
+    observe_battle_route_resolution_without_fill(
+        BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+        BattleReducerRouteResolutionOutcome::Resolved,
+        Vec::new(),
+        BattleReducerRouteOwnerGroup::ConditionLifecycle,
+        trace,
+    );
 }
 
 pub fn projection_payload(witness: &DangerSenseWitness) -> String {

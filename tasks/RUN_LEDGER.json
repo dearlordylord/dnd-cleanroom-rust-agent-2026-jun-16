@@ -2112,7 +2112,7 @@
             "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json#L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES replay action=doShieldOfFaithArmorClassBonus#step:doShieldOfFaithArmorClassBonus"
           ],
           "path": "tasks/target-replay-evidence/L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES.json",
-          "sha256": "994ecc9ad9da79ca9486fa18207b9d49d1e2f07b98f1947fbab4d3bf94cdb8d8"
+          "sha256": "bccd8dd691e191f04cefe8120f97ba1e563525f25362d59b9a60a46811a6d864"
         }
       ],
       "taskId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES"
