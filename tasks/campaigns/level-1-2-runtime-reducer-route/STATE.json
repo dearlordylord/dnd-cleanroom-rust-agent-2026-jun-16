@@ -8,10 +8,10 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "b2ccf263e523f67233da4a1dd89dcc01a27b2f0a",
+    "lastVerifiedIntegrationHead": "20daf3ede80af636df4e71a776d95783182fef2d",
     "lastMergedLane": {
       "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
-      "mergeCommit": "b2ccf263e523f67233da4a1dd89dcc01a27b2f0a",
+      "mergeCommit": "20daf3ede80af636df4e71a776d95783182fef2d",
       "laneHead": "3727abed465765fbc2b3f223076ed265d31393ff"
     }
   },
@@ -201,7 +201,7 @@
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "review-clean-merge-ready"
   },
   "lastIntegrationVerification": {
-    "head": "b2ccf263e523f67233da4a1dd89dcc01a27b2f0a",
+    "head": "20daf3ede80af636df4e71a776d95783182fef2d",
     "commands": [
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
@@ -344,7 +344,7 @@
       "reviewAgent": "019f07ae-99a4-75f3-bc81-870c8cfc0a18",
       "reviewName": "Ptolemy",
       "reviewStatus": "clean",
-      "mergeCommit": "b2ccf263e523f67233da4a1dd89dcc01a27b2f0a"
+      "mergeCommit": "20daf3ede80af636df4e71a776d95783182fef2d"
     },
     {
       "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
