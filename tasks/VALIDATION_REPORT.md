@@ -2352,3 +2352,57 @@ Verification results:
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed after artifact convergence.
 - `git diff --check 4b24c074161a5bbe2b52ef1125c5f7044e3172e0...HEAD` passed.
+
+## L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES: Metamagic Reroll, Damage, Projection Substrates
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Drivers: `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt`, `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt`, `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-seeking-selected-identity.mbt.qnt`, `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt`, `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+
+Behavior implemented:
+
+- Routed Empowered, Seeking, Subtle, Transmuted, and Extended selected-identity witnesses through production `BattleState` start/discover/resolve entrypoints.
+- Reused `BattleState.feature_resources.sorcery_points` for metamagic resource spend and route-gated option application by typed spell modification facts rather than authored identities.
+- Kept expected route witnesses literal and independent from observed reducer traces.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt#step:doResolveEmpoweredSpellDamageReroll` | `tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveEmpoweredSpellDamageReroll#step:doResolveEmpoweredSpellDamageReroll` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt#step:doResolveExtendedCreatureSizeIncrease` | `tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveExtendedCreatureSizeIncrease#step:doResolveExtendedCreatureSizeIncrease` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-seeking-selected-identity.mbt.qnt#step:doResolveSeekingSpellAttackReroll` | `tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveSeekingSpellAttackReroll#step:doResolveSeekingSpellAttackReroll` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt#step:doRejectSubtleFalseLifeWithoutSorceryPoints` | `tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doRejectSubtleFalseLifeWithoutSorceryPoints#step:doRejectSubtleFalseLifeWithoutSorceryPoints` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt#step:doResolveSubtleFalseLife` | `tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveSubtleFalseLife#step:doResolveSubtleFalseLife` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt#step:doResolveTransmutedSaveGatedDamage` | `tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveTransmutedSaveGatedDamage#step:doResolveTransmutedSaveGatedDamage` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt#step:doResolveTransmutedSpellAttack` | `tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveTransmutedSpellAttack#step:doResolveTransmutedSpellAttack` | `src/tests/mod.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Reproduction seed or trace id: `L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES/DECIDER_DECISION.json`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- Focused adapter tests passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD` passed.

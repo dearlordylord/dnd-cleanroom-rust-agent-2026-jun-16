@@ -2,7 +2,7 @@ use crate::rules::battle_reducer_spine::{
     BattleEntrypointTrace, BattleHoleKind, BattleReducerRouteEvent, BattleReducerRouteFillKind,
     BattleReducerRouteHoleKind, BattleReducerRouteOwnerGroup, BattleReducerRouteSubjectFamily,
     BattleReducerRouteTrace, BattleResolutionInvalidReason, BattleResolutionOutcome,
-    BattleResolutionResult, BattleState, BattleSubject,
+    BattleResolutionResult, BattleSetup, BattleState, BattleSubject,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -102,6 +102,7 @@ pub enum ReducerRouteOwnerGroup {
     AreaShape,
     AttackRoll,
     AttackActionProcedure,
+    Component,
     Concentration,
     ConditionLifecycle,
     Companion,
@@ -495,6 +496,38 @@ fn route_event_matches_subjects(
     }
 }
 
+#[must_use]
+pub fn battle_setup_from_state(state: BattleState) -> BattleSetup {
+    BattleSetup {
+        initiative: state.initiative,
+        fighter: state.fighter,
+        goblin: state.goblin,
+        rogue: state.rogue,
+        skeleton: state.skeleton,
+        stat_block_control: state.stat_block_control,
+        turn_boundary_effects: state.turn_boundary_effects,
+        interrupt_resume: state.interrupt_resume,
+        reaction_casting_time: state.reaction_casting_time,
+        concentration: state.concentration,
+        slot_spell_procedure: state.slot_spell_procedure,
+        save_gated_spell_procedure: state.save_gated_spell_procedure,
+        hit_point_restoration_procedure: state.hit_point_restoration_procedure,
+        spell_attack_procedure: state.spell_attack_procedure,
+        command_effect_procedure: state.command_effect_procedure,
+        feature_substrates: state.feature_substrates,
+        feature_resources: state.feature_resources,
+        spell_slot_uses_this_turn: state.spell_slot_uses_this_turn,
+        level_one_plus_spell_casters_this_turn: state.level_one_plus_spell_casters_this_turn,
+        quickened_level_one_plus_spell_casters_this_turn: state
+            .quickened_level_one_plus_spell_casters_this_turn,
+        action_available: state.action_available,
+        bonus_action_available: state.bonus_action_available,
+        attack_roll_made_this_turn: state.attack_roll_made_this_turn,
+        dash_movement_bonus_feet: state.dash_movement_bonus_feet,
+        disengaged: state.disengaged,
+    }
+}
+
 fn reducer_route_result_holes(result: &BattleResolutionResult) -> Vec<ReducerRouteHoleKind> {
     let holes = match result.outcome() {
         BattleResolutionOutcome::NeedsHoles | BattleResolutionOutcome::Invalid(_) => result
@@ -661,6 +694,7 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
         BattleReducerRouteOwnerGroup::AttackActionProcedure => {
             ReducerRouteOwnerGroup::AttackActionProcedure
         }
+        BattleReducerRouteOwnerGroup::Component => ReducerRouteOwnerGroup::Component,
         BattleReducerRouteOwnerGroup::Concentration => ReducerRouteOwnerGroup::Concentration,
         BattleReducerRouteOwnerGroup::ConditionLifecycle => {
             ReducerRouteOwnerGroup::ConditionLifecycle
@@ -919,6 +953,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::AreaShape => "BattleAreaShapeOwner",
         ReducerRouteOwnerGroup::AttackRoll => "BattleAttackRollOwner",
         ReducerRouteOwnerGroup::AttackActionProcedure => "BattleAttackActionProcedureOwner",
+        ReducerRouteOwnerGroup::Component => "BattleComponentOwner",
         ReducerRouteOwnerGroup::Concentration => "BattleConcentrationOwner",
         ReducerRouteOwnerGroup::ConditionLifecycle => "BattleConditionLifecycleOwner",
         ReducerRouteOwnerGroup::Companion => "BattleCompanionOwner",
