@@ -340,3 +340,16 @@ The small feature substrate batch was split into three parallel lanes from integ
 - `L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES`: Empowered, Seeking, Subtle, Transmuted, and Extended option substrates.
 
 Initial ready lanes after the split: `L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES` and `L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE`.
+
+## CP5 Split Plan
+
+`CP5-REMAINING-BATTLE-FAMILIES` is split into six parallel lanes from integration head `91e141c8998682ebf6daf65e0ff5594aaf24551e`:
+
+- `L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES`: after-hit damage riders and weapon-hosted attack/rider procedures (`2` drivers, `49` obligations).
+- `L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES`: roll modifiers, scalar active effects, repeat saves, turn-boundary lifecycle, and zero-HP mid-resolution (`5` drivers, `33` obligations).
+- `L15-RRCP5-C-REACTION-INTERRUPT-ROUTES`: interrupt stack resume and reaction casting time (`2` drivers, `6` obligations).
+- `L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES`: companion lifecycle and object-boundary spell behavior (`2` drivers, `12` obligations).
+- `L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES`: ability-check/search choice behavior (`1` driver, `12` obligations).
+- `L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES`: chained attack sequence and independent spell-attack sequence (`2` drivers, `18` obligations).
+
+All CP5 lanes must preserve the campaign rule: accepted coverage requires reducer-routed evidence through public reducer entrypoints and copied executable connector evidence where the inventory demands it; otherwise rows are blockers, not accepted coverage.

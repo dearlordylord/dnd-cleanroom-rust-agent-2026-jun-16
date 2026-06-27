@@ -748,7 +748,7 @@
     {
       "laneId": "CP5-REMAINING-BATTLE-FAMILIES",
       "checkpointId": "CP5",
-      "status": "blocked-on-checkpoint",
+      "status": "split-via-sublanes",
       "routeTaskIds": [
         "L15-RR15-AFTER-HIT-RIDER-OWNER-SPLIT",
         "L15-RR16-CHAINED-ATTACK-PROCEDURE-ROUTES",
@@ -768,7 +768,15 @@
         "CP2 complete",
         "CP4 complete"
       ],
-      "driversSource": "See listed routeTaskIds in reducer-route-inventory.json"
+      "driversSource": "See listed routeTaskIds in reducer-route-inventory.json",
+      "splitIntoLaneIds": [
+        "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
+        "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
+        "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
+        "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES",
+        "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
+        "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES"
+      ]
     },
     {
       "laneId": "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
@@ -885,6 +893,166 @@
         "tasks/**"
       ],
       "acceptanceSummary": "Evidence routes property/area-save/feature spell-benefit behavior by typed property and feature facts, not authored identity."
+    },
+    {
+      "laneId": "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
+      "checkpointId": "CP5",
+      "status": "ready",
+      "parallelGroup": "cp5-remaining-battle-families",
+      "routeTaskIds": [
+        "L15-RR15-AFTER-HIT-RIDER-OWNER-SPLIT",
+        "L15-RR17-WEAPON-HOSTED-RIDER-ROUTES"
+      ],
+      "driverCount": 2,
+      "branchObligations": 49,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt"
+      ],
+      "purpose": "Route after-hit rider ownership and weapon-hosted rider procedures through generic rider/weapon-hosted substrates without authored identity dispatch.",
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/weapon_hosted_attack_and_riders.rs",
+        "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+        "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ]
+    },
+    {
+      "laneId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
+      "checkpointId": "CP5",
+      "status": "ready",
+      "parallelGroup": "cp5-remaining-battle-families",
+      "routeTaskIds": [
+        "L15-RR18-BATTLE-ACTIVE-EFFECT-LIFECYCLE-ROUTES"
+      ],
+      "driverCount": 5,
+      "branchObligations": 33,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt"
+      ],
+      "purpose": "Route active-effect lifecycle, repeat-save, scalar modifier, turn-boundary, and zero-HP mid-resolution behavior through durable active-effect owners.",
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/roll_modifier_active_effects.rs",
+        "src/rules/scalar_buff_active_effects.rs",
+        "src/rules/sleep_repeat_save.rs",
+        "src/rules/turn_boundary_effect_lifecycle.rs",
+        "src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs",
+        "src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs",
+        "src/qnt_adapters/battle_runtime_sleep_repeat_save.rs",
+        "src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs",
+        "src/qnt_adapters/battle_runtime_zero_hit_point_mid_resolution.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ]
+    },
+    {
+      "laneId": "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
+      "checkpointId": "CP5",
+      "status": "ready",
+      "parallelGroup": "cp5-remaining-battle-families",
+      "routeTaskIds": [
+        "L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES"
+      ],
+      "driverCount": 2,
+      "branchObligations": 6,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt"
+      ],
+      "purpose": "Route interrupt-stack and reaction casting-time behavior through reaction/interrupt owners and public reducer entrypoints.",
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/interrupt_stack_resume.rs",
+        "src/qnt_adapters/battle_runtime_interrupt_stack_resume.rs",
+        "src/qnt_adapters/battle_runtime_reaction_casting_time.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ]
+    },
+    {
+      "laneId": "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES",
+      "checkpointId": "CP5",
+      "status": "ready",
+      "parallelGroup": "cp5-remaining-battle-families",
+      "routeTaskIds": [
+        "L15-RR20-BATTLE-COMPANION-OBJECT-BOUNDARY-ROUTES"
+      ],
+      "driverCount": 2,
+      "branchObligations": 12,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-find-familiar-companion-lifecycle.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt"
+      ],
+      "purpose": "Route companion lifecycle and object-boundary spell behavior through generic companion/object substrates or record connector blockers.",
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/find_familiar.rs",
+        "src/rules/starry_wisp_object.rs",
+        "src/qnt_adapters/battle_runtime_find_familiar_companion_lifecycle.rs",
+        "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ]
+    },
+    {
+      "laneId": "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
+      "checkpointId": "CP5",
+      "status": "ready",
+      "parallelGroup": "cp5-remaining-battle-families",
+      "routeTaskIds": [
+        "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES"
+      ],
+      "driverCount": 1,
+      "branchObligations": 12,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt"
+      ],
+      "purpose": "Route ability-check/search choice behavior through typed ability/search substrates and reducer route evidence.",
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/ability_check_choice_search.rs",
+        "src/qnt_adapters/battle_runtime_ability_check_choice_search.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ]
+    },
+    {
+      "laneId": "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES",
+      "checkpointId": "CP5",
+      "status": "ready",
+      "parallelGroup": "cp5-remaining-battle-families",
+      "routeTaskIds": [
+        "L15-RR16-CHAINED-ATTACK-PROCEDURE-ROUTES",
+        "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES"
+      ],
+      "driverCount": 2,
+      "branchObligations": 18,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-eldritch-blast.mbt.qnt"
+      ],
+      "purpose": "Route chained attack and independent spell-attack sequence behavior through sequence/procedure owners without spell identity dispatch.",
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/chained_spell_attacks.rs",
+        "src/rules/eldritch_blast.rs",
+        "src/qnt_adapters/battle_runtime_chained_attack_sequence.rs",
+        "src/qnt_adapters/battle_runtime_eldritch_blast.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/**"
+      ]
     }
   ],
   "standardVerification": [

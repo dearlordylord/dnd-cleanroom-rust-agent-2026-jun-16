@@ -139,13 +139,23 @@
     {
       "checkpointId": "CP5",
       "name": "Remaining Battle Families",
-      "status": "ready",
+      "status": "split-ready",
       "dependsOn": [
         "CP1",
         "CP2",
         "CP4"
       ],
-      "notes": "Ready after CP1, CP2, and CP4 completion."
+      "notes": "Split into six ready sublanes with disjoint driver sets; launch from current integration head.",
+      "runningLaneIds": [],
+      "mergedLaneIds": [],
+      "splitLaneIds": [
+        "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES",
+        "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES",
+        "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
+        "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES",
+        "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
+        "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES"
+      ]
     },
     {
       "checkpointId": "CP6",
@@ -202,7 +212,14 @@
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified"
+    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified",
+    "CP5-REMAINING-BATTLE-FAMILIES": "split-via-sublanes",
+    "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES": "ready",
+    "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES": "ready",
+    "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES": "ready",
+    "L15-RRCP5-D-COMPANION-OBJECT-BOUNDARY-ROUTES": "ready",
+    "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "ready",
+    "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "ready"
   },
   "lastIntegrationVerification": {
     "head": "91e141c8998682ebf6daf65e0ff5594aaf24551e",
