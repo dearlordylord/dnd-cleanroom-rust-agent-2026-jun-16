@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10` | `ralph/l15-rr10-character-battle-handoff` | `6af492188311839dd4839b464b2e7049e3330568` | Darwin `019f06d8-d9f9-76b1-a057-efe51b02c54f`; reviewer Bacon `019f06f4-070e-7dd1-9cc4-7c6567885937` | findings, lane head `421541a1958b20bdfb3b785174ea125673135d72`; needs independent expected route witnesses |
+| L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10` | `ralph/l15-rr10-character-battle-handoff` | `6af492188311839dd4839b464b2e7049e3330568` | Darwin `019f06d8-d9f9-76b1-a057-efe51b02c54f`; reviewer Bacon `019f06f4-070e-7dd1-9cc4-7c6567885937`; fixer Plato `019f06f8-3a2a-7863-8286-a48ce02dd0d4` | fixing, lane head `421541a1958b20bdfb3b785174ea125673135d72`; needs independent expected route witnesses |
 
 ## Historical RRCONV-19 Worktrees
 
