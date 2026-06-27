@@ -7,7 +7,7 @@ use crate::rules::battle_reducer_spine::{
     discover_battle_acts_observed, distant_spell_from_battle, resolve_battle_subject_observed,
     start_battle_observed, start_metamagic_option_spell_battle, BattleEntrypointTrace,
     BattleMetamagicOptionFacts, BattleMetamagicOptionSpellEffect, BattleMetamagicOptionSpellFill,
-    BattleResolutionRequest, BattleSubjectKind,
+    BattleMetamagicSpellModification, BattleResolutionRequest, BattleSubjectKind,
 };
 use crate::rules::sorcerer_metamagic::{
     DistantSpellProtocol, DistantSpellScenarioResult, DistantSpellState,
@@ -113,6 +113,7 @@ const fn metamagic_option_facts(sorcery_point_cost: i16) -> BattleMetamagicOptio
     BattleMetamagicOptionFacts {
         selected_option_admitted: true,
         sorcery_point_cost,
+        modification: BattleMetamagicSpellModification::SpellRangeExtension,
         changes_action_casting_time_to_bonus_action: false,
         permits_multiple_options_for_spell: false,
     }

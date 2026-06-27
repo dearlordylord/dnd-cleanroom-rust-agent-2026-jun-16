@@ -2526,6 +2526,100 @@
         }
       ],
       "taskId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "cdfa92fc39c80a743e7c71641c89c83d51a381f1426affec525981d43a04bb7f"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "4f32705a4eb7f00317cdf651b34529009f4f25f4cb7cc033df22f02a84945947"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "a232a7cf5c1ed0023e476e27db080334bbe3e59d20d7b25102263e0aaf82de5c"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES/START_GATE.json",
+          "sha256": "afa030408c3e5502602bf7bc466b2ddc65ea883dc4eb96e6ae693aa8c1ae6397"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "e59df7bd991c91e09fa819e299ec4f742e69465fff96fc6864097e00ab4658e8"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo test empowered_spell_adapter_replays_all_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test seeking_spell_adapter_replays_all_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test subtle_spell_adapter_replays_all_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test transmuted_spell_adapter_replays_all_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test extended_spell_adapter_replays_all_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "parentRouteTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-seeking-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveEmpoweredSpellDamageReroll#step:doResolveEmpoweredSpellDamageReroll",
+            "tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveExtendedCreatureSizeIncrease#step:doResolveExtendedCreatureSizeIncrease",
+            "tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveSeekingSpellAttackReroll#step:doResolveSeekingSpellAttackReroll",
+            "tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doRejectSubtleFalseLifeWithoutSorceryPoints#step:doRejectSubtleFalseLifeWithoutSorceryPoints",
+            "tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveSubtleFalseLife#step:doResolveSubtleFalseLife",
+            "tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveTransmutedSaveGatedDamage#step:doResolveTransmutedSaveGatedDamage",
+            "tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json#L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES seed=1 action=doResolveTransmutedSpellAttack#step:doResolveTransmutedSpellAttack"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR07-FU08C-metamagic-reroll-damage-projection-substrates.json",
+          "sha256": "05236cd16c92e6683a261a0866f93f05d083dc79113259149a366d93355cbef0"
+        }
+      ],
+      "taskId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

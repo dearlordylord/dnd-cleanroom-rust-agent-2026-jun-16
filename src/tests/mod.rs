@@ -885,15 +885,19 @@ use battle_runtime_sorcerer_metamagic_distant_selected_identity::{
     BRANCH_ACTIONS as DISTANT_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_empowered_selected_identity::{
+    expected_route as expected_empowered_spell_route,
     expected_witness as expected_empowered_spell_witness,
     projection_payload as empowered_spell_projection_payload,
     replay_observed_action as replay_empowered_spell_action,
+    replay_observed_route as replay_empowered_spell_route,
     BRANCH_ACTIONS as EMPOWERED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_extended_selected_identity::{
+    expected_route as expected_extended_spell_route,
     expected_witness as expected_extended_spell_witness,
     projection_payload as extended_spell_projection_payload,
     replay_observed_action as replay_extended_spell_action,
+    replay_observed_route as replay_extended_spell_route,
     BRANCH_ACTIONS as EXTENDED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_heightened_selected_identity::{
@@ -905,9 +909,11 @@ use battle_runtime_sorcerer_metamagic_heightened_selected_identity::{
     BRANCH_ACTIONS as HEIGHTENED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_seeking_selected_identity::{
+    expected_route as expected_seeking_spell_route,
     expected_witness as expected_seeking_spell_witness,
     projection_payload as seeking_spell_projection_payload,
     replay_observed_action as replay_seeking_spell_action,
+    replay_observed_route as replay_seeking_spell_route,
     BRANCH_ACTIONS as SEEKING_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_selected_identity::{
@@ -935,15 +941,19 @@ use battle_runtime_sorcerer_metamagic_spell_attack_sequence_selected_identity::{
     BRANCH_ACTIONS as QUICKENED_SPELL_ATTACK_SEQUENCE_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_subtle_selected_identity::{
+    expected_route as expected_subtle_spell_route,
     expected_witness as expected_subtle_spell_witness,
     projection_payload as subtle_spell_projection_payload,
     replay_observed_action as replay_subtle_spell_action,
+    replay_observed_route as replay_subtle_spell_route,
     BRANCH_ACTIONS as SUBTLE_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_transmuted_selected_identity::{
+    expected_route as expected_transmuted_spell_route,
     expected_witness as expected_transmuted_spell_witness,
     projection_payload as transmuted_spell_projection_payload,
     replay_observed_action as replay_transmuted_spell_action,
+    replay_observed_route as replay_transmuted_spell_route,
     BRANCH_ACTIONS as TRANSMUTED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_twinned_selected_identity::{
@@ -6846,6 +6856,14 @@ fn empowered_spell_adapter_replays_all_branches() {
         let observed = replay_empowered_spell_action(action);
         assert_eq!(observed, expected_empowered_spell_witness(action));
         assert!(empowered_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_empowered_spell_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_empowered_spell_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(route_payload.contains("BattleDamageRollOwner"));
     }
 }
 
@@ -6876,6 +6894,71 @@ fn empowered_spell_projects_damage_reroll_case() {
 }
 
 #[test]
+fn metamagic_option_spell_rejects_mismatched_option_facts_and_effect() {
+    use crate::rules::battle_reducer_spine::{
+        discover_battle_acts, resolve_battle_subject, start_metamagic_option_spell_battle,
+        BattleMetamagicOptionFacts, BattleMetamagicOptionSpellEffect,
+        BattleMetamagicOptionSpellFill, BattleMetamagicOptionSpellProjection,
+        BattleResolutionInvalidReason, BattleResolutionRequest, BattleResolutionResult,
+        BattleSubjectKind,
+    };
+    use crate::rules::feature_resources::resource_pool_remaining;
+
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md
+    // "Metamagic"; component suppression and damage dice rerolls are distinct
+    // option modifications, so a fill cannot use one option's facts to route
+    // and another option's effect to project.
+    let state = start_metamagic_option_spell_battle(4);
+    let subject = discover_battle_acts(&state)
+        .into_available_acts()
+        .into_iter()
+        .find(|act| act.subject.kind == BattleSubjectKind::MetamagicOptionSpell)
+        .expect("metamagic option spell subject should be discoverable")
+        .subject;
+    let request = BattleResolutionRequest::metamagic_option_spell(
+        subject,
+        BattleMetamagicOptionSpellFill {
+            option_facts: BattleMetamagicOptionFacts::spell_component_suppression(),
+            effect: BattleMetamagicOptionSpellEffect::DamageReroll {
+                target_hit_points_after: 1,
+                target_active_effect_count: 1,
+            },
+            options_already_applied_to_spell: 0,
+            selected_second_option_supported: true,
+            spell_uses_level_one_plus_slot: true,
+            spell_consumes_magic_action: true,
+        },
+    )
+    .expect("metamagic option subject should accept metamagic option fills");
+
+    let BattleResolutionResult::Invalid {
+        state,
+        reason,
+        holes,
+    } = resolve_battle_subject(state, request)
+    else {
+        panic!("mismatched metamagic option facts and effect should be rejected");
+    };
+
+    assert_eq!(
+        reason,
+        BattleResolutionInvalidReason::MetamagicOptionEffectMismatch
+    );
+    assert!(holes.is_empty());
+    assert!(state.action_available);
+    assert!(state.bonus_action_available);
+    assert_eq!(
+        resource_pool_remaining(state.feature_resources.sorcery_points),
+        4
+    );
+    assert_eq!(state.skeleton.hp, 10);
+    assert_eq!(
+        state.feature_substrates.metamagic_option_spell.projection,
+        BattleMetamagicOptionSpellProjection::Init
+    );
+}
+
+#[test]
 fn extended_spell_adapter_replays_all_branches() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt;
@@ -6885,6 +6968,14 @@ fn extended_spell_adapter_replays_all_branches() {
         let observed = replay_extended_spell_action(action);
         assert_eq!(observed, expected_extended_spell_witness(action));
         assert!(extended_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_extended_spell_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_extended_spell_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(route_payload.contains("BattleConcentrationOwner"));
     }
 }
 
@@ -6993,6 +7084,14 @@ fn seeking_spell_adapter_replays_all_branches() {
         let observed = replay_seeking_spell_action(action);
         assert_eq!(observed, expected_seeking_spell_witness(action));
         assert!(seeking_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_seeking_spell_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_seeking_spell_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(route_payload.contains("BattleAttackRollOwner"));
     }
 }
 
@@ -7178,6 +7277,18 @@ fn subtle_spell_adapter_replays_all_branches() {
         let observed = replay_subtle_spell_action(action);
         assert_eq!(observed, expected_subtle_spell_witness(action));
         assert!(subtle_spell_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_subtle_spell_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_subtle_spell_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        if action == "doResolveSubtleFalseLife" {
+            assert!(route_payload.contains("BattleComponentOwner"));
+        } else {
+            assert!(route_payload.contains("BattleFeatureResourceOwner"));
+        }
     }
 }
 
@@ -7236,6 +7347,14 @@ fn transmuted_spell_adapter_replays_all_branches() {
         let observed = replay_transmuted_spell_action(action);
         assert_eq!(observed, expected_transmuted_spell_witness(action));
         assert!(transmuted_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_transmuted_spell_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_transmuted_spell_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(route_payload.contains("BattleDamageTypeOwner"));
     }
 }
 

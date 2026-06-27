@@ -88,9 +88,14 @@ use crate::rules::scalar_buff::{
 };
 use crate::rules::sorcerer_metamagic::{
     CarefulSpellProtocol, CarefulSpellScenarioResult, CarefulSpellState, DistantSpellProtocol,
-    DistantSpellScenarioResult, DistantSpellState, HeightenedSpellProtocol,
-    HeightenedSpellScenarioResult, HeightenedSpellState, QuickenedMetamagicProtocol,
-    QuickenedMetamagicScenarioResult, QuickenedMetamagicState, TwinnedSpellProtocol,
+    DistantSpellScenarioResult, DistantSpellState, EmpoweredSpellProtocol,
+    EmpoweredSpellScenarioResult, EmpoweredSpellState, ExtendedSpellConcentrationSaveMode,
+    ExtendedSpellProtocol, ExtendedSpellScenarioResult, ExtendedSpellState,
+    HeightenedSpellProtocol, HeightenedSpellScenarioResult, HeightenedSpellState,
+    QuickenedMetamagicProtocol, QuickenedMetamagicScenarioResult, QuickenedMetamagicState,
+    SeekingSpellProtocol, SeekingSpellScenarioResult, SeekingSpellState, SubtleSpellProtocol,
+    SubtleSpellScenarioResult, SubtleSpellState, TransmutedSpellProtocol,
+    TransmutedSpellScenarioResult, TransmutedSpellState, TwinnedSpellProtocol,
     TwinnedSpellScenarioResult, TwinnedSpellState,
 };
 use crate::rules::species_passive_traits::{
@@ -235,6 +240,7 @@ pub struct BattleFeatureSubstrates {
     pub innate_sorcery: BattleInnateSorcerySubstrate,
     pub quickened_spell: BattleQuickenedSpellSubstrate,
     pub metamagic_spell: BattleMetamagicSpellSubstrate,
+    pub metamagic_option_spell: BattleMetamagicOptionSpellSubstrate,
 }
 
 impl BattleFeatureSubstrates {
@@ -246,6 +252,7 @@ impl BattleFeatureSubstrates {
             innate_sorcery: BattleInnateSorcerySubstrate::initial(),
             quickened_spell: BattleQuickenedSpellSubstrate::initial(),
             metamagic_spell: BattleMetamagicSpellSubstrate::initial(),
+            metamagic_option_spell: BattleMetamagicOptionSpellSubstrate::initial(),
         }
     }
 }
@@ -402,6 +409,48 @@ impl BattleMetamagicSpellSubstrate {
             protocol: BattleMetamagicSpellProtocol::Init,
         }
     }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleMetamagicOptionSpellSubstrate {
+    pub offered: bool,
+    pub projection: BattleMetamagicOptionSpellProjection,
+}
+
+impl BattleMetamagicOptionSpellSubstrate {
+    #[must_use]
+    pub const fn initial() -> Self {
+        Self {
+            offered: false,
+            projection: BattleMetamagicOptionSpellProjection::Init,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleMetamagicOptionSpellProjection {
+    Init,
+    EmpoweredDamageReroll {
+        target_active_effect_count: i16,
+    },
+    SeekingAttackReroll {
+        target_active_effect_count: i16,
+    },
+    SubtleComponents {
+        verbal_suppressed: bool,
+        somatic_suppressed: bool,
+        material_suppressed: bool,
+        material_preserved: bool,
+    },
+    SubtleUnaffordable,
+    TransmutedSaveGatedDamage,
+    TransmutedSpellAttack {
+        target_active_effect_count: i16,
+    },
+    ExtendedDuration {
+        duration_ticks: i16,
+        concentration_saving_throw_mode: ExtendedSpellConcentrationSaveMode,
+    },
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1041,6 +1090,7 @@ pub enum BattleActiveFeatureSpellBenefitFill {
 pub struct BattleMetamagicOptionFacts {
     pub selected_option_admitted: bool,
     pub sorcery_point_cost: i16,
+    pub modification: BattleMetamagicSpellModification,
     pub changes_action_casting_time_to_bonus_action: bool,
     pub permits_multiple_options_for_spell: bool,
 }
@@ -1051,10 +1101,80 @@ impl BattleMetamagicOptionFacts {
         Self {
             selected_option_admitted: true,
             sorcery_point_cost: QUICKENED_SORCERY_POINT_COST,
+            modification: BattleMetamagicSpellModification::ActionCastingTimeToBonusAction,
             changes_action_casting_time_to_bonus_action: true,
             permits_multiple_options_for_spell: false,
         }
     }
+
+    #[must_use]
+    pub const fn spell_damage_dice_reroll() -> Self {
+        Self {
+            selected_option_admitted: true,
+            sorcery_point_cost: 1,
+            modification: BattleMetamagicSpellModification::SpellDamageDiceReroll,
+            changes_action_casting_time_to_bonus_action: false,
+            permits_multiple_options_for_spell: true,
+        }
+    }
+
+    #[must_use]
+    pub const fn missed_spell_attack_d20_reroll() -> Self {
+        Self {
+            selected_option_admitted: true,
+            sorcery_point_cost: 1,
+            modification: BattleMetamagicSpellModification::MissedSpellAttackD20Reroll,
+            changes_action_casting_time_to_bonus_action: false,
+            permits_multiple_options_for_spell: true,
+        }
+    }
+
+    #[must_use]
+    pub const fn spell_component_suppression() -> Self {
+        Self {
+            selected_option_admitted: true,
+            sorcery_point_cost: 1,
+            modification: BattleMetamagicSpellModification::SpellComponentSuppression,
+            changes_action_casting_time_to_bonus_action: false,
+            permits_multiple_options_for_spell: false,
+        }
+    }
+
+    #[must_use]
+    pub const fn spell_damage_type_substitution() -> Self {
+        Self {
+            selected_option_admitted: true,
+            sorcery_point_cost: 1,
+            modification: BattleMetamagicSpellModification::SpellDamageTypeSubstitution,
+            changes_action_casting_time_to_bonus_action: false,
+            permits_multiple_options_for_spell: false,
+        }
+    }
+
+    #[must_use]
+    pub const fn spell_duration_extension() -> Self {
+        Self {
+            selected_option_admitted: true,
+            sorcery_point_cost: 1,
+            modification: BattleMetamagicSpellModification::SpellDurationExtension,
+            changes_action_casting_time_to_bonus_action: false,
+            permits_multiple_options_for_spell: false,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleMetamagicSpellModification {
+    ActionCastingTimeToBonusAction,
+    ProtectedSavingThrow,
+    FirstTargetSavingThrowDisadvantage,
+    SpellRangeExtension,
+    AdditionalSingleTarget,
+    SpellDamageDiceReroll,
+    MissedSpellAttackD20Reroll,
+    SpellComponentSuppression,
+    SpellDamageTypeSubstitution,
+    SpellDurationExtension,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1099,6 +1219,32 @@ pub enum BattleMetamagicOptionSpellEffect {
     },
     AdditionalSingleTarget {
         target_active_effect_count: i16,
+    },
+    DamageReroll {
+        target_hit_points_after: i16,
+        target_active_effect_count: i16,
+    },
+    SpellAttackReroll {
+        target_hit_points_after: i16,
+        target_active_effect_count: i16,
+    },
+    ComponentSuppressedHitPointBuff {
+        temporary_hit_points: i16,
+        verbal_suppressed: bool,
+        somatic_suppressed: bool,
+        material_suppressed: bool,
+        material_preserved: bool,
+    },
+    DamageTypeSubstitutionSaveGatedDamage {
+        target_hit_points_after: i16,
+    },
+    DamageTypeSubstitutionSpellAttack {
+        target_hit_points_after: i16,
+        target_active_effect_count: i16,
+    },
+    DurationExtension {
+        duration_ticks: i16,
+        concentration_saving_throw_mode: ExtendedSpellConcentrationSaveMode,
     },
 }
 
@@ -1410,6 +1556,7 @@ pub enum BattleConcentrationFill {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleResolutionInvalidReason {
     InvalidFill,
+    MetamagicOptionEffectMismatch,
     StaleSubject,
     WrongActor,
     WrongTarget,
@@ -1896,6 +2043,7 @@ pub enum BattleReducerRouteOwnerGroup {
     AreaShape,
     AttackRoll,
     AttackActionProcedure,
+    Component,
     Concentration,
     ConditionLifecycle,
     Companion,
@@ -3121,6 +3269,10 @@ pub fn start_metamagic_option_spell_battle(sorcery_points_remaining: i16) -> Bat
         offered: true,
         ..BattleMetamagicSpellSubstrate::initial()
     };
+    setup.feature_substrates.metamagic_option_spell = BattleMetamagicOptionSpellSubstrate {
+        offered: true,
+        ..BattleMetamagicOptionSpellSubstrate::initial()
+    };
     setup.feature_resources.sorcery_points = ResourcePoolFacts {
         capacity: sorcery_points_remaining.max(0),
         expended: 0,
@@ -4140,9 +4292,17 @@ fn resolve_metamagic_option_spell_subject(
     subject: BattleSubject,
     fill: BattleMetamagicOptionSpellFill,
 ) -> BattleResolutionResult {
-    if !fill.option_facts.selected_option_admitted {
-        return rejected_quickened_metamagic_result(
+    if !metamagic_option_effect_matches_modification(fill.option_facts.modification, fill.effect) {
+        return BattleResolutionResult::Invalid {
             state,
+            reason: BattleResolutionInvalidReason::MetamagicOptionEffectMismatch,
+            holes: Vec::new(),
+        };
+    }
+    if !fill.option_facts.selected_option_admitted {
+        return rejected_metamagic_option_spell_result(
+            state,
+            fill.effect,
             QuickenedSpellInvalidKind::UnknownOption,
             QuickenedSpellScenarioOutcome::RejectedUnknownOption,
         );
@@ -4150,26 +4310,17 @@ fn resolve_metamagic_option_spell_subject(
     if fill.option_facts.sorcery_point_cost
         > resource_pool_remaining(state.feature_resources.sorcery_points)
     {
-        return rejected_quickened_metamagic_result(
+        return rejected_metamagic_option_spell_result(
             state,
+            fill.effect,
             QuickenedSpellInvalidKind::Unaffordable,
             QuickenedSpellScenarioOutcome::RejectedUnaffordable,
         );
     }
-    if metamagic_effect_changes_casting_time_to_bonus_action(fill.effect)
-        && !fill
-            .option_facts
-            .changes_action_casting_time_to_bonus_action
-    {
-        return rejected_quickened_metamagic_result(
-            state,
-            QuickenedSpellInvalidKind::UnsupportedSecondOption,
-            QuickenedSpellScenarioOutcome::RejectedUnsupportedSecondOption,
-        );
-    }
     if fill.options_already_applied_to_spell > 0 && !fill.selected_second_option_supported {
-        return rejected_quickened_metamagic_result(
+        return rejected_metamagic_option_spell_result(
             state,
+            fill.effect,
             QuickenedSpellInvalidKind::UnsupportedSecondOption,
             QuickenedSpellScenarioOutcome::RejectedUnsupportedSecondOption,
         );
@@ -4177,19 +4328,23 @@ fn resolve_metamagic_option_spell_subject(
     if fill.options_already_applied_to_spell > 0
         && !fill.option_facts.permits_multiple_options_for_spell
     {
-        return rejected_quickened_metamagic_result(
+        return rejected_metamagic_option_spell_result(
             state,
+            fill.effect,
             QuickenedSpellInvalidKind::OnePerSpell,
             QuickenedSpellScenarioOutcome::RejectedOnePerSpell,
         );
     }
-    if fill.spell_uses_level_one_plus_slot
+    if fill.option_facts.modification
+        == BattleMetamagicSpellModification::ActionCastingTimeToBonusAction
+        && fill.spell_uses_level_one_plus_slot
         && state
             .level_one_plus_spell_casters_this_turn
             .contains(&subject.actor)
     {
-        return rejected_quickened_metamagic_result(
+        return rejected_metamagic_option_spell_result(
             state,
+            fill.effect,
             QuickenedSpellInvalidKind::SameTurnLevelOnePlus,
             QuickenedSpellScenarioOutcome::RejectedPriorLevelOnePlusSpell,
         );
@@ -4199,8 +4354,9 @@ fn resolve_metamagic_option_spell_subject(
         state.feature_resources.sorcery_points,
         fill.option_facts.sorcery_point_cost,
     ) else {
-        return rejected_quickened_metamagic_result(
+        return rejected_metamagic_option_spell_result(
             state,
+            fill.effect,
             QuickenedSpellInvalidKind::Unaffordable,
             QuickenedSpellScenarioOutcome::RejectedUnaffordable,
         );
@@ -4209,15 +4365,17 @@ fn resolve_metamagic_option_spell_subject(
     let magic_action_available_before_resolution = state.action_available;
     let mut state = state;
     state.feature_resources.sorcery_points = sorcery_points;
-    if fill
-        .option_facts
-        .changes_action_casting_time_to_bonus_action
+    if fill.option_facts.modification
+        == BattleMetamagicSpellModification::ActionCastingTimeToBonusAction
     {
         state.bonus_action_available = false;
     } else if fill.spell_consumes_magic_action {
         state.action_available = false;
     }
-    if fill.spell_uses_level_one_plus_slot {
+    if fill.spell_uses_level_one_plus_slot
+        && fill.option_facts.modification
+            == BattleMetamagicSpellModification::ActionCastingTimeToBonusAction
+    {
         state = claim_pending_actor_spell_slot_use(state, subject.actor);
         state = expend_combatant_spell_slot(state, subject.actor, BattleSpellSlotLevel::First);
         state = commit_actor_spell_slot_use(state, subject.actor);
@@ -4232,51 +4390,122 @@ fn resolve_metamagic_option_spell_subject(
     }
 
     state = apply_metamagic_spell_effect(state, fill.effect);
-    if metamagic_effect_changes_casting_time_to_bonus_action(fill.effect) {
-        state.feature_substrates.quickened_spell =
-            quickened_success_substrate(fill.effect, magic_action_available_before_resolution);
-    } else {
-        state.feature_substrates.metamagic_spell = metamagic_spell_success_substrate(fill.effect);
+    match fill.option_facts.modification {
+        BattleMetamagicSpellModification::ActionCastingTimeToBonusAction => {
+            state.feature_substrates.quickened_spell =
+                quickened_success_substrate(fill.effect, magic_action_available_before_resolution);
+        }
+        BattleMetamagicSpellModification::ProtectedSavingThrow
+        | BattleMetamagicSpellModification::FirstTargetSavingThrowDisadvantage
+        | BattleMetamagicSpellModification::SpellRangeExtension
+        | BattleMetamagicSpellModification::AdditionalSingleTarget => {
+            state.feature_substrates.metamagic_spell =
+                metamagic_spell_success_substrate(fill.effect);
+        }
+        BattleMetamagicSpellModification::SpellDamageDiceReroll
+        | BattleMetamagicSpellModification::MissedSpellAttackD20Reroll
+        | BattleMetamagicSpellModification::SpellComponentSuppression
+        | BattleMetamagicSpellModification::SpellDamageTypeSubstitution
+        | BattleMetamagicSpellModification::SpellDurationExtension => {
+            state.feature_substrates.metamagic_option_spell =
+                metamagic_success_substrate(fill.effect);
+        }
     }
 
     BattleResolutionResult::Resolved { state }
 }
 
-fn rejected_quickened_metamagic_result(
+const fn metamagic_option_effect_matches_modification(
+    modification: BattleMetamagicSpellModification,
+    effect: BattleMetamagicOptionSpellEffect,
+) -> bool {
+    match modification {
+        BattleMetamagicSpellModification::ActionCastingTimeToBonusAction => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::HitPointRestoration { .. }
+                | BattleMetamagicOptionSpellEffect::SaveGatedCondition
+                | BattleMetamagicOptionSpellEffect::SaveGatedConditionImmunity
+                | BattleMetamagicOptionSpellEffect::DirectCondition
+                | BattleMetamagicOptionSpellEffect::RollModifier
+                | BattleMetamagicOptionSpellEffect::SaveGatedDamage { .. }
+                | BattleMetamagicOptionSpellEffect::SpellAttack { .. }
+                | BattleMetamagicOptionSpellEffect::SpellAttackSequence { .. }
+        ),
+        BattleMetamagicSpellModification::ProtectedSavingThrow => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::ProtectedSaveGatedDamage { .. }
+                | BattleMetamagicOptionSpellEffect::ProtectedSaveGatedNoEffect { .. }
+        ),
+        BattleMetamagicSpellModification::FirstTargetSavingThrowDisadvantage => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageSaveGatedDamage { .. }
+                | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageCondition { .. }
+                | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEntrySave
+                | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEndTurnSave
+                | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageConditionEndTurnSave
+        ),
+        BattleMetamagicSpellModification::SpellRangeExtension => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::ObjectRangeLight { .. }
+        ),
+        BattleMetamagicSpellModification::AdditionalSingleTarget => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::AdditionalSingleTarget { .. }
+        ),
+        BattleMetamagicSpellModification::SpellDamageDiceReroll => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::DamageReroll { .. }
+        ),
+        BattleMetamagicSpellModification::MissedSpellAttackD20Reroll => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::SpellAttackReroll { .. }
+        ),
+        BattleMetamagicSpellModification::SpellComponentSuppression => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::ComponentSuppressedHitPointBuff { .. }
+        ),
+        BattleMetamagicSpellModification::SpellDamageTypeSubstitution => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSaveGatedDamage { .. }
+                | BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSpellAttack { .. }
+        ),
+        BattleMetamagicSpellModification::SpellDurationExtension => matches!(
+            effect,
+            BattleMetamagicOptionSpellEffect::DurationExtension { .. }
+        ),
+    }
+}
+
+fn rejected_metamagic_option_spell_result(
     mut state: BattleState,
+    effect: BattleMetamagicOptionSpellEffect,
     invalid_kind: QuickenedSpellInvalidKind,
     outcome: QuickenedSpellScenarioOutcome,
 ) -> BattleResolutionResult {
-    state.feature_substrates.quickened_spell = BattleQuickenedSpellSubstrate {
-        offered: invalid_kind != QuickenedSpellInvalidKind::Unaffordable
-            && invalid_kind != QuickenedSpellInvalidKind::SameTurnLevelOnePlus,
-        invalid_kind,
-        governor_outcome: outcome,
-        governor_protocol: QuickenedSpellProtocol::Resolved,
-        metamagic_protocol: QuickenedMetamagicProtocol::Resolved,
-        ..state.feature_substrates.quickened_spell
-    };
+    if matches!(
+        effect,
+        BattleMetamagicOptionSpellEffect::ComponentSuppressedHitPointBuff { .. }
+    ) {
+        state.feature_substrates.metamagic_option_spell = BattleMetamagicOptionSpellSubstrate {
+            offered: false,
+            projection: BattleMetamagicOptionSpellProjection::SubtleUnaffordable,
+        };
+    } else {
+        state.feature_substrates.quickened_spell = BattleQuickenedSpellSubstrate {
+            offered: invalid_kind != QuickenedSpellInvalidKind::Unaffordable
+                && invalid_kind != QuickenedSpellInvalidKind::SameTurnLevelOnePlus,
+            invalid_kind,
+            governor_outcome: outcome,
+            governor_protocol: QuickenedSpellProtocol::Resolved,
+            metamagic_protocol: QuickenedMetamagicProtocol::Resolved,
+            ..state.feature_substrates.quickened_spell
+        };
+    }
     BattleResolutionResult::Invalid {
         state,
         reason: BattleResolutionInvalidReason::InvalidFill,
         holes: Vec::new(),
     }
-}
-
-const fn metamagic_effect_changes_casting_time_to_bonus_action(
-    effect: BattleMetamagicOptionSpellEffect,
-) -> bool {
-    matches!(
-        effect,
-        BattleMetamagicOptionSpellEffect::HitPointRestoration { .. }
-            | BattleMetamagicOptionSpellEffect::SaveGatedCondition
-            | BattleMetamagicOptionSpellEffect::SaveGatedConditionImmunity
-            | BattleMetamagicOptionSpellEffect::DirectCondition
-            | BattleMetamagicOptionSpellEffect::RollModifier
-            | BattleMetamagicOptionSpellEffect::SaveGatedDamage { .. }
-            | BattleMetamagicOptionSpellEffect::SpellAttack { .. }
-            | BattleMetamagicOptionSpellEffect::SpellAttackSequence { .. }
-    )
 }
 
 fn apply_metamagic_spell_effect(
@@ -4304,6 +4533,21 @@ fn apply_metamagic_spell_effect(
         }
         | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageSaveGatedDamage {
             target_hit_points_after,
+        }
+        | BattleMetamagicOptionSpellEffect::DamageReroll {
+            target_hit_points_after,
+            ..
+        }
+        | BattleMetamagicOptionSpellEffect::SpellAttackReroll {
+            target_hit_points_after,
+            ..
+        }
+        | BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSaveGatedDamage {
+            target_hit_points_after,
+        }
+        | BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSpellAttack {
+            target_hit_points_after,
+            ..
         } => Some(target_hit_points_after),
         BattleMetamagicOptionSpellEffect::SaveGatedCondition
         | BattleMetamagicOptionSpellEffect::SaveGatedConditionImmunity
@@ -4315,10 +4559,19 @@ fn apply_metamagic_spell_effect(
         | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEndTurnSave
         | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageConditionEndTurnSave
         | BattleMetamagicOptionSpellEffect::ObjectRangeLight { .. }
-        | BattleMetamagicOptionSpellEffect::AdditionalSingleTarget { .. } => None,
+        | BattleMetamagicOptionSpellEffect::AdditionalSingleTarget { .. }
+        | BattleMetamagicOptionSpellEffect::ComponentSuppressedHitPointBuff { .. }
+        | BattleMetamagicOptionSpellEffect::DurationExtension { .. } => None,
     };
     if let Some(target_hit_points_after) = target_hit_points_after {
         state.skeleton.hp = target_hit_points_after;
+    }
+    if let BattleMetamagicOptionSpellEffect::ComponentSuppressedHitPointBuff {
+        temporary_hit_points,
+        ..
+    } = effect
+    {
+        state.fighter.temporary_hp = temporary_hit_points;
     }
     state
 }
@@ -4404,7 +4657,13 @@ const fn metamagic_spell_success_substrate(
         | BattleMetamagicOptionSpellEffect::RollModifier
         | BattleMetamagicOptionSpellEffect::SaveGatedDamage { .. }
         | BattleMetamagicOptionSpellEffect::SpellAttack { .. }
-        | BattleMetamagicOptionSpellEffect::SpellAttackSequence { .. } => {
+        | BattleMetamagicOptionSpellEffect::SpellAttackSequence { .. }
+        | BattleMetamagicOptionSpellEffect::DamageReroll { .. }
+        | BattleMetamagicOptionSpellEffect::SpellAttackReroll { .. }
+        | BattleMetamagicOptionSpellEffect::ComponentSuppressedHitPointBuff { .. }
+        | BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSaveGatedDamage { .. }
+        | BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSpellAttack { .. }
+        | BattleMetamagicOptionSpellEffect::DurationExtension { .. } => {
             BattleMetamagicSpellSubstrate::initial()
         }
     }
@@ -4421,6 +4680,75 @@ const fn first_target_disadvantage_substrate(
         outcome,
         protocol: BattleMetamagicSpellProtocol::Resolved,
         ..BattleMetamagicSpellSubstrate::initial()
+    }
+}
+
+const fn metamagic_success_substrate(
+    effect: BattleMetamagicOptionSpellEffect,
+) -> BattleMetamagicOptionSpellSubstrate {
+    BattleMetamagicOptionSpellSubstrate {
+        offered: false,
+        projection: match effect {
+            BattleMetamagicOptionSpellEffect::DamageReroll {
+                target_active_effect_count,
+                ..
+            } => BattleMetamagicOptionSpellProjection::EmpoweredDamageReroll {
+                target_active_effect_count,
+            },
+            BattleMetamagicOptionSpellEffect::SpellAttackReroll {
+                target_active_effect_count,
+                ..
+            } => BattleMetamagicOptionSpellProjection::SeekingAttackReroll {
+                target_active_effect_count,
+            },
+            BattleMetamagicOptionSpellEffect::ComponentSuppressedHitPointBuff {
+                verbal_suppressed,
+                somatic_suppressed,
+                material_suppressed,
+                material_preserved,
+                ..
+            } => BattleMetamagicOptionSpellProjection::SubtleComponents {
+                verbal_suppressed,
+                somatic_suppressed,
+                material_suppressed,
+                material_preserved,
+            },
+            BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSaveGatedDamage { .. } => {
+                BattleMetamagicOptionSpellProjection::TransmutedSaveGatedDamage
+            }
+            BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSpellAttack {
+                target_active_effect_count,
+                ..
+            } => BattleMetamagicOptionSpellProjection::TransmutedSpellAttack {
+                target_active_effect_count,
+            },
+            BattleMetamagicOptionSpellEffect::DurationExtension {
+                duration_ticks,
+                concentration_saving_throw_mode,
+            } => BattleMetamagicOptionSpellProjection::ExtendedDuration {
+                duration_ticks,
+                concentration_saving_throw_mode,
+            },
+            BattleMetamagicOptionSpellEffect::HitPointRestoration { .. }
+            | BattleMetamagicOptionSpellEffect::SaveGatedCondition
+            | BattleMetamagicOptionSpellEffect::SaveGatedConditionImmunity
+            | BattleMetamagicOptionSpellEffect::DirectCondition
+            | BattleMetamagicOptionSpellEffect::RollModifier
+            | BattleMetamagicOptionSpellEffect::SaveGatedDamage { .. }
+            | BattleMetamagicOptionSpellEffect::SpellAttack { .. }
+            | BattleMetamagicOptionSpellEffect::SpellAttackSequence { .. }
+            | BattleMetamagicOptionSpellEffect::ProtectedSaveGatedDamage { .. }
+            | BattleMetamagicOptionSpellEffect::ProtectedSaveGatedNoEffect { .. }
+            | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageSaveGatedDamage { .. }
+            | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageCondition { .. }
+            | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEntrySave
+            | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageEndTurnSave
+            | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageConditionEndTurnSave
+            | BattleMetamagicOptionSpellEffect::ObjectRangeLight { .. }
+            | BattleMetamagicOptionSpellEffect::AdditionalSingleTarget { .. } => {
+                BattleMetamagicOptionSpellProjection::Init
+            }
+        },
     }
 }
 
@@ -4515,7 +4843,13 @@ const fn quickened_success_substrate(
             QuickenedSpellScenarioOutcome::Init,
             QuickenedMetamagicScenarioResult::QuickenedSpellAttackSequence,
         ),
-        BattleMetamagicOptionSpellEffect::ProtectedSaveGatedDamage { .. }
+        BattleMetamagicOptionSpellEffect::DamageReroll { .. }
+        | BattleMetamagicOptionSpellEffect::SpellAttackReroll { .. }
+        | BattleMetamagicOptionSpellEffect::ComponentSuppressedHitPointBuff { .. }
+        | BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSaveGatedDamage { .. }
+        | BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSpellAttack { .. }
+        | BattleMetamagicOptionSpellEffect::DurationExtension { .. }
+        | BattleMetamagicOptionSpellEffect::ProtectedSaveGatedDamage { .. }
         | BattleMetamagicOptionSpellEffect::ProtectedSaveGatedNoEffect { .. }
         | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageSaveGatedDamage { .. }
         | BattleMetamagicOptionSpellEffect::FirstTargetDisadvantageCondition { .. }
@@ -4617,6 +4951,7 @@ fn scalar_buff_protocol_from_result(result: &BattleResolutionResult) -> ScalarBu
         }
         BattleResolutionOutcome::Invalid(
             BattleResolutionInvalidReason::InvalidFill
+            | BattleResolutionInvalidReason::MetamagicOptionEffectMismatch
             | BattleResolutionInvalidReason::WrongActor
             | BattleResolutionInvalidReason::WrongTarget,
         ) => ScalarBuffTargetProtocol::Invalid(ScalarBuffTargetInvalidReason::StaleSubject),
@@ -5080,6 +5415,178 @@ pub fn twinned_spell_from_battle(state: &BattleState) -> TwinnedSpellState {
             BattleMetamagicSpellProtocol::Init => TwinnedSpellProtocol::Init,
             BattleMetamagicSpellProtocol::Resolved => TwinnedSpellProtocol::Resolved,
         },
+    }
+}
+
+#[must_use]
+pub fn empowered_spell_from_battle(state: &BattleState) -> EmpoweredSpellState {
+    let projection = state.feature_substrates.metamagic_option_spell.projection;
+    let (target_active_effect_count, scenario_result, protocol) = match projection {
+        BattleMetamagicOptionSpellProjection::EmpoweredDamageReroll {
+            target_active_effect_count,
+        } => (
+            target_active_effect_count,
+            EmpoweredSpellScenarioResult::EmpoweredSpellDamageReroll,
+            EmpoweredSpellProtocol::Resolved,
+        ),
+        _ => (
+            0,
+            EmpoweredSpellScenarioResult::Init,
+            EmpoweredSpellProtocol::Init,
+        ),
+    };
+    EmpoweredSpellState {
+        magic_action_available: state.action_available,
+        bonus_action_available: state.bonus_action_available,
+        sorcery_points_remaining: resource_pool_remaining(state.feature_resources.sorcery_points),
+        target_hit_points: state.skeleton.hp,
+        target_active_effect_count,
+        scenario_result,
+        protocol,
+    }
+}
+
+#[must_use]
+pub fn seeking_spell_from_battle(state: &BattleState) -> SeekingSpellState {
+    let projection = state.feature_substrates.metamagic_option_spell.projection;
+    let (target_active_effect_count, scenario_result, protocol) = match projection {
+        BattleMetamagicOptionSpellProjection::SeekingAttackReroll {
+            target_active_effect_count,
+        } => (
+            target_active_effect_count,
+            SeekingSpellScenarioResult::SeekingSpellAttackReroll,
+            SeekingSpellProtocol::Resolved,
+        ),
+        _ => (
+            0,
+            SeekingSpellScenarioResult::Init,
+            SeekingSpellProtocol::Init,
+        ),
+    };
+    SeekingSpellState {
+        magic_action_available: state.action_available,
+        bonus_action_available: state.bonus_action_available,
+        sorcery_points_remaining: resource_pool_remaining(state.feature_resources.sorcery_points),
+        target_hit_points: state.skeleton.hp,
+        target_active_effect_count,
+        scenario_result,
+        protocol,
+    }
+}
+
+#[must_use]
+pub fn subtle_spell_from_battle(state: &BattleState) -> SubtleSpellState {
+    let projection = state.feature_substrates.metamagic_option_spell.projection;
+    let (
+        verbal_suppressed,
+        somatic_suppressed,
+        material_suppressed,
+        material_preserved,
+        scenario_result,
+        protocol,
+    ) = match projection {
+        BattleMetamagicOptionSpellProjection::SubtleComponents {
+            verbal_suppressed,
+            somatic_suppressed,
+            material_suppressed,
+            material_preserved,
+        } => (
+            verbal_suppressed,
+            somatic_suppressed,
+            material_suppressed,
+            material_preserved,
+            SubtleSpellScenarioResult::SubtleFalseLife,
+            SubtleSpellProtocol::Resolved,
+        ),
+        BattleMetamagicOptionSpellProjection::SubtleUnaffordable => (
+            false,
+            false,
+            false,
+            false,
+            SubtleSpellScenarioResult::UnaffordableSubtleFalseLife,
+            SubtleSpellProtocol::InvalidUnsupportedActOption,
+        ),
+        _ => (
+            false,
+            false,
+            false,
+            false,
+            SubtleSpellScenarioResult::Init,
+            SubtleSpellProtocol::Init,
+        ),
+    };
+    SubtleSpellState {
+        verbal_suppressed,
+        somatic_suppressed,
+        material_suppressed,
+        material_preserved,
+        sorcery_points_remaining: resource_pool_remaining(state.feature_resources.sorcery_points),
+        temporary_hit_points: state.fighter.temporary_hp,
+        scenario_result,
+        protocol,
+    }
+}
+
+#[must_use]
+pub fn transmuted_spell_from_battle(state: &BattleState) -> TransmutedSpellState {
+    let projection = state.feature_substrates.metamagic_option_spell.projection;
+    let (target_active_effect_count, scenario_result, protocol) = match projection {
+        BattleMetamagicOptionSpellProjection::TransmutedSaveGatedDamage => (
+            0,
+            TransmutedSpellScenarioResult::TransmutedSaveGatedDamage,
+            TransmutedSpellProtocol::Resolved,
+        ),
+        BattleMetamagicOptionSpellProjection::TransmutedSpellAttack {
+            target_active_effect_count,
+        } => (
+            target_active_effect_count,
+            TransmutedSpellScenarioResult::TransmutedSpellAttack,
+            TransmutedSpellProtocol::Resolved,
+        ),
+        _ => (
+            0,
+            TransmutedSpellScenarioResult::Init,
+            TransmutedSpellProtocol::Init,
+        ),
+    };
+    TransmutedSpellState {
+        magic_action_available: state.action_available,
+        bonus_action_available: state.bonus_action_available,
+        sorcery_points_remaining: resource_pool_remaining(state.feature_resources.sorcery_points),
+        target_hit_points: state.skeleton.hp,
+        target_active_effect_count,
+        scenario_result,
+        protocol,
+    }
+}
+
+#[must_use]
+pub fn extended_spell_from_battle(state: &BattleState) -> ExtendedSpellState {
+    let projection = state.feature_substrates.metamagic_option_spell.projection;
+    let (duration_ticks, concentration_saving_throw_mode, scenario_result, protocol) =
+        match projection {
+            BattleMetamagicOptionSpellProjection::ExtendedDuration {
+                duration_ticks,
+                concentration_saving_throw_mode,
+            } => (
+                duration_ticks,
+                concentration_saving_throw_mode,
+                ExtendedSpellScenarioResult::ExtendedCreatureSizeIncrease,
+                ExtendedSpellProtocol::Resolved,
+            ),
+            _ => (
+                0,
+                ExtendedSpellConcentrationSaveMode::Normal,
+                ExtendedSpellScenarioResult::Init,
+                ExtendedSpellProtocol::Init,
+            ),
+        };
+    ExtendedSpellState {
+        sorcery_points_remaining: resource_pool_remaining(state.feature_resources.sorcery_points),
+        duration_ticks,
+        concentration_saving_throw_mode,
+        scenario_result,
+        protocol,
     }
 }
 
@@ -5832,6 +6339,7 @@ fn metamagic_option_spell_route_subject_is_live(
 fn metamagic_option_spell_available(state: &BattleState) -> bool {
     (state.feature_substrates.quickened_spell.offered && state.bonus_action_available)
         || (state.feature_substrates.metamagic_spell.offered && state.action_available)
+        || (state.feature_substrates.metamagic_option_spell.offered && state.action_available)
 }
 
 fn spell_attack_route_subject_is_live(state: &BattleState, subject: BattleSubject) -> bool {
@@ -6181,6 +6689,9 @@ fn battle_resolution_route_owner(
                 BattleReducerRouteOwnerGroup::FeatureResource
             }
             BattleResolutionOutcome::Invalid(
+                BattleResolutionInvalidReason::MetamagicOptionEffectMismatch,
+            ) => BattleReducerRouteOwnerGroup::FeatureResource,
+            BattleResolutionOutcome::Invalid(
                 BattleResolutionInvalidReason::WrongActor
                 | BattleResolutionInvalidReason::WrongTarget,
             ) => BattleReducerRouteOwnerGroup::ActionEconomy,
@@ -6216,6 +6727,30 @@ fn battle_resolution_route_owner(
                     effect: BattleMetamagicOptionSpellEffect::AdditionalSingleTarget { .. },
                     ..
                 }) => BattleReducerRouteOwnerGroup::TargetSelection,
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect: BattleMetamagicOptionSpellEffect::DamageReroll { .. },
+                    ..
+                }) => BattleReducerRouteOwnerGroup::DamageRoll,
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect: BattleMetamagicOptionSpellEffect::SpellAttackReroll { .. },
+                    ..
+                }) => BattleReducerRouteOwnerGroup::AttackRoll,
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect: BattleMetamagicOptionSpellEffect::ComponentSuppressedHitPointBuff { .. },
+                    ..
+                }) => BattleReducerRouteOwnerGroup::Component,
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect:
+                        BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSaveGatedDamage {
+                            ..
+                        }
+                        | BattleMetamagicOptionSpellEffect::DamageTypeSubstitutionSpellAttack { .. },
+                    ..
+                }) => BattleReducerRouteOwnerGroup::DamageType,
+                BattleFill::MetamagicOptionSpell(BattleMetamagicOptionSpellFill {
+                    effect: BattleMetamagicOptionSpellEffect::DurationExtension { .. },
+                    ..
+                }) => BattleReducerRouteOwnerGroup::Concentration,
                 _ => BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
             },
         },
