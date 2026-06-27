@@ -2343,7 +2343,7 @@
       "status": "reviewed-accepted-with-limitations",
       "targetBaseCommit": "101603476fd473483f4480f55bea9c3555d9aefa",
       "campaignLaunchCommit": "85b6dea",
-      "campaignAcceptanceCommit": "9af5510334b70477f957096ac86bf3cd1dc0a95c",
+      "campaignAcceptanceCommit": "baff252155f2a24933bd67e2242553475b27f97a",
       "runtimeCommit": "63e6fb93a67b17d8bf2d4fbb0b44bd644c0cf419",
       "targetHead": "380cf29e49d509bc0f246cf9aa022f226e42efd8",
       "workerAgent": "019f0a07-f2ad-7f72-985f-dad61f35ea1e",
