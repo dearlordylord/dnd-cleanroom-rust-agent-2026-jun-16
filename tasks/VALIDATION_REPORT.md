@@ -3609,3 +3609,125 @@ Remaining gaps:
 Verification results:
 - Focused adapter route tests passed.
 - Full command results are recorded in `tasks/RUN_LEDGER.json`.
+
+---
+
+## L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES: CP5 Active-Effect Lifecycle Routes
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Drivers:
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt`
+- Branch obligations:
+  - `step:doBreakConcentration`
+  - `step:doCastBaneFailed`
+  - `step:doCastBless`
+  - `step:doCastEnhanceDex`
+  - `step:doCastEnhancePerTarget`
+  - `step:doCastEnthrall`
+  - `step:doCastGuidanceStealth`
+  - `step:doCastPassWithoutTrace`
+  - `step:doCastThaumaturgyBoomingVoice`
+  - `step:doCastThaumaturgyCancelled`
+  - `step:doDiscoverBaneSave`
+  - `step:doDiscoverEnhanceAbilityChoice`
+  - `step:doDiscoverEnhanceTargetAbilityChoices`
+  - `step:doDiscoverGuidanceSkillChoice`
+  - `step:doDiscoverThaumaturgyCount`
+  - `step:doStutter`
+  - `step:doCastAid`
+  - `step:doCastFalseLife`
+  - `step:doCastLongstrider`
+  - `step:doCastShieldOfFaith`
+  - `step:doCastSpiderClimb`
+  - `step:doStutter`
+  - `step:doBreakConcentrationBeforeRepeat`
+  - `step:doDiscoverRepeatSave`
+  - `step:doEndCasterTurn`
+  - `step:doEndCasterTurnAfterConcentrationBreak`
+  - `step:doEndTargetTurnAfterConcentrationBreak`
+  - `step:doFillInitialSaveFailure`
+  - `step:doFillRepeatSaveFailure`
+  - `step:doFillRepeatSaveSuccess`
+  - `step:doResolveSourceNextTurn`
+  - `step:doResolveTargetStartTurn`
+  - `step:doResolveEldritchBlast`
+- Allowed inputs used:
+  - `cleanroom-input/branch-coverage/source-branch-inventory.json`
+  - `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.route.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.route.mbt.qnt`
+  - `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+  - `cleanroom-input/raw/srd-5.2.1/Rules-Glossary.md`
+  - `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+  - `tasks/RUN_LEDGER.json`
+
+Behavior implemented:
+
+- Routed roll-modifier, scalar-buff, repeat-save, turn-boundary, and zero-HP active-effect lifecycle rows through public battle reducer route entrypoints.
+- Added route-only subject/fill/hole vocabulary for CP5 owner groups without adding durable BattleState fields.
+- Kept QNT connector names quarantined in adapter route projection and evidence.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doBreakConcentration` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doBreakConcentration#step:doBreakConcentration` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastBaneFailed` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastBaneFailed#step:doCastBaneFailed` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastBless` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastBless#step:doCastBless` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastEnhanceDex` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnhanceDex#step:doCastEnhanceDex` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastEnhancePerTarget` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnhancePerTarget#step:doCastEnhancePerTarget` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastEnthrall` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnthrall#step:doCastEnthrall` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastGuidanceStealth` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastGuidanceStealth#step:doCastGuidanceStealth` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastPassWithoutTrace` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastPassWithoutTrace#step:doCastPassWithoutTrace` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastThaumaturgyBoomingVoice` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastThaumaturgyBoomingVoice#step:doCastThaumaturgyBoomingVoice` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doCastThaumaturgyCancelled` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastThaumaturgyCancelled#step:doCastThaumaturgyCancelled` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doDiscoverBaneSave` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverBaneSave#step:doDiscoverBaneSave` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doDiscoverEnhanceAbilityChoice` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverEnhanceAbilityChoice#step:doDiscoverEnhanceAbilityChoice` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doDiscoverEnhanceTargetAbilityChoices` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverEnhanceTargetAbilityChoices#step:doDiscoverEnhanceTargetAbilityChoices` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doDiscoverGuidanceSkillChoice` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverGuidanceSkillChoice#step:doDiscoverGuidanceSkillChoice` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doDiscoverThaumaturgyCount` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverThaumaturgyCount#step:doDiscoverThaumaturgyCount` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt#step:doStutter` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doStutter#step:doStutter` | `src/qnt_adapters/battle_runtime_roll_modifier_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doCastAid` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastAid#step:doCastAid` | `src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doCastFalseLife` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastFalseLife#step:doCastFalseLife` | `src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doCastLongstrider` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastLongstrider#step:doCastLongstrider` | `src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doCastShieldOfFaith` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastShieldOfFaith#step:doCastShieldOfFaith` | `src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doCastSpiderClimb` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastSpiderClimb#step:doCastSpiderClimb` | `src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt#step:doStutter` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doStutter#step:doStutter` | `src/qnt_adapters/battle_runtime_scalar_buff_active_effects.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt#step:doBreakConcentrationBeforeRepeat` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doBreakConcentrationBeforeRepeat#step:doBreakConcentrationBeforeRepeat` | `src/qnt_adapters/battle_runtime_sleep_repeat_save.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt#step:doDiscoverRepeatSave` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverRepeatSave#step:doDiscoverRepeatSave` | `src/qnt_adapters/battle_runtime_sleep_repeat_save.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt#step:doEndCasterTurn` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndCasterTurn#step:doEndCasterTurn` | `src/qnt_adapters/battle_runtime_sleep_repeat_save.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt#step:doEndCasterTurnAfterConcentrationBreak` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndCasterTurnAfterConcentrationBreak#step:doEndCasterTurnAfterConcentrationBreak` | `src/qnt_adapters/battle_runtime_sleep_repeat_save.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt#step:doEndTargetTurnAfterConcentrationBreak` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndTargetTurnAfterConcentrationBreak#step:doEndTargetTurnAfterConcentrationBreak` | `src/qnt_adapters/battle_runtime_sleep_repeat_save.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt#step:doFillInitialSaveFailure` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillInitialSaveFailure#step:doFillInitialSaveFailure` | `src/qnt_adapters/battle_runtime_sleep_repeat_save.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt#step:doFillRepeatSaveFailure` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillRepeatSaveFailure#step:doFillRepeatSaveFailure` | `src/qnt_adapters/battle_runtime_sleep_repeat_save.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt#step:doFillRepeatSaveSuccess` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillRepeatSaveSuccess#step:doFillRepeatSaveSuccess` | `src/qnt_adapters/battle_runtime_sleep_repeat_save.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt#step:doResolveSourceNextTurn` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveSourceNextTurn#step:doResolveSourceNextTurn` | `src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt#step:doResolveTargetStartTurn` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveTargetStartTurn#step:doResolveTargetStartTurn` | `src/qnt_adapters/battle_runtime_turn_boundary_effect_lifecycle.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt#step:doResolveEldritchBlast` | `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveEldritchBlast#step:doResolveEldritchBlast` | `src/qnt_adapters/battle_runtime_zero_hit_point_mid_resolution.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Reproduction seed or trace id: `L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=<branchAction>`
+
+Remaining gaps:
+
+- None for selected CP5 rows.
+
+Verification results:
+
+- `cargo test routes_ -- --nocapture` passed.
+- `cargo fmt --check` passed.
+- `git diff --check 73c5ccea0ee7425952f231485325df5a45a0f36a...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.

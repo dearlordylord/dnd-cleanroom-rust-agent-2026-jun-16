@@ -3113,6 +3113,109 @@
           "status": "pass"
         }
       ]
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES/DECIDER_DECISION.json",
+          "sha256": "92d83ad90c7cbc7ed5a45061d894a34bee5cf1abb91aaf06d595655710823915"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "82793d7bca8a9afb143700231d70b36f3cffb32274b6a4dbef8cd131530065b1"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES/REVIEW_LOOP.json",
+          "sha256": "afea93137789c74061f3372fe4a88bdde06b97262850fdb9322e9cdd5567c955"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES/START_GATE.json",
+          "sha256": "50e2438d61fcb7613a45627dc9776322c5cf39803ac5598eb456a9faebed7f07"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES/STATE_OWNER_MANIFEST.json",
+          "sha256": "46be704b0d5e2d0c7e772ee82cbcdc74f894a7be2f04356a5dd35f1ba9e56f08"
+        }
+      },
+      "assignmentId": "level-1-2-battle",
+      "commandResults": [
+        {
+          "command": "cargo test routes_ -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 73c5ccea0ee7425952f231485325df5a45a0f36a...HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-zero-hit-point-mid-resolution.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doBreakConcentration#step:doBreakConcentration",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastBaneFailed#step:doCastBaneFailed",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastBless#step:doCastBless",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnhanceDex#step:doCastEnhanceDex",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnhancePerTarget#step:doCastEnhancePerTarget",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastEnthrall#step:doCastEnthrall",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastGuidanceStealth#step:doCastGuidanceStealth",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastPassWithoutTrace#step:doCastPassWithoutTrace",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastThaumaturgyBoomingVoice#step:doCastThaumaturgyBoomingVoice",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastThaumaturgyCancelled#step:doCastThaumaturgyCancelled",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverBaneSave#step:doDiscoverBaneSave",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverEnhanceAbilityChoice#step:doDiscoverEnhanceAbilityChoice",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverEnhanceTargetAbilityChoices#step:doDiscoverEnhanceTargetAbilityChoices",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverGuidanceSkillChoice#step:doDiscoverGuidanceSkillChoice",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverThaumaturgyCount#step:doDiscoverThaumaturgyCount",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doStutter#step:doStutter",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastAid#step:doCastAid",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastFalseLife#step:doCastFalseLife",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastLongstrider#step:doCastLongstrider",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastShieldOfFaith#step:doCastShieldOfFaith",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doCastSpiderClimb#step:doCastSpiderClimb",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doStutter#step:doStutter",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doBreakConcentrationBeforeRepeat#step:doBreakConcentrationBeforeRepeat",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doDiscoverRepeatSave#step:doDiscoverRepeatSave",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndCasterTurn#step:doEndCasterTurn",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndCasterTurnAfterConcentrationBreak#step:doEndCasterTurnAfterConcentrationBreak",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doEndTargetTurnAfterConcentrationBreak#step:doEndTargetTurnAfterConcentrationBreak",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillInitialSaveFailure#step:doFillInitialSaveFailure",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillRepeatSaveFailure#step:doFillRepeatSaveFailure",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doFillRepeatSaveSuccess#step:doFillRepeatSaveSuccess",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveSourceNextTurn#step:doResolveSourceNextTurn",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveTargetStartTurn#step:doResolveTargetStartTurn",
+            "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json#L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES replay action=doResolveEldritchBlast#step:doResolveEldritchBlast"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json",
+          "sha256": "71e456a826b8c523f3ba2d9b1d2f0fac0816eb0b53b5297592196921ebe27687"
+        }
+      ],
+      "taskId": "L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",

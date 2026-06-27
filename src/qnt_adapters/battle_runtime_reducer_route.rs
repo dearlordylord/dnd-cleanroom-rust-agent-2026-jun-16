@@ -1,13 +1,17 @@
 use crate::rules::battle_reducer_spine::{
-    BattleEntrypointTrace, BattleHoleKind, BattleReducerRouteEvent, BattleReducerRouteFillKind,
-    BattleReducerRouteHoleKind, BattleReducerRouteOwnerGroup, BattleReducerRouteSubjectFamily,
-    BattleReducerRouteTrace, BattleResolutionInvalidReason, BattleResolutionOutcome,
-    BattleResolutionResult, BattleSetup, BattleState, BattleSubject,
+    discover_generic_route_subject_observed, resolve_battle_subject_observed,
+    start_battle_observed, Actor, BattleEntrypointTrace, BattleGenericRouteFill, BattleHoleKind,
+    BattleReducerRouteEvent, BattleReducerRouteFillKind, BattleReducerRouteHoleKind,
+    BattleReducerRouteOwnerGroup, BattleReducerRouteSubjectFamily, BattleReducerRouteTrace,
+    BattleResolutionInvalidReason, BattleResolutionOutcome, BattleResolutionRequest,
+    BattleResolutionResult, BattleSetup, BattleState, BattleSubject, BattleSubjectKind,
 };
+use crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum ReducerRouteHoleKind {
     AbilityCheck,
+    AbilityChoice,
     AttackRoll,
     GrappleOutcome,
     ConcentrationSavingThrow,
@@ -24,6 +28,7 @@ pub enum ReducerRouteHoleKind {
     SpellTargetAllocation,
     SpellTargetList,
     StatBlockRechargeRoll,
+    TargetAbilityChoices,
     TargetChoice,
     WildShapeEquipmentDisposition,
 }
@@ -31,6 +36,7 @@ pub enum ReducerRouteHoleKind {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ReducerRouteFillKind {
     AbilityCheck,
+    AbilityChoice,
     AttackRoll,
     GrappleOutcome,
     ConcentrationSavingThrow,
@@ -47,6 +53,7 @@ pub enum ReducerRouteFillKind {
     SpellTargetAllocation,
     SpellTargetList,
     StatBlockRechargeRoll,
+    TargetAbilityChoices,
     TargetChoice,
     UnitFeatureDecision,
     WildShapeEquipmentDisposition,
@@ -79,6 +86,7 @@ pub enum ReducerRouteSubjectFamily {
     SaveGatedSpell,
     SlotSpell,
     SpellAttack,
+    SpellAttackProcedure,
     SpellHostedWeaponAttack,
     ScalarBuff,
     StatBlockAction,
@@ -100,6 +108,8 @@ pub enum ReducerRouteSubjectFamily {
     CreatureStatProjection,
     RollModifierEffect,
     ScalarBuffEffect,
+    TurnBoundaryEffectLifecycle,
+    ZeroHitPointSpellEffectTeardown,
     ArmorClassSpellEffect,
     ReactionSpell,
     SpellDamageReduction,
@@ -158,6 +168,15 @@ pub struct ReducerRouteResolveConnector {
     pub subject: ReducerRouteSubjectFamily,
     pub fill: ReducerRouteResolveFill,
     pub owner: ReducerRouteOwnerGroup,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum GenericBattleRouteStep {
+    Discover(BattleSubjectKind),
+    Resolve {
+        kind: BattleSubjectKind,
+        fill: BattleGenericRouteFill,
+    },
 }
 
 #[derive(Debug, Clone, Eq)]
@@ -427,6 +446,44 @@ pub fn battle_resolution_continuation(
 }
 
 #[must_use]
+pub fn replay_generic_battle_route(steps: &[GenericBattleRouteStep]) -> Vec<ReducerRouteEvent> {
+    let mut trace = BattleEntrypointTrace::default();
+    let mut state = start_battle_observed(BattleSetup::standard(), &mut trace).state;
+
+    for step in steps {
+        match *step {
+            GenericBattleRouteStep::Discover(kind) => {
+                let (next_state, _) =
+                    discover_generic_route_subject_observed(state, kind, &mut trace);
+                state = next_state;
+            }
+            GenericBattleRouteStep::Resolve { kind, fill } => {
+                let subject = generic_route_subject(kind);
+                let request = BattleResolutionRequest::generic_route(subject, fill)
+                    .expect("generic route step should use a generic route subject");
+                state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
+            }
+        }
+    }
+
+    trace
+        .route_events()
+        .iter()
+        .map(reducer_route_event_from_observed)
+        .collect()
+}
+
+fn generic_route_subject(kind: BattleSubjectKind) -> BattleSubject {
+    BattleSubject {
+        kind,
+        actor: Actor::Fighter,
+        target: None,
+        stage: WeaponAttackFrontierStage::Resolved,
+        damage_modifier: 0,
+    }
+}
+
+#[must_use]
 pub fn reducer_route_payload(route: &[ReducerRouteEvent]) -> String {
     route
         .iter()
@@ -647,6 +704,9 @@ const fn reducer_route_subject(
         }
         BattleReducerRouteSubjectFamily::SlotSpell => ReducerRouteSubjectFamily::SlotSpell,
         BattleReducerRouteSubjectFamily::SpellAttack => ReducerRouteSubjectFamily::SpellAttack,
+        BattleReducerRouteSubjectFamily::SpellAttackProcedure => {
+            ReducerRouteSubjectFamily::SpellAttackProcedure
+        }
         BattleReducerRouteSubjectFamily::SpellHostedWeaponAttack => {
             ReducerRouteSubjectFamily::SpellHostedWeaponAttack
         }
@@ -706,6 +766,15 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::ScalarBuffEffect => {
             ReducerRouteSubjectFamily::ScalarBuffEffect
         }
+        BattleReducerRouteSubjectFamily::RepeatSaveConditionEffect => {
+            ReducerRouteSubjectFamily::RepeatSaveConditionEffect
+        }
+        BattleReducerRouteSubjectFamily::TurnBoundaryEffectLifecycle => {
+            ReducerRouteSubjectFamily::TurnBoundaryEffectLifecycle
+        }
+        BattleReducerRouteSubjectFamily::ZeroHitPointSpellEffectTeardown => {
+            ReducerRouteSubjectFamily::ZeroHitPointSpellEffectTeardown
+        }
         BattleReducerRouteSubjectFamily::ArmorClassSpellEffect => {
             ReducerRouteSubjectFamily::ArmorClassSpellEffect
         }
@@ -734,6 +803,7 @@ const fn reducer_route_subject(
 const fn reducer_route_fill(fill: BattleReducerRouteFillKind) -> ReducerRouteFillKind {
     match fill {
         BattleReducerRouteFillKind::AbilityCheck => ReducerRouteFillKind::AbilityCheck,
+        BattleReducerRouteFillKind::AbilityChoice => ReducerRouteFillKind::AbilityChoice,
         BattleReducerRouteFillKind::AttackRoll => ReducerRouteFillKind::AttackRoll,
         BattleReducerRouteFillKind::GrappleOutcome => ReducerRouteFillKind::GrappleOutcome,
         BattleReducerRouteFillKind::ConcentrationSavingThrow => {
@@ -759,6 +829,9 @@ const fn reducer_route_fill(fill: BattleReducerRouteFillKind) -> ReducerRouteFil
         BattleReducerRouteFillKind::SpellTargetList => ReducerRouteFillKind::SpellTargetList,
         BattleReducerRouteFillKind::StatBlockRechargeRoll => {
             ReducerRouteFillKind::StatBlockRechargeRoll
+        }
+        BattleReducerRouteFillKind::TargetAbilityChoices => {
+            ReducerRouteFillKind::TargetAbilityChoices
         }
         BattleReducerRouteFillKind::TargetChoice => ReducerRouteFillKind::TargetChoice,
         BattleReducerRouteFillKind::UnitFeatureDecision => {
@@ -902,6 +975,7 @@ fn reducer_route_hole(hole: BattleHoleKind) -> ReducerRouteHoleKind {
 const fn reducer_route_route_hole(hole: BattleReducerRouteHoleKind) -> ReducerRouteHoleKind {
     match hole {
         BattleReducerRouteHoleKind::AbilityCheck => ReducerRouteHoleKind::AbilityCheck,
+        BattleReducerRouteHoleKind::AbilityChoice => ReducerRouteHoleKind::AbilityChoice,
         BattleReducerRouteHoleKind::AttackRoll => ReducerRouteHoleKind::AttackRoll,
         BattleReducerRouteHoleKind::GrappleOutcome => ReducerRouteHoleKind::GrappleOutcome,
         BattleReducerRouteHoleKind::ConcentrationSavingThrow => {
@@ -927,6 +1001,9 @@ const fn reducer_route_route_hole(hole: BattleReducerRouteHoleKind) -> ReducerRo
         BattleReducerRouteHoleKind::SpellTargetList => ReducerRouteHoleKind::SpellTargetList,
         BattleReducerRouteHoleKind::StatBlockRechargeRoll => {
             ReducerRouteHoleKind::StatBlockRechargeRoll
+        }
+        BattleReducerRouteHoleKind::TargetAbilityChoices => {
+            ReducerRouteHoleKind::TargetAbilityChoices
         }
         BattleReducerRouteHoleKind::TargetChoice => ReducerRouteHoleKind::TargetChoice,
         BattleReducerRouteHoleKind::WildShapeEquipmentDisposition => {
@@ -993,6 +1070,7 @@ fn joined_holes(holes: &[ReducerRouteHoleKind]) -> String {
 fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
     match hole {
         ReducerRouteHoleKind::AbilityCheck => "AbilityCheckHoleKind",
+        ReducerRouteHoleKind::AbilityChoice => "AbilityChoiceHoleKind",
         ReducerRouteHoleKind::AttackRoll => "AttackRollHoleKind",
         ReducerRouteHoleKind::GrappleOutcome => "GrappleOutcomeHoleKind",
         ReducerRouteHoleKind::ConcentrationSavingThrow => "ConcentrationSavingThrowHoleKind",
@@ -1009,6 +1087,7 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
         ReducerRouteHoleKind::SpellTargetAllocation => "SpellTargetAllocationHoleKind",
         ReducerRouteHoleKind::SpellTargetList => "SpellTargetListHoleKind",
         ReducerRouteHoleKind::StatBlockRechargeRoll => "StatBlockRechargeRollHoleKind",
+        ReducerRouteHoleKind::TargetAbilityChoices => "TargetAbilityChoicesHoleKind",
         ReducerRouteHoleKind::TargetChoice => "TargetChoiceHoleKind",
         ReducerRouteHoleKind::WildShapeEquipmentDisposition => {
             "WildShapeEquipmentDispositionHoleKind"
@@ -1019,6 +1098,7 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
 fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
     match fill {
         ReducerRouteFillKind::AbilityCheck => "AbilityCheckFillKind",
+        ReducerRouteFillKind::AbilityChoice => "AbilityChoiceFillKind",
         ReducerRouteFillKind::AttackRoll => "AttackRollFillKind",
         ReducerRouteFillKind::GrappleOutcome => "GrappleOutcomeFillKind",
         ReducerRouteFillKind::ConcentrationSavingThrow => "ConcentrationSavingThrowFillKind",
@@ -1035,6 +1115,7 @@ fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
         ReducerRouteFillKind::SpellTargetAllocation => "SpellTargetAllocationFillKind",
         ReducerRouteFillKind::SpellTargetList => "SpellTargetListFillKind",
         ReducerRouteFillKind::StatBlockRechargeRoll => "StatBlockRechargeRollFillKind",
+        ReducerRouteFillKind::TargetAbilityChoices => "TargetAbilityChoicesFillKind",
         ReducerRouteFillKind::TargetChoice => "TargetChoiceFillKind",
         ReducerRouteFillKind::UnitFeatureDecision => "UnitFeatureDecisionFillKind",
         ReducerRouteFillKind::WildShapeEquipmentDisposition => {
@@ -1144,9 +1225,16 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::SaveGatedSpell => "SaveGatedSpellRouteSubject",
         ReducerRouteSubjectFamily::SlotSpell => "SlotSpellRouteSubject",
         ReducerRouteSubjectFamily::SpellAttack => "SpellAttackRouteSubject",
+        ReducerRouteSubjectFamily::SpellAttackProcedure => "SpellAttackProcedureRouteSubject",
         ReducerRouteSubjectFamily::SpellHostedWeaponAttack => "SpellHostedWeaponAttackRouteSubject",
         ReducerRouteSubjectFamily::ScalarBuff => "ScalarBuffRouteSubject",
         ReducerRouteSubjectFamily::ScalarBuffEffect => "ScalarBuffEffectRouteSubject",
+        ReducerRouteSubjectFamily::TurnBoundaryEffectLifecycle => {
+            "TurnBoundaryEffectLifecycleRouteSubject"
+        }
+        ReducerRouteSubjectFamily::ZeroHitPointSpellEffectTeardown => {
+            "ZeroHitPointSpellEffectTeardownRouteSubject"
+        }
         ReducerRouteSubjectFamily::ArmorClassSpellEffect => "ArmorClassSpellEffectRouteSubject",
         ReducerRouteSubjectFamily::ReactionSpell => "ReactionSpellRouteSubject",
         ReducerRouteSubjectFamily::SpellDamageReduction => "SpellDamageReductionRouteSubject",
