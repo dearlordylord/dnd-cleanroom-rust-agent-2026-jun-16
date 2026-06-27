@@ -2324,9 +2324,28 @@
   "freshCleanroomReadinessReport": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_READINESS.md",
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
   "freshCleanroomDryRun": {
-    "status": "fc-04-reviewed-accepted",
+    "status": "fc-05-running",
     "phase": "FC-05",
     "phaseName": "Character, Sheet, Or Handoff Seed",
+    "activePhase": {
+      "phase": "FC-05",
+      "phaseName": "Character, Sheet, Or Handoff Seed",
+      "status": "worker-running",
+      "targetBaseCommit": "101603476fd473483f4480f55bea9c3555d9aefa",
+      "campaignLaunchCommit": "85b6dea",
+      "workerAgent": "019f0a07-f2ad-7f72-985f-dad61f35ea1e",
+      "workerName": "Godel the 2nd",
+      "scope": "Implement a minimal character sheet to battle init projection through generic character-battle handoff route evidence using character-battle-init-projection.route.mbt.qnt.",
+      "preferredDriver": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt",
+      "requiredConnector": "cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt",
+      "expectedSurfaces": [
+        "sheet HP/Armor Class/conditions/profile projection",
+        "sheet spellcasting/metamagic resource projection",
+        "build maximum rejection",
+        "stable recovery progress rejection"
+      ],
+      "sdkTracerBulletContribution": "Seed the programmatic public surface for character sheet to battle init to battle runtime, without duplicating battle-owned runtime facts."
+    },
     "previousPhase": {
       "phase": "FC-04",
       "phaseName": "Generic Base Armor Class Regression",
@@ -2558,7 +2577,7 @@
     ]
   },
   "nextWorkRecommendations": [
-    "Launch FC-05 Character, Sheet, Or Handoff Seed in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 using the fresh dry-run plan.",
+    "Continue supervising FC-05 Character, Sheet, Or Handoff Seed worker Godel the 2nd (`019f0a07-f2ad-7f72-985f-dad61f35ea1e`) in /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00.",
     "Clean global stale validator-hash / historical evidence debt if the dirty harness needs to pass without exception.",
     "Promote route-connector lessons back into source-side QNT and cleanroom guidance before a fresh run.",
     "Audit accepted dirty-target rows for dependence on old scaffolding and convert lessons into source-side guidance rather than more dirty target code."
