@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| SDK-TRACER-BULLET-PROGRAMMATIC-SURFACE | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `bf33b3b` campaign / `380cf29e49d509bc0f246cf9aa022f226e42efd8` target | Godel the 2nd (`019f0a07-f2ad-7f72-985f-dad61f35ea1e`) | _pending_ | running |
+| _none_ | | | | | | |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -95,3 +95,4 @@ When launching a lane:
 | FC-03-SPELL-CONNECTOR | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `7b690c80e6fa4f3177ff41ccedf2083175b1b00c` | `c62945c3cf70653db7aa363ebbaeb945de04d4ec` campaign / `9b4232da35ca3532ac6815475c2998a21c734452` target | Volta the 2nd (`019f09e3-eb5a-7843-983c-df5cee14caef`) | Faraday the 2nd (`019f09ee-0dae-7603-8190-9030e94ed671`) | FC-03 accepted-with-blockers; ready for FC-04 |
 | FC-04-GENERIC-BASE-ARMOR-CLASS | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `101603476fd473483f4480f55bea9c3555d9aefa` | `f487298` campaign / `7b690c80e6fa4f3177ff41ccedf2083175b1b00c` target | Socrates the 2nd (`019f09f3-de14-78c3-b696-a672305e19c0`) | Sartre the 2nd (`019f0a02-f2c7-7253-b65d-8fddd58a642c`) | FC-04 accepted; ready for FC-05 |
 | FC-05-CHARACTER-BATTLE-INIT-PROJECTION | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `380cf29e49d509bc0f246cf9aa022f226e42efd8` | `85b6dea` campaign / `101603476fd473483f4480f55bea9c3555d9aefa` target | Godel the 2nd (`019f0a07-f2ad-7f72-985f-dad61f35ea1e`) | Arendt the 2nd (`019f0a17-0887-76e3-8163-c569e61faf54`) | FC-05 accepted-with-limitations after one fix round; runtime/evidence commit `63e6fb93a67b17d8bf2d4fbb0b44bd644c0cf419`; ready for tracer-bullet gate and FC-06 |
+| SDK-TRACER-BULLET-PROGRAMMATIC-SURFACE | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` | standalone fresh target `master` | `e6394e544900ad5e851e918cf1980a7b5b1f78cd` | `69970c2` campaign / `380cf29e49d509bc0f246cf9aa022f226e42efd8` target | Godel the 2nd (`019f0a07-f2ad-7f72-985f-dad61f35ea1e`) | Chandrasekhar the 2nd (`019f0a29-bada-7af1-8de9-db3ed994effb`) | accepted partial-with-limitation; full integrated handoff-to-simple-turn scenario blocked by missing encounter composition public surface; evidence commit `88eb160ad8f2af9fa0bc688d382d52923dca718b` |
