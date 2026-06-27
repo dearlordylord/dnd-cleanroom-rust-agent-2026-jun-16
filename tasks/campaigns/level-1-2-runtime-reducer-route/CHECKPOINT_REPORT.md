@@ -23,20 +23,19 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is accepted after the copied route connector refresh. |
 | CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
 | CP6 Closure Sweep | complete | Closure audit recorded in `CP6_AUDIT.json` and `CP6_CLOSURE_REPORT.md`; every in-scope obligation is accepted or explicitly blocked. |
-| CP7 Post-CP6 Target Blocker Reduction | active | `L15-RRCP7-A`, `L15-RRCP7-B`, and `L15-RRCP7-C` merged and verified; eleven target blockers are now accepted after CP6. |
+| CP7 Post-CP6 Target Blocker Reduction | active | `L15-RRCP7-A`, `L15-RRCP7-B`, `L15-RRCP7-C`, and `L15-RRCP7-D` merged and verified; eleven target blockers are accepted after CP6, and CP7-D records three retained Mage Armor blockers. |
 
 ## Last Known Verification
 
-At CP7 integration head `554e2e2c0adae1127496d4a12023ae5ac8979f88`:
+At CP7 integration head `ffc162a61eeea40b0e922b28c7cdeff95281728d`:
 
-- `cargo test after_hit_damage_riders_route_adapter_replays_accepted_branches -- --nocapture`: pass
-- `cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture`: pass
-- `jq empty` over `tasks/RUN_LEDGER.json`, affected CP5-A history/evidence files, and `CP7_AUDIT.json`: pass
+- `cargo test mage_armor_adapter_replays_all_branches -- --nocapture`: pass
+- `jq empty` over `tasks/RUN_LEDGER.json`, affected FU01E history/evidence files, and `CP7_AUDIT.json`: pass
 - `cargo fmt --check`: pass
 - `git diff --check HEAD~1...HEAD`: pass
 - `cargo test`: pass, `220` tests
 - `cargo clippy --all-targets -- -D warnings`: pass
-- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7c-cleanroom-harness.out` contained no CP7-C lane references and only older RR05 `doFillTargetChoice` hits.
+- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7d-cleanroom-harness.out` contained no CP7-D, FU01E, or Mage Armor-specific failures.
 
 ## Active Work
 
@@ -492,7 +491,14 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 
 ### L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES
 
-- Status: queued.
+- Merge commit: `ffc162a61eeea40b0e922b28c7cdeff95281728d`
+- Lane commit(s): `39d0947`, `a922b3307fb65766d8f55bd642d0ad55c0013643`, `61b1534b2cfc9b3d403ca358864beeb6266c0e66`
 - Selected rows: `doDiscoverMageArmorUnarmoredSelfTarget`, `doRejectMageArmorArmoredTarget`, and `doExpireMageArmorDuration`.
-- Research gate: identify the route owner from cleanroom evidence before implementation. Admission/rejection may be accepted only as generic target-admission route evidence; expiry may be accepted only as generic active-effect lifecycle route evidence.
-- Explicit non-goal: do not accept projection-only `MageArmorState` comparisons as reducer-routed evidence.
+- Obligations added: `0` accepted counted obligations; all three selected rows remain target-blocked.
+- New total driver coverage: `97 / 97 = 100.0%`
+- New total obligation coverage: `654 / 668 = 97.9%`
+- Remaining blockers: `14` target-side blockers, `0` source-QNT corpus blockers, `0` unresolved in-scope obligations.
+- Integration verification: focused Mage Armor adapter test, affected JSON parse checks, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`220` tests), and `cargo clippy --all-targets -- -D warnings` passed. `node scripts/check-cleanroom-harness.cjs` still fails on pre-existing stale global evidence/manifest debt; the saved output contained no CP7-D/FU01E/Mage Armor-specific failures.
+- Review/fixer notes: initial worker output tried to accept Mage Armor through adapter-driven generic route synthesis. Review rejected that as unsupported by copied cleanroom input. The worker converted the lane into an honest blocker/research result and refreshed FU01E metadata hashes; rereview returned clean.
+- Blocker recorded: the copied reducer-route inventory has no Mage Armor `qRoute` connector or generic armor-class target-admission/active-effect lifecycle route owner, so accepting these rows in target code would be inference beyond the cleanroom package.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-d`

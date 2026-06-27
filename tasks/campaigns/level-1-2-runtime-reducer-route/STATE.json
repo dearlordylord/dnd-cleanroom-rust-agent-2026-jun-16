@@ -8,12 +8,12 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
+    "lastVerifiedIntegrationHead": "ffc162a61eeea40b0e922b28c7cdeff95281728d",
     "lastMergedLane": {
-      "laneId": "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",
-      "mergeCommit": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
-      "laneHead": "855e702770866c18ae5b657367b95af8410efbe9",
-      "note": "CP7-C merged five ordinary/pre-hit weapon setup rows as generic WeaponAttack route evidence through BattleEntrypointTrace.route_events; scenario transition and MagicWeaponTargetItem rows remain blocked."
+      "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",
+      "mergeCommit": "ffc162a61eeea40b0e922b28c7cdeff95281728d",
+      "laneHead": "61b1534b2cfc9b3d403ca358864beeb6266c0e66",
+      "note": "CP7-D merged as a blocker/research result with zero accepted rows. The three Mage Armor admission/lifecycle rows remain blocked because the copied route inventory has no Mage Armor qRoute connector or generic armor-class target-admission/active-effect lifecycle route owner."
     }
   },
   "denominator": {
@@ -42,7 +42,7 @@
     "outOfScopeObligations": 36,
     "unresolvedInScopeObligations": 0,
     "acceptedUniqueDriversSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit",
-    "acceptedObligationsSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit; FU01D source-QNT blockers, four FU01C target blockers, two FU01B residual route-shape blockers, and five CP7-C ordinary/pre-hit weapon setup blockers removed after accepted reducer-entrypoint replay evidence."
+    "acceptedObligationsSource": "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json exact row-key audit; FU01D source-QNT blockers, four FU01C target blockers, two FU01B residual route-shape blockers, and five CP7-C ordinary/pre-hit weapon setup blockers removed after accepted reducer-entrypoint replay evidence. CP7-D added no accepted rows and keeps the three Mage Armor admission/lifecycle rows blocked pending source/corpus route support."
   },
   "completedBeforeCampaign": [
     "T001",
@@ -97,9 +97,7 @@
       "dependsOn": [
         "CP2"
       ],
-      "runningLaneIds": [
-        "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES"
-      ],
+      "runningLaneIds": [],
       "mergedLaneIds": [
         "L15-RR08-CHARACTER-CREATION-ROUTES",
         "L15-RR09-CHARACTER-SHEET-ROUTES",
@@ -190,16 +188,15 @@
       "dependsOn": [
         "CP6"
       ],
-      "runningLaneIds": [
-        "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES"
-      ],
+      "runningLaneIds": [],
       "mergedLaneIds": [
         "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
         "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES",
-        "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES"
+        "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",
+        "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES"
       ],
       "readyLaneIds": [],
-      "notes": "CP7-D is running with a research gate for three Mage Armor admission/lifecycle rows. Current pre-CP7-D accounting remains 654 accepted obligations and 14 target blockers."
+      "notes": "CP7-D merged as blocker/research evidence with zero accepted rows. Current accounting remains 654 accepted obligations and 14 target blockers; the three Mage Armor rows require source/corpus route support before target acceptance would be meaningful."
     }
   ],
   "laneStatuses": {
@@ -255,14 +252,13 @@
     "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "merged-verified",
     "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "merged-verified",
     "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "merged-verified",
-    "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "running"
+    "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
+    "head": "ffc162a61eeea40b0e922b28c7cdeff95281728d",
     "commands": [
-      "cargo test after_hit_damage_riders_route_adapter_replays_accepted_branches -- --nocapture",
-      "cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture",
-      "jq empty tasks/RUN_LEDGER.json tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/DECIDER_DECISION.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/ENGINE_DEPTH_MANIFEST.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/REVIEW_LOOP.json tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/STATE_OWNER_MANIFEST.json tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json",
+      "cargo test mage_armor_adapter_replays_all_branches -- --nocapture",
+      "jq empty tasks/RUN_LEDGER.json tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/DECIDER_DECISION.json tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/REVIEW_LOOP.json tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/START_GATE.json tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json",
       "cargo fmt --check",
       "git diff --check HEAD~1...HEAD",
       "cargo test",
@@ -271,21 +267,55 @@
     ],
     "result": "passed except cleanroom harness failed on pre-existing stale global evidence/manifest debt",
     "cargoTest": "220 passed",
-    "focusedTests": "after-hit damage riders and weapon-hosted attack/riders focused route tests passed",
-    "cleanroomHarness": "failed as expected on stale global manifest/evidence debt; /tmp/rrcp7c-cleanroom-harness.out contained no CP7-C lane references and only older RR05 doFillTargetChoice hits"
+    "focusedTests": "Mage Armor adapter focused route/blocker replay test passed",
+    "cleanroomHarness": "failed as expected on stale global manifest/evidence debt; /tmp/rrcp7d-cleanroom-harness.out contained no CP7-D, FU01E, or Mage Armor-specific failures"
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-d",
       "branch": "ralph/l15-rrcp7-d-mage-armor",
       "baseSha": "c59d644",
-      "status": "running",
+      "status": "merged-verified",
       "workerAgent": "019f0917-e297-7ec2-8530-a6e66c2db0fe",
-      "workerName": "McClintock the 2nd"
-    }
-  ],
-  "completedLaneWorktrees": [
+      "workerName": "McClintock the 2nd",
+      "workerStatus": "complete-after-fix",
+      "initialWorkerCommit": "39d0947",
+      "fixerCommits": [
+        "a922b3307fb65766d8f55bd642d0ad55c0013643",
+        "61b1534b2cfc9b3d403ca358864beeb6266c0e66"
+      ],
+      "acceptedRows": 0,
+      "blockedRows": 3,
+      "workerSummary": [
+        "Converted the attempted Mage Armor acceptance into an honest blocker/research result after review.",
+        "Kept all three Mage Armor admission/lifecycle rows blocked because the copied route inventory lacks a route connector/owner sufficient for target-side inference."
+      ],
+      "reviewAgent": "019f0924-8c00-7cb3-b681-ca1909bf599b",
+      "reviewName": "Pauli the 2nd",
+      "reviewStatus": "clean-after-fix",
+      "reviewVerdict": "clean",
+      "reviewFindingsResolved": [
+        "Removed unsupported adapter-driven generic Mage Armor route acceptance.",
+        "Updated FU01E evidence and RUN_LEDGER hashes to match current artifacts and cleanroom manifest source SHA."
+      ],
+      "mergeCommit": "ffc162a61eeea40b0e922b28c7cdeff95281728d",
+      "laneHead": "61b1534b2cfc9b3d403ca358864beeb6266c0e66",
+      "integrationVerification": [
+        "cargo test mage_armor_adapter_replays_all_branches -- --nocapture",
+        "jq empty touched CP7-D JSON artifacts",
+        "cargo fmt --check",
+        "git diff --check HEAD~1...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs"
+      ],
+      "integrationVerificationResult": "passed except cleanroom harness failed on pre-existing stale global evidence/manifest debt; filtered output contained no CP7-D/FU01E/Mage Armor-specific failures",
+      "acceptedDriversAdded": 0,
+      "acceptedObligationsAdded": 0,
+      "remainingTargetBlockers": 14
+    },
     {
       "laneId": "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-c",

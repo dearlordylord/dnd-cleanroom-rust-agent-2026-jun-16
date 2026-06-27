@@ -3,7 +3,7 @@
   "campaignId": "level-1-2-runtime-reducer-route",
   "integrationWorktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
   "integrationBranch": "ralph/rrconv-19-cleanroom",
-  "auditedHead": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
+  "auditedHead": "ffc162a61eeea40b0e922b28c7cdeff95281728d",
   "denominator": {
     "source": "cleanroom-input/branch-coverage/reducer-route-inventory.json",
     "denominatorId": "level-1-5-cleanroom-route-v1",
@@ -345,7 +345,7 @@
     }
   },
   "inputHashes": {
-    "runLedgerSha256": "aed90163450c6e2b0eea9b062810e5b13c26cc9ab2831805e197acb6c07042ee",
+    "runLedgerSha256": "1d7138ba3f3c6cd900b990cf4383188792cd297fedc646247ae3c39ab5629cc1",
     "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
     "reducerRouteInventorySha256": "a7e709e8e8988aab49c2274d7c3481d79ff9e1a9188e87f1888324106acec471"
   },
@@ -392,5 +392,22 @@
     "laneHead": "855e702770866c18ae5b657367b95af8410efbe9",
     "mergeCommit": "554e2e2c0adae1127496d4a12023ae5ac8979f88",
     "workerCommit": "2c27a3c83162374661ccc229ac9332c96605c966"
+  },
+  "cp7dResearch": {
+    "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",
+    "mergeCommit": "ffc162a61eeea40b0e922b28c7cdeff95281728d",
+    "laneHead": "61b1534b2cfc9b3d403ca358864beeb6266c0e66",
+    "selectedRows": [
+      "doDiscoverMageArmorUnarmoredSelfTarget",
+      "doRejectMageArmorArmoredTarget",
+      "doExpireMageArmorDuration"
+    ],
+    "acceptedObligationsAdded": 0,
+    "targetBlockersAfterRefresh": 14,
+    "decision": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/DECIDER_DECISION.json#decision:blocker-retained",
+    "decisionSha256": "f97ec1d81ee754b2cc1a23f9caef5965df8a2a4ba4e44b5dc56f04d03bd7d3fa",
+    "evidence": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json",
+    "evidenceSha256": "d8db5408ddd96fdff45c3dbebd4c060374c446413500a07997fed463132c6d2f",
+    "note": "CP7-D intentionally kept all three Mage Armor rows blocked. The copied reducer-route inventory does not provide a Mage Armor qRoute connector or generic armor-class target-admission/active-effect lifecycle route owner, so target-side acceptance would be inference beyond the cleanroom input."
   }
 }

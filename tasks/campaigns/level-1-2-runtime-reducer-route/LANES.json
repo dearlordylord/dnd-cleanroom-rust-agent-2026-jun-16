@@ -1179,7 +1179,7 @@
     {
       "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",
       "checkpointId": "CP7",
-      "status": "running",
+      "status": "merged-verified",
       "parallelGroup": "cp7-target-blocker-reduction",
       "routeTaskIds": [
         "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"
@@ -1217,7 +1217,7 @@
         "tasks/VALIDATION_REPORT.md",
         "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json"
       ],
-      "acceptanceSummary": "Before implementation, document the route-owner decision from cleanroom evidence. Admission/rejection may be accepted only as generic target-admission route evidence; expiry may be accepted only as generic active-effect lifecycle route evidence. If the owner cannot be derived without source knowledge, keep rows blocked and record the blocker honestly."
+      "acceptanceSummary": "Merged and verified as a blocker/research result with zero accepted rows. The three Mage Armor admission/lifecycle rows remain target-blocked because the copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission/active-effect lifecycle route owner; accepting them in target code would be source/corpus inference, not cleanroom evidence."
     }
   ],
   "standardVerification": [

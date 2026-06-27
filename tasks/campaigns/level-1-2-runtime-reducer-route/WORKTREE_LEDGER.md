@@ -14,7 +14,6 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-d` | `ralph/l15-rrcp7-d-mage-armor` | `c59d644` | `019f0917-e297-7ec2-8530-a6e66c2db0fe` McClintock the 2nd | running |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -75,3 +74,4 @@ When launching a lane:
 | L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-a` | `ralph/l15-rrcp7-a-buff-mark-active-effects` | `a62478648dde859d7e814e1c99d8bdf7987b4af6` | `f8a438ebff90eb79e274b207c5c286080aaf6726` | removable |
 | L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-b` | `ralph/l15-rrcp7-b-damage-spell-bridges` | `2741da1671caa183a4907e6eec54de26c744d7e8` | `b33d9bbc1080c0d7a96ab606da07d0f517417096` | removable |
 | L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-c` | `ralph/l15-rrcp7-c-weapon-prehit` | `855e702770866c18ae5b657367b95af8410efbe9` | `554e2e2c0adae1127496d4a12023ae5ac8979f88` | removable |
+| L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-d` | `ralph/l15-rrcp7-d-mage-armor` | `61b1534b2cfc9b3d403ca358864beeb6266c0e66` | `ffc162a61eeea40b0e922b28c7cdeff95281728d` | removable; zero accepted coverage, Mage Armor route connector blocker recorded |
