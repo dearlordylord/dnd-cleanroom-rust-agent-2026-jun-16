@@ -167,7 +167,7 @@
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "merged-verified",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "merged-verified",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
-    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "running",
+    "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "worker-committed-pending-review",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "reviewing",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "running",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
@@ -192,9 +192,23 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a",
       "branch": "ralph/l15-rr07s-a-passive-roll-resource",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "running",
+      "status": "worker-committed-pending-review",
       "workerAgent": "019f070a-d8bb-7111-b578-d4eee793076f",
-      "workerName": "Copernicus"
+      "workerName": "Copernicus",
+      "commit": "d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62",
+      "workerSummary": [
+        "Added route evidence for Adrenaline Rush, Halfling Nimbleness, species passive traits, Danger Sense, and roll modifier buff selected identity.",
+        "Accepted all lane obligations with no blockers.",
+        "Added canonical battle owner BattleState.feature_resources for feature resource expenditure; remaining uses are derived via resource_pool_remaining."
+      ],
+      "workerVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
