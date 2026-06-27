@@ -196,7 +196,7 @@
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "worker-running",
+    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "worker-complete-review-pending",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "worker-running",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "fixing-review-findings",
@@ -222,9 +222,23 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c",
       "branch": "ralph/l15-rr07-fu01c-weapon-buff-mark-smite",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "worker-running",
+      "status": "worker-complete-review-pending",
       "workerAgent": "019f07d6-14be-7123-8467-097ce9bee9db",
-      "workerName": "Bernoulli"
+      "workerName": "Bernoulli",
+      "workerCommit": "bf62c115801af2ff95e7df2418316747f99af010",
+      "workerSummary": [
+        "Accepted 8 weapon/buff/mark/smite rows through reducer-routed evidence.",
+        "Blocked 4 rows because generic production route subjects for condition-immunity active effects and marked-effect transfer are missing."
+      ],
+      "workerVerification": [
+        "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
+        "cargo test level1_buff_mark_smite_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
