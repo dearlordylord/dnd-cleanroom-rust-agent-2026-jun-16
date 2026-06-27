@@ -2804,7 +2804,7 @@
       "artifacts": {
         "deciderDecision": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "8a12657d747af87fc40d5ee8b4b86a72ba878cedce656e88643f01ddaab0a19d"
+          "sha256": "f97ec1d81ee754b2cc1a23f9caef5965df8a2a4ba4e44b5dc56f04d03bd7d3fa"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
@@ -2812,11 +2812,11 @@
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "1ae039f0ffe2147858c66f009649368bf3906948fdbb4fd9235cd1c4e16fe692"
+          "sha256": "e11e17e9639021ecfca7552f40c15680c4d677fa59dbf28cab2bc1f43c5775d5"
         },
         "startGate": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/START_GATE.json",
-          "sha256": "d1e1d16f22cd2eb0da8405a22b44bb7ee45f9445310ab500d9ae9757616b48b7"
+          "sha256": "7cf7042a18f9ee8a1d3e8cc2ab879f4420befd41da7191303f5bd07c7f919db0"
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/STATE_OWNER_MANIFEST.json",
@@ -2852,7 +2852,7 @@
       ],
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
       "cp7dResearch": "CP7-D kept doDiscoverMageArmorUnarmoredSelfTarget, doRejectMageArmorArmoredTarget, and doExpireMageArmorDuration as target blockers: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class route subject owner, and accepting these rows would require source/corpus route support rather than target-side inference.",
-      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "manifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
       "selectedDrivers": [
         "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
         "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt"
@@ -2866,7 +2866,7 @@
             "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveShieldReactionSpellHit#step:doResolveShieldReactionSpellHit"
           ],
           "path": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json",
-          "sha256": "379fb519937cbcde4ae2936da595283a8a753a8f6c2b260cb139c7bbfdb9cb45"
+          "sha256": "d8db5408ddd96fdff45c3dbebd4c060374c446413500a07997fed463132c6d2f"
         }
       ],
       "taskId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"
