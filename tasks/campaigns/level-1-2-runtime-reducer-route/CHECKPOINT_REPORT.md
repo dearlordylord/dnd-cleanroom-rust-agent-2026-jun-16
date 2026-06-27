@@ -275,6 +275,18 @@ Template:
 - Review/fixer notes: first review found helper-synthesized route evidence and self-referential expected routes; fixer added public spatial subject/fill support and discoverable spatial route subjects, then re-review returned clean.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f`
 
+### L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES
+
+- Merge commit: `4f69ca5c407cbc53c5e3a5a431cedf0f1d3148c9`
+- Lane commit(s): `6b4866d40d05c68ce2da897571443f58ffbf17ac`, `93dca1a549522070d23e80e13c4ffa6d915c4bb5`, `c135ceb24f7b0f44d93f14763d55dbb9aaa8cf4f`
+- Drivers added: `2` net-new unique drivers.
+- Obligations added: `3` accepted counted obligations; target-admission/discovery/rejection/expiry rows remain blocked or demoted, and the level-3 reaction branch remains out of scope. Total accepted obligations moved from `502` to `505`.
+- New total driver coverage: `76 / 97 = 78.4%`
+- New total obligation coverage: `505 / 668 = 75.6%`
+- Integration verification: focused FU01E adapter tests and reactor-mismatch regression, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`210 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: first review found adapter-manufactured ReactionSpell subjects and overstated artifacts; fixer routed ReactionSpell discovery through production reaction-window substrates. Re-review fixed one fill/reactor mismatch at the reducer boundary and then returned clean. Integration repaired `RUN_LEDGER.json` to preserve cumulative evidence while appending FU01E.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01e`
+
 ## CP4 Launch Plan
 
 The small feature substrate batch was split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa` and is now merged:

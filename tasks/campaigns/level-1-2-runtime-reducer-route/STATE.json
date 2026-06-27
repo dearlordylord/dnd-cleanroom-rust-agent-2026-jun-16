@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "78be1eccb627f3ae7987380922d873b9ca7e497b",
+    "lastVerifiedIntegrationHead": "532171b50e37b8edab7a215c543c907daedd20d4",
     "lastMergedLane": {
-      "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
-      "mergeCommit": "78be1eccb627f3ae7987380922d873b9ca7e497b",
-      "laneHead": "15cfbe5193ed93e6119873732cccfa93c7f37349"
+      "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
+      "mergeCommit": "4f69ca5c407cbc53c5e3a5a431cedf0f1d3148c9",
+      "laneHead": "c135ceb24f7b0f44d93f14763d55dbb9aaa8cf4f"
     }
   },
   "denominator": {
@@ -33,10 +33,10 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 74,
-    "acceptedDriverCoveragePercent": 76.3,
-    "acceptedObligations": 502,
-    "acceptedObligationCoveragePercent": 75.1,
+    "acceptedUniqueDrivers": 76,
+    "acceptedDriverCoveragePercent": 78.4,
+    "acceptedObligations": 505,
+    "acceptedObligationCoveragePercent": 75.6,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers plus completed-before-campaign baseline",
     "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json accepted in-scope obligations for unique selected drivers; target-blocker rows excluded"
   },
@@ -110,8 +110,7 @@
       ],
       "runningLaneIds": [
         "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
-        "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
-        "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"
+        "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES"
       ],
       "mergedLaneIds": [
         "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
@@ -122,9 +121,10 @@
         "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
         "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
-        "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES"
+        "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
+        "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"
       ],
-      "notes": "FU01A, FU01B, FU01F, FU08A, FU08B, and FU08C are merged and verified. FU01E is clean after re-review and ready to merge. FU01C and FU01D remain in review/fixer loops.",
+      "notes": "FU01A, FU01B, FU01E, FU01F, FU08A, FU08B, and FU08C are merged and verified. FU01C is clean and ready to merge. FU01D is in a connector/blocker honesty fixer loop.",
       "splitLaneIds": [
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
@@ -196,26 +196,28 @@
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "rereviewing-after-followup-fixer",
-    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "rereviewing-after-fixer",
-    "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready-to-merge",
+    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready-to-merge",
+    "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "fixing-review-findings",
+    "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "78be1eccb627f3ae7987380922d873b9ca7e497b",
+    "head": "532171b50e37b8edab7a215c543c907daedd20d4",
     "commands": [
-      "cargo test level1_spatial_witness_adapter_replays_all_branches",
+      "cargo test mage_armor_adapter_replays_all_branches",
+      "cargo test reaction_spell_selected_identity_adapter_replays_in_scope_branches",
+      "cargo test reducer_rejects_reaction_spell_fill_for_different_reactor",
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
-      "git diff --check",
+      "git diff --check HEAD~1...HEAD",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings"
     ],
     "result": "passed",
-    "cargoTest": "209 passed"
+    "cargoTest": "210 passed"
   },
   "activeLaneWorktrees": [
     {
@@ -223,7 +225,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c",
       "branch": "ralph/l15-rr07-fu01c-weapon-buff-mark-smite",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "rereviewing-after-followup-fixer",
+      "status": "ready-to-merge",
       "workerAgent": "019f07d6-14be-7123-8467-097ce9bee9db",
       "workerName": "Bernoulli",
       "workerCommit": "bf62c115801af2ff95e7df2418316747f99af010",
@@ -312,14 +314,29 @@
       ],
       "followupRereviewAgent": "019f07ff-49ef-7812-a27c-40e673589979",
       "followupRereviewName": "Archimedes the 2nd",
-      "followupRereviewStatus": "running"
+      "followupRereviewStatus": "clean",
+      "followupRereviewVerdict": "clean",
+      "followupRereviewSummary": [
+        "GenericRouteShape.next_holes duplication is removed; next_holes appears only as a local value from generic_route_next_holes(subject.kind, fill).",
+        "No genericRouteSubjects claims remain in tasks or src.",
+        "Accepted FU01C evidence routes through concrete BattleSubjectKind diagnostic subjects and BattleEntrypointTrace.route_events; condition-immunity and marked-transfer rows remain target blockers."
+      ],
+      "followupRereviewVerification": [
+        "rg -n \"genericRouteSubjects|next_holes\" tasks src",
+        "cargo test level1_buff_mark_smite_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings"
+      ]
     },
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01d",
       "branch": "ralph/l15-rr07-fu01d-protection-charm-ward",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "rereviewing-after-fixer",
+      "status": "fixing-review-findings",
       "workerAgent": "019f07d6-63cd-7821-8803-074f626ac3e5",
       "workerName": "Pasteur",
       "workerCommit": "879b44d3d7dec602df492f4570429b9fc92cb6f0",
@@ -378,14 +395,34 @@
       ],
       "rereviewAgent": "019f07fd-755a-7313-b7af-6e42908e71f6",
       "rereviewName": "Boole the 2nd",
-      "rereviewStatus": "running"
-    },
+      "rereviewStatus": "findings",
+      "rereviewVerdict": "blocked",
+      "rereviewFindings": [
+        "FU01D coverage is claimed despite source-QNT corpus blockers in the copied reducer-route inventory.",
+        "Creature-type/protection and sanctuary rows are marked covered without a copied executable generic connector substrate; Rust-side qRoute evidence alone is insufficient.",
+        "Adding route vocabulary variants to copied battle-runtime-reducer-route.qnt is not executable connector evidence."
+      ],
+      "rereviewVerification": [
+        "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
+        "review-rule fallback: tasks/REVIEWER_CHECKLIST.md because .claude/review-rules.md is absent from cleanroom copy",
+        "changed-file/diff inspection",
+        "source inventory/evidence/report inspection",
+        "QNT hash checks",
+        "git rev-parse HEAD && git status --short"
+      ],
+      "followupFixerAgent": "019f0803-05d2-7320-a765-c1d22fbf3f77",
+      "followupFixerName": "Poincare the 2nd",
+      "followupFixerStatus": "running",
+      "followupFixerInstruction": "Either add executable copied-QNT/guidance connector evidence from cleanroom inputs only or demote unsupported FU01D rows to explicit blockers; do not count Rust-only qRoute passes as accepted coverage."
+    }
+  ],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01e",
       "branch": "ralph/l15-rr07-fu01e-armor-reaction",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "ready-to-merge",
+      "status": "merged-verified",
       "workerAgent": "019f07d6-b9cc-7ba2-86ce-f65b35152f65",
       "workerName": "Erdos",
       "workerCommit": "6b4866d40d05c68ce2da897571443f58ffbf17ac",
@@ -460,10 +497,22 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
-      ]
-    }
-  ],
-  "completedLaneWorktrees": [
+      ],
+      "mergeCommit": "4f69ca5c407cbc53c5e3a5a431cedf0f1d3148c9",
+      "integrationBookkeepingCommit": "532171b50e37b8edab7a215c543c907daedd20d4",
+      "completedStatus": "removable-after-operator-confirms-no-local-use",
+      "integrationVerification": [
+        "cargo test mage_armor_adapter_replays_all_branches",
+        "cargo test reaction_spell_selected_identity_adapter_replays_in_scope_branches",
+        "cargo test reducer_rejects_reaction_spell_fill_for_different_reactor",
+        "cargo fmt --check",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check HEAD~1...HEAD",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings"
+      ],
+      "integrationVerificationResult": "passed; cargo test 210 passed"
+    },
     {
       "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f",
