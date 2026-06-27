@@ -22,6 +22,12 @@ This file prevents orphaned or confused Ralph worktrees.
 | --- | --- | --- | --- | --- | --- | --- |
 | _none_ | | | | | | |
 
+## Active Fresh Expansion Targets
+
+| Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| FEXP-00-BASELINE-LOCK | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-00` | `ralph/fexp-00-baseline-lock` | `a30e6729711ddc3f595cf008931ba5cd6265c58a` | Kant the 2nd (`019f0abd-0855-7ba1-9b55-eb0c84d83f7c`) | pending | running |
+
 ## Historical RRCONV-19 Worktrees
 
 These predate this campaign bootstrap. They may be removable after confirming no unmerged work is needed.

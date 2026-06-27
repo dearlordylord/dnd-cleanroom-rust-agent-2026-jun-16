@@ -2773,6 +2773,18 @@
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
+  "freshCleanroomExpansion": {
+    "campaignId": "fresh-cleanroom-expansion-after-fc08",
+    "status": "running",
+    "activeLane": "FEXP-00-BASELINE-LOCK",
+    "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
+    "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-00",
+    "activeBranch": "ralph/fexp-00-baseline-lock",
+    "workerAgent": "Kant the 2nd (019f0abd-0855-7ba1-9b55-eb0c84d83f7c)",
+    "currentVerifier": "python3 tools/verify_current_fresh_target.py",
+    "nextPlannedLane": "FEXP-01-DIAGNOSTIC-BATTLE-ROUTE-PACK"
+  },
   "sdkTracerBullet": {
     "status": "reviewed-accepted",
     "preferredTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
