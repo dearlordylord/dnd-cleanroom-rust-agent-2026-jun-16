@@ -199,7 +199,7 @@
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "rereviewing-after-fixer",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "rereviewing-after-fixer",
-    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "rereviewing-after-fixer",
+    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified"
@@ -394,7 +394,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f",
       "branch": "ralph/l15-rr07-fu01f-spatial-light-area",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "rereviewing-after-fixer",
+      "status": "review-clean-merge-ready",
       "workerAgent": "019f07d7-0064-7062-9609-a2d22a704f0d",
       "workerName": "Einstein the 2nd",
       "workerCommit": "c4dbd72c098d85dc6fac652bd7b1758e5c6f61dc",
@@ -440,6 +440,24 @@
         "Expected spatial routes are independent literal witnesses."
       ],
       "fixerVerification": [
+        "cargo test level1_spatial_witness_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
+      ],
+      "rereviewStatus": "clean",
+      "rereviewVerdict": "clean",
+      "rereviewAgent": "019f07f5-328e-7080-8417-5649d85231f5",
+      "rereviewName": "Epicurus the 2nd",
+      "rereviewSummary": [
+        "Observed spatial route replay goes through public BattleState observed entrypoints.",
+        "Expected route is a separate literal/builder path and does not call observed replay.",
+        "spatial_route_subjects is used as discoverable generic route-subject state and artifacts describe shared generic subjects honestly."
+      ],
+      "rereviewVerification": [
+        "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
         "cargo test level1_spatial_witness_adapter_replays_all_branches",
         "cargo fmt --check",
         "cargo test",
