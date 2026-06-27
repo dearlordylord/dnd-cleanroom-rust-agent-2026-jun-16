@@ -239,6 +239,18 @@ Template:
 - Review/fixer notes: reviewer returned clean; observed Careful/Heightened/Distant/Twinned metamagic routes go through production BattleState observer entrypoints with literal independent expected route witnesses.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08b`
 
+### L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES
+
+- Merge commit: `5bec99231b38d67c5930922cb77328d2b71c031a`
+- Lane commit(s): `a6e33d9bad73f82e20e0373986738e943d45233d`, `a0ac254c610b4c0e64b4f6d160c0ef533f400a40`
+- Drivers added: `5` net-new unique drivers.
+- Obligations added: `7` net-new counted obligations; total accepted obligations moved from `471` to `478`.
+- New total driver coverage: `71 / 97 = 73.2%`
+- New total obligation coverage: `478 / 668 = 71.6%`
+- Integration verification: focused FU08B/FU08C adapter tests, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check`, `cargo test` (`209 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: reviewer found contradictory metamagic option facts/effects were representable and accepted; fixer added `MetamagicOptionEffectMismatch` at the reducer boundary before spend/action-lock/projection/routing, plus a regression test. Integration resolved FU08B/FU08C by sharing one `MetamagicOptionSpell` subject with typed modification/effect shape checks.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08c`
+
 ## CP4 Launch Plan
 
 The small feature substrate batch was split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa` and is now merged:

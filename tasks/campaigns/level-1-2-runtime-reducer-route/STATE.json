@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "20daf3ede80af636df4e71a776d95783182fef2d",
+    "lastVerifiedIntegrationHead": "5bec99231b38d67c5930922cb77328d2b71c031a",
     "lastMergedLane": {
-      "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
-      "mergeCommit": "20daf3ede80af636df4e71a776d95783182fef2d",
-      "laneHead": "3727abed465765fbc2b3f223076ed265d31393ff"
+      "laneId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
+      "mergeCommit": "5bec99231b38d67c5930922cb77328d2b71c031a",
+      "laneHead": "a0ac254c610b4c0e64b4f6d160c0ef533f400a40"
     }
   },
   "denominator": {
@@ -33,10 +33,10 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 66,
-    "acceptedDriverCoveragePercent": 68,
-    "acceptedObligations": 471,
-    "acceptedObligationCoveragePercent": 70.5,
+    "acceptedUniqueDrivers": 71,
+    "acceptedDriverCoveragePercent": 73.2,
+    "acceptedObligations": 478,
+    "acceptedObligationCoveragePercent": 71.6,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers",
     "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json in-scope obligations for unique selected drivers"
   },
@@ -109,8 +109,7 @@
         "CP3"
       ],
       "runningLaneIds": [
-        "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
-        "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES"
+        "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
       ],
       "mergedLaneIds": [
         "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
@@ -118,9 +117,10 @@
         "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
         "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
-        "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES"
+        "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
+        "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES"
       ],
-      "notes": "FU01A, FU08A, and FU08B are merged and verified. FU08C is review-clean/merge-ready; FU01B is in fixer loop.",
+      "notes": "FU01A, FU08A, FU08B, and FU08C are merged and verified. FU01B is in fixer loop after artifact/blocker-honesty fixes.",
       "splitLaneIds": [
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
@@ -198,19 +198,19 @@
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "ready",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "review-clean-merge-ready"
+    "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "20daf3ede80af636df4e71a776d95783182fef2d",
+    "head": "5bec99231b38d67c5930922cb77328d2b71c031a",
     "commands": [
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
-      "git diff --check HEAD~1...HEAD",
+      "git diff --check",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings"
     ],
     "result": "passed",
-    "cargoTest": "208 passed"
+    "cargoTest": "209 passed"
   },
   "activeLaneWorktrees": [
     {
@@ -253,13 +253,15 @@
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
       ]
-    },
+    }
+  ],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08c",
       "branch": "ralph/l15-rr07-fu08c-metamagic-reroll-damage",
       "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
-      "status": "review-clean-merge-ready",
+      "status": "removable-after-operator-confirms-no-local-use",
       "workerAgent": "019f079e-94a7-7e00-99a3-808e4091635d",
       "workerName": "Tesla",
       "commit": "a6e33d9bad73f82e20e0373986738e943d45233d",
@@ -328,10 +330,22 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b..HEAD"
-      ]
-    }
-  ],
-  "completedLaneWorktrees": [
+      ],
+      "workerCommit": "a6e33d9bad73f82e20e0373986738e943d45233d",
+      "laneHead": "a0ac254c610b4c0e64b4f6d160c0ef533f400a40",
+      "mergeCommit": "5bec99231b38d67c5930922cb77328d2b71c031a",
+      "integrationVerification": {
+        "commands": [
+          "cargo fmt --check",
+          "node scripts/check-cleanroom-harness.cjs",
+          "git diff --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings"
+        ],
+        "result": "passed",
+        "cargoTest": "209 passed"
+      }
+    },
     {
       "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08b",
