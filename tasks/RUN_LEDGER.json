@@ -1285,7 +1285,7 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/STATE_OWNER_MANIFEST.json",
-          "sha256": "2cd945a68adc75302d5f279ce4e93e83d29be0d349e97da952c5efc60544b9a1"
+          "sha256": "15c5a81ff86683ffd631ec9ec4d4c8aa3598dff9c47de3936cacf3b63b9847be"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",

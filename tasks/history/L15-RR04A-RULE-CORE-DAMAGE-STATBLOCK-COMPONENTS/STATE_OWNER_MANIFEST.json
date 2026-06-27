@@ -2,242 +2,198 @@
   "durableFields": [
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "AttackDamageDispositionState.outcome",
       "introducedIn": "src/rules/attack_damage_disposition.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "AttackDamageDispositionState.accepted",
       "introducedIn": "src/rules/attack_damage_disposition.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "AttackDamageDispositionState.target_hit_points",
       "introducedIn": "src/rules/attack_damage_disposition.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "AttackDamageDispositionState.target_unconscious",
       "introducedIn": "src/rules/attack_damage_disposition.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "AttackDamageDispositionState.target_dead",
       "introducedIn": "src/rules/attack_damage_disposition.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "AttackDamageDispositionState.knock_out_recovery_ends_when_hit_points_regained",
       "introducedIn": "src/rules/attack_damage_disposition.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "HitPointDamageState.outcome",
       "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "HitPointDamageState.hit_points",
       "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "HitPointDamageState.hit_point_maximum",
       "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "HitPointDamageState.temporary_hit_points",
       "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "HitPointDamageState.dead",
       "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "HitPointDamageState.unconscious",
       "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "HitPointDamageState.damage_to_hit_points",
       "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "HitPointDamageState.remaining_damage_at_zero",
       "introducedIn": "src/rules/rule_core_hit_point_damage.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "StatBlockControlState.attack_action_available",
       "introducedIn": "src/rules/rule_core_stat_block_controls.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "StatBlockControlState.bonus_action_available",
       "introducedIn": "src/rules/rule_core_stat_block_controls.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "StatBlockControlState.pending_primary_dispatches",
       "introducedIn": "src/rules/rule_core_stat_block_controls.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "StatBlockControlState.pending_secondary_dispatches",
       "introducedIn": "src/rules/rule_core_stat_block_controls.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "StatBlockControlState.movement_spent_feet",
       "introducedIn": "src/rules/rule_core_stat_block_controls.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "StatBlockControlState.movement_remaining_feet",
       "introducedIn": "src/rules/rule_core_stat_block_controls.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "StatBlockControlState.multiattack_continuation_open",
       "introducedIn": "src/rules/rule_core_stat_block_controls.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     },
     {
       "derivability": {
-        "boundary": "qComponentRoute component-first replay projection",
-        "sourceField": "focused rule-core QNT component facts",
-        "tag": "stored-executable-boundary-projection"
+        "tag": "canonical-source"
       },
       "fieldPath": "StatBlockControlState.protocol",
       "introducedIn": "src/rules/rule_core_stat_block_controls.rs",
-      "owner": "executable-boundary-projection"
+      "owner": "battle-state"
     }
   ],
-  "durableFieldsReason": "RR04A records existing rule-core component projection fields checked by target replay evidence. It adds no durable production BattleState ownership for damage, HP, or stat-block control witnesses.",
+  "durableFieldsReason": "RR04A records existing semantic rule-core state/result fields that target replay evidence checks. Those fields remain canonically owned by their existing rule modules; qComponentRoute is non-durable component-route replay evidence only and this lane adds no new durable production BattleState owners for damage, HP, or stat-block control facts.",
   "nonDurableBoundaryApiSurface": [
     {
       "apiPath": "qComponentRoute",
-      "boundary": "component-first cleanroom replay evidence",
+      "boundary": "non-durable qComponentRoute component-first cleanroom replay evidence",
       "introducedIn": "src/qnt_adapters/rule_core_attack_damage_disposition.rs",
       "owner": "harness-witness-protocol"
     },
     {
       "apiPath": "qComponentRoute",
-      "boundary": "component-first cleanroom replay evidence",
+      "boundary": "non-durable qComponentRoute component-first cleanroom replay evidence",
       "introducedIn": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
       "owner": "harness-witness-protocol"
     },
     {
       "apiPath": "qComponentRoute",
-      "boundary": "component-first cleanroom replay evidence",
+      "boundary": "non-durable qComponentRoute component-first cleanroom replay evidence",
       "introducedIn": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
       "owner": "harness-witness-protocol"
     }
