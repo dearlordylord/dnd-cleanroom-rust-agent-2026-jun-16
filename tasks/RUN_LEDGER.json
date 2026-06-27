@@ -2804,15 +2804,15 @@
       "artifacts": {
         "deciderDecision": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/DECIDER_DECISION.json",
-          "sha256": "f97ec1d81ee754b2cc1a23f9caef5965df8a2a4ba4e44b5dc56f04d03bd7d3fa"
+          "sha256": "03fd86c77b937230f3061cab4314bcf41507b97562f49f41a528c85ef0219bc7"
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "5627c5466ab6d12294e6e7895209f15edcd4e867a8350ecb6bb0d16e8d62559a"
+          "sha256": "5c03f42407ee75cc5e11559e74133a66e5997763fa121ecc467ad4edb942adf7"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/REVIEW_LOOP.json",
-          "sha256": "e11e17e9639021ecfca7552f40c15680c4d677fa59dbf28cab2bc1f43c5775d5"
+          "sha256": "96f5ef6c00df46d23608ff23863dc6ec292fa0f1891af4e001a526740979e5b6"
         },
         "startGate": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/START_GATE.json",
@@ -2820,13 +2820,21 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/STATE_OWNER_MANIFEST.json",
-          "sha256": "ff9683e31ea4efd16469fe9b5996200bd10d6f6269b897b76e90479d61306a0b"
+          "sha256": "a0720984c2b048f9d1cc05436765e68189c315cd0350910fe3e50cea8b81739a"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",
       "commandResults": [
         {
-          "command": "cargo test mage_armor_adapter_replays_all_branches && cargo test reaction_spell_selected_identity_adapter_replays_in_scope_branches",
+          "command": "cargo test mage_armor_adapter_replays_all_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test mage_armor_projects_base_armor_class_and_duration -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "jq empty tasks/RUN_LEDGER.json tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/DECIDER_DECISION.json tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/REVIEW_LOOP.json tasks/history/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES/STATE_OWNER_MANIFEST.json tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json tasks/campaigns/level-1-2-runtime-reducer-route/CP8_AUDIT.json",
           "status": "pass"
         },
         {
@@ -2843,15 +2851,16 @@
         },
         {
           "command": "node scripts/check-cleanroom-harness.cjs",
-          "status": "pass"
+          "classification": "pre-existing stale validator-hash debt in cleanroom-input/MANIFEST.md; no CP8/FU01E evidence, ledger, or artifact failures",
+          "status": "fail"
         },
         {
-          "command": "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD",
+          "command": "git diff --check b4c04b7...HEAD",
           "status": "pass"
         }
       ],
       "laneId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
-      "cp7dResearch": "CP7-D kept doDiscoverMageArmorUnarmoredSelfTarget, doRejectMageArmorArmoredTarget, and doExpireMageArmorDuration as target blockers: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class route subject owner, and accepting these rows would require source/corpus route support rather than target-side inference.",
+      "cp7dResearch": "CP7-D kept doDiscoverMageArmorUnarmoredSelfTarget, doRejectMageArmorArmoredTarget, and doExpireMageArmorDuration as target blockers before the source refresh. CP8 accepted exactly those three rows after cleanroom input supplied the generic SpellBaseArmorClassEffectRouteSubject connector.",
       "manifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
       "selectedDrivers": [
         "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt",
@@ -2861,12 +2870,15 @@
       "targetReplayEvidence": [
         {
           "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doDiscoverMageArmorUnarmoredSelfTarget#step:doDiscoverMageArmorUnarmoredSelfTarget",
+            "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doExpireMageArmorDuration#step:doExpireMageArmorDuration",
+            "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doRejectMageArmorArmoredTarget#step:doRejectMageArmorArmoredTarget",
             "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveMageArmorBaseArmorClassProjection#step:doResolveMageArmorBaseArmorClassProjection",
             "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveHellishRebukeFailedSavingThrow#step:doResolveHellishRebukeFailedSavingThrow",
             "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveShieldReactionSpellHit#step:doResolveShieldReactionSpellHit"
           ],
           "path": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json",
-          "sha256": "d8db5408ddd96fdff45c3dbebd4c060374c446413500a07997fed463132c6d2f"
+          "sha256": "0a46e8155c17b408afda97ee3964ccdfd8738b5b3f46fe3ad36ee756ca0cda27"
         }
       ],
       "taskId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"

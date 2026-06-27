@@ -2866,8 +2866,8 @@ Allowed inputs used:
 Behavior implemented:
 
 - CP7-D blocker research found no copied Mage Armor qRoute connector or generic armor-class route subject owner for target admission, armored rejection, or duration expiry.
-- Kept Mage Armor target-admission discovery, armored-target rejection, and duration expiry as target blockers; accepting them would require source/corpus route support rather than target-side inference.
-- Accepted Mage Armor base AC projection through generic `ArmorClassSpellEffect` route using `armor_class_projection` and active-effect state.
+- CP8 source refresh supplied `SpellBaseArmorClassEffectRouteSubject`; accepted Mage Armor target-admission discovery, armored-target rejection, and duration expiry through observed `BattleEntrypointTrace.route_events` matching the generic connector.
+- Accepted Mage Armor base AC projection through generic `SpellBaseArmorClassEffect` route using `armor_class_projection` and active-effect state.
 - Accepted Shield and Hellish Rebuke selected rows through generic `ReactionSpell` fills for armor-class interruption and failed-save damage.
 - Counterspell remains out of scope because it is level 3.
 
@@ -2875,9 +2875,9 @@ Generated branch coverage:
 
 | Obligation | Target replay evidence | Diagnostic tests | Status |
 | --- | --- | --- | --- |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doDiscoverMageArmorUnarmoredSelfTarget` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doDiscoverMageArmorUnarmoredSelfTarget#step:doDiscoverMageArmorUnarmoredSelfTarget` | `src/tests/mod.rs` | `blocked` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doExpireMageArmorDuration#step:doExpireMageArmorDuration` | `src/tests/mod.rs` | `blocked` |
-| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doRejectMageArmorArmoredTarget#step:doRejectMageArmorArmoredTarget` | `src/tests/mod.rs` | `blocked` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doDiscoverMageArmorUnarmoredSelfTarget` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doDiscoverMageArmorUnarmoredSelfTarget#step:doDiscoverMageArmorUnarmoredSelfTarget` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doExpireMageArmorDuration#step:doExpireMageArmorDuration` | `src/tests/mod.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doRejectMageArmorArmoredTarget#step:doRejectMageArmorArmoredTarget` | `src/tests/mod.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doResolveMageArmorBaseArmorClassProjection` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveMageArmorBaseArmorClassProjection#step:doResolveMageArmorBaseArmorClassProjection` | `src/tests/mod.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt#step:doResolveHellishRebukeFailedSavingThrow` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveHellishRebukeFailedSavingThrow#step:doResolveHellishRebukeFailedSavingThrow` | `src/tests/mod.rs` | `covered` |
 | `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt#step:doResolveShieldReactionSpellHit` | `tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES route action=doResolveShieldReactionSpellHit#step:doResolveShieldReactionSpellHit` | `src/tests/mod.rs` | `covered` |
@@ -2899,7 +2899,7 @@ Harness artifacts:
 
 Remaining gaps:
 
-- CP7-D retained three Mage Armor target blockers: target admission discovery, armored-target rejection, and duration expiry. The copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class route subject owner for these rows.
+- CP8 accepted the three formerly blocked Mage Armor target rows after the refreshed cleanroom package supplied the generic `SpellBaseArmorClassEffectRouteSubject` connector.
 - `doResolveCounterspellMagicMissileCast` is out of scope.
 
 Verification results:
@@ -2911,6 +2911,7 @@ Verification results:
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` failed on known stale global manifest/evidence debt. Filtered output still includes pre-existing FU01E/Mage Armor stale-manifest lines, so this run is not classified as a clean CP7-D harness pass.
+- CP8 verification: `cargo test mage_armor_adapter_replays_all_branches -- --nocapture`, `cargo test mage_armor_projects_base_armor_class_and_duration -- --nocapture`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, `cargo fmt --check`, `jq empty` on edited JSON artifacts, and `git diff --check b4c04b7...HEAD` passed. `node scripts/check-cleanroom-harness.cjs` failed only on pre-existing stale validator hashes in `cleanroom-input/MANIFEST.md` for `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs`; it reported no CP8/FU01E evidence, ledger, or artifact failures.
 
 ## FU01C Integration Addendum
 

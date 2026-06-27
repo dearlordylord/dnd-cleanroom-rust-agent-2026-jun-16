@@ -14,22 +14,23 @@
       "observedActionTaken": "doDiscoverMageArmorUnarmoredSelfTarget",
       "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
       "result": {
-        "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DISCOVERY",
-        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
-      "routeEvidenceBasis": "target blocker: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
+      "routeEvidenceBasis": "production BattleState SpellBaseArmorClassEffect route observed through BattleEntrypointTrace for generic target admission",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
           "MageArmorState.self_target_admitted",
+          "BattleResolutionResult.outcome",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
+        "expectedProjectionSha256": "fdd42d95ba49df4a2792a2f8de0a1b998e9d48b953daf4ca9c66951da944e0bc",
+        "observedProjectionSha256": "fdd42d95ba49df4a2792a2f8de0a1b998e9d48b953daf4ca9c66951da944e0bc",
         "projection": "qRoute",
-        "tag": "target-blocker"
+        "tag": "state-match"
       },
-      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doDiscoverMageArmorUnarmoredSelfTarget"
+      "traceId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doDiscoverMageArmorUnarmoredSelfTarget"
     },
     {
       "branchAction": "doExpireMageArmorDuration",
@@ -40,23 +41,26 @@
       "observedActionTaken": "doExpireMageArmorDuration",
       "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
       "result": {
-        "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DURATION-EXPIRY",
-        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class active-effect lifecycle route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
-      "routeEvidenceBasis": "target blocker: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class active-effect lifecycle route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
+      "routeEvidenceBasis": "production BattleState SpellBaseArmorClassEffect route observed through BattleEntrypointTrace for duration boundary, active-effect cleanup, and Armor Class owner projection",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
+          "BattleState.fighter.spell_active_effects.armor_class_base_effect",
+          "BattleState.fighter.spell_slots.first_level_expended",
+          "BattleState.action_available",
           "MageArmorState.mage_armor_duration_ticks",
           "MageArmorState.mage_armor_effect_present",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
+        "expectedProjectionSha256": "a7f2e69d2d071d88208ae769144cc31867f0cce30833d8f62e26539612791a2e",
+        "observedProjectionSha256": "a7f2e69d2d071d88208ae769144cc31867f0cce30833d8f62e26539612791a2e",
         "projection": "qRoute",
-        "tag": "target-blocker"
+        "tag": "state-match"
       },
-      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doExpireMageArmorDuration"
+      "traceId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doExpireMageArmorDuration"
     },
     {
       "branchAction": "doRejectMageArmorArmoredTarget",
@@ -67,22 +71,23 @@
       "observedActionTaken": "doRejectMageArmorArmoredTarget",
       "qntFileSha256": "b62ba14fe9d9476bc48131c859986e4e68a5a18db02dcf0d7032fe719d103d1b",
       "result": {
-        "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-ARMORED-REJECTION",
-        "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
-      "routeEvidenceBasis": "target blocker: copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference",
+      "routeEvidenceBasis": "production BattleState SpellBaseArmorClassEffect route observed through BattleEntrypointTrace for generic armored-target rejection",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
           "MageArmorState.armored_target_rejected",
+          "BattleResolutionResult.outcome",
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
+        "expectedProjectionSha256": "620075359ae092cde77ebe0aefa2820a2cd8d3bc90fdd33703452e1fb612d2bc",
+        "observedProjectionSha256": "620075359ae092cde77ebe0aefa2820a2cd8d3bc90fdd33703452e1fb612d2bc",
         "projection": "qRoute",
-        "tag": "target-blocker"
+        "tag": "state-match"
       },
-      "traceId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES target-blocker action=doRejectMageArmorArmoredTarget"
+      "traceId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doRejectMageArmorArmoredTarget"
     },
     {
       "branchAction": "doResolveMageArmorBaseArmorClassProjection",
@@ -105,8 +110,8 @@
           "ReducerRouteEvent.qRoute"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "46b1eb37e2793f9a7a6dbc732c0a7d8eb51851719fb2330ca1ea815b87c412ad",
-        "observedProjectionSha256": "46b1eb37e2793f9a7a6dbc732c0a7d8eb51851719fb2330ca1ea815b87c412ad",
+        "expectedProjectionSha256": "d56bd21412afcab93bc2f04b3eb68eeadbffa3288beb617f1bba480fba062c30",
+        "observedProjectionSha256": "d56bd21412afcab93bc2f04b3eb68eeadbffa3288beb617f1bba480fba062c30",
         "projection": "qRoute",
         "tag": "state-match"
       },

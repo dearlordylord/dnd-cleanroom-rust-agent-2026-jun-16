@@ -4905,8 +4905,18 @@ fn mage_armor_adapter_replays_all_branches() {
             reducer_route_payload(&expected_mage_armor_route(action))
         );
         let route_payload = reducer_route_payload(&route);
-        assert!(route_payload.contains("ArmorClassSpellEffectRouteSubject"));
-        assert!(route_payload.contains("BattleActiveEffectOwner"));
+        assert!(route_payload.contains("SpellBaseArmorClassEffectRouteSubject"));
+        match action {
+            "doDiscoverMageArmorUnarmoredSelfTarget" | "doRejectMageArmorArmoredTarget" => {
+                assert!(route_payload.contains("BattleTargetSelectionOwner"));
+            }
+            "doExpireMageArmorDuration" => {
+                assert!(route_payload.contains("BattleTurnBoundaryOwner"));
+                assert!(route_payload.contains("BattleActiveEffectOwner"));
+                assert!(route_payload.contains("BattleArmorClassOwner"));
+            }
+            _ => panic!("unexpected accepted Mage Armor route action {action}"),
+        }
     }
 }
 

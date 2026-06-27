@@ -1,5 +1,8 @@
 {
   "acceptedRows": [
+    "doDiscoverMageArmorUnarmoredSelfTarget",
+    "doExpireMageArmorDuration",
+    "doRejectMageArmorArmoredTarget",
     "doResolveMageArmorBaseArmorClassProjection",
     "doResolveShieldReactionSpellHit",
     "doResolveHellishRebukeFailedSavingThrow"
@@ -45,25 +48,9 @@
       "reason": "Counterspell is a level-3 reaction branch and remains out of scope"
     }
   ],
-  "rationale": "Accepted rows route through generic ArmorClassSpellEffect and production-discovered ReactionSpell reducer subjects with active-effect or reaction-owned route evidence. CP7-D research kept Mage Armor target admission, armored rejection, and duration expiry as target blockers because copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class route subject owner; accepting them would require source/corpus route support rather than target-side inference. Counterspell remains out of scope.",
+  "rationale": "Accepted rows route through generic SpellBaseArmorClassEffect and production-discovered ReactionSpell reducer subjects with target-selection, active-effect, turn-boundary, Armor Class, or reaction-owned route evidence. CP8 accepted the three formerly blocked Mage Armor target admission, armored rejection, and duration-expiry rows after the cleanroom input supplied the generic SpellBaseArmorClassEffectRouteSubject connector. Counterspell remains out of scope.",
   "rejectedFindings": [],
   "schemaVersion": 1,
-  "targetBlockedRows": [
-    {
-      "action": "doDiscoverMageArmorUnarmoredSelfTarget",
-      "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DISCOVERY",
-      "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference"
-    },
-    {
-      "action": "doRejectMageArmorArmoredTarget",
-      "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-ARMORED-REJECTION",
-      "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class target-admission route subject owner; accepting this row would require source/corpus route support rather than target-side inference"
-    },
-    {
-      "action": "doExpireMageArmorDuration",
-      "blockerId": "FU01E-BLOCKED-MAGE-ARMOR-DURATION-EXPIRY",
-      "reason": "copied reducer-route inventory has no Mage Armor qRoute connector or generic armor-class active-effect lifecycle route subject owner; accepting this row would require source/corpus route support rather than target-side inference"
-    }
-  ],
+  "targetBlockedRows": [],
   "taskId": "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"
 }

@@ -4,7 +4,7 @@
       "checklist": "branch-coverage",
       "id": "fu01e-mage-armor-non-effect-rows",
       "reasonableness": "reasonable",
-      "resolution": "Kept as explicit target-blocker rows after CP7-D research confirmed copied reducer-route inventory lacks a Mage Armor qRoute connector and generic armor-class route subject owner.",
+      "resolution": "CP8 accepted these rows after the cleanroom input supplied the generic SpellBaseArmorClassEffectRouteSubject connector; target admission, armored rejection, and duration expiry now route through observed BattleEntrypointTrace route events.",
       "status": "fixed",
       "summary": "Mage Armor discovery, armored rejection, and duration expiry are not accepted reducer routes."
     },
@@ -109,6 +109,52 @@
       ],
       "round": 2,
       "summary": "Convergence pass after keeping CP7-D Mage Armor target-admission and active-effect lifecycle rows blocked and confirming accepted AC/reaction rows use reducer entrypoint route evidence, with ReactionSpell rows discovered from production reaction-window state; no reasonable findings remain."
+    },
+    {
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "pass"
+        }
+      ],
+      "round": 3,
+      "summary": "CP8 convergence pass after accepting exactly three Mage Armor rows through the generic SpellBaseArmorClassEffectRouteSubject connector. Production reducer code uses generic target-admission, active-effect, turn-boundary, and Armor Class owner facts; selected Mage Armor identity remains quarantined to adapter/evidence row names."
     }
   ],
   "schemaVersion": 1,

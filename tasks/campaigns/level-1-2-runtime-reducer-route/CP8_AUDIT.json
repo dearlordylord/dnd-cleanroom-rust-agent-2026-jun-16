@@ -1,0 +1,33 @@
+{
+  "acceptedRows": [
+    {
+      "evidenceRef": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doDiscoverMageArmorUnarmoredSelfTarget#step:doDiscoverMageArmorUnarmoredSelfTarget",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doDiscoverMageArmorUnarmoredSelfTarget",
+      "routeSurface": "SpellBaseArmorClassEffectRouteSubject target admission"
+    },
+    {
+      "evidenceRef": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doRejectMageArmorArmoredTarget#step:doRejectMageArmorArmoredTarget",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doRejectMageArmorArmoredTarget",
+      "routeSurface": "SpellBaseArmorClassEffectRouteSubject armored target rejection"
+    },
+    {
+      "evidenceRef": "tasks/target-replay-evidence/L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES.json#L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES route action=doExpireMageArmorDuration#step:doExpireMageArmorDuration",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-mage-armor-selected-identity.mbt.qnt#step:doExpireMageArmorDuration",
+      "routeSurface": "SpellBaseArmorClassEffectRouteSubject duration expiry"
+    }
+  ],
+  "acceptedRowsCount": 3,
+  "declaredBaseSha": "b4c04b7",
+  "laneId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES",
+  "remainingBlockers": [],
+  "remainingBlockersCount": 0,
+  "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt",
+  "scenarioTransitionRowsAccepted": 0,
+  "selectedBranchActions": [
+    "doDiscoverMageArmorUnarmoredSelfTarget",
+    "doRejectMageArmorArmoredTarget",
+    "doExpireMageArmorDuration"
+  ],
+  "summary": "Accepted exactly the three remaining Mage Armor admission/lifecycle rows through observed BattleEntrypointTrace.route_events matching the generic SpellBaseArmorClassEffectRouteSubject connector. Production reducer code uses generic target-admission, active-effect, turn-boundary, and Armor Class owner semantics; selected spell identity remains adapter/evidence row identity only.",
+  "taskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES"
+}
