@@ -263,6 +263,18 @@ Template:
 - Review/fixer notes: Carson found stale FU01B artifacts and dishonest blocker witnesses. Schrodinger fixed artifacts/history/evidence and made the two blocker rows reject/report target-blocker status across observed replay, observed route, expected witness, and evidence. Turing re-reviewed clean.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b`
 
+### L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES
+
+- Merge commit: `78be1eccb627f3ae7987380922d873b9ca7e497b`
+- Lane commit(s): `c4dbd72c098d85dc6fac652bd7b1758e5c6f61dc`, `15cfbe5193ed93e6119873732cccfa93c7f37349`
+- Drivers added: `1` net-new unique driver.
+- Obligations added: `10` accepted counted obligations; no blockers or demotions. Total accepted obligations moved from `492` to `502`.
+- New total driver coverage: `74 / 97 = 76.3%`
+- New total obligation coverage: `502 / 668 = 75.1%`
+- Integration verification: focused FU01F adapter test, `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check`, `cargo test` (`209 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: first review found helper-synthesized route evidence and self-referential expected routes; fixer added public spatial subject/fill support and discoverable spatial route subjects, then re-review returned clean.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f`
+
 ## CP4 Launch Plan
 
 The small feature substrate batch was split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa` and is now merged:

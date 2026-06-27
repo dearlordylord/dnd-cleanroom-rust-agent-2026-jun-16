@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "6834ee18356e01eb9b00bd4b32f0169b75a7220d",
+    "lastVerifiedIntegrationHead": "78be1eccb627f3ae7987380922d873b9ca7e497b",
     "lastMergedLane": {
-      "laneId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
-      "mergeCommit": "6834ee18356e01eb9b00bd4b32f0169b75a7220d",
-      "laneHead": "195a473783bc666f5413dabe0a2bf93ea18003df"
+      "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
+      "mergeCommit": "78be1eccb627f3ae7987380922d873b9ca7e497b",
+      "laneHead": "15cfbe5193ed93e6119873732cccfa93c7f37349"
     }
   },
   "denominator": {
@@ -33,10 +33,10 @@
     "acceptedObligationsSource": "source branch inventory obligations for selected drivers"
   },
   "coverageCurrent": {
-    "acceptedUniqueDrivers": 73,
-    "acceptedDriverCoveragePercent": 75.3,
-    "acceptedObligations": 492,
-    "acceptedObligationCoveragePercent": 73.7,
+    "acceptedUniqueDrivers": 74,
+    "acceptedDriverCoveragePercent": 76.3,
+    "acceptedObligations": 502,
+    "acceptedObligationCoveragePercent": 75.1,
     "acceptedUniqueDriversSource": "tasks/RUN_LEDGER.json selectedDrivers plus completed-before-campaign baseline",
     "acceptedObligationsSource": "cleanroom-input/branch-coverage/source-branch-inventory.json accepted in-scope obligations for unique selected drivers; target-blocker rows excluded"
   },
@@ -111,8 +111,7 @@
       "runningLaneIds": [
         "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
         "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
-        "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES",
-        "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES"
+        "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES"
       ],
       "mergedLaneIds": [
         "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES",
@@ -122,9 +121,10 @@
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
         "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
         "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES",
-        "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES"
+        "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
+        "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES"
       ],
-      "notes": "FU01A, FU01B, FU08A, FU08B, and FU08C are merged and verified. FU01C-FU01F are launched in parallel from base 410a784738fba3b80566eae292140327d4e30877.",
+      "notes": "FU01A, FU01B, FU01F, FU08A, FU08B, and FU08C are merged and verified. FU01C, FU01D, and FU01E remain in review/fixer loops.",
       "splitLaneIds": [
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
@@ -196,17 +196,18 @@
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
     "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "rereviewing-after-fixer",
+    "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "fixing-review-findings",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "rereviewing-after-fixer",
-    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
+    "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
     "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "6834ee18356e01eb9b00bd4b32f0169b75a7220d",
+    "head": "78be1eccb627f3ae7987380922d873b9ca7e497b",
     "commands": [
+      "cargo test level1_spatial_witness_adapter_replays_all_branches",
       "cargo fmt --check",
       "node scripts/check-cleanroom-harness.cjs",
       "git diff --check",
@@ -222,7 +223,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01c",
       "branch": "ralph/l15-rr07-fu01c-weapon-buff-mark-smite",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "rereviewing-after-fixer",
+      "status": "fixing-review-findings",
       "workerAgent": "019f07d6-14be-7123-8467-097ce9bee9db",
       "workerName": "Bernoulli",
       "workerCommit": "bf62c115801af2ff95e7df2418316747f99af010",
@@ -276,7 +277,20 @@
       ],
       "rereviewAgent": "019f07f6-bb3e-71a0-90fd-c4ae37336937",
       "rereviewName": "Mill the 2nd",
-      "rereviewStatus": "running"
+      "rereviewStatus": "findings",
+      "rereviewVerdict": "findings",
+      "rereviewFindings": [
+        "GenericRouteShape.next_holes duplicates route-continuation facts also held by generic_route_next_holes(subject.kind, fill), creating drift risk."
+      ],
+      "rereviewVerification": [
+        "rg -n \"genericRouteSubjects\" tasks src: no matches",
+        "cargo test level1_buff_mark_smite_adapter_replays_all_branches",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES",
@@ -388,13 +402,15 @@
       "rereviewAgent": "019f07f6-fc15-76e2-9297-8be46ec69e71",
       "rereviewName": "Ptolemy the 2nd",
       "rereviewStatus": "running"
-    },
+    }
+  ],
+  "completedLaneWorktrees": [
     {
       "laneId": "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01f",
       "branch": "ralph/l15-rr07-fu01f-spatial-light-area",
       "baseSha": "410a784738fba3b80566eae292140327d4e30877",
-      "status": "review-clean-merge-ready",
+      "status": "removable-after-operator-confirms-no-local-use",
       "workerAgent": "019f07d7-0064-7062-9609-a2d22a704f0d",
       "workerName": "Einstein the 2nd",
       "workerCommit": "c4dbd72c098d85dc6fac652bd7b1758e5c6f61dc",
@@ -464,10 +480,22 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD"
-      ]
-    }
-  ],
-  "completedLaneWorktrees": [
+      ],
+      "laneHead": "15cfbe5193ed93e6119873732cccfa93c7f37349",
+      "mergeCommit": "78be1eccb627f3ae7987380922d873b9ca7e497b",
+      "integrationVerification": {
+        "commands": [
+          "cargo test level1_spatial_witness_adapter_replays_all_branches",
+          "cargo fmt --check",
+          "node scripts/check-cleanroom-harness.cjs",
+          "git diff --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings"
+        ],
+        "result": "passed",
+        "cargoTest": "209 passed"
+      }
+    },
     {
       "laneId": "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b",
