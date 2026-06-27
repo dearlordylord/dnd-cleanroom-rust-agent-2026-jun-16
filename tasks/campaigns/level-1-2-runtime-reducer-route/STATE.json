@@ -155,76 +155,27 @@
     "L15-RR20-BATTLE-COMPANION-OBJECT-BOUNDARY-ROUTES": "blocked-on-checkpoint",
     "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES": "blocked-on-checkpoint",
     "L15-RR22-BATTLE-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "blocked-on-checkpoint",
-    "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "reviewed-clean",
+    "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "merged-verified",
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "reviewed-clean",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "fix-committed",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "reviewed-clean"
   },
   "lastIntegrationVerification": {
-    "head": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025",
+    "head": "b20ce8ff40dc438d93d9e09582078af4d0fa8e24",
     "commands": [
-      {
-        "command": "cargo fmt --check",
-        "status": "pass"
-      },
-      {
-        "command": "cargo test",
-        "status": "pass",
-        "note": "185 passed"
-      },
-      {
-        "command": "cargo clippy --all-targets -- -D warnings",
-        "status": "pass"
-      },
-      {
-        "command": "node scripts/check-cleanroom-harness.cjs",
-        "status": "pass"
-      },
-      {
-        "command": "git diff --check HEAD~1...HEAD",
-        "status": "pass"
-      },
-      {
-        "command": "JSON parse STATE.json, LANES.json, ENGINE_DEPTH_MANIFEST.json, RUN_LEDGER.json, STATE_OWNER_MANIFEST.json",
-        "status": "pass"
-      },
-      {
-        "command": "cargo test adapter_replays_all_branches --quiet",
-        "status": "pass",
-        "note": "70 passed"
-      }
-    ]
+      "cargo fmt --check",
+      "node scripts/check-cleanroom-harness.cjs",
+      "node -e <parse campaign/task json>",
+      "git diff --check HEAD~1...HEAD",
+      "cargo test",
+      "cargo clippy --all-targets -- -D warnings",
+      "cargo test adapter_replays_all_branches --quiet"
+    ],
+    "result": "passed",
+    "cargoTest": "185 passed",
+    "adapterReplaySmoke": "70 passed"
   },
   "activeLaneWorktrees": [
-    {
-      "laneId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04a",
-      "branch": "ralph/l15-rr04a-rule-core-damage-statblock",
-      "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "reviewed-clean-pending-merge",
-      "workerAgent": "019f0670-c7a0-72d1-9fd3-cfeb18268fab",
-      "workerName": "Cicero",
-      "commit": "341a19fdd7eafbfd5f91750a6be106dc1b319c5e",
-      "reviewAgent": "019f0679-9f1a-7872-bda1-4f19ad5ce3d4",
-      "reviewName": "Planck",
-      "reviewStatus": "findings",
-      "reviewFindings": [
-        "STATE_OWNER_MANIFEST overclaims qComponentRoute ownership for rule-core result/state fields that are semantic state facts, not route projection fields.",
-        "VALIDATION_REPORT.md header is stale and contradicts RR04A completion record."
-      ],
-      "fixerAgent": "019f067d-e564-7380-861f-837a1b321272",
-      "fixerName": "Poincare",
-      "fixStatus": "committed",
-      "fixCommit": "9d3ee41d081b7cade2daaba50c0730b412b5fc92",
-      "fixerResolution": [
-        "State-owner manifests no longer claim qComponentRoute owns semantic rule-core state/result fields.",
-        "VALIDATION_REPORT.md top snapshot/header now names RR04A completion and removes stale RR06 fixer-scope text."
-      ],
-      "rereviewStatus": "clean",
-      "rereviewAgent": "019f0681-d1de-7813-b55a-6f1c8d97ffc9",
-      "rereviewName": "Archimedes",
-      "rereviewResidualRisk": "Reviewer did not rerun Cargo/Node verification; integration merge must run gates."
-    },
     {
       "laneId": "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04b",
@@ -318,6 +269,52 @@
     }
   ],
   "completedLaneWorktrees": [
+    {
+      "laneId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04a",
+      "branch": "ralph/l15-rr04a-rule-core-damage-statblock",
+      "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
+      "status": "removable-after-operator-confirms-no-local-use",
+      "workerAgent": "019f0670-c7a0-72d1-9fd3-cfeb18268fab",
+      "workerName": "Cicero",
+      "commit": "341a19fdd7eafbfd5f91750a6be106dc1b319c5e",
+      "reviewAgent": "019f0679-9f1a-7872-bda1-4f19ad5ce3d4",
+      "reviewName": "Planck",
+      "reviewStatus": "findings",
+      "reviewFindings": [
+        "STATE_OWNER_MANIFEST overclaims qComponentRoute ownership for rule-core result/state fields that are semantic state facts, not route projection fields.",
+        "VALIDATION_REPORT.md header is stale and contradicts RR04A completion record."
+      ],
+      "fixerAgent": "019f067d-e564-7380-861f-837a1b321272",
+      "fixerName": "Poincare",
+      "fixStatus": "committed",
+      "fixCommit": "9d3ee41d081b7cade2daaba50c0730b412b5fc92",
+      "fixerResolution": [
+        "State-owner manifests no longer claim qComponentRoute owns semantic rule-core state/result fields.",
+        "VALIDATION_REPORT.md top snapshot/header now names RR04A completion and removes stale RR06 fixer-scope text."
+      ],
+      "rereviewStatus": "clean",
+      "rereviewAgent": "019f0681-d1de-7813-b55a-6f1c8d97ffc9",
+      "rereviewName": "Archimedes",
+      "rereviewResidualRisk": "Reviewer did not rerun Cargo/Node verification; integration merge must run gates.",
+      "laneHead": "9d3ee41d081b7cade2daaba50c0730b412b5fc92",
+      "mergeCommit": "b20ce8ff40dc438d93d9e09582078af4d0fa8e24",
+      "integrationVerification": {
+        "head": "b20ce8ff40dc438d93d9e09582078af4d0fa8e24",
+        "commands": [
+          "cargo fmt --check",
+          "node scripts/check-cleanroom-harness.cjs",
+          "node -e <parse campaign/task json>",
+          "git diff --check HEAD~1...HEAD",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "cargo test adapter_replays_all_branches --quiet"
+        ],
+        "result": "passed",
+        "cargoTest": "185 passed",
+        "adapterReplaySmoke": "70 passed"
+      }
+    },
     {
       "laneId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr06",
