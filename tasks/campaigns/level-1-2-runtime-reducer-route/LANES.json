@@ -308,7 +308,7 @@
     {
       "laneId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
       "checkpointId": "CP3",
-      "status": "rereviewing",
+      "status": "review-clean-merge-ready",
       "routeTaskId": "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES",
       "routeClasses": [
         "reducer-routed"
