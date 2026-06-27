@@ -869,15 +869,19 @@ use battle_runtime_sleep_repeat_save::{
     BRANCH_ACTIONS as SLEEP_REPEAT_SAVE_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_careful_selected_identity::{
+    expected_route as expected_careful_spell_route,
     expected_witness as expected_careful_spell_witness,
     projection_payload as careful_spell_projection_payload,
     replay_observed_action as replay_careful_spell_action,
+    replay_observed_route as replay_careful_spell_route,
     BRANCH_ACTIONS as CAREFUL_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_distant_selected_identity::{
+    expected_route as expected_distant_spell_route,
     expected_witness as expected_distant_spell_witness,
     projection_payload as distant_spell_projection_payload,
     replay_observed_action as replay_distant_spell_action,
+    replay_observed_route as replay_distant_spell_route,
     BRANCH_ACTIONS as DISTANT_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_empowered_selected_identity::{
@@ -893,9 +897,11 @@ use battle_runtime_sorcerer_metamagic_extended_selected_identity::{
     BRANCH_ACTIONS as EXTENDED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_heightened_selected_identity::{
+    expected_route as expected_heightened_spell_route,
     expected_witness as expected_heightened_spell_witness,
     projection_payload as heightened_spell_projection_payload,
     replay_observed_action as replay_heightened_spell_action,
+    replay_observed_route as replay_heightened_spell_route,
     BRANCH_ACTIONS as HEIGHTENED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_seeking_selected_identity::{
@@ -941,9 +947,11 @@ use battle_runtime_sorcerer_metamagic_transmuted_selected_identity::{
     BRANCH_ACTIONS as TRANSMUTED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_twinned_selected_identity::{
+    expected_route as expected_twinned_spell_route,
     expected_witness as expected_twinned_spell_witness,
     projection_payload as twinned_spell_projection_payload,
     replay_observed_action as replay_twinned_spell_action,
+    replay_observed_route as replay_twinned_spell_route,
     BRANCH_ACTIONS as TWINNED_SPELL_BRANCH_ACTIONS,
 };
 use battle_runtime_species_passive_trait_selected_identity::{
@@ -6732,6 +6740,17 @@ fn careful_spell_adapter_replays_all_branches() {
         let observed = replay_careful_spell_action(action);
         assert_eq!(observed, expected_careful_spell_witness(action));
         assert!(careful_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_careful_spell_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_careful_spell_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(
+            route_payload.contains("BattleDamageAdjustmentOwner")
+                || route_payload.contains("BattleSavingThrowOutcomeOwner")
+        );
     }
 }
 
@@ -6782,6 +6801,14 @@ fn distant_spell_adapter_replays_all_branches() {
         let observed = replay_distant_spell_action(action);
         assert_eq!(observed, expected_distant_spell_witness(action));
         assert!(distant_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_distant_spell_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_distant_spell_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(route_payload.contains("BattleObjectBoundaryOwner"));
     }
 }
 
@@ -6899,6 +6926,17 @@ fn heightened_spell_adapter_replays_all_branches() {
         let observed = replay_heightened_spell_action(action);
         assert_eq!(observed, expected_heightened_spell_witness(action));
         assert!(heightened_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_heightened_spell_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_heightened_spell_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(
+            route_payload.contains("BattleSavingThrowRollModeOwner")
+                || route_payload.contains("BattleConditionLifecycleOwner")
+        );
     }
 }
 
@@ -7249,6 +7287,14 @@ fn twinned_spell_adapter_replays_all_branches() {
         let observed = replay_twinned_spell_action(action);
         assert_eq!(observed, expected_twinned_spell_witness(action));
         assert!(twinned_spell_projection_payload(&observed).contains("protocolResult=resolved"));
+        let route = replay_twinned_spell_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_twinned_spell_route(action))
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
+        assert!(route_payload.contains("BattleTargetSelectionOwner"));
     }
 }
 

@@ -239,6 +239,7 @@ fn fill_for_action(observed_action_taken: &str) -> BattleMetamagicOptionSpellFil
         options_already_applied_to_spell: 0,
         selected_second_option_supported: true,
         spell_uses_level_one_plus_slot: true,
+        spell_consumes_magic_action: false,
     };
     match observed_action_taken {
         "doRejectUnknownOption" => {

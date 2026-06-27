@@ -1,0 +1,282 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust reducer-routed metamagic save/range/target adapters",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doResolveCarefulSaveGatedDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs",
+      "observedActionTaken": "doResolveCarefulSaveGatedDamage",
+      "qntFileSha256": "406fa53f41e6e60d199e64c5200fa74c5dc528d67d872c5c946335c2ca3c0feb",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.feature_resources.sorcery_points",
+          "BattleState.feature_substrates.metamagic_spell",
+          "BattleState.action_available",
+          "BattleState.bonus_action_available",
+          "BattleState.skeleton.hp",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.MetamagicOptionSpell"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "1059487bf2ebe4cbd335878a902bb24d2cc0136fe980ca0c74dadb16c693a60e",
+        "observedProjectionSha256": "1059487bf2ebe4cbd335878a902bb24d2cc0136fe980ca0c74dadb16c693a60e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveCarefulSaveGatedDamage"
+    },
+    {
+      "branchAction": "doResolveCarefulSaveGatedNoEffect",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_careful_selected_identity.rs",
+      "observedActionTaken": "doResolveCarefulSaveGatedNoEffect",
+      "qntFileSha256": "406fa53f41e6e60d199e64c5200fa74c5dc528d67d872c5c946335c2ca3c0feb",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.feature_resources.sorcery_points",
+          "BattleState.feature_substrates.metamagic_spell",
+          "BattleState.action_available",
+          "BattleState.bonus_action_available",
+          "BattleState.skeleton.hp",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.MetamagicOptionSpell"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "c3c28fa405223cf83e30ad3bbcfb23ee26caf3c44ff01cb18426fcb97f2bfddf",
+        "observedProjectionSha256": "c3c28fa405223cf83e30ad3bbcfb23ee26caf3c44ff01cb18426fcb97f2bfddf",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveCarefulSaveGatedNoEffect"
+    },
+    {
+      "branchAction": "doResolveHeightenedSaveGatedDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs",
+      "observedActionTaken": "doResolveHeightenedSaveGatedDamage",
+      "qntFileSha256": "8e5d1d0725ad38b5183ce700f36656e548491723d32eaa5ab011b055f39d0f18",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.feature_resources.sorcery_points",
+          "BattleState.feature_substrates.metamagic_spell",
+          "BattleState.action_available",
+          "BattleState.bonus_action_available",
+          "BattleState.skeleton.hp",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.MetamagicOptionSpell"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "1cbcf85573a1635313fda0b33c16bd38a5dbfb124b967e5e382b7baf87042122",
+        "observedProjectionSha256": "1cbcf85573a1635313fda0b33c16bd38a5dbfb124b967e5e382b7baf87042122",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedSaveGatedDamage"
+    },
+    {
+      "branchAction": "doResolveHeightenedHideousLaughter",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs",
+      "observedActionTaken": "doResolveHeightenedHideousLaughter",
+      "qntFileSha256": "8e5d1d0725ad38b5183ce700f36656e548491723d32eaa5ab011b055f39d0f18",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.feature_resources.sorcery_points",
+          "BattleState.feature_substrates.metamagic_spell",
+          "BattleState.action_available",
+          "BattleState.bonus_action_available",
+          "BattleState.skeleton.hp",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.MetamagicOptionSpell"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "71f71db17c95b58ba01d623e89161b01f71efac637c2e786857930edff1cb4d5",
+        "observedProjectionSha256": "71f71db17c95b58ba01d623e89161b01f71efac637c2e786857930edff1cb4d5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedHideousLaughter"
+    },
+    {
+      "branchAction": "doResolveHeightenedGreaseEntrySave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs",
+      "observedActionTaken": "doResolveHeightenedGreaseEntrySave",
+      "qntFileSha256": "8e5d1d0725ad38b5183ce700f36656e548491723d32eaa5ab011b055f39d0f18",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.feature_resources.sorcery_points",
+          "BattleState.feature_substrates.metamagic_spell",
+          "BattleState.action_available",
+          "BattleState.bonus_action_available",
+          "BattleState.skeleton.hp",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.MetamagicOptionSpell"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "fe989e6a1e25323f629db49a1d6e49cf5da85a32d3a42a4eee593fcdd6d6ecfb",
+        "observedProjectionSha256": "fe989e6a1e25323f629db49a1d6e49cf5da85a32d3a42a4eee593fcdd6d6ecfb",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedGreaseEntrySave"
+    },
+    {
+      "branchAction": "doResolveHeightenedGustOfWindEndTurnSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs",
+      "observedActionTaken": "doResolveHeightenedGustOfWindEndTurnSave",
+      "qntFileSha256": "8e5d1d0725ad38b5183ce700f36656e548491723d32eaa5ab011b055f39d0f18",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.feature_resources.sorcery_points",
+          "BattleState.feature_substrates.metamagic_spell",
+          "BattleState.action_available",
+          "BattleState.bonus_action_available",
+          "BattleState.skeleton.hp",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.MetamagicOptionSpell"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b2f281f3655ad07fa68cdc3bd582d9fc5e14249c0a0c5c6f67527d758ec16e2b",
+        "observedProjectionSha256": "b2f281f3655ad07fa68cdc3bd582d9fc5e14249c0a0c5c6f67527d758ec16e2b",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedGustOfWindEndTurnSave"
+    },
+    {
+      "branchAction": "doResolveHeightenedSaveGatedConditionEndTurnSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs",
+      "observedActionTaken": "doResolveHeightenedSaveGatedConditionEndTurnSave",
+      "qntFileSha256": "8e5d1d0725ad38b5183ce700f36656e548491723d32eaa5ab011b055f39d0f18",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.feature_resources.sorcery_points",
+          "BattleState.feature_substrates.metamagic_spell",
+          "BattleState.action_available",
+          "BattleState.bonus_action_available",
+          "BattleState.skeleton.hp",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.MetamagicOptionSpell"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "17b269c38355368e41042d67d8303ac26de37c37df00391c294b1feb59ad182d",
+        "observedProjectionSha256": "17b269c38355368e41042d67d8303ac26de37c37df00391c294b1feb59ad182d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveHeightenedSaveGatedConditionEndTurnSave"
+    },
+    {
+      "branchAction": "doResolveDistantObjectLight",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_distant_selected_identity.rs",
+      "observedActionTaken": "doResolveDistantObjectLight",
+      "qntFileSha256": "99c86cd0247dd278efbfcd8bca30260773e5abfa177d9ff3025de7efa4c72e01",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.feature_resources.sorcery_points",
+          "BattleState.feature_substrates.metamagic_spell",
+          "BattleState.action_available",
+          "BattleState.bonus_action_available",
+          "BattleState.skeleton.hp",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.MetamagicOptionSpell"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "73f68514994711e4eb907d8fabb62f02d098ebef81b34edfc94d09a9e381be58",
+        "observedProjectionSha256": "73f68514994711e4eb907d8fabb62f02d098ebef81b34edfc94d09a9e381be58",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveDistantObjectLight"
+    },
+    {
+      "branchAction": "doResolveTwinnedTargetCount",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_sorcerer_metamagic_twinned_selected_identity.rs",
+      "observedActionTaken": "doResolveTwinnedTargetCount",
+      "qntFileSha256": "b990c79c50d537c5b98d5e4c0d40ea386d59b237ab00e6b94d223f1e0eddbc3c",
+      "result": {
+        "tag": "pass"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.feature_resources.sorcery_points",
+          "BattleState.feature_substrates.metamagic_spell",
+          "BattleState.action_available",
+          "BattleState.bonus_action_available",
+          "BattleState.skeleton.hp",
+          "BattleResolutionResult.outcome",
+          "ReducerRouteEvent.MetamagicOptionSpell"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "ce24ec34779a7cd9887dad01ca469706b82bd7bbc097c29ea7456048bafca969",
+        "observedProjectionSha256": "ce24ec34779a7cd9887dad01ca469706b82bd7bbc097c29ea7456048bafca969",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES seed=1 action=doResolveTwinnedTargetCount"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
