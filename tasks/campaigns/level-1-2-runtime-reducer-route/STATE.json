@@ -168,7 +168,7 @@
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "merged-verified",
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
     "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "running",
-    "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "running",
+    "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "worker-committed-pending-review",
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "running",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
   },
@@ -201,9 +201,23 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-b",
       "branch": "ralph/l15-rr07s-b-zero-hp-form-movement",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "running",
+      "status": "worker-committed-pending-review",
       "workerAgent": "019f070b-2c30-7de1-bece-a71c78a04a4b",
-      "workerName": "Newton"
+      "workerName": "Newton",
+      "commit": "81fd387c6dda4b00c28a752492d6aa0d2fee4d3d",
+      "workerSummary": [
+        "Added route evidence for zero-HP stabilization, Wild Shape form lifecycle, and movement/forced movement substrates.",
+        "Accepted zero-HP stabilization, all 7 Wild Shape branch actions, and 4 in-scope movement/forced-movement branches.",
+        "Left Barbarian Fast Movement and Ranger Roving as blocked/out-of-lane according to scope."
+      ],
+      "workerVerification": [
+        "focused adapter tests",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ]
     },
     {
       "laneId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
