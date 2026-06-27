@@ -1,7 +1,23 @@
 {
   "schemaVersion": 1,
   "taskId": "L15-RR09-CHARACTER-SHEET-ROUTES",
-  "findings": [],
+  "findings": [
+    {
+      "id": "RR09-fixer-1-independent-route-expectations",
+      "status": "fixed",
+      "resolution": "Arcane Recovery, Class Feature, and Spell Slots expected_route functions now build copied-QNT route shapes independently instead of delegating to replay_observed_route."
+    },
+    {
+      "id": "RR09-fixer-2-independent-projection-witnesses",
+      "status": "fixed",
+      "resolution": "Spellbook Ritual and Weapon Mastery expected witnesses are literal records, and Spell Slots expected witnesses no longer recompute with the same reducer helpers used by observed replay."
+    },
+    {
+      "id": "RR09-fixer-3-route-coverage-honesty",
+      "status": "fixed",
+      "resolution": "Ability Check, Healing Resource, Spellbook Ritual, and Weapon Mastery tests now replay and compare route values against independent expected routes from copied route QNT shapes."
+    }
+  ],
   "rounds": [
     {
       "id": "rr09-review-round-1",
@@ -94,6 +110,98 @@
         }
       ],
       "summary": "Second pass found no reasonable remaining findings; authored identity stays in adapters/tests/evidence, while production functions consume shape facts and sheet-owned state."
+    },
+    {
+      "id": "rr09-fixer-review-round-1",
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "pass"
+        }
+      ],
+      "summary": "Fixer pass addressed the three reviewer findings with independent route/projection expectations and added route assertions for the previously projection-only selected drivers."
+    },
+    {
+      "id": "rr09-fixer-review-round-2",
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "pass"
+        }
+      ],
+      "summary": "Convergence pass found no remaining reasonable findings in RAW traceability, domain language, connascence, adapter quarantine, state ownership, authored identity, or report honesty for the scoped fixes."
     }
   ]
 }

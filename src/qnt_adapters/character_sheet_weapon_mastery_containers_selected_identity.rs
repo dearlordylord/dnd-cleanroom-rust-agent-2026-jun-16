@@ -4,6 +4,13 @@ use crate::rules::class_features::{
     WeaponMasteryFeature, WeaponMasteryProjection, WeaponMasteryReselectionFacts,
 };
 
+use super::character_sheet_reducer_route::{
+    initial_sheet_build_route, route_complete_character_sheet_rest,
+    route_resolve_character_sheet_subject, route_retain_character_sheet_selected_references,
+    CharacterSheetRouteEvent, CharacterSheetRouteFillFamily, CharacterSheetRouteHoleFamily,
+    CharacterSheetRouteOwnerGroup, CharacterSheetRouteSubjectFamily,
+};
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum ReplayWeapon {
     CurrentFirst,
@@ -61,7 +68,139 @@ pub fn replay_observed_action(observed_action_taken: &str) -> SheetWeaponMastery
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> SheetWeaponMasteryWitness {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doSelectPaladinWeaponMastery" => expected(
+            "paladinSelected",
+            "paladin_weapon_mastery",
+            "class_paladin",
+            "weapon_longsword",
+            "weapon_dagger",
+            2,
+            2,
+            2,
+            0,
+            true,
+        ),
+        "doReselectPaladinWeaponMasteryOnLongRest" => expected(
+            "paladinReselected",
+            "paladin_weapon_mastery",
+            "class_paladin",
+            "weapon_spear",
+            "weapon_flail",
+            2,
+            2,
+            2,
+            2,
+            true,
+        ),
+        "doSelectRangerWeaponMastery" => expected(
+            "rangerSelected",
+            "ranger_weapon_mastery",
+            "class_ranger",
+            "weapon_longsword",
+            "weapon_dagger",
+            2,
+            2,
+            2,
+            0,
+            true,
+        ),
+        "doReselectRangerWeaponMasteryOnLongRest" => expected(
+            "rangerReselected",
+            "ranger_weapon_mastery",
+            "class_ranger",
+            "weapon_spear",
+            "weapon_flail",
+            2,
+            2,
+            2,
+            2,
+            true,
+        ),
+        "doSelectRogueWeaponMastery" => expected(
+            "rogueSelected",
+            "rogue_weapon_mastery",
+            "class_rogue",
+            "weapon_dagger",
+            "weapon_shortbow",
+            2,
+            2,
+            2,
+            0,
+            true,
+        ),
+        "doReselectRogueWeaponMasteryOnLongRest" => expected(
+            "rogueReselected",
+            "rogue_weapon_mastery",
+            "class_rogue",
+            "weapon_spear",
+            "weapon_shortsword",
+            2,
+            2,
+            2,
+            2,
+            true,
+        ),
+        "doAcceptOneChangeWeaponMasteryReselection" => expected(
+            "oneChangeAccepted",
+            "semantic_core",
+            "semantic_core",
+            "current_first",
+            "requested_second",
+            2,
+            1,
+            2,
+            1,
+            true,
+        ),
+        "doRejectTooManyChangesWeaponMasteryReselection" => expected(
+            "tooManyChangesRejected",
+            "semantic_core",
+            "semantic_core",
+            "requested_first",
+            "requested_second",
+            2,
+            1,
+            2,
+            2,
+            false,
+        ),
+        action => panic!("unsupported expected mbt::actionTaken {action}"),
+    }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+    match observed_action_taken {
+        "doSelectPaladinWeaponMastery"
+        | "doSelectRangerWeaponMastery"
+        | "doSelectRogueWeaponMastery" => retain_weapon_mastery_route(),
+        "doReselectPaladinWeaponMasteryOnLongRest"
+        | "doReselectRangerWeaponMasteryOnLongRest"
+        | "doReselectRogueWeaponMasteryOnLongRest"
+        | "doAcceptOneChangeWeaponMasteryReselection" => reselect_weapon_mastery_on_rest_route(),
+        "doRejectTooManyChangesWeaponMasteryReselection" => {
+            reject_weapon_mastery_reselection_route()
+        }
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+    match observed_action_taken {
+        "doSelectPaladinWeaponMastery"
+        | "doSelectRangerWeaponMastery"
+        | "doSelectRogueWeaponMastery" => expected_retain_weapon_mastery_route(),
+        "doReselectPaladinWeaponMasteryOnLongRest"
+        | "doReselectRangerWeaponMasteryOnLongRest"
+        | "doReselectRogueWeaponMasteryOnLongRest"
+        | "doAcceptOneChangeWeaponMasteryReselection" => {
+            expected_reselect_weapon_mastery_on_rest_route()
+        }
+        "doRejectTooManyChangesWeaponMasteryReselection" => {
+            expected_reject_weapon_mastery_reselection_route()
+        }
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &SheetWeaponMasteryWitness) -> String {
@@ -81,6 +220,68 @@ pub fn projection_payload(witness: &SheetWeaponMasteryWitness) -> String {
         format!("accepted={}", witness.accepted),
     ]
     .join("\n")
+}
+
+fn retain_weapon_mastery_route() -> Vec<CharacterSheetRouteEvent> {
+    let mut route = initial_sheet_build_route();
+    route.push(route_retain_character_sheet_selected_references(
+        CharacterSheetRouteSubjectFamily::SheetSelectedReferenceProjection,
+        CharacterSheetRouteOwnerGroup::CharacterSheetSelectedReference,
+    ));
+    route
+}
+
+fn reselect_weapon_mastery_on_rest_route() -> Vec<CharacterSheetRouteEvent> {
+    let mut route = retain_weapon_mastery_route();
+    route.push(route_complete_character_sheet_rest(
+        CharacterSheetRouteSubjectFamily::SheetSelectedReferenceProjection,
+        CharacterSheetRouteFillFamily::ProjectionSelection,
+        Vec::new(),
+        CharacterSheetRouteOwnerGroup::CharacterSheetSelectedReference,
+    ));
+    route
+}
+
+fn reject_weapon_mastery_reselection_route() -> Vec<CharacterSheetRouteEvent> {
+    let mut route = initial_sheet_build_route();
+    route.push(route_resolve_character_sheet_subject(
+        CharacterSheetRouteSubjectFamily::SheetSelectedReferenceProjection,
+        CharacterSheetRouteFillFamily::ProjectionSelection,
+        vec![CharacterSheetRouteHoleFamily::ProjectionChoice],
+        CharacterSheetRouteOwnerGroup::CharacterSheetSelectedReference,
+    ));
+    route
+}
+
+fn expected_retain_weapon_mastery_route() -> Vec<CharacterSheetRouteEvent> {
+    let mut route = initial_sheet_build_route();
+    route.push(route_retain_character_sheet_selected_references(
+        CharacterSheetRouteSubjectFamily::SheetSelectedReferenceProjection,
+        CharacterSheetRouteOwnerGroup::CharacterSheetSelectedReference,
+    ));
+    route
+}
+
+fn expected_reselect_weapon_mastery_on_rest_route() -> Vec<CharacterSheetRouteEvent> {
+    let mut route = expected_retain_weapon_mastery_route();
+    route.push(route_complete_character_sheet_rest(
+        CharacterSheetRouteSubjectFamily::SheetSelectedReferenceProjection,
+        CharacterSheetRouteFillFamily::ProjectionSelection,
+        Vec::new(),
+        CharacterSheetRouteOwnerGroup::CharacterSheetSelectedReference,
+    ));
+    route
+}
+
+fn expected_reject_weapon_mastery_reselection_route() -> Vec<CharacterSheetRouteEvent> {
+    let mut route = initial_sheet_build_route();
+    route.push(route_resolve_character_sheet_subject(
+        CharacterSheetRouteSubjectFamily::SheetSelectedReferenceProjection,
+        CharacterSheetRouteFillFamily::ProjectionSelection,
+        vec![CharacterSheetRouteHoleFamily::ProjectionChoice],
+        CharacterSheetRouteOwnerGroup::CharacterSheetSelectedReference,
+    ));
+    route
 }
 
 fn select_paladin_weapon_mastery() -> SheetWeaponMasteryWitness {
@@ -191,6 +392,36 @@ fn selection_witness(
         second_weapon_eligible: second.is_some(),
         feature_unit_ref_present: true,
         accepted: true,
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn expected(
+    last_result: &'static str,
+    feature_unit_id: &'static str,
+    class_unit_id: &'static str,
+    first_weapon_unit_id: &'static str,
+    second_weapon_unit_id: &'static str,
+    choice_count: usize,
+    long_rest_change_count: usize,
+    selected_weapon_count: usize,
+    changed_choice_count: usize,
+    accepted: bool,
+) -> SheetWeaponMasteryWitness {
+    SheetWeaponMasteryWitness {
+        last_result,
+        feature_unit_id,
+        class_unit_id,
+        first_weapon_unit_id,
+        second_weapon_unit_id,
+        choice_count,
+        long_rest_change_count,
+        selected_weapon_count,
+        changed_choice_count,
+        first_weapon_eligible: true,
+        second_weapon_eligible: true,
+        feature_unit_ref_present: true,
+        accepted,
     }
 }
 

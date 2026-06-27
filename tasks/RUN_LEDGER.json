@@ -1705,7 +1705,7 @@
       "targetReplayEvidence": [
         {
           "path": "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json",
-          "sha256": "dc4c8fd5a02bc4ecf5d063db79e5c19e5eb1e02e173fc77352eabee69e3e8f11",
+          "sha256": "b7ac5fc3598d0cc726016ec7415357cd7662f0ddd22c208f512208b650de9648",
           "evidenceRefs": [
             "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectExpertise#step:doProjectExpertise",
             "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json#L15-RR09-CHARACTER-SHEET-ROUTES route action=doProjectJackOfAllTradesLevelTwo#step:doProjectJackOfAllTradesLevelTwo",
@@ -1806,19 +1806,19 @@
         },
         "engineDepth": {
           "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "c97cf64c2f59ae241028032740364dc1dc4398854bb7df500d1e8547b4741a8c"
+          "sha256": "0ec335c4b34beb83d7bb45ace9242ceda69cb546e8004f5ad1ec4b570e914a94"
         },
         "stateOwnerManifest": {
           "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/STATE_OWNER_MANIFEST.json",
-          "sha256": "e189f71eca583cb9d9236671b10f8ac020942476419a19b33e3f188944d90113"
+          "sha256": "505f967b1a005e683e95cdedfcb9588caee0363e52d12128fd886ac10b27ea30"
         },
         "reviewLoop": {
           "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/REVIEW_LOOP.json",
-          "sha256": "efc66ca3252ab9ae2fd4374f8486145c85f92f0164154f4720d69ec6b67375e1"
+          "sha256": "9e54b9c3ab00be8cb9ed9bd4c4efc1b68151db9056130b0597f6444fca75df00"
         },
         "deciderDecision": {
           "path": "tasks/history/L15-RR09-CHARACTER-SHEET-ROUTES/DECIDER_DECISION.json",
-          "sha256": "dbcbe3f66e812dc6d9a90451965387fb37ae3b9bc8c763f7c5bd30fc29604955"
+          "sha256": "581de64311e181dff50d4acc50f9a276cca60f2b4afb3731da9670f08d07771c"
         }
       }
     }

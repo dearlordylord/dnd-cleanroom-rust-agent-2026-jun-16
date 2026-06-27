@@ -78,81 +78,187 @@ pub fn expected_witness(observed_action_taken: &str) -> SpellSlotsPactSlotsWitne
             "ordinary-capacity-mismatch-rejected",
             false,
             "Spell Slot state does not match build capacity for level 1.",
-            mismatched_ordinary_level1_capacity(),
+            3,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            false,
+            false,
             1,
         ),
         "doRejectPactSlotExpenditureOverCapacity" => expected(
             "pact-expenditure-over-capacity-rejected",
             false,
             "Pact Slot state must match Pact Magic build capacity.",
-            pact_slot_expended_over_capacity(),
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            2,
+            3,
+            false,
+            false,
             2,
         ),
         "doShortRestRestoresPactSlotsOnly" => expected(
             "short-rest-restores-pact-slots-only",
             true,
             "none",
-            recover_pact_slots(short_rest_pact_spent_slots()),
+            2,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            false,
+            false,
             3,
         ),
         "doShortRestArcaneRecoveryRefundsOrdinarySpellSlot" => expected(
             "short-rest-arcane-recovery-refunds-ordinary-spell-slot",
             true,
             "none",
-            apply_arcane_recovery(
-                recover_pact_slots(arcane_recovery_level2_spent_slots()),
-                0,
-                1,
-            ),
+            4,
+            2,
+            3,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            true,
+            false,
             4,
         ),
         "doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots" => expected(
             "long-rest-restores-ordinary-pact-and-clears-created-slots",
             true,
             "none",
-            complete_long_rest_slot_benefits(long_rest_created_slot_spent_slots()),
+            3,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            2,
+            0,
+            false,
+            false,
             5,
         ),
         "doInterruptShortRestNoSlotBenefit" => expected(
             "short-rest-interrupted-no-slot-benefit",
             true,
             "none",
-            short_rest_pact_spent_slots(),
+            2,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            false,
+            false,
             6,
         ),
         "doInterruptLongRestBeforeOneHourNoSlotBenefit" => expected(
             "long-rest-interrupted-before-one-hour-no-slot-benefit",
             true,
             "none",
-            short_rest_pact_spent_slots(),
+            2,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            false,
+            false,
             7,
         ),
         "doInterruptLongRestWithShortRestSlotBenefits" => expected(
             "long-rest-interrupted-with-short-rest-slot-benefits",
             true,
             "none",
-            recover_pact_slots(short_rest_pact_spent_slots()),
+            2,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            false,
+            false,
             8,
         ),
         "doMagicalCunningRecoversPactSlots" => expected(
             "magical-cunning-recovers-pact-slots",
             true,
             "none",
-            apply_magical_cunning(magical_cunning_spent_pact_slots()),
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            2,
+            1,
+            false,
+            true,
             9,
         ),
         "doRejectMagicalCunningWithoutExpendedPactSlots" => expected(
             "magical-cunning-no-expended-pact-slots-rejected",
             false,
             "Magical Cunning must recover expended Pact Slots.",
-            magical_cunning_fresh_pact_slots(),
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            2,
+            0,
+            false,
+            false,
             10,
         ),
         "doRejectArcaneRecoveryPactSlotRefund" => expected(
             "arcane-recovery-pact-slot-refund-rejected",
             false,
             "Arcane Recovery cannot refund more Spell Slots than are expended.",
-            arcane_recovery_no_expended_ordinary_slots(),
+            4,
+            0,
+            3,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            false,
+            false,
             11,
         ),
         action => panic!("unsupported expected mbt::actionTaken {action}"),
@@ -230,7 +336,90 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetR
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doRejectMismatchedOrdinarySpellSlotCapacity" => {
+            expected_initial_route_with(route_resolve_character_sheet_subject(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                CharacterSheetRouteFillFamily::ResourceSpend,
+                vec![CharacterSheetRouteHoleFamily::ResourceSpend],
+                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
+            ))
+        }
+        "doRejectPactSlotExpenditureOverCapacity" => {
+            expected_initial_route_with(route_resolve_character_sheet_subject(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                CharacterSheetRouteFillFamily::ResourceSpend,
+                vec![CharacterSheetRouteHoleFamily::ResourceSpend],
+                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
+            ))
+        }
+        "doShortRestRestoresPactSlotsOnly" | "doInterruptLongRestWithShortRestSlotBenefits" => {
+            expected_initial_route_with(route_complete_character_sheet_rest(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                CharacterSheetRouteFillFamily::RestDuration,
+                Vec::new(),
+                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
+            ))
+        }
+        "doShortRestArcaneRecoveryRefundsOrdinarySpellSlot" => {
+            expected_initial_route_with(route_complete_character_sheet_rest(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                CharacterSheetRouteFillFamily::RecoverySelection,
+                Vec::new(),
+                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
+            ))
+        }
+        "doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots" => {
+            let mut route = initial_sheet_build_route();
+            route.push(route_complete_character_sheet_rest(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                CharacterSheetRouteFillFamily::RestDuration,
+                Vec::new(),
+                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
+            ));
+            route.push(route_complete_character_sheet_rest(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                CharacterSheetRouteFillFamily::RestDuration,
+                Vec::new(),
+                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
+            ));
+            route
+        }
+        "doInterruptShortRestNoSlotBenefit" | "doInterruptLongRestBeforeOneHourNoSlotBenefit" => {
+            expected_initial_route_with(route_complete_character_sheet_rest(
+                CharacterSheetRouteSubjectFamily::SheetRest,
+                CharacterSheetRouteFillFamily::RestDuration,
+                vec![CharacterSheetRouteHoleFamily::RestBenefitChoice],
+                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
+            ))
+        }
+        "doMagicalCunningRecoversPactSlots" => {
+            let mut route = initial_sheet_build_route();
+            route.push(route_resolve_character_sheet_subject(
+                CharacterSheetRouteSubjectFamily::SheetFeatureResource,
+                CharacterSheetRouteFillFamily::RecoverySelection,
+                Vec::new(),
+                CharacterSheetRouteOwnerGroup::CharacterSheetFeatureResource,
+            ));
+            route.push(route_resolve_character_sheet_subject(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                CharacterSheetRouteFillFamily::RecoverySelection,
+                Vec::new(),
+                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
+            ));
+            route
+        }
+        "doRejectMagicalCunningWithoutExpendedPactSlots"
+        | "doRejectArcaneRecoveryPactSlotRefund" => {
+            expected_initial_route_with(route_resolve_character_sheet_subject(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                CharacterSheetRouteFillFamily::RecoverySelection,
+                vec![CharacterSheetRouteHoleFamily::RecoveryChoice],
+                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
+            ))
+        }
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &SpellSlotsPactSlotsWitness) -> String {
@@ -515,14 +704,47 @@ fn complete_restored_slot_route(owner: CharacterSheetRouteOwnerGroup) -> Charact
     )
 }
 
+#[allow(clippy::too_many_arguments)]
 fn expected(
     last_result: &'static str,
     accepted: bool,
     message: &'static str,
-    sheet: SheetSlotFacts,
+    ordinary_level1_capacity: i16,
+    ordinary_level1_expended: i16,
+    ordinary_level2_capacity: i16,
+    ordinary_level2_expended: i16,
+    created_level1_capacity: i16,
+    created_level1_expended: i16,
+    pact_slot_level: i16,
+    pact_slot_capacity: i16,
+    pact_slot_expended: i16,
+    arcane_recovery_used_since_long_rest: bool,
+    magical_cunning_used_since_long_rest: bool,
     replay_index: u8,
 ) -> SpellSlotsPactSlotsWitness {
-    record_projection(last_result, accepted, message, sheet, replay_index)
+    SpellSlotsPactSlotsWitness {
+        last_result,
+        accepted,
+        message,
+        ordinary_level1_capacity,
+        ordinary_level1_expended,
+        ordinary_level2_capacity,
+        ordinary_level2_expended,
+        created_level1_capacity,
+        created_level1_expended,
+        pact_slot_level,
+        pact_slot_capacity,
+        pact_slot_expended,
+        arcane_recovery_used_since_long_rest,
+        magical_cunning_used_since_long_rest,
+        replay_index,
+    }
+}
+
+fn expected_initial_route_with(event: CharacterSheetRouteEvent) -> Vec<CharacterSheetRouteEvent> {
+    let mut route = initial_sheet_build_route();
+    route.push(event);
+    route
 }
 
 fn record_projection(

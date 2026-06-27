@@ -103,7 +103,28 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetR
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doRecoverSecondLevelSpellSlot" | "doResetArcaneRecoveryOnLongRest" => {
+            vec![route_complete_character_sheet_rest(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                CharacterSheetRouteFillFamily::RecoverySelection,
+                Vec::new(),
+                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
+            )]
+        }
+        "doRejectPactSlotArcaneRecovery" => vec![route_resolve_character_sheet_subject(
+            CharacterSheetRouteSubjectFamily::SheetSpellResource,
+            CharacterSheetRouteFillFamily::RecoverySelection,
+            vec![CharacterSheetRouteHoleFamily::RecoveryChoice],
+            CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
+        )],
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+    }
+    .into_iter()
+    .fold(initial_sheet_build_route(), |mut route, event| {
+        route.push(event);
+        route
+    })
 }
 
 pub fn projection_payload(witness: &ArcaneRecoveryWitness) -> String {

@@ -35,7 +35,7 @@
       }
     }
   ],
-  "durableFieldsReason": "RR09 adds reusable sheet-owned spell-slot/pact-slot facts and class-feature projection shape facts. Route events are quarantined harness witness protocol. Authored ids remain adapter/test/evidence boundary fields only.",
+  "durableFieldsReason": "RR09 adds reusable sheet-owned spell-slot/pact-slot facts and class-feature projection shape facts. Route events and route assertions are quarantined harness witness protocol. Authored ids remain adapter/test/evidence boundary fields only.",
   "nonDurableBoundaryApiSurface": [
     {
       "apiPath": "character_sheet_* adapter projection payloads",

@@ -36,5 +36,5 @@
       "status": "pass"
     }
   ],
-  "rationale": "RR09 routes selected level-1/2 character-sheet projections through reusable sheet-owned slot/resource facts and QNT-shaped reducer route evidence. Production logic does not dispatch on authored identity; selected ids remain adapter/evidence payload fields."
+  "rationale": "RR09 routes selected level-1/2 character-sheet projections through reusable sheet-owned slot/resource facts and QNT-shaped reducer route evidence. Fixer pass made route/projection expectations independent and added explicit route assertions for Ability Check, Healing Resource, Spellbook Ritual, and Weapon Mastery. Production logic does not dispatch on authored identity; selected ids remain adapter/evidence payload fields."
 }

@@ -3,6 +3,12 @@ use crate::rules::feature_resources::{
     LayOnHandsProjection, ResourcePoolFacts,
 };
 
+use super::character_sheet_reducer_route::{
+    initial_sheet_build_route, route_project_character_sheet_facts,
+    route_resolve_character_sheet_subject, CharacterSheetRouteEvent, CharacterSheetRouteFillFamily,
+    CharacterSheetRouteOwnerGroup, CharacterSheetRouteSubjectFamily,
+};
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct HealingResourceWitness {
     pub source_hp: i16,
@@ -28,6 +34,46 @@ pub fn expected_lay_on_hands_witness() -> HealingResourceWitness {
         pool_expended: 7,
         pool_remaining: 3,
         last_result: "resolved",
+    }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+    match observed_action_taken {
+        "doLayOnHandsRestoreHpAndRemovePoisoned" => {
+            let mut route = initial_sheet_build_route();
+            route.push(route_resolve_character_sheet_subject(
+                CharacterSheetRouteSubjectFamily::SheetFeatureResource,
+                CharacterSheetRouteFillFamily::ResourceSpend,
+                Vec::new(),
+                CharacterSheetRouteOwnerGroup::CharacterSheetFeatureResource,
+            ));
+            route.push(route_project_character_sheet_facts(
+                CharacterSheetRouteSubjectFamily::SheetHitPoint,
+                CharacterSheetRouteOwnerGroup::CharacterSheetHitPoint,
+            ));
+            route
+        }
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+    match observed_action_taken {
+        "doLayOnHandsRestoreHpAndRemovePoisoned" => {
+            let mut route = initial_sheet_build_route();
+            route.push(route_resolve_character_sheet_subject(
+                CharacterSheetRouteSubjectFamily::SheetFeatureResource,
+                CharacterSheetRouteFillFamily::ResourceSpend,
+                Vec::new(),
+                CharacterSheetRouteOwnerGroup::CharacterSheetFeatureResource,
+            ));
+            route.push(route_project_character_sheet_facts(
+                CharacterSheetRouteSubjectFamily::SheetHitPoint,
+                CharacterSheetRouteOwnerGroup::CharacterSheetHitPoint,
+            ));
+            route
+        }
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
     }
 }
 

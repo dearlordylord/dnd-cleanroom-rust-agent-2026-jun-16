@@ -1762,6 +1762,7 @@ Allowed inputs used:
 Behavior implemented:
 
 - Routed selected level-1/2 Character Sheet projections through reusable sheet-owned slot/resource facts and QNT-shaped route events.
+- `src/tests/mod.rs` now replays and compares route values for the previously projection-only Ability Check, Healing Resource, Spellbook Ritual, and Weapon Mastery selected drivers, using expected routes transcribed from the copied `.route.mbt.qnt` shapes.
 - Kept authored ids in adapters, tests, and evidence payloads; production sheet functions consume shape facts and state projections.
 
 Generated branch coverage:

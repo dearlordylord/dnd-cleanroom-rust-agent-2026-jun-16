@@ -4,6 +4,11 @@ use crate::rules::ability_checks::{
     OtherProficiencyBonusState,
 };
 
+use super::character_sheet_reducer_route::{
+    initial_sheet_build_route, route_project_character_sheet_facts, CharacterSheetRouteEvent,
+    CharacterSheetRouteOwnerGroup, CharacterSheetRouteSubjectFamily,
+};
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AbilityCheckProficiencyWitness {
     pub last_result: &'static str,
@@ -92,6 +97,31 @@ pub fn expected_missing_bard_level_two_witness() -> AbilityCheckProficiencyWitne
     }
 }
 
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+    let projection_count = match observed_action_taken {
+        "doProjectJackOfAllTradesLevelTwo" => 1,
+        "doProjectJackOfAllTradesRoundedDown" => 2,
+        "doProjectSkillProficiency" => 3,
+        "doProjectExpertise" => 4,
+        "doRejectOtherProficiencyBonus" => 5,
+        "doRejectMissingBardLevelTwo" => 6,
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    };
+    ability_check_route_with_projection_count(projection_count)
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+    match observed_action_taken {
+        "doProjectJackOfAllTradesLevelTwo" => expected_ability_check_route(1),
+        "doProjectJackOfAllTradesRoundedDown" => expected_ability_check_route(2),
+        "doProjectSkillProficiency" => expected_ability_check_route(3),
+        "doProjectExpertise" => expected_ability_check_route(4),
+        "doRejectOtherProficiencyBonus" => expected_ability_check_route(5),
+        "doRejectMissingBardLevelTwo" => expected_ability_check_route(6),
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+    }
+}
+
 pub fn projection_payload(witness: &AbilityCheckProficiencyWitness) -> String {
     [
         format!("lastResult={}", witness.last_result),
@@ -102,6 +132,30 @@ pub fn projection_payload(witness: &AbilityCheckProficiencyWitness) -> String {
         format!("replayIndex={}", witness.replay_index),
     ]
     .join("\n")
+}
+
+fn ability_check_route_with_projection_count(
+    projection_count: usize,
+) -> Vec<CharacterSheetRouteEvent> {
+    let mut route = initial_sheet_build_route();
+    for _ in 0..projection_count {
+        route.push(route_project_character_sheet_facts(
+            CharacterSheetRouteSubjectFamily::SheetAbilityCheckProjection,
+            CharacterSheetRouteOwnerGroup::CharacterSheetBuildProjection,
+        ));
+    }
+    route
+}
+
+fn expected_ability_check_route(projection_count: usize) -> Vec<CharacterSheetRouteEvent> {
+    let mut route = initial_sheet_build_route();
+    route.extend((0..projection_count).map(|_| {
+        route_project_character_sheet_facts(
+            CharacterSheetRouteSubjectFamily::SheetAbilityCheckProjection,
+            CharacterSheetRouteOwnerGroup::CharacterSheetBuildProjection,
+        )
+    }));
+    route
 }
 
 fn jack_of_all_trades_level_two() -> AbilityCheckProficiencyWitness {

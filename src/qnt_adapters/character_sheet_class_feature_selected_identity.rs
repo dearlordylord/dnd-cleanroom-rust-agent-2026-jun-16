@@ -191,7 +191,28 @@ pub fn replay_observed_route(_observed_action_taken: &str) -> Vec<CharacterSheet
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    match observed_action_taken {
+        "doProjectBardJackOfAllTrades"
+        | "doProjectClericLifeDomainSpells"
+        | "doProjectDruidCircleLandSpells"
+        | "doProjectPaladinOathDevotionSpells"
+        | "doProjectPaladinsSmite"
+        | "doProjectRangerFavoredEnemy"
+        | "doProjectSorcererDraconicSpells"
+        | "doProjectWarlockFiendSpells" => {
+            let mut route = initial_sheet_build_route();
+            route.push(route_retain_character_sheet_selected_references(
+                CharacterSheetRouteSubjectFamily::SheetSelectedReferenceProjection,
+                CharacterSheetRouteOwnerGroup::CharacterSheetSelectedReference,
+            ));
+            route.push(route_project_character_sheet_facts(
+                CharacterSheetRouteSubjectFamily::SheetSelectedReferenceProjection,
+                CharacterSheetRouteOwnerGroup::CharacterSheetBuildProjection,
+            ));
+            route
+        }
+        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &SheetClassFeatureWitness) -> String {

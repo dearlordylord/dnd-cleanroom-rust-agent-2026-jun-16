@@ -155,13 +155,69 @@
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json"
       ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_ability_check_proficiency_bonus.rs",
+      "adapterScope": "Ability Check Proficiency Bonus projection and route replay.",
+      "quarantinedWitnessNames": [
+        "doProjectJackOfAllTradesLevelTwo",
+        "doProjectJackOfAllTradesRoundedDown",
+        "doProjectSkillProficiency",
+        "doProjectExpertise",
+        "doRejectOtherProficiencyBonus",
+        "doRejectMissingBardLevelTwo"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_healing_resource_selected_identity.rs",
+      "adapterScope": "Healing resource selected-identity projection and route replay.",
+      "quarantinedWitnessNames": [
+        "doLayOnHandsRestoreHpAndRemovePoisoned"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_spellbook_ritual_selected_identity.rs",
+      "adapterScope": "Spellbook Ritual selected-identity projection and route replay.",
+      "quarantinedWitnessNames": [
+        "doInvokeSpellbookRitual",
+        "doRejectPreparedOnlyRitual",
+        "doRejectNonRitualSpellbookSpell",
+        "doRejectMissingRitualAccessFeature",
+        "doRejectNonLeveledRitualSpellbookSpell"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs",
+      "adapterScope": "Weapon Mastery selected-reference projection and route replay.",
+      "quarantinedWitnessNames": [
+        "doSelectPaladinWeaponMastery",
+        "doReselectPaladinWeaponMasteryOnLongRest",
+        "doSelectRangerWeaponMastery",
+        "doReselectRangerWeaponMasteryOnLongRest",
+        "doSelectRogueWeaponMastery",
+        "doReselectRogueWeaponMasteryOnLongRest",
+        "doAcceptOneChangeWeaponMasteryReselection",
+        "doRejectTooManyChangesWeaponMasteryReselection"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/L15-RR09-character-sheet-routes.json"
+      ]
     }
   ],
   "accumulatorGrowth": [
     {
       "owner": "adapter",
       "addedEntries": 1,
-      "reason": "RR09 adds one target replay evidence file covering all selected character-sheet route obligations."
+      "reason": "RR09 adds one target replay evidence file covering selected character-sheet route obligations; fixer pass added explicit route assertions for ability-check, healing-resource, spellbook-ritual, and weapon-mastery selected drivers."
     }
   ],
   "expectedNextReuse": [
