@@ -1,8 +1,17 @@
+use crate::rules::character_creation::{
+    apply_creation_retained_reference_operation, completed_fighter_creation_state, route_payload,
+    CreationRetainedReferenceOperation, CreationRouteEvent,
+};
 use crate::rules::class_features::{
     level_two_feature_projection, ClassFeatureProjection, ClassLevel, FeatureSet, MetamagicEffect,
     MetamagicOption, MetamagicRepeatability, MetamagicStackingMode, ResourceKind, ResourceRecovery,
     ResourceUnit, RuleFactKind, SpellUseLimit,
 };
+
+pub const BRANCH_ACTIONS: &[&str] = &[
+    "doProjectMonkFocusAndUncannyMetabolism",
+    "doProjectSorcererFontAndMetamagic",
+];
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ProjectionWitness {
@@ -41,6 +50,22 @@ pub fn replay_observed_action(observed_action_taken: &str) -> ProjectionWitness 
         "doProjectSorcererFontAndMetamagic" => sorcerer_replay_after_monk(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
+}
+
+pub fn replay_observed_route(_observed_action_taken: &str) -> Vec<CreationRouteEvent> {
+    apply_creation_retained_reference_operation(
+        &completed_fighter_creation_state(),
+        CreationRetainedReferenceOperation::RetainAndProject,
+    )
+    .route
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CreationRouteEvent> {
+    replay_observed_route(observed_action_taken)
+}
+
+pub fn route_projection_payload(route: &[CreationRouteEvent]) -> String {
+    route_payload(route)
 }
 
 pub fn expected_monk_witness() -> ProjectionWitness {

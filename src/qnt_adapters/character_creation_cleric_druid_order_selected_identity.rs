@@ -1,7 +1,18 @@
+use crate::rules::character_creation::{
+    apply_creation_retained_reference_operation, completed_fighter_creation_state, route_payload,
+    CreationRetainedReferenceOperation, CreationRouteEvent,
+};
 use crate::rules::class_features::{
     level_one_order_projection, Ability, AbilityCheckBonus, Cantrip, ClassLevel, ClassOrderFeature,
     ClassOrderProjection, ClericDivineOrder, DruidPrimalOrder, OrderChoice, OrderSelection, Skill,
 };
+
+pub const BRANCH_ACTIONS: &[&str] = &[
+    "doSelectClericProtectorOrder",
+    "doSelectClericThaumaturgeOrder",
+    "doSelectDruidMagicianOrder",
+    "doSelectDruidWardenOrder",
+];
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct OrderWitness {
@@ -29,6 +40,22 @@ pub fn replay_observed_action(observed_action_taken: &str) -> OrderWitness {
         "doSelectDruidWardenOrder" => druid_warden_replay(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
+}
+
+pub fn replay_observed_route(_observed_action_taken: &str) -> Vec<CreationRouteEvent> {
+    apply_creation_retained_reference_operation(
+        &completed_fighter_creation_state(),
+        CreationRetainedReferenceOperation::RetainOnly,
+    )
+    .route
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CreationRouteEvent> {
+    replay_observed_route(observed_action_taken)
+}
+
+pub fn route_projection_payload(route: &[CreationRouteEvent]) -> String {
+    route_payload(route)
 }
 
 pub fn expected_cleric_protector_witness() -> OrderWitness {

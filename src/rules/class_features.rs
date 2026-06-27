@@ -115,6 +115,10 @@ pub struct ClassFeatureProjection {
 pub enum ProjectionError {
     DuplicateMetamagicOption,
     MissingExtraCantrip,
+    DuplicateExpertiseSkill,
+    ExpertiseSkillNotOwned,
+    DuplicateInvocationSelection,
+    LockedInvocationReplacement,
     WrongWeaponMasteryChoiceCount,
     IllegalWeaponMasteryReselectionFacts,
     ExistingWeaponMasteryChoiceCountMismatch,
@@ -144,6 +148,8 @@ pub enum FightingStyleFeature {
 pub enum FightingStyleFeat {
     Archery,
     Defense,
+    GreatWeaponFighting,
+    TwoWeaponFighting,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -153,6 +159,84 @@ pub struct FightingStyleProjection {
     pub replaced_feat: Option<FightingStyleFeat>,
     pub selected_fighting_style_feature_ref_count: u8,
     pub total_level: ClassLevel,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct SelectedClassFeatureFacts {
+    pub choice_count: u8,
+    pub resource_maximum: u8,
+    pub known_form_count: u8,
+    pub short_rest_refill: u8,
+    pub long_rest_refills_all: bool,
+    pub accepted: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct SelectedClassFeatureProjection {
+    pub choice_count: u8,
+    pub resource_maximum: u8,
+    pub known_form_count: u8,
+    pub short_rest_refill: u8,
+    pub long_rest_refills_all: bool,
+    pub accepted: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ExpertiseSkill {
+    Acrobatics,
+    Perception,
+    SleightOfHand,
+    Stealth,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ExpertiseSelectionFacts {
+    pub requested_skills: Vec<ExpertiseSkill>,
+    pub owned_skill_proficiency_count: u8,
+    pub total_level: u8,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ExpertiseSelectionProjection {
+    pub selected_skills: Vec<ExpertiseSkill>,
+    pub selected_expertise_choice_count: u8,
+    pub build_expertise_count: u8,
+    pub owned_skill_proficiency_count: u8,
+    pub total_level: u8,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum EldritchInvocation {
+    ArmorOfShadows,
+    DevilsSight,
+    EldritchMind,
+    PactBlade,
+    RepellingBlastEldritchBlast,
+    RepellingBlastPoisonSpray,
+    ThirstingBlade,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct WarlockInvocationSelectionFacts {
+    pub selected_invocations: Vec<EldritchInvocation>,
+    pub replacement_locked_by_prerequisite: bool,
+    pub pact_magic_cantrip_count: u8,
+    pub pact_magic_prepared_spell_count: u8,
+    pub pact_magic_slot_count: u8,
+    pub pact_magic_slot_level: u8,
+    pub total_level: u8,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct WarlockInvocationSelectionProjection {
+    pub selected_invocations: Vec<EldritchInvocation>,
+    pub selected_invocation_count: u8,
+    pub selected_class_choice_feature_ref_count: u8,
+    pub pact_magic_cantrip_count: u8,
+    pub pact_magic_prepared_spell_count: u8,
+    pub pact_magic_slot_count: u8,
+    pub pact_magic_slot_level: u8,
+    pub total_level: u8,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -348,6 +432,69 @@ pub fn fighter_fighting_style_projection(
     }
 }
 
+#[must_use]
+pub fn selected_class_feature_projection(
+    facts: SelectedClassFeatureFacts,
+) -> SelectedClassFeatureProjection {
+    // QNT: character-creation-class-feature-selected-identity.mbt.qnt.
+    // Character Creation "Record Class Features" owns selected references at
+    // the catalog/selection boundary; execution-facing behavior uses these
+    // parsed support facts rather than authored identity.
+    SelectedClassFeatureProjection {
+        choice_count: facts.choice_count,
+        resource_maximum: facts.resource_maximum,
+        known_form_count: facts.known_form_count,
+        short_rest_refill: facts.short_rest_refill,
+        long_rest_refills_all: facts.long_rest_refills_all,
+        accepted: facts.accepted,
+    }
+}
+
+pub fn expertise_selection_projection(
+    facts: ExpertiseSelectionFacts,
+) -> Result<ExpertiseSelectionProjection, ProjectionError> {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Rogue.md "Level 1:
+    // Expertise"; Rules-Glossary.md "Expertise".
+    if has_duplicates(&facts.requested_skills) {
+        return Err(ProjectionError::DuplicateExpertiseSkill);
+    }
+    if facts.requested_skills.len() > usize::from(facts.owned_skill_proficiency_count) {
+        return Err(ProjectionError::ExpertiseSkillNotOwned);
+    }
+
+    Ok(ExpertiseSelectionProjection {
+        selected_expertise_choice_count: facts.requested_skills.len() as u8,
+        build_expertise_count: facts.requested_skills.len() as u8,
+        selected_skills: facts.requested_skills,
+        owned_skill_proficiency_count: facts.owned_skill_proficiency_count,
+        total_level: facts.total_level,
+    })
+}
+
+pub fn warlock_invocation_selection_projection(
+    facts: WarlockInvocationSelectionFacts,
+) -> Result<WarlockInvocationSelectionProjection, ProjectionError> {
+    // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Warlock.md "Level 1:
+    // Eldritch Invocations" and "Level 1: Pact Magic".
+    if facts.replacement_locked_by_prerequisite {
+        return Err(ProjectionError::LockedInvocationReplacement);
+    }
+    if has_duplicates(&facts.selected_invocations) {
+        return Err(ProjectionError::DuplicateInvocationSelection);
+    }
+
+    Ok(WarlockInvocationSelectionProjection {
+        selected_invocation_count: facts.selected_invocations.len() as u8,
+        selected_class_choice_feature_ref_count: 0,
+        selected_invocations: facts.selected_invocations,
+        pact_magic_cantrip_count: facts.pact_magic_cantrip_count,
+        pact_magic_prepared_spell_count: facts.pact_magic_prepared_spell_count,
+        pact_magic_slot_count: facts.pact_magic_slot_count,
+        pact_magic_slot_level: facts.pact_magic_slot_level,
+        total_level: facts.total_level,
+    })
+}
+
 pub fn weapon_mastery_projection(
     class: WeaponMasteryClass,
     selected_weapons: &[Weapon],
@@ -450,6 +597,13 @@ fn weapon_mastery_choices_have_duplicates<T: Eq>(weapons: &[T]) -> bool {
         .iter()
         .enumerate()
         .any(|(index, weapon)| weapons[..index].contains(weapon))
+}
+
+fn has_duplicates<T: Eq>(items: &[T]) -> bool {
+    items
+        .iter()
+        .enumerate()
+        .any(|(index, item)| items[..index].contains(item))
 }
 
 fn weapon_mastery_choice_count(class: WeaponMasteryClass) -> u8 {

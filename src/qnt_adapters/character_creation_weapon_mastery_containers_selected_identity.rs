@@ -1,7 +1,19 @@
+use crate::rules::character_creation::{
+    apply_creation_retained_reference_operation, completed_fighter_creation_state, route_payload,
+    CreationRetainedReferenceOperation, CreationRouteEvent,
+};
 use crate::rules::class_features::{
     weapon_mastery_projection, ClassLevel, ClassUnit, Weapon, WeaponMasteryClass,
     WeaponMasteryFeature, WeaponMasteryProjection,
 };
+
+pub const BRANCH_ACTIONS: &[&str] = &[
+    "doFinalizeFighterWeaponMastery",
+    "doFinalizeBarbarianWeaponMastery",
+    "doFinalizePaladinWeaponMastery",
+    "doFinalizeRangerWeaponMastery",
+    "doFinalizeRogueWeaponMastery",
+];
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct WeaponMasteryWitness {
@@ -30,6 +42,22 @@ pub fn replay_observed_action(observed_action_taken: &str) -> WeaponMasteryWitne
         "doFinalizeRogueWeaponMastery" => rogue_replay(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
+}
+
+pub fn replay_observed_route(_observed_action_taken: &str) -> Vec<CreationRouteEvent> {
+    apply_creation_retained_reference_operation(
+        &completed_fighter_creation_state(),
+        CreationRetainedReferenceOperation::RetainOnly,
+    )
+    .route
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CreationRouteEvent> {
+    replay_observed_route(observed_action_taken)
+}
+
+pub fn route_projection_payload(route: &[CreationRouteEvent]) -> String {
+    route_payload(route)
 }
 
 pub fn expected_barbarian_witness() -> WeaponMasteryWitness {

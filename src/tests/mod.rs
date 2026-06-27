@@ -126,12 +126,18 @@ mod character_battle_origin_feat_selected_identity;
 mod character_battle_settlement;
 #[path = "../qnt_adapters/character_creation_class_feature_projections.rs"]
 mod character_creation_class_feature_projections;
+#[path = "../qnt_adapters/character_creation_class_feature_selected_identity.rs"]
+mod character_creation_class_feature_selected_identity;
 #[path = "../qnt_adapters/character_creation_cleric_druid_order_selected_identity.rs"]
 mod character_creation_cleric_druid_order_selected_identity;
 #[path = "../qnt_adapters/character_creation_fighter_fighting_style_selected_identity.rs"]
 mod character_creation_fighter_fighting_style_selected_identity;
+#[path = "../qnt_adapters/character_creation_rogue_expertise_selected_identity.rs"]
+mod character_creation_rogue_expertise_selected_identity;
 #[path = "../qnt_adapters/character_creation_runtime.rs"]
 mod character_creation_runtime;
+#[path = "../qnt_adapters/character_creation_warlock_eldritch_invocations_selected_identity.rs"]
+mod character_creation_warlock_eldritch_invocations_selected_identity;
 #[path = "../qnt_adapters/character_creation_weapon_mastery_containers_selected_identity.rs"]
 mod character_creation_weapon_mastery_containers_selected_identity;
 #[path = "../qnt_adapters/character_layer_projection_lifecycle.rs"]
@@ -981,27 +987,65 @@ use character_battle_settlement::{
     BRANCH_ACTIONS as BATTLE_SETTLEMENT_BRANCH_ACTIONS,
 };
 use character_creation_class_feature_projections::{
-    expected_monk_witness, expected_sorcerer_witness, projection_payload, replay_observed_action,
+    expected_monk_witness, expected_route as expected_class_projection_route,
+    expected_sorcerer_witness, projection_payload, replay_observed_action,
+    replay_observed_route as replay_class_projection_route,
+    route_projection_payload as class_projection_route_payload,
+    BRANCH_ACTIONS as CLASS_FEATURE_PROJECTION_BRANCH_ACTIONS,
+};
+use character_creation_class_feature_selected_identity::{
+    expected_route as expected_selected_class_feature_route,
+    projection_payload as selected_class_feature_projection_payload,
+    replay_observed_action as replay_selected_class_feature_action,
+    replay_observed_route as replay_selected_class_feature_route,
+    route_projection_payload as selected_class_feature_route_payload,
+    BRANCH_ACTIONS as SELECTED_CLASS_FEATURE_BRANCH_ACTIONS,
 };
 use character_creation_cleric_druid_order_selected_identity::{
     expected_cleric_protector_witness, expected_cleric_thaumaturge_witness,
     expected_druid_magician_witness, expected_druid_warden_witness,
-    projection_payload as order_projection_payload, replay_observed_action as replay_order_action,
+    expected_route as expected_order_route, projection_payload as order_projection_payload,
+    replay_observed_action as replay_order_action, replay_observed_route as replay_order_route,
+    route_projection_payload as order_route_payload, BRANCH_ACTIONS as ORDER_BRANCH_ACTIONS,
 };
 use character_creation_fighter_fighting_style_selected_identity::{
-    expected_replace_defense_with_archery_witness, expected_select_defense_witness,
-    projection_payload as fighting_style_projection_payload,
+    expected_replace_defense_with_archery_witness, expected_route as expected_fighting_style_route,
+    expected_select_defense_witness, projection_payload as fighting_style_projection_payload,
     replay_observed_action as replay_fighting_style_action,
+    replay_observed_route as replay_fighting_style_route,
+    route_projection_payload as fighting_style_route_payload,
+    BRANCH_ACTIONS as FIGHTING_STYLE_BRANCH_ACTIONS,
+};
+use character_creation_rogue_expertise_selected_identity::{
+    expected_route as expected_rogue_expertise_route,
+    projection_payload as rogue_expertise_projection_payload,
+    replay_observed_action as replay_rogue_expertise_action,
+    replay_observed_route as replay_rogue_expertise_route,
+    route_projection_payload as rogue_expertise_route_payload,
+    BRANCH_ACTIONS as ROGUE_EXPERTISE_BRANCH_ACTIONS,
 };
 use character_creation_runtime::{
-    projection_payload as runtime_projection_payload,
-    replay_observed_action as replay_runtime_action, BRANCH_ACTIONS,
+    expected_route as expected_runtime_route, projection_payload as runtime_projection_payload,
+    replay_observed_action as replay_runtime_action, replay_observed_route as replay_runtime_route,
+    route_projection_payload as runtime_route_payload, BRANCH_ACTIONS,
+};
+use character_creation_warlock_eldritch_invocations_selected_identity::{
+    expected_route as expected_warlock_invocation_route,
+    projection_payload as warlock_invocation_projection_payload,
+    replay_observed_action as replay_warlock_invocation_action,
+    replay_observed_route as replay_warlock_invocation_route,
+    route_projection_payload as warlock_invocation_route_payload,
+    BRANCH_ACTIONS as WARLOCK_INVOCATION_BRANCH_ACTIONS,
 };
 use character_creation_weapon_mastery_containers_selected_identity::{
     expected_barbarian_witness, expected_fighter_witness, expected_paladin_witness,
     expected_ranger_witness, expected_rogue_witness,
+    expected_route as expected_weapon_mastery_route,
     projection_payload as weapon_mastery_projection_payload,
     replay_observed_action as replay_weapon_mastery_action,
+    replay_observed_route as replay_weapon_mastery_route,
+    route_projection_payload as weapon_mastery_route_payload,
+    BRANCH_ACTIONS as CREATION_WEAPON_MASTERY_BRANCH_ACTIONS,
 };
 use character_layer_projection_lifecycle::{
     expected_witness as expected_lifecycle_witness,
@@ -1147,6 +1191,37 @@ fn class_feature_projection_adapter_replays_sorcerer_branch() {
 }
 
 #[test]
+fn class_feature_projection_routes_use_character_build_owner() {
+    for action in CLASS_FEATURE_PROJECTION_BRANCH_ACTIONS {
+        let observed = replay_class_projection_route(action);
+        let expected = expected_class_projection_route(action);
+        let payload = class_projection_route_payload(&observed);
+
+        assert_eq!(observed, expected);
+        assert!(payload.contains("RouteProjectCharacterBuildFacts"));
+        assert!(payload.contains("CharacterBuildOwner"));
+    }
+}
+
+#[test]
+fn selected_class_feature_adapter_replays_all_branches() {
+    // QNT: character-creation-class-feature-selected-identity.mbt.qnt and
+    // .route.mbt.qnt; RAW: Character-Creation.md "Record Class Features".
+    for action in SELECTED_CLASS_FEATURE_BRANCH_ACTIONS {
+        let witness = replay_selected_class_feature_action(action);
+        let route = replay_selected_class_feature_route(action);
+        let expected_route = expected_selected_class_feature_route(action);
+        let witness_payload = selected_class_feature_projection_payload(&witness);
+        let route_payload = selected_class_feature_route_payload(&route);
+
+        assert_eq!(route, expected_route);
+        assert!(witness.accepted);
+        assert!(witness_payload.contains("accepted=true"));
+        assert!(route_payload.contains("RouteRetainCreationRetainedReferences"));
+    }
+}
+
+#[test]
 fn sorcerer_metamagic_projection_rejects_duplicate_options() {
     let result = level_two_feature_projection(FeatureSet::SorcererLevelTwo {
         metamagic_options: [
@@ -1174,6 +1249,18 @@ fn cleric_druid_order_adapter_replays_all_selected_identity_branches() {
     assert!(order_projection_payload(&cleric_protector)
         .contains("martialWeaponProficiencyPresent=true"));
     assert!(order_projection_payload(&druid_magician).contains("abilityCheckBonusFeatureCount=1"));
+}
+
+#[test]
+fn cleric_druid_order_routes_retain_retained_references() {
+    for action in ORDER_BRANCH_ACTIONS {
+        let observed = replay_order_route(action);
+        let expected = expected_order_route(action);
+        let payload = order_route_payload(&observed);
+
+        assert_eq!(observed, expected);
+        assert!(payload.contains("CreationRetainedReferenceOwner"));
+    }
 }
 
 #[test]
@@ -1216,6 +1303,23 @@ fn fighter_fighting_style_adapter_replays_selected_identity_branches() {
 }
 
 #[test]
+fn fighter_fighting_style_adapter_replays_all_route_branches() {
+    for action in FIGHTING_STYLE_BRANCH_ACTIONS {
+        let witness = replay_fighting_style_action(action);
+        let observed_route = replay_fighting_style_route(action);
+        let expected_route = expected_fighting_style_route(action);
+        let route_payload = fighting_style_route_payload(&observed_route);
+
+        assert_eq!(observed_route, expected_route);
+        assert_eq!(witness.selected_fighting_style_feature_ref_count, 1);
+        assert!(route_payload.contains("RouteRetainCreationRetainedReferences"));
+        if action.contains("Replace") {
+            assert!(route_payload.contains("RouteProjectCharacterBuildFacts"));
+        }
+    }
+}
+
+#[test]
 fn fighter_fighting_style_replacement_records_previous_and_new_feat() {
     // RAW: cleanroom-input/raw/srd-5.2.1/Classes/Fighter.md
     // "Level 1: Fighting Style"; cleanroom-input/raw/srd-5.2.1/Feats.md
@@ -1245,6 +1349,19 @@ fn character_creation_runtime_adapter_replays_all_branch_actions() {
         let payload = runtime_projection_payload(&witness);
         assert!(payload.contains("qDraft.revision="));
         assert!(matches!(witness.q_last_result, "accepted" | "rejected"));
+    }
+}
+
+#[test]
+fn character_creation_runtime_routes_all_branch_actions_through_creation_state() {
+    for action in BRANCH_ACTIONS {
+        let observed = replay_runtime_route(action);
+        let expected = expected_runtime_route(action);
+        let payload = runtime_route_payload(&observed);
+
+        assert_eq!(observed, expected);
+        assert!(payload.contains("RouteCreateCharacterDraft"));
+        assert!(payload.contains("RouteApplyCreationFillBatch"));
     }
 }
 
@@ -1330,6 +1447,44 @@ fn character_creation_runtime_rejects_manifest_protocol_issues() {
 }
 
 #[test]
+fn rogue_expertise_adapter_replays_selected_identity_branches() {
+    for action in ROGUE_EXPERTISE_BRANCH_ACTIONS {
+        let witness = replay_rogue_expertise_action(action);
+        let payload = rogue_expertise_projection_payload(&witness);
+
+        assert!(witness.rogue_expertise_unit_ref_present);
+        assert!(payload.contains("selectedExpertiseUnitId=rogue_expertise"));
+        if action == &"doSelectLevelOneOwnedSkillExpertise" {
+            let route = replay_rogue_expertise_route(action);
+            let expected_route = expected_rogue_expertise_route(action);
+            assert_eq!(route, expected_route);
+            assert!(rogue_expertise_route_payload(&route)
+                .contains("RouteRetainCreationRetainedReferences"));
+        }
+    }
+}
+
+#[test]
+fn warlock_invocation_adapter_replays_selected_identity_branches() {
+    for action in WARLOCK_INVOCATION_BRANCH_ACTIONS {
+        let witness = replay_warlock_invocation_action(action);
+        let route = replay_warlock_invocation_route(action);
+        let expected_route = expected_warlock_invocation_route(action);
+        let payload = warlock_invocation_projection_payload(&witness);
+        let route_payload = warlock_invocation_route_payload(&route);
+
+        assert_eq!(route, expected_route);
+        assert!(witness.warlock_invocations_unit_ref_present);
+        assert!(payload.contains("selectedFromUnitId=warlock_eldritch_invocations"));
+        if action.contains("Reject") {
+            assert!(route_payload.contains("CreationSupportProfileAdmissionOwner"));
+        } else {
+            assert!(route_payload.contains("RouteProjectCharacterBuildFacts"));
+        }
+    }
+}
+
+#[test]
 fn weapon_mastery_adapter_replays_container_identity_branches() {
     // QNT: cleanroom-input/qnt/character-creation-runtime/
     // character-creation-weapon-mastery-containers-selected-identity.mbt.qnt.
@@ -1348,6 +1503,19 @@ fn weapon_mastery_adapter_replays_container_identity_branches() {
     assert!(
         weapon_mastery_projection_payload(&rogue).contains("secondWeaponUnitId=weapon_shortsword")
     );
+}
+
+#[test]
+fn creation_weapon_mastery_routes_retain_retained_references() {
+    for action in CREATION_WEAPON_MASTERY_BRANCH_ACTIONS {
+        let observed = replay_weapon_mastery_route(action);
+        let expected = expected_weapon_mastery_route(action);
+        let payload = weapon_mastery_route_payload(&observed);
+
+        assert_eq!(observed, expected);
+        assert!(payload.contains("RouteRetainCreationRetainedReferences"));
+        assert!(payload.contains("CreationRetainedReferenceOwner"));
+    }
 }
 
 #[test]
