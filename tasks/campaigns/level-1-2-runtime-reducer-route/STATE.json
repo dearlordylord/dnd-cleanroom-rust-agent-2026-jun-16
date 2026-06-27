@@ -191,7 +191,7 @@
     "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "merged-verified",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "complete",
     "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES": "merged-verified",
-    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "review-needed",
+    "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES": "reviewing",
     "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES": "ready",
     "L15-RR07-FU01D-PROTECTION-CHARM-WARD-SUBSTRATES": "ready",
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready",
@@ -218,7 +218,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01b",
       "branch": "ralph/l15-rr07-fu01b-spell-attack-damage",
       "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
-      "status": "review-needed",
+      "status": "reviewing",
       "workerAgent": "019f079d-4d22-75e0-b100-3872c7e6bdc2",
       "workerName": "Euler",
       "commit": "11f9f56bf2dccee87204371cb9a5d5f125e6402c",
@@ -234,7 +234,10 @@
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
         "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
-      ]
+      ],
+      "reviewAgent": "019f07ac-40b5-7080-8a85-491461a3c337",
+      "reviewName": "Carson",
+      "reviewStatus": "running"
     },
     {
       "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
