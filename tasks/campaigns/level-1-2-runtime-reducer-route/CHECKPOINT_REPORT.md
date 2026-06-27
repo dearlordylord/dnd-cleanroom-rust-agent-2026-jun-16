@@ -23,19 +23,19 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is accepted after the copied route connector refresh. |
 | CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
 | CP6 Closure Sweep | complete | Closure audit recorded in `CP6_AUDIT.json` and `CP6_CLOSURE_REPORT.md`; every in-scope obligation is accepted or explicitly blocked. |
-| CP7 Post-CP6 Target Blocker Reduction | active | `L15-RRCP7-A`, `L15-RRCP7-B`, `L15-RRCP7-C`, and `L15-RRCP7-D` merged and verified; eleven target blockers are accepted after CP6, and CP7-D records three retained Mage Armor blockers. |
+| CP7 Post-CP6 Target Blocker Reduction | active | `L15-RRCP7-A` through `L15-RRCP7-E` merged and verified; thirteen target blockers are accepted after CP6, and twelve target blockers remain. |
 
 ## Last Known Verification
 
-At CP7 integration head `ffc162a61eeea40b0e922b28c7cdeff95281728d`:
+At CP7 integration head `24ad8f3b493b2affa4dba3607a619f92bf54eb16`:
 
-- `cargo test mage_armor_adapter_replays_all_branches -- --nocapture`: pass
-- `jq empty` over `tasks/RUN_LEDGER.json`, affected FU01E history/evidence files, and `CP7_AUDIT.json`: pass
+- `cargo test weapon_hosted_attack_and_riders_route_adapter_replays_accepted_branches -- --nocapture`: pass
+- `jq empty` over `tasks/RUN_LEDGER.json`, affected CP7-E history/evidence files, and `CP7_AUDIT.json`: pass
 - `cargo fmt --check`: pass
 - `git diff --check HEAD~1...HEAD`: pass
 - `cargo test`: pass, `220` tests
 - `cargo clippy --all-targets -- -D warnings`: pass
-- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7d-cleanroom-harness.out` contained no CP7-D, FU01E, or Mage Armor-specific failures.
+- `node scripts/check-cleanroom-harness.cjs`: fails only on global stale evidence/ledger entries pinned to source `564376fd95218a209bb9eae5c9ccb54ca3e04a52` after `cleanroom-input` moved to source `53642cf0b1bc98f4426b6081fe37c98a960939fc`; `/tmp/rrcp7e-cleanroom-harness.out` contained no CP7-E, Magic Weapon, or WeaponEnhancement-specific failures.
 
 ## Active Work
 
@@ -505,8 +505,15 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 
 ### L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES
 
-- Status: queued.
+- Merge commit: `24ad8f3b493b2affa4dba3607a619f92bf54eb16`
+- Lane commit(s): `be0b02ec32b5182c031471812ca8fa1625183c51`, `d08c66e271cae1d4f3ddd5eb1ca101ad5b11c14c`
 - Selected rows: `doDiscoverMagicWeapon` and `doFillMagicWeaponTarget`.
 - Route connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-enhancement-item-target.route.mbt.qnt`.
-- Acceptance gate: observed reducer-entrypoint route evidence must match `WeaponEnhancementItemTargetRouteSubject` with empty route holes, `BattleItemTargetBoundaryOwner` discovery, and no-fill resolution owned by `BattleActiveEffectOwner`.
-- Explicit non-goals: do not add `MagicWeaponTargetItem` as reducer-owned hole/fill vocabulary; do not include the nine scenario transition rows or the three Mage Armor rows in this target lane.
+- Obligations added: `2` accepted counted obligations; total accepted obligations moved from `654` to `656`.
+- New total driver coverage: `97 / 97 = 100.0%`
+- New total obligation coverage: `656 / 668 = 98.2%`
+- Remaining blockers: `12` target-side blockers, `0` source-QNT corpus blockers, `0` unresolved in-scope obligations.
+- Integration verification: focused weapon-hosted route adapter test, affected JSON parse checks, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`220` tests), and `cargo clippy --all-targets -- -D warnings` passed. `node scripts/check-cleanroom-harness.cjs` still fails on pre-existing stale global evidence/manifest debt; the saved output contained no CP7-E/Magic Weapon/WeaponEnhancement-specific failures.
+- Review/fixer notes: review confirmed the two accepted rows replay through observed reducer entrypoints and match `WeaponEnhancementItemTargetRouteSubject` with empty route holes, `BattleItemTargetBoundaryOwner` discovery, and no-fill resolution owned by `BattleActiveEffectOwner`. The only finding was a stale CP7 audit Run Ledger hash; the worker fixed it and rereview by inspection was clean.
+- Explicit non-goals preserved: `MagicWeaponTargetItem` was not added as reducer-owned hole/fill vocabulary; the nine scenario transition rows and three Mage Armor rows remain blocked.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-e`

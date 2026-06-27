@@ -1179,7 +1179,7 @@
     {
       "laneId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES",
       "checkpointId": "CP7",
-      "status": "running",
+      "status": "merged-verified",
       "parallelGroup": "cp7-target-blocker-reduction",
       "routeTaskIds": [
         "L15-RR17-WEAPON-HOSTED-RIDER-ROUTES"
@@ -1214,7 +1214,7 @@
         "tasks/VALIDATION_REPORT.md",
         "tasks/campaigns/level-1-2-runtime-reducer-route/CP7_AUDIT.json"
       ],
-      "acceptanceSummary": "Queued. Accept only if doDiscoverMagicWeapon and doFillMagicWeaponTarget replay through observed reducer entrypoints and match the copied WeaponEnhancementItemTargetRouteSubject qRoute: start battle, discover with empty holes and BattleItemTargetBoundaryOwner, then resolve without fill with BattleActiveEffectOwner. Do not add MagicWeaponTargetItem as reducer-owned hole/fill vocabulary."
+      "acceptanceSummary": "Merged and verified. doDiscoverMagicWeapon and doFillMagicWeaponTarget replay through observed BattleEntrypointTrace.route_events and match the copied WeaponEnhancementItemTargetRouteSubject qRoute: start battle, discover with empty holes and BattleItemTargetBoundaryOwner, then resolve without fill with BattleActiveEffectOwner. MagicWeaponTargetItem remains outside reducer-owned hole/fill vocabulary."
     },
     {
       "laneId": "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES",

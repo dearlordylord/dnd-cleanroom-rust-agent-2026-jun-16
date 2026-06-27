@@ -3,7 +3,7 @@
   "campaignId": "level-1-2-runtime-reducer-route",
   "integrationWorktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
   "integrationBranch": "ralph/rrconv-19-cleanroom",
-  "auditedHead": "ffc162a61eeea40b0e922b28c7cdeff95281728d",
+  "auditedHead": "24ad8f3b493b2affa4dba3607a619f92bf54eb16",
   "denominator": {
     "source": "cleanroom-input/branch-coverage/reducer-route-inventory.json",
     "denominatorId": "level-1-5-cleanroom-route-v1",
@@ -415,6 +415,8 @@
     "evidence": "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json",
     "evidenceSha256": "114de0a6d4d339a674b8de3fde41dc041beb35c4d403efe6fe982aa214e61bf5",
     "runLedgerSha256": "471ff1e086b844cbf09cc96b7153025fd06d22878a946df9d617ac8a08f40bee",
-    "note": "Accepted exactly the two Magic Weapon item-target rows through observed BattleEntrypointTrace.route_events matching the copied WeaponEnhancementItemTargetRouteSubject qRoute. Scenario-transition blockers and Mage Armor rows remain blocked; MagicWeaponTargetItem was not added as reducer-owned hole or fill vocabulary."
+    "note": "Accepted exactly the two Magic Weapon item-target rows through observed BattleEntrypointTrace.route_events matching the copied WeaponEnhancementItemTargetRouteSubject qRoute. Scenario-transition blockers and Mage Armor rows remain blocked; MagicWeaponTargetItem was not added as reducer-owned hole or fill vocabulary.",
+    "mergeCommit": "24ad8f3b493b2affa4dba3607a619f92bf54eb16",
+    "laneHead": "d08c66e271cae1d4f3ddd5eb1ca101ad5b11c14c"
   }
 }

@@ -14,7 +14,6 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-e` | `ralph/l15-rrcp7-e-magic-weapon` | `19f1e16` | `019f0947-2366-70d1-b4fb-e95ba0fb0aec` Lorentz the 2nd | running |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -76,3 +75,4 @@ When launching a lane:
 | L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-b` | `ralph/l15-rrcp7-b-damage-spell-bridges` | `2741da1671caa183a4907e6eec54de26c744d7e8` | `b33d9bbc1080c0d7a96ab606da07d0f517417096` | removable |
 | L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-c` | `ralph/l15-rrcp7-c-weapon-prehit` | `855e702770866c18ae5b657367b95af8410efbe9` | `554e2e2c0adae1127496d4a12023ae5ac8979f88` | removable |
 | L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-d` | `ralph/l15-rrcp7-d-mage-armor` | `61b1534b2cfc9b3d403ca358864beeb6266c0e66` | `ffc162a61eeea40b0e922b28c7cdeff95281728d` | removable; zero accepted coverage, Mage Armor route connector blocker recorded |
+| L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-e` | `ralph/l15-rrcp7-e-magic-weapon` | `d08c66e271cae1d4f3ddd5eb1ca101ad5b11c14c` | `24ad8f3b493b2affa4dba3607a619f92bf54eb16` | removable |
