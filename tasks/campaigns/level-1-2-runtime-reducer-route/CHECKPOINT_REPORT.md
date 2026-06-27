@@ -378,9 +378,20 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Review/fixer notes: reviewer returned clean; observed replay uses public reducer entrypoints, expected routes are independently enumerated, the object-target boundary owner is distinct from generic target selection, and production dispatch is by companion/object-target route shape rather than authored identity.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-d`
 
+### L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES
+
+- Merge commit: `09414700e40d3f4c1818fdf10aa42f7bff69ff71`
+- Lane commit(s): `aa2cc0d6dabacbdc77c9eedc1b299f6b7a3c9b86`, `83cf6603eca84c380fd434150b662c4341d45126`
+- Drivers added: `5` net-new unique drivers.
+- Obligations added: `33` accepted counted obligations; no blockers.
+- New total driver coverage: `86 / 97 = 88.7%`
+- New total obligation coverage: `576 / 668 = 86.2%`
+- Integration verification: `cargo test routes_ -- --nocapture`, `node scripts/check-cleanroom-harness.cjs`, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`215 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: first review found self-confirming expected routes and stale lane ids; fixer replaced expected routes with independent copied witnesses, kept observed replay on public reducer entrypoints, renamed artifacts to `L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES`, and re-review returned clean.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-b`
+
 ## CP5 Current Queue
 
-- `L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES`: fixer Goodall the 2nd `019f082b-82c8-7943-9f72-ef80dfd79b8b` still running after review found illumination evidence mismatch, duplicate trace id `L15-RRCP5-A-doFinish`, and self-comparison witness coverage.
-- `L15-RRCP5-B-ACTIVE-EFFECT-LIFECYCLE-ROUTES`: fixer Nietzsche the 2nd completed at `83cf6603eca84c380fd434150b662c4341d45126`; ready for merge review.
-- `L15-RRCP5-C-REACTION-INTERRUPT-ROUTES`: fixer Kepler the 2nd completed at `8b97ed1fa16870bc42689ca3176a92b191e91a91`; ready for merge review.
-- `L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES`: reviewer Ohm the 2nd found evidence/report denominator mismatch because three out-of-scope Enhance Ability rows are recorded as passing target replay evidence; needs fixer before merge.
+- `L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES`: fixer Goodall the 2nd completed at `5ecdd9ef43f9598fe19fdda58fcab4596c0c68c2`; Descartes the 2nd re-reviewed clean; ready to merge.
+- `L15-RRCP5-C-REACTION-INTERRUPT-ROUTES`: re-review found scenario-local route emission remained; targeted fixer Euler the 2nd is running.
+- `L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES`: fixer Singer the 2nd completed at `015af29280a59f87abaf9aa677d8f6f8cd4135a2`; awaits re-review.
