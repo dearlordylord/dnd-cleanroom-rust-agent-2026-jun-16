@@ -169,7 +169,7 @@
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
     "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "fixing",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
-    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "fixing",
+    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "rereviewing",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
   },
   "lastIntegrationVerification": {
@@ -339,7 +339,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c",
       "branch": "ralph/l15-rr07s-c-weapon-breath-feature",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "fixing",
+      "status": "rereviewing",
       "workerAgent": "019f070b-ff89-7fd2-8978-44745a13ef82",
       "workerName": "Kuhn",
       "commit": "3da4fbbd6d0630c096d0d386f28cc0ce02fb432b",
@@ -407,7 +407,22 @@
       ],
       "fixer2Agent": "019f073c-aa3b-7182-8769-82593a36eb71",
       "fixer2Name": "Averroes",
-      "fix2Status": "running"
+      "fix2Status": "complete",
+      "fix2Commit": "6d89dd42b345c3253d36759d723c1fe4a3271c2c",
+      "fix2Summary": [
+        "Added reducer-observed route events to BattleEntrypointTrace.",
+        "Switched weapon mastery, Dragonborn Breath Weapon, and feature selected-identity adapters to build observed route evidence from start_*_observed, discover_battle_acts_observed, and resolve_battle_subject_observed.",
+        "Kept expected routes as independent literal ReducerRouteEvent records and revised artifacts to stop claiming unobserved internal micro-route evidence.",
+        "Accepted all 11 lane C obligations; Extra Attack continuation remains state projection, not a separate observed route event."
+      ],
+      "fix2Verification": [
+        "cargo fmt --check",
+        "cargo test weapon_mastery_selected_identity_adapter_replays_all_branches && cargo test dragonborn_breath_weapon_adapter_replays_all_branches && cargo test feature_selected_identity_adapter_replays_all_branches",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ]
     }
   ],
   "completedLaneWorktrees": [
