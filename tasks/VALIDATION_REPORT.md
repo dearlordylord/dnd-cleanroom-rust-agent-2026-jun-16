@@ -1107,3 +1107,84 @@ Verification results:
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `node scripts/check-cleanroom-harness.cjs` passed.
+
+## L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS: Rule-Core Damage, HP, and Stat-Block Components
+
+- Manifest source commit SHA: `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+- Source branch inventory SHA: `4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32`
+- Drivers:
+  - `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt`
+  - `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt`
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/rule-core-component-route.qnt`
+- `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt`
+- `cleanroom-input/qnt/shared-algebras/proofs/rule-core/attack-damage-composition.qnt`
+- `cleanroom-input/qnt/shared-algebras/proofs/rule-core/hit-point-damage.qnt`
+- `cleanroom-input/qnt/shared-algebras/proofs/rule-core/hit-point-recovery.qnt`
+- `cleanroom-input/qnt/shared-algebras/proofs/rule-core/stat-block-controls.qnt`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- `cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md`
+- `cleanroom-input/raw/srd-5.2.1/Monsters/Overview.md`
+- Repo-local `src/**`, `tasks/**`, scripts, and Cargo tooling
+
+Behavior implemented:
+
+- Added derived `qComponentRoute` projections to the three selected rule-core adapters, using the owner-specific route from `rule-core-component-route.qnt`.
+- Kept damage, HP, and stat-block facts in reusable rule-core component modules; no production `BattleState` owner was added for witness/protocol state.
+- Focused tests assert both component result facts and component route evidence for all selected branch actions.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt#step:doMeleeKnockOut` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doMeleeKnockOut#step:doMeleeKnockOut` | `src/qnt_adapters/rule_core_attack_damage_disposition.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt#step:doRejectRangedKnockOut` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doRejectRangedKnockOut#step:doRejectRangedKnockOut` | `src/qnt_adapters/rule_core_attack_damage_disposition.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt#step:doMonsterDiesAtZero` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doMonsterDiesAtZero#step:doMonsterDiesAtZero` | `src/qnt_adapters/rule_core_hit_point_damage_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt#step:doPlayerCharacterDiesFromMassiveDamage` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doPlayerCharacterDiesFromMassiveDamage#step:doPlayerCharacterDiesFromMassiveDamage` | `src/qnt_adapters/rule_core_hit_point_damage_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt#step:doPlayerCharacterFallsUnconscious` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doPlayerCharacterFallsUnconscious#step:doPlayerCharacterFallsUnconscious` | `src/qnt_adapters/rule_core_hit_point_damage_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt#step:doTemporaryHitPointsAbsorbFirst` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doTemporaryHitPointsAbsorbFirst#step:doTemporaryHitPointsAbsorbFirst` | `src/qnt_adapters/rule_core_hit_point_damage_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doEndTurnClosesDispatches` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doEndTurnClosesDispatches#step:doEndTurnClosesDispatches` | `src/qnt_adapters/rule_core_stat_block_controls_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doMoveDuringDispatch` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doMoveDuringDispatch#step:doMoveDuringDispatch` | `src/qnt_adapters/rule_core_stat_block_controls_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doRejectBonusActionDuringDispatch` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doRejectBonusActionDuringDispatch#step:doRejectBonusActionDuringDispatch` | `src/qnt_adapters/rule_core_stat_block_controls_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doRejectOrdinaryActionDuringDispatch` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doRejectOrdinaryActionDuringDispatch#step:doRejectOrdinaryActionDuringDispatch` | `src/qnt_adapters/rule_core_stat_block_controls_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doResolvePrimaryDispatch` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doResolvePrimaryDispatch#step:doResolvePrimaryDispatch` | `src/qnt_adapters/rule_core_stat_block_controls_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doResolveSecondaryDispatch` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doResolveSecondaryDispatch#step:doResolveSecondaryDispatch` | `src/qnt_adapters/rule_core_stat_block_controls_mbt.rs` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt#step:doStartMultiattack` | `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doStartMultiattack#step:doStartMultiattack` | `src/qnt_adapters/rule_core_stat_block_controls_mbt.rs` | `covered` |
+
+Target replay evidence:
+
+- Evidence file: `tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json`
+- Target profile: `rust`
+- Target profile SHA-256: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
+- Run ledger: `tasks/RUN_LEDGER.json`
+
+Harness artifacts:
+
+- Start gate: `tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/START_GATE.json`
+- Engine depth: `tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/ENGINE_DEPTH_MANIFEST.json`
+- State ownership: `tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/STATE_OWNER_MANIFEST.json`
+- Reviewer loop: `tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/REVIEW_LOOP.json`
+- Decider decision: `tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/DECIDER_DECISION.json`
+
+Remaining gaps:
+
+- `_none_`
+
+Verification results:
+
+- `cargo test attack_damage_disposition_adapter_replays_all_branches` passed.
+- `cargo test hit_point_damage_adapter_replays_all_branches` passed.
+- `cargo test stat_block_controls_adapter_replays_all_branches` passed.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` passed.
+- `git diff --check a625d3e7190eb33396c17ee5dca7ae73f413b348...HEAD` passed.

@@ -1,5 +1,4 @@
 {
-  "schemaVersion": 1,
   "assignments": [
     {
       "assignmentId": "reducer-spine-diagnostic-battle",
@@ -153,6 +152,14 @@
             "cleanroom-input/qnt/battle-runtime/battle-runtime-command-ordering.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff.mbt.qnt"
           ]
+        },
+        {
+          "laneId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
+          "queue": [
+            "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt"
+          ]
         }
       ]
     },
@@ -303,5 +310,6 @@
         }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 1
 }

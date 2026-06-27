@@ -1,3 +1,3 @@
 # Blockers
 
-None recorded for `L15-RR06-BATTLE-SPELL-EFFECT-ROUTES`.
+None recorded for `L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS`.

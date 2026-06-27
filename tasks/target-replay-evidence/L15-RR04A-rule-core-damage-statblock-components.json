@@ -1,0 +1,398 @@
+{
+  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "generatedBy": {
+    "name": "rust-cleanroom-rr04a-rule-core-component-route-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doMeleeKnockOut",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_attack_damage_disposition.rs",
+      "observedActionTaken": "doMeleeKnockOut",
+      "qntFileSha256": "6cc621473240f21e0d94e78f51593a4da61f49bc68133d055019c30f6d4cdbf5",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "AttackDamageDispositionState.outcome",
+          "AttackDamageDispositionState.accepted",
+          "AttackDamageDispositionState.target_hit_points",
+          "AttackDamageDispositionState.target_unconscious",
+          "AttackDamageDispositionState.target_dead",
+          "AttackDamageDispositionState.knock_out_recovery_ends_when_hit_points_regained"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "a87508c83d2936377ccd131313313658419b1a2eadb550ccbf2c6fd42b7047a0",
+        "observedProjectionSha256": "a87508c83d2936377ccd131313313658419b1a2eadb550ccbf2c6fd42b7047a0",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doMeleeKnockOut"
+    },
+    {
+      "branchAction": "doRejectRangedKnockOut",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_attack_damage_disposition.rs",
+      "observedActionTaken": "doRejectRangedKnockOut",
+      "qntFileSha256": "6cc621473240f21e0d94e78f51593a4da61f49bc68133d055019c30f6d4cdbf5",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "AttackDamageDispositionState.outcome",
+          "AttackDamageDispositionState.accepted",
+          "AttackDamageDispositionState.target_hit_points",
+          "AttackDamageDispositionState.target_unconscious",
+          "AttackDamageDispositionState.target_dead",
+          "AttackDamageDispositionState.knock_out_recovery_ends_when_hit_points_regained"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "a87508c83d2936377ccd131313313658419b1a2eadb550ccbf2c6fd42b7047a0",
+        "observedProjectionSha256": "a87508c83d2936377ccd131313313658419b1a2eadb550ccbf2c6fd42b7047a0",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doRejectRangedKnockOut"
+    },
+    {
+      "branchAction": "doMonsterDiesAtZero",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
+      "observedActionTaken": "doMonsterDiesAtZero",
+      "qntFileSha256": "7486580e6c31ab534c2d3a31572dfe3a05287842607dafb62d96b536cf835fdb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "HitPointDamageState.outcome",
+          "HitPointDamageState.hit_points",
+          "HitPointDamageState.hit_point_maximum",
+          "HitPointDamageState.temporary_hit_points",
+          "HitPointDamageState.dead",
+          "HitPointDamageState.unconscious",
+          "HitPointDamageState.damage_to_hit_points",
+          "HitPointDamageState.remaining_damage_at_zero"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "b56f4904634d3c74d41b61d348c9d927f56b2bf7b903c6f0d591643feb9c5609",
+        "observedProjectionSha256": "b56f4904634d3c74d41b61d348c9d927f56b2bf7b903c6f0d591643feb9c5609",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doMonsterDiesAtZero"
+    },
+    {
+      "branchAction": "doPlayerCharacterDiesFromMassiveDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
+      "observedActionTaken": "doPlayerCharacterDiesFromMassiveDamage",
+      "qntFileSha256": "7486580e6c31ab534c2d3a31572dfe3a05287842607dafb62d96b536cf835fdb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "HitPointDamageState.outcome",
+          "HitPointDamageState.hit_points",
+          "HitPointDamageState.hit_point_maximum",
+          "HitPointDamageState.temporary_hit_points",
+          "HitPointDamageState.dead",
+          "HitPointDamageState.unconscious",
+          "HitPointDamageState.damage_to_hit_points",
+          "HitPointDamageState.remaining_damage_at_zero"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "b56f4904634d3c74d41b61d348c9d927f56b2bf7b903c6f0d591643feb9c5609",
+        "observedProjectionSha256": "b56f4904634d3c74d41b61d348c9d927f56b2bf7b903c6f0d591643feb9c5609",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doPlayerCharacterDiesFromMassiveDamage"
+    },
+    {
+      "branchAction": "doPlayerCharacterFallsUnconscious",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
+      "observedActionTaken": "doPlayerCharacterFallsUnconscious",
+      "qntFileSha256": "7486580e6c31ab534c2d3a31572dfe3a05287842607dafb62d96b536cf835fdb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "HitPointDamageState.outcome",
+          "HitPointDamageState.hit_points",
+          "HitPointDamageState.hit_point_maximum",
+          "HitPointDamageState.temporary_hit_points",
+          "HitPointDamageState.dead",
+          "HitPointDamageState.unconscious",
+          "HitPointDamageState.damage_to_hit_points",
+          "HitPointDamageState.remaining_damage_at_zero"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "b56f4904634d3c74d41b61d348c9d927f56b2bf7b903c6f0d591643feb9c5609",
+        "observedProjectionSha256": "b56f4904634d3c74d41b61d348c9d927f56b2bf7b903c6f0d591643feb9c5609",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doPlayerCharacterFallsUnconscious"
+    },
+    {
+      "branchAction": "doTemporaryHitPointsAbsorbFirst",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_hit_point_damage_mbt.rs",
+      "observedActionTaken": "doTemporaryHitPointsAbsorbFirst",
+      "qntFileSha256": "7486580e6c31ab534c2d3a31572dfe3a05287842607dafb62d96b536cf835fdb",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "HitPointDamageState.outcome",
+          "HitPointDamageState.hit_points",
+          "HitPointDamageState.hit_point_maximum",
+          "HitPointDamageState.temporary_hit_points",
+          "HitPointDamageState.dead",
+          "HitPointDamageState.unconscious",
+          "HitPointDamageState.damage_to_hit_points",
+          "HitPointDamageState.remaining_damage_at_zero"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "b56f4904634d3c74d41b61d348c9d927f56b2bf7b903c6f0d591643feb9c5609",
+        "observedProjectionSha256": "b56f4904634d3c74d41b61d348c9d927f56b2bf7b903c6f0d591643feb9c5609",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doTemporaryHitPointsAbsorbFirst"
+    },
+    {
+      "branchAction": "doEndTurnClosesDispatches",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+      "observedActionTaken": "doEndTurnClosesDispatches",
+      "qntFileSha256": "f9096889c7d4816fb7102db58b188b71119a0b6b99f734eb5503e03b24539696",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "StatBlockControlState.attack_action_available",
+          "StatBlockControlState.bonus_action_available",
+          "StatBlockControlState.pending_primary_dispatches",
+          "StatBlockControlState.pending_secondary_dispatches",
+          "StatBlockControlState.movement_spent_feet",
+          "StatBlockControlState.movement_remaining_feet",
+          "StatBlockControlState.multiattack_continuation_open",
+          "StatBlockControlState.protocol"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "observedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doEndTurnClosesDispatches"
+    },
+    {
+      "branchAction": "doMoveDuringDispatch",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+      "observedActionTaken": "doMoveDuringDispatch",
+      "qntFileSha256": "f9096889c7d4816fb7102db58b188b71119a0b6b99f734eb5503e03b24539696",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "StatBlockControlState.attack_action_available",
+          "StatBlockControlState.bonus_action_available",
+          "StatBlockControlState.pending_primary_dispatches",
+          "StatBlockControlState.pending_secondary_dispatches",
+          "StatBlockControlState.movement_spent_feet",
+          "StatBlockControlState.movement_remaining_feet",
+          "StatBlockControlState.multiattack_continuation_open",
+          "StatBlockControlState.protocol"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "observedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doMoveDuringDispatch"
+    },
+    {
+      "branchAction": "doRejectBonusActionDuringDispatch",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+      "observedActionTaken": "doRejectBonusActionDuringDispatch",
+      "qntFileSha256": "f9096889c7d4816fb7102db58b188b71119a0b6b99f734eb5503e03b24539696",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "StatBlockControlState.attack_action_available",
+          "StatBlockControlState.bonus_action_available",
+          "StatBlockControlState.pending_primary_dispatches",
+          "StatBlockControlState.pending_secondary_dispatches",
+          "StatBlockControlState.movement_spent_feet",
+          "StatBlockControlState.movement_remaining_feet",
+          "StatBlockControlState.multiattack_continuation_open",
+          "StatBlockControlState.protocol"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "observedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doRejectBonusActionDuringDispatch"
+    },
+    {
+      "branchAction": "doRejectOrdinaryActionDuringDispatch",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+      "observedActionTaken": "doRejectOrdinaryActionDuringDispatch",
+      "qntFileSha256": "f9096889c7d4816fb7102db58b188b71119a0b6b99f734eb5503e03b24539696",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "StatBlockControlState.attack_action_available",
+          "StatBlockControlState.bonus_action_available",
+          "StatBlockControlState.pending_primary_dispatches",
+          "StatBlockControlState.pending_secondary_dispatches",
+          "StatBlockControlState.movement_spent_feet",
+          "StatBlockControlState.movement_remaining_feet",
+          "StatBlockControlState.multiattack_continuation_open",
+          "StatBlockControlState.protocol"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "observedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doRejectOrdinaryActionDuringDispatch"
+    },
+    {
+      "branchAction": "doResolvePrimaryDispatch",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+      "observedActionTaken": "doResolvePrimaryDispatch",
+      "qntFileSha256": "f9096889c7d4816fb7102db58b188b71119a0b6b99f734eb5503e03b24539696",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "StatBlockControlState.attack_action_available",
+          "StatBlockControlState.bonus_action_available",
+          "StatBlockControlState.pending_primary_dispatches",
+          "StatBlockControlState.pending_secondary_dispatches",
+          "StatBlockControlState.movement_spent_feet",
+          "StatBlockControlState.movement_remaining_feet",
+          "StatBlockControlState.multiattack_continuation_open",
+          "StatBlockControlState.protocol"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "observedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doResolvePrimaryDispatch"
+    },
+    {
+      "branchAction": "doResolveSecondaryDispatch",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+      "observedActionTaken": "doResolveSecondaryDispatch",
+      "qntFileSha256": "f9096889c7d4816fb7102db58b188b71119a0b6b99f734eb5503e03b24539696",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "StatBlockControlState.attack_action_available",
+          "StatBlockControlState.bonus_action_available",
+          "StatBlockControlState.pending_primary_dispatches",
+          "StatBlockControlState.pending_secondary_dispatches",
+          "StatBlockControlState.movement_spent_feet",
+          "StatBlockControlState.movement_remaining_feet",
+          "StatBlockControlState.multiattack_continuation_open",
+          "StatBlockControlState.protocol"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "observedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doResolveSecondaryDispatch"
+    },
+    {
+      "branchAction": "doStartMultiattack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_stat_block_controls_mbt.rs",
+      "observedActionTaken": "doStartMultiattack",
+      "qntFileSha256": "f9096889c7d4816fb7102db58b188b71119a0b6b99f734eb5503e03b24539696",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "StatBlockControlState.attack_action_available",
+          "StatBlockControlState.bonus_action_available",
+          "StatBlockControlState.pending_primary_dispatches",
+          "StatBlockControlState.pending_secondary_dispatches",
+          "StatBlockControlState.movement_spent_feet",
+          "StatBlockControlState.movement_remaining_feet",
+          "StatBlockControlState.multiattack_continuation_open",
+          "StatBlockControlState.protocol"
+        ],
+        "comparator": "component-route-event-list",
+        "expectedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "observedProjectionSha256": "768324baa4ec83bde256454b62e91c3446e4de2f2cfbf8432e153220d2216cbf",
+        "projection": "qComponentRoute",
+        "tag": "state-match"
+      },
+      "traceId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doStartMultiattack"
+    }
+  ],
+  "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

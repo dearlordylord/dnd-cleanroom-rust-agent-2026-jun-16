@@ -1060,12 +1060,14 @@ use creature_attack_mbt::{
     BRANCH_ACTIONS as CREATURE_ATTACK_BRANCH_ACTIONS, REPLAY_DAMAGE_SAMPLE, REPLAY_HIT_SAMPLE,
 };
 use rule_core_attack_damage_disposition::{
+    component_route_payload as attack_damage_disposition_component_route_payload,
     expected_witness as expected_attack_damage_disposition_witness,
     projection_payload as attack_damage_disposition_projection_payload,
     replay_observed_action as replay_attack_damage_disposition_action,
     BRANCH_ACTIONS as ATTACK_DAMAGE_DISPOSITION_BRANCH_ACTIONS,
 };
 use rule_core_hit_point_damage_mbt::{
+    component_route_payload as hit_point_damage_component_route_payload,
     expected_witness as expected_hit_point_damage_witness,
     projection_payload as hit_point_damage_projection_payload,
     replay_observed_action as replay_hit_point_damage_action,
@@ -1086,6 +1088,7 @@ use rule_core_shove_outcome_mbt::{
     replay_observed_action as replay_shove_action, BRANCH_ACTIONS as SHOVE_BRANCH_ACTIONS,
 };
 use rule_core_stat_block_controls_mbt::{
+    component_route_payload as stat_block_control_component_route_payload,
     expected_witness as expected_stat_block_control_witness,
     projection_payload as stat_block_control_projection_payload,
     replay_observed_action as replay_stat_block_control_action,
@@ -2505,6 +2508,12 @@ fn attack_damage_disposition_adapter_replays_all_branches() {
         let observed = replay_attack_damage_disposition_action(action);
         assert_eq!(observed, expected_attack_damage_disposition_witness(action));
         assert!(attack_damage_disposition_projection_payload(&observed).contains("qReplayIndex="));
+        assert!(
+            attack_damage_disposition_projection_payload(&observed).contains(&format!(
+                "qComponentRoute={}",
+                attack_damage_disposition_component_route_payload()
+            ))
+        );
     }
 }
 
@@ -2587,6 +2596,12 @@ fn hit_point_damage_adapter_replays_all_branches() {
         let observed = replay_hit_point_damage_action(action);
         assert_eq!(observed, expected_hit_point_damage_witness(action));
         assert!(hit_point_damage_projection_payload(&observed).contains("qReplayIndex="));
+        assert!(
+            hit_point_damage_projection_payload(&observed).contains(&format!(
+                "qComponentRoute={}",
+                hit_point_damage_component_route_payload()
+            ))
+        );
     }
 }
 
@@ -2970,6 +2985,12 @@ fn stat_block_controls_adapter_replays_all_branches() {
         assert_eq!(observed, expected_stat_block_control_witness(action));
         assert!(stat_block_control_projection_payload(&observed)
             .contains("qMultiattackContinuationOpen="));
+        assert!(
+            stat_block_control_projection_payload(&observed).contains(&format!(
+                "qComponentRoute={}",
+                stat_block_control_component_route_payload()
+            ))
+        );
     }
 }
 

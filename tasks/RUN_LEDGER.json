@@ -1264,6 +1264,95 @@
         }
       ],
       "taskId": "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/DECIDER_DECISION.json",
+          "sha256": "3cc1744534a4f6a6b77a4db46fc7b9855daa1ff55d519381fb616985213e7663"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "f8813fc212db69ff8e173ffd933bd180550115ceb60d2007932949940723dd5b"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/REVIEW_LOOP.json",
+          "sha256": "f0dd8cf4f2342914322864105fef39caf441f0da906f1545eca6a2324c07844a"
+        },
+        "startGate": {
+          "path": "tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/START_GATE.json",
+          "sha256": "5524a76fc3aadbf40111926d29e2509528e064a1b3015a9964a96cbed41e6b91"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS/STATE_OWNER_MANIFEST.json",
+          "sha256": "2cd945a68adc75302d5f279ce4e93e83d29be0d349e97da952c5efc60544b9a1"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo test attack_damage_disposition_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test hit_point_damage_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test stat_block_controls_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check a625d3e7190eb33396c17ee5dca7ae73f413b348...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/rule-core-stat-block-controls.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doMeleeKnockOut#step:doMeleeKnockOut",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doRejectRangedKnockOut#step:doRejectRangedKnockOut",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doMonsterDiesAtZero#step:doMonsterDiesAtZero",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doPlayerCharacterDiesFromMassiveDamage#step:doPlayerCharacterDiesFromMassiveDamage",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doPlayerCharacterFallsUnconscious#step:doPlayerCharacterFallsUnconscious",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doTemporaryHitPointsAbsorbFirst#step:doTemporaryHitPointsAbsorbFirst",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doEndTurnClosesDispatches#step:doEndTurnClosesDispatches",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doMoveDuringDispatch#step:doMoveDuringDispatch",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doRejectBonusActionDuringDispatch#step:doRejectBonusActionDuringDispatch",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doRejectOrdinaryActionDuringDispatch#step:doRejectOrdinaryActionDuringDispatch",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doResolvePrimaryDispatch#step:doResolvePrimaryDispatch",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doResolveSecondaryDispatch#step:doResolveSecondaryDispatch",
+            "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json#L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS replay action=doStartMultiattack#step:doStartMultiattack"
+          ],
+          "path": "tasks/target-replay-evidence/L15-RR04A-rule-core-damage-statblock-components.json",
+          "sha256": "310301d1d3aca36d6b6263311bab7df9aeaea91eeb75e583599a73248ed3a0d3"
+        }
+      ],
+      "taskId": "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS"
     }
   ],
   "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
