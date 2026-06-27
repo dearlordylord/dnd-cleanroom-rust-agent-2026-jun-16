@@ -135,7 +135,7 @@
     "L15-RR05-BATTLE-ACTION-ATTACK-STATBLOCK-ROUTES": "merged",
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
-    "L15-RR08-CHARACTER-CREATION-ROUTES": "rereviewing",
+    "L15-RR08-CHARACTER-CREATION-ROUTES": "review-clean-merge-ready",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "review-clean-merge-ready",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "ready",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
@@ -182,7 +182,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr08",
       "branch": "ralph/l15-rr08-character-creation",
       "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
-      "status": "rereviewing",
+      "status": "review-clean-merge-ready",
       "workerAgent": "019f06a6-8ed9-7560-9daa-6922b4bb277d",
       "workerName": "Harvey",
       "commit": "8416ee533fed413f9f072b982e0d425d89d90bac",
@@ -223,7 +223,29 @@
       ],
       "reReviewAgent": "019f06cd-b784-7a62-99fe-39612ff205f4",
       "reReviewName": "Meitner",
-      "reReviewStatus": "running"
+      "reReviewStatus": "clean",
+      "reReviewVerdict": "clean",
+      "reReviewSummary": [
+        "Anscombe finding 1 resolved: character-creation expected routes now use adapter-local literal helpers, not observed replay helpers.",
+        "Anscombe finding 2 resolved: production authored-identity dispatch removed for reported cleric/druid order, weapon mastery class counts, and metamagic option labels.",
+        "Anscombe finding 3 resolved: evidence/report artifacts now describe the repaired boundary and no longer claim pre-fix convergence."
+      ],
+      "reReviewVerification": [
+        "git merge-base --is-ancestor 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9 HEAD",
+        "cargo test character_creation",
+        "cargo test class_feature",
+        "cargo test cleric_druid_order",
+        "cargo test fighting_style",
+        "cargo test rogue_expertise",
+        "cargo test warlock_invocation",
+        "cargo test weapon_mastery",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9...HEAD"
+      ],
+      "reReviewResidualRisk": [
+        "Full cargo test, fmt, and clippy were not rerun by re-reviewer; fixer had run them before re-review.",
+        "RR08 overlaps RR09 in src/qnt_adapters/character_sheet_weapon_mastery_containers_selected_identity.rs and task/test artifacts; integration merge must review conflicts explicitly."
+      ]
     },
     {
       "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
