@@ -82,12 +82,12 @@
       "splitRequiredLaneIds": [],
       "parentLaneId": "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS",
       "runningLaneIds": [
-        "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS",
-        "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS"
+        "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS"
       ],
       "reviewingLaneIds": [
         "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS",
-        "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS"
+        "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS",
+        "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS"
       ]
     },
     {
@@ -159,7 +159,7 @@
     "L15-RR04A-RULE-CORE-DAMAGE-STATBLOCK-COMPONENTS": "implemented",
     "L15-RR04B-RULE-CORE-MOVEMENT-REACTION-SHOVE-COMPONENTS": "implemented",
     "L15-RR04C-RULE-CORE-SPELL-ABILITY-COMPONENTS": "running",
-    "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "running"
+    "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "implemented"
   },
   "lastIntegrationVerification": {
     "head": "1aa2ff3c6e4ca9d466a8eb0b8bc312ad3eeda025",
@@ -231,9 +231,10 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr04d",
       "branch": "ralph/l15-rr04d-rule-core-feature-profile",
       "baseSha": "a625d3e7190eb33396c17ee5dca7ae73f413b348",
-      "status": "running",
+      "status": "implemented-pending-review",
       "workerAgent": "019f0671-d268-7f62-b173-674d8d90738f",
-      "workerName": "Mill"
+      "workerName": "Mill",
+      "commit": "063ceefb6b07dec0d5afb7c4435d2687d48dc621"
     }
   ],
   "completedLaneWorktrees": [
