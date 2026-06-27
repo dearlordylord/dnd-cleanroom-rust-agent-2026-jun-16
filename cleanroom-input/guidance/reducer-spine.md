@@ -45,11 +45,42 @@ is a thin composition witness. It proves the shared route shape. It is not a
 rule owner for spell targeting, damage math, attack resolution, turn-boundary
 effects, or interrupt behavior.
 
+The character-to-battle encounter-composition connector
+`cleanroom-input/qnt/character-battle-runtime/character-battle-encounter-composition.route.mbt.qnt`
+is the source contract for composing a sheet-derived combatant with an
+encounter before a reducer-spine turn starts. The route is deliberately
+shape-based:
+
+- character-battle init projection owns converting the Character Sheet/Build
+  facts into a battle combatant candidate;
+- battle setup owns participant membership, including the sheet-derived
+  combatant and any non-sheet participants, plus each participant's Encounter
+  Side;
+- battle subject-profile setup owns availability of generic action/profile
+  facts for each participant; profiles are capabilities, not authored ids;
+- battle Initiative setup owns Initiative counts, stable Initiative order, and
+  the initial current actor selected from that order;
+- battle runtime entry happens after those composition facts exist, so
+  `start_battle` or an equivalent typed entry operation receives one composed
+  setup rather than a projected character plus a separate opponent/profile
+  cache.
+
+Targets may expose this as a single `start_battle` setup, as a typed
+character-battle handoff entry that accepts encounter setup, or as a typed
+pre-entry composition operation followed immediately by runtime entry. They must
+not infer participant membership from class, species, spell, monster, fixture,
+or catalog identity, and they must not create driver-local state for opponent,
+subject profile, Initiative, or current actor facts.
+
 Focused route connectors named `*.route.mbt.qnt` are the executable routing
 obligations for diagnostic drivers. They project `qRoute` over the shared
-reducer-route vocabulary. A target replay proves reducer routing only when its
-observed route events match the copied connector; matching the focused
-non-route projection alone proves behavior parity, not reducer architecture.
+reducer-route vocabulary. For encounter composition, the connector records both
+the marker sequence and the owned composition fact families. A target replay
+proves reducer routing only when its observed route events match the copied
+connector, including those fact-family sets, while production state owns the
+corresponding participant, Encounter Side, subject-profile, Initiative, and
+current-actor facts. Matching marker order or the focused non-route projection
+alone proves behavior parity, not reducer architecture.
 The reducer-route inventory is an ordering and derivability index. A
 `reducer-routed` row is accepted only with copied connector evidence from
 `routeConnectorPath` or the sibling `.route.mbt.qnt` driver.

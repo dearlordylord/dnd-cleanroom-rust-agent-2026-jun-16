@@ -72,11 +72,11 @@ generic connector route shape but was not counted as a new CP8 row.
 - It does not prove the Rust target is the desired final architecture. The Rust
   implementation is an evidence target, not the final product.
 - The FC-06 audit in `FC06_SOURCE_FEEDBACK.md` originally recorded two
-  fresh-run source feedback items. Encounter composition is now resolved by
-  source commit `0387d29f9282037637b4256c3c7f292bab7ef85c` and fresh target
-  commit `893198ce66a35c8aad007ad8ac7a61c4631c64d9`; Pact Slot branches in the
-  character-battle init projection witness still lack generic route connector
-  surfaces.
+  fresh-run source feedback items. Encounter composition is resolved by source
+  commit `0387d29f9282037637b4256c3c7f292bab7ef85c` and fresh target commit
+  `893198ce66a35c8aad007ad8ac7a61c4631c64d9`. Pact Slot route surfaces are
+  resolved by source commit `b57772b459f1b75592fd45b9196fd60965b534d3`, but no
+  fresh target replay has yet consumed those new Pact Slot connector facts.
 - It does not prove global harness cleanliness. `node
   scripts/check-cleanroom-harness.cjs` still fails on stale validator hashes in
   `cleanroom-input/MANIFEST.md` for:
@@ -129,9 +129,11 @@ bookkeeping.
 ## Recommended Next Work
 
 The dirty Rust target campaign is closed for the refreshed in-scope denominator,
-and the fresh SDK composition tracer is accepted. Next useful work is one of:
+the fresh SDK composition tracer is accepted, and the FC-06 source feedback is
+resolved in the copied source package. Next useful work is one of:
 
-- address the remaining Pact Slot source feedback in `FC06_SOURCE_FEEDBACK.md`;
+- run a fresh or dirty target replay for the newly copied Pact Slot handoff
+  route surfaces, if that behavior becomes the next diagnostic target;
 - use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` as the accepted evidence for a full
   integrated SDK tracer-bullet;
 - clean the global stale validator-hash / historical evidence debt so the dirty

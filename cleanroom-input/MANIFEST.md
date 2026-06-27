@@ -5,9 +5,9 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: d5a70b23ad05abd4188b1f0d37d9c6aba600cce5
-- Copy date: 2026-06-27T14:17:33.036Z
-- Files: 514
+- Source commit SHA: b57772b459f1b75592fd45b9196fd60965b534d3
+- Copy date: 2026-06-27T19:03:19.300Z
+- Files: 515
 
 Cleanroom tasks must declare which source commit SHA they implement
 against (the `Source commit SHA` recorded here at task start).
@@ -47,7 +47,7 @@ instead of guessing.
 - `qnt/battle-runtime`: 317
 - `qnt/character-creation-runtime`: 22
 - `qnt/character-sheet-runtime`: 23
-- `qnt/character-battle-runtime`: 11
+- `qnt/character-battle-runtime`: 12
 - `qnt/shared-algebras`: 96
 
 ## Per-File Inventory
@@ -96,9 +96,9 @@ instead of guessing.
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
 | `branch-coverage/source-branch-inventory.json` | `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
-| `branch-coverage/reducer-route-inventory.json` | `e76d003bcff671c3567e35f9ee3e15bec5801e4807fdfe35e2fdc937d3f0e13c` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
+| `branch-coverage/reducer-route-inventory.json` | `4afbc2351942f8ff93c086b27976093f36f7fbc35788a68f4bbba97eea173fda` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
 | `guidance/README.md` | `d62a834399e1469186bc931f2d27bdf696b9a67c9c9e21c15982ee722ed5384b` | `plans/cleanroom-guidance/README.md` |
-| `guidance/reducer-spine.md` | `0421042330a8d30ec3fc832cfcf987d7c666c020f2c0f48e4f79d1ee605d88be` | `plans/cleanroom-guidance/reducer-spine.md` |
+| `guidance/reducer-spine.md` | `25467c22bb8df808f1bcc15b147d49e40dc4c6eab41953f1a93df922d8d41c00` | `plans/cleanroom-guidance/reducer-spine.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` | `03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` | `b580cb0cd090fbc3fec41a853e54b7ec3cfbede676a5252e61405475d0b15c4b` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` |
@@ -461,11 +461,12 @@ instead of guessing.
 | `qnt/character-sheet-runtime/character-sheet-weapon-mastery-class-level-reselection.mbt.qnt` | `7e7d908628096d709ef3f64752ed8b348d477bd7accdfe74cf193bc6d31d5020` | `packages/character-sheet-runtime/character-sheet-weapon-mastery-class-level-reselection.mbt.qnt` |
 | `qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt` | `7bbd5f0e229f1646877193707d28fc62d691a1aecd7ecee55fc57fe3a345e561` | `packages/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.mbt.qnt` |
 | `qnt/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.route.mbt.qnt` | `93b537789e2953c642747d4d12903da5ad22a557841bd36f33d043344e2e1952` | `packages/character-sheet-runtime/character-sheet-weapon-mastery-containers-selected-identity.route.mbt.qnt` |
+| `qnt/character-battle-runtime/character-battle-encounter-composition.route.mbt.qnt` | `05acd0f45c8995b3cd67892f02c6535a5e772e14c3176cf01c6e06bd88dd2dd8` | `packages/character-battle-runtime/character-battle-encounter-composition.route.mbt.qnt` |
 | `qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt` | `e943125673c30e1f92be85e5e1256303dea3dd4632dd38c5725e462706049786` | `packages/character-battle-runtime/character-battle-init-projection.mbt.qnt` |
-| `qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt` | `6fce9e7fb4fcb372353e4144e78e2ce844e71e539ffd0e615c0f24d7e3a88133` | `packages/character-battle-runtime/character-battle-init-projection.route.mbt.qnt` |
+| `qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt` | `3d7a031415f9fa9931a088eeaa9166be35d0d55f67d78a88b43cd6c64fea8811` | `packages/character-battle-runtime/character-battle-init-projection.route.mbt.qnt` |
 | `qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt` | `2484aafcef6ad5e232d83453df17e2446793355cef8194de454bfbbf05db9511` | `packages/character-battle-runtime/character-battle-origin-feat-selected-identity.mbt.qnt` |
 | `qnt/character-battle-runtime/character-battle-origin-feat-selected-identity.route.mbt.qnt` | `db190a930645ad255dc39e095268a053a5bd95863c5aa053dd9b7d2513121b45` | `packages/character-battle-runtime/character-battle-origin-feat-selected-identity.route.mbt.qnt` |
-| `qnt/character-battle-runtime/character-battle-reducer-route.qnt` | `f47e4003ced943493331f64a6aeb637498eb45e02ef98e524d68b042910ec7ec` | `packages/character-battle-runtime/character-battle-reducer-route.qnt` |
+| `qnt/character-battle-runtime/character-battle-reducer-route.qnt` | `a327f83a35775e20bf135e68ab4df7a824e4d3f6bca4923bb4756038fdcf01f8` | `packages/character-battle-runtime/character-battle-reducer-route.qnt` |
 | `qnt/character-battle-runtime/character-battle-settlement.mbt.qnt` | `536eca6e37fd49ed0a6b850bdbe72be7bc551bcfd33ba12db5fdf7dddd669c8d` | `packages/character-battle-runtime/character-battle-settlement.mbt.qnt` |
 | `qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt` | `4eff39b022690f32278d7615d44178324d3e6f8a91c3f1053382163c10dbb370` | `packages/character-battle-runtime/character-battle-settlement.route.mbt.qnt` |
 | `qnt/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt` | `a2db8e8512717dff0f0a3c5aa97e72328adb8820a2449249ddae447f5957f905` | `packages/character-battle-runtime/character-layer-projection-lifecycle.mbt.qnt` |
@@ -574,4 +575,4 @@ instead of guessing.
 | File | sha256 |
 | --- | --- |
 | `scripts/check-cleanroom-harness.cjs` | `bf3a3120ef5bb10b0a11093bb3bbe8d911199f720cc4cba050d4080e78ba5130` |
-| `scripts/cleanroom-branch-coverage-check.cjs` | `4a02c5241cb3842e2f9228302ea4f28bd8472c33a2936d7d79b2348205096ae2` |
+| `scripts/cleanroom-branch-coverage-check.cjs` | `f96e26aac6fc7679c1801e3a048ba1426eb301a2aab91cf3cd284063ce62be0c` |

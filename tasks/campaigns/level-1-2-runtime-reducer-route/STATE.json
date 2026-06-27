@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-sdk-composition-accepted",
+  "status": "fresh-sdk-composition-accepted-source-feedback-resolved",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -16,8 +16,8 @@
       "note": "CP8 accepted exactly the three remaining Mage Armor admission/lifecycle rows through the generic SpellBaseArmorClassEffectRouteSubject connector; the pre-existing base AC projection row was refreshed to the same connector shape without counting as a new CP8 row."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "0387d29f9282037637b4256c3c7f292bab7ef85c",
-      "note": "Refreshed cleanroom-input from source after character-battle encounter-composition route connector, fact-family route evidence, and prerequisite scaffold rendering landed."
+      "sourceCommitSha": "b57772b459f1b75592fd45b9196fd60965b534d3",
+      "note": "Refreshed cleanroom-input from source after Pact Slot handoff route surfaces landed on top of the character-battle encounter-composition route connector and prerequisite scaffold rendering."
     }
   },
   "denominator": {
@@ -2325,13 +2325,12 @@
   "freshCleanroomDryRunPlan": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_CLEANROOM_DRY_RUN_PLAN.md",
   "freshCleanroomSourceFeedbackReport": {
     "path": "tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md",
-    "status": "partially-resolved",
+    "status": "resolved",
     "resolvedItems": [
-      "Encounter composition surface QNT/guidance task resolved by source commit 0387d29f9282037637b4256c3c7f292bab7ef85c and fresh target commit 893198ce66a35c8aad007ad8ac7a61c4631c64d9."
+      "Encounter composition surface QNT/guidance task resolved by source commit 0387d29f9282037637b4256c3c7f292bab7ef85c and fresh target commit 893198ce66a35c8aad007ad8ac7a61c4631c64d9.",
+      "Pact Slot handoff route surfaces for pure Pact Slot and mixed Spell Slot/Pact Slot branches resolved by source commit b57772b459f1b75592fd45b9196fd60965b534d3."
     ],
-    "remainingItems": [
-      "Pact Slot handoff route surfaces for pure Pact Slot and mixed Spell Slot/Pact Slot branches remain source-side follow-up."
-    ]
+    "remainingItems": []
   },
   "freshCleanroomDryRun": {
     "status": "accepted-through-sdk-composition",
@@ -2374,8 +2373,8 @@
       "limitations": [
         {
           "id": "FC-05-pact-slot-branches-lack-route-connector",
-          "status": "accepted limitation",
-          "summary": "The preferred driver has pure Pact Slot and mixed Spell Slot/Pact Slot branches, but the route connector exposes no corresponding generic route surfaces; FC-05 records this rather than inventing behavior."
+          "status": "source-surface-resolved-after-fc05",
+          "summary": "FC-05 recorded this as a limitation because the copied route connector then exposed no generic route surfaces for pure Pact Slot and mixed Spell Slot/Pact Slot branches. Source commit b57772b459f1b75592fd45b9196fd60965b534d3 now supplies those route surfaces; a target replay over the refreshed package remains future evidence."
         }
       ],
       "reviewFindings": [
@@ -2568,6 +2567,13 @@
         "implementationCommit": "ed768b281796887341cbed8eead4a80c05bbd09c",
         "targetHead": "893198ce66a35c8aad007ad8ac7a61c4631c64d9",
         "artifact": "tasks/campaigns/level-1-2-runtime-reducer-route/FRESH_SDK_COMPOSITION_ACCEPTANCE.md"
+      },
+      {
+        "phase": "SOURCE-FEEDBACK-PACT-SLOT-ROUTE-SURFACES",
+        "status": "source-surface-resolved",
+        "sourceCommitSha": "b57772b459f1b75592fd45b9196fd60965b534d3",
+        "artifact": "tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md",
+        "targetReplayStatus": "not-yet-run"
       }
     ],
     "previousAcceptedPhase": {
@@ -2671,7 +2677,7 @@
     }
   },
   "nextWorkRecommendations": [
-    "Add or explicitly block Pact Slot handoff route connector surfaces for the pure Pact Slot and mixed Spell Slot/Pact Slot branches in character-battle-init-projection.mbt.qnt.",
+    "Optionally run a fresh or dirty target replay for the newly copied Pact Slot handoff route surfaces if that behavior becomes the next diagnostic target.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."

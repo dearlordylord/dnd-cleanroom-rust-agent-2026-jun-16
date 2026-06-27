@@ -2,7 +2,7 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: `partially-resolved`
+Status: `resolved`
 
 Fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 
@@ -26,6 +26,9 @@ Fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-ru
   target also proved the integrated SDK tracer bullet: sheet projection,
   encounter composition, battle entry, act discovery, subject resolution, damage
   mutation, action spend, and turn advancement through public APIs.
+- After source commit `b57772b459f1b75592fd45b9196fd60965b534d3`, the copied
+  cleanroom input also contains generic route surfaces for pure Pact Slot
+  projection and mixed Spell Slot/Pact Slot handoff rejection.
 
 Evidence:
 
@@ -37,10 +40,11 @@ Evidence:
 
 ## What It Did Not Prove
 
-- FC-05 did not prove the pure Pact Slot or mixed Spell Slot/Pact Slot branches
-  in `character-battle-init-projection.mbt.qnt`. The projection witness has
-  those branches, but `character-battle-init-projection.route.mbt.qnt` has no
-  matching generic route surfaces.
+- FC-05 itself did not prove the pure Pact Slot or mixed Spell Slot/Pact Slot
+  branches in `character-battle-init-projection.mbt.qnt`. That was a source
+  package gap at the time. The source gap is now resolved by commit
+  `b57772b459f1b75592fd45b9196fd60965b534d3`, but no fresh target replay has
+  yet consumed those new Pact Slot route surfaces.
 - FC-05 by itself did not prove one integrated sheet-handoff-to-simple-turn
   scenario. That gap is now closed by the later encounter-composition source
   connector and fresh target evidence.
@@ -49,33 +53,35 @@ Evidence:
 
 ### Pact Slot Handoff Route Surfaces
 
-Current source inputs:
+Status: `resolved`
+
+Resolved source inputs:
 
 - `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.mbt.qnt`
   includes `doProjectPurePactMagicSlot` and
   `doRejectMixedSpellAndPactSlotInit`.
 - `cleanroom-input/qnt/character-battle-runtime/character-battle-init-projection.route.mbt.qnt`
-  exposes route facts only for sheet HP/AC/conditions/profile projection,
-  spellcasting/metamagic projection, max-HP rejection, and stable-recovery
-  rejection.
+  now exposes route facts for sheet HP/AC/conditions/profile projection,
+  ordinary spellcasting/metamagic projection, pure Pact Slot resource
+  projection, mixed Spell Slot/Pact Slot rejection, max-HP rejection, and
+  stable-recovery rejection.
 - `cleanroom-input/qnt/character-battle-runtime/character-battle-reducer-route.qnt`
-  has resource-oriented subject, fill, hole, and owner vocabulary, but no
-  connector action states how pure Pact Slot projection or mixed
-  Spell Slot/Pact Slot rejection routes through that vocabulary.
+  provides the resource-oriented subject, fill, hole, and owner vocabulary used
+  by those connector actions.
 
-Required source task:
+Resolution:
 
-- Add or split a focused character-battle route connector for Pact Slot handoff
-  semantics.
-- Inputs: the existing init projection witness, character-battle route
-  vocabulary, SRD Spell Slot/Pact Slot/domain terminology, and any curated
-  assumption needed for source-distinct battle slots.
-- Outputs: executable `qRoute` facts for pure Pact Slot projection and mixed
-  Spell Slot/Pact Slot rejection, or an explicit out-of-scope/source-blocker
-  record if the source corpus should not model those branches yet.
-- Boundary: do not make a cleanroom target decide whether Pact Slot state is a
-  Spell Slot subtype, a separate resource owner, or an unsupported mix. That is
-  source vocabulary and route ownership.
+- Source commit `b57772b459f1b75592fd45b9196fd60965b534d3` added executable
+  `qRoute` facts for pure Pact Slot projection and mixed Spell Slot/Pact Slot
+  rejection.
+- The route connector uses generic resource/handoff shape facts:
+  `HandoffResourceProjectionRouteSubject`,
+  `HandoffSpellResourceProjectionHoleFamily`, `HandoffResourceDeltaFill`,
+  `CharacterBattleResourceProjectionOwner`, and
+  `CharacterBattleInitProjectionOwner`.
+- This resolves the source-side vocabulary and route ownership gap. A future
+  target replay can now consume the copied connector instead of inferring Pact
+  Slot ownership locally.
 
 ### Encounter Composition Surface
 
@@ -102,10 +108,11 @@ Fresh target evidence:
 
 ## Recommended Source-Side Tasks
 
-1. Create a Pact Slot handoff route connector task.
+1. Keep the Pact Slot handoff route connector as prerequisite evidence for
+   future fresh cleanroom runs.
    Input boundary: existing character-battle init projection witness and route
-   vocabulary only. Output boundary: route connector facts or an explicit
-   source blocker; no Rust target APIs.
+   vocabulary only. Output boundary: source-side route connector facts; no Rust
+   target APIs.
 
 2. Keep the encounter composition route connector as prerequisite evidence for
    future fresh cleanroom runs.
@@ -114,8 +121,8 @@ Fresh target evidence:
    Initiative. Output boundary: source-side contract plus cleanroom guidance
    for public target surfaces; no target implementation.
 
-3. Update future fresh-run prompts to require the encounter-composition source
-   facts before claiming a full integrated SDK tracer-bullet.
+3. Update future fresh-run prompts to require both Pact Slot and
+   encounter-composition source facts before claiming those target behaviors.
    Input boundary: this FC-06 artifact and fresh target evidence. Output
    boundary: campaign prompts/readiness notes that keep the limitation visible.
 
@@ -126,7 +133,8 @@ one in locally before source QNT/guidance exists, it can pass tests while
 teaching the wrong architecture:
 
 - Pact Slot handling decides whether resource projection has distinct owners,
-  distinct slot facts, or a typed rejection path.
+  distinct slot facts, or a typed rejection path; this is now encoded by the
+  init-projection route connector.
 - Encounter composition decides who owns participant membership, subject
   profiles, Initiative/current actor facts, and handoff-to-battle sequencing;
   this is now encoded by the encounter-composition route connector and fresh

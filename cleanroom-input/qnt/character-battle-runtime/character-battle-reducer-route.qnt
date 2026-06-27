@@ -10,6 +10,10 @@ module characterBattleReducerRoute {
     | HandoffFeatureResourceProjectionRouteSubject
     | HandoffSelectedReferenceRouteSubject
     | HandoffBattleMutationRouteSubject
+    | HandoffEncounterCompositionRouteSubject
+    | HandoffParticipantMembershipRouteSubject
+    | HandoffSubjectProfileAvailabilityRouteSubject
+    | HandoffInitiativeCurrentActorRouteSubject
 
   type CharacterBattleRouteHoleFamily =
     | HandoffIdentityMatchHoleFamily
@@ -24,6 +28,15 @@ module characterBattleReducerRoute {
     | HandoffResourceDeltaFill
     | HandoffSettlementRejectionFill
 
+  type CharacterBattleRouteCompositionFactFamily =
+    | SheetDerivedParticipantCandidateRouteFact
+    | NonSheetParticipantMembershipRouteFact
+    | EncounterSideRelationshipOwnershipRouteFact
+    | SubjectProfileAvailabilityOwnershipRouteFact
+    | InitiativeCountOwnershipRouteFact
+    | StableInitiativeOrderOwnershipRouteFact
+    | CurrentActorOwnershipRouteFact
+
   type CharacterBattleRouteOwnerGroup =
     | CharacterBattleSheetOwner
     | CharacterBattleBuildProjectionOwner
@@ -31,6 +44,9 @@ module characterBattleReducerRoute {
     | CharacterBattleRuntimeOwner
     | CharacterBattleSettlementOwner
     | CharacterBattleResourceProjectionOwner
+    | CharacterBattleEncounterSetupOwner
+    | CharacterBattleSubjectProfileOwner
+    | CharacterBattleInitiativeOwner
 
   type CharacterBattleRouteEvent =
     | RouteProjectCharacterSheetToBattle({
@@ -39,6 +55,11 @@ module characterBattleReducerRoute {
       })
     | RouteEnterBattleRuntime({
         subject: CharacterBattleRouteSubjectFamily,
+        owner: CharacterBattleRouteOwnerGroup,
+      })
+    | RouteComposeBattleEncounter({
+        subject: CharacterBattleRouteSubjectFamily,
+        facts: Set[CharacterBattleRouteCompositionFactFamily],
         owner: CharacterBattleRouteOwnerGroup,
       })
     | RouteSettleBattleToCharacterSheet({
@@ -69,6 +90,17 @@ module characterBattleReducerRoute {
   ): CharacterBattleRouteEvent =
     RouteEnterBattleRuntime({
       subject: subject,
+      owner: owner,
+    })
+
+  pure def routeComposeBattleEncounter(
+    subject: CharacterBattleRouteSubjectFamily,
+    facts: Set[CharacterBattleRouteCompositionFactFamily],
+    owner: CharacterBattleRouteOwnerGroup,
+  ): CharacterBattleRouteEvent =
+    RouteComposeBattleEncounter({
+      subject: subject,
+      facts: facts,
       owner: owner,
     })
 
