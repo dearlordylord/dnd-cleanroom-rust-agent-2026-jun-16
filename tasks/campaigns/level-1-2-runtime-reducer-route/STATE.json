@@ -8,11 +8,11 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "5a6e5d2d1975788acef1373786eb94dd0074407e",
+    "lastVerifiedIntegrationHead": "b2ccf263e523f67233da4a1dd89dcc01a27b2f0a",
     "lastMergedLane": {
-      "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
-      "mergeCommit": "5a6e5d2d1975788acef1373786eb94dd0074407e",
-      "laneHead": "86290c012cdefb8afdcc526a8caa58da190b407b"
+      "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
+      "mergeCommit": "b2ccf263e523f67233da4a1dd89dcc01a27b2f0a",
+      "laneHead": "3727abed465765fbc2b3f223076ed265d31393ff"
     }
   },
   "denominator": {
@@ -110,7 +110,6 @@
       ],
       "runningLaneIds": [
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
-        "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
         "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES"
       ],
       "mergedLaneIds": [
@@ -118,9 +117,10 @@
         "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES",
         "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
         "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE",
-        "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES"
+        "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
+        "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES"
       ],
-      "notes": "FU01A and FU08A are merged and verified. FU01B, FU08B, and FU08C are running from base 6bad2c3509996b8cafab2a1d0258e3062e8ff60b.",
+      "notes": "FU01A, FU08A, and FU08B are merged and verified. FU08C is review-clean/merge-ready; FU01B is in fixer loop.",
       "splitLaneIds": [
         "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
         "L15-RR07-FU01B-SPELL-ATTACK-SAVE-DAMAGE-SUBSTRATES",
@@ -197,15 +197,15 @@
     "L15-RR07-FU01E-ARMOR-CLASS-REACTION-SUBSTRATES": "ready",
     "L15-RR07-FU01F-SPATIAL-LIGHT-AREA-MOVEMENT-SUBSTRATES": "ready",
     "L15-RR07-FU08A-METAMAGIC-GOVERNOR-QUICKENED-SUBSTRATE": "merged-verified",
-    "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "review-clean-merge-ready",
+    "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES": "merged-verified",
     "L15-RR07-FU08C-METAMAGIC-REROLL-DAMAGE-PROJECTION-SUBSTRATES": "review-clean-merge-ready"
   },
   "lastIntegrationVerification": {
-    "head": "5a6e5d2d1975788acef1373786eb94dd0074407e",
+    "head": "b2ccf263e523f67233da4a1dd89dcc01a27b2f0a",
     "commands": [
-      "node scripts/check-cleanroom-harness.cjs",
       "cargo fmt --check",
-      "git diff --check --cached",
+      "node scripts/check-cleanroom-harness.cjs",
+      "git diff --check HEAD~1...HEAD",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings"
     ],
@@ -248,46 +248,6 @@
         "cargo test attack_spell_shape_adapter_replays_all_branches",
         "cargo test level1_damage_spell_adapter_replays_all_branches",
         "cargo fmt --check",
-        "cargo test",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
-      ]
-    },
-    {
-      "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08b",
-      "branch": "ralph/l15-rr07-fu08b-metamagic-save-range",
-      "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
-      "status": "review-clean-merge-ready",
-      "workerAgent": "019f079d-ab15-71b0-8240-dd4bfa6a1ab1",
-      "workerName": "Galileo",
-      "commit": "3727abed465765fbc2b3f223076ed265d31393ff",
-      "workerSummary": [
-        "Accepted all 9 Careful/Heightened/Distant/Twinned metamagic rows.",
-        "No blockers or demotions reported."
-      ],
-      "workerVerification": [
-        "git merge-base --is-ancestor 6bad2c3509996b8cafab2a1d0258e3062e8ff60b HEAD",
-        "cargo fmt --check",
-        "cargo test",
-        "cargo clippy --all-targets -- -D warnings",
-        "node scripts/check-cleanroom-harness.cjs",
-        "git diff --check 6bad2c3509996b8cafab2a1d0258e3062e8ff60b...HEAD"
-      ],
-      "reviewAgent": "019f07ae-99a4-75f3-bc81-870c8cfc0a18",
-      "reviewName": "Ptolemy",
-      "reviewStatus": "clean",
-      "reviewVerdict": "clean",
-      "reviewSummary": [
-        "Observed routes go through production BattleState observer entrypoints.",
-        "Expected route witnesses are literal independent records.",
-        "Production routing uses typed metamagic option/effect facts, not authored identity."
-      ],
-      "reviewVerification": [
-        "git merge-base --is-ancestor 6bad2c3509996b8cafab2a1d0258e3062e8ff60b HEAD",
-        "cargo fmt --check",
-        "cargo test spell_adapter_replays_all_branches -- --nocapture",
         "cargo test",
         "cargo clippy --all-targets -- -D warnings",
         "node scripts/check-cleanroom-harness.cjs",
@@ -372,6 +332,20 @@
     }
   ],
   "completedLaneWorktrees": [
+    {
+      "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08b",
+      "branch": "ralph/l15-rr07-fu08b-metamagic-save-range",
+      "baseSha": "6bad2c3509996b8cafab2a1d0258e3062e8ff60b",
+      "status": "removable-after-operator-confirms-no-local-use",
+      "workerAgent": "019f079d-ab15-71b0-8240-dd4bfa6a1ab1",
+      "workerName": "Galileo",
+      "workerCommit": "3727abed465765fbc2b3f223076ed265d31393ff",
+      "reviewAgent": "019f07ae-99a4-75f3-bc81-870c8cfc0a18",
+      "reviewName": "Ptolemy",
+      "reviewStatus": "clean",
+      "mergeCommit": "b2ccf263e523f67233da4a1dd89dcc01a27b2f0a"
+    },
     {
       "laneId": "L15-RR07-FU01A-CATALOG-READY-SPELL-SUBSTRATES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a",

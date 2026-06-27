@@ -637,7 +637,7 @@
     {
       "laneId": "L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES",
       "checkpointId": "CP4",
-      "status": "review-clean-merge-ready",
+      "status": "merged-verified",
       "parallelGroup": "cp4-fu08-metamagic",
       "routeTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
       "routeClasses": [

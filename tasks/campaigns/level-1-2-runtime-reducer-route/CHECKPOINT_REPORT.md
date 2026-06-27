@@ -229,6 +229,16 @@ Template:
 - Review/fixer notes: first reviewer found Find Familiar observed route evidence was adapter-local; fixer added production companion route ownership and Find Familiar route observation, retained the four Find Familiar accepted rows, and left existing level-2/3 condition-save rows out of scope. Re-review confirmed the code path clean; artifact fixer aligned RUN_LEDGER with VALIDATION_REPORT.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu01a`
 
+### L15-RR07-FU08B-METAMAGIC-SAVE-RANGE-TARGET-SUBSTRATES
+
+- Merge commit: `b2ccf263e523f67233da4a1dd89dcc01a27b2f0a`
+- Lane commit(s): `3727abed465765fbc2b3f223076ed265d31393ff`
+- Drivers added: `4` net-new unique drivers.
+- Obligations added: `9` net-new counted obligations.
+- Integration verification: `cargo fmt --check`, `node scripts/check-cleanroom-harness.cjs`, `git diff --check HEAD~1...HEAD`, `cargo test` (`208 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: reviewer returned clean; observed Careful/Heightened/Distant/Twinned metamagic routes go through production BattleState observer entrypoints with literal independent expected route witnesses.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07-fu08b`
+
 ## CP4 Launch Plan
 
 The small feature substrate batch was split into three parallel lanes from integration head `8d8576315773c721128fabaf79319bdbf2921eaa` and is now merged:
