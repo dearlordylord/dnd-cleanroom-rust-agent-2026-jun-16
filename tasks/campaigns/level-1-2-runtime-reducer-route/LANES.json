@@ -1131,6 +1131,50 @@
         "tasks/VALIDATION_REPORT.md"
       ],
       "acceptanceSummary": "Merged and verified. The two selected FU01B rows replay through observed reducer entrypoints by reusing generic chained spell-attack sequence and object-target spell-attack substrates; accepted coverage is route-shape evidence only, because selected damage-spell witness payloads remain projection-helper derived."
+    },
+    {
+      "laneId": "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES",
+      "checkpointId": "CP7",
+      "status": "ready",
+      "parallelGroup": "cp7-target-blocker-reduction",
+      "routeTaskIds": [
+        "L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES"
+      ],
+      "routeClasses": [
+        "reducer-routed"
+      ],
+      "driverCount": 2,
+      "branchObligations": 5,
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-hosted-attack-and-riders.mbt.qnt"
+      ],
+      "selectedBranchActions": [
+        "doDiscoverWeaponHit",
+        "doFillTargetChoice",
+        "doDiscoverDivineFavorAttack",
+        "doFillDivineFavorHit",
+        "doFillDivineFavorTarget"
+      ],
+      "purpose": "Reduce CP7 target-side blockers by routing ordinary/pre-hit weapon setup rows through existing generic weapon attack discovery, target-fill, and attack-roll route shapes, without widening rider-specific substrates or using authored identity.",
+      "dependencies": [
+        "CP7 active",
+        "RR05 generic weapon attack route evidence present",
+        "CP5-A rider/weapon-hosted artifacts present"
+      ],
+      "expectedWriteScope": [
+        "src/rules/battle_reducer_spine.rs",
+        "src/rules/weapon_hosted_attack_and_riders.rs",
+        "src/qnt_adapters/battle_runtime_after_hit_damage_riders.rs",
+        "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
+        "src/qnt_adapters/battle_runtime_reducer_route.rs",
+        "src/tests/mod.rs",
+        "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json",
+        "tasks/history/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES/**",
+        "tasks/RUN_LEDGER.json",
+        "tasks/VALIDATION_REPORT.md"
+      ],
+      "acceptanceSummary": "Each selected row must replay through observed BattleEntrypointTrace.route_events using generic weapon attack route subjects/fills, with independent expected qRoute witnesses. Do not accept scenario transition rows or MagicWeaponTargetItem rows in this lane."
     }
   ],
   "standardVerification": [

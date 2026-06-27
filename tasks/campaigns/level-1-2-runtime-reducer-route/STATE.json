@@ -193,8 +193,10 @@
         "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES",
         "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES"
       ],
-      "readyLaneIds": [],
-      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. CP7-A accepted four FU01C generic active-effect and marked-effect route gaps. CP7-B accepted two residual FU01B damage-spell rows as route-shape evidence through existing generic chained spell-attack and object-target spell-attack substrates; selected damage-spell witness payloads remain projection-helper derived, not full BattleResolutionResult-derived semantics. CP7_AUDIT.json now records 649 accepted obligations and 19 target blockers."
+      "readyLaneIds": [
+        "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES"
+      ],
+      "notes": "CP7 reopens the dirty rehearsal after CP6 to reduce target-side blockers that copied QNT/guidance already describes. CP7-A accepted four FU01C generic active-effect and marked-effect route gaps. CP7-B accepted two residual FU01B damage-spell rows as route-shape evidence through existing generic chained spell-attack and object-target spell-attack substrates; selected damage-spell witness payloads remain projection-helper derived, not full BattleResolutionResult-derived semantics. CP7-C is queued for five ordinary/pre-hit weapon setup rows that can reuse existing generic weapon attack route shapes. CP7_AUDIT.json now records 649 accepted obligations and 19 target blockers before CP7-C."
     }
   ],
   "laneStatuses": {
@@ -248,7 +250,8 @@
     "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES": "merged-verified",
     "L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES": "merged-verified",
     "L15-RRCP7-A-BUFF-MARK-ACTIVE-EFFECT-ROUTES": "merged-verified",
-    "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "merged-verified"
+    "L15-RRCP7-B-DAMAGE-SPELL-RESIDUAL-BRIDGES": "merged-verified",
+    "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "ready"
   },
   "lastIntegrationVerification": {
     "head": "b33d9bbc1080c0d7a96ab606da07d0f517417096",

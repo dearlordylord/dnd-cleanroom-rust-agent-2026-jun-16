@@ -475,3 +475,10 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Integration verification: focused FU01B level-1 damage spell adapter test, focused attack spell shape adapter test, affected JSON parse checks, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`220` tests), and `cargo clippy --all-targets -- -D warnings` passed. `node scripts/check-cleanroom-harness.cjs` still fails on pre-existing stale non-FU01B global evidence/manifest debt; the saved output contained no FU01B/Chromatic/Starry references.
 - Review/fixer notes: review found omitted harness failure bookkeeping and overclaimed residual-row semantics. Fixer recorded the harness as `classified-nonblocking-fail`, narrowed the two residual rows to route-shape evidence only, and made the Chromatic Orb expected route witness independent. Rereview returned clean.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp7-b`
+
+### L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES
+
+- Status: queued.
+- Selected rows: `doDiscoverWeaponHit`, `doFillTargetChoice`, `doDiscoverDivineFavorAttack`, `doFillDivineFavorHit`, and `doFillDivineFavorTarget`.
+- Purpose: reuse generic weapon attack discovery, target-fill, and attack-roll route shapes for ordinary/pre-hit weapon setup rows that CP5-A kept blocked because they were outside the rider-specific substrate.
+- Explicit non-goals: do not accept the nine scenario transition rows, and do not accept the two `MagicWeaponTargetItem` rows until copied route vocabulary exists.
