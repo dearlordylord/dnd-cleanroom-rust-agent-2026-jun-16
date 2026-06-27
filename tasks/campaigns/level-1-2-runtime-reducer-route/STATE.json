@@ -136,7 +136,7 @@
     "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES": "merged",
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "running",
-    "L15-RR09-CHARACTER-SHEET-ROUTES": "implemented",
+    "L15-RR09-CHARACTER-SHEET-ROUTES": "review-findings",
     "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "ready",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
     "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
@@ -191,7 +191,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr09",
       "branch": "ralph/l15-rr09-character-sheet",
       "baseSha": "9e1bbb9a9efc4a6a23307b1f7b8d48415e4853c9",
-      "status": "implemented-pending-review",
+      "status": "review-findings",
       "workerAgent": "019f06a6-f828-76d0-b989-42488be5d4b9",
       "workerName": "Volta",
       "commit": "cf9a8974fc9285878f6a8276dff8aa3cda3f3682",
@@ -199,6 +199,14 @@
         "Added character sheet reducer route/projection module and adapters.",
         "Recorded 67 accepted refs in L15-RR09 target replay evidence.",
         "Reported full cargo/harness verification passing with 194 tests."
+      ],
+      "reviewAgent": "019f06b4-d8d0-7050-9873-35e567b871b6",
+      "reviewName": "Pauli",
+      "reviewStatus": "findings",
+      "reviewFindings": [
+        "Route expected values are self-referential: expected_route delegates to replay_observed_route in arcane recovery, class feature, and spell slots adapters.",
+        "Some expected witnesses are not independent of observed replay: spellbook ritual and weapon mastery expected witnesses return replay_observed_action; spell slots expected projections use the same reducer helpers as observed replay.",
+        "Evidence artifacts overclaim route coverage for selected drivers whose tests only assert projection witnesses and do not replay or compare route values."
       ]
     }
   ],

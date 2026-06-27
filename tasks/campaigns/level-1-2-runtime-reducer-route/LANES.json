@@ -280,7 +280,7 @@
     {
       "laneId": "L15-RR09-CHARACTER-SHEET-ROUTES",
       "checkpointId": "CP3",
-      "status": "implemented",
+      "status": "review-findings",
       "routeTaskId": "L15-RR09-CHARACTER-SHEET-ROUTES",
       "routeClasses": [
         "reducer-routed"
