@@ -136,7 +136,7 @@
     "L15-RR04-RULE-CORE-COMPONENT-CONNECTORS": "complete-via-sublanes",
     "L15-RR08-CHARACTER-CREATION-ROUTES": "merged-verified",
     "L15-RR09-CHARACTER-SHEET-ROUTES": "merged-verified",
-    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "fixing",
+    "L15-RR10-CHARACTER-BATTLE-HANDOFF-ROUTES": "fix-committed-pending-rereview",
     "L15-RR07-BATTLE-FEATURE-SUBSTRATE-ROUTES": "blocked-on-checkpoint",
     "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES": "blocked-on-checkpoint",
     "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES": "blocked-on-checkpoint",
@@ -180,7 +180,7 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr10",
       "branch": "ralph/l15-rr10-character-battle-handoff",
       "baseSha": "6af492188311839dd4839b464b2e7049e3330568",
-      "status": "fixing",
+      "status": "fix-committed-pending-rereview",
       "workerAgent": "019f06d8-d9f9-76b1-a057-efe51b02c54f",
       "workerName": "Darwin",
       "commit": "421541a1958b20bdfb3b785174ea125673135d72",
@@ -215,7 +215,22 @@
       ],
       "fixerAgent": "019f06f8-3a2a-7863-8286-a48ce02dd0d4",
       "fixerName": "Plato",
-      "fixStatus": "running"
+      "fixStatus": "committed-pending-rereview",
+      "fixCommit": "4ea5566fc503fcfa17f430b523faa87dc189943c",
+      "fixerSummary": [
+        "Replaced shared observed/expected route builders with adapter-local literal expected route witnesses in all five RR10 adapters.",
+        "Kept observed replay on reducer-facing route construction.",
+        "Updated evidence wording; accepted/blocked obligations unchanged."
+      ],
+      "fixerVerification": [
+        "git merge-base --is-ancestor 6af492188311839dd4839b464b2e7049e3330568 HEAD",
+        "focused tests for all five relevant adapter filters",
+        "cargo fmt --check",
+        "cargo test (202 tests)",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 6af492188311839dd4839b464b2e7049e3330568...HEAD"
+      ]
     }
   ],
   "completedLaneWorktrees": [
