@@ -21,8 +21,8 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP2 Rule-Core Component Connectors | complete | Four `L15-RR04` component sublanes merged and verified. |
 | CP3 Character Creation, Sheet, And Handoff | complete | RR08 creation, RR09 sheet, and RR10 handoff merged and verified. |
 | CP4 Feature And Catalog Substrates | complete | Small feature substrate batch, FU01 split lanes, and FU08 split lanes are merged and verified; FU01D is recorded as zero accepted coverage with a source-QNT connector blocker. |
-| CP5 Remaining Battle Families | ready | CP1, CP2, and CP4 are complete. |
-| CP6 Closure Sweep | blocked-on-checkpoint | Runs after all implementation checkpoints. |
+| CP5 Remaining Battle Families | complete | Six CP5 sublanes merged and verified. |
+| CP6 Closure Sweep | ready | Runs after all implementation checkpoints. |
 
 ## Last Known Verification
 
@@ -414,7 +414,21 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Review/fixer notes: first review found self-fulfilling accepted route evidence and missing blocked Counterspell reporting. Fixer routed accepted qRoute replay through `BattleEntrypointTrace`, `discover_generic_route_subject_observed`, and `resolve_battle_subject_observed`; Counterspell rows remain blocked rather than accepted. Re-review returned clean.
 - Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-c`
 
-## CP5 Current Queue
+### L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES
 
-- `L15-RRCP5-C-REACTION-INTERRUPT-ROUTES`: merged and verified at `97763b0f981424c462d7af86f0dd0463dd1b9012`.
-- `L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES`: metadata fixer Mendel the 2nd completed at `2e5a7d9cb45a12517949bba0ad8c127160992384`; active and history `tasks/ENGINE_DEPTH_MANIFEST.json` now keep accepted evidence at nine Search/Guidance rows and leave three Enhance Ability rows out of scope. Awaiting re-review before merge.
+- Merge commit: `e1cb8616d0a3fbe2aa59a69d7eeba28da6e7622d`
+- Lane commit(s): `4ce08a7458f4e5ad81b11c5dc67025b80422ad35`, `015af29280a59f87abaf9aa677d8f6f8cd4135a2`, `2e5a7d9cb45a12517949bba0ad8c127160992384`, `3dd749a6440a073c10d303d56e05b8ad40af024c`
+- Drivers added: `1` net-new unique driver.
+- Obligations added: `9` accepted counted obligations; `3` Enhance Ability rows remain out-of-scope and route-empty.
+- New total driver coverage: `91 / 97 = 93.8%`
+- New total obligation coverage: `618 / 668 = 92.5%`
+- Integration verification: focused ability-search adapter test, `node scripts/check-cleanroom-harness.cjs`, `cargo fmt --check`, `git diff --check HEAD~1...HEAD`, `cargo test` (`218 passed`), and `cargo clippy --all-targets -- -D warnings` passed.
+- Review/fixer notes: review loop removed out-of-scope Enhance Ability rows from accepted replay evidence, corrected active/history engine-depth metadata, updated ledger hashes, corrected validation-report wording and focused command, and final re-review returned clean.
+- Worktrees marked removable: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp5-e`
+
+## CP5 Completion
+
+- CP5 is complete: F, D, B, A, C, and E are merged and verified.
+- CP5 net accepted coverage: `13` drivers and `105` obligations.
+- Campaign accepted coverage after CP5: `91 / 97 = 93.8%` drivers and `618 / 668 = 92.5%` obligations.
+- CP6 closure sweep is now ready.

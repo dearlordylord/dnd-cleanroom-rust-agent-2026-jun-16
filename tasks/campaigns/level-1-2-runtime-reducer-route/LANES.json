@@ -748,7 +748,7 @@
     {
       "laneId": "CP5-REMAINING-BATTLE-FAMILIES",
       "checkpointId": "CP5",
-      "status": "split-via-sublanes",
+      "status": "complete",
       "routeTaskIds": [
         "L15-RR15-AFTER-HIT-RIDER-OWNER-SPLIT",
         "L15-RR16-CHAINED-ATTACK-PROCEDURE-ROUTES",
@@ -1007,7 +1007,7 @@
     {
       "laneId": "L15-RRCP5-E-ABILITY-SEARCH-CHOICE-ROUTES",
       "checkpointId": "CP5",
-      "status": "fixer-complete-awaiting-rereview",
+      "status": "merged-verified",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES"
