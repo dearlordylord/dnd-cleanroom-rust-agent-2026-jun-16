@@ -12,3 +12,7 @@
 - doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup: condition-immunity cleanup needs a generic active-effect route subject.
 - doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer: marked-target damage rider plus transfer needs a generic marked-effect route subject.
 - doHexMarkedDamageRiderAndLaterTurnTransfer: marked-target damage rider plus transfer needs a generic marked-effect route subject.
+
+## L15-RR18-CP5-ACTIVE-EFFECT-LIFECYCLE-ROUTES
+
+- No target blockers. All selected CP5 active-effect lifecycle route rows are covered by tasks/target-replay-evidence/L15-RR18-CP5-active-effect-lifecycle-routes.json.

@@ -1,7 +1,10 @@
+use super::battle_runtime_reducer_route::{
+    replay_generic_battle_route, GenericBattleRouteStep, ReducerRouteEvent,
+};
 use crate::rules::{
     battle_reducer_spine::{
-        advance_turn, start_turn_boundary_effect_lifecycle_battle, Actor, BattleState,
-        BattleTurnAdvanceResult,
+        advance_turn, start_turn_boundary_effect_lifecycle_battle, Actor, BattleGenericRouteFill,
+        BattleState, BattleSubjectKind, BattleTurnAdvanceResult,
     },
     turn_boundary_effect_lifecycle::{
         resolve_source_next_turn, resolve_target_start_turn, TurnBoundaryActor,
@@ -39,6 +42,18 @@ pub fn expected_witness(observed_action_taken: &str) -> TurnBoundaryEffectLifecy
         "doResolveSourceNextTurn" => resolve_source_next_turn(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doResolveTargetStartTurn" => target_start_turn_route(),
+        "doResolveSourceNextTurn" => source_next_turn_route(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    replay_observed_route(observed_action_taken)
 }
 
 pub fn projection_payload(state: &TurnBoundaryEffectLifecycleState) -> String {
@@ -198,4 +213,50 @@ fn project_battle_state_after_turn_advance(
             TurnBoundaryLifecycleProtocol::Resolved
         },
     }
+}
+
+fn target_start_turn_route() -> Vec<ReducerRouteEvent> {
+    replay_generic_battle_route(&[
+        discover(BattleSubjectKind::TurnBoundaryEffectLifecycleTargetStartDamage),
+        resolve(
+            BattleSubjectKind::TurnBoundaryEffectLifecycleTargetStartDamage,
+            BattleGenericRouteFill::RolledDice,
+        ),
+        resolve(
+            BattleSubjectKind::TurnBoundaryEffectLifecycleTargetStartSave,
+            BattleGenericRouteFill::SavingThrowOutcome,
+        ),
+    ])
+}
+
+fn source_next_turn_route() -> Vec<ReducerRouteEvent> {
+    let mut route = target_start_turn_route();
+    route.extend(
+        replay_generic_battle_route(&[
+            discover(BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextDamage),
+            resolve(
+                BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextDamage,
+                BattleGenericRouteFill::RolledDice,
+            ),
+            resolve(
+                BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextActiveEffect,
+                BattleGenericRouteFill::WithoutFill,
+            ),
+            resolve(
+                BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextTurnBoundary,
+                BattleGenericRouteFill::WithoutFill,
+            ),
+        ])
+        .into_iter()
+        .skip(1),
+    );
+    route
+}
+
+fn discover(kind: BattleSubjectKind) -> GenericBattleRouteStep {
+    GenericBattleRouteStep::Discover(kind)
+}
+
+fn resolve(kind: BattleSubjectKind, fill: BattleGenericRouteFill) -> GenericBattleRouteStep {
+    GenericBattleRouteStep::Resolve { kind, fill }
 }

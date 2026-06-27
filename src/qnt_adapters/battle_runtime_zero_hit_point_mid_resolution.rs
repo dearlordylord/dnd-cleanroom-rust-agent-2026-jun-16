@@ -1,7 +1,12 @@
+use crate::rules::battle_reducer_spine::{BattleGenericRouteFill, BattleSubjectKind};
 use crate::rules::zero_hit_point_mid_resolution::{
     resolve_eldritch_blast_zero_hit_point_mid_resolution, ZeroHitPointMidResolutionHole,
     ZeroHitPointMidResolutionProtocol, ZeroHitPointMidResolutionScenario,
     ZeroHitPointMidResolutionState,
+};
+
+use super::battle_runtime_reducer_route::{
+    replay_generic_battle_route, GenericBattleRouteStep, ReducerRouteEvent,
 };
 
 pub const BRANCH_ACTIONS: [&str; 1] = ["doResolveEldritchBlast"];
@@ -15,6 +20,59 @@ pub fn replay_observed_action(observed_action_taken: &str) -> ZeroHitPointMidRes
 
 pub fn expected_witness(observed_action_taken: &str) -> ZeroHitPointMidResolutionState {
     replay_observed_action(observed_action_taken)
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doResolveEldritchBlast" => replay_generic_battle_route(&[
+            discover(BattleSubjectKind::SpellAttackProcedureInitialTargetChoice),
+            resolve(
+                BattleSubjectKind::SpellAttackProcedureInitialTargetChoice,
+                BattleGenericRouteFill::TargetChoice,
+            ),
+            resolve(
+                BattleSubjectKind::SpellAttackProcedureSecondTargetChoice,
+                BattleGenericRouteFill::TargetChoice,
+            ),
+            resolve(
+                BattleSubjectKind::SpellAttackProcedureAttackRoll,
+                BattleGenericRouteFill::AttackRoll,
+            ),
+            resolve(
+                BattleSubjectKind::SpellAttackProcedureDamageToZeroHitPoints,
+                BattleGenericRouteFill::RolledDice,
+            ),
+            resolve(
+                BattleSubjectKind::SpellAttackProcedureConcentrationSave,
+                BattleGenericRouteFill::ConcentrationSavingThrow,
+            ),
+            resolve(
+                BattleSubjectKind::ZeroHitPointSpellEffectTeardownConditionLifecycle,
+                BattleGenericRouteFill::WithoutFill,
+            ),
+            resolve(
+                BattleSubjectKind::ZeroHitPointSpellEffectTeardownConcentration,
+                BattleGenericRouteFill::WithoutFill,
+            ),
+            resolve(
+                BattleSubjectKind::ZeroHitPointSpellEffectTeardownActiveEffect,
+                BattleGenericRouteFill::WithoutFill,
+            ),
+            resolve(
+                BattleSubjectKind::SpellAttackProcedureAttackRoll,
+                BattleGenericRouteFill::AttackRoll,
+            ),
+            resolve(
+                BattleSubjectKind::SpellAttackProcedureRemainderDamage,
+                BattleGenericRouteFill::RolledDice,
+            ),
+        ]),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    replay_observed_route(observed_action_taken)
 }
 
 pub fn projection_payload(state: &ZeroHitPointMidResolutionState) -> String {
@@ -86,4 +144,12 @@ fn joined_or_none(values: &[&str]) -> String {
     } else {
         values.join(",")
     }
+}
+
+fn discover(kind: BattleSubjectKind) -> GenericBattleRouteStep {
+    GenericBattleRouteStep::Discover(kind)
+}
+
+fn resolve(kind: BattleSubjectKind, fill: BattleGenericRouteFill) -> GenericBattleRouteStep {
+    GenericBattleRouteStep::Resolve { kind, fill }
 }

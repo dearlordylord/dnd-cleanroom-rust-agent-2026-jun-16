@@ -841,9 +841,11 @@ use battle_runtime_reducer_spine_contract::{
     BRANCH_ACTIONS as REDUCER_SPINE_CONTRACT_BRANCH_ACTIONS,
 };
 use battle_runtime_roll_modifier_active_effects::{
+    expected_route as expected_roll_modifier_active_effects_route,
     expected_witness as expected_roll_modifier_active_effects_witness,
     projection_payload as roll_modifier_active_effects_projection_payload,
     replay_observed_action as replay_roll_modifier_active_effects_action,
+    replay_observed_route as replay_roll_modifier_active_effects_route,
     BRANCH_ACTIONS as ROLL_MODIFIER_ACTIVE_EFFECTS_BRANCH_ACTIONS,
 };
 use battle_runtime_roll_modifier_buff_selected_identity::{
@@ -876,15 +878,19 @@ use battle_runtime_scalar_buff::{
     BRANCH_ACTIONS as SCALAR_BUFF_BRANCH_ACTIONS,
 };
 use battle_runtime_scalar_buff_active_effects::{
+    expected_route as expected_scalar_buff_active_effects_route,
     expected_witness as expected_scalar_buff_active_effects_witness,
     projection_payload as scalar_buff_active_effects_projection_payload,
     replay_observed_action as replay_scalar_buff_active_effects_action,
+    replay_observed_route as replay_scalar_buff_active_effects_route,
     BRANCH_ACTIONS as SCALAR_BUFF_ACTIVE_EFFECTS_BRANCH_ACTIONS,
 };
 use battle_runtime_sleep_repeat_save::{
+    expected_route as expected_sleep_repeat_save_route,
     expected_witness as expected_sleep_repeat_save_witness,
     projection_payload as sleep_repeat_save_projection_payload,
     replay_observed_action as replay_sleep_repeat_save_action,
+    replay_observed_route as replay_sleep_repeat_save_route,
     BRANCH_ACTIONS as SLEEP_REPEAT_SAVE_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_careful_selected_identity::{
@@ -1045,9 +1051,11 @@ use battle_runtime_thaumaturgy_selected_identity::{
     BRANCH_ACTIONS as THAUMATURGY_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_turn_boundary_effect_lifecycle::{
+    expected_route as expected_turn_boundary_effect_lifecycle_route,
     expected_witness as expected_turn_boundary_effect_lifecycle_witness,
     projection_payload as turn_boundary_effect_lifecycle_projection_payload,
     replay_observed_action as replay_turn_boundary_effect_lifecycle_action,
+    replay_observed_route as replay_turn_boundary_effect_lifecycle_route,
     BRANCH_ACTIONS as TURN_BOUNDARY_EFFECT_LIFECYCLE_BRANCH_ACTIONS,
 };
 use battle_runtime_weapon_attack_ordering::{
@@ -1082,9 +1090,11 @@ use battle_runtime_weapon_mastery_selected_identity::{
     BRANCH_ACTIONS as WEAPON_MASTERY_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_zero_hit_point_mid_resolution::{
+    expected_route as expected_zero_hit_point_mid_resolution_route,
     expected_witness as expected_zero_hit_point_mid_resolution_witness,
     projection_payload as zero_hit_point_mid_resolution_projection_payload,
     replay_observed_action as replay_zero_hit_point_mid_resolution_action,
+    replay_observed_route as replay_zero_hit_point_mid_resolution_route,
     BRANCH_ACTIONS as ZERO_HIT_POINT_MID_RESOLUTION_BRANCH_ACTIONS,
 };
 use character_battle_init_projection::{
@@ -5040,6 +5050,19 @@ fn roll_modifier_active_effects_adapter_replays_all_branches() {
 }
 
 #[test]
+fn roll_modifier_active_effects_routes_all_branches_through_reducer() {
+    for action in ROLL_MODIFIER_ACTIVE_EFFECTS_BRANCH_ACTIONS {
+        let observed = replay_roll_modifier_active_effects_route(action);
+        let expected = expected_roll_modifier_active_effects_route(action);
+        let payload = reducer_route_payload(&observed);
+
+        assert_eq!(observed, expected);
+        assert!(payload.contains("RollModifierEffectRouteSubject"));
+        assert!(payload.contains("start_battle owner=BattleActionEconomyOwner"));
+    }
+}
+
+#[test]
 fn roll_modifier_active_effects_project_modifiers_holes_and_cleanup() {
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
     // "Bane" and "Bless"; Spells/Descriptions-E-L.md "Enhance Ability",
@@ -5983,6 +6006,19 @@ fn turn_boundary_effect_lifecycle_adapter_replays_all_branches() {
 }
 
 #[test]
+fn turn_boundary_effect_lifecycle_routes_all_branches_through_reducer() {
+    for action in TURN_BOUNDARY_EFFECT_LIFECYCLE_BRANCH_ACTIONS {
+        let observed = replay_turn_boundary_effect_lifecycle_route(action);
+        let expected = expected_turn_boundary_effect_lifecycle_route(action);
+        let payload = reducer_route_payload(&observed);
+
+        assert_eq!(observed, expected);
+        assert!(payload.contains("TurnBoundaryEffectLifecycleRouteSubject"));
+        assert!(payload.contains("BattleTurnBoundaryOwner"));
+    }
+}
+
+#[test]
 fn turn_boundary_effect_lifecycle_orders_start_end_and_source_expiry() {
     // Ubiquitous Language "Boundary Crossing", "Timer", and "Spell Effect";
     // QNT: battle-runtime-turn-boundary-effect-lifecycle.mbt.qnt.
@@ -6588,6 +6624,19 @@ fn zero_hit_point_mid_resolution_adapter_replays_all_branches() {
 }
 
 #[test]
+fn zero_hit_point_mid_resolution_routes_branch_through_reducer() {
+    for action in ZERO_HIT_POINT_MID_RESOLUTION_BRANCH_ACTIONS {
+        let observed = replay_zero_hit_point_mid_resolution_route(action);
+        let expected = expected_zero_hit_point_mid_resolution_route(action);
+        let payload = reducer_route_payload(&observed);
+
+        assert_eq!(observed, expected);
+        assert!(payload.contains("SpellAttackProcedureRouteSubject"));
+        assert!(payload.contains("ZeroHitPointSpellEffectTeardownRouteSubject"));
+    }
+}
+
+#[test]
 fn zero_hit_point_mid_resolution_tears_down_concentration_before_second_beam() {
     // RAW/QNT citations match `zero_hit_point_mid_resolution_adapter_replays_all_branches`.
     let initial = zero_hit_point_mid_resolution_initial_state();
@@ -6727,6 +6776,19 @@ fn scalar_buff_active_effects_adapter_replays_all_branches() {
 }
 
 #[test]
+fn scalar_buff_active_effects_routes_all_branches_through_reducer() {
+    for action in SCALAR_BUFF_ACTIVE_EFFECTS_BRANCH_ACTIONS {
+        let observed = replay_scalar_buff_active_effects_route(action);
+        let expected = expected_scalar_buff_active_effects_route(action);
+        let payload = reducer_route_payload(&observed);
+
+        assert_eq!(observed, expected);
+        assert!(payload.contains("ScalarBuffEffectRouteSubject"));
+        assert!(payload.contains("BattleActiveEffectOwner"));
+    }
+}
+
+#[test]
 fn scalar_buff_active_effects_project_spell_scalar_fields() {
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
     // "Aid"; Spells/Descriptions-E-L.md "False Life" and "Longstrider";
@@ -6775,6 +6837,19 @@ fn sleep_repeat_save_adapter_replays_all_branches() {
         let observed = replay_sleep_repeat_save_action(action);
         assert_eq!(observed, expected_sleep_repeat_save_witness(action));
         assert!(sleep_repeat_save_projection_payload(&observed).contains("protocolResult="));
+    }
+}
+
+#[test]
+fn sleep_repeat_save_routes_all_branches_through_reducer() {
+    for action in SLEEP_REPEAT_SAVE_BRANCH_ACTIONS {
+        let observed = replay_sleep_repeat_save_route(action);
+        let expected = expected_sleep_repeat_save_route(action);
+        let payload = reducer_route_payload(&observed);
+
+        assert_eq!(observed, expected);
+        assert!(payload.contains("RepeatSaveConditionEffectRouteSubject"));
+        assert!(payload.contains("BattleConditionLifecycleOwner"));
     }
 }
 
