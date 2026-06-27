@@ -16,7 +16,7 @@ This file prevents orphaned or confused Ralph worktrees.
 | --- | --- | --- | --- | --- | --- |
 | L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-a` | `ralph/l15-rr07s-a-passive-roll-resource` | `8d8576315773c721128fabaf79319bdbf2921eaa` | Copernicus `019f070a-d8bb-7111-b578-d4eee793076f`; reviewer Herschel `019f071c-a15c-7763-9148-3f7cfdcc6211`; fixer Peirce `019f0721-7a01-7303-bae8-8591e16e1c2d` | fixing, lane head `d2c54fb02a1b37f7b0957f8560bdc6ed2a8c4c62`; evidence overclaims route-event comparison |
 | L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-b` | `ralph/l15-rr07s-b-zero-hp-form-movement` | `8d8576315773c721128fabaf79319bdbf2921eaa` | Newton `019f070b-2c30-7de1-bece-a71c78a04a4b`; reviewer Ramanujan `019f071a-2cf3-7a21-8176-bc3148c52163` | review-clean-merge-ready, lane head `81fd387c6dda4b00c28a752492d6aa0d2fee4d3d` |
-| L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c` | `ralph/l15-rr07s-c-weapon-breath-feature` | `8d8576315773c721128fabaf79319bdbf2921eaa` | Kuhn `019f070b-ff89-7fd2-8978-44745a13ef82` | running |
+| L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c` | `ralph/l15-rr07s-c-weapon-breath-feature` | `8d8576315773c721128fabaf79319bdbf2921eaa` | Kuhn `019f070b-ff89-7fd2-8978-44745a13ef82` | worker-committed-pending-review, lane head `3da4fbbd6d0630c096d0d386f28cc0ce02fb432b` |
 
 ## Historical RRCONV-19 Worktrees
 

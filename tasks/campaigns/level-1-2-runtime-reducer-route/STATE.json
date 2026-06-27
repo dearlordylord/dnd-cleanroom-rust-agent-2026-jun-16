@@ -169,7 +169,7 @@
     "L15-RR04D-RULE-CORE-FEATURE-PROFILE-COMPONENTS": "merged-verified",
     "L15-RR07S-A-PASSIVE-ROLL-RESOURCE-SUBSTRATES": "fixing",
     "L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES": "review-clean-merge-ready",
-    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "running",
+    "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES": "worker-committed-pending-review",
     "CP4-SMALL-FEATURE-SUBSTRATE-BATCH": "running-via-sublanes"
   },
   "lastIntegrationVerification": {
@@ -275,9 +275,24 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rr07s-c",
       "branch": "ralph/l15-rr07s-c-weapon-breath-feature",
       "baseSha": "8d8576315773c721128fabaf79319bdbf2921eaa",
-      "status": "running",
+      "status": "worker-committed-pending-review",
       "workerAgent": "019f070b-ff89-7fd2-8978-44745a13ef82",
-      "workerName": "Kuhn"
+      "workerName": "Kuhn",
+      "commit": "3da4fbbd6d0630c096d0d386f28cc0ce02fb432b",
+      "workerSummary": [
+        "Added route evidence for weapon mastery property, Dragonborn Breath Weapon, and active feature spell benefits.",
+        "Accepted all lane obligations with no blockers.",
+        "Added BattleState.feature_substrates as runtime owner for reducer-owned substrate state."
+      ],
+      "workerVerification": [
+        "git merge-base --is-ancestor 8d8576315773c721128fabaf79319bdbf2921eaa HEAD",
+        "focused adapter tests for weapon mastery, dragonborn breath weapon, and feature selected identity",
+        "cargo fmt --check",
+        "cargo test (202 tests)",
+        "cargo clippy --all-targets -- -D warnings",
+        "node scripts/check-cleanroom-harness.cjs",
+        "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD"
+      ]
     }
   ],
   "completedLaneWorktrees": [
