@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "taskId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
   "durableFields": [],
-  "noDurableFieldsReason": "FU01C adds no durable BattleState fields; accepted evidence reuses production BattleSubjectKind generic route subject variants, existing BattleEntrypointTrace route events, and adapter qRoute projection. Blocked rows remain target blockers instead of duplicating marked-transfer or condition-immunity state.",
+  "noDurableFieldsReason": "FU01C adds no durable BattleState fields; accepted evidence reuses production BattleSubjectKind generic route subject variants, existing BattleEntrypointTrace route events, and adapter qRoute projection. Marked-transfer and condition-immunity rows now route through generic non-durable reducer subjects instead of duplicating active-effect state.",
   "nonDurableBoundaryApiSurface": [
     {
       "apiPath": "BattleSubjectKind.WeaponDamageRiderDamage",
@@ -41,6 +41,18 @@
       "owner": "battle-route-diagnostic"
     },
     {
+      "apiPath": "BattleReducerRouteSubjectFamily.ConditionImmunityActiveEffect",
+      "boundary": "accepted target replay checked route subject family for condition-immunity active-effect rows",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
+      "apiPath": "BattleReducerRouteSubjectFamily.MarkedEffect",
+      "boundary": "accepted target replay checked route subject family for marked damage-rider and transfer rows",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
       "apiPath": "BattleReducerRouteSubjectFamily.HeldWeaponActiveEffect",
       "boundary": "accepted target replay checked route subject family",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
@@ -71,6 +83,24 @@
       "owner": "battle-route-diagnostic"
     },
     {
+      "apiPath": "BattleSubjectKind.ConditionImmunityActiveEffectTurnStartTemporaryHitPoint",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
+      "apiPath": "BattleSubjectKind.ConditionImmunityActiveEffectCleanup",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
+      "apiPath": "BattleSubjectKind.MarkedEffectDamageAndTransfer",
+      "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "battle-route-diagnostic"
+    },
+    {
       "apiPath": "BattleSubjectKind.ScalarBuffEffectSpeedDelta",
       "boundary": "accepted target replay checked production diagnostic subject emitted through BattleEntrypointTrace.route_events",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
@@ -96,15 +126,9 @@
     },
     {
       "apiPath": "LevelOneSpellEffectState",
-      "boundary": "projection-only source for blocked selected-identity rows",
+      "boundary": "projection witness source for selected-identity rows; route acceptance is still checked through BattleEntrypointTrace.route_events",
       "introducedIn": "src/rules/level_one_spell_effects.rs",
       "owner": "harness-witness-protocol"
-    },
-    {
-      "apiPath": "BattleState",
-      "boundary": "production route admission boundary for target blockers",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
     }
   ]
 }

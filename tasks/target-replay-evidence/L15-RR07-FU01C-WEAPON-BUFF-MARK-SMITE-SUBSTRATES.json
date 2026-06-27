@@ -1,5 +1,5 @@
 {
-  "cleanroomManifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+  "cleanroomManifestSourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc",
   "generatedBy": {
     "name": "rust-cleanroom-fu01c-weapon-buff-mark-smite-substrates",
     "tag": "target-harness"
@@ -238,21 +238,24 @@
       "observedActionTaken": "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
       "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
       "result": {
-        "blockerId": "FU01C-BLOCKED-HEROISM-CONDITION-IMMUNITY-TEMP-HP",
-        "reason": "condition-immunity plus turn-start temporary Hit Points needs a generic active-effect route subject",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
+      "routeEvidenceBasis": "production BattleSubjectKind ConditionImmunityActiveEffectTurnStartTemporaryHitPoint diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "LevelOneSpellEffectState",
-          "BattleState"
+          "BattleSubjectKind.ConditionImmunityActiveEffectTurnStartTemporaryHitPoint",
+          "BattleReducerRouteSubjectFamily.ConditionImmunityActiveEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "target-blocker-v1",
-        "projection": "production-BattleState-route-admission",
-        "tag": "target-blocker"
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "fc2ad2b1067edda81eff7a35216dfe81451bb770a617fd73c06788ae5de0cddf",
+        "observedProjectionSha256": "fc2ad2b1067edda81eff7a35216dfe81451bb770a617fd73c06788ae5de0cddf",
+        "projection": "qRoute",
+        "tag": "state-match"
       },
-      "traceId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHeroismFrightenedImmunityTurnStartTemporaryHitPoints"
+      "traceId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPoints"
     },
     {
       "branchAction": "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
@@ -263,21 +266,24 @@
       "observedActionTaken": "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
       "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
       "result": {
-        "blockerId": "FU01C-BLOCKED-HEROISM-CONDITION-IMMUNITY-CLEANUP",
-        "reason": "condition-immunity cleanup needs a generic active-effect route subject",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
+      "routeEvidenceBasis": "production BattleSubjectKind ConditionImmunityActiveEffectCleanup diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "LevelOneSpellEffectState",
-          "BattleState"
+          "BattleSubjectKind.ConditionImmunityActiveEffectCleanup",
+          "BattleReducerRouteSubjectFamily.ConditionImmunityActiveEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "target-blocker-v1",
-        "projection": "production-BattleState-route-admission",
-        "tag": "target-blocker"
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e819806d19ebf90307c437621ff4ef3f78fd20f7736552ab62083058306b5b89",
+        "observedProjectionSha256": "e819806d19ebf90307c437621ff4ef3f78fd20f7736552ab62083058306b5b89",
+        "projection": "qRoute",
+        "tag": "state-match"
       },
-      "traceId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup"
+      "traceId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup"
     },
     {
       "branchAction": "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
@@ -288,21 +294,24 @@
       "observedActionTaken": "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
       "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
       "result": {
-        "blockerId": "FU01C-BLOCKED-HUNTERS-MARK-TRANSFER",
-        "reason": "marked-target damage rider plus transfer needs a generic marked-effect route subject",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
+      "routeEvidenceBasis": "production BattleSubjectKind MarkedEffectDamageAndTransfer diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "LevelOneSpellEffectState",
-          "BattleState"
+          "BattleSubjectKind.MarkedEffectDamageAndTransfer",
+          "BattleReducerRouteSubjectFamily.MarkedEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "target-blocker-v1",
-        "projection": "production-BattleState-route-admission",
-        "tag": "target-blocker"
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "089935ab80f72ac18a0a8c9d68554e1204f2997a378b6d5f71d56235eeb7ed84",
+        "observedProjectionSha256": "089935ab80f72ac18a0a8c9d68554e1204f2997a378b6d5f71d56235eeb7ed84",
+        "projection": "qRoute",
+        "tag": "state-match"
       },
-      "traceId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer"
+      "traceId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer"
     },
     {
       "branchAction": "doHexMarkedDamageRiderAndLaterTurnTransfer",
@@ -313,21 +322,24 @@
       "observedActionTaken": "doHexMarkedDamageRiderAndLaterTurnTransfer",
       "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
       "result": {
-        "blockerId": "FU01C-BLOCKED-HEX-TRANSFER",
-        "reason": "marked-target damage rider plus transfer needs a generic marked-effect route subject",
-        "tag": "target-blocker"
+        "tag": "pass"
       },
+      "routeEvidenceBasis": "production BattleSubjectKind MarkedEffectDamageAndTransfer diagnostic route subject observed through BattleEntrypointTrace.route_events",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
-          "LevelOneSpellEffectState",
-          "BattleState"
+          "BattleSubjectKind.MarkedEffectDamageAndTransfer",
+          "BattleReducerRouteSubjectFamily.MarkedEffect",
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
         ],
-        "comparator": "target-blocker-v1",
-        "projection": "production-BattleState-route-admission",
-        "tag": "target-blocker"
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "089935ab80f72ac18a0a8c9d68554e1204f2997a378b6d5f71d56235eeb7ed84",
+        "observedProjectionSha256": "089935ab80f72ac18a0a8c9d68554e1204f2997a378b6d5f71d56235eeb7ed84",
+        "projection": "qRoute",
+        "tag": "state-match"
       },
-      "traceId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHexMarkedDamageRiderAndLaterTurnTransfer"
+      "traceId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doHexMarkedDamageRiderAndLaterTurnTransfer"
     }
   ],
   "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",

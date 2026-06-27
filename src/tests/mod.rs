@@ -4627,6 +4627,8 @@ fn level1_buff_mark_smite_adapter_replays_all_branches() {
                 || route_payload.contains("HeldWeaponActiveEffectRouteSubject")
                 || route_payload.contains("SpellHostedWeaponAttackRouteSubject")
                 || route_payload.contains("ScalarBuffEffectRouteSubject")
+                || route_payload.contains("ConditionImmunityActiveEffectRouteSubject")
+                || route_payload.contains("MarkedEffectRouteSubject")
         );
     }
 

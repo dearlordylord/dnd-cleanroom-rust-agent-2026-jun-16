@@ -2904,12 +2904,12 @@ Verification results:
 
 tasks/RUN_LEDGER.json is the machine-readable run ledger.
 
-Current manifest source commit SHA: 564376fd95218a209bb9eae5c9ccb54ca3e04a52
+Current manifest source commit SHA: 53642cf0b1bc98f4426b6081fe37c98a960939fc
 Source branch inventory SHA: 4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32
 
 Allowed inputs used: cleanroom-input/**, local task artifacts, and Rust/Cargo tooling in this cleanroom worktree.
 
-Behavior implemented: accepted FU01C rows route through production BattleSubjectKind diagnostic subjects emitted as BattleEntrypointTrace route events and compared through adapter qRoute projection; rows without generic route subjects are recorded as target blockers.
+Behavior implemented: all selected FU01C rows route through production BattleSubjectKind diagnostic subjects emitted as BattleEntrypointTrace route events and compared through adapter qRoute projection.
 
 Generated branch coverage: see the obligation table below for every ledger obligation.
 
@@ -2917,9 +2917,9 @@ Target replay evidence: tasks/target-replay-evidence/*.json files referenced by 
 
 Harness artifacts: START_GATE.json, ENGINE_DEPTH_MANIFEST.json, STATE_OWNER_MANIFEST.json, REVIEW_LOOP.json, DECIDER_DECISION.json, and matching tasks/history entries.
 
-Remaining gaps: FU01C mark-transfer and condition-immunity rows remain blocked until generic marked-effect and condition-immunity active-effect route subjects exist.
+Remaining gaps: `_none_` for the selected FU01C rows.
 
-Verification results: recorded in RUN_LEDGER commandResults; this lane requires focused adapter tests, cargo fmt --check, cargo test, cargo clippy --all-targets -- -D warnings, node scripts/check-cleanroom-harness.cjs, and git diff --check 410a784738fba3b80566eae292140327d4e30877...HEAD.
+Verification results: focused FU01C adapter test passed; focused FU01C target replay evidence check passed with 12 obligations covered; cargo fmt --check passed; cargo test passed; cargo clippy --all-targets -- -D warnings passed; git diff --check e08d2f034615250ce4e543938b28cb98e05bf976...HEAD passed. node scripts/check-cleanroom-harness.cjs failed on pre-existing stale non-FU01C global harness debt; saved harness output contained no FU01C/buff-mark-smite references.
 
 ## Ledger Tasks
 - T001
@@ -3641,10 +3641,10 @@ Verification results: recorded in RUN_LEDGER commandResults; this lane requires 
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doSearingSmiteAfterHitTimedDamageAndSaveCleanup | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doSearingSmiteAfterHitTimedDamageAndSaveCleanup#step:doSearingSmiteAfterHitTimedDamageAndSaveCleanup | pass | covered |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doShillelaghWeaponAttackOverride | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doShillelaghWeaponAttackOverride#step:doShillelaghWeaponAttackOverride | pass | covered |
 | cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doTrueStrikeSpellHostedWeaponAttack | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doTrueStrikeSpellHostedWeaponAttack#step:doTrueStrikeSpellHostedWeaponAttack | pass | covered |
-| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHeroismFrightenedImmunityTurnStartTemporaryHitPoints#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints | FU01C-BLOCKED-HEROISM-CONDITION-IMMUNITY-TEMP-HP | blocked |
-| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup | FU01C-BLOCKED-HEROISM-CONDITION-IMMUNITY-CLEANUP | blocked |
-| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer | FU01C-BLOCKED-HUNTERS-MARK-TRANSFER | blocked |
-| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHexMarkedDamageRiderAndLaterTurnTransfer | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES blocker action=doHexMarkedDamageRiderAndLaterTurnTransfer#step:doHexMarkedDamageRiderAndLaterTurnTransfer | FU01C-BLOCKED-HEX-TRANSFER | blocked |
+| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPoints#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints | pass | covered |
+| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup | pass | covered |
+| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer | pass | covered |
+| cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHexMarkedDamageRiderAndLaterTurnTransfer | tasks/target-replay-evidence/L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES.json#L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES route action=doHexMarkedDamageRiderAndLaterTurnTransfer#step:doHexMarkedDamageRiderAndLaterTurnTransfer | pass | covered |
 
 ## L15-RRCP5-F-INDEPENDENT-SPELL-ATTACK-SEQUENCE-ROUTES
 

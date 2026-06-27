@@ -5,9 +5,11 @@
     {
       "path": "src/rules/battle_reducer_spine.rs",
       "role": "domain-engine",
-      "reason": "Owns production BattleSubjectKind generic reducer route subjects and BattleEntrypointTrace route-event evidence for accepted weapon rider, after-hit rider, held-weapon, spell-hosted weapon, scalar buff, and temporary-hit-point substrates.",
+      "reason": "Owns production BattleSubjectKind generic reducer route subjects and BattleEntrypointTrace route-event evidence for accepted weapon rider, after-hit rider, held-weapon, spell-hosted weapon, scalar buff, condition-immunity active-effect, marked-effect transfer, and temporary-hit-point substrates.",
       "domainApis": [
         "BattleSubjectKind generic route substrate variants",
+        "BattleReducerRouteSubjectFamily.ConditionImmunityActiveEffect",
+        "BattleReducerRouteSubjectFamily.MarkedEffect",
         "BattleGenericRouteFill",
         "discover_generic_route_subject_observed",
         "resolve_battle_subject_observed",
@@ -17,7 +19,7 @@
     {
       "path": "src/rules/level_one_spell_effects.rs",
       "role": "runtime-projection",
-      "reason": "Retains QNT-shaped selected level-1 buff/mark/smite projection facts; blocked marked-transfer and condition-immunity rows remain projection-only until generic production route subjects exist.",
+      "reason": "Retains QNT-shaped selected level-1 buff/mark/smite projection facts while accepted marked-transfer and condition-immunity rows are admitted by generic production route subjects.",
       "domainApis": [
         "LevelOneSpellEffectState",
         "project_divine_favor_weapon_damage_rider",
@@ -29,7 +31,7 @@
   "adapterModules": [
     {
       "path": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
-      "adapterScope": "Accepted level-1 buff/mark/smite selected-identity rows replay through production BattleSubjectKind generic rider/scalar/held-weapon/spell-hosted diagnostic subjects and BattleEntrypointTrace route evidence; mark-transfer and condition-immunity rows are explicit target blockers.",
+      "adapterScope": "Accepted level-1 buff/mark/smite selected-identity rows replay through production BattleSubjectKind generic rider/scalar/held-weapon/spell-hosted/condition-immunity/marked-effect diagnostic subjects and BattleEntrypointTrace route evidence.",
       "quarantinedWitnessNames": [
         "doDivineFavorWeaponDamageRider",
         "doDivineSmiteAfterHitDamage",
@@ -66,7 +68,7 @@
     },
     {
       "path": "src/qnt_adapters/battle_runtime_reducer_route.rs",
-      "adapterScope": "Projects BattleEntrypointTrace route events into QNT-facing qRoute strings and keeps new generic substrate subject/fill/hole labels quarantined in adapter evidence.",
+      "adapterScope": "Projects BattleEntrypointTrace route events into QNT-facing qRoute strings and keeps generic substrate subject/fill/hole labels quarantined in adapter evidence.",
       "quarantinedWitnessNames": [
         "qRoute",
         "WeaponDamageRiderRouteSubject",
@@ -74,6 +76,8 @@
         "HeldWeaponActiveEffectRouteSubject",
         "SpellHostedWeaponAttackRouteSubject",
         "ScalarBuffEffectRouteSubject",
+        "ConditionImmunityActiveEffectRouteSubject",
+        "MarkedEffectRouteSubject",
         "doDivineFavorWeaponDamageRider",
         "doDivineSmiteAfterHitDamage",
         "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
@@ -116,8 +120,8 @@
     },
     {
       "module": "src/rules/battle_reducer_spine.rs",
-      "api": "future generic marked-effect and condition-immunity active-effect route subjects",
-      "driver": "mark-transfer and condition-immunity follow-up lanes"
+      "api": "generic marked-effect and condition-immunity active-effect route subjects",
+      "driver": "future level-1/2 selected spell identity substrate drivers"
     }
   ],
   "accumulatorGrowth": []

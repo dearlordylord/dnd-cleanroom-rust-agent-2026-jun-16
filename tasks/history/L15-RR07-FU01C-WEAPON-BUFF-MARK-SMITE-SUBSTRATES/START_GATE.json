@@ -1,8 +1,8 @@
 {
   "baseCheck": {
-    "ancestorCommand": "git merge-base --is-ancestor 410a784738fba3b80566eae292140327d4e30877 HEAD",
-    "declaredBaseSha": "410a784738fba3b80566eae292140327d4e30877",
-    "headSha": "410a784738fba3b80566eae292140327d4e30877",
+    "ancestorCommand": "git merge-base --is-ancestor e08d2f034615250ce4e543938b28cb98e05bf976 HEAD",
+    "declaredBaseSha": "e08d2f034615250ce4e543938b28cb98e05bf976",
+    "headSha": "e08d2f034615250ce4e543938b28cb98e05bf976",
     "result": "pass"
   },
   "preImplementationStatus": {
@@ -11,7 +11,7 @@
     "result": "clean"
   },
   "schemaVersion": 1,
-  "startHeadSha": "410a784738fba3b80566eae292140327d4e30877",
+  "startHeadSha": "e08d2f034615250ce4e543938b28cb98e05bf976",
   "taskId": "L15-RR07-FU01C-WEAPON-BUFF-MARK-SMITE-SUBSTRATES",
   "taskScope": {
     "assignmentId": "level-1-2-runtime-reducer-route",

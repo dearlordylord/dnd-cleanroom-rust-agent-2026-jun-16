@@ -139,6 +139,52 @@
           "status": "pass"
         }
       ]
+    },
+    {
+      "round": 4,
+      "summary": "Follow-up convergence pass after adding generic condition-immunity active-effect and marked-effect production route subjects; all twelve FU01C rows are accepted through BattleEntrypointTrace route events with no durable state duplication.",
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "pass"
+        }
+      ]
     }
   ],
   "findings": [
@@ -148,7 +194,7 @@
       "reasonableness": "reasonable",
       "status": "fixed",
       "summary": "Marked-transfer and Heroism condition-immunity rows had projection witnesses but no generic production route subject.",
-      "resolution": "Adapter replay and expected-route entrypoints now reject those rows with blocker reasons, and target replay evidence records target-blocker runs instead of pass refs."
+      "resolution": "BattleSubjectKind now includes generic condition-immunity active-effect and marked-effect route subjects; adapter replay observes those rows through BattleEntrypointTrace.route_events and target replay evidence records pass refs."
     },
     {
       "id": "fu01c-artifacts-overstated-battlestate-route-subject-fields",
