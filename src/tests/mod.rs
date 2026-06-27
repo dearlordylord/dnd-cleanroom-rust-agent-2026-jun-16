@@ -654,9 +654,11 @@ use battle_runtime_death_saving_throw::{
     BRANCH_ACTIONS as DEATH_SAVING_THROW_BRANCH_ACTIONS, FILL_SAMPLE_NATURAL_D20S,
 };
 use battle_runtime_dragonborn_breath_weapon::{
+    expected_route as expected_dragonborn_breath_weapon_route,
     expected_witness as expected_dragonborn_breath_weapon_witness,
     projection_payload as dragonborn_breath_weapon_projection_payload,
     replay_observed_action as replay_dragonborn_breath_weapon_action,
+    replay_observed_route as replay_dragonborn_breath_weapon_route,
     BRANCH_ACTIONS as DRAGONBORN_BREATH_WEAPON_BRANCH_ACTIONS,
 };
 use battle_runtime_druid_wild_shape_form_lifecycle::{
@@ -674,9 +676,11 @@ use battle_runtime_eldritch_blast::{
     BRANCH_ACTIONS as ELDRITCH_BLAST_BRANCH_ACTIONS,
 };
 use battle_runtime_feature_selected_identity::{
+    expected_route as expected_feature_selected_identity_route,
     expected_witness as expected_feature_selected_identity_witness,
     projection_payload as feature_selected_identity_projection_payload,
     replay_observed_action as replay_feature_selected_identity_action,
+    replay_observed_route as replay_feature_selected_identity_route,
     BRANCH_ACTIONS as FEATURE_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_find_familiar_companion_lifecycle::{
@@ -985,9 +989,11 @@ use battle_runtime_weapon_hosted_attack_and_riders::{
     BRANCH_ACTIONS as WEAPON_HOSTED_ATTACK_AND_RIDERS_BRANCH_ACTIONS,
 };
 use battle_runtime_weapon_mastery_selected_identity::{
+    expected_route as expected_weapon_mastery_selected_identity_route,
     expected_witness as expected_weapon_mastery_selected_identity_witness,
     projection_payload as weapon_mastery_selected_identity_projection_payload,
     replay_observed_action as replay_weapon_mastery_selected_identity_action,
+    replay_observed_route as replay_weapon_mastery_selected_identity_route,
     BRANCH_ACTIONS as WEAPON_MASTERY_SELECTED_IDENTITY_BRANCH_ACTIONS,
 };
 use battle_runtime_zero_hit_point_mid_resolution::{
@@ -6178,6 +6184,27 @@ fn weapon_mastery_selected_identity_adapter_replays_all_branches() {
             weapon_mastery_selected_identity_projection_payload(&observed)
                 .contains("qPrimaryTargetHp=")
         );
+        let route = replay_weapon_mastery_selected_identity_route(action);
+        assert_eq!(
+            route,
+            expected_weapon_mastery_selected_identity_route(action)
+        );
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("WeaponMasteryPropertyRouteSubject"));
+        match action {
+            "doResolveSapMasteryPropertyHit" => {
+                assert!(route_payload.contains("BattleActiveEffectOwner"));
+            }
+            "doResolveToppleMasteryPropertyFailedSavingThrow" => {
+                assert!(route_payload.contains("BattleConditionLifecycleOwner"));
+                assert!(route_payload.contains("RolledDiceHoleKind"));
+            }
+            "doResolveCleaveMasteryPropertySecondTargetHit" => {
+                assert!(route_payload.contains("UnitFeatureDecisionFillKind"));
+                assert!(route_payload.contains("BattleFeatureResourceOwner"));
+            }
+            _ => {}
+        }
     }
 }
 
@@ -7117,6 +7144,26 @@ fn dragonborn_breath_weapon_adapter_replays_all_branches() {
         let observed = replay_dragonborn_breath_weapon_action(action);
         assert_eq!(observed, expected_dragonborn_breath_weapon_witness(action));
         assert!(dragonborn_breath_weapon_projection_payload(&observed).contains("protocolResult="));
+        let route = replay_dragonborn_breath_weapon_route(action);
+        assert_eq!(route, expected_dragonborn_breath_weapon_route(action));
+        let route_payload = reducer_route_payload(&route);
+        assert!(route_payload.contains("AttackActionAreaSaveDamageReplacementRouteSubject"));
+        match action {
+            "doResolveBreathWeapon" | "doOpenExtraAttackSlot" => {
+                assert!(route_payload.contains("SavingThrowOutcomeFillKind"));
+                assert!(route_payload.contains("BattleFeatureResourceOwner"));
+            }
+            "doRejectMissingResource" => {
+                assert!(route_payload.contains("BattleFeatureResourceOwner"));
+            }
+            "doRejectMismatchedArea" => {
+                assert!(route_payload.contains("BattleAreaShapeOwner"));
+            }
+            "doRejectInvalidDamageRoll" => {
+                assert!(route_payload.contains("BattleDamageRollOwner"));
+            }
+            _ => {}
+        }
     }
 }
 
@@ -7530,6 +7577,17 @@ fn feature_selected_identity_adapter_replays_all_branches() {
         assert_eq!(observed, expected_feature_selected_identity_witness(action));
         assert!(feature_selected_identity_projection_payload(&observed)
             .contains("qInnateSorceryOccurrence=activeUntilEndOfRound11"));
+        let route = replay_feature_selected_identity_route(action);
+        assert_eq!(route, expected_feature_selected_identity_route(action));
+        let route_payload = reducer_route_payload(&route);
+        if action == "doActivateInnateSorcery" {
+            assert!(route_payload.contains("UnitFeatureBonusActionRouteSubject"));
+            assert!(route_payload.contains("BattleFeatureResourceOwner"));
+        } else {
+            assert!(route_payload.contains("ActiveFeatureSpellAttackRollModeRouteSubject"));
+            assert!(route_payload.contains("BattleActiveEffectOwner"));
+            assert!(route_payload.contains("UnitFeatureDecisionFillKind"));
+        }
     }
 }
 

@@ -1,10 +1,18 @@
 use crate::rules::battle_features::{
-    dragonborn_breath_weapon_initial_state, reject_dragonborn_breath_weapon_invalid_damage_roll,
-    reject_dragonborn_breath_weapon_mismatched_area,
-    reject_dragonborn_breath_weapon_missing_resource, resolve_dragonborn_breath_weapon,
     BreathWeaponAreaShape, DragonbornBreathWeaponFacts, DragonbornBreathWeaponInvalidReason,
     DragonbornBreathWeaponProtocol, DragonbornBreathWeaponScenarioOutcome,
-    DragonbornBreathWeaponState,
+};
+use crate::rules::battle_reducer_spine::{
+    discover_battle_acts, discover_battle_acts_observed, dragonborn_breath_weapon_from_battle,
+    resolve_battle_subject, resolve_battle_subject_observed, start_dragonborn_breath_weapon_battle,
+    start_dragonborn_breath_weapon_battle_observed, with_dragonborn_breath_weapon_uses_remaining,
+    BattleAttackActionAreaSaveDamageReplacementFill, BattleEntrypointTrace,
+    BattleResolutionRequest, BattleState, BattleSubject, BattleSubjectKind,
+};
+
+use super::battle_runtime_reducer_route::{
+    observed_reducer_route, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
+    ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -29,17 +37,112 @@ pub const BRANCH_ACTIONS: [&str; 5] = [
 
 pub fn replay_observed_action(observed_action_taken: &str) -> DragonbornBreathWeaponWitness {
     match observed_action_taken {
-        "doResolveBreathWeapon" => witness_from_state(resolved()),
-        "doOpenExtraAttackSlot" => witness_from_state(open_extra_attack_slot()),
-        "doRejectMissingResource" => witness_from_state(reject_missing_resource()),
-        "doRejectMismatchedArea" => witness_from_state(reject_mismatched_area()),
-        "doRejectInvalidDamageRoll" => witness_from_state(reject_invalid_damage_roll()),
+        "doResolveBreathWeapon" => witness_from_battle(resolved_state()),
+        "doOpenExtraAttackSlot" => witness_from_battle(open_extra_attack_slot_state()),
+        "doRejectMissingResource" => witness_from_battle(reject_missing_resource_state()),
+        "doRejectMismatchedArea" => witness_from_battle(reject_mismatched_area_state()),
+        "doRejectInvalidDamageRoll" => witness_from_battle(reject_invalid_damage_roll_state()),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
 }
 
 pub fn expected_witness(observed_action_taken: &str) -> DragonbornBreathWeaponWitness {
-    replay_observed_action(observed_action_taken)
+    match observed_action_taken {
+        "doResolveBreathWeapon" => expected_witness_from_parts(ExpectedBreathWeaponWitness {
+            target_hp: 10,
+            second_target_hp: 15,
+            breath_weapon_uses_remaining: 2,
+            action_resources_remaining: 0,
+            scenario_outcome: "Resolved",
+            protocol_result: "resolved",
+            protocol_invalid_reason: "",
+        }),
+        "doOpenExtraAttackSlot" => expected_witness_from_parts(ExpectedBreathWeaponWitness {
+            target_hp: 10,
+            second_target_hp: 20,
+            breath_weapon_uses_remaining: 2,
+            action_resources_remaining: 1,
+            scenario_outcome: "OpenedExtraAttack",
+            protocol_result: "resolved",
+            protocol_invalid_reason: "",
+        }),
+        "doRejectMissingResource" => expected_witness_from_parts(ExpectedBreathWeaponWitness {
+            target_hp: 20,
+            second_target_hp: 20,
+            breath_weapon_uses_remaining: 0,
+            action_resources_remaining: 1,
+            scenario_outcome: "RejectMissingResource",
+            protocol_result: "invalid",
+            protocol_invalid_reason: "WInvalidFill",
+        }),
+        "doRejectMismatchedArea" => expected_witness_from_parts(ExpectedBreathWeaponWitness {
+            target_hp: 20,
+            second_target_hp: 20,
+            breath_weapon_uses_remaining: 3,
+            action_resources_remaining: 1,
+            scenario_outcome: "RejectMismatchedArea",
+            protocol_result: "invalid",
+            protocol_invalid_reason: "WInvalidFill",
+        }),
+        "doRejectInvalidDamageRoll" => expected_witness_from_parts(ExpectedBreathWeaponWitness {
+            target_hp: 20,
+            second_target_hp: 20,
+            breath_weapon_uses_remaining: 3,
+            action_resources_remaining: 1,
+            scenario_outcome: "RejectInvalidDamageRoll",
+            protocol_result: "invalid",
+            protocol_invalid_reason: "WInvalidFill",
+        }),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doResolveBreathWeapon" => observed_breath_weapon_route(
+            start_dragonborn_breath_weapon_battle_observed,
+            breath_weapon_facts(false, true),
+        ),
+        "doOpenExtraAttackSlot" => observed_breath_weapon_route(
+            start_dragonborn_breath_weapon_battle_observed,
+            breath_weapon_facts(true, false),
+        ),
+        "doRejectMissingResource" => observed_breath_weapon_route(
+            |trace| {
+                with_dragonborn_breath_weapon_uses_remaining(
+                    start_dragonborn_breath_weapon_battle_observed(trace),
+                    0,
+                )
+            },
+            breath_weapon_facts(false, true),
+        ),
+        "doRejectMismatchedArea" => observed_breath_weapon_route(
+            start_dragonborn_breath_weapon_battle_observed,
+            DragonbornBreathWeaponFacts {
+                area_shape: BreathWeaponAreaShape::Line30By5Feet,
+                ..breath_weapon_facts(false, true)
+            },
+        ),
+        "doRejectInvalidDamageRoll" => observed_breath_weapon_route(
+            start_dragonborn_breath_weapon_battle_observed,
+            DragonbornBreathWeaponFacts {
+                damage_roll: 11,
+                ..breath_weapon_facts(false, true)
+            },
+        ),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
+    match observed_action_taken {
+        "doResolveBreathWeapon" => expected_resolve_breath_weapon_route(false),
+        "doOpenExtraAttackSlot" => expected_resolve_breath_weapon_route(true),
+        "doRejectMissingResource" => expected_reject_missing_resource_route(),
+        "doRejectMismatchedArea" => expected_reject_mismatched_area_route(),
+        "doRejectInvalidDamageRoll" => expected_reject_invalid_damage_roll_route(),
+        action => panic!("unsupported mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &DragonbornBreathWeaponWitness) -> String {
@@ -62,51 +165,87 @@ pub fn projection_payload(witness: &DragonbornBreathWeaponWitness) -> String {
     .join("\n")
 }
 
-fn resolved() -> DragonbornBreathWeaponState {
-    resolve_dragonborn_breath_weapon(
-        dragonborn_breath_weapon_initial_state(),
+fn resolved_state() -> BattleState {
+    resolve_breath_weapon(
+        start_dragonborn_breath_weapon_battle(),
+        breath_weapon_facts(false, true),
+    )
+}
+
+fn open_extra_attack_slot_state() -> BattleState {
+    resolve_breath_weapon(
+        start_dragonborn_breath_weapon_battle(),
+        breath_weapon_facts(true, false),
+    )
+}
+
+fn reject_missing_resource_state() -> BattleState {
+    resolve_breath_weapon(
+        with_dragonborn_breath_weapon_uses_remaining(start_dragonborn_breath_weapon_battle(), 0),
+        breath_weapon_facts(false, true),
+    )
+}
+
+fn reject_mismatched_area_state() -> BattleState {
+    resolve_breath_weapon(
+        start_dragonborn_breath_weapon_battle(),
         DragonbornBreathWeaponFacts {
-            character_level: 1,
-            damage_roll: 10,
-            target_saving_throw_succeeded: false,
-            second_target_in_area: true,
-            second_target_saving_throw_succeeded: true,
-            area_shape: BreathWeaponAreaShape::Cone15Feet,
-            expected_area_shape: BreathWeaponAreaShape::Cone15Feet,
-            opens_extra_attack_slot: false,
+            area_shape: BreathWeaponAreaShape::Line30By5Feet,
+            ..breath_weapon_facts(false, true)
         },
     )
 }
 
-fn open_extra_attack_slot() -> DragonbornBreathWeaponState {
-    resolve_dragonborn_breath_weapon(
-        dragonborn_breath_weapon_initial_state(),
+fn reject_invalid_damage_roll_state() -> BattleState {
+    resolve_breath_weapon(
+        start_dragonborn_breath_weapon_battle(),
         DragonbornBreathWeaponFacts {
-            character_level: 1,
-            damage_roll: 10,
-            target_saving_throw_succeeded: false,
-            second_target_in_area: false,
-            second_target_saving_throw_succeeded: true,
-            area_shape: BreathWeaponAreaShape::Cone15Feet,
-            expected_area_shape: BreathWeaponAreaShape::Cone15Feet,
-            opens_extra_attack_slot: true,
+            damage_roll: 11,
+            ..breath_weapon_facts(false, true)
         },
     )
 }
 
-fn reject_missing_resource() -> DragonbornBreathWeaponState {
-    reject_dragonborn_breath_weapon_missing_resource(dragonborn_breath_weapon_initial_state())
+fn breath_weapon_facts(
+    opens_extra_attack_slot: bool,
+    second_target_in_area: bool,
+) -> DragonbornBreathWeaponFacts {
+    DragonbornBreathWeaponFacts {
+        character_level: 1,
+        damage_roll: 10,
+        target_saving_throw_succeeded: false,
+        second_target_in_area,
+        second_target_saving_throw_succeeded: true,
+        area_shape: BreathWeaponAreaShape::Cone15Feet,
+        expected_area_shape: BreathWeaponAreaShape::Cone15Feet,
+        opens_extra_attack_slot,
+    }
 }
 
-fn reject_mismatched_area() -> DragonbornBreathWeaponState {
-    reject_dragonborn_breath_weapon_mismatched_area(dragonborn_breath_weapon_initial_state())
+fn resolve_breath_weapon(state: BattleState, facts: DragonbornBreathWeaponFacts) -> BattleState {
+    let subject = breath_weapon_subject(&state);
+    resolve_battle_subject(
+        state,
+        BattleResolutionRequest::attack_action_area_save_damage_replacement(
+            subject,
+            BattleAttackActionAreaSaveDamageReplacementFill::DragonbornBreathWeapon(facts),
+        )
+        .expect("breath weapon subject should match request"),
+    )
+    .into_state()
 }
 
-fn reject_invalid_damage_roll() -> DragonbornBreathWeaponState {
-    reject_dragonborn_breath_weapon_invalid_damage_roll(dragonborn_breath_weapon_initial_state())
+fn breath_weapon_subject(state: &BattleState) -> BattleSubject {
+    discover_battle_acts(state)
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == BattleSubjectKind::AttackActionAreaSaveDamageReplacement)
+        .expect("breath weapon subject should be discoverable")
 }
 
-fn witness_from_state(state: DragonbornBreathWeaponState) -> DragonbornBreathWeaponWitness {
+fn witness_from_battle(state: BattleState) -> DragonbornBreathWeaponWitness {
+    let state = dragonborn_breath_weapon_from_battle(&state);
     DragonbornBreathWeaponWitness {
         target_hp: state.target_hit_points,
         second_target_hp: state.second_target_hit_points,
@@ -116,6 +255,31 @@ fn witness_from_state(state: DragonbornBreathWeaponState) -> DragonbornBreathWea
         protocol_result: protocol_result_ref(state.protocol),
         protocol_invalid_reason: protocol_invalid_reason_ref(state.protocol),
         protocol_holes: protocol_holes(state.protocol),
+    }
+}
+
+struct ExpectedBreathWeaponWitness {
+    target_hp: i16,
+    second_target_hp: i16,
+    breath_weapon_uses_remaining: i16,
+    action_resources_remaining: i16,
+    scenario_outcome: &'static str,
+    protocol_result: &'static str,
+    protocol_invalid_reason: &'static str,
+}
+
+fn expected_witness_from_parts(
+    parts: ExpectedBreathWeaponWitness,
+) -> DragonbornBreathWeaponWitness {
+    DragonbornBreathWeaponWitness {
+        target_hp: parts.target_hp,
+        second_target_hp: parts.second_target_hp,
+        breath_weapon_uses_remaining: parts.breath_weapon_uses_remaining,
+        action_resources_remaining: parts.action_resources_remaining,
+        scenario_outcome: parts.scenario_outcome,
+        protocol_result: parts.protocol_result,
+        protocol_invalid_reason: parts.protocol_invalid_reason,
+        protocol_holes: Vec::new(),
     }
 }
 
@@ -162,4 +326,116 @@ fn joined_or_none(values: &[&'static str]) -> String {
     } else {
         values.join(",")
     }
+}
+
+fn observed_breath_weapon_route(
+    start: impl FnOnce(&mut BattleEntrypointTrace) -> BattleState,
+    facts: DragonbornBreathWeaponFacts,
+) -> Vec<ReducerRouteEvent> {
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start(&mut trace);
+    let discovery = discover_battle_acts_observed(&state, &mut trace);
+    let subject = discovery
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == BattleSubjectKind::AttackActionAreaSaveDamageReplacement)
+        .expect("breath weapon subject should be discoverable");
+    let request = BattleResolutionRequest::attack_action_area_save_damage_replacement(
+        subject,
+        BattleAttackActionAreaSaveDamageReplacementFill::DragonbornBreathWeapon(facts),
+    )
+    .expect("breath weapon subject should match request");
+    let _result = resolve_battle_subject_observed(state, request, &mut trace);
+    observed_reducer_route(
+        &trace,
+        &[ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement],
+    )
+}
+
+fn expected_resolve_breath_weapon_route(opens_extra_attack_slot: bool) -> Vec<ReducerRouteEvent> {
+    let _observed_action_resources_remaining = opens_extra_attack_slot;
+    vec![
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            holes: vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
+    ]
+}
+
+fn expected_reject_missing_resource_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            holes: vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            outcome: ReducerRouteResolutionOutcome::Invalid(
+                crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
+            ),
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
+    ]
+}
+
+fn expected_reject_mismatched_area_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            holes: vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            outcome: ReducerRouteResolutionOutcome::Invalid(
+                crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
+            ),
+            holes: vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            owner: ReducerRouteOwnerGroup::AreaShape,
+        },
+    ]
+}
+
+fn expected_reject_invalid_damage_roll_route() -> Vec<ReducerRouteEvent> {
+    vec![
+        ReducerRouteEvent::StartBattle {
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::DiscoverBattleActs {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            holes: vec![ReducerRouteHoleKind::SavingThrowOutcome],
+            owner: ReducerRouteOwnerGroup::FeatureResource,
+        },
+        ReducerRouteEvent::ResolveBattleSubject {
+            subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
+            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            outcome: ReducerRouteResolutionOutcome::Invalid(
+                crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
+            ),
+            holes: vec![ReducerRouteHoleKind::RolledDice],
+            owner: ReducerRouteOwnerGroup::DamageRoll,
+        },
+    ]
 }

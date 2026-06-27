@@ -10,6 +10,13 @@ pub enum WeaponMasteryRuntimeHole {
     WitnessProtocol,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum WeaponMasteryProperty {
+    Sap,
+    Topple,
+    Cleave,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum WeaponMasteryRuntimeProtocol {
     Init(Vec<WeaponMasteryRuntimeHole>),

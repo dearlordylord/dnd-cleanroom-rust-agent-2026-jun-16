@@ -30,6 +30,10 @@
           "status": "pass"
         },
         {
+          "command": "cargo test weapon_mastery_selected_identity_adapter_replays_all_branches && cargo test dragonborn_breath_weapon_adapter_replays_all_branches && cargo test feature_selected_identity_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
           "command": "cargo test",
           "status": "pass"
         },
@@ -2123,6 +2127,81 @@
         "deciderDecision": {
           "path": "tasks/history/L15-RR07S-B-ZERO-HP-FORM-MOVEMENT-SUBSTRATES/DECIDER_DECISION.json",
           "sha256": "a860e079acda93b7938192b50c5ba7a03e5b7d7f51cd1f35d78faea7ffd014f5"
+        }
+      }
+    },
+    {
+      "taskId": "L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES",
+      "assignmentId": "level-1-2-battle",
+      "laneId": "battle",
+      "manifestSourceCommitSha": "564376fd95218a209bb9eae5c9ccb54ca3e04a52",
+      "sourceBranchInventorySha256": "4bb2b20a85d94e3b90b7c59cbfe6e1edd5ab3ef40410641e999527861f3d3a32",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-mastery-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-dragonborn-breath-weapon.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
+      ],
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 8d8576315773c721128fabaf79319bdbf2921eaa...HEAD",
+          "status": "pass"
+        }
+      ],
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json",
+          "sha256": "84023113707dd9e305672ceb471adc87d9ab9480a1ac78617bc7c1afb4f86e1d",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveSapMasteryPropertyHit#step:doResolveSapMasteryPropertyHit",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveToppleMasteryPropertyFailedSavingThrow#step:doResolveToppleMasteryPropertyFailedSavingThrow",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveCleaveMasteryPropertySecondTargetHit#step:doResolveCleaveMasteryPropertySecondTargetHit",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doResolveBreathWeapon#step:doResolveBreathWeapon",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doOpenExtraAttackSlot#step:doOpenExtraAttackSlot",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectMissingResource#step:doRejectMissingResource",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectMismatchedArea#step:doRejectMismatchedArea",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doRejectInvalidDamageRoll#step:doRejectInvalidDamageRoll",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doActivateInnateSorcery#step:doActivateInnateSorcery",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doProjectInnateSorcerySpellBenefits#step:doProjectInnateSorcerySpellBenefits",
+            "tasks/target-replay-evidence/L15-RR07S-C-weapon-breath-feature-substrates.json#L15-RR07S-C replay action=doExcludeInnateSorceryNonSorcererSpellBenefits#step:doExcludeInnateSorceryNonSorcererSpellBenefits"
+          ]
+        }
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/START_GATE.json",
+          "sha256": "ddf6a50dc45a1abc565bd29cc362b13079dd7b96ca6a1cfe7df284702b800649"
+        },
+        "engineDepth": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "8a12933e123dde5d8fabf786f7040b7661ebb895a4b87ee9bbcab824a6522898"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/STATE_OWNER_MANIFEST.json",
+          "sha256": "651fca3117704424c652be6e4770f9be68c5daf4c1332cc83da1f51397336fdc"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/REVIEW_LOOP.json",
+          "sha256": "25c0f8a10dec63934486585b4b1e3f9607534bb88e9028d8bdf95606b3ddb602"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/L15-RR07S-C-WEAPON-BREATH-FEATURE-SUBSTRATES/DECIDER_DECISION.json",
+          "sha256": "a1b9d613c7474002fd430f6a1de852e99623cf64ee0eb742c7eb83742eafb361"
         }
       }
     }
