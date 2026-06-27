@@ -956,7 +956,7 @@
     {
       "laneId": "L15-RRCP5-C-REACTION-INTERRUPT-ROUTES",
       "checkpointId": "CP5",
-      "status": "reviewing",
+      "status": "fixing-review-findings",
       "parallelGroup": "cp5-remaining-battle-families",
       "routeTaskIds": [
         "L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES"
