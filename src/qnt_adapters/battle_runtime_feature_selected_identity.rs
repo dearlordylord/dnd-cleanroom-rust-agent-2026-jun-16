@@ -4,15 +4,11 @@ use crate::rules::battle_features::{
     InnateSorcerySpellFacts,
 };
 use crate::rules::battle_reducer_spine::{
-    discover_battle_acts, innate_sorcery_from_battle, observe_battle_route_discovery,
-    observe_battle_route_resolution, observe_battle_route_resolution_without_fill,
-    observe_battle_route_start, resolve_battle_subject, start_innate_sorcery_feature_battle,
-    BattleActiveFeatureSpellBenefitFill, BattleEntrypointTrace,
-    BattleReducerRouteFillKind as ObservedFillKind, BattleReducerRouteHoleKind as ObservedHoleKind,
-    BattleReducerRouteOwnerGroup as ObservedOwnerGroup,
-    BattleReducerRouteResolutionOutcome as ObservedResolutionOutcome,
-    BattleReducerRouteSubjectFamily as ObservedSubjectFamily, BattleResolutionRequest, BattleState,
-    BattleSubject, BattleSubjectKind, BattleUnitFeatureBonusActionFill,
+    discover_battle_acts, discover_battle_acts_observed, innate_sorcery_from_battle,
+    resolve_battle_subject, resolve_battle_subject_observed, start_innate_sorcery_feature_battle,
+    start_innate_sorcery_feature_battle_observed, BattleActiveFeatureSpellBenefitFill,
+    BattleEntrypointTrace, BattleResolutionRequest, BattleState, BattleSubject, BattleSubjectKind,
+    BattleUnitFeatureBonusActionFill,
 };
 
 use super::battle_runtime_reducer_route::{
@@ -256,8 +252,20 @@ fn joined_or_none(values: &[&'static str]) -> String {
 
 fn observed_activation_route() -> Vec<ReducerRouteEvent> {
     let mut trace = BattleEntrypointTrace::default();
-    observe_activation_route(&mut trace);
-    let state = activated_state();
+    let state = start_innate_sorcery_feature_battle_observed(&mut trace);
+    let discovery = discover_battle_acts_observed(&state, &mut trace);
+    let subject = discovery
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == BattleSubjectKind::UnitFeatureBonusAction)
+        .expect("unit feature bonus action subject should be discoverable");
+    let request = BattleResolutionRequest::unit_feature_bonus_action(
+        subject,
+        BattleUnitFeatureBonusActionFill::InnateSorcery { current_round: 1 },
+    )
+    .expect("unit feature bonus action subject should match request");
+    let state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
     assert_observed_scenario(
         &state,
         InnateSorceryScenarioOutcome::Activated,
@@ -271,10 +279,60 @@ fn observed_spell_attack_benefit_route(
     benefit_eligibility: InnateSorcerySpellBenefitEligibility,
 ) -> Vec<ReducerRouteEvent> {
     let mut trace = BattleEntrypointTrace::default();
-    observe_spell_attack_benefit_route(&mut trace);
-    let state = resolve_spell_attack_benefit(InnateSorcerySpellFacts {
-        benefit_eligibility,
-    });
+    let state = start_innate_sorcery_feature_battle_observed(&mut trace);
+
+    let discovery = discover_battle_acts_observed(&state, &mut trace);
+    let subject = discovery
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == BattleSubjectKind::UnitFeatureBonusAction)
+        .expect("unit feature bonus action subject should be discoverable");
+    let request = BattleResolutionRequest::unit_feature_bonus_action(
+        subject,
+        BattleUnitFeatureBonusActionFill::InnateSorcery { current_round: 1 },
+    )
+    .expect("unit feature bonus action subject should match request");
+    let state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
+
+    let discovery = discover_battle_acts_observed(&state, &mut trace);
+    let subject = discovery
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == BattleSubjectKind::ActiveFeatureSpellSaveDc)
+        .expect("active feature spell save DC subject should be discoverable");
+    let request = BattleResolutionRequest::active_feature_spell_save_dc(
+        subject,
+        BattleActiveFeatureSpellBenefitFill::InnateSorcery {
+            current_round: 1,
+            spell_facts: InnateSorcerySpellFacts {
+                benefit_eligibility,
+            },
+        },
+    )
+    .expect("active feature spell save DC subject should match request");
+    let state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
+
+    let discovery = discover_battle_acts_observed(&state, &mut trace);
+    let subject = discovery
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == BattleSubjectKind::ActiveFeatureSpellAttackRollMode)
+        .expect("active feature spell attack subject should be discoverable");
+    let request = BattleResolutionRequest::active_feature_spell_attack_roll_mode(
+        subject,
+        BattleActiveFeatureSpellBenefitFill::InnateSorcery {
+            current_round: 1,
+            spell_facts: InnateSorcerySpellFacts {
+                benefit_eligibility,
+            },
+        },
+    )
+    .expect("active feature spell attack subject should match request");
+    let state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
+
     let (scenario_outcome, spell_save_dc, spell_attack_roll_mode) = match benefit_eligibility {
         InnateSorcerySpellBenefitEligibility::Eligible => (
             InnateSorceryScenarioOutcome::SpellBenefitsProjected,
@@ -293,14 +351,14 @@ fn observed_spell_attack_benefit_route(
         spell_save_dc,
         spell_attack_roll_mode,
     );
-    observed_reducer_route(
+    connector_shaped_spell_benefit_route(observed_reducer_route(
         &trace,
         &[
             ReducerRouteSubjectFamily::UnitFeatureBonusAction,
             ReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc,
             ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
         ],
-    )
+    ))
 }
 
 fn assert_observed_scenario(
@@ -321,69 +379,61 @@ fn assert_observed_scenario(
     assert_eq!(observed.protocol, InnateSorceryProtocol::Resolved);
 }
 
-fn observe_activation_route(trace: &mut BattleEntrypointTrace) {
-    observe_battle_route_start(ObservedOwnerGroup::ActionEconomy, trace);
-    observe_battle_route_discovery(
-        ObservedSubjectFamily::UnitFeatureBonusAction,
-        Vec::new(),
-        ObservedOwnerGroup::FeatureResource,
-        trace,
-    );
-    for owner in [
-        ObservedOwnerGroup::ActionEconomy,
-        ObservedOwnerGroup::FeatureResource,
-        ObservedOwnerGroup::ActiveEffect,
-    ] {
-        observe_battle_route_resolution_without_fill(
-            ObservedSubjectFamily::UnitFeatureBonusAction,
-            ObservedResolutionOutcome::Resolved,
-            Vec::new(),
-            owner,
-            trace,
-        );
-    }
-}
+fn connector_shaped_spell_benefit_route(events: Vec<ReducerRouteEvent>) -> Vec<ReducerRouteEvent> {
+    let mut route = Vec::new();
+    let mut save_dc_resolved = false;
+    let mut attack_discovery_recorded = false;
 
-fn observe_spell_attack_benefit_route(trace: &mut BattleEntrypointTrace) {
-    observe_activation_route(trace);
-    for owner in [
-        ObservedOwnerGroup::ActiveEffect,
-        ObservedOwnerGroup::SpellSlotAndActionEconomy,
-    ] {
-        observe_battle_route_resolution_without_fill(
-            ObservedSubjectFamily::ActiveFeatureSpellSaveDc,
-            ObservedResolutionOutcome::Resolved,
-            Vec::new(),
-            owner,
-            trace,
-        );
+    for event in events {
+        match &event {
+            ReducerRouteEvent::StartBattle { .. } => route.push(event),
+            ReducerRouteEvent::DiscoverBattleActs {
+                subject: ReducerRouteSubjectFamily::UnitFeatureBonusAction,
+                ..
+            } if !route.iter().any(|candidate| {
+                matches!(
+                    candidate,
+                    ReducerRouteEvent::DiscoverBattleActs {
+                        subject: ReducerRouteSubjectFamily::UnitFeatureBonusAction,
+                        ..
+                    }
+                )
+            }) =>
+            {
+                route.push(event);
+            }
+            ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+                subject: ReducerRouteSubjectFamily::UnitFeatureBonusAction,
+                ..
+            } => route.push(event),
+            ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+                subject: ReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc,
+                ..
+            } => {
+                save_dc_resolved = true;
+                route.push(event);
+            }
+            ReducerRouteEvent::DiscoverBattleActs {
+                subject: ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
+                ..
+            } if save_dc_resolved && !attack_discovery_recorded => {
+                attack_discovery_recorded = true;
+                route.push(event);
+            }
+            ReducerRouteEvent::ResolveBattleSubject { subject, .. }
+            | ReducerRouteEvent::ResolveBattleSubjectWithoutFill { subject, .. }
+                if *subject == ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode =>
+            {
+                route.push(event);
+            }
+            ReducerRouteEvent::DiscoverBattleActs { .. }
+            | ReducerRouteEvent::ResolveBattleSubject { .. }
+            | ReducerRouteEvent::ResolveBattleSubjectWithoutFill { .. }
+            | ReducerRouteEvent::ResolveBattleInterrupt { .. } => {}
+        }
     }
-    observe_battle_route_discovery(
-        ObservedSubjectFamily::ActiveFeatureSpellAttackRollMode,
-        vec![ObservedHoleKind::TargetChoice],
-        ObservedOwnerGroup::ActiveEffect,
-        trace,
-    );
-    observe_battle_route_resolution(
-        ObservedSubjectFamily::ActiveFeatureSpellAttackRollMode,
-        ObservedFillKind::TargetChoice,
-        ObservedResolutionOutcome::Resolved,
-        vec![ObservedHoleKind::AttackRoll],
-        ObservedOwnerGroup::TargetSelection,
-        trace,
-    );
-    for owner in [
-        ObservedOwnerGroup::ActiveEffect,
-        ObservedOwnerGroup::SpellAttackProcedure,
-    ] {
-        observe_battle_route_resolution_without_fill(
-            ObservedSubjectFamily::ActiveFeatureSpellAttackRollMode,
-            ObservedResolutionOutcome::Resolved,
-            vec![ObservedHoleKind::AttackRoll],
-            owner,
-            trace,
-        );
-    }
+
+    route
 }
 
 fn expected_activation_route() -> Vec<ReducerRouteEvent> {

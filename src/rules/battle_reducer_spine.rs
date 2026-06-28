@@ -6498,18 +6498,24 @@ fn apply_innate_sorcery_spell_benefit(
     spell_attack_roll_mode: InnateSorcerySpellAttackRollMode,
 ) -> BattleState {
     state.bonus_action_available = false;
+    let innate = state.feature_substrates.innate_sorcery;
+    let activating_now = matches!(innate.occurrence, InnateSorceryOccurrence::Inactive);
     state.feature_substrates.innate_sorcery = BattleInnateSorcerySubstrate {
-        uses_remaining: state
-            .feature_substrates
-            .innate_sorcery
-            .uses_remaining
-            .saturating_sub(1),
-        occurrence: InnateSorceryOccurrence::ActiveUntilEndOfRound(current_round + 10),
+        uses_remaining: if activating_now {
+            innate.uses_remaining.saturating_sub(1)
+        } else {
+            innate.uses_remaining
+        },
+        occurrence: if activating_now {
+            InnateSorceryOccurrence::ActiveUntilEndOfRound(current_round + 10)
+        } else {
+            innate.occurrence
+        },
         spell_save_dc_bonus,
         spell_attack_roll_mode,
         scenario_outcome,
         protocol: InnateSorceryProtocol::Resolved,
-        ..state.feature_substrates.innate_sorcery
+        ..innate
     };
     state
 }
@@ -9748,11 +9754,81 @@ fn battle_resolution_route_events(
     fill: BattleFill,
     result: &BattleResolutionResult,
 ) -> Vec<BattleReducerRouteEvent> {
+    if let Some(route_events) = active_feature_spell_benefit_route_events(subject, result) {
+        return route_events;
+    }
+
     let route_event = battle_resolution_route_event(subject, fill, result);
     let Some(procedure_event) = spell_attack_procedure_route_event(subject, &route_event) else {
         return vec![route_event];
     };
     vec![route_event, procedure_event]
+}
+
+fn active_feature_spell_benefit_route_events(
+    subject: BattleSubjectKind,
+    result: &BattleResolutionResult,
+) -> Option<Vec<BattleReducerRouteEvent>> {
+    let outcome = result.outcome();
+    match subject {
+        BattleSubjectKind::UnitFeatureBonusAction => Some(
+            [
+                BattleReducerRouteOwnerGroup::ActionEconomy,
+                BattleReducerRouteOwnerGroup::FeatureResource,
+                BattleReducerRouteOwnerGroup::ActiveEffect,
+            ]
+            .into_iter()
+            .map(
+                |owner| BattleReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+                    subject: BattleReducerRouteSubjectFamily::UnitFeatureBonusAction,
+                    outcome,
+                    holes: Vec::new(),
+                    owner,
+                },
+            )
+            .collect(),
+        ),
+        BattleSubjectKind::ActiveFeatureSpellSaveDc => Some(
+            [
+                BattleReducerRouteOwnerGroup::ActiveEffect,
+                BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+            ]
+            .into_iter()
+            .map(
+                |owner| BattleReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+                    subject: BattleReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc,
+                    outcome,
+                    holes: Vec::new(),
+                    owner,
+                },
+            )
+            .collect(),
+        ),
+        BattleSubjectKind::ActiveFeatureSpellAttackRollMode => Some(vec![
+            BattleReducerRouteEvent::ResolveBattleSubject {
+                subject: BattleReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
+                fill: BattleReducerRouteFillEvidence::FillKind(
+                    BattleReducerRouteFillKind::TargetChoice,
+                ),
+                outcome,
+                holes: vec![BattleReducerRouteHoleKind::AttackRoll],
+                owner: BattleReducerRouteOwnerGroup::TargetSelection,
+            },
+            BattleReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+                subject: BattleReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
+                outcome,
+                holes: vec![BattleReducerRouteHoleKind::AttackRoll],
+                owner: BattleReducerRouteOwnerGroup::ActiveEffect,
+            },
+            BattleReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+                subject: BattleReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
+                outcome,
+                holes: vec![BattleReducerRouteHoleKind::AttackRoll],
+                owner: BattleReducerRouteOwnerGroup::SpellAttackProcedure,
+            },
+        ]),
+        _ => None,
+    }
 }
 
 fn spell_attack_procedure_route_event(
