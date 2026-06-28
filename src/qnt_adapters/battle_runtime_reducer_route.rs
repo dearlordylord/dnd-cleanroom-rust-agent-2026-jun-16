@@ -134,6 +134,7 @@ pub enum ReducerRouteSubjectFamily {
     ConditionRider,
     NextAttackRollMode,
     ReactionInterdiction,
+    ObjectLightRider,
     InterruptStackResume,
     LightProjection,
     MovementResource,
@@ -226,6 +227,7 @@ pub enum ReducerRouteOwnerGroup {
     TemporaryHitPoint,
     TurnBoundary,
     ArmorClass,
+    LightProjection,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -827,6 +829,7 @@ pub fn setup_from_battle_state(state: BattleState) -> BattleSetup {
         spell_attack_procedure: state.spell_attack_procedure,
         command_effect_procedure: state.command_effect_procedure,
         spatial_route_subjects: state.spatial_route_subjects,
+        object_light_route: state.object_light_route,
         ability_check_choice_search: state.ability_check_choice_search,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
@@ -876,6 +879,7 @@ pub fn battle_setup_from_state(state: BattleState) -> BattleSetup {
         spell_attack_procedure: state.spell_attack_procedure,
         command_effect_procedure: state.command_effect_procedure,
         spatial_route_subjects: state.spatial_route_subjects,
+        object_light_route: state.object_light_route,
         ability_check_choice_search: state.ability_check_choice_search,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
@@ -956,6 +960,9 @@ const fn reducer_route_subject(
         }
         BattleReducerRouteSubjectFamily::ReactionInterdiction => {
             ReducerRouteSubjectFamily::ReactionInterdiction
+        }
+        BattleReducerRouteSubjectFamily::ObjectLightRider => {
+            ReducerRouteSubjectFamily::ObjectLightRider
         }
         BattleReducerRouteSubjectFamily::InterruptStackResume => {
             ReducerRouteSubjectFamily::InterruptStackResume
@@ -1278,6 +1285,7 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
         }
         BattleReducerRouteOwnerGroup::TurnBoundary => ReducerRouteOwnerGroup::TurnBoundary,
         BattleReducerRouteOwnerGroup::ArmorClass => ReducerRouteOwnerGroup::ArmorClass,
+        BattleReducerRouteOwnerGroup::LightProjection => ReducerRouteOwnerGroup::LightProjection,
     }
 }
 
@@ -1630,6 +1638,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::TemporaryHitPoint => "BattleTemporaryHitPointOwner",
         ReducerRouteOwnerGroup::TurnBoundary => "BattleTurnBoundaryOwner",
         ReducerRouteOwnerGroup::ArmorClass => "BattleArmorClassOwner",
+        ReducerRouteOwnerGroup::LightProjection => "BattleLightProjectionOwner",
     }
 }
 
@@ -1684,6 +1693,7 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::ConditionRider => "ConditionRiderRouteSubject",
         ReducerRouteSubjectFamily::NextAttackRollMode => "NextAttackRollModeRouteSubject",
         ReducerRouteSubjectFamily::ReactionInterdiction => "ReactionInterdictionRouteSubject",
+        ReducerRouteSubjectFamily::ObjectLightRider => "ObjectLightRiderRouteSubject",
         ReducerRouteSubjectFamily::InterruptStackResume => "InterruptStackResumeRouteSubject",
         ReducerRouteSubjectFamily::LightProjection => "LightProjectionRouteSubject",
         ReducerRouteSubjectFamily::MovementResource => "MovementResourceRouteSubject",

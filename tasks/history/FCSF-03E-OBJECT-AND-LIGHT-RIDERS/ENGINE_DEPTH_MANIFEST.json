@@ -1,0 +1,23 @@
+{
+  "adapterScope": [
+    {
+      "path": "src/qnt_adapters/battle_runtime_object_light_riders_route.rs",
+      "scope": "Replays copied SQNT-03E object/light connector rows through public BattleState reducer route events and records route facts as adapter witnesses."
+    }
+  ],
+  "durableStateOwners": [
+    {
+      "apiPath": "BattleState.object_light_route",
+      "owner": "battle-state"
+    }
+  ],
+  "nonDurableWitnesses": [
+    "object validity admission witness",
+    "object geometry witness",
+    "cover geometry witness",
+    "opaque blocker geometry witness",
+    "color presentation witness",
+    "object durability boundary witness"
+  ],
+  "taskId": "FCSF-03E-OBJECT-AND-LIGHT-RIDERS"
+}

@@ -1,0 +1,10 @@
+{
+  "acceptedConnectorRowCount": 9,
+  "acceptedSelectedObligations": [
+    "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doLightObjectEmitterProjectionReplacementCleanup",
+    "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt#step:doProduceFlameHeldLightProjectionHurlCleanup"
+  ],
+  "evidencePath": "tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json",
+  "rationale": "Accepted only object-attached and held light obligations matched by copied SQNT-03E generic route facts. Did not accept selected identity drivers wholesale.",
+  "taskId": "FCSF-03E-OBJECT-AND-LIGHT-RIDERS"
+}

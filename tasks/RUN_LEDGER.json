@@ -4021,6 +4021,98 @@
           "status": "pass"
         }
       ]
+    },
+    {
+      "taskId": "FCSF-03E-OBJECT-AND-LIGHT-RIDERS",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY",
+      "manifestSourceCommitSha": "32e51f46a71f5a714034966e018fe79abbb7fcae",
+      "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+      "sourceReducerRouteInventorySha256": "bf58b006a93a80ed475974b8f779540823f6fa60cfbb08fcfe2290b3172315fa",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "routeConnectorAuthority": {
+        "inventoryKind": "reducer-route-inventory",
+        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt",
+        "sha256": "ed95f7dce66871b84d36ea918d267737150e9fad7253dceb494bddf3b0b06baa"
+      },
+      "routeFactsAuthority": {
+        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-rider-route-facts.qnt",
+        "sha256": "7fc4de3d371893bc4430e1ea26b99dd24d4b58af6e9fc233064b55c37495333b"
+      },
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+      ],
+      "selectedDriversPurpose": "downstream source-branch pressure only; route connector authority is recorded in routeConnectorAuthority and selected identity rows are counted only when matched by generic SQNT-03E facts",
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/FCSF-03E-OBJECT-AND-LIGHT-RIDERS/START_GATE.json",
+          "sha256": "77379883ab8be72a67a9dead2390e5e52016f1c8253f54504ef01662a15986ac"
+        },
+        "engineDepth": {
+          "path": "tasks/history/FCSF-03E-OBJECT-AND-LIGHT-RIDERS/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "df243efc8f4da80c91d6c529026ecddb314f988f83206c1b0417ab0533b4040a"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/FCSF-03E-OBJECT-AND-LIGHT-RIDERS/STATE_OWNER_MANIFEST.json",
+          "sha256": "c824cd83223cfb0f829d9765143b61f1fb7c2806b844e5dbc0a34f7d9a72b94d"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/FCSF-03E-OBJECT-AND-LIGHT-RIDERS/REVIEW_LOOP.json",
+          "sha256": "bb40e7fccc6e19e2aec41aa9fd39dbf05a8bb6c77c7947a0786c54248644d095"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/FCSF-03E-OBJECT-AND-LIGHT-RIDERS/DECIDER_DECISION.json",
+          "sha256": "19e435d3723bb722143175e44fdfa17bcf4a5b449dadf725aaed31be6ab6060f"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json",
+          "sha256": "66e713814ed8fe9e59bce9ad94f25b79353297dbf6a6c0b90e1e9b72e54ba882",
+          "acceptedConnectorRowCount": 9,
+          "acceptedEvidenceRefs": [
+            "tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json#FCSF-03E-OBJECT-AND-LIGHT-RIDERS dirty route action=doProjectObjectAttachedBrightDimLight#step:doLightObjectEmitterProjectionReplacementCleanup",
+            "tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json#FCSF-03E-OBJECT-AND-LIGHT-RIDERS dirty route action=doCleanupObjectAttachedEmitterOnReplacement#step:doLightObjectEmitterProjectionReplacementCleanup",
+            "tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json#FCSF-03E-OBJECT-AND-LIGHT-RIDERS dirty route action=doProjectHeldBrightDimLight#step:doProduceFlameHeldLightProjectionHurlCleanup",
+            "tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json#FCSF-03E-OBJECT-AND-LIGHT-RIDERS dirty route action=doCleanupHeldEmitterOnHurl#step:doProduceFlameHeldLightProjectionHurlCleanup"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "git merge-base --is-ancestor da56942 HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test object_light -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "fail: only known cleanroom-input/MANIFEST.md stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs"
+        },
+        {
+          "command": "git diff --check da56942...HEAD",
+          "status": "pass"
+        }
+      ]
     }
   ],
   "manifestSourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
