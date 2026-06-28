@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03a-dirty-replay-merged-verified",
+  "status": "sqnt03b-source-qnt-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -559,7 +559,19 @@
     "review": "Schrodinger the 3rd initially found two blockers: adapter-local targeted subject construction and cleanup not gated by expiry. Bernoulli fixed both in a8aa385f07bd937cec62ca6f2a934c259cda3e53 by adding public targeted subject construction and Inactive/Active/Expired lifecycle gating. Schrodinger re-review accepted the lane."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [],
+  "activeSourceQntLanes": [
+    {
+      "laneId": "SQNT-03B-NEXT-ATTACK-ROLL-MODE",
+      "routeTaskId": "FCSF-03B-NEXT-ATTACK-ROLL-MODE",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03b-next-attack-roll-mode",
+      "branch": "ralph/source-sqnt-03b-next-attack-roll-mode",
+      "baseSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
+      "workerAgent": "019f0d9d-9041-7c30-b767-b0b12f07b987",
+      "workerName": "Pasteur the 3rd",
+      "status": "running",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
+    }
+  ],
   "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03A-HIT-POINT-REGAIN-PREVENTION",

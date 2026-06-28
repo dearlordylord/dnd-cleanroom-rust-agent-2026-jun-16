@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03B-NEXT-ATTACK-ROLL-MODE | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03b-next-attack-roll-mode` | `ralph/source-sqnt-03b-next-attack-roll-mode` | `c83c4a2321ff45c796245d65ba979b9068c6718a` | Pasteur the 3rd (`019f0d9d-9041-7c30-b767-b0b12f07b987`) | running |
 
 ## Historical RRCONV-19 Worktrees
 
