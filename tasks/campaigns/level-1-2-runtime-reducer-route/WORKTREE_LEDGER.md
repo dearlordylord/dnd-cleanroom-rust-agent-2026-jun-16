@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03E-OBJECT-AND-LIGHT-RIDERS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03e-object-light-riders` | `ralph/source-sqnt-03e-object-light-riders` | `3e9297cab2dd998e5dc09670f771bfcdf0a04c93` | Banach the 3rd (`019f0e6b-8b23-74e2-9728-2a68e6390f19`) | worker-running |
+| SQNT-03E-OBJECT-AND-LIGHT-RIDERS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03e-object-light-riders` | `ralph/source-sqnt-03e-object-light-riders` | `3e9297cab2dd998e5dc09670f771bfcdf0a04c93` | Banach the 3rd (`019f0e6b-8b23-74e2-9728-2a68e6390f19`); reviewer Fermat the 3rd (`019f0e80-224f-7112-a3c9-8acc850386da`) | implemented-review-running at `92e171ed82c1148a65f84d052589444ebb1d10ed` |
 
 ## Historical RRCONV-19 Worktrees
 

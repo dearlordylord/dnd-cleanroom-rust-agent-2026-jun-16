@@ -625,7 +625,10 @@
       "baseSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
       "workerAgent": "019f0e6b-8b23-74e2-9728-2a68e6390f19",
       "workerName": "Banach the 3rd",
-      "status": "worker-running",
+      "workerCommit": "92e171ed82c1148a65f84d052589444ebb1d10ed",
+      "reviewAgent": "019f0e80-224f-7112-a3c9-8acc850386da",
+      "reviewName": "Fermat the 3rd",
+      "status": "implemented-review-running",
       "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
     }
   ],
