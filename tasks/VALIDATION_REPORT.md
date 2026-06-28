@@ -4337,3 +4337,45 @@ Blocked selected rows:
 - `doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage`: active next-Attack-Roll lifecycle remains owned by SQNT-03B.
 
 The selected level-1 damage driver is not accepted wholesale; only obligations matched by copied generic SQNT-03F route facts count here.
+
+## FCSF-03G Exact Damage Projection Facts Dirty Replay
+
+- Declared base SHA: `22fe5632a27d58327ea42d666d581ce0f66ae36e`
+- Manifest source commit SHA: `21504ef764118f5fd13086aa6266f19280196664`
+- Source branch inventory SHA: `aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862`
+- Reducer-route inventory SHA: `ecffe9ae1358784ff5add9ff35a2a3c351f69431798c7da830bf662a984275c0`
+- Component connector: `cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt`
+- Evidence file: `tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json`
+- Accepted SQNT-03G component rows: `doAttackCriticalDamage`, `doDirectInstanceDamage`, `doSaveSuccessHalfDamage`, `doSaveSuccessNoDamage`
+- Accepted selected pressure obligations: none; this component-first dirty replay does not claim selected attack-spell or level-1 damage selected-driver acceptance.
+
+Behavior implemented:
+
+- Added reusable Rust exact damage projection facts for direct spell damage, spell attack damage, save-gated damage, Attack Roll critical detection, and successful-save damage policy.
+- Reused existing `apply_resolved_damage_to_positive_hit_points` for target Hit Point application.
+- Added `RuleCoreComponentOwner::HitPointDamage` so the copied witness route preserves both `RuleCoreSpellProcedureProfileOwner` and `RuleCoreHitPointDamageOwner`.
+- Kept copied exact damage facts as non-durable component witness facts; no durable `BattleState` field was added.
+
+Verification results:
+
+- Branch-base check passed for declared base `22fe5632a27d58327ea42d666d581ce0f66ae36e`.
+- `cargo test exact_damage_projection -- --nocapture` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json` passed with 4 obligations covered.
+- `cargo fmt --check` passed.
+- `cargo test` passed with 233 tests.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed only on known stale validator hashes for `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs` recorded in `cleanroom-input/MANIFEST.md`.
+- `git diff --check 22fe5632a27d58327ea42d666d581ce0f66ae36e...HEAD` passed.
+
+Generated branch coverage:
+
+| Obligation | Evidence | Result | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt#step:doAttackCriticalDamage` | `tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doAttackCriticalDamage#step:doAttackCriticalDamage` | pass | covered |
+| `cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt#step:doDirectInstanceDamage` | `tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doDirectInstanceDamage#step:doDirectInstanceDamage` | pass | covered |
+| `cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt#step:doSaveSuccessHalfDamage` | `tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doSaveSuccessHalfDamage#step:doSaveSuccessHalfDamage` | pass | covered |
+| `cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt#step:doSaveSuccessNoDamage` | `tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doSaveSuccessNoDamage#step:doSaveSuccessNoDamage` | pass | covered |
+
+Blocked scope:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt` and `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt` remain unaccepted wholesale by this component-first replay.

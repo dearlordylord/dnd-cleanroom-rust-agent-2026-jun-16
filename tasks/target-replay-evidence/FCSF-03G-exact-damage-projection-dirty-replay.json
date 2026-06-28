@@ -1,0 +1,169 @@
+{
+  "acceptedComponentRowCount": 4,
+  "acceptedEvidenceRefs": [
+    "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doAttackCriticalDamage#step:doAttackCriticalDamage",
+    "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doDirectInstanceDamage#step:doDirectInstanceDamage",
+    "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doSaveSuccessHalfDamage#step:doSaveSuccessHalfDamage",
+    "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doSaveSuccessNoDamage#step:doSaveSuccessNoDamage"
+  ],
+  "cleanroomManifestSourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
+  "componentConnectorAuthority": {
+    "inventoryKind": "reducer-route-inventory",
+    "path": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
+    "qntFileSha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47"
+  },
+  "generatedBy": {
+    "name": "rust-rule-core-exact-damage-projection-component-adapter",
+    "tag": "target-harness"
+  },
+  "runs": [
+    {
+      "branchAction": "doAttackCriticalDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_exact_damage_projection_mbt.rs",
+      "observedActionTaken": "doAttackCriticalDamage",
+      "qntFileSha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ExactDamageProjectionState.component_route",
+          "ExactDamageProjectionState.damage_type",
+          "ExactDamageProjectionState.damage_amount",
+          "ExactDamageProjectionState.instance_count",
+          "ExactDamageProjectionState.damage_per_instance",
+          "ExactDamageProjectionState.base_damage_dice",
+          "ExactDamageProjectionState.rolled_damage_dice_count",
+          "ExactDamageProjectionState.damage_die_size",
+          "ExactDamageProjectionState.critical",
+          "ExactDamageProjectionState.success_policy",
+          "ExactDamageProjectionState.saving_throw_failed",
+          "ExactDamageProjectionState.target_initial_hp",
+          "ExactDamageProjectionState.target_hp",
+          "ExactDamageProjectionState.damage_to_hit_points"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "ad085cab2104a3e8ed05d1f2873c57f8fb1ed6fb6d7fab0ce7914d6371b46383",
+        "observedProjectionSha256": "ad085cab2104a3e8ed05d1f2873c57f8fb1ed6fb6d7fab0ce7914d6371b46383",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doAttackCriticalDamage"
+    },
+    {
+      "branchAction": "doDirectInstanceDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_exact_damage_projection_mbt.rs",
+      "observedActionTaken": "doDirectInstanceDamage",
+      "qntFileSha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ExactDamageProjectionState.component_route",
+          "ExactDamageProjectionState.damage_type",
+          "ExactDamageProjectionState.damage_amount",
+          "ExactDamageProjectionState.instance_count",
+          "ExactDamageProjectionState.damage_per_instance",
+          "ExactDamageProjectionState.base_damage_dice",
+          "ExactDamageProjectionState.rolled_damage_dice_count",
+          "ExactDamageProjectionState.damage_die_size",
+          "ExactDamageProjectionState.critical",
+          "ExactDamageProjectionState.success_policy",
+          "ExactDamageProjectionState.saving_throw_failed",
+          "ExactDamageProjectionState.target_initial_hp",
+          "ExactDamageProjectionState.target_hp",
+          "ExactDamageProjectionState.damage_to_hit_points"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "5d37e718e685885343489c5bac25acb85913fd32053268729b04bd37405061a9",
+        "observedProjectionSha256": "5d37e718e685885343489c5bac25acb85913fd32053268729b04bd37405061a9",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doDirectInstanceDamage"
+    },
+    {
+      "branchAction": "doSaveSuccessHalfDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_exact_damage_projection_mbt.rs",
+      "observedActionTaken": "doSaveSuccessHalfDamage",
+      "qntFileSha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ExactDamageProjectionState.component_route",
+          "ExactDamageProjectionState.damage_type",
+          "ExactDamageProjectionState.damage_amount",
+          "ExactDamageProjectionState.instance_count",
+          "ExactDamageProjectionState.damage_per_instance",
+          "ExactDamageProjectionState.base_damage_dice",
+          "ExactDamageProjectionState.rolled_damage_dice_count",
+          "ExactDamageProjectionState.damage_die_size",
+          "ExactDamageProjectionState.critical",
+          "ExactDamageProjectionState.success_policy",
+          "ExactDamageProjectionState.saving_throw_failed",
+          "ExactDamageProjectionState.target_initial_hp",
+          "ExactDamageProjectionState.target_hp",
+          "ExactDamageProjectionState.damage_to_hit_points"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "c8dc720d97c70972020925e8aaeb6c998c4eb18d3835f178349fcb04747d07d9",
+        "observedProjectionSha256": "c8dc720d97c70972020925e8aaeb6c998c4eb18d3835f178349fcb04747d07d9",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doSaveSuccessHalfDamage"
+    },
+    {
+      "branchAction": "doSaveSuccessNoDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/rule_core_exact_damage_projection_mbt.rs",
+      "observedActionTaken": "doSaveSuccessNoDamage",
+      "qntFileSha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ExactDamageProjectionState.component_route",
+          "ExactDamageProjectionState.damage_type",
+          "ExactDamageProjectionState.damage_amount",
+          "ExactDamageProjectionState.instance_count",
+          "ExactDamageProjectionState.damage_per_instance",
+          "ExactDamageProjectionState.base_damage_dice",
+          "ExactDamageProjectionState.rolled_damage_dice_count",
+          "ExactDamageProjectionState.damage_die_size",
+          "ExactDamageProjectionState.critical",
+          "ExactDamageProjectionState.success_policy",
+          "ExactDamageProjectionState.saving_throw_failed",
+          "ExactDamageProjectionState.target_initial_hp",
+          "ExactDamageProjectionState.target_hp",
+          "ExactDamageProjectionState.damage_to_hit_points"
+        ],
+        "comparator": "component-route-and-projection-payload-v1",
+        "expectedProjectionSha256": "0db7744b13eee3f13fdb728ff363e648511d3f87e5c12be6674b9c76e733cf4b",
+        "observedProjectionSha256": "0db7744b13eee3f13fdb728ff363e648511d3f87e5c12be6674b9c76e733cf4b",
+        "projection": "qComponentRoute+qProjectionPayload",
+        "tag": "projection-match"
+      },
+      "traceId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doSaveSuccessNoDamage"
+    }
+  ],
+  "selectedDriversPurpose": "no selected attack-spell or level-1 damage selected driver obligations are accepted by this component-first evidence file",
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+  "targetProfile": "target-profile.json#rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

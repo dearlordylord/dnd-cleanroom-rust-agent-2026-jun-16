@@ -198,6 +198,8 @@ mod creature_attack_mbt;
 mod rule_core_ability_skill_command_mbt;
 #[path = "../qnt_adapters/rule_core_attack_damage_disposition.rs"]
 mod rule_core_attack_damage_disposition;
+#[path = "../qnt_adapters/rule_core_exact_damage_projection_mbt.rs"]
+mod rule_core_exact_damage_projection_mbt;
 #[path = "../qnt_adapters/rule_core_features_mbt.rs"]
 mod rule_core_features_mbt;
 #[path = "../qnt_adapters/rule_core_hit_point_damage_mbt.rs"]
@@ -1406,6 +1408,14 @@ use rule_core_attack_damage_disposition::{
     projection_payload as attack_damage_disposition_projection_payload,
     replay_observed_action as replay_attack_damage_disposition_action,
     BRANCH_ACTIONS as ATTACK_DAMAGE_DISPOSITION_BRANCH_ACTIONS,
+};
+use rule_core_exact_damage_projection_mbt::{
+    component_route_payload as exact_damage_component_route_payload,
+    expected_component_route as expected_exact_damage_component_route,
+    expected_witness as expected_exact_damage_witness,
+    projection_payload as exact_damage_projection_payload,
+    replay_observed_action as replay_exact_damage_action,
+    BRANCH_ACTIONS as EXACT_DAMAGE_PROJECTION_BRANCH_ACTIONS,
 };
 use rule_core_features_mbt::{
     projection_payload as rule_core_features_projection_payload,
@@ -3815,6 +3825,57 @@ fn hit_point_damage_projects_temporary_zero_and_massive_damage() {
     assert!(massive.dead);
     assert!(!massive.unconscious);
     assert_eq!(massive.replay_index, 4);
+}
+
+#[test]
+fn exact_damage_projection_adapter_replays_all_component_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // rule-core-exact-damage-projection.mbt.qnt and shared-algebras
+    // spell-damage-projection-core.qnt / hit-point-damage.qnt. RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Damage Rolls",
+    // "Critical Hits", "Saving Throws and Damage", "Half Damage",
+    // "Damage Types", and "Hit Points".
+    assert_eq!(EXACT_DAMAGE_PROJECTION_BRANCH_ACTIONS.len(), 4);
+    for action in EXACT_DAMAGE_PROJECTION_BRANCH_ACTIONS {
+        let observed = replay_exact_damage_action(action);
+        assert_eq!(observed, expected_exact_damage_witness(action));
+        assert_eq!(
+            observed.component_route,
+            expected_exact_damage_component_route()
+        );
+        assert!(exact_damage_projection_payload(&observed).contains("qComponentRoute="));
+    }
+}
+
+#[test]
+fn exact_damage_projection_preserves_spell_profile_and_hit_point_owners() {
+    // RAW/QNT citations match
+    // `exact_damage_projection_adapter_replays_all_component_branches`.
+    let direct = replay_exact_damage_action("doDirectInstanceDamage");
+    assert_eq!(direct.damage_amount, 12);
+    assert_eq!(direct.target_initial_hp, 20);
+    assert_eq!(direct.target_hp, 8);
+    assert_eq!(direct.damage_to_hit_points, 12);
+
+    let critical = replay_exact_damage_action("doAttackCriticalDamage");
+    assert!(critical.critical);
+    assert_eq!(critical.base_damage_dice, 1);
+    assert_eq!(critical.rolled_damage_dice_count, 2);
+    assert_eq!(critical.damage_die_size, 8);
+    assert_eq!(critical.damage_amount, 7);
+    assert_eq!(critical.target_hp, 13);
+
+    let half = replay_exact_damage_action("doSaveSuccessHalfDamage");
+    assert_eq!(half.damage_amount, 4);
+    assert_eq!(half.target_hp, 16);
+
+    let no_damage = replay_exact_damage_action("doSaveSuccessNoDamage");
+    assert_eq!(no_damage.damage_amount, 0);
+    assert_eq!(no_damage.target_hp, 20);
+
+    let payload = exact_damage_component_route_payload(&direct.component_route);
+    assert!(payload.contains("RuleCoreSpellProcedureProfileOwner"));
+    assert!(payload.contains("RuleCoreHitPointDamageOwner"));
 }
 
 #[test]
