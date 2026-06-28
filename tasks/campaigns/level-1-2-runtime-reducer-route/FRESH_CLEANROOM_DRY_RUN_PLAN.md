@@ -37,7 +37,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`b43797af240c1486e5ad92c3698bf2cd2958a91e`
+`cd4465556d18729121f56f5834ac00f8b0b3d15c`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -65,7 +65,10 @@ explicitly blocked; exact roll-choice payloads were resolved source-side by
 source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375`, focused-replayed
 in the dirty target by commit `801b05df55a1393d6acd5c3fa7b2624ed91f9494`, and
 accepted in the fresh target by commit
-`b43797af240c1486e5ad92c3698bf2cd2958a91e`.
+`b43797af240c1486e5ad92c3698bf2cd2958a91e`; Ability Check/Search public
+target-choice, Ability Check opening, rejection, failure, and success surfaces
+were then accepted in the fresh target by commit
+`cd4465556d18729121f56f5834ac00f8b0b3d15c`.
 `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at
 `eb05e8495eac993b69e17f68544edace6e56caee` with generic reaction casting-time
 interrupt/resume, after-damage reaction, nested interrupt resume, active-effect

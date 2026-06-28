@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-expansion-fexp04-exact-roll-choice-replay-accepted",
+  "status": "fresh-expansion-fexp04-ability-check-search-replay-accepted",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -2798,18 +2798,18 @@
   },
   "nextWorkRecommendations": [
     "Fresh target focused replay for the FEXP-04 exact roll-choice payload blocker is accepted at b43797af240c1486e5ad92c3698bf2cd2958a91e after refreshing the copied package to source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375.",
-    "Use the accepted fresh target at b43797af240c1486e5ad92c3698bf2cd2958a91e as the current strongest target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are now explicit historical snapshots after the source-input refresh.",
+    "Fresh target public Ability Check/Search replay is accepted at cd4465556d18729121f56f5834ac00f8b0b3d15c; use this as the current strongest target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, FEXP-04 Ability Check/Search public reducer routing, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are explicit historical snapshots after the source-input refresh.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fexp04-ability-check-search-replay-running",
-    "activeLane": "FRESH-FEXP04-ABILITY-CHECK-SEARCH-REPLAY",
+    "status": "fexp04-ability-check-search-replay-accepted-with-historical-snapshots",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "b43797af240c1486e5ad92c3698bf2cd2958a91e",
+    "acceptedTargetHead": "cd4465556d18729121f56f5834ac00f8b0b3d15c",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -2929,9 +2929,9 @@
         "status": "accepted-with-blockers",
         "baseCommit": "9b2f81bfabb6f1afd7daede0455be054bb92d78c",
         "initialTargetCommit": "e8b0310e647ad471089fcd34737b8fd70211b373",
-        "targetCommit": "b43797af240c1486e5ad92c3698bf2cd2958a91e",
-        "workerAgent": "Descartes the 3rd (019f0b25-79c7-74a3-bcff-59fa8e307d69); verifier fixer Hooke the 3rd (019f0b3b-f745-7b83-8c2f-b2abd59b26aa); exact payload replay worker Ohm the 3rd (019f0be3-4fe3-78a1-9ad2-bcf35300d6e6)",
-        "reviewerAgent": "Einstein the 3rd (019f0b39-8e03-77d3-bba5-25ae339eafdf); exact payload replay reviewer Bacon the 3rd (019f0bf2-d514-7113-b7a7-503c6ea212e4) plus orchestrator review",
+        "targetCommit": "cd4465556d18729121f56f5834ac00f8b0b3d15c",
+        "workerAgent": "Descartes the 3rd (019f0b25-79c7-74a3-bcff-59fa8e307d69); verifier fixer Hooke the 3rd (019f0b3b-f745-7b83-8c2f-b2abd59b26aa); exact payload replay worker Ohm the 3rd (019f0be3-4fe3-78a1-9ad2-bcf35300d6e6); ability/search replay worker Confucius the 3rd (019f0bfc-3862-7ba0-8d5b-34aacc295d14)",
+        "reviewerAgent": "Einstein the 3rd (019f0b39-8e03-77d3-bba5-25ae339eafdf); exact payload replay reviewer Bacon the 3rd (019f0bf2-d514-7113-b7a7-503c6ea212e4); ability/search replay reviewer Goodall the 3rd (019f0c06-231b-7ab3-aa9d-328103c57155) plus orchestrator review",
         "artifacts": [
           "EVIDENCE/fexp04-active-effect-lifecycle-and-roll-modifiers.json",
           "examples/fexp04_route_observations.rs",
@@ -2953,11 +2953,10 @@
           "static forbidden-boundary scan via current fresh target verifier",
           "static production-source authored-identity dispatch search"
         ],
-        "coverageClaim": "generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, turn-boundary cleanup, and exact skill/ability/two-target ability route-fill payload surfaces accepted through public reducer entrypoints with expected records mechanically derived from copied QNT connector action bodies/helper vocabulary",
+        "coverageClaim": "generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, turn-boundary cleanup, exact skill/ability/two-target ability route-fill payload surfaces, and public Ability Check/Search target-choice/ability-check/rejection/result surfaces accepted through public reducer entrypoints with expected records mechanically derived from copied QNT connector action bodies/helper vocabulary",
         "blockers": [
           "FEXP-04-roll-modifier-concentration-break-route-not-publicly-observable",
-          "FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression",
-          "FEXP-04-ability-check-search-choice-payloads-not-publicly-observable"
+          "FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression"
         ],
         "sourceFeedbackResolved": [
           {
@@ -2967,6 +2966,13 @@
             "freshTargetCommit": "b43797af240c1486e5ad92c3698bf2cd2958a91e",
             "status": "source-resolved-dirty-target-focused-accepted-fresh-target-accepted",
             "summary": "Exact skill-choice, ability-choice, and two-target ability-choice route-fill payloads are now exposed by focused source QNT route inputs without model-barrel imports or production authored-identity dispatch. Dirty target commit 801b05df55a1393d6acd5c3fa7b2624ed91f9494 and fresh target commit b43797af240c1486e5ad92c3698bf2cd2958a91e both verify focused Rust replay through public reducer route events."
+          },
+          {
+            "blocker": "FEXP-04-ability-check-search-choice-payloads-not-publicly-observable",
+            "sourceCommit": "0c2ba34c5a45f18b73dfe590e0e86419ba377375",
+            "freshTargetCommit": "cd4465556d18729121f56f5834ac00f8b0b3d15c",
+            "status": "fresh-target-accepted",
+            "summary": "The copied Ability Check/Search route connector exposes AbilityCheckSearchRouteSubject and public target-choice/Ability Check route facts. Fresh target commit cd4465556d18729121f56f5834ac00f8b0b3d15c accepts Search target choice, Ability Check opening, invalid target rejection, invalid Ability Check fill rejection, Search failure, and Search success through public reducer route events."
           }
         ]
       },
@@ -3083,16 +3089,15 @@
         ]
       }
     ],
-    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-ability-search-replay",
-    "activeBranch": "ralph/fresh-ability-search-replay",
-    "activeLaneBaseCommit": "b43797af240c1486e5ad92c3698bf2cd2958a91e",
-    "workerAgent": "pending",
+    "activeWorktree": null,
+    "activeBranch": null,
+    "activeLaneBaseCommit": null,
+    "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "FRESH-FEXP04-ABILITY-CHECK-SEARCH-REPLAY",
+    "nextPlannedLane": null,
     "nextWorkRecommendations": [
-      "FEXP-07 closes the initially planned fresh expansion lanes, and the post-refresh FEXP-04 exact roll-choice replay is accepted in the fresh target.",
-      "The active lane attempts to consume the copied AbilityCheckSearchRouteSubject connector through a public fresh-target reducer route. If that cannot be done honestly, it must sharpen the blocker instead of creating a replay island.",
-      "After this lane, continue source-input feedback for remaining FEXP-02 through FEXP-07 blockers, then a larger fresh-cleanroom campaign against the updated package."
+      "FEXP-07 closes the initially planned fresh expansion lanes; the post-refresh FEXP-04 exact roll-choice replay and Ability Check/Search replay are accepted in the fresh target.",
+      "Continue source-input feedback for remaining FEXP-02 through FEXP-07 blockers, then a larger fresh-cleanroom campaign against the updated package."
     ]
   },
   "sdkTracerBullet": {

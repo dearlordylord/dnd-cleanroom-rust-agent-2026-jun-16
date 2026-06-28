@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: post-refresh FEXP-04 exact roll-choice replay accepted at fresh target head `b43797af240c1486e5ad92c3698bf2cd2958a91e`
+Status: post-refresh FEXP-04 exact roll-choice replay and Ability Check/Search public reducer replay accepted at fresh target head `cd4465556d18729121f56f5834ac00f8b0b3d15c`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `b43797af240c1486e5ad92c3698bf2cd2958a91e`
+- current accepted fresh target head: `cd4465556d18729121f56f5834ac00f8b0b3d15c`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `0c2ba34c5a45f18b73dfe590e0e86419ba377375`
 
@@ -159,8 +159,12 @@ Status:
   ability-choice, and two-target ability-choice route-fill payloads through
   public reducer route events after consuming source commit
   `0c2ba34c5a45f18b73dfe590e0e86419ba377375`;
-- residual concentration-break cleanup, cumulative scalar sequencing, and
-  ability-check/search public observability remain source-input blockers;
+- post-refresh fresh target head
+  `cd4465556d18729121f56f5834ac00f8b0b3d15c` accepts public Ability
+  Check/Search target-choice, Ability Check opening, rejection, failure, and
+  success surfaces through public reducer route events;
+- residual concentration-break cleanup and cumulative scalar sequencing remain
+  source-input blockers;
 - `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at fresh
   target head `eb05e8495eac993b69e17f68544edace6e56caee`;
 - generic reaction casting-time interrupt/resume, after-damage reaction, nested

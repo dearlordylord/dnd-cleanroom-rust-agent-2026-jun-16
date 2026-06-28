@@ -3,7 +3,7 @@
 Campaign: `level-1-2-runtime-reducer-route`
 
 Accepted fresh target baseline:
-`b43797af240c1486e5ad92c3698bf2cd2958a91e`
+`cd4465556d18729121f56f5834ac00f8b0b3d15c`
 
 Current gate:
 
@@ -58,15 +58,11 @@ Source blockers:
 
 - `FEXP-04-roll-modifier-concentration-break-route-not-publicly-observable`
 - `FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression`
-- `FEXP-04-ability-check-search-choice-payloads-not-publicly-observable`
 
 Needed source input:
 
 - public concentration-break cleanup routes;
 - generic active-effect profile progression facts;
-- a public generic Ability Check Search reducer subject/protocol, or focused
-  route evidence that maps Search choice payloads through existing public
-  reducer entrypoints.
 
 Resolved source input:
 
@@ -82,6 +78,14 @@ Resolved source input:
   source `0c2ba34c5a45f18b73dfe590e0e86419ba377375` and accepts the
   roll-modifier exact skill-choice, ability-choice, and two-target
   ability-choice payloads through public reducer route events.
+- `FEXP-04-ability-check-search-choice-payloads-not-publicly-observable` is
+  resolved in the fresh target by commit
+  `cd4465556d18729121f56f5834ac00f8b0b3d15c`. The copied
+  `battle-runtime-ability-check-choice-search.route.mbt.qnt` connector already
+  exposed `AbilityCheckSearchRouteSubject`; the fresh target now observes Search
+  target choice, Ability Check opening, invalid Search target/fill rejection,
+  Search failure, and Search success through public reducer entrypoints instead
+  of a replay-only island.
 
 ### Reaction And Interrupt Payload Taxonomy
 
