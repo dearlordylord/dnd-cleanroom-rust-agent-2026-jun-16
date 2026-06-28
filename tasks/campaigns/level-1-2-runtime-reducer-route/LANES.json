@@ -1317,7 +1317,7 @@
     {
       "laneId": "SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
       "checkpointId": "SQNT-07-CURRENT-PACKAGE",
-      "status": "running",
+      "status": "merged-verified",
       "parallelGroup": "sqnt07-current-package-replay",
       "routeTaskIds": [
         "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
@@ -1377,12 +1377,16 @@
           "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt",
           "reason": "The 17-row CP4 passive/roll/resource denominator included Adrenaline Rush feature-resource rows, but SQNT-07B current-package replay selected only the four species/passive adjacent drivers listed in the lane. This row remains owned by the copied Adrenaline Rush connector and is not accepted by SQNT-07B evidence."
         }
-      ]
+      ],
+      "laneHead": "2e3b1e21ebfbe634263b5034d9a531cc34fccb0a",
+      "mergeCommit": "4b2c415259ad5f3b10d281a536a5aa8499f926b7",
+      "remainingBlockers": 0,
+      "completionNote": "Merged into the dirty integration worktree and verified. Accepted 15 selected species/passive-adjacent rows through copied route connector authorities and public reducer route events. Two inherited Adrenaline Rush feature-resource rows are explicit out-of-scope rows for this lane."
     },
     {
       "laneId": "SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY",
       "checkpointId": "SQNT-07-CURRENT-PACKAGE",
-      "status": "running",
+      "status": "merged-verified",
       "parallelGroup": "sqnt07-current-package-replay",
       "routeTaskIds": [
         "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES"
@@ -1424,12 +1428,17 @@
         "tasks/RUN_LEDGER.json",
         "tasks/VALIDATION_REPORT.md"
       ],
-      "acceptanceSummary": "Refresh metamagic rows only where observed public reducer events route through typed option facts, Sorcery Point/resource owners, spell procedure shape, and option-specific projection owners rather than selected option identity."
+      "acceptanceSummary": "Refresh metamagic rows only where observed public reducer events route through typed option facts, Sorcery Point/resource owners, spell procedure shape, and option-specific projection owners rather than selected option identity.",
+      "laneHead": "45ebc0b1913c0ab178829461e2ca1cec6478c8bf",
+      "mergeCommit": "344111e89f012a2b1d05c6bf64660b30810c3217",
+      "acceptedObligations": 30,
+      "remainingBlockers": 0,
+      "completionNote": "Merged into the dirty integration worktree and verified. Accepted 30 metamagic selected-driver source obligations against copied source package 21504ef. The single-file evidence checker is not the right verifier for this aggregate evidence file because each run is keyed to its selected-driver source obligation while the route connector is recorded as connector authority."
     },
     {
       "laneId": "SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY",
       "checkpointId": "SQNT-07-CURRENT-PACKAGE",
-      "status": "running",
+      "status": "merged-verified",
       "parallelGroup": "sqnt07-current-package-replay",
       "routeTaskIds": [
         "L15-RR07-FU09-INNATE-SPELL-BENEFIT-FEATURE-SUBSTRATE"
@@ -1458,7 +1467,12 @@
         "tasks/RUN_LEDGER.json",
         "tasks/VALIDATION_REPORT.md"
       ],
-      "acceptanceSummary": "Refresh active-feature benefit rows only where observed public reducer events match copied Spell Save DC and spell Attack Roll mode route facts through active-effect and spell procedure owners."
+      "acceptanceSummary": "Refresh active-feature benefit rows only where observed public reducer events match copied Spell Save DC and spell Attack Roll mode route facts through active-effect and spell procedure owners.",
+      "laneHead": "001945b955ac351a87163f804c4fca13663f7492",
+      "mergeCommit": "e1a35bc598b8f45fda2fc65c2ae0886f925d1305",
+      "acceptedObligations": 3,
+      "remainingBlockers": 0,
+      "completionNote": "Merged into the dirty integration worktree and verified. The first worker commit was rejected because it manually constructed observed route events; the accepted remediation obtains route events from actual observed reducer entrypoints."
     }
   ],
   "standardVerification": [

@@ -14,9 +14,9 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07b-species-replay` | `ralph/sqnt07b-species-current-package-replay` | `84c637980698971b3df1d8dc4a613bc7b7bc50af` | Sagan the 3rd (`019f0f08-132d-7041-b495-f1b03ff5b67b`) | running |
-| SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07c-metamagic-replay` | `ralph/sqnt07c-metamagic-current-package-replay` | `84c637980698971b3df1d8dc4a613bc7b7bc50af` | Zeno the 3rd (`019f0f09-25a0-7682-897e-930650baa385`) | running |
-| SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07d-active-feature-replay` | `ralph/sqnt07d-active-feature-current-package-replay` | `84c637980698971b3df1d8dc4a613bc7b7bc50af` | Heisenberg the 3rd (`019f0f09-81d2-71a1-a64f-b79a86203013`) | running |
+| SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07b-species-replay` | `ralph/sqnt07b-species-current-package-replay` | `84c637980698971b3df1d8dc4a613bc7b7bc50af` | Sagan the 3rd (`019f0f08-132d-7041-b495-f1b03ff5b67b`) | merged-closed at `4b2c415259ad5f3b10d281a536a5aa8499f926b7` |
+| SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07c-metamagic-replay` | `ralph/sqnt07c-metamagic-current-package-replay` | `84c637980698971b3df1d8dc4a613bc7b7bc50af` | Zeno the 3rd (`019f0f09-25a0-7682-897e-930650baa385`) | merged-closed at `344111e89f012a2b1d05c6bf64660b30810c3217` |
+| SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07d-active-feature-replay` | `ralph/sqnt07d-active-feature-current-package-replay` | `84c637980698971b3df1d8dc4a613bc7b7bc50af` | Heisenberg the 3rd (`019f0f09-81d2-71a1-a64f-b79a86203013`) | merged-closed at `e1a35bc598b8f45fda2fc65c2ae0886f925d1305` |
 
 ## Active Fresh Dry Run Targets
 

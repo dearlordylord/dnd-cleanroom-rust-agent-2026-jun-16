@@ -1,19 +1,23 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt07-current-package-replay-running",
+  "status": "sqnt07-current-package-replay-merged-verified",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "f94d2fb6def9535ee7e2f7d420879012e573b420",
+    "lastVerifiedIntegrationHead": "4b2c415259ad5f3b10d281a536a5aa8499f926b7",
     "lastMergedLane": {
-      "laneId": "SQNT-03G-EXACT-DAMAGE-DIRTY-REPLAY",
-      "mergeCommit": "f94d2fb6def9535ee7e2f7d420879012e573b420",
-      "laneHead": "6e576f9e278fb161916185194e7901911ba95d2d",
-      "note": "Diagnostic dirty target replay only. The worker consumed SQNT-03G exact damage component witness facts from source package 21504ef764118f5fd13086aa6266f19280196664. The replay accepted all 4 copied component rows: Attack critical damage, direct instance damage, save success half damage, and save success no damage. Selected attack-spell and level-1 damage selected drivers are not accepted wholesale; non-damage selected identity, mixed-target ordering, active-effect riders, duplicate-face limits, object/light lifecycle, and catalog admission remain outside this lane. This does not claim fresh target acceptance."
+      "laneId": "SQNT-07-CURRENT-PACKAGE-REPLAY-BATCH",
+      "mergeCommit": "4b2c415259ad5f3b10d281a536a5aa8499f926b7",
+      "laneHeads": [
+        "2e3b1e21ebfbe634263b5034d9a531cc34fccb0a",
+        "45ebc0b1913c0ab178829461e2ca1cec6478c8bf",
+        "001945b955ac351a87163f804c4fca13663f7492"
+      ],
+      "note": "Diagnostic dirty target replay only. The batch merged SQNT-07B species/passive adjacent replay, SQNT-07C metamagic replay, and SQNT-07D active-feature spell-benefit replay against copied source package 21504ef764118f5fd13086aa6266f19280196664. Accepted dirty replay rows: 15 for SQNT-07B, 30 for SQNT-07C, and 3 for SQNT-07D. SQNT-07B explicitly leaves 2 inherited Adrenaline Rush feature-resource rows out of scope for this lane. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
       "sourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",

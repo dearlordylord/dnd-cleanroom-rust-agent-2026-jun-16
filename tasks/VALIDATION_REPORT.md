@@ -4432,3 +4432,32 @@ Verification results:
 - `node scripts/check-cleanroom-harness.cjs` failed on pre-existing stale cleanroom-input manifest and old ledger/evidence drift; targeted grep found no SQNT-07D-specific harness errors.
 
 Full command results are recorded in `tasks/RUN_LEDGER.json`.
+
+## SQNT-07-CURRENT-PACKAGE-REPLAY-BATCH-INTEGRATION
+
+- Integration branch: `ralph/rrconv-19-cleanroom`
+- Verified integration head: `4b2c415259ad5f3b10d281a536a5aa8499f926b7`
+- Source package commit: `21504ef764118f5fd13086aa6266f19280196664`
+- Merged lanes:
+  - `SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY`: 15 accepted species/passive-adjacent rows; 2 inherited Adrenaline Rush rows are explicit out-of-scope rows for this lane.
+  - `SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY`: 30 accepted aggregate selected metamagic rows.
+  - `SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY`: 3 accepted active-feature spell-benefit rows.
+
+Integration verification results:
+
+- `cargo test species_passive_trait_adapter_replays_all_branches -- --nocapture` passed.
+- `cargo test halfling_nimbleness_adapter_replays_all_branches -- --nocapture` passed.
+- `cargo test danger_sense_adapter_replays_all_branches -- --nocapture` passed.
+- `cargo test roll_modifier_buff_selected_identity_adapter_replays_all_branches -- --nocapture` passed.
+- `cargo test sorcerer_metamagic_route_connector_replays_all_branches -- --nocapture` passed.
+- `cargo test feature_selected_identity_adapter_replays_all_branches -- --nocapture` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json` passed with 3 obligations covered.
+- `cargo fmt --check` passed.
+- `cargo test` passed with 234 tests.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed on broad stale cleanroom-input manifest, stale older run-ledger/evidence, a repeated authored-identity heuristic warning, and old production/import heuristic debt. This is not closed by the SQNT-07B/C/D dirty replay batch.
+
+Verifier note:
+
+- `tasks/target-replay-evidence/SQNT-07C-metamagic-current-package-replay.json` is aggregate evidence across selected metamagic driver obligations. The per-file evidence checker intentionally fails if pointed at only `battle-runtime-sorcerer-metamagic.route.mbt.qnt`, because that route connector is recorded as connector authority while each run is keyed to its selected-driver source obligation.
