@@ -75,9 +75,10 @@ rejection, resource, and conflict branches remain explicitly blocked.
 `FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES` is accepted-with-blockers at
 `a77a41dc752326eab69d8110de78928b9dcb9691` with feature bonus-action
 Dash/temporary-hit-point, species creature-stat projection, metamagic resource
-governor, and active-feature Spell Save DC benefit route evidence; missing
-exact metamagic driver, selected/grouped identity witnesses, and residual
-species/metamagic/feature branches remain explicitly blocked.
+governor, and active-feature Spell Save DC benefit route evidence;
+selected/grouped identity witnesses and residual species/metamagic/feature
+branches remain explicitly blocked; the earlier exact metamagic driver note was
+corrected as a campaign manifest naming error.
 
 ## Hard Boundaries
 

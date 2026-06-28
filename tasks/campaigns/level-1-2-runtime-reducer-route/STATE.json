@@ -3031,7 +3031,6 @@
         ],
         "coverageClaim": "feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces accepted through public reducer entrypoints with expected records mechanically derived from copied QNT connector action bodies/helper vocabulary",
         "blockers": [
-          "FEXP-07-exact-sorcerer-metamagic-driver-absent",
           "FEXP-07-selected-and-grouped-identity-drivers-not-accepted",
           "FEXP-07-residual-species-passive-substrates-need-generic-runtime-facts",
           "FEXP-07-residual-metamagic-projections-need-typed-spell-modification-facts",

@@ -175,7 +175,7 @@
       "drivers": [
         "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
         "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
         "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
       ],
       "routeConnectors": [
@@ -189,7 +189,7 @@
         "BLOCKERS.json entries for any identity-only branch",
         "verifier update for accepted substrate subset"
       ],
-      "acceptanceSummary": "Accepted with blockers: feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces pass through public reducer entrypoints with connector-derived expected records. Missing exact metamagic driver, selected/grouped identity witnesses, and residual species/metamagic/feature branches remain explicit blockers."
+      "acceptanceSummary": "Accepted with blockers: feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces pass through public reducer entrypoints with connector-derived expected records. Selected/grouped identity witnesses and residual species/metamagic/feature branches remain explicit blockers; the earlier exact metamagic-driver note was a campaign manifest naming error, not a source package blocker."
     }
   ]
 }

@@ -220,9 +220,9 @@ Status:
   benefit route surfaces pass through public reducer entrypoints;
 - expected records are mechanically derived from copied QNT connector action
   bodies/helper vocabulary;
-- missing exact metamagic driver, selected/grouped identity witnesses, and
-  residual species/metamagic/feature branches remain explicit source-input
-  blockers.
+- selected/grouped identity witnesses and residual species/metamagic/feature
+  branches remain explicit source-input blockers; the earlier exact metamagic
+  driver note was corrected as a campaign manifest naming error.
 
 Why last:
 

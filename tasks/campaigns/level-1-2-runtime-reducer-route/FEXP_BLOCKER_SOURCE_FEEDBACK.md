@@ -104,15 +104,21 @@ Needed source input:
 
 Source blockers:
 
-- `FEXP-07-exact-sorcerer-metamagic-driver-absent`
 - `FEXP-07-selected-and-grouped-identity-drivers-not-accepted`
 - `FEXP-07-residual-species-passive-substrates-need-generic-runtime-facts`
 - `FEXP-07-residual-metamagic-projections-need-typed-spell-modification-facts`
 - `FEXP-07-feature-selected-identity-residual-branches-not-accepted`
 
+Corrected campaign note:
+
+- `battle-runtime-sorcerer-metamagic.mbt.qnt` is not a source package driver.
+  The source package exposes selected-identity metamagic MBT drivers plus
+  `battle-runtime-sorcerer-metamagic.route.mbt.qnt`. The earlier exact-driver
+  blocker was a fresh-expansion lane manifest naming error, not a source-input
+  blocker.
+
 Needed source input:
 
-- manifest correction or copied exact driver for the non-route metamagic entry;
 - focused generic route connectors for selected/grouped identity branches;
 - typed runtime facts for passive damage, saving-throw/ability-check roll mode,
   creature-space movement, spell-modification payloads, spell-source profiles,
