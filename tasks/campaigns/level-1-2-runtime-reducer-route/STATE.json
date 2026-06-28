@@ -424,7 +424,8 @@
       "branch": "ralph/fcsf06-character-sheet-handoff-dirty-replay",
       "baseSha": "6d13eb64e4850ebc06f7ce67afa497b0f5a0f895",
       "status": "dirty-target-replay-running",
-      "workerAgent": "pending",
+      "workerAgent": "019f0cff-ee2c-7530-a928-c5f0e8aedec7",
+      "workerName": "Aristotle the 3rd",
       "sourcePackageCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
       "freshTargetAcceptance": "not-claimed"
     }

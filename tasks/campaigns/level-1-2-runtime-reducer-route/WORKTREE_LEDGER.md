@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf06-dirty-replay` | `ralph/fcsf06-character-sheet-handoff-dirty-replay` | `6d13eb64e4850ebc06f7ce67afa497b0f5a0f895` | pending | dirty-target-replay-running |
+| FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf06-dirty-replay` | `ralph/fcsf06-character-sheet-handoff-dirty-replay` | `6d13eb64e4850ebc06f7ce67afa497b0f5a0f895` | Aristotle the 3rd (`019f0cff-ee2c-7530-a928-c5f0e8aedec7`) | dirty-target-replay-running |
 
 ## Active Fresh Dry Run Targets
 
