@@ -93,6 +93,98 @@
         }
       ],
       "notes": "After fix, ACCEPTED_BRANCH_ACTIONS contains only the 4 selected rows backed by copied generic marked-damage/immunity route facts; the other 8 selected rows are blocked with evidence-matching reasons. Review-loop convergence is now recorded after the fix."
+    },
+    {
+      "round": 3,
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
+          "status": "fail"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "fail"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "pass"
+        }
+      ],
+      "notes": "Active-effect re-review found blocked selected rows still had accepted-looking expected_route arms before the blocker guard; blocked route expectations could still be constructed despite target-blocker evidence."
+    },
+    {
+      "round": 4,
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "pass"
+        }
+      ],
+      "notes": "After fix, expected_route rejects blocked selected rows before accepted arms, observed replay surfaces still reject blockers first, and the focused adapter test asserts blocked rows cannot produce expected or observed accepted projections."
     }
   ],
   "findings": [
@@ -109,6 +201,13 @@
       "reasonableness": "reasonable",
       "status": "fixed",
       "resolution": "Recorded the initial failed review round and a second clean review round after the adapter-surface fix; DECIDER_DECISION now notes acceptance after review-finding remediation."
+    },
+    {
+      "id": "SQNT-07A-RF3-BLOCKED-EXPECTED-ROUTE-SURFACE",
+      "severity": "medium",
+      "reasonableness": "reasonable",
+      "status": "fixed",
+      "resolution": "Moved the expected_route blocker guard ahead of concrete route arms and extended the focused level1 buff/mark/smite adapter test so each blocked action panics for action replay, observed route replay, expected witness, and expected route construction."
     }
   ]
 }

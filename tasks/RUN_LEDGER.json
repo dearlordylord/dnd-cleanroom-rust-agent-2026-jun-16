@@ -4436,11 +4436,11 @@
         },
         "reviewLoop": {
           "path": "tasks/history/SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY/REVIEW_LOOP.json",
-          "sha256": "593d44c4c37a07332253b0dac366f95b65ec015d895c8548a71df301cf94162f"
+          "sha256": "34042ec82a25824968fad083e02417c3272687fdfefbe6419c0ffc53bff0bbca"
         },
         "deciderDecision": {
           "path": "tasks/history/SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY/DECIDER_DECISION.json",
-          "sha256": "ca7fcfa31d87822a8db3369bf71786a41507cb9752a8959ce385d7d3c8b00832"
+          "sha256": "91598e06c2fcd129b8eb1d6c8281ba6d23e791e36d0fdc2f28a429d4d93d2894"
         }
       },
       "targetReplayEvidence": [
@@ -4508,11 +4508,20 @@
         {
           "command": "review findings follow-up: narrow selected adapter accepted rows and record second review round",
           "status": "pass"
+        },
+        {
+          "command": "blocked expected route follow-up: reject blocked selected rows before expected/observed route projection",
+          "status": "pass"
+        },
+        {
+          "command": "jq empty tasks/REVIEW_LOOP.json tasks/DECIDER_DECISION.json tasks/RUN_LEDGER.json tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json",
+          "status": "pass"
         }
       ],
       "reviewFindingsFixed": [
         "SQNT-07A-RF1-SELECTED-ACCEPTANCE-SURFACE",
-        "SQNT-07A-RF2-REVIEW-LOOP-OVERCLAIM"
+        "SQNT-07A-RF2-REVIEW-LOOP-OVERCLAIM",
+        "SQNT-07A-RF3-BLOCKED-EXPECTED-ROUTE-SURFACE"
       ]
     }
   ],

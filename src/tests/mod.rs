@@ -5278,6 +5278,14 @@ fn level1_buff_mark_smite_adapter_replays_all_branches() {
 
     for (action, reason) in BLOCKED_LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS {
         assert_eq!(level1_buff_mark_smite_blocker_reason(action), Some(reason));
+        assert!(std::panic::catch_unwind(|| replay_level1_buff_mark_smite_action(action)).is_err());
+        assert!(std::panic::catch_unwind(|| replay_level1_buff_mark_smite_route(action)).is_err());
+        assert!(
+            std::panic::catch_unwind(|| expected_level1_buff_mark_smite_witness(action)).is_err()
+        );
+        assert!(
+            std::panic::catch_unwind(|| expected_level1_buff_mark_smite_route(action)).is_err()
+        );
     }
 }
 

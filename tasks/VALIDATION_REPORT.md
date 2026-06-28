@@ -4500,3 +4500,4 @@ Review follow-up:
 
 - Fixed `SQNT-07A-RF1-SELECTED-ACCEPTANCE-SURFACE`: `src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs` now exposes only the 4 selected rows backed by copied generic marked-damage/immunity route facts as accepted and records the other 8 selected rows as blocked with the evidence-matching target-blocker reason.
 - Fixed `SQNT-07A-RF2-REVIEW-LOOP-OVERCLAIM`: `tasks/REVIEW_LOOP.json` now records the initial failed review round and a second clean round after the fix; `tasks/DECIDER_DECISION.json` records acceptance after those findings were fixed.
+- Fixed `SQNT-07A-RF3-BLOCKED-EXPECTED-ROUTE-SURFACE`: blocked selected rows now reject before accepted route arms in `expected_route`, and the focused adapter test asserts blocked rows cannot produce action, observed-route, expected-witness, or expected-route projections.

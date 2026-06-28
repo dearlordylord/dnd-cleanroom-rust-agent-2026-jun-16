@@ -321,6 +321,9 @@ pub fn expected_witness(observed_action_taken: &str) -> LevelOneSpellEffectWitne
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
+        action if blocker_reason(action).is_some() => {
+            panic!("{}: {}", action, blocker_reason(action).unwrap())
+        }
         "doDivineFavorWeaponDamageRider" => expected_damage_route(
             ReducerRouteSubjectFamily::WeaponDamageRider,
             ReducerRouteOwnerGroup::ActiveEffect,
@@ -403,9 +406,6 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
             ReducerRouteOwnerGroup::HitPoint,
             ReducerRouteOwnerGroup::HitPoint,
         ),
-        action if blocker_reason(action).is_some() => {
-            panic!("{}: {}", action, blocker_reason(action).unwrap())
-        }
         action => panic!("unsupported expected route mbt::actionTaken {action}"),
     }
 }
