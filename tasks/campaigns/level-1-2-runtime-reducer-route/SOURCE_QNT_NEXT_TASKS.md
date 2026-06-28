@@ -26,6 +26,10 @@ Dirty replay status:
 - SQNT-03C Opportunity Attack Denial: accepted in dirty replay at campaign
   merge `7521115f61077326b67e933dc9663f19d7e41570`; 4 connector transitions,
   1 selected-driver obligation, 0 SQNT-03C target behavior blockers.
+- SQNT-03D Condition And Poison Riders: source connector accepted and packaged
+  at source commit `3e9297cab2dd998e5dc09670f771bfcdf0a04c93`; dirty target
+  replay is pending. Hold Person and Hideous Laughter lifecycle shapes remain
+  explicit source-QNT blockers rather than inferred selected-identity behavior.
 
 Source-QNT status:
 
@@ -38,6 +42,9 @@ Source-QNT status:
 - SQNT-03C Opportunity Attack Denial: source connector accepted and packaged at
   source commit `ebc37e935fdd45ac07198bbec6b3bcc23be2270e`; dirty target replay
   is accepted. Fresh target replay remains pending.
+- SQNT-03D Condition And Poison Riders: source connector accepted and packaged
+  at source commit `3e9297cab2dd998e5dc09670f771bfcdf0a04c93`; dirty target
+  replay is pending. Fresh target replay remains pending.
 
 Remaining target work should not start until the source package exposes the
 generic route facts below. The target acceptance gate stays the same:
@@ -56,7 +63,7 @@ generic route facts below. The target acceptance gate stays the same:
 | SQNT-03A Hit Point Regain Prevention | Done: `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt` now exposes generic active-effect admission, later healing interdiction, turn-boundary duration expiry, and active-effect cleanup. | `FCSF-03A-HIT-POINT-REGAIN-PREVENTION` | Source input is packaged and dirty target replay is accepted through observed reducer route events without selected spell identity. Fresh target replay remains pending. |
 | SQNT-03B Next Attack Roll Mode | Done: `cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt` and `battle-runtime-next-attack-roll-mode-route-facts.qnt` now expose generic next-Attack-Roll roll-mode route evidence with source, carrier, attacker, target-scope, expiration-boundary, and Advantage/Disadvantage facts. | `FCSF-03B-NEXT-ATTACK-ROLL-MODE` | Source input is packaged and dirty target replay is accepted for 6 connector transitions and 2 selected-driver obligations through shared roll-mode projection, consumption, expiration, and active-effect cleanup owners. Fresh target replay remains pending. |
 | SQNT-03C Opportunity Attack Denial | Done: `cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial.route.mbt.qnt` and `battle-runtime-opportunity-attack-denial-route-facts.qnt` now expose generic reaction-interdiction route evidence with attack-hit source, affected target carrier/scope, denied Opportunity Attack trigger family, duration boundary, admission, movement/reaction projection, expiration, and cleanup facts. | `FCSF-03C-OPPORTUNITY-ATTACK-DENIAL` | Source input is packaged and dirty target replay is accepted for 4 connector transitions and 1 selected-driver obligation through shared active-effect, movement-resource, interrupt-stack, and turn-boundary owners. Fresh target replay remains pending. |
-| SQNT-03D Condition And Poison Riders | Generic condition-rider route subjects carrying host outcome, condition kind, immunity check, duration/repeat-save boundary, and cleanup owner facts. | `FCSF-03D-CONDITION-AND-POISON-RIDERS` | Target may count only after copied route evidence owns condition application, immunity rejection, and cleanup without selected spell identity. |
+| SQNT-03D Condition And Poison Riders | Done: `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt` and `battle-runtime-condition-rider-route-facts.qnt` now expose generic condition-rider route evidence for attack-hit Poisoned, failed-save Blinded duration, failed-save Blinded/Deafened repeat-save cleanup, failed-save Restrained Athletics escape cleanup, Sleep-style Incapacitated-to-Unconscious transition, condition-immunity rejection, and cleanup owner facts. | `FCSF-03D-CONDITION-AND-POISON-RIDERS` | Source input is packaged. Dirty target replay may count only the modeled condition-rider shapes; Hold Person and Hideous Laughter remain explicit source-QNT blockers. Fresh target replay remains pending. |
 | SQNT-03E Object And Light Riders | Generic object/light route subjects for object admission, object-attached or held emitter state, replacement cleanup, hurl cleanup, illumination projection, and table-owned geometry witnesses. | `FCSF-03E-OBJECT-AND-LIGHT-RIDERS` | Target may count only after route evidence separates battle-owned emitter/effect facts from table-owned geometry, color, and presentation facts. |
 | SQNT-03F Mixed Target Outcomes | Generic mixed-outcome route subject making each target's attack or Saving Throw outcome explicit while routing shared resource spend, per-target damage, and secondary projections through one invocation owner. | `FCSF-03F-MIXED-TARGET-OUTCOMES` | Target may count only after route evidence prevents adapter-local coupling between target order, outcome order, and damage projection. |
 | SQNT-03G Exact Damage Projection Facts | Promote exact damage amount, type, instance count, dice count, critical doubling, success policy, and target damage-application facts into route or component connector evidence. | `FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS` | Target may count only when exact projections are public enough that a fresh target need not infer them from TypeScript or selected spell identity. |

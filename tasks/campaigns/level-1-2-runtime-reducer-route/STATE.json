@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03d-source-qnt-running",
+  "status": "sqnt03d-source-packaged-dirty-replay-pending",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -16,15 +16,15 @@
       "note": "Diagnostic dirty target replay only. The worker consumed source commit ebc37e935fdd45ac07198bbec6b3bcc23be2270e SQNT-03C opportunity-Attack-denial route facts and accepted 4 connector transitions covering 1 selected-driver obligation. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
-      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, SQNT-03C Opportunity Attack denial route connector evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim fresh target acceptance or new Rust runtime coverage."
+      "sourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
+      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, SQNT-03C Opportunity Attack denial route connector evidence, SQNT-03D condition/poison rider route connector evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim dirty target acceptance, fresh target acceptance, or new Rust runtime coverage for SQNT-03D."
     },
     "sourceFeedbackPackageRefresh": {
-      "id": "fcsf-package-refresh-ebc37e9",
+      "id": "fcsf-package-refresh-3e9297c",
       "status": "packaged-in-dirty-cleanroom-input",
       "branch": "ralph/rrconv-19-cleanroom",
-      "baseCommit": "58ad00f876b54594e0b44f26fb2c0ef9935e5322",
-      "manifestSourceCommitSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
+      "baseCommit": "a5831866708600693c906854718299e75f8ec73b",
+      "manifestSourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
       "packagedTasks": [
         {
           "task": "source-feedback Task 3",
@@ -49,6 +49,12 @@
           "status": "opportunity-attack-denial-route-connector-packaged",
           "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial.route.mbt.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial-route-facts.qnt, and reducer-route-inventory.json FCSF-03C route record",
           "note": "The copied route connector now exposes generic ReactionInterdictionRouteSubject evidence for attack-hit active-effect admission, Opportunity Attack denial projection into movement/reaction discovery, turn-boundary expiration, active-effect cleanup, and typed source/carrier/scope/trigger-family/expiration facts. Dirty and fresh target replay remain unclaimed."
+        },
+        {
+          "task": "SQNT-03D",
+          "status": "condition-poison-rider-route-connector-packaged",
+          "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-condition-rider-route-facts.qnt, and reducer-route-inventory.json FCSF-03D route record",
+          "note": "The copied route connector now exposes generic ConditionRiderRouteSubject evidence for attack-hit Poisoned riders, failed-save Blinded duration, failed-save Blinded/Deafened repeat-save cleanup, failed-save Restrained Athletics escape cleanup, Sleep-style Incapacitated-to-Unconscious transition, condition-immunity rejection, and typed lifecycle/cleanup owner facts. Hold Person and Hideous Laughter remain explicit source-QNT blockers. Dirty and fresh target replay remain unclaimed."
         },
         {
           "task": "source-feedback Task 8",
@@ -93,7 +99,7 @@
         },
         {
           "check": "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
-          "result": "passed at source SHA d00c92a3d12531e50d95ead220303b66a5265e1e"
+          "result": "passed at source SHA 3e9297cab2dd998e5dc09670f771bfcdf0a04c93"
         },
         {
           "check": "node scripts/check-cleanroom-harness.cjs",
@@ -554,7 +560,7 @@
     "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY": "merged-verified",
     "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL": "merged-packaged-source-input",
     "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY": "merged-verified",
-    "SQNT-03D-CONDITION-AND-POISON-RIDERS": "source-qnt-running"
+    "SQNT-03D-CONDITION-AND-POISON-RIDERS": "merged-packaged-source-input"
   },
   "lastIntegrationVerification": {
     "head": "7521115f61077326b67e933dc9663f19d7e41570",
@@ -574,7 +580,8 @@
     "review": "Maxwell the 3rd initially found two blockers: reaction-interdiction cleanup accepted fresh/already-cleaned state, and SQNT-03C verification artifacts still pointed at SQNT-03A. Hume fixed both in 638642e326ff9829b19297f4ea5abf8fbaa3843d by replacing the boolean with BattleOpportunityAttackDenialEffect::Inactive/Active/Expired, adding cleanup-before-expiry regression coverage, and refreshing SQNT-03C task artifacts. Maxwell re-review accepted the lane."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [
+  "activeSourceQntLanes": [],
+  "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03D-CONDITION-AND-POISON-RIDERS",
       "routeTaskId": "FCSF-03D-CONDITION-AND-POISON-RIDERS",
@@ -583,11 +590,27 @@
       "baseSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
       "workerAgent": "019f0e19-3de0-7863-83b1-dde6b7c7a296",
       "workerName": "Socrates the 3rd",
-      "status": "running",
-      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
-    }
-  ],
-  "completedSourceQntLanes": [
+      "workerCommit": "589414b3163b32d123a2cf3d0ed6ff98582e878b",
+      "followUpCommit": "938ba5b4fb91e0e5a156882a36ffad4d7cdd726d",
+      "mergeCommit": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
+      "status": "merged-packaged-source-input",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed",
+      "reviewAgent": "019f0e28-7059-7820-a2df-dba21e2f2869",
+      "reviewName": "Herschel the 3rd",
+      "reviewFinding": "Initial review found an overbroad condition-saving selected-driver claim and an incorrect Restrained plus end-turn repeat-save lifecycle, with insufficient RAW trace for repeat-save boundaries.",
+      "reviewResolution": "Follow-up commit 938ba5b4fb91e0e5a156882a36ffad4d7cdd726d removed the incorrect lifecycle, added precise condition-rider lifecycle facts and RAW anchors, narrowed inventory claims, and recorded explicit source-QNT blockers for Hold Person and Hideous Laughter. Herschel re-review found no blockers.",
+      "verification": [
+        "MBT_TRACES=20 MBT_STEPS=3 pnpm --filter @dnd/battle-runtime exec vitest run src/reducer-route-connectors.mbt.test.ts -t \"routes condition and poison riders through lifecycle, repeat-save, and escape owners\"",
+        "pnpm check:reducer-route-connectors",
+        "pnpm check:mbt-driver-closure",
+        "pnpm rules-kernel-coverage:check",
+        "pnpm cleanroom-branch-coverage:check",
+        "pnpm --filter @dnd/battle-runtime typecheck",
+        "git diff --check ebc37e935fdd45ac07198bbec6b3bcc23be2270e...HEAD",
+        "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19"
+      ],
+      "targetAcceptance": "dirty-target-replay-pending; fresh-target-acceptance-not-claimed"
+    },
     {
       "laneId": "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL",
       "routeTaskId": "FCSF-03C-OPPORTUNITY-ATTACK-DENIAL",

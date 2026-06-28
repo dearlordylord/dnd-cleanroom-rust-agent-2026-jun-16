@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03D-CONDITION-AND-POISON-RIDERS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03d-condition-poison-riders` | `ralph/source-sqnt-03d-condition-poison-riders` | `ebc37e935fdd45ac07198bbec6b3bcc23be2270e` | Socrates the 3rd (`019f0e19-3de0-7863-83b1-dde6b7c7a296`) | running source-QNT route connector task; no dirty/fresh target acceptance claimed |
+| _none_ | | | | | |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -62,6 +62,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| SQNT-03D-CONDITION-AND-POISON-RIDERS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03d-condition-poison-riders` | `ralph/source-sqnt-03d-condition-poison-riders` | `938ba5b4fb91e0e5a156882a36ffad4d7cdd726d` | `3e9297cab2dd998e5dc09670f771bfcdf0a04c93` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty target replay pending, no fresh target acceptance claimed |
 | SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03c-opportunity-attack-denial-replay` | `ralph/sqnt03c-opportunity-attack-denial-dirty-replay` | `638642e326ff9829b19297f4ea5abf8fbaa3843d` | `7521115f61077326b67e933dc9663f19d7e41570` | removable after retention decision; dirty replay accepted 4 connector transitions and 1 selected-driver obligation, no fresh target acceptance claimed |
 | SQNT-03C-OPPORTUNITY-ATTACK-DENIAL | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03c-opportunity-attack-denial` | `ralph/source-sqnt-03c-opportunity-attack-denial` | `b0cdcb8697152a1860278f101a0d88cbb5453266` | `ebc37e935fdd45ac07198bbec6b3bcc23be2270e` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty target replay accepted at `7521115f61077326b67e933dc9663f19d7e41570`, no fresh target acceptance claimed |
 | SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03b-next-attack-roll-replay` | `ralph/sqnt03b-next-attack-roll-dirty-replay` | `ba0b8d7b197bb41abbb62abf1a00f2de5a1ec055` | `4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e` | removable after retention decision; dirty replay accepted 6 connector transitions and 2 selected-driver obligations, no fresh target acceptance claimed |
