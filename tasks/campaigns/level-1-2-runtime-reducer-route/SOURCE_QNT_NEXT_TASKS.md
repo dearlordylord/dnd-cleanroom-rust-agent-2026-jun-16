@@ -20,12 +20,22 @@ Dirty replay status:
 - SQNT-03A Hit Point regain prevention: accepted in dirty replay at campaign
   merge `73627315f70528e73f5eb4ef781606e876e87367`; 3 connector transitions,
   1 attack-shape obligation, 0 SQNT-03A target behavior blockers.
+- SQNT-03B Next Attack Roll mode: accepted in dirty replay at campaign merge
+  `4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e`; 6 connector transitions, 2
+  selected-driver obligations, 0 SQNT-03B target behavior blockers.
 
 Source-QNT status:
 
 - SQNT-03A Hit Point regain prevention: source connector accepted and packaged
   at source commit `c83c4a2321ff45c796245d65ba979b9068c6718a`; dirty target
   replay is accepted. Fresh target replay remains pending.
+- SQNT-03B Next Attack Roll mode: source connector accepted and packaged at
+  source commit `d00c92a3d12531e50d95ead220303b66a5265e1e`; dirty target replay
+  is accepted. Fresh target replay remains pending.
+- SQNT-03C Opportunity Attack Denial: source-QNT Ralph lane is running in
+  `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03c-opportunity-attack-denial`
+  from base `d00c92a3d12531e50d95ead220303b66a5265e1e`; no source merge,
+  package sync, dirty replay, or fresh replay is claimed yet.
 
 Remaining target work should not start until the source package exposes the
 generic route facts below. The target acceptance gate stays the same:

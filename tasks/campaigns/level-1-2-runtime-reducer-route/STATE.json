@@ -545,7 +545,8 @@
     "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY": "merged-verified",
     "FCSF-04-OBJECT-STALE-DIRTY-REPLAY": "merged-verified",
     "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY": "merged-verified",
-    "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY": "merged-verified"
+    "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY": "merged-verified",
+    "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL": "source-qnt-running"
   },
   "lastIntegrationVerification": {
     "head": "4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e",
@@ -566,7 +567,19 @@
     "review": "Epicurus the 3rd initially found one blocker: disadvantage evidence omitted BattleSpellSlotAndActionEconomyOwner from route owner sequences. Popper fixed this in ba0b8d7b197bb41abbb62abf1a00f2de5a1ec055; Epicurus re-review accepted the lane."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [],
+  "activeSourceQntLanes": [
+    {
+      "laneId": "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL",
+      "routeTaskId": "FCSF-03C-OPPORTUNITY-ATTACK-DENIAL",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03c-opportunity-attack-denial",
+      "branch": "ralph/source-sqnt-03c-opportunity-attack-denial",
+      "baseSha": "d00c92a3d12531e50d95ead220303b66a5265e1e",
+      "workerAgent": "019f0dda-ce88-73a0-92a5-3c3ff7f72522",
+      "workerName": "Mill the 3rd",
+      "status": "running",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
+    }
+  ],
   "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03B-NEXT-ATTACK-ROLL-MODE",

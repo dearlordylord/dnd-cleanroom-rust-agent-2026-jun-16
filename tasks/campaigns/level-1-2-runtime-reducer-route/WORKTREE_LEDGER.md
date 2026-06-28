@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03C-OPPORTUNITY-ATTACK-DENIAL | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03c-opportunity-attack-denial` | `ralph/source-sqnt-03c-opportunity-attack-denial` | `d00c92a3d12531e50d95ead220303b66a5265e1e` | Mill the 3rd (`019f0dda-ce88-73a0-92a5-3c3ff7f72522`) | running |
 
 ## Historical RRCONV-19 Worktrees
 
