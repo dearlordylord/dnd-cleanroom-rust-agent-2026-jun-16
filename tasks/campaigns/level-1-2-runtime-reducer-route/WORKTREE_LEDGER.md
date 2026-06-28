@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-FEXP04-SCALAR-PROFILE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-scalar-profile-replay` | `ralph/fresh-scalar-profile-replay` | `bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c` | Raman the 3rd (`019f0c55-1fa5-7b73-a55e-8f5e08517bfc`) | pending | running; copied package refreshed from source `ee4894fa71e9307b9251639f0b54577ff764c63f` to replay scalar-buff profile projection facts |
 
 ## Historical RRCONV-19 Worktrees
 
