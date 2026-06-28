@@ -27,7 +27,7 @@ review checks were needed to prevent false positives.
 
 Authoritative state:
 
-- `STATE.json.status`: `dirty-fcsf-package-refresh-reconciled`
+- `STATE.json.status`: `dirty-replay-refreshes-complete-source-qnt-blockers-remain`
 - refreshed in-scope obligations: `659`
 - accepted obligations: `659`
 - accepted driver coverage: `97 / 97`
@@ -162,8 +162,9 @@ the fresh SDK composition tracer is accepted, the FC-06 source feedback is
 resolved in the copied source package, and the current fresh verifier is green.
 Next useful work is one of:
 
-- use `FEXP_BLOCKER_SOURCE_FEEDBACK.md` to promote the remaining FEXP-02 through
-  FEXP-07 blockers into source-side QNT/guidance updates before launching more
+- use `SOURCE_QNT_NEXT_TASKS.md` and `FEXP_BLOCKER_SOURCE_FEEDBACK.md` to
+  promote the remaining Task 3 selected-spell and FEXP-07 selected/grouped
+  residual blockers into source-side QNT/guidance updates before launching more
   target implementation;
 - use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
   `05280a8e2d6e9705411c114c80ae2a4e4290de2c` as the accepted evidence for the
@@ -189,3 +190,7 @@ Next useful work is one of:
 - audit whether any accepted rows still depend too much on dirty target
   scaffolding, then convert those lessons into source-side guidance rather than
   more dirty target code.
+
+Do not launch more dirty target lanes for Task 3 residual selected-spell
+branches or FEXP-07 selected/grouped residual branches until the generic route
+facts in `SOURCE_QNT_NEXT_TASKS.md` exist in the source package.

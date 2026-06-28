@@ -23,5 +23,7 @@ Primary files:
 - `FRESH_EXPANSION_LANES.json`: machine-readable proposed lane list for the next larger fresh-cleanroom campaign.
 - `FRESH_SDK_COMPOSITION_ACCEPTANCE.md`: accepted fresh-target evidence for the integrated sheet-to-composed-encounter-to-simple-turn SDK tracer.
 - `GOAL_STATUS_AUDIT.md`: requirement-by-requirement status of the active goal, including what is proven and why the global objective remains active.
+- `SOURCE_QNT_NEXT_TASKS.md`: source-QNT route connector tasks that must be
+  added before more target replay can honestly count the remaining blockers.
 
 The campaign is designed so an orchestrator can resume after losing chat context. If the files and the git worktree disagree, stop and reconcile the files before launching more Ralph workers.

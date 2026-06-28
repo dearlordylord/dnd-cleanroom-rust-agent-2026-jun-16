@@ -93,7 +93,7 @@ jq '.status, .coverageCurrent, .freshCleanroomDryRun.status' \
 
 Expected state:
 
-- `dirty-fcsf-package-refresh-reconciled`
+- `dirty-replay-refreshes-complete-source-qnt-blockers-remain`
 - `659 / 659` refreshed in-scope dirty obligations accepted
 - `accepted-through-current-verifier`
 
@@ -154,8 +154,10 @@ The current evidence proves:
   reducer diagnostic batch, and FCSF-04 adding public object stale route-history
   evidence, FCSF-05 adding generic reaction/interrupt payload taxonomy
   evidence, and FCSF-06 adding typed character/sheet/handoff rejection and
-  resource payload evidence. This package refresh does not add fresh target acceptance, Rust
-  runtime coverage, or condition-immunity scalar-buff route replay acceptance;
+  resource payload evidence. FCSF-04, FCSF-05, and FCSF-06 have now been
+  diagnostic-replayed in the dirty target against the current package; those
+  dirty replays add target-side rehearsal evidence but do not add fresh target
+  acceptance or condition-immunity scalar-buff route replay acceptance;
 - FEXP-05 independently accepted reaction/interrupt substrate evidence with
   explicit historical blockers for residual selected reaction spell and
   interrupt-trigger source-input gaps; FCSF-05 resolves those blockers as source
