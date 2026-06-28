@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-expansion-fexp04-ability-check-search-replay-accepted",
+  "status": "fresh-expansion-fexp04-concentration-cleanup-replay-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -2798,15 +2798,16 @@
   },
   "nextWorkRecommendations": [
     "Fresh target focused replay for the FEXP-04 exact roll-choice payload blocker is accepted at b43797af240c1486e5ad92c3698bf2cd2958a91e after refreshing the copied package to source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375.",
-    "Fresh target public Ability Check/Search replay is accepted at cd4465556d18729121f56f5834ac00f8b0b3d15c; use this as the current strongest target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, FEXP-04 Ability Check/Search public reducer routing, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are explicit historical snapshots after the source-input refresh.",
+    "Fresh target public Ability Check/Search replay is accepted at cd4465556d18729121f56f5834ac00f8b0b3d15c; use this as the current strongest accepted target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, FEXP-04 Ability Check/Search public reducer routing, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are explicit historical snapshots after the source-input refresh.",
+    "Source feedback task FCSF-01 landed at c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d, adding public concentration cleanup route source input through BattleConcentrationOwner and BattleActiveEffectOwner; a fresh target replay lane is active against that copied package.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fexp04-ability-check-search-replay-accepted-with-historical-snapshots",
-    "activeLane": null,
+    "status": "fexp04-concentration-cleanup-replay-running",
+    "activeLane": "FRESH-FEXP04-CONCENTRATION-CLEANUP-REPLAY",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "cd4465556d18729121f56f5834ac00f8b0b3d15c",
@@ -3089,15 +3090,16 @@
         ]
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
-    "activeLaneBaseCommit": null,
-    "workerAgent": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-concentration-cleanup-replay",
+    "activeBranch": "ralph/fresh-concentration-cleanup-replay",
+    "activeLaneBaseCommit": "cd4465556d18729121f56f5834ac00f8b0b3d15c",
+    "workerAgent": "pending",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": null,
+    "nextPlannedLane": "FRESH-FEXP04-CONCENTRATION-CLEANUP-REPLAY",
     "nextWorkRecommendations": [
       "FEXP-07 closes the initially planned fresh expansion lanes; the post-refresh FEXP-04 exact roll-choice replay and Ability Check/Search replay are accepted in the fresh target.",
-      "Continue source-input feedback for remaining FEXP-02 through FEXP-07 blockers, then a larger fresh-cleanroom campaign against the updated package."
+      "The active lane consumes source feedback task FCSF-01 from source commit c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d and attempts to replay concentration cleanup route evidence through public fresh-target reducer entrypoints.",
+      "After this lane, continue source-input feedback for remaining FEXP-02 through FEXP-07 blockers, then a larger fresh-cleanroom campaign against the updated package."
     ]
   },
   "sdkTracerBullet": {

@@ -20,7 +20,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-FEXP04-CONCENTRATION-CLEANUP-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-concentration-cleanup-replay` | `ralph/fresh-concentration-cleanup-replay` | `c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d` | pending | pending | running; copied package refreshed from Task 1 source input; prove concentration cleanup route through public reducer entrypoints or sharpen blocker |
 
 ## Active Fresh Expansion Targets
 
