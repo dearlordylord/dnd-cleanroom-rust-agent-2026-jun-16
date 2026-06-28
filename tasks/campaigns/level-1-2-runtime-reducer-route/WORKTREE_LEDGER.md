@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03a-hit-point-regain-replay` | `ralph/sqnt03a-hit-point-regain-dirty-replay` | `f41199ade4a4af944c2a3cf19799a8279592b967` | Bernoulli the 3rd (`019f0d77-7d4a-7bd3-a525-be8338886cf0`) | running |
 
 ## Active Fresh Dry Run Targets
 

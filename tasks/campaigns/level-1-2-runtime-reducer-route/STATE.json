@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03a-source-connector-packaged-target-replay-pending",
+  "status": "sqnt03a-dirty-replay-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -524,7 +524,19 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no FCSF-04 evidence, ledger, or artifact failures",
     "review": "Averroes the 3rd review returned no blockers for worker commit 6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY",
+      "routeTaskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03a-hit-point-regain-replay",
+      "branch": "ralph/sqnt03a-hit-point-regain-dirty-replay",
+      "baseSha": "f41199ade4a4af944c2a3cf19799a8279592b967",
+      "workerAgent": "019f0d77-7d4a-7bd3-a525-be8338886cf0",
+      "workerName": "Bernoulli the 3rd",
+      "status": "running",
+      "scope": "dirty target replay against copied SQNT-03A connector; no fresh target acceptance claimed"
+    }
+  ],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
