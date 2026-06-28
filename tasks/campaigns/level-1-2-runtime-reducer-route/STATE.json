@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-rr-battle-active-effects-accepted-with-blockers",
+  "status": "wave2-source-qnt-lanes-active",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -755,7 +755,44 @@
     "review": "SQNT-07D was remediated after review rejected manual route-event construction. The accepted evidence uses observed reducer entrypoints and copied route connector facts; no fresh target acceptance is claimed."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [],
+  "activeSourceQntLanes": [
+    {
+      "laneId": "SQNT-07A-CONDITION-LIFECYCLE",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-condition-lifecycle",
+      "branch": "ralph/source-sqnt-07a-condition-lifecycle",
+      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
+      "workerAgent": "Hegel the 3rd (019f0f93-8d04-78c1-944c-ac416d41cd8c)",
+      "status": "active",
+      "purpose": "Add generic Paralyzed/Incapacitated until-spell-end repeat-save lifecycle and laughter-style Incapacitated plus Prone lifecycle route facts."
+    },
+    {
+      "laneId": "SQNT-07A-MARKED-DAMAGE-AND-IMMUNITY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-marked-damage-immunity",
+      "branch": "ralph/source-sqnt-07a-marked-damage-immunity",
+      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
+      "workerAgent": "Singer the 3rd (019f0f93-d066-77c3-b853-6f44a6ede5b1)",
+      "status": "active",
+      "purpose": "Add generic marked-target damage rider/transfer and condition-immunity plus turn-start Temporary Hit Point active-effect substrate facts."
+    },
+    {
+      "laneId": "SQNT-07A-SPATIAL-EFFECTS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-spatial-effects",
+      "branch": "ralph/source-sqnt-07a-spatial-effects",
+      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
+      "workerAgent": "Carson the 3rd (019f0f94-1228-7dc0-b29a-a9ef5a01a908)",
+      "status": "active",
+      "purpose": "Add generic movable multi-emitter light, outline/invisible-revealing/attack-advantage, and area hazard/obscurement lifecycle route facts."
+    },
+    {
+      "laneId": "SQNT-07A-MOVEMENT-PRESENTATION",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-movement-presentation",
+      "branch": "ralph/source-sqnt-07a-movement-presentation",
+      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
+      "workerAgent": "Copernicus the 3rd (019f0f94-4f64-7d12-8804-2f0c710d7c3f)",
+      "status": "active",
+      "purpose": "Add generic movement replacement, forced movement, and object-push/presentation route facts."
+    }
+  ],
   "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS",
@@ -3634,7 +3671,8 @@
     "Clean old historical replay/ledger debt only if the dirty harness needs to pass without exception; validator provenance has already been refreshed.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints.",
     "Fresh target FRESH-RR-SPATIAL-DAMAGE is accepted-with-blockers at b28d9dbdd83c49bdd21dd36473d0b96612279fb7. Its verifier derives object/light and mixed-target expected records from copied QNT/vocabulary facts and compares them to public reducer observations; SQNT-03G exact damage and FCSF-04 stale-object route rows remain downgraded blockers.",
-    "Fresh target FRESH-RR-BATTLE-ACTIVE-EFFECTS is accepted-with-blockers at 10918170ebbb342c7d45664601cb8eb354991db2. Its verifier derives SQNT-03A/B/C/D active-effect expected records from copied route connectors and compares them to public reducer observations; FCSF-05 trigger taxonomy remains blocked for durable production state."
+    "Fresh target FRESH-RR-BATTLE-ACTIVE-EFFECTS is accepted-with-blockers at 10918170ebbb342c7d45664601cb8eb354991db2. Its verifier derives SQNT-03A/B/C/D active-effect expected records from copied route connectors and compares them to public reducer observations; FCSF-05 trigger taxonomy remains blocked for durable production state.",
+    "Wave 2 source-QNT lanes are active from source base 21504ef764118f5fd13086aa6266f19280196664: condition lifecycle, marked damage/immunity, spatial effects, and movement/presentation. Workers must add generic route facts plus TS MBT parity tests without running MBT concurrently; orchestrator schedules MBT during integration."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",

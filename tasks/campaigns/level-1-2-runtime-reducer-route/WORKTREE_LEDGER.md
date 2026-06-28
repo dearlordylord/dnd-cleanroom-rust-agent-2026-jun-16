@@ -33,7 +33,10 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-07A-CONDITION-LIFECYCLE | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-condition-lifecycle` | `ralph/source-sqnt-07a-condition-lifecycle` | `21504ef764118f5fd13086aa6266f19280196664` | Hegel the 3rd (`019f0f93-8d04-78c1-944c-ac416d41cd8c`) | active |
+| SQNT-07A-MARKED-DAMAGE-AND-IMMUNITY | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-marked-damage-immunity` | `ralph/source-sqnt-07a-marked-damage-immunity` | `21504ef764118f5fd13086aa6266f19280196664` | Singer the 3rd (`019f0f93-d066-77c3-b853-6f44a6ede5b1`) | active |
+| SQNT-07A-SPATIAL-EFFECTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-spatial-effects` | `ralph/source-sqnt-07a-spatial-effects` | `21504ef764118f5fd13086aa6266f19280196664` | Carson the 3rd (`019f0f94-1228-7dc0-b29a-a9ef5a01a908`) | active |
+| SQNT-07A-MOVEMENT-PRESENTATION | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-movement-presentation` | `ralph/source-sqnt-07a-movement-presentation` | `21504ef764118f5fd13086aa6266f19280196664` | Copernicus the 3rd (`019f0f94-4f64-7d12-8804-2f0c710d7c3f`) | active |
 
 ## Historical RRCONV-19 Worktrees
 
