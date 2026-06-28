@@ -623,9 +623,9 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03e-object-light-riders",
       "branch": "ralph/source-sqnt-03e-object-light-riders",
       "baseSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
-      "workerAgent": "pending",
-      "workerName": "pending",
-      "status": "worktree-created-worker-pending",
+      "workerAgent": "019f0e6b-8b23-74e2-9728-2a68e6390f19",
+      "workerName": "Banach the 3rd",
+      "status": "worker-running",
       "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
     }
   ],
