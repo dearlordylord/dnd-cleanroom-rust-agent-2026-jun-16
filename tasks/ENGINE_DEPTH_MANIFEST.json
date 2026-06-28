@@ -1,66 +1,88 @@
 {
-  "accumulatorGrowth": [],
-  "adapterModules": [
+  "schemaVersion": 1,
+  "taskId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY",
+  "productionModulesExtended": [
     {
-      "adapterScope": "Replays the two Magic Weapon item-target rows through the copied WeaponEnhancementItemTargetRouteSubject connector. Accepted coverage is observed through BattleEntrypointTrace.route_events, not adapter-local route synthesis.",
-      "path": "src/qnt_adapters/battle_runtime_weapon_hosted_attack_and_riders.rs",
-      "quarantinedWitnessNames": [
-        "doDiscoverMagicWeapon",
-        "doFillMagicWeaponTarget",
-        "checkedTargetStateFields",
-        "cleanroomManifestSourceCommitSha",
-        "expectedProjectionSha256",
-        "mbt::actionTaken",
-        "mbt::nondetPicks",
-        "observedActionTaken",
-        "observedProjectionSha256",
-        "qntFileSha256",
-        "sourceBranchInventorySha256",
-        "targetProfile",
-        "targetProfileSha256",
-        "traceId",
-        "stateCheck",
-        "comparator",
-        "harnessTestPath"
-      ],
-      "targetReplayEvidence": [
-        "tasks/target-replay-evidence/L15-RRCP5-A-RIDER-AND-WEAPON-HOSTED-ROUTES.json"
+      "path": "src/rules/character_creation.rs",
+      "role": "domain-engine",
+      "reason": "Adds route fact events to the public character creation route state for partial fills, stale rejection, selected-reference retention, build projection input, and HP maximum build input without adding durable draft fields.",
+      "domainApis": [
+        "CreationRouteFactFamily",
+        "CreationRouteEvent::RecordCreationFacts",
+        "apply_creation_fill_batch",
+        "apply_creation_retained_reference_operation",
+        "route_payload"
+      ]
+    },
+    {
+      "path": "src/rules/character_battle_handoff.rs",
+      "role": "domain-engine",
+      "reason": "Adds handoff route fact events for source-exact resource deltas, feature-resource deltas, settlement conflicts, and zero-HP Stable lifecycle settlement without adding durable settlement fields.",
+      "domainApis": [
+        "CharacterBattleRouteHandoffFactFamily",
+        "CharacterBattleRouteEvent::RouteRecordCharacterBattleHandoffFacts",
+        "route_record_character_battle_handoff_facts",
+        "character_battle_route_payload"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_reducer_route.rs",
+      "role": "route-projection",
+      "reason": "Extends the existing sheet qRoute witness vocabulary with fact-record events for FCSF-06 character sheet replay.",
+      "domainApis": [
+        "CharacterSheetRouteFactFamily",
+        "CharacterSheetRouteEvent::RecordCharacterSheetFacts",
+        "route_record_character_sheet_facts",
+        "character_sheet_route_payload"
       ]
     }
   ],
-  "expectedNextReuse": [
+  "adapterModules": [
     {
-      "api": "BattleSubjectKind::WeaponEnhancementItemTarget and BattleEntrypointTrace.route_events",
-      "driver": "future copied QNT route connectors for item-targeted weapon enhancement effects",
-      "module": "src/rules/battle_reducer_spine.rs"
-    }
-  ],
-  "productionModulesExtended": [
-    {
-      "domainApis": [
-        "BattleSubjectKind::WeaponEnhancementItemTarget",
-        "BattleReducerRouteSubjectFamily::WeaponEnhancementItemTarget",
-        "BattleReducerRouteOwnerGroup::ItemTargetBoundary",
-        "discover_generic_route_subject_observed",
-        "resolve_battle_subject_observed",
-        "BattleEntrypointTrace"
-      ],
-      "path": "src/rules/battle_reducer_spine.rs",
-      "reason": "Adds the copied WeaponEnhancementItemTargetRouteSubject route shape with empty reducer holes, item-target boundary discovery, and active-effect no-fill resolution for Magic Weapon item targeting.",
-      "role": "domain-engine"
+      "path": "src/qnt_adapters/character_sheet_spell_slots_pact_slots.rs",
+      "adapterScope": "Replays ordinary Spell Slot, Pact Slot, created-slot expiry, rest-benefit, feature recovery, and spell-resource rejection route facts from the copied connector.",
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
+      ]
     },
     {
-      "domainApis": [
-        "ReducerRouteSubjectFamily::WeaponEnhancementItemTarget",
-        "ReducerRouteOwnerGroup::ItemTargetBoundary",
-        "reducer_route_event_from_observed",
-        "reducer_route_payload"
-      ],
-      "path": "src/qnt_adapters/battle_runtime_reducer_route.rs",
-      "reason": "Maps observed reducer route events to the copied QNT qRoute vocabulary, including BattleItemTargetBoundaryOwner.",
-      "role": "route-projection"
+      "path": "src/qnt_adapters/character_battle_settlement.rs",
+      "adapterScope": "Replays character-battle settlement route facts for source-exact resources, settlement conflicts, and zero-HP Stable lifecycle through existing settlement public route helpers.",
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_creation_runtime.rs",
+      "adapterScope": "Replays character creation draft/fill/finalization route facts through CharacterCreationState.route.",
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
+      ]
+    },
+    {
+      "path": "src/qnt_adapters/character_sheet_hit_point_maximum.rs",
+      "adapterScope": "Replays sheet Hit Point Maximum arithmetic-input route facts through existing HP maximum projection facts.",
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
+      ]
     }
   ],
-  "schemaVersion": 1,
-  "taskId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES"
+  "accumulatorGrowth": [],
+  "expectedNextReuse": [
+    {
+      "module": "src/rules/character_creation.rs",
+      "api": "CreationRouteFactFamily",
+      "driver": "future character creation route connectors needing build/selected-reference fact evidence"
+    },
+    {
+      "module": "src/rules/character_battle_handoff.rs",
+      "api": "CharacterBattleRouteHandoffFactFamily",
+      "driver": "future character-battle handoff and settlement route connectors"
+    },
+    {
+      "module": "src/qnt_adapters/character_sheet_reducer_route.rs",
+      "api": "CharacterSheetRouteFactFamily",
+      "driver": "future character sheet resource/rest/projection route connectors"
+    }
+  ]
 }

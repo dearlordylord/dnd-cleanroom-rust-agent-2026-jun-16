@@ -8,7 +8,8 @@ use crate::rules::character_sheet::{
 
 use super::character_sheet_reducer_route::{
     initial_sheet_build_route, route_complete_character_sheet_rest,
-    route_resolve_character_sheet_subject, CharacterSheetRouteEvent, CharacterSheetRouteFillFamily,
+    route_record_character_sheet_facts, route_resolve_character_sheet_subject,
+    CharacterSheetRouteEvent, CharacterSheetRouteFactFamily, CharacterSheetRouteFillFamily,
     CharacterSheetRouteHoleFamily, CharacterSheetRouteOwnerGroup, CharacterSheetRouteSubjectFamily,
 };
 
@@ -269,19 +270,22 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetR
     let mut route = initial_sheet_build_route();
     match observed_action_taken {
         "doRejectMismatchedOrdinarySpellSlotCapacity" => {
-            route.push(reject_spell_resource_route(
+            append_reject_spell_resource_route(
+                &mut route,
                 CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
-            ));
+            );
         }
         "doRejectPactSlotExpenditureOverCapacity" => {
-            route.push(reject_spell_resource_route(
+            append_reject_spell_resource_route(
+                &mut route,
                 CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
-            ));
+            );
         }
         "doShortRestRestoresPactSlotsOnly" | "doInterruptLongRestWithShortRestSlotBenefits" => {
-            route.push(complete_restored_slot_route(
+            append_complete_restored_slot_route(
+                &mut route,
                 CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
-            ));
+            );
         }
         "doShortRestArcaneRecoveryRefundsOrdinarySpellSlot" => {
             route.push(route_complete_character_sheet_rest(
@@ -290,13 +294,25 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetR
                 Vec::new(),
                 CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
             ));
+            append_feature_recovery_state_fact(&mut route);
+            append_spell_resource_delta_fact(
+                &mut route,
+                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
+            );
         }
         "doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots" => {
-            route.push(complete_restored_slot_route(
+            append_complete_restored_slot_route(
+                &mut route,
                 CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
-            ));
-            route.push(complete_restored_slot_route(
+            );
+            append_complete_restored_slot_route(
+                &mut route,
                 CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
+            );
+            route.push(route_record_character_sheet_facts(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                vec![CharacterSheetRouteFactFamily::SheetCreatedSlotExpiry],
+                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
             ));
         }
         "doInterruptShortRestNoSlotBenefit" | "doInterruptLongRestBeforeOneHourNoSlotBenefit" => {
@@ -304,6 +320,11 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetR
                 CharacterSheetRouteSubjectFamily::SheetRest,
                 CharacterSheetRouteFillFamily::RestDuration,
                 vec![CharacterSheetRouteHoleFamily::RestBenefitChoice],
+                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
+            ));
+            route.push(route_record_character_sheet_facts(
+                CharacterSheetRouteSubjectFamily::SheetRest,
+                vec![CharacterSheetRouteFactFamily::SheetRestBenefitWindow],
                 CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
             ));
         }
@@ -320,6 +341,11 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetR
                 Vec::new(),
                 CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
             ));
+            append_feature_recovery_state_fact(&mut route);
+            append_spell_resource_delta_fact(
+                &mut route,
+                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
+            );
         }
         "doRejectMagicalCunningWithoutExpendedPactSlots"
         | "doRejectArcaneRecoveryPactSlotRefund" => {
@@ -327,6 +353,11 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetR
                 CharacterSheetRouteSubjectFamily::SheetSpellResource,
                 CharacterSheetRouteFillFamily::RecoverySelection,
                 vec![CharacterSheetRouteHoleFamily::RecoveryChoice],
+                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
+            ));
+            route.push(route_record_character_sheet_facts(
+                CharacterSheetRouteSubjectFamily::SheetSpellResource,
+                vec![CharacterSheetRouteFactFamily::SheetSpellResourceRejection],
                 CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
             ));
         }
@@ -336,90 +367,7 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetR
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
-    match observed_action_taken {
-        "doRejectMismatchedOrdinarySpellSlotCapacity" => {
-            expected_initial_route_with(route_resolve_character_sheet_subject(
-                CharacterSheetRouteSubjectFamily::SheetSpellResource,
-                CharacterSheetRouteFillFamily::ResourceSpend,
-                vec![CharacterSheetRouteHoleFamily::ResourceSpend],
-                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
-            ))
-        }
-        "doRejectPactSlotExpenditureOverCapacity" => {
-            expected_initial_route_with(route_resolve_character_sheet_subject(
-                CharacterSheetRouteSubjectFamily::SheetSpellResource,
-                CharacterSheetRouteFillFamily::ResourceSpend,
-                vec![CharacterSheetRouteHoleFamily::ResourceSpend],
-                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
-            ))
-        }
-        "doShortRestRestoresPactSlotsOnly" | "doInterruptLongRestWithShortRestSlotBenefits" => {
-            expected_initial_route_with(route_complete_character_sheet_rest(
-                CharacterSheetRouteSubjectFamily::SheetSpellResource,
-                CharacterSheetRouteFillFamily::RestDuration,
-                Vec::new(),
-                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
-            ))
-        }
-        "doShortRestArcaneRecoveryRefundsOrdinarySpellSlot" => {
-            expected_initial_route_with(route_complete_character_sheet_rest(
-                CharacterSheetRouteSubjectFamily::SheetSpellResource,
-                CharacterSheetRouteFillFamily::RecoverySelection,
-                Vec::new(),
-                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
-            ))
-        }
-        "doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots" => {
-            let mut route = initial_sheet_build_route();
-            route.push(route_complete_character_sheet_rest(
-                CharacterSheetRouteSubjectFamily::SheetSpellResource,
-                CharacterSheetRouteFillFamily::RestDuration,
-                Vec::new(),
-                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
-            ));
-            route.push(route_complete_character_sheet_rest(
-                CharacterSheetRouteSubjectFamily::SheetSpellResource,
-                CharacterSheetRouteFillFamily::RestDuration,
-                Vec::new(),
-                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
-            ));
-            route
-        }
-        "doInterruptShortRestNoSlotBenefit" | "doInterruptLongRestBeforeOneHourNoSlotBenefit" => {
-            expected_initial_route_with(route_complete_character_sheet_rest(
-                CharacterSheetRouteSubjectFamily::SheetRest,
-                CharacterSheetRouteFillFamily::RestDuration,
-                vec![CharacterSheetRouteHoleFamily::RestBenefitChoice],
-                CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot,
-            ))
-        }
-        "doMagicalCunningRecoversPactSlots" => {
-            let mut route = initial_sheet_build_route();
-            route.push(route_resolve_character_sheet_subject(
-                CharacterSheetRouteSubjectFamily::SheetFeatureResource,
-                CharacterSheetRouteFillFamily::RecoverySelection,
-                Vec::new(),
-                CharacterSheetRouteOwnerGroup::CharacterSheetFeatureResource,
-            ));
-            route.push(route_resolve_character_sheet_subject(
-                CharacterSheetRouteSubjectFamily::SheetSpellResource,
-                CharacterSheetRouteFillFamily::RecoverySelection,
-                Vec::new(),
-                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
-            ));
-            route
-        }
-        "doRejectMagicalCunningWithoutExpendedPactSlots"
-        | "doRejectArcaneRecoveryPactSlotRefund" => {
-            expected_initial_route_with(route_resolve_character_sheet_subject(
-                CharacterSheetRouteSubjectFamily::SheetSpellResource,
-                CharacterSheetRouteFillFamily::RecoverySelection,
-                vec![CharacterSheetRouteHoleFamily::RecoveryChoice],
-                CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot,
-            ))
-        }
-        action => panic!("unsupported expected route mbt::actionTaken {action}"),
-    }
+    replay_observed_route(observed_action_taken)
 }
 
 pub fn projection_payload(witness: &SpellSlotsPactSlotsWitness) -> String {
@@ -704,6 +652,53 @@ fn complete_restored_slot_route(owner: CharacterSheetRouteOwnerGroup) -> Charact
     )
 }
 
+fn append_reject_spell_resource_route(
+    route: &mut Vec<CharacterSheetRouteEvent>,
+    owner: CharacterSheetRouteOwnerGroup,
+) {
+    route.push(reject_spell_resource_route(owner));
+    route.push(route_record_character_sheet_facts(
+        CharacterSheetRouteSubjectFamily::SheetSpellResource,
+        vec![CharacterSheetRouteFactFamily::SheetSpellResourceRejection],
+        owner,
+    ));
+}
+
+fn append_complete_restored_slot_route(
+    route: &mut Vec<CharacterSheetRouteEvent>,
+    owner: CharacterSheetRouteOwnerGroup,
+) {
+    route.push(complete_restored_slot_route(owner));
+    append_spell_resource_delta_fact(route, owner);
+}
+
+fn append_spell_resource_delta_fact(
+    route: &mut Vec<CharacterSheetRouteEvent>,
+    owner: CharacterSheetRouteOwnerGroup,
+) {
+    route.push(route_record_character_sheet_facts(
+        CharacterSheetRouteSubjectFamily::SheetSpellResource,
+        match owner {
+            CharacterSheetRouteOwnerGroup::CharacterSheetSpellSlot => {
+                vec![CharacterSheetRouteFactFamily::SheetOrdinarySpellSlotDelta]
+            }
+            CharacterSheetRouteOwnerGroup::CharacterSheetPactSlot => {
+                vec![CharacterSheetRouteFactFamily::SheetPactSlotDelta]
+            }
+            _ => Vec::new(),
+        },
+        owner,
+    ));
+}
+
+fn append_feature_recovery_state_fact(route: &mut Vec<CharacterSheetRouteEvent>) {
+    route.push(route_record_character_sheet_facts(
+        CharacterSheetRouteSubjectFamily::SheetFeatureResource,
+        vec![CharacterSheetRouteFactFamily::SheetFeatureRecoveryState],
+        CharacterSheetRouteOwnerGroup::CharacterSheetFeatureResource,
+    ));
+}
+
 #[allow(clippy::too_many_arguments)]
 fn expected(
     last_result: &'static str,
@@ -739,12 +734,6 @@ fn expected(
         magical_cunning_used_since_long_rest,
         replay_index,
     }
-}
-
-fn expected_initial_route_with(event: CharacterSheetRouteEvent) -> Vec<CharacterSheetRouteEvent> {
-    let mut route = initial_sheet_build_route();
-    route.push(event);
-    route
 }
 
 fn record_projection(

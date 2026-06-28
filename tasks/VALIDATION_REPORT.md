@@ -1,5 +1,47 @@
 # Validation Report
 
+## FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY
+
+- Lane: `FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY`
+- Base SHA: `6d13eb64e4850ebc06f7ce67afa497b0f5a0f895`
+- Source package commit: `d63838e22137c4b329dc877ca0d963876f3459bf`
+- Evidence file: `tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json`
+- Accepted rows: 44 dirty target replay rows across character sheet Spell Slot/Pact Slot, character battle settlement, character creation runtime, and character sheet Hit Point Maximum drivers.
+- Target blockers: `_none_`
+- Scope note: dirty target replay only; this is not fresh target acceptance.
+
+Drivers and route connectors:
+
+- `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt` with `cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt`
+- `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt` with `cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt`
+- `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt` with `cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.route.mbt.qnt`
+- `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt` with `cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt`
+
+Behavior implemented:
+
+- Added typed non-durable route fact records for character creation partial fills, stale rejection, selected-reference retention, build projection inputs, and Hit Point Maximum build inputs.
+- Added typed non-durable route fact records for character sheet ordinary Spell Slot/Pact Slot deltas, created-slot expiry, rest-benefit windows, feature recovery state, spell-resource rejection payloads, and Hit Point Maximum arithmetic inputs.
+- Added typed non-durable route fact records for character-battle settlement source-exact slot deltas, feature-resource deltas, settlement conflicts, and zero-HP Stable lifecycle settlement.
+- Updated older character creation expected-route helpers so selected-reference adapters expect the same build-input and selected-reference fact records emitted by the public creation route state.
+
+RAW and ubiquitous-language check:
+
+- Read local SRD references: `Spells/Gaining-and-Casting.md` Spell Slots; `Classes/Warlock.md` Pact Magic and Magical Cunning; `Classes/Wizard.md` Arcane Recovery; `Rules-Glossary.md` Short Rest, Long Rest, Hit Points, Stable, Character Sheet; `Playing-the-Game.md` Hit Points, Temporary Hit Points, Dropping to 0 Hit Points, Death Saving Throws, Stabilizing a Character; `Character-Creation.md` Fill In Numbers, Gaining a Level, Hit Points and Hit Point Dice.
+- Read `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md` for Pool, Spend, Hit Points, Hit Point Maximum, Temporary Hit Points, Hit Die, Stable, Poisoned, Prone, Spell Slot, Pact Slot, Short Rest, Long Rest, Character Sheet, and Character Draft/Creation Fill notes.
+
+Verification results:
+
+- `cargo test character_creation_runtime -- --nocapture` passed.
+- `cargo test spell_slots -- --nocapture` passed.
+- `cargo test hit_point_maximum -- --nocapture` passed.
+- `cargo test battle_settlement -- --nocapture` passed.
+- `cargo test` passed.
+- `cargo fmt --check` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check 6d13eb64e4850ebc06f7ce67afa497b0f5a0f895...HEAD` passed.
+- Direct evidence validation via `validateTargetReplayEvidence(..., { requireAllObligations: false, routeInventory })` passed for all 44 rows.
+- `node scripts/check-cleanroom-harness.cjs` failed only on stale validator hashes recorded in `cleanroom-input/MANIFEST.md`: `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs`.
+
 ## L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES: Ability/Search Choice Routes
 
 - Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt`

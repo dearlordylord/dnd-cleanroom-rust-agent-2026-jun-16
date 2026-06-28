@@ -1,8 +1,9 @@
 use std::collections::BTreeSet;
 
 use crate::rules::character_creation::{
-    CreationRetainedReferenceOperation, CreationRouteEvent, CreationRouteFillFamily,
-    CreationRouteHoleFamily, CreationRouteOwnerGroup, CreationRouteSubjectFamily,
+    CreationRetainedReferenceOperation, CreationRouteEvent, CreationRouteFactFamily,
+    CreationRouteFillFamily, CreationRouteHoleFamily, CreationRouteOwnerGroup,
+    CreationRouteSubjectFamily,
 };
 
 #[must_use]
@@ -54,6 +55,7 @@ pub fn expected_completed_fighter_creation_route() -> Vec<CreationRouteEvent> {
         &[],
         CreationRouteOwnerGroup::CharacterDraft,
     );
+    append_project_build_facts(&mut route);
     route.push(CreationRouteEvent::FinalizeCharacterDraft {
         subject: CreationRouteSubjectFamily::Finalization,
         owner: CreationRouteOwnerGroup::CharacterBuild,
@@ -133,11 +135,24 @@ fn append_retain_selected_references(route: &mut Vec<CreationRouteEvent>) {
         subject: CreationRouteSubjectFamily::RetainedReference,
         owner: CreationRouteOwnerGroup::CreationRetainedReference,
     });
+    route.push(CreationRouteEvent::RecordCreationFacts {
+        subject: CreationRouteSubjectFamily::RetainedReference,
+        facts: facts(&[CreationRouteFactFamily::SelectedReferenceRetention]),
+        owner: CreationRouteOwnerGroup::CreationRetainedReference,
+    });
 }
 
 fn append_project_build_facts(route: &mut Vec<CreationRouteEvent>) {
     route.push(CreationRouteEvent::ProjectCharacterBuildFacts {
         subject: CreationRouteSubjectFamily::BuildProjection,
+        owner: CreationRouteOwnerGroup::CharacterBuild,
+    });
+    route.push(CreationRouteEvent::RecordCreationFacts {
+        subject: CreationRouteSubjectFamily::BuildProjection,
+        facts: facts(&[
+            CreationRouteFactFamily::BuildProjectionInput,
+            CreationRouteFactFamily::HitPointMaximumBuildInput,
+        ]),
         owner: CreationRouteOwnerGroup::CharacterBuild,
     });
 }
@@ -147,5 +162,9 @@ fn holes(families: &[CreationRouteHoleFamily]) -> BTreeSet<CreationRouteHoleFami
 }
 
 fn fills(families: &[CreationRouteFillFamily]) -> BTreeSet<CreationRouteFillFamily> {
+    families.iter().copied().collect()
+}
+
+fn facts(families: &[CreationRouteFactFamily]) -> BTreeSet<CreationRouteFactFamily> {
     families.iter().copied().collect()
 }

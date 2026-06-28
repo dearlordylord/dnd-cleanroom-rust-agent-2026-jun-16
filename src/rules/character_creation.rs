@@ -533,6 +533,15 @@ pub enum CreationRouteOwnerGroup {
     CreationRetainedReference,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub enum CreationRouteFactFamily {
+    PartialFillDraft,
+    StaleFillRejection,
+    SelectedReferenceRetention,
+    BuildProjectionInput,
+    HitPointMaximumBuildInput,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum CreationRouteEvent {
     CreateCharacterDraft {
@@ -555,6 +564,11 @@ pub enum CreationRouteEvent {
     },
     ProjectCharacterBuildFacts {
         subject: CreationRouteSubjectFamily,
+        owner: CreationRouteOwnerGroup,
+    },
+    RecordCreationFacts {
+        subject: CreationRouteSubjectFamily,
+        facts: BTreeSet<CreationRouteFactFamily>,
         owner: CreationRouteOwnerGroup,
     },
     FinalizeCharacterDraft {
@@ -628,6 +642,7 @@ pub fn apply_creation_fill_batch(
         route_holes,
         owner,
     );
+    append_creation_fill_facts(&mut route, expected_revision, fills, &result, owner);
     let draft = match &result {
         FillBatchResult::Accepted { draft, .. } => draft.clone(),
         FillBatchResult::Rejected { .. } => state.draft.clone(),
@@ -639,6 +654,11 @@ pub fn apply_creation_fill_batch(
             ..
         }
     ) {
+        route.push(CreationRouteEvent::ProjectCharacterBuildFacts {
+            subject: CreationRouteSubjectFamily::BuildProjection,
+            owner: CreationRouteOwnerGroup::CharacterBuild,
+        });
+        route.push(build_projection_input_facts());
         route.push(CreationRouteEvent::FinalizeCharacterDraft {
             subject: CreationRouteSubjectFamily::Finalization,
             owner: CreationRouteOwnerGroup::CharacterBuild,
@@ -696,22 +716,34 @@ pub fn apply_creation_retained_reference_operation(
                 subject: CreationRouteSubjectFamily::RetainedReference,
                 owner: CreationRouteOwnerGroup::CreationRetainedReference,
             });
+            route.push(CreationRouteEvent::RecordCreationFacts {
+                subject: CreationRouteSubjectFamily::RetainedReference,
+                facts: route_fact_families(&[CreationRouteFactFamily::SelectedReferenceRetention]),
+                owner: CreationRouteOwnerGroup::CreationRetainedReference,
+            });
         }
         CreationRetainedReferenceOperation::RetainAndProject => {
             route.push(CreationRouteEvent::RetainCreationRetainedReferences {
                 subject: CreationRouteSubjectFamily::RetainedReference,
                 owner: CreationRouteOwnerGroup::CreationRetainedReference,
             });
+            route.push(CreationRouteEvent::RecordCreationFacts {
+                subject: CreationRouteSubjectFamily::RetainedReference,
+                facts: route_fact_families(&[CreationRouteFactFamily::SelectedReferenceRetention]),
+                owner: CreationRouteOwnerGroup::CreationRetainedReference,
+            });
             route.push(CreationRouteEvent::ProjectCharacterBuildFacts {
                 subject: CreationRouteSubjectFamily::BuildProjection,
                 owner: CreationRouteOwnerGroup::CharacterBuild,
             });
+            route.push(build_projection_input_facts());
         }
         CreationRetainedReferenceOperation::ProjectBuildFacts => {
             route.push(CreationRouteEvent::ProjectCharacterBuildFacts {
                 subject: CreationRouteSubjectFamily::BuildProjection,
                 owner: CreationRouteOwnerGroup::CharacterBuild,
             });
+            route.push(build_projection_input_facts());
         }
         CreationRetainedReferenceOperation::ReplaceAndProject => {
             route.push(CreationRouteEvent::ApplyCreationFillBatch {
@@ -724,10 +756,16 @@ pub fn apply_creation_retained_reference_operation(
                 subject: CreationRouteSubjectFamily::RetainedReference,
                 owner: CreationRouteOwnerGroup::CreationRetainedReference,
             });
+            route.push(CreationRouteEvent::RecordCreationFacts {
+                subject: CreationRouteSubjectFamily::RetainedReference,
+                facts: route_fact_families(&[CreationRouteFactFamily::SelectedReferenceRetention]),
+                owner: CreationRouteOwnerGroup::CreationRetainedReference,
+            });
             route.push(CreationRouteEvent::ProjectCharacterBuildFacts {
                 subject: CreationRouteSubjectFamily::BuildProjection,
                 owner: CreationRouteOwnerGroup::CharacterBuild,
             });
+            route.push(build_projection_input_facts());
         }
         CreationRetainedReferenceOperation::RejectSelection => {
             route.push(CreationRouteEvent::ApplyCreationFillBatch {
@@ -767,6 +805,45 @@ pub fn apply_fill_batch_route(
     next
 }
 
+fn append_creation_fill_facts(
+    route: &mut Vec<CreationRouteEvent>,
+    expected_revision: u16,
+    fills: &[Fill],
+    result: &FillBatchResult,
+    owner: CreationRouteOwnerGroup,
+) {
+    let fill_families = fill_families_from_fills(fills);
+    if matches!(
+        result,
+        FillBatchResult::Accepted {
+            finalization: FinalizationStatus::Incomplete,
+            ..
+        }
+    ) && expected_revision == 0
+        && fill_families.len() == 1
+        && (fill_families.contains(&CreationRouteFillFamily::ChoiceSet)
+            || fill_families.contains(&CreationRouteFillFamily::AbilityScoreAssignment))
+    {
+        route.push(CreationRouteEvent::RecordCreationFacts {
+            subject: CreationRouteSubjectFamily::DraftState,
+            facts: route_fact_families(&[CreationRouteFactFamily::PartialFillDraft]),
+            owner,
+        });
+    }
+
+    if matches!(
+        result,
+        FillBatchResult::Rejected { issues, .. }
+            if issues.batch.contains(&BatchIssueCode::StaleRevision)
+    ) {
+        route.push(CreationRouteEvent::RecordCreationFacts {
+            subject: CreationRouteSubjectFamily::FillBatch,
+            facts: route_fact_families(&[CreationRouteFactFamily::StaleFillRejection]),
+            owner,
+        });
+    }
+}
+
 #[must_use]
 pub fn route_hole_families_from_open_holes(
     holes: &BTreeSet<Hole>,
@@ -794,6 +871,21 @@ fn route_hole_families(families: &[CreationRouteHoleFamily]) -> BTreeSet<Creatio
 
 fn route_fill_families(families: &[CreationRouteFillFamily]) -> BTreeSet<CreationRouteFillFamily> {
     families.iter().copied().collect()
+}
+
+fn route_fact_families(families: &[CreationRouteFactFamily]) -> BTreeSet<CreationRouteFactFamily> {
+    families.iter().copied().collect()
+}
+
+fn build_projection_input_facts() -> CreationRouteEvent {
+    CreationRouteEvent::RecordCreationFacts {
+        subject: CreationRouteSubjectFamily::BuildProjection,
+        facts: route_fact_families(&[
+            CreationRouteFactFamily::BuildProjectionInput,
+            CreationRouteFactFamily::HitPointMaximumBuildInput,
+        ]),
+        owner: CreationRouteOwnerGroup::CharacterBuild,
+    }
 }
 
 fn route_hole_family(hole: &Hole) -> CreationRouteHoleFamily {
@@ -870,6 +962,16 @@ fn route_event_payload(event: &CreationRouteEvent) -> String {
             subject_ref(*subject),
             owner_ref(*owner)
         ),
+        CreationRouteEvent::RecordCreationFacts {
+            subject,
+            facts,
+            owner,
+        } => format!(
+            "RouteRecordCreationFacts(subject={},facts={},owner={})",
+            subject_ref(*subject),
+            fact_family_payload(facts),
+            owner_ref(*owner)
+        ),
         CreationRouteEvent::FinalizeCharacterDraft { subject, owner } => format!(
             "RouteFinalizeCharacterDraft(subject={},owner={})",
             subject_ref(*subject),
@@ -890,6 +992,24 @@ fn fill_family_payload(fills: &BTreeSet<CreationRouteFillFamily>) -> String {
     fills
         .iter()
         .map(|fill| fill_family_ref(*fill))
+        .collect::<Vec<_>>()
+        .join(",")
+}
+
+fn fact_family_payload(facts: &BTreeSet<CreationRouteFactFamily>) -> String {
+    facts
+        .iter()
+        .map(|fact| match fact {
+            CreationRouteFactFamily::PartialFillDraft => "CreationPartialFillDraftFact",
+            CreationRouteFactFamily::StaleFillRejection => "CreationStaleFillRejectionFact",
+            CreationRouteFactFamily::SelectedReferenceRetention => {
+                "CreationSelectedReferenceRetentionFact"
+            }
+            CreationRouteFactFamily::BuildProjectionInput => "CreationBuildProjectionInputFact",
+            CreationRouteFactFamily::HitPointMaximumBuildInput => {
+                "CreationHitPointMaximumBuildInputFact"
+            }
+        })
         .collect::<Vec<_>>()
         .join(",")
 }

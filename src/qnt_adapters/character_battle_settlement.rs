@@ -5,11 +5,13 @@ use crate::rules::character_battle_handoff::{
     reject_battle_settlement_mismatched_character_identity,
     reject_battle_settlement_mixed_spell_and_pact_slot,
     reject_battle_settlement_stable_recovery_progress, route_enter_battle_runtime,
-    route_project_character_sheet_to_battle, route_reject_character_battle_handoff,
-    route_settle_battle_to_character_sheet, settle_battle_feature_resource_expenditure,
+    route_project_character_sheet_to_battle, route_record_character_battle_handoff_facts,
+    route_reject_character_battle_handoff, route_settle_battle_to_character_sheet,
+    settle_battle_feature_resource_expenditure,
     settle_battle_hit_points_conditions_slots_and_preserved_sheet_state,
     settle_battle_pure_pact_magic_slot_expenditure, settle_battle_zero_hp_stable_lifecycle,
-    CharacterBattleRouteEvent, CharacterBattleRouteFillFamily, CharacterBattleRouteHoleFamily,
+    CharacterBattleRouteEvent, CharacterBattleRouteFillFamily,
+    CharacterBattleRouteHandoffFactFamily, CharacterBattleRouteHoleFamily,
     CharacterBattleRouteOwnerGroup, CharacterBattleRouteSubjectFamily, CharacterBattleSettlement,
     CharacterBattleSettlementAcceptance, CharacterBattleSettlementRejection,
     ZeroHitPointLifecycleState,
@@ -518,6 +520,14 @@ fn expected_route_after_settle_hit_points_conditions_slots_and_preserved_sheet_s
             Vec::new(),
             CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
         ),
+        route_record_character_battle_handoff_facts(
+            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+            vec![
+                CharacterBattleRouteHandoffFactFamily::HandoffSourceExactSpellSlotDeltaFact,
+                CharacterBattleRouteHandoffFactFamily::HandoffSourceExactPactSlotDeltaFact,
+            ],
+            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+        ),
         expected_project_character_sheet_to_battle(
             CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
             CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
@@ -531,6 +541,11 @@ fn expected_route_after_settle_feature_resource_expenditure() -> Vec<CharacterBa
         CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
         CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
         Vec::new(),
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffFeatureResourceDeltaFact],
         CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
     ));
     route
@@ -561,6 +576,11 @@ fn expected_route_after_reject_mixed_spell_and_pact_slot_settlement(
         ],
         CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
     ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
     route
 }
 
@@ -574,6 +594,11 @@ fn expected_route_after_reject_ambiguous_created_spell_slot_source(
             CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
             CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
         ],
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
         CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
     ));
     route
@@ -609,6 +634,11 @@ fn expected_route_after_reject_active_wild_shape_handoff() -> Vec<CharacterBattl
         vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
         CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
     ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
     route
 }
 
@@ -619,6 +649,11 @@ fn expected_route_after_reject_stable_recovery_progress_handoff() -> Vec<Charact
         CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
         CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
         vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
         CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
     ));
     route
@@ -632,6 +667,11 @@ fn expected_route_after_reject_active_battle_state_handoff() -> Vec<CharacterBat
         vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
         CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
     ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
     route
 }
 
@@ -641,6 +681,11 @@ fn expected_route_after_settle_zero_hp_stable_lifecycle() -> Vec<CharacterBattle
         CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
         CharacterBattleRouteFillFamily::HandoffBattleDeltaFill,
         Vec::new(),
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffZeroHpStableLifecycleFact],
         CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
     ));
     route
@@ -661,6 +706,14 @@ fn append_settle_hit_points_conditions_slots_and_preserved_sheet_state_route(
         Vec::new(),
         CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
     ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        vec![
+            CharacterBattleRouteHandoffFactFamily::HandoffSourceExactSpellSlotDeltaFact,
+            CharacterBattleRouteHandoffFactFamily::HandoffSourceExactPactSlotDeltaFact,
+        ],
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
     route.push(route_project_character_sheet_to_battle(
         CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
         CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
@@ -672,6 +725,11 @@ fn append_settle_feature_resource_expenditure_route(route: &mut Vec<CharacterBat
         CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
         CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
         Vec::new(),
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffFeatureResourceDeltaFact],
         CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
     ));
 }
@@ -699,6 +757,11 @@ fn append_reject_mixed_spell_and_pact_slot_settlement_route(
         ],
         CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
     ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
 }
 
 fn append_reject_ambiguous_created_spell_slot_source_route(
@@ -711,6 +774,11 @@ fn append_reject_ambiguous_created_spell_slot_source_route(
             CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
             CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
         ],
+        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
+    ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
         CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
     ));
 }
@@ -740,6 +808,11 @@ fn append_reject_settlement_conflict_route(route: &mut Vec<CharacterBattleRouteE
         vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
         CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
     ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
 }
 
 fn append_settle_zero_hp_stable_lifecycle_route(route: &mut Vec<CharacterBattleRouteEvent>) {
@@ -747,6 +820,11 @@ fn append_settle_zero_hp_stable_lifecycle_route(route: &mut Vec<CharacterBattleR
         CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
         CharacterBattleRouteFillFamily::HandoffBattleDeltaFill,
         Vec::new(),
+        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
+    ));
+    route.push(route_record_character_battle_handoff_facts(
+        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
+        vec![CharacterBattleRouteHandoffFactFamily::HandoffZeroHpStableLifecycleFact],
         CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
     ));
 }

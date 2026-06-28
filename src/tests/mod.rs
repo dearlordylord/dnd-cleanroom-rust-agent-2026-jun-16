@@ -1278,9 +1278,11 @@ use character_sheet_healing_resource_selected_identity::{
     replay_observed_route as replay_healing_resource_route,
 };
 use character_sheet_hit_point_maximum::{
+    expected_route as expected_hit_point_maximum_route,
     expected_witness as expected_hit_point_maximum_witness,
     projection_payload as hit_point_maximum_projection_payload,
     replay_observed_action as replay_hit_point_maximum_action,
+    replay_observed_route as replay_hit_point_maximum_route,
     BRANCH_ACTIONS as HIT_POINT_MAXIMUM_BRANCH_ACTIONS,
 };
 use character_sheet_hp_rest_hit_dice::{
@@ -1593,6 +1595,15 @@ fn character_creation_runtime_routes_all_branch_actions_through_creation_state()
         assert_eq!(observed, expected);
         assert!(payload.contains("RouteCreateCharacterDraft"));
         assert!(payload.contains("RouteApplyCreationFillBatch"));
+        if matches!(
+            *action,
+            "doFillAbilityScoresOnly"
+                | "doFillInitialChoicesOnly"
+                | "doRejectStaleInitialManifest"
+                | "doFillManifestLoadout"
+        ) {
+            assert!(payload.contains("RouteRecordCreationFacts"));
+        }
     }
 }
 
@@ -2011,8 +2022,13 @@ fn hit_point_maximum_adapter_replays_all_branches() {
     // hit-point-maximum.qnt.
     for action in HIT_POINT_MAXIMUM_BRANCH_ACTIONS {
         let observed = replay_hit_point_maximum_action(action);
+        let observed_route = replay_hit_point_maximum_route(action);
+
         assert_eq!(observed, expected_hit_point_maximum_witness(action));
+        assert_eq!(observed_route, expected_hit_point_maximum_route(action));
         assert!(hit_point_maximum_projection_payload(&observed).contains("hitDiceTotal="));
+        assert!(character_sheet_route_payload(&observed_route)
+            .contains("SheetHitPointMaximumArithmeticInput"));
     }
 }
 
@@ -2094,6 +2110,9 @@ fn sheet_spell_slots_pact_slots_adapter_replays_all_branches() {
         assert_eq!(observed_route, expected_spell_slots_route(action));
         assert!(spell_slots_projection_payload(&observed).contains("replayIndex="));
         assert!(character_sheet_route_payload(&observed_route).contains("Sheet"));
+        assert!(
+            character_sheet_route_payload(&observed_route).contains("RecordCharacterSheetFacts")
+        );
     }
 }
 
@@ -2281,6 +2300,8 @@ fn battle_settlement_adapter_replays_all_driver_branches() {
         assert!(battle_settlement_projection_payload(&observed).contains("replayIndex="));
         assert!(character_battle_route_payload(&observed_route)
             .contains("BattleToSheetSettlementRouteSubject"));
+        assert!(character_battle_route_payload(&observed_route)
+            .contains("RouteRecordCharacterBattleHandoffFacts"));
     }
 }
 

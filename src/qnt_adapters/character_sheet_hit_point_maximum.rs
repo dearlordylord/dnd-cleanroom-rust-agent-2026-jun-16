@@ -2,6 +2,12 @@ use crate::rules::hit_points::{
     hit_point_maximum_projection, HitPointMaximumFacts, HitPointMaximumProjection,
 };
 
+use super::character_sheet_reducer_route::{
+    initial_sheet_build_route, route_project_character_sheet_facts,
+    route_record_character_sheet_facts, CharacterSheetRouteEvent, CharacterSheetRouteFactFamily,
+    CharacterSheetRouteOwnerGroup, CharacterSheetRouteSubjectFamily,
+};
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct HitPointMaximumWitness {
     pub last_result: &'static str,
@@ -37,6 +43,22 @@ pub fn expected_witness(observed_action_taken: &str) -> HitPointMaximumWitness {
     replay_observed_action(observed_action_taken)
 }
 
+pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+    match observed_action_taken {
+        "doProjectFighterLevelOne"
+        | "doProjectFighterLevelTwo"
+        | "doProjectWizardFighterMulticlass"
+        | "doProjectMinimumHigherLevelGain"
+        | "doProjectSorcererDraconicResilience"
+        | "doProjectReducedEffectiveMaximum" => project_hit_point_maximum_route(),
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
+}
+
+pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+    replay_observed_route(observed_action_taken)
+}
+
 pub fn projection_payload(witness: &HitPointMaximumWitness) -> String {
     [
         format!("lastResult={}", witness.last_result),
@@ -53,6 +75,20 @@ pub fn projection_payload(witness: &HitPointMaximumWitness) -> String {
         format!("replayIndex={}", witness.replay_index),
     ]
     .join("\n")
+}
+
+fn project_hit_point_maximum_route() -> Vec<CharacterSheetRouteEvent> {
+    let mut route = initial_sheet_build_route();
+    route.push(route_project_character_sheet_facts(
+        CharacterSheetRouteSubjectFamily::SheetHitPoint,
+        CharacterSheetRouteOwnerGroup::CharacterSheetHitPoint,
+    ));
+    route.push(route_record_character_sheet_facts(
+        CharacterSheetRouteSubjectFamily::SheetHitPoint,
+        vec![CharacterSheetRouteFactFamily::SheetHitPointMaximumArithmeticInput],
+        CharacterSheetRouteOwnerGroup::CharacterSheetBuildProjection,
+    ));
+    route
 }
 
 fn fighter_level_one() -> HitPointMaximumWitness {
