@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03b-dirty-replay-merged-verified",
+  "status": "sqnt03c-source-merged-packaged",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -16,15 +16,15 @@
       "note": "Diagnostic dirty target replay only. The worker consumed source commit d00c92a3d12531e50d95ead220303b66a5265e1e SQNT-03B next-Attack-Roll mode route facts and accepted 6 connector transitions covering 2 selected-driver obligations. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "d00c92a3d12531e50d95ead220303b66a5265e1e",
-      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim fresh target acceptance or new Rust runtime coverage."
+      "sourceCommitSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
+      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, SQNT-03C Opportunity Attack denial route connector evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim fresh target acceptance or new Rust runtime coverage."
     },
     "sourceFeedbackPackageRefresh": {
-      "id": "fcsf-package-refresh-d00c92a3",
+      "id": "fcsf-package-refresh-ebc37e9",
       "status": "packaged-in-dirty-cleanroom-input",
       "branch": "ralph/rrconv-19-cleanroom",
       "baseCommit": "58ad00f876b54594e0b44f26fb2c0ef9935e5322",
-      "manifestSourceCommitSha": "d00c92a3d12531e50d95ead220303b66a5265e1e",
+      "manifestSourceCommitSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
       "packagedTasks": [
         {
           "task": "source-feedback Task 3",
@@ -43,6 +43,12 @@
           "status": "next-attack-roll-mode-route-connector-packaged-and-dirty-replayed",
           "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode-route-facts.qnt, and reducer-route-inventory.json FCSF-03B route record",
           "note": "The copied route connector now exposes generic NextAttackRollModeRouteSubject evidence for host attack/save outcome admission, BattleActiveEffectOwner admission and cleanup, BattleAttackRollModeOwner projection and consumption, BattleTurnBoundaryOwner expiration, and typed source/carrier/attacker/target-scope/expiration/direction facts. Dirty target replay accepted these connector facts at merge 4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e; fresh target acceptance remains unclaimed."
+        },
+        {
+          "task": "SQNT-03C",
+          "status": "opportunity-attack-denial-route-connector-packaged",
+          "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial.route.mbt.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial-route-facts.qnt, and reducer-route-inventory.json FCSF-03C route record",
+          "note": "The copied route connector now exposes generic ReactionInterdictionRouteSubject evidence for attack-hit active-effect admission, Opportunity Attack denial projection into movement/reaction discovery, turn-boundary expiration, active-effect cleanup, and typed source/carrier/scope/trigger-family/expiration facts. Dirty and fresh target replay remain unclaimed."
         },
         {
           "task": "source-feedback Task 8",
@@ -546,7 +552,7 @@
     "FCSF-04-OBJECT-STALE-DIRTY-REPLAY": "merged-verified",
     "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY": "merged-verified",
     "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY": "merged-verified",
-    "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL": "source-qnt-running"
+    "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL": "merged-packaged-source-input"
   },
   "lastIntegrationVerification": {
     "head": "4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e",
@@ -567,7 +573,8 @@
     "review": "Epicurus the 3rd initially found one blocker: disadvantage evidence omitted BattleSpellSlotAndActionEconomyOwner from route owner sequences. Popper fixed this in ba0b8d7b197bb41abbb62abf1a00f2de5a1ec055; Epicurus re-review accepted the lane."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [
+  "activeSourceQntLanes": [],
+  "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL",
       "routeTaskId": "FCSF-03C-OPPORTUNITY-ATTACK-DENIAL",
@@ -576,11 +583,28 @@
       "baseSha": "d00c92a3d12531e50d95ead220303b66a5265e1e",
       "workerAgent": "019f0dda-ce88-73a0-92a5-3c3ff7f72522",
       "workerName": "Mill the 3rd",
-      "status": "running",
-      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
-    }
-  ],
-  "completedSourceQntLanes": [
+      "workerCommit": "b0cdcb8697152a1860278f101a0d88cbb5453266",
+      "mergeCommit": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
+      "status": "merged-packaged-source-input",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed",
+      "reviewAgent": "019f0dee-40f4-7b10-b187-352fa309cd01",
+      "reviewName": "Huygens the 3rd",
+      "reviewFinding": "No blockers. Reviewer confirmed shape-based ReactionInterdictionRouteSubject facts, coherent active-effect/movement/interrupt/turn-boundary owners, and no selected spell identity dispatch.",
+      "reviewResolution": "No fixer required.",
+      "verification": [
+        "quint typecheck packages/battle-runtime/battle-runtime-opportunity-attack-denial.route.mbt.qnt",
+        "quint typecheck packages/battle-runtime/battle-runtime-opportunity-attack-denial-route-facts.qnt",
+        "MBT_TRACES=1 MBT_STEPS=3 pnpm --filter @dnd/battle-runtime test:mbt:reducer-route-connectors -- -t \"Opportunity Attack denial\"",
+        "pnpm check:reducer-route-connectors",
+        "pnpm check:mbt-driver-closure",
+        "pnpm rules-kernel-coverage:check",
+        "pnpm cleanroom-branch-coverage:check",
+        "pnpm --filter @dnd/battle-runtime typecheck",
+        "git diff --check",
+        "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19"
+      ],
+      "targetAcceptance": "dirty-target-replay-pending; fresh-target-acceptance-not-claimed"
+    },
     {
       "laneId": "SQNT-03B-NEXT-ATTACK-ROLL-MODE",
       "routeTaskId": "FCSF-03B-NEXT-ATTACK-ROLL-MODE",
