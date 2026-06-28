@@ -4,7 +4,7 @@
   "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
   "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
   "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-  "sourcePackageCommit": "b57772b459f1b75592fd45b9196fd60965b534d3",
+  "sourcePackageCommit": "0c2ba34c5a45f18b73dfe590e0e86419ba377375",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,
@@ -117,7 +117,7 @@
         "active-effect owner derivability records",
         "verifier update for FEXP-04 evidence"
       ],
-      "acceptanceSummary": "Accepted with blockers: generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, and turn-boundary cleanup surfaces route through public reducer entrypoints; residual concentration-break cleanup and cumulative scalar sequencing remain source-input blockers. Exact roll-choice payloads were later resolved source-side by source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375 and focused-replayed in the dirty target by commit 801b05df55a1393d6acd5c3fa7b2624ed91f9494; fresh target replay remains pending."
+      "acceptanceSummary": "Accepted with blockers: generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, turn-boundary cleanup, and exact skill/ability/two-target ability route-fill payload surfaces route through public reducer entrypoints. Exact roll-choice payloads were resolved source-side by source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375, focused-replayed in the dirty target by commit 801b05df55a1393d6acd5c3fa7b2624ed91f9494, and accepted in the fresh target by commit b43797af240c1486e5ad92c3698bf2cd2958a91e. Residual concentration-break cleanup, cumulative scalar sequencing, and ability-check/search public observability remain source-input blockers."
     },
     {
       "laneId": "FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY",

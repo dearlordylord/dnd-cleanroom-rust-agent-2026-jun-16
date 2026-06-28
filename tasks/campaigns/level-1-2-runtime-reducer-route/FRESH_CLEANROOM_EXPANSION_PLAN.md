@@ -2,15 +2,15 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: FEXP-07 accepted-with-blockers at accepted fresh target head `a77a41dc752326eab69d8110de78928b9dcb9691`
+Status: post-refresh FEXP-04 exact roll-choice replay accepted at fresh target head `b43797af240c1486e5ad92c3698bf2cd2958a91e`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `a77a41dc752326eab69d8110de78928b9dcb9691`
+- current accepted fresh target head: `b43797af240c1486e5ad92c3698bf2cd2958a91e`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
-- input source package: `b57772b459f1b75592fd45b9196fd60965b534d3`
+- input source package: `0c2ba34c5a45f18b73dfe590e0e86419ba377375`
 
 ## Purpose
 
@@ -154,12 +154,13 @@ Status:
 - generic roll-modifier active-effect, scalar-buff active-effect,
   targeted-speed scalar buff, and turn-boundary cleanup surfaces route through
   public reducer entrypoints;
-- residual concentration-break cleanup and cumulative scalar sequencing remain
-  source-input blockers; exact roll-choice payloads were resolved source-side
-  by source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375` and
-  focused-replayed in the dirty target by commit
-  `801b05df55a1393d6acd5c3fa7b2624ed91f9494`; fresh target replay remains
-  pending;
+- post-refresh fresh target head
+  `b43797af240c1486e5ad92c3698bf2cd2958a91e` accepts exact skill-choice,
+  ability-choice, and two-target ability-choice route-fill payloads through
+  public reducer route events after consuming source commit
+  `0c2ba34c5a45f18b73dfe590e0e86419ba377375`;
+- residual concentration-break cleanup, cumulative scalar sequencing, and
+  ability-check/search public observability remain source-input blockers;
 - `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at fresh
   target head `eb05e8495eac993b69e17f68544edace6e56caee`;
 - generic reaction casting-time interrupt/resume, after-damage reaction, nested

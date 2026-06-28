@@ -3,7 +3,7 @@
 Campaign: `level-1-2-runtime-reducer-route`
 
 Accepted fresh target baseline:
-`a77a41dc752326eab69d8110de78928b9dcb9691`
+`b43797af240c1486e5ad92c3698bf2cd2958a91e`
 
 Current gate:
 
@@ -58,11 +58,15 @@ Source blockers:
 
 - `FEXP-04-roll-modifier-concentration-break-route-not-publicly-observable`
 - `FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression`
+- `FEXP-04-ability-check-search-choice-payloads-not-publicly-observable`
 
 Needed source input:
 
 - public concentration-break cleanup routes;
 - generic active-effect profile progression facts;
+- a public generic Ability Check Search reducer subject/protocol, or focused
+  route evidence that maps Search choice payloads through existing public
+  reducer entrypoints.
 
 Resolved source input:
 
@@ -73,9 +77,11 @@ Resolved source input:
   without importing the `battle-runtime-model.qnt` barrel or adding production
   authored-identity dispatch. Dirty target commit
   `801b05df55a1393d6acd5c3fa7b2624ed91f9494` focused-replays those payloads
-  through reducer route events for the ability/search and roll-modifier active
-  effect routes. This still needs a fresh cleanroom package refresh and target
-  replay before it can be counted as accepted fresh target evidence.
+  through reducer route events. Fresh target commit
+  `b43797af240c1486e5ad92c3698bf2cd2958a91e` refreshes the copied package to
+  source `0c2ba34c5a45f18b73dfe590e0e86419ba377375` and accepts the
+  roll-modifier exact skill-choice, ability-choice, and two-target
+  ability-choice payloads through public reducer route events.
 
 ### Reaction And Interrupt Payload Taxonomy
 

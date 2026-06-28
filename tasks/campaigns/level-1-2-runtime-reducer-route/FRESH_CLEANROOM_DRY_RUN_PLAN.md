@@ -37,7 +37,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`a77a41dc752326eab69d8110de78928b9dcb9691`
+`b43797af240c1486e5ad92c3698bf2cd2958a91e`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -62,9 +62,10 @@ at `e8b0310e647ad471089fcd34737b8fd70211b373` with generic roll-modifier,
 scalar-buff, targeted-speed, and turn-boundary lifecycle route evidence;
 residual concentration-break cleanup and cumulative scalar sequencing remain
 explicitly blocked; exact roll-choice payloads were resolved source-side by
-source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375` and focused-replayed
-in the dirty target by commit `801b05df55a1393d6acd5c3fa7b2624ed91f9494`;
-fresh target replay remains pending.
+source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375`, focused-replayed
+in the dirty target by commit `801b05df55a1393d6acd5c3fa7b2624ed91f9494`, and
+accepted in the fresh target by commit
+`b43797af240c1486e5ad92c3698bf2cd2958a91e`.
 `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at
 `eb05e8495eac993b69e17f68544edace6e56caee` with generic reaction casting-time
 interrupt/resume, after-damage reaction, nested interrupt resume, active-effect
@@ -153,8 +154,9 @@ directory:
 
 The SDK tracer-bullet acceptance is summarized in
 `FRESH_SDK_COMPOSITION_ACCEPTANCE.md`. The current accepted target state after
-the `b57772b459f1b75592fd45b9196fd60965b534d3` source package refresh is
-verified by `python3 tools/verify_current_fresh_target.py`.
+the `0c2ba34c5a45f18b73dfe590e0e86419ba377375` source package refresh is
+verified by `python3 tools/verify_current_fresh_target.py`; older unrefreshed
+FC/FEXP evidence is explicitly historical snapshot evidence.
 
 ## Tracer Sequence
 
