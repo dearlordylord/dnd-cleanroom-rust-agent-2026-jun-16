@@ -56,6 +56,8 @@ mod battle_runtime_mage_armor_selected_identity;
 mod battle_runtime_magic_missile;
 #[path = "../qnt_adapters/battle_runtime_movement_forced_movement_selected_identity.rs"]
 mod battle_runtime_movement_forced_movement_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_next_attack_roll_mode_route.rs"]
+mod battle_runtime_next_attack_roll_mode_route;
 #[path = "../qnt_adapters/battle_runtime_quickened_spell_governor.rs"]
 mod battle_runtime_quickened_spell_governor;
 #[path = "../qnt_adapters/battle_runtime_reaction_casting_time.rs"]
@@ -853,6 +855,14 @@ use battle_runtime_movement_forced_movement_selected_identity::{
     replay_observed_route as replay_movement_forced_movement_route,
     BRANCH_ACTIONS as MOVEMENT_FORCED_MOVEMENT_BRANCH_ACTIONS,
     OUT_OF_SCOPE_BRANCH_ACTIONS as MOVEMENT_FORCED_MOVEMENT_OUT_OF_SCOPE_BRANCH_ACTIONS,
+};
+use battle_runtime_next_attack_roll_mode_route::{
+    expected_route as expected_next_attack_roll_mode_route,
+    expected_witness as expected_next_attack_roll_mode_witness,
+    projection_payload as next_attack_roll_mode_projection_payload,
+    replay_observed_action as replay_next_attack_roll_mode_action,
+    replay_observed_route as replay_next_attack_roll_mode_route,
+    CONNECTOR_ACTIONS as NEXT_ATTACK_ROLL_MODE_CONNECTOR_ACTIONS,
 };
 use battle_runtime_quickened_spell_governor::{
     expected_route as expected_quickened_spell_route,
@@ -2629,6 +2639,31 @@ fn hit_point_regain_prevention_dirty_replay_routes_through_reducer() {
         assert!(route_payload.contains("BattleHitPointOwner"));
         assert!(route_payload.contains("BattleTurnBoundaryOwner"));
         assert!(route_payload.contains("HitPointHealingDistributionFillKind"));
+    }
+}
+
+#[test]
+fn next_attack_roll_mode_dirty_replay_routes_through_reducer() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-next-attack-roll-mode.route.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md
+    // "Attack Rolls" and "Advantage/Disadvantage".
+    for action in NEXT_ATTACK_ROLL_MODE_CONNECTOR_ACTIONS {
+        let observed = replay_next_attack_roll_mode_action(action);
+        let observed_route = replay_next_attack_roll_mode_route(action);
+        assert_eq!(observed, expected_next_attack_roll_mode_witness(action));
+        assert_eq!(observed_route, expected_next_attack_roll_mode_route(action));
+        assert!(next_attack_roll_mode_projection_payload(&observed)
+            .contains("activeAfterAdmission=true"));
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("NextAttackRollModeRouteSubject"));
+        assert!(route_payload.contains("BattleActiveEffectOwner"));
+        if action.contains("Project") {
+            assert!(route_payload.contains("BattleAttackRollModeOwner"));
+        }
+        if action.contains("Expire") {
+            assert!(route_payload.contains("BattleTurnBoundaryOwner"));
+        }
     }
 }
 

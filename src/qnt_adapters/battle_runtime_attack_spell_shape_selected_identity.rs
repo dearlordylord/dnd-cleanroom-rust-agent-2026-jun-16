@@ -290,7 +290,10 @@ fn active_effect_kind(effects: BattleSpellActiveEffects) -> &'static str {
         .prevents_hit_point_regain()
     {
         "hitPointRegainPrevented"
-    } else if effects.next_attack_roll_against_self_advantage {
+    } else if effects
+        .next_attack_roll_against_self_advantage
+        .projects_roll_mode()
+    {
         "nextAttackRollAgainstSelf"
     } else if effects.opportunity_attack_denied {
         "opportunityAttackDenied"
