@@ -60,6 +60,8 @@ mod battle_runtime_magic_missile;
 mod battle_runtime_movement_forced_movement_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_next_attack_roll_mode_route.rs"]
 mod battle_runtime_next_attack_roll_mode_route;
+#[path = "../qnt_adapters/battle_runtime_object_light_riders_route.rs"]
+mod battle_runtime_object_light_riders_route;
 #[path = "../qnt_adapters/battle_runtime_opportunity_attack_denial_route.rs"]
 mod battle_runtime_opportunity_attack_denial_route;
 #[path = "../qnt_adapters/battle_runtime_quickened_spell_governor.rs"]
@@ -875,6 +877,14 @@ use battle_runtime_next_attack_roll_mode_route::{
     replay_observed_action as replay_next_attack_roll_mode_action,
     replay_observed_route as replay_next_attack_roll_mode_route,
     CONNECTOR_ACTIONS as NEXT_ATTACK_ROLL_MODE_CONNECTOR_ACTIONS,
+};
+use battle_runtime_object_light_riders_route::{
+    expected_route as expected_object_light_route,
+    expected_witness as expected_object_light_witness,
+    projection_payload as object_light_projection_payload,
+    replay_observed_action as replay_object_light_action,
+    replay_observed_route as replay_object_light_route,
+    CONNECTOR_ACTIONS as OBJECT_LIGHT_CONNECTOR_ACTIONS,
 };
 use battle_runtime_opportunity_attack_denial_route::{
     expected_route as expected_opportunity_attack_denial_route,
@@ -2687,6 +2697,41 @@ fn condition_rider_dirty_replay_routes_through_reducer() {
         }
         if action.contains("EscapeFrontier") || action.contains("EscapeSuccess") {
             assert!(route_payload.contains("AbilityCheck"));
+        }
+    }
+}
+
+#[test]
+fn object_light_dirty_replay_routes_through_reducer() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-object-light-riders.route.mbt.qnt; table geometry,
+    // presentation, and durability facts remain adapter witness facts.
+    for action in OBJECT_LIGHT_CONNECTOR_ACTIONS {
+        let observed = replay_object_light_action(action);
+        let observed_route = replay_object_light_route(action);
+        assert_eq!(observed, expected_object_light_witness(action));
+        assert_eq!(observed_route, expected_object_light_route(action));
+        let projection_payload = object_light_projection_payload(&observed);
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("ObjectLightRiderRouteSubject"));
+        if action.contains("BrightDimLight") {
+            assert!(projection_payload.contains("BrightLightProjection"));
+            assert!(projection_payload.contains("DimLightProjection"));
+            assert!(route_payload.contains("BattleLightProjectionOwner"));
+        }
+        if action.contains("Replacement") || action.contains("Hurl") {
+            assert!(route_payload.contains("BattleActiveEffectOwner"));
+        }
+        if action.contains("Duration") {
+            assert!(route_payload.contains("BattleTurnBoundaryOwner"));
+            assert!(route_payload.contains("BattleActiveEffectOwner"));
+        }
+        if action.contains("TableOwnedGeometry") {
+            assert!(projection_payload.contains("ObjectGeometryWitness"));
+            assert!(projection_payload.contains("CoverGeometryWitness"));
+            assert!(projection_payload.contains("OpaqueBlockerGeometryWitness"));
+            assert!(projection_payload.contains("ColorPresentationWitness"));
+            assert!(projection_payload.contains("ObjectDurabilityBoundaryWitness"));
         }
     }
 }

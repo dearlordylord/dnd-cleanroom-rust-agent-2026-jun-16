@@ -4255,3 +4255,43 @@ Connector-scope blockers recorded for per-driver verifier completeness:
 - `doShockingGraspOpportunityAttackDenied`
 
 These five rows are not SQNT-03A target behavior blockers; the copied SQNT-03A connector does not define `HitPointRegainPreventionRouteSubject` evidence for non-regain branches.
+
+## FCSF-03E Object And Light Riders Dirty Replay
+
+- Manifest source commit SHA: `32e51f46a71f5a714034966e018fe79abbb7fcae`
+- Source branch inventory SHA: `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81`
+- Reducer-route inventory SHA: `bf58b006a93a80ed475974b8f779540823f6fa60cfbb08fcfe2290b3172315fa`
+- Driver checked by per-file verifier: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt`
+- Route connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt`
+- Evidence file: `tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json`
+- Accepted SQNT-03E connector rows: all 9 connector actions are replayed by `cargo test object_light -- --nocapture`.
+- Accepted selected pressure obligations: `doLightObjectEmitterProjectionReplacementCleanup`, `doProduceFlameHeldLightProjectionHurlCleanup`.
+
+Behavior implemented:
+
+- Added `ObjectLightRiderRouteSubject` and `BattleLightProjectionOwner` route vocabulary.
+- Added `BattleState.object_light_route` as the canonical generic object-target admission plus object-attached or held light emitter lifecycle owner.
+- Routed object admission/rejection, object-attached and held emitter admission, Bright/Dim Light projection, replacement cleanup, hurl cleanup, duration cleanup, and table-owned witness consumption through public reducer start/discover/resolve entrypoints.
+- Kept object validity, object geometry, cover geometry, opaque blockers, color/presentation, and object durability as adapter witness facts rather than durable battle state.
+
+Verification results:
+
+- Branch-base check passed for declared base `da56942`.
+- `cargo test object_light -- --nocapture` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json` passed with 2 obligations covered.
+- `cargo fmt --check` passed.
+- `cargo test` passed with 230 tests.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed only on known stale validator hashes for `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs`.
+- `git diff --check da56942...HEAD` passed.
+
+Blocked selected rows:
+
+- `doDancingLightsMovableDimLight`: movable multi-emitter light routing is not covered by `ObjectLightRiderRouteSubject`.
+- `doFaerieFireOutlineAdvantageInvisibleDimLight`: outline, invisible reveal, and attack advantage remain outside this substrate.
+- `doFogCloudAreaIdentityObscurementStrongWindCleanup`, `doGreaseCastGroundHazardSavingThrows`, `doGreaseMovementAndTurnTriggers`: area hazard/obscurement lifecycle remains outside this substrate.
+- `doJumpMovementReplacementLandingWitness`: movement replacement remains outside this substrate.
+- `doThunderwaveSavePushObjectsBoom`: forced movement/object-push presentation remains outside this substrate.
+- `doFeatherFallReactionMitigationLanding`: reaction mitigation is outside the object/light rider lane.
+
+The selected level-1 damage driver is not accepted wholesale; Starry Wisp object-target spell attack damage/light remains covered by `FCSF-04-OBJECT-STALE-DIRTY-REPLAY`, not SQNT-03E.

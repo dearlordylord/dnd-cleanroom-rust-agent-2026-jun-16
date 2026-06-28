@@ -1,0 +1,35 @@
+{
+  "rounds": [
+    {
+      "checks": [
+        {
+          "name": "RAW and ubiquitous-language traceability",
+          "notes": "Used the copied SQNT-03E connector RAW trace and reducer-route inventory facts. No external rules source was read outside the cleanroom boundary."
+        },
+        {
+          "name": "Architecture and no-redundant-state",
+          "notes": "Existing selected-spell and Starry Wisp adapters contain projection witnesses but no generic BattleState owner for object-attached or held light emitter lifecycle. Added one canonical BattleState.object_light_route owner and left table geometry/durability facts as adapter witnesses."
+        },
+        {
+          "name": "Connascence",
+          "notes": "Object/light subject variants, route family, owner mapping, fill gates, state transitions, and stale-subject checks are colocated in battle_reducer_spine generic route machinery. Object-attached emitter admission now requires the typed ObjectTargetAdmitted route state instead of relying on caller order."
+        },
+        {
+          "name": "Code review",
+          "notes": "Focused tests compare expected connector routes with observed public reducer route events for all 9 SQNT-03E connector actions."
+        }
+      ],
+      "reasonableFindings": []
+    },
+    {
+      "checks": [
+        {
+          "name": "Reviewer-loop convergence",
+          "notes": "Second pass found no additional reasonable findings after focused test and evidence validation."
+        }
+      ],
+      "reasonableFindings": []
+    }
+  ],
+  "taskId": "FCSF-03E-OBJECT-AND-LIGHT-RIDERS"
+}

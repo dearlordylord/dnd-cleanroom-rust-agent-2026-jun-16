@@ -520,6 +520,58 @@ pub enum BattleSpellActiveEffectKind {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleObjectLightEmitterSource {
+    ObjectAttached,
+    Held,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleObjectLightEmitterAttachment {
+    AttachedToObject,
+    HeldByCaster,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleObjectLightProjectionState {
+    NotProjected,
+    BrightDimProjected,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleObjectLightEmitter {
+    pub source: BattleObjectLightEmitterSource,
+    pub attachment: BattleObjectLightEmitterAttachment,
+    pub projection: BattleObjectLightProjectionState,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleObjectLightRouteState {
+    Inactive,
+    ObjectTargetAdmitted,
+    ObjectTargetRejected,
+    Active(BattleObjectLightEmitter),
+    ReplacementCleanedUp(BattleObjectLightEmitter),
+    HurlCleanedUp(BattleObjectLightEmitter),
+    DurationTurnBoundaryExpired(BattleObjectLightEmitter),
+    DurationCleanedUp(BattleObjectLightEmitter),
+}
+
+impl BattleObjectLightRouteState {
+    #[must_use]
+    pub const fn has_active_emitter(self) -> bool {
+        matches!(self, Self::Active(_))
+    }
+
+    #[must_use]
+    pub const fn active_emitter(self) -> Option<BattleObjectLightEmitter> {
+        match self {
+            Self::Active(emitter) => Some(emitter),
+            _ => None,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleHitPointRegainPreventionEffect {
     Inactive,
     Active,
@@ -809,6 +861,7 @@ pub struct BattleState {
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
     pub spatial_route_subjects: Vec<BattleSpatialRouteSubject>,
+    pub object_light_route: BattleObjectLightRouteState,
     pub ability_check_choice_search: BattleAbilityCheckChoiceSearchState,
     pub feature_substrates: BattleFeatureSubstrates,
     pub feature_resources: BattleFeatureResources,
@@ -840,6 +893,7 @@ pub struct BattleSetup {
     pub spell_attack_procedure: BattleSpellAttackProcedure,
     pub command_effect_procedure: BattleCommandEffectProcedure,
     pub spatial_route_subjects: Vec<BattleSpatialRouteSubject>,
+    pub object_light_route: BattleObjectLightRouteState,
     pub ability_check_choice_search: BattleAbilityCheckChoiceSearchState,
     pub feature_substrates: BattleFeatureSubstrates,
     pub feature_resources: BattleFeatureResources,
@@ -883,6 +937,7 @@ impl BattleSetup {
             spell_attack_procedure: BattleSpellAttackProcedure::Inactive,
             command_effect_procedure: BattleCommandEffectProcedure::Inactive,
             spatial_route_subjects: Vec::new(),
+            object_light_route: BattleObjectLightRouteState::Inactive,
             ability_check_choice_search: BattleAbilityCheckChoiceSearchState::inactive(),
             feature_substrates: BattleFeatureSubstrates::standard(),
             feature_resources: BattleFeatureResources::standard(),
@@ -1429,6 +1484,16 @@ pub enum BattleSubjectKind {
     ReactionInterdictionReactionDiscoveryProjection,
     ReactionInterdictionDurationExpiry,
     ReactionInterdictionActiveEffectCleanup,
+    ObjectLightObjectAttachedAdmission,
+    ObjectLightObjectAttachedRejection,
+    ObjectLightHeldEmitterAdmission,
+    ObjectLightEmitterAdmission,
+    ObjectLightProjection,
+    ObjectLightReplacementCleanup,
+    ObjectLightHurlCleanup,
+    ObjectLightDurationTurnBoundary,
+    ObjectLightDurationActiveEffectCleanup,
+    ObjectLightTableWitness,
     SaveGatedNextAttackRollModeTargetChoice,
     SaveGatedNextAttackRollModeSavingThrow,
     SaveGatedConditionRiderTargetChoice,
@@ -2786,6 +2851,7 @@ pub enum BattleReducerRouteSubjectFamily {
     ConditionRider,
     NextAttackRollMode,
     ReactionInterdiction,
+    ObjectLightRider,
     LightProjection,
     MovementResource,
     ObjectBoundaryEffect,
@@ -2890,6 +2956,7 @@ pub enum BattleReducerRouteOwnerGroup {
     TemporaryHitPoint,
     TurnBoundary,
     ArmorClass,
+    LightProjection,
 }
 
 pub type BattleReducerRouteResolutionOutcome = BattleResolutionOutcome;
@@ -3284,6 +3351,7 @@ pub fn start_battle(setup: BattleSetup) -> BattleStartResult {
             spell_attack_procedure: setup.spell_attack_procedure,
             command_effect_procedure: setup.command_effect_procedure,
             spatial_route_subjects: setup.spatial_route_subjects,
+            object_light_route: setup.object_light_route,
             ability_check_choice_search: setup.ability_check_choice_search,
             feature_substrates: setup.feature_substrates,
             feature_resources: setup.feature_resources,
@@ -3376,6 +3444,18 @@ pub fn condition_rider_route_subject_for_target(
         "targeted condition-rider subject construction requires a condition-rider route subject"
     );
     diagnostic_subject(kind, current_actor(state), Some(target))
+}
+
+#[must_use]
+pub fn object_light_route_subject_for_current_actor(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+) -> BattleSubject {
+    assert!(
+        object_light_route_kind(kind),
+        "object/light route subject construction requires an object/light route subject"
+    );
+    diagnostic_subject(kind, current_actor(state), None)
 }
 
 #[must_use]
@@ -7887,6 +7967,16 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
             | BattleSubjectKind::ReactionInterdictionDurationExpiry
             | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
+            | BattleSubjectKind::ObjectLightObjectAttachedAdmission
+            | BattleSubjectKind::ObjectLightObjectAttachedRejection
+            | BattleSubjectKind::ObjectLightHeldEmitterAdmission
+            | BattleSubjectKind::ObjectLightEmitterAdmission
+            | BattleSubjectKind::ObjectLightProjection
+            | BattleSubjectKind::ObjectLightReplacementCleanup
+            | BattleSubjectKind::ObjectLightHurlCleanup
+            | BattleSubjectKind::ObjectLightDurationTurnBoundary
+            | BattleSubjectKind::ObjectLightDurationActiveEffectCleanup
+            | BattleSubjectKind::ObjectLightTableWitness
             | BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
             | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
             | BattleSubjectKind::SaveGatedConditionRiderTargetChoice
@@ -8045,6 +8135,22 @@ fn reaction_interdiction_route_kind(kind: BattleSubjectKind) -> bool {
     )
 }
 
+fn object_light_route_kind(kind: BattleSubjectKind) -> bool {
+    matches!(
+        kind,
+        BattleSubjectKind::ObjectLightObjectAttachedAdmission
+            | BattleSubjectKind::ObjectLightObjectAttachedRejection
+            | BattleSubjectKind::ObjectLightHeldEmitterAdmission
+            | BattleSubjectKind::ObjectLightEmitterAdmission
+            | BattleSubjectKind::ObjectLightProjection
+            | BattleSubjectKind::ObjectLightReplacementCleanup
+            | BattleSubjectKind::ObjectLightHurlCleanup
+            | BattleSubjectKind::ObjectLightDurationTurnBoundary
+            | BattleSubjectKind::ObjectLightDurationActiveEffectCleanup
+            | BattleSubjectKind::ObjectLightTableWitness
+    )
+}
+
 fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteHoleKind::{
         AbilityCheck, AbilityChoice, AttackRoll, ConcentrationSavingThrow, DamageTypeChoice,
@@ -8055,15 +8161,16 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
         AbilityCheck as AbilityCheckOwner, AbilityCheckRollMode, ActiveEffect, ArmorClass,
         AttackRoll as AttackRollOwner, AttackRollMode, Concentration, ConditionLifecycle,
         FeatureResource, HitPoint, HitPointAndZeroHpLifecycle, HoleFrontier, InterruptStack,
-        MovementResource, ObjectTargetBoundary, SavingThrowOutcome as SavingThrowOutcomeOwner,
-        SpellAttackProcedure as SpellAttackOwner, SpellSlotAndActionEconomy, StatBlockAction,
-        TargetSelection, TemporaryHitPoint, TurnBoundary,
+        LightProjection as LightProjectionOwner, MovementResource, ObjectTargetBoundary,
+        SavingThrowOutcome as SavingThrowOutcomeOwner, SpellAttackProcedure as SpellAttackOwner,
+        SpellSlotAndActionEconomy, StatBlockAction, TargetSelection, TemporaryHitPoint,
+        TurnBoundary,
     };
     use BattleReducerRouteSubjectFamily::{
         AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
         CompanionTouchDelivery, ConditionRider, CreatureTypeTargetAdmission,
         HeldWeaponActiveEffect, HitPointRegainPrevention, InterruptStackResume, MarkedEffect,
-        NextAttackRollMode, ObjectTargetSpellAttack, ProtectionCharmActiveEffect,
+        NextAttackRollMode, ObjectLightRider, ObjectTargetSpellAttack, ProtectionCharmActiveEffect,
         ReactionInterdiction, ReactionSpell, SaveGatedSpell, ScalarBuffEffect, SlotSpell,
         SpellAttack, SpellHostedWeaponAttack, WardedTargetInterdiction, WeaponAttack,
         WeaponDamageRider, WeaponEnhancementItemTarget,
@@ -8416,6 +8523,46 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: Vec::new(),
             discover_owner: ActiveEffect,
             resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::ObjectLightObjectAttachedAdmission
+        | BattleSubjectKind::ObjectLightObjectAttachedRejection => GenericRouteShape {
+            subject: ObjectLightRider,
+            holes: vec![TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: ObjectTargetBoundary,
+        },
+        BattleSubjectKind::ObjectLightHeldEmitterAdmission
+        | BattleSubjectKind::ObjectLightEmitterAdmission => GenericRouteShape {
+            subject: ObjectLightRider,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::ObjectLightProjection => GenericRouteShape {
+            subject: ObjectLightRider,
+            holes: Vec::new(),
+            discover_owner: LightProjectionOwner,
+            resolve_owner: LightProjectionOwner,
+        },
+        BattleSubjectKind::ObjectLightReplacementCleanup
+        | BattleSubjectKind::ObjectLightHurlCleanup
+        | BattleSubjectKind::ObjectLightDurationActiveEffectCleanup => GenericRouteShape {
+            subject: ObjectLightRider,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::ObjectLightDurationTurnBoundary => GenericRouteShape {
+            subject: ObjectLightRider,
+            holes: Vec::new(),
+            discover_owner: TurnBoundary,
+            resolve_owner: TurnBoundary,
+        },
+        BattleSubjectKind::ObjectLightTableWitness => GenericRouteShape {
+            subject: ObjectLightRider,
+            holes: Vec::new(),
+            discover_owner: BattleReducerRouteOwnerGroup::AreaShape,
+            resolve_owner: BattleReducerRouteOwnerGroup::AreaShape,
         },
         BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice => GenericRouteShape {
             subject: SaveGatedSpell,
@@ -10363,6 +10510,23 @@ fn resolve_battle_subject_unchecked(
             resolve_generic_route_subject(state, subject, fill)
         }
         (
+            BattleSubjectKind::ObjectLightObjectAttachedAdmission
+            | BattleSubjectKind::ObjectLightObjectAttachedRejection
+            | BattleSubjectKind::ObjectLightHeldEmitterAdmission
+            | BattleSubjectKind::ObjectLightEmitterAdmission
+            | BattleSubjectKind::ObjectLightProjection
+            | BattleSubjectKind::ObjectLightReplacementCleanup
+            | BattleSubjectKind::ObjectLightHurlCleanup
+            | BattleSubjectKind::ObjectLightDurationTurnBoundary
+            | BattleSubjectKind::ObjectLightDurationActiveEffectCleanup
+            | BattleSubjectKind::ObjectLightTableWitness,
+            _,
+        ) => invalid(
+            state,
+            BattleResolutionInvalidReason::InvalidFill,
+            subject.stage,
+        ),
+        (
             BattleSubjectKind::StatBlockAction,
             BattleFill::StatBlockAction {
                 subject: stat_block_subject,
@@ -10700,6 +10864,10 @@ fn resolve_generic_route_subject(
         return invalid_with_holes(state, reason, Vec::new());
     }
 
+    if let Some(reason) = object_light_state_rejection(&state, subject) {
+        return invalid_with_holes(state, reason, Vec::new());
+    }
+
     let next_holes = generic_route_next_holes(subject.kind, fill);
     let state = resolve_generic_route_state(state, subject, fill);
     if next_holes.is_empty() {
@@ -11016,6 +11184,92 @@ fn resolve_generic_route_state(
                 state
             }
         }
+        (
+            BattleSubjectKind::ObjectLightObjectAttachedAdmission,
+            BattleGenericRouteFill::TargetChoice,
+        ) => {
+            let mut state = state;
+            state.object_light_route = BattleObjectLightRouteState::ObjectTargetAdmitted;
+            state
+        }
+        (
+            BattleSubjectKind::ObjectLightObjectAttachedRejection,
+            BattleGenericRouteFill::TargetChoice,
+        ) => {
+            let mut state = state;
+            state.object_light_route = BattleObjectLightRouteState::ObjectTargetRejected;
+            state
+        }
+        (
+            BattleSubjectKind::ObjectLightHeldEmitterAdmission,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            let mut state = state;
+            state.object_light_route =
+                BattleObjectLightRouteState::Active(BattleObjectLightEmitter {
+                    source: BattleObjectLightEmitterSource::Held,
+                    attachment: BattleObjectLightEmitterAttachment::HeldByCaster,
+                    projection: BattleObjectLightProjectionState::NotProjected,
+                });
+            state
+        }
+        (BattleSubjectKind::ObjectLightEmitterAdmission, BattleGenericRouteFill::WithoutFill) => {
+            let mut state = state;
+            state.object_light_route =
+                BattleObjectLightRouteState::Active(BattleObjectLightEmitter {
+                    source: BattleObjectLightEmitterSource::ObjectAttached,
+                    attachment: BattleObjectLightEmitterAttachment::AttachedToObject,
+                    projection: BattleObjectLightProjectionState::NotProjected,
+                });
+            state
+        }
+        (BattleSubjectKind::ObjectLightProjection, BattleGenericRouteFill::WithoutFill) => {
+            let mut state = state;
+            if let Some(mut emitter) = state.object_light_route.active_emitter() {
+                emitter.projection = BattleObjectLightProjectionState::BrightDimProjected;
+                state.object_light_route = BattleObjectLightRouteState::Active(emitter);
+            }
+            state
+        }
+        (BattleSubjectKind::ObjectLightReplacementCleanup, BattleGenericRouteFill::WithoutFill) => {
+            let mut state = state;
+            if let Some(emitter) = state.object_light_route.active_emitter() {
+                state.object_light_route =
+                    BattleObjectLightRouteState::ReplacementCleanedUp(emitter);
+            }
+            state
+        }
+        (BattleSubjectKind::ObjectLightHurlCleanup, BattleGenericRouteFill::WithoutFill) => {
+            let mut state = state;
+            if let Some(emitter) = state.object_light_route.active_emitter() {
+                state.object_light_route = BattleObjectLightRouteState::HurlCleanedUp(emitter);
+            }
+            state
+        }
+        (
+            BattleSubjectKind::ObjectLightDurationTurnBoundary,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            let mut state = state;
+            if let Some(emitter) = state.object_light_route.active_emitter() {
+                state.object_light_route =
+                    BattleObjectLightRouteState::DurationTurnBoundaryExpired(emitter);
+            }
+            state
+        }
+        (
+            BattleSubjectKind::ObjectLightDurationActiveEffectCleanup,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            let mut state = state;
+            if let BattleObjectLightRouteState::DurationTurnBoundaryExpired(emitter) =
+                state.object_light_route
+            {
+                state.object_light_route = BattleObjectLightRouteState::DurationCleanedUp(emitter);
+            }
+            state
+        }
+        (BattleSubjectKind::ObjectLightTableWitness, BattleGenericRouteFill::WithoutFill) => state,
         _ => state,
     }
 }
@@ -11157,6 +11411,64 @@ fn reaction_interdiction_state_rejection(
         }
         BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
             if effect != BattleOpportunityAttackDenialEffect::Expired =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        _ => None,
+    }
+}
+
+fn object_light_state_rejection(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> Option<BattleResolutionInvalidReason> {
+    match subject.kind {
+        BattleSubjectKind::ObjectLightObjectAttachedAdmission
+        | BattleSubjectKind::ObjectLightObjectAttachedRejection
+        | BattleSubjectKind::ObjectLightHeldEmitterAdmission
+        | BattleSubjectKind::ObjectLightTableWitness
+            if state.object_light_route != BattleObjectLightRouteState::Inactive =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ObjectLightEmitterAdmission
+            if state.object_light_route != BattleObjectLightRouteState::ObjectTargetAdmitted =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ObjectLightProjection
+            if !state.object_light_route.has_active_emitter() =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ObjectLightReplacementCleanup
+        | BattleSubjectKind::ObjectLightDurationTurnBoundary
+            if !matches!(
+                state.object_light_route.active_emitter(),
+                Some(BattleObjectLightEmitter {
+                    source: BattleObjectLightEmitterSource::ObjectAttached,
+                    ..
+                })
+            ) =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ObjectLightHurlCleanup
+            if !matches!(
+                state.object_light_route.active_emitter(),
+                Some(BattleObjectLightEmitter {
+                    source: BattleObjectLightEmitterSource::Held,
+                    ..
+                })
+            ) =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ObjectLightDurationActiveEffectCleanup
+            if !matches!(
+                state.object_light_route,
+                BattleObjectLightRouteState::DurationTurnBoundaryExpired(_)
+            ) =>
         {
             Some(BattleResolutionInvalidReason::StaleSubject)
         }
@@ -11372,6 +11684,10 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::SaveGatedConditionRiderTargetChoice => {
             fill == BattleGenericRouteFill::TargetChoice
         }
+        BattleSubjectKind::ObjectLightObjectAttachedAdmission
+        | BattleSubjectKind::ObjectLightObjectAttachedRejection => {
+            fill == BattleGenericRouteFill::TargetChoice
+        }
         BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
         | BattleSubjectKind::SaveGatedConditionRiderSavingThrow => {
             fill == BattleGenericRouteFill::SavingThrowOutcome
@@ -11455,6 +11771,14 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
         | BattleSubjectKind::ReactionInterdictionDurationExpiry
         | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
+        | BattleSubjectKind::ObjectLightHeldEmitterAdmission
+        | BattleSubjectKind::ObjectLightEmitterAdmission
+        | BattleSubjectKind::ObjectLightProjection
+        | BattleSubjectKind::ObjectLightReplacementCleanup
+        | BattleSubjectKind::ObjectLightHurlCleanup
+        | BattleSubjectKind::ObjectLightDurationTurnBoundary
+        | BattleSubjectKind::ObjectLightDurationActiveEffectCleanup
+        | BattleSubjectKind::ObjectLightTableWitness
         | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
         | BattleSubjectKind::NextAttackRollModeProjection
         | BattleSubjectKind::NextAttackRollModeDurationExpiry
@@ -11804,6 +12128,16 @@ fn generic_route_next_holes(
             | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
             | BattleSubjectKind::ReactionInterdictionDurationExpiry
             | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
+            | BattleSubjectKind::ObjectLightObjectAttachedAdmission
+            | BattleSubjectKind::ObjectLightObjectAttachedRejection
+            | BattleSubjectKind::ObjectLightHeldEmitterAdmission
+            | BattleSubjectKind::ObjectLightEmitterAdmission
+            | BattleSubjectKind::ObjectLightProjection
+            | BattleSubjectKind::ObjectLightReplacementCleanup
+            | BattleSubjectKind::ObjectLightHurlCleanup
+            | BattleSubjectKind::ObjectLightDurationTurnBoundary
+            | BattleSubjectKind::ObjectLightDurationActiveEffectCleanup
+            | BattleSubjectKind::ObjectLightTableWitness
             | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
             | BattleSubjectKind::NextAttackRollModeProjection
             | BattleSubjectKind::NextAttackRollModeDurationExpiry

@@ -31,12 +31,6 @@
       "boundary": "adapter witness facts copied from SQNT-03E route connector; table-owned object validity, geometry, cover, opaque blocker, presentation, and durability facts are not durable BattleState fields",
       "introducedIn": "src/qnt_adapters/battle_runtime_object_light_riders_route.rs",
       "owner": "harness-witness-protocol"
-    },
-    {
-      "apiPath": "tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json",
-      "boundary": "dirty target replay evidence only; records SQNT-03E connector row acceptance and selected spatial pressure branch blockers",
-      "introducedIn": "tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json",
-      "owner": "harness-witness-protocol"
     }
   ],
   "noRedundantStateFinding": "Searched existing light/object projections before adding state. Existing selected-spell and Starry Wisp adapters contain witness/projection values, but no generic BattleState owner for object-attached or held light emitter lifecycle. Table-owned object validity, geometry, cover, opaque blocker, presentation, and durability facts remain adapter witness facts and were not duplicated as production state.",

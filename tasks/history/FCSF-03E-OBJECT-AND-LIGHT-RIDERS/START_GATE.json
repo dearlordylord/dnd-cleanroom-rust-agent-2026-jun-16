@@ -1,0 +1,11 @@
+{
+  "baseCheck": {
+    "declaredBaseSha": "da56942",
+    "headAtStart": "da56942f7f3bd22068c138814abe8b9a00942797",
+    "mergeBaseIsAncestor": true
+  },
+  "cleanroomBoundary": "Used only the dirty cleanroom worktree, cleanroom-input, tasks, src, repo-local scripts, and Cargo tooling.",
+  "laneId": "SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY",
+  "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt",
+  "taskId": "FCSF-03E-OBJECT-AND-LIGHT-RIDERS"
+}
