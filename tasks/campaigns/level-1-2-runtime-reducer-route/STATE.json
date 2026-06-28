@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03e-dirty-replay-merged-source-lanes-active",
+  "status": "sqnt03f-source-packaged-sqnt03g-fix-active",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -16,15 +16,15 @@
       "note": "Diagnostic dirty target replay only. The worker consumed source commit 32e51f46a71f5a714034966e018fe79abbb7fcae SQNT-03E object/light route facts and accepted 9 copied connector actions covering 2 selected spatial obligations: Light object emitter projection replacement cleanup and Produce Flame held-light projection hurl cleanup. Dancing Lights, Faerie Fire, Feather Fall, Fog Cloud, Grease, Jump, Thunderwave, Starry Wisp, and level-1 damage wholesale acceptance remain explicit blockers or out of this connector scope. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "32e51f46a71f5a714034966e018fe79abbb7fcae",
-      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, SQNT-03C Opportunity Attack denial route connector evidence, SQNT-03D condition/poison rider route connector evidence, SQNT-03E object/light rider route connector evidence and reducer-owner domain-boundary guidance, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim dirty target acceptance, fresh target acceptance, or new Rust runtime coverage for SQNT-03E."
+      "sourceCommitSha": "2de6a5e5401985e5673f5c2be737bbe2374d46d0",
+      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, SQNT-03C Opportunity Attack denial route connector evidence, SQNT-03D condition/poison rider route connector evidence, SQNT-03E object/light rider route connector evidence and reducer-owner domain-boundary guidance, SQNT-03F mixed-target outcome route connector evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim dirty target acceptance, fresh target acceptance, or new Rust runtime coverage for SQNT-03F."
     },
     "sourceFeedbackPackageRefresh": {
-      "id": "fcsf-package-refresh-32e51f4",
+      "id": "fcsf-package-refresh-2de6a5e",
       "status": "packaged-in-dirty-cleanroom-input",
       "branch": "ralph/rrconv-19-cleanroom",
-      "baseCommit": "a5831866708600693c906854718299e75f8ec73b",
-      "manifestSourceCommitSha": "32e51f46a71f5a714034966e018fe79abbb7fcae",
+      "baseCommit": "b515984a6c82465904d9c86374b2a0fc4141b918",
+      "manifestSourceCommitSha": "2de6a5e5401985e5673f5c2be737bbe2374d46d0",
       "packagedTasks": [
         {
           "task": "source-feedback Task 3",
@@ -61,6 +61,12 @@
           "status": "object-light-rider-route-connector-packaged-and-dirty-replayed",
           "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-rider-route-facts.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt ObjectLightRiderRouteSubject/BattleLightProjectionOwner, cleanroom-input/guidance/reducer-spine.md reducer-owner domain-boundary guidance, and reducer-route-inventory.json FCSF-03E route record",
           "note": "The copied route connector now exposes generic ObjectLightRiderRouteSubject evidence for object admission/rejection, object-attached and held emitter facts, replacement cleanup, hurl cleanup, duration cleanup, Bright/Dim Light projection through BattleLightProjectionOwner, and table-owned object/geometry/cover/opaque-blocker/presentation/durability witness facts. Dirty target replay accepted 9 copied connector actions and covered 2 selected spatial obligations at merge 9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67. Dancing Lights movable multi-emitter routing, outline/invisible-revealing/attack-advantage effects, area hazard/obscurement lifecycle, movement replacement, and forced-movement/object-push presentation remain explicit source-QNT blockers. Fresh target replay remains unclaimed."
+        },
+        {
+          "task": "SQNT-03F",
+          "status": "mixed-target-outcome-route-connector-packaged",
+          "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcome-route-facts.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt MixedTargetOutcomeSpellRouteSubject/BattleSpellInvocationOwner, and reducer-route-inventory.json FCSF-03F route record",
+          "note": "The copied route connector now exposes generic MixedTargetOutcomeSpellRouteSubject evidence for synthetic primary/secondary/object targets, attack hit/miss, save success/failure, per-target damage projection, shared spell slot and cantrip action spend facts, separate shared Saving Throw damage-roll facts, and secondary object/light/condition/next-attack-roll/burst-save/chained-attack projections. Dirty and fresh target replay remain unclaimed."
         },
         {
           "task": "source-feedback Task 8",
@@ -105,7 +111,7 @@
         },
         {
           "check": "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
-          "result": "passed at source SHA 32e51f46a71f5a714034966e018fe79abbb7fcae"
+          "result": "passed at source SHA 2de6a5e5401985e5673f5c2be737bbe2374d46d0"
         },
         {
           "check": "node scripts/check-cleanroom-harness.cjs",
@@ -639,8 +645,8 @@
     "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY": "merged-verified",
     "SQNT-03E-OBJECT-AND-LIGHT-RIDERS": "merged-packaged-source-input",
     "SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY": "merged-verified",
-    "SQNT-03F-MIXED-TARGET-OUTCOMES": "fix-implemented-rereview-running",
-    "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS": "implemented-review-running"
+    "SQNT-03F-MIXED-TARGET-OUTCOMES": "merged-packaged-source-input",
+    "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS": "review-blocker-fix-running"
   },
   "lastIntegrationVerification": {
     "head": "9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67",
@@ -662,25 +668,6 @@
   "activeLaneWorktrees": [],
   "activeSourceQntLanes": [
     {
-      "laneId": "SQNT-03F-MIXED-TARGET-OUTCOMES",
-      "routeTaskId": "FCSF-03F-MIXED-TARGET-OUTCOMES",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes",
-      "branch": "ralph/source-sqnt-03f-mixed-target-outcomes",
-      "baseSha": "32e51f46a71f5a714034966e018fe79abbb7fcae",
-      "workerAgent": "019f0ea3-051b-7cc2-bafa-d14052b7a258",
-      "workerName": "Plato the 3rd",
-      "workerCommit": "b138c187d8a8c5c9450d5f671cfaa971a40aa725",
-      "reviewAgent": "019f0eb8-d32f-7d51-8246-c3f69da2850b",
-      "reviewName": "Kepler the 3rd",
-      "fixCommit": "0a03e4e8cab9a3bacd12602ff853c9acb60002c6",
-      "rereviewAgent": "019f0ec4-d29b-7a80-a3cd-936948f022ba",
-      "rereviewName": "Euler the 3rd",
-      "status": "fix-implemented-rereview-running",
-      "reviewFinding": "Kepler the 3rd found one blocker: SharedSavingThrowDamageRoll was modeled as a SharedResource fact, conflating roll-sharing with resource spend. The lane is back with Plato for a narrow split between shared spend facts and shared roll facts.",
-      "fixSummary": "Plato split MixedTargetOutcomeSharedSpendFact from MixedTargetOutcomeSharedDamageRollFact, replaced RouteMixedTargetOutcomeSharedResource with separate shared-spend and shared-damage-roll route facts, and updated TS projection plus inventory wording.",
-      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
-    },
-    {
       "laneId": "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS",
       "routeTaskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection",
@@ -691,11 +678,49 @@
       "workerCommit": "ddbff4328bdde9e34b94fac3450f3133fff03a84",
       "reviewAgent": "019f0ec3-9951-7271-8cf6-f0d219725b54",
       "reviewName": "Franklin the 3rd",
-      "status": "implemented-review-running",
+      "status": "review-blocker-fix-running",
+      "reviewFindings": [
+        "TS MBT bridge duplicated exact damage reducer semantics instead of proving them through a runtime/source route or remaining replay/decoding glue.",
+        "QNT witness claimed Hit Point application facts while qComponentRoute exposed only RuleCoreSpellProcedureProfileOwner.",
+        "Inventory row listed FCSF-03G as its own dependent route task."
+      ],
       "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
     }
   ],
   "completedSourceQntLanes": [
+    {
+      "laneId": "SQNT-03F-MIXED-TARGET-OUTCOMES",
+      "routeTaskId": "FCSF-03F-MIXED-TARGET-OUTCOMES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes",
+      "branch": "ralph/source-sqnt-03f-mixed-target-outcomes",
+      "baseSha": "32e51f46a71f5a714034966e018fe79abbb7fcae",
+      "workerAgent": "019f0ea3-051b-7cc2-bafa-d14052b7a258",
+      "workerName": "Plato the 3rd",
+      "workerCommit": "b138c187d8a8c5c9450d5f671cfaa971a40aa725",
+      "fixCommit": "0a03e4e8cab9a3bacd12602ff853c9acb60002c6",
+      "mergeCommit": "2de6a5e5401985e5673f5c2be737bbe2374d46d0",
+      "status": "merged-packaged-source-input",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed",
+      "reviewAgent": "019f0eb8-d32f-7d51-8246-c3f69da2850b",
+      "reviewName": "Kepler the 3rd",
+      "rereviewAgent": "019f0ec4-d29b-7a80-a3cd-936948f022ba",
+      "rereviewName": "Euler the 3rd",
+      "reviewFinding": "Initial review found one blocker: SharedSavingThrowDamageRoll was modeled as a SharedResource fact, conflating roll-sharing with resource spend.",
+      "reviewResolution": "Fix commit 0a03e4e8cab9a3bacd12602ff853c9acb60002c6 split shared spend facts from shared damage-roll facts in QNT, TS projection, and inventory wording. Euler re-review found no blockers.",
+      "verification": [
+        "quint typecheck packages/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt",
+        "quint typecheck packages/battle-runtime/battle-runtime-mixed-target-outcome-route-facts.qnt",
+        "MBT_TRACES=8 MBT_STEPS=3 pnpm --filter @dnd/battle-runtime exec vitest run src/reducer-route-connectors.mbt.test.ts -t \"routes mixed target outcomes\"",
+        "pnpm check:reducer-route-connectors",
+        "pnpm check:mbt-driver-closure",
+        "pnpm rules-kernel-coverage:check",
+        "pnpm cleanroom-branch-coverage:check",
+        "pnpm --filter @dnd/battle-runtime typecheck",
+        "git diff --check HEAD~1...HEAD",
+        "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19"
+      ],
+      "targetAcceptance": "dirty-target-replay-pending; fresh-target-acceptance-not-claimed"
+    },
     {
       "laneId": "SQNT-03E-OBJECT-AND-LIGHT-RIDERS",
       "routeTaskId": "FCSF-03E-OBJECT-AND-LIGHT-RIDERS",
