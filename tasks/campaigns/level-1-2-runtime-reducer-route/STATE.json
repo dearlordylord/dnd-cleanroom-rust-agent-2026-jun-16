@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03b-source-qnt-running",
+  "status": "sqnt03b-source-merged-packaged",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -16,15 +16,15 @@
       "note": "Diagnostic dirty target replay only. The worker consumed source commit c83c4a2321ff45c796245d65ba979b9068c6718a SQNT-03A hit-point-regain-prevention route facts and accepted 3 connector transitions covering the Chill Touch hit-point-regain-prevention attack-shape obligation. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
-      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim fresh target acceptance or new Rust runtime coverage."
+      "sourceCommitSha": "d00c92a3d12531e50d95ead220303b66a5265e1e",
+      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim fresh target acceptance or new Rust runtime coverage."
     },
     "sourceFeedbackPackageRefresh": {
-      "id": "fcsf-package-refresh-c83c4a232",
+      "id": "fcsf-package-refresh-d00c92a3",
       "status": "packaged-in-dirty-cleanroom-input",
       "branch": "ralph/rrconv-19-cleanroom",
       "baseCommit": "58ad00f876b54594e0b44f26fb2c0ef9935e5322",
-      "manifestSourceCommitSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
+      "manifestSourceCommitSha": "d00c92a3d12531e50d95ead220303b66a5265e1e",
       "packagedTasks": [
         {
           "task": "source-feedback Task 3",
@@ -37,6 +37,12 @@
           "status": "hit-point-regain-prevention-route-connector-packaged-and-dirty-replayed",
           "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt and reducer-route-inventory.json FCSF-03A route record",
           "note": "The copied route connector now exposes generic HitPointRegainPreventionRouteSubject evidence for attack-hit active-effect admission, later Hit Point healing interdiction, turn-boundary duration expiry, and active-effect cleanup. Dirty target replay accepted these connector facts at merge 73627315f70528e73f5eb4ef781606e876e87367; fresh target acceptance remains unclaimed."
+        },
+        {
+          "task": "SQNT-03B",
+          "status": "next-attack-roll-mode-route-connector-packaged",
+          "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode-route-facts.qnt, and reducer-route-inventory.json FCSF-03B route record",
+          "note": "The copied route connector now exposes generic NextAttackRollModeRouteSubject evidence for host attack/save outcome admission, BattleActiveEffectOwner admission and cleanup, BattleAttackRollModeOwner projection and consumption, BattleTurnBoundaryOwner expiration, and typed source/carrier/attacker/target-scope/expiration/direction facts. Dirty and fresh target replay remain pending."
         },
         {
           "task": "source-feedback Task 8",
@@ -68,7 +74,7 @@
       "newRustRuntimeCoverage": "none",
       "validation": [
         {
-          "check": "git merge-base --is-ancestor d63838e22137c4b329dc877ca0d963876f3459bf c83c4a2321ff45c796245d65ba979b9068c6718a",
+          "check": "git merge-base --is-ancestor c83c4a2321ff45c796245d65ba979b9068c6718a d00c92a3d12531e50d95ead220303b66a5265e1e",
           "result": "passed"
         },
         {
@@ -76,12 +82,12 @@
           "result": "passed"
         },
         {
-          "check": "source gates: pnpm check:mbt-driver-closure, pnpm check:reducer-route-connectors, pnpm rules-kernel-coverage:check, pnpm cleanroom-branch-coverage:check",
+          "check": "source gates: pnpm check:reducer-route-connectors, pnpm check:mbt-driver-closure, pnpm rules-kernel-coverage:check, pnpm cleanroom-branch-coverage:check, pnpm --filter @dnd/battle-runtime typecheck, focused reducer-route connector MBT",
           "result": "passed"
         },
         {
           "check": "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
-          "result": "passed at source SHA c83c4a2321ff45c796245d65ba979b9068c6718a"
+          "result": "passed at source SHA d00c92a3d12531e50d95ead220303b66a5265e1e"
         },
         {
           "check": "node scripts/check-cleanroom-harness.cjs",
@@ -559,7 +565,8 @@
     "review": "Schrodinger the 3rd initially found two blockers: adapter-local targeted subject construction and cleanup not gated by expiry. Bernoulli fixed both in a8aa385f07bd937cec62ca6f2a934c259cda3e53 by adding public targeted subject construction and Inactive/Active/Expired lifecycle gating. Schrodinger re-review accepted the lane."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [
+  "activeSourceQntLanes": [],
+  "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03B-NEXT-ATTACK-ROLL-MODE",
       "routeTaskId": "FCSF-03B-NEXT-ATTACK-ROLL-MODE",
@@ -568,11 +575,28 @@
       "baseSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
       "workerAgent": "019f0d9d-9041-7c30-b767-b0b12f07b987",
       "workerName": "Pasteur the 3rd",
-      "status": "running",
-      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
-    }
-  ],
-  "completedSourceQntLanes": [
+      "workerCommit": "e00abe4cd91805476c4ad10f14749c022bb4f7bf",
+      "followUpCommit": "e948fcc86fe557b114c8369d63df344ae50a5ded",
+      "mergeCommit": "d00c92a3d12531e50d95ead220303b66a5265e1e",
+      "status": "merged-packaged-source-input",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed",
+      "reviewAgent": "019f0dab-06b1-71c1-bb51-850e7152de94",
+      "reviewName": "Ptolemy the 3rd",
+      "reviewFinding": "No blockers. Low traceability note: bonus-action/beneficiary variants needed an explicit local SRD trace.",
+      "reviewResolution": "Follow-up commit e948fcc86fe557b114c8369d63df344ae50a5ded added the Rogue Steady Aim RAW trace to the route connector and inventory.",
+      "verification": [
+        "quint typecheck packages/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt",
+        "pnpm check:reducer-route-connectors",
+        "pnpm check:mbt-driver-closure",
+        "pnpm rules-kernel-coverage:check",
+        "pnpm cleanroom-branch-coverage:check",
+        "pnpm --filter @dnd/battle-runtime typecheck",
+        "MBT_TRACES=8 MBT_STEPS=3 pnpm --filter @dnd/battle-runtime exec vitest run src/reducer-route-connectors.mbt.test.ts -t \"routes next Attack Roll mode effects\"",
+        "pnpm check:authored-id-dispatch",
+        "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19"
+      ],
+      "targetAcceptance": "dirty-target-replay-pending; fresh-target-acceptance-not-claimed"
+    },
     {
       "laneId": "SQNT-03A-HIT-POINT-REGAIN-PREVENTION",
       "routeTaskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION",

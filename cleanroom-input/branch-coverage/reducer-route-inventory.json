@@ -3765,6 +3765,8 @@
         {
           "taskId": "FCSF-03B-NEXT-ATTACK-ROLL-MODE",
           "subjectFamily": "active Spell Effect that changes the next Attack Roll mode",
+          "route": "reducer-routed",
+          "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt",
           "blockedDrivers": [
             "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
@@ -3773,11 +3775,17 @@
           "requiredRouteInput": "Add a generic next-Attack-Roll roll-mode route subject with typed source, beneficiary, affected target, expiration boundary, and Advantage or Disadvantage mode facts.",
           "existingSourceEvidence": [
             "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt proves generic roll-modifier active-effect routing for other roll families.",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt exposes qRoute for NextAttackRollModeRouteSubject through host attack/save outcome admission, BattleActiveEffectOwner admission and cleanup, BattleAttackRollModeOwner projection/consumption, and BattleTurnBoundaryOwner expiration.",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt exposes qFacts for source outcome, effect carrier, later attack actor, target scope, expiration boundary, Advantage/Disadvantage direction, admission, projection, consumption, expiration, and cleanup.",
             "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-damage-projection-core.qnt already distinguishes next-attack Advantage and Disadvantage projection facts."
           ],
           "rawDomainFacts": [
             ".references/srd-5.2.1/Playing-the-Game.md#Advantage/Disadvantage defines roll modes.",
             ".references/srd-5.2.1/Playing-the-Game.md#Making an Attack defines Attack Roll modifier application.",
+            ".references/srd-5.2.1/Equipment.md#Sap and #Vex define on-hit next Attack Roll Disadvantage/Advantage riders with source-turn expiration boundaries.",
+            ".references/srd-5.2.1/Rules-Glossary.md#Help defines Assist an Attack Roll as next attack-roll Advantage with start-of-next-turn expiration.",
+            ".references/srd-5.2.1/Classes/Rogue.md#Level 3: Steady Aim defines a Bonus Action self-benefit that grants Advantage on the beneficiary's next Attack Roll on the current turn.",
+            ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Guiding Bolt, Descriptions-Q-R.md#Ray of Enfeeblement, and Descriptions-S-Z.md#Vicious Mockery define spell-produced next Attack Roll Advantage/Disadvantage riders.",
             "UBIQUITOUS_LANGUAGE.md defines Attack Roll, Advantage, Disadvantage, Spell Effect, and Condition vocabulary."
           ],
           "acceptanceGate": "Target replay may count residual next-Attack-Roll branches only after route evidence consumes the active effect through shared roll-mode projection and expiration owners."
