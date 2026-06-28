@@ -427,6 +427,9 @@
       "workerAgent": "019f0cff-ee2c-7530-a928-c5f0e8aedec7",
       "workerName": "Aristotle the 3rd",
       "workerCommit": "b2af643d00f6e7dc8c448d2c2280e1a1899608d7",
+      "reviewAgent": "019f0d0d-9cef-7463-ade6-4ee2067d76be",
+      "reviewName": "Planck the 3rd",
+      "reviewVerdict": "fix-required: route evidence is adapter-local for selected rows, hit-point-maximum route evidence stale, and settlement evidence claims rows absent from copied connector",
       "sourcePackageCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
       "freshTargetAcceptance": "not-claimed"
     }
