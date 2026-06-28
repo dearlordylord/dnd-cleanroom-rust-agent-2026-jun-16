@@ -37,7 +37,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c`
+`05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -57,10 +57,10 @@ explicit blockers outside the generic substrate.
 spell-attack sequence, chained duplicate-damage leap, and object-target
 spell-attack route evidence; isolated object stale replay remains explicitly
 blocked.
-`FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS` is accepted-with-blockers
-at `e8b0310e647ad471089fcd34737b8fd70211b373` with generic roll-modifier,
-scalar-buff, targeted-speed, and turn-boundary lifecycle route evidence;
-residual cumulative scalar sequencing remains explicitly blocked; exact
+`FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS` is accepted
+at `05280a8e2d6e9705411c114c80ae2a4e4290de2c` with generic roll-modifier,
+scalar-buff, targeted-speed, turn-boundary lifecycle, Concentration cleanup,
+and scalar profile projection/domain route evidence; exact
 roll-choice payloads were resolved source-side by
 source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375`, focused-replayed
 in the dirty target by commit `801b05df55a1393d6acd5c3fa7b2624ed91f9494`, and
@@ -72,7 +72,11 @@ were then accepted in the fresh target by commit
 replacement Concentration cleanup were accepted in the fresh target by commit
 `bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c` after source feedback task
 `FCSF-01` landed at source commit
-`c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d`.
+`c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d`; scalar-buff profile projection
+was accepted in the fresh target by commit
+`05280a8e2d6e9705411c114c80ae2a4e4290de2c` after source feedback task
+`FCSF-02` landed at source commit
+`ee4894fa71e9307b9251639f0b54577ff764c63f`.
 `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at
 `eb05e8495eac993b69e17f68544edace6e56caee` with generic reaction casting-time
 interrupt/resume, after-damage reaction, nested interrupt resume, active-effect
@@ -161,7 +165,7 @@ directory:
 
 The SDK tracer-bullet acceptance is summarized in
 `FRESH_SDK_COMPOSITION_ACCEPTANCE.md`. The current accepted target state after
-the `0c2ba34c5a45f18b73dfe590e0e86419ba377375` source package refresh is
+the `ee4894fa71e9307b9251639f0b54577ff764c63f` source package refresh is
 verified by `python3 tools/verify_current_fresh_target.py`; older unrefreshed
 FC/FEXP evidence is explicitly historical snapshot evidence.
 

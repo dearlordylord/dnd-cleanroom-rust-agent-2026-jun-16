@@ -2,15 +2,15 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: post-refresh FEXP-04 exact roll-choice, Ability Check/Search, and Concentration cleanup public reducer replays accepted at fresh target head `bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c`
+Status: post-refresh FEXP-04 exact roll-choice, Ability Check/Search, Concentration cleanup, and scalar profile projection public reducer replays accepted at fresh target head `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c`
+- current accepted fresh target head: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
-- input source package: `0c2ba34c5a45f18b73dfe590e0e86419ba377375`
+- input source package: `ee4894fa71e9307b9251639f0b54577ff764c63f`
 
 ## Purpose
 
@@ -149,7 +149,7 @@ Preferred lanes:
 
 Status:
 
-- `FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS` is accepted-with-blockers
+- `FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS` is accepted
   at fresh target head `e8b0310e647ad471089fcd34737b8fd70211b373`;
 - generic roll-modifier active-effect, scalar-buff active-effect,
   targeted-speed scalar buff, and turn-boundary cleanup surfaces route through
@@ -168,7 +168,11 @@ Status:
   voluntary-end, and replacement Concentration cleanup through public reducer
   route events after consuming source feedback task `FCSF-01` at source commit
   `c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d`;
-- residual cumulative scalar sequencing remains a source-input blocker;
+- post-refresh fresh target head
+  `05280a8e2d6e9705411c114c80ae2a4e4290de2c` accepts scalar-buff profile
+  projection/domain sequencing through public reducer route observations after
+  consuming source feedback task `FCSF-02` at source commit
+  `ee4894fa71e9307b9251639f0b54577ff764c63f`;
 - `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at fresh
   target head `eb05e8495eac993b69e17f68544edace6e56caee`;
 - generic reaction casting-time interrupt/resume, after-damage reaction, nested

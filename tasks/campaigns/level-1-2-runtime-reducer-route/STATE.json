@@ -2800,18 +2800,19 @@
     "Fresh target focused replay for the FEXP-04 exact roll-choice payload blocker is accepted at b43797af240c1486e5ad92c3698bf2cd2958a91e after refreshing the copied package to source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375.",
     "Fresh target public Ability Check/Search replay is accepted at cd4465556d18729121f56f5834ac00f8b0b3d15c.",
     "Source feedback task FCSF-01 landed at c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d, adding public concentration cleanup route source input through BattleConcentrationOwner and BattleActiveEffectOwner; fresh target commit bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c accepts failed-save, voluntary-end, and replacement Concentration cleanup through public reducer entrypoints.",
-    "Use accepted fresh target bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c as the current strongest accepted target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, FEXP-04 Ability Check/Search public reducer routing, FEXP-04 Concentration cleanup routing, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are explicit historical snapshots after the source-input refresh.",
+    "Source feedback task FCSF-02 landed at ee4894fa71e9307b9251639f0b54577ff764c63f, adding generic scalar-buff profile projection/domain facts; fresh target commit 05280a8e2d6e9705411c114c80ae2a4e4290de2c accepts scalar profile replay through copied QNT plus public reducer route observations.",
+    "Use accepted fresh target 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the current strongest accepted target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, FEXP-04 Ability Check/Search public reducer routing, FEXP-04 Concentration cleanup routing, FEXP-04 scalar profile replay, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are explicit historical snapshots after the source-input refresh.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fexp04-concentration-cleanup-replay-accepted-with-historical-snapshots",
+    "status": "fexp04-scalar-profile-replay-accepted-with-historical-snapshots",
     "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c",
+    "acceptedTargetHead": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -2865,7 +2866,7 @@
       },
       {
         "laneId": "FEXP-02-SPELL-ATTACK-SAVE-GATED-UNBLOCK",
-        "status": "accepted-with-blockers",
+        "status": "accepted",
         "baseCommit": "a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639",
         "targetCommit": "773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc",
         "workerAgent": "Laplace the 3rd (019f0aec-ebad-71b3-9962-b7cf6ecaf1d1)",
@@ -2931,9 +2932,9 @@
         "status": "accepted-with-blockers",
         "baseCommit": "9b2f81bfabb6f1afd7daede0455be054bb92d78c",
         "initialTargetCommit": "e8b0310e647ad471089fcd34737b8fd70211b373",
-        "targetCommit": "bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c",
-        "workerAgent": "Descartes the 3rd (019f0b25-79c7-74a3-bcff-59fa8e307d69); verifier fixer Hooke the 3rd (019f0b3b-f745-7b83-8c2f-b2abd59b26aa); exact payload replay worker Ohm the 3rd (019f0be3-4fe3-78a1-9ad2-bcf35300d6e6); ability/search replay worker Confucius the 3rd (019f0bfc-3862-7ba0-8d5b-34aacc295d14); concentration cleanup replay worker Kant the 3rd (019f0c29-1772-7f21-8dfc-6e399cd3cabf)",
-        "reviewerAgent": "Einstein the 3rd (019f0b39-8e03-77d3-bba5-25ae339eafdf); exact payload replay reviewer Bacon the 3rd (019f0bf2-d514-7113-b7a7-503c6ea212e4); ability/search replay reviewer Goodall the 3rd (019f0c06-231b-7ab3-aa9d-328103c57155); concentration cleanup replay reviewer Helmholtz the 3rd (019f0c34-3198-7821-b429-899218c49c4a) plus orchestrator review",
+        "targetCommit": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
+        "workerAgent": "Descartes the 3rd (019f0b25-79c7-74a3-bcff-59fa8e307d69); verifier fixer Hooke the 3rd (019f0b3b-f745-7b83-8c2f-b2abd59b26aa); exact payload replay worker Ohm the 3rd (019f0be3-4fe3-78a1-9ad2-bcf35300d6e6); ability/search replay worker Confucius the 3rd (019f0bfc-3862-7ba0-8d5b-34aacc295d14); concentration cleanup replay worker Kant the 3rd (019f0c29-1772-7f21-8dfc-6e399cd3cabf); scalar profile replay worker Raman the 3rd (019f0c55-1fa5-7b73-a55e-8f5e08517bfc)",
+        "reviewerAgent": "Einstein the 3rd (019f0b39-8e03-77d3-bba5-25ae339eafdf); exact payload replay reviewer Bacon the 3rd (019f0bf2-d514-7113-b7a7-503c6ea212e4); ability/search replay reviewer Goodall the 3rd (019f0c06-231b-7ab3-aa9d-328103c57155); concentration cleanup replay reviewer Helmholtz the 3rd (019f0c34-3198-7821-b429-899218c49c4a); scalar profile replay reviewer Wegener the 3rd (019f0c5e-9c22-7083-9054-4af058948e0b) plus orchestrator review",
         "artifacts": [
           "EVIDENCE/fexp04-active-effect-lifecycle-and-roll-modifiers.json",
           "examples/fexp04_route_observations.rs",
@@ -2953,13 +2954,12 @@
           "cargo clippy --all-targets -- -D warnings",
           "git diff --check a77a41dc752326eab69d8110de78928b9dcb9691...HEAD",
           "git diff --check cd4465556d18729121f56f5834ac00f8b0b3d15c...HEAD for concentration cleanup replay",
+          "git diff --check bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c...HEAD for scalar profile replay",
           "static forbidden-boundary scan via current fresh target verifier",
           "static production-source authored-identity dispatch search"
         ],
-        "coverageClaim": "generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, turn-boundary cleanup, exact skill/ability/two-target ability route-fill payload surfaces, public Ability Check/Search target-choice/ability-check/rejection/result surfaces, and failed-save/voluntary-end/replacement Concentration cleanup accepted through public reducer entrypoints with expected records mechanically derived from copied QNT connector action bodies/helper vocabulary",
-        "blockers": [
-          "FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression"
-        ],
+        "coverageClaim": "generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, turn-boundary cleanup, exact skill/ability/two-target ability route-fill payload surfaces, public Ability Check/Search target-choice/ability-check/rejection/result surfaces, failed-save/voluntary-end/replacement Concentration cleanup, and scalar-buff profile projection/domain sequencing accepted through public reducer entrypoints with expected records mechanically derived from copied QNT connector action bodies/helper vocabulary",
+        "blockers": [],
         "sourceFeedbackResolved": [
           {
             "blocker": "FEXP-04-exact-roll-choice-payloads-not-admitted-by-route-fills",
@@ -2982,6 +2982,13 @@
             "freshTargetCommit": "bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c",
             "status": "source-resolved-fresh-target-accepted",
             "summary": "Source feedback task FCSF-01 exposes failed-save, voluntary-end, and replacement Concentration cleanup through BattleConcentrationOwner and BattleActiveEffectOwner. Fresh target commit bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c accepts those Concentration cleanup route events through start_battle, discover_battle_acts, and resolve_battle_subject."
+          },
+          {
+            "blocker": "FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression",
+            "sourceCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
+            "freshTargetCommit": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
+            "status": "source-resolved-fresh-target-accepted",
+            "summary": "Source feedback task FCSF-02 exposes generic scalar-buff active-effect projections and projection domains. Fresh target commit 05280a8e2d6e9705411c114c80ae2a4e4290de2c accepts scalar profile replay through copied QNT plus start_battle, discover_battle_acts, and resolve_battle_subject route observations."
           }
         ]
       },

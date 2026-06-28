@@ -3,7 +3,7 @@
 Campaign: `level-1-2-runtime-reducer-route`
 
 Accepted fresh target baseline:
-`bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c`
+`05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 
 Current gate:
 
@@ -56,11 +56,7 @@ Needed source input:
 
 Source blockers:
 
-- `FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression`
-
-Needed source input:
-
-- generic active-effect profile progression facts;
+- none currently open for FEXP-04.
 
 Resolved source input:
 
@@ -93,6 +89,13 @@ Resolved source input:
   `BattleConcentrationOwner` and `BattleActiveEffectOwner`; the fresh target
   observes those surfaces through public reducer entrypoints instead of a
   replay-only island.
+- `FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression`
+  is resolved by source feedback task `FCSF-02` at source commit
+  `ee4894fa71e9307b9251639f0b54577ff764c63f` and accepted in the fresh target
+  by commit `05280a8e2d6e9705411c114c80ae2a4e4290de2c`. The refreshed package
+  exposes generic scalar-buff active-effect projections and projection domains
+  through copied QNT, and the fresh target verifies the scalar profile sequence
+  through public reducer route observations without authored identity dispatch.
 
 ### Reaction And Interrupt Payload Taxonomy
 

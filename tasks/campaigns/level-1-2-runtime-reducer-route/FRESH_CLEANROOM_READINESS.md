@@ -35,7 +35,7 @@ Authoritative state:
 - out-of-scope obligations: `45`
 - active lane worktrees: none
 - active fresh dry-run worktrees: none
-- strongest fresh target evidence: `bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c`
+- strongest fresh target evidence: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 
 The final CP8 lane accepted exactly these three newly accepted rows:
 
@@ -144,17 +144,18 @@ Next useful work is one of:
   FEXP-07 blockers into source-side QNT/guidance updates before launching more
   target implementation;
 - use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
-  `bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c` as the accepted evidence for the
+  `05280a8e2d6e9705411c114c80ae2a4e4290de2c` as the accepted evidence for the
   integrated SDK tracer-bullet plus post-FC06 Pact Slot handoff replay plus
   FEXP-00 expansion baseline lock, FEXP-01 diagnostic battle route pack, and
   FEXP-02 generic spell-attack/save-gated substrate lane plus FEXP-03
   chained/object spell-attack substrate lane plus FEXP-04 active-effect
   lifecycle substrate lane, exact roll-choice replay, Ability Check/Search
-  public reducer replay, and Concentration cleanup replay plus FEXP-05
+  public reducer replay, Concentration cleanup replay, and scalar profile
+  replay plus FEXP-05
   reaction/interrupt substrate lane plus
   FEXP-06 character/sheet/handoff substrate lane plus FEXP-07
   feature/species/metamagic substrate lane. The current gate verifies the
-  refreshed package plus current FEXP-04/FEXP-06 evidence and classifies older
+  refreshed `ee4894fa` package plus current FEXP-04/FEXP-06 evidence and classifies older
   stale snapshots explicitly;
 - clean the global stale validator-hash / historical evidence debt so the dirty
   harness can pass without exception;
