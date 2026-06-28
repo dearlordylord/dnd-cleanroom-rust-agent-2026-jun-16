@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03c-dirty-replay-merged-verified",
+  "status": "sqnt03d-source-qnt-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -553,7 +553,8 @@
     "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY": "merged-verified",
     "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY": "merged-verified",
     "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL": "merged-packaged-source-input",
-    "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY": "merged-verified"
+    "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY": "merged-verified",
+    "SQNT-03D-CONDITION-AND-POISON-RIDERS": "source-qnt-running"
   },
   "lastIntegrationVerification": {
     "head": "7521115f61077326b67e933dc9663f19d7e41570",
@@ -573,7 +574,19 @@
     "review": "Maxwell the 3rd initially found two blockers: reaction-interdiction cleanup accepted fresh/already-cleaned state, and SQNT-03C verification artifacts still pointed at SQNT-03A. Hume fixed both in 638642e326ff9829b19297f4ea5abf8fbaa3843d by replacing the boolean with BattleOpportunityAttackDenialEffect::Inactive/Active/Expired, adding cleanup-before-expiry regression coverage, and refreshing SQNT-03C task artifacts. Maxwell re-review accepted the lane."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [],
+  "activeSourceQntLanes": [
+    {
+      "laneId": "SQNT-03D-CONDITION-AND-POISON-RIDERS",
+      "routeTaskId": "FCSF-03D-CONDITION-AND-POISON-RIDERS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03d-condition-poison-riders",
+      "branch": "ralph/source-sqnt-03d-condition-poison-riders",
+      "baseSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
+      "workerAgent": "019f0e19-3de0-7863-83b1-dde6b7c7a296",
+      "workerName": "Socrates the 3rd",
+      "status": "running",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
+    }
+  ],
   "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL",

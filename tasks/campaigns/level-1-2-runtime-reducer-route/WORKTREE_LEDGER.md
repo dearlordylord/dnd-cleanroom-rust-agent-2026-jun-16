@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03D-CONDITION-AND-POISON-RIDERS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03d-condition-poison-riders` | `ralph/source-sqnt-03d-condition-poison-riders` | `ebc37e935fdd45ac07198bbec6b3bcc23be2270e` | Socrates the 3rd (`019f0e19-3de0-7863-83b1-dde6b7c7a296`) | running source-QNT route connector task; no dirty/fresh target acceptance claimed |
 
 ## Historical RRCONV-19 Worktrees
 
