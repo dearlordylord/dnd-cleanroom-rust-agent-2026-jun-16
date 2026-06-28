@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| FCSF-04-OBJECT-STALE-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf04-object-stale-replay` | `ralph/fcsf04-object-stale-dirty-replay` | `832afbebbb3c46bf0a05b6c2bcb541f77508a328` | Leibniz the 3rd (`019f0d3c-ddc7-7c30-842f-e5f4aca133ab`) | dirty-target-replay-started |
+| FCSF-04-OBJECT-STALE-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf04-object-stale-replay` | `ralph/fcsf04-object-stale-dirty-replay` | `832afbebbb3c46bf0a05b6c2bcb541f77508a328` | Leibniz the 3rd (`019f0d3c-ddc7-7c30-842f-e5f4aca133ab`), review Averroes the 3rd (`019f0d48-7a8d-7dd2-a296-0d789722bb3d`) | implemented at `6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b`; under review |
 
 ## Active Fresh Dry Run Targets
 
