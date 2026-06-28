@@ -519,6 +519,19 @@
     "review": "Averroes the 3rd review returned no blockers for worker commit 6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b."
   },
   "activeLaneWorktrees": [],
+  "activeSourceQntLanes": [
+    {
+      "laneId": "SQNT-03A-HIT-POINT-REGAIN-PREVENTION",
+      "routeTaskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03a-hit-point-regain",
+      "branch": "ralph/source-sqnt-03a-hit-point-regain",
+      "baseSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "workerAgent": "019f0d55-ae6e-7183-8965-f77e9851e714",
+      "workerName": "Avicenna the 3rd",
+      "status": "running",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY",

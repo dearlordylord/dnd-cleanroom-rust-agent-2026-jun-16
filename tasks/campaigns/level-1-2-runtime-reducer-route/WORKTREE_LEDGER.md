@@ -28,6 +28,12 @@ This file prevents orphaned or confused Ralph worktrees.
 | --- | --- | --- | --- | --- | --- | --- |
 | _none_ | | | | | | |
 
+## Active Source-QNT Lanes
+
+| Lane | Path | Branch | Base SHA | Worker | Status |
+| --- | --- | --- | --- | --- | --- |
+| SQNT-03A-HIT-POINT-REGAIN-PREVENTION | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03a-hit-point-regain` | `ralph/source-sqnt-03a-hit-point-regain` | `d63838e22137c4b329dc877ca0d963876f3459bf` | Avicenna the 3rd (`019f0d55-ae6e-7183-8965-f77e9851e714`) | running; source-QNT route connector evidence only, no target acceptance claimed |
+
 ## Historical RRCONV-19 Worktrees
 
 These predate this campaign bootstrap. They may be removable after confirming no unmerged work is needed.
