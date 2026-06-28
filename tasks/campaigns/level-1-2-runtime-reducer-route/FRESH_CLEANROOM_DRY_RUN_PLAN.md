@@ -60,8 +60,10 @@ blocked.
 `FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS` is accepted-with-blockers
 at `e8b0310e647ad471089fcd34737b8fd70211b373` with generic roll-modifier,
 scalar-buff, targeted-speed, and turn-boundary lifecycle route evidence;
-residual concentration-break cleanup, cumulative scalar sequencing, and exact
-roll-choice payloads remain explicitly blocked.
+residual concentration-break cleanup and cumulative scalar sequencing remain
+explicitly blocked; exact roll-choice payloads were resolved source-side by
+source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375` and await package
+refresh/replay.
 `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at
 `eb05e8495eac993b69e17f68544edace6e56caee` with generic reaction casting-time
 interrupt/resume, after-damage reaction, nested interrupt resume, active-effect

@@ -2767,8 +2767,8 @@
     }
   },
   "nextWorkRecommendations": [
-    "Launch FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY from accepted fresh target head e8b0310e647ad471089fcd34737b8fd70211b373 using FRESH_CLEANROOM_EXPANSION_PLAN.md and FRESH_EXPANSION_LANES.json.",
-    "Use the accepted fresh target at e8b0310e647ad471089fcd34737b8fd70211b373 as the current strongest evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-01 diagnostic battle route evidence, FEXP-02 generic spell-attack/save-gated substrate evidence, FEXP-03 chained/object spell-attack evidence, and FEXP-04 active-effect lifecycle evidence, verified by python3 tools/verify_current_fresh_target.py.",
+    "Refresh cleanroom input from source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375 or newer before replaying the FEXP-04 exact roll-choice payload blocker.",
+    "Use the accepted fresh target at a77a41dc752326eab69d8110de78928b9dcb9691 as the current strongest target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, and FEXP-01 through FEXP-07 expansion evidence, verified by python3 tools/verify_current_fresh_target.py.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
@@ -2926,6 +2926,14 @@
           "FEXP-04-roll-modifier-concentration-break-route-not-publicly-observable",
           "FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression",
           "FEXP-04-exact-roll-choice-payloads-not-admitted-by-route-fills"
+        ],
+        "sourceFeedbackResolved": [
+          {
+            "blocker": "FEXP-04-exact-roll-choice-payloads-not-admitted-by-route-fills",
+            "sourceCommit": "0c2ba34c5a45f18b73dfe590e0e86419ba377375",
+            "status": "source-resolved-target-refresh-pending",
+            "summary": "Exact skill-choice, ability-choice, and two-target ability-choice route-fill payloads are now exposed by focused source QNT route inputs without model-barrel imports or production authored-identity dispatch."
+          }
         ]
       },
       {

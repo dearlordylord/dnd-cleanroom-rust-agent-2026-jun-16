@@ -154,8 +154,10 @@ Status:
 - generic roll-modifier active-effect, scalar-buff active-effect,
   targeted-speed scalar buff, and turn-boundary cleanup surfaces route through
   public reducer entrypoints;
-- residual concentration-break cleanup, cumulative scalar sequencing, and exact
-  roll-choice payloads remain source-input blockers;
+- residual concentration-break cleanup and cumulative scalar sequencing remain
+  source-input blockers; exact roll-choice payloads were resolved source-side
+  by source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375` and await
+  cleanroom package refresh/replay;
 - `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at fresh
   target head `eb05e8495eac993b69e17f68544edace6e56caee`;
 - generic reaction casting-time interrupt/resume, after-damage reaction, nested

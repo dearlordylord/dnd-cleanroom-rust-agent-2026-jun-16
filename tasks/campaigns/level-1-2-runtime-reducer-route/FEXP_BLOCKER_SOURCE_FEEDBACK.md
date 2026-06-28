@@ -58,13 +58,21 @@ Source blockers:
 
 - `FEXP-04-roll-modifier-concentration-break-route-not-publicly-observable`
 - `FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression`
-- `FEXP-04-exact-roll-choice-payloads-not-admitted-by-route-fills`
 
 Needed source input:
 
 - public concentration-break cleanup routes;
 - generic active-effect profile progression facts;
-- typed fill payloads for skill, ability, and target-ability choices.
+
+Resolved source input:
+
+- `FEXP-04-exact-roll-choice-payloads-not-admitted-by-route-fills` is resolved
+  on source `master` by commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375`.
+  The source package now exposes exact skill-choice, ability-choice, and
+  two-target ability-choice route-fill payload evidence in focused route QNT
+  without importing the `battle-runtime-model.qnt` barrel or adding production
+  authored-identity dispatch. This still needs a cleanroom package refresh and
+  target replay before it can be counted as accepted target evidence.
 
 ### Reaction And Interrupt Payload Taxonomy
 

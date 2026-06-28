@@ -35,7 +35,7 @@ fresh cleanroom and which review checks prevent false positives.
 | FEXP-01 diagnostic battle route pack is accepted in the fresh target. | Fresh target head `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639` includes `EVIDENCE/fexp01-diagnostic-battle-route-pack.json`, `examples/fexp01_route_observations.rs`, and `tools/verify_fexp01.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for Magic Missile slot-spell route, HP restoration ordering, Death Saving Throw, and Concentration teardown. | The verifier parser is intentionally narrow for the accepted connector shapes; broader drivers still need their own lanes. |
 | FEXP-02 spell-attack/save-gated unblock lane is accepted with blockers in the fresh target. | Fresh target head `773fe97d95e568c6acc99cc2bbe3ce6d57fc50bc` includes `EVIDENCE/fexp02-spell-attack-save-gated-unblock.json`, `examples/fexp02_route_observations.rs`, and `tools/verify_fexp02.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for generic spell-attack and save-gated route substrates plus eight selected-identity branch subsets accepted only as substrate evidence. | Residual selected spell effects remain blocked outside the generic substrate; this is intentionally not full selected-spell coverage. |
 | FEXP-03 chained/object spell attack lane is accepted with blockers in the fresh target. | Fresh target head `9b2f81bfabb6f1afd7daede0455be054bb92d78c` includes `EVIDENCE/fexp03-chained-and-object-spell-attacks.json`, `examples/fexp03_route_observations.rs`, and `tools/verify_fexp03.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for generic independent spell-attack sequence, chained duplicate-damage leap, and object-target spell-attack route surfaces through public reducer entrypoints. | Isolated object stale replay remains blocked because the route is not publicly observable without fabricating a same-battle stale object subject token. |
-| FEXP-04 active-effect lifecycle lane is accepted with blockers in the fresh target. | Fresh target head `e8b0310e647ad471089fcd34737b8fd70211b373` includes `EVIDENCE/fexp04-active-effect-lifecycle-and-roll-modifiers.json`, `examples/fexp04_route_observations.rs`, and `tools/verify_fexp04.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, and turn-boundary cleanup route surfaces through public reducer entrypoints. | Residual concentration-break cleanup, cumulative scalar sequencing, and exact roll-choice payloads remain source-input blockers. |
+| FEXP-04 active-effect lifecycle lane is accepted with blockers in the fresh target. | Fresh target head `e8b0310e647ad471089fcd34737b8fd70211b373` includes `EVIDENCE/fexp04-active-effect-lifecycle-and-roll-modifiers.json`, `examples/fexp04_route_observations.rs`, and `tools/verify_fexp04.py`; `python3 tools/verify_current_fresh_target.py` passes. Source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375` resolves exact roll-choice route-fill payload derivability. | Proven for generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, and turn-boundary cleanup route surfaces through public reducer entrypoints. Source-side exact skill/ability/target-ability route-fill payloads are now QNT-derivable. | Residual concentration-break cleanup and cumulative scalar sequencing remain source-input blockers; exact roll-choice payloads still need cleanroom package refresh/replay before target acceptance. |
 | FEXP-05 reaction/interrupt lane is accepted with blockers in the fresh target. | Fresh target head `eb05e8495eac993b69e17f68544edace6e56caee` includes `EVIDENCE/fexp05-reaction-interrupt-and-boundary.json`, `examples/fexp05_route_observations.rs`, and `tools/verify_fexp05.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for generic reaction casting-time interrupt/resume, after-damage reaction, nested interrupt resume, active-effect resume, and recorded procedure replay route surfaces through public reducer entrypoints. | Selected reaction spell projections and interrupt trigger taxonomy remain source-input blockers. |
 | FEXP-06 character/sheet/handoff lane is accepted with blockers in the fresh target. | Fresh target head `0d5200e43fd7e9f094a93585f00eaf6bd2266c75` includes `EVIDENCE/fexp06-character-creation-sheet-handoff-pack.json`, `examples/fexp06_route_observations.rs`, and `tools/verify_fexp06.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for character creation finalization, sheet hit-point route projection, short-rest Pact-slot completion, and happy-path battle settlement route surfaces through public character/sheet/handoff entrypoints. | Partial/rejection/resource/conflict branches remain source-input blockers. |
 | FEXP-07 feature/species/metamagic lane is accepted with blockers in the fresh target. | Fresh target head `a77a41dc752326eab69d8110de78928b9dcb9691` includes `EVIDENCE/fexp07-feature-species-metamagic-substrates.json`, `examples/fexp07_route_observations.rs`, and `tools/verify_fexp07.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces through public reducer entrypoints. | Selected/grouped identity witnesses and residual species/metamagic/feature branches remain source-input blockers; the earlier exact metamagic driver note was corrected as a campaign manifest naming error. |
@@ -112,7 +112,7 @@ Expected state:
    as the baseline evidence target unless a newer package refresh supersedes it.
 3. Prioritize generic route inputs for the blocker clusters now visible across
    FEXP-02 through FEXP-07: residual selected spell effects, stale/object
-   public observability, active-effect cleanup/progression payloads,
+   public observability, active-effect cleanup/progression,
    reaction/interrupt payload taxonomy, character/sheet/handoff rejection
    payloads, and feature/species/metamagic generic substrate facts.
 4. Preserve the review gates from this campaign: observed reducer events,
@@ -135,16 +135,19 @@ The current evidence proves:
   evidence with explicit blockers for remaining selected spell effects;
 - FEXP-03 independently accepted chained/object spell-attack substrate evidence
   with an explicit blocker for isolated object stale replay;
-- FEXP-04 independently accepted active-effect lifecycle substrate evidence with
-  explicit blockers for residual source-input gaps;
+- FEXP-04 independently accepted active-effect lifecycle substrate evidence.
+  Exact roll-choice payload derivability is now resolved source-side by commit
+  `0c2ba34c5a45f18b73dfe590e0e86419ba377375`; residual concentration-break
+  cleanup and cumulative scalar sequencing remain explicit source-input gaps;
 - FEXP-05 independently accepted reaction/interrupt substrate evidence with
   explicit blockers for residual selected reaction spell and interrupt-trigger
   source-input gaps;
 - FEXP-06 independently accepted character/sheet/handoff substrate evidence with
   explicit blockers for partial/rejection/resource/conflict source-input gaps;
 - FEXP-07 independently accepted feature/species/metamagic substrate evidence
-  with explicit blockers for missing exact driver, selected/grouped identity
-  witnesses, and residual substrate branches;
+  with explicit blockers for selected/grouped identity witnesses and residual
+  substrate branches; the earlier exact metamagic driver note was corrected as
+  a campaign manifest naming error;
 - the current verifier makes that fresh evidence mechanically checkable.
 
 The current evidence does not yet prove:
