@@ -1,37 +1,32 @@
 {
+  "schemaVersion": 1,
+  "taskId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY",
   "durableFields": [],
+  "noDurableFieldsReason": "FCSF-06 dirty replay adds typed route fact events only. Character creation draft state, character sheet slot/HP facts, and battle settlement facts remain owned by existing Draft, SheetSlotFacts/HitPointMaximumFacts, and BattleSettlementFacts surfaces.",
   "nonDurableBoundaryApiSurface": [
     {
-      "apiPath": "BattleSubjectKind::WeaponEnhancementItemTarget",
-      "boundary": "diagnostic reducer-route subject for the copied Magic Weapon item-target connector; item identity remains caller/table-owned and is not stored as reducer-owned hole or fill state",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "executable-boundary-projection"
+      "apiPath": "CreationRouteEvent::RecordCreationFacts",
+      "introducedIn": "src/rules/character_creation.rs",
+      "owner": "executable-boundary-projection",
+      "boundary": "qRoute evidence for partial fill, stale fill rejection, selected-reference retention, build projection input, and Hit Point Maximum build input facts"
     },
     {
-      "apiPath": "BattleReducerRouteSubjectFamily::WeaponEnhancementItemTarget",
-      "boundary": "route-event subject family emitted through BattleEntrypointTrace.route_events for qRoute comparison",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "executable-boundary-projection"
+      "apiPath": "CharacterSheetRouteEvent::RecordCharacterSheetFacts",
+      "introducedIn": "src/qnt_adapters/character_sheet_reducer_route.rs",
+      "owner": "harness-witness-protocol",
+      "boundary": "qRoute evidence for HP maximum arithmetic input. Spell-resource delta, created-slot expiry, rest-benefit, feature recovery state, and spell-resource rejection connector shapes are diagnostic expected-route facts only in this dirty replay because no independent public sheet qRoute state owns them."
     },
     {
-      "apiPath": "BattleReducerRouteOwnerGroup::ItemTargetBoundary",
-      "boundary": "route-event owner for the copied BattleItemTargetBoundaryOwner discovery surface",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "executable-boundary-projection"
+      "apiPath": "CharacterBattleRouteEvent::RouteRecordCharacterBattleHandoffFacts",
+      "introducedIn": "src/rules/character_battle_handoff.rs",
+      "owner": "executable-boundary-projection",
+      "boundary": "qRoute evidence for source-exact slot deltas, feature-resource deltas, settlement conflicts, zero-HP Stable lifecycle, selected-reference retention, and build HP maximum input facts"
     },
     {
-      "apiPath": "BattleEntrypointTrace.route_events",
-      "boundary": "production reducer route observer trace for accepted Magic Weapon item-target route replay",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "executable-boundary-projection"
-    },
-    {
-      "apiPath": "ReducerRouteEvent.qRoute",
-      "boundary": "target replay route-event-list comparator projection",
-      "introducedIn": "src/qnt_adapters/battle_runtime_reducer_route.rs",
-      "owner": "executable-boundary-projection"
+      "apiPath": "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json",
+      "introducedIn": "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json",
+      "owner": "harness-witness-protocol",
+      "boundary": "dirty target replay evidence only; not fresh target acceptance. Evidence records 30 accepted rows and 14 target-blocked route rows."
     }
-  ],
-  "schemaVersion": 1,
-  "taskId": "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES"
+  ]
 }

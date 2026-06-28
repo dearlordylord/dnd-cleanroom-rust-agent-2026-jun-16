@@ -45,6 +45,19 @@ pub enum CharacterSheetRouteOwnerGroup {
     CharacterSheetSelectedReference,
 }
 
+#[allow(dead_code, clippy::enum_variant_names)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub enum CharacterSheetRouteFactFamily {
+    SheetOrdinarySpellSlotDelta,
+    SheetPactSlotDelta,
+    SheetCreatedSlotExpiry,
+    SheetRestBenefitWindow,
+    SheetFeatureRecoveryState,
+    SheetFeatureResourceSpend,
+    SheetHitPointMaximumArithmeticInput,
+    SheetSpellResourceRejection,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum CharacterSheetRouteEvent {
     CreateCharacterSheet {
@@ -68,6 +81,11 @@ pub enum CharacterSheetRouteEvent {
         subject: CharacterSheetRouteSubjectFamily,
         fill: CharacterSheetRouteFillFamily,
         holes: Vec<CharacterSheetRouteHoleFamily>,
+        owner: CharacterSheetRouteOwnerGroup,
+    },
+    RecordCharacterSheetFacts {
+        subject: CharacterSheetRouteSubjectFamily,
+        facts: Vec<CharacterSheetRouteFactFamily>,
         owner: CharacterSheetRouteOwnerGroup,
     },
 }
@@ -126,6 +144,19 @@ pub fn route_complete_character_sheet_rest(
 }
 
 #[must_use]
+pub fn route_record_character_sheet_facts(
+    subject: CharacterSheetRouteSubjectFamily,
+    facts: Vec<CharacterSheetRouteFactFamily>,
+    owner: CharacterSheetRouteOwnerGroup,
+) -> CharacterSheetRouteEvent {
+    CharacterSheetRouteEvent::RecordCharacterSheetFacts {
+        subject,
+        facts: sorted_facts(facts),
+        owner,
+    }
+}
+
+#[must_use]
 pub fn initial_sheet_build_route() -> Vec<CharacterSheetRouteEvent> {
     vec![
         route_create_character_sheet(CharacterSheetRouteOwnerGroup::CharacterSheetState),
@@ -150,4 +181,11 @@ fn sorted_holes(
 ) -> Vec<CharacterSheetRouteHoleFamily> {
     holes.sort();
     holes
+}
+
+fn sorted_facts(
+    mut facts: Vec<CharacterSheetRouteFactFamily>,
+) -> Vec<CharacterSheetRouteFactFamily> {
+    facts.sort();
+    facts
 }

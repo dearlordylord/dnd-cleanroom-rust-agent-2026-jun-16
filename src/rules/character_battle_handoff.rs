@@ -510,6 +510,18 @@ pub enum CharacterBattleRouteOwnerGroup {
     CharacterBattleResourceProjectionOwner,
 }
 
+#[allow(clippy::enum_variant_names)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub enum CharacterBattleRouteHandoffFactFamily {
+    HandoffSelectedReferenceRetentionFact,
+    HandoffSourceExactSpellSlotDeltaFact,
+    HandoffSourceExactPactSlotDeltaFact,
+    HandoffFeatureResourceDeltaFact,
+    HandoffSettlementConflictFact,
+    HandoffZeroHpStableLifecycleFact,
+    HandoffBuildHitPointMaximumInputFact,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum CharacterBattleRouteEvent {
     RouteProjectCharacterSheetToBattle {
@@ -530,6 +542,11 @@ pub enum CharacterBattleRouteEvent {
         subject: CharacterBattleRouteSubjectFamily,
         fill: CharacterBattleRouteFillFamily,
         holes: Vec<CharacterBattleRouteHoleFamily>,
+        owner: CharacterBattleRouteOwnerGroup,
+    },
+    RouteRecordCharacterBattleHandoffFacts {
+        subject: CharacterBattleRouteSubjectFamily,
+        facts: Vec<CharacterBattleRouteHandoffFactFamily>,
         owner: CharacterBattleRouteOwnerGroup,
     },
 }
@@ -576,6 +593,19 @@ pub fn route_reject_character_battle_handoff(
         subject,
         fill,
         holes: sorted_holes(holes),
+        owner,
+    }
+}
+
+#[must_use]
+pub fn route_record_character_battle_handoff_facts(
+    subject: CharacterBattleRouteSubjectFamily,
+    facts: Vec<CharacterBattleRouteHandoffFactFamily>,
+    owner: CharacterBattleRouteOwnerGroup,
+) -> CharacterBattleRouteEvent {
+    CharacterBattleRouteEvent::RouteRecordCharacterBattleHandoffFacts {
+        subject,
+        facts: sorted_handoff_facts(facts),
         owner,
     }
 }
@@ -634,6 +664,16 @@ fn route_event_payload(event: &CharacterBattleRouteEvent) -> String {
             subject_ref(*subject),
             fill_ref(*fill),
             joined_holes(holes),
+            owner_ref(*owner)
+        ),
+        CharacterBattleRouteEvent::RouteRecordCharacterBattleHandoffFacts {
+            subject,
+            facts,
+            owner,
+        } => format!(
+            "RouteRecordCharacterBattleHandoffFacts subject={} facts={} owner={}",
+            subject_ref(*subject),
+            joined_handoff_facts(facts),
             owner_ref(*owner)
         ),
     }
@@ -715,6 +755,46 @@ fn joined_holes(holes: &[CharacterBattleRouteHoleFamily]) -> String {
             }
             CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily => {
                 "HandoffSettlementConflictHoleFamily"
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(",")
+}
+
+fn sorted_handoff_facts(
+    mut facts: Vec<CharacterBattleRouteHandoffFactFamily>,
+) -> Vec<CharacterBattleRouteHandoffFactFamily> {
+    facts.sort();
+    facts
+}
+
+fn joined_handoff_facts(facts: &[CharacterBattleRouteHandoffFactFamily]) -> String {
+    if facts.is_empty() {
+        return "none".to_string();
+    }
+    facts
+        .iter()
+        .map(|fact| match fact {
+            CharacterBattleRouteHandoffFactFamily::HandoffSelectedReferenceRetentionFact => {
+                "HandoffSelectedReferenceRetentionFact"
+            }
+            CharacterBattleRouteHandoffFactFamily::HandoffSourceExactSpellSlotDeltaFact => {
+                "HandoffSourceExactSpellSlotDeltaFact"
+            }
+            CharacterBattleRouteHandoffFactFamily::HandoffSourceExactPactSlotDeltaFact => {
+                "HandoffSourceExactPactSlotDeltaFact"
+            }
+            CharacterBattleRouteHandoffFactFamily::HandoffFeatureResourceDeltaFact => {
+                "HandoffFeatureResourceDeltaFact"
+            }
+            CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact => {
+                "HandoffSettlementConflictFact"
+            }
+            CharacterBattleRouteHandoffFactFamily::HandoffZeroHpStableLifecycleFact => {
+                "HandoffZeroHpStableLifecycleFact"
+            }
+            CharacterBattleRouteHandoffFactFamily::HandoffBuildHitPointMaximumInputFact => {
+                "HandoffBuildHitPointMaximumInputFact"
             }
         })
         .collect::<Vec<_>>()
