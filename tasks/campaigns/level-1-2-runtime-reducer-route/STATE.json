@@ -462,13 +462,18 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf05-reaction-replay",
       "branch": "ralph/fcsf05-reaction-interrupt-dirty-replay",
       "baseSha": "18cb0cd9db59551d5209f2a60b7b9d41eebf855c",
-      "status": "dirty-target-replay-started",
+      "status": "dirty-target-replay-implemented-under-review",
       "workerAgent": "019f0d25-7563-7722-a4f6-ff40f7d391a3",
       "workerName": "Dalton the 3rd",
+      "workerCommit": "118f7f5d25282bcd576951e74505c1b380e67a71",
       "sourcePackageCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
       "freshTargetAcceptance": "not-claimed",
       "routeTaskId": "FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY",
-      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt"
+      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt",
+      "acceptedRowsClaimed": 5,
+      "targetBlockedRowsClaimed": 0,
+      "reviewAgent": "019f0d34-c68e-7851-8cda-1d37058a0882",
+      "reviewName": "Euclid the 3rd"
     }
   ],
   "completedLaneWorktrees": [

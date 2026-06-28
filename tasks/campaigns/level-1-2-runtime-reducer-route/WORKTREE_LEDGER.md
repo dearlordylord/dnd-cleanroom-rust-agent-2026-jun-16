@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf05-reaction-replay` | `ralph/fcsf05-reaction-interrupt-dirty-replay` | `18cb0cd9db59551d5209f2a60b7b9d41eebf855c` | Dalton the 3rd (`019f0d25-7563-7722-a4f6-ff40f7d391a3`) | dirty-target-replay-started |
+| FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf05-reaction-replay` | `ralph/fcsf05-reaction-interrupt-dirty-replay` | `18cb0cd9db59551d5209f2a60b7b9d41eebf855c` | Dalton the 3rd (`019f0d25-7563-7722-a4f6-ff40f7d391a3`), review Euclid the 3rd (`019f0d34-c68e-7851-8cda-1d37058a0882`) | implemented at `118f7f5d25282bcd576951e74505c1b380e67a71`; under review |
 
 ## Active Fresh Dry Run Targets
 
