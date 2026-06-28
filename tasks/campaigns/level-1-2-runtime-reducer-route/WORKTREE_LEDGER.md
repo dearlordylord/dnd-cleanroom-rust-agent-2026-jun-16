@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| FCSF-06-CHARACTER-SHEET-HANDOFF-REJECTION-PAYLOADS | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf06-character-sheet-handoff` | `ralph/fresh-source-feedback-task6-character-sheet-handoff` | `cf60f7a5b822ee9d9458e98577d47026242fd16e` | Nietzsche the 3rd (`019f0cd8-49f8-7d63-a606-a8268dd9637e`) | source-feedback-implemented at `1aec6bd61c2096f834fbef93d0f2712263214e9e` |
+| FCSF-06-CHARACTER-SHEET-HANDOFF-REJECTION-PAYLOADS | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf06-character-sheet-handoff` | `ralph/fresh-source-feedback-task6-character-sheet-handoff` | `cf60f7a5b822ee9d9458e98577d47026242fd16e` | Nietzsche the 3rd (`019f0cd8-49f8-7d63-a606-a8268dd9637e`) | reviewed clean at `d63838e22137c4b329dc877ca0d963876f3459bf` |
 
 ## Active Fresh Dry Run Targets
 
