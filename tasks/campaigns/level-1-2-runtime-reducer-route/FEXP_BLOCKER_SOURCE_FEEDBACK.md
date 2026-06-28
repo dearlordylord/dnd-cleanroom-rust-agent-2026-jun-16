@@ -14,15 +14,16 @@ python3 tools/verify_current_fresh_target.py
 
 Current dirty package refresh:
 
-- source package: `d63838e22137c4b329dc877ca0d963876f3459bf`
+- source package: `21504ef764118f5fd13086aa6266f19280196664`
 - branch: `ralph/rrconv-19-cleanroom`
-- boundary: package/state reconciliation only; this refresh does not claim
-  fresh target acceptance or new Rust runtime coverage.
+- boundary: package/state reconciliation and dirty target replay only; this
+  refresh does not claim fresh target acceptance.
 - packaged source-feedback items: Task 3 residual selected-spell route-task
-  queue, Task 8 active reducer diagnostic seed, FCSF-04 object stale public
-  route-history evidence, FCSF-05 reaction/interrupt payload taxonomy
-  evidence, and FCSF-06 character/sheet/handoff rejection and resource payload
-  evidence.
+  queue, SQNT-03A/B/C/D/E/F/G focused route/component evidence, Task 8 active
+  reducer diagnostic seed, FCSF-04 object stale public route-history evidence,
+  FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06
+  character/sheet/handoff rejection and resource payload evidence, and
+  SQNT-07B/C/D feature/species/metamagic route evidence.
 
 ## Purpose
 
@@ -57,14 +58,21 @@ Packaged source input:
   count it, and production runtime code must not dispatch on selected spell
   identity.
 
-Needed source input:
+Resolved source input:
 
-- focused generic route connectors for hit-point-regain prevention,
-  next-attack advantage/disadvantage, opportunity-attack denial,
-  poison/condition riders, object/light riders, mixed target outcomes, and
-  exact damage projection facts;
-- shape facts must be independent of selected spell names, ids, slugs, source
-  headings, or fixture labels.
+- SQNT-03A through SQNT-03G now package focused generic route/component
+  connectors for Hit Point regain prevention, next-Attack-Roll mode,
+  Opportunity Attack denial, condition and poison riders, object/light riders,
+  mixed target outcomes, and exact damage projection facts.
+- Remaining selected-spell work is the explicit residual queue in
+  `SOURCE_QNT_NEXT_TASKS.md`, especially the branches still lacking generic
+  substrate facts such as Paralyzed/Incapacitated lifecycle, laughter lifecycle,
+  marked-target damage rider/transfer, condition-immunity plus turn-start
+  Temporary Hit Points, movable multi-emitter light, outline/invisible-revealing
+  effects, area hazard/obscurement, movement replacement, and forced-movement or
+  object-push presentation.
+- All shape facts must stay independent of selected spell names, ids, slugs,
+  source headings, or fixture labels.
 
 ### Public Observability And Stale Subjects
 
@@ -138,7 +146,7 @@ Resolved source input:
 Packaged source input:
 
 - Source-feedback Task 8 remains packaged in current source package
-  `d63838e22137c4b329dc877ca0d963876f3459bf` as a six-driver active
+  `21504ef764118f5fd13086aa6266f19280196664` as a six-driver active
   reducer-spine diagnostic seed. The active batch includes Concentration
   teardown and scalar-buff active-effect profile projection replay work, and
   `cleanroom-input/guidance/reducer-spine.md` requires future target evidence
@@ -217,12 +225,15 @@ Corrected campaign note:
   blocker was a fresh-expansion lane manifest naming error, not a source-input
   blocker.
 
-Needed source input:
+Current and remaining source input:
 
-- focused generic route connectors for selected/grouped identity branches;
-- typed runtime facts for passive damage, saving-throw/ability-check roll mode,
-  creature-space movement, spell-modification payloads, spell-source profiles,
-  and active-feature spell attack roll-mode.
+- SQNT-07B/C/D source input now packages typed runtime facts for passive
+  damage, saving-throw/ability-check roll mode, creature-space movement,
+  spell-modification payloads, spell-source profiles, and active-feature spell
+  attack roll-mode.
+- Remaining work is SQNT-07A-style selected/grouped identity substrate splitting:
+  one generic substrate family per lane, with target replay counted only through
+  copied generic route facts rather than selected/grouped identity.
 
 ## Review Gate To Preserve
 
