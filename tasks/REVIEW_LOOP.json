@@ -5,28 +5,48 @@
       "passes": [
         {
           "checklist": "raw-traceability",
-          "notes": "Read copied Starry Wisp route RAW comments plus local SRD Starry Wisp, Making an Attack, Breaking Objects, and domain terminology references.",
+          "notes": "Read the copied connector RAW comments and local SRD Healing / Making an Attack references. The modeled runtime effect is limited to preventing Hit Point regain and expiring/cleaning up through turn-boundary and active-effect owners.",
           "status": "pass"
         },
         {
           "checklist": "ubiquitous-language-domain",
-          "notes": "Route evidence uses Table Decision, Attack Roll, Damage, Spell Invocation, Spell Effect, and object boundary terms from copied domain language.",
+          "notes": "Route and witness names use Hit Point, Spell Attack, active effect, healing distribution, and turn-boundary language from copied cleanroom vocabulary.",
           "status": "pass"
         },
         {
           "checklist": "architecture-connascence",
-          "notes": "Stale route event order is localized in the adapter expected route and public reducer replay helper. No durable state or duplicate runtime projection was added.",
+          "notes": "Connascence is localized in BattleSubjectKind / BattleReducerRouteSubjectFamily / GenericRouteShape / fill matching. Bad missing or mismatched targets reject rather than resolving as no-ops.",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "notes": "Production runtime dispatches on typed active-effect state and route subjects. Authored spell/action names appear only in the cleanroom adapter branch selector and evidence metadata.",
           "status": "pass"
         },
         {
           "checklist": "code-review",
-          "notes": "Focused test covers all Starry Wisp object branches and the stale route history reaches BattleHoleFrontierOwner after boundary, attack, damage, and active-effect events.",
+          "notes": "Focused replay asserts public BattleEntrypointTrace route events, healing interdiction, duration boundary route, cleanup, and exact copied connector owner/fill vocabulary.",
           "status": "pass"
         }
       ],
       "round": 1
+    },
+    {
+      "passes": [
+        {
+          "checklist": "architecture-connascence",
+          "notes": "Second pass tightened target-shape handling so HitPointRegainPrevention subjects require explicit targets and healing distribution target mismatches reject.",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-review",
+          "notes": "Full cargo test found one adjacent expected-route owner mismatch; fixed level-one damage spell expected route and reran cargo test successfully.",
+          "status": "pass"
+        }
+      ],
+      "round": 2
     }
   ],
   "schemaVersion": 1,
-  "taskId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY"
+  "taskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION"
 }

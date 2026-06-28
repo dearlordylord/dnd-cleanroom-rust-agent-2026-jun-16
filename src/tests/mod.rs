@@ -38,6 +38,8 @@ mod battle_runtime_find_familiar_selected_identity;
 mod battle_runtime_halfling_nimbleness_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_healing_stabilization_selected_identity.rs"]
 mod battle_runtime_healing_stabilization_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_hit_point_regain_prevention_route.rs"]
+mod battle_runtime_hit_point_regain_prevention_route;
 #[path = "../qnt_adapters/battle_runtime_hit_point_restoration_ordering.rs"]
 mod battle_runtime_hit_point_restoration_ordering;
 #[path = "../qnt_adapters/battle_runtime_interrupt_stack_resume.rs"]
@@ -770,6 +772,14 @@ use battle_runtime_healing_stabilization_selected_identity::{
     replay_observed_action as replay_healing_stabilization_action,
     replay_observed_route as replay_healing_stabilization_route,
     BRANCH_ACTIONS as HEALING_STABILIZATION_BRANCH_ACTIONS,
+};
+use battle_runtime_hit_point_regain_prevention_route::{
+    expected_route as expected_hit_point_regain_prevention_route,
+    expected_witness as expected_hit_point_regain_prevention_witness,
+    projection_payload as hit_point_regain_prevention_projection_payload,
+    replay_observed_action as replay_hit_point_regain_prevention_action,
+    replay_observed_route as replay_hit_point_regain_prevention_route,
+    BRANCH_ACTIONS as HIT_POINT_REGAIN_PREVENTION_ROUTE_BRANCH_ACTIONS,
 };
 use battle_runtime_hit_point_restoration_ordering::{
     expected_route as expected_hit_point_restoration_ordering_route,
@@ -2592,6 +2602,33 @@ fn attack_spell_shape_adapter_replays_all_branches() {
             attack_spell_shape_projection_payload(&observed).contains("protocolResult=resolved")
         );
         assert!(reducer_route_payload(&observed_route).contains("resolve_battle_subject"));
+    }
+}
+
+#[test]
+fn hit_point_regain_prevention_dirty_replay_routes_through_reducer() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-hit-point-regain-prevention.route.mbt.qnt.
+    for action in HIT_POINT_REGAIN_PREVENTION_ROUTE_BRANCH_ACTIONS {
+        let observed = replay_hit_point_regain_prevention_action(action);
+        let observed_route = replay_hit_point_regain_prevention_route(action);
+        assert_eq!(
+            observed,
+            expected_hit_point_regain_prevention_witness(action)
+        );
+        assert_eq!(
+            observed_route,
+            expected_hit_point_regain_prevention_route(action)
+        );
+        assert!(hit_point_regain_prevention_projection_payload(&observed)
+            .contains("targetHitPointsAfterHealingAttempt=8"));
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("SpellAttackRouteSubject"));
+        assert!(route_payload.contains("HitPointRegainPreventionRouteSubject"));
+        assert!(route_payload.contains("BattleActiveEffectOwner"));
+        assert!(route_payload.contains("BattleHitPointOwner"));
+        assert!(route_payload.contains("BattleTurnBoundaryOwner"));
+        assert!(route_payload.contains("HitPointHealingDistributionFillKind"));
     }
 }
 

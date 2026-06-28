@@ -745,7 +745,7 @@ fn expected_spell_attack_route() -> Vec<ReducerRouteEvent> {
         route_discover_battle_acts(
             ReducerRouteSubjectFamily::SpellAttack,
             vec![crate::rules::battle_reducer_spine::BattleHoleKind::TargetChoice],
-            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+            ReducerRouteOwnerGroup::ActionEconomy,
         ),
         route_resolve_battle_subject(
             ReducerRouteSubjectFamily::SpellAttack,

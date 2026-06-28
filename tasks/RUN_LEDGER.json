@@ -3774,9 +3774,85 @@
           "status": "fail: only known cleanroom-input/MANIFEST.md stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs"
         }
       ]
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/DECIDER_DECISION.json",
+          "sha256": "24f9640d331a7d04d744433786a31835b802b11b3994ba6f0eb4c0f83af1788d"
+        },
+        "engineDepth": {
+          "path": "tasks/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "c0fa3126b02a47bb624621c78d45be8020e79b23bb972a7fb20ce6e6a7ecac57"
+        },
+        "reviewLoop": {
+          "path": "tasks/REVIEW_LOOP.json",
+          "sha256": "b70a59a3ad14203500e128cde56883f818c7f157680add24b31bdeb2b692236a"
+        },
+        "startGate": {
+          "path": "tasks/START_GATE.json",
+          "sha256": "cd8eb26f82c0a32640e0b28692cc649f88b590cc630fe58518b4655291247dd2"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/STATE_OWNER_MANIFEST.json",
+          "sha256": "be2130d1c0756d94b329da3b116ad3ca01986888b33f188795e7bad3920628a3"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "cargo test hit_point_regain_prevention -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test attack_spell_shape -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "fail: only known cleanroom-input/MANIFEST.md stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs"
+        },
+        {
+          "command": "git diff --check f41199ade4a4af944c2a3cf19799a8279592b967...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY",
+      "manifestSourceCommitSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+      "sourceReducerRouteInventorySha256": "8d573c07a341a4d94d6e1c61b4e16e2507be48efc68ead8c3c717a3323e9fc2d",
+      "targetReplayEvidence": [
+        {
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json#FCSF-03A-HIT-POINT-REGAIN-PREVENTION dirty route action=doChillTouchHitPointRegainPrevention#step:doChillTouchHitPointRegainPrevention"
+          ],
+          "path": "tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json",
+          "sha256": "bdd34fa7679c5538509da9d829e5c657cf785ca6c49a462f4158a88279f2b990"
+        }
+      ],
+      "taskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION"
     }
   ],
-  "manifestSourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
+  "manifestSourceCommitSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
   "schemaVersion": 1,
   "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81"
 }

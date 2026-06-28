@@ -4146,3 +4146,47 @@ Observed validator state:
 - `node scripts/check-cleanroom-harness.cjs 2>&1 | head -120` fails broadly because `tasks/RUN_LEDGER.json` and old target replay evidence rows still reference the pre-refresh manifest/source inventory after the full cleanroom-input refresh.
 
 No roll-choice-specific harness issue was found. This section is dirty diagnostic evidence for the target patch only, not fresh cleanroom target replay acceptance.
+## FCSF-03A Hit Point Regain Prevention Dirty Replay
+
+- Manifest source commit SHA: `c83c4a2321ff45c796245d65ba979b9068c6718a`
+- Source branch inventory SHA: `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt`
+- Route connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt`
+- Evidence file: `tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json`
+- Accepted SQNT-03A connector transitions: `doAdmitAttackHitRegainPreventionEffect`, `doInterdictLaterHitPointHealing`, `doExpireAtTurnBoundary`
+- SQNT-03A target behavior blockers: none
+
+Behavior implemented:
+
+- Added `HitPointRegainPreventionRouteSubject` as public reducer route vocabulary and observed it through `BattleEntrypointTrace.route_events`.
+- Reused existing `BattleSpellActiveEffects.hit_point_regain_prevented`; no duplicate active-effect state was added.
+- Made Hit Point healing consume the active-effect flag so later healing distribution is interdicted without authored spell identity dispatch.
+- Added turn-boundary expiry and active-effect cleanup route subjects; cleanup clears the typed active-effect flag.
+
+Verification results:
+
+- Branch-base check passed for declared base `f41199ade4a4af944c2a3cf19799a8279592b967`.
+- `cargo test hit_point_regain_prevention -- --nocapture` passed.
+- `cargo test attack_spell_shape -- --nocapture` passed.
+- `cargo fmt --check` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json` passed with 1 obligation covered.
+- `cargo test` passed: 223 tests.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check f41199ade4a4af944c2a3cf19799a8279592b967...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed only on the known stale validator hashes for `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs`.
+
+Generated branch coverage:
+
+| Obligation | Evidence | Result | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt#step:doChillTouchHitPointRegainPrevention` | `tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json#FCSF-03A-HIT-POINT-REGAIN-PREVENTION dirty route action=doChillTouchHitPointRegainPrevention#step:doChillTouchHitPointRegainPrevention` | pass | covered |
+
+Connector-scope blockers recorded for per-driver verifier completeness:
+
+- `doFireBoltHit`
+- `doGuidingBoltNextAttackAdvantage`
+- `doInflictWoundsFailedSave`
+- `doInflictWoundsSuccessfulSave`
+- `doShockingGraspOpportunityAttackDenied`
+
+These five rows are not SQNT-03A target behavior blockers; the copied SQNT-03A connector does not define `HitPointRegainPreventionRouteSubject` evidence for non-regain branches.

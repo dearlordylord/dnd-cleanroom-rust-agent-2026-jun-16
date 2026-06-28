@@ -1,0 +1,194 @@
+{
+  "acceptedConnectorRowCount": 3,
+  "cleanroomManifestSourceCommitSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
+  "connectorRuns": [
+    {
+      "observedProjectionSha256": "f8e94dbc21d63cbb7e452aa4c9c159c491f1327895c9f05c4ae5101b5ac7d94a",
+      "observedThrough": "BattleEntrypointTrace.route_events",
+      "routeConnectorAction": "doAdmitAttackHitRegainPreventionEffect"
+    },
+    {
+      "observedProjectionSha256": "f8e94dbc21d63cbb7e452aa4c9c159c491f1327895c9f05c4ae5101b5ac7d94a",
+      "observedThrough": "BattleEntrypointTrace.route_events",
+      "routeConnectorAction": "doInterdictLaterHitPointHealing"
+    },
+    {
+      "observedProjectionSha256": "f8e94dbc21d63cbb7e452aa4c9c159c491f1327895c9f05c4ae5101b5ac7d94a",
+      "observedThrough": "BattleEntrypointTrace.route_events",
+      "routeConnectorAction": "doExpireAtTurnBoundary"
+    }
+  ],
+  "generatedBy": {
+    "name": "rust-cleanroom-fcsf03a-hit-point-regain-prevention-dirty-replay",
+    "tag": "target-harness"
+  },
+  "reducerRouteInventorySha256": "8d573c07a341a4d94d6e1c61b4e16e2507be48efc68ead8c3c717a3323e9fc2d",
+  "runs": [
+    {
+      "branchAction": "doChillTouchHitPointRegainPrevention",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_regain_prevention_route.rs",
+      "observedActionTaken": "doChillTouchHitPointRegainPrevention",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "routeConnectorAction": "doExpireAtTurnBoundary",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
+      "routeConnectorSha256": "f32a306a0dd27d6bd1f55d570214b1b1b888d9442df76ffd0e5e8fdec062d273",
+      "routeEvidenceBasis": "observed through BattleEntrypointTrace.route_events using public reducer start/discover/resolve entrypoints; expected route facts are literal from the copied hit-point-regain-prevention route connector",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::SpellAttack",
+          "BattleReducerRouteSubjectFamily::HitPointRegainPrevention",
+          "BattleReducerRouteOwnerGroup::ActiveEffect",
+          "BattleReducerRouteOwnerGroup::HitPoint",
+          "BattleReducerRouteOwnerGroup::TurnBoundary",
+          "BattleReducerRouteFillKind::HitPointHealingDistribution",
+          "BattleState.skeleton.spell_active_effects.hit_point_regain_prevented",
+          "BattleState.skeleton.hp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "f8e94dbc21d63cbb7e452aa4c9c159c491f1327895c9f05c4ae5101b5ac7d94a",
+        "observedProjectionSha256": "f8e94dbc21d63cbb7e452aa4c9c159c491f1327895c9f05c4ae5101b5ac7d94a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION dirty route action=doChillTouchHitPointRegainPrevention",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "branchAction": "doFireBoltHit",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_regain_prevention_route.rs",
+      "observedActionTaken": "doFireBoltHit",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
+          "HitPointRegainPreventionRouteSubject.absentForBranch"
+        ],
+        "comparator": "route-connector-scope",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION out-of-scope action=doFireBoltHit",
+      "result": {
+        "blockerId": "FCSF-03A-non-hit-point-regain-doFireBoltHit",
+        "reason": "the copied SQNT-03A route connector defines only HitPointRegainPreventionRouteSubject evidence; this non-regain selected attack branch has no copied connector action sequence from which this lane can derive independent expected hit-point-regain route facts",
+        "tag": "target-blocker"
+      }
+    },
+    {
+      "branchAction": "doGuidingBoltNextAttackAdvantage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_regain_prevention_route.rs",
+      "observedActionTaken": "doGuidingBoltNextAttackAdvantage",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
+          "HitPointRegainPreventionRouteSubject.absentForBranch"
+        ],
+        "comparator": "route-connector-scope",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION out-of-scope action=doGuidingBoltNextAttackAdvantage",
+      "result": {
+        "blockerId": "FCSF-03A-non-hit-point-regain-doGuidingBoltNextAttackAdvantage",
+        "reason": "the copied SQNT-03A route connector defines only HitPointRegainPreventionRouteSubject evidence; this non-regain selected attack branch has no copied connector action sequence from which this lane can derive independent expected hit-point-regain route facts",
+        "tag": "target-blocker"
+      }
+    },
+    {
+      "branchAction": "doInflictWoundsFailedSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_regain_prevention_route.rs",
+      "observedActionTaken": "doInflictWoundsFailedSave",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
+          "HitPointRegainPreventionRouteSubject.absentForBranch"
+        ],
+        "comparator": "route-connector-scope",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION out-of-scope action=doInflictWoundsFailedSave",
+      "result": {
+        "blockerId": "FCSF-03A-non-hit-point-regain-doInflictWoundsFailedSave",
+        "reason": "the copied SQNT-03A route connector defines only HitPointRegainPreventionRouteSubject evidence; this non-regain selected attack branch has no copied connector action sequence from which this lane can derive independent expected hit-point-regain route facts",
+        "tag": "target-blocker"
+      }
+    },
+    {
+      "branchAction": "doInflictWoundsSuccessfulSave",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_regain_prevention_route.rs",
+      "observedActionTaken": "doInflictWoundsSuccessfulSave",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
+          "HitPointRegainPreventionRouteSubject.absentForBranch"
+        ],
+        "comparator": "route-connector-scope",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION out-of-scope action=doInflictWoundsSuccessfulSave",
+      "result": {
+        "blockerId": "FCSF-03A-non-hit-point-regain-doInflictWoundsSuccessfulSave",
+        "reason": "the copied SQNT-03A route connector defines only HitPointRegainPreventionRouteSubject evidence; this non-regain selected attack branch has no copied connector action sequence from which this lane can derive independent expected hit-point-regain route facts",
+        "tag": "target-blocker"
+      }
+    },
+    {
+      "branchAction": "doShockingGraspOpportunityAttackDenied",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_hit_point_regain_prevention_route.rs",
+      "observedActionTaken": "doShockingGraspOpportunityAttackDenied",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
+          "HitPointRegainPreventionRouteSubject.absentForBranch"
+        ],
+        "comparator": "route-connector-scope",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION out-of-scope action=doShockingGraspOpportunityAttackDenied",
+      "result": {
+        "blockerId": "FCSF-03A-non-hit-point-regain-doShockingGraspOpportunityAttackDenied",
+        "reason": "the copied SQNT-03A route connector defines only HitPointRegainPreventionRouteSubject evidence; this non-regain selected attack branch has no copied connector action sequence from which this lane can derive independent expected hit-point-regain route facts",
+        "tag": "target-blocker"
+      }
+    }
+  ],
+  "scopeNote": "dirty target replay for SQNT-03A only; non-HitPointRegainPrevention attack-shape branches are recorded as connector-scope blockers for the all-obligations per-driver verifier and are not claimed as target behavior gaps",
+  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+  "targetBlockerCount": 5,
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
