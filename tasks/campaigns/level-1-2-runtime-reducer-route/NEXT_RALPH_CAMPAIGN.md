@@ -32,6 +32,30 @@ proof path.
 - SQNT-07A selected/grouped residual work remains source-input work, split by
   generic substrate family.
 
+## Current Checkpoint Override
+
+This document was originally prepared before the SQNT-07A Wave 2 source lanes
+and fresh replay refresh completed. Current authoritative checkpoint:
+
+- Source/cleanroom-input package is now
+  `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb`.
+- Fresh target `master` is now
+  `ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb`.
+- `FRESH-RR-BASELINE-E9F75E22`,
+  `FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION`, and
+  `FRESH-RR-SQNT07A-SPATIAL-MOVEMENT` are complete.
+- Accepted fresh SQNT-07A coverage is generic-substrate coverage only:
+  condition lifecycle plus marked damage/immunity active effects, and
+  spatial-effect plus movement/presentation routes.
+- Remaining SQNT-07A blockers are exact and should drive future work:
+  `SQNT-07A-condition-selected-identity-adapter-not-refreshed`,
+  `SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts`,
+  `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`,
+  and `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
+- Do not relaunch broad selected/grouped identity replay. Launch only lanes
+  backed by copied generic route facts or by a source-QNT lane that creates
+  those facts first.
+
 ## Execution Rules
 
 - Each lane runs in its own worktree.

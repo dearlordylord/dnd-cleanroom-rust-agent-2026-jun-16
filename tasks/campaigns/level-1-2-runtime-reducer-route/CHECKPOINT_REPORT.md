@@ -663,3 +663,14 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Conflict resolution: shared `tasks/RUN_LEDGER.json`, `tasks/STATE_OWNER_MANIFEST.json`, and `tasks/VALIDATION_REPORT.md` were resolved by preserving both lanes' route support, tests, evidence, state-owner records, validation records, accepted rows, and blockers.
 - Verification passed: `cargo fmt --check`, the four requested focused cargo tests, `cargo test` (`237` tests), `cargo clippy --all-targets -- -D warnings`, `git diff --check`, and JSON parse checks for touched JSON artifacts.
 - Harness status: `node scripts/check-cleanroom-harness.cjs` still fails on historical stale ledger/evidence and pre-existing heuristic findings outside these lanes. Captured harness output had no SQNT-07A-specific matches.
+
+### FRESH-RR-SQNT07A-PACKAGE-AND-REPLAY
+
+- Fresh target head: `ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb`.
+- Package baseline refresh: `16993df27e490539c7b7a8ab8d9cea6aba167715` refreshed the fresh target to copied source package `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb` and classified older runtime evidence as historical for the current gate.
+- Active-effect/condition lane: worker head `efd1716c57a0942992f471cb202123650a92fe83`, integrated by `ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb`. Accepted 27 copied connector action rows and 19 public reducer route surfaces for condition lifecycle plus marked damage/immunity active-effect facts.
+- Spatial/movement lane: worker head `04b9f235e889b99cc70a1ea3a4d5a4d075cb280a`, integrated by `ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb`. Accepted 16 copied spatial-effect and movement/presentation rows.
+- Review/fixer notes: active-effect verifier now requires exact retained blockers and scans production for lane-relevant authored-identity dispatch. Spatial review found a real single-slot follow-up overwrite risk; the accepted fix uses a keyed follow-up queue and proves two pending spatial follow-ups cannot overwrite each other.
+- Verification in fresh target: `python3 tools/verify_current_fresh_target.py`, `python3 tools/verify_fresh_rr_sqnt07a_active_effect_condition.py`, `python3 tools/verify_fresh_rr_sqnt07a_spatial_movement.py`, `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check` passed in the integration lane before fast-forward.
+- Residual blockers preserved: `SQNT-07A-condition-selected-identity-adapter-not-refreshed`, `SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts`, `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`, and `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
+- Scope note: this is fresh cleanroom replay acceptance for the generic SQNT-07A route facts now present in the copied cleanroom-input package. It does not accept broad selected/grouped identity drivers wholesale.

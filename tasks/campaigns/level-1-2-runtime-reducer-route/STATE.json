@@ -3887,11 +3887,11 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fresh-rr-battle-active-effects-accepted-with-blockers",
+    "status": "fresh-rr-sqnt07a-accepted-with-blockers",
     "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "10918170ebbb342c7d45664601cb8eb354991db2",
+    "acceptedTargetHead": "ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb",
     "strongestRuntimeEvidenceHead": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
     "completedLanes": [
       {
@@ -4337,6 +4337,115 @@
           "Split rider-owned conditions from independent combatant conditions so rider cleanup cannot erase pre-existing same-condition membership.",
           "Added FRESH-RR-BATTLE-ACTIVE-EFFECTS state-owner records for new durable fields, profiles, subject families, and route sequencing records."
         ]
+      },
+      {
+        "laneId": "FRESH-RR-BASELINE-E9F75E22",
+        "status": "accepted",
+        "baseCommit": "10918170ebbb342c7d45664601cb8eb354991db2",
+        "targetCommit": "16993df27e490539c7b7a8ab8d9cea6aba167715",
+        "workerAgent": "Heisenberg the 4th (019f1071-f0c4-7ac1-ad4f-aa535a0d0571)",
+        "reviewerAgent": "orchestrator review plus Poincare the 4th audit (019f1071-51a0-7591-bd4c-4d051eac1a72)",
+        "artifacts": [
+          "cleanroom-input/**",
+          "FRESH_RUN_STATE.json",
+          "FRESH_RUN_REPORT.md",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "BLOCKERS.json",
+          "EVIDENCE/fc00-package-admission.json",
+          "tools/verify_current_fresh_target.py"
+        ],
+        "checks": [
+          "git merge-base --is-ancestor 10918170ebbb342c7d45664601cb8eb354991db2 HEAD",
+          "diff -qr cleanroom-input /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19/cleanroom-input",
+          "python3 tools/verify_current_fresh_target.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check"
+        ],
+        "coverageClaim": "baseline package refresh only; source package e9f75e22a10891cd438fb06f6ea1ca666f79aaeb is current, pre-refresh runtime evidence is classified historical, and no current-package runtime coverage is claimed by this lane"
+      },
+      {
+        "laneId": "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION",
+        "status": "accepted-with-blockers",
+        "baseCommit": "16993df27e490539c7b7a8ab8d9cea6aba167715",
+        "targetCommit": "efd1716c57a0942992f471cb202123650a92fe83",
+        "integrationCommit": "ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb",
+        "workerAgent": "Popper the 4th (019f1079-3c05-7183-9bc4-588b3da8ca80)",
+        "reviewerAgent": "Parfit the 4th (019f108e-cf4a-7c80-9466-721f56b7bdae) plus orchestrator review; verifier fixes by Popper the 4th",
+        "artifacts": [
+          "src/lib.rs",
+          "tests/reducer_spine.rs",
+          "examples/fresh_rr_sqnt07a_active_effect_condition.rs",
+          "tools/verify_fresh_rr_sqnt07a_active_effect_condition.py",
+          "tools/verify_current_fresh_target.py",
+          "EVIDENCE/fresh-rr-sqnt07a-active-effect-condition.json",
+          "FRESH_RUN_STATE.json",
+          "FRESH_RUN_REPORT.md",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "BLOCKERS.json",
+          "STATE_OWNERS.md"
+        ],
+        "checks": [
+          "git merge-base --is-ancestor 16993df27e490539c7b7a8ab8d9cea6aba167715 HEAD",
+          "python3 tools/verify_current_fresh_target.py",
+          "python3 tools/verify_fresh_rr_sqnt07a_active_effect_condition.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check"
+        ],
+        "coverageClaim": "SQNT-07A active-effect/condition replay accepts 27 copied connector action rows and 19 public-entrypoint route surfaces for condition lifecycle plus marked damage/immunity active-effect facts, with expected records derived from copied QNT and observed records from public reducer entrypoints",
+        "blockers": [
+          "SQNT-07A-condition-selected-identity-adapter-not-refreshed",
+          "SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts"
+        ],
+        "reviewFixes": [
+          "Verifier now requires exact retained blocker ids across evidence/state/report/blocker records.",
+          "Verifier now statically scans production source for lane-relevant selected/grouped authored identity dispatch contexts."
+        ]
+      },
+      {
+        "laneId": "FRESH-RR-SQNT07A-SPATIAL-MOVEMENT",
+        "status": "accepted-with-blockers",
+        "baseCommit": "16993df27e490539c7b7a8ab8d9cea6aba167715",
+        "targetCommit": "04b9f235e889b99cc70a1ea3a4d5a4d075cb280a",
+        "integrationCommit": "ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb",
+        "workerAgent": "Hooke the 4th (019f1079-7562-7fa1-8574-cadb68de4b76)",
+        "reviewerAgent": "Pauli the 4th (019f108e-f69a-7282-884b-9c9499de90a7) plus orchestrator review; follow-up fixes by Hooke the 4th",
+        "artifacts": [
+          "src/lib.rs",
+          "examples/fresh_rr_sqnt07a_spatial_movement.rs",
+          "tools/verify_fresh_rr_sqnt07a_spatial_movement.py",
+          "tools/verify_current_fresh_target.py",
+          "EVIDENCE/fresh-rr-sqnt07a-spatial-movement.json",
+          "FRESH_RUN_STATE.json",
+          "FRESH_RUN_REPORT.md",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "BLOCKERS.json",
+          "STATE_OWNERS.md"
+        ],
+        "checks": [
+          "git merge-base --is-ancestor 16993df27e490539c7b7a8ab8d9cea6aba167715 HEAD",
+          "python3 tools/verify_current_fresh_target.py",
+          "python3 tools/verify_fresh_rr_sqnt07a_spatial_movement.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check"
+        ],
+        "coverageClaim": "SQNT-07A spatial/movement replay accepts 16 spatial-effect and movement/presentation generic route rows through public reducer entrypoints with expected records derived from copied QNT route/fact files",
+        "blockers": [
+          "FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked",
+          "FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked"
+        ],
+        "reviewFixes": [
+          "Replaced a single pending spatial follow-up slot with a keyed queue so multiple pending follow-ups cannot overwrite each other.",
+          "Verifier now requires exact copied input set and pinned hashes, and validates the follow-up queue regression observation separately from accepted route surfaces."
+        ]
       }
     ],
     "activeWorktree": null,
@@ -4345,14 +4454,13 @@
     "activeParallelLanes": [],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "Wave 1 fresh replay lanes from NEXT_RALPH_CAMPAIGN.md",
+    "nextPlannedLane": "Post-SQNT-07A fresh replay checkpoint; choose next source-input or fresh replay batch from explicit blockers only",
     "nextWorkRecommendations": [
-      "FRESH-RR-BASELINE-21504EF refreshed the fresh target to source package 21504ef764118f5fd13086aa6266f19280196664 and made pre-refresh runtime evidence historical for the current gate.",
-      "FRESH-RR-CHARACTER-SHEET-HANDOFF is merged at 214e43e194fd37fa039fbf68baaaf003eee4143e with QNT-derived expected route records compared to public entrypoint observations.",
-      "FRESH-RR-FEATURE-SPECIES-METAMAGIC is merged at 27bcbabc524c2087a73689c407e95c82a54fe10f with QNT-derived expected route records compared to public reducer observations.",
-      "FRESH-RR-SPATIAL-DAMAGE is merged at b28d9dbdd83c49bdd21dd36473d0b96612279fb7 with object/light and mixed-target route records compared from copied QNT/vocabulary-derived expected records to public reducer observations; SQNT-03G exact damage and FCSF-04 stale-object rows remain downgraded blockers.",
-      "FRESH-RR-BATTLE-ACTIVE-EFFECTS is merged at 10918170ebbb342c7d45664601cb8eb354991db2 with SQNT-03A/B/C/D active-effect residual route records compared from copied connector-derived expected records to public reducer observations; FCSF-05 trigger taxonomy remains blocked for durable production state.",
-      "Wave 1 fresh replay lanes are merged. Use NEXT_RALPH_CAMPAIGN.md and SOURCE_QNT_NEXT_TASKS.md to choose the next parallel campaign batch; keep each lane scoped to generic route facts with public reducer observations."
+      "FRESH-RR-BASELINE-E9F75E22 refreshed the fresh target to source package e9f75e22a10891cd438fb06f6ea1ca666f79aaeb and made pre-refresh runtime evidence historical for the current gate.",
+      "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION is integrated at ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb with 27 connector rows and 19 public route surfaces compared from copied QNT-derived expected records to public reducer observations.",
+      "FRESH-RR-SQNT07A-SPATIAL-MOVEMENT is integrated at ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb with 16 spatial/movement rows compared from copied QNT-derived expected records to public reducer observations.",
+      "Retain the four explicit SQNT-07A blockers until copied source inputs expose the missing generic route facts or selected-row reductions without authored identity dispatch.",
+      "Do not launch broad selected/grouped identity replay; keep future lanes scoped to one generic substrate family or one explicit blocker closure."
     ]
   },
   "sdkTracerBullet": {

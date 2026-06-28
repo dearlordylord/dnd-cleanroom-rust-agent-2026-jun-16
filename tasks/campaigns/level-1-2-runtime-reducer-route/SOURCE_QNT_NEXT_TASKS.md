@@ -7,6 +7,30 @@ cleanroom replay queue was exhausted. These are not dirty target implementation
 lanes. A target worker must not infer these facts from TypeScript or dirty Rust
 history.
 
+## Current Checkpoint Override
+
+After this queue was written, the SQNT-07A Wave 2 source-input package was
+refreshed to `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb` and replayed in the
+fresh cleanroom target. Fresh target `master` is now
+`ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb`.
+
+Accepted fresh replay now covers:
+
+- SQNT-07A active-effect/condition generic route facts: 27 copied connector
+  rows and 19 public route surfaces.
+- SQNT-07A spatial/movement generic route facts: 16 copied route rows.
+
+Still blocked:
+
+- `SQNT-07A-condition-selected-identity-adapter-not-refreshed`.
+- `SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts`.
+- `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`.
+- `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
+
+Future source-QNT work should close one of those exact blockers through generic
+route facts. Do not treat broad selected/grouped identity replay as an
+implementation task.
+
 ## Current Boundary
 
 Dirty replay status:
