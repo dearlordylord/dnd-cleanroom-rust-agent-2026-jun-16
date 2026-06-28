@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03d-source-packaged-dirty-replay-pending",
+  "status": "sqnt03d-dirty-replay-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -560,7 +560,8 @@
     "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY": "merged-verified",
     "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL": "merged-packaged-source-input",
     "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY": "merged-verified",
-    "SQNT-03D-CONDITION-AND-POISON-RIDERS": "merged-packaged-source-input"
+    "SQNT-03D-CONDITION-AND-POISON-RIDERS": "merged-packaged-source-input",
+    "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY": "running"
   },
   "lastIntegrationVerification": {
     "head": "7521115f61077326b67e933dc9663f19d7e41570",
@@ -579,7 +580,19 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03C evidence, ledger, or artifact failures",
     "review": "Maxwell the 3rd initially found two blockers: reaction-interdiction cleanup accepted fresh/already-cleaned state, and SQNT-03C verification artifacts still pointed at SQNT-03A. Hume fixed both in 638642e326ff9829b19297f4ea5abf8fbaa3843d by replacing the boolean with BattleOpportunityAttackDenialEffect::Inactive/Active/Expired, adding cleanup-before-expiry regression coverage, and refreshing SQNT-03C task artifacts. Maxwell re-review accepted the lane."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY",
+      "routeTaskId": "FCSF-03D-CONDITION-AND-POISON-RIDERS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03d-condition-rider-replay",
+      "branch": "ralph/sqnt03d-condition-rider-dirty-replay",
+      "baseSha": "18fc6b4",
+      "workerAgent": "019f0e40-fc59-75e2-9bed-41a206b92259",
+      "workerName": "Kierkegaard the 3rd",
+      "status": "running",
+      "scope": "diagnostic dirty target replay only; no fresh target acceptance claimed"
+    }
+  ],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {

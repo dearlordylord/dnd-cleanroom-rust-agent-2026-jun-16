@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03d-condition-rider-replay` | `ralph/sqnt03d-condition-rider-dirty-replay` | `18fc6b4` | Kierkegaard the 3rd (`019f0e40-fc59-75e2-9bed-41a206b92259`) | running diagnostic dirty target replay; no fresh target acceptance claimed |
 
 ## Active Fresh Dry Run Targets
 
