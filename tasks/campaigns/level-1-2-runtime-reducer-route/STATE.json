@@ -495,6 +495,8 @@
       "branch": "ralph/fcsf04-object-stale-dirty-replay",
       "baseSha": "832afbebbb3c46bf0a05b6c2bcb541f77508a328",
       "status": "dirty-target-replay-started",
+      "workerAgent": "019f0d3c-ddc7-7c30-842f-e5f4aca133ab",
+      "workerName": "Leibniz the 3rd",
       "sourcePackageCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
       "freshTargetAcceptance": "not-claimed",
       "routeTaskId": "FCSF-04-OBJECT-STALE-PUBLIC-PROTOCOL",
