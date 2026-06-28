@@ -1,88 +1,37 @@
 {
   "schemaVersion": 1,
-  "taskId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY",
+  "taskId": "FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY",
   "productionModulesExtended": [
     {
-      "path": "src/rules/character_creation.rs",
+      "path": "src/rules/battle_reducer_spine.rs",
       "role": "domain-engine",
-      "reason": "Adds route fact events to the public character creation route state for partial fills, stale rejection, selected-reference retention, build projection input, and HP maximum build input without adding durable draft fields.",
+      "reason": "Adds generic reaction/interrupt payload taxonomy route subject families and a non-durable ResolveBattleInterrupt route trace event so copied connector rows can be observed through public reducer route entrypoints.",
       "domainApis": [
-        "CreationRouteFactFamily",
-        "CreationRouteEvent::RecordCreationFacts",
-        "apply_creation_fill_batch",
-        "apply_creation_retained_reference_operation",
-        "route_payload"
-      ]
-    },
-    {
-      "path": "src/rules/character_battle_handoff.rs",
-      "role": "domain-engine",
-      "reason": "Adds handoff route fact events for source-exact resource deltas, feature-resource deltas, settlement conflicts, and zero-HP Stable lifecycle settlement without adding durable settlement fields.",
-      "domainApis": [
-        "CharacterBattleRouteHandoffFactFamily",
-        "CharacterBattleRouteEvent::RouteRecordCharacterBattleHandoffFacts",
-        "route_record_character_battle_handoff_facts",
-        "character_battle_route_payload"
-      ]
-    },
-    {
-      "path": "src/qnt_adapters/character_sheet_reducer_route.rs",
-      "role": "route-projection",
-      "reason": "Extends the existing sheet qRoute witness vocabulary with fact-record events for FCSF-06 character sheet replay.",
-      "domainApis": [
-        "CharacterSheetRouteFactFamily",
-        "CharacterSheetRouteEvent::RecordCharacterSheetFacts",
-        "route_record_character_sheet_facts",
-        "character_sheet_route_payload"
+        "BattleSubjectKind::ReactionArmorClassEffect*",
+        "BattleSubjectKind::ReactionAfterDamageEffect*",
+        "BattleSubjectKind::ReactionSpellInterruption*",
+        "BattleSubjectKind::ReactionFallMitigation*",
+        "BattleReducerRouteEvent::ResolveBattleInterrupt",
+        "discover_generic_route_subject_observed",
+        "resolve_battle_subject_observed"
       ]
     }
   ],
   "adapterModules": [
     {
-      "path": "src/qnt_adapters/character_sheet_spell_slots_pact_slots.rs",
-      "adapterScope": "Replays ordinary Spell Slot and Pact Slot projection witnesses through public SheetSlotFacts surfaces. The copied route connector expected shape is retained for diagnostics, but all 11 route rows are target-blocked because the dirty target lacks independent public sheet qRoute state for spell-resource rows.",
+      "path": "src/qnt_adapters/battle_runtime_reaction_interrupt_payload_taxonomy.rs",
+      "adapterScope": "Replays the copied battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt connector rows through public battle reducer route entrypoints. Expected rows are derived from copied connector action bodies; observed rows come from BattleEntrypointTrace.route_events.",
       "targetReplayEvidence": [
-        "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
-      ]
-    },
-    {
-      "path": "src/qnt_adapters/character_battle_settlement.rs",
-      "adapterScope": "Replays the eight character-battle settlement route actions defined by the copied route connector through existing settlement public route helpers; three driver-only rows absent from that connector are target-blocked.",
-      "targetReplayEvidence": [
-        "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
-      ]
-    },
-    {
-      "path": "src/qnt_adapters/character_creation_runtime.rs",
-      "adapterScope": "Replays character creation draft/fill/finalization route facts through CharacterCreationState.route.",
-      "targetReplayEvidence": [
-        "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
-      ]
-    },
-    {
-      "path": "src/qnt_adapters/character_sheet_hit_point_maximum.rs",
-      "adapterScope": "Replays sheet Hit Point Maximum arithmetic-input route facts as the copied route connector's cumulative qRoute sequence through existing HP maximum projection facts.",
-      "targetReplayEvidence": [
-        "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
+        "tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json"
       ]
     }
   ],
   "accumulatorGrowth": [],
   "expectedNextReuse": [
     {
-      "module": "src/rules/character_creation.rs",
-      "api": "CreationRouteFactFamily",
-      "driver": "future character creation route connectors needing build/selected-reference fact evidence"
-    },
-    {
-      "module": "src/rules/character_battle_handoff.rs",
-      "api": "CharacterBattleRouteHandoffFactFamily",
-      "driver": "future character-battle handoff and settlement route connectors"
-    },
-    {
-      "module": "src/qnt_adapters/character_sheet_reducer_route.rs",
-      "api": "CharacterSheetRouteFactFamily",
-      "driver": "future character sheet resource/rest/projection route connectors"
+      "module": "src/rules/battle_reducer_spine.rs",
+      "api": "BattleReducerRouteEvent::ResolveBattleInterrupt",
+      "driver": "future generic reaction payload, interrupt-stack, and reaction-window route connectors that distinguish interrupt resolution from ordinary subject resolution"
     }
   ]
 }
