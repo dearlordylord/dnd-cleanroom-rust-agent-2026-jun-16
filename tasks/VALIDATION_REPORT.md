@@ -4159,14 +4159,15 @@ No roll-choice-specific harness issue was found. This section is dirty diagnosti
 Behavior implemented:
 
 - Added `HitPointRegainPreventionRouteSubject` as public reducer route vocabulary and observed it through `BattleEntrypointTrace.route_events`.
-- Reused existing `BattleSpellActiveEffects.hit_point_regain_prevented`; no duplicate active-effect state was added.
+- Added public reducer-owned targeted `HitPointRegainPreventionRouteSubject` construction for the copied connector lifecycle.
+- Reshaped existing `BattleSpellActiveEffects` hit-point-regain state into an `Inactive` / `Active` / `Expired` lifecycle; no duplicate active-effect state was added.
 - Made Hit Point healing consume the active-effect flag so later healing distribution is interdicted without authored spell identity dispatch.
-- Added turn-boundary expiry and active-effect cleanup route subjects; cleanup clears the typed active-effect flag.
+- Added turn-boundary expiry and active-effect cleanup route subjects; expiry transitions `Active` to `Expired`, and cleanup is rejected until expiry has occurred.
 
 Verification results:
 
 - Branch-base check passed for declared base `f41199ade4a4af944c2a3cf19799a8279592b967`.
-- `cargo test hit_point_regain_prevention -- --nocapture` passed.
+- `cargo test hit_point_regain_prevention -- --nocapture` passed, including cleanup-before-expiry rejection.
 - `cargo test attack_spell_shape -- --nocapture` passed.
 - `cargo fmt --check` passed.
 - `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json` passed with 1 obligation covered.

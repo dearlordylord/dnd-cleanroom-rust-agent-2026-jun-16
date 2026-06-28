@@ -2,7 +2,7 @@
   "accumulatorGrowth": [],
   "adapterModules": [
     {
-      "adapterScope": "Replays copied SQNT-03A HitPointRegainPreventionRouteSubject rows through public BattleEntrypointTrace.route_events and compares them to literal connector-derived expected route facts.",
+      "adapterScope": "Replays copied SQNT-03A HitPointRegainPreventionRouteSubject rows through public BattleEntrypointTrace.route_events using reducer-owned targeted subject construction, and compares them to literal connector-derived expected route facts.",
       "path": "src/qnt_adapters/battle_runtime_hit_point_regain_prevention_route.rs",
       "quarantinedWitnessNames": [
         "doChillTouchHitPointRegainPrevention",
@@ -39,12 +39,14 @@
         "BattleSubjectKind::HitPointRegainPreventionHealingInterdiction",
         "BattleSubjectKind::HitPointRegainPreventionDurationExpiry",
         "BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup",
+        "BattleHitPointRegainPreventionEffect",
+        "hit_point_regain_prevention_route_subject_for_target",
         "BattleGenericRouteFill::HitPointHealingDistribution",
         "BattleReducerRouteSubjectFamily::HitPointRegainPrevention",
         "resolve_battle_subject_observed"
       ],
       "path": "src/rules/battle_reducer_spine.rs",
-      "reason": "Expose SQNT-03A route events through production reducer route observers and make existing hit-point-regain prevention state executable for healing and cleanup.",
+      "reason": "Expose SQNT-03A route events through production reducer route observers and make existing hit-point-regain prevention state executable for healing, turn-boundary expiry, and cleanup ordering.",
       "role": "domain-engine"
     }
   ],

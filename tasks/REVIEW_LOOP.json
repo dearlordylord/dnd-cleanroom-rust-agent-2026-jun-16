@@ -45,6 +45,26 @@
         }
       ],
       "round": 2
+    },
+    {
+      "passes": [
+        {
+          "checklist": "reviewer-blocker-targeted-subject",
+          "notes": "Added public reducer-owned targeted HitPointRegainPrevention subject construction and moved the adapter off local BattleSubject field construction.",
+          "status": "pass"
+        },
+        {
+          "checklist": "reviewer-blocker-turn-boundary-cleanup",
+          "notes": "Replaced the boolean regain-prevention state with an Inactive/Active/Expired lifecycle. Duration expiry now transitions Active to Expired, cleanup requires Expired, and focused tests reject cleanup before expiry.",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "notes": "Follow-up lifecycle enforcement dispatches only on typed route subjects and active-effect phase state; no production spell/unit/name/id/provenance dispatch was added.",
+          "status": "pass"
+        }
+      ],
+      "round": 3
     }
   ],
   "schemaVersion": 1,

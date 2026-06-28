@@ -285,7 +285,10 @@ fn expected(
 }
 
 fn active_effect_kind(effects: BattleSpellActiveEffects) -> &'static str {
-    if effects.hit_point_regain_prevented {
+    if effects
+        .hit_point_regain_prevention
+        .prevents_hit_point_regain()
+    {
         "hitPointRegainPrevented"
     } else if effects.next_attack_roll_against_self_advantage {
         "nextAttackRollAgainstSelf"

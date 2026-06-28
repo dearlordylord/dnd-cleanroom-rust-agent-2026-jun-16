@@ -515,9 +515,28 @@ pub enum BattleSpellActiveEffectKind {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleHitPointRegainPreventionEffect {
+    Inactive,
+    Active,
+    Expired,
+}
+
+impl BattleHitPointRegainPreventionEffect {
+    #[must_use]
+    pub const fn is_present(self) -> bool {
+        matches!(self, Self::Active | Self::Expired)
+    }
+
+    #[must_use]
+    pub const fn prevents_hit_point_regain(self) -> bool {
+        matches!(self, Self::Active)
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct BattleSpellActiveEffects {
     pub armor_class_base_effect: BattleArmorClassBaseEffect,
-    pub hit_point_regain_prevented: bool,
+    pub hit_point_regain_prevention: BattleHitPointRegainPreventionEffect,
     pub next_attack_roll_against_self_advantage: bool,
     pub opportunity_attack_denied: bool,
     pub poisoned: bool,
@@ -529,7 +548,7 @@ impl BattleSpellActiveEffects {
     pub const fn none() -> Self {
         Self {
             armor_class_base_effect: BattleArmorClassBaseEffect::None,
-            hit_point_regain_prevented: false,
+            hit_point_regain_prevention: BattleHitPointRegainPreventionEffect::Inactive,
             next_attack_roll_against_self_advantage: false,
             opportunity_attack_denied: false,
             poisoned: false,
@@ -542,7 +561,7 @@ impl BattleSpellActiveEffects {
         match effect {
             BattleSpellActiveEffectKind::None => Self::none(),
             BattleSpellActiveEffectKind::HitPointRegainPrevented => Self {
-                hit_point_regain_prevented: true,
+                hit_point_regain_prevention: BattleHitPointRegainPreventionEffect::Active,
                 ..Self::none()
             },
             BattleSpellActiveEffectKind::NextAttackRollAgainstSelfAdvantage => Self {
@@ -567,7 +586,7 @@ impl BattleSpellActiveEffects {
     #[must_use]
     pub const fn count(self) -> usize {
         self.armor_class_base_effect.is_active() as usize
-            + self.hit_point_regain_prevented as usize
+            + self.hit_point_regain_prevention.is_present() as usize
             + self.next_attack_roll_against_self_advantage as usize
             + self.opportunity_attack_denied as usize
             + self.poisoned as usize
@@ -3119,6 +3138,19 @@ pub fn generic_route_subject_for_current_actor(
     kind: BattleSubjectKind,
 ) -> BattleSubject {
     generic_route_subject_from_battle(state, kind)
+}
+
+#[must_use]
+pub fn hit_point_regain_prevention_route_subject_for_target(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+    target: Actor,
+) -> BattleSubject {
+    assert!(
+        hit_point_regain_prevention_route_kind(kind),
+        "targeted hit-point-regain-prevention subject construction requires a hit-point-regain-prevention route subject"
+    );
+    diagnostic_subject(kind, current_actor(state), Some(target))
 }
 
 #[must_use]
@@ -7596,6 +7628,16 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
     )
 }
 
+fn hit_point_regain_prevention_route_kind(kind: BattleSubjectKind) -> bool {
+    matches!(
+        kind,
+        BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
+            | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
+            | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
+            | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+    )
+}
+
 fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteHoleKind::{
         AbilityCheck, AbilityChoice, AttackRoll, ConcentrationSavingThrow, DamageTypeChoice,
@@ -10076,6 +10118,10 @@ fn resolve_generic_route_subject(
         );
     }
 
+    if let Some(reason) = hit_point_regain_prevention_state_rejection(&state, subject) {
+        return invalid_with_holes(state, reason, Vec::new());
+    }
+
     let next_holes = generic_route_next_holes(subject.kind, fill);
     let state = resolve_generic_route_state(state, subject, fill);
     if next_holes.is_empty() {
@@ -10114,7 +10160,11 @@ fn resolve_generic_route_state(
             BattleGenericRouteFill::WithoutFill,
         ) => {
             if let Some(target) = subject.target {
-                with_hit_point_regain_prevention(state, target, true)
+                with_hit_point_regain_prevention(
+                    state,
+                    target,
+                    BattleHitPointRegainPreventionEffect::Active,
+                )
             } else {
                 state
             }
@@ -10125,7 +10175,8 @@ fn resolve_generic_route_state(
         ) => {
             if combatant_for(&state, target)
                 .spell_active_effects
-                .hit_point_regain_prevented
+                .hit_point_regain_prevention
+                .prevents_hit_point_regain()
             {
                 state
             } else {
@@ -10133,11 +10184,29 @@ fn resolve_generic_route_state(
             }
         }
         (
+            BattleSubjectKind::HitPointRegainPreventionDurationExpiry,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            if let Some(target) = subject.target {
+                with_hit_point_regain_prevention(
+                    state,
+                    target,
+                    BattleHitPointRegainPreventionEffect::Expired,
+                )
+            } else {
+                state
+            }
+        }
+        (
             BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup,
             BattleGenericRouteFill::WithoutFill,
         ) => {
             if let Some(target) = subject.target {
-                with_hit_point_regain_prevention(state, target, false)
+                with_hit_point_regain_prevention(
+                    state,
+                    target,
+                    BattleHitPointRegainPreventionEffect::Inactive,
+                )
             } else {
                 state
             }
@@ -10157,6 +10226,30 @@ fn hit_point_regain_prevention_target_mismatch(
             BattleGenericRouteFill::HitPointHealingDistribution { target, .. },
         ) if expected != target
     )
+}
+
+fn hit_point_regain_prevention_state_rejection(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> Option<BattleResolutionInvalidReason> {
+    let target = subject.target?;
+    let effect = combatant_for(state, target)
+        .spell_active_effects
+        .hit_point_regain_prevention;
+    match subject.kind {
+        BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
+        | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
+            if effect != BattleHitPointRegainPreventionEffect::Active =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+            if effect != BattleHitPointRegainPreventionEffect::Expired =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        _ => None,
+    }
 }
 
 fn resolve_ability_check_search_subject(
@@ -12652,7 +12745,8 @@ fn with_healed_target(mut state: BattleState, target: Actor, healing: i16) -> Ba
     let target_combatant = combatant_for(&state, target);
     if target_combatant
         .spell_active_effects
-        .hit_point_regain_prevented
+        .hit_point_regain_prevention
+        .prevents_hit_point_regain()
         || (target_combatant.hp <= 0
             && !ordinary_zero_hit_point_restoration_target(target_combatant))
     {
@@ -12686,11 +12780,11 @@ fn with_healed_target(mut state: BattleState, target: Actor, healing: i16) -> Ba
 fn with_hit_point_regain_prevention(
     mut state: BattleState,
     target: Actor,
-    active: bool,
+    effect: BattleHitPointRegainPreventionEffect,
 ) -> BattleState {
     combatant_for_mut(&mut state, target)
         .spell_active_effects
-        .hit_point_regain_prevented = active;
+        .hit_point_regain_prevention = effect;
     state
 }
 

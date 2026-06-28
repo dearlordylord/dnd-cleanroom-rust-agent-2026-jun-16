@@ -1,14 +1,20 @@
 {
   "durableFields": [
     {
-      "apiPath": "BattleSpellActiveEffects.hit_point_regain_prevented",
-      "boundary": "runtime active-effect fact admitted by SpellAttack damage resolution and consumed by Hit Point healing",
-      "introducedIn": "pre-existing field; behavior extended in src/rules/battle_reducer_spine.rs",
-      "owner": "BattleActiveEffectOwner and BattleHitPointOwner"
+      "apiPath": "BattleSpellActiveEffects.hit_point_regain_prevention",
+      "boundary": "runtime active-effect lifecycle admitted by SpellAttack damage resolution, consumed by Hit Point healing, expired by turn-boundary routing, and cleaned up by active-effect routing",
+      "introducedIn": "pre-existing boolean field reshaped as BattleHitPointRegainPreventionEffect in src/rules/battle_reducer_spine.rs",
+      "owner": "BattleActiveEffectOwner, BattleHitPointOwner, and BattleTurnBoundaryOwner"
     }
   ],
-  "noRedundantStateFinding": "No duplicate hit-point-regain-prevention state was added. The replay reuses the existing BattleSpellActiveEffects.hit_point_regain_prevented flag and threads it through route subjects and healing.",
+  "noRedundantStateFinding": "No duplicate hit-point-regain-prevention state was added. The existing BattleSpellActiveEffects hit-point-regain fact was reshaped into an Inactive/Active/Expired lifecycle so cleanup cannot resolve before turn-boundary expiry.",
   "nonDurableBoundaryApiSurface": [
+    {
+      "apiPath": "hit_point_regain_prevention_route_subject_for_target",
+      "boundary": "public reducer constructor for targeted HitPointRegainPreventionRouteSubject values",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "production reducer-route subject construction"
+    },
     {
       "apiPath": "BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission",
       "boundary": "public reducer route subject for active-effect admission",

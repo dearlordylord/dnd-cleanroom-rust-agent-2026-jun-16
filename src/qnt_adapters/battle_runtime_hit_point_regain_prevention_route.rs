@@ -1,10 +1,11 @@
 use crate::rules::battle_reducer_spine::{
-    discover_spell_attack_damage_subject_observed, resolve_battle_subject_observed,
+    discover_spell_attack_damage_subject_observed,
+    hit_point_regain_prevention_route_subject_for_target, resolve_battle_subject_observed,
     start_battle_observed, Actor, AttackRollFacts, BattleEntrypointTrace, BattleGenericRouteFill,
-    BattleResolutionRequest, BattleResolutionResult, BattleSetup, BattleSpellActiveEffectKind,
-    BattleSpellAttackFill, BattleState, BattleSubject, BattleSubjectKind,
+    BattleHitPointRegainPreventionEffect, BattleResolutionRequest, BattleResolutionResult,
+    BattleSetup, BattleSpellActiveEffectKind, BattleSpellAttackFill, BattleState, BattleSubject,
+    BattleSubjectKind,
 };
-use crate::rules::weapon_attack_ordering::WeaponAttackFrontierStage;
 
 use super::battle_runtime_reducer_route::{
     observed_reducer_route, route_discover_battle_acts, route_resolve_battle_subject,
@@ -20,6 +21,7 @@ pub struct HitPointRegainPreventionRouteWitness {
     pub target_hit_points_after_healing_attempt: i16,
     pub active_after_attack_hit: bool,
     pub active_after_admission: bool,
+    pub expired_after_duration: bool,
     pub active_after_cleanup: bool,
 }
 
@@ -44,6 +46,7 @@ pub fn expected_witness(observed_action_taken: &str) -> HitPointRegainPrevention
             target_hit_points_after_healing_attempt: 8,
             active_after_attack_hit: true,
             active_after_admission: true,
+            expired_after_duration: true,
             active_after_cleanup: false,
         },
         action => panic!("unsupported mbt::actionTaken {action}"),
@@ -69,6 +72,7 @@ pub fn projection_payload(witness: &HitPointRegainPreventionRouteWitness) -> Str
         ),
         format!("activeAfterAttackHit={}", witness.active_after_attack_hit),
         format!("activeAfterAdmission={}", witness.active_after_admission),
+        format!("expiredAfterDuration={}", witness.expired_after_duration),
         format!("activeAfterCleanup={}", witness.active_after_cleanup),
     ]
     .join("\n")
@@ -119,7 +123,8 @@ fn replay_observed_state_and_route(
     let active_after_attack_hit = state
         .skeleton
         .spell_active_effects
-        .hit_point_regain_prevented;
+        .hit_point_regain_prevention
+        .prevents_hit_point_regain();
 
     let result = resolve_hit_point_regain_prevention_without_fill(
         state,
@@ -130,14 +135,17 @@ fn replay_observed_state_and_route(
     let active_after_admission = state
         .skeleton
         .spell_active_effects
-        .hit_point_regain_prevented;
+        .hit_point_regain_prevention
+        .prevents_hit_point_regain();
 
+    let subject = hit_point_regain_prevention_subject(
+        &state,
+        BattleSubjectKind::HitPointRegainPreventionHealingInterdiction,
+    );
     let result = resolve_battle_subject_observed(
         state,
         BattleResolutionRequest::generic_route(
-            hit_point_regain_prevention_subject(
-                BattleSubjectKind::HitPointRegainPreventionHealingInterdiction,
-            ),
+            subject,
             BattleGenericRouteFill::HitPointHealingDistribution {
                 target: Actor::Skeleton,
                 amount: 3,
@@ -155,6 +163,11 @@ fn replay_observed_state_and_route(
         &mut trace,
     );
     let state = resolved_state(result, "duration expiry");
+    let expired_after_duration = state
+        .skeleton
+        .spell_active_effects
+        .hit_point_regain_prevention
+        == BattleHitPointRegainPreventionEffect::Expired;
 
     let result = resolve_hit_point_regain_prevention_without_fill(
         state,
@@ -169,10 +182,12 @@ fn replay_observed_state_and_route(
             target_hit_points_after_healing_attempt,
             active_after_attack_hit,
             active_after_admission,
+            expired_after_duration,
             active_after_cleanup: state
                 .skeleton
                 .spell_active_effects
-                .hit_point_regain_prevented,
+                .hit_point_regain_prevention
+                .prevents_hit_point_regain(),
         },
         observed_reducer_route(
             &trace,
@@ -189,25 +204,20 @@ fn resolve_hit_point_regain_prevention_without_fill(
     kind: BattleSubjectKind,
     trace: &mut BattleEntrypointTrace,
 ) -> BattleResolutionResult {
+    let subject = hit_point_regain_prevention_subject(&state, kind);
     resolve_battle_subject_observed(
         state,
-        BattleResolutionRequest::generic_route(
-            hit_point_regain_prevention_subject(kind),
-            BattleGenericRouteFill::WithoutFill,
-        )
-        .expect("hit-point-regain prevention without-fill subject should be accepted"),
+        BattleResolutionRequest::generic_route(subject, BattleGenericRouteFill::WithoutFill)
+            .expect("hit-point-regain prevention without-fill subject should be accepted"),
         trace,
     )
 }
 
-fn hit_point_regain_prevention_subject(kind: BattleSubjectKind) -> BattleSubject {
-    BattleSubject {
-        kind,
-        actor: Actor::Fighter,
-        target: Some(Actor::Skeleton),
-        stage: WeaponAttackFrontierStage::Resolved,
-        damage_modifier: 0,
-    }
+fn hit_point_regain_prevention_subject(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+) -> BattleSubject {
+    hit_point_regain_prevention_route_subject_for_target(state, kind, Actor::Skeleton)
 }
 
 fn hit_point_regain_prevention_setup() -> BattleSetup {

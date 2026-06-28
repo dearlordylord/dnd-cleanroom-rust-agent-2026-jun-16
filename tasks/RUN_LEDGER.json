@@ -3779,15 +3779,15 @@
       "artifacts": {
         "deciderDecision": {
           "path": "tasks/DECIDER_DECISION.json",
-          "sha256": "24f9640d331a7d04d744433786a31835b802b11b3994ba6f0eb4c0f83af1788d"
+          "sha256": "1496ba8079e8fa33d7a7beb77f0c5a7782afe65012699d88d95f78a60c51029d"
         },
         "engineDepth": {
           "path": "tasks/ENGINE_DEPTH_MANIFEST.json",
-          "sha256": "c0fa3126b02a47bb624621c78d45be8020e79b23bb972a7fb20ce6e6a7ecac57"
+          "sha256": "6acc597c70e4f112740a9c959f334d6ed2ac6874488c5381f008ca528e917a8f"
         },
         "reviewLoop": {
           "path": "tasks/REVIEW_LOOP.json",
-          "sha256": "b70a59a3ad14203500e128cde56883f818c7f157680add24b31bdeb2b692236a"
+          "sha256": "f7d3d5d722e5b6600dee25b987885662dcf6edd09682900e0757197b32825fc7"
         },
         "startGate": {
           "path": "tasks/START_GATE.json",
@@ -3795,7 +3795,7 @@
         },
         "stateOwnerManifest": {
           "path": "tasks/STATE_OWNER_MANIFEST.json",
-          "sha256": "be2130d1c0756d94b329da3b116ad3ca01986888b33f188795e7bad3920628a3"
+          "sha256": "b853a53c74bdf9915fde7679f04785c1e22b5ab92a63bffeb630f1abdacf530f"
         }
       },
       "assignmentId": "level-1-2-runtime-reducer-route",
@@ -3846,7 +3846,7 @@
             "tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json#FCSF-03A-HIT-POINT-REGAIN-PREVENTION dirty route action=doChillTouchHitPointRegainPrevention#step:doChillTouchHitPointRegainPrevention"
           ],
           "path": "tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json",
-          "sha256": "bdd34fa7679c5538509da9d829e5c657cf785ca6c49a462f4158a88279f2b990"
+          "sha256": "311c07187424b9d8ef22100563da7e4fbc9ab7fa5a5a6390a2330846c55ef719"
         }
       ],
       "taskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION"

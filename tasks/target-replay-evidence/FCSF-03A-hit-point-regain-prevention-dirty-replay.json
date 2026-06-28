@@ -35,7 +35,7 @@
       "routeConnectorAction": "doExpireAtTurnBoundary",
       "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
       "routeConnectorSha256": "f32a306a0dd27d6bd1f55d570214b1b1b888d9442df76ffd0e5e8fdec062d273",
-      "routeEvidenceBasis": "observed through BattleEntrypointTrace.route_events using public reducer start/discover/resolve entrypoints; expected route facts are literal from the copied hit-point-regain-prevention route connector",
+      "routeEvidenceBasis": "observed through BattleEntrypointTrace.route_events using public reducer start/discover/resolve entrypoints and reducer-owned targeted HitPointRegainPrevention subject construction; expected route facts are literal from the copied hit-point-regain-prevention route connector",
       "sampledInputs": [],
       "stateCheck": {
         "checkedTargetStateFields": [
@@ -46,7 +46,9 @@
           "BattleReducerRouteOwnerGroup::HitPoint",
           "BattleReducerRouteOwnerGroup::TurnBoundary",
           "BattleReducerRouteFillKind::HitPointHealingDistribution",
-          "BattleState.skeleton.spell_active_effects.hit_point_regain_prevented",
+          "BattleState.skeleton.spell_active_effects.hit_point_regain_prevention",
+          "BattleHitPointRegainPreventionEffect::Active",
+          "BattleHitPointRegainPreventionEffect::Expired",
           "BattleState.skeleton.hp"
         ],
         "comparator": "route-event-list",

@@ -2633,6 +2633,59 @@ fn hit_point_regain_prevention_dirty_replay_routes_through_reducer() {
 }
 
 #[test]
+fn hit_point_regain_prevention_cleanup_requires_turn_boundary_expiry() {
+    use crate::rules::battle_reducer_spine::{
+        hit_point_regain_prevention_route_subject_for_target, resolve_battle_subject_observed,
+        start_battle_observed, Actor, BattleEntrypointTrace, BattleGenericRouteFill,
+        BattleResolutionInvalidReason, BattleResolutionRequest, BattleResolutionResult,
+        BattleSetup, BattleSubjectKind,
+    };
+
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start_battle_observed(BattleSetup::standard(), &mut trace).state;
+    let admission_subject = hit_point_regain_prevention_route_subject_for_target(
+        &state,
+        BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission,
+        Actor::Skeleton,
+    );
+    let BattleResolutionResult::Resolved { state } = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(
+            admission_subject,
+            BattleGenericRouteFill::WithoutFill,
+        )
+        .expect("admission should accept without-fill"),
+        &mut trace,
+    ) else {
+        panic!("active-effect admission should resolve");
+    };
+
+    let cleanup_subject = hit_point_regain_prevention_route_subject_for_target(
+        &state,
+        BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup,
+        Actor::Skeleton,
+    );
+    let BattleResolutionResult::Invalid { reason, state, .. } = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(
+            cleanup_subject,
+            BattleGenericRouteFill::WithoutFill,
+        )
+        .expect("cleanup should accept without-fill"),
+        &mut trace,
+    ) else {
+        panic!("cleanup before duration expiry should reject");
+    };
+
+    assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
+    assert!(state
+        .skeleton
+        .spell_active_effects
+        .hit_point_regain_prevention
+        .prevents_hit_point_regain());
+}
+
+#[test]
 fn attack_spell_shapes_project_slots_effects_and_save_damage() {
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-A-D.md
     // "Chill Touch"; Descriptions-E-L.md "Fire Bolt", "Guiding Bolt", and
