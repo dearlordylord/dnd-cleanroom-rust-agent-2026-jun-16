@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "dirty-replay-fcsf05-running",
+  "status": "dirty-replay-fcsf05-accepted",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d",
+    "lastVerifiedIntegrationHead": "5d07ad816c08ab3335c7e95c87f26c2e73e80d9c",
     "lastMergedLane": {
-      "laneId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY",
-      "mergeCommit": "4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d",
-      "laneHead": "955cdafcbcaae285d305569f7efb36c324e286e8",
-      "note": "Diagnostic dirty target replay only. The worker consumed source commit d63838e22137c4b329dc877ca0d963876f3459bf character/sheet/handoff route facts and accepted 30 reducer-route witness rows through public dirty-target route state while demoting 14 rows to explicit target blockers. This does not claim fresh target acceptance."
+      "laneId": "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY",
+      "mergeCommit": "5d07ad816c08ab3335c7e95c87f26c2e73e80d9c",
+      "laneHead": "118f7f5d25282bcd576951e74505c1b380e67a71",
+      "note": "Diagnostic dirty target replay only. The worker consumed source commit d63838e22137c4b329dc877ca0d963876f3459bf reaction/interrupt payload taxonomy route facts and accepted all 5 connector rows through BattleEntrypointTrace route events. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
       "sourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
@@ -210,6 +210,35 @@
         "node scripts/check-cleanroom-harness.cjs (failed only on known stale validator hashes)"
       ],
       "note": "Dirty diagnostic replay only. Accepted rows provide focused evidence that the dirty target can consume FCSF-06 character creation, Hit Point Maximum, and settlement route facts through reducer-shaped public state; blocked rows identify missing dirty target public route state or missing copied route connector rows. Does not change fresh target acceptance or the canonical dirty-campaign denominator."
+    },
+    {
+      "id": "fcsf05-reaction-interrupt-dirty-replay",
+      "status": "dirty-target-focused-accepted",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf05-reaction-replay",
+      "branch": "ralph/fcsf05-reaction-interrupt-dirty-replay",
+      "baseCommit": "18cb0cd9db59551d5209f2a60b7b9d41eebf855c",
+      "workerAgent": "Dalton the 3rd (019f0d25-7563-7722-a4f6-ff40f7d391a3)",
+      "workerCommit": "118f7f5d25282bcd576951e74505c1b380e67a71",
+      "reviewAgent": "Euclid the 3rd (019f0d34-c68e-7851-8cda-1d37058a0882)",
+      "reviewVerdict": "clean: accepted rows are observed through public reducer route entrypoints and no durable state was added",
+      "mergeCommit": "5d07ad816c08ab3335c7e95c87f26c2e73e80d9c",
+      "manifestSourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt",
+      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt",
+      "evidence": "tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json",
+      "acceptedConnectorRows": 5,
+      "coveredSelectedContextObligations": 3,
+      "targetBlockedRows": 0,
+      "checks": [
+        "cargo fmt --check",
+        "cargo test reaction_interrupt_payload_taxonomy_adapter_replays_connector_rows -- --nocapture",
+        "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD",
+        "node scripts/check-cleanroom-harness.cjs (failed only on known stale validator hashes)"
+      ],
+      "note": "Dirty diagnostic replay only. Accepted connector rows cover generic reaction Armor Class effect, after-damage save/damage, spell interruption ended, spell interruption resumed, and fall mitigation route taxonomy through BattleEntrypointTrace route events; production routing remains generic subject/fill/owner shaped rather than authored identity dispatch. Does not change fresh target acceptance."
     }
   ],
   "completedBeforeCampaign": [
@@ -439,30 +468,34 @@
     "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "merged-verified",
     "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "merged-verified",
     "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES": "merged-verified",
-    "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY": "merged-verified-with-target-blockers"
+    "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY": "merged-verified-with-target-blockers",
+    "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d",
+    "head": "5d07ad816c08ab3335c7e95c87f26c2e73e80d9c",
     "commands": [
       "cargo fmt --check",
+      "cargo test reaction_interrupt_payload_taxonomy_adapter_replays_connector_rows -- --nocapture",
+      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json",
       "git diff --check HEAD~1...HEAD",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings",
       "node scripts/check-cleanroom-harness.cjs"
     ],
     "result": "passed except cleanroom harness failed only on known stale validator hashes in cleanroom-input/MANIFEST.md",
-    "cargoTest": "220 passed",
-    "focusedTests": "FCSF-06 dirty replay evidence records 44 rows: 30 pass and 14 target-blocker.",
-    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no FCSF-06 evidence, ledger, or artifact failures",
-    "review": "Planck the 3rd re-review returned no blockers for fix commit 955cdafcbcaae285d305569f7efb36c324e286e8."
+    "cargoTest": "221 passed",
+    "focusedTests": "FCSF-05 dirty replay evidence records 5 connector runs, 0 blocked runs, and the target replay evidence validator covers 3 selected reaction-spell context obligations.",
+    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no FCSF-05 evidence, ledger, or artifact failures",
+    "review": "Euclid the 3rd review returned no blockers for worker commit 118f7f5d25282bcd576951e74505c1b380e67a71."
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf05-reaction-replay",
       "branch": "ralph/fcsf05-reaction-interrupt-dirty-replay",
       "baseSha": "18cb0cd9db59551d5209f2a60b7b9d41eebf855c",
-      "status": "dirty-target-replay-implemented-under-review",
+      "status": "merged-verified",
       "workerAgent": "019f0d25-7563-7722-a4f6-ff40f7d391a3",
       "workerName": "Dalton the 3rd",
       "workerCommit": "118f7f5d25282bcd576951e74505c1b380e67a71",
@@ -470,13 +503,17 @@
       "freshTargetAcceptance": "not-claimed",
       "routeTaskId": "FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY",
       "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt",
-      "acceptedRowsClaimed": 5,
-      "targetBlockedRowsClaimed": 0,
+      "acceptedConnectorRows": 5,
+      "coveredSelectedContextObligations": 3,
+      "targetBlockedRows": 0,
       "reviewAgent": "019f0d34-c68e-7851-8cda-1d37058a0882",
-      "reviewName": "Euclid the 3rd"
-    }
-  ],
-  "completedLaneWorktrees": [
+      "reviewName": "Euclid the 3rd",
+      "reviewVerdict": "clean",
+      "mergeCommit": "5d07ad816c08ab3335c7e95c87f26c2e73e80d9c",
+      "evidence": "tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json",
+      "freshTargetAcceptance": "not-claimed",
+      "statusNote": "removable after campaign retention decision; dirty replay only, not fresh target acceptance"
+    },
     {
       "laneId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf06-dirty-replay",

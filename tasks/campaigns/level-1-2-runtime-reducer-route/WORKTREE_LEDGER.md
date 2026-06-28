@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf05-reaction-replay` | `ralph/fcsf05-reaction-interrupt-dirty-replay` | `18cb0cd9db59551d5209f2a60b7b9d41eebf855c` | Dalton the 3rd (`019f0d25-7563-7722-a4f6-ff40f7d391a3`), review Euclid the 3rd (`019f0d34-c68e-7851-8cda-1d37058a0882`) | implemented at `118f7f5d25282bcd576951e74505c1b380e67a71`; under review |
+| _none_ | | | | | |
 
 ## Active Fresh Dry Run Targets
 
@@ -56,6 +56,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf05-reaction-replay` | `ralph/fcsf05-reaction-interrupt-dirty-replay` | `118f7f5d25282bcd576951e74505c1b380e67a71` | `5d07ad816c08ab3335c7e95c87f26c2e73e80d9c` | removable after retention decision; dirty replay accepted all 5 connector rows and covered 3 selected-context obligations, no fresh target acceptance claimed |
 | FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf06-dirty-replay` | `ralph/fcsf06-character-sheet-handoff-dirty-replay` | `955cdafcbcaae285d305569f7efb36c324e286e8` | `4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d` | removable after retention decision; dirty replay accepted 30 rows with 14 target blockers, no fresh target acceptance claimed |
 | FCSF-06-CHARACTER-SHEET-HANDOFF-REJECTION-PAYLOADS | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf06-character-sheet-handoff` | `ralph/fresh-source-feedback-task6-character-sheet-handoff` | `d63838e22137c4b329dc877ca0d963876f3459bf` | `d63838e22137c4b329dc877ca0d963876f3459bf` source fast-forward / package synced into dirty campaign | removable after source/package retention decision; source-feedback only, no dirty/fresh target acceptance or Rust runtime coverage claimed |
 | FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf05-reaction-taxonomy` | `ralph/fresh-source-feedback-task5-reaction-taxonomy` | `cf60f7a5b822ee9d9458e98577d47026242fd16e` | `cf60f7a5b822ee9d9458e98577d47026242fd16e` source fast-forward / package synced into dirty campaign | removable after source/package retention decision; source-feedback only, no dirty/fresh target acceptance or Rust runtime coverage claimed |

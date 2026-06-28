@@ -7,7 +7,7 @@
   "sourcePackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
   "acceptedFreshTargetPackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
   "latestDirtyPackageRefreshCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
-  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence are packaged in cleanroom-input. FCSF-06 dirty replay later accepted 30 reducer-route witness rows and recorded 14 target blockers; no fresh target acceptance is claimed from this dirty replay.",
+  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence are packaged in cleanroom-input. FCSF-05 dirty replay later accepted all 5 connector rows, and FCSF-06 dirty replay accepted 30 reducer-route witness rows and recorded 14 target blockers; no fresh target acceptance is claimed from these dirty replays.",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,
@@ -141,7 +141,7 @@
         "BLOCKERS.json entries for any reaction AC active-effect branch without generic substrate",
         "verifier update for FEXP-05 evidence"
       ],
-      "acceptanceSummary": "Historical fresh snapshot accepted with blockers: generic reaction casting-time and interrupt-stack resume route surfaces route through public reducer entrypoints; selected reaction spell projections and interrupt trigger taxonomy were blocked in this snapshot. FCSF-05 later resolves those blockers as source input by packaging generic reaction/interrupt payload taxonomy evidence; fresh target replay is still pending."
+      "acceptanceSummary": "Historical fresh snapshot accepted with blockers: generic reaction casting-time and interrupt-stack resume route surfaces route through public reducer entrypoints; selected reaction spell projections and interrupt trigger taxonomy were blocked in this snapshot. FCSF-05 later resolves those blockers as source input by packaging generic reaction/interrupt payload taxonomy evidence; dirty replay accepts all 5 connector rows and covers 3 selected-context obligations. Fresh target replay is still pending."
     },
     {
       "laneId": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",

@@ -159,6 +159,9 @@ Resolved source input:
 
 Target status:
 
+- dirty cleanroom replay accepted all 5 connector rows and covered the 3
+  selected reaction-spell context obligations in
+  `tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json`;
 - not yet fresh-target replay acceptance;
 - future target evidence must consume the generic taxonomy route through public
   reducer entrypoints rather than selected reaction spell identity.
