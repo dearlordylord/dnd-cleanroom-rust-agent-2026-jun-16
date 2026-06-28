@@ -27,7 +27,7 @@ review checks were needed to prevent false positives.
 
 Authoritative state:
 
-- `STATE.json.status`: `fresh-current-verifier-accepted-source-feedback-resolved`
+- `STATE.json.status`: `dirty-fcsf-package-refresh-reconciled`
 - refreshed in-scope obligations: `659`
 - accepted obligations: `659`
 - accepted driver coverage: `97 / 97`
@@ -36,6 +36,8 @@ Authoritative state:
 - active lane worktrees: none
 - active fresh dry-run worktrees: none
 - strongest fresh target evidence: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
+- latest dirty package refresh:
+  `a6cff970d4aa58d0d695e5388c64832d20e7fbb1`
 
 The final CP8 lane accepted exactly these three newly accepted rows:
 
@@ -88,6 +90,11 @@ generic connector route shape but was not counted as a new CP8 row.
   `cleanroom-input/MANIFEST.md` for:
   - `scripts/check-cleanroom-harness.cjs`
   - `scripts/cleanroom-branch-coverage-check.cjs`
+- The `a6cff970d4aa58d0d695e5388c64832d20e7fbb1` dirty package refresh
+  packages source-feedback Task 3 residual selected-spell route tasks and the
+  Task 8 six-driver active reducer diagnostic seed. It does not add fresh
+  target acceptance or Rust runtime coverage, and condition-immunity is still
+  not accepted as scalar-buff route replay evidence.
 - It does not remove every old historical evidence artifact. The fresh current
   gate classifies FC-03/FC-04/FC-05 as historical snapshots after the input
   refresh; broader dirty-rehearsal cleanup remains optional unless the dirty

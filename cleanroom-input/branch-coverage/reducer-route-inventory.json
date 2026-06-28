@@ -182,17 +182,46 @@
             "discover_battle_acts",
             "resolve_battle_subject"
           ],
-          "durableStateOwner": "BattleState owns concentrating source, active Spell Effect instances, and teardown before the next command; no adapter-local concentration ledger is allowed.",
-          "acceptanceCondition": "Target replay evidence proves failed damage save, voluntary end, and replacement Concentration teardown through one durable Concentration owner.",
+          "durableStateOwner": "BattleState owns the concentrating source and active Spell Effect instances; Concentration cleanup routes through BattleConcentrationOwner and BattleActiveEffectOwner, and no adapter-local concentration or active-effect ledger is allowed.",
+          "acceptanceCondition": "Target replay evidence proves failed damage save, voluntary end, and replacement Concentration teardown through durable Concentration and active-effect owners.",
           "derivability": {
             "qntFacts": [
               "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt covers damage-save failure, voluntary end, and replacement Concentration teardown.",
-              "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt exposes qRoute for ConcentrationTeardownRouteSubject through BattleConcentrationOwner.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt exposes qRoute for ConcentrationTeardownRouteSubject through BattleConcentrationOwner and BattleActiveEffectOwner: failed-save and voluntary-end cleanup resolve Concentration before active Spell Effect removal, while replacement resolves the prior cleanup before recording the new active effect and Concentration owner.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration.qnt is the semantic owner for Concentration break facts."
             ],
             "rawDomainFacts": [
               ".references/srd-5.2.1/Rules-Glossary.md#Concentration defines effect end, voluntary end, replacement Concentration, and damage save DC.",
               "UBIQUITOUS_LANGUAGE.md#Spellcasting defines Concentration and Spell Effect terms."
+            ],
+            "blockers": []
+          }
+        },
+        {
+          "order": 6,
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt",
+          "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
+          "route": "reducer-routed",
+          "subjectFamily": "scalar-buff active Spell Effect profile projection",
+          "requiredReducerEntrypoints": [
+            "start_battle",
+            "discover_battle_acts",
+            "resolve_battle_subject"
+          ],
+          "durableStateOwner": "BattleState owns active Spell Effect instances, Concentration ownership, movement/special-Speed projections, Hit Point maximum changes, Temporary Hit Points, and Armor Class modifiers; scalar profile facts stay source procedure facts rather than target adapter state.",
+          "acceptanceCondition": "Target replay evidence proves Armor Class, Speed, special Speed, Hit Point maximum, and immediate Temporary Hit Point scalar-buff projections through the copied scalar-buff route connector and public reducer/source entrypoints.",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt covers scalar-buff active-effect progression for Armor Class, Speed, special Speed, Hit Point maximum, immediate Temporary Hit Points, and terminal stutter behavior.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt exposes qRoute for ScalarBuffEffectRouteSubject through spell-slot/action-economy, active-effect, movement, Hit Point, Temporary Hit Point, and Concentration owners.",
+              "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-scalar-buff-projection-core.qnt exposes scalarBuffActiveEffectProjections and scalarBuffProfileProjectionDomains for Armor Class, Speed, special Speed, Hit Point maximum, Temporary Hit Points, and condition immunity; this Task 8 replay seed counts only the domains exposed by the copied active-effect route connector.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-bridge-examples.qnt asserts the battle-runtime bridge projection examples without requiring target code to read TypeScript implementation."
+            ],
+            "rawDomainFacts": [
+              ".references/srd-5.2.1/Rules-Glossary.md#Concentration defines active effect duration ownership for concentration spells.",
+              ".references/srd-5.2.1/Rules-Glossary.md#Armor Class and #Speed define the creature statistics affected by scalar-buff projections.",
+              ".references/srd-5.2.1/Playing-the-Game.md#Hit Points and #Temporary Hit Points define Hit Point maximum, current Hit Point, and Temporary Hit Point boundaries.",
+              "UBIQUITOUS_LANGUAGE.md defines Armor Class, Speed, Movement, Hit Points, Temporary Hit Points, Spell Effect, and Concentration."
             ],
             "blockers": []
           }
@@ -272,6 +301,8 @@
           "A component-first target replay is accepted only when the target harness executes the copied qComponentRoute projection and records the dependent route task that consumes the component owner.",
           "Catalog-after-substrate and substrate-first rows are not permission for authored-identity dispatch; replay counts only through the referenced generic connector substrate or remains blocked.",
           "The target replay evidence file must match tasks/TARGET_REPLAY_EVIDENCE.example.json and be keyed to the manifest source SHA, source branch inventory SHA, QNT file hash, branch action, observed mbt::actionTaken, target profile, and stateCheck projection hashes.",
+          "The active reducer-spine diagnostic batch seeds fresh replay tasks for Task 1 Concentration teardown and Task 2 scalar-buff profile projection; target acceptance must prove those facts through public reducer/source entrypoints rather than dirty cleanroom history.",
+          "The package carries task3ResidualSelectedSpellRouteTasks[] forward as source guidance for selected spell residual blockers.",
           "Dirty cleanroom implementation ledgers, reports, adapters, and target code are not acceptance evidence for this package."
         ],
         "routeClassEvidence": [
@@ -510,10 +541,10 @@
           "derivability": {
             "qntFacts": [
               "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt is present in source-branch-inventory.json with 5 branch obligation(s).",
-              "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt records ConcentrationTeardownRouteSubject evidence through BattleConcentrationOwner."
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt records ConcentrationTeardownRouteSubject evidence through BattleConcentrationOwner and BattleActiveEffectOwner for failed-save, voluntary-end, and replacement cleanup."
             ],
             "rawDomainFacts": [
-              "Local SRD Concentration rules and UBIQUITOUS_LANGUAGE.md Spell Effect terms define BattleState-owned concentration source, active effects, and teardown state."
+              "Local SRD Concentration rules and UBIQUITOUS_LANGUAGE.md Spell Effect terms define BattleState-owned concentration source, active Spell Effect instances, and teardown state."
             ],
             "blockers": []
           }
@@ -1212,6 +1243,10 @@
           "derivability": {
             "qntFacts": [
               "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt is present in source-branch-inventory.json with 6 branch obligation(s).",
+              "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-scalar-buff-projection-core.qnt exposes scalarBuffActiveEffectProjections, deriving persistent active-effect projections and immediate Temporary Hit Point projections from profile, slot level, spellcasting ability modifier, and rolled dice.",
+              "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-scalar-buff-projection-core.qnt maps scalar-buff projections to generic domains with scalarBuffProjectionDomain and scalarBuffProfileProjectionDomains; this active driver routes Armor Class, Speed, special Speed, Hit Point maximum, and Temporary Hit Point domains, while condition immunity remains with the selected-spell residual blocker until a generic active-effect substrate exists.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-bridge-examples.qnt asserts the generic scalar-buff profile projection functions at the battle-runtime bridge, including False Life as an immediate Temporary Hit Point projection and Aid as a Hit Point maximum projection.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.mbt.qnt supplies representative active-effect branch witnesses; the Shield of Faith -> Longstrider -> Spider Climb -> Aid -> False Life order is branch-witness progression, not an accumulating multi-spell battle ledger.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt exposes qRoute for ScalarBuffEffectRouteSubject through spell-slot/action-economy, active-effect, movement, HP, temporary-HP, and Concentration owners."
             ],
             "rawDomainFacts": [
@@ -3690,13 +3725,149 @@
         "UBIQUITOUS_LANGUAGE.md",
         "ASSUMPTIONS.md"
       ],
+      "task3ResidualSelectedSpellRouteTasks": [
+        {
+          "taskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION",
+          "subjectFamily": "attack-hit active Spell Effect that prevents later Hit Point regain",
+          "blockedDrivers": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt"
+          ],
+          "requiredRouteInput": "Add a generic active-effect route subject whose fills derive the attack-hit damage result, target, duration boundary, and later healing-interdiction projection from typed procedure facts rather than selected spell identity.",
+          "existingSourceEvidence": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.route.mbt.qnt already covers the spell Attack Roll and damage frontier.",
+            "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-damage-projection-core.qnt already names hit-point-regain prevention as an attack-hit projection fact."
+          ],
+          "rawDomainFacts": [
+            ".references/srd-5.2.1/Playing-the-Game.md#Healing defines Hit Point regain and maximum capping.",
+            ".references/srd-5.2.1/Playing-the-Game.md#Making an Attack allows attacks to cause special effects in addition to damage.",
+            "UBIQUITOUS_LANGUAGE.md defines Hit Points, Spell Effect, Attack Roll, and Action Lifecycle."
+          ],
+          "acceptanceGate": "Target replay may count the residual branch only after copied route evidence shows battle-owned active-effect admission, later healing prevention, and cleanup without selected spell identity dispatch."
+        },
+        {
+          "taskId": "FCSF-03B-NEXT-ATTACK-ROLL-MODE",
+          "subjectFamily": "active Spell Effect that changes the next Attack Roll mode",
+          "blockedDrivers": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
+          ],
+          "requiredRouteInput": "Add a generic next-Attack-Roll roll-mode route subject with typed source, beneficiary, affected target, expiration boundary, and Advantage or Disadvantage mode facts.",
+          "existingSourceEvidence": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt proves generic roll-modifier active-effect routing for other roll families.",
+            "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-damage-projection-core.qnt already distinguishes next-attack Advantage and Disadvantage projection facts."
+          ],
+          "rawDomainFacts": [
+            ".references/srd-5.2.1/Playing-the-Game.md#Advantage/Disadvantage defines roll modes.",
+            ".references/srd-5.2.1/Playing-the-Game.md#Making an Attack defines Attack Roll modifier application.",
+            "UBIQUITOUS_LANGUAGE.md defines Attack Roll, Advantage, Disadvantage, Spell Effect, and Condition vocabulary."
+          ],
+          "acceptanceGate": "Target replay may count residual next-Attack-Roll branches only after route evidence consumes the active effect through shared roll-mode projection and expiration owners."
+        },
+        {
+          "taskId": "FCSF-03C-OPPORTUNITY-ATTACK-DENIAL",
+          "subjectFamily": "attack-hit active Spell Effect that denies Opportunity Attacks or otherwise gates reaction availability",
+          "blockedDrivers": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt"
+          ],
+          "requiredRouteInput": "Add a generic reaction-interdiction route subject that records the attack-hit source, affected target, denied Opportunity Attack trigger family, and duration boundary as battle-owned effect facts.",
+          "existingSourceEvidence": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.route.mbt.qnt covers the attack-hit frontier.",
+            "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-damage-projection-core.qnt names Opportunity Attack denial as an attack-hit projection."
+          ],
+          "rawDomainFacts": [
+            ".references/srd-5.2.1/Playing-the-Game.md#Opportunity Attacks and .references/srd-5.2.1/Rules-Glossary.md#Opportunity Attacks define the reaction trigger.",
+            ".references/srd-5.2.1/Rules-Glossary.md#Reaction defines reaction availability.",
+            "UBIQUITOUS_LANGUAGE.md defines Opportunity Attack, Reaction, Spell Effect, and Attack Roll."
+          ],
+          "acceptanceGate": "Target replay may count the residual branch only after observed route events show Opportunity Attack denial projected from active-effect state into movement/reaction discovery."
+        },
+        {
+          "taskId": "FCSF-03D-CONDITION-AND-POISON-RIDERS",
+          "subjectFamily": "post-damage or failed-save condition rider active effects",
+          "blockedDrivers": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt"
+          ],
+          "requiredRouteInput": "Add or identify generic condition-rider route subjects that carry host outcome, condition kind, immunity check, duration or repeat-save boundary, and cleanup owner facts.",
+          "existingSourceEvidence": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt covers condition choice and Saving Throw frontiers.",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-direct-condition-lifecycle.mbt.qnt and packages/battle-runtime/battle-runtime-direct-condition-lifecycle.qnt already model direct condition lifecycle behavior."
+          ],
+          "rawDomainFacts": [
+            ".references/srd-5.2.1/Rules-Glossary.md condition entries define condition consequences, including Poisoned.",
+            ".references/srd-5.2.1/Playing-the-Game.md#Making an Attack allows special effects in addition to damage.",
+            "UBIQUITOUS_LANGUAGE.md defines Rider, Condition, Poisoned, Saving Throw, and Spell Effect."
+          ],
+          "acceptanceGate": "Target replay may count residual condition or poison branches only after generic route evidence owns condition application, immunity rejection, and cleanup without selected spell identity dispatch."
+        },
+        {
+          "taskId": "FCSF-03E-OBJECT-AND-LIGHT-RIDERS",
+          "subjectFamily": "object target, object-attached light emitter, held-light, movable-light, and illumination projection routes",
+          "blockedDrivers": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
+          ],
+          "requiredRouteInput": "Add generic object/light route subjects for object admission, object-attached or held emitter state, replacement cleanup, hurl cleanup, Bright/Dim Light projection, and table-owned cover or geometry witnesses.",
+          "existingSourceEvidence": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt covers object-target spell Attack Roll routing.",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-light.qnt and docs/adr/0004-light-obscurement-sight-source-facts-and-witnesses.md describe light emitter, obscurement, and sight ownership boundaries."
+          ],
+          "rawDomainFacts": [
+            ".references/srd-5.2.1/Playing-the-Game.md#Interacting with Objects and #What Is an Object define object handling.",
+            ".references/srd-5.2.1/Playing-the-Game.md#Light and .references/srd-5.2.1/Rules-Glossary.md#Bright Light define illumination effects.",
+            ".references/srd-5.2.1/Rules-Glossary.md#Breaking Objects defines object Armor Class, Hit Points, Immunity, and threshold facts.",
+            "UBIQUITOUS_LANGUAGE.md defines Illumination, Obscurement, and Spell Effect; docs/adr/0004-light-obscurement-sight-source-facts-and-witnesses.md documents light source, obscuring source, and sight witness ownership."
+          ],
+          "acceptanceGate": "Target replay may count object/light residual branches only after copied route evidence separates battle-owned emitter/effect facts from table-owned geometry, color, and presentation facts."
+        },
+        {
+          "taskId": "FCSF-03F-MIXED-TARGET-OUTCOMES",
+          "subjectFamily": "single invocation that combines attack-hit, miss, saving-throw, object, and multi-target outcomes",
+          "blockedDrivers": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+          ],
+          "requiredRouteInput": "Add a generic mixed-outcome route subject that makes each target's attack or Saving Throw outcome explicit and routes shared resource spend, per-target damage, and secondary target projections through one invocation owner.",
+          "existingSourceEvidence": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-attack-ordering.route.mbt.qnt covers the attack branch frontier.",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt covers the Saving Throw branch frontier.",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-chained-attack-sequence.route.mbt.qnt covers multi-step spell attack sequencing for a separate route family."
+          ],
+          "rawDomainFacts": [
+            ".references/srd-5.2.1/Spells/Gaining-and-Casting.md#Targets, #Attack Rolls, and #Saving Throws define mixed spell frontier facts.",
+            ".references/srd-5.2.1/Playing-the-Game.md#Damage against Multiple Targets defines one damage roll shared across simultaneous multi-target damage.",
+            "UBIQUITOUS_LANGUAGE.md defines Spell Invocation, Attack Roll, Saving Throw, Damage, and Action Lifecycle."
+          ],
+          "acceptanceGate": "Target replay may count mixed-outcome residual branches only after route evidence prevents adapter-local coupling between target order, outcome order, and damage projection."
+        },
+        {
+          "taskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS",
+          "subjectFamily": "exact spell damage projection facts for direct, attack, save-gated, and mixed outcomes",
+          "blockedDrivers": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+          ],
+          "requiredRouteInput": "Promote exact damage amount, damage type, instance count, dice count, critical doubling, success policy, and target damage-application facts into route or component connector evidence consumed by the selected residual routes.",
+          "existingSourceEvidence": [
+            "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-damage-projection-core.qnt already models exact direct, attack, and save damage projection facts.",
+            "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-attack-damage-projection-core.qnt already maps attack damage profiles to damage types, hit effects, and object-target support."
+          ],
+          "rawDomainFacts": [
+            ".references/srd-5.2.1/Playing-the-Game.md#Damage Rolls defines spell damage dice and modifier rules.",
+            ".references/srd-5.2.1/Playing-the-Game.md#Saving Throws and Damage defines successful-save damage policy.",
+            ".references/srd-5.2.1/Playing-the-Game.md#Critical Hits defines attack critical damage dice behavior.",
+            "UBIQUITOUS_LANGUAGE.md defines Damage, Damage Type, Critical Hit, Attack Roll, and Saving Throw."
+          ],
+          "acceptanceGate": "Target replay may count exact-damage residual branches only after copied connector evidence makes the exact projection facts public enough that a fresh target need not infer them from TypeScript or selected spell identity."
+        }
+      ],
       "task7FollowUpTasks": [
         {
           "taskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
           "subjectFamily": "selected spell invocation, active-effect, protection/charm, object, reaction, spatial, and spell-shape route substrates",
           "requiredSourceWork": [
             "Task 23 records connector-backed generic substrate evidence and precise source-QNT blockers on the selected spell identity driverRouteAssignments.",
-            "Use the remaining source-qnt-corpus-blocker records for follow-on source work; do not infer target replay from selected spell identity."
+            "FCSF-03 splits the remaining selected-spell residual blockers into task3ResidualSelectedSpellRouteTasks; use those route-input tasks for future source work and do not infer target replay from selected spell identity."
           ]
         },
         {

@@ -12,6 +12,15 @@ cd /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00
 python3 tools/verify_current_fresh_target.py
 ```
 
+Current dirty package refresh:
+
+- source package: `a6cff970d4aa58d0d695e5388c64832d20e7fbb1`
+- branch: `ralph/fcsf-package-refresh`
+- boundary: package/state reconciliation only; this refresh does not claim
+  fresh target acceptance or new Rust runtime coverage.
+- packaged source-feedback items: Task 3 residual selected-spell route-task
+  queue and Task 8 active reducer diagnostic seed.
+
 ## Purpose
 
 FEXP-00 through FEXP-07 proved that the copied package can drive a fresh target
@@ -30,6 +39,20 @@ Source blockers:
 
 - `FEXP-02-attack-spell-shape-selected-identity-effects-outside-generic-substrate`
 - `FEXP-02-level1-damage-spell-selected-identity-effects-outside-generic-substrate`
+
+Packaged source input:
+
+- Source-feedback Task 3 is now carried in
+  `cleanroom-input/branch-coverage/reducer-route-inventory.json` as
+  `task3ResidualSelectedSpellRouteTasks[]`.
+- Those records are the future source route-task queue for Hit Point regain
+  prevention, next-Attack-Roll mode, Opportunity Attack denial, condition and
+  poison riders, object/light riders, mixed target outcomes, and exact damage
+  projection facts.
+- They are not target replay acceptance. Each residual branch still needs
+  copied generic route or component connector evidence before a target may
+  count it, and production runtime code must not dispatch on selected spell
+  identity.
 
 Needed source input:
 
@@ -96,6 +119,20 @@ Resolved source input:
   exposes generic scalar-buff active-effect projections and projection domains
   through copied QNT, and the fresh target verifies the scalar profile sequence
   through public reducer route observations without authored identity dispatch.
+
+Packaged source input:
+
+- Source-feedback Task 8 is now packaged in source
+  `a6cff970d4aa58d0d695e5388c64832d20e7fbb1` as a six-driver active
+  reducer-spine diagnostic seed. The active batch includes Concentration
+  teardown and scalar-buff active-effect profile projection replay work, and
+  `cleanroom-input/guidance/reducer-spine.md` requires future target evidence
+  to prove those facts through public reducer/source entrypoints rather than
+  dirty cleanroom history.
+- Condition-immunity appears in the scalar-buff rule-core vocabulary, but it is
+  still not accepted as scalar-buff route replay evidence. It remains with the
+  selected-spell residual blocker until a generic condition-immunity plus
+  turn-start Temporary Hit Point active-effect substrate exists.
 
 ### Reaction And Interrupt Payload Taxonomy
 

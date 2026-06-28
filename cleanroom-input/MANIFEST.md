@@ -5,8 +5,8 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: 0c2ba34c5a45f18b73dfe590e0e86419ba377375
-- Copy date: 2026-06-28T01:11:09.106Z
+- Source commit SHA: a6cff970d4aa58d0d695e5388c64832d20e7fbb1
+- Copy date: 2026-06-28T05:05:21.324Z
 - Files: 516
 
 Cleanroom tasks must declare which source commit SHA they implement
@@ -96,9 +96,9 @@ instead of guessing.
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
 | `branch-coverage/source-branch-inventory.json` | `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
-| `branch-coverage/reducer-route-inventory.json` | `184b092c0cf33051720ac4bc1cff1475c6c780ad3b7d179e44a7ff3ab43d76be` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
+| `branch-coverage/reducer-route-inventory.json` | `0cb1518639c303adafc4a161fb6fd0c1894984e8c3b915182b161b36ce2ea622` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
 | `guidance/README.md` | `d62a834399e1469186bc931f2d27bdf696b9a67c9c9e21c15982ee722ed5384b` | `plans/cleanroom-guidance/README.md` |
-| `guidance/reducer-spine.md` | `25467c22bb8df808f1bcc15b147d49e40dc4c6eab41953f1a93df922d8d41c00` | `plans/cleanroom-guidance/reducer-spine.md` |
+| `guidance/reducer-spine.md` | `3d1640f15f2982c9b3fe81cdf0a21df04476b0e224b5e4732027927485b362f2` | `plans/cleanroom-guidance/reducer-spine.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` | `03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` | `4ff801da12cf24964a55457b3146b6ad23d790bb1b7a5b264d4ee7001b9be5e8` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` |
@@ -139,7 +139,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-command-ordering.qnt` | `f22591a725fed47567baa413403184a7c4ea5a1cd986dcd51b8ef83276123269` | `packages/battle-runtime/battle-runtime-command-ordering.qnt` |
 | `qnt/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt` | `8dbb450010976aa97502897101b6032830e9ba7b7a91e5b4ae1bbec483fe336b` | `packages/battle-runtime/battle-runtime-command-ordering.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt` | `23ec0b1e6ab09e2577fdb70a112ebc4040692beaf3e7fa3d3518951278a37adb` | `packages/battle-runtime/battle-runtime-concentration-break-teardown.mbt.qnt` |
-| `qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt` | `a5c1fde8643dca5851c4777746e8fd3553af21cb27ac02e0933e763236892553` | `packages/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt` | `d298d362943107ed0f5ee3efb8db6084b7a985c24b85483d4d4da3ebcdf4f200` | `packages/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-concentration.qnt` | `5137dfae014fa3e80ff0cf1befde20b10270d70b3ec9de0c543386cbb3a9ff97` | `packages/battle-runtime/battle-runtime-concentration.qnt` |
 | `qnt/battle-runtime/battle-runtime-condition-removal-protection-selected-identity.mbt.qnt` | `5f3d05208d12d81e9c3764b7cc88b6c023f3fd9ef8b27c6cb95c83e3bd730888` | `packages/battle-runtime/battle-runtime-condition-removal-protection-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt` | `eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7` | `packages/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt` |
@@ -349,8 +349,8 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-spell-attack-tests.qnt` | `7bf6ed4c7b2de7923c4c9cc667af12f6a9c93c868718e4b0d8f7e40bb4f0af85` | `packages/battle-runtime/battle-runtime-spell-attack-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-attack.qnt` | `96d01cd512ec37eb9993c324c73c8cf418a1b9caf4c3dc064a6e6f7a79af457d` | `packages/battle-runtime/battle-runtime-spell-attack.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt` | `9e84c94cb89313d8a788ca1163aa86bd1b727c72a1175044e1aeb2951ccda060` | `packages/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt` |
-| `qnt/battle-runtime/battle-runtime-spell-bridge-examples.qnt` | `4ca06ff6ec75c462170d3d82a5cbf45e1b7b80150d47dccca56e4e6ffe8caa0a` | `packages/battle-runtime/battle-runtime-spell-bridge-examples.qnt` |
-| `qnt/battle-runtime/battle-runtime-spell-bridge.qnt` | `d6b9a5e84a01bc5d46074a681a3f40cf7973f8c09ce00c464853a62966b9b00f` | `packages/battle-runtime/battle-runtime-spell-bridge.qnt` |
+| `qnt/battle-runtime/battle-runtime-spell-bridge-examples.qnt` | `da7a5b9683812a95534af0c2031474ff795f91783bb92451589a1928c39ba328` | `packages/battle-runtime/battle-runtime-spell-bridge-examples.qnt` |
+| `qnt/battle-runtime/battle-runtime-spell-bridge.qnt` | `3f39366566601e8dc1bf6124365b6104b4c10f0fe15bb7da3da9b9ba7b519c59` | `packages/battle-runtime/battle-runtime-spell-bridge.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-created-held-object-lifecycle.mbt.qnt` | `658d72dbf958861e770316b6e391423c020bf0a03cf30f41edbc1006007609d8` | `packages/battle-runtime/battle-runtime-spell-created-held-object-lifecycle.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-damage-reduction.route.mbt.qnt` | `1b4d063136159781040c1adc7ba3c2f28a3948e81db5dd3b8a3765aad8f7751c` | `packages/battle-runtime/battle-runtime-spell-damage-reduction.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-facts-tests.qnt` | `42435957216c39cd085c2b88c468fbf3d1fd9e9107996d6526dbd8f5477c30c4` | `packages/battle-runtime/battle-runtime-spell-facts-tests.qnt` |
@@ -527,7 +527,7 @@ instead of guessing.
 | `qnt/shared-algebras/proofs/rule-core/spell-save-condition-projection-core.qnt` | `018c96b324bcb69114405efa44ce0bf86a1af57272ec62a8069b92688d1a5c40` | `packages/shared-algebras/proofs/rule-core/spell-save-condition-projection-core.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/spell-save-damage-projection-core.qnt` | `2d086ad81871ec0c68e299003a72880298cd238129ea835ea58588be16fb7c68` | `packages/shared-algebras/proofs/rule-core/spell-save-damage-projection-core.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/spell-save-gate.qnt` | `d8a6a2c1110c922d5396fb7e4d7073687e8d3ab3f0d9d4330cbf9b5b1b06a73f` | `packages/shared-algebras/proofs/rule-core/spell-save-gate.qnt` |
-| `qnt/shared-algebras/proofs/rule-core/spell-scalar-buff-projection-core.qnt` | `0cb6938912fccc88334e866fb9911fd13d7a0ba3b5741588014f1c73b1f87fa2` | `packages/shared-algebras/proofs/rule-core/spell-scalar-buff-projection-core.qnt` |
+| `qnt/shared-algebras/proofs/rule-core/spell-scalar-buff-projection-core.qnt` | `bd8aaec67722ba50f34ede675b270f3c64a411b3150293bf39649fe8eb1a9719` | `packages/shared-algebras/proofs/rule-core/spell-scalar-buff-projection-core.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/spell-sleep-repeat-save-lifecycle-core.qnt` | `13903b68774bf12e075d93eccd79755fac2aa7f36cfd0eeef2670613148e9956` | `packages/shared-algebras/proofs/rule-core/spell-sleep-repeat-save-lifecycle-core.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/spell-slot-expenditure.qnt` | `e4640f12c7bf3b95910ffb75fe4660d7497c044a7c859a529d6215334e0b3290` | `packages/shared-algebras/proofs/rule-core/spell-slot-expenditure.qnt` |
 | `qnt/shared-algebras/proofs/rule-core/spell-slot-table.qnt` | `875d1689e0eec0d7ee038d198020601cb98850e5826708934a137d8ef51d8d56` | `packages/shared-algebras/proofs/rule-core/spell-slot-table.qnt` |
@@ -575,5 +575,5 @@ instead of guessing.
 
 | File | sha256 |
 | --- | --- |
-| `scripts/check-cleanroom-harness.cjs` | `0ed7656ef183599a8f54c604219ad34e51a0addb757d4be34deb694938db82f1` |
-| `scripts/cleanroom-branch-coverage-check.cjs` | `5b7f4913a2c6455c556e13a276107337219804698ffd087c64d536cf66c6e06c` |
+| `scripts/check-cleanroom-harness.cjs` | `bf3a3120ef5bb10b0a11093bb3bbe8d911199f720cc4cba050d4080e78ba5130` |
+| `scripts/cleanroom-branch-coverage-check.cjs` | `f96e26aac6fc7679c1801e3a048ba1426eb301a2aab91cf3cd284063ce62be0c` |

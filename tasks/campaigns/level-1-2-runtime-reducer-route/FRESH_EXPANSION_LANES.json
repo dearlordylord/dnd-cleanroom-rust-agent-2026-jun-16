@@ -5,6 +5,9 @@
   "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
   "currentVerifier": "python3 tools/verify_current_fresh_target.py",
   "sourcePackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
+  "acceptedFreshTargetPackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
+  "latestDirtyPackageRefreshCommit": "a6cff970d4aa58d0d695e5388c64832d20e7fbb1",
+  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue and Task 8 six-driver active reducer diagnostic seed are packaged in cleanroom-input; no fresh target acceptance or new Rust runtime coverage is claimed from this dirty refresh.",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,

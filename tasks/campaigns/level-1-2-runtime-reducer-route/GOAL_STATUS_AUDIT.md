@@ -11,6 +11,9 @@ Audit baseline:
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - accepted fresh target head: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - current fresh gate: `python3 tools/verify_current_fresh_target.py`
+- latest dirty package refresh: source
+  `a6cff970d4aa58d0d695e5388c64832d20e7fbb1` on branch
+  `ralph/fcsf-package-refresh`
 
 ## Objective
 
@@ -39,7 +42,7 @@ fresh cleanroom and which review checks prevent false positives.
 | FEXP-05 reaction/interrupt lane is accepted with blockers in the fresh target. | Fresh target head `eb05e8495eac993b69e17f68544edace6e56caee` includes `EVIDENCE/fexp05-reaction-interrupt-and-boundary.json`, `examples/fexp05_route_observations.rs`, and `tools/verify_fexp05.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for generic reaction casting-time interrupt/resume, after-damage reaction, nested interrupt resume, active-effect resume, and recorded procedure replay route surfaces through public reducer entrypoints. | Selected reaction spell projections and interrupt trigger taxonomy remain source-input blockers. |
 | FEXP-06 character/sheet/handoff lane is accepted with blockers in the fresh target. | Fresh target head `0d5200e43fd7e9f094a93585f00eaf6bd2266c75` includes `EVIDENCE/fexp06-character-creation-sheet-handoff-pack.json`, `examples/fexp06_route_observations.rs`, and `tools/verify_fexp06.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for character creation finalization, sheet hit-point route projection, short-rest Pact-slot completion, and happy-path battle settlement route surfaces through public character/sheet/handoff entrypoints. | Partial/rejection/resource/conflict branches remain source-input blockers. |
 | FEXP-07 feature/species/metamagic lane is accepted with blockers in the fresh target. | Fresh target head `a77a41dc752326eab69d8110de78928b9dcb9691` includes `EVIDENCE/fexp07-feature-species-metamagic-substrates.json`, `examples/fexp07_route_observations.rs`, and `tools/verify_fexp07.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces through public reducer entrypoints. | Selected/grouped identity witnesses and residual species/metamagic/feature branches remain source-input blockers; the earlier exact metamagic driver note was corrected as a campaign manifest naming error. |
-| Post-FC06 and post-FEXP04 source feedback was resolved and replayed. | `FC06_SOURCE_FEEDBACK.md` records encounter composition and Pact Slot route-surface resolution; fresh target head `05280a8e2d6e9705411c114c80ae2a4e4290de2c` includes the accepted Pact Slot replay, SDK tracer, FEXP-04 exact roll-choice replay, FEXP-04 Ability Check/Search replay, FEXP-04 Concentration cleanup replay, FEXP-04 scalar profile replay, FEXP-06 current-package verifier, and explicit historical classification for stale older FC/FEXP snapshots. | Proven for the two recorded FC-06 feedback items, exact roll-choice payload feedback, Ability Check/Search public observability feedback, Concentration cleanup source feedback `FCSF-01`, and scalar profile source feedback `FCSF-02`. | Older FC/FEXP verifier artifacts that were not refreshed against source `ee4894fa71e9307b9251639f0b54577ff764c63f` are historical snapshots, not current-package gates. |
+| Post-FC06 and post-FEXP04 source feedback was resolved and replayed. | `FC06_SOURCE_FEEDBACK.md` records encounter composition and Pact Slot route-surface resolution; fresh target head `05280a8e2d6e9705411c114c80ae2a4e4290de2c` includes the accepted Pact Slot replay, SDK tracer, FEXP-04 exact roll-choice replay, FEXP-04 Ability Check/Search replay, FEXP-04 Concentration cleanup replay, FEXP-04 scalar profile replay, FEXP-06 current-package verifier, and explicit historical classification for stale older FC/FEXP snapshots. Dirty package refresh `a6cff970d4aa58d0d695e5388c64832d20e7fbb1` packages source-feedback Task 3 residual selected-spell route tasks and Task 8 active reducer diagnostic seed. | Proven for the two recorded FC-06 feedback items, exact roll-choice payload feedback, Ability Check/Search public observability feedback, Concentration cleanup source feedback `FCSF-01`, and scalar profile source feedback `FCSF-02`; packaged, not fresh-accepted, for source-feedback Tasks 3 and 8. | Older FC/FEXP verifier artifacts that were not refreshed against source `ee4894fa71e9307b9251639f0b54577ff764c63f` are historical snapshots, not current-package gates. The `a6cff970` refresh does not claim new fresh target acceptance, new Rust runtime coverage, or condition-immunity scalar-buff route replay acceptance. |
 | Production runtime semantics avoid authored identity dispatch. | Dirty campaign review artifacts and fresh verifier check production source for selected identity terms; accepted docs state identity remains in adapter/test/evidence boundaries. | Proven for sampled/accepted target scopes. | A future full fresh run still needs the same static and review gates across its whole production surface. |
 | Focused QNT slices are sufficient to guide a full independent runtime. | Dirty campaign plus fresh dry run prove multiple focused slices, route connectors, source feedback loops, and SDK tracer surfaces. | Not fully proven. | Current evidence is strong but partial: it proves a successful dry run and diagnostic dirty coverage, not a complete fresh runtime campaign from only the package. |
 | The final architecture is complete and ready to mark the thread goal achieved. | No artifact currently proves full fresh-cleanroom generation or complete runtime coverage independent of dirty scaffolding. | Not achieved. | Keep the goal active. The next proof step should be a larger fresh-cleanroom campaign or source-side guidance/QNT promotion based on this audit. |
@@ -70,6 +73,13 @@ This gate validates:
 - FC-03/FC-04/FC-05/FC-07 and FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07
   historical snapshot classification after the source package refresh.
 
+The later dirty package refresh at
+`a6cff970d4aa58d0d695e5388c64832d20e7fbb1` is not part of that accepted fresh
+gate yet. It records that source-feedback Task 3 residual selected-spell
+route-task records and the Task 8 six-driver active reducer diagnostic seed are
+available in `cleanroom-input/**`; future fresh acceptance still has to replay
+those package facts through public reducer/source entrypoints.
+
 Dirty campaign state:
 
 ```sh
@@ -80,7 +90,7 @@ jq '.status, .coverageCurrent, .freshCleanroomDryRun.status' \
 
 Expected state:
 
-- `fresh-current-verifier-accepted-source-feedback-resolved`
+- `dirty-fcsf-package-refresh-reconciled`
 - `659 / 659` refreshed in-scope dirty obligations accepted
 - `accepted-through-current-verifier`
 
@@ -131,6 +141,12 @@ The current evidence proves:
   source feedback `FCSF-02` landed at source commit
   `ee4894fa71e9307b9251639f0b54577ff764c63f` and is accepted in the fresh
   target by commit `05280a8e2d6e9705411c114c80ae2a4e4290de2c`;
+- source-feedback Task 3 and Task 8 are packaged in the dirty cleanroom input
+  at source commit `a6cff970d4aa58d0d695e5388c64832d20e7fbb1`, with Task 3
+  carrying residual selected-spell route tasks forward and Task 8 seeding the
+  six-driver active reducer diagnostic batch. This package refresh does not
+  add fresh target acceptance, Rust runtime coverage, or condition-immunity
+  scalar-buff route replay acceptance;
 - FEXP-05 independently accepted reaction/interrupt substrate evidence with
   explicit blockers for residual selected reaction spell and interrupt-trigger
   source-input gaps;

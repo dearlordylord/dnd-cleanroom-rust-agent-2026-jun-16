@@ -81,6 +81,29 @@ connector, including those fact-family sets, while production state owns the
 corresponding participant, Encounter Side, subject-profile, Initiative, and
 current-actor facts. Matching marker order or the focused non-route projection
 alone proves behavior parity, not reducer architecture.
+
+The Concentration teardown connector is the public source for active-effect
+cleanup caused by losing Concentration. Failed damage saves, voluntary
+Concentration end, and replacement Concentration effects use
+`ConcentrationTeardownRouteSubject` route events owned by
+`BattleConcentrationOwner` and `BattleActiveEffectOwner`; targets must derive
+cleanup from those route events and BattleState-owned Concentration/active
+Spell Effect state, not from spell names, fixture labels, QNT branch names, or
+driver-local active-effect ledgers.
+
+The scalar-buff active-effect connector is the public source for scalar profile
+projection through battle-owned active effects. Armor Class, Speed, special
+Speed, Hit Point maximum, and immediate Temporary Hit Points come from the
+copied scalar-buff profile source functions and the
+`ScalarBuffEffectRouteSubject` route, then flow through reducer-owned
+active-effect, movement, Hit Point, Temporary Hit Point, and Concentration
+owners. Condition-immunity scalar-buff projection exists in rule-core
+vocabulary, but it is not exposed by this active replay route and remains with
+the selected-spell residual blocker that calls for a generic condition-immunity
+plus turn-start Temporary Hit Point active-effect substrate. A target must not
+recreate those projection domains in an adapter table or infer them from
+selected spell names.
+
 The reducer-route inventory is an ordering and derivability index. A
 `reducer-routed` row is accepted only with copied connector evidence from
 `routeConnectorPath` or the sibling `.route.mbt.qnt` driver.
@@ -158,6 +181,25 @@ runtime substrate the QNT actually needs: support-profile facts, spell procedure
 shape, battle subject kind, resource owner, or cross-record reference. Implement
 that substrate before admitting catalog selection.
 
+The residual selected-spell source blockers are split in
+`cleanroom-input/branch-coverage/reducer-route-inventory.json` as
+`task3ResidualSelectedSpellRouteTasks[]`. Treat those records as the task queue
+for the remaining selected-spell branches:
+
+- Hit Point regain prevention.
+- next-Attack-Roll roll mode.
+- Opportunity Attack denial or reaction interdiction.
+- condition and poison riders.
+- object and light riders.
+- mixed target outcomes.
+- exact damage projection facts.
+
+Each category needs copied generic route or component connector evidence before
+a target replay can count the selected-identity branch. If the copied package
+has a selected driver branch but lacks the listed generic evidence, record a
+source-QNT-corpus blocker instead of routing production behavior by authored
+spell identity, branch action name, or fixture label.
+
 ## Anti-Explosion Rule
 
 Each cleanroom task may add one small subject family or one substrate. It must
@@ -169,6 +211,10 @@ For reducer-spine diagnostics, use
 `cleanroom-input/branch-coverage/reducer-route-inventory.json`:
 
 - The active diagnostic batch is the intended order.
+- The Task 8 replay seed is part of that active batch: replay Concentration
+  teardown and scalar-buff active-effect profile projection through public
+  reducer/source entrypoints before treating dirty-cleanroom evidence as
+  historical.
 - The `level-1-5-cleanroom-route-v1.freshCleanroomPackageGate` record is the
   fresh package acceptance slice. It names the copied inputs, route-class
   evidence forms, and target replay evidence requirements.
