@@ -1,0 +1,45 @@
+{
+  "laneId": "SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+  "reducerRouteInventorySha256": "ecffe9ae1358784ff5add9ff35a2a3c351f69431798c7da830bf662a984275c0",
+  "rounds": [
+    {
+      "checks": [
+        "raw-qnt-traceability",
+        "ubiquitous-language-domain",
+        "architecture-connascence",
+        "code-shape-depth",
+        "adapter-quarantine",
+        "state-owner-derivability",
+        "authored-identity-dispatch",
+        "report-honesty"
+      ],
+      "findings": [
+        {
+          "id": "sqnt07b-route-entrypoint-gap",
+          "resolution": "Added generic BattleSubjectKind route subjects/fills and moved species passive observed route replay through discover_generic_route_subject_observed and resolve_battle_subject_observed."
+        }
+      ],
+      "round": 1,
+      "status": "completed"
+    },
+    {
+      "checks": [
+        "raw-qnt-traceability",
+        "ubiquitous-language-domain",
+        "architecture-connascence",
+        "code-review"
+      ],
+      "convergence": "no reasonable findings remain before final verification",
+      "findings": [],
+      "rejectedFindings": [],
+      "round": 2,
+      "status": "completed"
+    }
+  ],
+  "schemaVersion": 1,
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+  "sourcePackageSha": "21504ef764118f5fd13086aa6266f19280196664",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "taskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES"
+}

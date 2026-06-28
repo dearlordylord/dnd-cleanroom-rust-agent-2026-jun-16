@@ -1,0 +1,73 @@
+{
+  "durableFields": [],
+  "laneId": "SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+  "nonDurableBoundaryApiSurface": [
+    {
+      "apiPath": "BattleSubjectKind::CreatureStatProjection",
+      "boundary": "generic creature stat projection route subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind::CreatureStatMovementResourceProjection",
+      "boundary": "generic creature stat movement-resource projection route subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind::PassiveDamageAdjustment",
+      "boundary": "generic passive damage adjustment route subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind::PassiveSavingThrowRollMode",
+      "boundary": "generic passive saving throw roll-mode route subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind::PassiveAbilityCheckRollMode",
+      "boundary": "generic passive ability-check roll-mode route subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind::CreatureSpaceMovementPermission",
+      "boundary": "generic creature-space movement permission route subject",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleSubjectKind::CreatureSpaceMovementResourceSpend",
+      "boundary": "generic accepted creature-space movement resource projection",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleGenericRouteFill::GrappleOutcome",
+      "boundary": "QNT GrappleOutcomeFillKind route fill",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "BattleGenericRouteFill::Movement { accepted }",
+      "boundary": "typed movement route fill carrying accepted/rejected reducer result",
+      "introducedIn": "src/rules/battle_reducer_spine.rs",
+      "owner": "executable-boundary-projection"
+    },
+    {
+      "apiPath": "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json",
+      "boundary": "target replay evidence",
+      "introducedIn": "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json",
+      "owner": "harness-witness-protocol"
+    }
+  ],
+  "reducerRouteInventorySha256": "ecffe9ae1358784ff5add9ff35a2a3c351f69431798c7da830bf662a984275c0",
+  "schemaVersion": 1,
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+  "sourcePackageSha": "21504ef764118f5fd13086aa6266f19280196664",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "taskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES"
+}

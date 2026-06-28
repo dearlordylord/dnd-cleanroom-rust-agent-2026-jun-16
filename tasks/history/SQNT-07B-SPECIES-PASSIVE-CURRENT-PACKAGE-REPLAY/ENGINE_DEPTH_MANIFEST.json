@@ -1,0 +1,145 @@
+{
+  "accumulatorGrowth": [
+    {
+      "evidenceRefs": [
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doMoveThroughLargerCreatureSpace#step:doMoveThroughLargerCreatureSpace",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doRejectOccupiedStop#step:doRejectOccupiedStop",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doRejectMissingProfile#step:doRejectMissingProfile",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doRejectSameSizeTraversal#step:doRejectSameSizeTraversal",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doDragonbornDamageResistance#step:doDragonbornDamageResistance",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doDwarvenResilience#step:doDwarvenResilience",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doHalflingBrave#step:doHalflingBrave",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doGoliathPowerfulBuild#step:doGoliathPowerfulBuild",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doProjectDangerSenseDexterityAdvantage#step:doProjectDangerSenseDexterityAdvantage",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doSuppressDangerSenseWhileIncapacitated#step:doSuppressDangerSenseWhileIncapacitated",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doBlessAttackAndSaveModifier#step:doBlessAttackAndSaveModifier",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doBaneFailedSavePenalty#step:doBaneFailedSavePenalty",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doGuidanceSkillAbilityCheckModifier#step:doGuidanceSkillAbilityCheckModifier",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doResistanceReducesMatchingDamage#step:doResistanceReducesMatchingDamage",
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doShieldOfFaithArmorClassBonus#step:doShieldOfFaithArmorClassBonus"
+      ],
+      "path": "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json",
+      "reason": "target-replay-evidence",
+      "sha256": "b8ec23e4485e9961c5a6578ce3c5466119b42ed164ebbe3aec70bb379dcaf991"
+    }
+  ],
+  "adapterModules": [
+    {
+      "adapterScope": "Replays selected species passive rows through BattleEntrypointTrace route events from generic route discovery/resolution and compares to independent QNT connector route witnesses.",
+      "path": "src/qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "observedActionTaken",
+        "branchAction",
+        "traceId",
+        "qntFileSha256",
+        "stateCheck"
+      ],
+      "routeConnectorAuthority": {
+        "inventoryKind": "reducer-route-inventory",
+        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt",
+        "sha256": "baf09c389c333ddcfa5123cfa7beb43074e9e34ab84cbd7d1aec5a2c47c71561"
+      },
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json"
+      ]
+    },
+    {
+      "adapterScope": "Reuses the species passive substrate route replay for selected halfling creature-space movement rows.",
+      "path": "src/qnt_adapters/battle_runtime_halfling_nimbleness_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "doMoveThroughLargerCreatureSpace",
+        "doRejectOccupiedStop",
+        "doRejectMissingProfile",
+        "doRejectSameSizeTraversal"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json"
+      ]
+    },
+    {
+      "adapterScope": "Keeps selected identity in adapter evidence while replaying passive saving throw roll-mode and incapacitated suppression facts through observed route events.",
+      "path": "src/qnt_adapters/battle_runtime_danger_sense_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "doProjectDangerSenseDexterityAdvantage",
+        "doSuppressDangerSenseWhileIncapacitated"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json"
+      ]
+    },
+    {
+      "adapterScope": "Keeps selected spell identity in adapter evidence while replaying selected roll modifier buff rows through typed substrate facts and observed route events.",
+      "path": "src/qnt_adapters/battle_runtime_roll_modifier_buff_selected_identity.rs",
+      "quarantinedWitnessNames": [
+        "doBlessAttackAndSaveModifier",
+        "doBaneFailedSavePenalty",
+        "doGuidanceSkillAbilityCheckModifier",
+        "doResistanceReducesMatchingDamage",
+        "doShieldOfFaithArmorClassBonus"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json"
+      ]
+    }
+  ],
+  "completion": {
+    "acceptedRuns": 15,
+    "blockers": [],
+    "pairedTaskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES"
+  },
+  "expectedNextReuse": [
+    {
+      "api": "generic passive species route subject/fill vocabulary",
+      "driver": "future species/passive selected rows needing copied route connector replay without authored identity dispatch",
+      "module": "src/rules/battle_reducer_spine.rs"
+    }
+  ],
+  "laneId": "SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+  "productionModulesExtended": [
+    {
+      "domainApis": [
+        "BattleSubjectKind::CreatureStatProjection",
+        "BattleSubjectKind::CreatureStatMovementResourceProjection",
+        "BattleSubjectKind::PassiveDamageAdjustment",
+        "BattleSubjectKind::PassiveSavingThrowRollMode",
+        "BattleSubjectKind::PassiveAbilityCheckRollMode",
+        "BattleSubjectKind::CreatureSpaceMovementPermission",
+        "BattleSubjectKind::CreatureSpaceMovementResourceSpend",
+        "BattleGenericRouteFill::GrappleOutcome",
+        "BattleGenericRouteFill::Movement { accepted }",
+        "discover_generic_route_subject_observed",
+        "resolve_battle_subject_observed"
+      ],
+      "path": "src/rules/battle_reducer_spine.rs",
+      "reason": "Adds public generic route subjects and fills for copied species passive trait substrate connector events without authored identity dispatch or durable duplicate state.",
+      "role": "domain-engine"
+    },
+    {
+      "domainApis": [
+        "apply_passive_damage_resistance",
+        "passive_save_has_advantage",
+        "passive_ability_check_roll_mode",
+        "creature_space_traversal_allowed"
+      ],
+      "path": "src/rules/species_passive_traits.rs",
+      "reason": "Owns typed passive damage, saving throw, ability-check, and creature-space movement substrate facts used by accepted species passive selected rows.",
+      "role": "rule-facts"
+    },
+    {
+      "domainApis": [
+        "RollModifierBuffSubstrate",
+        "project_roll_modifier_buff_substrate"
+      ],
+      "path": "src/rules/roll_modifier_buff_selected_identity.rs",
+      "reason": "Owns typed roll-modifier buff substrate facts for selected catalog-heavy rows without production spell identity dispatch.",
+      "role": "rule-facts"
+    }
+  ],
+  "reducerRouteInventorySha256": "ecffe9ae1358784ff5add9ff35a2a3c351f69431798c7da830bf662a984275c0",
+  "schemaVersion": 1,
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+  "sourcePackageSha": "21504ef764118f5fd13086aa6266f19280196664",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "taskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES"
+}

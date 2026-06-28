@@ -1,0 +1,30 @@
+{
+  "acceptedEvidenceRefs": [
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doMoveThroughLargerCreatureSpace#step:doMoveThroughLargerCreatureSpace",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doRejectOccupiedStop#step:doRejectOccupiedStop",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doRejectMissingProfile#step:doRejectMissingProfile",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doRejectSameSizeTraversal#step:doRejectSameSizeTraversal",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doDragonbornDamageResistance#step:doDragonbornDamageResistance",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doDwarvenResilience#step:doDwarvenResilience",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doHalflingBrave#step:doHalflingBrave",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doGoliathPowerfulBuild#step:doGoliathPowerfulBuild",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doProjectDangerSenseDexterityAdvantage#step:doProjectDangerSenseDexterityAdvantage",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doSuppressDangerSenseWhileIncapacitated#step:doSuppressDangerSenseWhileIncapacitated",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doBlessAttackAndSaveModifier#step:doBlessAttackAndSaveModifier",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doBaneFailedSavePenalty#step:doBaneFailedSavePenalty",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doGuidanceSkillAbilityCheckModifier#step:doGuidanceSkillAbilityCheckModifier",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doResistanceReducesMatchingDamage#step:doResistanceReducesMatchingDamage",
+    "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json#SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY action=doShieldOfFaithArmorClassBonus#step:doShieldOfFaithArmorClassBonus"
+  ],
+  "blockers": [],
+  "decision": "accepted",
+  "laneId": "SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+  "rationale": "Accepted selected/catalog-heavy species passive, danger sense, halfling nimbleness, and roll-modifier buff rows only through typed passive damage, roll-mode, creature-space movement, creature-stat projection, and roll-modifier substrate facts. Production routing uses generic subject/fill/state shape; selected identity remains adapter/evidence identity only.",
+  "reducerRouteInventorySha256": "ecffe9ae1358784ff5add9ff35a2a3c351f69431798c7da830bf662a984275c0",
+  "schemaVersion": 1,
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+  "sourcePackageSha": "21504ef764118f5fd13086aa6266f19280196664",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "taskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES"
+}

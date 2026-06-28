@@ -1409,6 +1409,13 @@ pub enum BattleSubjectKind {
     ActiveFeatureSpellSaveDc,
     ActiveFeatureSpellAttackRollMode,
     MetamagicOptionSpell,
+    CreatureStatProjection,
+    CreatureStatMovementResourceProjection,
+    PassiveDamageAdjustment,
+    PassiveSavingThrowRollMode,
+    PassiveAbilityCheckRollMode,
+    CreatureSpaceMovementPermission,
+    CreatureSpaceMovementResourceSpend,
     Spatial(BattleSpatialRouteSubject),
     SpellHostedWeaponAttackDamageTypeChoice,
     SpellHostedWeaponAttackTargetChoice,
@@ -1695,8 +1702,10 @@ pub enum BattleGenericRouteFill {
     AttackRoll,
     ConcentrationSavingThrow,
     DamageTypeChoice,
+    GrappleOutcome,
     HitPointHealingDistribution { target: Actor, amount: i16 },
     InterruptDecision,
+    Movement { accepted: bool },
     RolledDice,
     SavingThrowOutcome,
     SanctuaryInterdictionOutcome,
@@ -7936,6 +7945,13 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::RollModifierEffectActiveOneMinuteCount
             | BattleSubjectKind::RollModifierEffectActiveEffectCleanup
             | BattleSubjectKind::RollModifierEffectConcentrationCleanup
+            | BattleSubjectKind::CreatureStatProjection
+            | BattleSubjectKind::CreatureStatMovementResourceProjection
+            | BattleSubjectKind::PassiveDamageAdjustment
+            | BattleSubjectKind::PassiveSavingThrowRollMode
+            | BattleSubjectKind::PassiveAbilityCheckRollMode
+            | BattleSubjectKind::CreatureSpaceMovementPermission
+            | BattleSubjectKind::CreatureSpaceMovementResourceSpend
             | BattleSubjectKind::ScalarBuffEffectActiveEffect
             | BattleSubjectKind::ScalarBuffEffectConcentration
             | BattleSubjectKind::ScalarBuffEffectSpeedDelta
@@ -8178,17 +8194,18 @@ fn object_light_route_kind(kind: BattleSubjectKind) -> bool {
 fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteHoleKind::{
         AbilityCheck, AbilityChoice, AttackRoll, ConcentrationSavingThrow, DamageTypeChoice,
-        InterruptDecision, RolledDice, SanctuaryInterdictionOutcome, SavingThrowOutcome,
-        SkillChoice, TargetAbilityChoices, TargetChoice,
+        GrappleOutcome, InterruptDecision, Movement, RolledDice, SanctuaryInterdictionOutcome,
+        SavingThrowOutcome, SkillChoice, TargetAbilityChoices, TargetChoice,
     };
     use BattleReducerRouteOwnerGroup::{
         AbilityCheck as AbilityCheckOwner, AbilityCheckRollMode, ActiveEffect, ArmorClass,
         AttackRoll as AttackRollOwner, AttackRollMode, Concentration, ConditionLifecycle,
-        FeatureResource, HitPoint, HitPointAndZeroHpLifecycle, HoleFrontier, InterruptStack,
+        CreatureSpaceMovement, CreatureState, DamageAdjustment, FeatureResource, HitPoint,
+        HitPointAndZeroHpLifecycle, HoleFrontier, InterruptStack,
         LightProjection as LightProjectionOwner, MovementResource, ObjectTargetBoundary,
-        SavingThrowOutcome as SavingThrowOutcomeOwner, SpellAttackProcedure as SpellAttackOwner,
-        SpellInvocation, SpellSlotAndActionEconomy, StatBlockAction, TargetSelection,
-        TemporaryHitPoint, TurnBoundary,
+        SavingThrowOutcome as SavingThrowOutcomeOwner, SavingThrowRollMode,
+        SpellAttackProcedure as SpellAttackOwner, SpellInvocation, SpellSlotAndActionEconomy,
+        StatBlockAction, TargetSelection, TemporaryHitPoint, TurnBoundary,
     };
     use BattleReducerRouteSubjectFamily::{
         AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
@@ -8321,6 +8338,48 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: Vec::new(),
             discover_owner: Concentration,
             resolve_owner: Concentration,
+        },
+        BattleSubjectKind::CreatureStatProjection => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::CreatureStatProjection,
+            holes: Vec::new(),
+            discover_owner: CreatureState,
+            resolve_owner: CreatureState,
+        },
+        BattleSubjectKind::CreatureStatMovementResourceProjection => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::CreatureStatProjection,
+            holes: Vec::new(),
+            discover_owner: MovementResource,
+            resolve_owner: MovementResource,
+        },
+        BattleSubjectKind::PassiveDamageAdjustment => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::PassiveDamageAdjustment,
+            holes: Vec::new(),
+            discover_owner: DamageAdjustment,
+            resolve_owner: DamageAdjustment,
+        },
+        BattleSubjectKind::PassiveSavingThrowRollMode => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::PassiveSavingThrowRollMode,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: SavingThrowRollMode,
+            resolve_owner: SavingThrowRollMode,
+        },
+        BattleSubjectKind::PassiveAbilityCheckRollMode => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::PassiveAbilityCheckRollMode,
+            holes: vec![GrappleOutcome],
+            discover_owner: AbilityCheckRollMode,
+            resolve_owner: AbilityCheckRollMode,
+        },
+        BattleSubjectKind::CreatureSpaceMovementPermission => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            holes: vec![Movement],
+            discover_owner: CreatureSpaceMovement,
+            resolve_owner: CreatureSpaceMovement,
+        },
+        BattleSubjectKind::CreatureSpaceMovementResourceSpend => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::CreatureSpaceMovementPermission,
+            holes: Vec::new(),
+            discover_owner: MovementResource,
+            resolve_owner: MovementResource,
         },
         BattleSubjectKind::ScalarBuffEffectActiveEffect => GenericRouteShape {
             subject: ScalarBuffEffect,
@@ -10021,10 +10080,12 @@ const fn generic_route_fill_kind(fill: BattleGenericRouteFill) -> BattleReducerR
             BattleReducerRouteFillKind::ConcentrationSavingThrow
         }
         BattleGenericRouteFill::DamageTypeChoice => BattleReducerRouteFillKind::DamageTypeChoice,
+        BattleGenericRouteFill::GrappleOutcome => BattleReducerRouteFillKind::GrappleOutcome,
         BattleGenericRouteFill::HitPointHealingDistribution { .. } => {
             BattleReducerRouteFillKind::HitPointHealingDistribution
         }
         BattleGenericRouteFill::InterruptDecision => BattleReducerRouteFillKind::InterruptDecision,
+        BattleGenericRouteFill::Movement { .. } => BattleReducerRouteFillKind::Movement,
         BattleGenericRouteFill::RolledDice => BattleReducerRouteFillKind::RolledDice,
         BattleGenericRouteFill::SavingThrowOutcome => {
             BattleReducerRouteFillKind::SavingThrowOutcome
@@ -10720,6 +10781,13 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::RollModifierEffectActiveOneMinuteCount
             | BattleSubjectKind::RollModifierEffectActiveEffectCleanup
             | BattleSubjectKind::RollModifierEffectConcentrationCleanup
+            | BattleSubjectKind::CreatureStatProjection
+            | BattleSubjectKind::CreatureStatMovementResourceProjection
+            | BattleSubjectKind::PassiveDamageAdjustment
+            | BattleSubjectKind::PassiveSavingThrowRollMode
+            | BattleSubjectKind::PassiveAbilityCheckRollMode
+            | BattleSubjectKind::CreatureSpaceMovementPermission
+            | BattleSubjectKind::CreatureSpaceMovementResourceSpend
             | BattleSubjectKind::ScalarBuffEffectActiveEffect
             | BattleSubjectKind::ScalarBuffEffectConcentration
             | BattleSubjectKind::ScalarBuffEffectSpeedDelta
@@ -11738,6 +11806,7 @@ fn generic_route_fill_matches_subject(
             matches!(fill, BattleGenericRouteFill::TargetAbilityChoices(_))
         }
         BattleSubjectKind::RollModifierEffectSavingThrow
+        | BattleSubjectKind::PassiveSavingThrowRollMode
         | BattleSubjectKind::RepeatSaveConditionEffectInitialSave
         | BattleSubjectKind::RepeatSaveConditionEffectRepeatSave
         | BattleSubjectKind::ConditionRiderRepeatSaveSuccess
@@ -11755,6 +11824,12 @@ fn generic_route_fill_matches_subject(
                 fill,
                 BattleGenericRouteFill::HitPointHealingDistribution { .. }
             )
+        }
+        BattleSubjectKind::PassiveAbilityCheckRollMode => {
+            fill == BattleGenericRouteFill::GrappleOutcome
+        }
+        BattleSubjectKind::CreatureSpaceMovementPermission => {
+            matches!(fill, BattleGenericRouteFill::Movement { .. })
         }
         BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
         | BattleSubjectKind::SaveGatedConditionRiderTargetChoice => {
@@ -11836,6 +11911,10 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::RollModifierEffectActiveOneMinuteCount
         | BattleSubjectKind::RollModifierEffectActiveEffectCleanup
         | BattleSubjectKind::RollModifierEffectConcentrationCleanup
+        | BattleSubjectKind::CreatureStatProjection
+        | BattleSubjectKind::CreatureStatMovementResourceProjection
+        | BattleSubjectKind::PassiveDamageAdjustment
+        | BattleSubjectKind::CreatureSpaceMovementResourceSpend
         | BattleSubjectKind::ScalarBuffEffectActiveEffect
         | BattleSubjectKind::ScalarBuffEffectConcentration
         | BattleSubjectKind::ScalarBuffEffectSpeedDelta
@@ -12208,6 +12287,10 @@ fn generic_route_next_holes(
             vec![BattleHoleKind::RolledDice]
         }
         (
+            BattleSubjectKind::CreatureSpaceMovementPermission,
+            BattleGenericRouteFill::Movement { accepted: false },
+        ) => vec![BattleHoleKind::Movement],
+        (
             BattleSubjectKind::SpellHostedWeaponAttackDamage
             | BattleSubjectKind::WeaponDamageRiderActiveEffect
             | BattleSubjectKind::WeaponDamageRiderDamage
@@ -12223,6 +12306,13 @@ fn generic_route_next_holes(
             | BattleSubjectKind::RollModifierEffectActiveOneMinuteCount
             | BattleSubjectKind::RollModifierEffectActiveEffectCleanup
             | BattleSubjectKind::RollModifierEffectConcentrationCleanup
+            | BattleSubjectKind::CreatureStatProjection
+            | BattleSubjectKind::CreatureStatMovementResourceProjection
+            | BattleSubjectKind::PassiveDamageAdjustment
+            | BattleSubjectKind::PassiveSavingThrowRollMode
+            | BattleSubjectKind::PassiveAbilityCheckRollMode
+            | BattleSubjectKind::CreatureSpaceMovementPermission
+            | BattleSubjectKind::CreatureSpaceMovementResourceSpend
             | BattleSubjectKind::ScalarBuffEffectActiveEffect
             | BattleSubjectKind::ScalarBuffEffectConcentration
             | BattleSubjectKind::ScalarBuffEffectSpeedDelta
