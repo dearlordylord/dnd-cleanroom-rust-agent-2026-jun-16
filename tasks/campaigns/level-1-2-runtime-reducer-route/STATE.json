@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "dirty-replay-refreshes-complete-source-qnt-blockers-remain",
+  "status": "sqnt03a-source-connector-packaged-target-replay-pending",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -16,21 +16,27 @@
       "note": "Diagnostic dirty target replay only. The worker consumed source commit d63838e22137c4b329dc877ca0d963876f3459bf object stale route-history facts and accepted 6 connector rows covering 7 Starry Wisp object driver obligations. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
-      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim fresh target acceptance or new Rust runtime coverage."
+      "sourceCommitSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
+      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim fresh target acceptance or new Rust runtime coverage."
     },
     "sourceFeedbackPackageRefresh": {
-      "id": "fcsf-package-refresh-d63838e",
+      "id": "fcsf-package-refresh-c83c4a232",
       "status": "packaged-in-dirty-cleanroom-input",
       "branch": "ralph/rrconv-19-cleanroom",
       "baseCommit": "58ad00f876b54594e0b44f26fb2c0ef9935e5322",
-      "manifestSourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "manifestSourceCommitSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
       "packagedTasks": [
         {
           "task": "source-feedback Task 3",
           "status": "residual-queue-carried-forward",
           "packageEvidence": "cleanroom-input/branch-coverage/reducer-route-inventory.json task3ResidualSelectedSpellRouteTasks[]",
           "note": "Selected-spell residual route tasks are now explicit source guidance. They remain blockers until future copied generic route or component connector evidence exists; target code must not route them by selected spell identity."
+        },
+        {
+          "task": "SQNT-03A",
+          "status": "hit-point-regain-prevention-route-connector-packaged",
+          "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt and reducer-route-inventory.json FCSF-03A route record",
+          "note": "The copied route connector now exposes generic HitPointRegainPreventionRouteSubject evidence for attack-hit active-effect admission, later Hit Point healing interdiction, turn-boundary duration expiry, and active-effect cleanup. This resolves the FCSF-03A source-input blocker only; target replay remains pending."
         },
         {
           "task": "source-feedback Task 8",
@@ -62,7 +68,7 @@
       "newRustRuntimeCoverage": "none",
       "validation": [
         {
-          "check": "git merge-base --is-ancestor cf60f7a5b822ee9d9458e98577d47026242fd16e d63838e22137c4b329dc877ca0d963876f3459bf",
+          "check": "git merge-base --is-ancestor d63838e22137c4b329dc877ca0d963876f3459bf c83c4a2321ff45c796245d65ba979b9068c6718a",
           "result": "passed"
         },
         {
@@ -75,7 +81,7 @@
         },
         {
           "check": "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
-          "result": "passed at source SHA d63838e22137c4b329dc877ca0d963876f3459bf"
+          "result": "passed at source SHA c83c4a2321ff45c796245d65ba979b9068c6718a"
         },
         {
           "check": "node scripts/check-cleanroom-harness.cjs",
@@ -519,7 +525,8 @@
     "review": "Averroes the 3rd review returned no blockers for worker commit 6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [
+  "activeSourceQntLanes": [],
+  "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03A-HIT-POINT-REGAIN-PREVENTION",
       "routeTaskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION",
@@ -528,11 +535,24 @@
       "baseSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
       "workerAgent": "019f0d55-ae6e-7183-8965-f77e9851e714",
       "workerName": "Avicenna the 3rd",
-      "status": "fix-requested",
+      "workerCommit": "da403f704c37e753fad759a6afc43173a6148afd",
+      "mergeCommit": "c83c4a2321ff45c796245d65ba979b9068c6718a",
+      "status": "merged-packaged-source-input",
       "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed",
       "reviewAgent": "019f0d62-e376-7273-bc01-35f2991724c9",
       "reviewName": "Cicero the 3rd",
-      "reviewFinding": "Cleanup evidence must include BattleActiveEffectOwner cleanup as well as the turn-boundary duration boundary before SQNT-03A can be accepted."
+      "reviewFinding": "Initial cleanup evidence needed BattleActiveEffectOwner cleanup as well as the turn-boundary duration boundary.",
+      "reviewResolution": "Follow-up commit da403f704c37e753fad759a6afc43173a6148afd added both cleanup owners; Cicero re-review found no blockers.",
+      "verification": [
+        "pnpm check:reducer-route-connectors",
+        "pnpm check:mbt-driver-closure",
+        "pnpm rules-kernel-coverage:check",
+        "pnpm cleanroom-branch-coverage:check",
+        "pnpm --filter @dnd/battle-runtime typecheck",
+        "MBT_TRACES=1 pnpm exec vitest run src/reducer-route-connectors.mbt.test.ts -t \"routes Hit Point regain prevention through the shared reducer surface\"",
+        "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19"
+      ],
+      "targetAcceptance": "pending"
     }
   ],
   "completedLaneWorktrees": [
@@ -3109,8 +3129,8 @@
     "Fresh target public Ability Check/Search replay is accepted at cd4465556d18729121f56f5834ac00f8b0b3d15c.",
     "Source feedback task FCSF-01 landed at c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d, adding public concentration cleanup route source input through BattleConcentrationOwner and BattleActiveEffectOwner; fresh target commit bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c accepts failed-save, voluntary-end, and replacement Concentration cleanup through public reducer entrypoints.",
     "Source feedback task FCSF-02 landed at ee4894fa71e9307b9251639f0b54577ff764c63f, adding generic scalar-buff profile projection/domain facts; fresh target commit 05280a8e2d6e9705411c114c80ae2a4e4290de2c accepts scalar profile replay through copied QNT plus public reducer route observations.",
-    "Dirty cleanroom package refresh d63838e22137c4b329dc877ca0d963876f3459bf packages source-feedback Task 3 residual selected-spell route-task queue, source-feedback Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. FCSF-04, FCSF-05, and FCSF-06 have now been dirty-replayed against the current package. These diagnostic dirty replays do not claim fresh target acceptance.",
-    "Do not launch more dirty target lanes for Task 3 residual selected-spell branches or FEXP-07 selected/grouped residual branches until source-side QNT/guidance adds the generic route facts listed in SOURCE_QNT_NEXT_TASKS.md.",
+    "Dirty cleanroom package refresh c83c4a2321ff45c796245d65ba979b9068c6718a packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, source-feedback Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. FCSF-04, FCSF-05, and FCSF-06 have been dirty-replayed against the previous current package; SQNT-03A is source-input packaged only and does not claim dirty or fresh target acceptance.",
+    "Do not launch more dirty target lanes for Task 3 residual selected-spell branches beyond SQNT-03A, or for FEXP-07 selected/grouped residual branches, until source-side QNT/guidance adds the remaining generic route facts listed in SOURCE_QNT_NEXT_TASKS.md.",
     "Use accepted fresh target 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the current strongest accepted target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, FEXP-04 Ability Check/Search public reducer routing, FEXP-04 Concentration cleanup routing, FEXP-04 scalar profile replay, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are explicit historical snapshots after the source-input refresh.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",

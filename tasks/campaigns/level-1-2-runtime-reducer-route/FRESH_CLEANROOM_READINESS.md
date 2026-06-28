@@ -27,7 +27,7 @@ review checks were needed to prevent false positives.
 
 Authoritative state:
 
-- `STATE.json.status`: `dirty-replay-refreshes-complete-source-qnt-blockers-remain`
+- `STATE.json.status`: `sqnt03a-source-connector-packaged-target-replay-pending`
 - refreshed in-scope obligations: `659`
 - accepted obligations: `659`
 - accepted driver coverage: `97 / 97`
@@ -37,7 +37,11 @@ Authoritative state:
 - active fresh dry-run worktrees: none
 - strongest fresh target evidence: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - latest dirty package refresh:
-  `d63838e22137c4b329dc877ca0d963876f3459bf`
+  `c83c4a2321ff45c796245d65ba979b9068c6718a`
+- latest source-QNT connector: SQNT-03A Hit Point regain prevention source
+  input is packaged in
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt`;
+  target replay remains pending.
 - latest dirty replay refreshes: FCSF-04 accepted 6 object stale route-history
   connector rows covering all 7 Starry Wisp object obligations in
   `tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json`;
@@ -97,12 +101,13 @@ generic connector route shape but was not counted as a new CP8 row.
   `cleanroom-input/MANIFEST.md` for:
   - `scripts/check-cleanroom-harness.cjs`
   - `scripts/cleanroom-branch-coverage-check.cjs`
-- The `d63838e22137c4b329dc877ca0d963876f3459bf` dirty package refresh
-  packages source-feedback Task 3 residual selected-spell route tasks, the
-  Task 8 six-driver active reducer diagnostic seed, and FCSF-04 public object
-  stale route-history evidence, FCSF-05 reaction/interrupt payload taxonomy
-  evidence, and FCSF-06 character/sheet/handoff rejection and resource payload
-  evidence. The later FCSF-04 dirty replay adds diagnostic Rust coverage for all
+- The `c83c4a2321ff45c796245d65ba979b9068c6718a` dirty package refresh
+  packages source-feedback Task 3 residual selected-spell route tasks, SQNT-03A
+  hit-point-regain-prevention connector evidence, the Task 8 six-driver active
+  reducer diagnostic seed, and FCSF-04 public object stale route-history
+  evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06
+  character/sheet/handoff rejection and resource payload evidence. The earlier
+  FCSF-04 dirty replay adds diagnostic Rust coverage for all
   7 Starry Wisp object obligations including public stale route history, the
   FCSF-05 dirty replay adds diagnostic Rust coverage for all 5 reaction/interrupt
   taxonomy connector rows, and the FCSF-06 dirty replay adds diagnostic Rust
@@ -163,9 +168,9 @@ resolved in the copied source package, and the current fresh verifier is green.
 Next useful work is one of:
 
 - use `SOURCE_QNT_NEXT_TASKS.md` and `FEXP_BLOCKER_SOURCE_FEEDBACK.md` to
-  promote the remaining Task 3 selected-spell and FEXP-07 selected/grouped
-  residual blockers into source-side QNT/guidance updates before launching more
-  target implementation;
+  promote the remaining Task 3 selected-spell blockers after SQNT-03A and the
+  FEXP-07 selected/grouped residual blockers into source-side QNT/guidance
+  updates before launching more target implementation;
 - use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
   `05280a8e2d6e9705411c114c80ae2a4e4290de2c` as the accepted evidence for the
   integrated SDK tracer-bullet plus post-FC06 Pact Slot handoff replay plus
@@ -192,5 +197,7 @@ Next useful work is one of:
   more dirty target code.
 
 Do not launch more dirty target lanes for Task 3 residual selected-spell
-branches or FEXP-07 selected/grouped residual branches until the generic route
-facts in `SOURCE_QNT_NEXT_TASKS.md` exist in the source package.
+branches beyond SQNT-03A, or FEXP-07 selected/grouped residual branches, until
+the generic route facts in `SOURCE_QNT_NEXT_TASKS.md` exist in the source
+package. SQNT-03A itself has source input now; it still needs target replay
+before it counts as dirty or fresh target acceptance.

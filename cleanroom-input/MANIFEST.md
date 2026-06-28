@@ -5,9 +5,9 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: d63838e22137c4b329dc877ca0d963876f3459bf
-- Copy date: 2026-06-28T06:45:20.116Z
-- Files: 517
+- Source commit SHA: c83c4a2321ff45c796245d65ba979b9068c6718a
+- Copy date: 2026-06-28T08:53:14.735Z
+- Files: 518
 
 Cleanroom tasks must declare which source commit SHA they implement
 against (the `Source commit SHA` recorded here at task start).
@@ -44,7 +44,7 @@ instead of guessing.
 - `branch-coverage/reducer-route-inventory.json`: 1
 - `guidance/README.md`: 1
 - `guidance/reducer-spine.md`: 1
-- `qnt/battle-runtime`: 319
+- `qnt/battle-runtime`: 320
 - `qnt/character-creation-runtime`: 22
 - `qnt/character-sheet-runtime`: 23
 - `qnt/character-battle-runtime`: 12
@@ -96,7 +96,7 @@ instead of guessing.
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
 | `branch-coverage/source-branch-inventory.json` | `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
-| `branch-coverage/reducer-route-inventory.json` | `a48214744159666c1c64028d36d9eada7ac2854513d17c60a4090c236f3916c0` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
+| `branch-coverage/reducer-route-inventory.json` | `82c5a117ec847e58f82e1e1f8aee9d1ab111249ea000cd25c969b6a4f28e82d6` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
 | `guidance/README.md` | `d62a834399e1469186bc931f2d27bdf696b9a67c9c9e21c15982ee722ed5384b` | `plans/cleanroom-guidance/README.md` |
 | `guidance/reducer-spine.md` | `3d1640f15f2982c9b3fe81cdf0a21df04476b0e224b5e4732027927485b362f2` | `plans/cleanroom-guidance/reducer-spine.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
@@ -208,6 +208,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-held-weapon-release-cleanup.route.mbt.qnt` | `0972748e289758c295549bfad6fe7abbf4a237893c5f0a461ea317334a04d131` | `packages/battle-runtime/battle-runtime-held-weapon-release-cleanup.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-hidden.qnt` | `1aa38fe3b2aad8f4458c1fc7f42dd12ded5f93f9b122cbbdf1ae83791a5df7de` | `packages/battle-runtime/battle-runtime-hidden.qnt` |
 | `qnt/battle-runtime/battle-runtime-hide-search-fixture.qnt` | `89883530ebeec0d68b518ed0e70b9e657a4c78a22d48c60d510da783f084e24f` | `packages/battle-runtime/battle-runtime-hide-search-fixture.qnt` |
+| `qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt` | `f32a306a0dd27d6bd1f55d570214b1b1b888d9442df76ffd0e5e8fdec062d273` | `packages/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt` | `e0cb261cd46b2791a7aeccb4b3d458c47d94059a9a6130b8f791cf03f9543c60` | `packages/battle-runtime/battle-runtime-hit-point-restoration-ordering.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.qnt` | `4f24fddbdb2d037b8515197cc4318e43150c0531a22a1dc7beaff6142da96bf5` | `packages/battle-runtime/battle-runtime-hit-point-restoration-ordering.qnt` |
 | `qnt/battle-runtime/battle-runtime-hit-point-restoration-ordering.route.mbt.qnt` | `6cbfc11389bbf392a9ab9d7de1e2d221c5a5b89a09915f3649edc1db532cf90a` | `packages/battle-runtime/battle-runtime-hit-point-restoration-ordering.route.mbt.qnt` |
@@ -285,7 +286,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` | `8192d11ce0dc893853b0eceda1b7ef853bbee219295f8e18e5071a5d33789e4a` | `packages/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window-tests.qnt` | `4ce834fb0929cec617e79abf7a4cfcbacdc10718041c774f0f092ae434b76159` | `packages/battle-runtime/battle-runtime-reaction-window-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window.qnt` | `f557bce899edff541e53cfd081a0a0a4db84364c355aa1605e438b6015ef383e` | `packages/battle-runtime/battle-runtime-reaction-window.qnt` |
-| `qnt/battle-runtime/battle-runtime-reducer-route.qnt` | `d11e05ce28b1384183b859b1fd22545617e263d95ce42c83662274e8a04e9ad4` | `packages/battle-runtime/battle-runtime-reducer-route.qnt` |
+| `qnt/battle-runtime/battle-runtime-reducer-route.qnt` | `35a6e2d6506bf04f8be470d9678944360010dcd6d1daa352a34a7b42c49ab7cd` | `packages/battle-runtime/battle-runtime-reducer-route.qnt` |
 | `qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` | `5b7fe7a06d31dda4e32625ede181289efe9c2b9ddb8fe6e42df87d826b88e565` | `packages/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` | `0b0e39e7cd765f7203dedd77221d12b7724e3083cd67be5573b65b46ced46967` | `packages/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` | `fca72ca4bb400a1de697f0fa4786210eb57a8a0130ee7531c9f9226a0997d43e` | `packages/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` |

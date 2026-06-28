@@ -18,6 +18,12 @@ Dirty replay status:
 - FCSF-06 character/sheet/handoff payloads: accepted-with-target-blockers in
   dirty replay; 30 accepted rows, 14 target blockers.
 
+Source-QNT status:
+
+- SQNT-03A Hit Point regain prevention: source connector accepted and packaged
+  at source commit `c83c4a2321ff45c796245d65ba979b9068c6718a`; target replay
+  remains pending.
+
 Remaining target work should not start until the source package exposes the
 generic route facts below. The target acceptance gate stays the same:
 
@@ -32,7 +38,7 @@ generic route facts below. The target acceptance gate stays the same:
 
 | Task | Source input to add | Blocks | Acceptance shape |
 | --- | --- | --- | --- |
-| SQNT-03A Hit Point Regain Prevention | Generic active-effect route subject for attack-hit damage result, target, duration boundary, and later healing-interdiction projection. | `FCSF-03A-HIT-POINT-REGAIN-PREVENTION` | Target may count only after copied route evidence shows active-effect admission, later healing prevention, and cleanup without selected spell identity. |
+| SQNT-03A Hit Point Regain Prevention | Done: `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt` now exposes generic active-effect admission, later healing interdiction, turn-boundary duration expiry, and active-effect cleanup. | `FCSF-03A-HIT-POINT-REGAIN-PREVENTION` | Source input is packaged; target replay may count only after observed target route evidence consumes this copied connector without selected spell identity. |
 | SQNT-03B Next Attack Roll Mode | Generic next-Attack-Roll roll-mode route subject with source, beneficiary, affected target, expiration boundary, and Advantage/Disadvantage facts. | `FCSF-03B-NEXT-ATTACK-ROLL-MODE` | Target may count only through shared roll-mode projection and expiration owners. |
 | SQNT-03C Opportunity Attack Denial | Generic reaction-interdiction route subject for attack-hit source, affected target, denied Opportunity Attack trigger family, and duration boundary. | `FCSF-03C-OPPORTUNITY-ATTACK-DENIAL` | Target may count only after observed route events project denial from active-effect state into movement/reaction discovery. |
 | SQNT-03D Condition And Poison Riders | Generic condition-rider route subjects carrying host outcome, condition kind, immunity check, duration/repeat-save boundary, and cleanup owner facts. | `FCSF-03D-CONDITION-AND-POISON-RIDERS` | Target may count only after copied route evidence owns condition application, immunity rejection, and cleanup without selected spell identity. |
