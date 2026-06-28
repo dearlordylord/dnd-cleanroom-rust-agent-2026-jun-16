@@ -630,7 +630,8 @@
       "baseSha": "da56942",
       "workerAgent": "019f0ea2-bb16-7b22-b9dc-6c07b22fa7c2",
       "workerName": "Anscombe the 3rd",
-      "status": "worker-running",
+      "workerCommit": "dd34c9f02c4ef02d0b662b5b951df7e4db41ced9",
+      "status": "implemented-review-pending",
       "scope": "dirty target replay only; no fresh target acceptance claimed"
     }
   ],

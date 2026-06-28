@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03e-object-light-replay` | `ralph/sqnt03e-object-light-dirty-replay` | `da56942` | Anscombe the 3rd (`019f0ea2-bb16-7b22-b9dc-6c07b22fa7c2`) | worker-running |
+| SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03e-object-light-replay` | `ralph/sqnt03e-object-light-dirty-replay` | `da56942` | Anscombe the 3rd (`019f0ea2-bb16-7b22-b9dc-6c07b22fa7c2`) | implemented-review-pending at `dd34c9f02c4ef02d0b662b5b951df7e4db41ced9` |
 
 ## Active Fresh Dry Run Targets
 
