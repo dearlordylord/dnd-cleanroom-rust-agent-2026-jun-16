@@ -14,12 +14,13 @@ python3 tools/verify_current_fresh_target.py
 
 Current dirty package refresh:
 
-- source package: `a6cff970d4aa58d0d695e5388c64832d20e7fbb1`
-- branch: `ralph/fcsf-package-refresh`
+- source package: `e8cb231ce1183ed96b2865000562f0395f2d712f`
+- branch: `ralph/rrconv-19-cleanroom`
 - boundary: package/state reconciliation only; this refresh does not claim
   fresh target acceptance or new Rust runtime coverage.
 - packaged source-feedback items: Task 3 residual selected-spell route-task
-  queue and Task 8 active reducer diagnostic seed.
+  queue, Task 8 active reducer diagnostic seed, and FCSF-04 object stale public
+  route-history evidence.
 
 ## Purpose
 
@@ -65,15 +66,22 @@ Needed source input:
 
 ### Public Observability And Stale Subjects
 
-Source blocker:
+Resolved source input:
 
 - `FEXP-03-object-stale-replay-isolated-route-surface-not-publicly-observable`
+  is resolved as source input by FCSF-04 at source commit
+  `e8cb231ce1183ed96b2865000562f0395f2d712f`. The copied
+  `battle-runtime-starry-wisp-object.route.mbt.qnt` connector now reaches
+  stale object replay through public object-target discovery,
+  target-boundary resolution, Attack Roll discovery/resolution, damage-roll
+  discovery/resolution, active-effect resolution, and then
+  `BattleHoleFrontierOwner` stale rejection.
 
-Needed source input:
+Target status:
 
-- a public route connector that reaches object stale replay through discovery
-  and resolution history; or
-- an explicit public reducer token protocol for stale object subjects.
+- not yet fresh-target replay acceptance;
+- future target evidence must observe this route through public reducer
+  entrypoints instead of fabricating an isolated stale subject token.
 
 ### Active-Effect Cleanup And Choice Payloads
 
@@ -122,8 +130,8 @@ Resolved source input:
 
 Packaged source input:
 
-- Source-feedback Task 8 is now packaged in source
-  `a6cff970d4aa58d0d695e5388c64832d20e7fbb1` as a six-driver active
+- Source-feedback Task 8 remains packaged in current source package
+  `e8cb231ce1183ed96b2865000562f0395f2d712f` as a six-driver active
   reducer-spine diagnostic seed. The active batch includes Concentration
   teardown and scalar-buff active-effect profile projection replay work, and
   `cleanroom-input/guidance/reducer-spine.md` requires future target evidence

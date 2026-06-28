@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "source-feedback-fcsf04-running",
+  "status": "source-feedback-fcsf04-packaged",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -16,15 +16,15 @@
       "note": "Diagnostic dirty target replay refresh only. The worker consumed source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375 exact route-choice payload facts and routed skill-choice, ability-choice, and two-target ability-choice fill evidence through the shared reducer route surface. Focused Rust tests and full cargo tests pass; global cleanroom harness remains intentionally not accepted because the full RUN_LEDGER and historical evidence files are stale after the source input refresh."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "a6cff970d4aa58d0d695e5388c64832d20e7fbb1",
-      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue and Task 8 active reducer diagnostic seed. This does not claim fresh target acceptance or new Rust runtime coverage."
+      "sourceCommitSha": "e8cb231ce1183ed96b2865000562f0395f2d712f",
+      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, source-feedback Task 8 active reducer diagnostic seed, and FCSF-04 object stale public route-history evidence. This does not claim fresh target acceptance or new Rust runtime coverage."
     },
     "sourceFeedbackPackageRefresh": {
-      "id": "fcsf-package-refresh-a6cff970",
+      "id": "fcsf-package-refresh-e8cb231c",
       "status": "packaged-in-dirty-cleanroom-input",
-      "branch": "ralph/fcsf-package-refresh",
-      "baseCommit": "23c5480d6e3b40cebc594df431eb8fc56c469d7e",
-      "manifestSourceCommitSha": "a6cff970d4aa58d0d695e5388c64832d20e7fbb1",
+      "branch": "ralph/rrconv-19-cleanroom",
+      "baseCommit": "ad3e1a570f681f1bac71f8f46b7a2ca764a6cd18",
+      "manifestSourceCommitSha": "e8cb231ce1183ed96b2865000562f0395f2d712f",
       "packagedTasks": [
         {
           "task": "source-feedback Task 3",
@@ -37,6 +37,12 @@
           "status": "active-diagnostic-seed-packaged",
           "packageEvidence": "cleanroom-input/branch-coverage/reducer-route-inventory.json diagnosticBatches[reducer-spine-diagnostic-v1]",
           "note": "The six-driver active reducer diagnostic batch now includes Concentration teardown and scalar-buff active-effect profile projection seeds for future replay through public reducer/source entrypoints."
+        },
+        {
+          "task": "FCSF-04",
+          "status": "object-stale-public-route-history-packaged",
+          "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt doRouteRejectStaleAfterResolved and reducer-route-inventory.json object-target spell attack derivability record",
+          "note": "The copied route connector now reaches stale object replay through public object-target discovery, target-boundary resolution, attack-roll discovery/resolution, damage-roll discovery/resolution, active-effect resolution, and then BattleHoleFrontierOwner stale rejection. This is source-input evidence only until a fresh target replays it."
         }
       ],
       "conditionImmunityEvidence": "not-accepted-as-scalar-buff-route-replay",
@@ -395,21 +401,25 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no CP8/FU01E/Mage Armor evidence, ledger, or artifact failures",
     "review": "Rawls the 2nd re-review returned no blockers for commit a8b96ec0aa91b4249b352009b1384292f917f7e2"
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "FCSF-04-OBJECT-STALE-PUBLIC-PROTOCOL",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-fcsf04-object-stale",
       "branch": "ralph/fresh-source-feedback-task4-object-stale",
       "baseSha": "a6cff970d4aa58d0d695e5388c64832d20e7fbb1",
-      "status": "running",
+      "status": "source-merged-and-packaged",
       "workerAgent": "019f0caa-b52a-7392-a035-09eab3239190",
       "workerName": "Dewey the 3rd",
-      "scope": "source-feedback only; resolve or precisely restate the FEXP-03 object stale public-observability blocker in focused QNT/package inputs",
+      "workerCommit": "e8cb231ce1183ed96b2865000562f0395f2d712f",
+      "reviewAgent": "019f0cb0-36e6-7161-a872-ce29cdc7f26a",
+      "reviewName": "Carver the 3rd",
+      "reviewVerdict": "no blockers",
+      "sourceIntegrationHead": "e8cb231ce1183ed96b2865000562f0395f2d712f",
+      "packageEvidence": "cleanroom-input source SHA e8cb231ce1183ed96b2865000562f0395f2d712f",
       "targetAcceptance": "not-claimed",
       "dirtyRuntimeCoverage": "not-claimed"
-    }
-  ],
-  "completedLaneWorktrees": [
+    },
     {
       "laneId": "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-l15-rrcp8-a",
@@ -2860,7 +2870,7 @@
     "Fresh target public Ability Check/Search replay is accepted at cd4465556d18729121f56f5834ac00f8b0b3d15c.",
     "Source feedback task FCSF-01 landed at c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d, adding public concentration cleanup route source input through BattleConcentrationOwner and BattleActiveEffectOwner; fresh target commit bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c accepts failed-save, voluntary-end, and replacement Concentration cleanup through public reducer entrypoints.",
     "Source feedback task FCSF-02 landed at ee4894fa71e9307b9251639f0b54577ff764c63f, adding generic scalar-buff profile projection/domain facts; fresh target commit 05280a8e2d6e9705411c114c80ae2a4e4290de2c accepts scalar profile replay through copied QNT plus public reducer route observations.",
-    "Dirty cleanroom package refresh a6cff970d4aa58d0d695e5388c64832d20e7fbb1 packages source-feedback Task 3 residual selected-spell route-task queue and source-feedback Task 8 six-driver active reducer diagnostic seed. This is source-input bookkeeping only: condition-immunity is still not accepted as scalar-buff route replay evidence, no fresh target acceptance is claimed, and no new Rust runtime coverage was added.",
+    "Dirty cleanroom package refresh e8cb231ce1183ed96b2865000562f0395f2d712f packages source-feedback Task 3 residual selected-spell route-task queue, source-feedback Task 8 six-driver active reducer diagnostic seed, and FCSF-04 object stale public route-history evidence. This is source-input bookkeeping only: condition-immunity is still not accepted as scalar-buff route replay evidence, no fresh target acceptance is claimed, and no new Rust runtime coverage was added.",
     "Use accepted fresh target 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the current strongest accepted target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, FEXP-04 Ability Check/Search public reducer routing, FEXP-04 Concentration cleanup routing, FEXP-04 scalar profile replay, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are explicit historical snapshots after the source-input refresh.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
@@ -2982,9 +2992,10 @@
           "static forbidden-boundary scan via current fresh target verifier",
           "static production-source authored-identity dispatch search"
         ],
-        "coverageClaim": "generic independent spell-attack sequence, chained duplicate-damage leap, and object-target spell-attack route surfaces accepted through public reducer entrypoints; isolated object stale replay remains blocked rather than synthesized",
-        "blockers": [
-          "FEXP-03-object-stale-replay-isolated-route-surface-not-publicly-observable"
+        "coverageClaim": "generic independent spell-attack sequence, chained duplicate-damage leap, and object-target spell-attack route surfaces accepted through public reducer entrypoints; isolated object stale replay was blocked in this historical fresh snapshot but FCSF-04 now packages source-side public route-history evidence for future replay",
+        "blockers": [],
+        "sourceResolvedBlockers": [
+          "FEXP-03-object-stale-replay-isolated-route-surface-not-publicly-observable resolved as source input by FCSF-04 at e8cb231ce1183ed96b2865000562f0395f2d712f; not yet fresh-target replay acceptance"
         ]
       },
       {

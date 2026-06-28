@@ -5,8 +5,8 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: a6cff970d4aa58d0d695e5388c64832d20e7fbb1
-- Copy date: 2026-06-28T05:05:21.324Z
+- Source commit SHA: e8cb231ce1183ed96b2865000562f0395f2d712f
+- Copy date: 2026-06-28T05:27:31.498Z
 - Files: 516
 
 Cleanroom tasks must declare which source commit SHA they implement
@@ -96,7 +96,7 @@ instead of guessing.
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
 | `branch-coverage/source-branch-inventory.json` | `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
-| `branch-coverage/reducer-route-inventory.json` | `0cb1518639c303adafc4a161fb6fd0c1894984e8c3b915182b161b36ce2ea622` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
+| `branch-coverage/reducer-route-inventory.json` | `1abf5c276817056ff81984229e8a96bf22fb7553c0dfd05c8ca54037a55485aa` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
 | `guidance/README.md` | `d62a834399e1469186bc931f2d27bdf696b9a67c9c9e21c15982ee722ed5384b` | `plans/cleanroom-guidance/README.md` |
 | `guidance/reducer-spine.md` | `3d1640f15f2982c9b3fe81cdf0a21df04476b0e224b5e4732027927485b362f2` | `plans/cleanroom-guidance/reducer-spine.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
@@ -361,7 +361,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-spiritual-weapon.mbt.qnt` | `2d3bc12a0e8c5beca9749cb18a0e6150004a2722b59a3a1f83da8e106f76a3f9` | `packages/battle-runtime/battle-runtime-spiritual-weapon.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-spiritual-weapon.qnt` | `386f4fc345cc4701b861f2a9f747bd5ca50d8d1ac04291a80212dc2e5a490d43` | `packages/battle-runtime/battle-runtime-spiritual-weapon.qnt` |
 | `qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt` | `ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a` | `packages/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt` |
-| `qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt` | `ad79823b9533e592d52769d910be68a69657f60e95d9a32080b047bdbda0b1b5` | `packages/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt` | `1822033b8888ef62af296a3d8a028c0ed1d987dafea52b0b4879bfd175eababe` | `packages/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt` | `894f194d3d71a2d3e0636e8948b66432ac35d29463ce78cd46fdba2301b37f5c` | `packages/battle-runtime/battle-runtime-stat-block-action-ordering.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-stat-block-action-ordering.qnt` | `89f6ac657b1b85204ce38b99fd2ddb2a533e5aac640613d3962afeb5fd171562` | `packages/battle-runtime/battle-runtime-stat-block-action-ordering.qnt` |
 | `qnt/battle-runtime/battle-runtime-stat-block-action-ordering.route.mbt.qnt` | `f7a5c7042cd69ac417472c59be88304b5d52c1d0af5b225ed6a68bc43f6d25a9` | `packages/battle-runtime/battle-runtime-stat-block-action-ordering.route.mbt.qnt` |

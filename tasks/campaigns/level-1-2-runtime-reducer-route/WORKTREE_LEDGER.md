@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| FCSF-04-OBJECT-STALE-PUBLIC-PROTOCOL | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf04-object-stale` | `ralph/fresh-source-feedback-task4-object-stale` | `a6cff970d4aa58d0d695e5388c64832d20e7fbb1` | Dewey the 3rd (`019f0caa-b52a-7392-a035-09eab3239190`) | running; source-feedback lane, no dirty/fresh target acceptance claimed |
+| _none_ | | | | | |
 
 ## Active Fresh Dry Run Targets
 
@@ -56,6 +56,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| FCSF-04-OBJECT-STALE-PUBLIC-PROTOCOL | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf04-object-stale` | `ralph/fresh-source-feedback-task4-object-stale` | `e8cb231ce1183ed96b2865000562f0395f2d712f` | `e8cb231ce1183ed96b2865000562f0395f2d712f` source fast-forward / package synced into dirty campaign | removable after source/package retention decision; source-feedback only, no dirty/fresh target acceptance or Rust runtime coverage claimed |
 | FC-06-SOURCE-FEEDBACK-AUDIT | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19` | `ralph/rrconv-19-cleanroom` | recorded in final FC-06 commit | n/a | complete; artifact `tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md` |
 | FCSF-PACKAGE-REFRESH-A6CFF970 | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf-package-refresh` | `ralph/fcsf-package-refresh` | `84950b45ca9bd788d649814a413f897ac6f41c4c` | `84950b45ca9bd788d649814a413f897ac6f41c4c` | removable; dirty package/bookkeeping refresh only, no fresh target acceptance or Rust runtime coverage claimed |
 | FEXP-04-EXACT-ROLL-CHOICE-PAYLOAD-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-roll-choice-replay` | removed `ralph/roll-choice-replay` | `801b05df55a1393d6acd5c3fa7b2624ed91f9494` | `801b05df55a1393d6acd5c3fa7b2624ed91f9494` | removed after integration; dirty focused replay only, global harness intentionally stale after source refresh |

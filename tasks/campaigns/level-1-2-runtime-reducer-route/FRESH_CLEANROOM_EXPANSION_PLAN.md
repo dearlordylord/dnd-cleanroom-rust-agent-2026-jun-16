@@ -125,8 +125,9 @@ Status:
   target head `9b2f81bfabb6f1afd7daede0455be054bb92d78c`;
 - generic independent spell-attack sequence, chained duplicate-damage leap, and
   object-target spell-attack surfaces route through public reducer entrypoints;
-- isolated object stale replay remains blocked because it is not publicly
-  observable without fabricating a same-battle stale object subject token.
+- isolated object stale replay was blocked in that historical fresh snapshot,
+  but FCSF-04 now resolves the source-input gap by packaging public object
+  stale route-history evidence; fresh replay remains pending.
 
 Why second:
 
