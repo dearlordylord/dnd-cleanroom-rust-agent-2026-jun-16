@@ -4,8 +4,11 @@
   "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
   "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
   "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-  "sourcePackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
-  "acceptedFreshTargetPackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
+  "sourcePackageCommit": "21504ef764118f5fd13086aa6266f19280196664",
+  "acceptedFreshTargetPackageCommit": "21504ef764118f5fd13086aa6266f19280196664",
+  "currentFreshBaselineCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
+  "strongestRuntimeEvidenceCommit": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
+  "currentPackageRuntimeAcceptanceClaims": [],
   "latestDirtyPackageRefreshCommit": "21504ef764118f5fd13086aa6266f19280196664",
   "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, and SQNT-07B/C/D feature-species-metamagic route evidence are packaged in cleanroom-input. FCSF-04 dirty replay later accepted 6 connector rows and covered 7 object-route obligations, FCSF-05 dirty replay accepted all 5 connector rows, FCSF-06 dirty replay accepted 30 reducer-route witness rows and recorded 14 target blockers, SQNT-07B dirty replay accepted 15 selected species/passive-adjacent rows with 2 inherited Adrenaline Rush rows out of scope, SQNT-07C dirty replay accepted 30 selected metamagic rows, and SQNT-07D dirty replay accepted 3 active-feature spell-benefit rows; no fresh target acceptance is claimed from these dirty replays.",
   "laneSizingPolicy": {
@@ -14,6 +17,27 @@
     "reason": "Fresh expansion lanes should stay smaller than dirty rehearsal lanes because each accepted row must also strengthen verifier coverage and cleanroom-boundary evidence."
   },
   "lanes": [
+    {
+      "laneId": "FRESH-RR-BASELINE-21504EF",
+      "checkpointId": "FRESH-RR-CP0",
+      "status": "merged",
+      "purpose": "Refresh the fresh target cleanroom-input package to source 21504ef and classify pre-refresh runtime evidence as historical snapshot evidence.",
+      "drivers": [],
+      "expectedOutputs": [
+        "cleanroom-input package refreshed to 21504ef",
+        "FRESH_RUN_STATE.json records current package baseline",
+        "tools/verify_current_fresh_target.py recognizes 21504ef",
+        "no current-package runtime acceptance claims"
+      ],
+      "requiredChecks": [
+        "python3 tools/verify_current_fresh_target.py",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check"
+      ],
+      "acceptanceSummary": "Accepted at fresh target c196b33c634169cfc991c3de101c23fde8f75bae. This lane is package/verifier baseline only; it does not claim new runtime coverage."
+    },
     {
       "laneId": "FEXP-00-BASELINE-LOCK",
       "checkpointId": "FEXP-CP0",

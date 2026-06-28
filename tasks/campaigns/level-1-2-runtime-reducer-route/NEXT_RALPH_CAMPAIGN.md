@@ -2,8 +2,9 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Prepared from dirty cleanroom branch `ralph/rrconv-19-cleanroom` at
-`46d68ffb328455110ca63e85c58038b0cf483487`.
+Prepared from dirty cleanroom branch `ralph/rrconv-19-cleanroom` and refreshed
+after fresh baseline lane `FRESH-RR-BASELINE-21504EF` merged at
+`c196b33c634169cfc991c3de101c23fde8f75bae`.
 
 ## Goal
 
@@ -16,7 +17,9 @@ proof path.
 
 - Current dirty package source: `21504ef764118f5fd13086aa6266f19280196664`.
 - Dirty SQNT-07 replay merge: `4b2c415259ad5f3b10d281a536a5aa8499f926b7`.
-- Strongest accepted fresh target:
+- Current fresh package baseline:
+  `c196b33c634169cfc991c3de101c23fde8f75bae`.
+- Strongest pre-21504ef fresh runtime evidence:
   `05280a8e2d6e9705411c114c80ae2a4e4290de2c`.
 - Dirty current-package replay already accepts:
   - FCSF-04 object stale public route history;
@@ -24,7 +27,8 @@ proof path.
   - FCSF-06 character/sheet/handoff payloads with target blockers;
   - SQNT-03A through SQNT-03G;
   - SQNT-07B, SQNT-07C, and SQNT-07D.
-- Fresh current-package replay remains pending for those accepted dirty rows.
+- Fresh current-package runtime replay remains pending for those accepted dirty
+  rows.
 - SQNT-07A selected/grouped residual work remains source-input work, split by
   generic substrate family.
 
@@ -48,6 +52,9 @@ proof path.
 One preparation lane first, then four implementation lanes in parallel.
 
 ### FRESH-RR-BASELINE-21504EF
+
+Status: accepted and merged into fresh target `master` at
+`c196b33c634169cfc991c3de101c23fde8f75bae`.
 
 Purpose: refresh the fresh cleanroom package baseline to source
 `21504ef764118f5fd13086aa6266f19280196664` and classify existing fresh evidence
@@ -77,6 +84,8 @@ Checks:
 
 Depends on: `FRESH-RR-BASELINE-21504EF`.
 
+Base commit: `c196b33c634169cfc991c3de101c23fde8f75bae`.
+
 Purpose: replay the battle active-effect residual routes that already have dirty
 acceptance.
 
@@ -103,6 +112,8 @@ Parallel notes:
 ### FRESH-RR-SPATIAL-DAMAGE
 
 Depends on: `FRESH-RR-BASELINE-21504EF`.
+
+Base commit: `c196b33c634169cfc991c3de101c23fde8f75bae`.
 
 Purpose: replay object/light, mixed-target, exact-damage, and public stale route
 history facts against the fresh target.
@@ -131,6 +142,8 @@ Parallel notes:
 
 Depends on: `FRESH-RR-BASELINE-21504EF`.
 
+Base commit: `c196b33c634169cfc991c3de101c23fde8f75bae`.
+
 Purpose: replay FCSF-06 character creation, sheet, resource, handoff,
 settlement, and zero-HP lifecycle facts against the fresh target.
 
@@ -154,6 +167,8 @@ Parallel notes:
 ### FRESH-RR-FEATURE-SPECIES-METAMAGIC
 
 Depends on: `FRESH-RR-BASELINE-21504EF`.
+
+Base commit: `c196b33c634169cfc991c3de101c23fde8f75bae`.
 
 Purpose: replay SQNT-07B/C/D source facts against the fresh target.
 

@@ -35,13 +35,21 @@ Authoritative state:
 - out-of-scope obligations: `45`
 - active lane worktrees: none
 - active fresh dry-run worktrees: none
-- strongest fresh target evidence: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
+- current fresh package baseline:
+  `c196b33c634169cfc991c3de101c23fde8f75bae`
+- strongest pre-21504ef fresh runtime evidence:
+  `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - latest dirty package source used by current replay evidence:
   `21504ef764118f5fd13086aa6266f19280196664`
 - latest source-QNT connector replay batch: SQNT-07B species/passive-adjacent,
   SQNT-07C metamagic, and SQNT-07D active-feature spell-benefit dirty replay is
   accepted at merge head `4b2c415259ad5f3b10d281a536a5aa8499f926b7`; fresh
   target replay remains pending.
+- latest fresh baseline refresh: `FRESH-RR-BASELINE-21504EF` is accepted at
+  `c196b33c634169cfc991c3de101c23fde8f75bae`; it refreshes the copied package
+  to `21504ef764118f5fd13086aa6266f19280196664` and classifies older fresh
+  runtime evidence as historical snapshot evidence without claiming new
+  current-package runtime coverage.
 - previous source-QNT connectors: SQNT-03A Hit Point regain prevention,
   SQNT-03B Next Attack Roll mode, and SQNT-03C Opportunity Attack Denial are
   packaged and dirty-replayed; fresh target replay remains pending.
@@ -185,16 +193,15 @@ Next useful work is one of:
   promote the remaining Task 3 selected-spell blockers after SQNT-03B and the
   FEXP-07 selected/grouped residual blockers into source-side QNT/guidance
   updates before launching more target implementation;
-- use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
-  `05280a8e2d6e9705411c114c80ae2a4e4290de2c` as accepted evidence for the
-  integrated SDK tracer-bullet, post-FC06 Pact Slot handoff replay, FEXP-00
-  expansion baseline lock, current FEXP-04 evidence, and current FEXP-06
-  evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 remain useful historical
-  fresh evidence after the source-input refresh, not current-package fresh
-  acceptance. The dirty campaign now also records FCSF-04, FCSF-05, SQNT-03A,
-  SQNT-03B, SQNT-03C, SQNT-07B, SQNT-07C, and SQNT-07D current-package dirty
-  replays as accepted and FCSF-06 current-package dirty replay as
-  accepted-with-target blockers;
+- use fresh target commit `c196b33c634169cfc991c3de101c23fde8f75bae` as the
+  current 21504ef package baseline. Use `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
+  and `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` as historical fresh runtime evidence
+  for the integrated SDK tracer-bullet, post-FC06 Pact Slot handoff replay, and
+  FEXP-04/FEXP-06 runtime surfaces until current-package replay lanes renew
+  those claims. The dirty campaign records FCSF-04, FCSF-05, SQNT-03A, SQNT-03B,
+  SQNT-03C, SQNT-07B, SQNT-07C, and SQNT-07D current-package dirty replays as
+  accepted and FCSF-06 current-package dirty replay as accepted-with-target
+  blockers;
 - clean the old historical evidence debt so the dirty
   harness can pass without exception;
 - promote the strongest route-connector lessons back into source-side QNT and

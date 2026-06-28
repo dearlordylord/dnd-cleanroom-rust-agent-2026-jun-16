@@ -11,7 +11,10 @@ Audit baseline:
   bookkeeping:
   `ebd3699fb03c99d0ec674361ebf69835e64bfd0c`
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
-- accepted fresh target head: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
+- current fresh package baseline head:
+  `c196b33c634169cfc991c3de101c23fde8f75bae`
+- strongest pre-21504ef fresh runtime evidence head:
+  `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - current fresh gate: `python3 tools/verify_current_fresh_target.py`
 - latest dirty package source used by the SQNT-07 current-package replay batch:
   `21504ef764118f5fd13086aa6266f19280196664`
@@ -33,7 +36,7 @@ fresh cleanroom and which review checks prevent false positives.
 | --- | --- | --- | --- |
 | Dirty rehearsal routes the refreshed in-scope denominator through reducer-shaped evidence. | `STATE.json.coverageCurrent` records `97 / 97` accepted drivers and `659 / 659` accepted refreshed in-scope obligations; `CHECKPOINT_REPORT.md` records CP8 and Pact Slot replay evidence. | Proven for dirty rehearsal. | This is diagnostic evidence only. It must not be treated as final architecture proof. |
 | Accepted dirty evidence uses shared reducer entrypoints rather than local replay islands. | `FRESH_CLEANROOM_READINESS.md` summarizes the review loop that rejected adapter-local synthesis and required observed route events from reducer entrypoints; `CHECKPOINT_REPORT.md` records per-lane verification. | Proven for accepted dirty rows by campaign review artifacts. | The proof strength is bounded by the dirty target and its historical scaffolding. |
-| Fresh target can be built without reading TypeScript implementation or dirty `src/**` implementation files. | Fresh target state/evidence records `copiedDirtySrcImplementation: false`; `python3 tools/verify_current_fresh_target.py` passes; the accepted fresh target is at `05280a8e2d6e9705411c114c80ae2a4e4290de2c`. | Proven for the FC-00 through FC-08 dry-run scope, FEXP-00 through FEXP-07 expansion lanes, the post-refresh FEXP-04 exact roll-choice replay, FEXP-04 Ability Check/Search public reducer replay, FEXP-04 Concentration cleanup replay, and FEXP-04 scalar profile replay. | Older FC/FEXP evidence that was not refreshed against source `ee4894fa71e9307b9251639f0b54577ff764c63f` is explicitly historical snapshot evidence, not current-package acceptance. |
+| Fresh target can be built without reading TypeScript implementation or dirty `src/**` implementation files. | Fresh target state/evidence records `copiedDirtySrcImplementation: false`; `python3 tools/verify_current_fresh_target.py` passes; the current fresh package baseline is at `c196b33c634169cfc991c3de101c23fde8f75bae`. | Proven for the FC-00 through FC-08 dry-run scope, FEXP-00 through FEXP-07 expansion lanes, the post-refresh FEXP-04 exact roll-choice replay, FEXP-04 Ability Check/Search public reducer replay, FEXP-04 Concentration cleanup replay, FEXP-04 scalar profile replay, and the no-new-runtime baseline refresh to package `21504ef764118f5fd13086aa6266f19280196664`. | Runtime evidence before `c196b33c634169cfc991c3de101c23fde8f75bae` is historical snapshot evidence for the current package until replayed against 21504ef. |
 | Fresh target exposes the reducer-shaped surface. | `FRESH_RUN_REPORT.md`, `STATE_OWNERS.md`, and tests in the fresh target cover `start_battle`, `discover_battle_acts`, `resolve_battle_subject`, and turn advancement. | Proven for the dry-run target. | The surface is intentionally minimal and tracer-driven. |
 | Fresh target supports an SDK-style programmatic character plus simple battle scenario. | `FRESH_SDK_COMPOSITION_ACCEPTANCE.md`, `EVIDENCE/sdk-tracer-bullet-programmatic-surface.json`, and `python3 tools/verify_current_fresh_target.py` cover sheet creation, projection, encounter composition, battle entry, act resolution, HP mutation, action spend, and turn advancement. | Proven for the accepted tracer scenario. | This is a tracer-bullet scenario, not full character/battle runtime parity. |
 | FEXP-01 diagnostic battle route pack is accepted in the fresh target. | Fresh target head `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639` includes `EVIDENCE/fexp01-diagnostic-battle-route-pack.json`, `examples/fexp01_route_observations.rs`, and `tools/verify_fexp01.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for Magic Missile slot-spell route, HP restoration ordering, Death Saving Throw, and Concentration teardown. | The verifier parser is intentionally narrow for the accepted connector shapes; broader drivers still need their own lanes. |
@@ -59,20 +62,11 @@ python3 tools/verify_current_fresh_target.py
 
 This gate validates:
 
-- current `ee4894fa71e9307b9251639f0b54577ff764c63f` input package inventory;
-- SDK tracer-bullet public surface;
-- FEXP-04 active-effect lifecycle, exact roll-choice payload, Ability
-  Check/Search public reducer evidence, Concentration cleanup evidence, and
-  scalar profile replay evidence,
-  including expected records mechanically derived from copied QNT connector
-  action bodies/helper vocabulary, executable reducer-entrypoint observed
-  records, and no remaining FEXP-04 blockers.
-- FEXP-06 character/sheet/handoff substrate evidence, including expected records
-  mechanically derived from copied QNT connector action bodies/helper
-  vocabulary, executable character/sheet/handoff observed records, and explicit
-  blockers for partial/rejection/resource/conflict source-input gaps.
-- FC-03/FC-04/FC-05/FC-07 and FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07
-  historical snapshot classification after the source package refresh.
+- current `21504ef764118f5fd13086aa6266f19280196664` input package inventory;
+- zero current-package runtime acceptance claims after the baseline refresh;
+- historical snapshot classification for pre-21504ef runtime evidence, including
+  SDK tracer-bullet, FEXP-04, FEXP-06, FC-03/FC-04/FC-05/FC-07, and
+  FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 evidence.
 
 The later dirty package refreshes are not part of that accepted fresh gate yet.
 They record that source-feedback Task 3 residual selected-spell route-task
@@ -81,8 +75,12 @@ reducer diagnostic seed, FCSF-04 public object stale route-history evidence,
 FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06
 character/sheet/handoff payload evidence, and SQNT-07B/C/D
 feature/species/metamagic route evidence are available in `cleanroom-input/**`;
-future fresh acceptance still has to replay those package facts through public
-reducer/source entrypoints.
+future fresh runtime acceptance still has to replay those package facts through
+public reducer/source entrypoints. The baseline lane
+`FRESH-RR-BASELINE-21504EF` refreshed the fresh target to package
+`21504ef764118f5fd13086aa6266f19280196664` at
+`c196b33c634169cfc991c3de101c23fde8f75bae`, but it intentionally claims no new
+runtime coverage.
 
 Dirty campaign state:
 
@@ -105,8 +103,10 @@ Expected state:
    FEXP-07 fresh expansion campaign is complete; the next useful proof work is
    not another blind target lane, but tightening the source package where the
    fresh target had to stop.
-2. Keep the accepted fresh target at `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
-   as the baseline evidence target unless a newer package refresh supersedes it.
+2. Keep the accepted fresh target at `c196b33c634169cfc991c3de101c23fde8f75bae`
+   as the current 21504ef package baseline; use
+   `05280a8e2d6e9705411c114c80ae2a4e4290de2c` as historical runtime evidence
+   until focused current-package replay lanes supersede it.
 3. Prioritize generic route inputs for the blocker clusters now visible across
    FEXP-02 through FEXP-07: residual selected spell effects, stale/object
    public observability, active-effect cleanup/progression,

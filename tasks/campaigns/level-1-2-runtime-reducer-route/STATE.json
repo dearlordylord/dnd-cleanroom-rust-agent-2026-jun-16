@@ -3627,19 +3627,21 @@
     "Source feedback task FCSF-01 landed at c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d, adding public concentration cleanup route source input through BattleConcentrationOwner and BattleActiveEffectOwner; fresh target commit bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c accepts failed-save, voluntary-end, and replacement Concentration cleanup through public reducer entrypoints.",
     "Source feedback task FCSF-02 landed at ee4894fa71e9307b9251639f0b54577ff764c63f, adding generic scalar-buff profile projection/domain facts; fresh target commit 05280a8e2d6e9705411c114c80ae2a4e4290de2c accepts scalar profile replay through copied QNT plus public reducer route observations.",
     "Dirty cleanroom package refreshes now package source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A/B/C route connector evidence, source-feedback Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, and SQNT-07B/C/D feature/species/metamagic route evidence through latest source package 21504ef764118f5fd13086aa6266f19280196664. FCSF-04, FCSF-05, FCSF-06, SQNT-03A, SQNT-03B, SQNT-03C, SQNT-07B, SQNT-07C, and SQNT-07D have been dirty-replayed; those replays do not claim fresh target acceptance.",
+    "Fresh target baseline refresh FRESH-RR-BASELINE-21504EF is accepted at c196b33c634169cfc991c3de101c23fde8f75bae. The fresh verifier now recognizes source package 21504ef764118f5fd13086aa6266f19280196664 and classifies pre-refresh runtime evidence as historical snapshot evidence. This baseline refresh claims no new current-package runtime coverage.",
     "Do not launch more dirty target lanes for Task 3 residual selected-spell branches beyond SQNT-03C, or for FEXP-07 selected/grouped residual branches, until source-side QNT/guidance adds the remaining generic route facts listed in SOURCE_QNT_NEXT_TASKS.md.",
-    "Use accepted fresh target 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the current strongest accepted target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, FEXP-04 Ability Check/Search public reducer routing, FEXP-04 Concentration cleanup routing, FEXP-04 scalar profile replay, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are explicit historical snapshots after the source-input refresh.",
+    "Use accepted fresh target c196b33c634169cfc991c3de101c23fde8f75bae as the current package baseline for future fresh replay lanes. Use 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the strongest pre-21504ef runtime evidence for SDK composition, Pact Slot handoff replay, FEXP-04 exact route-choice payload replay, Ability Check/Search public reducer routing, Concentration cleanup routing, and scalar profile replay; those runtime rows are historical snapshots until replayed against 21504ef.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean old historical replay/ledger debt only if the dirty harness needs to pass without exception; validator provenance has already been refreshed.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fexp04-scalar-profile-replay-accepted-with-historical-snapshots",
+    "status": "fresh-rr-baseline-21504ef-accepted-with-historical-runtime-snapshots",
     "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
+    "acceptedTargetHead": "c196b33c634169cfc991c3de101c23fde8f75bae",
+    "strongestRuntimeEvidenceHead": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -3933,6 +3935,34 @@
         "reviewFixes": [
           "start_owner_for_profiles now rejects mixed start-battle route-owner profiles with ReducerError::MixedStartBattleRouteOwners instead of priority-scanning profiles."
         ]
+      },
+      {
+        "laneId": "FRESH-RR-BASELINE-21504EF",
+        "status": "accepted",
+        "baseCommit": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
+        "targetCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
+        "workerAgent": "Turing the 3rd (019f0f45-2933-73c3-9dd9-327c3e373bb4)",
+        "reviewerAgent": "orchestrator review",
+        "artifacts": [
+          "cleanroom-input/**",
+          "FRESH_RUN_STATE.json",
+          "FRESH_RUN_REPORT.md",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "BLOCKERS.json",
+          "EVIDENCE/fc00-package-admission.json",
+          "tools/verify_current_fresh_target.py",
+          "tools/verify_fc00.py"
+        ],
+        "checks": [
+          "git merge-base --is-ancestor 05280a8e2d6e9705411c114c80ae2a4e4290de2c HEAD",
+          "python3 tools/verify_current_fresh_target.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check HEAD~1...HEAD"
+        ],
+        "coverageClaim": "baseline package refresh only; source package 21504ef764118f5fd13086aa6266f19280196664 is current, pre-refresh runtime evidence is classified historical, and no current-package runtime acceptance claims are made"
       }
     ],
     "activeWorktree": null,
@@ -3940,10 +3970,10 @@
     "activeLaneBaseCommit": null,
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": null,
+    "nextPlannedLane": "Wave 1 fresh replay lanes from NEXT_RALPH_CAMPAIGN.md",
     "nextWorkRecommendations": [
-      "FEXP-07 closes the initially planned fresh expansion lanes; the post-refresh FEXP-04 exact roll-choice replay, Ability Check/Search replay, and Concentration cleanup replay are accepted in the fresh target.",
-      "After this lane, continue source-input feedback for remaining FEXP-02 through FEXP-07 blockers, then a larger fresh-cleanroom campaign against the updated package."
+      "FRESH-RR-BASELINE-21504EF refreshed the fresh target to source package 21504ef764118f5fd13086aa6266f19280196664 and made pre-refresh runtime evidence historical for the current gate.",
+      "Next launch the four independent fresh replay lanes from NEXT_RALPH_CAMPAIGN.md against base c196b33c634169cfc991c3de101c23fde8f75bae: battle active effects, spatial/damage, character/sheet/handoff, and feature/species/metamagic."
     ]
   },
   "sdkTracerBullet": {
