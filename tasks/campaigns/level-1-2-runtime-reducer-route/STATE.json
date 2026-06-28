@@ -680,7 +680,10 @@
       "baseSha": "a8d936aef660a17ed79482e68ba7fe489b5035f6",
       "workerAgent": "019f0ecf-aa08-7350-beba-ddac302af135",
       "workerName": "Gauss the 3rd",
-      "status": "worker-running",
+      "workerCommit": "b94d0b8c307f01466b1de044eca60e36da5b303c",
+      "reviewAgent": "019f0ee4-39e9-7bc3-986c-f17ab1af3497",
+      "reviewName": "Gibbs the 3rd",
+      "status": "implemented-review-running",
       "scope": "dirty target replay only; no fresh target acceptance claimed"
     }
   ],
