@@ -627,7 +627,7 @@
       "workerName": "Banach the 3rd",
       "workerCommit": "92e171ed82c1148a65f84d052589444ebb1d10ed",
       "reviewFixCommit": "acaa1e642fc921cfec7569b7f5bb56bb0c3f6e89",
-      "guidanceCommit": "c4516d8991157da7f5ef65052b9a39f8c291f417",
+      "guidanceCommit": "6ef016af8293575f97a6dd0bfcf7793afc3947b7",
       "reviewAgent": "019f0e80-224f-7112-a3c9-8acc850386da",
       "reviewName": "Fermat the 3rd",
       "status": "reviewed-fixed-ready-for-source-merge",
