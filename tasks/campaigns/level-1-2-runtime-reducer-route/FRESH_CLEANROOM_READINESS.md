@@ -140,6 +140,9 @@ the fresh SDK composition tracer is accepted, the FC-06 source feedback is
 resolved in the copied source package, and the current fresh verifier is green.
 Next useful work is one of:
 
+- use `FEXP_BLOCKER_SOURCE_FEEDBACK.md` to promote the remaining FEXP-02 through
+  FEXP-07 blockers into source-side QNT/guidance updates before launching more
+  target implementation;
 - use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
   `a77a41dc752326eab69d8110de78928b9dcb9691` as the accepted evidence for the
   integrated SDK tracer-bullet plus post-FC06 Pact Slot handoff replay plus

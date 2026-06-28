@@ -103,15 +103,18 @@ Expected state:
 
 ## Remaining Work To Prove The Full Objective
 
-1. Run a larger fresh cleanroom campaign from the accepted input package and
-   campaign guidance, not from dirty `src/**`. The proposed campaign boundary
-   is `FRESH_CLEANROOM_EXPANSION_PLAN.md` with lane definitions in
-   `FRESH_EXPANSION_LANES.json`.
+1. Convert the explicit fresh-run blockers into source-side QNT/guidance
+   feedback before launching more target implementation. The FEXP-00 through
+   FEXP-07 fresh expansion campaign is complete; the next useful proof work is
+   not another blind target lane, but tightening the source package where the
+   fresh target had to stop.
 2. Keep the accepted fresh target at `a77a41dc752326eab69d8110de78928b9dcb9691`
    as the baseline evidence target unless a newer package refresh supersedes it.
-3. Promote any additional route-connector lessons back into source-side QNT or
-   curated cleanroom guidance before treating a fresh-run blocker as a target
-   implementation problem.
+3. Prioritize generic route inputs for the blocker clusters now visible across
+   FEXP-02 through FEXP-07: residual selected spell effects, stale/object
+   public observability, active-effect cleanup/progression payloads,
+   reaction/interrupt payload taxonomy, character/sheet/handoff rejection
+   payloads, and feature/species/metamagic generic substrate facts.
 4. Preserve the review gates from this campaign: observed reducer events,
    independent expected route records, state-owner derivability records, and no
    production authored identity dispatch.

@@ -22,6 +22,9 @@ prove that the current cleanroom package can continue expanding an independent
 runtime through focused QNT route connectors, with blockers recorded when the
 package does not state enough.
 
+FEXP-00 through FEXP-07 are now complete. Remaining target blockers are grouped
+as source-input feedback in `FEXP_BLOCKER_SOURCE_FEEDBACK.md`.
+
 ## Non-Negotiable Boundaries
 
 Workers and reviewers for this campaign may read:
