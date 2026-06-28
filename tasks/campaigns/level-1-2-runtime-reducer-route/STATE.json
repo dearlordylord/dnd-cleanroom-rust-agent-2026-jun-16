@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "dirty-replay-fcsf06-running",
+  "status": "dirty-replay-fcsf06-accepted-with-target-blockers",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "c92c59eeff8e2252195a6dcf4b3c761a648b104e",
+    "lastVerifiedIntegrationHead": "4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d",
     "lastMergedLane": {
-      "laneId": "FEXP-04-EXACT-ROLL-CHOICE-PAYLOAD-DIRTY-REPLAY",
-      "mergeCommit": "801b05df55a1393d6acd5c3fa7b2624ed91f9494",
-      "laneHead": "801b05df55a1393d6acd5c3fa7b2624ed91f9494",
-      "note": "Diagnostic dirty target replay refresh only. The worker consumed source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375 exact route-choice payload facts and routed skill-choice, ability-choice, and two-target ability-choice fill evidence through the shared reducer route surface. Focused Rust tests and full cargo tests pass; global cleanroom harness remains intentionally not accepted because the full RUN_LEDGER and historical evidence files are stale after the source input refresh."
+      "laneId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY",
+      "mergeCommit": "4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d",
+      "laneHead": "955cdafcbcaae285d305569f7efb36c324e286e8",
+      "note": "Diagnostic dirty target replay only. The worker consumed source commit d63838e22137c4b329dc877ca0d963876f3459bf character/sheet/handoff route facts and accepted 30 reducer-route witness rows through public dirty-target route state while demoting 14 rows to explicit target blockers. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
       "sourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
@@ -169,6 +169,47 @@
         "node scripts/check-cleanroom-harness.cjs 2>&1 | head -120 (expected broad stale RUN_LEDGER/evidence failure)"
       ],
       "note": "Dirty diagnostic replay only. Focused tests prove exact choice payloads flow through reducer route events; target replay evidence JSON was not refreshed because updating old evidence hashes without a generator would fake acceptance. Does not change fresh target acceptance."
+    },
+    {
+      "id": "fcsf06-character-sheet-handoff-dirty-replay",
+      "status": "dirty-target-focused-accepted-with-target-blockers",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf06-dirty-replay",
+      "branch": "ralph/fcsf06-character-sheet-handoff-dirty-replay",
+      "baseCommit": "6d13eb64e4850ebc06f7ce67afa497b0f5a0f895",
+      "workerAgent": "Aristotle the 3rd (019f0cff-ee2c-7530-a928-c5f0e8aedec7)",
+      "workerCommit": "b2af643d00f6e7dc8c448d2c2280e1a1899608d7",
+      "fixCommit": "955cdafcbcaae285d305569f7efb36c324e286e8",
+      "reviewAgent": "Planck the 3rd (019f0d0d-9cef-7463-ade6-4ee2067d76be)",
+      "reviewVerdict": "clean after demoting unsupported rows to target blockers",
+      "mergeCommit": "4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d",
+      "manifestSourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "drivers": [
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/character-creation-runtime/character-creation-runtime.route.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt",
+        "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
+        "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt"
+      ],
+      "evidence": "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json",
+      "acceptedRows": 30,
+      "targetBlockedRows": 14,
+      "targetBlockers": [
+        "11 character sheet Spell Slot/Pact Slot route rows: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows.",
+        "3 character battle settlement rows absent from the copied character-battle-settlement route connector: doRejectActiveBattleStateHandoff, doRejectMixedSpellAndPactSlotSettlement, and doSettlePurePactMagicSlotExpenditure."
+      ],
+      "checks": [
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD",
+        "node scripts/check-cleanroom-harness.cjs (failed only on known stale validator hashes)"
+      ],
+      "note": "Dirty diagnostic replay only. Accepted rows provide focused evidence that the dirty target can consume FCSF-06 character creation, Hit Point Maximum, and settlement route facts through reducer-shaped public state; blocked rows identify missing dirty target public route state or missing copied route connector rows. Does not change fresh target acceptance or the canonical dirty-campaign denominator."
     }
   ],
   "completedBeforeCampaign": [
@@ -397,14 +438,12 @@
     "L15-RRCP7-C-WEAPON-PREHIT-ATTACK-SETUP-ROUTES": "merged-verified",
     "L15-RRCP7-D-MAGE-ARMOR-ADMISSION-LIFECYCLE-ROUTES": "merged-verified",
     "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "merged-verified",
-    "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES": "merged-verified"
+    "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES": "merged-verified",
+    "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY": "merged-verified-with-target-blockers"
   },
   "lastIntegrationVerification": {
-    "head": "5b1e976b6af7fadefa4ea5a065ae81de53b94d09",
+    "head": "4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d",
     "commands": [
-      "jq empty touched CP8 JSON artifacts",
-      "cargo test mage_armor_adapter_replays_all_branches -- --nocapture",
-      "cargo test mage_armor_projects_base_armor_class_and_duration -- --nocapture",
       "cargo fmt --check",
       "git diff --check HEAD~1...HEAD",
       "cargo test",
@@ -413,28 +452,33 @@
     ],
     "result": "passed except cleanroom harness failed only on known stale validator hashes in cleanroom-input/MANIFEST.md",
     "cargoTest": "220 passed",
-    "focusedTests": "Mage Armor adapter replay and base Armor Class/duration projection tests passed",
-    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no CP8/FU01E/Mage Armor evidence, ledger, or artifact failures",
-    "review": "Rawls the 2nd re-review returned no blockers for commit a8b96ec0aa91b4249b352009b1384292f917f7e2"
+    "focusedTests": "FCSF-06 dirty replay evidence records 44 rows: 30 pass and 14 target-blocker.",
+    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no FCSF-06 evidence, ledger, or artifact failures",
+    "review": "Planck the 3rd re-review returned no blockers for fix commit 955cdafcbcaae285d305569f7efb36c324e286e8."
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf06-dirty-replay",
       "branch": "ralph/fcsf06-character-sheet-handoff-dirty-replay",
       "baseSha": "6d13eb64e4850ebc06f7ce67afa497b0f5a0f895",
-      "status": "dirty-target-replay-implemented",
+      "status": "merged-verified-with-target-blockers",
       "workerAgent": "019f0cff-ee2c-7530-a928-c5f0e8aedec7",
       "workerName": "Aristotle the 3rd",
       "workerCommit": "b2af643d00f6e7dc8c448d2c2280e1a1899608d7",
+      "fixCommit": "955cdafcbcaae285d305569f7efb36c324e286e8",
       "reviewAgent": "019f0d0d-9cef-7463-ade6-4ee2067d76be",
       "reviewName": "Planck the 3rd",
-      "reviewVerdict": "fix-required: route evidence is adapter-local for selected rows, hit-point-maximum route evidence stale, and settlement evidence claims rows absent from copied connector",
+      "reviewVerdict": "clean after unsupported route rows were demoted to explicit target blockers",
+      "mergeCommit": "4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d",
       "sourcePackageCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
-      "freshTargetAcceptance": "not-claimed"
-    }
-  ],
-  "completedLaneWorktrees": [
+      "evidence": "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json",
+      "acceptedRows": 30,
+      "targetBlockedRows": 14,
+      "freshTargetAcceptance": "not-claimed",
+      "statusNote": "removable after campaign retention decision; dirty replay only, not fresh target acceptance"
+    },
     {
       "laneId": "FCSF-06-CHARACTER-SHEET-HANDOFF-REJECTION-PAYLOADS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-fcsf06-character-sheet-handoff",

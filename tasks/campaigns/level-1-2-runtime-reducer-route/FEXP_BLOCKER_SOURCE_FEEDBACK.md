@@ -181,6 +181,12 @@ Resolved source input:
 
 Target status:
 
+- dirty cleanroom replay accepted 30 reducer-route witness rows and recorded 14
+  explicit target blockers in
+  `tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json`;
+- the 14 dirty target blockers are the 11 sheet Spell Slot/Pact Slot rows that
+  lack independent public `CharacterSheet` qRoute state in the dirty target, plus
+  the 3 battle-settlement rows absent from the copied settlement route connector;
 - not yet fresh-target replay acceptance;
 - future target evidence must consume these typed route facts through public
   character creation, character sheet, handoff, settlement, and battle reducer
