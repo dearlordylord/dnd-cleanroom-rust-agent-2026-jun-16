@@ -38,8 +38,10 @@ Authoritative state:
 - strongest fresh target evidence: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - latest dirty package refresh:
   `d63838e22137c4b329dc877ca0d963876f3459bf`
-- latest dirty replay refreshes: FCSF-05 accepted all 5 reaction/interrupt
-  taxonomy connector rows in
+- latest dirty replay refreshes: FCSF-04 accepted 6 object stale route-history
+  connector rows covering all 7 Starry Wisp object obligations in
+  `tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json`;
+  FCSF-05 accepted all 5 reaction/interrupt taxonomy connector rows in
   `tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json`;
   FCSF-06 accepted 30 reducer-route witness rows and recorded 14 target blockers
   in `tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json`
@@ -100,10 +102,12 @@ generic connector route shape but was not counted as a new CP8 row.
   Task 8 six-driver active reducer diagnostic seed, and FCSF-04 public object
   stale route-history evidence, FCSF-05 reaction/interrupt payload taxonomy
   evidence, and FCSF-06 character/sheet/handoff rejection and resource payload
-  evidence. The later FCSF-05 dirty replay adds diagnostic Rust coverage for
-  all 5 reaction/interrupt taxonomy connector rows, and the FCSF-06 dirty
-  replay adds diagnostic Rust coverage for 30 rows while recording 14 target
-  blockers. These dirty replays do not add fresh target acceptance, and
+  evidence. The later FCSF-04 dirty replay adds diagnostic Rust coverage for all
+  7 Starry Wisp object obligations including public stale route history, the
+  FCSF-05 dirty replay adds diagnostic Rust coverage for all 5 reaction/interrupt
+  taxonomy connector rows, and the FCSF-06 dirty replay adds diagnostic Rust
+  coverage for 30 rows while recording 14 target blockers. These dirty replays
+  do not add fresh target acceptance, and
   condition-immunity is still not accepted as scalar-buff route replay
   evidence.
 - It does not remove every old historical evidence artifact. The fresh current
@@ -174,8 +178,8 @@ Next useful work is one of:
   FEXP-06 character/sheet/handoff substrate lane plus FEXP-07
   feature/species/metamagic substrate lane. The current gate verifies the
   refreshed `ee4894fa` package plus current FEXP-04/FEXP-06 evidence, and the
-  dirty campaign now also records FCSF-05 current-package dirty replay as
-  accepted and FCSF-06 current-package dirty replay as
+  dirty campaign now also records FCSF-04 and FCSF-05 current-package dirty
+  replays as accepted and FCSF-06 current-package dirty replay as
   accepted-with-target-blockers. Older stale snapshots remain explicitly
   classified;
 - clean the global stale validator-hash / historical evidence debt so the dirty

@@ -7,7 +7,7 @@
   "sourcePackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
   "acceptedFreshTargetPackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
   "latestDirtyPackageRefreshCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
-  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence are packaged in cleanroom-input. FCSF-05 dirty replay later accepted all 5 connector rows, and FCSF-06 dirty replay accepted 30 reducer-route witness rows and recorded 14 target blockers; no fresh target acceptance is claimed from these dirty replays.",
+  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence are packaged in cleanroom-input. FCSF-04 dirty replay later accepted 6 connector rows and covered 7 object-route obligations, FCSF-05 dirty replay accepted all 5 connector rows, and FCSF-06 dirty replay accepted 30 reducer-route witness rows and recorded 14 target blockers; no fresh target acceptance is claimed from these dirty replays.",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,
@@ -97,7 +97,7 @@
         "spell attack procedure owner state-owner records",
         "verifier update for FEXP-03 evidence"
       ],
-      "acceptanceSummary": "Historical fresh snapshot accepted with blockers: chained and independent spell attack fills route through generic SpellAttackProcedure owners without collapsing them into one attack replay island; isolated object stale replay was blocked in this snapshot. FCSF-04 later resolves that blocker as source input by packaging public object stale route-history evidence; fresh target replay is still pending."
+      "acceptanceSummary": "Historical fresh snapshot accepted with blockers: chained and independent spell attack fills route through generic SpellAttackProcedure owners without collapsing them into one attack replay island; isolated object stale replay was blocked in this snapshot. FCSF-04 later resolves that blocker as source input by packaging public object stale route-history evidence; dirty replay accepts 6 connector rows and covers all 7 Starry Wisp object obligations. Fresh target replay is still pending."
     },
     {
       "laneId": "FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS",

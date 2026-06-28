@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "dirty-replay-fcsf04-running",
+  "status": "dirty-replay-fcsf04-accepted",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "5d07ad816c08ab3335c7e95c87f26c2e73e80d9c",
+    "lastVerifiedIntegrationHead": "9c9d728640e28a003a5a051f7ddc9be56bbc980e",
     "lastMergedLane": {
-      "laneId": "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY",
-      "mergeCommit": "5d07ad816c08ab3335c7e95c87f26c2e73e80d9c",
-      "laneHead": "118f7f5d25282bcd576951e74505c1b380e67a71",
-      "note": "Diagnostic dirty target replay only. The worker consumed source commit d63838e22137c4b329dc877ca0d963876f3459bf reaction/interrupt payload taxonomy route facts and accepted all 5 connector rows through BattleEntrypointTrace route events. This does not claim fresh target acceptance."
+      "laneId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY",
+      "mergeCommit": "9c9d728640e28a003a5a051f7ddc9be56bbc980e",
+      "laneHead": "6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b",
+      "note": "Diagnostic dirty target replay only. The worker consumed source commit d63838e22137c4b329dc877ca0d963876f3459bf object stale route-history facts and accepted 6 connector rows covering 7 Starry Wisp object driver obligations. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
       "sourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
@@ -239,6 +239,35 @@
         "node scripts/check-cleanroom-harness.cjs (failed only on known stale validator hashes)"
       ],
       "note": "Dirty diagnostic replay only. Accepted connector rows cover generic reaction Armor Class effect, after-damage save/damage, spell interruption ended, spell interruption resumed, and fall mitigation route taxonomy through BattleEntrypointTrace route events; production routing remains generic subject/fill/owner shaped rather than authored identity dispatch. Does not change fresh target acceptance."
+    },
+    {
+      "id": "fcsf04-object-stale-dirty-replay",
+      "status": "dirty-target-focused-accepted",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf04-object-stale-replay",
+      "branch": "ralph/fcsf04-object-stale-dirty-replay",
+      "baseCommit": "832afbebbb3c46bf0a05b6c2bcb541f77508a328",
+      "workerAgent": "Leibniz the 3rd (019f0d3c-ddc7-7c30-842f-e5f4aca133ab)",
+      "workerCommit": "6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b",
+      "reviewAgent": "Averroes the 3rd (019f0d48-7a8d-7dd2-a296-0d789722bb3d)",
+      "reviewVerdict": "clean: stale replay is observed through public route history and no durable state was added",
+      "mergeCommit": "9c9d728640e28a003a5a051f7ddc9be56bbc980e",
+      "manifestSourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt",
+      "evidence": "tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json",
+      "acceptedConnectorRows": 6,
+      "coveredSourceDriverObligations": 7,
+      "targetBlockedRows": 0,
+      "checks": [
+        "cargo fmt --check",
+        "cargo test starry_wisp_object -- --nocapture",
+        "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD",
+        "node scripts/check-cleanroom-harness.cjs (failed only on known stale validator hashes)"
+      ],
+      "note": "Dirty diagnostic replay only. Accepted connector rows cover object-target boundary, boundary rejection, attack miss, attack hit, damage/light effect, and stale replay route history through public route observations. The stale row proves object boundary, attack roll, damage roll, active-effect, then BattleHoleFrontierOwner. Does not change fresh target acceptance."
     }
   ],
   "completedBeforeCampaign": [
@@ -469,32 +498,34 @@
     "L15-RRCP7-E-MAGIC-WEAPON-ITEM-TARGET-ROUTES": "merged-verified",
     "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES": "merged-verified",
     "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY": "merged-verified-with-target-blockers",
-    "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY": "merged-verified"
+    "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY": "merged-verified",
+    "FCSF-04-OBJECT-STALE-DIRTY-REPLAY": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "5d07ad816c08ab3335c7e95c87f26c2e73e80d9c",
+    "head": "9c9d728640e28a003a5a051f7ddc9be56bbc980e",
     "commands": [
       "cargo fmt --check",
-      "cargo test reaction_interrupt_payload_taxonomy_adapter_replays_connector_rows -- --nocapture",
-      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json",
+      "cargo test starry_wisp_object -- --nocapture",
+      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json",
       "git diff --check HEAD~1...HEAD",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings",
       "node scripts/check-cleanroom-harness.cjs"
     ],
     "result": "passed except cleanroom harness failed only on known stale validator hashes in cleanroom-input/MANIFEST.md",
-    "cargoTest": "221 passed",
-    "focusedTests": "FCSF-05 dirty replay evidence records 5 connector runs, 0 blocked runs, and the target replay evidence validator covers 3 selected reaction-spell context obligations.",
-    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no FCSF-05 evidence, ledger, or artifact failures",
-    "review": "Euclid the 3rd review returned no blockers for worker commit 118f7f5d25282bcd576951e74505c1b380e67a71."
+    "cargoTest": "222 passed",
+    "focusedTests": "FCSF-04 dirty replay evidence records 7 driver obligation runs, 6 connector runs, 0 blocked runs, and the target replay evidence validator covers all 7 Starry Wisp object obligations.",
+    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no FCSF-04 evidence, ledger, or artifact failures",
+    "review": "Averroes the 3rd review returned no blockers for worker commit 6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b."
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf04-object-stale-replay",
       "branch": "ralph/fcsf04-object-stale-dirty-replay",
       "baseSha": "832afbebbb3c46bf0a05b6c2bcb541f77508a328",
-      "status": "dirty-target-replay-implemented-under-review",
+      "status": "merged-verified",
       "workerAgent": "019f0d3c-ddc7-7c30-842f-e5f4aca133ab",
       "workerName": "Leibniz the 3rd",
       "workerCommit": "6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b",
@@ -503,14 +534,17 @@
       "routeTaskId": "FCSF-04-OBJECT-STALE-PUBLIC-PROTOCOL",
       "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
       "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt",
-      "acceptedRowsClaimed": 6,
-      "coveredSourceDriverObligationsClaimed": 7,
-      "targetBlockedRowsClaimed": 0,
+      "acceptedConnectorRows": 6,
+      "coveredSourceDriverObligations": 7,
+      "targetBlockedRows": 0,
       "reviewAgent": "019f0d48-7a8d-7dd2-a296-0d789722bb3d",
-      "reviewName": "Averroes the 3rd"
-    }
-  ],
-  "completedLaneWorktrees": [
+      "reviewName": "Averroes the 3rd",
+      "reviewVerdict": "clean",
+      "mergeCommit": "9c9d728640e28a003a5a051f7ddc9be56bbc980e",
+      "evidence": "tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json",
+      "freshTargetAcceptance": "not-claimed",
+      "statusNote": "removable after campaign retention decision; dirty replay only, not fresh target acceptance"
+    },
     {
       "laneId": "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf05-reaction-replay",

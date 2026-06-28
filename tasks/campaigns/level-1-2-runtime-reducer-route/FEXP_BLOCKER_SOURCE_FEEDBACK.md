@@ -81,6 +81,11 @@ Resolved source input:
 
 Target status:
 
+- dirty cleanroom replay accepted 6 connector rows and covered all 7 Starry
+  Wisp object driver obligations in
+  `tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json`;
+- the stale row proves public route history through object boundary,
+  attack roll, damage roll, active-effect, and then `BattleHoleFrontierOwner`;
 - not yet fresh-target replay acceptance;
 - future target evidence must observe this route through public reducer
   entrypoints instead of fabricating an isolated stale subject token.

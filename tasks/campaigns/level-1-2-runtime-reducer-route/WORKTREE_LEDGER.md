@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| FCSF-04-OBJECT-STALE-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf04-object-stale-replay` | `ralph/fcsf04-object-stale-dirty-replay` | `832afbebbb3c46bf0a05b6c2bcb541f77508a328` | Leibniz the 3rd (`019f0d3c-ddc7-7c30-842f-e5f4aca133ab`), review Averroes the 3rd (`019f0d48-7a8d-7dd2-a296-0d789722bb3d`) | implemented at `6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b`; under review |
+| _none_ | | | | | |
 
 ## Active Fresh Dry Run Targets
 
@@ -56,6 +56,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| FCSF-04-OBJECT-STALE-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf04-object-stale-replay` | `ralph/fcsf04-object-stale-dirty-replay` | `6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b` | `9c9d728640e28a003a5a051f7ddc9be56bbc980e` | removable after retention decision; dirty replay accepted 6 connector rows and covered 7 Starry Wisp object obligations, no fresh target acceptance claimed |
 | FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf05-reaction-replay` | `ralph/fcsf05-reaction-interrupt-dirty-replay` | `118f7f5d25282bcd576951e74505c1b380e67a71` | `5d07ad816c08ab3335c7e95c87f26c2e73e80d9c` | removable after retention decision; dirty replay accepted all 5 connector rows and covered 3 selected-context obligations, no fresh target acceptance claimed |
 | FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf06-dirty-replay` | `ralph/fcsf06-character-sheet-handoff-dirty-replay` | `955cdafcbcaae285d305569f7efb36c324e286e8` | `4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d` | removable after retention decision; dirty replay accepted 30 rows with 14 target blockers, no fresh target acceptance claimed |
 | FCSF-06-CHARACTER-SHEET-HANDOFF-REJECTION-PAYLOADS | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf06-character-sheet-handoff` | `ralph/fresh-source-feedback-task6-character-sheet-handoff` | `d63838e22137c4b329dc877ca0d963876f3459bf` | `d63838e22137c4b329dc877ca0d963876f3459bf` source fast-forward / package synced into dirty campaign | removable after source/package retention decision; source-feedback only, no dirty/fresh target acceptance or Rust runtime coverage claimed |
