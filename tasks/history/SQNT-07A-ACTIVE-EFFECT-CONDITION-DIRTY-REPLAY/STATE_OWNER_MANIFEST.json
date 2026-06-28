@@ -1,25 +1,5 @@
 {
-  "schemaVersion": 1,
-  "taskId": "SQNT-07A-DIRTY-REPLAY-INTEGRATION",
   "durableFields": [
-    {
-      "fieldPath": "BattleState.spatial_effect_route",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source",
-        "source": "copied spatial-effect route reducer state surface"
-      }
-    },
-    {
-      "fieldPath": "BattleState.movement_presentation_route",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state",
-      "derivability": {
-        "tag": "canonical-source",
-        "source": "copied movement-presentation route reducer state surface"
-      }
-    },
     {
       "derivability": {
         "tag": "canonical-source"
@@ -71,18 +51,6 @@
   ],
   "nonDurableBoundaryApiSurface": [
     {
-      "apiPath": "qRoute",
-      "boundary": "dirty target replay route projection from copied SQNT-07A connector vocabulary; not durable BattleState",
-      "introducedIn": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
-      "owner": "harness-witness-protocol"
-    },
-    {
-      "apiPath": "qProjectionPayload",
-      "boundary": "adapter-local projection of copied route facts, including table-owned geometry/presentation witnesses; not production dispatch state",
-      "introducedIn": "src/qnt_adapters/battle_runtime_movement_presentation_route.rs",
-      "owner": "harness-witness-protocol"
-    },
-    {
       "apiPath": "BattleEntrypointTrace.route_events",
       "boundary": "dirty target replay projection emitted by public reducer entrypoint tracing; not durable BattleState",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
@@ -107,5 +75,7 @@
       "owner": "executable-boundary-projection"
     }
   ],
-  "noRedundantStateFinding": "Spatial/movement lane: Searched existing spatial_route_subjects, object_light_route, level_one_spatial projections, movement/forced movement adapters, and reducer-route trace state. Existing level-one spatial projection fields describe selected spell witnesses, while object_light_route is scoped to object/held light riders. Added only two route-surface fields for copied generic spatial-effect and movement-presentation reducer replay; table geometry, landing, audible, wind, and color facts remain adapter-local route facts.\n\nActive-effect/condition lane: Searched existing BattleState, Combatant, BattleSpellActiveEffects, BattleConditionImmunities, and active-effect route subjects. Existing Combatant.incapacitated, Combatant.prone, Combatant.temporary_hp, and Combatant.spell_active_effects.condition_rider own the durable condition/temporary-HP facts needed by the lane. Only missing condition vocabulary/immunity flags for Paralyzed and Prone were added; marked-damage and condition-immunity replay facts remain generic route protocol/evidence, not duplicated selected spell state."
+  "noRedundantStateFinding": "Searched existing BattleState, Combatant, BattleSpellActiveEffects, BattleConditionImmunities, and active-effect route subjects. Existing Combatant.incapacitated, Combatant.prone, Combatant.temporary_hp, and Combatant.spell_active_effects.condition_rider own the durable condition/temporary-HP facts needed by the lane. Only missing condition vocabulary/immunity flags for Paralyzed and Prone were added; marked-damage and condition-immunity replay facts remain generic route protocol/evidence, not duplicated selected spell state.",
+  "schemaVersion": 1,
+  "taskId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY"
 }

@@ -20,6 +20,10 @@ use crate::rules::level_one_spell_effects::{
 };
 use crate::rules::spell_shapes::DamageType;
 
+use super::battle_runtime_marked_damage_immunity_active_effects_route::{
+    expected_route as expected_marked_damage_immunity_route,
+    replay_observed_route as replay_marked_damage_immunity_route,
+};
 use super::battle_runtime_reducer_route::{
     observed_reducer_route, route_discover_battle_acts_from_route_holes,
     route_resolve_battle_subject_from_route_result,
@@ -139,22 +143,49 @@ pub const BRANCH_ACTIONS: [&str; 12] = [
     "doTrueStrikeSpellHostedWeaponAttack",
 ];
 
-pub const ACCEPTED_BRANCH_ACTIONS: [&str; 12] = [
-    "doDivineFavorWeaponDamageRider",
-    "doDivineSmiteAfterHitDamage",
-    "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
-    "doFalseLifeTemporaryHitPoints",
+pub const ACCEPTED_BRANCH_ACTIONS: [&str; 4] = [
     "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
     "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
     "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
     "doHexMarkedDamageRiderAndLaterTurnTransfer",
-    "doLongstriderSpeedIncrease",
-    "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
-    "doShillelaghWeaponAttackOverride",
-    "doTrueStrikeSpellHostedWeaponAttack",
 ];
 
-pub const BLOCKED_BRANCH_ACTIONS: [(&str, &str); 0] = [];
+const SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT: &str = "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A.";
+
+pub const BLOCKED_BRANCH_ACTIONS: [(&str, &str); 8] = [
+    (
+        "doDivineFavorWeaponDamageRider",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doDivineSmiteAfterHitDamage",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doFalseLifeTemporaryHitPoints",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doLongstriderSpeedIncrease",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doShillelaghWeaponAttackOverride",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doTrueStrikeSpellHostedWeaponAttack",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> LevelOneSpellEffectWitness {
     match observed_action_taken {
@@ -224,25 +255,18 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             &[BattleGenericRouteFill::WithoutFill],
             &[ReducerRouteSubjectFamily::ScalarBuffEffect],
         ),
-        "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints" => replay_generic_route(
-            BattleSubjectKind::ConditionImmunityActiveEffectTurnStartTemporaryHitPoint,
-            &[BattleGenericRouteFill::WithoutFill],
-            &[ReducerRouteSubjectFamily::ConditionImmunityActiveEffect],
-        ),
-        "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup" => replay_generic_route(
-            BattleSubjectKind::ConditionImmunityActiveEffectCleanup,
-            &[BattleGenericRouteFill::WithoutFill],
-            &[ReducerRouteSubjectFamily::ConditionImmunityActiveEffect],
-        ),
-        "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer"
-        | "doHexMarkedDamageRiderAndLaterTurnTransfer" => replay_generic_route(
-            BattleSubjectKind::MarkedEffectDamageAndTransfer,
-            &[
-                BattleGenericRouteFill::RolledDice,
-                BattleGenericRouteFill::TargetChoice,
-            ],
-            &[ReducerRouteSubjectFamily::MarkedEffect],
-        ),
+        "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints" => {
+            replay_marked_damage_immunity_route("doGrantTurnStartTemporaryHitPoints")
+        }
+        "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup" => {
+            replay_marked_damage_immunity_route("doCleanupConditionImmunityTemporaryHitPoints")
+        }
+        "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer" => {
+            replay_marked_damage_immunity_route("doTransferMarkedDamageRiderSameTurn")
+        }
+        "doHexMarkedDamageRiderAndLaterTurnTransfer" => {
+            replay_marked_damage_immunity_route("doTransferMarkedDamageRiderLaterTurn")
+        }
         "doLongstriderSpeedIncrease" => replay_generic_route(
             BattleSubjectKind::ScalarBuffEffectSpeedDelta,
             &[BattleGenericRouteFill::WithoutFill],
@@ -297,6 +321,9 @@ pub fn expected_witness(observed_action_taken: &str) -> LevelOneSpellEffectWitne
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
+        action if blocker_reason(action).is_some() => {
+            panic!("{}: {}", action, blocker_reason(action).unwrap())
+        }
         "doDivineFavorWeaponDamageRider" => expected_damage_route(
             ReducerRouteSubjectFamily::WeaponDamageRider,
             ReducerRouteOwnerGroup::ActiveEffect,
@@ -327,44 +354,18 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
             ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
             ReducerRouteOwnerGroup::TemporaryHitPoint,
         ),
-        "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints" => expected_without_fill_route(
-            ReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
-            ReducerRouteOwnerGroup::ActiveEffect,
-            ReducerRouteOwnerGroup::TemporaryHitPoint,
-        ),
-        "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup" => {
-            expected_without_fill_route(
-                ReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
-                ReducerRouteOwnerGroup::ActiveEffect,
-                ReducerRouteOwnerGroup::ConditionLifecycle,
-            )
+        "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints" => {
+            expected_marked_damage_immunity_route("doGrantTurnStartTemporaryHitPoints")
         }
-        "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer"
-        | "doHexMarkedDamageRiderAndLaterTurnTransfer" => vec![
-            route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
-            route_discover_battle_acts_from_route_holes(
-                ReducerRouteSubjectFamily::MarkedEffect,
-                vec![
-                    ReducerRouteHoleKind::RolledDice,
-                    ReducerRouteHoleKind::TargetChoice,
-                ],
-                ReducerRouteOwnerGroup::ActiveEffect,
-            ),
-            route_resolve_battle_subject_from_route_result(
-                ReducerRouteSubjectFamily::MarkedEffect,
-                ReducerRouteFillKind::RolledDice,
-                ReducerRouteResolutionOutcome::NeedsHoles,
-                vec![ReducerRouteHoleKind::TargetChoice],
-                ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,
-            ),
-            route_resolve_battle_subject_from_route_result(
-                ReducerRouteSubjectFamily::MarkedEffect,
-                ReducerRouteFillKind::TargetChoice,
-                ReducerRouteResolutionOutcome::Resolved,
-                Vec::new(),
-                ReducerRouteOwnerGroup::ActiveEffect,
-            ),
-        ],
+        "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup" => {
+            expected_marked_damage_immunity_route("doCleanupConditionImmunityTemporaryHitPoints")
+        }
+        "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer" => {
+            expected_marked_damage_immunity_route("doTransferMarkedDamageRiderSameTurn")
+        }
+        "doHexMarkedDamageRiderAndLaterTurnTransfer" => {
+            expected_marked_damage_immunity_route("doTransferMarkedDamageRiderLaterTurn")
+        }
         "doLongstriderSpeedIncrease" => expected_without_fill_route(
             ReducerRouteSubjectFamily::ScalarBuffEffect,
             ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
@@ -405,9 +406,6 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
             ReducerRouteOwnerGroup::HitPoint,
             ReducerRouteOwnerGroup::HitPoint,
         ),
-        action if blocker_reason(action).is_some() => {
-            panic!("{}: {}", action, blocker_reason(action).unwrap())
-        }
         action => panic!("unsupported expected route mbt::actionTaken {action}"),
     }
 }

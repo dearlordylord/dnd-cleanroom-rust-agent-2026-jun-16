@@ -1,0 +1,415 @@
+{
+  "cleanroomManifestSourceCommitSha": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
+  "generatedBy": {
+    "name": "rust-cleanroom-sqnt07a-active-effect-condition-dirty-replay",
+    "tag": "target-harness"
+  },
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "routeConnectorAuthorities": [
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+      "sha256": "805a7841559c6d0cbd5c1592c19da43f593493e4c68d70f51609e1a4d3167cbb"
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-rider-route-facts.qnt",
+      "sha256": "c180489d116f90aef70aede76cf1de5fbe3b48589a2f3262d4357346d4a22062"
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+      "sha256": "482c779f657248cf3c51fddfb647f33ff327473ce644edc5266f1fe7e02899eb"
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-route-facts.qnt",
+      "sha256": "c75e5985025ad5811647ef383709435ff99311009d8fa5674fc1b2205c9aad71"
+    }
+  ],
+  "acceptedConnectorRows": {
+    "count": 27,
+    "conditionRiderActions": [
+      "doAdmitAttackHitPoisonConditionRider",
+      "doRejectAttackHitPoisonConditionRiderByImmunity",
+      "doExpireAttackHitPoisonConditionRider",
+      "doAdmitFailedSaveBlindedNextTurnConditionRider",
+      "doExpireFailedSaveBlindedNextTurnConditionRider",
+      "doRejectFailedSaveBlindedConditionRiderByImmunity",
+      "doAdmitFailedSaveBlindedRepeatSaveConditionRider",
+      "doAdmitFailedSaveDeafenedRepeatSaveConditionRider",
+      "doOpenFailedSaveConditionRepeatSaveFrontier",
+      "doResolveFailedSaveConditionRepeatSaveSuccessCleanup",
+      "doAdmitFailedSaveRestrainedUntilSpellEndEscapeConditionRider",
+      "doOpenRestrainedAthleticsEscapeFrontier",
+      "doResolveRestrainedAthleticsEscapeSuccessCleanup",
+      "doAdmitFailedSaveSleepIncapacitatedConditionRider",
+      "doOpenSleepRepeatSaveFrontier",
+      "doResolveSleepRepeatSaveFailureTransitionToUnconscious",
+      "doAdmitFailedSaveParalyzedUntilSpellEndRepeatSaveConditionRider",
+      "doAdmitFailedSaveIncapacitatedProneSelfEndBlockedConditionRider"
+    ],
+    "markedDamageImmunityActions": [
+      "doAdmitMarkedDamageRider",
+      "doProjectMarkedDamageRiderOnHit",
+      "doOpenMarkedDamageRiderTransferAfterTargetDrop",
+      "doTransferMarkedDamageRiderSameTurn",
+      "doTransferMarkedDamageRiderLaterTurn",
+      "doAdmitConditionImmunityTemporaryHitPoints",
+      "doProjectConditionImmunity",
+      "doGrantTurnStartTemporaryHitPoints",
+      "doCleanupConditionImmunityTemporaryHitPoints"
+    ]
+  },
+  "runs": [
+    {
+      "branchAction": "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute",
+          "BattleSubjectKind::ConditionImmunityTemporaryHitPoint*"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d74f02a171d6a1f62a1f1cd396dc952833327aa38c4428e4151238dbb034009a",
+        "observedProjectionSha256": "d74f02a171d6a1f62a1f1cd396dc952833327aa38c4428e4151238dbb034009a",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPoints"
+    },
+    {
+      "branchAction": "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute",
+          "BattleSubjectKind::ConditionImmunityTemporaryHitPoint*"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8f46cd6766fe84c45fd100b17ee2b57cc2a79da49a95d186ec406d69984604fa",
+        "observedProjectionSha256": "8f46cd6766fe84c45fd100b17ee2b57cc2a79da49a95d186ec406d69984604fa",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup"
+    },
+    {
+      "branchAction": "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute",
+          "BattleSubjectKind::MarkedDamageRider*"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "899a7a80d0ca7cd9d010c0ad35f6f775d135b2cf78f5290b869fe70e8d680ae6",
+        "observedProjectionSha256": "899a7a80d0ca7cd9d010c0ad35f6f775d135b2cf78f5290b869fe70e8d680ae6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer"
+    },
+    {
+      "branchAction": "doHexMarkedDamageRiderAndLaterTurnTransfer",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doHexMarkedDamageRiderAndLaterTurnTransfer",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute",
+          "BattleSubjectKind::MarkedDamageRider*"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "fa7e21b0be8c15f51be008e1682f26e50adf2ea77ea5e6734f24a7cdbf279bf6",
+        "observedProjectionSha256": "fa7e21b0be8c15f51be008e1682f26e50adf2ea77ea5e6734f24a7cdbf279bf6",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHexMarkedDamageRiderAndLaterTurnTransfer"
+    },
+    {
+      "branchAction": "doDivineFavorWeaponDamageRider",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doDivineFavorWeaponDamageRider",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "target-blocker",
+        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
+      },
+      "stateCheck": {
+        "tag": "target-blocker",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doDivineFavorWeaponDamageRider"
+    },
+    {
+      "branchAction": "doDivineSmiteAfterHitDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doDivineSmiteAfterHitDamage",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "target-blocker",
+        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
+      },
+      "stateCheck": {
+        "tag": "target-blocker",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doDivineSmiteAfterHitDamage"
+    },
+    {
+      "branchAction": "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "target-blocker",
+        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
+      },
+      "stateCheck": {
+        "tag": "target-blocker",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape"
+    },
+    {
+      "branchAction": "doFalseLifeTemporaryHitPoints",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doFalseLifeTemporaryHitPoints",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "target-blocker",
+        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
+      },
+      "stateCheck": {
+        "tag": "target-blocker",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doFalseLifeTemporaryHitPoints"
+    },
+    {
+      "branchAction": "doLongstriderSpeedIncrease",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doLongstriderSpeedIncrease",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "target-blocker",
+        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
+      },
+      "stateCheck": {
+        "tag": "target-blocker",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doLongstriderSpeedIncrease"
+    },
+    {
+      "branchAction": "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "target-blocker",
+        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
+      },
+      "stateCheck": {
+        "tag": "target-blocker",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doSearingSmiteAfterHitTimedDamageAndSaveCleanup"
+    },
+    {
+      "branchAction": "doShillelaghWeaponAttackOverride",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doShillelaghWeaponAttackOverride",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "target-blocker",
+        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
+      },
+      "stateCheck": {
+        "tag": "target-blocker",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doShillelaghWeaponAttackOverride"
+    },
+    {
+      "branchAction": "doTrueStrikeSpellHostedWeaponAttack",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs",
+      "observedActionTaken": "doTrueStrikeSpellHostedWeaponAttack",
+      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "result": {
+        "tag": "target-blocker",
+        "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+        "reason": "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A."
+      },
+      "stateCheck": {
+        "tag": "target-blocker",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "traceId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY blocked selected action=doTrueStrikeSpellHostedWeaponAttack"
+    }
+  ],
+  "blockedRows": [
+    {
+      "blockerId": "SQNT-07A-CONDITION-SELECTED-IDENTITY-ADAPTER-NOT-REFRESHED",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "reason": "The generic condition-rider connector rows are accepted, including Paralyzed and laughter-style Incapacitated plus Prone facts, but this dirty lane did not refresh the selected condition-saving-throw adapter to count selected spell rows through those generic route facts."
+    },
+    {
+      "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "branchAction": "doDivineFavorWeaponDamageRider",
+      "reason": "The copied generic route facts used by this lane cover condition riders plus marked damage/immunity/Temporary Hit Point active effects. This selected row requires a different generic connector or selected-row replay evidence, so it is not accepted here."
+    },
+    {
+      "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "branchAction": "doDivineSmiteAfterHitDamage",
+      "reason": "The copied generic route facts used by this lane cover condition riders plus marked damage/immunity/Temporary Hit Point active effects. This selected row requires a different generic connector or selected-row replay evidence, so it is not accepted here."
+    },
+    {
+      "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "branchAction": "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
+      "reason": "The copied generic route facts used by this lane cover condition riders plus marked damage/immunity/Temporary Hit Point active effects. This selected row requires a different generic connector or selected-row replay evidence, so it is not accepted here."
+    },
+    {
+      "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "branchAction": "doFalseLifeTemporaryHitPoints",
+      "reason": "The copied generic route facts used by this lane cover condition riders plus marked damage/immunity/Temporary Hit Point active effects. This selected row requires a different generic connector or selected-row replay evidence, so it is not accepted here."
+    },
+    {
+      "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "branchAction": "doLongstriderSpeedIncrease",
+      "reason": "The copied generic route facts used by this lane cover condition riders plus marked damage/immunity/Temporary Hit Point active effects. This selected row requires a different generic connector or selected-row replay evidence, so it is not accepted here."
+    },
+    {
+      "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "branchAction": "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
+      "reason": "The copied generic route facts used by this lane cover condition riders plus marked damage/immunity/Temporary Hit Point active effects. This selected row requires a different generic connector or selected-row replay evidence, so it is not accepted here."
+    },
+    {
+      "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "branchAction": "doShillelaghWeaponAttackOverride",
+      "reason": "The copied generic route facts used by this lane cover condition riders plus marked damage/immunity/Temporary Hit Point active effects. This selected row requires a different generic connector or selected-row replay evidence, so it is not accepted here."
+    },
+    {
+      "blockerId": "SQNT-07A-SELECTED-ROW-NOT-GENERIC-MARKED-IMMUNITY-FACT",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
+      "branchAction": "doTrueStrikeSpellHostedWeaponAttack",
+      "reason": "The copied generic route facts used by this lane cover condition riders plus marked damage/immunity/Temporary Hit Point active effects. This selected row requires a different generic connector or selected-row replay evidence, so it is not accepted here."
+    }
+  ]
+}

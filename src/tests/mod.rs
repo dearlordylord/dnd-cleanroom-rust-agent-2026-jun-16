@@ -56,6 +56,8 @@ mod battle_runtime_level1_spatial_witness_selected_identity;
 mod battle_runtime_mage_armor_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_magic_missile.rs"]
 mod battle_runtime_magic_missile;
+#[path = "../qnt_adapters/battle_runtime_marked_damage_immunity_active_effects_route.rs"]
+mod battle_runtime_marked_damage_immunity_active_effects_route;
 #[path = "../qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs"]
 mod battle_runtime_mixed_target_outcomes_route;
 #[path = "../qnt_adapters/battle_runtime_movement_forced_movement_selected_identity.rs"]
@@ -870,6 +872,14 @@ use battle_runtime_magic_missile::{
     replay_observed_route as replay_magic_missile_route,
     BRANCH_ACTIONS as MAGIC_MISSILE_BRANCH_ACTIONS,
     DAMAGE_SAMPLE_DART_ROLL_TOTALS as MAGIC_MISSILE_DAMAGE_SAMPLES,
+};
+use battle_runtime_marked_damage_immunity_active_effects_route::{
+    expected_route as expected_marked_damage_immunity_route,
+    expected_witness as expected_marked_damage_immunity_witness,
+    projection_payload as marked_damage_immunity_projection_payload,
+    replay_observed_action as replay_marked_damage_immunity_action,
+    replay_observed_route as replay_marked_damage_immunity_route,
+    CONNECTOR_ACTIONS as MARKED_DAMAGE_IMMUNITY_CONNECTOR_ACTIONS,
 };
 use battle_runtime_mixed_target_outcomes_route::{
     expected_route as expected_mixed_target_outcomes_route,
@@ -2747,6 +2757,58 @@ fn condition_rider_dirty_replay_routes_through_reducer() {
         }
         if action.contains("EscapeFrontier") || action.contains("EscapeSuccess") {
             assert!(route_payload.contains("AbilityCheck"));
+        }
+        if action.contains("Paralyzed") {
+            assert!(projection_payload.contains("ParalyzedCondition"));
+            assert!(projection_payload.contains("IncapacitatedCondition"));
+        }
+        if action.contains("IncapacitatedProne") {
+            assert!(projection_payload.contains("ProneCondition"));
+        }
+    }
+}
+
+#[test]
+fn marked_damage_immunity_dirty_replay_routes_through_reducer() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt.
+    for action in MARKED_DAMAGE_IMMUNITY_CONNECTOR_ACTIONS {
+        let observed = replay_marked_damage_immunity_action(action);
+        let observed_route = replay_marked_damage_immunity_route(action);
+        assert_eq!(observed, expected_marked_damage_immunity_witness(action));
+        assert_eq!(
+            observed_route,
+            expected_marked_damage_immunity_route(action)
+        );
+
+        let projection_payload = marked_damage_immunity_projection_payload(&observed);
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(
+            route_payload.contains("MarkedEffectRouteSubject")
+                || route_payload.contains("ConditionImmunityActiveEffectRouteSubject")
+        );
+        if action.contains("MarkedDamageRider") {
+            assert!(route_payload.contains("MarkedEffectRouteSubject"));
+        }
+        if action.contains("ConditionImmunity") || action.contains("TemporaryHitPoints") {
+            assert!(route_payload.contains("ConditionImmunityActiveEffectRouteSubject"));
+        }
+        if action.contains("ProjectMarkedDamageRiderOnHit") {
+            assert!(projection_payload.contains("ExtraDamageOnMarkedTargetHit"));
+            assert!(route_payload.contains("AttackRollFillKind"));
+            assert!(route_payload.contains("RolledDiceFillKind"));
+        }
+        if action.contains("Transfer") {
+            assert!(projection_payload.contains("TransferAvailable"));
+            assert!(route_payload.contains("BattleActiveEffectOwner"));
+        }
+        if action.contains("GrantTurnStartTemporaryHitPoints") {
+            assert!(projection_payload.contains("TurnStartTemporaryHitPointsGranted"));
+            assert!(route_payload.contains("BattleTemporaryHitPointOwner"));
+        }
+        if action.contains("CleanupConditionImmunityTemporaryHitPoints") {
+            assert!(projection_payload.contains("ConcentrationCleanupPreventsLaterTurnStartGrant"));
+            assert!(route_payload.contains("BattleConcentrationOwner"));
         }
     }
 }
@@ -5309,6 +5371,14 @@ fn level1_buff_mark_smite_adapter_replays_all_branches() {
 
     for (action, reason) in BLOCKED_LEVEL1_BUFF_MARK_SMITE_BRANCH_ACTIONS {
         assert_eq!(level1_buff_mark_smite_blocker_reason(action), Some(reason));
+        assert!(std::panic::catch_unwind(|| replay_level1_buff_mark_smite_action(action)).is_err());
+        assert!(std::panic::catch_unwind(|| replay_level1_buff_mark_smite_route(action)).is_err());
+        assert!(
+            std::panic::catch_unwind(|| expected_level1_buff_mark_smite_witness(action)).is_err()
+        );
+        assert!(
+            std::panic::catch_unwind(|| expected_level1_buff_mark_smite_route(action)).is_err()
+        );
     }
 }
 

@@ -662,6 +662,8 @@ pub enum BattleConditionRiderCondition {
     Deafened,
     Restrained,
     Incapacitated,
+    Paralyzed,
+    Prone,
     Unconscious,
 }
 
@@ -723,6 +725,8 @@ pub struct BattleConditionImmunities {
     pub deafened: bool,
     pub restrained: bool,
     pub incapacitated: bool,
+    pub paralyzed: bool,
+    pub prone: bool,
     pub unconscious: bool,
 }
 
@@ -735,6 +739,8 @@ impl BattleConditionImmunities {
             deafened: false,
             restrained: false,
             incapacitated: false,
+            paralyzed: false,
+            prone: false,
             unconscious: false,
         }
     }
@@ -762,6 +768,14 @@ impl BattleConditionImmunities {
                 incapacitated: true,
                 ..Self::none()
             },
+            BattleConditionRiderCondition::Paralyzed => Self {
+                paralyzed: true,
+                ..Self::none()
+            },
+            BattleConditionRiderCondition::Prone => Self {
+                prone: true,
+                ..Self::none()
+            },
             BattleConditionRiderCondition::Unconscious => Self {
                 unconscious: true,
                 ..Self::none()
@@ -777,6 +791,8 @@ impl BattleConditionImmunities {
             BattleConditionRiderCondition::Deafened => self.deafened,
             BattleConditionRiderCondition::Restrained => self.restrained,
             BattleConditionRiderCondition::Incapacitated => self.incapacitated,
+            BattleConditionRiderCondition::Paralyzed => self.paralyzed,
+            BattleConditionRiderCondition::Prone => self.prone,
             BattleConditionRiderCondition::Unconscious => self.unconscious,
         }
     }
@@ -1487,6 +1503,25 @@ pub enum BattleSubjectKind {
     ConditionImmunityActiveEffectTurnStartTemporaryHitPoint,
     ConditionImmunityActiveEffectCleanup,
     MarkedEffectDamageAndTransfer,
+    MarkedDamageRiderAdmissionTargetChoice,
+    MarkedDamageRiderActiveEffectAdmission,
+    MarkedDamageRiderConcentrationAdmission,
+    MarkedDamageRiderAttackTargetChoice,
+    MarkedDamageRiderAttackRoll,
+    MarkedDamageRiderAttackDamage,
+    MarkedDamageRiderTargetDropTransferAvailabilityHitPoint,
+    MarkedDamageRiderTargetDropTransferAvailabilityActiveEffect,
+    MarkedDamageRiderTransferTargetChoice,
+    MarkedDamageRiderTransferActiveEffect,
+    MarkedDamageRiderLaterTurnBoundary,
+    ConditionImmunityTemporaryHitPointAdmissionTargetChoice,
+    ConditionImmunityTemporaryHitPointActiveEffectAdmission,
+    ConditionImmunityTemporaryHitPointConcentrationAdmission,
+    ConditionImmunityTemporaryHitPointConditionLifecycleProjection,
+    ConditionImmunityTemporaryHitPointActiveEffectProjection,
+    ConditionImmunityTemporaryHitPointTurnStartTemporaryHitPoint,
+    ConditionImmunityTemporaryHitPointConcentrationCleanup,
+    ConditionImmunityTemporaryHitPointActiveEffectCleanup,
     AfterHitDamageRiderInterruptDecision,
     AfterHitDamageRiderSaveGatedInterruptDecision,
     AfterHitDamageRiderSlotSpend,
@@ -8056,6 +8091,25 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::ConditionImmunityActiveEffectTurnStartTemporaryHitPoint
             | BattleSubjectKind::ConditionImmunityActiveEffectCleanup
             | BattleSubjectKind::MarkedEffectDamageAndTransfer
+            | BattleSubjectKind::MarkedDamageRiderAdmissionTargetChoice
+            | BattleSubjectKind::MarkedDamageRiderActiveEffectAdmission
+            | BattleSubjectKind::MarkedDamageRiderConcentrationAdmission
+            | BattleSubjectKind::MarkedDamageRiderAttackTargetChoice
+            | BattleSubjectKind::MarkedDamageRiderAttackRoll
+            | BattleSubjectKind::MarkedDamageRiderAttackDamage
+            | BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityHitPoint
+            | BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityActiveEffect
+            | BattleSubjectKind::MarkedDamageRiderTransferTargetChoice
+            | BattleSubjectKind::MarkedDamageRiderTransferActiveEffect
+            | BattleSubjectKind::MarkedDamageRiderLaterTurnBoundary
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointAdmissionTargetChoice
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectAdmission
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationAdmission
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConditionLifecycleProjection
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectProjection
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointTurnStartTemporaryHitPoint
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationCleanup
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectCleanup
             | BattleSubjectKind::AfterHitDamageRiderInterruptDecision
             | BattleSubjectKind::AfterHitDamageRiderSaveGatedInterruptDecision
             | BattleSubjectKind::AfterHitDamageRiderSlotSpend
@@ -8781,6 +8835,140 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             discover_owner: ActiveEffect,
             resolve_owner: HitPointAndZeroHpLifecycle,
         },
+        BattleSubjectKind::MarkedDamageRiderAdmissionTargetChoice => GenericRouteShape {
+            subject: MarkedEffect,
+            holes: vec![TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::MarkedDamageRiderActiveEffectAdmission => GenericRouteShape {
+            subject: MarkedEffect,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::MarkedDamageRiderConcentrationAdmission => GenericRouteShape {
+            subject: MarkedEffect,
+            holes: Vec::new(),
+            discover_owner: Concentration,
+            resolve_owner: Concentration,
+        },
+        BattleSubjectKind::MarkedDamageRiderAttackTargetChoice => GenericRouteShape {
+            subject: MarkedEffect,
+            holes: vec![TargetChoice],
+            discover_owner: BattleReducerRouteOwnerGroup::ActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::MarkedDamageRiderAttackRoll => GenericRouteShape {
+            subject: MarkedEffect,
+            holes: vec![AttackRoll],
+            discover_owner: AttackRollOwner,
+            resolve_owner: AttackRollOwner,
+        },
+        BattleSubjectKind::MarkedDamageRiderAttackDamage => GenericRouteShape {
+            subject: MarkedEffect,
+            holes: vec![RolledDice],
+            discover_owner: HitPoint,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityHitPoint => {
+            GenericRouteShape {
+                subject: MarkedEffect,
+                holes: Vec::new(),
+                discover_owner: HitPointAndZeroHpLifecycle,
+                resolve_owner: HitPointAndZeroHpLifecycle,
+            }
+        }
+        BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityActiveEffect => {
+            GenericRouteShape {
+                subject: MarkedEffect,
+                holes: Vec::new(),
+                discover_owner: ActiveEffect,
+                resolve_owner: ActiveEffect,
+            }
+        }
+        BattleSubjectKind::MarkedDamageRiderTransferTargetChoice => GenericRouteShape {
+            subject: MarkedEffect,
+            holes: vec![TargetChoice],
+            discover_owner: BattleReducerRouteOwnerGroup::ActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::MarkedDamageRiderTransferActiveEffect => GenericRouteShape {
+            subject: MarkedEffect,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::MarkedDamageRiderLaterTurnBoundary => GenericRouteShape {
+            subject: MarkedEffect,
+            holes: Vec::new(),
+            discover_owner: TurnBoundary,
+            resolve_owner: TurnBoundary,
+        },
+        BattleSubjectKind::ConditionImmunityTemporaryHitPointAdmissionTargetChoice => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
+                holes: vec![TargetChoice],
+                discover_owner: SpellSlotAndActionEconomy,
+                resolve_owner: TargetSelection,
+            }
+        }
+        BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectAdmission => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
+                holes: Vec::new(),
+                discover_owner: ActiveEffect,
+                resolve_owner: ActiveEffect,
+            }
+        }
+        BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationAdmission => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
+                holes: Vec::new(),
+                discover_owner: Concentration,
+                resolve_owner: Concentration,
+            }
+        }
+        BattleSubjectKind::ConditionImmunityTemporaryHitPointConditionLifecycleProjection => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
+                holes: Vec::new(),
+                discover_owner: ConditionLifecycle,
+                resolve_owner: ConditionLifecycle,
+            }
+        }
+        BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectProjection => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
+                holes: Vec::new(),
+                discover_owner: ActiveEffect,
+                resolve_owner: ActiveEffect,
+            }
+        }
+        BattleSubjectKind::ConditionImmunityTemporaryHitPointTurnStartTemporaryHitPoint => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
+                holes: Vec::new(),
+                discover_owner: TurnBoundary,
+                resolve_owner: TemporaryHitPoint,
+            }
+        }
+        BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationCleanup => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
+                holes: Vec::new(),
+                discover_owner: Concentration,
+                resolve_owner: Concentration,
+            }
+        }
+        BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectCleanup => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::ConditionImmunityActiveEffect,
+                holes: Vec::new(),
+                discover_owner: ActiveEffect,
+                resolve_owner: ActiveEffect,
+            }
+        }
         BattleSubjectKind::RepeatSaveConditionEffectInitialSave => GenericRouteShape {
             subject: BattleReducerRouteSubjectFamily::RepeatSaveConditionEffect,
             holes: vec![SavingThrowOutcome],
@@ -11217,6 +11405,25 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::ConditionImmunityActiveEffectTurnStartTemporaryHitPoint
             | BattleSubjectKind::ConditionImmunityActiveEffectCleanup
             | BattleSubjectKind::MarkedEffectDamageAndTransfer
+            | BattleSubjectKind::MarkedDamageRiderAdmissionTargetChoice
+            | BattleSubjectKind::MarkedDamageRiderActiveEffectAdmission
+            | BattleSubjectKind::MarkedDamageRiderConcentrationAdmission
+            | BattleSubjectKind::MarkedDamageRiderAttackTargetChoice
+            | BattleSubjectKind::MarkedDamageRiderAttackRoll
+            | BattleSubjectKind::MarkedDamageRiderAttackDamage
+            | BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityHitPoint
+            | BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityActiveEffect
+            | BattleSubjectKind::MarkedDamageRiderTransferTargetChoice
+            | BattleSubjectKind::MarkedDamageRiderTransferActiveEffect
+            | BattleSubjectKind::MarkedDamageRiderLaterTurnBoundary
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointAdmissionTargetChoice
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectAdmission
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationAdmission
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConditionLifecycleProjection
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectProjection
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointTurnStartTemporaryHitPoint
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationCleanup
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectCleanup
             | BattleSubjectKind::AfterHitDamageRiderInterruptDecision
             | BattleSubjectKind::AfterHitDamageRiderSaveGatedInterruptDecision
             | BattleSubjectKind::AfterHitDamageRiderSlotSpend
@@ -11566,6 +11773,31 @@ fn resolve_generic_route_state(
             }
         }
         (
+            BattleSubjectKind::MarkedDamageRiderAdmissionTargetChoice
+            | BattleSubjectKind::MarkedDamageRiderAttackTargetChoice
+            | BattleSubjectKind::MarkedDamageRiderTransferTargetChoice
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointAdmissionTargetChoice,
+            BattleGenericRouteFill::TargetChoice,
+        )
+        | (BattleSubjectKind::MarkedDamageRiderAttackRoll, BattleGenericRouteFill::AttackRoll)
+        | (BattleSubjectKind::MarkedDamageRiderAttackDamage, BattleGenericRouteFill::RolledDice)
+        | (
+            BattleSubjectKind::MarkedDamageRiderActiveEffectAdmission
+            | BattleSubjectKind::MarkedDamageRiderConcentrationAdmission
+            | BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityHitPoint
+            | BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityActiveEffect
+            | BattleSubjectKind::MarkedDamageRiderTransferActiveEffect
+            | BattleSubjectKind::MarkedDamageRiderLaterTurnBoundary
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectAdmission
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationAdmission
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConditionLifecycleProjection
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectProjection
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointTurnStartTemporaryHitPoint
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationCleanup
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectCleanup,
+            BattleGenericRouteFill::WithoutFill,
+        ) => state,
+        (
             BattleSubjectKind::ConditionRiderConditionLifecycleCleanup,
             BattleGenericRouteFill::WithoutFill,
         ) => {
@@ -11580,7 +11812,10 @@ fn resolve_generic_route_state(
             BattleGenericRouteFill::WithoutFill,
         ) => {
             if let Some(target) = subject.target {
-                set_condition_rider(state, target, BattleConditionRiderEffect::Inactive)
+                clear_condition_rider_consequences(
+                    set_condition_rider(state, target, BattleConditionRiderEffect::Inactive),
+                    target,
+                )
             } else {
                 state
             }
@@ -12367,6 +12602,18 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::ObjectLightObjectAttachedRejection => {
             fill == BattleGenericRouteFill::TargetChoice
         }
+        BattleSubjectKind::MarkedDamageRiderAdmissionTargetChoice
+        | BattleSubjectKind::MarkedDamageRiderAttackTargetChoice
+        | BattleSubjectKind::MarkedDamageRiderTransferTargetChoice
+        | BattleSubjectKind::ConditionImmunityTemporaryHitPointAdmissionTargetChoice => {
+            fill == BattleGenericRouteFill::TargetChoice
+        }
+        BattleSubjectKind::MarkedDamageRiderAttackRoll => {
+            fill == BattleGenericRouteFill::AttackRoll
+        }
+        BattleSubjectKind::MarkedDamageRiderAttackDamage => {
+            fill == BattleGenericRouteFill::RolledDice
+        }
         BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
         | BattleSubjectKind::SaveGatedConditionRiderSavingThrow => {
             fill == BattleGenericRouteFill::SavingThrowOutcome
@@ -12432,6 +12679,19 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
         | BattleSubjectKind::ConditionImmunityActiveEffectTurnStartTemporaryHitPoint
         | BattleSubjectKind::ConditionImmunityActiveEffectCleanup
+        | BattleSubjectKind::MarkedDamageRiderActiveEffectAdmission
+        | BattleSubjectKind::MarkedDamageRiderConcentrationAdmission
+        | BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityHitPoint
+        | BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityActiveEffect
+        | BattleSubjectKind::MarkedDamageRiderTransferActiveEffect
+        | BattleSubjectKind::MarkedDamageRiderLaterTurnBoundary
+        | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectAdmission
+        | BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationAdmission
+        | BattleSubjectKind::ConditionImmunityTemporaryHitPointConditionLifecycleProjection
+        | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectProjection
+        | BattleSubjectKind::ConditionImmunityTemporaryHitPointTurnStartTemporaryHitPoint
+        | BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationCleanup
+        | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectCleanup
         | BattleSubjectKind::RepeatSaveConditionEffectConditionLifecycle
         | BattleSubjectKind::RepeatSaveConditionEffectActiveEffect
         | BattleSubjectKind::RepeatSaveConditionEffectConcentration
@@ -12788,6 +13048,13 @@ fn generic_route_next_holes(
             vec![BattleHoleKind::RolledDice]
         }
         (
+            BattleSubjectKind::MarkedDamageRiderAttackTargetChoice,
+            BattleGenericRouteFill::TargetChoice,
+        ) => vec![BattleHoleKind::AttackRoll],
+        (BattleSubjectKind::MarkedDamageRiderAttackRoll, BattleGenericRouteFill::AttackRoll) => {
+            vec![BattleHoleKind::RolledDice]
+        }
+        (
             BattleSubjectKind::SpellAttackProcedureDamageToZeroHitPoints,
             BattleGenericRouteFill::RolledDice,
         ) => vec![BattleHoleKind::ConcentrationSavingThrow],
@@ -12887,6 +13154,23 @@ fn generic_route_next_holes(
             | BattleSubjectKind::ScalarBuffEffectTemporaryHitPoint
             | BattleSubjectKind::ConditionImmunityActiveEffectTurnStartTemporaryHitPoint
             | BattleSubjectKind::ConditionImmunityActiveEffectCleanup
+            | BattleSubjectKind::MarkedDamageRiderAdmissionTargetChoice
+            | BattleSubjectKind::MarkedDamageRiderActiveEffectAdmission
+            | BattleSubjectKind::MarkedDamageRiderConcentrationAdmission
+            | BattleSubjectKind::MarkedDamageRiderAttackDamage
+            | BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityHitPoint
+            | BattleSubjectKind::MarkedDamageRiderTargetDropTransferAvailabilityActiveEffect
+            | BattleSubjectKind::MarkedDamageRiderTransferTargetChoice
+            | BattleSubjectKind::MarkedDamageRiderTransferActiveEffect
+            | BattleSubjectKind::MarkedDamageRiderLaterTurnBoundary
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointAdmissionTargetChoice
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectAdmission
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationAdmission
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConditionLifecycleProjection
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectProjection
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointTurnStartTemporaryHitPoint
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointConcentrationCleanup
+            | BattleSubjectKind::ConditionImmunityTemporaryHitPointActiveEffectCleanup
             | BattleSubjectKind::RepeatSaveConditionEffectInitialSave
             | BattleSubjectKind::RepeatSaveConditionEffectRepeatSave
             | BattleSubjectKind::RepeatSaveConditionEffectConditionLifecycle
@@ -14756,6 +15040,51 @@ fn apply_spell_damage_to_target(
         }
         combatant_for_mut(&mut state, target).spell_active_effects =
             BattleSpellActiveEffects::with_effect(effect);
+        state = apply_spell_active_effect_consequences(state, target, effect);
+    }
+    state
+}
+
+fn apply_spell_active_effect_consequences(
+    mut state: BattleState,
+    target: Actor,
+    effect: BattleSpellActiveEffectKind,
+) -> BattleState {
+    let combatant = combatant_for_mut(&mut state, target);
+    match effect {
+        BattleSpellActiveEffectKind::ConditionRider {
+            condition: BattleConditionRiderCondition::Incapacitated,
+            ..
+        } => {
+            combatant.incapacitated = true;
+        }
+        BattleSpellActiveEffectKind::ConditionRider {
+            condition: BattleConditionRiderCondition::Paralyzed,
+            ..
+        } => {
+            combatant.incapacitated = true;
+        }
+        BattleSpellActiveEffectKind::ConditionRider {
+            condition: BattleConditionRiderCondition::Prone,
+            ..
+        } => {
+            combatant.prone = true;
+        }
+        BattleSpellActiveEffectKind::ConditionRider {
+            condition: BattleConditionRiderCondition::Unconscious,
+            ..
+        } => {
+            combatant.unconscious = true;
+            combatant.incapacitated = true;
+            combatant.prone = true;
+        }
+        BattleSpellActiveEffectKind::None
+        | BattleSpellActiveEffectKind::HitPointRegainPrevented
+        | BattleSpellActiveEffectKind::NextAttackRollAgainstSelfAdvantage
+        | BattleSpellActiveEffectKind::OpportunityAttackDenied
+        | BattleSpellActiveEffectKind::Poisoned
+        | BattleSpellActiveEffectKind::ConditionRider { .. }
+        | BattleSpellActiveEffectKind::NextAttackRollDisadvantage => {}
     }
     state
 }
@@ -14921,6 +15250,14 @@ fn set_condition_rider(
     combatant_for_mut(&mut state, target)
         .spell_active_effects
         .condition_rider = effect;
+    state
+}
+
+fn clear_condition_rider_consequences(mut state: BattleState, target: Actor) -> BattleState {
+    let combatant = combatant_for_mut(&mut state, target);
+    combatant.incapacitated = false;
+    combatant.unconscious = false;
+    combatant.prone = false;
     state
 }
 
