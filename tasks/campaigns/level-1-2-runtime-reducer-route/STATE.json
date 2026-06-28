@@ -639,7 +639,7 @@
     "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY": "merged-verified",
     "SQNT-03E-OBJECT-AND-LIGHT-RIDERS": "merged-packaged-source-input",
     "SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY": "merged-verified",
-    "SQNT-03F-MIXED-TARGET-OUTCOMES": "review-blocker-fix-running",
+    "SQNT-03F-MIXED-TARGET-OUTCOMES": "fix-implemented-rereview-running",
     "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS": "implemented-review-running"
   },
   "lastIntegrationVerification": {
@@ -672,8 +672,12 @@
       "workerCommit": "b138c187d8a8c5c9450d5f671cfaa971a40aa725",
       "reviewAgent": "019f0eb8-d32f-7d51-8246-c3f69da2850b",
       "reviewName": "Kepler the 3rd",
-      "status": "review-blocker-fix-running",
+      "fixCommit": "0a03e4e8cab9a3bacd12602ff853c9acb60002c6",
+      "rereviewAgent": "019f0ec4-d29b-7a80-a3cd-936948f022ba",
+      "rereviewName": "Euler the 3rd",
+      "status": "fix-implemented-rereview-running",
       "reviewFinding": "Kepler the 3rd found one blocker: SharedSavingThrowDamageRoll was modeled as a SharedResource fact, conflating roll-sharing with resource spend. The lane is back with Plato for a narrow split between shared spend facts and shared roll facts.",
+      "fixSummary": "Plato split MixedTargetOutcomeSharedSpendFact from MixedTargetOutcomeSharedDamageRollFact, replaced RouteMixedTargetOutcomeSharedResource with separate shared-spend and shared-damage-roll route facts, and updated TS projection plus inventory wording.",
       "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
     },
     {

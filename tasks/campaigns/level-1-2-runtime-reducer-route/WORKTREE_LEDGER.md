@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03F-MIXED-TARGET-OUTCOMES | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes` | `ralph/source-sqnt-03f-mixed-target-outcomes` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Plato the 3rd (`019f0ea3-051b-7cc2-bafa-d14052b7a258`); reviewer Kepler the 3rd (`019f0eb8-d32f-7d51-8246-c3f69da2850b`) | review-blocker-fix-running after `b138c187d8a8c5c9450d5f671cfaa971a40aa725`; split shared saving-throw roll facts from shared resource spend facts before merge |
+| SQNT-03F-MIXED-TARGET-OUTCOMES | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes` | `ralph/source-sqnt-03f-mixed-target-outcomes` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Plato the 3rd (`019f0ea3-051b-7cc2-bafa-d14052b7a258`); reviewer Kepler the 3rd (`019f0eb8-d32f-7d51-8246-c3f69da2850b`); re-reviewer Euler the 3rd (`019f0ec4-d29b-7a80-a3cd-936948f022ba`) | fix-implemented-rereview-running at `0a03e4e8cab9a3bacd12602ff853c9acb60002c6`; shared saving-throw roll facts split from shared resource spend facts |
 | SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection` | `ralph/source-sqnt-03g-exact-damage-projection` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Halley the 3rd (`019f0ea3-50cd-7ae3-b243-436cef287aa2`); reviewer Franklin the 3rd (`019f0ec3-9951-7271-8cf6-f0d219725b54`) | implemented-review-running at `ddbff4328bdde9e34b94fac3450f3133fff03a84` |
 
 ## Historical RRCONV-19 Worktrees
