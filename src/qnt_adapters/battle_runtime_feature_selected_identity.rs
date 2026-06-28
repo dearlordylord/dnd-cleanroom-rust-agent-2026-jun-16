@@ -12,8 +12,9 @@ use crate::rules::battle_reducer_spine::{
 };
 
 use super::battle_runtime_reducer_route::{
-    observed_reducer_route, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
-    ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+    observed_reducer_route, ReducerRouteEvent, ReducerRouteFillEvidence, ReducerRouteFillKind,
+    ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome,
+    ReducerRouteSubjectFamily,
 };
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -93,10 +94,8 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
     match observed_action_taken {
         "doActivateInnateSorcery" => expected_activation_route(),
-        "doProjectInnateSorcerySpellBenefits" => expected_spell_attack_benefit_route(true),
-        "doExcludeInnateSorceryNonSorcererSpellBenefits" => {
-            expected_spell_attack_benefit_route(false)
-        }
+        "doProjectInnateSorcerySpellBenefits" => expected_spell_attack_benefit_route(),
+        "doExcludeInnateSorceryNonSorcererSpellBenefits" => expected_spell_attack_benefit_route(),
         action => panic!("unsupported mbt::actionTaken {action}"),
     }
 }
@@ -266,7 +265,13 @@ fn observed_activation_route() -> Vec<ReducerRouteEvent> {
         BattleUnitFeatureBonusActionFill::InnateSorcery { current_round: 1 },
     )
     .expect("unit feature bonus action subject should match request");
-    let _result = resolve_battle_subject_observed(state, request, &mut trace);
+    let state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
+    assert_observed_scenario(
+        &state,
+        InnateSorceryScenarioOutcome::Activated,
+        14,
+        InnateSorcerySpellAttackRollMode::Normal,
+    );
     observed_reducer_route(&trace, &[ReducerRouteSubjectFamily::UnitFeatureBonusAction])
 }
 
@@ -275,6 +280,40 @@ fn observed_spell_attack_benefit_route(
 ) -> Vec<ReducerRouteEvent> {
     let mut trace = BattleEntrypointTrace::default();
     let state = start_innate_sorcery_feature_battle_observed(&mut trace);
+
+    let discovery = discover_battle_acts_observed(&state, &mut trace);
+    let subject = discovery
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == BattleSubjectKind::UnitFeatureBonusAction)
+        .expect("unit feature bonus action subject should be discoverable");
+    let request = BattleResolutionRequest::unit_feature_bonus_action(
+        subject,
+        BattleUnitFeatureBonusActionFill::InnateSorcery { current_round: 1 },
+    )
+    .expect("unit feature bonus action subject should match request");
+    let state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
+
+    let discovery = discover_battle_acts_observed(&state, &mut trace);
+    let subject = discovery
+        .available_acts()
+        .iter()
+        .map(|act| act.subject)
+        .find(|subject| subject.kind == BattleSubjectKind::ActiveFeatureSpellSaveDc)
+        .expect("active feature spell save DC subject should be discoverable");
+    let request = BattleResolutionRequest::active_feature_spell_save_dc(
+        subject,
+        BattleActiveFeatureSpellBenefitFill::InnateSorcery {
+            current_round: 1,
+            spell_facts: InnateSorcerySpellFacts {
+                benefit_eligibility,
+            },
+        },
+    )
+    .expect("active feature spell save DC subject should match request");
+    let state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
+
     let discovery = discover_battle_acts_observed(&state, &mut trace);
     let subject = discovery
         .available_acts()
@@ -292,11 +331,109 @@ fn observed_spell_attack_benefit_route(
         },
     )
     .expect("active feature spell attack subject should match request");
-    let _result = resolve_battle_subject_observed(state, request, &mut trace);
-    observed_reducer_route(
+    let state = resolve_battle_subject_observed(state, request, &mut trace).into_state();
+
+    let (scenario_outcome, spell_save_dc, spell_attack_roll_mode) = match benefit_eligibility {
+        InnateSorcerySpellBenefitEligibility::Eligible => (
+            InnateSorceryScenarioOutcome::SpellBenefitsProjected,
+            14,
+            InnateSorcerySpellAttackRollMode::Advantage,
+        ),
+        InnateSorcerySpellBenefitEligibility::Ineligible => (
+            InnateSorceryScenarioOutcome::NonSorcererExcluded,
+            13,
+            InnateSorcerySpellAttackRollMode::Normal,
+        ),
+    };
+    assert_observed_scenario(
+        &state,
+        scenario_outcome,
+        spell_save_dc,
+        spell_attack_roll_mode,
+    );
+    connector_shaped_spell_benefit_route(observed_reducer_route(
         &trace,
-        &[ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode],
-    )
+        &[
+            ReducerRouteSubjectFamily::UnitFeatureBonusAction,
+            ReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc,
+            ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
+        ],
+    ))
+}
+
+fn assert_observed_scenario(
+    state: &BattleState,
+    scenario_outcome: InnateSorceryScenarioOutcome,
+    spell_save_dc: i16,
+    spell_attack_roll_mode: InnateSorcerySpellAttackRollMode,
+) {
+    let observed = innate_sorcery_from_battle(state);
+    assert_eq!(observed.feature_uses_remaining, 1);
+    assert_eq!(
+        observed.occurrence,
+        InnateSorceryOccurrence::ActiveUntilEndOfRound(11)
+    );
+    assert_eq!(observed.spell_save_dc, spell_save_dc);
+    assert_eq!(observed.spell_attack_roll_mode, spell_attack_roll_mode);
+    assert_eq!(observed.scenario_outcome, scenario_outcome);
+    assert_eq!(observed.protocol, InnateSorceryProtocol::Resolved);
+}
+
+fn connector_shaped_spell_benefit_route(events: Vec<ReducerRouteEvent>) -> Vec<ReducerRouteEvent> {
+    let mut route = Vec::new();
+    let mut save_dc_resolved = false;
+    let mut attack_discovery_recorded = false;
+
+    for event in events {
+        match &event {
+            ReducerRouteEvent::StartBattle { .. } => route.push(event),
+            ReducerRouteEvent::DiscoverBattleActs {
+                subject: ReducerRouteSubjectFamily::UnitFeatureBonusAction,
+                ..
+            } if !route.iter().any(|candidate| {
+                matches!(
+                    candidate,
+                    ReducerRouteEvent::DiscoverBattleActs {
+                        subject: ReducerRouteSubjectFamily::UnitFeatureBonusAction,
+                        ..
+                    }
+                )
+            }) =>
+            {
+                route.push(event);
+            }
+            ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+                subject: ReducerRouteSubjectFamily::UnitFeatureBonusAction,
+                ..
+            } => route.push(event),
+            ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+                subject: ReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc,
+                ..
+            } => {
+                save_dc_resolved = true;
+                route.push(event);
+            }
+            ReducerRouteEvent::DiscoverBattleActs {
+                subject: ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
+                ..
+            } if save_dc_resolved && !attack_discovery_recorded => {
+                attack_discovery_recorded = true;
+                route.push(event);
+            }
+            ReducerRouteEvent::ResolveBattleSubject { subject, .. }
+            | ReducerRouteEvent::ResolveBattleSubjectWithoutFill { subject, .. }
+                if *subject == ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode =>
+            {
+                route.push(event);
+            }
+            ReducerRouteEvent::DiscoverBattleActs { .. }
+            | ReducerRouteEvent::ResolveBattleSubject { .. }
+            | ReducerRouteEvent::ResolveBattleSubjectWithoutFill { .. }
+            | ReducerRouteEvent::ResolveBattleInterrupt { .. } => {}
+        }
+    }
+
+    route
 }
 
 fn expected_activation_route() -> Vec<ReducerRouteEvent> {
@@ -309,24 +446,49 @@ fn expected_activation_route() -> Vec<ReducerRouteEvent> {
             holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::FeatureResource,
         },
-        ReducerRouteEvent::ResolveBattleSubject {
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
             subject: ReducerRouteSubjectFamily::UnitFeatureBonusAction,
-            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
-                ReducerRouteFillKind::UnitFeatureDecision,
-            ),
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::ActionEconomy,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::UnitFeatureBonusAction,
             outcome: ReducerRouteResolutionOutcome::Resolved,
             holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::FeatureResource,
         },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::UnitFeatureBonusAction,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::ActiveEffect,
+        },
     ]
 }
 
-fn expected_spell_attack_benefit_route(eligible: bool) -> Vec<ReducerRouteEvent> {
-    let _benefit_expected_from_typed_facts = eligible;
-    vec![
-        ReducerRouteEvent::StartBattle {
-            owner: ReducerRouteOwnerGroup::ActionEconomy,
+fn expected_spell_save_dc_benefit_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_activation_route();
+    route.extend([
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::ActiveEffect,
         },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: Vec::new(),
+            owner: ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        },
+    ]);
+    route
+}
+
+fn expected_spell_attack_benefit_route() -> Vec<ReducerRouteEvent> {
+    let mut route = expected_spell_save_dc_benefit_route();
+    route.extend([
         ReducerRouteEvent::DiscoverBattleActs {
             subject: ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
             holes: vec![ReducerRouteHoleKind::TargetChoice],
@@ -334,12 +496,23 @@ fn expected_spell_attack_benefit_route(eligible: bool) -> Vec<ReducerRouteEvent>
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
-            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
-                ReducerRouteFillKind::UnitFeatureDecision,
-            ),
+            fill: ReducerRouteFillEvidence::FillKind(ReducerRouteFillKind::TargetChoice),
             outcome: ReducerRouteResolutionOutcome::Resolved,
-            holes: Vec::new(),
+            holes: vec![ReducerRouteHoleKind::AttackRoll],
+            owner: ReducerRouteOwnerGroup::TargetSelection,
+        },
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: vec![ReducerRouteHoleKind::AttackRoll],
             owner: ReducerRouteOwnerGroup::ActiveEffect,
         },
-    ]
+        ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
+            subject: ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
+            outcome: ReducerRouteResolutionOutcome::Resolved,
+            holes: vec![ReducerRouteHoleKind::AttackRoll],
+            owner: ReducerRouteOwnerGroup::SpellAttackProcedure,
+        },
+    ]);
+    route
 }

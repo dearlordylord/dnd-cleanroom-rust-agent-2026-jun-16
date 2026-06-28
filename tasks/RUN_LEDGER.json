@@ -4288,6 +4288,99 @@
         }
       ],
       "taskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS"
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY/DECIDER_DECISION.json",
+          "sha256": "aebc0840e7ef8e265ff6667565e9f34f6e681e5affe52356668079cc1d33b0de"
+        },
+        "engineDepth": {
+          "path": "tasks/history/SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "4dd2c7b4e2691809d1285779cf0d8a1f7973077e8818f592ab50447ef1b903ff"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY/REVIEW_LOOP.json",
+          "sha256": "33f0db78ef03c6044e49a62b800a00621857b46003c260f5dd41fe7507fab434"
+        },
+        "startGate": {
+          "path": "tasks/history/SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY/START_GATE.json",
+          "sha256": "ed921627e9d17462e5f8185a5168d83946638827b566dbd6febaba1cf07debf8"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY/STATE_OWNER_MANIFEST.json",
+          "sha256": "14422f7501366e0a397613156abe7ddc1694ba67be5801fcfc2bf8dd7233faae"
+        }
+      },
+      "assignmentId": "level-1-2-battle",
+      "campaignLaneId": "SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY",
+      "commandResults": [
+        {
+          "command": "git merge-base --is-ancestor 84c637980698971b3df1d8dc4a613bc7b7bc50af HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test feature_selected_identity_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "fail: pre-existing stale cleanroom-input manifest and old ledger/evidence drift; targeted SQNT-07D harness scan produced no SQNT-07D-specific errors"
+        },
+        {
+          "command": "git diff --check 84c637980698971b3df1d8dc4a613bc7b7bc50af...HEAD",
+          "status": "pass"
+        }
+      ],
+      "laneId": "battle",
+      "manifestSourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
+      "routeConnectorAuthority": {
+        "inventoryKind": "reducer-route-inventory",
+        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.route.mbt.qnt",
+        "sha256": "905e9ef15b5f7400ae288188d49f4a0eaa29ff4b6ccdd0114e72e210f1630a2e"
+      },
+      "routeTaskIds": [
+        "L15-RR07-FU09-INNATE-SPELL-BENEFIT-FEATURE-SUBSTRATE"
+      ],
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
+      ],
+      "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+      "sourceReducerRouteInventorySha256": "ecffe9ae1358784ff5add9ff35a2a3c351f69431798c7da830bf662a984275c0",
+      "targetReplayEvidence": [
+        {
+          "acceptedEvidenceRefs": [
+            "tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json#SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY route action=doActivateInnateSorcery#step:doActivateInnateSorcery",
+            "tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json#SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY route action=doExcludeInnateSorceryNonSorcererSpellBenefits#step:doExcludeInnateSorceryNonSorcererSpellBenefits",
+            "tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json#SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY route action=doProjectInnateSorcerySpellBenefits#step:doProjectInnateSorcerySpellBenefits"
+          ],
+          "acceptedRowCount": 3,
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json#SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY route action=doActivateInnateSorcery#step:doActivateInnateSorcery",
+            "tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json#SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY route action=doExcludeInnateSorceryNonSorcererSpellBenefits#step:doExcludeInnateSorceryNonSorcererSpellBenefits",
+            "tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json#SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY route action=doProjectInnateSorcerySpellBenefits#step:doProjectInnateSorcerySpellBenefits"
+          ],
+          "path": "tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json",
+          "sha256": "10a82cad4f7932ed6aa1205c7f12f57119f7c2b78d380688b415a7c83fe714ab"
+        }
+      ],
+      "taskId": "SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY"
     }
   ],
   "manifestSourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
