@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "dirty-replay-fcsf05-accepted",
+  "status": "dirty-replay-fcsf04-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -488,7 +488,20 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no FCSF-05 evidence, ledger, or artifact failures",
     "review": "Euclid the 3rd review returned no blockers for worker commit 118f7f5d25282bcd576951e74505c1b380e67a71."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf04-object-stale-replay",
+      "branch": "ralph/fcsf04-object-stale-dirty-replay",
+      "baseSha": "832afbebbb3c46bf0a05b6c2bcb541f77508a328",
+      "status": "dirty-target-replay-started",
+      "sourcePackageCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "freshTargetAcceptance": "not-claimed",
+      "routeTaskId": "FCSF-04-OBJECT-STALE-PUBLIC-PROTOCOL",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY",

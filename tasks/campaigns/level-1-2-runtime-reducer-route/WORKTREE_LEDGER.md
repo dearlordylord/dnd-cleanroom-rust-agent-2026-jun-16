@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| FCSF-04-OBJECT-STALE-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf04-object-stale-replay` | `ralph/fcsf04-object-stale-dirty-replay` | `832afbebbb3c46bf0a05b6c2bcb541f77508a328` | pending | dirty-target-replay-started |
 
 ## Active Fresh Dry Run Targets
 
