@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "wave2-source-qnt-spatial-effects-accepted",
+  "status": "wave2-source-qnt-complete-ready-for-package-refresh",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -755,17 +755,7 @@
     "review": "SQNT-07D was remediated after review rejected manual route-event construction. The accepted evidence uses observed reducer entrypoints and copied route connector facts; no fresh target acceptance is claimed."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [
-    {
-      "laneId": "SQNT-07A-MARKED-DAMAGE-AND-IMMUNITY",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-marked-damage-immunity",
-      "branch": "ralph/source-sqnt-07a-marked-damage-immunity",
-      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
-      "workerAgent": "Singer the 3rd (019f0f93-d066-77c3-b853-6f44a6ede5b1)",
-      "status": "active",
-      "purpose": "Add generic marked-target damage rider/transfer and condition-immunity plus turn-start Temporary Hit Point active-effect substrate facts."
-    }
-  ],
+  "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS",
@@ -1071,6 +1061,43 @@
         "git diff --check HEAD~1...HEAD"
       ],
       "coverageClaim": "Adds generic route facts for movable multi-emitter light, outline/invisible-benefit denial/attack advantage, object outline, non-Concentration area hazard, separate movement-damage trigger, and obscurement duration/dispersal cleanup. Concentration-backed area hazard rows, landing legality, and failed-landing Prone remain explicit blockers; no target replay or fresh target acceptance is claimed."
+    },
+    {
+      "laneId": "SQNT-07A-MARKED-DAMAGE-AND-IMMUNITY",
+      "status": "accepted-source-merged",
+      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
+      "sourceCommit": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
+      "workerAgent": "Singer the 3rd (019f0f93-d066-77c3-b853-6f44a6ede5b1)",
+      "reviewerAgent": "Curie the 3rd (019f0fad-031e-7123-bd8d-bfc6f67838d1), Ramanujan the 3rd (019f102d-4d71-7cf0-a1c9-42ec12656a5b), Epicurus the 4th (019f1037-62ae-7ac2-b436-ea96bba880d7), plus orchestrator review",
+      "artifacts": [
+        "packages/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+        "packages/battle-runtime/battle-runtime-marked-damage-immunity-route-facts.qnt",
+        "packages/battle-runtime/battle-runtime-reducer-route.qnt",
+        "packages/battle-runtime/src/battle-runtime-mbt-driver-kit.ts",
+        "packages/battle-runtime/src/reducer-route-connectors.mbt.test.ts",
+        "plans/cleanroom-branch-coverage/reducer-route-inventory.json",
+        "plans/rules-kernel-coverage/REPORT.md",
+        "plans/rules-kernel-coverage/battle-hole-frontier.jsonl",
+        "plans/rules-kernel-coverage/matrix.json",
+        "plans/rules-kernel-coverage/obligations.jsonl",
+        "plans/rules-kernel-coverage/qnt-owner-roles.jsonl",
+        "scripts/check-mbt-driver-closure.cjs",
+        "scripts/rules-kernel-coverage-config.cjs"
+      ],
+      "reviewFinding": "Initial review found two blockers: missing rules-kernel coverage ownership for the new connector and an unsupported MarkedTargetAbilityCheckModifier claim that conflated Hex and Hunter's Mark ability-check semantics without ability choice, actor/direction/scope, or ability-check owner. Re-review then found generated coverage artifacts still overclaimed ability-check support.",
+      "reviewResolution": "Fixes removed the unsupported marked ability-check fact from QNT and TS mirrors, added the connector to reducer-route coverage, narrowed BATTLE.SPELL.MARKED_DAMAGE_RIDER_TRANSFER coverage to attack-roll damage, Concentration, and zero-HP transfer timing, and removed marked-damage coverage from abilityChoice hole/fill rows. Epicurus final re-review found no blockers.",
+      "checks": [
+        "pnpm exec quint typecheck packages/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+        "MBT_TRACES=1 MBT_STEPS=6 pnpm --filter @dnd/battle-runtime exec vitest run src/reducer-route-connectors.mbt.test.ts -t \"routes marked damage and condition-immunity Temporary Hit Point effects through generic active-effect owners\"",
+        "pnpm check:mbt-driver-closure",
+        "pnpm check:reducer-route-connectors",
+        "pnpm rules-kernel-coverage:check",
+        "pnpm cleanroom-branch-coverage:check",
+        "pnpm --filter @dnd/battle-runtime typecheck",
+        "pnpm check:authored-id-dispatch",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "coverageClaim": "Adds generic active-effect route facts for attack-roll marked damage, marked-damage transfer timing, condition-immunity rejection, turn-start Temporary Hit Points, and Concentration cleanup. Ability-check roll-mode semantics remain out of scope for this lane; no target replay or fresh target acceptance is claimed."
     }
   ],
   "completedLaneWorktrees": [
@@ -3741,6 +3768,7 @@
     "SQNT-07A-CONDITION-LIFECYCLE is source-merged at df223d2389e95e416993c300dae97720d5fc99c9.",
     "SQNT-07A-MOVEMENT-PRESENTATION is source-merged at f7d2ea22d27e9457fd46014697fc55a4000f823e after narrowing Jump/table-presentation claims and preserving landing legality plus failed-landing Prone blockers.",
     "SQNT-07A-SPATIAL-EFFECTS is source-merged at c596f55f6ccea08a65e94804ede4ca443adf8bd4 after splitting spatial facts so Grease-like hazards, obscurement cleanup, movable multi-emitter light, and outline/save outcome routes stay domain-shaped.",
+    "SQNT-07A-MARKED-DAMAGE-AND-IMMUNITY is source-merged at e9f75e22a10891cd438fb06f6ea1ca666f79aaeb after removing unsupported ability-check claims and keeping marked damage, condition-immunity, Temporary HP, and Concentration cleanup route facts shape-based.",
     "After all active Wave 2 source lanes merge, refresh cleanroom-input from source master and launch fresh/dirty target replay only for rows supported by the copied generic route facts."
   ],
   "freshCleanroomExpansion": {

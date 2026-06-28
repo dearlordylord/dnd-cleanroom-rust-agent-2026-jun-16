@@ -632,3 +632,14 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Verification: focused spatial route connector MBT, `pnpm check:mbt-driver-closure`, `pnpm check:reducer-route-connectors`, `pnpm rules-kernel-coverage:check`, `pnpm cleanroom-branch-coverage:check`, `pnpm --filter @dnd/battle-runtime typecheck`, and `git diff --check HEAD~1...HEAD` passed on source master after fast-forward.
 - Scope note: this is source-input work only. It does not claim dirty target replay or fresh target acceptance; those wait for package refresh after the remaining Wave 2 source lane lands.
 - Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-spatial-effects`
+
+### SQNT-07A-MARKED-DAMAGE-AND-IMMUNITY-SOURCE-QNT
+
+- Source commit: `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb`
+- Worker: Singer the 3rd (`019f0f93-d066-77c3-b853-6f44a6ede5b1`)
+- Reviewers: Curie the 3rd (`019f0fad-031e-7123-bd8d-bfc6f67838d1`), Ramanujan the 3rd (`019f102d-4d71-7cf0-a1c9-42ec12656a5b`), and Epicurus the 4th (`019f1037-62ae-7ac2-b436-ea96bba880d7`)
+- Result: source-QNT route facts accepted for attack-roll marked damage, marked-damage transfer timing, condition-immunity rejection, turn-start Temporary Hit Points, and Concentration cleanup.
+- Review/fixer notes: initial review rejected an unsupported `MarkedTargetAbilityCheckModifier` fact and missing coverage ownership. Follow-up review found generated coverage artifacts still claimed ability-check support. The accepted branch removes the ability-check route claim from QNT/TS and generated coverage, keeps ability-check roll-mode semantics out of this lane, and records only the supported marked damage/immunity/Temporary HP facts.
+- Verification: focused marked damage/immunity route connector MBT, `pnpm check:mbt-driver-closure`, `pnpm check:reducer-route-connectors`, `pnpm rules-kernel-coverage:check`, `pnpm cleanroom-branch-coverage:check`, `pnpm --filter @dnd/battle-runtime typecheck`, `pnpm check:authored-id-dispatch`, and `git diff --check HEAD~1...HEAD` passed on source master after fast-forward.
+- Scope note: this is source-input work only. It does not claim dirty target replay or fresh target acceptance. Wave 2 source-QNT lanes are now complete and ready for cleanroom-input package refresh.
+- Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-marked-damage-immunity`
