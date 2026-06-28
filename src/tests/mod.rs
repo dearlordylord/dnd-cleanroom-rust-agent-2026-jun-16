@@ -9097,11 +9097,18 @@ fn feature_selected_identity_adapter_replays_all_branches() {
         let route_payload = reducer_route_payload(&route);
         if action == "doActivateInnateSorcery" {
             assert!(route_payload.contains("UnitFeatureBonusActionRouteSubject"));
+            assert!(route_payload.contains("BattleActionEconomyOwner"));
             assert!(route_payload.contains("BattleFeatureResourceOwner"));
-        } else {
-            assert!(route_payload.contains("ActiveFeatureSpellAttackRollModeRouteSubject"));
             assert!(route_payload.contains("BattleActiveEffectOwner"));
-            assert!(route_payload.contains("UnitFeatureDecisionFillKind"));
+        } else {
+            assert!(route_payload.contains("ActiveFeatureSpellSaveDcRouteSubject"));
+            assert!(route_payload.contains("ActiveFeatureSpellAttackRollModeRouteSubject"));
+            assert!(route_payload.contains("TargetChoiceFillKind"));
+            assert!(route_payload.contains("AttackRollHoleKind"));
+            assert!(route_payload.contains("BattleTargetSelectionOwner"));
+            assert!(route_payload.contains("BattleActiveEffectOwner"));
+            assert!(route_payload.contains("BattleSpellSlotAndActionEconomyOwner"));
+            assert!(route_payload.contains("BattleSpellAttackProcedureOwner"));
         }
     }
 }

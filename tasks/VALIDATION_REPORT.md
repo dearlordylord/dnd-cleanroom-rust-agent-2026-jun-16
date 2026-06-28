@@ -4379,3 +4379,56 @@ Generated branch coverage:
 Blocked scope:
 
 - `cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt` and `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt` remain unaccepted wholesale by this component-first replay.
+
+## SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY
+
+- Lane: `SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY`
+- Route task: `L15-RR07-FU09-INNATE-SPELL-BENEFIT-FEATURE-SUBSTRATE`
+- Base SHA: `84c637980698971b3df1d8dc4a613bc7b7bc50af`
+- Source package commit: `21504ef764118f5fd13086aa6266f19280196664`
+- Source branch inventory SHA: `aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862`
+- Source reducer-route inventory SHA: `ecffe9ae1358784ff5add9ff35a2a3c351f69431798c7da830bf662a984275c0`
+- Machine-readable run ledger: `tasks/RUN_LEDGER.json`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt`
+- Route connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.route.mbt.qnt`
+- Evidence file: `tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json`
+- Accepted rows: 3
+- Target blockers: `_none_`
+
+Allowed inputs used:
+
+- `cleanroom-input/MANIFEST.md`
+- `cleanroom-input/branch-coverage/source-branch-inventory.json`
+- `cleanroom-input/branch-coverage/reducer-route-inventory.json`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.route.mbt.qnt`
+- `cleanroom-input/raw/srd-5.2.1/Classes/Sorcerer.md`
+- `cleanroom-input/raw/srd-5.2.1/Spells/Gaining-and-Casting.md`
+- `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`
+- Repo-local `src/**`, `tasks/**`, and Cargo tooling
+
+Behavior implemented:
+
+- Refreshed the focused adapter so observed public reducer state transitions for Innate Sorcery active-feature benefits are compared against copied active-feature route owner facts.
+- Reused existing `BattleState.feature_substrates.innate_sorcery` fields for uses, occurrence, Spell Save DC bonus, and spell attack roll mode; no duplicate durable state was added.
+- Expected route records come from copied connector vocabulary for action-economy, feature-resource, active-effect, spell-slot/action-economy, target-selection, and spell-attack procedure owners.
+
+Generated branch coverage:
+
+| Obligation | Target replay evidence | Diagnostic tests | Status |
+| --- | --- | --- | --- |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt#step:doActivateInnateSorcery` | `tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json#SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY route action=doActivateInnateSorcery#step:doActivateInnateSorcery` | `cargo test feature_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt#step:doExcludeInnateSorceryNonSorcererSpellBenefits` | `tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json#SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY route action=doExcludeInnateSorceryNonSorcererSpellBenefits#step:doExcludeInnateSorceryNonSorcererSpellBenefits` | `cargo test feature_selected_identity_adapter_replays_all_branches` | `covered` |
+| `cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt#step:doProjectInnateSorcerySpellBenefits` | `tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json#SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY route action=doProjectInnateSorcerySpellBenefits#step:doProjectInnateSorcerySpellBenefits` | `cargo test feature_selected_identity_adapter_replays_all_branches` | `covered` |
+
+Verification results:
+
+- `cargo test feature_selected_identity_adapter_replays_all_branches` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07D-active-feature-benefits-current-package-replay.json` passed with 3 obligations covered.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check 84c637980698971b3df1d8dc4a613bc7b7bc50af...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed on pre-existing stale cleanroom-input manifest and old ledger/evidence drift; targeted grep found no SQNT-07D-specific harness errors.
+
+Full command results are recorded in `tasks/RUN_LEDGER.json`.
