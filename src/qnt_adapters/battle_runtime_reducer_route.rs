@@ -156,7 +156,18 @@ pub enum ReducerRouteSubjectFamily {
     ActiveFeatureSpellAttackRollMode,
     ActiveFeatureSpellSaveDc,
     AttackActionAreaSaveDamageReplacement,
+    MetamagicBonusActionCastingTime,
+    MetamagicDamageDiceReroll,
+    MetamagicDamageTypeSubstitution,
+    MetamagicEffectiveSpellLevel,
+    MetamagicMissedSpellAttackReroll,
     MetamagicOptionSpell,
+    MetamagicSavingThrowProtection,
+    MetamagicSavingThrowRollMode,
+    MetamagicSpellComponentProjection,
+    MetamagicSpellDurationProjection,
+    MetamagicSpellGovernor,
+    MetamagicSpellRangeProjection,
     UnitFeatureBonusAction,
     WeaponMasteryProperty,
     ZeroHitPointStabilization,
@@ -1759,7 +1770,38 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement => {
             "AttackActionAreaSaveDamageReplacementRouteSubject"
         }
+        ReducerRouteSubjectFamily::MetamagicBonusActionCastingTime => {
+            "MetamagicBonusActionCastingTimeRouteSubject"
+        }
+        ReducerRouteSubjectFamily::MetamagicDamageDiceReroll => {
+            "MetamagicDamageDiceRerollRouteSubject"
+        }
+        ReducerRouteSubjectFamily::MetamagicDamageTypeSubstitution => {
+            "MetamagicDamageTypeSubstitutionRouteSubject"
+        }
+        ReducerRouteSubjectFamily::MetamagicEffectiveSpellLevel => {
+            "MetamagicEffectiveSpellLevelRouteSubject"
+        }
+        ReducerRouteSubjectFamily::MetamagicMissedSpellAttackReroll => {
+            "MetamagicMissedSpellAttackRerollRouteSubject"
+        }
         ReducerRouteSubjectFamily::MetamagicOptionSpell => "MetamagicOptionSpellRouteSubject",
+        ReducerRouteSubjectFamily::MetamagicSavingThrowProtection => {
+            "MetamagicSavingThrowProtectionRouteSubject"
+        }
+        ReducerRouteSubjectFamily::MetamagicSavingThrowRollMode => {
+            "MetamagicSavingThrowRollModeRouteSubject"
+        }
+        ReducerRouteSubjectFamily::MetamagicSpellComponentProjection => {
+            "MetamagicSpellComponentProjectionRouteSubject"
+        }
+        ReducerRouteSubjectFamily::MetamagicSpellDurationProjection => {
+            "MetamagicSpellDurationProjectionRouteSubject"
+        }
+        ReducerRouteSubjectFamily::MetamagicSpellGovernor => "MetamagicSpellGovernorRouteSubject",
+        ReducerRouteSubjectFamily::MetamagicSpellRangeProjection => {
+            "MetamagicSpellRangeProjectionRouteSubject"
+        }
         ReducerRouteSubjectFamily::UnitFeatureBonusAction => "UnitFeatureBonusActionRouteSubject",
         ReducerRouteSubjectFamily::ActiveFeatureSpellSaveDc => {
             "ActiveFeatureSpellSaveDcRouteSubject"

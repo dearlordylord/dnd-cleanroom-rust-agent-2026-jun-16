@@ -1,0 +1,40 @@
+{
+  "decision": "accepted",
+  "deterministicGates": [
+    {
+      "gate": "start-gate",
+      "status": "pass"
+    },
+    {
+      "gate": "branch-coverage",
+      "status": "pass"
+    },
+    {
+      "gate": "adapter-quarantine",
+      "status": "pass"
+    },
+    {
+      "gate": "engine-depth",
+      "status": "pass"
+    },
+    {
+      "gate": "state-owner-derivability",
+      "status": "pass"
+    },
+    {
+      "gate": "authored-identity-dispatch",
+      "status": "pass"
+    },
+    {
+      "gate": "report-honesty",
+      "status": "pass"
+    },
+    {
+      "gate": "reviewer-loop-convergence",
+      "status": "pass"
+    }
+  ],
+  "rationale": "Accepted 30 metamagic selected-driver source obligations for current package 21504ef764118f5fd13086aa6266f19280196664. Rows route through typed option facts, Sorcery Point/resource owners, spell procedure shape, and projection-owner substrates rather than authored option identity. The route connector is covered by a focused adapter/test and recorded as connector authority; it is not a source-branch evidence run because it is not present in source-branch-inventory obligations.",
+  "schemaVersion": 1,
+  "taskId": "SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY"
+}
