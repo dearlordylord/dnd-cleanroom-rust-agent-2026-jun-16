@@ -3933,9 +3933,97 @@
           "status": "pass"
         }
       ]
+    },
+    {
+      "taskId": "FCSF-03D-CONDITION-AND-POISON-RIDERS",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY",
+      "manifestSourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
+      "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+      "sourceReducerRouteInventorySha256": "08a849247b3d80ddaf2b7bf499fbe2e3c500537f7c95e8c47d418fbdc72a671e",
+      "routeConnectorAuthority": {
+        "inventoryKind": "reducer-route-inventory",
+        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+        "sha256": "6830de719d5d06ddc4a0f85755da7196f03d4f3beab1ae3c512a1e88906db394"
+      },
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt"
+      ],
+      "selectedDriversPurpose": "downstream source-branch evidence checker only; route connector authority is recorded in routeConnectorAuthority",
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/FCSF-03D-CONDITION-AND-POISON-RIDERS/START_GATE.json",
+          "sha256": "6db69cc052df7a54c82ad940da491ece9c874b5b975564a0c35d15b831ec6caa"
+        },
+        "engineDepth": {
+          "path": "tasks/history/FCSF-03D-CONDITION-AND-POISON-RIDERS/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "50ef57553d873e0b8833ddfaf8b9ae7ea31efbcf6f7dff29822e00101662b9e6"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/FCSF-03D-CONDITION-AND-POISON-RIDERS/STATE_OWNER_MANIFEST.json",
+          "sha256": "315ece59bd9c5cdf1781d08e0ce3472602048b06a87aad7c87b7ef923ce0f9ca"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/FCSF-03D-CONDITION-AND-POISON-RIDERS/REVIEW_LOOP.json",
+          "sha256": "9386e4a04ea07c10e74a05e955fd00f5ac768e8b53024e75ad3780747e8c7d37"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/FCSF-03D-CONDITION-AND-POISON-RIDERS/DECIDER_DECISION.json",
+          "sha256": "0234575bdbc3c3247b1de476083552e66c735fb9ad4c15f0c0a620de4bf5b88f"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json",
+          "sha256": "a58a0fcb57ab34852d91c6e975622e2afc7d8812610e8134c853a49891ba03c1",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json#FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doAdmitFailedSaveBlindedNextTurnConditionRider#step:doResolveColorSprayFailedSavingThrow",
+            "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json#FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doAdmitFailedSaveRestrainedUntilSpellEndEscapeConditionRider#step:doResolveEntangleFailedSavingThrow",
+            "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json#FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doResolveSleepRepeatSaveFailureTransitionToUnconscious#step:doResolveSleepRepeatSavingThrowFailure"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "git merge-base --is-ancestor 18fc6b4 HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test condition_rider -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json",
+          "status": "unsupported: route connector is in reducer-route-inventory, while this checker filters source-branch-inventory selected drivers"
+        },
+        {
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "fail: only known cleanroom-input/MANIFEST.md stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 18fc6b4...HEAD",
+          "status": "pass"
+        }
+      ]
     }
   ],
-  "manifestSourceCommitSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
+  "manifestSourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
   "schemaVersion": 1,
   "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81"
 }

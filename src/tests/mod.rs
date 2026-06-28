@@ -14,6 +14,8 @@ mod battle_runtime_command_option_next_turn;
 mod battle_runtime_command_ordering;
 #[path = "../qnt_adapters/battle_runtime_concentration_break_teardown.rs"]
 mod battle_runtime_concentration_break_teardown;
+#[path = "../qnt_adapters/battle_runtime_condition_riders_route.rs"]
+mod battle_runtime_condition_riders_route;
 #[path = "../qnt_adapters/battle_runtime_condition_saving_throw_selected_identity.rs"]
 mod battle_runtime_condition_saving_throw_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_creature_type_protection_and_charm_selected_identity.rs"]
@@ -678,6 +680,14 @@ use battle_runtime_concentration_break_teardown::{
     replay_observed_action as replay_concentration_break_teardown_action,
     replay_observed_route as replay_concentration_break_teardown_route, sampled_damage_total,
     BRANCH_ACTIONS as CONCENTRATION_BREAK_TEARDOWN_BRANCH_ACTIONS,
+};
+use battle_runtime_condition_riders_route::{
+    expected_route as expected_condition_rider_route,
+    expected_witness as expected_condition_rider_witness,
+    projection_payload as condition_rider_projection_payload,
+    replay_observed_action as replay_condition_rider_action,
+    replay_observed_route as replay_condition_rider_route,
+    CONNECTOR_ACTIONS as CONDITION_RIDER_CONNECTOR_ACTIONS,
 };
 use battle_runtime_condition_saving_throw_selected_identity::{
     expected_route as expected_condition_saving_throw_route,
@@ -2653,6 +2663,35 @@ fn hit_point_regain_prevention_dirty_replay_routes_through_reducer() {
 }
 
 #[test]
+fn condition_rider_dirty_replay_routes_through_reducer() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-condition-riders.route.mbt.qnt; RAW passages are listed
+    // in that copied connector and use generic condition-rider facts only.
+    for action in CONDITION_RIDER_CONNECTOR_ACTIONS {
+        let observed = replay_condition_rider_action(action);
+        let observed_route = replay_condition_rider_route(action);
+        assert_eq!(observed, expected_condition_rider_witness(action));
+        assert_eq!(observed_route, expected_condition_rider_route(action));
+        let projection_payload = condition_rider_projection_payload(&observed);
+        assert!(projection_payload.contains("AffectedTargetConditionCarrier"));
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("ConditionRiderRouteSubject"));
+        if action.contains("AttackHit") {
+            assert!(route_payload.contains("SpellAttackRouteSubject"));
+        }
+        if action.contains("FailedSave") || action.contains("Sleep") {
+            assert!(route_payload.contains("SaveGatedSpellRouteSubject"));
+        }
+        if action.contains("RepeatSave") {
+            assert!(route_payload.contains("SavingThrowOutcome"));
+        }
+        if action.contains("EscapeFrontier") || action.contains("EscapeSuccess") {
+            assert!(route_payload.contains("AbilityCheck"));
+        }
+    }
+}
+
+#[test]
 fn next_attack_roll_mode_dirty_replay_routes_through_reducer() {
     // QNT: cleanroom-input/qnt/battle-runtime/
     // battle-runtime-next-attack-roll-mode.route.mbt.qnt; RAW:
@@ -2675,6 +2714,59 @@ fn next_attack_roll_mode_dirty_replay_routes_through_reducer() {
             assert!(route_payload.contains("BattleTurnBoundaryOwner"));
         }
     }
+}
+
+#[test]
+fn condition_rider_active_effect_cleanup_requires_lifecycle_cleanup() {
+    use crate::rules::battle_reducer_spine::{
+        condition_rider_route_subject_for_target, resolve_battle_subject_observed,
+        start_battle_observed, Actor, BattleConditionRiderBoundary, BattleConditionRiderCondition,
+        BattleEntrypointTrace, BattleGenericRouteFill, BattleResolutionInvalidReason,
+        BattleResolutionRequest, BattleResolutionResult, BattleSetup, BattleSpellActiveEffectKind,
+        BattleSubjectKind,
+    };
+
+    let mut setup = BattleSetup::standard();
+    setup.skeleton.spell_active_effects =
+        crate::rules::battle_reducer_spine::BattleSpellActiveEffects::with_effect(
+            BattleSpellActiveEffectKind::ConditionRider {
+                condition: BattleConditionRiderCondition::Blinded,
+                boundary: BattleConditionRiderBoundary::UntilSourceNextTurnEnds,
+            },
+        );
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start_battle_observed(setup, &mut trace).state;
+    let expiry_subject = condition_rider_route_subject_for_target(
+        &state,
+        BattleSubjectKind::ConditionRiderDurationExpiry,
+        Actor::Skeleton,
+    );
+    let BattleResolutionResult::Resolved { state } = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(expiry_subject, BattleGenericRouteFill::WithoutFill)
+            .expect("duration expiry should accept without-fill"),
+        &mut trace,
+    ) else {
+        panic!("duration expiry should resolve");
+    };
+
+    let cleanup_subject = condition_rider_route_subject_for_target(
+        &state,
+        BattleSubjectKind::ConditionRiderActiveEffectCleanup,
+        Actor::Skeleton,
+    );
+    let BattleResolutionResult::Invalid { reason, .. } = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(
+            cleanup_subject,
+            BattleGenericRouteFill::WithoutFill,
+        )
+        .expect("active-effect cleanup should accept without-fill"),
+        &mut trace,
+    ) else {
+        panic!("active-effect cleanup before condition lifecycle cleanup should reject");
+    };
+    assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
 }
 
 #[test]

@@ -131,6 +131,7 @@ pub enum ReducerRouteSubjectFamily {
     ForcedMovement,
     HitPointRestoration,
     HitPointRegainPrevention,
+    ConditionRider,
     NextAttackRollMode,
     ReactionInterdiction,
     InterruptStackResume,
@@ -947,6 +948,9 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::HitPointRegainPrevention => {
             ReducerRouteSubjectFamily::HitPointRegainPrevention
         }
+        BattleReducerRouteSubjectFamily::ConditionRider => {
+            ReducerRouteSubjectFamily::ConditionRider
+        }
         BattleReducerRouteSubjectFamily::NextAttackRollMode => {
             ReducerRouteSubjectFamily::NextAttackRollMode
         }
@@ -1677,6 +1681,7 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::HitPointRegainPrevention => {
             "HitPointRegainPreventionRouteSubject"
         }
+        ReducerRouteSubjectFamily::ConditionRider => "ConditionRiderRouteSubject",
         ReducerRouteSubjectFamily::NextAttackRollMode => "NextAttackRollModeRouteSubject",
         ReducerRouteSubjectFamily::ReactionInterdiction => "ReactionInterdictionRouteSubject",
         ReducerRouteSubjectFamily::InterruptStackResume => "InterruptStackResumeRouteSubject",

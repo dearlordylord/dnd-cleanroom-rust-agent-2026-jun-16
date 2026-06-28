@@ -1,10 +1,10 @@
 use crate::rules::battle_reducer_spine::{
     discover_save_gated_damage_subject_observed, discover_spell_attack_damage_subject_observed,
     resolve_battle_subject_observed, start_battle_observed, Actor, AttackRollFacts,
-    BattleEntrypointTrace, BattleHoleKind, BattleResolutionRequest, BattleResolutionResult,
-    BattleSaveGatedDamageApplication, BattleSaveGatedSpellFill, BattleSaveGatedSpellProcedure,
-    BattleSetup, BattleSpellActiveEffectKind, BattleSpellAttackFill, BattleSpellAttackProcedure,
-    BattleState,
+    BattleConditionRiderCondition, BattleEntrypointTrace, BattleHoleKind, BattleResolutionRequest,
+    BattleResolutionResult, BattleSaveGatedDamageApplication, BattleSaveGatedSpellFill,
+    BattleSaveGatedSpellProcedure, BattleSetup, BattleSpellActiveEffectKind, BattleSpellAttackFill,
+    BattleSpellAttackProcedure, BattleState,
 };
 use crate::rules::level_one_damage_spells::{
     project_chromatic_orb_duplicate_damage_leap,
@@ -561,7 +561,11 @@ fn witness_from_battle_state(state: &BattleState) -> LevelOneDamageSpellWitness 
         spell_slot_spent_this_turn: state.fighter.spell_slots.first_level_expended > 0,
         level1_slots_remaining: (1 - state.fighter.spell_slots.first_level_expended).max(0) as u8,
         primary_target_hp: state.skeleton.hp,
-        primary_target_poisoned: state.skeleton.spell_active_effects.poisoned,
+        primary_target_poisoned: state
+            .skeleton
+            .spell_active_effects
+            .condition_rider
+            .active_condition(BattleConditionRiderCondition::Poisoned),
         primary_target_next_attack_roll_disadvantage: state
             .skeleton
             .spell_active_effects
@@ -613,7 +617,11 @@ fn scenario_from_battle_state(state: &BattleState) -> &'static str {
         state.skeleton.hp,
         state.goblin.hp,
         state.fighter.spell_slots.first_level_expended,
-        state.skeleton.spell_active_effects.poisoned,
+        state
+            .skeleton
+            .spell_active_effects
+            .condition_rider
+            .active_condition(BattleConditionRiderCondition::Poisoned),
         state.spell_attack_procedure,
         state.save_gated_spell_procedure,
         state
