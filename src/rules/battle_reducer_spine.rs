@@ -556,6 +556,32 @@ pub enum BattleObjectLightRouteState {
     DurationCleanedUp(BattleObjectLightEmitter),
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleSpatialEffectRouteState {
+    Inactive,
+    MovableMultiEmitterLightActive,
+    MovableMultiEmitterLightMoved,
+    OutlineSightEffectActive,
+    OutlineSightEffectProjected,
+    AreaObscurementActive,
+    AreaObscurementDurationCleaned,
+    AreaObscurementDispersed,
+    AreaHazardActive,
+    AreaHazardSaveResolved,
+    AreaHazardDifficultTerrainMovementResolved,
+    AreaHazardMovementDamageResolved,
+    AreaHazardCleaned,
+    TableSpatialWitnessRecorded,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleMovementPresentationRouteState {
+    Inactive,
+    MovementReplacementLandingPresented,
+    ForcedCreatureMovementPresented,
+    ObjectPushPresented,
+}
+
 impl BattleObjectLightRouteState {
     #[must_use]
     pub const fn has_active_emitter(self) -> bool {
@@ -862,6 +888,8 @@ pub struct BattleState {
     pub command_effect_procedure: BattleCommandEffectProcedure,
     pub spatial_route_subjects: Vec<BattleSpatialRouteSubject>,
     pub object_light_route: BattleObjectLightRouteState,
+    pub spatial_effect_route: BattleSpatialEffectRouteState,
+    pub movement_presentation_route: BattleMovementPresentationRouteState,
     pub ability_check_choice_search: BattleAbilityCheckChoiceSearchState,
     pub feature_substrates: BattleFeatureSubstrates,
     pub feature_resources: BattleFeatureResources,
@@ -894,6 +922,8 @@ pub struct BattleSetup {
     pub command_effect_procedure: BattleCommandEffectProcedure,
     pub spatial_route_subjects: Vec<BattleSpatialRouteSubject>,
     pub object_light_route: BattleObjectLightRouteState,
+    pub spatial_effect_route: BattleSpatialEffectRouteState,
+    pub movement_presentation_route: BattleMovementPresentationRouteState,
     pub ability_check_choice_search: BattleAbilityCheckChoiceSearchState,
     pub feature_substrates: BattleFeatureSubstrates,
     pub feature_resources: BattleFeatureResources,
@@ -938,6 +968,8 @@ impl BattleSetup {
             command_effect_procedure: BattleCommandEffectProcedure::Inactive,
             spatial_route_subjects: Vec::new(),
             object_light_route: BattleObjectLightRouteState::Inactive,
+            spatial_effect_route: BattleSpatialEffectRouteState::Inactive,
+            movement_presentation_route: BattleMovementPresentationRouteState::Inactive,
             ability_check_choice_search: BattleAbilityCheckChoiceSearchState::inactive(),
             feature_substrates: BattleFeatureSubstrates::standard(),
             feature_resources: BattleFeatureResources::standard(),
@@ -1501,6 +1533,52 @@ pub enum BattleSubjectKind {
     ObjectLightDurationTurnBoundary,
     ObjectLightDurationActiveEffectCleanup,
     ObjectLightTableWitness,
+    SpatialEffectMovableMultiEmitterAdmission,
+    SpatialEffectMovableMultiEmitterConcentration,
+    SpatialEffectMovableMultiEmitterLightProjection,
+    SpatialEffectMovableMultiEmitterMoveTargetChoice,
+    SpatialEffectMovableMultiEmitterMoveLightProjection,
+    SpatialEffectOutlineTargetChoice,
+    SpatialEffectOutlineSavingThrowOutcome,
+    SpatialEffectOutlineActiveEffect,
+    SpatialEffectOutlineConcentration,
+    SpatialEffectOutlineLightProjection,
+    SpatialEffectOutlineSightProjection,
+    SpatialEffectOutlineAttackRollModeProjection,
+    SpatialEffectAreaObscurementTargetChoice,
+    SpatialEffectAreaObscurementActiveEffect,
+    SpatialEffectAreaObscurementConcentration,
+    SpatialEffectAreaObscurementProjection,
+    SpatialEffectAreaObscurementSightProjection,
+    SpatialEffectAreaObscurementDurationTurnBoundary,
+    SpatialEffectAreaObscurementDurationProjectionCleanup,
+    SpatialEffectAreaObscurementDurationActiveEffectCleanup,
+    SpatialEffectAreaObscurementDurationConcentrationCleanup,
+    SpatialEffectAreaObscurementDispersalProjectionCleanup,
+    SpatialEffectAreaObscurementDispersalActiveEffectCleanup,
+    SpatialEffectAreaObscurementDispersalConcentrationCleanup,
+    SpatialEffectAreaHazardTargetChoice,
+    SpatialEffectAreaHazardActiveEffect,
+    SpatialEffectAreaHazardProjection,
+    SpatialEffectAreaHazardCreatureSpaceMovement,
+    SpatialEffectAreaHazardSavingThrow,
+    SpatialEffectAreaHazardConditionLifecycle,
+    SpatialEffectAreaHazardDifficultTerrainMovement,
+    SpatialEffectAreaHazardMovementDamageMovement,
+    SpatialEffectAreaHazardMovementDamageHitPoint,
+    SpatialEffectAreaHazardCleanupTurnBoundary,
+    SpatialEffectAreaHazardCleanupHazard,
+    SpatialEffectAreaHazardCleanupActiveEffect,
+    SpatialEffectTableAreaShapeWitness,
+    SpatialEffectTableSightWitness,
+    SpatialEffectTableAreaHazardWitness,
+    MovementPresentationReplacementMovement,
+    MovementPresentationReplacementTable,
+    MovementPresentationForcedSavingThrow,
+    MovementPresentationForcedMovement,
+    MovementPresentationForcedTable,
+    MovementPresentationObjectBoundary,
+    MovementPresentationObjectTable,
     MixedTargetOutcomeInitialSavingThrow,
     MixedTargetOutcomeInitialTargetChoice,
     MixedTargetOutcomeTargetChoiceToAttack,
@@ -2925,6 +3003,8 @@ pub enum BattleReducerRouteSubjectFamily {
     WardedTargetInterdiction,
     MixedTargetOutcomeSpell,
     WeaponEnhancementItemTarget,
+    SpatialEffectRoute,
+    MovementPresentationRoute,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -2979,6 +3059,10 @@ pub enum BattleReducerRouteOwnerGroup {
     ArmorClass,
     LightProjection,
     SpellInvocation,
+    ObscurementProjection,
+    SightProjection,
+    AreaHazard,
+    TablePresentation,
 }
 
 pub type BattleReducerRouteResolutionOutcome = BattleResolutionOutcome;
@@ -3374,6 +3458,8 @@ pub fn start_battle(setup: BattleSetup) -> BattleStartResult {
             command_effect_procedure: setup.command_effect_procedure,
             spatial_route_subjects: setup.spatial_route_subjects,
             object_light_route: setup.object_light_route,
+            spatial_effect_route: setup.spatial_effect_route,
+            movement_presentation_route: setup.movement_presentation_route,
             ability_check_choice_search: setup.ability_check_choice_search,
             feature_substrates: setup.feature_substrates,
             feature_resources: setup.feature_resources,
@@ -7928,6 +8014,10 @@ struct GenericRouteShape {
 }
 
 fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
+    if spatial_effect_route_kind(kind) || movement_presentation_route_kind(kind) {
+        return true;
+    }
+
     matches!(
         kind,
         BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice
@@ -8197,6 +8287,252 @@ fn object_light_route_kind(kind: BattleSubjectKind) -> bool {
     )
 }
 
+fn spatial_effect_route_kind(kind: BattleSubjectKind) -> bool {
+    matches!(
+        kind,
+        BattleSubjectKind::SpatialEffectMovableMultiEmitterAdmission
+            | BattleSubjectKind::SpatialEffectMovableMultiEmitterConcentration
+            | BattleSubjectKind::SpatialEffectMovableMultiEmitterLightProjection
+            | BattleSubjectKind::SpatialEffectMovableMultiEmitterMoveTargetChoice
+            | BattleSubjectKind::SpatialEffectMovableMultiEmitterMoveLightProjection
+            | BattleSubjectKind::SpatialEffectOutlineTargetChoice
+            | BattleSubjectKind::SpatialEffectOutlineSavingThrowOutcome
+            | BattleSubjectKind::SpatialEffectOutlineActiveEffect
+            | BattleSubjectKind::SpatialEffectOutlineConcentration
+            | BattleSubjectKind::SpatialEffectOutlineLightProjection
+            | BattleSubjectKind::SpatialEffectOutlineSightProjection
+            | BattleSubjectKind::SpatialEffectOutlineAttackRollModeProjection
+            | BattleSubjectKind::SpatialEffectAreaObscurementTargetChoice
+            | BattleSubjectKind::SpatialEffectAreaObscurementActiveEffect
+            | BattleSubjectKind::SpatialEffectAreaObscurementConcentration
+            | BattleSubjectKind::SpatialEffectAreaObscurementProjection
+            | BattleSubjectKind::SpatialEffectAreaObscurementSightProjection
+            | BattleSubjectKind::SpatialEffectAreaObscurementDurationTurnBoundary
+            | BattleSubjectKind::SpatialEffectAreaObscurementDurationProjectionCleanup
+            | BattleSubjectKind::SpatialEffectAreaObscurementDurationActiveEffectCleanup
+            | BattleSubjectKind::SpatialEffectAreaObscurementDurationConcentrationCleanup
+            | BattleSubjectKind::SpatialEffectAreaObscurementDispersalProjectionCleanup
+            | BattleSubjectKind::SpatialEffectAreaObscurementDispersalActiveEffectCleanup
+            | BattleSubjectKind::SpatialEffectAreaObscurementDispersalConcentrationCleanup
+            | BattleSubjectKind::SpatialEffectAreaHazardTargetChoice
+            | BattleSubjectKind::SpatialEffectAreaHazardActiveEffect
+            | BattleSubjectKind::SpatialEffectAreaHazardProjection
+            | BattleSubjectKind::SpatialEffectAreaHazardCreatureSpaceMovement
+            | BattleSubjectKind::SpatialEffectAreaHazardSavingThrow
+            | BattleSubjectKind::SpatialEffectAreaHazardConditionLifecycle
+            | BattleSubjectKind::SpatialEffectAreaHazardDifficultTerrainMovement
+            | BattleSubjectKind::SpatialEffectAreaHazardMovementDamageMovement
+            | BattleSubjectKind::SpatialEffectAreaHazardMovementDamageHitPoint
+            | BattleSubjectKind::SpatialEffectAreaHazardCleanupTurnBoundary
+            | BattleSubjectKind::SpatialEffectAreaHazardCleanupHazard
+            | BattleSubjectKind::SpatialEffectAreaHazardCleanupActiveEffect
+            | BattleSubjectKind::SpatialEffectTableAreaShapeWitness
+            | BattleSubjectKind::SpatialEffectTableSightWitness
+            | BattleSubjectKind::SpatialEffectTableAreaHazardWitness
+    )
+}
+
+fn movement_presentation_route_kind(kind: BattleSubjectKind) -> bool {
+    matches!(
+        kind,
+        BattleSubjectKind::MovementPresentationReplacementMovement
+            | BattleSubjectKind::MovementPresentationReplacementTable
+            | BattleSubjectKind::MovementPresentationForcedSavingThrow
+            | BattleSubjectKind::MovementPresentationForcedMovement
+            | BattleSubjectKind::MovementPresentationForcedTable
+            | BattleSubjectKind::MovementPresentationObjectBoundary
+            | BattleSubjectKind::MovementPresentationObjectTable
+    )
+}
+
+fn spatial_effect_route_shape(kind: BattleSubjectKind) -> Option<GenericRouteShape> {
+    use BattleReducerRouteHoleKind::{Movement, RolledDice, SavingThrowOutcome, TargetChoice};
+    use BattleReducerRouteOwnerGroup::{
+        ActiveEffect, AreaHazard, AreaShape, AttackRollMode, Concentration, ConditionLifecycle,
+        CreatureSpaceMovement, HitPoint, LightProjection, MovementResource, ObscurementProjection,
+        SavingThrowOutcome as SavingThrowOutcomeOwner, SightProjection, SpellSlotAndActionEconomy,
+        TurnBoundary,
+    };
+
+    let shape = match kind {
+        BattleSubjectKind::SpatialEffectMovableMultiEmitterAdmission => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: Vec::new(),
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::SpatialEffectMovableMultiEmitterConcentration
+        | BattleSubjectKind::SpatialEffectOutlineConcentration
+        | BattleSubjectKind::SpatialEffectAreaObscurementConcentration
+        | BattleSubjectKind::SpatialEffectAreaObscurementDurationConcentrationCleanup
+        | BattleSubjectKind::SpatialEffectAreaObscurementDispersalConcentrationCleanup => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+                holes: Vec::new(),
+                discover_owner: Concentration,
+                resolve_owner: Concentration,
+            }
+        }
+        BattleSubjectKind::SpatialEffectMovableMultiEmitterLightProjection
+        | BattleSubjectKind::SpatialEffectMovableMultiEmitterMoveLightProjection
+        | BattleSubjectKind::SpatialEffectOutlineLightProjection => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: Vec::new(),
+            discover_owner: LightProjection,
+            resolve_owner: LightProjection,
+        },
+        BattleSubjectKind::SpatialEffectMovableMultiEmitterMoveTargetChoice
+        | BattleSubjectKind::SpatialEffectAreaObscurementTargetChoice
+        | BattleSubjectKind::SpatialEffectAreaHazardTargetChoice => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: vec![TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: AreaShape,
+        },
+        BattleSubjectKind::SpatialEffectOutlineTargetChoice => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: vec![SavingThrowOutcome, TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: AreaShape,
+        },
+        BattleSubjectKind::SpatialEffectOutlineSavingThrowOutcome
+        | BattleSubjectKind::SpatialEffectAreaHazardSavingThrow => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: AreaHazard,
+            resolve_owner: SavingThrowOutcomeOwner,
+        },
+        BattleSubjectKind::SpatialEffectOutlineActiveEffect
+        | BattleSubjectKind::SpatialEffectAreaObscurementActiveEffect
+        | BattleSubjectKind::SpatialEffectAreaHazardActiveEffect
+        | BattleSubjectKind::SpatialEffectAreaObscurementDurationActiveEffectCleanup
+        | BattleSubjectKind::SpatialEffectAreaObscurementDispersalActiveEffectCleanup
+        | BattleSubjectKind::SpatialEffectAreaHazardCleanupActiveEffect => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::SpatialEffectOutlineSightProjection
+        | BattleSubjectKind::SpatialEffectAreaObscurementSightProjection
+        | BattleSubjectKind::SpatialEffectTableSightWitness => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: Vec::new(),
+            discover_owner: SightProjection,
+            resolve_owner: SightProjection,
+        },
+        BattleSubjectKind::SpatialEffectOutlineAttackRollModeProjection => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: Vec::new(),
+            discover_owner: AttackRollMode,
+            resolve_owner: AttackRollMode,
+        },
+        BattleSubjectKind::SpatialEffectAreaObscurementProjection
+        | BattleSubjectKind::SpatialEffectAreaObscurementDurationProjectionCleanup
+        | BattleSubjectKind::SpatialEffectAreaObscurementDispersalProjectionCleanup => {
+            GenericRouteShape {
+                subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+                holes: Vec::new(),
+                discover_owner: ObscurementProjection,
+                resolve_owner: ObscurementProjection,
+            }
+        }
+        BattleSubjectKind::SpatialEffectAreaHazardProjection
+        | BattleSubjectKind::SpatialEffectAreaHazardCleanupHazard
+        | BattleSubjectKind::SpatialEffectTableAreaHazardWitness => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: Vec::new(),
+            discover_owner: AreaHazard,
+            resolve_owner: AreaHazard,
+        },
+        BattleSubjectKind::SpatialEffectAreaHazardCreatureSpaceMovement => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: Vec::new(),
+            discover_owner: CreatureSpaceMovement,
+            resolve_owner: CreatureSpaceMovement,
+        },
+        BattleSubjectKind::SpatialEffectAreaHazardConditionLifecycle => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: Vec::new(),
+            discover_owner: ConditionLifecycle,
+            resolve_owner: ConditionLifecycle,
+        },
+        BattleSubjectKind::SpatialEffectAreaHazardDifficultTerrainMovement
+        | BattleSubjectKind::SpatialEffectAreaHazardMovementDamageMovement => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: vec![Movement],
+            discover_owner: AreaHazard,
+            resolve_owner: MovementResource,
+        },
+        BattleSubjectKind::SpatialEffectAreaHazardMovementDamageHitPoint => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: vec![RolledDice],
+            discover_owner: HitPoint,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::SpatialEffectAreaObscurementDurationTurnBoundary
+        | BattleSubjectKind::SpatialEffectAreaHazardCleanupTurnBoundary => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: Vec::new(),
+            discover_owner: TurnBoundary,
+            resolve_owner: TurnBoundary,
+        },
+        BattleSubjectKind::SpatialEffectTableAreaShapeWitness => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::SpatialEffectRoute,
+            holes: Vec::new(),
+            discover_owner: AreaShape,
+            resolve_owner: AreaShape,
+        },
+        _ => return None,
+    };
+    Some(shape)
+}
+
+fn movement_presentation_route_shape(kind: BattleSubjectKind) -> Option<GenericRouteShape> {
+    use BattleReducerRouteHoleKind::{Movement, SavingThrowOutcome};
+    use BattleReducerRouteOwnerGroup::{
+        MovementResource, ObjectTargetBoundary, SavingThrowOutcome as SavingThrowOutcomeOwner,
+        TablePresentation,
+    };
+
+    let shape = match kind {
+        BattleSubjectKind::MovementPresentationReplacementMovement => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::MovementPresentationRoute,
+            holes: vec![Movement],
+            discover_owner: MovementResource,
+            resolve_owner: MovementResource,
+        },
+        BattleSubjectKind::MovementPresentationReplacementTable
+        | BattleSubjectKind::MovementPresentationForcedTable
+        | BattleSubjectKind::MovementPresentationObjectTable => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::MovementPresentationRoute,
+            holes: Vec::new(),
+            discover_owner: TablePresentation,
+            resolve_owner: TablePresentation,
+        },
+        BattleSubjectKind::MovementPresentationForcedSavingThrow => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::MovementPresentationRoute,
+            holes: vec![Movement, SavingThrowOutcome],
+            discover_owner: SavingThrowOutcomeOwner,
+            resolve_owner: SavingThrowOutcomeOwner,
+        },
+        BattleSubjectKind::MovementPresentationForcedMovement => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::MovementPresentationRoute,
+            holes: vec![Movement],
+            discover_owner: MovementResource,
+            resolve_owner: MovementResource,
+        },
+        BattleSubjectKind::MovementPresentationObjectBoundary => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::MovementPresentationRoute,
+            holes: Vec::new(),
+            discover_owner: ObjectTargetBoundary,
+            resolve_owner: ObjectTargetBoundary,
+        },
+        _ => return None,
+    };
+    Some(shape)
+}
+
 fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteHoleKind::{
         AbilityCheck, AbilityChoice, AttackRoll, ConcentrationSavingThrow, DamageTypeChoice,
@@ -8222,6 +8558,14 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
         ScalarBuffEffect, SlotSpell, SpellAttack, SpellHostedWeaponAttack,
         WardedTargetInterdiction, WeaponAttack, WeaponDamageRider, WeaponEnhancementItemTarget,
     };
+
+    if let Some(shape) = spatial_effect_route_shape(kind) {
+        return shape;
+    }
+
+    if let Some(shape) = movement_presentation_route_shape(kind) {
+        return shape;
+    }
 
     match kind {
         BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice => GenericRouteShape {
@@ -9375,6 +9719,7 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
         | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
         | BattleSubjectKind::MetamagicOptionSpell
         | BattleSubjectKind::Spatial(_) => panic!("not a generic route subject"),
+        _ => panic!("unhandled generic route subject shape"),
     }
 }
 
@@ -11034,6 +11379,11 @@ fn resolve_battle_subject_unchecked(
             BattleResolutionInvalidReason::InvalidFill,
             subject.stage,
         ),
+        _ => invalid(
+            state,
+            BattleResolutionInvalidReason::InvalidFill,
+            subject.stage,
+        ),
     }
 }
 
@@ -11490,8 +11840,84 @@ fn resolve_generic_route_state(
             state
         }
         (BattleSubjectKind::ObjectLightTableWitness, BattleGenericRouteFill::WithoutFill) => state,
+        (kind, fill) if spatial_effect_route_fill_matches(kind, fill) == Some(true) => {
+            resolve_spatial_effect_route_state(state, kind, fill)
+        }
+        (kind, fill) if movement_presentation_route_fill_matches(kind, fill) == Some(true) => {
+            resolve_movement_presentation_route_state(state, kind, fill)
+        }
         _ => state,
     }
+}
+
+fn resolve_spatial_effect_route_state(
+    mut state: BattleState,
+    kind: BattleSubjectKind,
+    _fill: BattleGenericRouteFill,
+) -> BattleState {
+    state.spatial_effect_route = match kind {
+        BattleSubjectKind::SpatialEffectMovableMultiEmitterAdmission => {
+            BattleSpatialEffectRouteState::MovableMultiEmitterLightActive
+        }
+        BattleSubjectKind::SpatialEffectMovableMultiEmitterMoveLightProjection => {
+            BattleSpatialEffectRouteState::MovableMultiEmitterLightMoved
+        }
+        BattleSubjectKind::SpatialEffectOutlineActiveEffect => {
+            BattleSpatialEffectRouteState::OutlineSightEffectActive
+        }
+        BattleSubjectKind::SpatialEffectOutlineAttackRollModeProjection => {
+            BattleSpatialEffectRouteState::OutlineSightEffectProjected
+        }
+        BattleSubjectKind::SpatialEffectAreaObscurementActiveEffect => {
+            BattleSpatialEffectRouteState::AreaObscurementActive
+        }
+        BattleSubjectKind::SpatialEffectAreaObscurementDurationConcentrationCleanup => {
+            BattleSpatialEffectRouteState::AreaObscurementDurationCleaned
+        }
+        BattleSubjectKind::SpatialEffectAreaObscurementDispersalConcentrationCleanup => {
+            BattleSpatialEffectRouteState::AreaObscurementDispersed
+        }
+        BattleSubjectKind::SpatialEffectAreaHazardCreatureSpaceMovement => {
+            BattleSpatialEffectRouteState::AreaHazardActive
+        }
+        BattleSubjectKind::SpatialEffectAreaHazardConditionLifecycle => {
+            BattleSpatialEffectRouteState::AreaHazardSaveResolved
+        }
+        BattleSubjectKind::SpatialEffectAreaHazardDifficultTerrainMovement => {
+            BattleSpatialEffectRouteState::AreaHazardDifficultTerrainMovementResolved
+        }
+        BattleSubjectKind::SpatialEffectAreaHazardMovementDamageHitPoint => {
+            BattleSpatialEffectRouteState::AreaHazardMovementDamageResolved
+        }
+        BattleSubjectKind::SpatialEffectAreaHazardCleanupActiveEffect => {
+            BattleSpatialEffectRouteState::AreaHazardCleaned
+        }
+        BattleSubjectKind::SpatialEffectTableAreaHazardWitness => {
+            BattleSpatialEffectRouteState::TableSpatialWitnessRecorded
+        }
+        _ => state.spatial_effect_route,
+    };
+    state
+}
+
+fn resolve_movement_presentation_route_state(
+    mut state: BattleState,
+    kind: BattleSubjectKind,
+    _fill: BattleGenericRouteFill,
+) -> BattleState {
+    state.movement_presentation_route = match kind {
+        BattleSubjectKind::MovementPresentationReplacementTable => {
+            BattleMovementPresentationRouteState::MovementReplacementLandingPresented
+        }
+        BattleSubjectKind::MovementPresentationForcedTable => {
+            BattleMovementPresentationRouteState::ForcedCreatureMovementPresented
+        }
+        BattleSubjectKind::MovementPresentationObjectTable => {
+            BattleMovementPresentationRouteState::ObjectPushPresented
+        }
+        _ => state.movement_presentation_route,
+    };
+    state
 }
 
 fn hit_point_regain_prevention_target_mismatch(
@@ -11857,6 +12283,14 @@ fn generic_route_fill_matches_subject(
     kind: BattleSubjectKind,
     fill: BattleGenericRouteFill,
 ) -> bool {
+    if let Some(matches) = spatial_effect_route_fill_matches(kind, fill) {
+        return matches;
+    }
+
+    if let Some(matches) = movement_presentation_route_fill_matches(kind, fill) {
+        return matches;
+    }
+
     match kind {
         BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice => {
             fill == BattleGenericRouteFill::DamageTypeChoice
@@ -12192,13 +12626,70 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::ActiveFeatureSpellAttackRollMode
         | BattleSubjectKind::MetamagicOptionSpell
         | BattleSubjectKind::Spatial(_) => false,
+        _ => false,
     }
+}
+
+fn spatial_effect_route_fill_matches(
+    kind: BattleSubjectKind,
+    fill: BattleGenericRouteFill,
+) -> Option<bool> {
+    let matches = match kind {
+        BattleSubjectKind::SpatialEffectMovableMultiEmitterMoveTargetChoice
+        | BattleSubjectKind::SpatialEffectOutlineTargetChoice
+        | BattleSubjectKind::SpatialEffectAreaObscurementTargetChoice
+        | BattleSubjectKind::SpatialEffectAreaHazardTargetChoice => {
+            fill == BattleGenericRouteFill::TargetChoice
+        }
+        BattleSubjectKind::SpatialEffectOutlineSavingThrowOutcome
+        | BattleSubjectKind::SpatialEffectAreaHazardSavingThrow => {
+            fill == BattleGenericRouteFill::SavingThrowOutcome
+        }
+        BattleSubjectKind::SpatialEffectAreaHazardDifficultTerrainMovement
+        | BattleSubjectKind::SpatialEffectAreaHazardMovementDamageMovement => {
+            matches!(fill, BattleGenericRouteFill::Movement { .. })
+        }
+        BattleSubjectKind::SpatialEffectAreaHazardMovementDamageHitPoint => {
+            fill == BattleGenericRouteFill::RolledDice
+        }
+        kind if spatial_effect_route_kind(kind) => fill == BattleGenericRouteFill::WithoutFill,
+        _ => return None,
+    };
+    Some(matches)
+}
+
+fn movement_presentation_route_fill_matches(
+    kind: BattleSubjectKind,
+    fill: BattleGenericRouteFill,
+) -> Option<bool> {
+    let matches = match kind {
+        BattleSubjectKind::MovementPresentationReplacementMovement
+        | BattleSubjectKind::MovementPresentationForcedMovement => {
+            matches!(fill, BattleGenericRouteFill::Movement { .. })
+        }
+        BattleSubjectKind::MovementPresentationForcedSavingThrow => {
+            fill == BattleGenericRouteFill::SavingThrowOutcome
+        }
+        kind if movement_presentation_route_kind(kind) => {
+            fill == BattleGenericRouteFill::WithoutFill
+        }
+        _ => return None,
+    };
+    Some(matches)
 }
 
 fn generic_route_next_holes(
     kind: BattleSubjectKind,
     fill: BattleGenericRouteFill,
 ) -> Vec<BattleHoleKind> {
+    if let Some(holes) = spatial_effect_route_next_holes(kind, fill) {
+        return holes;
+    }
+
+    if let Some(holes) = movement_presentation_route_next_holes(kind, fill) {
+        return holes;
+    }
+
     match (kind, fill) {
         (BattleSubjectKind::SpellHostedWeaponAttackDamageTypeChoice, _) => {
             vec![BattleHoleKind::TargetChoice]
@@ -12550,6 +13041,40 @@ fn generic_route_next_holes(
         ) => Vec::new(),
         _ => Vec::new(),
     }
+}
+
+fn spatial_effect_route_next_holes(
+    kind: BattleSubjectKind,
+    fill: BattleGenericRouteFill,
+) -> Option<Vec<BattleHoleKind>> {
+    let holes = match (kind, fill) {
+        (
+            BattleSubjectKind::SpatialEffectOutlineTargetChoice,
+            BattleGenericRouteFill::TargetChoice,
+        ) => vec![BattleHoleKind::SavingThrowOutcome],
+        (
+            BattleSubjectKind::SpatialEffectAreaHazardMovementDamageMovement,
+            BattleGenericRouteFill::Movement { .. },
+        ) => vec![BattleHoleKind::RolledDice],
+        (kind, _) if spatial_effect_route_kind(kind) => Vec::new(),
+        _ => return None,
+    };
+    Some(holes)
+}
+
+fn movement_presentation_route_next_holes(
+    kind: BattleSubjectKind,
+    fill: BattleGenericRouteFill,
+) -> Option<Vec<BattleHoleKind>> {
+    let holes = match (kind, fill) {
+        (
+            BattleSubjectKind::MovementPresentationForcedSavingThrow,
+            BattleGenericRouteFill::SavingThrowOutcome,
+        ) => vec![BattleHoleKind::Movement],
+        (kind, _) if movement_presentation_route_kind(kind) => Vec::new(),
+        _ => return None,
+    };
+    Some(holes)
 }
 
 #[must_use]

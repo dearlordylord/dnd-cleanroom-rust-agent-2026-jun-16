@@ -1,55 +1,39 @@
 {
+  "schemaVersion": 1,
+  "taskId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY",
   "durableFields": [
     {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.bonus_action_available",
+      "fieldPath": "BattleState.spatial_effect_route",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+      "owner": "battle-state",
+      "derivability": {
+        "tag": "canonical-source",
+        "source": "copied spatial-effect route reducer state surface"
+      }
     },
     {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.feature_substrates.innate_sorcery.uses_remaining",
+      "fieldPath": "BattleState.movement_presentation_route",
       "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
+      "owner": "battle-state",
       "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.feature_substrates.innate_sorcery.occurrence",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.feature_substrates.innate_sorcery.spell_save_dc_bonus",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
-    },
-    {
-      "derivability": {
-        "tag": "canonical-source"
-      },
-      "fieldPath": "BattleState.feature_substrates.innate_sorcery.spell_attack_roll_mode",
-      "introducedIn": "src/rules/battle_reducer_spine.rs",
-      "owner": "battle-state"
+        "tag": "canonical-source",
+        "source": "copied movement-presentation route reducer state surface"
+      }
     }
   ],
   "nonDurableBoundaryApiSurface": [
     {
       "apiPath": "qRoute",
-      "boundary": "dirty target replay route projection from copied SQNT-07D connector vocabulary; not durable BattleState",
-      "introducedIn": "src/qnt_adapters/battle_runtime_feature_selected_identity.rs",
+      "boundary": "dirty target replay route projection from copied SQNT-07A connector vocabulary; not durable BattleState",
+      "introducedIn": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "owner": "harness-witness-protocol"
+    },
+    {
+      "apiPath": "qProjectionPayload",
+      "boundary": "adapter-local projection of copied route facts, including table-owned geometry/presentation witnesses; not production dispatch state",
+      "introducedIn": "src/qnt_adapters/battle_runtime_movement_presentation_route.rs",
       "owner": "harness-witness-protocol"
     }
   ],
-  "noRedundantStateFinding": "Searched existing InnateSorceryState, BattleInnateSorcerySubstrate, spell attack ordering, reducer route, and feature resource modules. Existing BattleState.feature_substrates.innate_sorcery owns base Spell Save DC, save DC bonus, occurrence, uses remaining, and typed spell attack roll mode, so no duplicate durable state was added.",
-  "schemaVersion": 1,
-  "taskId": "SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY"
+  "noRedundantStateFinding": "Searched existing spatial_route_subjects, object_light_route, level_one_spatial projections, movement/forced movement adapters, and reducer-route trace state. Existing level-one spatial projection fields describe selected spell witnesses, while object_light_route is scoped to object/held light riders. Added only two route-surface fields for copied generic spatial-effect and movement-presentation reducer replay; table geometry, landing, audible, wind, and color facts remain adapter-local route facts."
 }

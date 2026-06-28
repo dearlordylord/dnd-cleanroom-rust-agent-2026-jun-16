@@ -60,6 +60,8 @@ mod battle_runtime_magic_missile;
 mod battle_runtime_mixed_target_outcomes_route;
 #[path = "../qnt_adapters/battle_runtime_movement_forced_movement_selected_identity.rs"]
 mod battle_runtime_movement_forced_movement_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_movement_presentation_route.rs"]
+mod battle_runtime_movement_presentation_route;
 #[path = "../qnt_adapters/battle_runtime_next_attack_roll_mode_route.rs"]
 mod battle_runtime_next_attack_roll_mode_route;
 #[path = "../qnt_adapters/battle_runtime_object_light_riders_route.rs"]
@@ -118,6 +120,8 @@ mod battle_runtime_sorcerer_metamagic_subtle_selected_identity;
 mod battle_runtime_sorcerer_metamagic_transmuted_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_twinned_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_twinned_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_spatial_effects_route.rs"]
+mod battle_runtime_spatial_effects_route;
 #[path = "../qnt_adapters/battle_runtime_species_passive_trait_selected_identity.rs"]
 mod battle_runtime_species_passive_trait_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_spell_attack_ordering.rs"]
@@ -884,6 +888,14 @@ use battle_runtime_movement_forced_movement_selected_identity::{
     BRANCH_ACTIONS as MOVEMENT_FORCED_MOVEMENT_BRANCH_ACTIONS,
     OUT_OF_SCOPE_BRANCH_ACTIONS as MOVEMENT_FORCED_MOVEMENT_OUT_OF_SCOPE_BRANCH_ACTIONS,
 };
+use battle_runtime_movement_presentation_route::{
+    expected_route as expected_movement_presentation_route,
+    expected_witness as expected_movement_presentation_witness,
+    projection_payload as movement_presentation_projection_payload,
+    replay_observed_action as replay_movement_presentation_action,
+    replay_observed_route as replay_movement_presentation_route,
+    CONNECTOR_ACTIONS as MOVEMENT_PRESENTATION_CONNECTOR_ACTIONS,
+};
 use battle_runtime_next_attack_roll_mode_route::{
     expected_route as expected_next_attack_roll_mode_route,
     expected_witness as expected_next_attack_roll_mode_witness,
@@ -1104,6 +1116,14 @@ use battle_runtime_sorcerer_metamagic_twinned_selected_identity::{
     replay_observed_action as replay_twinned_spell_action,
     replay_observed_route as replay_twinned_spell_route,
     BRANCH_ACTIONS as TWINNED_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_spatial_effects_route::{
+    expected_route as expected_spatial_effects_route,
+    expected_witness as expected_spatial_effects_witness,
+    projection_payload as spatial_effects_projection_payload,
+    replay_observed_action as replay_spatial_effects_action,
+    replay_observed_route as replay_spatial_effects_route,
+    CONNECTOR_ACTIONS as SPATIAL_EFFECTS_CONNECTOR_ACTIONS,
 };
 use battle_runtime_species_passive_trait_selected_identity::{
     expected_route as expected_species_passive_route,
@@ -2763,6 +2783,79 @@ fn object_light_dirty_replay_routes_through_reducer() {
             assert!(projection_payload.contains("ColorPresentationWitness"));
             assert!(projection_payload.contains("ObjectDurabilityBoundaryWitness"));
         }
+    }
+}
+
+#[test]
+fn spatial_effects_dirty_replay_routes_through_reducer() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-spatial-effects.route.mbt.qnt and
+    // battle-runtime-spatial-effect-route-facts.qnt.
+    for action in SPATIAL_EFFECTS_CONNECTOR_ACTIONS {
+        let observed = replay_spatial_effects_action(action);
+        let observed_route = replay_spatial_effects_route(action);
+        assert_eq!(observed, expected_spatial_effects_witness(action));
+        assert_eq!(observed_route, expected_spatial_effects_route(action));
+        let projection_payload = spatial_effects_projection_payload(&observed);
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("SpatialEffectRouteSubject"));
+        if action.contains("MovableMultiEmitter") {
+            assert!(projection_payload.contains("MultiEmitterDimLightProjection"));
+            assert!(route_payload.contains("BattleLightProjectionOwner"));
+        }
+        if action.contains("ProjectOutlineSight") {
+            assert!(projection_payload.contains("InvisibleBenefitDeniedProjection"));
+            assert!(projection_payload.contains("AttackRollAdvantageProjection"));
+            assert!(route_payload.contains("BattleAttackRollModeOwner"));
+        }
+        if action.contains("AreaObscurement") {
+            assert!(projection_payload.contains("HeavilyObscuredProjection"));
+            assert!(route_payload.contains("BattleObscurementProjectionOwner"));
+        }
+        if action.contains("AreaHazard") {
+            assert!(projection_payload.contains("DifficultTerrainProjection"));
+            assert!(route_payload.contains("BattleAreaHazardOwner"));
+        }
+        if action.contains("MovementDamage") {
+            assert!(projection_payload.contains("MovementDamageTrigger"));
+            assert!(route_payload.contains("BattleHitPointOwner"));
+        }
+        if action.contains("TableOwnedSpatialWitnesses") {
+            assert!(projection_payload.contains("TotalCoverBlockerWitness"));
+            assert!(projection_payload.contains("ColorChoicePresentation"));
+        }
+    }
+}
+
+#[test]
+fn movement_presentation_dirty_replay_routes_through_reducer() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-movement-presentation.route.mbt.qnt and
+    // battle-runtime-movement-presentation-route-facts.qnt.
+    for action in MOVEMENT_PRESENTATION_CONNECTOR_ACTIONS {
+        let observed = replay_movement_presentation_action(action);
+        let observed_route = replay_movement_presentation_route(action);
+        assert_eq!(observed, expected_movement_presentation_witness(action));
+        assert_eq!(observed_route, expected_movement_presentation_route(action));
+        let projection_payload = movement_presentation_projection_payload(&observed);
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("MovementPresentationRouteSubject"));
+        if action.contains("MovementReplacement") {
+            assert!(projection_payload.contains("MovementReplacementFixedBudgetSpend"));
+            assert!(projection_payload.contains("LandingSpacePresentationWitness"));
+            assert!(route_payload.contains("BattleMovementResourceOwner"));
+        }
+        if action.contains("ForcedCreatureMovement") {
+            assert!(projection_payload.contains("ForcedMovementNoOwnMovementResource"));
+            assert!(projection_payload.contains("DirectionAwayFromSourcePresentationWitness"));
+            assert!(route_payload.contains("BattleSavingThrowOutcomeOwner"));
+        }
+        if action.contains("ObjectPush") {
+            assert!(projection_payload.contains("ObjectPushProjection"));
+            assert!(projection_payload.contains("AudibleEffectPresentationWitness"));
+            assert!(route_payload.contains("BattleObjectTargetBoundaryOwner"));
+        }
+        assert!(route_payload.contains("BattleTablePresentationOwner"));
     }
 }
 
