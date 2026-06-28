@@ -7,7 +7,7 @@
   "sourcePackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
   "acceptedFreshTargetPackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
   "latestDirtyPackageRefreshCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
-  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence are packaged in cleanroom-input. FCSF-04 dirty replay later accepted 6 connector rows and covered 7 object-route obligations, FCSF-05 dirty replay accepted all 5 connector rows, and FCSF-06 dirty replay accepted 30 reducer-route witness rows and recorded 14 target blockers; no fresh target acceptance is claimed from these dirty replays.",
+  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, and SQNT-07B/C/D feature-species-metamagic route evidence are packaged in cleanroom-input. FCSF-04 dirty replay later accepted 6 connector rows and covered 7 object-route obligations, FCSF-05 dirty replay accepted all 5 connector rows, FCSF-06 dirty replay accepted 30 reducer-route witness rows and recorded 14 target blockers, SQNT-07B dirty replay accepted 15 selected species/passive-adjacent rows with 2 inherited Adrenaline Rush rows out of scope, SQNT-07C dirty replay accepted 30 selected metamagic rows, and SQNT-07D dirty replay accepted 3 active-feature spell-benefit rows; no fresh target acceptance is claimed from these dirty replays.",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,
@@ -192,7 +192,7 @@
         "BLOCKERS.json entries for any identity-only branch",
         "verifier update for accepted substrate subset"
       ],
-      "acceptanceSummary": "Accepted with blockers: feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces pass through public reducer entrypoints with connector-derived expected records. Selected/grouped identity witnesses and residual species/metamagic/feature branches remain explicit blockers; the earlier exact metamagic-driver note was a campaign manifest naming error, not a source package blocker."
+      "acceptanceSummary": "Accepted with blockers in the historical fresh target: feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces pass through public reducer entrypoints with connector-derived expected records. Current-package dirty replay now also accepts SQNT-07B/C/D rows through copied route connectors and observed reducer entrypoints. Selected/grouped identity witnesses and residual species/metamagic/feature branches remain explicit source-input work before fresh target replay can claim them."
     }
   ]
 }

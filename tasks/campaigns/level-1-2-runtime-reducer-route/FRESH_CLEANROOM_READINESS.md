@@ -208,10 +208,10 @@ Next useful work is one of:
   FEXP-06 character/sheet/handoff substrate lane plus FEXP-07
   feature/species/metamagic substrate lane. The current gate verifies the
   refreshed `ee4894fa` package plus current FEXP-04/FEXP-06 evidence, and the
-  dirty campaign now also records FCSF-04, FCSF-05, SQNT-03A, SQNT-03B, and
-  SQNT-03C current-package dirty replays as accepted and FCSF-06 current-package
-  dirty replay as accepted-with-target-blockers. Older stale snapshots remain
-  explicitly classified;
+  dirty campaign now also records FCSF-04, FCSF-05, SQNT-03A, SQNT-03B,
+  SQNT-03C, SQNT-07B, SQNT-07C, and SQNT-07D current-package dirty replays as
+  accepted and FCSF-06 current-package dirty replay as accepted-with-target
+  blockers. Older stale snapshots remain explicitly classified;
 - clean the global stale validator-hash / historical evidence debt so the dirty
   harness can pass without exception;
 - promote the strongest route-connector lessons back into source-side QNT and

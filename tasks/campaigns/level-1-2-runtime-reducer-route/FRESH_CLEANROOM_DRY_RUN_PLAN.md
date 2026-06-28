@@ -95,7 +95,11 @@ Dash/temporary-hit-point, species creature-stat projection, metamagic resource
 governor, and active-feature Spell Save DC benefit route evidence;
 selected/grouped identity witnesses and residual species/metamagic/feature
 branches remain explicitly blocked; the earlier exact metamagic driver note was
-corrected as a campaign manifest naming error.
+corrected as a campaign manifest naming error. The dirty current-package replay
+later accepted SQNT-07B/C/D evidence for 15 species/passive-adjacent rows,
+30 selected metamagic rows, and 3 active-feature spell-benefit rows, but this is
+diagnostic dirty evidence only until a fresh target replays the same copied
+route facts.
 
 ## Hard Boundaries
 
