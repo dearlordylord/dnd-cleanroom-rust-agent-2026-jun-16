@@ -27,7 +27,7 @@ review checks were needed to prevent false positives.
 
 Authoritative state:
 
-- `STATE.json.status`: `sqnt03a-dirty-replay-merged-verified`
+- `STATE.json.status`: `sqnt03b-dirty-replay-merged-verified`
 - refreshed in-scope obligations: `659`
 - accepted obligations: `659`
 - accepted driver coverage: `97 / 97`
@@ -37,8 +37,16 @@ Authoritative state:
 - active fresh dry-run worktrees: none
 - strongest fresh target evidence: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - latest dirty package refresh:
-  `c83c4a2321ff45c796245d65ba979b9068c6718a`
-- latest source-QNT connector: SQNT-03A Hit Point regain prevention source
+  `8d4ab3b2c567f3b292de6aebbc5b6fb49c3e00da`, from source package
+  `d00c92a3d12531e50d95ead220303b66a5265e1e`
+- latest source-QNT connector: SQNT-03B Next Attack Roll mode source input is
+  packaged in
+  `cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt`
+  and `cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode-route-facts.qnt`;
+  dirty target replay is accepted at merge
+  `4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e`; fresh target replay remains
+  pending.
+- previous source-QNT connector: SQNT-03A Hit Point regain prevention source
   input is packaged in
   `cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt`;
   dirty target replay is accepted at merge
@@ -53,7 +61,10 @@ Authoritative state:
   in `tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json`;
   SQNT-03A accepted 3 Hit Point regain prevention connector transitions and 1
   attack-shape obligation with 0 SQNT-03A target behavior blockers in
-  `tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json`.
+  `tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json`;
+  SQNT-03B accepted 6 next-Attack-Roll mode connector transitions covering 2
+  selected-driver obligations in
+  `tasks/target-replay-evidence/FCSF-03B-next-attack-roll-mode-dirty-replay.json`.
 
 The final CP8 lane accepted exactly these three newly accepted rows:
 
@@ -106,11 +117,12 @@ generic connector route shape but was not counted as a new CP8 row.
   `cleanroom-input/MANIFEST.md` for:
   - `scripts/check-cleanroom-harness.cjs`
   - `scripts/cleanroom-branch-coverage-check.cjs`
-- The `c83c4a2321ff45c796245d65ba979b9068c6718a` dirty package refresh
+- The `8d4ab3b2c567f3b292de6aebbc5b6fb49c3e00da` dirty package refresh
   packages source-feedback Task 3 residual selected-spell route tasks, SQNT-03A
-  hit-point-regain-prevention connector evidence, the Task 8 six-driver active
-  reducer diagnostic seed, and FCSF-04 public object stale route-history
-  evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06
+  hit-point-regain-prevention connector evidence, SQNT-03B next-Attack-Roll mode
+  connector evidence, the Task 8 six-driver active reducer diagnostic seed, and
+  FCSF-04 public object stale route-history evidence, FCSF-05
+  reaction/interrupt payload taxonomy evidence, and FCSF-06
   character/sheet/handoff rejection and resource payload evidence. The earlier
   FCSF-04 dirty replay adds diagnostic Rust coverage for all
   7 Starry Wisp object obligations including public stale route history, the
@@ -118,8 +130,10 @@ generic connector route shape but was not counted as a new CP8 row.
   taxonomy connector rows, and the FCSF-06 dirty replay adds diagnostic Rust
   coverage for 30 rows while recording 14 target blockers. The SQNT-03A dirty
   replay adds diagnostic Rust coverage for the copied Hit Point regain
-  prevention route connector through public reducer route events. These dirty
-  replays do not add fresh target acceptance, and
+  prevention route connector through public reducer route events. The SQNT-03B
+  dirty replay adds diagnostic Rust coverage for the copied next-Attack-Roll
+  mode route connector through public reducer route events. These dirty replays
+  do not add fresh target acceptance, and
   condition-immunity is still not accepted as scalar-buff route replay
   evidence.
 - It does not remove every old historical evidence artifact. The fresh current
@@ -175,7 +189,7 @@ resolved in the copied source package, and the current fresh verifier is green.
 Next useful work is one of:
 
 - use `SOURCE_QNT_NEXT_TASKS.md` and `FEXP_BLOCKER_SOURCE_FEEDBACK.md` to
-  promote the remaining Task 3 selected-spell blockers after SQNT-03A and the
+  promote the remaining Task 3 selected-spell blockers after SQNT-03B and the
   FEXP-07 selected/grouped residual blockers into source-side QNT/guidance
   updates before launching more target implementation;
 - use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
@@ -191,8 +205,8 @@ Next useful work is one of:
   FEXP-06 character/sheet/handoff substrate lane plus FEXP-07
   feature/species/metamagic substrate lane. The current gate verifies the
   refreshed `ee4894fa` package plus current FEXP-04/FEXP-06 evidence, and the
-  dirty campaign now also records FCSF-04, FCSF-05, and SQNT-03A current-package
-  dirty replays as accepted and FCSF-06 current-package dirty replay as
+  dirty campaign now also records FCSF-04, FCSF-05, SQNT-03A, and SQNT-03B
+  current-package dirty replays as accepted and FCSF-06 current-package dirty replay as
   accepted-with-target-blockers. Older stale snapshots remain explicitly
   classified;
 - clean the global stale validator-hash / historical evidence debt so the dirty
@@ -204,8 +218,8 @@ Next useful work is one of:
   more dirty target code.
 
 Do not launch more dirty target lanes for Task 3 residual selected-spell
-branches beyond SQNT-03A, or FEXP-07 selected/grouped residual branches, until
+branches beyond SQNT-03B, or FEXP-07 selected/grouped residual branches, until
 the generic route facts in `SOURCE_QNT_NEXT_TASKS.md` exist in the source
-package. SQNT-03A itself now has both packaged source input and accepted dirty
-target replay; it still needs fresh target replay before it counts as fresh
-target acceptance.
+package. SQNT-03A and SQNT-03B now have both packaged source input and accepted
+dirty target replay; they still need fresh target replay before either counts as
+fresh target acceptance.

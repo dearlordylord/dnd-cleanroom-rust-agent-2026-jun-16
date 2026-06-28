@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03b-next-attack-roll-replay` | `ralph/sqnt03b-next-attack-roll-dirty-replay` | `8d4ab3b2c567f3b292de6aebbc5b6fb49c3e00da` | Popper the 3rd (`019f0db9-8a44-7a12-849e-a9a72a67739f`) | running |
+| _none_ | | | | | |
 
 ## Active Fresh Dry Run Targets
 
@@ -62,6 +62,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03b-next-attack-roll-replay` | `ralph/sqnt03b-next-attack-roll-dirty-replay` | `ba0b8d7b197bb41abbb62abf1a00f2de5a1ec055` | `4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e` | removable after retention decision; dirty replay accepted 6 connector transitions and 2 selected-driver obligations, no fresh target acceptance claimed |
 | SQNT-03B-NEXT-ATTACK-ROLL-MODE | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03b-next-attack-roll-mode` | `ralph/source-sqnt-03b-next-attack-roll-mode` | `e948fcc86fe557b114c8369d63df344ae50a5ded` | `d00c92a3d12531e50d95ead220303b66a5265e1e` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty and fresh target replay pending |
 | SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03a-hit-point-regain-replay` | `ralph/sqnt03a-hit-point-regain-dirty-replay` | `a8aa385f07bd937cec62ca6f2a934c259cda3e53` | `73627315f70528e73f5eb4ef781606e876e87367` | removable after retention decision; dirty replay accepted 3 SQNT-03A connector transitions and 1 attack-shape obligation, no fresh target acceptance claimed |
 | SQNT-03A-HIT-POINT-REGAIN-PREVENTION | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03a-hit-point-regain` | `ralph/source-sqnt-03a-hit-point-regain` | `da403f704c37e753fad759a6afc43173a6148afd` | `c83c4a2321ff45c796245d65ba979b9068c6718a` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty target replay accepted at `73627315f70528e73f5eb4ef781606e876e87367`, no fresh target acceptance claimed |

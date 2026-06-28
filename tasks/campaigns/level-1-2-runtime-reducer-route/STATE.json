@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03b-source-merged-packaged",
+  "status": "sqnt03b-dirty-replay-merged-verified",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "73627315f70528e73f5eb4ef781606e876e87367",
+    "lastVerifiedIntegrationHead": "4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e",
     "lastMergedLane": {
-      "laneId": "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY",
-      "mergeCommit": "73627315f70528e73f5eb4ef781606e876e87367",
-      "laneHead": "a8aa385f07bd937cec62ca6f2a934c259cda3e53",
-      "note": "Diagnostic dirty target replay only. The worker consumed source commit c83c4a2321ff45c796245d65ba979b9068c6718a SQNT-03A hit-point-regain-prevention route facts and accepted 3 connector transitions covering the Chill Touch hit-point-regain-prevention attack-shape obligation. This does not claim fresh target acceptance."
+      "laneId": "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY",
+      "mergeCommit": "4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e",
+      "laneHead": "ba0b8d7b197bb41abbb62abf1a00f2de5a1ec055",
+      "note": "Diagnostic dirty target replay only. The worker consumed source commit d00c92a3d12531e50d95ead220303b66a5265e1e SQNT-03B next-Attack-Roll mode route facts and accepted 6 connector transitions covering 2 selected-driver obligations. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
       "sourceCommitSha": "d00c92a3d12531e50d95ead220303b66a5265e1e",
@@ -40,9 +40,9 @@
         },
         {
           "task": "SQNT-03B",
-          "status": "next-attack-roll-mode-route-connector-packaged",
+          "status": "next-attack-roll-mode-route-connector-packaged-and-dirty-replayed",
           "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode-route-facts.qnt, and reducer-route-inventory.json FCSF-03B route record",
-          "note": "The copied route connector now exposes generic NextAttackRollModeRouteSubject evidence for host attack/save outcome admission, BattleActiveEffectOwner admission and cleanup, BattleAttackRollModeOwner projection and consumption, BattleTurnBoundaryOwner expiration, and typed source/carrier/attacker/target-scope/expiration/direction facts. Dirty and fresh target replay remain pending."
+          "note": "The copied route connector now exposes generic NextAttackRollModeRouteSubject evidence for host attack/save outcome admission, BattleActiveEffectOwner admission and cleanup, BattleAttackRollModeOwner projection and consumption, BattleTurnBoundaryOwner expiration, and typed source/carrier/attacker/target-scope/expiration/direction facts. Dirty target replay accepted these connector facts at merge 4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e; fresh target acceptance remains unclaimed."
         },
         {
           "task": "source-feedback Task 8",
@@ -545,39 +545,27 @@
     "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY": "merged-verified",
     "FCSF-04-OBJECT-STALE-DIRTY-REPLAY": "merged-verified",
     "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY": "merged-verified",
-    "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY": "running"
+    "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "73627315f70528e73f5eb4ef781606e876e87367",
+    "head": "4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e",
     "commands": [
       "cargo fmt --check",
-      "cargo test hit_point_regain_prevention -- --nocapture",
+      "cargo test next_attack_roll_mode_dirty_replay_routes_through_reducer -- --nocapture",
       "cargo test attack_spell_shape -- --nocapture",
-      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json",
-      "git diff --check HEAD~1...HEAD",
+      "cargo test level1_damage_spell -- --nocapture",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings",
-      "node scripts/check-cleanroom-harness.cjs"
+      "node scripts/check-cleanroom-harness.cjs",
+      "git diff --check HEAD~1...HEAD"
     ],
     "result": "passed except cleanroom harness failed only on known stale validator hashes in cleanroom-input/MANIFEST.md",
-    "cargoTest": "224 passed",
-    "focusedTests": "SQNT-03A dirty replay accepted 3 connector transitions, covered 1 attack-shape source obligation, and records 0 SQNT-03A target behavior blockers. The evidence validator covers doChillTouchHitPointRegainPrevention; 5 non-regain attack-shape rows remain connector-scope blockers only.",
-    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03A evidence, ledger, or artifact failures",
-    "review": "Schrodinger the 3rd initially found two blockers: adapter-local targeted subject construction and cleanup not gated by expiry. Bernoulli fixed both in a8aa385f07bd937cec62ca6f2a934c259cda3e53 by adding public targeted subject construction and Inactive/Active/Expired lifecycle gating. Schrodinger re-review accepted the lane."
+    "cargoTest": "225 passed",
+    "focusedTests": "SQNT-03B dirty replay accepted 6 connector transitions and covered 2 selected-driver obligations: doGuidingBoltNextAttackAdvantage and doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage. The diagnostic per-driver evidence checker is not the acceptance verifier for this mixed focused evidence file because it expects complete per-driver coverage and reports unrelated missing obligations.",
+    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03B evidence, ledger, or artifact failures",
+    "review": "Epicurus the 3rd initially found one blocker: disadvantage evidence omitted BattleSpellSlotAndActionEconomyOwner from route owner sequences. Popper fixed this in ba0b8d7b197bb41abbb62abf1a00f2de5a1ec055; Epicurus re-review accepted the lane."
   },
-  "activeLaneWorktrees": [
-    {
-      "laneId": "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY",
-      "routeTaskId": "FCSF-03B-NEXT-ATTACK-ROLL-MODE",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03b-next-attack-roll-replay",
-      "branch": "ralph/sqnt03b-next-attack-roll-dirty-replay",
-      "baseSha": "8d4ab3b2c567f3b292de6aebbc5b6fb49c3e00da",
-      "workerAgent": "019f0db9-8a44-7a12-849e-a9a72a67739f",
-      "workerName": "Popper the 3rd",
-      "status": "running",
-      "scope": "dirty target replay only; no fresh target acceptance claimed"
-    }
-  ],
+  "activeLaneWorktrees": [],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
@@ -608,7 +596,7 @@
         "pnpm check:authored-id-dispatch",
         "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19"
       ],
-      "targetAcceptance": "dirty-target-replay-pending; fresh-target-acceptance-not-claimed"
+      "targetAcceptance": "dirty-target-replay-accepted-at-4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e; fresh-target-acceptance-not-claimed"
     },
     {
       "laneId": "SQNT-03A-HIT-POINT-REGAIN-PREVENTION",
@@ -639,6 +627,34 @@
     }
   ],
   "completedLaneWorktrees": [
+    {
+      "laneId": "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03b-next-attack-roll-replay",
+      "branch": "ralph/sqnt03b-next-attack-roll-dirty-replay",
+      "baseSha": "8d4ab3b2c567f3b292de6aebbc5b6fb49c3e00da",
+      "status": "merged-verified",
+      "workerAgent": "019f0db9-8a44-7a12-849e-a9a72a67739f",
+      "workerName": "Popper the 3rd",
+      "workerCommit": "12b75187c9cd20fb26d0e66afc1fe5e7a2431c84",
+      "fixCommit": "ba0b8d7b197bb41abbb62abf1a00f2de5a1ec055",
+      "sourcePackageCommit": "d00c92a3d12531e50d95ead220303b66a5265e1e",
+      "freshTargetAcceptance": "not-claimed",
+      "routeTaskId": "FCSF-03B-NEXT-ATTACK-ROLL-MODE",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+      ],
+      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt",
+      "acceptedConnectorRows": 6,
+      "coveredSourceDriverObligations": 2,
+      "targetBlockedRows": 0,
+      "reviewAgent": "019f0dcc-d4b4-7a61-8691-81aa775bb413",
+      "reviewName": "Epicurus the 3rd",
+      "reviewVerdict": "accepted after follow-up evidence fix",
+      "mergeCommit": "4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e",
+      "evidence": "tasks/target-replay-evidence/FCSF-03B-next-attack-roll-mode-dirty-replay.json",
+      "statusNote": "removable after campaign retention decision; dirty replay only, not fresh target acceptance"
+    },
     {
       "laneId": "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03a-hit-point-regain-replay",
@@ -3238,8 +3254,8 @@
     "Fresh target public Ability Check/Search replay is accepted at cd4465556d18729121f56f5834ac00f8b0b3d15c.",
     "Source feedback task FCSF-01 landed at c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d, adding public concentration cleanup route source input through BattleConcentrationOwner and BattleActiveEffectOwner; fresh target commit bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c accepts failed-save, voluntary-end, and replacement Concentration cleanup through public reducer entrypoints.",
     "Source feedback task FCSF-02 landed at ee4894fa71e9307b9251639f0b54577ff764c63f, adding generic scalar-buff profile projection/domain facts; fresh target commit 05280a8e2d6e9705411c114c80ae2a4e4290de2c accepts scalar profile replay through copied QNT plus public reducer route observations.",
-    "Dirty cleanroom package refresh c83c4a2321ff45c796245d65ba979b9068c6718a packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, source-feedback Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. FCSF-04, FCSF-05, and FCSF-06 have been dirty-replayed against the previous current package; SQNT-03A is source-input packaged only and does not claim dirty or fresh target acceptance.",
-    "Do not launch more dirty target lanes for Task 3 residual selected-spell branches beyond SQNT-03A, or for FEXP-07 selected/grouped residual branches, until source-side QNT/guidance adds the remaining generic route facts listed in SOURCE_QNT_NEXT_TASKS.md.",
+    "Dirty cleanroom package refresh 8d4ab3b2c567f3b292de6aebbc5b6fb49c3e00da packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, source-feedback Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. FCSF-04, FCSF-05, FCSF-06, SQNT-03A, and SQNT-03B have been dirty-replayed; those replays do not claim fresh target acceptance.",
+    "Do not launch more dirty target lanes for Task 3 residual selected-spell branches beyond SQNT-03B, or for FEXP-07 selected/grouped residual branches, until source-side QNT/guidance adds the remaining generic route facts listed in SOURCE_QNT_NEXT_TASKS.md.",
     "Use accepted fresh target 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the current strongest accepted target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, FEXP-04 Ability Check/Search public reducer routing, FEXP-04 Concentration cleanup routing, FEXP-04 scalar profile replay, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are explicit historical snapshots after the source-input refresh.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
