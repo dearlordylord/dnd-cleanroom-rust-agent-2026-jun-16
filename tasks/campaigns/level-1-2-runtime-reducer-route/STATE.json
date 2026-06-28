@@ -544,7 +544,8 @@
     "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY": "merged-verified-with-target-blockers",
     "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY": "merged-verified",
     "FCSF-04-OBJECT-STALE-DIRTY-REPLAY": "merged-verified",
-    "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY": "merged-verified"
+    "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY": "merged-verified",
+    "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY": "running"
   },
   "lastIntegrationVerification": {
     "head": "73627315f70528e73f5eb4ef781606e876e87367",
@@ -564,7 +565,19 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03A evidence, ledger, or artifact failures",
     "review": "Schrodinger the 3rd initially found two blockers: adapter-local targeted subject construction and cleanup not gated by expiry. Bernoulli fixed both in a8aa385f07bd937cec62ca6f2a934c259cda3e53 by adding public targeted subject construction and Inactive/Active/Expired lifecycle gating. Schrodinger re-review accepted the lane."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY",
+      "routeTaskId": "FCSF-03B-NEXT-ATTACK-ROLL-MODE",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03b-next-attack-roll-replay",
+      "branch": "ralph/sqnt03b-next-attack-roll-dirty-replay",
+      "baseSha": "8d4ab3b2c567f3b292de6aebbc5b6fb49c3e00da",
+      "workerAgent": "019f0db9-8a44-7a12-849e-a9a72a67739f",
+      "workerName": "Popper the 3rd",
+      "status": "running",
+      "scope": "dirty target replay only; no fresh target acceptance claimed"
+    }
+  ],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {

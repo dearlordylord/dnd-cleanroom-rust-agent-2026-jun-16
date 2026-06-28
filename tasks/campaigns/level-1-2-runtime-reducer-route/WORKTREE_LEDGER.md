@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03b-next-attack-roll-replay` | `ralph/sqnt03b-next-attack-roll-dirty-replay` | `8d4ab3b2c567f3b292de6aebbc5b6fb49c3e00da` | Popper the 3rd (`019f0db9-8a44-7a12-849e-a9a72a67739f`) | running |
 
 ## Active Fresh Dry Run Targets
 
