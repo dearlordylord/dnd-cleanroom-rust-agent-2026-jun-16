@@ -589,3 +589,20 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Static boundary: the broad forbidden source/dirty-implementation path search returns no matches while the verifier still checks for those paths at runtime.
 - Verification in the accepted fresh target: `cargo fmt --check`, `cargo test` (`25` reducer-spine tests plus `3` SDK tests), `cargo clippy --all-targets -- -D warnings`, `python3 tools/verify_current_fresh_target.py`, and the forbidden source/dirty-implementation path search passed.
 - Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-verifier-refresh`
+
+### SQNT-07-CURRENT-PACKAGE-DIRTY-REPLAY-BATCH
+
+- Integration merge head: `4b2c415259ad5f3b10d281a536a5aa8499f926b7`
+- Bookkeeping head: `84873615effbdd05e8cf7a51a55dfd2a5d505b17`
+- Source package commit: `21504ef764118f5fd13086aa6266f19280196664`
+- Lanes merged:
+  - `SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY`: lane head `2e3b1e21ebfbe634263b5034d9a531cc34fccb0a`, merge commit `4b2c415259ad5f3b10d281a536a5aa8499f926b7`.
+  - `SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY`: lane head `45ebc0b1913c0ab178829461e2ca1cec6478c8bf`, merge commit `344111e89f012a2b1d05c6bf64660b30810c3217`.
+  - `SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY`: lane head `001945b955ac351a87163f804c4fca13663f7492`, merge commit `e1a35bc598b8f45fda2fc65c2ae0886f925d1305`.
+- Result: dirty current-package replay accepted 15 species/passive-adjacent rows, 30 selected metamagic rows, and 3 active-feature spell-benefit rows through copied QNT route connectors and observed reducer entrypoints.
+- Scope note: this is diagnostic dirty target evidence. It does not claim fresh target acceptance, and it does not close SQNT-07A selected/grouped residual source-input work.
+- Out-of-scope rows: SQNT-07B explicitly leaves two inherited Adrenaline Rush feature-resource rows out of scope for this lane because they remain owned by the copied Adrenaline Rush connector.
+- Review/fixer notes: the first SQNT-07D worker commit was rejected because it manually constructed observed route events. The accepted remediation obtains route events from `start..._observed`, `discover_battle_acts_observed`, and `resolve_battle_subject_observed`. SQNT-07B was also remediated after review found evidence-scope and count-reconciliation issues; the accepted branch records all connector authorities and the 15 accepted plus 2 out-of-scope split.
+- Integration verification: focused SQNT-07B species/passive tests, focused SQNT-07C metamagic route connector test, focused SQNT-07D active-feature test and evidence checker, `cargo fmt --check`, `cargo test` (`234` tests), `cargo clippy --all-targets -- -D warnings`, and `git diff --check` passed.
+- Harness status: after refreshing the guidance manifest hashes, `node scripts/check-cleanroom-harness.cjs` currently fails at the two stale validator-script hashes recorded in `cleanroom-input/MANIFEST.md` for `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs`. The earlier guidance-hash drift from local guidance edits is no longer part of the remaining harness debt.
+- Worktrees marked merged/closed: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07b-species-replay`, `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07c-metamagic-replay`, and `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07d-active-feature-replay`.
