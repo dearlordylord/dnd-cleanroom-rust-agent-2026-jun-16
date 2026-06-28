@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03G-EXACT-DAMAGE-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03g-exact-damage-replay` | `ralph/sqnt03g-exact-damage-dirty-replay` | `22fe5632a27d58327ea42d666d581ce0f66ae36e` | Meitner the 3rd (`019f0eed-3f71-7a53-a69a-e87155291106`); reviewer Harvey the 3rd (`019f0ef7-246f-7882-82a4-1c13239fd21d`) | implemented-review-running at `6e576f9e278fb161916185194e7901911ba95d2d` |
+| _none_ | | | | | |
 
 ## Active Fresh Dry Run Targets
 
@@ -62,7 +62,8 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection` | `ralph/source-sqnt-03g-exact-damage-projection` | `34ac799c484b7ea8207a7278232d892fced54f79` | `21504ef764118f5fd13086aa6266f19280196664` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT component witness accepted and packaged; dirty and fresh target replay pending |
+| SQNT-03G-EXACT-DAMAGE-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03g-exact-damage-replay` | `ralph/sqnt03g-exact-damage-dirty-replay` | `6e576f9e278fb161916185194e7901911ba95d2d` | `f94d2fb6def9535ee7e2f7d420879012e573b420` | removable after retention decision; dirty replay accepted all 4 exact-damage component rows, no fresh target acceptance claimed |
+| SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection` | `ralph/source-sqnt-03g-exact-damage-projection` | `34ac799c484b7ea8207a7278232d892fced54f79` | `21504ef764118f5fd13086aa6266f19280196664` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT component witness accepted and packaged; dirty target replay accepted at `f94d2fb6def9535ee7e2f7d420879012e573b420`, no fresh target acceptance claimed |
 | SQNT-03F-MIXED-TARGET-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03f-mixed-target-replay` | `ralph/sqnt03f-mixed-target-dirty-replay` | `b94d0b8c307f01466b1de044eca60e36da5b303c` | `fde412cbe2cce580b0dc2a44270e63ba601b17ef` | removable after retention decision; dirty replay accepted all 7 connector rows and covered 3 selected level-1 damage obligations, no fresh target acceptance claimed |
 | SQNT-03F-MIXED-TARGET-OUTCOMES | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes` | `ralph/source-sqnt-03f-mixed-target-outcomes` | `0a03e4e8cab9a3bacd12602ff853c9acb60002c6` | `2de6a5e5401985e5673f5c2be737bbe2374d46d0` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty target replay accepted at `fde412cbe2cce580b0dc2a44270e63ba601b17ef`, no fresh target acceptance claimed |
 | SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03e-object-light-replay` | `ralph/sqnt03e-object-light-dirty-replay` | `dd34c9f02c4ef02d0b662b5b951df7e4db41ced9` | `9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67` | removable after retention decision; dirty replay accepted 9 copied connector actions and covered 2 selected spatial obligations through public reducer entrypoints; no fresh target acceptance claimed |
