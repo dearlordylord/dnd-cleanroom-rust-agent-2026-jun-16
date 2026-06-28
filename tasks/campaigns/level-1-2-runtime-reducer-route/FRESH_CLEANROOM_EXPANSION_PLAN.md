@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: FEXP-07 running from accepted fresh target head `0d5200e43fd7e9f094a93585f00eaf6bd2266c75`
+Status: FEXP-07 accepted-with-blockers at accepted fresh target head `a77a41dc752326eab69d8110de78928b9dcb9691`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `0d5200e43fd7e9f094a93585f00eaf6bd2266c75`
+- current accepted fresh target head: `a77a41dc752326eab69d8110de78928b9dcb9691`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `b57772b459f1b75592fd45b9196fd60965b534d3`
 
@@ -207,6 +207,19 @@ Preferred lanes:
 - `FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES`
 - later split lanes derived from `L15-RR07-FU01` and `L15-RR07-FU08` if the
   first feature/metamagic lane proves the substrate pattern.
+
+Status:
+
+- `FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES` is accepted-with-blockers at
+  fresh target head `a77a41dc752326eab69d8110de78928b9dcb9691`;
+- feature bonus-action Dash/temporary-hit-point, species creature-stat
+  projection, metamagic resource governor, and active-feature Spell Save DC
+  benefit route surfaces pass through public reducer entrypoints;
+- expected records are mechanically derived from copied QNT connector action
+  bodies/helper vocabulary;
+- missing exact metamagic driver, selected/grouped identity witnesses, and
+  residual species/metamagic/feature branches remain explicit source-input
+  blockers.
 
 Why last:
 

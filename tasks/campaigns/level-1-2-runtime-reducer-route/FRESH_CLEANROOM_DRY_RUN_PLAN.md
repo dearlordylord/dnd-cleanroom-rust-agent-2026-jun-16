@@ -3,7 +3,7 @@
 Campaign: `level-1-2-runtime-reducer-route`
 
 Status: accepted through the SDK tracer-bullet composition checkpoint, Pact
-Slot handoff replay, FEXP-06 character/sheet/handoff expansion, and current
+Slot handoff replay, FEXP-07 feature/species/metamagic substrate expansion, and current
 fresh-target verifier.
 
 ## Purpose
@@ -37,7 +37,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`0d5200e43fd7e9f094a93585f00eaf6bd2266c75`
+`a77a41dc752326eab69d8110de78928b9dcb9691`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -72,6 +72,12 @@ projections and interrupt trigger taxonomy remain explicitly blocked.
 finalization, sheet hit-point route projection, short-rest Pact-slot
 completion, and happy-path battle settlement route evidence; partial,
 rejection, resource, and conflict branches remain explicitly blocked.
+`FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES` is accepted-with-blockers at
+`a77a41dc752326eab69d8110de78928b9dcb9691` with feature bonus-action
+Dash/temporary-hit-point, species creature-stat projection, metamagic resource
+governor, and active-feature Spell Save DC benefit route evidence; missing
+exact metamagic driver, selected/grouped identity witnesses, and residual
+species/metamagic/feature branches remain explicitly blocked.
 
 ## Hard Boundaries
 

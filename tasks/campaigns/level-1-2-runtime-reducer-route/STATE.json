@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-expansion-fexp07-running",
+  "status": "fresh-expansion-fexp07-accepted-with-blockers",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -2775,11 +2775,11 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "running",
-    "activeLane": "FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES",
+    "status": "fexp07-accepted-with-blockers",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "0d5200e43fd7e9f094a93585f00eaf6bd2266c75",
+    "acceptedTargetHead": "a77a41dc752326eab69d8110de78928b9dcb9691",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -2999,17 +2999,58 @@
           "FEXP-06-non-route-projection-fields-not-runtime-settled"
         ],
         "residualRisk": "James the 3rd reported an initial discovery command listed sibling AGENTS.md paths before stopping; no sibling contents were used for substantive reads/edits, and accepted evidence/verifier paths are confined to the fresh target and copied inputs."
+      },
+      {
+        "laneId": "FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES",
+        "status": "accepted-with-blockers",
+        "baseCommit": "0d5200e43fd7e9f094a93585f00eaf6bd2266c75",
+        "targetCommit": "a77a41dc752326eab69d8110de78928b9dcb9691",
+        "workerAgent": "Linnaeus the 3rd (019f0b81-9f37-7b13-baf9-f5ce3bc56ecb); reviewer/fixer Mencius the 3rd (019f0b93-15e7-79e1-b093-b916d8ff0bf0)",
+        "reviewerAgent": "Mencius the 3rd (019f0b93-15e7-79e1-b093-b916d8ff0bf0) plus orchestrator review",
+        "artifacts": [
+          "EVIDENCE/fexp07-feature-species-metamagic-substrates.json",
+          "examples/fexp07_route_observations.rs",
+          "tools/verify_fexp07.py",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "BLOCKERS.json",
+          "STATE_OWNERS.md"
+        ],
+        "checks": [
+          "git merge-base --is-ancestor 0d5200e43fd7e9f094a93585f00eaf6bd2266c75 HEAD",
+          "python3 -m py_compile tools/verify_fexp07.py",
+          "python3 tools/verify_current_fresh_target.py",
+          "python3 tools/verify_fexp07.py",
+          "python3 tools/verify_fexp06.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check 0d5200e43fd7e9f094a93585f00eaf6bd2266c75...HEAD",
+          "static forbidden-boundary scan via current fresh target verifier",
+          "static production-source authored-identity dispatch search"
+        ],
+        "coverageClaim": "feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces accepted through public reducer entrypoints with expected records mechanically derived from copied QNT connector action bodies/helper vocabulary",
+        "blockers": [
+          "FEXP-07-exact-sorcerer-metamagic-driver-absent",
+          "FEXP-07-selected-and-grouped-identity-drivers-not-accepted",
+          "FEXP-07-residual-species-passive-substrates-need-generic-runtime-facts",
+          "FEXP-07-residual-metamagic-projections-need-typed-spell-modification-facts",
+          "FEXP-07-feature-selected-identity-residual-branches-not-accepted"
+        ],
+        "reviewFixes": [
+          "start_owner_for_profiles now rejects mixed start-battle route-owner profiles with ReducerError::MixedStartBattleRouteOwners instead of priority-scanning profiles."
+        ]
       }
     ],
-    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-fexp-07",
-    "activeBranch": "ralph/fexp-07-feature-species-metamagic-substrates",
-    "activeLaneBaseCommit": "0d5200e43fd7e9f094a93585f00eaf6bd2266c75",
-    "workerAgent": "Linnaeus the 3rd (019f0b81-9f37-7b13-baf9-f5ce3bc56ecb)",
+    "activeWorktree": null,
+    "activeBranch": null,
+    "activeLaneBaseCommit": null,
+    "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "FEXP-07-FEATURE-SPECIES-METAMAGIC-SUBSTRATES",
+    "nextPlannedLane": null,
     "nextWorkRecommendations": [
-      "FEXP-07 is running from accepted fresh target head 0d5200e43fd7e9f094a93585f00eaf6bd2266c75.",
-      "Review selected/catalog-heavy feature, species, and metamagic evidence strictly: admit only generic substrate connector facts, and stop on blockers rather than adding authored identity dispatch."
+      "FEXP-07 closes the initially planned fresh expansion lanes. Re-audit GOAL_STATUS_AUDIT.md before launching more work.",
+      "Likely next proof step is a source-input feedback pass for FEXP-02 through FEXP-07 blockers, or a fresh campaign plan that targets the remaining blocked generic route inputs."
     ]
   },
   "sdkTracerBullet": {
