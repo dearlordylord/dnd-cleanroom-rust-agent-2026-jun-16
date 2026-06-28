@@ -1,17 +1,18 @@
 use crate::rules::battle_reducer_spine::{
-    project_dragonborn_damage_resistance_observed, project_dwarven_resilience_observed,
-    project_goliath_powerful_build_observed, project_halfling_brave_observed,
-    trace_creature_space_traversal_sequence,
+    discover_generic_route_subject_observed, generic_route_subject_for_current_actor,
+    observe_battle_route_start, resolve_battle_subject_observed, start_standard_battle,
+    BattleEntrypointTrace, BattleGenericRouteFill, BattleReducerRouteOwnerGroup,
+    BattleResolutionRequest, BattleState, BattleSubjectKind,
 };
 use crate::rules::species_passive_traits::{
-    project_dragonborn_damage_resistance, project_dwarven_resilience,
-    project_goliath_powerful_build, project_halfling_brave, CreatureSpaceTraversalFacts,
-    CreatureSpaceTraversalPermission, SpeciesPassiveProtocol, SpeciesPassiveRollMode,
-    SpeciesPassiveScenarioResult, SpeciesPassiveTraitState,
+    creature_space_traversal_allowed, project_dragonborn_damage_resistance,
+    project_dwarven_resilience, project_goliath_powerful_build, project_halfling_brave,
+    CreatureSpaceTraversalFacts, CreatureSpaceTraversalPermission, SpeciesPassiveProtocol,
+    SpeciesPassiveRollMode, SpeciesPassiveScenarioResult, SpeciesPassiveTraitState,
 };
 
 use super::battle_runtime_reducer_route::{
-    reducer_route_events_from_battle_trace, route_discover_battle_acts_from_route_holes,
+    reducer_route_event_from_observed, route_discover_battle_acts_from_route_holes,
     route_resolve_battle_subject_from_route_result,
     route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
     ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
@@ -73,14 +74,14 @@ pub fn expected_witness(observed_action_taken: &str) -> SpeciesPassiveTraitState
 }
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
-    let (_state, trace) = match observed_action_taken {
-        "doDragonbornDamageResistance" => project_dragonborn_damage_resistance_observed(),
-        "doDwarvenResilience" => project_dwarven_resilience_observed(),
-        "doHalflingBrave" => project_halfling_brave_observed(),
-        "doGoliathPowerfulBuild" => project_goliath_powerful_build_observed(),
+    match observed_action_taken {
+        "doDragonbornDamageResistance" => observed_passive_route_after_damage_adjustment(),
+        "doDwarvenResilience" | "doHalflingBrave" => {
+            observed_passive_route_after_saving_throw_roll_mode()
+        }
+        "doGoliathPowerfulBuild" => observed_passive_route_after_ability_check_roll_mode(),
         action => panic!("unsupported mbt::actionTaken {action}"),
-    };
-    reducer_route_events_from_battle_trace(&trace)
+    }
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
@@ -140,19 +141,175 @@ pub fn projection_payload(state: &SpeciesPassiveTraitState) -> String {
 }
 
 pub fn observed_passive_route_after_accepted_creature_space_movement() -> Vec<ReducerRouteEvent> {
-    let (_results, trace) =
-        trace_creature_space_traversal_sequence(&[accepted_creature_space_traversal()]);
-    reducer_route_events_from_battle_trace(&trace)
+    let mut trace = observed_passive_trace_after_ability_check_roll_mode();
+    let state = start_standard_battle();
+    let state = resolve_creature_space_movement(
+        state,
+        creature_space_traversal_allowed(accepted_creature_space_traversal()),
+        &mut trace,
+    );
+    let _state = resolve_generic_route_only(
+        state,
+        BattleSubjectKind::CreatureSpaceMovementResourceSpend,
+        BattleGenericRouteFill::WithoutFill,
+        &mut trace,
+    );
+    route_events_from_trace(&trace)
 }
 
 pub fn observed_passive_route_after_rejected_creature_space_movement(
     rejected_count_after_acceptance: usize,
 ) -> Vec<ReducerRouteEvent> {
-    let mut facts = Vec::with_capacity(rejected_count_after_acceptance + 1);
-    facts.push(accepted_creature_space_traversal());
-    facts.extend((0..rejected_count_after_acceptance).map(|_| rejected_creature_space_traversal()));
-    let (_results, trace) = trace_creature_space_traversal_sequence(&facts);
-    reducer_route_events_from_battle_trace(&trace)
+    let mut trace = observed_passive_trace_after_ability_check_roll_mode();
+    let mut state = start_standard_battle();
+    state = resolve_creature_space_movement(
+        state,
+        creature_space_traversal_allowed(accepted_creature_space_traversal()),
+        &mut trace,
+    );
+    state = resolve_generic_route_only(
+        state,
+        BattleSubjectKind::CreatureSpaceMovementResourceSpend,
+        BattleGenericRouteFill::WithoutFill,
+        &mut trace,
+    );
+    for _ in 0..rejected_count_after_acceptance {
+        state = resolve_creature_space_movement(
+            state,
+            creature_space_traversal_allowed(rejected_creature_space_traversal()),
+            &mut trace,
+        );
+    }
+    route_events_from_trace(&trace)
+}
+
+fn observed_passive_route_after_damage_adjustment() -> Vec<ReducerRouteEvent> {
+    let mut trace = observed_passive_trace_after_creature_stat_projection();
+    let state = start_standard_battle();
+    let _state = discover_and_resolve_generic_route(
+        state,
+        BattleSubjectKind::PassiveDamageAdjustment,
+        BattleGenericRouteFill::WithoutFill,
+        &mut trace,
+    );
+    route_events_from_trace(&trace)
+}
+
+fn observed_passive_route_after_saving_throw_roll_mode() -> Vec<ReducerRouteEvent> {
+    let mut trace = observed_passive_trace_after_damage_adjustment();
+    let state = start_standard_battle();
+    let _state = discover_and_resolve_generic_route(
+        state,
+        BattleSubjectKind::PassiveSavingThrowRollMode,
+        BattleGenericRouteFill::SavingThrowOutcome,
+        &mut trace,
+    );
+    route_events_from_trace(&trace)
+}
+
+fn observed_passive_route_after_ability_check_roll_mode() -> Vec<ReducerRouteEvent> {
+    let trace = observed_passive_trace_after_ability_check_roll_mode();
+    route_events_from_trace(&trace)
+}
+
+fn observed_passive_trace_after_ability_check_roll_mode() -> BattleEntrypointTrace {
+    let mut trace = observed_passive_trace_after_saving_throw_roll_mode();
+    let state = start_standard_battle();
+    let _state = discover_and_resolve_generic_route(
+        state,
+        BattleSubjectKind::PassiveAbilityCheckRollMode,
+        BattleGenericRouteFill::GrappleOutcome,
+        &mut trace,
+    );
+    trace
+}
+
+fn observed_passive_trace_after_saving_throw_roll_mode() -> BattleEntrypointTrace {
+    let mut trace = observed_passive_trace_after_damage_adjustment();
+    let state = start_standard_battle();
+    let _state = discover_and_resolve_generic_route(
+        state,
+        BattleSubjectKind::PassiveSavingThrowRollMode,
+        BattleGenericRouteFill::SavingThrowOutcome,
+        &mut trace,
+    );
+    trace
+}
+
+fn observed_passive_trace_after_damage_adjustment() -> BattleEntrypointTrace {
+    let mut trace = observed_passive_trace_after_creature_stat_projection();
+    let state = start_standard_battle();
+    let _state = discover_and_resolve_generic_route(
+        state,
+        BattleSubjectKind::PassiveDamageAdjustment,
+        BattleGenericRouteFill::WithoutFill,
+        &mut trace,
+    );
+    trace
+}
+
+fn observed_passive_trace_after_creature_stat_projection() -> BattleEntrypointTrace {
+    let mut trace = BattleEntrypointTrace::default();
+    observe_battle_route_start(BattleReducerRouteOwnerGroup::CreatureState, &mut trace);
+    let state = start_standard_battle();
+    let state = discover_and_resolve_generic_route(
+        state,
+        BattleSubjectKind::CreatureStatProjection,
+        BattleGenericRouteFill::WithoutFill,
+        &mut trace,
+    );
+    let _state = resolve_generic_route_only(
+        state,
+        BattleSubjectKind::CreatureStatMovementResourceProjection,
+        BattleGenericRouteFill::WithoutFill,
+        &mut trace,
+    );
+    trace
+}
+
+fn resolve_creature_space_movement(
+    state: BattleState,
+    accepted: bool,
+    trace: &mut BattleEntrypointTrace,
+) -> BattleState {
+    discover_and_resolve_generic_route(
+        state,
+        BattleSubjectKind::CreatureSpaceMovementPermission,
+        BattleGenericRouteFill::Movement { accepted },
+        trace,
+    )
+}
+
+fn discover_and_resolve_generic_route(
+    state: BattleState,
+    kind: BattleSubjectKind,
+    fill: BattleGenericRouteFill,
+    trace: &mut BattleEntrypointTrace,
+) -> BattleState {
+    let (state, subject) = discover_generic_route_subject_observed(state, kind, trace);
+    let request = BattleResolutionRequest::generic_route(subject, fill)
+        .expect("generic route subject kind must match fill request");
+    resolve_battle_subject_observed(state, request, trace).into_state()
+}
+
+fn resolve_generic_route_only(
+    state: BattleState,
+    kind: BattleSubjectKind,
+    fill: BattleGenericRouteFill,
+    trace: &mut BattleEntrypointTrace,
+) -> BattleState {
+    let subject = generic_route_subject_for_current_actor(&state, kind);
+    let request = BattleResolutionRequest::generic_route(subject, fill)
+        .expect("generic route subject kind must match fill request");
+    resolve_battle_subject_observed(state, request, trace).into_state()
+}
+
+fn route_events_from_trace(trace: &BattleEntrypointTrace) -> Vec<ReducerRouteEvent> {
+    trace
+        .route_events()
+        .iter()
+        .map(reducer_route_event_from_observed)
+        .collect()
 }
 
 pub fn passive_route_after_ability_check_roll_mode() -> Vec<ReducerRouteEvent> {

@@ -1,0 +1,72 @@
+{
+  "baseCheck": {
+    "ancestorCommand": "git merge-base --is-ancestor 84c637980698971b3df1d8dc4a613bc7b7bc50af HEAD",
+    "declaredBaseSha": "84c637980698971b3df1d8dc4a613bc7b7bc50af",
+    "headSha": "84c637980698971b3df1d8dc4a613bc7b7bc50af",
+    "result": "pass"
+  },
+  "laneId": "SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+  "preImplementationStatus": {
+    "command": "git status --short --branch",
+    "output": "## ralph/sqnt07b-species-current-package-replay",
+    "result": "clean"
+  },
+  "reducerRouteInventorySha256": "ecffe9ae1358784ff5add9ff35a2a3c351f69431798c7da830bf662a984275c0",
+  "schemaVersion": 1,
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+  "sourcePackageSha": "21504ef764118f5fd13086aa6266f19280196664",
+  "startHeadSha": "84c637980698971b3df1d8dc4a613bc7b7bc50af",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "taskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
+  "taskScope": {
+    "assignmentId": "level-1-2-runtime-reducer-route",
+    "laneId": "SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+    "routeClass": "catalog-after-substrate/current-package-replay",
+    "routeTaskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
+    "selectedDrivers": [
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt"
+    ],
+    "routeConnectorPaths": [
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-substrates.route.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-damage-reduction.route.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt"
+    ],
+    "acceptedSelectedDrivers": [
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt"
+    ],
+    "outOfScopeRows": [
+      {
+        "branchAction": "doAdrenalineRushDash",
+        "branchFamily": "step",
+        "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt#step:doAdrenalineRushDash",
+        "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt",
+        "reason": "The 17-row CP4 passive/roll/resource denominator included Adrenaline Rush feature-resource rows, but SQNT-07B current-package replay selected only the four species/passive adjacent drivers listed in the lane. This row remains owned by the copied Adrenaline Rush connector and is not accepted by SQNT-07B evidence."
+      },
+      {
+        "branchAction": "doRejectSecondDash",
+        "branchFamily": "step",
+        "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt#step:doRejectSecondDash",
+        "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt",
+        "reason": "The 17-row CP4 passive/roll/resource denominator included Adrenaline Rush feature-resource rows, but SQNT-07B current-package replay selected only the four species/passive adjacent drivers listed in the lane. This row remains owned by the copied Adrenaline Rush connector and is not accepted by SQNT-07B evidence."
+      }
+    ],
+    "scopeNote": "The selected SQNT-07B current-package replay scope is the four listed drivers. Adrenaline Rush rows are inherited from the older 17-row CP4 denominator but not selected for this SQNT lane."
+  },
+  "remediationBaseCheck": {
+    "declaredBaseSha": "84c637980698971b3df1d8dc4a613bc7b7bc50af",
+    "headSha": "aa6d6d5b3b0f04fab4092f8f5b9339b3ed9ee82d",
+    "ancestorCommand": "git merge-base --is-ancestor 84c637980698971b3df1d8dc4a613bc7b7bc50af HEAD",
+    "result": "pass"
+  }
+}

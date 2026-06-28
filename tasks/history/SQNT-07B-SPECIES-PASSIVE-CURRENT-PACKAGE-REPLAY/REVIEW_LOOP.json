@@ -1,0 +1,69 @@
+{
+  "laneId": "SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+  "reducerRouteInventorySha256": "ecffe9ae1358784ff5add9ff35a2a3c351f69431798c7da830bf662a984275c0",
+  "rounds": [
+    {
+      "checks": [
+        "raw-qnt-traceability",
+        "ubiquitous-language-domain",
+        "architecture-connascence",
+        "code-shape-depth",
+        "adapter-quarantine",
+        "state-owner-derivability",
+        "authored-identity-dispatch",
+        "report-honesty"
+      ],
+      "findings": [
+        {
+          "id": "sqnt07b-route-entrypoint-gap",
+          "resolution": "Added generic BattleSubjectKind route subjects/fills and moved species passive observed route replay through discover_generic_route_subject_observed and resolve_battle_subject_observed."
+        }
+      ],
+      "round": 1,
+      "status": "completed"
+    },
+    {
+      "checks": [
+        "raw-qnt-traceability",
+        "ubiquitous-language-domain",
+        "architecture-connascence",
+        "code-review"
+      ],
+      "convergence": "no reasonable findings remain before final verification",
+      "findings": [],
+      "rejectedFindings": [],
+      "round": 2,
+      "status": "completed"
+    },
+    {
+      "round": 3,
+      "status": "completed",
+      "checks": [
+        "evidence-scoping",
+        "count-reconciliation",
+        "route-connector-derivability",
+        "auditable-verification-records",
+        "authored-identity-dispatch"
+      ],
+      "findings": [
+        {
+          "id": "sqnt07b-evidence-connector-scope",
+          "resolution": "Recorded all copied route connector authorities used by accepted evidence rows in LANES.json, target replay evidence, and lane history instead of claiming all accepted rows derive from the species-passive connector alone."
+        },
+        {
+          "id": "sqnt07b-branch-count-reconciliation",
+          "resolution": "Reconciled the inherited 17-row denominator as 15 accepted selected-driver rows plus 2 explicit out-of-scope Adrenaline Rush feature-resource rows tied to the copied Adrenaline Rush driver and route connector."
+        }
+      ],
+      "rejectedFindings": [],
+      "convergence": "metadata remediation leaves no lane-local evidence-scope or count mismatch findings before final verification",
+      "verificationSummary": "Focused tests, selected-driver evidence checker, fmt, full cargo test, clippy, SQNT-specific harness classification, and diff-check completed. Full harness remains globally blocked by pre-existing stale shared bookkeeping outside SQNT-07B scope."
+    }
+  ],
+  "schemaVersion": 1,
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+  "sourcePackageSha": "21504ef764118f5fd13086aa6266f19280196664",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "taskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES"
+}
