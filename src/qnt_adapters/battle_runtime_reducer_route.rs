@@ -130,6 +130,7 @@ pub enum ReducerRouteSubjectFamily {
     FallingMitigation,
     ForcedMovement,
     HitPointRestoration,
+    HitPointRegainPrevention,
     InterruptStackResume,
     LightProjection,
     MovementResource,
@@ -940,6 +941,9 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::HitPointRestoration => {
             ReducerRouteSubjectFamily::HitPointRestoration
         }
+        BattleReducerRouteSubjectFamily::HitPointRegainPrevention => {
+            ReducerRouteSubjectFamily::HitPointRegainPrevention
+        }
         BattleReducerRouteSubjectFamily::InterruptStackResume => {
             ReducerRouteSubjectFamily::InterruptStackResume
         }
@@ -1659,6 +1663,9 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::FallingMitigation => "FallingMitigationRouteSubject",
         ReducerRouteSubjectFamily::ForcedMovement => "ForcedMovementRouteSubject",
         ReducerRouteSubjectFamily::HitPointRestoration => "HitPointRestorationRouteSubject",
+        ReducerRouteSubjectFamily::HitPointRegainPrevention => {
+            "HitPointRegainPreventionRouteSubject"
+        }
         ReducerRouteSubjectFamily::InterruptStackResume => "InterruptStackResumeRouteSubject",
         ReducerRouteSubjectFamily::LightProjection => "LightProjectionRouteSubject",
         ReducerRouteSubjectFamily::MovementResource => "MovementResourceRouteSubject",

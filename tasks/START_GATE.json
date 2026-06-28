@@ -1,8 +1,8 @@
 {
   "baseCheck": {
-    "ancestorCommand": "git merge-base --is-ancestor 832afbebbb3c46bf0a05b6c2bcb541f77508a328 HEAD",
-    "declaredBaseSha": "832afbebbb3c46bf0a05b6c2bcb541f77508a328",
-    "headSha": "832afbebbb3c46bf0a05b6c2bcb541f77508a328",
+    "ancestorCommand": "git merge-base --is-ancestor f41199ade4a4af944c2a3cf19799a8279592b967 HEAD",
+    "declaredBaseSha": "f41199ade4a4af944c2a3cf19799a8279592b967",
+    "headSha": "f41199ade4a4af944c2a3cf19799a8279592b967",
     "result": "pass"
   },
   "preImplementationStatus": {
@@ -11,24 +11,18 @@
     "result": "clean"
   },
   "schemaVersion": 1,
-  "startHeadSha": "832afbebbb3c46bf0a05b6c2bcb541f77508a328",
-  "taskId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY",
+  "startHeadSha": "f41199ade4a4af944c2a3cf19799a8279592b967",
+  "taskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION",
   "taskScope": {
     "assignmentId": "level-1-2-runtime-reducer-route",
-    "laneId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY",
-    "routeClass": "object-target-spell-attack-stale-route",
-    "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt",
+    "laneId": "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY",
+    "routeClass": "hit-point-regain-prevention-route",
+    "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
     "selectedBranches": [
-      "step:doFillObjectAttackRollHit",
-      "step:doFillObjectAttackRollMiss",
-      "step:doFillObjectDamageHigh",
-      "step:doFillObjectDamageLow",
-      "step:doFillObjectTarget",
-      "step:doRejectObjectWithoutFact",
-      "step:doRejectStaleAfterResolved"
+      "step:doChillTouchHitPointRegainPrevention"
     ],
     "selectedDrivers": [
-      "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt"
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt"
     ]
   }
 }

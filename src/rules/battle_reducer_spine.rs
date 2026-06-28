@@ -515,9 +515,28 @@ pub enum BattleSpellActiveEffectKind {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleHitPointRegainPreventionEffect {
+    Inactive,
+    Active,
+    Expired,
+}
+
+impl BattleHitPointRegainPreventionEffect {
+    #[must_use]
+    pub const fn is_present(self) -> bool {
+        matches!(self, Self::Active | Self::Expired)
+    }
+
+    #[must_use]
+    pub const fn prevents_hit_point_regain(self) -> bool {
+        matches!(self, Self::Active)
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct BattleSpellActiveEffects {
     pub armor_class_base_effect: BattleArmorClassBaseEffect,
-    pub hit_point_regain_prevented: bool,
+    pub hit_point_regain_prevention: BattleHitPointRegainPreventionEffect,
     pub next_attack_roll_against_self_advantage: bool,
     pub opportunity_attack_denied: bool,
     pub poisoned: bool,
@@ -529,7 +548,7 @@ impl BattleSpellActiveEffects {
     pub const fn none() -> Self {
         Self {
             armor_class_base_effect: BattleArmorClassBaseEffect::None,
-            hit_point_regain_prevented: false,
+            hit_point_regain_prevention: BattleHitPointRegainPreventionEffect::Inactive,
             next_attack_roll_against_self_advantage: false,
             opportunity_attack_denied: false,
             poisoned: false,
@@ -542,7 +561,7 @@ impl BattleSpellActiveEffects {
         match effect {
             BattleSpellActiveEffectKind::None => Self::none(),
             BattleSpellActiveEffectKind::HitPointRegainPrevented => Self {
-                hit_point_regain_prevented: true,
+                hit_point_regain_prevention: BattleHitPointRegainPreventionEffect::Active,
                 ..Self::none()
             },
             BattleSpellActiveEffectKind::NextAttackRollAgainstSelfAdvantage => Self {
@@ -567,7 +586,7 @@ impl BattleSpellActiveEffects {
     #[must_use]
     pub const fn count(self) -> usize {
         self.armor_class_base_effect.is_active() as usize
-            + self.hit_point_regain_prevented as usize
+            + self.hit_point_regain_prevention.is_present() as usize
             + self.next_attack_roll_against_self_advantage as usize
             + self.opportunity_attack_denied as usize
             + self.poisoned as usize
@@ -1206,6 +1225,10 @@ pub enum BattleSubjectKind {
     TurnBoundaryEffectLifecycleSourceNextDamage,
     TurnBoundaryEffectLifecycleSourceNextActiveEffect,
     TurnBoundaryEffectLifecycleSourceNextTurnBoundary,
+    HitPointRegainPreventionActiveEffectAdmission,
+    HitPointRegainPreventionHealingInterdiction,
+    HitPointRegainPreventionDurationExpiry,
+    HitPointRegainPreventionActiveEffectCleanup,
     SpellAttackProcedureInitialTargetChoice,
     SpellAttackProcedureSecondTargetChoice,
     SpellAttackProcedureAttackRoll,
@@ -1388,6 +1411,7 @@ pub enum BattleGenericRouteFill {
     AttackRoll,
     ConcentrationSavingThrow,
     DamageTypeChoice,
+    HitPointHealingDistribution { target: Actor, amount: i16 },
     InterruptDecision,
     RolledDice,
     SavingThrowOutcome,
@@ -2550,6 +2574,7 @@ pub enum BattleReducerRouteSubjectFamily {
     FallingMitigation,
     ForcedMovement,
     HitPointRestoration,
+    HitPointRegainPrevention,
     LightProjection,
     MovementResource,
     ObjectBoundaryEffect,
@@ -3113,6 +3138,19 @@ pub fn generic_route_subject_for_current_actor(
     kind: BattleSubjectKind,
 ) -> BattleSubject {
     generic_route_subject_from_battle(state, kind)
+}
+
+#[must_use]
+pub fn hit_point_regain_prevention_route_subject_for_target(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+    target: Actor,
+) -> BattleSubject {
+    assert!(
+        hit_point_regain_prevention_route_kind(kind),
+        "targeted hit-point-regain-prevention subject construction requires a hit-point-regain-prevention route subject"
+    );
+    diagnostic_subject(kind, current_actor(state), Some(target))
 }
 
 #[must_use]
@@ -4330,7 +4368,7 @@ pub fn discover_spell_attack_damage_subject_observed(
     observer.observe_battle_reducer_route(BattleReducerRouteEvent::DiscoverBattleActs {
         subject: BattleReducerRouteSubjectFamily::SpellAttack,
         holes: sorted_battle_reducer_route_holes(vec![BattleReducerRouteHoleKind::TargetChoice]),
-        owner: BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+        owner: BattleReducerRouteOwnerGroup::ActionEconomy,
     });
     let state = start_spell_attack_subject(
         state,
@@ -7172,7 +7210,7 @@ fn battle_discovery_route_owner_for_kind(kind: BattleSubjectKind) -> BattleReduc
         BattleSubjectKind::WeaponAttack => BattleReducerRouteOwnerGroup::TargetSelection,
         BattleSubjectKind::Multiattack => BattleReducerRouteOwnerGroup::AttackActionProcedure,
         BattleSubjectKind::SingleTargetSpellAttack | BattleSubjectKind::TypedSpellAttack => {
-            BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy
+            BattleReducerRouteOwnerGroup::ActionEconomy
         }
         BattleSubjectKind::SlotSpell => BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
         BattleSubjectKind::SaveGatedAreaDamage
@@ -7484,6 +7522,10 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextDamage
             | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextActiveEffect
             | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextTurnBoundary
+            | BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
+            | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
+            | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
+            | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
             | BattleSubjectKind::SpellAttackProcedureInitialTargetChoice
             | BattleSubjectKind::SpellAttackProcedureSecondTargetChoice
             | BattleSubjectKind::SpellAttackProcedureAttackRoll
@@ -7586,6 +7628,16 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
     )
 }
 
+fn hit_point_regain_prevention_route_kind(kind: BattleSubjectKind) -> bool {
+    matches!(
+        kind,
+        BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
+            | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
+            | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
+            | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+    )
+}
+
 fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteHoleKind::{
         AbilityCheck, AbilityChoice, AttackRoll, ConcentrationSavingThrow, DamageTypeChoice,
@@ -7603,10 +7655,10 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteSubjectFamily::{
         AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
         CompanionTouchDelivery, CreatureTypeTargetAdmission, HeldWeaponActiveEffect,
-        InterruptStackResume, MarkedEffect, ObjectTargetSpellAttack, ProtectionCharmActiveEffect,
-        ReactionSpell, SaveGatedSpell, ScalarBuffEffect, SlotSpell, SpellAttack,
-        SpellHostedWeaponAttack, WardedTargetInterdiction, WeaponAttack, WeaponDamageRider,
-        WeaponEnhancementItemTarget,
+        HitPointRegainPrevention, InterruptStackResume, MarkedEffect, ObjectTargetSpellAttack,
+        ProtectionCharmActiveEffect, ReactionSpell, SaveGatedSpell, ScalarBuffEffect, SlotSpell,
+        SpellAttack, SpellHostedWeaponAttack, WardedTargetInterdiction, WeaponAttack,
+        WeaponDamageRider, WeaponEnhancementItemTarget,
     };
 
     match kind {
@@ -7846,6 +7898,30 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: Vec::new(),
             discover_owner: TurnBoundary,
             resolve_owner: TurnBoundary,
+        },
+        BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission => GenericRouteShape {
+            subject: HitPointRegainPrevention,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::HitPointRegainPreventionHealingInterdiction => GenericRouteShape {
+            subject: HitPointRegainPrevention,
+            holes: vec![BattleReducerRouteHoleKind::HitPointHealingDistribution],
+            discover_owner: HitPoint,
+            resolve_owner: HitPoint,
+        },
+        BattleSubjectKind::HitPointRegainPreventionDurationExpiry => GenericRouteShape {
+            subject: HitPointRegainPrevention,
+            holes: Vec::new(),
+            discover_owner: TurnBoundary,
+            resolve_owner: TurnBoundary,
+        },
+        BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup => GenericRouteShape {
+            subject: HitPointRegainPrevention,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
         },
         BattleSubjectKind::SpellAttackProcedureInitialTargetChoice => GenericRouteShape {
             subject: BattleReducerRouteSubjectFamily::SpellAttackProcedure,
@@ -9191,6 +9267,9 @@ const fn generic_route_fill_kind(fill: BattleGenericRouteFill) -> BattleReducerR
             BattleReducerRouteFillKind::ConcentrationSavingThrow
         }
         BattleGenericRouteFill::DamageTypeChoice => BattleReducerRouteFillKind::DamageTypeChoice,
+        BattleGenericRouteFill::HitPointHealingDistribution { .. } => {
+            BattleReducerRouteFillKind::HitPointHealingDistribution
+        }
         BattleGenericRouteFill::InterruptDecision => BattleReducerRouteFillKind::InterruptDecision,
         BattleGenericRouteFill::RolledDice => BattleReducerRouteFillKind::RolledDice,
         BattleGenericRouteFill::SavingThrowOutcome => {
@@ -9894,6 +9973,10 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextDamage
             | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextActiveEffect
             | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextTurnBoundary
+            | BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
+            | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
+            | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
+            | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
             | BattleSubjectKind::SpellAttackProcedureInitialTargetChoice
             | BattleSubjectKind::SpellAttackProcedureSecondTargetChoice
             | BattleSubjectKind::SpellAttackProcedureAttackRoll
@@ -10009,7 +10092,7 @@ fn resolve_generic_route_subject(
     subject: BattleSubject,
     fill: BattleGenericRouteFill,
 ) -> BattleResolutionResult {
-    if !diagnostic_subject_shape_matches(subject, subject.kind, None)
+    if !generic_route_subject_shape_matches(subject)
         || !generic_route_fill_matches_subject(subject.kind, fill)
     {
         return invalid_with_holes(
@@ -10027,7 +10110,20 @@ fn resolve_generic_route_subject(
         );
     }
 
+    if hit_point_regain_prevention_target_mismatch(subject, fill) {
+        return invalid_with_holes(
+            state,
+            BattleResolutionInvalidReason::WrongTarget,
+            Vec::new(),
+        );
+    }
+
+    if let Some(reason) = hit_point_regain_prevention_state_rejection(&state, subject) {
+        return invalid_with_holes(state, reason, Vec::new());
+    }
+
     let next_holes = generic_route_next_holes(subject.kind, fill);
+    let state = resolve_generic_route_state(state, subject, fill);
     if next_holes.is_empty() {
         BattleResolutionResult::Resolved { state }
     } else {
@@ -10036,6 +10132,123 @@ fn resolve_generic_route_subject(
             subject,
             holes: next_holes,
         }
+    }
+}
+
+fn generic_route_subject_shape_matches(subject: BattleSubject) -> bool {
+    let expected_target = match subject.kind {
+        BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
+        | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
+        | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
+        | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup => {
+            return subject.target.is_some()
+                && diagnostic_subject_shape_matches(subject, subject.kind, subject.target);
+        }
+        _ => None,
+    };
+    diagnostic_subject_shape_matches(subject, subject.kind, expected_target)
+}
+
+fn resolve_generic_route_state(
+    state: BattleState,
+    subject: BattleSubject,
+    fill: BattleGenericRouteFill,
+) -> BattleState {
+    match (subject.kind, fill) {
+        (
+            BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            if let Some(target) = subject.target {
+                with_hit_point_regain_prevention(
+                    state,
+                    target,
+                    BattleHitPointRegainPreventionEffect::Active,
+                )
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::HitPointRegainPreventionHealingInterdiction,
+            BattleGenericRouteFill::HitPointHealingDistribution { target, amount },
+        ) => {
+            if combatant_for(&state, target)
+                .spell_active_effects
+                .hit_point_regain_prevention
+                .prevents_hit_point_regain()
+            {
+                state
+            } else {
+                with_healed_target(state, target, amount)
+            }
+        }
+        (
+            BattleSubjectKind::HitPointRegainPreventionDurationExpiry,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            if let Some(target) = subject.target {
+                with_hit_point_regain_prevention(
+                    state,
+                    target,
+                    BattleHitPointRegainPreventionEffect::Expired,
+                )
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            if let Some(target) = subject.target {
+                with_hit_point_regain_prevention(
+                    state,
+                    target,
+                    BattleHitPointRegainPreventionEffect::Inactive,
+                )
+            } else {
+                state
+            }
+        }
+        _ => state,
+    }
+}
+
+fn hit_point_regain_prevention_target_mismatch(
+    subject: BattleSubject,
+    fill: BattleGenericRouteFill,
+) -> bool {
+    matches!(
+        (subject.target, fill),
+        (
+            Some(expected),
+            BattleGenericRouteFill::HitPointHealingDistribution { target, .. },
+        ) if expected != target
+    )
+}
+
+fn hit_point_regain_prevention_state_rejection(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> Option<BattleResolutionInvalidReason> {
+    let target = subject.target?;
+    let effect = combatant_for(state, target)
+        .spell_active_effects
+        .hit_point_regain_prevention;
+    match subject.kind {
+        BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
+        | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
+            if effect != BattleHitPointRegainPreventionEffect::Active =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+            if effect != BattleHitPointRegainPreventionEffect::Expired =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        _ => None,
     }
 }
 
@@ -10235,6 +10448,12 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::WardedInterdictionOutcomeThenTargetChoice => {
             fill == BattleGenericRouteFill::SanctuaryInterdictionOutcome
         }
+        BattleSubjectKind::HitPointRegainPreventionHealingInterdiction => {
+            matches!(
+                fill,
+                BattleGenericRouteFill::HitPointHealingDistribution { .. }
+            )
+        }
         BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
         | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
         | BattleSubjectKind::SpellAttackProcedureAttackRoll => {
@@ -10298,6 +10517,9 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::RepeatSaveConditionEffectTurnBoundary
         | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextActiveEffect
         | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextTurnBoundary
+        | BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
+        | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
+        | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
         | BattleSubjectKind::ZeroHitPointSpellEffectTeardownConditionLifecycle
         | BattleSubjectKind::ZeroHitPointSpellEffectTeardownConcentration
         | BattleSubjectKind::ZeroHitPointSpellEffectTeardownActiveEffect
@@ -10628,6 +10850,10 @@ fn generic_route_next_holes(
             | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextDamage
             | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextActiveEffect
             | BattleSubjectKind::TurnBoundaryEffectLifecycleSourceNextTurnBoundary
+            | BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
+            | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
+            | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
+            | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
             | BattleSubjectKind::SpellAttackProcedureRemainderDamage
             | BattleSubjectKind::ZeroHitPointSpellEffectTeardownConditionLifecycle
             | BattleSubjectKind::ZeroHitPointSpellEffectTeardownConcentration
@@ -12517,7 +12743,13 @@ fn with_damaged_target(mut state: BattleState, target: Actor, damage: i16) -> Ba
 
 fn with_healed_target(mut state: BattleState, target: Actor, healing: i16) -> BattleState {
     let target_combatant = combatant_for(&state, target);
-    if !ordinary_zero_hit_point_restoration_target(target_combatant) {
+    if target_combatant
+        .spell_active_effects
+        .hit_point_regain_prevention
+        .prevents_hit_point_regain()
+        || (target_combatant.hp <= 0
+            && !ordinary_zero_hit_point_restoration_target(target_combatant))
+    {
         return state;
     }
     let new_hp = (target_combatant.hp + healing.max(0)).min(target_combatant.max_hp);
@@ -12542,6 +12774,17 @@ fn with_healed_target(mut state: BattleState, target: Actor, healing: i16) -> Ba
         Actor::Rogue => state.rogue = healed,
         Actor::Skeleton => state.skeleton = healed,
     }
+    state
+}
+
+fn with_hit_point_regain_prevention(
+    mut state: BattleState,
+    target: Actor,
+    effect: BattleHitPointRegainPreventionEffect,
+) -> BattleState {
+    combatant_for_mut(&mut state, target)
+        .spell_active_effects
+        .hit_point_regain_prevention = effect;
     state
 }
 

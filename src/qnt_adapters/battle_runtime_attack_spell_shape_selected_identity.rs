@@ -285,7 +285,10 @@ fn expected(
 }
 
 fn active_effect_kind(effects: BattleSpellActiveEffects) -> &'static str {
-    if effects.hit_point_regain_prevented {
+    if effects
+        .hit_point_regain_prevention
+        .prevents_hit_point_regain()
+    {
         "hitPointRegainPrevented"
     } else if effects.next_attack_roll_against_self_advantage {
         "nextAttackRollAgainstSelf"
@@ -318,7 +321,7 @@ fn expected_spell_attack_route() -> Vec<ReducerRouteEvent> {
         route_discover_battle_acts(
             ReducerRouteSubjectFamily::SpellAttack,
             vec![crate::rules::battle_reducer_spine::BattleHoleKind::TargetChoice],
-            ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+            ReducerRouteOwnerGroup::ActionEconomy,
         ),
         route_resolve_battle_subject(
             ReducerRouteSubjectFamily::SpellAttack,

@@ -1,46 +1,43 @@
 {
   "acceptedRows": [
-    "doRouteObjectTargetBoundary",
-    "doRouteRejectObjectWithoutBoundaryFact",
-    "doRouteObjectAttackMiss",
-    "doRouteObjectAttackHit",
-    "doRouteObjectDamageAndLight",
-    "doRouteRejectStaleAfterResolved"
+    "doAdmitAttackHitRegainPreventionEffect",
+    "doInterdictLaterHitPointHealing",
+    "doExpireAtTurnBoundary"
   ],
   "decision": "accepted",
   "deterministicGates": [
     {
-      "gate": "start-gate",
+      "gate": "branch-base",
       "status": "pass"
     },
     {
-      "gate": "branch-coverage",
+      "gate": "focused-replay",
       "status": "pass"
     },
     {
-      "gate": "adapter-quarantine",
+      "gate": "evidence-file",
       "status": "pass"
     },
     {
-      "gate": "engine-depth",
+      "gate": "cargo-test",
       "status": "pass"
     },
     {
-      "gate": "state-owner-derivability",
+      "gate": "clippy",
       "status": "pass"
+    },
+    {
+      "gate": "cleanroom-harness",
+      "status": "known-stale-validator-hashes-only"
     },
     {
       "gate": "authored-identity-dispatch",
       "status": "pass"
-    },
-    {
-      "gate": "reviewer-loop-convergence",
-      "status": "pass"
     }
   ],
-  "rationale": "Accepted 6 dirty target replay route connector rows for FCSF-04. Seven copied source-driver obligations pass; the two damage source branches share the same public doRouteObjectDamageAndLight connector row. The stale row is observed through public reducer route history through object boundary, attack roll, damage roll, active-effect, then BattleHoleFrontierOwner.",
+  "rationale": "Accepted the SQNT-03A dirty target replay. The observed route is emitted through BattleEntrypointTrace.route_events using public reducer start/discover/resolve entrypoints and reducer-owned targeted HitPointRegainPrevention subject construction. Expected route facts are literal from the copied HitPointRegainPreventionRouteSubject connector. Runtime healing is interdicted by typed active-effect phase state, and cleanup is rejected until BattleTurnBoundaryOwner expiry transitions the effect to Expired.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "targetBlockedRows": [],
-  "taskId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY"
+  "taskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION"
 }
