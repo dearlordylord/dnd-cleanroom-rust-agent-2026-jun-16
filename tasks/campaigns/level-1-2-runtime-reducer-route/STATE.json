@@ -754,7 +754,24 @@
     "cleanroomHarness": "Guidance hashes and approved validator patch hashes match. Harness progresses past validator provenance and fails on older historical replay/ledger debt still pinned to source package 564376fd95218a209bb9eae5c9ccb54ca3e04a52, plus pre-existing heuristic findings outside the SQNT-07B/C/D replay batch.",
     "review": "SQNT-07D was remediated after review rejected manual route-event construction. The accepted evidence uses observed reducer entrypoints and copied route connector facts; no fresh target acceptance is claimed."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07a-active-effect-condition",
+      "branch": "ralph/sqnt07a-active-effect-condition-dirty-replay",
+      "baseCommit": "2645478",
+      "status": "active",
+      "purpose": "Dirty target replay for copied condition lifecycle and marked damage/immunity active-effect route connectors from cleanroom-input source package e9f75e22."
+    },
+    {
+      "laneId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07a-spatial-movement",
+      "branch": "ralph/sqnt07a-spatial-movement-dirty-replay",
+      "baseCommit": "2645478",
+      "status": "active",
+      "purpose": "Dirty target replay for copied spatial effects and movement/presentation route connectors from cleanroom-input source package e9f75e22."
+    }
+  ],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {

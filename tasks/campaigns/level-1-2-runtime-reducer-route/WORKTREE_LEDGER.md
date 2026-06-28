@@ -33,7 +33,8 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07a-active-effect-condition` | `ralph/sqnt07a-active-effect-condition-dirty-replay` | `2645478` | pending worker | active |
+| SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07a-spatial-movement` | `ralph/sqnt07a-spatial-movement-dirty-replay` | `2645478` | pending worker | active |
 
 ## Historical RRCONV-19 Worktrees
 
