@@ -534,13 +534,33 @@ impl BattleHitPointRegainPreventionEffect {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleNextAttackRollModeEffect {
+    Inactive,
+    Active,
+    Consumed,
+    Expired,
+}
+
+impl BattleNextAttackRollModeEffect {
+    #[must_use]
+    pub const fn is_present(self) -> bool {
+        matches!(self, Self::Active | Self::Consumed | Self::Expired)
+    }
+
+    #[must_use]
+    pub const fn projects_roll_mode(self) -> bool {
+        matches!(self, Self::Active)
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct BattleSpellActiveEffects {
     pub armor_class_base_effect: BattleArmorClassBaseEffect,
     pub hit_point_regain_prevention: BattleHitPointRegainPreventionEffect,
-    pub next_attack_roll_against_self_advantage: bool,
+    pub next_attack_roll_against_self_advantage: BattleNextAttackRollModeEffect,
     pub opportunity_attack_denied: bool,
     pub poisoned: bool,
-    pub next_attack_roll_disadvantage: bool,
+    pub next_attack_roll_disadvantage: BattleNextAttackRollModeEffect,
 }
 
 impl BattleSpellActiveEffects {
@@ -549,10 +569,10 @@ impl BattleSpellActiveEffects {
         Self {
             armor_class_base_effect: BattleArmorClassBaseEffect::None,
             hit_point_regain_prevention: BattleHitPointRegainPreventionEffect::Inactive,
-            next_attack_roll_against_self_advantage: false,
+            next_attack_roll_against_self_advantage: BattleNextAttackRollModeEffect::Inactive,
             opportunity_attack_denied: false,
             poisoned: false,
-            next_attack_roll_disadvantage: false,
+            next_attack_roll_disadvantage: BattleNextAttackRollModeEffect::Inactive,
         }
     }
 
@@ -565,7 +585,7 @@ impl BattleSpellActiveEffects {
                 ..Self::none()
             },
             BattleSpellActiveEffectKind::NextAttackRollAgainstSelfAdvantage => Self {
-                next_attack_roll_against_self_advantage: true,
+                next_attack_roll_against_self_advantage: BattleNextAttackRollModeEffect::Active,
                 ..Self::none()
             },
             BattleSpellActiveEffectKind::OpportunityAttackDenied => Self {
@@ -577,7 +597,7 @@ impl BattleSpellActiveEffects {
                 ..Self::none()
             },
             BattleSpellActiveEffectKind::NextAttackRollDisadvantage => Self {
-                next_attack_roll_disadvantage: true,
+                next_attack_roll_disadvantage: BattleNextAttackRollModeEffect::Active,
                 ..Self::none()
             },
         }
@@ -587,10 +607,10 @@ impl BattleSpellActiveEffects {
     pub const fn count(self) -> usize {
         self.armor_class_base_effect.is_active() as usize
             + self.hit_point_regain_prevention.is_present() as usize
-            + self.next_attack_roll_against_self_advantage as usize
+            + self.next_attack_roll_against_self_advantage.is_present() as usize
             + self.opportunity_attack_denied as usize
             + self.poisoned as usize
-            + self.next_attack_roll_disadvantage as usize
+            + self.next_attack_roll_disadvantage.is_present() as usize
     }
 }
 
@@ -1229,6 +1249,12 @@ pub enum BattleSubjectKind {
     HitPointRegainPreventionHealingInterdiction,
     HitPointRegainPreventionDurationExpiry,
     HitPointRegainPreventionActiveEffectCleanup,
+    SaveGatedNextAttackRollModeTargetChoice,
+    SaveGatedNextAttackRollModeSavingThrow,
+    NextAttackRollModeActiveEffectAdmission,
+    NextAttackRollModeProjection,
+    NextAttackRollModeDurationExpiry,
+    NextAttackRollModeActiveEffectCleanup,
     SpellAttackProcedureInitialTargetChoice,
     SpellAttackProcedureSecondTargetChoice,
     SpellAttackProcedureAttackRoll,
@@ -2575,6 +2601,7 @@ pub enum BattleReducerRouteSubjectFamily {
     ForcedMovement,
     HitPointRestoration,
     HitPointRegainPrevention,
+    NextAttackRollMode,
     LightProjection,
     MovementResource,
     ObjectBoundaryEffect,
@@ -2649,6 +2676,7 @@ pub enum BattleReducerRouteOwnerGroup {
     AbilityCheckRollMode,
     AreaShape,
     AttackRoll,
+    AttackRollMode,
     AttackActionProcedure,
     Component,
     Concentration,
@@ -3149,6 +3177,32 @@ pub fn hit_point_regain_prevention_route_subject_for_target(
     assert!(
         hit_point_regain_prevention_route_kind(kind),
         "targeted hit-point-regain-prevention subject construction requires a hit-point-regain-prevention route subject"
+    );
+    diagnostic_subject(kind, current_actor(state), Some(target))
+}
+
+#[must_use]
+pub fn next_attack_roll_mode_route_subject_for_target(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+    target: Actor,
+) -> BattleSubject {
+    assert!(
+        next_attack_roll_mode_route_kind(kind),
+        "targeted next-attack-roll mode subject construction requires a next-attack-roll mode route subject"
+    );
+    diagnostic_subject(kind, current_actor(state), Some(target))
+}
+
+#[must_use]
+pub fn save_gated_next_attack_roll_mode_subject_for_target(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+    target: Actor,
+) -> BattleSubject {
+    assert!(
+        matches!(kind, BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow),
+        "targeted save-gated next-attack-roll mode subject construction requires its saving-throw route subject"
     );
     diagnostic_subject(kind, current_actor(state), Some(target))
 }
@@ -7526,6 +7580,12 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
             | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
             | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+            | BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
+            | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
+            | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
+            | BattleSubjectKind::NextAttackRollModeProjection
+            | BattleSubjectKind::NextAttackRollModeDurationExpiry
+            | BattleSubjectKind::NextAttackRollModeActiveEffectCleanup
             | BattleSubjectKind::SpellAttackProcedureInitialTargetChoice
             | BattleSubjectKind::SpellAttackProcedureSecondTargetChoice
             | BattleSubjectKind::SpellAttackProcedureAttackRoll
@@ -7638,6 +7698,16 @@ fn hit_point_regain_prevention_route_kind(kind: BattleSubjectKind) -> bool {
     )
 }
 
+fn next_attack_roll_mode_route_kind(kind: BattleSubjectKind) -> bool {
+    matches!(
+        kind,
+        BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
+            | BattleSubjectKind::NextAttackRollModeProjection
+            | BattleSubjectKind::NextAttackRollModeDurationExpiry
+            | BattleSubjectKind::NextAttackRollModeActiveEffectCleanup
+    )
+}
+
 fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteHoleKind::{
         AbilityCheck, AbilityChoice, AttackRoll, ConcentrationSavingThrow, DamageTypeChoice,
@@ -7646,19 +7716,19 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     };
     use BattleReducerRouteOwnerGroup::{
         AbilityCheckRollMode, ActiveEffect, ArmorClass, AttackRoll as AttackRollOwner,
-        Concentration, ConditionLifecycle, FeatureResource, HitPoint, HitPointAndZeroHpLifecycle,
-        HoleFrontier, InterruptStack, MovementResource, ObjectTargetBoundary,
-        SavingThrowOutcome as SavingThrowOutcomeOwner, SpellAttackProcedure as SpellAttackOwner,
-        SpellSlotAndActionEconomy, StatBlockAction, TargetSelection, TemporaryHitPoint,
-        TurnBoundary,
+        AttackRollMode, Concentration, ConditionLifecycle, FeatureResource, HitPoint,
+        HitPointAndZeroHpLifecycle, HoleFrontier, InterruptStack, MovementResource,
+        ObjectTargetBoundary, SavingThrowOutcome as SavingThrowOutcomeOwner,
+        SpellAttackProcedure as SpellAttackOwner, SpellSlotAndActionEconomy, StatBlockAction,
+        TargetSelection, TemporaryHitPoint, TurnBoundary,
     };
     use BattleReducerRouteSubjectFamily::{
         AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
         CompanionTouchDelivery, CreatureTypeTargetAdmission, HeldWeaponActiveEffect,
-        HitPointRegainPrevention, InterruptStackResume, MarkedEffect, ObjectTargetSpellAttack,
-        ProtectionCharmActiveEffect, ReactionSpell, SaveGatedSpell, ScalarBuffEffect, SlotSpell,
-        SpellAttack, SpellHostedWeaponAttack, WardedTargetInterdiction, WeaponAttack,
-        WeaponDamageRider, WeaponEnhancementItemTarget,
+        HitPointRegainPrevention, InterruptStackResume, MarkedEffect, NextAttackRollMode,
+        ObjectTargetSpellAttack, ProtectionCharmActiveEffect, ReactionSpell, SaveGatedSpell,
+        ScalarBuffEffect, SlotSpell, SpellAttack, SpellHostedWeaponAttack,
+        WardedTargetInterdiction, WeaponAttack, WeaponDamageRider, WeaponEnhancementItemTarget,
     };
 
     match kind {
@@ -7919,6 +7989,42 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
         },
         BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup => GenericRouteShape {
             subject: HitPointRegainPrevention,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice => GenericRouteShape {
+            subject: SaveGatedSpell,
+            holes: vec![TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow => GenericRouteShape {
+            subject: SaveGatedSpell,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: TargetSelection,
+            resolve_owner: SavingThrowOutcomeOwner,
+        },
+        BattleSubjectKind::NextAttackRollModeActiveEffectAdmission => GenericRouteShape {
+            subject: NextAttackRollMode,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::NextAttackRollModeProjection => GenericRouteShape {
+            subject: NextAttackRollMode,
+            holes: Vec::new(),
+            discover_owner: AttackRollMode,
+            resolve_owner: AttackRollMode,
+        },
+        BattleSubjectKind::NextAttackRollModeDurationExpiry => GenericRouteShape {
+            subject: NextAttackRollMode,
+            holes: Vec::new(),
+            discover_owner: TurnBoundary,
+            resolve_owner: TurnBoundary,
+        },
+        BattleSubjectKind::NextAttackRollModeActiveEffectCleanup => GenericRouteShape {
+            subject: NextAttackRollMode,
             holes: Vec::new(),
             discover_owner: ActiveEffect,
             resolve_owner: ActiveEffect,
@@ -9977,6 +10083,12 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
             | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
             | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+            | BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
+            | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
+            | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
+            | BattleSubjectKind::NextAttackRollModeProjection
+            | BattleSubjectKind::NextAttackRollModeDurationExpiry
+            | BattleSubjectKind::NextAttackRollModeActiveEffectCleanup
             | BattleSubjectKind::SpellAttackProcedureInitialTargetChoice
             | BattleSubjectKind::SpellAttackProcedureSecondTargetChoice
             | BattleSubjectKind::SpellAttackProcedureAttackRoll
@@ -10122,6 +10234,10 @@ fn resolve_generic_route_subject(
         return invalid_with_holes(state, reason, Vec::new());
     }
 
+    if let Some(reason) = next_attack_roll_mode_state_rejection(&state, subject) {
+        return invalid_with_holes(state, reason, Vec::new());
+    }
+
     let next_holes = generic_route_next_holes(subject.kind, fill);
     let state = resolve_generic_route_state(state, subject, fill);
     if next_holes.is_empty() {
@@ -10140,7 +10256,12 @@ fn generic_route_subject_shape_matches(subject: BattleSubject) -> bool {
         BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
         | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
         | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
-        | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup => {
+        | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+        | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
+        | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
+        | BattleSubjectKind::NextAttackRollModeProjection
+        | BattleSubjectKind::NextAttackRollModeDurationExpiry
+        | BattleSubjectKind::NextAttackRollModeActiveEffectCleanup => {
             return subject.target.is_some()
                 && diagnostic_subject_shape_matches(subject, subject.kind, subject.target);
         }
@@ -10211,6 +10332,66 @@ fn resolve_generic_route_state(
                 state
             }
         }
+        (
+            BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow,
+            BattleGenericRouteFill::SavingThrowOutcome,
+        ) => {
+            if let Some(target) = subject.target {
+                let mut state = state;
+                combatant_for_mut(&mut state, target)
+                    .spell_active_effects
+                    .next_attack_roll_disadvantage = BattleNextAttackRollModeEffect::Active;
+                state
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::NextAttackRollModeActiveEffectAdmission,
+            BattleGenericRouteFill::WithoutFill,
+        ) => state,
+        (BattleSubjectKind::NextAttackRollModeProjection, BattleGenericRouteFill::WithoutFill) => {
+            if let Some(target) = subject.target {
+                with_next_attack_roll_mode_effects(
+                    state,
+                    target,
+                    BattleNextAttackRollModeEffect::Consumed,
+                    BattleNextAttackRollModeEffect::Consumed,
+                )
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::NextAttackRollModeDurationExpiry,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            if let Some(target) = subject.target {
+                with_next_attack_roll_mode_effects(
+                    state,
+                    target,
+                    BattleNextAttackRollModeEffect::Expired,
+                    BattleNextAttackRollModeEffect::Expired,
+                )
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::NextAttackRollModeActiveEffectCleanup,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            if let Some(target) = subject.target {
+                with_next_attack_roll_mode_effects(
+                    state,
+                    target,
+                    BattleNextAttackRollModeEffect::Inactive,
+                    BattleNextAttackRollModeEffect::Inactive,
+                )
+            } else {
+                state
+            }
+        }
         _ => state,
     }
 }
@@ -10245,6 +10426,29 @@ fn hit_point_regain_prevention_state_rejection(
         }
         BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
             if effect != BattleHitPointRegainPreventionEffect::Expired =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        _ => None,
+    }
+}
+
+fn next_attack_roll_mode_state_rejection(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> Option<BattleResolutionInvalidReason> {
+    let target = subject.target?;
+    let effects = combatant_for(state, target).spell_active_effects;
+    match subject.kind {
+        BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
+        | BattleSubjectKind::NextAttackRollModeProjection
+        | BattleSubjectKind::NextAttackRollModeDurationExpiry
+            if !next_attack_roll_mode_effect_active(effects) =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::NextAttackRollModeActiveEffectCleanup
+            if !next_attack_roll_mode_effect_ready_for_cleanup(effects) =>
         {
             Some(BattleResolutionInvalidReason::StaleSubject)
         }
@@ -10454,6 +10658,12 @@ fn generic_route_fill_matches_subject(
                 BattleGenericRouteFill::HitPointHealingDistribution { .. }
             )
         }
+        BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice => {
+            fill == BattleGenericRouteFill::TargetChoice
+        }
+        BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow => {
+            fill == BattleGenericRouteFill::SavingThrowOutcome
+        }
         BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
         | BattleSubjectKind::HeldWeaponActiveEffectAttackRoll
         | BattleSubjectKind::SpellAttackProcedureAttackRoll => {
@@ -10520,6 +10730,10 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
         | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
         | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+        | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
+        | BattleSubjectKind::NextAttackRollModeProjection
+        | BattleSubjectKind::NextAttackRollModeDurationExpiry
+        | BattleSubjectKind::NextAttackRollModeActiveEffectCleanup
         | BattleSubjectKind::ZeroHitPointSpellEffectTeardownConditionLifecycle
         | BattleSubjectKind::ZeroHitPointSpellEffectTeardownConcentration
         | BattleSubjectKind::ZeroHitPointSpellEffectTeardownActiveEffect
@@ -10728,6 +10942,10 @@ fn generic_route_next_holes(
             vec![BattleHoleKind::AbilityCheck]
         }
         (
+            BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice,
+            BattleGenericRouteFill::TargetChoice,
+        ) => vec![BattleHoleKind::SavingThrowOutcome],
+        (
             BattleSubjectKind::TurnBoundaryEffectLifecycleTargetStartDamage,
             BattleGenericRouteFill::RolledDice,
         ) => vec![BattleHoleKind::SavingThrowOutcome],
@@ -10854,6 +11072,10 @@ fn generic_route_next_holes(
             | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
             | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
             | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+            | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
+            | BattleSubjectKind::NextAttackRollModeProjection
+            | BattleSubjectKind::NextAttackRollModeDurationExpiry
+            | BattleSubjectKind::NextAttackRollModeActiveEffectCleanup
             | BattleSubjectKind::SpellAttackProcedureRemainderDamage
             | BattleSubjectKind::ZeroHitPointSpellEffectTeardownConditionLifecycle
             | BattleSubjectKind::ZeroHitPointSpellEffectTeardownConcentration
@@ -12785,6 +13007,39 @@ fn with_hit_point_regain_prevention(
     combatant_for_mut(&mut state, target)
         .spell_active_effects
         .hit_point_regain_prevention = effect;
+    state
+}
+
+fn next_attack_roll_mode_effect_active(effects: BattleSpellActiveEffects) -> bool {
+    effects
+        .next_attack_roll_against_self_advantage
+        .projects_roll_mode()
+        || effects.next_attack_roll_disadvantage.projects_roll_mode()
+}
+
+fn next_attack_roll_mode_effect_ready_for_cleanup(effects: BattleSpellActiveEffects) -> bool {
+    matches!(
+        effects.next_attack_roll_against_self_advantage,
+        BattleNextAttackRollModeEffect::Consumed | BattleNextAttackRollModeEffect::Expired
+    ) || matches!(
+        effects.next_attack_roll_disadvantage,
+        BattleNextAttackRollModeEffect::Consumed | BattleNextAttackRollModeEffect::Expired
+    )
+}
+
+fn with_next_attack_roll_mode_effects(
+    mut state: BattleState,
+    target: Actor,
+    advantage_effect: BattleNextAttackRollModeEffect,
+    disadvantage_effect: BattleNextAttackRollModeEffect,
+) -> BattleState {
+    let effects = &mut combatant_for_mut(&mut state, target).spell_active_effects;
+    if effects.next_attack_roll_against_self_advantage.is_present() {
+        effects.next_attack_roll_against_self_advantage = advantage_effect;
+    }
+    if effects.next_attack_roll_disadvantage.is_present() {
+        effects.next_attack_roll_disadvantage = disadvantage_effect;
+    }
     state
 }
 

@@ -1,0 +1,198 @@
+{
+  "acceptedConnectorRowCount": 6,
+  "acceptedEvidenceRefs": [
+    "tasks/target-replay-evidence/FCSF-03B-next-attack-roll-mode-dirty-replay.json#routeConnectorAction:doAdmitHostAttackHitNextAttackAdvantageEffect",
+    "tasks/target-replay-evidence/FCSF-03B-next-attack-roll-mode-dirty-replay.json#routeConnectorAction:doAdmitHostEffectNextAttackDisadvantageEffect",
+    "tasks/target-replay-evidence/FCSF-03B-next-attack-roll-mode-dirty-replay.json#routeConnectorAction:doProjectAdvantageOnLaterAttackAgainstAffectedTarget",
+    "tasks/target-replay-evidence/FCSF-03B-next-attack-roll-mode-dirty-replay.json#routeConnectorAction:doProjectDisadvantageOnAffectedTargetNextAttack",
+    "tasks/target-replay-evidence/FCSF-03B-next-attack-roll-mode-dirty-replay.json#routeConnectorAction:doExpireAdvantageAtBoundary",
+    "tasks/target-replay-evidence/FCSF-03B-next-attack-roll-mode-dirty-replay.json#routeConnectorAction:doExpireDisadvantageAtBoundary"
+  ],
+  "cleanroomManifestSourceCommitSha": "d00c92a3d12531e50d95ead220303b66a5265e1e",
+  "connectorRuns": [
+    {
+      "observedProjectionSha256": "b49bd993a1bdc4abcfad42751ede665b043d1f5d2ef7be71620f6323804a1670",
+      "observedThrough": "BattleEntrypointTrace.route_events from start_battle_observed, discover_spell_attack_damage_subject_observed, resolve_battle_subject_observed, and next_attack_roll_mode_route_subject_for_target",
+      "routeConnectorAction": "doAdmitHostAttackHitNextAttackAdvantageEffect",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleAttackRollOwner",
+        "BattleHitPointOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleNextAttackRollModeEffect::Active"
+      ]
+    },
+    {
+      "observedProjectionSha256": "c2455ced2a452a823e6c6ce8e1262640e8e674ba15bc0839c4f043eb8ab1804d",
+      "observedThrough": "BattleEntrypointTrace.route_events from start_battle_observed, discover_generic_route_subject_observed, resolve_battle_subject_observed, save_gated_next_attack_roll_mode_subject_for_target, and next_attack_roll_mode_route_subject_for_target",
+      "routeConnectorAction": "doAdmitHostEffectNextAttackDisadvantageEffect",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOutcomeOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleNextAttackRollModeEffect::Active"
+      ]
+    },
+    {
+      "observedProjectionSha256": "25f283eaa8c21eaedf3af396d217ec59f2a7bb39cde3a30f40f47fa6ff314fa9",
+      "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints and reducer-owned next-Attack-Roll mode subject construction",
+      "routeConnectorAction": "doProjectAdvantageOnLaterAttackAgainstAffectedTarget",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleAttackRollOwner",
+        "BattleHitPointOwner",
+        "BattleActiveEffectOwner",
+        "BattleAttackRollModeOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleNextAttackRollModeEffect::Active",
+        "BattleNextAttackRollModeEffect::Consumed",
+        "BattleNextAttackRollModeEffect::Inactive"
+      ]
+    },
+    {
+      "observedProjectionSha256": "96cad894ac4444559dab955715c0ee7f85756129476fcf2f17b9b788f8cf4938",
+      "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints and reducer-owned save-gated and next-Attack-Roll mode subject construction",
+      "routeConnectorAction": "doProjectDisadvantageOnAffectedTargetNextAttack",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOutcomeOwner",
+        "BattleActiveEffectOwner",
+        "BattleAttackRollModeOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleNextAttackRollModeEffect::Active",
+        "BattleNextAttackRollModeEffect::Consumed",
+        "BattleNextAttackRollModeEffect::Inactive"
+      ]
+    },
+    {
+      "observedProjectionSha256": "6ce8599bbaf11e064ee93fe001d82859a2253aaad5e54777ee39ac332e59e3ac",
+      "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints and reducer-owned next-Attack-Roll mode subject construction",
+      "routeConnectorAction": "doExpireAdvantageAtBoundary",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleAttackRollOwner",
+        "BattleHitPointOwner",
+        "BattleActiveEffectOwner",
+        "BattleTurnBoundaryOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleNextAttackRollModeEffect::Active",
+        "BattleNextAttackRollModeEffect::Expired",
+        "BattleNextAttackRollModeEffect::Inactive"
+      ]
+    },
+    {
+      "observedProjectionSha256": "852d800fdb5d1c83092efe2a70e7b765e29d5ba44093f13c148b8f65c15acc63",
+      "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints and reducer-owned save-gated and next-Attack-Roll mode subject construction",
+      "routeConnectorAction": "doExpireDisadvantageAtBoundary",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOutcomeOwner",
+        "BattleActiveEffectOwner",
+        "BattleTurnBoundaryOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleNextAttackRollModeEffect::Active",
+        "BattleNextAttackRollModeEffect::Expired",
+        "BattleNextAttackRollModeEffect::Inactive"
+      ]
+    }
+  ],
+  "generatedBy": {
+    "name": "rust-cleanroom-fcsf03b-next-attack-roll-mode-dirty-replay",
+    "tag": "target-harness"
+  },
+  "reducerRouteInventorySha256": "ed4bac2c2b335547a838e1ee19612eddf48614dbcd2dcc3c05397b135bcc24fa",
+  "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-next-attack-roll-mode.route.mbt.qnt",
+  "routeConnectorSha256": "58e4b22852a073571131ea498168d558c6bb5639e0f9d4d73d69f2037e560a38",
+  "runs": [
+    {
+      "branchAction": "doGuidingBoltNextAttackAdvantage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_next_attack_roll_mode_route.rs",
+      "observedActionTaken": "doGuidingBoltNextAttackAdvantage",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "routeConnectorAction": "doProjectAdvantageOnLaterAttackAgainstAffectedTarget",
+      "routeEvidenceBasis": "focused Rust replay observes BattleEntrypointTrace.route_events through start_battle_observed, discover_spell_attack_damage_subject_observed, resolve_battle_subject_observed, and next_attack_roll_mode_route_subject_for_target; expected route facts are copied from the SQNT-03B route connector",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::NextAttackRollMode",
+          "BattleReducerRouteOwnerGroup::ActiveEffect",
+          "BattleReducerRouteOwnerGroup::AttackRollMode",
+          "BattleState.skeleton.spell_active_effects.next_attack_roll_against_self_advantage",
+          "BattleNextAttackRollModeEffect::Active",
+          "BattleNextAttackRollModeEffect::Consumed",
+          "BattleNextAttackRollModeEffect::Inactive"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "25f283eaa8c21eaedf3af396d217ec59f2a7bb39cde3a30f40f47fa6ff314fa9",
+        "observedProjectionSha256": "25f283eaa8c21eaedf3af396d217ec59f2a7bb39cde3a30f40f47fa6ff314fa9",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03B-NEXT-ATTACK-ROLL-MODE dirty route action=doGuidingBoltNextAttackAdvantage",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "branchAction": "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_next_attack_roll_mode_route.rs",
+      "observedActionTaken": "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "routeConnectorAction": "doProjectDisadvantageOnAffectedTargetNextAttack",
+      "routeEvidenceBasis": "focused Rust replay observes BattleEntrypointTrace.route_events through start_battle_observed, discover_generic_route_subject_observed, resolve_battle_subject_observed, save_gated_next_attack_roll_mode_subject_for_target, and next_attack_roll_mode_route_subject_for_target; expected route facts are copied from the SQNT-03B route connector",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::SaveGatedSpell",
+          "BattleReducerRouteSubjectFamily::NextAttackRollMode",
+          "BattleReducerRouteOwnerGroup::ActiveEffect",
+          "BattleReducerRouteOwnerGroup::AttackRollMode",
+          "BattleState.skeleton.spell_active_effects.next_attack_roll_disadvantage",
+          "BattleNextAttackRollModeEffect::Active",
+          "BattleNextAttackRollModeEffect::Consumed",
+          "BattleNextAttackRollModeEffect::Inactive"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "96cad894ac4444559dab955715c0ee7f85756129476fcf2f17b9b788f8cf4938",
+        "observedProjectionSha256": "96cad894ac4444559dab955715c0ee7f85756129476fcf2f17b9b788f8cf4938",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03B-NEXT-ATTACK-ROLL-MODE dirty route action=doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ],
+  "scopeNote": "dirty target replay for SQNT-03B only; this does not claim fresh target acceptance",
+  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+  "targetBlockerCount": 0,
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

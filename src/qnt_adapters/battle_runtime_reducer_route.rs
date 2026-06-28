@@ -131,6 +131,7 @@ pub enum ReducerRouteSubjectFamily {
     ForcedMovement,
     HitPointRestoration,
     HitPointRegainPrevention,
+    NextAttackRollMode,
     InterruptStackResume,
     LightProjection,
     MovementResource,
@@ -193,6 +194,7 @@ pub enum ReducerRouteOwnerGroup {
     AbilityCheckRollMode,
     AreaShape,
     AttackRoll,
+    AttackRollMode,
     AttackActionProcedure,
     Component,
     Concentration,
@@ -944,6 +946,9 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::HitPointRegainPrevention => {
             ReducerRouteSubjectFamily::HitPointRegainPrevention
         }
+        BattleReducerRouteSubjectFamily::NextAttackRollMode => {
+            ReducerRouteSubjectFamily::NextAttackRollMode
+        }
         BattleReducerRouteSubjectFamily::InterruptStackResume => {
             ReducerRouteSubjectFamily::InterruptStackResume
         }
@@ -1213,6 +1218,7 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
         }
         BattleReducerRouteOwnerGroup::AreaShape => ReducerRouteOwnerGroup::AreaShape,
         BattleReducerRouteOwnerGroup::AttackRoll => ReducerRouteOwnerGroup::AttackRoll,
+        BattleReducerRouteOwnerGroup::AttackRollMode => ReducerRouteOwnerGroup::AttackRollMode,
         BattleReducerRouteOwnerGroup::AttackActionProcedure => {
             ReducerRouteOwnerGroup::AttackActionProcedure
         }
@@ -1584,6 +1590,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::AbilityCheckRollMode => "BattleAbilityCheckRollModeOwner",
         ReducerRouteOwnerGroup::AreaShape => "BattleAreaShapeOwner",
         ReducerRouteOwnerGroup::AttackRoll => "BattleAttackRollOwner",
+        ReducerRouteOwnerGroup::AttackRollMode => "BattleAttackRollModeOwner",
         ReducerRouteOwnerGroup::AttackActionProcedure => "BattleAttackActionProcedureOwner",
         ReducerRouteOwnerGroup::Component => "BattleComponentOwner",
         ReducerRouteOwnerGroup::Concentration => "BattleConcentrationOwner",
@@ -1666,6 +1673,7 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::HitPointRegainPrevention => {
             "HitPointRegainPreventionRouteSubject"
         }
+        ReducerRouteSubjectFamily::NextAttackRollMode => "NextAttackRollModeRouteSubject",
         ReducerRouteSubjectFamily::InterruptStackResume => "InterruptStackResumeRouteSubject",
         ReducerRouteSubjectFamily::LightProjection => "LightProjectionRouteSubject",
         ReducerRouteSubjectFamily::MovementResource => "MovementResourceRouteSubject",

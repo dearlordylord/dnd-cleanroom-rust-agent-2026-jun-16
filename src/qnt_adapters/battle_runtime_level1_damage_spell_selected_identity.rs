@@ -565,7 +565,8 @@ fn witness_from_battle_state(state: &BattleState) -> LevelOneDamageSpellWitness 
         primary_target_next_attack_roll_disadvantage: state
             .skeleton
             .spell_active_effects
-            .next_attack_roll_disadvantage,
+            .next_attack_roll_disadvantage
+            .projects_roll_mode(),
         secondary_target_hp: state.goblin.hp,
         scenario_outcome: scenario_from_battle_state(state),
         protocol_result: "resolved",
@@ -618,7 +619,8 @@ fn scenario_from_battle_state(state: &BattleState) -> &'static str {
         state
             .skeleton
             .spell_active_effects
-            .next_attack_roll_disadvantage,
+            .next_attack_roll_disadvantage
+            .projects_roll_mode(),
     ) {
         (
             6,
