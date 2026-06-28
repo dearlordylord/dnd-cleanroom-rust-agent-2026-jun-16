@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03F-MIXED-TARGET-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03f-mixed-target-replay` | `ralph/sqnt03f-mixed-target-dirty-replay` | `a8d936aef660a17ed79482e68ba7fe489b5035f6` | Gauss the 3rd (`019f0ecf-aa08-7350-beba-ddac302af135`) | worker-running |
 
 ## Active Fresh Dry Run Targets
 

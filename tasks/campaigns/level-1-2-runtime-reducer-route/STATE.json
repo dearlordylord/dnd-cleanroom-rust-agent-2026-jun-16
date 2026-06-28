@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03f-source-packaged-sqnt03g-fix-active",
+  "status": "sqnt03f-dirty-replay-running-sqnt03g-fix-active",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -665,7 +665,19 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03E evidence, ledger, or artifact failures",
     "review": "Tesla the 3rd found no blockers. Review confirmed replay goes through public reducer entrypoints, durable light state is owned by BattleState, table geometry/durability facts remain witness facts, and selected-driver limits are retained."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "SQNT-03F-MIXED-TARGET-DIRTY-REPLAY",
+      "routeTaskId": "FCSF-03F-MIXED-TARGET-OUTCOMES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03f-mixed-target-replay",
+      "branch": "ralph/sqnt03f-mixed-target-dirty-replay",
+      "baseSha": "a8d936aef660a17ed79482e68ba7fe489b5035f6",
+      "workerAgent": "019f0ecf-aa08-7350-beba-ddac302af135",
+      "workerName": "Gauss the 3rd",
+      "status": "worker-running",
+      "scope": "dirty target replay only; no fresh target acceptance claimed"
+    }
+  ],
   "activeSourceQntLanes": [
     {
       "laneId": "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS",
