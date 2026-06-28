@@ -28,7 +28,10 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-RR-BATTLE-ACTIVE-EFFECTS | `/workspace/typescript/.codex-worktrees/dnd-fresh-rr-battle-active-effects` | `ralph/fresh-rr-battle-active-effects` | `c196b33c634169cfc991c3de101c23fde8f75bae` | Mendel the 3rd (`019f0f53-efcf-7213-98d2-492d0d509331`) | pending | active |
+| FRESH-RR-SPATIAL-DAMAGE | `/workspace/typescript/.codex-worktrees/dnd-fresh-rr-spatial-damage` | `ralph/fresh-rr-spatial-damage` | `c196b33c634169cfc991c3de101c23fde8f75bae` | Hilbert the 3rd (`019f0f54-2183-7d60-b2b9-fa1e1189959f`) | pending | active |
+| FRESH-RR-CHARACTER-SHEET-HANDOFF | `/workspace/typescript/.codex-worktrees/dnd-fresh-rr-character-sheet-handoff` | `ralph/fresh-rr-character-sheet-handoff` | `c196b33c634169cfc991c3de101c23fde8f75bae` | Feynman the 3rd (`019f0f54-539f-7b90-84c8-4e097429bfcd`) | pending | active |
+| FRESH-RR-FEATURE-SPECIES-METAMAGIC | `/workspace/typescript/.codex-worktrees/dnd-fresh-rr-feature-species-metamagic` | `ralph/fresh-rr-feature-species-metamagic` | `c196b33c634169cfc991c3de101c23fde8f75bae` | Parfit the 3rd (`019f0f54-8884-7bf2-a1e1-518cdf2d6f98`) | pending | active |
 
 ## Active Source-QNT Lanes
 

@@ -3968,6 +3968,40 @@
     "activeWorktree": null,
     "activeBranch": null,
     "activeLaneBaseCommit": null,
+    "activeParallelLanes": [
+      {
+        "laneId": "FRESH-RR-BATTLE-ACTIVE-EFFECTS",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-rr-battle-active-effects",
+        "branch": "ralph/fresh-rr-battle-active-effects",
+        "baseCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
+        "workerAgent": "Mendel the 3rd (019f0f53-efcf-7213-98d2-492d0d509331)",
+        "status": "active"
+      },
+      {
+        "laneId": "FRESH-RR-SPATIAL-DAMAGE",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-rr-spatial-damage",
+        "branch": "ralph/fresh-rr-spatial-damage",
+        "baseCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
+        "workerAgent": "Hilbert the 3rd (019f0f54-2183-7d60-b2b9-fa1e1189959f)",
+        "status": "active"
+      },
+      {
+        "laneId": "FRESH-RR-CHARACTER-SHEET-HANDOFF",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-rr-character-sheet-handoff",
+        "branch": "ralph/fresh-rr-character-sheet-handoff",
+        "baseCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
+        "workerAgent": "Feynman the 3rd (019f0f54-539f-7b90-84c8-4e097429bfcd)",
+        "status": "active"
+      },
+      {
+        "laneId": "FRESH-RR-FEATURE-SPECIES-METAMAGIC",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-rr-feature-species-metamagic",
+        "branch": "ralph/fresh-rr-feature-species-metamagic",
+        "baseCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
+        "workerAgent": "Parfit the 3rd (019f0f54-8884-7bf2-a1e1-518cdf2d6f98)",
+        "status": "active"
+      }
+    ],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "Wave 1 fresh replay lanes from NEXT_RALPH_CAMPAIGN.md",
