@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "wave2-source-qnt-condition-lifecycle-accepted",
+  "status": "wave2-source-qnt-movement-presentation-accepted",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -773,15 +773,6 @@
       "workerAgent": "Carson the 3rd (019f0f94-1228-7dc0-b29a-a9ef5a01a908)",
       "status": "active",
       "purpose": "Add generic movable multi-emitter light, outline/invisible-revealing/attack-advantage, and area hazard/obscurement lifecycle route facts."
-    },
-    {
-      "laneId": "SQNT-07A-MOVEMENT-PRESENTATION",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-movement-presentation",
-      "branch": "ralph/source-sqnt-07a-movement-presentation",
-      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
-      "workerAgent": "Copernicus the 3rd (019f0f94-4f64-7d12-8804-2f0c710d7c3f)",
-      "status": "active",
-      "purpose": "Add generic movement replacement, forced movement, and object-push/presentation route facts."
     }
   ],
   "completedSourceQntLanes": [
@@ -1023,6 +1014,39 @@
         "git diff --check HEAD~1...HEAD"
       ],
       "coverageClaim": "Adds generic Paralyzed with implied Incapacitated until-spell-end repeat-save and laughter-style Incapacitated plus Prone blocked-self-end lifecycle route facts; selected condition driver remains catalog-after-substrate with five current out-of-scope branches preserved."
+    },
+    {
+      "laneId": "SQNT-07A-MOVEMENT-PRESENTATION",
+      "status": "accepted-source-merged",
+      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
+      "sourceCommit": "f7d2ea22d27e9457fd46014697fc55a4000f823e",
+      "workerAgent": "Copernicus the 3rd (019f0f94-4f64-7d12-8804-2f0c710d7c3f)",
+      "reviewerAgent": "Faraday the 3rd (019f0fa7-e124-7a61-8994-54b50699ff4a), McClintock the 3rd (019f0fb2-1359-79a1-8f95-b11cb29fe559), plus orchestrator review",
+      "artifacts": [
+        "packages/battle-runtime/battle-runtime-movement-presentation-route-facts.qnt",
+        "packages/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt",
+        "packages/battle-runtime/battle-runtime-reducer-route.qnt",
+        "packages/battle-runtime/src/battle-runtime-mbt-driver-kit.ts",
+        "packages/battle-runtime/src/movement-forced-movement-selected-identity.mbt.test.ts",
+        "plans/cleanroom-branch-coverage/reducer-route-inventory.json",
+        "plans/rules-kernel-coverage/REPORT.md",
+        "plans/rules-kernel-coverage/matrix.json",
+        "scripts/check-mbt-driver-closure.cjs",
+        "scripts/rules-kernel-coverage-config.cjs"
+      ],
+      "reviewFinding": "Initial review found one blocker: the Jump row overclaimed a table-selected landing route and could count landing legality or failed-landing Prone consequences beyond local RAW and the generic connector facts.",
+      "reviewResolution": "Fix commit 030e06c5f narrowed the route vocabulary to TableSuppliedMovementPathWitness and LandingSpacePresentationWitness, kept those facts under table presentation, and preserved explicit blockers for landing legality and failed-landing Prone. McClintock re-review found no blockers.",
+      "checks": [
+        "pnpm exec quint typecheck packages/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt",
+        "MBT_TRACES=1 MBT_STEPS=6 pnpm --filter @dnd/battle-runtime exec vitest run src/movement-forced-movement-selected-identity.mbt.test.ts -t \"routes movement replacement, forced movement, and object-push presentation through generic facts\"",
+        "pnpm check:mbt-driver-closure",
+        "pnpm check:reducer-route-connectors",
+        "pnpm rules-kernel-coverage:check",
+        "pnpm cleanroom-branch-coverage:check",
+        "pnpm --filter @dnd/battle-runtime typecheck",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "coverageClaim": "Adds generic movement-resource and table-presentation route facts for movement replacement, forced creature movement, object-push presentation, audible presentation, and table-supplied path/landing witness. Landing legality and failed-landing Prone remain explicit blockers; no target replay or fresh target acceptance is claimed."
     }
   ],
   "completedLaneWorktrees": [
@@ -3690,7 +3714,9 @@
     "Fresh target FRESH-RR-SPATIAL-DAMAGE is accepted-with-blockers at b28d9dbdd83c49bdd21dd36473d0b96612279fb7. Its verifier derives object/light and mixed-target expected records from copied QNT/vocabulary facts and compares them to public reducer observations; SQNT-03G exact damage and FCSF-04 stale-object route rows remain downgraded blockers.",
     "Fresh target FRESH-RR-BATTLE-ACTIVE-EFFECTS is accepted-with-blockers at 10918170ebbb342c7d45664601cb8eb354991db2. Its verifier derives SQNT-03A/B/C/D active-effect expected records from copied route connectors and compares them to public reducer observations; FCSF-05 trigger taxonomy remains blocked for durable production state.",
     "Wave 2 source-QNT lanes are active from source base 21504ef764118f5fd13086aa6266f19280196664: condition lifecycle, marked damage/immunity, spatial effects, and movement/presentation. Workers must add generic route facts plus TS MBT parity tests without running MBT concurrently; orchestrator schedules MBT during integration.",
-    "SQNT-07A-CONDITION-LIFECYCLE is source-merged at df223d2389e95e416993c300dae97720d5fc99c9. After all active Wave 2 source lanes merge, refresh cleanroom-input from source master and launch fresh/dirty target replay only for rows supported by the copied generic route facts."
+    "SQNT-07A-CONDITION-LIFECYCLE is source-merged at df223d2389e95e416993c300dae97720d5fc99c9.",
+    "SQNT-07A-MOVEMENT-PRESENTATION is source-merged at f7d2ea22d27e9457fd46014697fc55a4000f823e after narrowing Jump/table-presentation claims and preserving landing legality plus failed-landing Prone blockers.",
+    "After all active Wave 2 source lanes merge, refresh cleanroom-input from source master and launch fresh/dirty target replay only for rows supported by the copied generic route facts."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",

@@ -610,3 +610,14 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Integration verification: focused SQNT-07B species/passive tests, focused SQNT-07C metamagic route connector test, focused SQNT-07D active-feature test and evidence checker, `cargo fmt --check`, `cargo test` (`234` tests), `cargo clippy --all-targets -- -D warnings`, and `git diff --check` passed.
 - Harness status: after refreshing the guidance manifest hashes and carrying forward the approved validator patch to source package `21504ef764118f5fd13086aa6266f19280196664`, `node scripts/check-cleanroom-harness.cjs` now progresses past validator provenance. It fails on older historical replay/ledger debt still pinned to source package `564376fd95218a209bb9eae5c9ccb54ca3e04a52`, plus pre-existing heuristic findings in `src/rules/battle_reducer_spine.rs` and `src/rules/rule_core_exact_damage_projection.rs`. This batch does not attempt repo-wide historical evidence repair.
 - Worktrees marked merged/closed: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07b-species-replay`, `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07c-metamagic-replay`, and `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07d-active-feature-replay`.
+
+### SQNT-07A-MOVEMENT-PRESENTATION-SOURCE-QNT
+
+- Source commit: `f7d2ea22d27e9457fd46014697fc55a4000f823e`
+- Worker: Copernicus the 3rd (`019f0f94-4f64-7d12-8804-2f0c710d7c3f`)
+- Reviewers: Faraday the 3rd (`019f0fa7-e124-7a61-8994-54b50699ff4a`) and McClintock the 3rd (`019f0fb2-1359-79a1-8f95-b11cb29fe559`)
+- Result: source-QNT route facts accepted for generic movement replacement, forced creature movement, object-push/audible presentation, and table-supplied movement path/landing presentation witnesses.
+- Review/fixer notes: initial review rejected a Jump overclaim that treated table-supplied landing presentation as route legality. The accepted fix renamed the fact to `TableSuppliedMovementPathWitness`, kept landing facts under table presentation, and preserved explicit blockers for landing legality and failed-landing Prone consequences.
+- Verification: focused movement-presentation MBT, `pnpm check:mbt-driver-closure`, `pnpm check:reducer-route-connectors`, `pnpm rules-kernel-coverage:check`, `pnpm cleanroom-branch-coverage:check`, `pnpm --filter @dnd/battle-runtime typecheck`, and `git diff --check HEAD~1...HEAD` passed on source master after fast-forward.
+- Scope note: this is source-input work only. It does not claim dirty target replay or fresh target acceptance; those wait for package refresh after the remaining Wave 2 source lanes land.
+- Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-movement-presentation`
