@@ -55,6 +55,17 @@ pub const BRANCH_ACTIONS: [&str; 11] = [
     "doRejectAmbiguousCreatedSpellSlotSource",
 ];
 
+pub const ROUTE_CONNECTOR_ACTIONS: [&str; 8] = [
+    "doSettleHitPointsConditionsSlotsAndPreservedSheetState",
+    "doSettleFeatureResourceExpenditure",
+    "doRejectAmbiguousCreatedSpellSlotSource",
+    "doRejectMismatchedCharacterIdentity",
+    "doRejectMaximumHpDrift",
+    "doRejectActiveWildShapeHandoff",
+    "doRejectStableRecoveryProgressHandoff",
+    "doSettleZeroHpStableLifecycle",
+];
+
 pub fn replay_observed_action(observed_action_taken: &str) -> CharacterBattleSettlementWitness {
     match observed_action_taken {
         "doSettleHitPointsConditionsSlotsAndPreservedSheetState" => {
@@ -102,62 +113,96 @@ pub fn expected_witness(observed_action_taken: &str) -> CharacterBattleSettlemen
 }
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterBattleRouteEvent> {
-    match observed_action_taken {
-        "doSettleHitPointsConditionsSlotsAndPreservedSheetState" => {
-            route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state()
-        }
-        "doSettlePurePactMagicSlotExpenditure" => {
-            route_after_settle_pure_pact_magic_slot_expenditure()
-        }
-        "doRejectMixedSpellAndPactSlotSettlement" => {
-            route_after_reject_mixed_spell_and_pact_slot_settlement()
-        }
-        "doSettleFeatureResourceExpenditure" => route_after_settle_feature_resource_expenditure(),
-        "doRejectAmbiguousCreatedSpellSlotSource" => {
-            route_after_reject_ambiguous_created_spell_slot_source()
-        }
-        "doRejectMismatchedCharacterIdentity" => route_after_reject_mismatched_character_identity(),
-        "doRejectMaximumHpDrift" => route_after_reject_maximum_hp_drift(),
-        "doRejectActiveWildShapeHandoff" => route_after_reject_active_wild_shape_handoff(),
-        "doRejectActiveBattleStateHandoff" => route_after_reject_active_battle_state_handoff(),
-        "doRejectStableRecoveryProgressHandoff" => {
-            route_after_reject_stable_recovery_progress_handoff()
-        }
-        "doSettleZeroHpStableLifecycle" => route_after_settle_zero_hp_stable_lifecycle(),
-        action => panic!("unsupported route mbt::actionTaken {action}"),
-    }
+    let replay_index = route_connector_replay_index(observed_action_taken);
+    observed_route_through_replay_index(replay_index)
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterBattleRouteEvent> {
+    let replay_index = route_connector_replay_index(observed_action_taken);
+    copied_connector_route_through_replay_index(replay_index)
+}
+
+pub fn route_connector_blocker_reason(observed_action_taken: &str) -> Option<&'static str> {
     match observed_action_taken {
-        "doSettleHitPointsConditionsSlotsAndPreservedSheetState" => {
-            expected_route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state()
-        }
         "doSettlePurePactMagicSlotExpenditure" => {
-            expected_route_after_settle_pure_pact_magic_slot_expenditure()
+            Some("copied character-battle-settlement.route.mbt.qnt does not define doSettlePurePactMagicSlotExpenditure")
         }
         "doRejectMixedSpellAndPactSlotSettlement" => {
-            expected_route_after_reject_mixed_spell_and_pact_slot_settlement()
+            Some("copied character-battle-settlement.route.mbt.qnt does not define doRejectMixedSpellAndPactSlotSettlement")
         }
-        "doSettleFeatureResourceExpenditure" => {
-            expected_route_after_settle_feature_resource_expenditure()
-        }
-        "doRejectAmbiguousCreatedSpellSlotSource" => {
-            expected_route_after_reject_ambiguous_created_spell_slot_source()
-        }
-        "doRejectMismatchedCharacterIdentity" => {
-            expected_route_after_reject_mismatched_character_identity()
-        }
-        "doRejectMaximumHpDrift" => expected_route_after_reject_maximum_hp_drift(),
-        "doRejectActiveWildShapeHandoff" => expected_route_after_reject_active_wild_shape_handoff(),
         "doRejectActiveBattleStateHandoff" => {
-            expected_route_after_reject_active_battle_state_handoff()
+            Some("copied character-battle-settlement.route.mbt.qnt does not define doRejectActiveBattleStateHandoff")
         }
-        "doRejectStableRecoveryProgressHandoff" => {
-            expected_route_after_reject_stable_recovery_progress_handoff()
+        "doSettleHitPointsConditionsSlotsAndPreservedSheetState"
+        | "doSettleFeatureResourceExpenditure"
+        | "doRejectAmbiguousCreatedSpellSlotSource" => {
+            None
         }
-        "doSettleZeroHpStableLifecycle" => expected_route_after_settle_zero_hp_stable_lifecycle(),
-        action => panic!("unsupported expected route mbt::actionTaken {action}"),
+        "doRejectMismatchedCharacterIdentity"
+        | "doRejectMaximumHpDrift"
+        | "doRejectActiveWildShapeHandoff"
+        | "doRejectStableRecoveryProgressHandoff"
+        | "doSettleZeroHpStableLifecycle" => None,
+        action => panic!("unsupported route connector blocker mbt::actionTaken {action}"),
+    }
+}
+
+fn route_connector_replay_index(observed_action_taken: &str) -> usize {
+    match observed_action_taken {
+        "doSettleHitPointsConditionsSlotsAndPreservedSheetState" => 1,
+        "doSettleFeatureResourceExpenditure" => 2,
+        "doRejectAmbiguousCreatedSpellSlotSource" => 3,
+        "doRejectMismatchedCharacterIdentity" => 4,
+        "doRejectMaximumHpDrift" => 5,
+        "doRejectActiveWildShapeHandoff" => 6,
+        "doRejectStableRecoveryProgressHandoff" => 7,
+        "doSettleZeroHpStableLifecycle" => 8,
+        action => {
+            if let Some(reason) = route_connector_blocker_reason(action) {
+                panic!("{reason}");
+            }
+            panic!("unsupported expected route mbt::actionTaken {action}");
+        }
+    }
+}
+
+fn observed_route_through_replay_index(replay_index: usize) -> Vec<CharacterBattleRouteEvent> {
+    let mut route = initial_battle_settlement_route();
+    append_battle_settlement_route_steps(&mut route, replay_index);
+    route
+}
+
+fn copied_connector_route_through_replay_index(
+    replay_index: usize,
+) -> Vec<CharacterBattleRouteEvent> {
+    let mut route = initial_battle_settlement_route();
+    append_battle_settlement_route_steps(&mut route, replay_index);
+    route
+}
+
+fn append_battle_settlement_route_steps(
+    route: &mut Vec<CharacterBattleRouteEvent>,
+    replay_index: usize,
+) {
+    for action in ROUTE_CONNECTOR_ACTIONS.iter().take(replay_index) {
+        match *action {
+            "doSettleHitPointsConditionsSlotsAndPreservedSheetState" => {
+                append_settle_hit_points_conditions_slots_and_preserved_sheet_state_route(route)
+            }
+            "doSettleFeatureResourceExpenditure" => {
+                append_settle_feature_resource_expenditure_route(route)
+            }
+            "doRejectAmbiguousCreatedSpellSlotSource" => {
+                append_reject_ambiguous_created_spell_slot_source_route(route)
+            }
+            "doRejectMismatchedCharacterIdentity" => append_reject_identity_mismatch_route(route),
+            "doRejectMaximumHpDrift" => append_reject_maximum_hp_drift_route(route),
+            "doRejectActiveWildShapeHandoff" | "doRejectStableRecoveryProgressHandoff" => {
+                append_reject_settlement_conflict_route(route)
+            }
+            "doSettleZeroHpStableLifecycle" => append_settle_zero_hp_stable_lifecycle_route(route),
+            action => panic!("unsupported copied connector route action {action}"),
+        }
     }
 }
 
@@ -430,267 +475,6 @@ fn initial_battle_settlement_route() -> Vec<CharacterBattleRouteEvent> {
     ]
 }
 
-fn route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state(
-) -> Vec<CharacterBattleRouteEvent> {
-    let mut route = initial_battle_settlement_route();
-    append_settle_hit_points_conditions_slots_and_preserved_sheet_state_route(&mut route);
-    route
-}
-
-fn route_after_settle_feature_resource_expenditure() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = route_after_reject_mixed_spell_and_pact_slot_settlement();
-    append_settle_feature_resource_expenditure_route(&mut route);
-    route
-}
-
-fn route_after_settle_pure_pact_magic_slot_expenditure() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state();
-    append_settle_pure_pact_magic_slot_expenditure_route(&mut route);
-    route
-}
-
-fn route_after_reject_mixed_spell_and_pact_slot_settlement() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = route_after_settle_pure_pact_magic_slot_expenditure();
-    append_reject_mixed_spell_and_pact_slot_settlement_route(&mut route);
-    route
-}
-
-fn route_after_reject_ambiguous_created_spell_slot_source() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = route_after_settle_feature_resource_expenditure();
-    append_reject_ambiguous_created_spell_slot_source_route(&mut route);
-    route
-}
-
-fn route_after_reject_mismatched_character_identity() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = route_after_reject_ambiguous_created_spell_slot_source();
-    append_reject_identity_mismatch_route(&mut route);
-    route
-}
-
-fn route_after_reject_maximum_hp_drift() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = route_after_reject_mismatched_character_identity();
-    append_reject_maximum_hp_drift_route(&mut route);
-    route
-}
-
-fn route_after_reject_active_wild_shape_handoff() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = route_after_reject_maximum_hp_drift();
-    append_reject_settlement_conflict_route(&mut route);
-    route
-}
-
-fn route_after_reject_stable_recovery_progress_handoff() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = route_after_reject_active_battle_state_handoff();
-    append_reject_settlement_conflict_route(&mut route);
-    route
-}
-
-fn route_after_reject_active_battle_state_handoff() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = route_after_reject_active_wild_shape_handoff();
-    append_reject_settlement_conflict_route(&mut route);
-    route
-}
-
-fn route_after_settle_zero_hp_stable_lifecycle() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = route_after_reject_stable_recovery_progress_handoff();
-    append_settle_zero_hp_stable_lifecycle_route(&mut route);
-    route
-}
-
-fn expected_route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state(
-) -> Vec<CharacterBattleRouteEvent> {
-    vec![
-        expected_project_character_sheet_to_battle(
-            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
-            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
-        ),
-        expected_enter_battle_runtime(
-            CharacterBattleRouteSubjectFamily::HandoffBattleMutationRouteSubject,
-            CharacterBattleRouteOwnerGroup::CharacterBattleRuntimeOwner,
-        ),
-        expected_settle_battle_to_character_sheet(
-            CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-            CharacterBattleRouteFillFamily::HandoffBattleDeltaFill,
-            Vec::new(),
-            CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-        ),
-        expected_settle_battle_to_character_sheet(
-            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-            CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
-            Vec::new(),
-            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-        ),
-        route_record_character_battle_handoff_facts(
-            CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-            vec![
-                CharacterBattleRouteHandoffFactFamily::HandoffSourceExactSpellSlotDeltaFact,
-                CharacterBattleRouteHandoffFactFamily::HandoffSourceExactPactSlotDeltaFact,
-            ],
-            CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-        ),
-        expected_project_character_sheet_to_battle(
-            CharacterBattleRouteSubjectFamily::SheetToBattleInitRouteSubject,
-            CharacterBattleRouteOwnerGroup::CharacterBattleSheetOwner,
-        ),
-    ]
-}
-
-fn expected_route_after_settle_feature_resource_expenditure() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_reject_mixed_spell_and_pact_slot_settlement();
-    route.push(expected_settle_battle_to_character_sheet(
-        CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
-        Vec::new(),
-        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-    ));
-    route.push(route_record_character_battle_handoff_facts(
-        CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
-        vec![CharacterBattleRouteHandoffFactFamily::HandoffFeatureResourceDeltaFact],
-        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-    ));
-    route
-}
-
-fn expected_route_after_settle_pure_pact_magic_slot_expenditure() -> Vec<CharacterBattleRouteEvent>
-{
-    let mut route =
-        expected_route_after_settle_hit_points_conditions_slots_and_preserved_sheet_state();
-    route.push(expected_settle_battle_to_character_sheet(
-        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
-        Vec::new(),
-        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-    ));
-    route
-}
-
-fn expected_route_after_reject_mixed_spell_and_pact_slot_settlement(
-) -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_settle_pure_pact_magic_slot_expenditure();
-    route.push(expected_reject_character_battle_handoff(
-        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
-        vec![
-            CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
-            CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
-        ],
-        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-    ));
-    route.push(route_record_character_battle_handoff_facts(
-        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
-        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-    ));
-    route
-}
-
-fn expected_route_after_reject_ambiguous_created_spell_slot_source(
-) -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_settle_feature_resource_expenditure();
-    route.push(expected_reject_character_battle_handoff(
-        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
-        vec![
-            CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
-            CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
-        ],
-        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-    ));
-    route.push(route_record_character_battle_handoff_facts(
-        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
-        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-    ));
-    route
-}
-
-fn expected_route_after_reject_mismatched_character_identity() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_reject_ambiguous_created_spell_slot_source();
-    route.push(expected_reject_character_battle_handoff(
-        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
-        vec![CharacterBattleRouteHoleFamily::HandoffIdentityMatchHoleFamily],
-        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-    ));
-    route
-}
-
-fn expected_route_after_reject_maximum_hp_drift() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_reject_mismatched_character_identity();
-    route.push(expected_reject_character_battle_handoff(
-        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
-        vec![CharacterBattleRouteHoleFamily::HandoffHitPointProjectionHoleFamily],
-        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-    ));
-    route
-}
-
-fn expected_route_after_reject_active_wild_shape_handoff() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_reject_maximum_hp_drift();
-    route.push(expected_reject_character_battle_handoff(
-        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
-        vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
-        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-    ));
-    route.push(route_record_character_battle_handoff_facts(
-        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
-        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-    ));
-    route
-}
-
-fn expected_route_after_reject_stable_recovery_progress_handoff() -> Vec<CharacterBattleRouteEvent>
-{
-    let mut route = expected_route_after_reject_active_battle_state_handoff();
-    route.push(expected_reject_character_battle_handoff(
-        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
-        vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
-        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-    ));
-    route.push(route_record_character_battle_handoff_facts(
-        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
-        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-    ));
-    route
-}
-
-fn expected_route_after_reject_active_battle_state_handoff() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_reject_active_wild_shape_handoff();
-    route.push(expected_reject_character_battle_handoff(
-        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
-        vec![CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily],
-        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-    ));
-    route.push(route_record_character_battle_handoff_facts(
-        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
-        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-    ));
-    route
-}
-
-fn expected_route_after_settle_zero_hp_stable_lifecycle() -> Vec<CharacterBattleRouteEvent> {
-    let mut route = expected_route_after_reject_stable_recovery_progress_handoff();
-    route.push(expected_settle_battle_to_character_sheet(
-        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffBattleDeltaFill,
-        Vec::new(),
-        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-    ));
-    route.push(route_record_character_battle_handoff_facts(
-        CharacterBattleRouteSubjectFamily::BattleToSheetSettlementRouteSubject,
-        vec![CharacterBattleRouteHandoffFactFamily::HandoffZeroHpStableLifecycleFact],
-        CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
-    ));
-    route
-}
-
 fn append_settle_hit_points_conditions_slots_and_preserved_sheet_state_route(
     route: &mut Vec<CharacterBattleRouteEvent>,
 ) {
@@ -730,36 +514,6 @@ fn append_settle_feature_resource_expenditure_route(route: &mut Vec<CharacterBat
     route.push(route_record_character_battle_handoff_facts(
         CharacterBattleRouteSubjectFamily::HandoffFeatureResourceProjectionRouteSubject,
         vec![CharacterBattleRouteHandoffFactFamily::HandoffFeatureResourceDeltaFact],
-        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-    ));
-}
-
-fn append_settle_pure_pact_magic_slot_expenditure_route(
-    route: &mut Vec<CharacterBattleRouteEvent>,
-) {
-    route.push(route_settle_battle_to_character_sheet(
-        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffResourceDeltaFill,
-        Vec::new(),
-        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-    ));
-}
-
-fn append_reject_mixed_spell_and_pact_slot_settlement_route(
-    route: &mut Vec<CharacterBattleRouteEvent>,
-) {
-    route.push(route_reject_character_battle_handoff(
-        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-        CharacterBattleRouteFillFamily::HandoffSettlementRejectionFill,
-        vec![
-            CharacterBattleRouteHoleFamily::HandoffSpellResourceProjectionHoleFamily,
-            CharacterBattleRouteHoleFamily::HandoffSettlementConflictHoleFamily,
-        ],
-        CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
-    ));
-    route.push(route_record_character_battle_handoff_facts(
-        CharacterBattleRouteSubjectFamily::HandoffResourceProjectionRouteSubject,
-        vec![CharacterBattleRouteHandoffFactFamily::HandoffSettlementConflictFact],
         CharacterBattleRouteOwnerGroup::CharacterBattleResourceProjectionOwner,
     ));
 }
@@ -827,50 +581,6 @@ fn append_settle_zero_hp_stable_lifecycle_route(route: &mut Vec<CharacterBattleR
         vec![CharacterBattleRouteHandoffFactFamily::HandoffZeroHpStableLifecycleFact],
         CharacterBattleRouteOwnerGroup::CharacterBattleSettlementOwner,
     ));
-}
-
-fn expected_project_character_sheet_to_battle(
-    subject: CharacterBattleRouteSubjectFamily,
-    owner: CharacterBattleRouteOwnerGroup,
-) -> CharacterBattleRouteEvent {
-    CharacterBattleRouteEvent::RouteProjectCharacterSheetToBattle { subject, owner }
-}
-
-fn expected_enter_battle_runtime(
-    subject: CharacterBattleRouteSubjectFamily,
-    owner: CharacterBattleRouteOwnerGroup,
-) -> CharacterBattleRouteEvent {
-    CharacterBattleRouteEvent::RouteEnterBattleRuntime { subject, owner }
-}
-
-fn expected_settle_battle_to_character_sheet(
-    subject: CharacterBattleRouteSubjectFamily,
-    fill: CharacterBattleRouteFillFamily,
-    mut holes: Vec<CharacterBattleRouteHoleFamily>,
-    owner: CharacterBattleRouteOwnerGroup,
-) -> CharacterBattleRouteEvent {
-    holes.sort();
-    CharacterBattleRouteEvent::RouteSettleBattleToCharacterSheet {
-        subject,
-        fill,
-        holes,
-        owner,
-    }
-}
-
-fn expected_reject_character_battle_handoff(
-    subject: CharacterBattleRouteSubjectFamily,
-    fill: CharacterBattleRouteFillFamily,
-    mut holes: Vec<CharacterBattleRouteHoleFamily>,
-    owner: CharacterBattleRouteOwnerGroup,
-) -> CharacterBattleRouteEvent {
-    holes.sort();
-    CharacterBattleRouteEvent::RouteRejectCharacterBattleHandoff {
-        subject,
-        fill,
-        holes,
-        owner,
-    }
 }
 
 fn witness_from_settlement(

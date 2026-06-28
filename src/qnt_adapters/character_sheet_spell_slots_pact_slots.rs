@@ -46,6 +46,8 @@ pub const BRANCH_ACTIONS: [&str; 11] = [
     "doRejectArcaneRecoveryPactSlotRefund",
 ];
 
+const SPELL_SLOT_ROUTE_TARGET_BLOCKER_REASON: &str = "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows";
+
 pub fn replay_observed_action(observed_action_taken: &str) -> SpellSlotsPactSlotsWitness {
     match observed_action_taken {
         "doRejectMismatchedOrdinarySpellSlotCapacity" => {
@@ -266,7 +268,7 @@ pub fn expected_witness(observed_action_taken: &str) -> SpellSlotsPactSlotsWitne
     }
 }
 
-pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
     let mut route = initial_sheet_build_route();
     match observed_action_taken {
         "doRejectMismatchedOrdinarySpellSlotCapacity" => {
@@ -366,8 +368,21 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetR
     route
 }
 
-pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
-    replay_observed_route(observed_action_taken)
+pub fn route_blocker_reason(observed_action_taken: &str) -> &'static str {
+    match observed_action_taken {
+        "doRejectMismatchedOrdinarySpellSlotCapacity"
+        | "doRejectPactSlotExpenditureOverCapacity"
+        | "doShortRestRestoresPactSlotsOnly"
+        | "doShortRestArcaneRecoveryRefundsOrdinarySpellSlot"
+        | "doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots"
+        | "doInterruptShortRestNoSlotBenefit"
+        | "doInterruptLongRestBeforeOneHourNoSlotBenefit"
+        | "doInterruptLongRestWithShortRestSlotBenefits"
+        | "doMagicalCunningRecoversPactSlots"
+        | "doRejectMagicalCunningWithoutExpendedPactSlots"
+        | "doRejectArcaneRecoveryPactSlotRefund" => SPELL_SLOT_ROUTE_TARGET_BLOCKER_REASON,
+        action => panic!("unsupported route blocker mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &SpellSlotsPactSlotsWitness) -> String {

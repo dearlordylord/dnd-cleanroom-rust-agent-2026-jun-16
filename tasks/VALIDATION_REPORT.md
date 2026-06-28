@@ -6,8 +6,8 @@
 - Base SHA: `6d13eb64e4850ebc06f7ce67afa497b0f5a0f895`
 - Source package commit: `d63838e22137c4b329dc877ca0d963876f3459bf`
 - Evidence file: `tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json`
-- Accepted rows: 44 dirty target replay rows across character sheet Spell Slot/Pact Slot, character battle settlement, character creation runtime, and character sheet Hit Point Maximum drivers.
-- Target blockers: `_none_`
+- Accepted rows: 30 dirty target replay rows: 16 character creation runtime rows, 8 character battle settlement route rows, and 6 character sheet Hit Point Maximum route rows.
+- Target blockers: 14 rows demoted from accepted replay: all 11 character sheet Spell Slot/Pact Slot route rows lack independent public dirty-target sheet qRoute state, and 3 character battle settlement driver rows are absent from the copied settlement route connector.
 - Scope note: dirty target replay only; this is not fresh target acceptance.
 
 Drivers and route connectors:
@@ -20,7 +20,7 @@ Drivers and route connectors:
 Behavior implemented:
 
 - Added typed non-durable route fact records for character creation partial fills, stale rejection, selected-reference retention, build projection inputs, and Hit Point Maximum build inputs.
-- Added typed non-durable route fact records for character sheet ordinary Spell Slot/Pact Slot deltas, created-slot expiry, rest-benefit windows, feature recovery state, spell-resource rejection payloads, and Hit Point Maximum arithmetic inputs.
+- Added typed non-durable route fact records for character sheet Hit Point Maximum arithmetic inputs. Spell Slot/Pact Slot connector shapes remain copied expected-route facts only; their rows are target-blocked because the dirty target exposes public `SheetSlotFacts` projection replay but not independent public sheet qRoute state.
 - Added typed non-durable route fact records for character-battle settlement source-exact slot deltas, feature-resource deltas, settlement conflicts, and zero-HP Stable lifecycle settlement.
 - Updated older character creation expected-route helpers so selected-reference adapters expect the same build-input and selected-reference fact records emitted by the public creation route state.
 
@@ -32,15 +32,17 @@ RAW and ubiquitous-language check:
 Verification results:
 
 - `cargo test character_creation_runtime -- --nocapture` passed.
-- `cargo test spell_slots -- --nocapture` passed.
-- `cargo test hit_point_maximum -- --nocapture` passed.
-- `cargo test battle_settlement -- --nocapture` passed.
+- `cargo test spell_slots -- --nocapture` passed, including target-blocker assertions for the 11 spell-resource route rows.
+- `cargo test hit_point_maximum -- --nocapture` passed with cumulative qRoute replay through the copied connector sequence.
+- `cargo test battle_settlement -- --nocapture` passed with 8 accepted route connector rows and 3 target-blocked driver rows.
 - `cargo test` passed.
 - `cargo fmt --check` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `git diff --check 6d13eb64e4850ebc06f7ce67afa497b0f5a0f895...HEAD` passed.
-- Direct evidence validation via `validateTargetReplayEvidence(..., { requireAllObligations: false, routeInventory })` passed for all 44 rows.
-- `node scripts/check-cleanroom-harness.cjs` failed only on stale validator hashes recorded in `cleanroom-input/MANIFEST.md`: `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs`.
+- Direct evidence validation via `validateTargetReplayEvidence(..., { requireAllObligations: false, routeInventory })` passed with `issues=0 covered=30 targetBlocked=14`.
+- `node scripts/check-cleanroom-harness.cjs` failed only on stale validator hashes recorded in `cleanroom-input/MANIFEST.md`:
+  - `scripts/check-cleanroom-harness.cjs`: expected `bf3a3120ef5bb10b0a11093bb3bbe8d911199f720cc4cba050d4080e78ba5130`, got `0ed7656ef183599a8f54c604219ad34e51a0addb757d4be34deb694938db82f1`.
+  - `scripts/cleanroom-branch-coverage-check.cjs`: expected `f96e26aac6fc7679c1801e3a048ba1426eb301a2aab91cf3cd284063ce62be0c`, got `5b7f4913a2c6455c556e13a276107337219804698ffd087c64d536cf66c6e06c`.
 
 ## L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES: Ability/Search Choice Routes
 

@@ -1162,7 +1162,9 @@ use character_battle_settlement::{
     projection_payload as battle_settlement_projection_payload,
     replay_observed_action as replay_battle_settlement_action,
     replay_observed_route as replay_battle_settlement_route,
+    route_connector_blocker_reason as battle_settlement_route_blocker_reason,
     BRANCH_ACTIONS as BATTLE_SETTLEMENT_BRANCH_ACTIONS,
+    ROUTE_CONNECTOR_ACTIONS as BATTLE_SETTLEMENT_ROUTE_CONNECTOR_ACTIONS,
 };
 use character_creation_class_feature_projections::{
     expected_monk_witness, expected_route as expected_class_projection_route,
@@ -1296,7 +1298,7 @@ use character_sheet_spell_slots_pact_slots::{
     expected_route as expected_spell_slots_route, expected_witness as expected_spell_slots_witness,
     projection_payload as spell_slots_projection_payload,
     replay_observed_action as replay_spell_slots_action,
-    replay_observed_route as replay_spell_slots_route,
+    route_blocker_reason as spell_slots_route_blocker_reason,
     BRANCH_ACTIONS as SPELL_SLOTS_BRANCH_ACTIONS,
 };
 use character_sheet_spellbook_ritual_selected_identity::{
@@ -2026,6 +2028,10 @@ fn hit_point_maximum_adapter_replays_all_branches() {
 
         assert_eq!(observed, expected_hit_point_maximum_witness(action));
         assert_eq!(observed_route, expected_hit_point_maximum_route(action));
+        assert_eq!(
+            observed_route.len(),
+            2 + usize::from(observed.replay_index) * 2
+        );
         assert!(hit_point_maximum_projection_payload(&observed).contains("hitDiceTotal="));
         assert!(character_sheet_route_payload(&observed_route)
             .contains("SheetHitPointMaximumArithmeticInput"));
@@ -2104,15 +2110,15 @@ fn sheet_spell_slots_pact_slots_adapter_replays_all_branches() {
     // and "Magical Cunning", Wizard.md "Arcane Recovery".
     for action in SPELL_SLOTS_BRANCH_ACTIONS {
         let observed = replay_spell_slots_action(action);
-        let observed_route = replay_spell_slots_route(action);
+        let expected_route = expected_spell_slots_route(action);
 
         assert_eq!(observed, expected_spell_slots_witness(action));
-        assert_eq!(observed_route, expected_spell_slots_route(action));
         assert!(spell_slots_projection_payload(&observed).contains("replayIndex="));
-        assert!(character_sheet_route_payload(&observed_route).contains("Sheet"));
+        assert!(character_sheet_route_payload(&expected_route).contains("Sheet"));
         assert!(
-            character_sheet_route_payload(&observed_route).contains("RecordCharacterSheetFacts")
+            character_sheet_route_payload(&expected_route).contains("RecordCharacterSheetFacts")
         );
+        assert!(spell_slots_route_blocker_reason(action).contains("no independent public"));
     }
 }
 
@@ -2294,15 +2300,21 @@ fn battle_settlement_adapter_replays_all_driver_branches() {
     assert_eq!(IN_SCOPE_ACTIONS.len(), 11);
     for action in BATTLE_SETTLEMENT_BRANCH_ACTIONS {
         let observed = replay_battle_settlement_action(action);
-        let observed_route = replay_battle_settlement_route(action);
         assert_eq!(observed, expected_battle_settlement_witness(action));
-        assert_eq!(observed_route, expected_battle_settlement_route(action));
         assert!(battle_settlement_projection_payload(&observed).contains("replayIndex="));
+        if let Some(reason) = battle_settlement_route_blocker_reason(action) {
+            assert!(reason.contains("does not define"));
+            continue;
+        }
+
+        let observed_route = replay_battle_settlement_route(action);
+        assert_eq!(observed_route, expected_battle_settlement_route(action));
         assert!(character_battle_route_payload(&observed_route)
             .contains("BattleToSheetSettlementRouteSubject"));
         assert!(character_battle_route_payload(&observed_route)
             .contains("RouteRecordCharacterBattleHandoffFacts"));
     }
+    assert_eq!(BATTLE_SETTLEMENT_ROUTE_CONNECTOR_ACTIONS.len(), 8);
 }
 
 #[test]

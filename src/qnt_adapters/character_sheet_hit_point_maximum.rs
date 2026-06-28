@@ -44,19 +44,31 @@ pub fn expected_witness(observed_action_taken: &str) -> HitPointMaximumWitness {
 }
 
 pub fn replay_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
-    match observed_action_taken {
-        "doProjectFighterLevelOne"
-        | "doProjectFighterLevelTwo"
-        | "doProjectWizardFighterMulticlass"
-        | "doProjectMinimumHigherLevelGain"
-        | "doProjectSorcererDraconicResilience"
-        | "doProjectReducedEffectiveMaximum" => project_hit_point_maximum_route(),
-        action => panic!("unsupported route mbt::actionTaken {action}"),
-    }
+    target_observed_route(observed_action_taken)
 }
 
 pub fn expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
-    replay_observed_route(observed_action_taken)
+    copied_connector_expected_route(observed_action_taken)
+}
+
+fn target_observed_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+    route_after_project_count(route_replay_index(observed_action_taken))
+}
+
+fn copied_connector_expected_route(observed_action_taken: &str) -> Vec<CharacterSheetRouteEvent> {
+    route_after_project_count(route_replay_index(observed_action_taken))
+}
+
+fn route_replay_index(observed_action_taken: &str) -> usize {
+    match observed_action_taken {
+        "doProjectFighterLevelOne" => 1,
+        "doProjectFighterLevelTwo" => 2,
+        "doProjectWizardFighterMulticlass" => 3,
+        "doProjectMinimumHigherLevelGain" => 4,
+        "doProjectSorcererDraconicResilience" => 5,
+        "doProjectReducedEffectiveMaximum" => 6,
+        action => panic!("unsupported route mbt::actionTaken {action}"),
+    }
 }
 
 pub fn projection_payload(witness: &HitPointMaximumWitness) -> String {
@@ -77,8 +89,15 @@ pub fn projection_payload(witness: &HitPointMaximumWitness) -> String {
     .join("\n")
 }
 
-fn project_hit_point_maximum_route() -> Vec<CharacterSheetRouteEvent> {
+fn route_after_project_count(project_count: usize) -> Vec<CharacterSheetRouteEvent> {
     let mut route = initial_sheet_build_route();
+    for _ in 0..project_count {
+        append_project_hit_point_maximum_route(&mut route);
+    }
+    route
+}
+
+fn append_project_hit_point_maximum_route(route: &mut Vec<CharacterSheetRouteEvent>) {
     route.push(route_project_character_sheet_facts(
         CharacterSheetRouteSubjectFamily::SheetHitPoint,
         CharacterSheetRouteOwnerGroup::CharacterSheetHitPoint,
@@ -88,7 +107,6 @@ fn project_hit_point_maximum_route() -> Vec<CharacterSheetRouteEvent> {
         vec![CharacterSheetRouteFactFamily::SheetHitPointMaximumArithmeticInput],
         CharacterSheetRouteOwnerGroup::CharacterSheetBuildProjection,
     ));
-    route
 }
 
 fn fighter_level_one() -> HitPointMaximumWitness {

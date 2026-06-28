@@ -40,14 +40,14 @@
   "adapterModules": [
     {
       "path": "src/qnt_adapters/character_sheet_spell_slots_pact_slots.rs",
-      "adapterScope": "Replays ordinary Spell Slot, Pact Slot, created-slot expiry, rest-benefit, feature recovery, and spell-resource rejection route facts from the copied connector.",
+      "adapterScope": "Replays ordinary Spell Slot and Pact Slot projection witnesses through public SheetSlotFacts surfaces. The copied route connector expected shape is retained for diagnostics, but all 11 route rows are target-blocked because the dirty target lacks independent public sheet qRoute state for spell-resource rows.",
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
       ]
     },
     {
       "path": "src/qnt_adapters/character_battle_settlement.rs",
-      "adapterScope": "Replays character-battle settlement route facts for source-exact resources, settlement conflicts, and zero-HP Stable lifecycle through existing settlement public route helpers.",
+      "adapterScope": "Replays the eight character-battle settlement route actions defined by the copied route connector through existing settlement public route helpers; three driver-only rows absent from that connector are target-blocked.",
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
       ]
@@ -61,7 +61,7 @@
     },
     {
       "path": "src/qnt_adapters/character_sheet_hit_point_maximum.rs",
-      "adapterScope": "Replays sheet Hit Point Maximum arithmetic-input route facts through existing HP maximum projection facts.",
+      "adapterScope": "Replays sheet Hit Point Maximum arithmetic-input route facts as the copied route connector's cumulative qRoute sequence through existing HP maximum projection facts.",
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json"
       ]

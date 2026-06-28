@@ -18,28 +18,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "d15baee5eec5f2539b3582e02d80ba66c7423f8d84e60eaf25198290e79f2268",
-        "observedProjectionSha256": "d15baee5eec5f2539b3582e02d80ba66c7423f8d84e60eaf25198290e79f2268",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doCompleteLongRestRestoresOrdinaryPactAndClearsCreatedSlots",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -51,28 +47,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doInterruptLongRestBeforeOneHourNoSlotBenefit",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "b1fe6d7c9c70367de918a32154680166531f8c81dbcbfceaa27f84ab9422adeb",
-        "observedProjectionSha256": "b1fe6d7c9c70367de918a32154680166531f8c81dbcbfceaa27f84ab9422adeb",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doInterruptLongRestBeforeOneHourNoSlotBenefit",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -84,28 +76,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doInterruptLongRestWithShortRestSlotBenefits",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "d9f0371ff1cc997dd3ce0abc3c22dbe71d02164f9cc287662e4572b947bab7b0",
-        "observedProjectionSha256": "d9f0371ff1cc997dd3ce0abc3c22dbe71d02164f9cc287662e4572b947bab7b0",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doInterruptLongRestWithShortRestSlotBenefits",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -117,28 +105,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doInterruptShortRestNoSlotBenefit",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "2c2e88bc30cfc7e41446bad8f20a2e0b44fd5b81d9d82eb709a4d43870ec292f",
-        "observedProjectionSha256": "2c2e88bc30cfc7e41446bad8f20a2e0b44fd5b81d9d82eb709a4d43870ec292f",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doInterruptShortRestNoSlotBenefit",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -150,28 +134,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doMagicalCunningRecoversPactSlots",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "fc3e88f24e3c46f91b07b4e34635e1ca477e7cb8994921eefa0a91ff1ca0fc3d",
-        "observedProjectionSha256": "fc3e88f24e3c46f91b07b4e34635e1ca477e7cb8994921eefa0a91ff1ca0fc3d",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doMagicalCunningRecoversPactSlots",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -183,28 +163,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doRejectArcaneRecoveryPactSlotRefund",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "3ca99e2469914cc68a060e16283bb55a8d5ab7cc6931a11e47f921ff663a6435",
-        "observedProjectionSha256": "3ca99e2469914cc68a060e16283bb55a8d5ab7cc6931a11e47f921ff663a6435",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doRejectArcaneRecoveryPactSlotRefund",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -216,28 +192,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doRejectMagicalCunningWithoutExpendedPactSlots",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "b0b4d9cc80ca2af14c2e31da1443fbcd9a15cfddfc9f85b87f9276b278235298",
-        "observedProjectionSha256": "b0b4d9cc80ca2af14c2e31da1443fbcd9a15cfddfc9f85b87f9276b278235298",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doRejectMagicalCunningWithoutExpendedPactSlots",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -249,28 +221,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doRejectMismatchedOrdinarySpellSlotCapacity",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "ce113ea790741aa61f86807b5a943741f4fb4fc346b1e4da04b6a100b0c987aa",
-        "observedProjectionSha256": "ce113ea790741aa61f86807b5a943741f4fb4fc346b1e4da04b6a100b0c987aa",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doRejectMismatchedOrdinarySpellSlotCapacity",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -282,28 +250,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doRejectPactSlotExpenditureOverCapacity",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "005ff9e83f367fcb5bad36ac0af4245977dff9615d365255f5095cab776f4472",
-        "observedProjectionSha256": "005ff9e83f367fcb5bad36ac0af4245977dff9615d365255f5095cab776f4472",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doRejectPactSlotExpenditureOverCapacity",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -315,28 +279,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doShortRestArcaneRecoveryRefundsOrdinarySpellSlot",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "59176a102715d4511b3e2b8e8bc3e1dd2885395b34d4a3a122b23f27755f1631",
-        "observedProjectionSha256": "59176a102715d4511b3e2b8e8bc3e1dd2885395b34d4a3a122b23f27755f1631",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doShortRestArcaneRecoveryRefundsOrdinarySpellSlot",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -348,28 +308,24 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doShortRestRestoresPactSlotsOnly",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "b151fa3e4061d73afc8b6ddf86f0f34320d3e5de2a91b19409b172d0fb6cca28",
-        "observedProjectionSha256": "b151fa3e4061d73afc8b6ddf86f0f34320d3e5de2a91b19409b172d0fb6cca28",
+        "comparator": "route-surface-admission",
         "checkedTargetStateFields": [
-          "CharacterSheetRouteEvent.subject",
-          "CharacterSheetRouteEvent.fill",
-          "CharacterSheetRouteEvent.holes",
-          "CharacterSheetRouteEvent.owner",
-          "CharacterSheetRouteEvent.facts",
           "SheetSlotFacts.ordinary",
-          "SheetSlotFacts.pact"
+          "SheetSlotFacts.pact",
+          "CharacterSheetRouteEvent.qRouteStateMissing"
         ]
       },
       "result": {
-        "tag": "pass"
-      }
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-spell-slot-route-doShortRestRestoresPactSlotsOnly",
+        "reason": "dirty target exposes public SheetSlotFacts projection replay, but no independent public CharacterSheet qRoute state for spell-resource rows"
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-spell-slots-pact-slots.route.mbt.qnt"
     },
     {
       "evidenceKind": "target-qnt-mbt-replay",
@@ -381,26 +337,21 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doRejectActiveBattleStateHandoff",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: copied character-battle-settlement.route.mbt.qnt does not define doRejectActiveBattleStateHandoff; no alternate copied connector in this lane defines this route row; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "0205b29636c1770f77362e92c2ac51ae4b971582d10dac4bc53a6dda777673cf",
-        "observedProjectionSha256": "0205b29636c1770f77362e92c2ac51ae4b971582d10dac4bc53a6dda777673cf",
+        "comparator": "copied-route-connector-admission",
         "checkedTargetStateFields": [
-          "CharacterBattleRouteEvent.subject",
-          "CharacterBattleRouteEvent.fill",
-          "CharacterBattleRouteEvent.holes",
-          "CharacterBattleRouteEvent.owner",
-          "CharacterBattleRouteEvent.facts",
-          "BattleSettlementFacts"
+          "CharacterBattleSettlement.facts",
+          "CharacterBattleRouteConnector.stepActions"
         ]
       },
       "result": {
-        "tag": "pass"
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-battle-settlement-route-doRejectActiveBattleStateHandoff",
+        "reason": "copied character-battle-settlement.route.mbt.qnt does not define doRejectActiveBattleStateHandoff; no alternate copied connector in this lane defines this route row"
       }
     },
     {
@@ -415,13 +366,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied settlement route connector eight-action cumulative qRoute replay through index 6; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "c5dea20de627e8f3989c46443b33e7b681e77d2259592862c0500b3426f2bd52",
-        "observedProjectionSha256": "c5dea20de627e8f3989c46443b33e7b681e77d2259592862c0500b3426f2bd52",
+        "expectedProjectionSha256": "10e4bf6bc092a581c09b1dcd059ec78b27ff7fc88f5ce76f05312c483e854c01",
+        "observedProjectionSha256": "10e4bf6bc092a581c09b1dcd059ec78b27ff7fc88f5ce76f05312c483e854c01",
         "checkedTargetStateFields": [
           "CharacterBattleRouteEvent.subject",
           "CharacterBattleRouteEvent.fill",
@@ -447,13 +398,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied settlement route connector eight-action cumulative qRoute replay through index 3; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "ec177eebd6aa039d9d9720f1ca5922d035c5e339b318a4c1e5eb08b458e49156",
-        "observedProjectionSha256": "ec177eebd6aa039d9d9720f1ca5922d035c5e339b318a4c1e5eb08b458e49156",
+        "expectedProjectionSha256": "a2a7dcba5d6faf0f78048da9ff486a246fb868a96fc841beba2c85a65e9fe476",
+        "observedProjectionSha256": "a2a7dcba5d6faf0f78048da9ff486a246fb868a96fc841beba2c85a65e9fe476",
         "checkedTargetStateFields": [
           "CharacterBattleRouteEvent.subject",
           "CharacterBattleRouteEvent.fill",
@@ -479,13 +430,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied settlement route connector eight-action cumulative qRoute replay through index 5; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "5e6f7049e88b2de536d9d30792ae334a6347c604575a849d63a74fe21f07bdaa",
-        "observedProjectionSha256": "5e6f7049e88b2de536d9d30792ae334a6347c604575a849d63a74fe21f07bdaa",
+        "expectedProjectionSha256": "1b67233f553e3739397556833d15dfb308a934d816024bfbb8a9d3e3468aa0e1",
+        "observedProjectionSha256": "1b67233f553e3739397556833d15dfb308a934d816024bfbb8a9d3e3468aa0e1",
         "checkedTargetStateFields": [
           "CharacterBattleRouteEvent.subject",
           "CharacterBattleRouteEvent.fill",
@@ -511,13 +462,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied settlement route connector eight-action cumulative qRoute replay through index 4; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "057653397ef666e8086c2c6944b19c4c3c4c14a97d8e2e1c81ae7af47c7cab37",
-        "observedProjectionSha256": "057653397ef666e8086c2c6944b19c4c3c4c14a97d8e2e1c81ae7af47c7cab37",
+        "expectedProjectionSha256": "f7289e97906504d200f87d645742e8f0b960f18dd4f68eff9933653bcc29c9ae",
+        "observedProjectionSha256": "f7289e97906504d200f87d645742e8f0b960f18dd4f68eff9933653bcc29c9ae",
         "checkedTargetStateFields": [
           "CharacterBattleRouteEvent.subject",
           "CharacterBattleRouteEvent.fill",
@@ -541,26 +492,21 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doRejectMixedSpellAndPactSlotSettlement",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: copied character-battle-settlement.route.mbt.qnt does not define doRejectMixedSpellAndPactSlotSettlement; no alternate copied connector in this lane defines this route row; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "7dc80e9a4124f432c5aa6694191b3265fe6161a3b1614e3413e7d36f60729041",
-        "observedProjectionSha256": "7dc80e9a4124f432c5aa6694191b3265fe6161a3b1614e3413e7d36f60729041",
+        "comparator": "copied-route-connector-admission",
         "checkedTargetStateFields": [
-          "CharacterBattleRouteEvent.subject",
-          "CharacterBattleRouteEvent.fill",
-          "CharacterBattleRouteEvent.holes",
-          "CharacterBattleRouteEvent.owner",
-          "CharacterBattleRouteEvent.facts",
-          "BattleSettlementFacts"
+          "CharacterBattleSettlement.facts",
+          "CharacterBattleRouteConnector.stepActions"
         ]
       },
       "result": {
-        "tag": "pass"
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-battle-settlement-route-doRejectMixedSpellAndPactSlotSettlement",
+        "reason": "copied character-battle-settlement.route.mbt.qnt does not define doRejectMixedSpellAndPactSlotSettlement; no alternate copied connector in this lane defines this route row"
       }
     },
     {
@@ -575,13 +521,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied settlement route connector eight-action cumulative qRoute replay through index 7; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "fa9ae69c8f7cb7939cba49177a9df9e05b52a7ecbf80aefc42e7d8b1b6bf7dd1",
-        "observedProjectionSha256": "fa9ae69c8f7cb7939cba49177a9df9e05b52a7ecbf80aefc42e7d8b1b6bf7dd1",
+        "expectedProjectionSha256": "3d6c323dc78638d3ae06c674d7ffeabc25d68aa8da80edeb0e752b168a2b1749",
+        "observedProjectionSha256": "3d6c323dc78638d3ae06c674d7ffeabc25d68aa8da80edeb0e752b168a2b1749",
         "checkedTargetStateFields": [
           "CharacterBattleRouteEvent.subject",
           "CharacterBattleRouteEvent.fill",
@@ -607,13 +553,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied settlement route connector eight-action cumulative qRoute replay through index 2; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "70a047265075bdba27c8f1ba0c97da40ef0ace60bb3675c5366ded0141912975",
-        "observedProjectionSha256": "70a047265075bdba27c8f1ba0c97da40ef0ace60bb3675c5366ded0141912975",
+        "expectedProjectionSha256": "6a13472d3cb533a6669944e573e72a998cdab1845b861076a6b73a28ff208d63",
+        "observedProjectionSha256": "6a13472d3cb533a6669944e573e72a998cdab1845b861076a6b73a28ff208d63",
         "checkedTargetStateFields": [
           "CharacterBattleRouteEvent.subject",
           "CharacterBattleRouteEvent.fill",
@@ -639,13 +585,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied settlement route connector eight-action cumulative qRoute replay through index 1; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "221e0b90b9365ec07dd2f19faa2ddd343c098b41790b35cb3dbf4c36ec362a34",
-        "observedProjectionSha256": "221e0b90b9365ec07dd2f19faa2ddd343c098b41790b35cb3dbf4c36ec362a34",
+        "expectedProjectionSha256": "3965fe998bd1a69f41a233f9886c969196d4d3702f93a5c6bf385df05cde761b",
+        "observedProjectionSha256": "3965fe998bd1a69f41a233f9886c969196d4d3702f93a5c6bf385df05cde761b",
         "checkedTargetStateFields": [
           "CharacterBattleRouteEvent.subject",
           "CharacterBattleRouteEvent.fill",
@@ -669,26 +615,21 @@
       "harnessTestPath": "src/tests/mod.rs",
       "traceId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY route action=doSettlePurePactMagicSlotExpenditure",
       "sampledInputs": [],
-      "driverProjectionKind": "reducer-route-witness",
-      "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "driverProjectionKind": "target-blocker",
+      "routeEvidenceBasis": "target blocker: copied character-battle-settlement.route.mbt.qnt does not define doSettlePurePactMagicSlotExpenditure; no alternate copied connector in this lane defines this route row; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
-        "tag": "state-match",
+        "tag": "target-blocker",
         "projection": "qRoute",
-        "comparator": "route-event-list",
-        "expectedProjectionSha256": "3efb10af2b767f47fa78329fcc7d7c09158efdf1c88197771bff4964c8b260e1",
-        "observedProjectionSha256": "3efb10af2b767f47fa78329fcc7d7c09158efdf1c88197771bff4964c8b260e1",
+        "comparator": "copied-route-connector-admission",
         "checkedTargetStateFields": [
-          "CharacterBattleRouteEvent.subject",
-          "CharacterBattleRouteEvent.fill",
-          "CharacterBattleRouteEvent.holes",
-          "CharacterBattleRouteEvent.owner",
-          "CharacterBattleRouteEvent.facts",
-          "BattleSettlementFacts"
+          "CharacterBattleSettlement.facts",
+          "CharacterBattleRouteConnector.stepActions"
         ]
       },
       "result": {
-        "tag": "pass"
+        "tag": "target-blocker",
+        "blockerId": "FCSF-06-battle-settlement-route-doSettlePurePactMagicSlotExpenditure",
+        "reason": "copied character-battle-settlement.route.mbt.qnt does not define doSettlePurePactMagicSlotExpenditure; no alternate copied connector in this lane defines this route row"
       }
     },
     {
@@ -703,13 +644,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-battle-runtime/character-battle-settlement.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied settlement route connector eight-action cumulative qRoute replay through index 8; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "c87191f55dd32f1b8d0ab0c84a6318e658cc835f8e7cea2c4b70df8d07294583",
-        "observedProjectionSha256": "c87191f55dd32f1b8d0ab0c84a6318e658cc835f8e7cea2c4b70df8d07294583",
+        "expectedProjectionSha256": "1ede51f4877b1a4799dd295e5ff5249068cc99aa828858046601775d8e08ad20",
+        "observedProjectionSha256": "1ede51f4877b1a4799dd295e5ff5249068cc99aa828858046601775d8e08ad20",
         "checkedTargetStateFields": [
           "CharacterBattleRouteEvent.subject",
           "CharacterBattleRouteEvent.fill",
@@ -1263,13 +1204,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied hit-point-maximum route connector cumulative qRoute replay through index 1; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "427b8b0f54080d337bf534f9712e28b51947acd0c86644e977d7229c8b60e2a5",
-        "observedProjectionSha256": "427b8b0f54080d337bf534f9712e28b51947acd0c86644e977d7229c8b60e2a5",
+        "expectedProjectionSha256": "0a9a3d2fe23037c80e11746ea469738ba4c0263ff1998ab4db47c734ccfbf8fe",
+        "observedProjectionSha256": "0a9a3d2fe23037c80e11746ea469738ba4c0263ff1998ab4db47c734ccfbf8fe",
         "checkedTargetStateFields": [
           "CharacterSheetRouteEvent.subject",
           "CharacterSheetRouteEvent.owner",
@@ -1294,13 +1235,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied hit-point-maximum route connector cumulative qRoute replay through index 2; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "e5bc4642819c59b29565ff72ca682e1e91d46b1d6ab6f73e6c7d677988e45699",
-        "observedProjectionSha256": "e5bc4642819c59b29565ff72ca682e1e91d46b1d6ab6f73e6c7d677988e45699",
+        "expectedProjectionSha256": "5d6a8413c5faa942381cf9842955fa33dd8afa6a11148c2b748afbae0faee87d",
+        "observedProjectionSha256": "5d6a8413c5faa942381cf9842955fa33dd8afa6a11148c2b748afbae0faee87d",
         "checkedTargetStateFields": [
           "CharacterSheetRouteEvent.subject",
           "CharacterSheetRouteEvent.owner",
@@ -1325,13 +1266,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied hit-point-maximum route connector cumulative qRoute replay through index 4; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "6b75bd4e5535bb5c1378afd296c1fff39d60b8d0544cbc382ad1fea51ef0aa89",
-        "observedProjectionSha256": "6b75bd4e5535bb5c1378afd296c1fff39d60b8d0544cbc382ad1fea51ef0aa89",
+        "expectedProjectionSha256": "19602352255c43b68f3de18f9222477dfa6bd9c318ee0539719efe1f106ab376",
+        "observedProjectionSha256": "19602352255c43b68f3de18f9222477dfa6bd9c318ee0539719efe1f106ab376",
         "checkedTargetStateFields": [
           "CharacterSheetRouteEvent.subject",
           "CharacterSheetRouteEvent.owner",
@@ -1356,13 +1297,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied hit-point-maximum route connector cumulative qRoute replay through index 6; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "084ce75a2bfbc317a5684fa256fa298023c82ed3b9a4860a9b9db5301b75a3ea",
-        "observedProjectionSha256": "084ce75a2bfbc317a5684fa256fa298023c82ed3b9a4860a9b9db5301b75a3ea",
+        "expectedProjectionSha256": "48f997985addac10387ef5ff97913bbb40987478896cd318ef301771bc7d3f4d",
+        "observedProjectionSha256": "48f997985addac10387ef5ff97913bbb40987478896cd318ef301771bc7d3f4d",
         "checkedTargetStateFields": [
           "CharacterSheetRouteEvent.subject",
           "CharacterSheetRouteEvent.owner",
@@ -1387,13 +1328,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied hit-point-maximum route connector cumulative qRoute replay through index 5; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "4e8edaa998cea84034d26cdae2afb2234f3db8bad85367c23ad27ca98d429597",
-        "observedProjectionSha256": "4e8edaa998cea84034d26cdae2afb2234f3db8bad85367c23ad27ca98d429597",
+        "expectedProjectionSha256": "5558c7ab0b4b6c190bb0637deedc57fb7fe1a16114760ba87c74c50c1f95cd7f",
+        "observedProjectionSha256": "5558c7ab0b4b6c190bb0637deedc57fb7fe1a16114760ba87c74c50c1f95cd7f",
         "checkedTargetStateFields": [
           "CharacterSheetRouteEvent.subject",
           "CharacterSheetRouteEvent.owner",
@@ -1418,13 +1359,13 @@
       "sampledInputs": [],
       "driverProjectionKind": "reducer-route-witness",
       "routeConnectorPath": "cleanroom-input/qnt/character-sheet-runtime/character-sheet-hit-point-maximum.route.mbt.qnt",
-      "routeEvidenceBasis": "dirty-target public route model replay; expected route shape mirrors copied FCSF-06 qRoute connector fact vocabulary; this is dirty target replay only, not fresh target acceptance",
+      "routeEvidenceBasis": "copied hit-point-maximum route connector cumulative qRoute replay through index 3; dirty target replay only, not fresh target acceptance",
       "stateCheck": {
         "tag": "state-match",
         "projection": "qRoute",
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "d7481422816cea8955f8849516fbe3ead5f96513030436b833a8feb1f9b17bfb",
-        "observedProjectionSha256": "d7481422816cea8955f8849516fbe3ead5f96513030436b833a8feb1f9b17bfb",
+        "expectedProjectionSha256": "26021fa97e025443d1579a850af884f82857be84e99f874106a7fb7930804bfc",
+        "observedProjectionSha256": "26021fa97e025443d1579a850af884f82857be84e99f874106a7fb7930804bfc",
         "checkedTargetStateFields": [
           "CharacterSheetRouteEvent.subject",
           "CharacterSheetRouteEvent.owner",

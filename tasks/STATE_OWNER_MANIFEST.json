@@ -14,7 +14,7 @@
       "apiPath": "CharacterSheetRouteEvent::RecordCharacterSheetFacts",
       "introducedIn": "src/qnt_adapters/character_sheet_reducer_route.rs",
       "owner": "harness-witness-protocol",
-      "boundary": "qRoute evidence for spell-resource deltas, created-slot expiry, rest-benefit windows, feature recovery state, HP maximum arithmetic input, and spell-resource rejection facts"
+      "boundary": "qRoute evidence for HP maximum arithmetic input. Spell-resource delta, created-slot expiry, rest-benefit, feature recovery state, and spell-resource rejection connector shapes are diagnostic expected-route facts only in this dirty replay because no independent public sheet qRoute state owns them."
     },
     {
       "apiPath": "CharacterBattleRouteEvent::RouteRecordCharacterBattleHandoffFacts",
@@ -26,7 +26,7 @@
       "apiPath": "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json",
       "introducedIn": "tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json",
       "owner": "harness-witness-protocol",
-      "boundary": "dirty target replay evidence only; not fresh target acceptance"
+      "boundary": "dirty target replay evidence only; not fresh target acceptance. Evidence records 30 accepted rows and 14 target-blocked route rows."
     }
   ]
 }
