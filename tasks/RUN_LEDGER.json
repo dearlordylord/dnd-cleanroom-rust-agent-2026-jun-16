@@ -3850,9 +3850,92 @@
         }
       ],
       "taskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION"
+    },
+    {
+      "taskId": "FCSF-03C-OPPORTUNITY-ATTACK-DENIAL",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY",
+      "manifestSourceCommitSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
+      "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+      "sourceReducerRouteInventorySha256": "70d1a5fb788f7200ba080243c4be9050d42cb88fee7c01b9836a8337e00a1dc0",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt"
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/FCSF-03C-OPPORTUNITY-ATTACK-DENIAL/START_GATE.json",
+          "sha256": "96880bbb2a2c7c8f9060607c59ea6a77176abbf8809511fc7ae2a1f8dc5dd596"
+        },
+        "engineDepth": {
+          "path": "tasks/history/FCSF-03C-OPPORTUNITY-ATTACK-DENIAL/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "f0eda08771bcc5bcc7feafe85a20a5b313fb6dbd0cd12c54c30d591aea781f3e"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/FCSF-03C-OPPORTUNITY-ATTACK-DENIAL/STATE_OWNER_MANIFEST.json",
+          "sha256": "43274b4e2918e389745c83a18d1c0cffa3d2ec7f84479740df28e9dd5745e597"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/FCSF-03C-OPPORTUNITY-ATTACK-DENIAL/REVIEW_LOOP.json",
+          "sha256": "d3f9edba06dfe115689bef60a1e9d223b9a6ab5ad1afdd78a118e9d25050db34"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/FCSF-03C-OPPORTUNITY-ATTACK-DENIAL/DECIDER_DECISION.json",
+          "sha256": "2efe5b7253a8a0f4ec0cfe8be7235f58caad79b5c5464f8b0e7e57e559bfa6a8"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json",
+          "sha256": "4d65abc3c700db6b4adec842d9730212cfe09550e427f1df5ac44981ba531e02",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json#FCSF-03C-OPPORTUNITY-ATTACK-DENIAL dirty route action=doAdmitAttackHitOpportunityAttackDenialEffect#step:doShockingGraspOpportunityAttackDenied",
+            "tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json#FCSF-03C-OPPORTUNITY-ATTACK-DENIAL dirty route action=doProjectOpportunityAttackDenialIntoMovementReactionDiscovery#step:doShockingGraspOpportunityAttackDenied",
+            "tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json#FCSF-03C-OPPORTUNITY-ATTACK-DENIAL dirty route action=doExpireActiveDenialAtAffectedTargetTurnStart#step:doShockingGraspOpportunityAttackDenied",
+            "tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json#FCSF-03C-OPPORTUNITY-ATTACK-DENIAL dirty route action=doExpireProjectedDenialAtAffectedTargetTurnStart#step:doShockingGraspOpportunityAttackDenied"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "git merge-base --is-ancestor 73fb3ce66c3fb107a1e53f6a9a5d516c78880391 HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test opportunity_attack_denial_dirty_replay_routes_through_reducer -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test opportunity_attack_denial_cleanup_requires_turn_boundary_expiry -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test attack_spell_shape_adapter_replays_all_branches -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "fail: only known cleanroom-input/MANIFEST.md stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs"
+        },
+        {
+          "command": "git diff --check 73fb3ce66c3fb107a1e53f6a9a5d516c78880391...HEAD",
+          "status": "pass"
+        }
+      ]
     }
   ],
-  "manifestSourceCommitSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
+  "manifestSourceCommitSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
   "schemaVersion": 1,
   "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81"
 }

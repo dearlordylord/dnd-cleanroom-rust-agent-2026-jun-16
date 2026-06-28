@@ -295,7 +295,10 @@ fn active_effect_kind(effects: BattleSpellActiveEffects) -> &'static str {
         .projects_roll_mode()
     {
         "nextAttackRollAgainstSelf"
-    } else if effects.opportunity_attack_denied {
+    } else if effects
+        .opportunity_attack_denied
+        .prevents_opportunity_attacks()
+    {
         "opportunityAttackDenied"
     } else {
         "none"
