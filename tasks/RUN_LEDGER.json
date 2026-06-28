@@ -4113,9 +4113,99 @@
           "status": "pass"
         }
       ]
+    },
+    {
+      "taskId": "FCSF-03F-MIXED-TARGET-OUTCOMES",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "SQNT-03F-MIXED-TARGET-DIRTY-REPLAY",
+      "manifestSourceCommitSha": "2de6a5e5401985e5673f5c2be737bbe2374d46d0",
+      "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+      "sourceReducerRouteInventorySha256": "f65c64c99d0dc0262cab36eca4030c6f24604108e7791c595c18310e58f326a2",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "routeConnectorAuthority": {
+        "inventoryKind": "reducer-route-inventory",
+        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt",
+        "sha256": "7aa5c3bc5a374751af296b0c03f3ed7222346e150501269a5d7ab078bd103795"
+      },
+      "routeFactsAuthority": {
+        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcome-route-facts.qnt",
+        "sha256": "5688172d7a2bfd6c26e137954a9e4c531482a9fe6c0d243e6697a84f2ac6ee5a"
+      },
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+      ],
+      "selectedDriversPurpose": "downstream source-branch pressure only; route connector authority is recorded in routeConnectorAuthority and selected identity rows are counted only when matched by generic SQNT-03F facts",
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/FCSF-03F-MIXED-TARGET-OUTCOMES/START_GATE.json",
+          "sha256": "4b0bcac79e9d889fed86136bd5604964c817df2cd04ddc13f4e0b5e969f9883e"
+        },
+        "engineDepth": {
+          "path": "tasks/history/FCSF-03F-MIXED-TARGET-OUTCOMES/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "10361b86b1e08b0f934df9b90bea5d4017a22ffa4a29e3dc86cd5dc0ed75ed4c"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/FCSF-03F-MIXED-TARGET-OUTCOMES/STATE_OWNER_MANIFEST.json",
+          "sha256": "5ecc03e121bc36f8499980001f37db08e914b0f26f225064692892e585046e2d"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/FCSF-03F-MIXED-TARGET-OUTCOMES/REVIEW_LOOP.json",
+          "sha256": "9771bae22236db06c087ff45ab3d2fc3f5b8d18bcad91d9d722ef7a5a6e50641"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/FCSF-03F-MIXED-TARGET-OUTCOMES/DECIDER_DECISION.json",
+          "sha256": "ce72c80c104402dd76962bfe2d6cdd755f332d19bc49c1b3c4b2dc9ac463b031"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json",
+          "sha256": "1ce570aeb4b744a859341be76400fe858c9a35ab233c3ef933c4eb56b302d1b1",
+          "acceptedConnectorRowCount": 7,
+          "acceptedEvidenceRefs": [
+            "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json#FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAreaSavingThrowMixedOutcomes#step:doResolveBurningHandsMixedConeSavingThrows",
+            "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json#FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAttackHitBurstSavingThrowMixedOutcomes#step:doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+            "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json#FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAttackMissBurstSavingThrowMixedOutcomes#step:doResolveIceKnifeMissBurstSavingThrows"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "git merge-base --is-ancestor a8d936aef660a17ed79482e68ba7fe489b5035f6 HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test mixed_target_outcomes_dirty_replay_routes_through_reducer -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "fail: only known cleanroom-input/MANIFEST.md stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs"
+        },
+        {
+          "command": "git diff --check a8d936aef660a17ed79482e68ba7fe489b5035f6...HEAD",
+          "status": "pass"
+        }
+      ]
     }
   ],
-  "manifestSourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
+  "manifestSourceCommitSha": "2de6a5e5401985e5673f5c2be737bbe2374d46d0",
   "schemaVersion": 1,
   "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81"
 }

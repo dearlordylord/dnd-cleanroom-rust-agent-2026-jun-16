@@ -1,0 +1,27 @@
+{
+  "baseCheck": {
+    "ancestorCommand": "git merge-base --is-ancestor a8d936aef660a17ed79482e68ba7fe489b5035f6 HEAD",
+    "declaredBaseSha": "a8d936aef660a17ed79482e68ba7fe489b5035f6",
+    "headSha": "a8d936aef660a17ed79482e68ba7fe489b5035f6",
+    "result": "pass"
+  },
+  "cleanroomBoundary": "Used only the dirty cleanroom worktree, cleanroom-input, task artifacts, local Rust code, repo-local scripts, and Cargo tooling.",
+  "schemaVersion": 1,
+  "startHeadSha": "a8d936aef660a17ed79482e68ba7fe489b5035f6",
+  "taskId": "FCSF-03F-MIXED-TARGET-OUTCOMES",
+  "taskScope": {
+    "assignmentId": "level-1-2-runtime-reducer-route",
+    "laneId": "SQNT-03F-MIXED-TARGET-DIRTY-REPLAY",
+    "routeClass": "mixed-target-outcome-route",
+    "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt",
+    "routeConnectorValidation": {
+      "connectorSha256": "7aa5c3bc5a374751af296b0c03f3ed7222346e150501269a5d7ab078bd103795",
+      "inventoryKind": "reducer-route-inventory",
+      "purpose": "lane authority; focused dirty replay validates copied MixedTargetOutcomeSpellRouteSubject rows directly"
+    },
+    "selectedDrivers": [
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
+    ],
+    "selectedDriversPurpose": "downstream source-branch evidence checker only; selected identity rows are counted only when matched by generic SQNT-03F facts"
+  }
+}

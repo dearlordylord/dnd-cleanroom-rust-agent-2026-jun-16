@@ -1494,6 +1494,17 @@ pub enum BattleSubjectKind {
     ObjectLightDurationTurnBoundary,
     ObjectLightDurationActiveEffectCleanup,
     ObjectLightTableWitness,
+    MixedTargetOutcomeInitialSavingThrow,
+    MixedTargetOutcomeInitialTargetChoice,
+    MixedTargetOutcomeTargetChoiceToAttack,
+    MixedTargetOutcomeTargetChoiceToSavingThrow,
+    MixedTargetOutcomeAttackRollToSavingThrow,
+    MixedTargetOutcomeAttackRollToDamage,
+    MixedTargetOutcomeSavingThrowToDamage,
+    MixedTargetOutcomeDamageRoll,
+    MixedTargetOutcomeRolledDiceToTargetChoice,
+    MixedTargetOutcomeDamageRollToTargetChoice,
+    MixedTargetOutcomeProjection,
     SaveGatedNextAttackRollModeTargetChoice,
     SaveGatedNextAttackRollModeSavingThrow,
     SaveGatedConditionRiderTargetChoice,
@@ -2903,6 +2914,7 @@ pub enum BattleReducerRouteSubjectFamily {
     ProtectionCharmActiveEffect,
     CharmSourceDamageBreak,
     WardedTargetInterdiction,
+    MixedTargetOutcomeSpell,
     WeaponEnhancementItemTarget,
 }
 
@@ -2957,6 +2969,7 @@ pub enum BattleReducerRouteOwnerGroup {
     TurnBoundary,
     ArmorClass,
     LightProjection,
+    SpellInvocation,
 }
 
 pub type BattleReducerRouteResolutionOutcome = BattleResolutionOutcome;
@@ -7977,6 +7990,17 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::ObjectLightDurationTurnBoundary
             | BattleSubjectKind::ObjectLightDurationActiveEffectCleanup
             | BattleSubjectKind::ObjectLightTableWitness
+            | BattleSubjectKind::MixedTargetOutcomeInitialSavingThrow
+            | BattleSubjectKind::MixedTargetOutcomeInitialTargetChoice
+            | BattleSubjectKind::MixedTargetOutcomeTargetChoiceToAttack
+            | BattleSubjectKind::MixedTargetOutcomeTargetChoiceToSavingThrow
+            | BattleSubjectKind::MixedTargetOutcomeAttackRollToSavingThrow
+            | BattleSubjectKind::MixedTargetOutcomeAttackRollToDamage
+            | BattleSubjectKind::MixedTargetOutcomeSavingThrowToDamage
+            | BattleSubjectKind::MixedTargetOutcomeDamageRoll
+            | BattleSubjectKind::MixedTargetOutcomeRolledDiceToTargetChoice
+            | BattleSubjectKind::MixedTargetOutcomeDamageRollToTargetChoice
+            | BattleSubjectKind::MixedTargetOutcomeProjection
             | BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
             | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
             | BattleSubjectKind::SaveGatedConditionRiderTargetChoice
@@ -8163,17 +8187,17 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
         FeatureResource, HitPoint, HitPointAndZeroHpLifecycle, HoleFrontier, InterruptStack,
         LightProjection as LightProjectionOwner, MovementResource, ObjectTargetBoundary,
         SavingThrowOutcome as SavingThrowOutcomeOwner, SpellAttackProcedure as SpellAttackOwner,
-        SpellSlotAndActionEconomy, StatBlockAction, TargetSelection, TemporaryHitPoint,
-        TurnBoundary,
+        SpellInvocation, SpellSlotAndActionEconomy, StatBlockAction, TargetSelection,
+        TemporaryHitPoint, TurnBoundary,
     };
     use BattleReducerRouteSubjectFamily::{
         AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
         CompanionTouchDelivery, ConditionRider, CreatureTypeTargetAdmission,
         HeldWeaponActiveEffect, HitPointRegainPrevention, InterruptStackResume, MarkedEffect,
-        NextAttackRollMode, ObjectLightRider, ObjectTargetSpellAttack, ProtectionCharmActiveEffect,
-        ReactionInterdiction, ReactionSpell, SaveGatedSpell, ScalarBuffEffect, SlotSpell,
-        SpellAttack, SpellHostedWeaponAttack, WardedTargetInterdiction, WeaponAttack,
-        WeaponDamageRider, WeaponEnhancementItemTarget,
+        MixedTargetOutcomeSpell, NextAttackRollMode, ObjectLightRider, ObjectTargetSpellAttack,
+        ProtectionCharmActiveEffect, ReactionInterdiction, ReactionSpell, SaveGatedSpell,
+        ScalarBuffEffect, SlotSpell, SpellAttack, SpellHostedWeaponAttack,
+        WardedTargetInterdiction, WeaponAttack, WeaponDamageRider, WeaponEnhancementItemTarget,
     };
 
     match kind {
@@ -8563,6 +8587,47 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             holes: Vec::new(),
             discover_owner: BattleReducerRouteOwnerGroup::AreaShape,
             resolve_owner: BattleReducerRouteOwnerGroup::AreaShape,
+        },
+        BattleSubjectKind::MixedTargetOutcomeInitialSavingThrow => GenericRouteShape {
+            subject: MixedTargetOutcomeSpell,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: SpellInvocation,
+            resolve_owner: SpellInvocation,
+        },
+        BattleSubjectKind::MixedTargetOutcomeInitialTargetChoice
+        | BattleSubjectKind::MixedTargetOutcomeTargetChoiceToAttack
+        | BattleSubjectKind::MixedTargetOutcomeTargetChoiceToSavingThrow
+        | BattleSubjectKind::MixedTargetOutcomeDamageRollToTargetChoice => GenericRouteShape {
+            subject: MixedTargetOutcomeSpell,
+            holes: vec![TargetChoice],
+            discover_owner: SpellInvocation,
+            resolve_owner: SpellInvocation,
+        },
+        BattleSubjectKind::MixedTargetOutcomeAttackRollToSavingThrow
+        | BattleSubjectKind::MixedTargetOutcomeAttackRollToDamage => GenericRouteShape {
+            subject: MixedTargetOutcomeSpell,
+            holes: vec![AttackRoll],
+            discover_owner: SpellInvocation,
+            resolve_owner: SpellInvocation,
+        },
+        BattleSubjectKind::MixedTargetOutcomeSavingThrowToDamage => GenericRouteShape {
+            subject: MixedTargetOutcomeSpell,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: SpellInvocation,
+            resolve_owner: SpellInvocation,
+        },
+        BattleSubjectKind::MixedTargetOutcomeDamageRoll
+        | BattleSubjectKind::MixedTargetOutcomeRolledDiceToTargetChoice => GenericRouteShape {
+            subject: MixedTargetOutcomeSpell,
+            holes: vec![RolledDice],
+            discover_owner: SpellInvocation,
+            resolve_owner: SpellInvocation,
+        },
+        BattleSubjectKind::MixedTargetOutcomeProjection => GenericRouteShape {
+            subject: MixedTargetOutcomeSpell,
+            holes: Vec::new(),
+            discover_owner: SpellInvocation,
+            resolve_owner: SpellInvocation,
         },
         BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice => GenericRouteShape {
             subject: SaveGatedSpell,
@@ -10806,6 +10871,17 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::WardedSpellCastEarlyEnd
             | BattleSubjectKind::WardedDamageEarlyEnd
             | BattleSubjectKind::WardedActiveEffectCleanup
+            | BattleSubjectKind::MixedTargetOutcomeInitialSavingThrow
+            | BattleSubjectKind::MixedTargetOutcomeInitialTargetChoice
+            | BattleSubjectKind::MixedTargetOutcomeTargetChoiceToAttack
+            | BattleSubjectKind::MixedTargetOutcomeTargetChoiceToSavingThrow
+            | BattleSubjectKind::MixedTargetOutcomeAttackRollToSavingThrow
+            | BattleSubjectKind::MixedTargetOutcomeAttackRollToDamage
+            | BattleSubjectKind::MixedTargetOutcomeSavingThrowToDamage
+            | BattleSubjectKind::MixedTargetOutcomeDamageRoll
+            | BattleSubjectKind::MixedTargetOutcomeRolledDiceToTargetChoice
+            | BattleSubjectKind::MixedTargetOutcomeDamageRollToTargetChoice
+            | BattleSubjectKind::MixedTargetOutcomeProjection
             | BattleSubjectKind::StatBlockAction
             | BattleSubjectKind::EndTurn,
             _,
@@ -11684,6 +11760,24 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::SaveGatedConditionRiderTargetChoice => {
             fill == BattleGenericRouteFill::TargetChoice
         }
+        BattleSubjectKind::MixedTargetOutcomeInitialTargetChoice
+        | BattleSubjectKind::MixedTargetOutcomeTargetChoiceToAttack
+        | BattleSubjectKind::MixedTargetOutcomeTargetChoiceToSavingThrow
+        | BattleSubjectKind::MixedTargetOutcomeDamageRollToTargetChoice => {
+            fill == BattleGenericRouteFill::TargetChoice
+        }
+        BattleSubjectKind::MixedTargetOutcomeInitialSavingThrow
+        | BattleSubjectKind::MixedTargetOutcomeSavingThrowToDamage => {
+            fill == BattleGenericRouteFill::SavingThrowOutcome
+        }
+        BattleSubjectKind::MixedTargetOutcomeAttackRollToSavingThrow
+        | BattleSubjectKind::MixedTargetOutcomeAttackRollToDamage => {
+            fill == BattleGenericRouteFill::AttackRoll
+        }
+        BattleSubjectKind::MixedTargetOutcomeDamageRoll
+        | BattleSubjectKind::MixedTargetOutcomeRolledDiceToTargetChoice => {
+            fill == BattleGenericRouteFill::RolledDice
+        }
         BattleSubjectKind::ObjectLightObjectAttachedAdmission
         | BattleSubjectKind::ObjectLightObjectAttachedRejection => {
             fill == BattleGenericRouteFill::TargetChoice
@@ -11779,6 +11873,7 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::ObjectLightDurationTurnBoundary
         | BattleSubjectKind::ObjectLightDurationActiveEffectCleanup
         | BattleSubjectKind::ObjectLightTableWitness
+        | BattleSubjectKind::MixedTargetOutcomeProjection
         | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
         | BattleSubjectKind::NextAttackRollModeProjection
         | BattleSubjectKind::NextAttackRollModeDurationExpiry
@@ -11997,6 +12092,33 @@ fn generic_route_next_holes(
             BattleGenericRouteFill::TargetChoice,
         ) => vec![BattleHoleKind::SavingThrowOutcome],
         (
+            BattleSubjectKind::MixedTargetOutcomeInitialTargetChoice
+            | BattleSubjectKind::MixedTargetOutcomeTargetChoiceToAttack
+            | BattleSubjectKind::MixedTargetOutcomeDamageRollToTargetChoice,
+            BattleGenericRouteFill::TargetChoice,
+        ) => vec![BattleHoleKind::AttackRoll],
+        (
+            BattleSubjectKind::MixedTargetOutcomeTargetChoiceToSavingThrow,
+            BattleGenericRouteFill::TargetChoice,
+        ) => vec![BattleHoleKind::SavingThrowOutcome],
+        (
+            BattleSubjectKind::MixedTargetOutcomeInitialSavingThrow
+            | BattleSubjectKind::MixedTargetOutcomeSavingThrowToDamage,
+            BattleGenericRouteFill::SavingThrowOutcome,
+        ) => vec![BattleHoleKind::RolledDice],
+        (
+            BattleSubjectKind::MixedTargetOutcomeAttackRollToSavingThrow,
+            BattleGenericRouteFill::AttackRoll,
+        ) => vec![BattleHoleKind::SavingThrowOutcome],
+        (
+            BattleSubjectKind::MixedTargetOutcomeAttackRollToDamage,
+            BattleGenericRouteFill::AttackRoll,
+        ) => vec![BattleHoleKind::RolledDice],
+        (
+            BattleSubjectKind::MixedTargetOutcomeRolledDiceToTargetChoice,
+            BattleGenericRouteFill::RolledDice,
+        ) => vec![BattleHoleKind::TargetChoice],
+        (
             BattleSubjectKind::TurnBoundaryEffectLifecycleTargetStartDamage,
             BattleGenericRouteFill::RolledDice,
         ) => vec![BattleHoleKind::SavingThrowOutcome],
@@ -12138,6 +12260,8 @@ fn generic_route_next_holes(
             | BattleSubjectKind::ObjectLightDurationTurnBoundary
             | BattleSubjectKind::ObjectLightDurationActiveEffectCleanup
             | BattleSubjectKind::ObjectLightTableWitness
+            | BattleSubjectKind::MixedTargetOutcomeDamageRoll
+            | BattleSubjectKind::MixedTargetOutcomeProjection
             | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
             | BattleSubjectKind::NextAttackRollModeProjection
             | BattleSubjectKind::NextAttackRollModeDurationExpiry

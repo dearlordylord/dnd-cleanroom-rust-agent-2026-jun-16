@@ -1,0 +1,52 @@
+{
+  "findings": [],
+  "rounds": [
+    {
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "notes": "Read the copied SQNT-03F route connector and mixed-target route facts. The dirty replay is limited to route facts named there: area mixed Saving Throw outcomes, attack-hit burst save, attack-miss burst save, object secondary projection, condition secondary projection, save-failure next-Attack-Roll projection, and chained attack target projection.",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "notes": "Runtime vocabulary uses spell invocation, target, Attack Roll, Saving Throw, damage roll, damage projection, and secondary projection language from copied cleanroom inputs. Authored selected spell names remain in evidence artifacts only.",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "notes": "Mixed target route subject family, invocation owner, fill gates, next-hole transitions, and adapter expected route rows are localized in reducer route vocabulary and the focused SQNT-03F adapter. Sequence-specific internal subject kinds all project to one public MixedTargetOutcomeSpellRouteSubject.",
+          "status": "pass"
+        },
+        {
+          "checklist": "no-redundant-state",
+          "notes": "No durable BattleState field was added. Copied facts are witness facts derived for route evidence, not battle-owned state. Shared spend and shared Saving Throw damage-roll facts remain separate.",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "notes": "Production reducers dispatch on typed route subjects, fill kinds, and holes. No production branch dispatches on selected spell names, ids, slugs, source headings, page refs, or official catalog labels.",
+          "status": "pass"
+        },
+        {
+          "checklist": "code-review",
+          "notes": "Focused test compares expected connector routes with observed public reducer route events for all 7 SQNT-03F connector actions and checks fact payload separation for shared spend versus shared Saving Throw damage-roll facts.",
+          "status": "pass"
+        }
+      ],
+      "round": 1
+    },
+    {
+      "passes": [
+        {
+          "checklist": "reviewer-loop-convergence",
+          "notes": "Second pass after focused test and evidence validation found no reasonable additional findings. Selected level-1 damage spell identity, exact damage projection, active-effect rider routing, and object/light rows are explicitly blocked where outside copied 03F connector facts.",
+          "status": "pass"
+        }
+      ],
+      "round": 2
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "FCSF-03F-MIXED-TARGET-OUTCOMES"
+}

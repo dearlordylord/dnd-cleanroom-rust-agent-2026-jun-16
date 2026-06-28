@@ -187,6 +187,7 @@ pub enum ReducerRouteSubjectFamily {
     ProtectionCharmActiveEffect,
     CharmSourceDamageBreak,
     WardedTargetInterdiction,
+    MixedTargetOutcomeSpell,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -228,6 +229,7 @@ pub enum ReducerRouteOwnerGroup {
     TurnBoundary,
     ArmorClass,
     LightProjection,
+    SpellInvocation,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1106,6 +1108,9 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::WardedTargetInterdiction => {
             ReducerRouteSubjectFamily::WardedTargetInterdiction
         }
+        BattleReducerRouteSubjectFamily::MixedTargetOutcomeSpell => {
+            ReducerRouteSubjectFamily::MixedTargetOutcomeSpell
+        }
     }
 }
 
@@ -1286,6 +1291,7 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
         BattleReducerRouteOwnerGroup::TurnBoundary => ReducerRouteOwnerGroup::TurnBoundary,
         BattleReducerRouteOwnerGroup::ArmorClass => ReducerRouteOwnerGroup::ArmorClass,
         BattleReducerRouteOwnerGroup::LightProjection => ReducerRouteOwnerGroup::LightProjection,
+        BattleReducerRouteOwnerGroup::SpellInvocation => ReducerRouteOwnerGroup::SpellInvocation,
     }
 }
 
@@ -1639,6 +1645,7 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::TurnBoundary => "BattleTurnBoundaryOwner",
         ReducerRouteOwnerGroup::ArmorClass => "BattleArmorClassOwner",
         ReducerRouteOwnerGroup::LightProjection => "BattleLightProjectionOwner",
+        ReducerRouteOwnerGroup::SpellInvocation => "BattleSpellInvocationOwner",
     }
 }
 
@@ -1773,6 +1780,7 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         ReducerRouteSubjectFamily::WardedTargetInterdiction => {
             "WardedTargetInterdictionRouteSubject"
         }
+        ReducerRouteSubjectFamily::MixedTargetOutcomeSpell => "MixedTargetOutcomeSpellRouteSubject",
     }
 }
 
