@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "wave2-source-qnt-lanes-active",
+  "status": "wave2-source-qnt-condition-lifecycle-accepted",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -757,15 +757,6 @@
   "activeLaneWorktrees": [],
   "activeSourceQntLanes": [
     {
-      "laneId": "SQNT-07A-CONDITION-LIFECYCLE",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-condition-lifecycle",
-      "branch": "ralph/source-sqnt-07a-condition-lifecycle",
-      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
-      "workerAgent": "Hegel the 3rd (019f0f93-8d04-78c1-944c-ac416d41cd8c)",
-      "status": "active",
-      "purpose": "Add generic Paralyzed/Incapacitated until-spell-end repeat-save lifecycle and laughter-style Incapacitated plus Prone lifecycle route facts."
-    },
-    {
       "laneId": "SQNT-07A-MARKED-DAMAGE-AND-IMMUNITY",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-marked-damage-immunity",
       "branch": "ralph/source-sqnt-07a-marked-damage-immunity",
@@ -1006,6 +997,32 @@
         "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19"
       ],
       "targetAcceptance": "dirty-target-replay-accepted-at-73627315f70528e73f5eb4ef781606e876e87367; fresh-target-acceptance-not-claimed"
+    },
+    {
+      "laneId": "SQNT-07A-CONDITION-LIFECYCLE",
+      "status": "accepted-source-merged",
+      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
+      "sourceCommit": "df223d2389e95e416993c300dae97720d5fc99c9",
+      "workerAgent": "Hegel the 3rd (019f0f93-8d04-78c1-944c-ac416d41cd8c)",
+      "reviewerAgent": "Russell the 3rd (019f0f9e-85c3-7582-87c8-80c64d7d6870) plus orchestrator review",
+      "artifacts": [
+        "packages/battle-runtime/battle-runtime-condition-rider-route-facts.qnt",
+        "packages/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+        "packages/battle-runtime/src/battle-runtime-mbt-driver-kit.ts",
+        "plans/cleanroom-branch-coverage/reducer-route-inventory.json"
+      ],
+      "checks": [
+        "pnpm exec quint typecheck packages/battle-runtime/battle-runtime-condition-rider-route-facts.qnt",
+        "pnpm exec quint typecheck packages/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+        "pnpm --filter @dnd/battle-runtime test:mbt:reducer-route-connectors",
+        "pnpm check:mbt-driver-closure",
+        "pnpm check:reducer-route-connectors",
+        "pnpm rules-kernel-coverage:check",
+        "pnpm cleanroom-branch-coverage:check",
+        "pnpm --filter @dnd/battle-runtime typecheck",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "coverageClaim": "Adds generic Paralyzed with implied Incapacitated until-spell-end repeat-save and laughter-style Incapacitated plus Prone blocked-self-end lifecycle route facts; selected condition driver remains catalog-after-substrate with five current out-of-scope branches preserved."
     }
   ],
   "completedLaneWorktrees": [
@@ -3672,7 +3689,8 @@
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints.",
     "Fresh target FRESH-RR-SPATIAL-DAMAGE is accepted-with-blockers at b28d9dbdd83c49bdd21dd36473d0b96612279fb7. Its verifier derives object/light and mixed-target expected records from copied QNT/vocabulary facts and compares them to public reducer observations; SQNT-03G exact damage and FCSF-04 stale-object route rows remain downgraded blockers.",
     "Fresh target FRESH-RR-BATTLE-ACTIVE-EFFECTS is accepted-with-blockers at 10918170ebbb342c7d45664601cb8eb354991db2. Its verifier derives SQNT-03A/B/C/D active-effect expected records from copied route connectors and compares them to public reducer observations; FCSF-05 trigger taxonomy remains blocked for durable production state.",
-    "Wave 2 source-QNT lanes are active from source base 21504ef764118f5fd13086aa6266f19280196664: condition lifecycle, marked damage/immunity, spatial effects, and movement/presentation. Workers must add generic route facts plus TS MBT parity tests without running MBT concurrently; orchestrator schedules MBT during integration."
+    "Wave 2 source-QNT lanes are active from source base 21504ef764118f5fd13086aa6266f19280196664: condition lifecycle, marked damage/immunity, spatial effects, and movement/presentation. Workers must add generic route facts plus TS MBT parity tests without running MBT concurrently; orchestrator schedules MBT during integration.",
+    "SQNT-07A-CONDITION-LIFECYCLE is source-merged at df223d2389e95e416993c300dae97720d5fc99c9. After all active Wave 2 source lanes merge, refresh cleanroom-input from source master and launch fresh/dirty target replay only for rows supported by the copied generic route facts."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
