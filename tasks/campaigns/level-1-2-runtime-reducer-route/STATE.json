@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03a-dirty-replay-running",
+  "status": "sqnt03a-dirty-replay-merged-verified",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "9c9d728640e28a003a5a051f7ddc9be56bbc980e",
+    "lastVerifiedIntegrationHead": "73627315f70528e73f5eb4ef781606e876e87367",
     "lastMergedLane": {
-      "laneId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY",
-      "mergeCommit": "9c9d728640e28a003a5a051f7ddc9be56bbc980e",
-      "laneHead": "6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b",
-      "note": "Diagnostic dirty target replay only. The worker consumed source commit d63838e22137c4b329dc877ca0d963876f3459bf object stale route-history facts and accepted 6 connector rows covering 7 Starry Wisp object driver obligations. This does not claim fresh target acceptance."
+      "laneId": "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY",
+      "mergeCommit": "73627315f70528e73f5eb4ef781606e876e87367",
+      "laneHead": "a8aa385f07bd937cec62ca6f2a934c259cda3e53",
+      "note": "Diagnostic dirty target replay only. The worker consumed source commit c83c4a2321ff45c796245d65ba979b9068c6718a SQNT-03A hit-point-regain-prevention route facts and accepted 3 connector transitions covering the Chill Touch hit-point-regain-prevention attack-shape obligation. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
       "sourceCommitSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
@@ -34,9 +34,9 @@
         },
         {
           "task": "SQNT-03A",
-          "status": "hit-point-regain-prevention-route-connector-packaged",
+          "status": "hit-point-regain-prevention-route-connector-packaged-and-dirty-replayed",
           "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt and reducer-route-inventory.json FCSF-03A route record",
-          "note": "The copied route connector now exposes generic HitPointRegainPreventionRouteSubject evidence for attack-hit active-effect admission, later Hit Point healing interdiction, turn-boundary duration expiry, and active-effect cleanup. This resolves the FCSF-03A source-input blocker only; target replay remains pending."
+          "note": "The copied route connector now exposes generic HitPointRegainPreventionRouteSubject evidence for attack-hit active-effect admission, later Hit Point healing interdiction, turn-boundary duration expiry, and active-effect cleanup. Dirty target replay accepted these connector facts at merge 73627315f70528e73f5eb4ef781606e876e87367; fresh target acceptance remains unclaimed."
         },
         {
           "task": "source-feedback Task 8",
@@ -123,6 +123,38 @@
     "acceptedObligationsSource": "CP8 accepted the final three in-scope Mage Armor admission/lifecycle rows after the source refresh supplied cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt. Canonical in-scope denominator is 659; accepted obligation coverage is 659/659."
   },
   "dirtyTargetReplayRefreshes": [
+    {
+      "id": "fcsf03a-hit-point-regain-prevention-dirty-replay",
+      "status": "dirty-target-replay-complete",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03a-hit-point-regain-replay",
+      "branch": "ralph/sqnt03a-hit-point-regain-dirty-replay",
+      "baseCommit": "f41199ade4a4af944c2a3cf19799a8279592b967",
+      "workerAgent": "Bernoulli the 3rd (019f0d77-7d4a-7bd3-a525-be8338886cf0)",
+      "workerCommit": "850be3ddf7968f8c49543e05fe5b1c99a01d4f1a",
+      "fixCommit": "a8aa385f07bd937cec62ca6f2a934c259cda3e53",
+      "reviewAgent": "Schrodinger the 3rd (019f0d88-ba50-7390-8ddf-9426f4e77999)",
+      "reviewVerdict": "accepted after follow-up fix for public targeted subject construction and expiry-before-cleanup lifecycle enforcement",
+      "mergeCommit": "73627315f70528e73f5eb4ef781606e876e87367",
+      "manifestSourceCommitSha": "c83c4a2321ff45c796245d65ba979b9068c6718a",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
+      "evidence": "tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json",
+      "acceptedConnectorRows": 3,
+      "coveredSourceDriverObligations": 1,
+      "targetBlockedRows": 0,
+      "connectorScopeBlockedRows": 5,
+      "checks": [
+        "cargo test hit_point_regain_prevention -- --nocapture",
+        "cargo test attack_spell_shape -- --nocapture",
+        "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD",
+        "node scripts/check-cleanroom-harness.cjs (failed only on known stale validator hashes)"
+      ],
+      "note": "Diagnostic dirty target replay only. Accepted SQNT-03A route connector transitions for attack-hit active-effect admission, later healing interdiction, turn-boundary owner expiry, and active-effect cleanup through public reducer route events. The five non-regain attack-shape rows are connector-scope blockers only because this copied route connector has no HitPointRegainPreventionRouteSubject facts for those branches. No fresh target acceptance claimed."
+    },
     {
       "id": "pact-slot-handoff-init-projection-route",
       "status": "dirty-target-replay-complete",
@@ -505,38 +537,28 @@
     "L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES": "merged-verified",
     "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY": "merged-verified-with-target-blockers",
     "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY": "merged-verified",
-    "FCSF-04-OBJECT-STALE-DIRTY-REPLAY": "merged-verified"
+    "FCSF-04-OBJECT-STALE-DIRTY-REPLAY": "merged-verified",
+    "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "9c9d728640e28a003a5a051f7ddc9be56bbc980e",
+    "head": "73627315f70528e73f5eb4ef781606e876e87367",
     "commands": [
       "cargo fmt --check",
-      "cargo test starry_wisp_object -- --nocapture",
-      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json",
+      "cargo test hit_point_regain_prevention -- --nocapture",
+      "cargo test attack_spell_shape -- --nocapture",
+      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json",
       "git diff --check HEAD~1...HEAD",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings",
       "node scripts/check-cleanroom-harness.cjs"
     ],
     "result": "passed except cleanroom harness failed only on known stale validator hashes in cleanroom-input/MANIFEST.md",
-    "cargoTest": "222 passed",
-    "focusedTests": "FCSF-04 dirty replay evidence records 7 driver obligation runs, 6 connector runs, 0 blocked runs, and the target replay evidence validator covers all 7 Starry Wisp object obligations.",
-    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no FCSF-04 evidence, ledger, or artifact failures",
-    "review": "Averroes the 3rd review returned no blockers for worker commit 6d3aa2c2db5f1b4a16b4a7685b7e1b58e6f8a33b."
+    "cargoTest": "224 passed",
+    "focusedTests": "SQNT-03A dirty replay accepted 3 connector transitions, covered 1 attack-shape source obligation, and records 0 SQNT-03A target behavior blockers. The evidence validator covers doChillTouchHitPointRegainPrevention; 5 non-regain attack-shape rows remain connector-scope blockers only.",
+    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03A evidence, ledger, or artifact failures",
+    "review": "Schrodinger the 3rd initially found two blockers: adapter-local targeted subject construction and cleanup not gated by expiry. Bernoulli fixed both in a8aa385f07bd937cec62ca6f2a934c259cda3e53 by adding public targeted subject construction and Inactive/Active/Expired lifecycle gating. Schrodinger re-review accepted the lane."
   },
-  "activeLaneWorktrees": [
-    {
-      "laneId": "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY",
-      "routeTaskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03a-hit-point-regain-replay",
-      "branch": "ralph/sqnt03a-hit-point-regain-dirty-replay",
-      "baseSha": "f41199ade4a4af944c2a3cf19799a8279592b967",
-      "workerAgent": "019f0d77-7d4a-7bd3-a525-be8338886cf0",
-      "workerName": "Bernoulli the 3rd",
-      "status": "running",
-      "scope": "dirty target replay against copied SQNT-03A connector; no fresh target acceptance claimed"
-    }
-  ],
+  "activeLaneWorktrees": [],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
@@ -564,10 +586,36 @@
         "MBT_TRACES=1 pnpm exec vitest run src/reducer-route-connectors.mbt.test.ts -t \"routes Hit Point regain prevention through the shared reducer surface\"",
         "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19"
       ],
-      "targetAcceptance": "pending"
+      "targetAcceptance": "dirty-target-replay-accepted-at-73627315f70528e73f5eb4ef781606e876e87367; fresh-target-acceptance-not-claimed"
     }
   ],
   "completedLaneWorktrees": [
+    {
+      "laneId": "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03a-hit-point-regain-replay",
+      "branch": "ralph/sqnt03a-hit-point-regain-dirty-replay",
+      "baseSha": "f41199ade4a4af944c2a3cf19799a8279592b967",
+      "status": "merged-verified",
+      "workerAgent": "019f0d77-7d4a-7bd3-a525-be8338886cf0",
+      "workerName": "Bernoulli the 3rd",
+      "workerCommit": "850be3ddf7968f8c49543e05fe5b1c99a01d4f1a",
+      "fixCommit": "a8aa385f07bd937cec62ca6f2a934c259cda3e53",
+      "sourcePackageCommit": "c83c4a2321ff45c796245d65ba979b9068c6718a",
+      "freshTargetAcceptance": "not-claimed",
+      "routeTaskId": "FCSF-03A-HIT-POINT-REGAIN-PREVENTION",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
+      "acceptedConnectorRows": 3,
+      "coveredSourceDriverObligations": 1,
+      "targetBlockedRows": 0,
+      "connectorScopeBlockedRows": 5,
+      "reviewAgent": "019f0d88-ba50-7390-8ddf-9426f4e77999",
+      "reviewName": "Schrodinger the 3rd",
+      "reviewVerdict": "accepted after follow-up fix",
+      "mergeCommit": "73627315f70528e73f5eb4ef781606e876e87367",
+      "evidence": "tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json",
+      "statusNote": "removable after campaign retention decision; dirty replay only, not fresh target acceptance"
+    },
     {
       "laneId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf04-object-stale-replay",
