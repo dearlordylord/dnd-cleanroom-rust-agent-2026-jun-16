@@ -168,6 +168,10 @@ pub enum ReducerRouteSubjectFamily {
     ZeroHitPointSpellEffectTeardown,
     ArmorClassSpellEffect,
     ReactionSpell,
+    ReactionArmorClassEffect,
+    ReactionAfterDamageEffect,
+    ReactionSpellInterruption,
+    ReactionFallMitigation,
     SpellDamageReduction,
     CompanionLifecycle,
     CompanionSharedSenses,
@@ -266,6 +270,13 @@ pub enum ReducerRouteEvent {
         holes: Vec<ReducerRouteHoleKind>,
         owner: ReducerRouteOwnerGroup,
     },
+    ResolveBattleInterrupt {
+        subject: ReducerRouteSubjectFamily,
+        fill: ReducerRouteFillEvidence,
+        outcome: ReducerRouteResolutionOutcome,
+        holes: Vec<ReducerRouteHoleKind>,
+        owner: ReducerRouteOwnerGroup,
+    },
     ResolveBattleSubjectWithoutFill {
         subject: ReducerRouteSubjectFamily,
         outcome: ReducerRouteResolutionOutcome,
@@ -305,6 +316,28 @@ impl PartialEq for ReducerRouteEvent {
                     owner: left_owner,
                 },
                 Self::ResolveBattleSubject {
+                    subject: right_subject,
+                    fill: right_fill,
+                    outcome: right_outcome,
+                    holes: right_holes,
+                    owner: right_owner,
+                },
+            ) => {
+                left_subject == right_subject
+                    && left_fill == right_fill
+                    && left_outcome == right_outcome
+                    && left_holes == right_holes
+                    && left_owner == right_owner
+            }
+            (
+                Self::ResolveBattleInterrupt {
+                    subject: left_subject,
+                    fill: left_fill,
+                    outcome: left_outcome,
+                    holes: left_holes,
+                    owner: left_owner,
+                },
+                Self::ResolveBattleInterrupt {
                     subject: right_subject,
                     fill: right_fill,
                     outcome: right_outcome,
@@ -419,6 +452,22 @@ pub fn route_resolve_battle_subject_from_route_result(
         holes,
         owner,
     )
+}
+
+#[must_use]
+pub fn route_resolve_battle_interrupt_from_route_holes(
+    subject: ReducerRouteSubjectFamily,
+    fill: ReducerRouteFillKind,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    ReducerRouteEvent::ResolveBattleInterrupt {
+        subject,
+        fill: ReducerRouteFillEvidence::FillKind(fill),
+        outcome: route_outcome_for_holes(&holes),
+        holes: sorted_route_holes(holes),
+        owner,
+    }
 }
 
 #[must_use]
@@ -714,6 +763,19 @@ pub fn reducer_route_event_from_observed(event: &BattleReducerRouteEvent) -> Red
             holes: reducer_route_holes_from_route_slice(holes),
             owner: reducer_route_owner(*owner),
         },
+        BattleReducerRouteEvent::ResolveBattleInterrupt {
+            subject,
+            fill,
+            outcome,
+            holes,
+            owner,
+        } => ReducerRouteEvent::ResolveBattleInterrupt {
+            subject: reducer_route_subject(*subject),
+            fill: reducer_route_fill_evidence(*fill),
+            outcome: reducer_route_outcome_from_battle(*outcome),
+            holes: reducer_route_holes_from_route_slice(holes),
+            owner: reducer_route_owner(*owner),
+        },
         BattleReducerRouteEvent::ResolveBattleSubjectWithoutFill {
             subject,
             outcome,
@@ -783,6 +845,7 @@ fn route_event_matches_subjects(
         ReducerRouteEvent::StartBattle { .. } => true,
         ReducerRouteEvent::DiscoverBattleActs { subject, .. }
         | ReducerRouteEvent::ResolveBattleSubject { subject, .. }
+        | ReducerRouteEvent::ResolveBattleInterrupt { subject, .. }
         | ReducerRouteEvent::ResolveBattleSubjectWithoutFill { subject, .. } => {
             subjects.contains(subject)
         }
@@ -977,6 +1040,18 @@ const fn reducer_route_subject(
             ReducerRouteSubjectFamily::ArmorClassSpellEffect
         }
         BattleReducerRouteSubjectFamily::ReactionSpell => ReducerRouteSubjectFamily::ReactionSpell,
+        BattleReducerRouteSubjectFamily::ReactionArmorClassEffect => {
+            ReducerRouteSubjectFamily::ReactionArmorClassEffect
+        }
+        BattleReducerRouteSubjectFamily::ReactionAfterDamageEffect => {
+            ReducerRouteSubjectFamily::ReactionAfterDamageEffect
+        }
+        BattleReducerRouteSubjectFamily::ReactionSpellInterruption => {
+            ReducerRouteSubjectFamily::ReactionSpellInterruption
+        }
+        BattleReducerRouteSubjectFamily::ReactionFallMitigation => {
+            ReducerRouteSubjectFamily::ReactionFallMitigation
+        }
         BattleReducerRouteSubjectFamily::SpellDamageReduction => {
             ReducerRouteSubjectFamily::SpellDamageReduction
         }
@@ -1335,6 +1410,20 @@ fn route_event_ref(event: &ReducerRouteEvent) -> String {
             joined_holes(holes),
             owner_ref(*owner)
         ),
+        ReducerRouteEvent::ResolveBattleInterrupt {
+            subject,
+            fill,
+            outcome,
+            holes,
+            owner,
+        } => format!(
+            "resolve_battle_interrupt subject={} fill={} outcome={} holes={} owner={}",
+            subject_ref(*subject),
+            fill_ref(*fill),
+            outcome_ref(*outcome),
+            joined_holes(holes),
+            owner_ref(*owner)
+        ),
         ReducerRouteEvent::ResolveBattleSubjectWithoutFill {
             subject,
             outcome,
@@ -1605,6 +1694,16 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
         }
         ReducerRouteSubjectFamily::ArmorClassSpellEffect => "SpellBaseArmorClassEffectRouteSubject",
         ReducerRouteSubjectFamily::ReactionSpell => "ReactionSpellRouteSubject",
+        ReducerRouteSubjectFamily::ReactionArmorClassEffect => {
+            "ReactionArmorClassEffectRouteSubject"
+        }
+        ReducerRouteSubjectFamily::ReactionAfterDamageEffect => {
+            "ReactionAfterDamageEffectRouteSubject"
+        }
+        ReducerRouteSubjectFamily::ReactionSpellInterruption => {
+            "ReactionSpellInterruptionRouteSubject"
+        }
+        ReducerRouteSubjectFamily::ReactionFallMitigation => "ReactionFallMitigationRouteSubject",
         ReducerRouteSubjectFamily::SpellDamageReduction => "SpellDamageReductionRouteSubject",
         ReducerRouteSubjectFamily::StatBlockAction => "StatBlockActionRouteSubject",
         ReducerRouteSubjectFamily::WeaponAttack => "WeaponAttackRouteSubject",

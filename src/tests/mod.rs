@@ -58,6 +58,8 @@ mod battle_runtime_movement_forced_movement_selected_identity;
 mod battle_runtime_quickened_spell_governor;
 #[path = "../qnt_adapters/battle_runtime_reaction_casting_time.rs"]
 mod battle_runtime_reaction_casting_time;
+#[path = "../qnt_adapters/battle_runtime_reaction_interrupt_payload_taxonomy.rs"]
+mod battle_runtime_reaction_interrupt_payload_taxonomy;
 #[path = "../qnt_adapters/battle_runtime_reaction_spell_selected_identity.rs"]
 mod battle_runtime_reaction_spell_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_reducer_route.rs"]
@@ -858,6 +860,11 @@ use battle_runtime_reaction_casting_time::{
     replay_observed_route as replay_reaction_casting_time_route,
     BRANCH_ACTIONS as REACTION_CASTING_TIME_BRANCH_ACTIONS,
     TARGET_BLOCKED_BRANCH_ACTIONS as REACTION_CASTING_TIME_TARGET_BLOCKED_BRANCH_ACTIONS,
+};
+use battle_runtime_reaction_interrupt_payload_taxonomy::{
+    expected_route as expected_reaction_interrupt_payload_taxonomy_route,
+    replay_observed_route as replay_reaction_interrupt_payload_taxonomy_route,
+    BRANCH_ACTIONS as REACTION_INTERRUPT_PAYLOAD_TAXONOMY_BRANCH_ACTIONS,
 };
 use battle_runtime_reaction_spell_selected_identity::{
     expected_route as expected_reaction_spell_selected_identity_route,
@@ -4489,6 +4496,52 @@ fn reaction_casting_time_adapter_replays_in_scope_branch() {
             "doCounterspellEndsSpellCast"
         ]
     );
+}
+
+#[test]
+fn reaction_interrupt_payload_taxonomy_adapter_replays_connector_rows() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt;
+    // driver context: battle-runtime-reaction-spell-selected-identity.mbt.qnt.
+    // RAW: cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Reactions";
+    // Rules-Glossary.md "Reaction" and "Falling"; Spells/Gaining-and-Casting.md
+    // "Reaction and Bonus Action Triggers"; spell descriptions for Shield,
+    // Hellish Rebuke, Counterspell, and Feather Fall.
+    for action in REACTION_INTERRUPT_PAYLOAD_TAXONOMY_BRANCH_ACTIONS {
+        let observed_route = replay_reaction_interrupt_payload_taxonomy_route(action);
+        let expected_route = expected_reaction_interrupt_payload_taxonomy_route(action);
+        assert_eq!(
+            reducer_route_payload(&observed_route),
+            reducer_route_payload(&expected_route)
+        );
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("resolve_battle_interrupt"));
+        match action {
+            "doRouteReactionArmorClassEffect" => {
+                assert!(route_payload.contains("ReactionArmorClassEffectRouteSubject"));
+                assert!(route_payload.contains("BattleArmorClassOwner"));
+            }
+            "doRouteAfterDamageSaveDamage" => {
+                assert!(route_payload.contains("ReactionAfterDamageEffectRouteSubject"));
+                assert!(route_payload.contains("BattleSavingThrowOutcomeOwner"));
+                assert!(route_payload.contains("BattleHitPointOwner"));
+            }
+            "doRouteSpellInterruptionEnded" => {
+                assert!(route_payload.contains("ReactionSpellInterruptionRouteSubject"));
+                assert!(route_payload.contains("BattleSpellSlotAndActionEconomyOwner"));
+            }
+            "doRouteSpellInterruptionResumed" => {
+                assert!(route_payload.contains("ReactionSpellInterruptionRouteSubject"));
+                assert!(route_payload.contains("SlotSpellRouteSubject"));
+                assert!(route_payload.contains("BattleHitPointOwner"));
+            }
+            "doRouteFallMitigation" => {
+                assert!(route_payload.contains("ReactionFallMitigationRouteSubject"));
+                assert!(route_payload.contains("BattleMovementResourceOwner"));
+            }
+            _ => panic!("unexpected reaction interrupt payload taxonomy route action {action}"),
+        }
+    }
 }
 
 #[test]

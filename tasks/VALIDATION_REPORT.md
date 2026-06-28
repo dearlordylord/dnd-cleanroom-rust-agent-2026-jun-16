@@ -1,5 +1,44 @@
 # Validation Report
 
+## FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY
+
+- Lane: `FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY`
+- Base SHA: `18cb0cd9db59551d5209f2a60b7b9d41eebf855c`
+- Source package commit: `d63838e22137c4b329dc877ca0d963876f3459bf`
+- Evidence file: `tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json`
+- Accepted rows: 5 dirty target replay connector rows: `doRouteReactionArmorClassEffect`, `doRouteAfterDamageSaveDamage`, `doRouteSpellInterruptionEnded`, `doRouteSpellInterruptionResumed`, and `doRouteFallMitigation`.
+- Target blockers: 0.
+- Scope note: dirty target replay only; this is not fresh target acceptance.
+
+Drivers and route connectors:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt`
+
+Behavior implemented:
+
+- Added generic reducer route subject families for reaction Armor Class effects, after-damage save/damage effects, spell interruption ended/resumed outcomes, and fall mitigation.
+- Added non-durable public reducer route event `BattleReducerRouteEvent::ResolveBattleInterrupt` so copied `RouteResolveBattleInterrupt` connector rows are observed without normalizing them to ordinary subject resolution.
+- Added focused adapter/test coverage that derives expected rows from the copied connector action bodies and obtains observed rows only through `start_battle_observed`, `discover_generic_route_subject_observed`, and `resolve_battle_subject_observed`.
+- Kept selected reaction spell identity in adapter/evidence context only. Production route dispatch uses generic subject/fill/hole/owner shapes and does not branch on spell names, ids, slugs, or source headings.
+
+RAW and ubiquitous-language check:
+
+- Read local SRD references: `Playing-the-Game.md` Reactions and Damage and Healing; `Rules-Glossary.md` Reaction and Falling; `Spells/Gaining-and-Casting.md` Reaction and Bonus Action Triggers, Spell Slots, and Saving Throws; `Spells/Descriptions-S-Z.md` Shield; `Spells/Descriptions-E-L.md` Hellish Rebuke and Feather Fall; `Spells/Descriptions-A-D.md` Counterspell.
+- Read `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md` for Reaction, Spell Effect, Armor Class, Saving Throw, Damage Roll, Falling, Offer, Decline, Advance, Spell Slot, and Magic Action.
+
+Verification results:
+
+- `cargo test reaction_interrupt_payload_taxonomy_adapter_replays_connector_rows -- --nocapture` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json` passed with 3 selected-identity source obligations covered.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check 18cb0cd9db59551d5209f2a60b7b9d41eebf855c...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed only on the two known stale validator hashes recorded in `cleanroom-input/MANIFEST.md`:
+  - `scripts/check-cleanroom-harness.cjs`: expected `bf3a3120ef5bb10b0a11093bb3bbe8d911199f720cc4cba050d4080e78ba5130`, got `0ed7656ef183599a8f54c604219ad34e51a0addb757d4be34deb694938db82f1`.
+  - `scripts/cleanroom-branch-coverage-check.cjs`: expected `f96e26aac6fc7679c1801e3a048ba1426eb301a2aab91cf3cd284063ce62be0c`, got `5b7f4913a2c6455c556e13a276107337219804698ffd087c64d536cf66c6e06c`.
+
 ## FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY
 
 - Lane: `FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY`
