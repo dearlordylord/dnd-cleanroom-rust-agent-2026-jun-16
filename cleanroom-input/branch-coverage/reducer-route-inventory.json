@@ -944,8 +944,9 @@
             "qntFacts": [
               "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt is present in source-branch-inventory.json with 10 branch obligation(s).",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt supplies generic Saving Throw frontier evidence for the selected save-gated spatial branches.",
-              "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt supplies generic Reaction spell casting-time evidence, but not the spatial mitigation effect that follows.",
-              "The grouped spatial witness still contains light emitters, outline/advantage effects, area hazard/obscurement, falling mitigation, movement replacement, and forced-movement/object-push behavior that must split into generic route substrates."
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt supplies generic Reaction spell casting-time evidence; falling mitigation now uses the dedicated reaction payload taxonomy route below.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt records ReactionFallMitigationRouteSubject evidence for falling-trigger reaction mitigation through generic trigger/procedure/continuation facts, spell-slot/action-economy, active-effect, movement-resource, and Hit Point owners.",
+              "The grouped spatial witness still contains light emitters, outline/advantage effects, area hazard/obscurement, movement replacement, and forced-movement/object-push behavior that must split into generic route substrates."
             ],
             "rawDomainFacts": [
               ".references/srd-5.2.1/Spells/Gaining-and-Casting.md#Areas of Effect, #Targets, and #Saving Throws define spell area, target, and save frontiers.",
@@ -956,7 +957,7 @@
               "source-qnt-corpus-blocker: add generic movable, held, and object light-emitter active-effect route subjects before doDancingLightsMovableDimLight, doLightObjectEmitterProjectionReplacementCleanup, and doProduceFlameHeldLightProjectionHurlCleanup may count for target replay.",
               "source-qnt-corpus-blocker: add a generic outline / invisible-revealing / attack-advantage active-effect route subject before doFaerieFireOutlineAdvantageInvisibleDimLight may count for target replay.",
               "source-qnt-corpus-blocker: add generic area hazard and obscurement lifecycle route subjects before doFogCloudAreaIdentityObscurementStrongWindCleanup, doGreaseCastGroundHazardSavingThrows, and doGreaseMovementAndTurnTriggers may count for target replay.",
-              "source-qnt-corpus-blocker: add generic falling mitigation and movement replacement route subjects before doFeatherFallReactionMitigationLanding and doJumpMovementReplacementLandingWitness may count for target replay.",
+              "source-qnt-corpus-blocker: add a generic movement replacement route subject before doJumpMovementReplacementLandingWitness may count for target replay; Feather Fall reaction mitigation now has generic ReactionFallMitigationRouteSubject source input.",
               "source-qnt-corpus-blocker: add a generic forced-movement plus object-push/presentation-effect route subject before doThunderwaveSavePushObjectsBoom may count for target replay."
             ]
           }
@@ -1084,28 +1085,28 @@
         },
         {
           "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt",
-          "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt",
-          "route": "source-qnt-corpus-blocker",
-          "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
-          "subjectFamily": "selected reaction spell casting and reaction armor-class active-effect substrates",
+          "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt",
+          "route": "reducer-routed",
+          "routeTaskId": "FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY",
+          "subjectFamily": "selected reaction spell branches projected through generic reaction payload taxonomy routes",
           "branchObligations": 3,
-          "currentOutOfScopeBranchObligations": 1,
+          "currentOutOfScopeBranchObligations": 0,
           "derivability": {
             "qntFacts": [
               "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt is present in source-branch-inventory.json with 3 branch obligation(s).",
-              "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt exposes ReactionSpellRouteSubject evidence for the selected reaction spell casting-time, spell-slot/action-economy, Saving Throw, and Hit Point damage branch.",
-              "The level-3 Counterspell selected-identity branch has branch-specific connector evidence in the L15-RR12 branchDecisionClasses entry; this driver-level row remains source-qnt-corpus-blocker because the Shield branch still lacks a generic Armor Class reaction active-effect substrate.",
-              "The Shield reaction Armor Class branch still needs a generic reaction active-effect / Armor Class substrate before target replay may count it."
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt exposes ReactionSpellRouteSubject evidence for reaction casting-time, spell-slot/action-economy, Saving Throw, and Hit Point damage branches.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt exposes qFacts and qRoute for ReactionArmorClassEffectRouteSubject, ReactionAfterDamageEffectRouteSubject, and ReactionSpellInterruptionRouteSubject so Shield-style Armor Class, after-damage save/damage, and Counterspell interruption/resume route through generic trigger/procedure/continuation facts rather than selected spell identity.",
+              "Counterspell remains branch-specific level-3 evidence in the L15-RR12 branchDecisionClasses entry, but the generic route input is now available for fresh target replay."
             ],
             "rawDomainFacts": [
               ".references/srd-5.2.1/Spells/Gaining-and-Casting.md#Casting Time defines Reaction casting-time triggers for spells.",
               ".references/srd-5.2.1/Playing-the-Game.md#Reactions and .references/srd-5.2.1/Rules-Glossary.md#Reaction establish Reaction spend and interrupted-turn continuation.",
-              ".references/srd-5.2.1/Rules-Glossary.md#Armor Class defines the Armor Class projection needed by the missing reaction active-effect substrate.",
-              "UBIQUITOUS_LANGUAGE.md names Reaction, Spell Slot, Magic Action, Saving Throw, Damage Roll, Armor Class, Offer, Decline, and Advance."
+              ".references/srd-5.2.1/Spells/Descriptions-S-Z.md#Shield defines an attack-hit Reaction that projects an Armor Class bonus effect.",
+              ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Hellish-Rebuke defines an after-damage Reaction with Saving Throw and damage payloads.",
+              ".references/srd-5.2.1/Spells/Descriptions-A-D.md#Counterspell defines spell-cast interruption, Saving Throw, spell dissipation, and triggering slot non-expenditure.",
+              "UBIQUITOUS_LANGUAGE.md names Reaction, Spell Effect, Spell Slot, Saving Throw, Damage Roll, Armor Class, Offer, Decline, and Advance."
             ],
-            "blockers": [
-              "source-qnt-corpus-blocker: add a generic reaction-triggered Armor Class active-effect route subject before doResolveShieldReactionSpellHit may count for target replay."
-            ]
+            "blockers": []
           }
         },
         {

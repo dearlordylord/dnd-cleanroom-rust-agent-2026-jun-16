@@ -5,9 +5,9 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: e8cb231ce1183ed96b2865000562f0395f2d712f
-- Copy date: 2026-06-28T05:27:31.498Z
-- Files: 516
+- Source commit SHA: cf60f7a5b822ee9d9458e98577d47026242fd16e
+- Copy date: 2026-06-28T05:58:17.790Z
+- Files: 517
 
 Cleanroom tasks must declare which source commit SHA they implement
 against (the `Source commit SHA` recorded here at task start).
@@ -44,7 +44,7 @@ instead of guessing.
 - `branch-coverage/reducer-route-inventory.json`: 1
 - `guidance/README.md`: 1
 - `guidance/reducer-spine.md`: 1
-- `qnt/battle-runtime`: 318
+- `qnt/battle-runtime`: 319
 - `qnt/character-creation-runtime`: 22
 - `qnt/character-sheet-runtime`: 23
 - `qnt/character-battle-runtime`: 12
@@ -96,7 +96,7 @@ instead of guessing.
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
 | `branch-coverage/source-branch-inventory.json` | `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
-| `branch-coverage/reducer-route-inventory.json` | `1abf5c276817056ff81984229e8a96bf22fb7553c0dfd05c8ca54037a55485aa` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
+| `branch-coverage/reducer-route-inventory.json` | `a42187fac0bf0853cbc80f32fb95afefe5666279cea663ca0efb6cff1ffd86d8` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
 | `guidance/README.md` | `d62a834399e1469186bc931f2d27bdf696b9a67c9c9e21c15982ee722ed5384b` | `plans/cleanroom-guidance/README.md` |
 | `guidance/reducer-spine.md` | `3d1640f15f2982c9b3fe81cdf0a21df04476b0e224b5e4732027927485b362f2` | `plans/cleanroom-guidance/reducer-spine.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
@@ -217,7 +217,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-hunters-prey-tests.qnt` | `34bd97f5477462d82b27b824cf629261413e6c6a8a5a33bd1ea704c797d533d5` | `packages/battle-runtime/battle-runtime-hunters-prey-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-hunters-prey.mbt.qnt` | `9b3f66874838c94235cdef58394d3ce8c481c67fd85f1b94f26ccd75178b80e3` | `packages/battle-runtime/battle-runtime-hunters-prey.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-hunters-prey.qnt` | `c318d9e726d816aee340bd217659359a13ea8fc5e91ffcc8a09b115a82c057c3` | `packages/battle-runtime/battle-runtime-hunters-prey.qnt` |
-| `qnt/battle-runtime/battle-runtime-interrupt-bridge.qnt` | `2333f4fa5e6e11e9845b7be0a8db88894d6ce4371fdf3036631f163488a4fe07` | `packages/battle-runtime/battle-runtime-interrupt-bridge.qnt` |
+| `qnt/battle-runtime/battle-runtime-interrupt-bridge.qnt` | `d5a15724cf71e5089daac662296431fbb77bd718cdd550827ef1e6fad2d5a736` | `packages/battle-runtime/battle-runtime-interrupt-bridge.qnt` |
 | `qnt/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt` | `10202d06193f86792c580341d392a4a1c36514de2e76eed6053dd61e1360ec43` | `packages/battle-runtime/battle-runtime-interrupt-stack-resume.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-interrupt-stack-resume.route.mbt.qnt` | `9072b1c7c3a313528d8b37da03d83bd8cd576f47121aac445f547585047c51c4` | `packages/battle-runtime/battle-runtime-interrupt-stack-resume.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-jump-movement.qnt` | `7b90e3857bcafa82a059caafe52f6394b7d97871210fc02320c27980a8a153ad` | `packages/battle-runtime/battle-runtime-jump-movement.qnt` |
@@ -279,12 +279,13 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-ray-of-enfeeblement-lifecycle.mbt.qnt` | `c4db4b9e6cfbb741fffb540a025ffe6b04610c612bb5e6338adfa795d437bf2a` | `packages/battle-runtime/battle-runtime-ray-of-enfeeblement-lifecycle.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt` | `382a5ae24ea6bda7cb5838b263ed9f139d2c4b40f35d1c4f39bd2f4beb87d388` | `packages/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt` | `b53a97320fec767ecb40626008b68576c6af29767fb2b7760cf4b9650813755d` | `packages/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt` |
-| `qnt/battle-runtime/battle-runtime-reaction-kinds.qnt` | `1c4496e27a38ce5e680ac8fdbbf12d538ed4012270e61797d18f7898adb59535` | `packages/battle-runtime/battle-runtime-reaction-kinds.qnt` |
+| `qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt` | `1f0fc7249c20d10848de622428e62ffaf435416b48a0dad5bc11f5a1e85cf5e2` | `packages/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-reaction-kinds.qnt` | `60a4e3d37cbdc83dbce8639a5c5c21a3a5999572d0359acafaba959d99fb3d61` | `packages/battle-runtime/battle-runtime-reaction-kinds.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-resolution.qnt` | `4002be69617749d029e7b8558e86bc81526830d34cfa7478dee3fd595dd82bcf` | `packages/battle-runtime/battle-runtime-reaction-resolution.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` | `8192d11ce0dc893853b0eceda1b7ef853bbee219295f8e18e5071a5d33789e4a` | `packages/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window-tests.qnt` | `4ce834fb0929cec617e79abf7a4cfcbacdc10718041c774f0f092ae434b76159` | `packages/battle-runtime/battle-runtime-reaction-window-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window.qnt` | `f557bce899edff541e53cfd081a0a0a4db84364c355aa1605e438b6015ef383e` | `packages/battle-runtime/battle-runtime-reaction-window.qnt` |
-| `qnt/battle-runtime/battle-runtime-reducer-route.qnt` | `dee3768141b0e9a7b794df1de50af8be8d5ff3eede5204b44a3d43150fb9250a` | `packages/battle-runtime/battle-runtime-reducer-route.qnt` |
+| `qnt/battle-runtime/battle-runtime-reducer-route.qnt` | `d11e05ce28b1384183b859b1fd22545617e263d95ce42c83662274e8a04e9ad4` | `packages/battle-runtime/battle-runtime-reducer-route.qnt` |
 | `qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` | `5b7fe7a06d31dda4e32625ede181289efe9c2b9ddb8fe6e42df87d826b88e565` | `packages/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` | `0b0e39e7cd765f7203dedd77221d12b7724e3083cd67be5573b65b46ced46967` | `packages/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` | `fca72ca4bb400a1de697f0fa4786210eb57a8a0130ee7531c9f9226a0997d43e` | `packages/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` |

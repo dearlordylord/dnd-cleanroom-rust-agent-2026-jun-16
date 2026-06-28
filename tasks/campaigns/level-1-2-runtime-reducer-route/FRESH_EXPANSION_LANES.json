@@ -6,8 +6,8 @@
   "currentVerifier": "python3 tools/verify_current_fresh_target.py",
   "sourcePackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
   "acceptedFreshTargetPackageCommit": "ee4894fa71e9307b9251639f0b54577ff764c63f",
-  "latestDirtyPackageRefreshCommit": "e8cb231ce1183ed96b2865000562f0395f2d712f",
-  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, and FCSF-04 object stale public route-history evidence are packaged in cleanroom-input; no fresh target acceptance or new Rust runtime coverage is claimed from this dirty refresh.",
+  "latestDirtyPackageRefreshCommit": "cf60f7a5b822ee9d9458e98577d47026242fd16e",
+  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, and FCSF-05 reaction/interrupt payload taxonomy evidence are packaged in cleanroom-input; no fresh target acceptance or new Rust runtime coverage is claimed from this dirty refresh.",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,
@@ -141,7 +141,7 @@
         "BLOCKERS.json entries for any reaction AC active-effect branch without generic substrate",
         "verifier update for FEXP-05 evidence"
       ],
-      "acceptanceSummary": "Accepted with blockers: generic reaction casting-time and interrupt-stack resume route surfaces route through public reducer entrypoints; expected records are mechanically derived from connector action bodies/helper vocabulary; selected reaction spell projections and interrupt trigger taxonomy remain explicit source-input blockers."
+      "acceptanceSummary": "Historical fresh snapshot accepted with blockers: generic reaction casting-time and interrupt-stack resume route surfaces route through public reducer entrypoints; selected reaction spell projections and interrupt trigger taxonomy were blocked in this snapshot. FCSF-05 later resolves those blockers as source input by packaging generic reaction/interrupt payload taxonomy evidence; fresh target replay is still pending."
     },
     {
       "laneId": "FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK",

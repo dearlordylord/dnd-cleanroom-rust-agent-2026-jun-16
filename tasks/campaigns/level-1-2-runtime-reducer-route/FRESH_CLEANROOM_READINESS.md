@@ -37,7 +37,7 @@ Authoritative state:
 - active fresh dry-run worktrees: none
 - strongest fresh target evidence: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - latest dirty package refresh:
-  `e8cb231ce1183ed96b2865000562f0395f2d712f`
+  `cf60f7a5b822ee9d9458e98577d47026242fd16e`
 
 The final CP8 lane accepted exactly these three newly accepted rows:
 
@@ -90,12 +90,13 @@ generic connector route shape but was not counted as a new CP8 row.
   `cleanroom-input/MANIFEST.md` for:
   - `scripts/check-cleanroom-harness.cjs`
   - `scripts/cleanroom-branch-coverage-check.cjs`
-- The `e8cb231ce1183ed96b2865000562f0395f2d712f` dirty package refresh
+- The `cf60f7a5b822ee9d9458e98577d47026242fd16e` dirty package refresh
   packages source-feedback Task 3 residual selected-spell route tasks, the
   Task 8 six-driver active reducer diagnostic seed, and FCSF-04 public object
-  stale route-history evidence. It does not add fresh target acceptance or
-  Rust runtime coverage, and condition-immunity is still not accepted as
-  scalar-buff route replay evidence.
+  stale route-history evidence, and FCSF-05 reaction/interrupt payload taxonomy
+  evidence. It does not add fresh target acceptance or Rust runtime coverage,
+  and condition-immunity is still not accepted as scalar-buff route replay
+  evidence.
 - It does not remove every old historical evidence artifact. The fresh current
   gate classifies FC-03/FC-04/FC-05 as historical snapshots after the input
   refresh; broader dirty-rehearsal cleanup remains optional unless the dirty

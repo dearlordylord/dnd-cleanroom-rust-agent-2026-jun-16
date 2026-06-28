@@ -14,13 +14,14 @@ python3 tools/verify_current_fresh_target.py
 
 Current dirty package refresh:
 
-- source package: `e8cb231ce1183ed96b2865000562f0395f2d712f`
+- source package: `cf60f7a5b822ee9d9458e98577d47026242fd16e`
 - branch: `ralph/rrconv-19-cleanroom`
 - boundary: package/state reconciliation only; this refresh does not claim
   fresh target acceptance or new Rust runtime coverage.
 - packaged source-feedback items: Task 3 residual selected-spell route-task
   queue, Task 8 active reducer diagnostic seed, and FCSF-04 object stale public
-  route-history evidence.
+  route-history evidence, and FCSF-05 reaction/interrupt payload taxonomy
+  evidence.
 
 ## Purpose
 
@@ -131,7 +132,7 @@ Resolved source input:
 Packaged source input:
 
 - Source-feedback Task 8 remains packaged in current source package
-  `e8cb231ce1183ed96b2865000562f0395f2d712f` as a six-driver active
+  `cf60f7a5b822ee9d9458e98577d47026242fd16e` as a six-driver active
   reducer-spine diagnostic seed. The active batch includes Concentration
   teardown and scalar-buff active-effect profile projection replay work, and
   `cleanroom-input/guidance/reducer-spine.md` requires future target evidence
@@ -144,17 +145,22 @@ Packaged source input:
 
 ### Reaction And Interrupt Payload Taxonomy
 
-Source blockers:
+Resolved source input:
 
 - `FEXP-05-selected-reaction-spell-projections-need-generic-source-shapes`
 - `FEXP-05-interrupt-trigger-taxonomy-not-admitted-by-route-inputs`
+  are resolved as source input by FCSF-05 at source commit
+  `cf60f7a5b822ee9d9458e98577d47026242fd16e`. The copied
+  `battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt` connector
+  exposes generic reaction trigger/procedure/continuation facts and owner
+  routes for reaction Armor Class effects, after-damage save/damage payloads,
+  spell interruption end/resume, and falling mitigation.
 
-Needed source input:
+Target status:
 
-- generic reaction active-effect, post-damage save/damage, slot expenditure,
-  and interrupted spell-slot preservation routes;
-- typed interrupt trigger and continuation payload vocabulary, or explicit
-  guidance that trigger labels remain evidence-only.
+- not yet fresh-target replay acceptance;
+- future target evidence must consume the generic taxonomy route through public
+  reducer entrypoints rather than selected reaction spell identity.
 
 ### Character, Sheet, And Settlement Payloads
 

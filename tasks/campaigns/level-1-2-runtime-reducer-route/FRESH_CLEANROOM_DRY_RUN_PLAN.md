@@ -81,7 +81,9 @@ was accepted in the fresh target by commit
 `eb05e8495eac993b69e17f68544edace6e56caee` with generic reaction casting-time
 interrupt/resume, after-damage reaction, nested interrupt resume, active-effect
 resume, and recorded procedure replay route evidence; selected reaction spell
-projections and interrupt trigger taxonomy remain explicitly blocked.
+projections and interrupt trigger taxonomy were explicitly blocked in that
+historical snapshot. FCSF-05 now resolves those source-input blockers in the
+current package; fresh target replay remains pending.
 `FEXP-06-CHARACTER-CREATION-SHEET-HANDOFF-PACK` is accepted-with-blockers at
 `0d5200e43fd7e9f094a93585f00eaf6bd2266c75` with character creation
 finalization, sheet hit-point route projection, short-rest Pact-slot

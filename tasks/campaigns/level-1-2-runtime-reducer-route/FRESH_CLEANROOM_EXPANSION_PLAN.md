@@ -179,8 +179,10 @@ Status:
 - generic reaction casting-time interrupt/resume, after-damage reaction, nested
   interrupt resume, active-effect resume, and recorded procedure replay route
   surfaces route through public reducer entrypoints;
-- selected reaction spell projections and interrupt trigger taxonomy remain
-  explicit source-input blockers.
+- selected reaction spell projections and interrupt trigger taxonomy were
+  explicit source-input blockers in that historical fresh snapshot, but
+  FCSF-05 now resolves them as source input by packaging generic
+  reaction/interrupt payload taxonomy evidence; fresh replay remains pending.
 
 Why third:
 
