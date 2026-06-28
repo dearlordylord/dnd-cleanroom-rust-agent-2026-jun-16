@@ -568,7 +568,7 @@
               "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt is present in source-branch-inventory.json with 9 branch obligation(s).",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt exposes SaveGatedSpellRouteSubject evidence for selected initial condition-save branches that need target/list, condition-choice, and Saving Throw fills.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-sleep-repeat-save.route.mbt.qnt exposes RepeatSaveConditionEffectRouteSubject evidence for selected repeat-save condition lifecycle branches.",
-              "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt exposes ConditionRiderRouteSubject evidence for failed-saving-throw condition riders only for the modeled shape families: Blinded until source next turn ends, Blinded or Deafened with affected-target end-turn repeat-save success cleanup, Restrained until spell end with action Athletics escape cleanup, Incapacitated until affected-target next turn followed by repeat-save failure transition to Unconscious until spell end, and condition-immunity rejection without selected spell identity.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt exposes ConditionRiderRouteSubject evidence for failed-saving-throw condition riders only for the modeled shape families: Blinded until source next turn ends, Blinded or Deafened with affected-target end-turn repeat-save success cleanup, Restrained until spell end with action Athletics escape cleanup, Incapacitated until affected-target next turn followed by repeat-save failure transition to Unconscious until spell end, Paralyzed with implied Incapacitated until spell end and affected-target end-turn repeat-save success cleanup, laughter-style Incapacitated plus Prone until spell end with affected-target end-turn repeat-save success cleanup and blocked self-ending of Prone, and condition-immunity rejection without selected spell identity.",
               "The level-3 Hypnotic Pattern selected-identity branch has branch-specific connector evidence in the L15-RR12 branchDecisionClasses entry; this driver-level row remains catalog-after-substrate because selected spell identity is still a catalog/admission boundary."
             ],
             "rawDomainFacts": [
@@ -576,13 +576,12 @@
               ".references/srd-5.2.1/Spells/Descriptions-A-D.md#Color Spray defines failed-save Blinded until the source's next turn ends; #Blindness/Deafness defines failed-save Blinded or Deafened with affected-target end-turn repeat-save cleanup.",
               ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Entangle defines failed-save Restrained until spell end plus action Strength (Athletics) escape cleanup.",
               ".references/srd-5.2.1/Spells/Descriptions-S-Z.md#Sleep defines failed-save Incapacitated until the target's next turn, then repeat-save failure transition to Unconscious until spell end.",
+              ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Hold Person defines failed-save Paralyzed until spell end with affected-target end-turn repeat-save success cleanup; Rules Glossary #Paralyzed [Condition] defines the implied Incapacitated consequence.",
+              ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Hideous Laughter defines failed-save Prone and Incapacitated until spell end, blocked self-ending of Prone while active, and repeat-save success cleanup.",
               ".references/srd-5.2.1/Rules-Glossary.md condition entries and #Concentration define the condition and active-effect cleanup shapes represented by the connector evidence.",
               "UBIQUITOUS_LANGUAGE.md defines Saving Throw, Condition, Spell Effect, Concentration, Boundary Crossing, and Turn Structure vocabulary."
             ],
-            "blockers": [
-              "source-qnt-corpus-blocker: add generic Paralyzed plus Incapacitated until-spell-end repeat-save lifecycle route facts before Hold Person selected branches may count from condition-rider evidence.",
-              "source-qnt-corpus-blocker: add generic Incapacitated plus Prone laughter-style lifecycle and repeat-save success cleanup route facts before Hideous Laughter selected branches may count from condition-rider evidence."
-            ]
+            "blockers": []
           }
         },
         {
@@ -881,9 +880,10 @@
             "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-damage-rider.route.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-hosted-weapon-attack.route.mbt.qnt",
-            "cleanroom-input/qnt/battle-runtime/battle-runtime-held-weapon-active-effect.route.mbt.qnt"
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-held-weapon-active-effect.route.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt"
           ],
-          "route": "source-qnt-corpus-blocker",
+          "route": "catalog-after-substrate",
           "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
           "subjectFamily": "selected weapon-hosted buff, after-hit rider, scalar buff, and marked-effect substrates",
           "branchObligations": 12,
@@ -894,17 +894,14 @@
               "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.route.mbt.qnt exposes AfterHitDamageRiderRouteSubject evidence for selected after-hit damage, condition, turn-start, and cleanup rider branches.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt exposes ScalarBuffEffectRouteSubject evidence for selected scalar buff branches such as temporary Hit Points and Speed increases.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-damage-rider.route.mbt.qnt, battle-runtime-spell-hosted-weapon-attack.route.mbt.qnt, and battle-runtime-held-weapon-active-effect.route.mbt.qnt expose the generic weapon-hosted rider and held-weapon override substrates.",
-              "Marked-target transfer and condition-immunity / turn-start temporary Hit Point behavior still require generic active-effect substrates before target replay may count those selected-identity branches."
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt exposes MarkedDamageRiderEffectRouteSubject and ConditionImmunityTemporaryHitPointEffectRouteSubject evidence for marked-target damage projection, target-drop transfer timing, condition-immunity projection, turn-start Temporary Hit Point grants, and Concentration cleanup through active-effect, damage, Hit Point, turn-boundary, temporary-HP, condition-lifecycle, and Concentration owners."
             ],
             "rawDomainFacts": [
               ".references/srd-5.2.1/Playing-the-Game.md#Making an Attack, #Damage Rolls, #Temporary Hit Points, and #Movement and Position define the generic attack, damage, temporary Hit Point, and Speed facts represented by connector evidence.",
               ".references/srd-5.2.1/Rules-Glossary.md#Concentration and condition entries define active-effect, condition-immunity, and cleanup ownership boundaries.",
               "UBIQUITOUS_LANGUAGE.md defines Rider, Attack Damage Rider, Spell Invocation, Spell Effect, Spend, Concentration, Condition, Hit Points, and Movement."
             ],
-            "blockers": [
-              "source-qnt-corpus-blocker: add a generic marked-target damage rider plus transfer active-effect route subject before doHexMarkedDamageRiderAndLaterTurnTransfer and doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer may count for target replay.",
-              "source-qnt-corpus-blocker: add a generic condition-immunity plus turn-start temporary Hit Points active-effect route subject before doHeroismFrightenedImmunityTurnStartTemporaryHitPoints and doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup may count for target replay."
-            ]
+            "blockers": []
           }
         },
         {
@@ -945,7 +942,9 @@
           "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
           "routeConnectorPaths": [
             "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
-            "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt"
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt"
           ],
           "route": "source-qnt-corpus-blocker",
           "routeTaskId": "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
@@ -959,19 +958,22 @@
               "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt supplies generic Reaction spell casting-time evidence; falling mitigation now uses the dedicated reaction payload taxonomy route below.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt records ReactionFallMitigationRouteSubject evidence for falling-trigger reaction mitigation through generic trigger/procedure/continuation facts, spell-slot/action-economy, active-effect, movement-resource, and Hit Point owners.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt supplies generic object-attached and held light-emitter route evidence for object admission, active-effect admission, Bright/Dim Light projection, replacement cleanup, hurl cleanup, duration cleanup, and table-owned object/geometry witnesses.",
-              "The grouped spatial witness still contains light emitters, outline/advantage effects, area hazard/obscurement, movement replacement, and forced-movement/object-push behavior that must split into generic route substrates."
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt defines typed route facts that separate battle-owned effect lifecycle from table-owned light, geometry, presentation, sight, object, and hazard witnesses without selected spell identity.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt exposes SpatialEffectRouteSubject evidence for concentration-backed movable multi-emitter Dim Light movement, area-plus-Saving Throw outcome outline admission, invisible-benefit denial/Attack Roll Advantage projections, area obscurement admission plus separate duration and strong-wind dispersal cleanup, non-Concentration area hazard save/difficult-terrain movement/cleanup lifecycle, and a separate movement-damage trigger shape through action-economy, active-effect, Concentration, light, sight, obscurement, hazard, area-shape, Saving Throw, movement, Hit Point, and turn-boundary owners.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt supplies generic MovementPresentationRouteSubject evidence for movement replacement budget/distance plus table-supplied landing presentation witnesses, forced creature movement presentation, and object push/audible presentation through movement-resource, table-presentation, and object-boundary facts.",
+              "The grouped spatial witness still contains concentration-backed area hazards plus landing legality/consequence behavior that must split into generic route substrates; movement replacement budget/distance and forced-movement/object-push presentation now route through the movement/presentation connector."
             ],
             "rawDomainFacts": [
               ".references/srd-5.2.1/Spells/Gaining-and-Casting.md#Areas of Effect, #Targets, and #Saving Throws define spell area, target, and save frontiers.",
+              ".references/srd-5.2.1/Playing-the-Game.md#Vision and Light plus .references/srd-5.2.1/Rules-Glossary.md#Dim Light / #Heavily Obscured define Illumination and Obscurement projections.",
+              ".references/srd-5.2.1/Playing-the-Game.md#Making an Attack and .references/srd-5.2.1/Rules-Glossary.md#Invisible [Condition] define sight-dependent Attack Roll mode effects.",
+              ".references/srd-5.2.1/Playing-the-Game.md#Difficult Terrain and .references/srd-5.2.1/Rules-Glossary.md#Area of Effect / #Cover define hazard movement cost and table-owned geometry/obstruction witnesses.",
               ".references/srd-5.2.1/Playing-the-Game.md#Movement and Position and .references/srd-5.2.1/Rules-Glossary.md#Reaction define movement, forced movement, falling response, and Reaction vocabulary.",
-              "UBIQUITOUS_LANGUAGE.md defines Spell Effect, Area of Effect, Movement, Reaction, Target, Saving Throw, and Boundary Crossing."
+              "UBIQUITOUS_LANGUAGE.md defines Spell Effect, Area of Effect, Movement, Reaction, Target, Saving Throw, Boundary Crossing, Illumination, Obscurement, Attack Roll, and Table Decision."
             ],
             "blockers": [
-              "source-qnt-corpus-blocker: movable light emitter routing is still missing before doDancingLightsMovableDimLight may count for target replay; object-attached and held light obligations must route through packages/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt rather than selected spell identity.",
-              "source-qnt-corpus-blocker: add a generic outline / invisible-revealing / attack-advantage active-effect route subject before doFaerieFireOutlineAdvantageInvisibleDimLight may count for target replay.",
-              "source-qnt-corpus-blocker: add generic area hazard and obscurement lifecycle route subjects before doFogCloudAreaIdentityObscurementStrongWindCleanup, doGreaseCastGroundHazardSavingThrows, and doGreaseMovementAndTurnTriggers may count for target replay.",
-              "source-qnt-corpus-blocker: add a generic movement replacement route subject before doJumpMovementReplacementLandingWitness may count for target replay; Feather Fall reaction mitigation now has generic ReactionFallMitigationRouteSubject source input.",
-              "source-qnt-corpus-blocker: add a generic forced-movement plus object-push/presentation-effect route subject before doThunderwaveSavePushObjectsBoom may count for target replay."
+              "source-qnt-corpus-blocker: add a concentration-backed area hazard route before selected Sleet Storm, Spike Growth, or Web-like Concentration hazard rows may count; the current area hazard connector only covers non-Concentration hazard lifecycle plus a separate movement-damage trigger shape.",
+              "source-qnt-corpus-blocker: add generic landing legality and failed-landing Prone consequence route facts before doJumpMovementReplacementLandingWitness may count beyond movement budget/distance and table-supplied landing presentation witness evidence."
             ]
           }
         },
@@ -3871,30 +3873,35 @@
             "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt covers condition choice and Saving Throw frontiers.",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-direct-condition-lifecycle.mbt.qnt and packages/battle-runtime/battle-runtime-direct-condition-lifecycle.qnt already model direct condition lifecycle behavior.",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt exposes qRoute for ConditionRiderRouteSubject through host SpellAttackRouteSubject and SaveGatedSpellRouteSubject outcome setup, BattleConditionLifecycleOwner admission/rejection/repeat-save cleanup/condition transition, BattleActiveEffectOwner admission/cleanup, BattleTurnBoundaryOwner expiration or repeat-save frontier opening, and BattleAbilityCheckOwner Athletics escape.",
-            "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt exposes qFacts for host outcome, affected target carrier, condition kind, condition-immunity admission/rejection, until-source-next-turn, until-affected-target-next-turn, until-spell-end, affected-target end-turn repeat-save, Athletics escape, repeat-save success/failure, Unconscious transition, expiration, and cleanup owner facts."
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt exposes qFacts for host outcome, affected target carrier, condition kind, condition-immunity admission/rejection, until-source-next-turn, until-affected-target-next-turn, until-spell-end, affected-target end-turn repeat-save, Athletics escape, repeat-save success/failure, implied condition consequence, blocked self-ending of Prone, Unconscious transition, expiration, and cleanup owner facts."
           ],
           "rawDomainFacts": [
-            ".references/srd-5.2.1/Rules-Glossary.md condition entries define condition consequences, including Poisoned, Blinded, Deafened, Restrained, Incapacitated, and Unconscious; #Immunity defines condition immunity rejection.",
+            ".references/srd-5.2.1/Rules-Glossary.md condition entries define condition consequences, including Poisoned, Blinded, Deafened, Restrained, Incapacitated, Paralyzed, Prone, and Unconscious; #Immunity defines condition immunity rejection.",
             ".references/srd-5.2.1/Playing-the-Game.md#Making an Attack allows special effects in addition to damage.",
             ".references/srd-5.2.1/Spells/Gaining-and-Casting.md#Saving Throws defines failed-save spell-effect outcomes.",
             ".references/srd-5.2.1/Spells/Descriptions-Q-R.md#Ray of Sickness defines attack-hit Poisoned until the source's next turn ends.",
             ".references/srd-5.2.1/Spells/Descriptions-A-D.md#Color Spray defines failed-save Blinded until the source's next turn ends; #Blindness/Deafness defines failed-save Blinded or Deafened with affected-target end-turn repeat-save cleanup.",
             ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Entangle defines failed-save Restrained until spell end plus action Strength (Athletics) escape cleanup.",
             ".references/srd-5.2.1/Spells/Descriptions-S-Z.md#Sleep defines failed-save Incapacitated until the target's next turn, then repeat-save failure transition to Unconscious until spell end.",
+            ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Hold Person defines failed-save Paralyzed until spell end with affected-target end-turn repeat-save success cleanup.",
+            ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Hideous Laughter defines failed-save Prone and Incapacitated until spell end, blocked self-ending of Prone while active, and repeat-save success cleanup.",
             "UBIQUITOUS_LANGUAGE.md defines Rider, Condition, Poisoned, Saving Throw, and Spell Effect."
           ],
           "acceptanceGate": "Target replay may count residual condition or poison branches only for the modeled condition/lifecycle shape families after generic route evidence owns condition application, immunity rejection, lifecycle boundary, transition, escape, and cleanup without selected spell identity dispatch."
         },
         {
           "taskId": "FCSF-03E-OBJECT-AND-LIGHT-RIDERS",
-          "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt",
+          "routeConnectorPaths": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt"
+          ],
           "route": "reducer-routed",
-          "subjectFamily": "object target, object-attached light emitter, held-light, movable-light, and illumination projection routes",
+          "subjectFamily": "object target, object-attached light emitter, held-light, movable multi-emitter light, and illumination projection routes",
           "blockedDrivers": [
             "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
           ],
-          "requiredRouteInput": "Add generic object/light route subjects for object admission, object-attached or held emitter state, replacement cleanup, hurl cleanup, Bright/Dim Light projection, and table-owned cover or geometry witnesses.",
+          "requiredRouteInput": "Add generic object/light and spatial-effect route subjects for object admission, object-attached or held emitter state, movable multi-emitter light state, replacement cleanup, hurl cleanup, Bright/Dim Light projection, and table-owned cover or geometry witnesses.",
           "existingSourceEvidence": [
             "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt covers object-target spell Attack Roll routing.",
             "cleanroom-input/qnt/battle-runtime/battle-runtime-light.qnt and docs/adr/0004-light-obscurement-sight-source-facts-and-witnesses.md describe light emitter, obscurement, and sight ownership boundaries."
@@ -3909,6 +3916,8 @@
             "qntFacts": [
               "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-rider-route-facts.qnt defines typed route facts for object-attached and held light emitter sources, object target table-witness admission/rejection, active emitter admission, emitter attachment, Bright/Dim Light projection, replacement cleanup, hurl cleanup, duration cleanup, and table-owned object/geometry/presentation/durability witnesses.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt exposes ObjectLightRiderRouteSubject evidence through BattleObjectTargetBoundaryOwner for object admission, BattleActiveEffectOwner for emitter admission and cleanup, BattleLightProjectionOwner for Bright/Dim Light projection, BattleTurnBoundaryOwner for duration cleanup, and BattleAreaShapeOwner for table geometry witness consumption.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt defines generic movable multi-emitter light facts separate from object-attached and held emitter facts.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt exposes SpatialEffectRouteSubject evidence for concentration-backed movable multi-emitter Dim Light admission, table-owned movement/position witnesses, and later light projection without selected spell identity.",
               "The route facts keep object validity/admission inputs, object geometry, cover/opaque blocker geometry, color/presentation, and object AC/HP/immunity/threshold facts as table-owned witness or boundary facts rather than battle-owned durable state."
             ],
             "rawDomainFacts": [
@@ -3919,9 +3928,8 @@
               "UBIQUITOUS_LANGUAGE.md defines Table Decision, Illumination, Obscurement, Spell Effect, Spell Invocation, and Action Lifecycle."
             ],
             "blockers": [
-              "source-qnt-corpus-blocker: movable multi-emitter light routing is not covered by ObjectLightRiderRouteSubject, so doDancingLightsMovableDimLight remains blocked.",
-              "source-qnt-corpus-blocker: outline/invisible-revealing/attack-advantage effects, area hazard/obscurement lifecycle, movement replacement, and forced-movement/object-push presentation remain outside this object/held light substrate.",
-              "source-qnt-corpus-blocker: packages/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt and packages/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt are not reclassified as accepted wholesale; only object-attached and held light obligations with matching generic route facts may count through this connector."
+              "source-qnt-corpus-blocker: movement replacement and forced-movement/object-push presentation route through packages/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt, not the object/held light substrate.",
+              "source-qnt-corpus-blocker: packages/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt and packages/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt are not reclassified as accepted wholesale; only object-attached, held-light, or movable multi-emitter obligations with matching generic route facts may count through these connectors."
             ]
           },
           "acceptanceGate": "Target replay may count object/light residual branches only after copied route evidence separates battle-owned emitter/effect facts from table-owned geometry, color, and presentation facts."
@@ -4001,6 +4009,44 @@
             ]
           },
           "acceptanceGate": "Target replay may count exact-damage residual branches only after copied connector evidence makes the exact projection facts public enough that a fresh target need not infer them from TypeScript or selected spell identity."
+        },
+        {
+          "taskId": "FCSF-03H-MOVEMENT-PRESENTATION",
+          "subjectFamily": "movement replacement budget/distance, forced movement, object push, and presentation boundary substrates",
+          "route": "reducer-routed",
+          "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt",
+          "blockedDrivers": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
+          ],
+          "requiredRouteInput": "Add generic movement/presentation route facts that separate movement-resource facts, table-owned presentation facts, and object-boundary facts for movement replacement budget/distance, forced movement, and object-push presentation effects.",
+          "existingSourceEvidence": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation-route-facts.qnt defines typed MovementPresentationRouteFact variants for movement-resource facts, table-presentation witnesses, and object-boundary facts without authored spell identity.",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt exposes MovementPresentationRouteSubject evidence through BattleMovementResourceOwner, BattleSavingThrowOutcomeOwner, BattleObjectTargetBoundaryOwner, and BattleTablePresentationOwner for Jump-style movement replacement budget/distance plus table-supplied landing presentation witness, failed-save forced creature movement presentation, and unsecured-object push/audible presentation."
+          ],
+          "rawDomainFacts": [
+            ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Jump defines spending 10 feet of movement to jump up to 30 feet.",
+            ".references/srd-5.2.1/Spells/Descriptions-S-Z.md#Thunderwave defines failed-save creature push, unsecured-object push, and audible presentation.",
+            ".references/srd-5.2.1/Playing-the-Game.md#Movement and Position and .references/srd-5.2.1/Rules-Glossary.md#Speed define movement budget and movement-cost accounting.",
+            ".references/srd-5.2.1/Playing-the-Game.md#What Is an Object and #Interacting with Objects define object boundaries as table-facing facts.",
+            "UBIQUITOUS_LANGUAGE.md defines Movement, Speed, Table Decision, Spell Effect, Shove/Push distinction, and Boundary Crossing."
+          ],
+          "derivability": {
+            "qntFacts": [
+              "RouteMovementPresentationResource facts expose movement replacement fixed-budget spend, movement replacement distance projection, forced movement with no target-owned movement-resource spend, and forced-movement distance projection.",
+              "RouteMovementPresentationTable facts expose table-supplied movement path, landing-space presentation, direction-away-from-source, area-geometry, and audible-presentation witnesses.",
+              "RouteMovementPresentationObjectBoundary facts expose unsecured-object, entirely-within-area, and object-push boundary projections separately from movement-resource facts."
+            ],
+            "rawDomainFacts": [
+              ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Jump defines the replacement movement budget and maximum distance; the connector treats landing/path details only as table-supplied presentation witnesses.",
+              ".references/srd-5.2.1/Spells/Descriptions-S-Z.md#Thunderwave defines pushed creatures, pushed unsecured objects, and audible presentation.",
+              "UBIQUITOUS_LANGUAGE.md defines Table Decision and Movement, separating table route/placement choices from reducer movement-resource facts."
+            ],
+            "blockers": [
+              "source-qnt-corpus-blocker: landing legality and failed-landing Prone consequence facts remain outside this connector until explicit local RAW or ASSUMPTIONS.md traceability is added.",
+              "source-qnt-corpus-blocker: this connector does not accept movable multi-emitter light, outline/invisible-revealing/attack-advantage, or area hazard/obscurement branches."
+            ]
+          },
+          "acceptanceGate": "Target replay may count movement replacement only for budget/distance and table-supplied landing presentation witness evidence, and may count forced-movement/object-push presentation branches only after copied route evidence consumes generic movement-resource, table-presentation, and object-boundary facts rather than selected spell identity. Landing legality and failed-landing Prone behavior remain blocked."
         }
       ],
       "task7FollowUpTasks": [
@@ -4048,6 +4094,13 @@
           "requiredSourceWork": [
             "Task 28 supplied packages/battle-runtime/battle-runtime-weapon-mastery-selected-identity.route.mbt.qnt as generic WeaponMasteryPropertyRouteSubject evidence for Sap active-effect riders, Topple save-gated condition riders, and Cleave optional once-per-turn nested weapon attacks through target-selection, attack-roll, Hit Point, active-effect, condition-lifecycle, and feature-resource owners.",
             "The current source selected-identity driver covers Sap, Topple, and Cleave only; Graze, Nick, Push, Slow, and Vex remain separate source/runtime expansion work if future scope requires them."
+          ]
+        },
+        {
+          "taskId": "L15-RR07-FU06A-MARKED-DAMAGE-IMMUNITY-ACTIVE-EFFECT-SUBSTRATES",
+          "subjectFamily": "marked damage rider transfer plus condition-immunity turn-start Temporary Hit Point substrates",
+          "requiredSourceWork": [
+            "Task SQNT-07A supplied packages/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt as generic MarkedDamageRiderEffectRouteSubject and ConditionImmunityTemporaryHitPointEffectRouteSubject evidence for marked-target extra damage, target-drop transfer timing, condition-immunity rejection, turn-start Temporary Hit Point grants, and Concentration cleanup through public reducer owners before selected level-1 buff/mark/smite identity replay counts."
           ]
         },
         {

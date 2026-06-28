@@ -21,14 +21,14 @@
       "note": "Diagnostic dirty target replay only. The batch merged SQNT-07B species/passive adjacent replay, SQNT-07C metamagic replay, and SQNT-07D active-feature spell-benefit replay against copied source package 21504ef764118f5fd13086aa6266f19280196664. Accepted dirty replay rows: 15 for SQNT-07B, 30 for SQNT-07C, and 3 for SQNT-07D. SQNT-07B explicitly leaves 2 inherited Adrenaline Rush feature-resource rows out of scope for this lane. This does not claim fresh target acceptance."
     },
     "currentHarnessStatus": {
-      "checkedAtHead": "ebd3699fb03c99d0ec674361ebf69835e64bfd0c",
+      "checkedAtHead": "1acbb37d plus cleanroom-input refresh changes",
       "check": "node scripts/check-cleanroom-harness.cjs",
       "result": "fails-after-validator-provenance",
-      "note": "Guidance hashes and approved validator patch hashes now match the dirty target files. The harness progresses past validator provenance and fails on older historical replay/ledger debt still pinned to source package 564376fd95218a209bb9eae5c9ccb54ca3e04a52, plus pre-existing heuristic findings outside the SQNT-07B/C/D replay batch."
+      "note": "Guidance hashes and approved validator patch hashes now match the dirty target files for source package e9f75e22a10891cd438fb06f6ea1ca666f79aaeb. The harness progresses past validator provenance and fails on broad historical RUN_LEDGER/target replay evidence still pinned to older source packages, plus pre-existing heuristic findings outside this source package refresh. This refresh intentionally does not attempt repo-wide dirty ledger repair."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
-      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, SQNT-03C Opportunity Attack denial route connector evidence, SQNT-03D condition/poison rider route connector evidence, SQNT-03E object/light rider route connector evidence and reducer-owner domain-boundary guidance, SQNT-03F mixed-target outcome route connector evidence, SQNT-03G exact damage projection component witness evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. The package refresh alone did not claim dirty target acceptance, fresh target acceptance, or new Rust runtime coverage; later dirty replay records below supersede the dirty-target status for accepted SQNT-03/FCSF rows."
+      "sourceCommitSha": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
+      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages the completed Wave 2 SQNT-07A source-QNT lanes: condition lifecycle, movement/presentation, spatial effects, and marked damage/immunity active-effect substrates, in addition to the previously packaged SQNT-03/FCSF/FEXP route evidence. The package refresh alone does not claim dirty target acceptance, fresh target acceptance, or new Rust runtime coverage; target replay may count only rows supported by copied generic route facts."
     },
     "sourceFeedbackPackageRefresh": {
       "id": "fcsf-package-refresh-21504ef",
@@ -3769,7 +3769,9 @@
     "SQNT-07A-MOVEMENT-PRESENTATION is source-merged at f7d2ea22d27e9457fd46014697fc55a4000f823e after narrowing Jump/table-presentation claims and preserving landing legality plus failed-landing Prone blockers.",
     "SQNT-07A-SPATIAL-EFFECTS is source-merged at c596f55f6ccea08a65e94804ede4ca443adf8bd4 after splitting spatial facts so Grease-like hazards, obscurement cleanup, movable multi-emitter light, and outline/save outcome routes stay domain-shaped.",
     "SQNT-07A-MARKED-DAMAGE-AND-IMMUNITY is source-merged at e9f75e22a10891cd438fb06f6ea1ca666f79aaeb after removing unsupported ability-check claims and keeping marked damage, condition-immunity, Temporary HP, and Concentration cleanup route facts shape-based.",
-    "After all active Wave 2 source lanes merge, refresh cleanroom-input from source master and launch fresh/dirty target replay only for rows supported by the copied generic route facts."
+    "cleanroom-input is refreshed from source e9f75e22a10891cd438fb06f6ea1ca666f79aaeb. The package includes battle-runtime-condition-riders.route.mbt.qnt updates plus new battle-runtime-movement-presentation, battle-runtime-spatial-effects, and battle-runtime-marked-damage-immunity active-effect route connectors.",
+    "node scripts/check-cleanroom-harness.cjs progresses past validator provenance after carrying forward tasks/VALIDATOR_PATCH.json to source e9f75e22, then fails on historical dirty replay/ledger debt that remains outside this package refresh.",
+    "Next target replay lanes should consume the refreshed cleanroom-input package and count only rows supported by copied generic route facts."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",

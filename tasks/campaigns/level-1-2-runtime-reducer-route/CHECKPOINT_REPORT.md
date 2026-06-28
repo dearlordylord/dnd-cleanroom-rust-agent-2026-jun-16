@@ -643,3 +643,12 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Verification: focused marked damage/immunity route connector MBT, `pnpm check:mbt-driver-closure`, `pnpm check:reducer-route-connectors`, `pnpm rules-kernel-coverage:check`, `pnpm cleanroom-branch-coverage:check`, `pnpm --filter @dnd/battle-runtime typecheck`, `pnpm check:authored-id-dispatch`, and `git diff --check HEAD~1...HEAD` passed on source master after fast-forward.
 - Scope note: this is source-input work only. It does not claim dirty target replay or fresh target acceptance. Wave 2 source-QNT lanes are now complete and ready for cleanroom-input package refresh.
 - Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-marked-damage-immunity`
+
+### SQNT-07A-WAVE2-CLEANROOM-INPUT-REFRESH
+
+- Source package commit: `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb`
+- Command: `node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19`
+- Result: `cleanroom-input/` refreshed to 535 files with 1547 QNT imports resolved and 98 branch-inventory drivers checked.
+- Newly packaged route connectors: condition lifecycle updates, `battle-runtime-movement-presentation.route.mbt.qnt`, `battle-runtime-spatial-effects.route.mbt.qnt`, and `battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt`.
+- Validation: manifest validator hashes were updated through the approved `tasks/VALIDATOR_PATCH.json` carry-forward for source `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb`; `node scripts/check-cleanroom-harness.cjs` then progressed past validator provenance and failed on historical dirty RUN_LEDGER/target replay evidence still pinned to older source packages plus pre-existing heuristic findings. This refresh does not attempt repo-wide dirty ledger repair.
+- Scope note: this is a copied source-input package refresh only. It does not claim dirty target replay, fresh target acceptance, or Rust runtime coverage. Target replay lanes must consume only the copied QNT/RAW/domain/guidance package and must keep unsupported selected rows blocked.

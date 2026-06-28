@@ -1,8 +1,8 @@
 # Reducer-Spine Cleanroom Guidance
 
 This guidance is for cleanroom target agents implementing reducer-spine
-diagnostics from copied QNT. It is language-independent and describes the
-copied corpus, reducer-route contract, and domain boundaries.
+diagnostics from copied QNT. It is language-independent and intentionally does
+not describe the production TypeScript implementation.
 
 ## Target Surface
 
@@ -15,9 +15,10 @@ The battle engine surface for reducer-spine diagnostics is:
   that subject's hole frontier, and commit resolved effects.
 - turn advancement: move to the next actor and refresh turn-owned resources.
 
-Names may follow the target language's style. The target engine exposes one
-shared reducer path with this shape, and focused drivers route through the
-shared `BattleState -> discover_battle_acts -> resolve_battle_subject` path.
+Names may follow the target language's style, but the target engine must expose
+one shared reducer path with this shape. A focused driver must not introduce a
+parallel replay helper that owns its own state and bypasses the shared
+`BattleState -> discover_battle_acts -> resolve_battle_subject` route.
 
 ## Subject And Fill Lifecycle
 
@@ -32,16 +33,17 @@ For a selected driver:
 - expose typed subject variants only for that task's subject family.
 - expose typed fill variants only for holes the copied QNT driver needs.
 - represent commands with no table-supplied value as no-fill subject resolution;
-  absence of a table choice is represented directly.
-- keep ordering facts in reducer state or reducer results.
-- reject or request earlier fills according to QNT-defined ordering.
+  do not invent a synthetic fill to stand in for an absent table choice.
+- keep ordering facts in reducer state or reducer results, not in driver-local
+  maps.
+- reject or request earlier fills according to QNT; do not silently reorder by
+  adapter convention.
 
 The reducer-spine contract witness
 `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt`
-is a thin composition witness. It proves the shared route shape. Spell
-targeting, damage math, attack resolution, turn-boundary effects, and interrupt
-behavior are owned by their focused route connectors or reusable component
-facts.
+is a thin composition witness. It proves the shared route shape. It is not a
+rule owner for spell targeting, damage math, attack resolution, turn-boundary
+effects, or interrupt behavior.
 
 The character-to-battle encounter-composition connector
 `cleanroom-input/qnt/character-battle-runtime/character-battle-encounter-composition.route.mbt.qnt`
@@ -55,8 +57,7 @@ shape-based:
   combatant and any non-sheet participants, plus each participant's Encounter
   Side;
 - battle subject-profile setup owns availability of generic action/profile
-  facts for each participant; profiles are capability facts rather than authored
-  ids;
+  facts for each participant; profiles are capabilities, not authored ids;
 - battle Initiative setup owns Initiative counts, stable Initiative order, and
   the initial current actor selected from that order;
 - battle runtime entry happens after those composition facts exist, so
@@ -67,8 +68,9 @@ shape-based:
 Targets may expose this as a single `start_battle` setup, as a typed
 character-battle handoff entry that accepts encounter setup, or as a typed
 pre-entry composition operation followed immediately by runtime entry. They must
-derive participant membership, opponent facts, subject profile, Initiative, and
-current actor facts from the typed composition setup and battle-owned state.
+not infer participant membership from class, species, spell, monster, fixture,
+or catalog identity, and they must not create driver-local state for opponent,
+subject profile, Initiative, or current actor facts.
 
 Focused route connectors named `*.route.mbt.qnt` are the executable routing
 obligations for diagnostic drivers. They project `qRoute` over the shared
@@ -77,9 +79,8 @@ the marker sequence and the owned composition fact families. A target replay
 proves reducer routing only when its observed route events match the copied
 connector, including those fact-family sets, while production state owns the
 corresponding participant, Encounter Side, subject-profile, Initiative, and
-current-actor facts. Reducer architecture evidence includes the owned fact
-families and shared reducer entrypoints, beyond marker order or focused
-non-route projection parity.
+current-actor facts. Matching marker order or the focused non-route projection
+alone proves behavior parity, not reducer architecture.
 
 Reducer-route owner names are semantic domain boundaries. A target may encode
 them in its native type and module system, while preserving domain-shaped
@@ -96,7 +97,8 @@ Concentration end, and replacement Concentration effects use
 `ConcentrationTeardownRouteSubject` route events owned by
 `BattleConcentrationOwner` and `BattleActiveEffectOwner`; targets must derive
 cleanup from those route events and BattleState-owned Concentration/active
-Spell Effect state.
+Spell Effect state, not from spell names, fixture labels, QNT branch names, or
+driver-local active-effect ledgers.
 
 The scalar-buff active-effect connector is the public source for scalar profile
 projection through battle-owned active effects. Armor Class, Speed, special
@@ -105,10 +107,11 @@ copied scalar-buff profile source functions and the
 `ScalarBuffEffectRouteSubject` route, then flow through reducer-owned
 active-effect, movement, Hit Point, Temporary Hit Point, and Concentration
 owners. Condition-immunity scalar-buff projection exists in rule-core
-vocabulary. The active replay route covers the listed projection domains; the
-selected-spell residual blocker calls for generic condition-immunity plus
-turn-start Temporary Hit Point active-effect substrate evidence before accepting
-that remaining domain.
+vocabulary, but it is not exposed by this active replay route and remains with
+the selected-spell residual blocker that calls for a generic condition-immunity
+plus turn-start Temporary Hit Point active-effect substrate. A target must not
+recreate those projection domains in an adapter table or infer them from
+selected spell names.
 
 The reducer-route inventory is an ordering and derivability index. A
 `reducer-routed` row is accepted only with copied connector evidence from
@@ -118,8 +121,9 @@ Rule-core `component-first` rows use component connector evidence instead of
 BattleState route evidence. The copied component connector projects
 `qComponentRoute` through `rule-core-component-route.qnt`, with events for
 parse input, admit input, call the reusable rule-core component, and project the
-result. A target replay for a component-first row matches that route, records
-the inventory's `componentOwners`, and exercises the reusable component API.
+result. A target replay for a component-first row must match that route and
+record the inventory's `componentOwners`; it must not satisfy the row by
+building a driver-local replay helper that bypasses the reusable component API.
 
 ## Durable State Ownership
 
@@ -137,9 +141,9 @@ Before adding a durable field:
 4. State whether the field is a canonical battle-state owner or an executable
    boundary projection from another owner.
 
-Production state stores durable domain facts owned by `BattleState` or another
-recorded owner. Labels, display names, QNT action names, branch ids, and
-witness fields stay in adapters, tests, and evidence.
+Do not store driver-local duplicates of facts that `BattleState` can own. Do
+not store labels, display names, QNT action names, branch ids, or witness fields
+as production state.
 
 ## Adapter Quarantine
 
@@ -151,9 +155,9 @@ QNT/MBT replay adapters may know about:
 - trace ids, evidence hashes, and target replay evidence JSON fields.
 - projection comparators used only for target replay evidence.
 
-Production modules route through domain APIs. Adapters translate between QNT
-replay and the reducer surface; rule behavior is owned by production reducer
-and component modules.
+Production modules must not import adapter modules, branch on QNT action names,
+or expose witness protocol fields as domain APIs. Adapters translate between
+QNT replay and the reducer surface; they do not own rules behavior.
 
 ## Cleanroom Boundary And Identity Dispatch
 
@@ -163,23 +167,23 @@ Both import knowledge from outside the reducer's runtime facts.
 
 Production reducer code routes by shape: subject kind, typed procedure facts,
 capability/profile facts, combatant state, turn resources, and durable
-BattleState-owned facts. Authored ids, authored names, slugs, source headings,
-page references, official catalog labels, fixture names, and QNT branch names
-belong to catalog, selection, adapter, test, and evidence boundaries.
+BattleState-owned facts. It must not select mechanics by fixture names,
+authored ids, authored names, slugs, source headings, page references, or
+official catalog labels.
 
 Fixture names, QNT branch names, selected authored identities, and catalog rows
 belong only in adapters, tests, replay evidence, catalog/selection boundaries,
 or explicitly documented support-profile admission. If a reducer route appears
 to need a selected identity, first extract the generic shape or capability it
-represents. If the copied corpus lacks that shape, record a
+represents. If the copied corpus does not state that shape, record a
 `source-qnt-corpus` blocker instead of inferring it.
 
 ## Selected Identity And Catalog Timing
 
-Selected-identity and catalog QNT follow the generic substrate. A selected
-spell, feature, monster, or catalog row is admitted through typed runtime facts,
-support-profile facts, spell procedure shape, battle subject kind, resource
-owner, or cross-record references.
+Selected-identity and catalog QNT should wait until the generic substrate
+exists. Do not implement a selected spell, feature, monster, or catalog row by
+branching production behavior on authored ids, names, slugs, source headings,
+page references, or official catalog labels.
 
 When the selected-identity driver is the pressure point, first ask what generic
 runtime substrate the QNT actually needs: support-profile facts, spell procedure
@@ -202,13 +206,15 @@ for the remaining selected-spell branches:
 Each category needs copied generic route or component connector evidence before
 a target replay can count the selected-identity branch. If the copied package
 has a selected driver branch but lacks the listed generic evidence, record a
-source-QNT-corpus blocker.
+source-QNT-corpus blocker instead of routing production behavior by authored
+spell identity, branch action name, or fixture label.
 
 ## Anti-Explosion Rule
 
-Each cleanroom task may add one small subject family or one substrate. Tasks
-stay focused on the selected subject family, reusable component, or substrate
-named by the copied inventory.
+Each cleanroom task may add one small subject family or one substrate. It must
+not build whole-battle QNT, a whole-battle reducer, broad selected-identity
+fanout, or a large target-language accumulator that mirrors the source branch
+inventory.
 
 For reducer-spine diagnostics, use
 `cleanroom-input/branch-coverage/reducer-route-inventory.json`:
@@ -232,7 +238,8 @@ For reducer-spine diagnostics, use
   runtime substrate exists.
 - `replay-refresh-only` means rerun evidence without new production behavior.
 
-If the route needs a reducer fact absent from copied QNT, RAW, domain language,
-assumptions, and this guidance, record a `source-qnt-corpus` blocker.
-Acceptance evidence for a fresh package run comes from copied corpus inputs and
-fresh target replay artifacts.
+If the route needs a reducer fact not present in copied QNT, RAW, domain
+language, assumptions, or this guidance, record a `source-qnt-corpus` blocker.
+Do not infer the missing fact from TypeScript or from prior cleanroom code.
+Do not use dirty cleanroom reports, ledgers, adapters, or target implementation
+history as acceptance evidence for a fresh package run.

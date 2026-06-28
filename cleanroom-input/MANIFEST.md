@@ -5,9 +5,9 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: 21504ef764118f5fd13086aa6266f19280196664
-- Copy date: 2026-06-28T15:27:10.339Z
-- Files: 529
+- Source commit SHA: e9f75e22a10891cd438fb06f6ea1ca666f79aaeb
+- Copy date: 2026-06-28T21:57:28.044Z
+- Files: 535
 
 Cleanroom tasks must declare which source commit SHA they implement
 against (the `Source commit SHA` recorded here at task start).
@@ -44,7 +44,7 @@ instead of guessing.
 - `branch-coverage/reducer-route-inventory.json`: 1
 - `guidance/README.md`: 1
 - `guidance/reducer-spine.md`: 1
-- `qnt/battle-runtime`: 331
+- `qnt/battle-runtime`: 337
 - `qnt/character-creation-runtime`: 22
 - `qnt/character-sheet-runtime`: 23
 - `qnt/character-battle-runtime`: 12
@@ -96,9 +96,9 @@ instead of guessing.
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
 | `branch-coverage/source-branch-inventory.json` | `aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
-| `branch-coverage/reducer-route-inventory.json` | `cf03b000367d46e1c6c1345d483d343e6be03924338a2d80f013d276f8844102` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
-| `guidance/README.md` | `5fb9e34aeec4febe025e0f36256a7ffedab3d0a341662600dffcaa8f807c1bd7` | `plans/cleanroom-guidance/README.md` |
-| `guidance/reducer-spine.md` | `848d6157fb322987f7ef27a79673ffb4bea1ebe59100783ddbdf2f278bbdd65d` | `plans/cleanroom-guidance/reducer-spine.md` |
+| `branch-coverage/reducer-route-inventory.json` | `47d653396694fdd963e314174161247c20e431d93a94ec9d32685a3fbc230829` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
+| `guidance/README.md` | `d62a834399e1469186bc931f2d27bdf696b9a67c9c9e21c15982ee722ed5384b` | `plans/cleanroom-guidance/README.md` |
+| `guidance/reducer-spine.md` | `76285c5b2eb1728e304a7009c9e1897867d1234880bd847f9b14a8d23bfc7001` | `plans/cleanroom-guidance/reducer-spine.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` | `03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` | `4ff801da12cf24964a55457b3146b6ad23d790bb1b7a5b264d4ee7001b9be5e8` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` |
@@ -142,8 +142,8 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt` | `d298d362943107ed0f5ee3efb8db6084b7a985c24b85483d4d4da3ebcdf4f200` | `packages/battle-runtime/battle-runtime-concentration-break-teardown.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-concentration.qnt` | `5137dfae014fa3e80ff0cf1befde20b10270d70b3ec9de0c543386cbb3a9ff97` | `packages/battle-runtime/battle-runtime-concentration.qnt` |
 | `qnt/battle-runtime/battle-runtime-condition-removal-protection-selected-identity.mbt.qnt` | `5f3d05208d12d81e9c3764b7cc88b6c023f3fd9ef8b27c6cb95c83e3bd730888` | `packages/battle-runtime/battle-runtime-condition-removal-protection-selected-identity.mbt.qnt` |
-| `qnt/battle-runtime/battle-runtime-condition-rider-route-facts.qnt` | `c54bf44435821a987bb65e7f12b47e6045fea9dc500a70ff0f46b8d9be2e0662` | `packages/battle-runtime/battle-runtime-condition-rider-route-facts.qnt` |
-| `qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt` | `6830de719d5d06ddc4a0f85755da7196f03d4f3beab1ae3c512a1e88906db394` | `packages/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-condition-rider-route-facts.qnt` | `c180489d116f90aef70aede76cf1de5fbe3b48589a2f3262d4357346d4a22062` | `packages/battle-runtime/battle-runtime-condition-rider-route-facts.qnt` |
+| `qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt` | `805a7841559c6d0cbd5c1592c19da43f593493e4c68d70f51609e1a4d3167cbb` | `packages/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt` | `eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7` | `packages/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-condition-spell-resolution.qnt` | `24c40d74c029854617018d0f6f7579d2eceb8dcd5267ea69b2bc615bb8e78145` | `packages/battle-runtime/battle-runtime-condition-spell-resolution.qnt` |
 | `qnt/battle-runtime/battle-runtime-core-combat-tests.qnt` | `da2b1eec2f57dc6a9ca62cf4065262af16d9d2fde2db74eb89accd98990e3f32` | `packages/battle-runtime/battle-runtime-core-combat-tests.qnt` |
@@ -243,6 +243,8 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-magic-missile.mbt.qnt` | `283d6e322f72c2b9051045897ddb450eef4bbfe88841ec67c086af52d6caccf4` | `packages/battle-runtime/battle-runtime-magic-missile.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-magic-missile.route.mbt.qnt` | `f91f7c392b838d06ea22e610499613ab634e036ea7a1a80dfe4f0b72f7cc36af` | `packages/battle-runtime/battle-runtime-magic-missile.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-magical-darkness-point-origin-lifecycle.mbt.qnt` | `cefea8a0303232bd98bfdd5347c0b938fc57ea4fbadf5125518dee4c55c54d25` | `packages/battle-runtime/battle-runtime-magical-darkness-point-origin-lifecycle.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt` | `482c779f657248cf3c51fddfb647f33ff327473ce644edc5266f1fe7e02899eb` | `packages/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-marked-damage-immunity-route-facts.qnt` | `c75e5985025ad5811647ef383709435ff99311009d8fa5674fc1b2205c9aad71` | `packages/battle-runtime/battle-runtime-marked-damage-immunity-route-facts.qnt` |
 | `qnt/battle-runtime/battle-runtime-marked-riders.qnt` | `5491e9c1cca7f1aa0eb60434d7a47de5851fa6e9cbc18a9be734299e958f6780` | `packages/battle-runtime/battle-runtime-marked-riders.qnt` |
 | `qnt/battle-runtime/battle-runtime-marked-spells.qnt` | `c6770aaa4fb5a889f0ef851866fc7ed8ecd735163da14b514fddfd0c9909487a` | `packages/battle-runtime/battle-runtime-marked-spells.qnt` |
 | `qnt/battle-runtime/battle-runtime-metamagic-tests.qnt` | `907f5e27307cbad97ad5e46d4bf8854288beed38b53033551097be9724338ce2` | `packages/battle-runtime/battle-runtime-metamagic-tests.qnt` |
@@ -264,6 +266,8 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-movement-bridge.qnt` | `5108ac28d85262f8fe556ef444257e8052882688954010a40c52bb55a0bcda0d` | `packages/battle-runtime/battle-runtime-movement-bridge.qnt` |
 | `qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt` | `e1a971ac419085dd5992e5546553401b225c1101791e1a75144382b84593e8a7` | `packages/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.route.mbt.qnt` | `3017a6868e5f8c81bd752bb61132076d09eb1a359bd5ef2893c6cfeed639e5e8` | `packages/battle-runtime/battle-runtime-movement-forced-movement-selected-identity.route.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-movement-presentation-route-facts.qnt` | `51a07c9ddcaf77192d649f41747e412971f1935c122d654c59e0e48272ad25bd` | `packages/battle-runtime/battle-runtime-movement-presentation-route-facts.qnt` |
+| `qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt` | `ad41dd95c3b40e4b2ea0b2fe3e3695543e17b658155d0d8c051b7009866d82b9` | `packages/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-movement.qnt` | `7c2d347d7c08a883f2fb693cdf4d6b977751fad7f84f600edb43399f0131558b` | `packages/battle-runtime/battle-runtime-movement.qnt` |
 | `qnt/battle-runtime/battle-runtime-mycelium-step-feature-selected-identity.mbt.qnt` | `a1fa00902c9fe72c85838729d5025c4044f60c79ef6e8600c37961da698924d4` | `packages/battle-runtime/battle-runtime-mycelium-step-feature-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-next-attack-roll-mode-route-facts.qnt` | `c2d68a43c2b3dfa4ea1f66d1a709b6aac3e17ee80a38e47a1ad56472b9f9e41e` | `packages/battle-runtime/battle-runtime-next-attack-roll-mode-route-facts.qnt` |
@@ -296,7 +300,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` | `8192d11ce0dc893853b0eceda1b7ef853bbee219295f8e18e5071a5d33789e4a` | `packages/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window-tests.qnt` | `4ce834fb0929cec617e79abf7a4cfcbacdc10718041c774f0f092ae434b76159` | `packages/battle-runtime/battle-runtime-reaction-window-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window.qnt` | `f557bce899edff541e53cfd081a0a0a4db84364c355aa1605e438b6015ef383e` | `packages/battle-runtime/battle-runtime-reaction-window.qnt` |
-| `qnt/battle-runtime/battle-runtime-reducer-route.qnt` | `1a65043a4833e82c44d52448afa5d1108082bdeb1a3a371205e4a58b343348cb` | `packages/battle-runtime/battle-runtime-reducer-route.qnt` |
+| `qnt/battle-runtime/battle-runtime-reducer-route.qnt` | `f37571984626dd772214142b9a4b3bc62c30e7d3fa7a550efdc15c600d5e63d2` | `packages/battle-runtime/battle-runtime-reducer-route.qnt` |
 | `qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` | `5b7fe7a06d31dda4e32625ede181289efe9c2b9ddb8fe6e42df87d826b88e565` | `packages/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` | `0b0e39e7cd765f7203dedd77221d12b7724e3083cd67be5573b65b46ced46967` | `packages/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` | `fca72ca4bb400a1de697f0fa4786210eb57a8a0130ee7531c9f9226a0997d43e` | `packages/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` |
@@ -353,6 +357,8 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt` | `b990c79c50d537c5b98d5e4c0d40ea386d59b237ab00e6b94d223f1e0eddbc3c` | `packages/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-sorcerer-metamagic.route.mbt.qnt` | `e0ecec8d1ea2c0e5019e9382fde7ea93bffbe52dc40ec6a68ad5db1b9b6ff2ac` | `packages/battle-runtime/battle-runtime-sorcerer-metamagic.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-sorcerous-burst-damage-choice.qnt` | `bfccbd161f63464bbf6cfd5f698c5579f90c3885c54447b0f6cb2cdc7a5bcb8e` | `packages/battle-runtime/battle-runtime-sorcerous-burst-damage-choice.qnt` |
+| `qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt` | `9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709` | `packages/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt` |
+| `qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt` | `b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8` | `packages/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt` | `efbc937b9f24ecdd5248fd6fdbd96f5def8b0edaf72abcb8b9239a17419d813c` | `packages/battle-runtime/battle-runtime-species-passive-trait-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt` | `baf09c389c333ddcfa5123cfa7beb43074e9e34ab84cbd7d1aec5a2c47c71561` | `packages/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt` | `4240b6bae33063fc7ac12bbde33c0ad20e55921a933a3d101d10b48962e4adff` | `packages/battle-runtime/battle-runtime-spell-attack-ordering.mbt.qnt` |

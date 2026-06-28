@@ -12,7 +12,7 @@
     }
   ],
   "patchId": "L15-RR21-roll-choice-payload-validator-bookkeeping",
-  "rationale": "Carry forward approved target-local validator patches after the cleanroom-input refresh to source commit 21504ef764118f5fd13086aa6266f19280196664.",
+  "rationale": "Carry forward approved target-local validator patches after the cleanroom-input refresh to source commit e9f75e22a10891cd438fb06f6ea1ca666f79aaeb.",
   "schemaVersion": 1,
-  "sourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664"
+  "sourceCommitSha": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb"
 }
