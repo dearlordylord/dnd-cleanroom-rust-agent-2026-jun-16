@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03f-dirty-replay-merged-sqnt03g-source-packaged",
+  "status": "sqnt03g-dirty-replay-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -708,7 +708,19 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03F evidence, ledger, or artifact failures",
     "review": "Gibbs the 3rd found no blockers. Review confirmed SQNT-03F replay uses shared reducer route events, copied target/outcome/projection facts remain non-durable witness facts, shared spend and shared Saving Throw damage-roll facts remain distinct, and selected-driver wholesale acceptance remains blocked."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "SQNT-03G-EXACT-DAMAGE-DIRTY-REPLAY",
+      "routeTaskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03g-exact-damage-replay",
+      "branch": "ralph/sqnt03g-exact-damage-dirty-replay",
+      "baseSha": "22fe5632a27d58327ea42d666d581ce0f66ae36e",
+      "workerAgent": "019f0eed-3f71-7a53-a69a-e87155291106",
+      "workerName": "Meitner the 3rd",
+      "status": "worker-running",
+      "scope": "dirty target replay only; no fresh target acceptance claimed"
+    }
+  ],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
