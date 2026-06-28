@@ -628,9 +628,9 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03e-object-light-replay",
       "branch": "ralph/sqnt03e-object-light-dirty-replay",
       "baseSha": "da56942",
-      "workerAgent": "pending",
-      "workerName": "pending",
-      "status": "worktree-created-worker-pending",
+      "workerAgent": "019f0ea2-bb16-7b22-b9dc-6c07b22fa7c2",
+      "workerName": "Anscombe the 3rd",
+      "status": "worker-running",
       "scope": "dirty target replay only; no fresh target acceptance claimed"
     }
   ],
@@ -641,9 +641,9 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes",
       "branch": "ralph/source-sqnt-03f-mixed-target-outcomes",
       "baseSha": "32e51f46a71f5a714034966e018fe79abbb7fcae",
-      "workerAgent": "pending",
-      "workerName": "pending",
-      "status": "worktree-created-worker-pending",
+      "workerAgent": "019f0ea3-051b-7cc2-bafa-d14052b7a258",
+      "workerName": "Plato the 3rd",
+      "status": "worker-running",
       "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
     },
     {
@@ -652,9 +652,9 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection",
       "branch": "ralph/source-sqnt-03g-exact-damage-projection",
       "baseSha": "32e51f46a71f5a714034966e018fe79abbb7fcae",
-      "workerAgent": "pending",
-      "workerName": "pending",
-      "status": "worktree-created-worker-pending",
+      "workerAgent": "019f0ea3-50cd-7ae3-b243-436cef287aa2",
+      "workerName": "Halley the 3rd",
+      "status": "worker-running",
       "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
     }
   ],
