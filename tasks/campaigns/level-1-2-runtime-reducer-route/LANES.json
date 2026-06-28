@@ -1317,7 +1317,7 @@
     {
       "laneId": "SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
       "checkpointId": "SQNT-07-CURRENT-PACKAGE",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "sqnt07-current-package-replay",
       "routeTaskIds": [
         "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES"
@@ -1357,7 +1357,7 @@
     {
       "laneId": "SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY",
       "checkpointId": "SQNT-07-CURRENT-PACKAGE",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "sqnt07-current-package-replay",
       "routeTaskIds": [
         "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES"
@@ -1404,7 +1404,7 @@
     {
       "laneId": "SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY",
       "checkpointId": "SQNT-07-CURRENT-PACKAGE",
-      "status": "ready",
+      "status": "running",
       "parallelGroup": "sqnt07-current-package-replay",
       "routeTaskIds": [
         "L15-RR07-FU09-INNATE-SPELL-BENEFIT-FEATURE-SUBSTRATE"

@@ -14,7 +14,9 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07b-species-replay` | `ralph/sqnt07b-species-current-package-replay` | `84c637980698971b3df1d8dc4a613bc7b7bc50af` | Sagan the 3rd (`019f0f08-132d-7041-b495-f1b03ff5b67b`) | running |
+| SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07c-metamagic-replay` | `ralph/sqnt07c-metamagic-current-package-replay` | `84c637980698971b3df1d8dc4a613bc7b7bc50af` | Zeno the 3rd (`019f0f09-25a0-7682-897e-930650baa385`) | running |
+| SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07d-active-feature-replay` | `ralph/sqnt07d-active-feature-current-package-replay` | `84c637980698971b3df1d8dc4a613bc7b7bc50af` | Heisenberg the 3rd (`019f0f09-81d2-71a1-a64f-b79a86203013`) | running |
 
 ## Active Fresh Dry Run Targets
 

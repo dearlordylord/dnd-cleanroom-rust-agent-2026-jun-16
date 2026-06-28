@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03g-dirty-replay-merged",
+  "status": "sqnt07-current-package-replay-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
