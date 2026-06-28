@@ -3,7 +3,7 @@
 Campaign: `level-1-2-runtime-reducer-route`
 
 Accepted fresh target baseline:
-`cd4465556d18729121f56f5834ac00f8b0b3d15c`
+`bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c`
 
 Current gate:
 
@@ -56,12 +56,10 @@ Needed source input:
 
 Source blockers:
 
-- `FEXP-04-roll-modifier-concentration-break-route-not-publicly-observable`
 - `FEXP-04-scalar-active-effect-cumulative-sequence-needs-profile-progression`
 
 Needed source input:
 
-- public concentration-break cleanup routes;
 - generic active-effect profile progression facts;
 
 Resolved source input:
@@ -86,6 +84,15 @@ Resolved source input:
   target choice, Ability Check opening, invalid Search target/fill rejection,
   Search failure, and Search success through public reducer entrypoints instead
   of a replay-only island.
+- `FEXP-04-roll-modifier-concentration-break-route-not-publicly-observable` is
+  resolved by source feedback task `FCSF-01` at source commit
+  `c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d` and accepted in the fresh target
+  by commit `bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c`. The refreshed
+  Concentration teardown route connector and reducer-spine guidance expose
+  failed-save, voluntary-end, and replacement Concentration cleanup through
+  `BattleConcentrationOwner` and `BattleActiveEffectOwner`; the fresh target
+  observes those surfaces through public reducer entrypoints instead of a
+  replay-only island.
 
 ### Reaction And Interrupt Payload Taxonomy
 

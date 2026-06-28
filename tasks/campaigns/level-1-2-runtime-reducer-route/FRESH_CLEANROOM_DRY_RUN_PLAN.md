@@ -37,7 +37,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`cd4465556d18729121f56f5834ac00f8b0b3d15c`
+`bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -60,15 +60,19 @@ blocked.
 `FEXP-04-ACTIVE-EFFECT-LIFECYCLE-AND-ROLL-MODIFIERS` is accepted-with-blockers
 at `e8b0310e647ad471089fcd34737b8fd70211b373` with generic roll-modifier,
 scalar-buff, targeted-speed, and turn-boundary lifecycle route evidence;
-residual concentration-break cleanup and cumulative scalar sequencing remain
-explicitly blocked; exact roll-choice payloads were resolved source-side by
+residual cumulative scalar sequencing remains explicitly blocked; exact
+roll-choice payloads were resolved source-side by
 source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375`, focused-replayed
 in the dirty target by commit `801b05df55a1393d6acd5c3fa7b2624ed91f9494`, and
 accepted in the fresh target by commit
 `b43797af240c1486e5ad92c3698bf2cd2958a91e`; Ability Check/Search public
 target-choice, Ability Check opening, rejection, failure, and success surfaces
 were then accepted in the fresh target by commit
-`cd4465556d18729121f56f5834ac00f8b0b3d15c`.
+`cd4465556d18729121f56f5834ac00f8b0b3d15c`; failed-save, voluntary-end, and
+replacement Concentration cleanup were accepted in the fresh target by commit
+`bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c` after source feedback task
+`FCSF-01` landed at source commit
+`c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d`.
 `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at
 `eb05e8495eac993b69e17f68544edace6e56caee` with generic reaction casting-time
 interrupt/resume, after-damage reaction, nested interrupt resume, active-effect
