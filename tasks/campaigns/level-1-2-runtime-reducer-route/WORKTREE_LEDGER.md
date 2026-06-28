@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| FCSF-04-OBJECT-STALE-PUBLIC-PROTOCOL | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf04-object-stale` | `ralph/fresh-source-feedback-task4-object-stale` | `a6cff970d4aa58d0d695e5388c64832d20e7fbb1` | Dewey the 3rd (`019f0caa-b52a-7392-a035-09eab3239190`) | running; source-feedback lane, no dirty/fresh target acceptance claimed |
 
 ## Active Fresh Dry Run Targets
 
