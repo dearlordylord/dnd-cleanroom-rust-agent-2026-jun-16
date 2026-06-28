@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "dirty-replay-fcsf06-accepted-with-target-blockers",
+  "status": "dirty-replay-fcsf05-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -456,7 +456,19 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no FCSF-06 evidence, ledger, or artifact failures",
     "review": "Planck the 3rd re-review returned no blockers for fix commit 955cdafcbcaae285d305569f7efb36c324e286e8."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "FCSF-05-REACTION-INTERRUPT-DIRTY-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf05-reaction-replay",
+      "branch": "ralph/fcsf05-reaction-interrupt-dirty-replay",
+      "baseSha": "18cb0cd2973cb8fddabff350c3dbadad2870a55d",
+      "status": "dirty-target-replay-started",
+      "sourcePackageCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "freshTargetAcceptance": "not-claimed",
+      "routeTaskId": "FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY",
+      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY",
