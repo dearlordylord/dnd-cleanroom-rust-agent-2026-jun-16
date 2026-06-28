@@ -528,8 +528,11 @@
       "baseSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
       "workerAgent": "019f0d55-ae6e-7183-8965-f77e9851e714",
       "workerName": "Avicenna the 3rd",
-      "status": "running",
-      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
+      "status": "fix-requested",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed",
+      "reviewAgent": "019f0d62-e376-7273-bc01-35f2991724c9",
+      "reviewName": "Cicero the 3rd",
+      "reviewFinding": "Cleanup evidence must include BattleActiveEffectOwner cleanup as well as the turn-boundary duration boundary before SQNT-03A can be accepted."
     }
   ],
   "completedLaneWorktrees": [
