@@ -180,6 +180,47 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         ],
         "doRejectStaleAfterResolved" => vec![
             route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
+            route_discover_battle_acts_from_route_holes(
+                ReducerRouteSubjectFamily::ObjectTargetSpellAttack,
+                Vec::new(),
+                ReducerRouteOwnerGroup::ObjectTargetBoundary,
+            ),
+            route_resolve_battle_subject_without_fill_from_route_result(
+                ReducerRouteSubjectFamily::ObjectTargetSpellAttack,
+                ReducerRouteResolutionOutcome::NeedsHoles,
+                vec![ReducerRouteHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::ObjectTargetBoundary,
+            ),
+            route_discover_battle_acts_from_route_holes(
+                ReducerRouteSubjectFamily::ObjectTargetSpellAttack,
+                vec![ReducerRouteHoleKind::AttackRoll],
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+            route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::ObjectTargetSpellAttack,
+                ReducerRouteFillKind::AttackRoll,
+                ReducerRouteResolutionOutcome::NeedsHoles,
+                vec![ReducerRouteHoleKind::RolledDice],
+                ReducerRouteOwnerGroup::AttackRoll,
+            ),
+            route_discover_battle_acts_from_route_holes(
+                ReducerRouteSubjectFamily::ObjectTargetSpellAttack,
+                vec![ReducerRouteHoleKind::RolledDice],
+                ReducerRouteOwnerGroup::ObjectTargetBoundary,
+            ),
+            route_resolve_battle_subject_from_route_result(
+                ReducerRouteSubjectFamily::ObjectTargetSpellAttack,
+                ReducerRouteFillKind::RolledDice,
+                ReducerRouteResolutionOutcome::Resolved,
+                Vec::new(),
+                ReducerRouteOwnerGroup::ObjectTargetBoundary,
+            ),
+            route_resolve_battle_subject_without_fill_from_route_result(
+                ReducerRouteSubjectFamily::ObjectTargetSpellAttack,
+                ReducerRouteResolutionOutcome::Resolved,
+                Vec::new(),
+                ReducerRouteOwnerGroup::ActiveEffect,
+            ),
             route_resolve_battle_subject_without_fill_from_route_result(
                 ReducerRouteSubjectFamily::ObjectTargetSpellAttack,
                 ReducerRouteResolutionOutcome::Resolved,
@@ -251,10 +292,71 @@ fn replay_damage_and_light_route() -> Vec<ReducerRouteEvent> {
 }
 
 fn replay_stale_route() -> Vec<ReducerRouteEvent> {
-    replay_generic_route(
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start_battle_observed(BattleSetup::standard(), &mut trace).state;
+    let (state, boundary_subject) = discover_generic_route_subject_observed(
+        state,
+        BattleSubjectKind::ObjectTargetSpellAttackBoundary,
+        &mut trace,
+    );
+    let state = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(
+            boundary_subject,
+            BattleGenericRouteFill::WithoutFill,
+        )
+        .expect("object-boundary route should accept without-fill"),
+        &mut trace,
+    )
+    .into_state();
+    let (state, attack_subject) = discover_generic_route_subject_observed(
+        state,
+        BattleSubjectKind::ObjectTargetSpellAttackAttackHit,
+        &mut trace,
+    );
+    let state = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(attack_subject, BattleGenericRouteFill::AttackRoll)
+            .expect("object attack route should accept attack-roll fill"),
+        &mut trace,
+    )
+    .into_state();
+    let (state, damage_subject) = discover_generic_route_subject_observed(
+        state,
+        BattleSubjectKind::ObjectTargetSpellAttackDamage,
+        &mut trace,
+    );
+    let state = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(damage_subject, BattleGenericRouteFill::RolledDice)
+            .expect("object damage route should accept rolled-dice fill"),
+        &mut trace,
+    )
+    .into_state();
+    let light_subject = generic_route_subject_for_current_actor(
+        &state,
+        BattleSubjectKind::ObjectTargetSpellAttackLightEffect,
+    );
+    let state = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(light_subject, BattleGenericRouteFill::WithoutFill)
+            .expect("object light route should accept without-fill"),
+        &mut trace,
+    )
+    .into_state();
+    let stale_subject = generic_route_subject_for_current_actor(
+        &state,
         BattleSubjectKind::ObjectTargetSpellAttackStaleReplay,
-        &[BattleGenericRouteFill::WithoutFill],
-        false,
+    );
+    let _ = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(stale_subject, BattleGenericRouteFill::WithoutFill)
+            .expect("object stale route should accept without-fill"),
+        &mut trace,
+    );
+    observed_reducer_route(
+        &trace,
+        &[ReducerRouteSubjectFamily::ObjectTargetSpellAttack],
     )
 }
 

@@ -8512,6 +8512,28 @@ fn starry_wisp_object_adapter_replays_all_branches() {
 }
 
 #[test]
+fn starry_wisp_object_stale_replay_records_full_public_route_history() {
+    // QNT: battle-runtime-starry-wisp-object.route.mbt.qnt
+    // doRouteRejectStaleAfterResolved.
+    let route = replay_starry_wisp_object_route("doRejectStaleAfterResolved");
+    assert_eq!(
+        reducer_route_payload(&route),
+        [
+            "start_battle owner=BattleActionEconomyOwner",
+            "discover_battle_acts subject=ObjectTargetSpellAttackRouteSubject holes=none owner=BattleObjectTargetBoundaryOwner",
+            "resolve_battle_subject_without_fill subject=ObjectTargetSpellAttackRouteSubject outcome=needsHoles holes=AttackRollHoleKind owner=BattleObjectTargetBoundaryOwner",
+            "discover_battle_acts subject=ObjectTargetSpellAttackRouteSubject holes=AttackRollHoleKind owner=BattleAttackRollOwner",
+            "resolve_battle_subject subject=ObjectTargetSpellAttackRouteSubject fill=RouteFillKind({ fill: AttackRollFillKind }) outcome=needsHoles holes=RolledDiceHoleKind owner=BattleAttackRollOwner",
+            "discover_battle_acts subject=ObjectTargetSpellAttackRouteSubject holes=RolledDiceHoleKind owner=BattleObjectTargetBoundaryOwner",
+            "resolve_battle_subject subject=ObjectTargetSpellAttackRouteSubject fill=RouteFillKind({ fill: RolledDiceFillKind }) outcome=resolved holes=none owner=BattleObjectTargetBoundaryOwner",
+            "resolve_battle_subject_without_fill subject=ObjectTargetSpellAttackRouteSubject outcome=resolved holes=none owner=BattleActiveEffectOwner",
+            "resolve_battle_subject_without_fill subject=ObjectTargetSpellAttackRouteSubject outcome=resolved holes=none owner=BattleHoleFrontierOwner",
+        ]
+        .join("\n")
+    );
+}
+
+#[test]
 fn starry_wisp_object_resolves_damage_light_and_rejections() {
     // RAW: cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md
     // "Starry Wisp"; RAW: cleanroom-input/raw/srd-5.2.1/
