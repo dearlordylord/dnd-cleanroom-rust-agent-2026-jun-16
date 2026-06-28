@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03d-dirty-replay-merged-verified",
+  "status": "sqnt03e-source-qnt-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -595,7 +595,8 @@
     "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL": "merged-packaged-source-input",
     "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY": "merged-verified",
     "SQNT-03D-CONDITION-AND-POISON-RIDERS": "merged-packaged-source-input",
-    "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY": "merged-verified"
+    "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY": "merged-verified",
+    "SQNT-03E-OBJECT-AND-LIGHT-RIDERS": "running-source-qnt"
   },
   "lastIntegrationVerification": {
     "head": "4d4107b51c595b8cbbaa6c0c11f458b35d2070c1",
@@ -615,7 +616,19 @@
     "review": "Locke the 3rd initially found four artifact blockers: route-connector authority was mixed with selected-driver evidence mapping, evidence used BattleSavingThrowOwner instead of BattleSavingThrowOutcomeOwner, VALIDATION_REPORT lacked FCSF-03D, and RUN_LEDGER omitted the cleanroom harness check. Kierkegaard fixed these in e55484397d4d60d0521cb4e8c20f0b0452b90f3b. Locke re-review accepted the lane."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [],
+  "activeSourceQntLanes": [
+    {
+      "laneId": "SQNT-03E-OBJECT-AND-LIGHT-RIDERS",
+      "routeTaskId": "FCSF-03E-OBJECT-AND-LIGHT-RIDERS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03e-object-light-riders",
+      "branch": "ralph/source-sqnt-03e-object-light-riders",
+      "baseSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
+      "workerAgent": "pending",
+      "workerName": "pending",
+      "status": "worktree-created-worker-pending",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
+    }
+  ],
   "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03D-CONDITION-AND-POISON-RIDERS",

@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03E-OBJECT-AND-LIGHT-RIDERS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03e-object-light-riders` | `ralph/source-sqnt-03e-object-light-riders` | `3e9297cab2dd998e5dc09670f771bfcdf0a04c93` | pending | worktree-created-worker-pending |
 
 ## Historical RRCONV-19 Worktrees
 

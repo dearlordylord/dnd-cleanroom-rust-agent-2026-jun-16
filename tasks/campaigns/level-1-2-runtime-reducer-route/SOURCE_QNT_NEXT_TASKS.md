@@ -48,6 +48,11 @@ Source-QNT status:
 - SQNT-03D Condition And Poison Riders: source connector accepted and packaged
   at source commit `3e9297cab2dd998e5dc09670f771bfcdf0a04c93`; dirty target
   replay is accepted. Fresh target replay remains pending.
+- SQNT-03E Object And Light Riders: source worktree created at base
+  `3e9297cab2dd998e5dc09670f771bfcdf0a04c93` on
+  `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03e-object-light-riders`;
+  source connector implementation is running. No dirty or fresh target
+  acceptance is claimed.
 
 Remaining target work should not start until the source package exposes the
 generic route facts below. The target acceptance gate stays the same:
