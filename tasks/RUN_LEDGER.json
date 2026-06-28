@@ -4203,9 +4203,94 @@
           "status": "pass"
         }
       ]
+    },
+    {
+      "artifacts": {
+        "deciderDecision": {
+          "path": "tasks/history/FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS/DECIDER_DECISION.json",
+          "sha256": "fd5f0923eccae11ddd9f5739295ce4907c4822f9b7bcf36a46ac1f170e17a71f"
+        },
+        "engineDepth": {
+          "path": "tasks/history/FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "5f304bdb2857cea81d82070d93447b834ad8cbe27090334fb722ae057c86f13f"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS/REVIEW_LOOP.json",
+          "sha256": "e5d32c24e256329058fbdca74e845e417bc6f947598daf809777cd961622dda1"
+        },
+        "startGate": {
+          "path": "tasks/history/FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS/START_GATE.json",
+          "sha256": "47bbb6a31bd13bb1d31ac6f5edcd97ed657235b038a7451c88398e8db7130875"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS/STATE_OWNER_MANIFEST.json",
+          "sha256": "88a2b002eb018d416556bb4216ea342900ce02dc3098a4a699d59f12d9879e8d"
+        }
+      },
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "commandResults": [
+        {
+          "command": "git merge-base --is-ancestor 22fe5632a27d58327ea42d666d581ce0f66ae36e HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test exact_damage_projection -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "fail: only known cleanroom-input/MANIFEST.md stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs"
+        },
+        {
+          "command": "git diff --check 22fe5632a27d58327ea42d666d581ce0f66ae36e...HEAD",
+          "status": "pass"
+        }
+      ],
+      "componentConnectorAuthority": {
+        "inventoryKind": "reducer-route-inventory",
+        "path": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
+        "sha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47"
+      },
+      "laneId": "SQNT-03G-EXACT-DAMAGE-DIRTY-REPLAY",
+      "manifestSourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
+      "selectedDrivers": [],
+      "selectedDriversPurpose": "none accepted; this dirty lane covers only copied SQNT-03G component witness obligations",
+      "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+      "sourceReducerRouteInventorySha256": "ecffe9ae1358784ff5add9ff35a2a3c351f69431798c7da830bf662a984275c0",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "targetReplayEvidence": [
+        {
+          "acceptedComponentRowCount": 4,
+          "acceptedEvidenceRefs": [
+            "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doAttackCriticalDamage#step:doAttackCriticalDamage",
+            "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doDirectInstanceDamage#step:doDirectInstanceDamage",
+            "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doSaveSuccessHalfDamage#step:doSaveSuccessHalfDamage",
+            "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json#FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS dirty component action=doSaveSuccessNoDamage#step:doSaveSuccessNoDamage"
+          ],
+          "path": "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json",
+          "sha256": "61057b919b6331149d13605e0feea721e6b777b773dc0e94795f32662f9479ec"
+        }
+      ],
+      "taskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS"
     }
   ],
-  "manifestSourceCommitSha": "2de6a5e5401985e5673f5c2be737bbe2374d46d0",
+  "manifestSourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
   "schemaVersion": 1,
-  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81"
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862"
 }

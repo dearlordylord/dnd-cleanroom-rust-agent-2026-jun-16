@@ -1,0 +1,76 @@
+{
+  "accumulatorGrowth": [],
+  "adapterModules": [
+    {
+      "adapterScope": "Replays copied SQNT-03G exact damage projection component rows through reusable Rust rule-core spell damage projection functions and the existing Hit Point damage application surface, then compares qComponentRoute plus projection facts.",
+      "componentConnectorAuthority": {
+        "inventoryKind": "reducer-route-inventory",
+        "path": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
+        "sha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47"
+      },
+      "path": "src/qnt_adapters/rule_core_exact_damage_projection_mbt.rs",
+      "quarantinedWitnessNames": [
+        "doAttackCriticalDamage",
+        "doDirectInstanceDamage",
+        "doSaveSuccessHalfDamage",
+        "doSaveSuccessNoDamage",
+        "ExactDamageProjectionScenario",
+        "expectedProjectionSha256",
+        "observedProjectionSha256",
+        "traceId"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json"
+      ]
+    }
+  ],
+  "durableStateOwners": [],
+  "expectedNextReuse": [
+    {
+      "api": "resolve_direct_spell_damage / resolve_spell_attack_damage_branch / resolve_spell_save_damage_branch",
+      "driver": "future generic spell procedure replay lanes that need exact damage projection without selected spell identity dispatch",
+      "module": "src/rules/rule_core_exact_damage_projection.rs"
+    },
+    {
+      "api": "RuleCoreComponentOwner::HitPointDamage",
+      "driver": "component-first rows that concatenate spell-procedure projection and Hit Point damage ownership",
+      "module": "src/rules/rule_core_components.rs"
+    }
+  ],
+  "nonDurableWitnesses": [
+    "exact damage amount",
+    "damage type",
+    "direct instance count and damage-per-instance facts",
+    "spell attack base dice, rolled dice count, damage die size, and critical flag",
+    "save success policy and Saving Throw outcome",
+    "target initial Hit Points, resulting Hit Points, and damage to Hit Points"
+  ],
+  "productionModulesExtended": [
+    {
+      "domainApis": [
+        "RuleDamageType",
+        "SpellSaveSuccessDamagePolicy",
+        "DirectSpellDamageFacts",
+        "SpellAttackDamageBranchFacts",
+        "SpellSaveDamageBranchFacts",
+        "resolve_direct_spell_damage",
+        "resolve_spell_attack_damage_branch",
+        "resolve_spell_save_damage_branch",
+        "exact_damage_component_route"
+      ],
+      "path": "src/rules/rule_core_exact_damage_projection.rs",
+      "reason": "Expose copied SQNT-03G exact damage projection facts as reusable component evidence while delegating Hit Point application to the existing generic HP damage reducer surface.",
+      "role": "rule-core-component"
+    },
+    {
+      "domainApis": [
+        "RuleCoreComponentOwner::HitPointDamage"
+      ],
+      "path": "src/rules/rule_core_components.rs",
+      "reason": "Preserve the second copied component owner in the public component route event vocabulary.",
+      "role": "component-route-vocabulary"
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS"
+}

@@ -1,0 +1,44 @@
+{
+  "acceptedComponentRowCount": 4,
+  "acceptedComponentRows": [
+    "doAttackCriticalDamage",
+    "doDirectInstanceDamage",
+    "doSaveSuccessHalfDamage",
+    "doSaveSuccessNoDamage"
+  ],
+  "acceptedSelectedObligations": [],
+  "decision": "accepted-diagnostic-dirty-component-replay",
+  "deterministicGates": [
+    {
+      "gate": "branch-base",
+      "status": "pass"
+    },
+    {
+      "gate": "focused-replay",
+      "status": "pass"
+    },
+    {
+      "gate": "component-connector-lane-authority",
+      "status": "pass"
+    },
+    {
+      "gate": "component-evidence-file-check",
+      "status": "pass"
+    },
+    {
+      "gate": "authored-identity-dispatch",
+      "status": "pass"
+    }
+  ],
+  "evidencePath": "tasks/target-replay-evidence/FCSF-03G-exact-damage-projection-dirty-replay.json",
+  "rationale": "Accepted only the generic SQNT-03G component witness facts. Exact direct, attack-critical, save-half, and save-no-damage projections are replayed through typed component facts and existing Hit Point damage application. No selected attack-spell or level-one damage selected driver is accepted wholesale.",
+  "rejectedFindings": [],
+  "schemaVersion": 1,
+  "targetBlockedRows": [
+    {
+      "blockerId": "SQNT-03G-SELECTED-IDENTITY-NON-ACCEPTANCE",
+      "reason": "The component evidence makes exact damage facts consumable, but it does not accept battle-runtime-attack-spell-shape-selected-identity.mbt.qnt or battle-runtime-level1-damage-spell-selected-identity.mbt.qnt wholesale; non-damage route, rider, mixed-target, duplicate-face, object/light, and selected catalog-admission facts remain outside this component lane."
+    }
+  ],
+  "taskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS"
+}

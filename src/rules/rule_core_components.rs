@@ -1,6 +1,7 @@
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum RuleCoreComponentOwner {
     AbilitySkillCommand,
+    HitPointDamage,
     SpellProcedureProfile,
 }
 
@@ -58,6 +59,19 @@ pub fn rule_core_component_route_event_ref(event: &RuleCoreComponentRouteEvent) 
             RuleCoreComponentRouteEventKind::ProjectResult,
             RuleCoreComponentOwner::AbilitySkillCommand,
         ) => "RuleCoreComponentProjectResult(RuleCoreAbilitySkillCommandOwner)",
+        (RuleCoreComponentRouteEventKind::ParseInput, RuleCoreComponentOwner::HitPointDamage) => {
+            "RuleCoreComponentParseInput(RuleCoreHitPointDamageOwner)"
+        }
+        (RuleCoreComponentRouteEventKind::AdmitInput, RuleCoreComponentOwner::HitPointDamage) => {
+            "RuleCoreComponentAdmitInput(RuleCoreHitPointDamageOwner)"
+        }
+        (RuleCoreComponentRouteEventKind::Call, RuleCoreComponentOwner::HitPointDamage) => {
+            "RuleCoreComponentCall(RuleCoreHitPointDamageOwner)"
+        }
+        (
+            RuleCoreComponentRouteEventKind::ProjectResult,
+            RuleCoreComponentOwner::HitPointDamage,
+        ) => "RuleCoreComponentProjectResult(RuleCoreHitPointDamageOwner)",
         (
             RuleCoreComponentRouteEventKind::ParseInput,
             RuleCoreComponentOwner::SpellProcedureProfile,

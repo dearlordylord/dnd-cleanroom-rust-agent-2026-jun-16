@@ -1,0 +1,29 @@
+{
+  "baseCheck": {
+    "ancestorCommand": "git merge-base --is-ancestor 22fe5632a27d58327ea42d666d581ce0f66ae36e HEAD",
+    "declaredBaseSha": "22fe5632a27d58327ea42d666d581ce0f66ae36e",
+    "headSha": "22fe5632a27d58327ea42d666d581ce0f66ae36e",
+    "result": "pass"
+  },
+  "cleanroomBoundary": "Used only the dirty cleanroom worktree, cleanroom-input package, task artifacts, local Rust code, repo-local scripts, and Cargo tooling.",
+  "schemaVersion": 1,
+  "startHeadSha": "22fe5632a27d58327ea42d666d581ce0f66ae36e",
+  "taskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS",
+  "taskScope": {
+    "assignmentId": "level-1-2-runtime-reducer-route",
+    "componentConnectorPath": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
+    "componentConnectorValidation": {
+      "connectorSha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47",
+      "inventoryKind": "reducer-route-inventory",
+      "purpose": "component-first lane authority; focused dirty replay validates copied RuleCoreSpellProcedureProfileOwner plus RuleCoreHitPointDamageOwner component route directly"
+    },
+    "componentOwners": [
+      "RuleCoreSpellProcedureProfileOwner",
+      "RuleCoreHitPointDamageOwner"
+    ],
+    "laneId": "SQNT-03G-EXACT-DAMAGE-DIRTY-REPLAY",
+    "routeClass": "component-first-exact-damage-projection",
+    "selectedDrivers": [],
+    "selectedDriversPurpose": "no selected attack-spell or level-1 damage selected driver obligations are accepted by this component-first lane"
+  }
+}
