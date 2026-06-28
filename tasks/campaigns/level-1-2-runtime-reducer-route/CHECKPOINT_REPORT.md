@@ -621,3 +621,14 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Verification: focused movement-presentation MBT, `pnpm check:mbt-driver-closure`, `pnpm check:reducer-route-connectors`, `pnpm rules-kernel-coverage:check`, `pnpm cleanroom-branch-coverage:check`, `pnpm --filter @dnd/battle-runtime typecheck`, and `git diff --check HEAD~1...HEAD` passed on source master after fast-forward.
 - Scope note: this is source-input work only. It does not claim dirty target replay or fresh target acceptance; those wait for package refresh after the remaining Wave 2 source lanes land.
 - Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-movement-presentation`
+
+### SQNT-07A-SPATIAL-EFFECTS-SOURCE-QNT
+
+- Source commit: `c596f55f6ccea08a65e94804ede4ca443adf8bd4`
+- Worker: Carson the 3rd (`019f0f94-1228-7dc0-b29a-a9ef5a01a908`)
+- Reviewers: Ampere the 3rd (`019f0fb0-0a92-7862-ad2b-ab535a129b9a`) and Beauvoir the 3rd (`019f102d-7296-7a41-9b33-56a279d8f19b`)
+- Result: source-QNT route facts accepted for movable multi-emitter light, outline/invisible-benefit denial/attack advantage, object outline, non-Concentration area hazard, separate movement-damage trigger, and obscurement duration/dispersal cleanup.
+- Review/fixer notes: initial review rejected overbroad facts that made Grease-like hazards imply Concentration and movement damage, combined Fog Cloud strong-wind dispersal with duration cleanup, omitted Concentration for Dancing Lights-style movable emitters, and invented a SpellTargetList frontier for outline semantics. The accepted fix split those shapes and kept unsupported rows blocked.
+- Verification: focused spatial route connector MBT, `pnpm check:mbt-driver-closure`, `pnpm check:reducer-route-connectors`, `pnpm rules-kernel-coverage:check`, `pnpm cleanroom-branch-coverage:check`, `pnpm --filter @dnd/battle-runtime typecheck`, and `git diff --check HEAD~1...HEAD` passed on source master after fast-forward.
+- Scope note: this is source-input work only. It does not claim dirty target replay or fresh target acceptance; those wait for package refresh after the remaining Wave 2 source lane lands.
+- Worktree marked removable: `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-spatial-effects`

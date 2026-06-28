@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "wave2-source-qnt-movement-presentation-accepted",
+  "status": "wave2-source-qnt-spatial-effects-accepted",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -764,15 +764,6 @@
       "workerAgent": "Singer the 3rd (019f0f93-d066-77c3-b853-6f44a6ede5b1)",
       "status": "active",
       "purpose": "Add generic marked-target damage rider/transfer and condition-immunity plus turn-start Temporary Hit Point active-effect substrate facts."
-    },
-    {
-      "laneId": "SQNT-07A-SPATIAL-EFFECTS",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-07a-spatial-effects",
-      "branch": "ralph/source-sqnt-07a-spatial-effects",
-      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
-      "workerAgent": "Carson the 3rd (019f0f94-1228-7dc0-b29a-a9ef5a01a908)",
-      "status": "active",
-      "purpose": "Add generic movable multi-emitter light, outline/invisible-revealing/attack-advantage, and area hazard/obscurement lifecycle route facts."
     }
   ],
   "completedSourceQntLanes": [
@@ -1047,6 +1038,39 @@
         "git diff --check HEAD~1...HEAD"
       ],
       "coverageClaim": "Adds generic movement-resource and table-presentation route facts for movement replacement, forced creature movement, object-push presentation, audible presentation, and table-supplied path/landing witness. Landing legality and failed-landing Prone remain explicit blockers; no target replay or fresh target acceptance is claimed."
+    },
+    {
+      "laneId": "SQNT-07A-SPATIAL-EFFECTS",
+      "status": "accepted-source-merged",
+      "baseCommit": "21504ef764118f5fd13086aa6266f19280196664",
+      "sourceCommit": "c596f55f6ccea08a65e94804ede4ca443adf8bd4",
+      "workerAgent": "Carson the 3rd (019f0f94-1228-7dc0-b29a-a9ef5a01a908)",
+      "reviewerAgent": "Ampere the 3rd (019f0fb0-0a92-7862-ad2b-ab535a129b9a), Beauvoir the 3rd (019f102d-7296-7a41-9b33-56a279d8f19b), plus orchestrator review",
+      "artifacts": [
+        "packages/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+        "packages/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+        "packages/battle-runtime/battle-runtime-reducer-route.qnt",
+        "packages/battle-runtime/src/battle-runtime-mbt-driver-kit.ts",
+        "packages/battle-runtime/src/reducer-route-connectors.mbt.test.ts",
+        "plans/cleanroom-branch-coverage/reducer-route-inventory.json",
+        "plans/rules-kernel-coverage/REPORT.md",
+        "plans/rules-kernel-coverage/matrix.json",
+        "scripts/check-mbt-driver-closure.cjs",
+        "scripts/rules-kernel-coverage-config.cjs"
+      ],
+      "reviewFinding": "Initial review found four blockers: Grease-like hazards implied Concentration and movement damage, Fog Cloud cleanup combined strong-wind dispersal with duration cleanup, Dancing Lights multi-emitter light omitted Concentration, and Faerie Fire outline introduced an invented SpellTargetList frontier.",
+      "reviewResolution": "Fix commit c596f55f split Grease-like hazard facts from Concentration and movement damage, split obscurement duration cleanup from strong-wind dispersal, added Concentration facts for movable multi-emitter light, and replaced the outline frontier with area/target-choice plus Saving Throw outcome. Beauvoir re-review found no blockers.",
+      "checks": [
+        "pnpm exec quint typecheck packages/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+        "MBT_TRACES=1 MBT_STEPS=6 pnpm --filter @dnd/battle-runtime exec vitest run src/reducer-route-connectors.mbt.test.ts -t \"routes spatial effects through light, sight, hazard, and table-witness owners\"",
+        "pnpm check:mbt-driver-closure",
+        "pnpm check:reducer-route-connectors",
+        "pnpm rules-kernel-coverage:check",
+        "pnpm cleanroom-branch-coverage:check",
+        "pnpm --filter @dnd/battle-runtime typecheck",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "coverageClaim": "Adds generic route facts for movable multi-emitter light, outline/invisible-benefit denial/attack advantage, object outline, non-Concentration area hazard, separate movement-damage trigger, and obscurement duration/dispersal cleanup. Concentration-backed area hazard rows, landing legality, and failed-landing Prone remain explicit blockers; no target replay or fresh target acceptance is claimed."
     }
   ],
   "completedLaneWorktrees": [
@@ -3716,6 +3740,7 @@
     "Wave 2 source-QNT lanes are active from source base 21504ef764118f5fd13086aa6266f19280196664: condition lifecycle, marked damage/immunity, spatial effects, and movement/presentation. Workers must add generic route facts plus TS MBT parity tests without running MBT concurrently; orchestrator schedules MBT during integration.",
     "SQNT-07A-CONDITION-LIFECYCLE is source-merged at df223d2389e95e416993c300dae97720d5fc99c9.",
     "SQNT-07A-MOVEMENT-PRESENTATION is source-merged at f7d2ea22d27e9457fd46014697fc55a4000f823e after narrowing Jump/table-presentation claims and preserving landing legality plus failed-landing Prone blockers.",
+    "SQNT-07A-SPATIAL-EFFECTS is source-merged at c596f55f6ccea08a65e94804ede4ca443adf8bd4 after splitting spatial facts so Grease-like hazards, obscurement cleanup, movable multi-emitter light, and outline/save outcome routes stay domain-shaped.",
     "After all active Wave 2 source lanes merge, refresh cleanroom-input from source master and launch fresh/dirty target replay only for rows supported by the copied generic route facts."
   ],
   "freshCleanroomExpansion": {
