@@ -1,9 +1,11 @@
 use crate::rules::battle_reducer_spine::{
     discover_battle_acts_observed, discover_generic_route_subject_observed,
     resolve_battle_subject_observed, start_battle_observed, Actor, AttackRollFacts,
-    BattleEntrypointTrace, BattleGenericRouteFill, BattleHoleKind, BattleReducerRouteEvent,
-    BattleReducerRouteFillKind, BattleReducerRouteHoleKind, BattleReducerRouteOwnerGroup,
-    BattleReducerRouteSubjectFamily, BattleReducerRouteTrace, BattleResolutionInvalidReason,
+    BattleEntrypointTrace, BattleGenericRouteFill, BattleHoleKind, BattleReducerRouteAbilityChoice,
+    BattleReducerRouteEvent, BattleReducerRouteFillEvidence, BattleReducerRouteFillKind,
+    BattleReducerRouteHoleKind, BattleReducerRouteOwnerGroup, BattleReducerRouteSkillChoice,
+    BattleReducerRouteSubjectFamily, BattleReducerRouteTrace,
+    BattleReducerRouteTwoTargetAbilityChoices, BattleResolutionInvalidReason,
     BattleResolutionOutcome, BattleResolutionRequest, BattleResolutionResult, BattleSetup,
     BattleState, BattleSubject, BattleSubjectKind, BattleWeaponAttackFill,
 };
@@ -60,6 +62,52 @@ pub enum ReducerRouteFillKind {
     TargetChoice,
     UnitFeatureDecision,
     WildShapeEquipmentDisposition,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ReducerRouteAbilityChoice {
+    Strength,
+    Dexterity,
+    Constitution,
+    Intelligence,
+    Wisdom,
+    Charisma,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ReducerRouteSkillChoice {
+    Acrobatics,
+    AnimalHandling,
+    Arcana,
+    Athletics,
+    Deception,
+    History,
+    Insight,
+    Intimidation,
+    Investigation,
+    Medicine,
+    Nature,
+    Perception,
+    Performance,
+    Persuasion,
+    Religion,
+    SleightOfHand,
+    Stealth,
+    Survival,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ReducerRouteTwoTargetAbilityChoices {
+    pub primary: ReducerRouteAbilityChoice,
+    pub secondary: ReducerRouteAbilityChoice,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ReducerRouteFillEvidence {
+    FillKind(ReducerRouteFillKind),
+    SkillChoice(ReducerRouteSkillChoice),
+    AbilityChoice(ReducerRouteAbilityChoice),
+    TargetAbilityChoices(ReducerRouteTwoTargetAbilityChoices),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -213,7 +261,7 @@ pub enum ReducerRouteEvent {
     },
     ResolveBattleSubject {
         subject: ReducerRouteSubjectFamily,
-        fill: ReducerRouteFillKind,
+        fill: ReducerRouteFillEvidence,
         outcome: ReducerRouteResolutionOutcome,
         holes: Vec<ReducerRouteHoleKind>,
         owner: ReducerRouteOwnerGroup,
@@ -364,6 +412,23 @@ pub fn route_resolve_battle_subject_from_route_result(
     holes: Vec<ReducerRouteHoleKind>,
     owner: ReducerRouteOwnerGroup,
 ) -> ReducerRouteEvent {
+    route_resolve_battle_subject_with_fill_evidence_from_route_result(
+        subject,
+        ReducerRouteFillEvidence::FillKind(fill),
+        outcome,
+        holes,
+        owner,
+    )
+}
+
+#[must_use]
+pub fn route_resolve_battle_subject_with_fill_evidence_from_route_result(
+    subject: ReducerRouteSubjectFamily,
+    fill: ReducerRouteFillEvidence,
+    outcome: ReducerRouteResolutionOutcome,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
     ReducerRouteEvent::ResolveBattleSubject {
         subject,
         fill,
@@ -432,7 +497,7 @@ fn route_resolve_battle_subject_from_result_holes(
     match connector.fill {
         ReducerRouteResolveFill::Fill(fill) => ReducerRouteEvent::ResolveBattleSubject {
             subject: connector.subject,
-            fill,
+            fill: ReducerRouteFillEvidence::FillKind(fill),
             outcome,
             holes,
             owner: connector.owner,
@@ -644,7 +709,7 @@ pub fn reducer_route_event_from_observed(event: &BattleReducerRouteEvent) -> Red
             owner,
         } => ReducerRouteEvent::ResolveBattleSubject {
             subject: reducer_route_subject(*subject),
-            fill: reducer_route_fill(*fill),
+            fill: reducer_route_fill_evidence(*fill),
             outcome: reducer_route_outcome_from_battle(*outcome),
             holes: reducer_route_holes_from_route_slice(holes),
             owner: reducer_route_owner(*owner),
@@ -991,6 +1056,74 @@ const fn reducer_route_fill(fill: BattleReducerRouteFillKind) -> ReducerRouteFil
     }
 }
 
+const fn reducer_route_fill_evidence(
+    fill: BattleReducerRouteFillEvidence,
+) -> ReducerRouteFillEvidence {
+    match fill {
+        BattleReducerRouteFillEvidence::FillKind(kind) => {
+            ReducerRouteFillEvidence::FillKind(reducer_route_fill(kind))
+        }
+        BattleReducerRouteFillEvidence::SkillChoice(skill) => {
+            ReducerRouteFillEvidence::SkillChoice(reducer_route_skill_choice(skill))
+        }
+        BattleReducerRouteFillEvidence::AbilityChoice(ability) => {
+            ReducerRouteFillEvidence::AbilityChoice(reducer_route_ability_choice(ability))
+        }
+        BattleReducerRouteFillEvidence::TargetAbilityChoices(choices) => {
+            ReducerRouteFillEvidence::TargetAbilityChoices(
+                reducer_route_two_target_ability_choices(choices),
+            )
+        }
+    }
+}
+
+const fn reducer_route_ability_choice(
+    ability: BattleReducerRouteAbilityChoice,
+) -> ReducerRouteAbilityChoice {
+    match ability {
+        BattleReducerRouteAbilityChoice::Strength => ReducerRouteAbilityChoice::Strength,
+        BattleReducerRouteAbilityChoice::Dexterity => ReducerRouteAbilityChoice::Dexterity,
+        BattleReducerRouteAbilityChoice::Constitution => ReducerRouteAbilityChoice::Constitution,
+        BattleReducerRouteAbilityChoice::Intelligence => ReducerRouteAbilityChoice::Intelligence,
+        BattleReducerRouteAbilityChoice::Wisdom => ReducerRouteAbilityChoice::Wisdom,
+        BattleReducerRouteAbilityChoice::Charisma => ReducerRouteAbilityChoice::Charisma,
+    }
+}
+
+const fn reducer_route_skill_choice(
+    skill: BattleReducerRouteSkillChoice,
+) -> ReducerRouteSkillChoice {
+    match skill {
+        BattleReducerRouteSkillChoice::Acrobatics => ReducerRouteSkillChoice::Acrobatics,
+        BattleReducerRouteSkillChoice::AnimalHandling => ReducerRouteSkillChoice::AnimalHandling,
+        BattleReducerRouteSkillChoice::Arcana => ReducerRouteSkillChoice::Arcana,
+        BattleReducerRouteSkillChoice::Athletics => ReducerRouteSkillChoice::Athletics,
+        BattleReducerRouteSkillChoice::Deception => ReducerRouteSkillChoice::Deception,
+        BattleReducerRouteSkillChoice::History => ReducerRouteSkillChoice::History,
+        BattleReducerRouteSkillChoice::Insight => ReducerRouteSkillChoice::Insight,
+        BattleReducerRouteSkillChoice::Intimidation => ReducerRouteSkillChoice::Intimidation,
+        BattleReducerRouteSkillChoice::Investigation => ReducerRouteSkillChoice::Investigation,
+        BattleReducerRouteSkillChoice::Medicine => ReducerRouteSkillChoice::Medicine,
+        BattleReducerRouteSkillChoice::Nature => ReducerRouteSkillChoice::Nature,
+        BattleReducerRouteSkillChoice::Perception => ReducerRouteSkillChoice::Perception,
+        BattleReducerRouteSkillChoice::Performance => ReducerRouteSkillChoice::Performance,
+        BattleReducerRouteSkillChoice::Persuasion => ReducerRouteSkillChoice::Persuasion,
+        BattleReducerRouteSkillChoice::Religion => ReducerRouteSkillChoice::Religion,
+        BattleReducerRouteSkillChoice::SleightOfHand => ReducerRouteSkillChoice::SleightOfHand,
+        BattleReducerRouteSkillChoice::Stealth => ReducerRouteSkillChoice::Stealth,
+        BattleReducerRouteSkillChoice::Survival => ReducerRouteSkillChoice::Survival,
+    }
+}
+
+const fn reducer_route_two_target_ability_choices(
+    choices: BattleReducerRouteTwoTargetAbilityChoices,
+) -> ReducerRouteTwoTargetAbilityChoices {
+    ReducerRouteTwoTargetAbilityChoices {
+        primary: reducer_route_ability_choice(choices.primary),
+        secondary: reducer_route_ability_choice(choices.secondary),
+    }
+}
+
 const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRouteOwnerGroup {
     match owner {
         BattleReducerRouteOwnerGroup::ActionEconomy => ReducerRouteOwnerGroup::ActionEconomy,
@@ -1259,7 +1392,32 @@ fn hole_ref(hole: ReducerRouteHoleKind) -> &'static str {
     }
 }
 
-fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
+fn fill_ref(fill: ReducerRouteFillEvidence) -> String {
+    match fill {
+        ReducerRouteFillEvidence::FillKind(kind) => {
+            format!("RouteFillKind({{ fill: {} }})", fill_kind_ref(kind))
+        }
+        ReducerRouteFillEvidence::SkillChoice(skill) => {
+            format!(
+                "RouteSkillChoiceFill({{ skill: {} }})",
+                skill_choice_ref(skill)
+            )
+        }
+        ReducerRouteFillEvidence::AbilityChoice(ability) => {
+            format!(
+                "RouteAbilityChoiceFill({{ ability: {} }})",
+                ability_choice_ref(ability)
+            )
+        }
+        ReducerRouteFillEvidence::TargetAbilityChoices(choices) => format!(
+            "RouteTargetAbilityChoicesFill({{ choices: {{ primary: {}, secondary: {} }} }})",
+            ability_choice_ref(choices.primary),
+            ability_choice_ref(choices.secondary)
+        ),
+    }
+}
+
+fn fill_kind_ref(fill: ReducerRouteFillKind) -> &'static str {
     match fill {
         ReducerRouteFillKind::AbilityCheck => "AbilityCheckFillKind",
         ReducerRouteFillKind::AbilityChoice => "AbilityChoiceFillKind",
@@ -1288,6 +1446,40 @@ fn fill_ref(fill: ReducerRouteFillKind) -> &'static str {
         ReducerRouteFillKind::WildShapeEquipmentDisposition => {
             "WildShapeEquipmentDispositionFillKind"
         }
+    }
+}
+
+fn ability_choice_ref(ability: ReducerRouteAbilityChoice) -> &'static str {
+    match ability {
+        ReducerRouteAbilityChoice::Strength => "RouteAbilityStr",
+        ReducerRouteAbilityChoice::Dexterity => "RouteAbilityDex",
+        ReducerRouteAbilityChoice::Constitution => "RouteAbilityCon",
+        ReducerRouteAbilityChoice::Intelligence => "RouteAbilityInt",
+        ReducerRouteAbilityChoice::Wisdom => "RouteAbilityWis",
+        ReducerRouteAbilityChoice::Charisma => "RouteAbilityCha",
+    }
+}
+
+fn skill_choice_ref(skill: ReducerRouteSkillChoice) -> &'static str {
+    match skill {
+        ReducerRouteSkillChoice::Acrobatics => "RouteSkillAcrobatics",
+        ReducerRouteSkillChoice::AnimalHandling => "RouteSkillAnimalHandling",
+        ReducerRouteSkillChoice::Arcana => "RouteSkillArcana",
+        ReducerRouteSkillChoice::Athletics => "RouteSkillAthletics",
+        ReducerRouteSkillChoice::Deception => "RouteSkillDeception",
+        ReducerRouteSkillChoice::History => "RouteSkillHistory",
+        ReducerRouteSkillChoice::Insight => "RouteSkillInsight",
+        ReducerRouteSkillChoice::Intimidation => "RouteSkillIntimidation",
+        ReducerRouteSkillChoice::Investigation => "RouteSkillInvestigation",
+        ReducerRouteSkillChoice::Medicine => "RouteSkillMedicine",
+        ReducerRouteSkillChoice::Nature => "RouteSkillNature",
+        ReducerRouteSkillChoice::Perception => "RouteSkillPerception",
+        ReducerRouteSkillChoice::Performance => "RouteSkillPerformance",
+        ReducerRouteSkillChoice::Persuasion => "RouteSkillPersuasion",
+        ReducerRouteSkillChoice::Religion => "RouteSkillReligion",
+        ReducerRouteSkillChoice::SleightOfHand => "RouteSkillSleightOfHand",
+        ReducerRouteSkillChoice::Stealth => "RouteSkillStealth",
+        ReducerRouteSkillChoice::Survival => "RouteSkillSurvival",
     }
 }
 
@@ -1454,9 +1646,10 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
 mod tests {
     use super::{
         battle_resolution_continuation, route_discover_battle_acts_from_result,
-        route_resolve_battle_subject_from_result, ReducerRouteEvent, ReducerRouteFillKind,
-        ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome,
-        ReducerRouteResolveConnector, ReducerRouteResolveFill, ReducerRouteSubjectFamily,
+        route_resolve_battle_subject_from_result, ReducerRouteEvent, ReducerRouteFillEvidence,
+        ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+        ReducerRouteResolutionOutcome, ReducerRouteResolveConnector, ReducerRouteResolveFill,
+        ReducerRouteSubjectFamily,
     };
     use crate::rules::battle_reducer_spine::{
         discover_rolled_stat_block_attack_control, start_fighter_skeleton_battle,
@@ -1486,7 +1679,9 @@ mod tests {
             event,
             ReducerRouteEvent::ResolveBattleSubject {
                 subject: ReducerRouteSubjectFamily::SlotSpell,
-                fill: ReducerRouteFillKind::SpellTargetAllocation,
+                fill: ReducerRouteFillEvidence::FillKind(
+                    ReducerRouteFillKind::SpellTargetAllocation,
+                ),
                 outcome: ReducerRouteResolutionOutcome::NeedsHoles,
                 holes: vec![ReducerRouteHoleKind::RolledDice],
                 owner: ReducerRouteOwnerGroup::HoleFrontier,
@@ -1513,7 +1708,7 @@ mod tests {
             event,
             ReducerRouteEvent::ResolveBattleSubject {
                 subject: ReducerRouteSubjectFamily::SaveGatedSpell,
-                fill: ReducerRouteFillKind::RolledDice,
+                fill: ReducerRouteFillEvidence::FillKind(ReducerRouteFillKind::RolledDice),
                 outcome: ReducerRouteResolutionOutcome::Resolved,
                 holes: Vec::new(),
                 owner: ReducerRouteOwnerGroup::HitPoint,

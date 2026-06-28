@@ -311,7 +311,9 @@ fn expected_activation_route() -> Vec<ReducerRouteEvent> {
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::UnitFeatureBonusAction,
-            fill: ReducerRouteFillKind::UnitFeatureDecision,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::UnitFeatureDecision,
+            ),
             outcome: ReducerRouteResolutionOutcome::Resolved,
             holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::FeatureResource,
@@ -332,7 +334,9 @@ fn expected_spell_attack_benefit_route(eligible: bool) -> Vec<ReducerRouteEvent>
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::ActiveFeatureSpellAttackRollMode,
-            fill: ReducerRouteFillKind::UnitFeatureDecision,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::UnitFeatureDecision,
+            ),
             outcome: ReducerRouteResolutionOutcome::Resolved,
             holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::ActiveEffect,

@@ -514,7 +514,9 @@ fn expected_resolve_with_movement_fill(
 ) -> ReducerRouteEvent {
     ReducerRouteEvent::ResolveBattleSubject {
         subject,
-        fill: ReducerRouteFillKind::Movement,
+        fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+            ReducerRouteFillKind::Movement,
+        ),
         outcome: ReducerRouteResolutionOutcome::Resolved,
         holes: Vec::new(),
         owner,

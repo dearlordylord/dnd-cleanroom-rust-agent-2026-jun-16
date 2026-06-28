@@ -366,7 +366,9 @@ fn expected_resolve_breath_weapon_route(opens_extra_attack_slot: bool) -> Vec<Re
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::SavingThrowOutcome,
+            ),
             outcome: ReducerRouteResolutionOutcome::Resolved,
             holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::FeatureResource,
@@ -386,7 +388,9 @@ fn expected_reject_missing_resource_route() -> Vec<ReducerRouteEvent> {
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::SavingThrowOutcome,
+            ),
             outcome: ReducerRouteResolutionOutcome::Invalid(
                 crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
             ),
@@ -408,7 +412,9 @@ fn expected_reject_mismatched_area_route() -> Vec<ReducerRouteEvent> {
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::SavingThrowOutcome,
+            ),
             outcome: ReducerRouteResolutionOutcome::Invalid(
                 crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
             ),
@@ -430,7 +436,9 @@ fn expected_reject_invalid_damage_roll_route() -> Vec<ReducerRouteEvent> {
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::AttackActionAreaSaveDamageReplacement,
-            fill: ReducerRouteFillKind::SavingThrowOutcome,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::SavingThrowOutcome,
+            ),
             outcome: ReducerRouteResolutionOutcome::Invalid(
                 crate::rules::battle_reducer_spine::BattleResolutionInvalidReason::InvalidFill,
             ),

@@ -18,8 +18,9 @@ use crate::rules::level_one_spatial_spells::{
 };
 
 use super::battle_runtime_reducer_route::{
-    observed_reducer_route, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
-    ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+    observed_reducer_route, ReducerRouteEvent, ReducerRouteFillEvidence, ReducerRouteFillKind,
+    ReducerRouteHoleKind, ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome,
+    ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 10] = [
@@ -104,7 +105,7 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: expected_spatial_route_subject_family(subject),
-            fill: expected_spatial_route_fill_kind(subject),
+            fill: ReducerRouteFillEvidence::FillKind(expected_spatial_route_fill_kind(subject)),
             outcome: ReducerRouteResolutionOutcome::Resolved,
             holes: Vec::new(),
             owner: expected_spatial_route_resolution_owner(subject),

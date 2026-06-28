@@ -16,9 +16,11 @@ use crate::rules::battle_reducer_spine::{
 use super::battle_runtime_reducer_route::{
     observed_reducer_route, route_discover_battle_acts_from_route_holes,
     route_resolve_battle_subject_from_route_result,
+    route_resolve_battle_subject_with_fill_evidence_from_route_result,
     route_resolve_battle_subject_without_fill_from_route_result, route_start_battle,
-    setup_from_battle_state, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
-    ReducerRouteOwnerGroup, ReducerRouteResolutionOutcome, ReducerRouteSubjectFamily,
+    setup_from_battle_state, ReducerRouteAbilityChoice, ReducerRouteEvent,
+    ReducerRouteFillEvidence, ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteSkillChoice, ReducerRouteSubjectFamily,
 };
 
 pub const BRANCH_ACTIONS: [&str; 9] = [
@@ -243,8 +245,8 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         }
         "doSearchInvalidAbilityFillRejected" => {
             let mut route = search_ability_check_route();
-            route.push(search_resolve(
-                ReducerRouteFillKind::SkillChoice,
+            route.push(search_resolve_with_fill_evidence(
+                ReducerRouteFillEvidence::SkillChoice(ReducerRouteSkillChoice::Athletics),
                 ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill),
                 Vec::new(),
                 ReducerRouteOwnerGroup::HoleFrontier,
@@ -266,11 +268,11 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         }
         "doGuidanceInvalidAbilityFillRejected" => roll_modifier_invalid_choice_route(
             ReducerRouteHoleKind::SkillChoice,
-            ReducerRouteFillKind::AbilityChoice,
+            ReducerRouteFillEvidence::AbilityChoice(ReducerRouteAbilityChoice::Dexterity),
         ),
         "doGuidanceSkillAthletics" => roll_modifier_accepted_choice_route(
             ReducerRouteHoleKind::SkillChoice,
-            ReducerRouteFillKind::SkillChoice,
+            ReducerRouteFillEvidence::SkillChoice(ReducerRouteSkillChoice::Athletics),
         ),
         action if out_of_scope_reason(action).is_some() => Vec::new(),
         action => panic!("unsupported mbt::actionTaken {action}"),
@@ -554,6 +556,21 @@ fn search_resolve(
     )
 }
 
+fn search_resolve_with_fill_evidence(
+    fill: ReducerRouteFillEvidence,
+    outcome: ReducerRouteResolutionOutcome,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_with_fill_evidence_from_route_result(
+        ReducerRouteSubjectFamily::AbilityCheckSearch,
+        fill,
+        outcome,
+        holes,
+        owner,
+    )
+}
+
 fn roll_modifier_opening_route(choice_hole: ReducerRouteHoleKind) -> Vec<ReducerRouteEvent> {
     vec![
         route_start_battle(ReducerRouteOwnerGroup::ActionEconomy),
@@ -574,31 +591,35 @@ fn roll_modifier_opening_route(choice_hole: ReducerRouteHoleKind) -> Vec<Reducer
 
 fn roll_modifier_invalid_choice_route(
     choice_hole: ReducerRouteHoleKind,
-    fill: ReducerRouteFillKind,
+    fill: ReducerRouteFillEvidence,
 ) -> Vec<ReducerRouteEvent> {
     let mut route = roll_modifier_opening_route(choice_hole);
-    route.push(route_resolve_battle_subject_from_route_result(
-        ReducerRouteSubjectFamily::RollModifierEffect,
-        fill,
-        ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill),
-        Vec::new(),
-        ReducerRouteOwnerGroup::HoleFrontier,
-    ));
+    route.push(
+        route_resolve_battle_subject_with_fill_evidence_from_route_result(
+            ReducerRouteSubjectFamily::RollModifierEffect,
+            fill,
+            ReducerRouteResolutionOutcome::Invalid(BattleResolutionInvalidReason::InvalidFill),
+            Vec::new(),
+            ReducerRouteOwnerGroup::HoleFrontier,
+        ),
+    );
     route
 }
 
 fn roll_modifier_accepted_choice_route(
     choice_hole: ReducerRouteHoleKind,
-    fill: ReducerRouteFillKind,
+    fill: ReducerRouteFillEvidence,
 ) -> Vec<ReducerRouteEvent> {
     let mut route = roll_modifier_opening_route(choice_hole);
-    route.push(route_resolve_battle_subject_from_route_result(
-        ReducerRouteSubjectFamily::RollModifierEffect,
-        fill,
-        ReducerRouteResolutionOutcome::Resolved,
-        Vec::new(),
-        ReducerRouteOwnerGroup::ActiveEffect,
-    ));
+    route.push(
+        route_resolve_battle_subject_with_fill_evidence_from_route_result(
+            ReducerRouteSubjectFamily::RollModifierEffect,
+            fill,
+            ReducerRouteResolutionOutcome::Resolved,
+            Vec::new(),
+            ReducerRouteOwnerGroup::ActiveEffect,
+        ),
+    );
     route.push(route_resolve_battle_subject_without_fill_from_route_result(
         ReducerRouteSubjectFamily::RollModifierEffect,
         ReducerRouteResolutionOutcome::Resolved,

@@ -1,7 +1,7 @@
 {
   "files": [
     {
-      "baseSha256": "4a02c5241cb3842e2f9228302ea4f28bd8472c33a2936d7d79b2348205096ae2",
+      "baseSha256": "f96e26aac6fc7679c1801e3a048ba1426eb301a2aab91cf3cd284063ce62be0c",
       "patchedSha256": "5b7f4913a2c6455c556e13a276107337219804698ffd087c64d536cf66c6e06c",
       "path": "scripts/cleanroom-branch-coverage-check.cjs"
     },
@@ -11,8 +11,8 @@
       "path": "scripts/check-cleanroom-harness.cjs"
     }
   ],
-  "patchId": "L15-RR07-FU01B-target-blocker-evidence-result",
-  "rationale": "Allow target replay evidence to record explicit target-blocker rows for selected obligations that lack production BattleState route subjects, without counting those rows as accepted pass evidence refs.",
+  "patchId": "L15-RR21-roll-choice-payload-validator-bookkeeping",
+  "rationale": "Carry forward approved target-local validator patches after the cleanroom-input refresh to source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375.",
   "schemaVersion": 1,
-  "sourceCommitSha": "53642cf0b1bc98f4426b6081fe37c98a960939fc"
+  "sourceCommitSha": "0c2ba34c5a45f18b73dfe590e0e86419ba377375"
 }

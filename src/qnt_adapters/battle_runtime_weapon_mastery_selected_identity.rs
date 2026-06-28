@@ -278,7 +278,9 @@ fn expected_sap_property_route() -> Vec<ReducerRouteEvent> {
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            fill: ReducerRouteFillKind::UnitFeatureDecision,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::UnitFeatureDecision,
+            ),
             outcome: ReducerRouteResolutionOutcome::Resolved,
             holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::ActiveEffect,
@@ -298,7 +300,9 @@ fn expected_topple_property_route() -> Vec<ReducerRouteEvent> {
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            fill: ReducerRouteFillKind::UnitFeatureDecision,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::UnitFeatureDecision,
+            ),
             outcome: ReducerRouteResolutionOutcome::NeedsHoles,
             holes: vec![ReducerRouteHoleKind::RolledDice],
             owner: ReducerRouteOwnerGroup::ConditionLifecycle,
@@ -318,7 +322,9 @@ fn expected_cleave_property_route() -> Vec<ReducerRouteEvent> {
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::WeaponMasteryProperty,
-            fill: ReducerRouteFillKind::UnitFeatureDecision,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::UnitFeatureDecision,
+            ),
             outcome: ReducerRouteResolutionOutcome::Resolved,
             holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::FeatureResource,

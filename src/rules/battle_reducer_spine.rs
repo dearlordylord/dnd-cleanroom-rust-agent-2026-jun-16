@@ -1367,7 +1367,7 @@ pub enum BattleFill {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleGenericRouteFill {
     AbilityCheck,
-    AbilityChoice,
+    AbilityChoice(BattleReducerRouteAbilityChoice),
     AttackRoll,
     ConcentrationSavingThrow,
     DamageTypeChoice,
@@ -1375,8 +1375,8 @@ pub enum BattleGenericRouteFill {
     RolledDice,
     SavingThrowOutcome,
     SanctuaryInterdictionOutcome,
-    SkillChoice,
-    TargetAbilityChoices,
+    SkillChoice(BattleReducerRouteSkillChoice),
+    TargetAbilityChoices(BattleReducerRouteTwoTargetAbilityChoices),
     TargetChoice,
     WithoutFill,
 }
@@ -2435,6 +2435,64 @@ pub enum BattleReducerRouteFillKind {
     WildShapeEquipmentDisposition,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReducerRouteAbilityChoice {
+    Strength,
+    Dexterity,
+    Constitution,
+    Intelligence,
+    Wisdom,
+    Charisma,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReducerRouteSkillChoice {
+    Acrobatics,
+    AnimalHandling,
+    Arcana,
+    Athletics,
+    Deception,
+    History,
+    Insight,
+    Intimidation,
+    Investigation,
+    Medicine,
+    Nature,
+    Perception,
+    Performance,
+    Persuasion,
+    Religion,
+    SleightOfHand,
+    Stealth,
+    Survival,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleReducerRouteTwoTargetAbilityChoices {
+    pub primary: BattleReducerRouteAbilityChoice,
+    pub secondary: BattleReducerRouteAbilityChoice,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleReducerRouteFillEvidence {
+    FillKind(BattleReducerRouteFillKind),
+    SkillChoice(BattleReducerRouteSkillChoice),
+    AbilityChoice(BattleReducerRouteAbilityChoice),
+    TargetAbilityChoices(BattleReducerRouteTwoTargetAbilityChoices),
+}
+
+impl BattleReducerRouteFillEvidence {
+    #[must_use]
+    pub const fn kind(self) -> BattleReducerRouteFillKind {
+        match self {
+            Self::FillKind(kind) => kind,
+            Self::SkillChoice(_) => BattleReducerRouteFillKind::SkillChoice,
+            Self::AbilityChoice(_) => BattleReducerRouteFillKind::AbilityChoice,
+            Self::TargetAbilityChoices(_) => BattleReducerRouteFillKind::TargetAbilityChoices,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum BattleReducerRouteHoleKind {
     AbilityCheck,
@@ -2590,7 +2648,7 @@ pub enum BattleReducerRouteEvent {
     },
     ResolveBattleSubject {
         subject: BattleReducerRouteSubjectFamily,
-        fill: BattleReducerRouteFillKind,
+        fill: BattleReducerRouteFillEvidence,
         outcome: BattleReducerRouteResolutionOutcome,
         holes: Vec<BattleReducerRouteHoleKind>,
         owner: BattleReducerRouteOwnerGroup,
@@ -2700,6 +2758,24 @@ pub fn observe_battle_route_discovery(
 pub fn observe_battle_route_resolution(
     subject: BattleReducerRouteSubjectFamily,
     fill: BattleReducerRouteFillKind,
+    outcome: BattleReducerRouteResolutionOutcome,
+    holes: Vec<BattleReducerRouteHoleKind>,
+    owner: BattleReducerRouteOwnerGroup,
+    observer: &mut impl BattleReducerRouteObserver,
+) {
+    observe_battle_route_resolution_with_fill_evidence(
+        subject,
+        BattleReducerRouteFillEvidence::FillKind(fill),
+        outcome,
+        holes,
+        owner,
+        observer,
+    );
+}
+
+pub fn observe_battle_route_resolution_with_fill_evidence(
+    subject: BattleReducerRouteSubjectFamily,
+    fill: BattleReducerRouteFillEvidence,
     outcome: BattleReducerRouteResolutionOutcome,
     holes: Vec<BattleReducerRouteHoleKind>,
     owner: BattleReducerRouteOwnerGroup,
@@ -8759,7 +8835,7 @@ fn battle_resolution_route_event(
     let outcome = result.outcome();
     let owner = battle_resolution_route_owner(subject, fill, outcome, &holes);
     let subject = battle_reducer_route_subject_family(subject);
-    match battle_reducer_route_fill_kind(fill) {
+    match battle_reducer_route_fill_evidence(fill) {
         Some(fill) => BattleReducerRouteEvent::ResolveBattleSubject {
             subject,
             fill,
@@ -8773,6 +8849,36 @@ fn battle_resolution_route_event(
             holes: route_holes,
             owner,
         },
+    }
+}
+
+fn battle_reducer_route_fill_evidence(fill: BattleFill) -> Option<BattleReducerRouteFillEvidence> {
+    match fill {
+        BattleFill::AbilityCheckSearch(BattleAbilityCheckSearchFill::SkillChoice(skill)) => {
+            Some(BattleReducerRouteFillEvidence::SkillChoice(
+                ability_check_search_skill_route_choice(skill),
+            ))
+        }
+        BattleFill::RollModifierEffect(BattleRollModifierEffectFill::SkillChoice(skill)) => {
+            Some(BattleReducerRouteFillEvidence::SkillChoice(
+                ability_check_search_skill_route_choice(skill),
+            ))
+        }
+        BattleFill::RollModifierEffect(BattleRollModifierEffectFill::AbilityChoice(ability)) => {
+            Some(BattleReducerRouteFillEvidence::AbilityChoice(
+                ability_check_search_ability_route_choice(ability),
+            ))
+        }
+        BattleFill::GenericRoute(BattleGenericRouteFill::SkillChoice(skill)) => {
+            Some(BattleReducerRouteFillEvidence::SkillChoice(skill))
+        }
+        BattleFill::GenericRoute(BattleGenericRouteFill::AbilityChoice(ability)) => {
+            Some(BattleReducerRouteFillEvidence::AbilityChoice(ability))
+        }
+        BattleFill::GenericRoute(BattleGenericRouteFill::TargetAbilityChoices(choices)) => Some(
+            BattleReducerRouteFillEvidence::TargetAbilityChoices(choices),
+        ),
+        _ => battle_reducer_route_fill_kind(fill).map(BattleReducerRouteFillEvidence::FillKind),
     }
 }
 
@@ -8905,7 +9011,7 @@ fn battle_reducer_route_fill_kind(fill: BattleFill) -> Option<BattleReducerRoute
 const fn generic_route_fill_kind(fill: BattleGenericRouteFill) -> BattleReducerRouteFillKind {
     match fill {
         BattleGenericRouteFill::AbilityCheck => BattleReducerRouteFillKind::AbilityCheck,
-        BattleGenericRouteFill::AbilityChoice => BattleReducerRouteFillKind::AbilityChoice,
+        BattleGenericRouteFill::AbilityChoice(_) => BattleReducerRouteFillKind::AbilityChoice,
         BattleGenericRouteFill::AttackRoll => BattleReducerRouteFillKind::AttackRoll,
         BattleGenericRouteFill::ConcentrationSavingThrow => {
             BattleReducerRouteFillKind::ConcentrationSavingThrow
@@ -8919,12 +9025,30 @@ const fn generic_route_fill_kind(fill: BattleGenericRouteFill) -> BattleReducerR
         BattleGenericRouteFill::SanctuaryInterdictionOutcome => {
             BattleReducerRouteFillKind::SanctuaryInterdictionOutcome
         }
-        BattleGenericRouteFill::SkillChoice => BattleReducerRouteFillKind::SkillChoice,
-        BattleGenericRouteFill::TargetAbilityChoices => {
+        BattleGenericRouteFill::SkillChoice(_) => BattleReducerRouteFillKind::SkillChoice,
+        BattleGenericRouteFill::TargetAbilityChoices(_) => {
             BattleReducerRouteFillKind::TargetAbilityChoices
         }
         BattleGenericRouteFill::TargetChoice => BattleReducerRouteFillKind::TargetChoice,
         BattleGenericRouteFill::WithoutFill => BattleReducerRouteFillKind::UnitFeatureDecision,
+    }
+}
+
+const fn ability_check_search_ability_route_choice(
+    ability: AbilityCheckSearchAbility,
+) -> BattleReducerRouteAbilityChoice {
+    match ability {
+        AbilityCheckSearchAbility::Dexterity => BattleReducerRouteAbilityChoice::Dexterity,
+        AbilityCheckSearchAbility::Wisdom => BattleReducerRouteAbilityChoice::Wisdom,
+    }
+}
+
+const fn ability_check_search_skill_route_choice(
+    skill: AbilityCheckSearchSkill,
+) -> BattleReducerRouteSkillChoice {
+    match skill {
+        AbilityCheckSearchSkill::Athletics => BattleReducerRouteSkillChoice::Athletics,
+        AbilityCheckSearchSkill::Perception => BattleReducerRouteSkillChoice::Perception,
     }
 }
 
@@ -9901,13 +10025,13 @@ fn generic_route_fill_matches_subject(
             fill == BattleGenericRouteFill::TargetChoice
         }
         BattleSubjectKind::RollModifierEffectSkillChoice => {
-            fill == BattleGenericRouteFill::SkillChoice
+            matches!(fill, BattleGenericRouteFill::SkillChoice(_))
         }
         BattleSubjectKind::RollModifierEffectAbilityChoice => {
-            fill == BattleGenericRouteFill::AbilityChoice
+            matches!(fill, BattleGenericRouteFill::AbilityChoice(_))
         }
         BattleSubjectKind::RollModifierEffectTargetAbilityChoices => {
-            fill == BattleGenericRouteFill::TargetAbilityChoices
+            matches!(fill, BattleGenericRouteFill::TargetAbilityChoices(_))
         }
         BattleSubjectKind::RollModifierEffectSavingThrow
         | BattleSubjectKind::RepeatSaveConditionEffectInitialSave

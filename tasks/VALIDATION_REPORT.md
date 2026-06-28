@@ -4005,3 +4005,22 @@ Blocked rows:
 - `cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.mbt.qnt#step:doCounterspellEndsSpellCast`: `RR19-BLOCKED-COUNTERSPELL-END-LEVEL3`, recorded in `tasks/target-replay-evidence/L15-RR19-BATTLE-REACTION-INTERRUPT-ROUTES.json#blockedRuns`.
 
 Remaining gaps: Counterspell reaction casting-time routes stay blocked for this cleanroom lane because the current target scope does not include the level-3 Counterspell continuation substrate.
+
+## FEXP-04 Exact Roll-Choice Payload Dirty Diagnostic
+
+- Manifest source commit SHA observed in `cleanroom-input/MANIFEST.md`: `0c2ba34c5a45f18b73dfe590e0e86419ba377375`
+- Source branch inventory SHA observed by the harness: `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81`
+- Focused runtime checks passed for typed route-choice payload facts:
+  - `cargo test ability_check_choice_search_adapter_replays_accepted_branches`
+  - `cargo test roll_modifier_active_effects_routes_all_branches_through_reducer`
+- The focused tests assert exact reducer route-fill payloads for skill choice, ability choice, and two-target ability choices through the existing reducer-shaped route entrypoints.
+
+Focused evidence refresh was not completed in this dirty worktree. The existing evidence rows predate the route-fill payload representation change, so updating only `cleanroomManifestSourceCommitSha` and `sourceBranchInventorySha256` would make stale hashes appear current without fresh target replay acceptance. The current `L15-RRCP5-B-active-effect-lifecycle-routes.json` file also bundles non-roll-modifier driver rows, so the per-driver checker reports those unrelated rows as unknown obligations when pointed at only `battle-runtime-roll-modifier-active-effects.mbt.qnt`.
+
+Observed validator state:
+
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt --evidence tasks/target-replay-evidence/L15-RR21-BATTLE-ABILITY-SEARCH-CHOICE-ROUTES.json` fails because the evidence references stale source inventory and manifest source `564376fd95218a209bb9eae5c9ccb54ca3e04a52`.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt --evidence tasks/target-replay-evidence/L15-RRCP5-B-active-effect-lifecycle-routes.json` fails for the same stale source fields and for unrelated bundled scalar-buff, sleep-repeat-save, turn-boundary, and zero-hit-point rows under the focused per-driver check.
+- `node scripts/check-cleanroom-harness.cjs 2>&1 | head -120` fails broadly because `tasks/RUN_LEDGER.json` and old target replay evidence rows still reference the pre-refresh manifest/source inventory after the full cleanroom-input refresh.
+
+No roll-choice-specific harness issue was found. This section is dirty diagnostic evidence for the target patch only, not fresh cleanroom target replay acceptance.

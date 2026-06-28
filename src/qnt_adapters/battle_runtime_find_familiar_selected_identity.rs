@@ -320,14 +320,18 @@ fn companion_touch_delivery_route() -> Vec<ReducerRouteEvent> {
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::CompanionTouchDelivery,
-            fill: ReducerRouteFillKind::TargetChoice,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::TargetChoice,
+            ),
             outcome: ReducerRouteResolutionOutcome::NeedsHoles,
             holes: vec![ReducerRouteHoleKind::RolledDice],
             owner: ReducerRouteOwnerGroup::Companion,
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::CompanionTouchDelivery,
-            fill: ReducerRouteFillKind::RolledDice,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::RolledDice,
+            ),
             outcome: ReducerRouteResolutionOutcome::Resolved,
             holes: Vec::new(),
             owner: ReducerRouteOwnerGroup::SpellSlotAndActionEconomy,

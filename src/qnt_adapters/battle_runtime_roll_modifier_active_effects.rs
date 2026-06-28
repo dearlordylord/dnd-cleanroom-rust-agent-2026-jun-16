@@ -1,4 +1,7 @@
-use crate::rules::battle_reducer_spine::{BattleGenericRouteFill, BattleSubjectKind};
+use crate::rules::battle_reducer_spine::{
+    BattleGenericRouteFill, BattleReducerRouteAbilityChoice, BattleReducerRouteSkillChoice,
+    BattleReducerRouteTwoTargetAbilityChoices, BattleSubjectKind,
+};
 use crate::rules::roll_modifier_active_effects::{
     break_roll_modifier_concentration, cast_bane_failed, cast_bless, cast_enhance_dex,
     cast_enhance_per_target, cast_enthrall, cast_guidance_stealth, cast_pass_without_trace,
@@ -13,9 +16,12 @@ use crate::rules::roll_modifier_active_effects::{
 use super::battle_runtime_reducer_route::{
     replay_generic_battle_route, route_discover_battle_acts_from_route_holes,
     route_resolve_battle_subject_from_route_holes,
+    route_resolve_battle_subject_with_fill_evidence_from_route_result,
     route_resolve_battle_subject_without_fill_from_route_holes, route_start_battle,
-    GenericBattleRouteStep, ReducerRouteEvent, ReducerRouteFillKind, ReducerRouteHoleKind,
-    ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
+    GenericBattleRouteStep, ReducerRouteAbilityChoice, ReducerRouteEvent, ReducerRouteFillEvidence,
+    ReducerRouteFillKind, ReducerRouteHoleKind, ReducerRouteOwnerGroup,
+    ReducerRouteResolutionOutcome, ReducerRouteSkillChoice, ReducerRouteSubjectFamily,
+    ReducerRouteTwoTargetAbilityChoices,
 };
 
 pub const BRANCH_ACTIONS: [&str; 16] = [
@@ -90,7 +96,7 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             discover(BattleSubjectKind::RollModifierEffectSkillChoice),
             resolve(
                 BattleSubjectKind::RollModifierEffectSkillChoice,
-                BattleGenericRouteFill::SkillChoice,
+                BattleGenericRouteFill::SkillChoice(BattleReducerRouteSkillChoice::Stealth),
             ),
             resolve(
                 BattleSubjectKind::RollModifierEffectConcentrationCleanup,
@@ -104,7 +110,7 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             discover(BattleSubjectKind::RollModifierEffectAbilityChoice),
             resolve(
                 BattleSubjectKind::RollModifierEffectAbilityChoice,
-                BattleGenericRouteFill::AbilityChoice,
+                BattleGenericRouteFill::AbilityChoice(BattleReducerRouteAbilityChoice::Dexterity),
             ),
             resolve(
                 BattleSubjectKind::RollModifierEffectConcentrationCleanup,
@@ -118,7 +124,12 @@ pub fn replay_observed_route(observed_action_taken: &str) -> Vec<ReducerRouteEve
             discover(BattleSubjectKind::RollModifierEffectTargetAbilityChoices),
             resolve(
                 BattleSubjectKind::RollModifierEffectTargetAbilityChoices,
-                BattleGenericRouteFill::TargetAbilityChoices,
+                BattleGenericRouteFill::TargetAbilityChoices(
+                    BattleReducerRouteTwoTargetAbilityChoices {
+                        primary: BattleReducerRouteAbilityChoice::Dexterity,
+                        secondary: BattleReducerRouteAbilityChoice::Wisdom,
+                    },
+                ),
             ),
             resolve(
                 BattleSubjectKind::RollModifierEffectConcentrationCleanup,
@@ -190,7 +201,7 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         ],
         "doCastGuidanceStealth" => choice_modifier_route(
             ReducerRouteHoleKind::SkillChoice,
-            ReducerRouteFillKind::SkillChoice,
+            ReducerRouteFillEvidence::SkillChoice(ReducerRouteSkillChoice::Stealth),
         ),
         "doDiscoverEnhanceAbilityChoice" => vec![
             start(),
@@ -198,7 +209,7 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         ],
         "doCastEnhanceDex" => choice_modifier_route(
             ReducerRouteHoleKind::AbilityChoice,
-            ReducerRouteFillKind::AbilityChoice,
+            ReducerRouteFillEvidence::AbilityChoice(ReducerRouteAbilityChoice::Dexterity),
         ),
         "doDiscoverEnhanceTargetAbilityChoices" => vec![
             start(),
@@ -209,7 +220,10 @@ pub fn expected_route(observed_action_taken: &str) -> Vec<ReducerRouteEvent> {
         ],
         "doCastEnhancePerTarget" => choice_modifier_route(
             ReducerRouteHoleKind::TargetAbilityChoices,
-            ReducerRouteFillKind::TargetAbilityChoices,
+            ReducerRouteFillEvidence::TargetAbilityChoices(ReducerRouteTwoTargetAbilityChoices {
+                primary: ReducerRouteAbilityChoice::Dexterity,
+                secondary: ReducerRouteAbilityChoice::Wisdom,
+            }),
         ),
         "doCastEnthrall" => saving_throw_modifier_route(),
         "doDiscoverThaumaturgyCount" => vec![
@@ -412,12 +426,12 @@ fn direct_concentration_expected_route() -> Vec<ReducerRouteEvent> {
 
 fn choice_modifier_route(
     hole: ReducerRouteHoleKind,
-    fill: ReducerRouteFillKind,
+    fill: ReducerRouteFillEvidence,
 ) -> Vec<ReducerRouteEvent> {
     vec![
         start(),
         discover(vec![hole], spell_owner()),
-        resolve(fill, Vec::new(), ReducerRouteOwnerGroup::ActiveEffect),
+        resolve_with_fill_evidence(fill, Vec::new(), ReducerRouteOwnerGroup::ActiveEffect),
         resolve_without_fill(ReducerRouteOwnerGroup::Concentration),
     ]
 }
@@ -442,6 +456,24 @@ fn resolve(
     route_resolve_battle_subject_from_route_holes(
         ReducerRouteSubjectFamily::RollModifierEffect,
         fill,
+        holes,
+        owner,
+    )
+}
+
+fn resolve_with_fill_evidence(
+    fill: ReducerRouteFillEvidence,
+    holes: Vec<ReducerRouteHoleKind>,
+    owner: ReducerRouteOwnerGroup,
+) -> ReducerRouteEvent {
+    route_resolve_battle_subject_with_fill_evidence_from_route_result(
+        ReducerRouteSubjectFamily::RollModifierEffect,
+        fill,
+        if holes.is_empty() {
+            ReducerRouteResolutionOutcome::Resolved
+        } else {
+            ReducerRouteResolutionOutcome::NeedsHoles
+        },
         holes,
         owner,
     )

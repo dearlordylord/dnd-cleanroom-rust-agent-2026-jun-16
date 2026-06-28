@@ -483,7 +483,9 @@ fn append_expected_assume_or_reuse_form_route(route: &mut Vec<ReducerRouteEvent>
     ));
     route.push(ReducerRouteEvent::ResolveBattleSubject {
         subject: ReducerRouteSubjectFamily::ActiveFormLifecycle,
-        fill: ReducerRouteFillKind::WildShapeEquipmentDisposition,
+        fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+            ReducerRouteFillKind::WildShapeEquipmentDisposition,
+        ),
         outcome: ReducerRouteResolutionOutcome::Resolved,
         holes: Vec::new(),
         owner: ReducerRouteOwnerGroup::ActionEconomy,

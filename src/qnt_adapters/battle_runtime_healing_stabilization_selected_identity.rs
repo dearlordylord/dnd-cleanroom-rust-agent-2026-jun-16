@@ -116,7 +116,9 @@ fn expected_route_after_resolve_spare_the_dying_stabilization() -> Vec<ReducerRo
         },
         ReducerRouteEvent::ResolveBattleSubject {
             subject: ReducerRouteSubjectFamily::ZeroHitPointStabilization,
-            fill: ReducerRouteFillKind::TargetChoice,
+            fill: super::battle_runtime_reducer_route::ReducerRouteFillEvidence::FillKind(
+                ReducerRouteFillKind::TargetChoice,
+            ),
             outcome: super::battle_runtime_reducer_route::ReducerRouteResolutionOutcome::Resolved,
             holes: vec![],
             owner: ReducerRouteOwnerGroup::HitPointAndZeroHpLifecycle,

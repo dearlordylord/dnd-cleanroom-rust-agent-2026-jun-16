@@ -2432,6 +2432,19 @@ fn ability_check_choice_search_adapter_replays_accepted_branches() {
         } else {
             assert!(route_payload.contains("RollModifierEffectRouteSubject"));
         }
+        match action {
+            "doSearchInvalidAbilityFillRejected" | "doGuidanceSkillAthletics" => {
+                assert!(
+                    route_payload.contains("RouteSkillChoiceFill({ skill: RouteSkillAthletics })")
+                );
+            }
+            "doGuidanceInvalidAbilityFillRejected" => {
+                assert!(
+                    route_payload.contains("RouteAbilityChoiceFill({ ability: RouteAbilityDex })")
+                );
+            }
+            _ => {}
+        }
     }
 
     assert_eq!(
@@ -5207,6 +5220,20 @@ fn roll_modifier_active_effects_routes_all_branches_through_reducer() {
         assert_eq!(observed, expected);
         assert!(payload.contains("RollModifierEffectRouteSubject"));
         assert!(payload.contains("start_battle owner=BattleActionEconomyOwner"));
+        match action {
+            "doCastGuidanceStealth" => {
+                assert!(payload.contains("RouteSkillChoiceFill({ skill: RouteSkillStealth })"));
+            }
+            "doCastEnhanceDex" => {
+                assert!(payload.contains("RouteAbilityChoiceFill({ ability: RouteAbilityDex })"));
+            }
+            "doCastEnhancePerTarget" => {
+                assert!(payload.contains(
+                    "RouteTargetAbilityChoicesFill({ choices: { primary: RouteAbilityDex, secondary: RouteAbilityWis } })"
+                ));
+            }
+            _ => {}
+        }
     }
 }
 

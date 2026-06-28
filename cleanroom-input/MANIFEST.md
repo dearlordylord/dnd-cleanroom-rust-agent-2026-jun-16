@@ -5,9 +5,9 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: b57772b459f1b75592fd45b9196fd60965b534d3
-- Copy date: 2026-06-27T19:03:19.300Z
-- Files: 515
+- Source commit SHA: 0c2ba34c5a45f18b73dfe590e0e86419ba377375
+- Copy date: 2026-06-28T01:11:09.106Z
+- Files: 516
 
 Cleanroom tasks must declare which source commit SHA they implement
 against (the `Source commit SHA` recorded here at task start).
@@ -44,7 +44,7 @@ instead of guessing.
 - `branch-coverage/reducer-route-inventory.json`: 1
 - `guidance/README.md`: 1
 - `guidance/reducer-spine.md`: 1
-- `qnt/battle-runtime`: 317
+- `qnt/battle-runtime`: 318
 - `qnt/character-creation-runtime`: 22
 - `qnt/character-sheet-runtime`: 23
 - `qnt/character-battle-runtime`: 12
@@ -96,12 +96,12 @@ instead of guessing.
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
 | `branch-coverage/source-branch-inventory.json` | `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
-| `branch-coverage/reducer-route-inventory.json` | `4afbc2351942f8ff93c086b27976093f36f7fbc35788a68f4bbba97eea173fda` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
+| `branch-coverage/reducer-route-inventory.json` | `184b092c0cf33051720ac4bc1cff1475c6c780ad3b7d179e44a7ff3ab43d76be` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
 | `guidance/README.md` | `d62a834399e1469186bc931f2d27bdf696b9a67c9c9e21c15982ee722ed5384b` | `plans/cleanroom-guidance/README.md` |
 | `guidance/reducer-spine.md` | `25467c22bb8df808f1bcc15b147d49e40dc4c6eab41953f1a93df922d8d41c00` | `plans/cleanroom-guidance/reducer-spine.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` | `03939fa327861bfe490825a4a15b3875e34ff266b14b896c68a01afdb0f215ac` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt` |
-| `qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` | `b580cb0cd090fbc3fec41a853e54b7ec3cfbede676a5252e61405475d0b15c4b` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` | `4ff801da12cf24964a55457b3146b6ad23d790bb1b7a5b264d4ee7001b9be5e8` | `packages/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-search-tests.qnt` | `fc8b35a8d76aeb5639e2ebb06b45ad7d7bd71aea700918ae98d33a0b0e92cabe` | `packages/battle-runtime/battle-runtime-ability-check-search-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-ability-check-search.qnt` | `8199aa82ef37ec925ba953715e3c2e6b5022bf6689c5e7d4a9e6800561df853b` | `packages/battle-runtime/battle-runtime-ability-check-search.qnt` |
 | `qnt/battle-runtime/battle-runtime-acid-arrow-timing.mbt.qnt` | `951f156c8533d7507cc89e30178efb06ae8b5eb025fcf4cb1ee3ce158aa6ef09` | `packages/battle-runtime/battle-runtime-acid-arrow-timing.mbt.qnt` |
@@ -284,7 +284,7 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` | `8192d11ce0dc893853b0eceda1b7ef853bbee219295f8e18e5071a5d33789e4a` | `packages/battle-runtime/battle-runtime-reaction-spell-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window-tests.qnt` | `4ce834fb0929cec617e79abf7a4cfcbacdc10718041c774f0f092ae434b76159` | `packages/battle-runtime/battle-runtime-reaction-window-tests.qnt` |
 | `qnt/battle-runtime/battle-runtime-reaction-window.qnt` | `f557bce899edff541e53cfd081a0a0a4db84364c355aa1605e438b6015ef383e` | `packages/battle-runtime/battle-runtime-reaction-window.qnt` |
-| `qnt/battle-runtime/battle-runtime-reducer-route.qnt` | `f0adb8d01e920da4dda3d74ae7db158f6e2f4f477b08abd7dbf2ede29db21a78` | `packages/battle-runtime/battle-runtime-reducer-route.qnt` |
+| `qnt/battle-runtime/battle-runtime-reducer-route.qnt` | `dee3768141b0e9a7b794df1de50af8be8d5ff3eede5204b44a3d43150fb9250a` | `packages/battle-runtime/battle-runtime-reducer-route.qnt` |
 | `qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` | `5b7fe7a06d31dda4e32625ede181289efe9c2b9ddb8fe6e42df87d826b88e565` | `packages/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` | `0b0e39e7cd765f7203dedd77221d12b7724e3083cd67be5573b65b46ced46967` | `packages/battle-runtime/battle-runtime-remarkable-athlete-critical-movement.qnt` |
 | `qnt/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` | `fca72ca4bb400a1de697f0fa4786210eb57a8a0130ee7531c9f9226a0997d43e` | `packages/battle-runtime/battle-runtime-remarkable-athlete-roll-modes.qnt` |
@@ -293,9 +293,10 @@ instead of guessing.
 | `qnt/battle-runtime/battle-runtime-restoration-and-buffs.qnt` | `54fcbbf6a9a01b5a2a1ef12349e5a742d320f8c946c0e20ea52d5a8fa09dfa97` | `packages/battle-runtime/battle-runtime-restoration-and-buffs.qnt` |
 | `qnt/battle-runtime/battle-runtime-rogue-steady-aim.mbt.qnt` | `a8a8deefc77592055c1184f14d98072ccbb67cc064fd6ac146f34256550b7491` | `packages/battle-runtime/battle-runtime-rogue-steady-aim.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt` | `3b68a40e5fc8fa3a960e10222073a763f180cbe06e87769b00df8a338a0783a9` | `packages/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt` |
-| `qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt` | `0b10f69492ffdaa938cd106a57678be19c979d3e1b7cd1ee507dcb48941accf5` | `packages/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt` |
+| `qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt` | `b7d16f07f634e1a21f9be0d40a8136bb6706e9f236117c68d79cdaf14b39ee43` | `packages/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt` | `831e17658f94e7a10b282d09e8d93032e03add48c2ee6683543210cb822f0d47` | `packages/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-roll-modifier-choice.qnt` | `33a9ca1acdc24ae1f7e7e3b28f190f4802aff2aa7c78b0913e51ad1b45c253de` | `packages/battle-runtime/battle-runtime-roll-modifier-choice.qnt` |
+| `qnt/battle-runtime/battle-runtime-route-choice-payloads.qnt` | `c79516e2154b4fbf528472a0c531023b2b6c2e8ee0b94950546d64f6c4c5f010` | `packages/battle-runtime/battle-runtime-route-choice-payloads.qnt` |
 | `qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt` | `ba22087a57edfd67d90d502db97b956297a5c8d58ff0b6e27542c32598ddb6e7` | `packages/battle-runtime/battle-runtime-sanctuary-selected-identity.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-sanctuary-selected-identity.route.mbt.qnt` | `299839bf0f573c3d74b237923fa50c74b5d0d2b46430cda48ca8a3e1be5798b7` | `packages/battle-runtime/battle-runtime-sanctuary-selected-identity.route.mbt.qnt` |
 | `qnt/battle-runtime/battle-runtime-sanctuary.qnt` | `21840f7fbbcba4468f729a299331f22aab63be4499dd2d444c9ea7978366ccbd` | `packages/battle-runtime/battle-runtime-sanctuary.qnt` |
@@ -574,5 +575,5 @@ instead of guessing.
 
 | File | sha256 |
 | --- | --- |
-| `scripts/check-cleanroom-harness.cjs` | `bf3a3120ef5bb10b0a11093bb3bbe8d911199f720cc4cba050d4080e78ba5130` |
-| `scripts/cleanroom-branch-coverage-check.cjs` | `f96e26aac6fc7679c1801e3a048ba1426eb301a2aab91cf3cd284063ce62be0c` |
+| `scripts/check-cleanroom-harness.cjs` | `0ed7656ef183599a8f54c604219ad34e51a0addb757d4be34deb694938db82f1` |
+| `scripts/cleanroom-branch-coverage-check.cjs` | `5b7f4913a2c6455c556e13a276107337219804698ffd087c64d536cf66c6e06c` |
