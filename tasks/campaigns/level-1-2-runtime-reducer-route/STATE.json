@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03f-dirty-replay-running-sqnt03g-fix-active",
+  "status": "sqnt03f-dirty-replay-running-sqnt03g-source-packaged",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -16,15 +16,15 @@
       "note": "Diagnostic dirty target replay only. The worker consumed source commit 32e51f46a71f5a714034966e018fe79abbb7fcae SQNT-03E object/light route facts and accepted 9 copied connector actions covering 2 selected spatial obligations: Light object emitter projection replacement cleanup and Produce Flame held-light projection hurl cleanup. Dancing Lights, Faerie Fire, Feather Fall, Fog Cloud, Grease, Jump, Thunderwave, Starry Wisp, and level-1 damage wholesale acceptance remain explicit blockers or out of this connector scope. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "2de6a5e5401985e5673f5c2be737bbe2374d46d0",
-      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, SQNT-03C Opportunity Attack denial route connector evidence, SQNT-03D condition/poison rider route connector evidence, SQNT-03E object/light rider route connector evidence and reducer-owner domain-boundary guidance, SQNT-03F mixed-target outcome route connector evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim dirty target acceptance, fresh target acceptance, or new Rust runtime coverage for SQNT-03F."
+      "sourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
+      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, SQNT-03C Opportunity Attack denial route connector evidence, SQNT-03D condition/poison rider route connector evidence, SQNT-03E object/light rider route connector evidence and reducer-owner domain-boundary guidance, SQNT-03F mixed-target outcome route connector evidence, SQNT-03G exact damage projection component witness evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim dirty target acceptance, fresh target acceptance, or new Rust runtime coverage for SQNT-03G."
     },
     "sourceFeedbackPackageRefresh": {
-      "id": "fcsf-package-refresh-2de6a5e",
+      "id": "fcsf-package-refresh-21504ef",
       "status": "packaged-in-dirty-cleanroom-input",
       "branch": "ralph/rrconv-19-cleanroom",
-      "baseCommit": "b515984a6c82465904d9c86374b2a0fc4141b918",
-      "manifestSourceCommitSha": "2de6a5e5401985e5673f5c2be737bbe2374d46d0",
+      "baseCommit": "e065471065dc4767c45be0be3ca907bec8fc222b",
+      "manifestSourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
       "packagedTasks": [
         {
           "task": "source-feedback Task 3",
@@ -69,6 +69,12 @@
           "note": "The copied route connector now exposes generic MixedTargetOutcomeSpellRouteSubject evidence for synthetic primary/secondary/object targets, attack hit/miss, save success/failure, per-target damage projection, shared spell slot and cantrip action spend facts, separate shared Saving Throw damage-roll facts, and secondary object/light/condition/next-attack-roll/burst-save/chained-attack projections. Dirty and fresh target replay remain unclaimed."
         },
         {
+          "task": "SQNT-03G",
+          "status": "exact-damage-projection-component-witness-packaged",
+          "packageEvidence": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt and reducer-route-inventory.json FCSF-03G route record",
+          "note": "The copied component witness now exposes generic exact damage projection facts for spell procedure profile and Hit Point damage ownership, including damage type, amount, instance count, base dice, rolled dice count, die size, critical flag, save success policy, saving throw failure, target initial HP, target HP, and damage to Hit Points. Attack-spell selected identity, level-1 damage selected identity, mixed-target ordering, and active-effect riders remain explicit blockers or downstream route tasks. Dirty and fresh target replay remain unclaimed."
+        },
+        {
           "task": "source-feedback Task 8",
           "status": "active-diagnostic-seed-packaged",
           "packageEvidence": "cleanroom-input/branch-coverage/reducer-route-inventory.json diagnosticBatches[reducer-spine-diagnostic-v1]",
@@ -111,7 +117,7 @@
         },
         {
           "check": "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
-          "result": "passed at source SHA 2de6a5e5401985e5673f5c2be737bbe2374d46d0"
+          "result": "passed at source SHA 21504ef764118f5fd13086aa6266f19280196664"
         },
         {
           "check": "node scripts/check-cleanroom-harness.cjs",
@@ -646,7 +652,7 @@
     "SQNT-03E-OBJECT-AND-LIGHT-RIDERS": "merged-packaged-source-input",
     "SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY": "merged-verified",
     "SQNT-03F-MIXED-TARGET-OUTCOMES": "merged-packaged-source-input",
-    "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS": "fix-implemented-rereview-running"
+    "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS": "merged-packaged-source-input"
   },
   "lastIntegrationVerification": {
     "head": "9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67",
@@ -678,7 +684,8 @@
       "scope": "dirty target replay only; no fresh target acceptance claimed"
     }
   ],
-  "activeSourceQntLanes": [
+  "activeSourceQntLanes": [],
+  "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS",
       "routeTaskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS",
@@ -688,22 +695,29 @@
       "workerAgent": "019f0ea3-50cd-7ae3-b243-436cef287aa2",
       "workerName": "Halley the 3rd",
       "workerCommit": "ddbff4328bdde9e34b94fac3450f3133fff03a84",
+      "fixCommit": "34ac799c484b7ea8207a7278232d892fced54f79",
+      "mergeCommit": "21504ef764118f5fd13086aa6266f19280196664",
+      "status": "merged-packaged-source-input",
+      "scope": "source-QNT component witness evidence only; no dirty or fresh target acceptance claimed",
       "reviewAgent": "019f0ec3-9951-7271-8cf6-f0d219725b54",
       "reviewName": "Franklin the 3rd",
-      "fixCommit": "34ac799c484b7ea8207a7278232d892fced54f79",
       "rereviewAgent": "019f0ed0-a8cb-7323-bceb-cb5f6be72f99",
       "rereviewName": "Rawls the 3rd",
-      "status": "fix-implemented-rereview-running",
-      "reviewFindings": [
-        "TS MBT bridge duplicated exact damage reducer semantics instead of proving them through a runtime/source route or remaining replay/decoding glue.",
-        "QNT witness claimed Hit Point application facts while qComponentRoute exposed only RuleCoreSpellProcedureProfileOwner.",
-        "Inventory row listed FCSF-03G as its own dependent route task."
+      "reviewFinding": "Initial review found three blockers: the TS MBT bridge duplicated exact damage semantics, qComponentRoute omitted Hit Point damage owner while the witness claimed HP application facts, and the inventory row self-depended on FCSF-03G.",
+      "reviewResolution": "Fix commit 34ac799c484b7ea8207a7278232d892fced54f79 reduced the TS MBT bridge to replay/decoding glue, added RuleCoreHitPointDamageOwner beside RuleCoreSpellProcedureProfileOwner, removed the self-dependency, and kept selected-identity blockers explicit. Rawls re-review found no blockers.",
+      "verification": [
+        "quint typecheck packages/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
+        "pnpm --filter @dnd/battle-runtime exec vitest run src/rule-core-exact-damage-projection.mbt.test.ts",
+        "pnpm check:reducer-route-connectors",
+        "pnpm check:mbt-driver-closure",
+        "pnpm rules-kernel-coverage:check",
+        "pnpm cleanroom-branch-coverage:check",
+        "pnpm --filter @dnd/battle-runtime typecheck",
+        "git diff --check HEAD~1...HEAD",
+        "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19"
       ],
-      "fixSummary": "Halley changed the TS MBT bridge to literal replay/decoding glue, added RuleCoreHitPointDamageOwner beside RuleCoreSpellProcedureProfileOwner in qComponentRoute, removed the inventory self-dependency, and kept selected-identity blockers explicit.",
-      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
-    }
-  ],
-  "completedSourceQntLanes": [
+      "targetAcceptance": "dirty-target-replay-pending; fresh-target-acceptance-not-claimed"
+    },
     {
       "laneId": "SQNT-03F-MIXED-TARGET-OUTCOMES",
       "routeTaskId": "FCSF-03F-MIXED-TARGET-OUTCOMES",

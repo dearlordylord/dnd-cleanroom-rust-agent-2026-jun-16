@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection` | `ralph/source-sqnt-03g-exact-damage-projection` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Halley the 3rd (`019f0ea3-50cd-7ae3-b243-436cef287aa2`); reviewer Franklin the 3rd (`019f0ec3-9951-7271-8cf6-f0d219725b54`); re-reviewer Rawls the 3rd (`019f0ed0-a8cb-7323-bceb-cb5f6be72f99`) | fix-implemented-rereview-running at `34ac799c484b7ea8207a7278232d892fced54f79`; TS bridge reduced to replay/decoding glue, owner evidence fixed, self-dependency removed |
+| _none_ | | | | | |
 
 ## Historical RRCONV-19 Worktrees
 
@@ -62,6 +62,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection` | `ralph/source-sqnt-03g-exact-damage-projection` | `34ac799c484b7ea8207a7278232d892fced54f79` | `21504ef764118f5fd13086aa6266f19280196664` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT component witness accepted and packaged; dirty and fresh target replay pending |
 | SQNT-03F-MIXED-TARGET-OUTCOMES | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes` | `ralph/source-sqnt-03f-mixed-target-outcomes` | `0a03e4e8cab9a3bacd12602ff853c9acb60002c6` | `2de6a5e5401985e5673f5c2be737bbe2374d46d0` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty and fresh target replay pending |
 | SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03e-object-light-replay` | `ralph/sqnt03e-object-light-dirty-replay` | `dd34c9f02c4ef02d0b662b5b951df7e4db41ced9` | `9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67` | removable after retention decision; dirty replay accepted 9 copied connector actions and covered 2 selected spatial obligations through public reducer entrypoints; no fresh target acceptance claimed |
 | SQNT-03E-OBJECT-AND-LIGHT-RIDERS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03e-object-light-riders` | `ralph/source-sqnt-03e-object-light-riders` | `6ef016af8293575f97a6dd0bfcf7793afc3947b7` | `32e51f46a71f5a714034966e018fe79abbb7fcae` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty target replay accepted at `9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67`, no fresh target acceptance claimed |

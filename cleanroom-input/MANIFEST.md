@@ -5,9 +5,9 @@ source repo. Do not edit files under `cleanroom-input/` by hand; refresh
 by re-running the sync, which records a new snapshot here.
 
 - Source repo: dnd (private)
-- Source commit SHA: 2de6a5e5401985e5673f5c2be737bbe2374d46d0
-- Copy date: 2026-06-28T15:12:51.252Z
-- Files: 528
+- Source commit SHA: 21504ef764118f5fd13086aa6266f19280196664
+- Copy date: 2026-06-28T15:27:10.339Z
+- Files: 529
 
 Cleanroom tasks must declare which source commit SHA they implement
 against (the `Source commit SHA` recorded here at task start).
@@ -44,7 +44,7 @@ instead of guessing.
 - `branch-coverage/reducer-route-inventory.json`: 1
 - `guidance/README.md`: 1
 - `guidance/reducer-spine.md`: 1
-- `qnt/battle-runtime`: 330
+- `qnt/battle-runtime`: 331
 - `qnt/character-creation-runtime`: 22
 - `qnt/character-sheet-runtime`: 23
 - `qnt/character-battle-runtime`: 12
@@ -95,8 +95,8 @@ instead of guessing.
 | `raw/srd-5.2.1/Spells/Gaining-and-Casting.md` | `fc36dfa2fb45157289d90b1ae9b09e36211bc92c7ef4bd0c8f8af4a65cda9403` | `.references/srd-5.2.1/Spells/Gaining-and-Casting.md` |
 | `domain/UBIQUITOUS_LANGUAGE.md` | `92517573b39bcc91edca6316f89a8ef6634929b700b9b37bfa1ddee7ded6bc33` | `UBIQUITOUS_LANGUAGE.md` |
 | `domain/CLEANROOM_ASSUMPTIONS.md` | `aeed9e57f59020e3a3c89b3a4b5f9c9e12e9f9db544e90ff20c0435ebcbaafef` | `plans/CLEANROOM_ASSUMPTIONS.md` |
-| `branch-coverage/source-branch-inventory.json` | `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
-| `branch-coverage/reducer-route-inventory.json` | `f65c64c99d0dc0262cab36eca4030c6f24604108e7791c595c18310e58f326a2` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
+| `branch-coverage/source-branch-inventory.json` | `aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862` | `plans/cleanroom-branch-coverage/source-branch-inventory.json` |
+| `branch-coverage/reducer-route-inventory.json` | `cf03b000367d46e1c6c1345d483d343e6be03924338a2d80f013d276f8844102` | `plans/cleanroom-branch-coverage/reducer-route-inventory.json` |
 | `guidance/README.md` | `d62a834399e1469186bc931f2d27bdf696b9a67c9c9e21c15982ee722ed5384b` | `plans/cleanroom-guidance/README.md` |
 | `guidance/reducer-spine.md` | `76285c5b2eb1728e304a7009c9e1897867d1234880bd847f9b14a8d23bfc7001` | `plans/cleanroom-guidance/reducer-spine.md` |
 | `qnt/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` | `df388114542adbb5e3aa8930f98872c43318cecc289253d64b407f04d209a13a` | `packages/battle-runtime/bardic-inspiration-selected-identity.mbt.qnt` |
@@ -422,6 +422,7 @@ instead of guessing.
 | `qnt/battle-runtime/rule-core-ability-skill-command.mbt.qnt` | `9793960071afc2e2b25789dc22830b32e251f70a8890c732698e4570caadc3e9` | `packages/battle-runtime/rule-core-ability-skill-command.mbt.qnt` |
 | `qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt` | `6cc621473240f21e0d94e78f51593a4da61f49bc68133d055019c30f6d4cdbf5` | `packages/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt` |
 | `qnt/battle-runtime/rule-core-component-route.qnt` | `611432e841145517806d0e4f2ff0d2e79c16a55dfef5ff0f912e1dbff33bc2d1` | `packages/battle-runtime/rule-core-component-route.qnt` |
+| `qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt` | `c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47` | `packages/battle-runtime/rule-core-exact-damage-projection.mbt.qnt` |
 | `qnt/battle-runtime/rule-core-features.mbt.qnt` | `74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01` | `packages/battle-runtime/rule-core-features.mbt.qnt` |
 | `qnt/battle-runtime/rule-core-hit-point-damage.mbt.qnt` | `7486580e6c31ab534c2d3a31572dfe3a05287842607dafb62d96b536cf835fdb` | `packages/battle-runtime/rule-core-hit-point-damage.mbt.qnt` |
 | `qnt/battle-runtime/rule-core-movement.mbt.qnt` | `af34f1112f145233ac40b7dffe4a80bb94cae8ee5879c912eb116fc18d5a66cb` | `packages/battle-runtime/rule-core-movement.mbt.qnt` |
