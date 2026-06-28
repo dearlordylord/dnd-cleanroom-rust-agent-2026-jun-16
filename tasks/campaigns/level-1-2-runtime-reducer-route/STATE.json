@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03d-dirty-replay-running",
+  "status": "sqnt03d-dirty-replay-merged-verified",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "7521115f61077326b67e933dc9663f19d7e41570",
+    "lastVerifiedIntegrationHead": "4d4107b51c595b8cbbaa6c0c11f458b35d2070c1",
     "lastMergedLane": {
-      "laneId": "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY",
-      "mergeCommit": "7521115f61077326b67e933dc9663f19d7e41570",
-      "laneHead": "638642e326ff9829b19297f4ea5abf8fbaa3843d",
-      "note": "Diagnostic dirty target replay only. The worker consumed source commit ebc37e935fdd45ac07198bbec6b3bcc23be2270e SQNT-03C opportunity-Attack-denial route facts and accepted 4 connector transitions covering 1 selected-driver obligation. This does not claim fresh target acceptance."
+      "laneId": "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY",
+      "mergeCommit": "4d4107b51c595b8cbbaa6c0c11f458b35d2070c1",
+      "laneHead": "e55484397d4d60d0521cb4e8c20f0b0452b90f3b",
+      "note": "Diagnostic dirty target replay only. The worker consumed source commit 3e9297cab2dd998e5dc09670f771bfcdf0a04c93 SQNT-03D condition-rider route facts and accepted 16 connector rows covering 3 selected-driver obligations: Color Spray failed-save Blinded, Entangle failed-save Restrained/Athletics escape, and Sleep repeat-save failure transition to Unconscious. Hold Person and Hideous Laughter remain explicit source-QNT blockers. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
       "sourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
@@ -52,9 +52,9 @@
         },
         {
           "task": "SQNT-03D",
-          "status": "condition-poison-rider-route-connector-packaged",
+          "status": "condition-poison-rider-route-connector-packaged-and-dirty-replayed",
           "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt, cleanroom-input/qnt/battle-runtime/battle-runtime-condition-rider-route-facts.qnt, and reducer-route-inventory.json FCSF-03D route record",
-          "note": "The copied route connector now exposes generic ConditionRiderRouteSubject evidence for attack-hit Poisoned riders, failed-save Blinded duration, failed-save Blinded/Deafened repeat-save cleanup, failed-save Restrained Athletics escape cleanup, Sleep-style Incapacitated-to-Unconscious transition, condition-immunity rejection, and typed lifecycle/cleanup owner facts. Hold Person and Hideous Laughter remain explicit source-QNT blockers. Dirty and fresh target replay remain unclaimed."
+          "note": "The copied route connector now exposes generic ConditionRiderRouteSubject evidence for attack-hit Poisoned riders, failed-save Blinded duration, failed-save Blinded/Deafened repeat-save cleanup, failed-save Restrained Athletics escape cleanup, Sleep-style Incapacitated-to-Unconscious transition, condition-immunity rejection, and typed lifecycle/cleanup owner facts. Dirty target replay accepted 16 connector rows and covered 3 selected-driver obligations at merge 4d4107b51c595b8cbbaa6c0c11f458b35d2070c1. Hold Person and Hideous Laughter remain explicit source-QNT blockers. Fresh target replay remains unclaimed."
         },
         {
           "task": "source-feedback Task 8",
@@ -141,6 +141,40 @@
     "acceptedObligationsSource": "CP8 accepted the final three in-scope Mage Armor admission/lifecycle rows after the source refresh supplied cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt. Canonical in-scope denominator is 659; accepted obligation coverage is 659/659."
   },
   "dirtyTargetReplayRefreshes": [
+    {
+      "id": "fcsf03d-condition-rider-dirty-replay",
+      "status": "dirty-target-replay-complete",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03d-condition-rider-replay",
+      "branch": "ralph/sqnt03d-condition-rider-dirty-replay",
+      "baseCommit": "18fc6b4",
+      "workerAgent": "Kierkegaard the 3rd (019f0e40-fc59-75e2-9bed-41a206b92259)",
+      "workerCommit": "85238b8aa958dd2ad4fb8e42acf54e4a6a8931ab",
+      "fixCommit": "e55484397d4d60d0521cb4e8c20f0b0452b90f3b",
+      "reviewAgent": "Locke the 3rd (019f0e59-d195-7a80-b263-161074ad7494)",
+      "reviewVerdict": "accepted after artifact fix for route-connector authority, BattleSavingThrowOutcomeOwner evidence naming, validation report coverage, and harness ledger recording",
+      "mergeCommit": "4d4107b51c595b8cbbaa6c0c11f458b35d2070c1",
+      "manifestSourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+      "evidence": "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json",
+      "acceptedConnectorRows": 16,
+      "coveredSourceDriverObligations": 3,
+      "targetBlockedRows": 2,
+      "targetBlockers": [
+        "Hold Person lifecycle remains a source-QNT blocker until generic Paralyzed plus Incapacitated until-spell-end repeat-save lifecycle route facts exist.",
+        "Hideous Laughter lifecycle remains a source-QNT blocker until generic Incapacitated plus Prone laughter-style lifecycle and repeat-save success cleanup route facts exist."
+      ],
+      "checks": [
+        "cargo test condition_rider -- --nocapture",
+        "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD",
+        "node scripts/check-cleanroom-harness.cjs (failed only on known stale validator hashes)"
+      ],
+      "note": "Diagnostic dirty target replay only. Accepted SQNT-03D route connector rows for route-connector authority and public reducer entrypoint observations around Color Spray-style Blinded duration, Entangle-style Restrained/Athletics escape, Sleep-style repeat-save failure transition, and condition-rider lifecycle cleanup. No fresh target acceptance claimed."
+    },
     {
       "id": "fcsf03a-hit-point-regain-prevention-dirty-replay",
       "status": "dirty-target-replay-complete",
@@ -561,38 +595,26 @@
     "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL": "merged-packaged-source-input",
     "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY": "merged-verified",
     "SQNT-03D-CONDITION-AND-POISON-RIDERS": "merged-packaged-source-input",
-    "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY": "running"
+    "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY": "merged-verified"
   },
   "lastIntegrationVerification": {
-    "head": "7521115f61077326b67e933dc9663f19d7e41570",
+    "head": "4d4107b51c595b8cbbaa6c0c11f458b35d2070c1",
     "commands": [
       "cargo fmt --check",
-      "cargo test opportunity_attack_denial -- --nocapture",
-      "cargo test attack_spell_shape_adapter_replays_all_branches -- --nocapture",
+      "cargo test condition_rider -- --nocapture",
+      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings",
       "node scripts/check-cleanroom-harness.cjs",
       "git diff --check HEAD~1...HEAD"
     ],
     "result": "passed except cleanroom harness failed only on known stale validator hashes in cleanroom-input/MANIFEST.md",
-    "cargoTest": "227 passed",
-    "focusedTests": "SQNT-03C dirty replay accepted 4 connector transitions and covered 1 selected-driver obligation: doShockingGraspOpportunityAttackDenied. The cleanup-before-expiry regression test passed and proves ReactionInterdiction cleanup requires an Expired lifecycle state.",
-    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03C evidence, ledger, or artifact failures",
-    "review": "Maxwell the 3rd initially found two blockers: reaction-interdiction cleanup accepted fresh/already-cleaned state, and SQNT-03C verification artifacts still pointed at SQNT-03A. Hume fixed both in 638642e326ff9829b19297f4ea5abf8fbaa3843d by replacing the boolean with BattleOpportunityAttackDenialEffect::Inactive/Active/Expired, adding cleanup-before-expiry regression coverage, and refreshing SQNT-03C task artifacts. Maxwell re-review accepted the lane."
+    "cargoTest": "229 passed",
+    "focusedTests": "SQNT-03D dirty replay accepted 16 connector rows and covered 3 selected-driver obligations: doResolveColorSprayFailedSavingThrow, doResolveEntangleFailedSavingThrow, and doResolveSleepRepeatSavingThrowFailure. The condition-rider cleanup regression test passed and proves active-effect cleanup requires lifecycle cleanup.",
+    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03D evidence, ledger, or artifact failures",
+    "review": "Locke the 3rd initially found four artifact blockers: route-connector authority was mixed with selected-driver evidence mapping, evidence used BattleSavingThrowOwner instead of BattleSavingThrowOutcomeOwner, VALIDATION_REPORT lacked FCSF-03D, and RUN_LEDGER omitted the cleanroom harness check. Kierkegaard fixed these in e55484397d4d60d0521cb4e8c20f0b0452b90f3b. Locke re-review accepted the lane."
   },
-  "activeLaneWorktrees": [
-    {
-      "laneId": "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY",
-      "routeTaskId": "FCSF-03D-CONDITION-AND-POISON-RIDERS",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03d-condition-rider-replay",
-      "branch": "ralph/sqnt03d-condition-rider-dirty-replay",
-      "baseSha": "18fc6b4",
-      "workerAgent": "019f0e40-fc59-75e2-9bed-41a206b92259",
-      "workerName": "Kierkegaard the 3rd",
-      "status": "running",
-      "scope": "diagnostic dirty target replay only; no fresh target acceptance claimed"
-    }
-  ],
+  "activeLaneWorktrees": [],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
