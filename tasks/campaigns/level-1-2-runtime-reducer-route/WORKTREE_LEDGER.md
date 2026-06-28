@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-FEXP04-ABILITY-CHECK-SEARCH-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-ability-search-replay` | `ralph/fresh-ability-search-replay` | `b43797af240c1486e5ad92c3698bf2cd2958a91e` | pending | pending | running; attempt public reducer replay for `AbilityCheckSearchRouteSubject` from copied source package `0c2ba34c5a45f18b73dfe590e0e86419ba377375` |
 
 ## Historical RRCONV-19 Worktrees
 

@@ -2805,8 +2805,8 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fexp04-exact-roll-choice-replay-accepted-with-historical-snapshots",
-    "activeLane": null,
+    "status": "fexp04-ability-check-search-replay-running",
+    "activeLane": "FRESH-FEXP04-ABILITY-CHECK-SEARCH-REPLAY",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "b43797af240c1486e5ad92c3698bf2cd2958a91e",
@@ -3083,15 +3083,16 @@
         ]
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
-    "activeLaneBaseCommit": null,
-    "workerAgent": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-ability-search-replay",
+    "activeBranch": "ralph/fresh-ability-search-replay",
+    "activeLaneBaseCommit": "b43797af240c1486e5ad92c3698bf2cd2958a91e",
+    "workerAgent": "pending",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": null,
+    "nextPlannedLane": "FRESH-FEXP04-ABILITY-CHECK-SEARCH-REPLAY",
     "nextWorkRecommendations": [
       "FEXP-07 closes the initially planned fresh expansion lanes, and the post-refresh FEXP-04 exact roll-choice replay is accepted in the fresh target.",
-      "The next useful proof step is source-input feedback for the remaining FEXP-02 through FEXP-07 blockers, then a larger fresh-cleanroom campaign against the updated package."
+      "The active lane attempts to consume the copied AbilityCheckSearchRouteSubject connector through a public fresh-target reducer route. If that cannot be done honestly, it must sharpen the blocker instead of creating a replay island.",
+      "After this lane, continue source-input feedback for remaining FEXP-02 through FEXP-07 blockers, then a larger fresh-cleanroom campaign against the updated package."
     ]
   },
   "sdkTracerBullet": {
