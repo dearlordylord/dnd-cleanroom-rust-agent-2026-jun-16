@@ -1,0 +1,279 @@
+{
+  "generatedBy": {
+    "tag": "target-harness",
+    "name": "rust-cleanroom-fcsf04-object-stale-dirty-replay"
+  },
+  "cleanroomManifestSourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
+  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+  "reducerRouteInventorySha256": "12b9382067143ddc0f2a1566bc61577c2a663f3094bee131dcd2fbe8ca65ed48",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+  "acceptedConnectorRowCount": 6,
+  "targetBlockerCount": 0,
+  "scopeNote": "dirty target replay only; this is not fresh target acceptance",
+  "runs": [
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "branchFamily": "step",
+      "branchAction": "doFillObjectAttackRollHit",
+      "observedActionTaken": "doFillObjectAttackRollHit",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doFillObjectAttackRollHit",
+      "sampledInputs": [],
+      "routeEvidenceBasis": "observed through BattleEntrypointTrace.route_events using public reducer start/discover/resolve route entrypoints",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "051af50c15aba5489773a3e7a60e5f494c92cef87b6bee151b99f015888e1781",
+        "observedProjectionSha256": "051af50c15aba5489773a3e7a60e5f494c92cef87b6bee151b99f015888e1781",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.ObjectTargetSpellAttackAttackHit",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt",
+      "routeConnectorAction": "doRouteObjectAttackHit",
+      "routeConnectorSha256": "1822033b8888ef62af296a3d8a028c0ed1d987dafea52b0b4879bfd175eababe",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "branchFamily": "step",
+      "branchAction": "doFillObjectAttackRollMiss",
+      "observedActionTaken": "doFillObjectAttackRollMiss",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doFillObjectAttackRollMiss",
+      "sampledInputs": [],
+      "routeEvidenceBasis": "observed through BattleEntrypointTrace.route_events using public reducer start/discover/resolve route entrypoints",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "8cbf90b27603c894c67ed256102b1d7ada457f5e8abd6854f783c3707ac6d554",
+        "observedProjectionSha256": "8cbf90b27603c894c67ed256102b1d7ada457f5e8abd6854f783c3707ac6d554",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.ObjectTargetSpellAttackAttackMiss",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt",
+      "routeConnectorAction": "doRouteObjectAttackMiss",
+      "routeConnectorSha256": "1822033b8888ef62af296a3d8a028c0ed1d987dafea52b0b4879bfd175eababe",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "branchFamily": "step",
+      "branchAction": "doFillObjectDamageHigh",
+      "observedActionTaken": "doFillObjectDamageHigh",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doFillObjectDamageHigh",
+      "sampledInputs": [],
+      "routeEvidenceBasis": "observed through BattleEntrypointTrace.route_events using public reducer start/discover/resolve route entrypoints",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d13e2f3ec7fe4103a8856d215bb8bbbdde8a489acae19a7113fc18da097f57f2",
+        "observedProjectionSha256": "d13e2f3ec7fe4103a8856d215bb8bbbdde8a489acae19a7113fc18da097f57f2",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleSubjectKind.ObjectTargetSpellAttackLightEffect",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt",
+      "routeConnectorAction": "doRouteObjectDamageAndLight",
+      "routeConnectorSha256": "1822033b8888ef62af296a3d8a028c0ed1d987dafea52b0b4879bfd175eababe",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "branchFamily": "step",
+      "branchAction": "doFillObjectDamageLow",
+      "observedActionTaken": "doFillObjectDamageLow",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doFillObjectDamageLow",
+      "sampledInputs": [],
+      "routeEvidenceBasis": "observed through BattleEntrypointTrace.route_events using public reducer start/discover/resolve route entrypoints",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "d13e2f3ec7fe4103a8856d215bb8bbbdde8a489acae19a7113fc18da097f57f2",
+        "observedProjectionSha256": "d13e2f3ec7fe4103a8856d215bb8bbbdde8a489acae19a7113fc18da097f57f2",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleSubjectKind.ObjectTargetSpellAttackLightEffect",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt",
+      "routeConnectorAction": "doRouteObjectDamageAndLight",
+      "routeConnectorSha256": "1822033b8888ef62af296a3d8a028c0ed1d987dafea52b0b4879bfd175eababe",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "branchFamily": "step",
+      "branchAction": "doFillObjectTarget",
+      "observedActionTaken": "doFillObjectTarget",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doFillObjectTarget",
+      "sampledInputs": [],
+      "routeEvidenceBasis": "observed through BattleEntrypointTrace.route_events using public reducer start/discover/resolve route entrypoints",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "bf645df6e57b7aae9e77d5d13a43715705e11d88f1b394772e41cb1134488bc3",
+        "observedProjectionSha256": "bf645df6e57b7aae9e77d5d13a43715705e11d88f1b394772e41cb1134488bc3",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt",
+      "routeConnectorAction": "doRouteObjectTargetBoundary",
+      "routeConnectorSha256": "1822033b8888ef62af296a3d8a028c0ed1d987dafea52b0b4879bfd175eababe",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "branchFamily": "step",
+      "branchAction": "doRejectObjectWithoutFact",
+      "observedActionTaken": "doRejectObjectWithoutFact",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doRejectObjectWithoutFact",
+      "sampledInputs": [],
+      "routeEvidenceBasis": "observed through BattleEntrypointTrace.route_events using public reducer start/discover/resolve route entrypoints",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "305150b9f4e66f9df82485c43dc15bed9dae5c72f310a1105d48d53745b548ca",
+        "observedProjectionSha256": "305150b9f4e66f9df82485c43dc15bed9dae5c72f310a1105d48d53745b548ca",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundaryRejection",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt",
+      "routeConnectorAction": "doRouteRejectObjectWithoutBoundaryFact",
+      "routeConnectorSha256": "1822033b8888ef62af296a3d8a028c0ed1d987dafea52b0b4879bfd175eababe",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "evidenceKind": "target-qnt-mbt-replay",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt",
+      "qntFileSha256": "ea75a8a180b337e60ba0095bba6def3afe39ca690fe232984dfa5da3e9bfe34a",
+      "branchFamily": "step",
+      "branchAction": "doRejectStaleAfterResolved",
+      "observedActionTaken": "doRejectStaleAfterResolved",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_starry_wisp_object.rs",
+      "traceId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doRejectStaleAfterResolved",
+      "sampledInputs": [],
+      "routeEvidenceBasis": "observed through BattleEntrypointTrace.route_events using public reducer start/discover/resolve route entrypoints after object boundary, attack roll, damage roll, and active-effect route events",
+      "stateCheck": {
+        "tag": "state-match",
+        "projection": "qRoute",
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7547d77c1a32adaa3537a2f9d17ffb8c2bdbb4c144caab54518305b5a2440d21",
+        "observedProjectionSha256": "7547d77c1a32adaa3537a2f9d17ffb8c2bdbb4c144caab54518305b5a2440d21",
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleSubjectKind.ObjectTargetSpellAttackBoundary",
+          "BattleSubjectKind.ObjectTargetSpellAttackAttackHit",
+          "BattleSubjectKind.ObjectTargetSpellAttackDamage",
+          "BattleSubjectKind.ObjectTargetSpellAttackLightEffect",
+          "BattleSubjectKind.ObjectTargetSpellAttackStaleReplay",
+          "BattleReducerRouteSubjectFamily.ObjectTargetSpellAttack",
+          "ReducerRouteEvent.qRoute"
+        ]
+      },
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt",
+      "routeConnectorAction": "doRouteRejectStaleAfterResolved",
+      "routeConnectorSha256": "1822033b8888ef62af296a3d8a028c0ed1d987dafea52b0b4879bfd175eababe",
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ],
+  "connectorRuns": [
+    {
+      "routeConnectorAction": "doRouteObjectTargetBoundary",
+      "expectedProjectionSha256": "bf645df6e57b7aae9e77d5d13a43715705e11d88f1b394772e41cb1134488bc3",
+      "observedProjectionSha256": "bf645df6e57b7aae9e77d5d13a43715705e11d88f1b394772e41cb1134488bc3",
+      "observedThrough": "BattleEntrypointTrace.route_events"
+    },
+    {
+      "routeConnectorAction": "doRouteRejectObjectWithoutBoundaryFact",
+      "expectedProjectionSha256": "305150b9f4e66f9df82485c43dc15bed9dae5c72f310a1105d48d53745b548ca",
+      "observedProjectionSha256": "305150b9f4e66f9df82485c43dc15bed9dae5c72f310a1105d48d53745b548ca",
+      "observedThrough": "BattleEntrypointTrace.route_events"
+    },
+    {
+      "routeConnectorAction": "doRouteObjectAttackMiss",
+      "expectedProjectionSha256": "8cbf90b27603c894c67ed256102b1d7ada457f5e8abd6854f783c3707ac6d554",
+      "observedProjectionSha256": "8cbf90b27603c894c67ed256102b1d7ada457f5e8abd6854f783c3707ac6d554",
+      "observedThrough": "BattleEntrypointTrace.route_events"
+    },
+    {
+      "routeConnectorAction": "doRouteObjectAttackHit",
+      "expectedProjectionSha256": "051af50c15aba5489773a3e7a60e5f494c92cef87b6bee151b99f015888e1781",
+      "observedProjectionSha256": "051af50c15aba5489773a3e7a60e5f494c92cef87b6bee151b99f015888e1781",
+      "observedThrough": "BattleEntrypointTrace.route_events"
+    },
+    {
+      "routeConnectorAction": "doRouteObjectDamageAndLight",
+      "expectedProjectionSha256": "d13e2f3ec7fe4103a8856d215bb8bbbdde8a489acae19a7113fc18da097f57f2",
+      "observedProjectionSha256": "d13e2f3ec7fe4103a8856d215bb8bbbdde8a489acae19a7113fc18da097f57f2",
+      "observedThrough": "BattleEntrypointTrace.route_events"
+    },
+    {
+      "routeConnectorAction": "doRouteRejectStaleAfterResolved",
+      "expectedProjectionSha256": "7547d77c1a32adaa3537a2f9d17ffb8c2bdbb4c144caab54518305b5a2440d21",
+      "observedProjectionSha256": "7547d77c1a32adaa3537a2f9d17ffb8c2bdbb4c144caab54518305b5a2440d21",
+      "observedThrough": "BattleEntrypointTrace.route_events",
+      "routeHistoryRequirement": "object boundary, attack roll, damage roll, active-effect route events, then BattleHoleFrontierOwner"
+    }
+  ],
+  "blockedRuns": []
+}

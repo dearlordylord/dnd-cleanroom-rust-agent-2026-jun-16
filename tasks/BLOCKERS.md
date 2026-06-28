@@ -1,5 +1,6 @@
 # Blockers
 
+- FCSF-04-OBJECT-STALE-DIRTY-REPLAY: no target blockers. All 6 copied Starry Wisp object route connector rows are observed through public battle reducer route entrypoints in `tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json`; the 7 copied source-driver obligations are covered, with low/high damage sharing `doRouteObjectDamageAndLight`.
 - FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY: no target blockers. All 5 copied connector route rows are observed through public battle reducer route entrypoints in `tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json`.
 - FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY: 14 target blockers are recorded in `tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json`.
   - Character sheet Spell Slot/Pact Slot route rows: all 11 copied route connector actions are target-blocked because the dirty target exposes public `SheetSlotFacts` projection replay but no independent public `CharacterSheet` qRoute state for spell-resource rows.

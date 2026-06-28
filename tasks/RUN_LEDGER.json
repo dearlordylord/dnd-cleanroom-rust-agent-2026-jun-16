@@ -3696,9 +3696,87 @@
           "status": "fail: global stale manifest/evidence debt; no CP7-E or Magic Weapon-specific failures"
         }
       ]
+    },
+    {
+      "taskId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "FCSF-04-OBJECT-STALE-DIRTY-REPLAY",
+      "manifestSourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+      "sourceReducerRouteInventorySha256": "12b9382067143ddc0f2a1566bc61577c2a663f3094bee131dcd2fbe8ca65ed48",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt"
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/FCSF-04-OBJECT-STALE-DIRTY-REPLAY/START_GATE.json",
+          "sha256": "f13c2a31ac67bbc8793989769fa60e87b24edee1534941fd05e8c8c2f798e414"
+        },
+        "engineDepth": {
+          "path": "tasks/history/FCSF-04-OBJECT-STALE-DIRTY-REPLAY/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "0467287f5bcd8da609e898ecab62cb34bb25282b69be97f68b91f6f21625726a"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/FCSF-04-OBJECT-STALE-DIRTY-REPLAY/STATE_OWNER_MANIFEST.json",
+          "sha256": "5dcc4a3eabe92b95398a4b951618bbc8981adf1040b5380b0aea1f783637d0a6"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/FCSF-04-OBJECT-STALE-DIRTY-REPLAY/REVIEW_LOOP.json",
+          "sha256": "6ebb4f59cf8d09b1f4278a0969f50e516ccd5d5292f638153b6226ea4b57e3fa"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/FCSF-04-OBJECT-STALE-DIRTY-REPLAY/DECIDER_DECISION.json",
+          "sha256": "f1e87de392ac858a8f4377e2294a1bbd60c1709109e9be98882565c5d90c7de0"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json",
+          "sha256": "cd466738b3317691e5a52eeb9ffb6cabb3830d2a0142fccb6d15b6ccb402d97d",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json#FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doFillObjectAttackRollHit#step:doFillObjectAttackRollHit",
+            "tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json#FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doFillObjectAttackRollMiss#step:doFillObjectAttackRollMiss",
+            "tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json#FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doFillObjectDamageHigh#step:doFillObjectDamageHigh",
+            "tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json#FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doFillObjectDamageLow#step:doFillObjectDamageLow",
+            "tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json#FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doFillObjectTarget#step:doFillObjectTarget",
+            "tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json#FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doRejectObjectWithoutFact#step:doRejectObjectWithoutFact",
+            "tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json#FCSF-04-OBJECT-STALE-DIRTY-REPLAY route action=doRejectStaleAfterResolved#step:doRejectStaleAfterResolved"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test starry_wisp_object -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 832afbebbb3c46bf0a05b6c2bcb541f77508a328...HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "fail: only known cleanroom-input/MANIFEST.md stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs"
+        }
+      ]
     }
   ],
-  "manifestSourceCommitSha": "d5a70b23ad05abd4188b1f0d37d9c6aba600cce5",
+  "manifestSourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
   "schemaVersion": 1,
   "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81"
 }

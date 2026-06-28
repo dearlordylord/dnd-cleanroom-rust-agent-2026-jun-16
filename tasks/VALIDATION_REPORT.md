@@ -1,5 +1,44 @@
 # Validation Report
 
+## FCSF-04-OBJECT-STALE-DIRTY-REPLAY
+
+- Lane: `FCSF-04-OBJECT-STALE-DIRTY-REPLAY`
+- Base SHA: `832afbebbb3c46bf0a05b6c2bcb541f77508a328`
+- Source package commit: `d63838e22137c4b329dc877ca0d963876f3459bf`
+- Evidence file: `tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json`
+- Accepted rows: 6 dirty target replay connector rows: `doRouteObjectTargetBoundary`, `doRouteRejectObjectWithoutBoundaryFact`, `doRouteObjectAttackMiss`, `doRouteObjectAttackHit`, `doRouteObjectDamageAndLight`, and `doRouteRejectStaleAfterResolved`.
+- Source obligations covered: 7 Starry Wisp object driver obligations; `doFillObjectDamageLow` and `doFillObjectDamageHigh` both map to the public `doRouteObjectDamageAndLight` connector row.
+- Target blockers: 0.
+- Scope note: dirty target replay only; this is not fresh target acceptance.
+
+Drivers and route connectors:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.route.mbt.qnt`
+
+Behavior implemented:
+
+- Refreshed the focused Starry Wisp object adapter so stale replay observes the full public reducer route history before stale rejection.
+- The stale route now reaches `BattleHoleFrontierOwner` only after object target boundary, attack-roll, damage-roll, and active-effect route events.
+- Added no durable production state. Evidence is derived from `BattleEntrypointTrace.route_events` through public reducer start/discover/resolve entrypoints.
+
+RAW and ubiquitous-language check:
+
+- Used copied RAW/domain inputs only: Starry Wisp in `cleanroom-input/raw/srd-5.2.1/Spells/Descriptions-S-Z.md`, Making an Attack in `Playing-the-Game.md`, Breaking Objects in `Rules-Glossary.md`, and `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`.
+
+Verification results:
+
+- `cargo test starry_wisp_object_adapter_replays_all_branches -- --nocapture` passed.
+- `cargo test starry_wisp_object -- --nocapture` passed, including `starry_wisp_object_stale_replay_records_full_public_route_history`.
+- `cargo fmt --check` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-starry-wisp-object.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json` passed with 7 obligations covered.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check 832afbebbb3c46bf0a05b6c2bcb541f77508a328...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed only on the two known stale validator hashes recorded in `cleanroom-input/MANIFEST.md`:
+  - `scripts/check-cleanroom-harness.cjs`: expected `bf3a3120ef5bb10b0a11093bb3bbe8d911199f720cc4cba050d4080e78ba5130`, got `0ed7656ef183599a8f54c604219ad34e51a0addb757d4be34deb694938db82f1`.
+  - `scripts/cleanroom-branch-coverage-check.cjs`: expected `f96e26aac6fc7679c1801e3a048ba1426eb301a2aab91cf3cd284063ce62be0c`, got `5b7f4913a2c6455c556e13a276107337219804698ffd087c64d536cf66c6e06c`.
+
 ## FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY
 
 - Lane: `FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY`
