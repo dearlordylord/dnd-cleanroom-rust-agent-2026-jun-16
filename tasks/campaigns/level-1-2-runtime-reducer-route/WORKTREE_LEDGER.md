@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf05-reaction-taxonomy` | `ralph/fresh-source-feedback-task5-reaction-taxonomy` | `e8cb231ce1183ed96b2865000562f0395f2d712f` | Erdos the 3rd (`019f0cb7-1eb6-7d72-b14e-0c500559e117`) | running; source-feedback lane, no dirty/fresh target acceptance claimed |
 
 ## Active Fresh Dry Run Targets
 
