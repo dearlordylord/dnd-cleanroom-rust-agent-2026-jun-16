@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03F-MIXED-TARGET-OUTCOMES | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes` | `ralph/source-sqnt-03f-mixed-target-outcomes` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Plato the 3rd (`019f0ea3-051b-7cc2-bafa-d14052b7a258`) | worker-running |
+| SQNT-03F-MIXED-TARGET-OUTCOMES | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes` | `ralph/source-sqnt-03f-mixed-target-outcomes` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Plato the 3rd (`019f0ea3-051b-7cc2-bafa-d14052b7a258`) | implemented-review-pending at `b138c187d8a8c5c9450d5f671cfaa971a40aa725` |
 | SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection` | `ralph/source-sqnt-03g-exact-damage-projection` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Halley the 3rd (`019f0ea3-50cd-7ae3-b243-436cef287aa2`) | worker-running |
 
 ## Historical RRCONV-19 Worktrees
