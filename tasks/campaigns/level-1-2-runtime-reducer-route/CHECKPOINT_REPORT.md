@@ -652,3 +652,14 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Newly packaged route connectors: condition lifecycle updates, `battle-runtime-movement-presentation.route.mbt.qnt`, `battle-runtime-spatial-effects.route.mbt.qnt`, and `battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt`.
 - Validation: manifest validator hashes were updated through the approved `tasks/VALIDATOR_PATCH.json` carry-forward for source `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb`; `node scripts/check-cleanroom-harness.cjs` then progressed past validator provenance and failed on historical dirty RUN_LEDGER/target replay evidence still pinned to older source packages plus pre-existing heuristic findings. This refresh does not attempt repo-wide dirty ledger repair.
 - Scope note: this is a copied source-input package refresh only. It does not claim dirty target replay, fresh target acceptance, or Rust runtime coverage. Target replay lanes must consume only the copied QNT/RAW/domain/guidance package and must keep unsupported selected rows blocked.
+
+### SQNT-07A-DIRTY-REPLAY-LANE-INTEGRATION
+
+- Merge commits: spatial/movement `86c0c70b22fbb4e619a6f154a56b38c7382c7d22`; active-effect/condition `6d9712af44372a73134364778a9bbbc255527e24`.
+- Lane heads: spatial/movement `ff870c11ae3f3d8dbc78f43cbb4b7cf6f3b65d36`; active-effect/condition `a4de4c49b45d8aff896078f90737746f61c61162`.
+- Result: both dirty replay lanes are accepted-with-known-harness-debt. This is diagnostic dirty target replay only and does not claim fresh target acceptance.
+- Accepted rows: spatial/movement accepted 16 route connector rows. Active-effect/condition accepted 18 condition connector rows, 9 marked/immunity connector rows, and exactly 4 selected level-one rows through copied generic route facts.
+- Blockers preserved: Jump landing legality and failed-landing Prone; concentration-backed Sleet Storm / Spike Growth / Web-like hazards; 8 selected level-one rows outside lane generic route facts; selected condition-saving adapter remains uncounted.
+- Conflict resolution: shared `tasks/RUN_LEDGER.json`, `tasks/STATE_OWNER_MANIFEST.json`, and `tasks/VALIDATION_REPORT.md` were resolved by preserving both lanes' route support, tests, evidence, state-owner records, validation records, accepted rows, and blockers.
+- Verification passed: `cargo fmt --check`, the four requested focused cargo tests, `cargo test` (`237` tests), `cargo clippy --all-targets -- -D warnings`, `git diff --check`, and JSON parse checks for touched JSON artifacts.
+- Harness status: `node scripts/check-cleanroom-harness.cjs` still fails on historical stale ledger/evidence and pre-existing heuristic findings outside these lanes. Captured harness output had no SQNT-07A-specific matches.
