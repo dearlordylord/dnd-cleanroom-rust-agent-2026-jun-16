@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-rr-spatial-damage-accepted-with-blockers",
+  "status": "fresh-rr-battle-active-effects-accepted-with-blockers",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -3629,19 +3629,20 @@
     "Fresh target FRESH-RR-CHARACTER-SHEET-HANDOFF is accepted at 214e43e194fd37fa039fbf68baaaf003eee4143e. Its verifier derives expected route records from copied FCSF-06 QNT route connectors and compares them to public character creation, sheet, and handoff entrypoint observations; the merged verifier rejects duplicate JSON evidence keys.",
     "Fresh target FRESH-RR-FEATURE-SPECIES-METAMAGIC is accepted at 27bcbabc524c2087a73689c407e95c82a54fe10f. Its verifier derives expected route records from copied SQNT-07B/C/D route connector action bodies and helper vocabulary, compares them to public battle reducer observations, and carries forward the SQNT-07A selected/grouped residual blocker.",
     "Do not launch more dirty target lanes for Task 3 residual selected-spell branches beyond SQNT-03C, or for FEXP-07 selected/grouped residual branches, until source-side QNT/guidance adds the remaining generic route facts listed in SOURCE_QNT_NEXT_TASKS.md.",
-    "Use accepted fresh target b28d9dbdd83c49bdd21dd36473d0b96612279fb7 as the current fresh target head. Use c196b33c634169cfc991c3de101c23fde8f75bae as the package baseline ancestor and 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the strongest pre-21504ef runtime evidence for SDK composition, Pact Slot handoff replay, FEXP-04 exact route-choice payload replay, Ability Check/Search public reducer routing, Concentration cleanup routing, and scalar profile replay; those runtime rows are historical snapshots until replayed against 21504ef.",
+    "Use accepted fresh target 10918170ebbb342c7d45664601cb8eb354991db2 as the current fresh target head. Use c196b33c634169cfc991c3de101c23fde8f75bae as the package baseline ancestor and 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the strongest pre-21504ef runtime evidence for SDK composition, Pact Slot handoff replay, FEXP-04 exact route-choice payload replay, Ability Check/Search public reducer routing, Concentration cleanup routing, and scalar profile replay; those runtime rows are historical snapshots until replayed against 21504ef.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean old historical replay/ledger debt only if the dirty harness needs to pass without exception; validator provenance has already been refreshed.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints.",
-    "Fresh target FRESH-RR-SPATIAL-DAMAGE is accepted-with-blockers at b28d9dbdd83c49bdd21dd36473d0b96612279fb7. Its verifier derives object/light and mixed-target expected records from copied QNT/vocabulary facts and compares them to public reducer observations; SQNT-03G exact damage and FCSF-04 stale-object route rows remain downgraded blockers."
+    "Fresh target FRESH-RR-SPATIAL-DAMAGE is accepted-with-blockers at b28d9dbdd83c49bdd21dd36473d0b96612279fb7. Its verifier derives object/light and mixed-target expected records from copied QNT/vocabulary facts and compares them to public reducer observations; SQNT-03G exact damage and FCSF-04 stale-object route rows remain downgraded blockers.",
+    "Fresh target FRESH-RR-BATTLE-ACTIVE-EFFECTS is accepted-with-blockers at 10918170ebbb342c7d45664601cb8eb354991db2. Its verifier derives SQNT-03A/B/C/D active-effect expected records from copied route connectors and compares them to public reducer observations; FCSF-05 trigger taxonomy remains blocked for durable production state."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fresh-rr-spatial-damage-accepted-with-blockers",
+    "status": "fresh-rr-battle-active-effects-accepted-with-blockers",
     "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "b28d9dbdd83c49bdd21dd36473d0b96612279fb7",
+    "acceptedTargetHead": "10918170ebbb342c7d45664601cb8eb354991db2",
     "strongestRuntimeEvidenceHead": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
     "completedLanes": [
       {
@@ -4051,21 +4052,48 @@
           "SQNT-03G exact damage projection is downgraded where copied source facts are insufficient for public reducer route comparison",
           "FCSF-04 stale-object route rows are downgraded where copied source facts are insufficient for public reducer route comparison"
         ]
+      },
+      {
+        "laneId": "FRESH-RR-BATTLE-ACTIVE-EFFECTS",
+        "status": "accepted-with-blockers",
+        "baseCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
+        "targetCommit": "10918170ebbb342c7d45664601cb8eb354991db2",
+        "workerAgent": "Mendel the 3rd (019f0f53-efcf-7213-98d2-492d0d509331)",
+        "reviewerAgent": "Volta the 3rd (019f0f85-219d-71f0-aeb1-8d5ea9724bd1) plus orchestrator review",
+        "artifacts": [
+          "src/lib.rs",
+          "tests/reducer_spine.rs",
+          "STATE_OWNERS.md",
+          "examples/fresh_rr_battle_active_effects.rs",
+          "tools/verify_fresh_rr_battle_active_effects.py",
+          "tools/verify_current_fresh_target.py",
+          "EVIDENCE/fresh-rr-battle-active-effects.json",
+          "FRESH_RUN_STATE.json",
+          "FRESH_RUN_REPORT.md",
+          "BLOCKERS.json"
+        ],
+        "checks": [
+          "git merge-base --is-ancestor c196b33c634169cfc991c3de101c23fde8f75bae HEAD",
+          "python3 tools/verify_current_fresh_target.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check HEAD~1...HEAD"
+        ],
+        "coverageClaim": "SQNT-03A/B/C/D battle active-effect residual routes accepted through copied route-connector-derived expected records matched to public reducer observations; condition-rider cleanup now preserves independent same-condition membership; FCSF-05 trigger taxonomy remains an explicit blocker for richer interrupt trigger state",
+        "blockers": [
+          "FCSF-05 trigger taxonomy remains blocked for durable production state until copied source inputs expose generic typed interrupt trigger facts"
+        ],
+        "reviewFixes": [
+          "Split rider-owned conditions from independent combatant conditions so rider cleanup cannot erase pre-existing same-condition membership.",
+          "Added FRESH-RR-BATTLE-ACTIVE-EFFECTS state-owner records for new durable fields, profiles, subject families, and route sequencing records."
+        ]
       }
     ],
     "activeWorktree": null,
     "activeBranch": null,
     "activeLaneBaseCommit": null,
-    "activeParallelLanes": [
-      {
-        "laneId": "FRESH-RR-BATTLE-ACTIVE-EFFECTS",
-        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-rr-battle-active-effects",
-        "branch": "ralph/fresh-rr-battle-active-effects",
-        "baseCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
-        "workerAgent": "Mendel the 3rd (019f0f53-efcf-7213-98d2-492d0d509331)",
-        "status": "active"
-      }
-    ],
+    "activeParallelLanes": [],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "Wave 1 fresh replay lanes from NEXT_RALPH_CAMPAIGN.md",
@@ -4074,7 +4102,8 @@
       "FRESH-RR-CHARACTER-SHEET-HANDOFF is merged at 214e43e194fd37fa039fbf68baaaf003eee4143e with QNT-derived expected route records compared to public entrypoint observations.",
       "FRESH-RR-FEATURE-SPECIES-METAMAGIC is merged at 27bcbabc524c2087a73689c407e95c82a54fe10f with QNT-derived expected route records compared to public reducer observations.",
       "FRESH-RR-SPATIAL-DAMAGE is merged at b28d9dbdd83c49bdd21dd36473d0b96612279fb7 with object/light and mixed-target route records compared from copied QNT/vocabulary-derived expected records to public reducer observations; SQNT-03G exact damage and FCSF-04 stale-object rows remain downgraded blockers.",
-      "Continue the active repair/integration lane from NEXT_RALPH_CAMPAIGN.md: battle active effects. It must stay integrated with current fresh master and independently derive expected route records from copied QNT/source facts before acceptance."
+      "FRESH-RR-BATTLE-ACTIVE-EFFECTS is merged at 10918170ebbb342c7d45664601cb8eb354991db2 with SQNT-03A/B/C/D active-effect residual route records compared from copied connector-derived expected records to public reducer observations; FCSF-05 trigger taxonomy remains blocked for durable production state.",
+      "Wave 1 fresh replay lanes are merged. Use NEXT_RALPH_CAMPAIGN.md and SOURCE_QNT_NEXT_TASKS.md to choose the next parallel campaign batch; keep each lane scoped to generic route facts with public reducer observations."
     ]
   },
   "sdkTracerBullet": {

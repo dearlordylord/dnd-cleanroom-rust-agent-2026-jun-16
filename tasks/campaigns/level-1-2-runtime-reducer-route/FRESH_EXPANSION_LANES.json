@@ -7,10 +7,11 @@
   "sourcePackageCommit": "21504ef764118f5fd13086aa6266f19280196664",
   "acceptedFreshTargetPackageCommit": "21504ef764118f5fd13086aa6266f19280196664",
   "currentFreshBaselineCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
-  "acceptedFreshTargetHead": "b28d9dbdd83c49bdd21dd36473d0b96612279fb7",
+  "acceptedFreshTargetHead": "10918170ebbb342c7d45664601cb8eb354991db2",
   "strongestRuntimeEvidenceCommit": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
   "currentPackageRuntimeAcceptanceClaims": [
     "FEXP-06/FRESH-RR-CHARACTER-SHEET-HANDOFF",
+    "FRESH-RR-BATTLE-ACTIVE-EFFECTS",
     "FRESH-RR-FEATURE-SPECIES-METAMAGIC",
     "FRESH-RR-SPATIAL-DAMAGE"
   ],
@@ -295,6 +296,35 @@
         "git diff --check HEAD~1...HEAD"
       ],
       "acceptanceSummary": "Accepted-with-blockers at fresh target b28d9dbdd83c49bdd21dd36473d0b96612279fb7. SQNT-03E object/light and SQNT-03F mixed-target route surfaces are compared from copied QNT/vocabulary-derived expected records to public reducer observations; SQNT-03G exact damage and FCSF-04 stale-object rows remain downgraded blockers where copied source facts are insufficient."
+    },
+    {
+      "laneId": "FRESH-RR-BATTLE-ACTIVE-EFFECTS",
+      "checkpointId": "FRESH-RR-CP4",
+      "status": "merged-with-blockers",
+      "purpose": "Replay SQNT-03A/B/C/D battle active-effect residual routes against the current fresh target package while keeping FCSF-05 trigger taxonomy blocked for durable production state.",
+      "drivers": [
+        "battle-runtime-hit-point-regain-prevention.route.mbt.qnt",
+        "battle-runtime-next-attack-roll-mode.route.mbt.qnt",
+        "battle-runtime-opportunity-attack-denial.route.mbt.qnt",
+        "battle-runtime-condition-riders.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "battle active-effects evidence records copied-connector-derived expected route records",
+        "public battle reducer observations match accepted expected records",
+        "condition-rider cleanup preserves independent same-condition membership",
+        "STATE_OWNERS.md records new durable fields and subject/profile surfaces",
+        "FCSF-05 trigger taxonomy remains an explicit blocker",
+        "tools/verify_current_fresh_target.py includes the accepted current-package lane"
+      ],
+      "requiredChecks": [
+        "git merge-base --is-ancestor c196b33c634169cfc991c3de101c23fde8f75bae HEAD",
+        "python3 tools/verify_current_fresh_target.py",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "acceptanceSummary": "Accepted-with-blockers at fresh target 10918170ebbb342c7d45664601cb8eb354991db2. SQNT-03A/B/C/D active-effect residual route records are compared from copied connector-derived expected records to public reducer observations; FCSF-05 trigger taxonomy remains blocked for durable production state."
     }
   ]
 }
