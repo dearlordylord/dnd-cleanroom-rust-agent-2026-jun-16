@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03G-EXACT-DAMAGE-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03g-exact-damage-replay` | `ralph/sqnt03g-exact-damage-dirty-replay` | `22fe5632a27d58327ea42d666d581ce0f66ae36e` | Meitner the 3rd (`019f0eed-3f71-7a53-a69a-e87155291106`) | worker-running |
+| SQNT-03G-EXACT-DAMAGE-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03g-exact-damage-replay` | `ralph/sqnt03g-exact-damage-dirty-replay` | `22fe5632a27d58327ea42d666d581ce0f66ae36e` | Meitner the 3rd (`019f0eed-3f71-7a53-a69a-e87155291106`); reviewer Harvey the 3rd (`019f0ef7-246f-7882-82a4-1c13239fd21d`) | implemented-review-running at `6e576f9e278fb161916185194e7901911ba95d2d` |
 
 ## Active Fresh Dry Run Targets
 

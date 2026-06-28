@@ -717,7 +717,10 @@
       "baseSha": "22fe5632a27d58327ea42d666d581ce0f66ae36e",
       "workerAgent": "019f0eed-3f71-7a53-a69a-e87155291106",
       "workerName": "Meitner the 3rd",
-      "status": "worker-running",
+      "workerCommit": "6e576f9e278fb161916185194e7901911ba95d2d",
+      "reviewAgent": "019f0ef7-246f-7882-82a4-1c13239fd21d",
+      "reviewName": "Harvey the 3rd",
+      "status": "implemented-review-running",
       "scope": "dirty target replay only; no fresh target acceptance claimed"
     }
   ],
