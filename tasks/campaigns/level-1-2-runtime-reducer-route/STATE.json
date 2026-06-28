@@ -8,7 +8,7 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "801b05df55a1393d6acd5c3fa7b2624ed91f9494",
+    "lastVerifiedIntegrationHead": "c92c59eeff8e2252195a6dcf4b3c761a648b104e",
     "lastMergedLane": {
       "laneId": "FEXP-04-EXACT-ROLL-CHOICE-PAYLOAD-DIRTY-REPLAY",
       "mergeCommit": "801b05df55a1393d6acd5c3fa7b2624ed91f9494",
