@@ -143,22 +143,49 @@ pub const BRANCH_ACTIONS: [&str; 12] = [
     "doTrueStrikeSpellHostedWeaponAttack",
 ];
 
-pub const ACCEPTED_BRANCH_ACTIONS: [&str; 12] = [
-    "doDivineFavorWeaponDamageRider",
-    "doDivineSmiteAfterHitDamage",
-    "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
-    "doFalseLifeTemporaryHitPoints",
+pub const ACCEPTED_BRANCH_ACTIONS: [&str; 4] = [
     "doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
     "doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
     "doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
     "doHexMarkedDamageRiderAndLaterTurnTransfer",
-    "doLongstriderSpeedIncrease",
-    "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
-    "doShillelaghWeaponAttackOverride",
-    "doTrueStrikeSpellHostedWeaponAttack",
 ];
 
-pub const BLOCKED_BRANCH_ACTIONS: [(&str, &str); 0] = [];
+const SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT: &str = "This lane accepts only selected rows whose public reducer route events match copied generic marked-damage or condition-immunity route facts. This selected row belongs to another active-effect substrate and is not counted by SQNT-07A.";
+
+pub const BLOCKED_BRANCH_ACTIONS: [(&str, &str); 8] = [
+    (
+        "doDivineFavorWeaponDamageRider",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doDivineSmiteAfterHitDamage",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doFalseLifeTemporaryHitPoints",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doLongstriderSpeedIncrease",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doShillelaghWeaponAttackOverride",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+    (
+        "doTrueStrikeSpellHostedWeaponAttack",
+        SELECTED_ROW_NOT_GENERIC_MARKED_IMMUNITY_FACT,
+    ),
+];
 
 pub fn replay_observed_action(observed_action_taken: &str) -> LevelOneSpellEffectWitness {
     match observed_action_taken {

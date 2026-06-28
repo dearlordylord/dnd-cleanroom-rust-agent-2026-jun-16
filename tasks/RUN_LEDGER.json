@@ -4436,11 +4436,11 @@
         },
         "reviewLoop": {
           "path": "tasks/history/SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY/REVIEW_LOOP.json",
-          "sha256": "143f6ff555242d2133816bfad012ba59a7c1a6221789b300400d0d8015cf55cb"
+          "sha256": "593d44c4c37a07332253b0dac366f95b65ec015d895c8548a71df301cf94162f"
         },
         "deciderDecision": {
           "path": "tasks/history/SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY/DECIDER_DECISION.json",
-          "sha256": "2db0944aa09b89d513c86d97fa66621178dd8531cc7bf1ce8cb5c599dbfcacd7"
+          "sha256": "ca7fcfa31d87822a8db3369bf71786a41507cb9752a8959ce385d7d3c8b00832"
         }
       },
       "targetReplayEvidence": [
@@ -4504,7 +4504,15 @@
         {
           "command": "node scripts/check-cleanroom-harness.cjs",
           "status": "fail: historical stale ledger/evidence and pre-existing heuristic findings outside SQNT-07A; lane-specific target evidence checker passed"
+        },
+        {
+          "command": "review findings follow-up: narrow selected adapter accepted rows and record second review round",
+          "status": "pass"
         }
+      ],
+      "reviewFindingsFixed": [
+        "SQNT-07A-RF1-SELECTED-ACCEPTANCE-SURFACE",
+        "SQNT-07A-RF2-REVIEW-LOOP-OVERCLAIM"
       ]
     }
   ],

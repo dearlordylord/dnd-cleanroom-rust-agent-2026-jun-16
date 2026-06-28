@@ -19,6 +19,52 @@
         },
         {
           "checklist": "branch-coverage",
+          "status": "fail"
+        },
+        {
+          "checklist": "code-shape-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "adapter-quarantine",
+          "status": "pass"
+        },
+        {
+          "checklist": "engine-depth",
+          "status": "pass"
+        },
+        {
+          "checklist": "state-owner-derivability",
+          "status": "pass"
+        },
+        {
+          "checklist": "authored-identity-dispatch",
+          "status": "pass"
+        },
+        {
+          "checklist": "report-honesty",
+          "status": "fail"
+        }
+      ],
+      "notes": "Initial post-lane review found the selected level-one adapter still exposed all 12 rows as accepted even though evidence and decision accepted only 4 and blocked 8; convergence was therefore overclaimed."
+    },
+    {
+      "round": 2,
+      "passes": [
+        {
+          "checklist": "raw-qnt-traceability",
+          "status": "pass"
+        },
+        {
+          "checklist": "ubiquitous-language-domain",
+          "status": "pass"
+        },
+        {
+          "checklist": "architecture-connascence",
+          "status": "pass"
+        },
+        {
+          "checklist": "branch-coverage",
           "status": "pass"
         },
         {
@@ -46,8 +92,23 @@
           "status": "pass"
         }
       ],
-      "notes": "Checked copied RAW/domain anchors, route-connector facts, public reducer route entrypoints, state-owner derivability, no selected authored identity dispatch, and explicit selected-row blockers."
+      "notes": "After fix, ACCEPTED_BRANCH_ACTIONS contains only the 4 selected rows backed by copied generic marked-damage/immunity route facts; the other 8 selected rows are blocked with evidence-matching reasons. Review-loop convergence is now recorded after the fix."
     }
   ],
-  "findings": []
+  "findings": [
+    {
+      "id": "SQNT-07A-RF1-SELECTED-ACCEPTANCE-SURFACE",
+      "severity": "medium",
+      "reasonableness": "reasonable",
+      "status": "fixed",
+      "resolution": "Narrowed level1 buff/mark/smite ACCEPTED_BRANCH_ACTIONS to the four SQNT-07A-supported selected rows and populated BLOCKED_BRANCH_ACTIONS with the eight non-lane rows using the same target-blocker reason recorded in target replay evidence."
+    },
+    {
+      "id": "SQNT-07A-RF2-REVIEW-LOOP-OVERCLAIM",
+      "severity": "low",
+      "reasonableness": "reasonable",
+      "status": "fixed",
+      "resolution": "Recorded the initial failed review round and a second clean review round after the adapter-surface fix; DECIDER_DECISION now notes acceptance after review-finding remediation."
+    }
+  ]
 }

@@ -4495,3 +4495,8 @@ Verification:
 - `jq empty tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json tasks/STATE_OWNER_MANIFEST.json tasks/RUN_LEDGER.json` passed before ledger append; rerun after ledger append is recorded in the run ledger.
 - `git diff --check` passed.
 - `node scripts/check-cleanroom-harness.cjs` failed on pre-existing stale ledger/evidence drift from older package SHAs and pre-existing heuristic findings. The lane-specific selected evidence checker above passed after recording non-lane selected rows as target blockers.
+
+Review follow-up:
+
+- Fixed `SQNT-07A-RF1-SELECTED-ACCEPTANCE-SURFACE`: `src/qnt_adapters/battle_runtime_level1_buff_mark_smite_selected_identity.rs` now exposes only the 4 selected rows backed by copied generic marked-damage/immunity route facts as accepted and records the other 8 selected rows as blocked with the evidence-matching target-blocker reason.
+- Fixed `SQNT-07A-RF2-REVIEW-LOOP-OVERCLAIM`: `tasks/REVIEW_LOOP.json` now records the initial failed review round and a second clean round after the fix; `tasks/DECIDER_DECISION.json` records acceptance after those findings were fixed.

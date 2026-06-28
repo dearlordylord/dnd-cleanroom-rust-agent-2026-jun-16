@@ -44,5 +44,10 @@
   "blockedRows": {
     "selectedRowsOutsideLaneGenericFacts": 8,
     "selectedConditionSavingAdapterNotRefreshed": true
-  }
+  },
+  "reviewFindingsFixed": [
+    "SQNT-07A-RF1-SELECTED-ACCEPTANCE-SURFACE",
+    "SQNT-07A-RF2-REVIEW-LOOP-OVERCLAIM"
+  ],
+  "acceptanceRationale": "Accepted after the adapter/test surface, evidence, and decision metadata consistently treat only the four copied-generic-route selected rows as accepted and record the eight unrelated selected rows as target blockers."
 }
