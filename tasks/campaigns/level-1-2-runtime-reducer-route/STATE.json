@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt03f-dirty-replay-running-sqnt03g-source-packaged",
+  "status": "sqnt03f-dirty-replay-merged-sqnt03g-source-packaged",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67",
+    "lastVerifiedIntegrationHead": "fde412cbe2cce580b0dc2a44270e63ba601b17ef",
     "lastMergedLane": {
-      "laneId": "SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY",
-      "mergeCommit": "9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67",
-      "laneHead": "dd34c9f02c4ef02d0b662b5b951df7e4db41ced9",
-      "note": "Diagnostic dirty target replay only. The worker consumed source commit 32e51f46a71f5a714034966e018fe79abbb7fcae SQNT-03E object/light route facts and accepted 9 copied connector actions covering 2 selected spatial obligations: Light object emitter projection replacement cleanup and Produce Flame held-light projection hurl cleanup. Dancing Lights, Faerie Fire, Feather Fall, Fog Cloud, Grease, Jump, Thunderwave, Starry Wisp, and level-1 damage wholesale acceptance remain explicit blockers or out of this connector scope. This does not claim fresh target acceptance."
+      "laneId": "SQNT-03F-MIXED-TARGET-DIRTY-REPLAY",
+      "mergeCommit": "fde412cbe2cce580b0dc2a44270e63ba601b17ef",
+      "laneHead": "b94d0b8c307f01466b1de044eca60e36da5b303c",
+      "note": "Diagnostic dirty target replay only. The worker consumed SQNT-03F mixed-target route facts from source package 2de6a5e5401985e5673f5c2be737bbe2374d46d0, then integration refreshed the evidence metadata to current package 21504ef764118f5fd13086aa6266f19280196664. The replay accepted all 7 copied connector rows and covered 3 selected level-1 damage obligations: Burning Hands mixed cone Saving Throws, Ice Knife hit attack plus burst Saving Throws, and Ice Knife miss plus burst Saving Throws. Exact damage/dice/type facts, active-effect riders, object/light lifecycle, next-Attack-Roll lifecycle, and selected identity wholesale acceptance remain explicit blockers or downstream route tasks. This does not claim fresh target acceptance."
     },
     "lastSourceRefresh": {
       "sourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
@@ -159,6 +159,42 @@
     "acceptedObligationsSource": "CP8 accepted the final three in-scope Mage Armor admission/lifecycle rows after the source refresh supplied cleanroom-input/qnt/battle-runtime/battle-runtime-spell-base-armor-class-effect.route.mbt.qnt. Canonical in-scope denominator is 659; accepted obligation coverage is 659/659."
   },
   "dirtyTargetReplayRefreshes": [
+    {
+      "id": "fcsf03f-mixed-target-outcomes-dirty-replay",
+      "status": "dirty-target-replay-complete",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03f-mixed-target-replay",
+      "branch": "ralph/sqnt03f-mixed-target-dirty-replay",
+      "baseCommit": "a8d936aef660a17ed79482e68ba7fe489b5035f6",
+      "workerAgent": "Gauss the 3rd (019f0ecf-aa08-7350-beba-ddac302af135)",
+      "workerCommit": "b94d0b8c307f01466b1de044eca60e36da5b303c",
+      "reviewAgent": "Gibbs the 3rd (019f0ee4-39e9-7bc3-986c-f17ab1af3497)",
+      "reviewVerdict": "clean: replay uses shared reducer route events, copied target/outcome/projection facts remain non-durable witness facts, shared spend and shared Saving Throw damage-roll facts remain distinct, and selected-driver wholesale acceptance remains blocked",
+      "mergeCommit": "fde412cbe2cce580b0dc2a44270e63ba601b17ef",
+      "manifestSourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
+      "driver": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt",
+      "evidence": "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json",
+      "acceptedConnectorRows": 7,
+      "coveredSourceDriverObligations": 3,
+      "targetBlockedRows": 7,
+      "targetBlockers": [
+        "Exact damage, dice count, damage type, critical, and Hit Point application facts remain assigned to SQNT-03G or downstream exact-damage route/component work.",
+        "Active-effect condition-rider lifecycle remains assigned to SQNT-03D and related active-effect owners.",
+        "Object/light lifecycle and stale object replay remain assigned to SQNT-03E and FCSF-04.",
+        "Next-Attack-Roll lifecycle remains assigned to SQNT-03B.",
+        "No selected level-1 damage spell driver is accepted wholesale from this mixed-target replay."
+      ],
+      "checks": [
+        "cargo test mixed_target_outcomes_dirty_replay_routes_through_reducer -- --nocapture",
+        "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD",
+        "node scripts/check-cleanroom-harness.cjs (failed only on known stale validator hashes)"
+      ],
+      "note": "Diagnostic dirty target replay only. Accepted SQNT-03F route connector rows for area save mixed outcomes, attack hit/miss burst save mixed outcomes, object/condition/next-Attack-Roll secondary projections, and chained attack mixed-target outcomes through public reducer route events. No fresh target acceptance claimed."
+    },
     {
       "id": "fcsf03e-object-light-rider-dirty-replay",
       "status": "dirty-target-replay-complete",
@@ -652,41 +688,27 @@
     "SQNT-03E-OBJECT-AND-LIGHT-RIDERS": "merged-packaged-source-input",
     "SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY": "merged-verified",
     "SQNT-03F-MIXED-TARGET-OUTCOMES": "merged-packaged-source-input",
+    "SQNT-03F-MIXED-TARGET-DIRTY-REPLAY": "merged-verified",
     "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS": "merged-packaged-source-input"
   },
   "lastIntegrationVerification": {
-    "head": "9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67",
+    "head": "fde412cbe2cce580b0dc2a44270e63ba601b17ef",
     "commands": [
       "cargo fmt --check",
-      "cargo test object_light -- --nocapture",
-      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03E-object-and-light-riders-dirty-replay.json",
+      "cargo test mixed_target_outcomes_dirty_replay_routes_through_reducer -- --nocapture",
+      "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json",
       "cargo test",
       "cargo clippy --all-targets -- -D warnings",
       "node scripts/check-cleanroom-harness.cjs",
       "git diff --check HEAD~1...HEAD"
     ],
     "result": "passed except cleanroom harness failed only on known stale validator hashes in cleanroom-input/MANIFEST.md",
-    "cargoTest": "230 passed",
-    "focusedTests": "SQNT-03E dirty replay accepted 9 copied connector actions and covered 2 selected spatial obligations: doLightObjectEmitterProjectionReplacementCleanup and doProduceFlameHeldLightProjectionHurlCleanup. The object_light focused tests passed and prove object/light replay routes through public reducer entrypoints.",
-    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03E evidence, ledger, or artifact failures",
-    "review": "Tesla the 3rd found no blockers. Review confirmed replay goes through public reducer entrypoints, durable light state is owned by BattleState, table geometry/durability facts remain witness facts, and selected-driver limits are retained."
+    "cargoTest": "231 passed",
+    "focusedTests": "SQNT-03F dirty replay accepted all 7 copied connector rows and covered 3 selected level-1 damage obligations: doResolveBurningHandsMixedConeSavingThrows, doResolveIceKnifeHitAttackDamageAndBurstSavingThrows, and doResolveIceKnifeMissBurstSavingThrows. The focused test passed and proves mixed-target replay routes through public reducer entrypoints.",
+    "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03F evidence, ledger, or artifact failures",
+    "review": "Gibbs the 3rd found no blockers. Review confirmed SQNT-03F replay uses shared reducer route events, copied target/outcome/projection facts remain non-durable witness facts, shared spend and shared Saving Throw damage-roll facts remain distinct, and selected-driver wholesale acceptance remains blocked."
   },
-  "activeLaneWorktrees": [
-    {
-      "laneId": "SQNT-03F-MIXED-TARGET-DIRTY-REPLAY",
-      "routeTaskId": "FCSF-03F-MIXED-TARGET-OUTCOMES",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03f-mixed-target-replay",
-      "branch": "ralph/sqnt03f-mixed-target-dirty-replay",
-      "baseSha": "a8d936aef660a17ed79482e68ba7fe489b5035f6",
-      "workerAgent": "019f0ecf-aa08-7350-beba-ddac302af135",
-      "workerName": "Gauss the 3rd",
-      "workerCommit": "b94d0b8c307f01466b1de044eca60e36da5b303c",
-      "reviewAgent": "019f0ee4-39e9-7bc3-986c-f17ab1af3497",
-      "reviewName": "Gibbs the 3rd",
-      "status": "implemented-review-running",
-      "scope": "dirty target replay only; no fresh target acceptance claimed"
-    }
-  ],
+  "activeLaneWorktrees": [],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
@@ -752,7 +774,7 @@
         "git diff --check HEAD~1...HEAD",
         "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19"
       ],
-      "targetAcceptance": "dirty-target-replay-pending; fresh-target-acceptance-not-claimed"
+      "targetAcceptance": "dirty-target-replay-accepted at fde412cbe2cce580b0dc2a44270e63ba601b17ef; fresh-target-acceptance-not-claimed"
     },
     {
       "laneId": "SQNT-03E-OBJECT-AND-LIGHT-RIDERS",

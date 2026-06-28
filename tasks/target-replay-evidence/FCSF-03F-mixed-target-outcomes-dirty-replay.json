@@ -5,8 +5,8 @@
     "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json#FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAttackHitBurstSavingThrowMixedOutcomes#step:doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
     "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json#FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAttackMissBurstSavingThrowMixedOutcomes#step:doResolveIceKnifeMissBurstSavingThrows"
   ],
-  "cleanroomManifestSha256": "006e2a9d3320e567ea4fffea8fdbadfea436a3186024f92b8886cde555834460",
-  "cleanroomManifestSourceCommitSha": "2de6a5e5401985e5673f5c2be737bbe2374d46d0",
+  "cleanroomManifestSha256": "58cd90a9d8893d9316fc6af9c0f54514c04177b402e619967a01896fd02081eb",
+  "cleanroomManifestSourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
   "connectorRuns": [
     {
       "observedThrough": "BattleEntrypointTrace.route_events from start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
@@ -137,7 +137,7 @@
   },
   "mixedTargetOutcomeRouteFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcome-route-facts.qnt",
   "mixedTargetOutcomeRouteFactsSha256": "5688172d7a2bfd6c26e137954a9e4c531482a9fe6c0d243e6697a84f2ac6ee5a",
-  "reducerRouteInventorySha256": "f65c64c99d0dc0262cab36eca4030c6f24604108e7791c595c18310e58f326a2",
+  "reducerRouteInventorySha256": "cf03b000367d46e1c6c1345d483d343e6be03924338a2d80f013d276f8844102",
   "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt",
   "routeConnectorSha256": "7aa5c3bc5a374751af296b0c03f3ed7222346e150501269a5d7ab078bd103795",
   "routeVocabularyPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt",
@@ -424,7 +424,7 @@
       "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route blocker=ViciousMockeryNextAttackRider"
     }
   ],
-  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
   "targetProfile": "target-profile.json#rust",
   "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
 }
