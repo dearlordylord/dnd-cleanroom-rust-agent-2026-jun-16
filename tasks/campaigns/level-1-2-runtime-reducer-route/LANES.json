@@ -1320,7 +1320,8 @@
       "status": "ready",
       "parallelGroup": "sqnt07-current-package-replay",
       "routeTaskIds": [
-        "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES"
+        "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
+        "L15-RR07-FU03-CONDITION-AND-ROLL-MODIFIER-FEATURE-SUBSTRATES"
       ],
       "routeClasses": [
         "catalog-after-substrate"
@@ -1334,7 +1335,11 @@
         "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-buff-selected-identity.mbt.qnt"
       ],
       "routeConnectorPaths": [
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-substrates.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-damage-reduction.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt"
       ],
       "purpose": "Refresh dirty target replay for species passive and adjacent passive roll/movement/resource substrates against copied source package 21504ef.",
       "dependencies": [
@@ -1349,10 +1354,30 @@
         "src/rules/roll_modifier_buff_selected_identity.rs",
         "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json",
         "tasks/history/SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY/**",
-        "tasks/RUN_LEDGER.json",
-        "tasks/VALIDATION_REPORT.md"
+        "tasks/campaigns/level-1-2-runtime-reducer-route/LANES.json"
       ],
-      "acceptanceSummary": "Refresh species passive selected/catalog-heavy rows only where observed public reducer events match copied generic passive damage, roll-mode, creature-space movement, and creature-stat projection facts."
+      "acceptanceSummary": "Refresh selected species passive and adjacent passive roll/movement/resource rows only where observed public reducer events match copied route connector facts: species passive substrates, Danger Sense passive saving-throw substrates, roll-modifier active effects, spell damage reduction, and scalar-buff active effects. The two Adrenaline Rush feature-resource rows from the inherited 17-row denominator are explicit out-of-scope rows for SQNT-07B.",
+      "primaryRouteTaskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
+      "acceptedObligations": 15,
+      "currentOutOfScopeBranchObligations": 2,
+      "outOfScopeBranchActions": [
+        {
+          "branchAction": "doAdrenalineRushDash",
+          "branchFamily": "step",
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+          "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt#step:doAdrenalineRushDash",
+          "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt",
+          "reason": "The 17-row CP4 passive/roll/resource denominator included Adrenaline Rush feature-resource rows, but SQNT-07B current-package replay selected only the four species/passive adjacent drivers listed in the lane. This row remains owned by the copied Adrenaline Rush connector and is not accepted by SQNT-07B evidence."
+        },
+        {
+          "branchAction": "doRejectSecondDash",
+          "branchFamily": "step",
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+          "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt#step:doRejectSecondDash",
+          "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt",
+          "reason": "The 17-row CP4 passive/roll/resource denominator included Adrenaline Rush feature-resource rows, but SQNT-07B current-package replay selected only the four species/passive adjacent drivers listed in the lane. This row remains owned by the copied Adrenaline Rush connector and is not accepted by SQNT-07B evidence."
+        }
+      ]
     },
     {
       "laneId": "SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY",

@@ -34,6 +34,30 @@
       "rejectedFindings": [],
       "round": 2,
       "status": "completed"
+    },
+    {
+      "round": 3,
+      "status": "completed",
+      "checks": [
+        "evidence-scoping",
+        "count-reconciliation",
+        "route-connector-derivability",
+        "auditable-verification-records",
+        "authored-identity-dispatch"
+      ],
+      "findings": [
+        {
+          "id": "sqnt07b-evidence-connector-scope",
+          "resolution": "Recorded all copied route connector authorities used by accepted evidence rows in LANES.json, target replay evidence, and lane history instead of claiming all accepted rows derive from the species-passive connector alone."
+        },
+        {
+          "id": "sqnt07b-branch-count-reconciliation",
+          "resolution": "Reconciled the inherited 17-row denominator as 15 accepted selected-driver rows plus 2 explicit out-of-scope Adrenaline Rush feature-resource rows tied to the copied Adrenaline Rush driver and route connector."
+        }
+      ],
+      "rejectedFindings": [],
+      "convergence": "metadata remediation leaves no lane-local evidence-scope or count mismatch findings before final verification",
+      "verificationSummary": "Focused tests, selected-driver evidence checker, fmt, full cargo test, clippy, SQNT-specific harness classification, and diff-check completed. Full harness remains globally blocked by pre-existing stale shared bookkeeping outside SQNT-07B scope."
     }
   ],
   "schemaVersion": 1,

@@ -20,7 +20,7 @@
       ],
       "path": "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json",
       "reason": "target-replay-evidence",
-      "sha256": "b8ec23e4485e9961c5a6578ce3c5466119b42ed164ebbe3aec70bb379dcaf991"
+      "sha256": "260c3ca626fbd879649ddc5eea48501accbde6f3f75feb606c64c4d204bc9552"
     }
   ],
   "adapterModules": [
@@ -34,13 +34,27 @@
         "qntFileSha256",
         "stateCheck"
       ],
-      "routeConnectorAuthority": {
-        "inventoryKind": "reducer-route-inventory",
-        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt",
-        "sha256": "baf09c389c333ddcfa5123cfa7beb43074e9e34ab84cbd7d1aec5a2c47c71561"
-      },
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json"
+      ],
+      "routeConnectorAuthorities": [
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt",
+          "sha256": "baf09c389c333ddcfa5123cfa7beb43074e9e34ab84cbd7d1aec5a2c47c71561",
+          "qntFacts": [
+            "CreatureStatProjectionRouteSubject, PassiveDamageAdjustmentRouteSubject, PassiveSavingThrowRollModeRouteSubject, PassiveAbilityCheckRollModeRouteSubject, and CreatureSpaceMovementPermissionRouteSubject route species passive size/speed, damage, roll-mode, and occupied-space movement facts through copied owner groups."
+          ],
+          "acceptedActions": [
+            "doMoveThroughLargerCreatureSpace",
+            "doRejectOccupiedStop",
+            "doRejectMissingProfile",
+            "doRejectSameSizeTraversal",
+            "doDragonbornDamageResistance",
+            "doDwarvenResilience",
+            "doHalflingBrave",
+            "doGoliathPowerfulBuild"
+          ]
+        }
       ]
     },
     {
@@ -54,6 +68,25 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json"
+      ],
+      "routeConnectorAuthorities": [
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt",
+          "sha256": "baf09c389c333ddcfa5123cfa7beb43074e9e34ab84cbd7d1aec5a2c47c71561",
+          "qntFacts": [
+            "CreatureStatProjectionRouteSubject, PassiveDamageAdjustmentRouteSubject, PassiveSavingThrowRollModeRouteSubject, PassiveAbilityCheckRollModeRouteSubject, and CreatureSpaceMovementPermissionRouteSubject route species passive size/speed, damage, roll-mode, and occupied-space movement facts through copied owner groups."
+          ],
+          "acceptedActions": [
+            "doMoveThroughLargerCreatureSpace",
+            "doRejectOccupiedStop",
+            "doRejectMissingProfile",
+            "doRejectSameSizeTraversal",
+            "doDragonbornDamageResistance",
+            "doDwarvenResilience",
+            "doHalflingBrave",
+            "doGoliathPowerfulBuild"
+          ]
+        }
       ]
     },
     {
@@ -65,6 +98,19 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json"
+      ],
+      "routeConnectorAuthorities": [
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-substrates.route.mbt.qnt",
+          "sha256": "2eaab0e247887395741858a7d6f84816deec4bb8193e0d9ea2f42481afcf51af",
+          "qntFacts": [
+            "PassiveSavingThrowRollModeRouteSubject route evidence covers Dexterity Saving Throw advantage and Incapacitated suppression for the selected Danger Sense rows without selected feature identity dispatch."
+          ],
+          "acceptedActions": [
+            "doProjectDangerSenseDexterityAdvantage",
+            "doSuppressDangerSenseWhileIncapacitated"
+          ]
+        }
       ]
     },
     {
@@ -79,13 +125,70 @@
       ],
       "targetReplayEvidence": [
         "tasks/target-replay-evidence/SQNT-07B-species-passive-current-package-replay.json"
+      ],
+      "routeConnectorAuthorities": [
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
+          "sha256": "b7d16f07f634e1a21f9be0d40a8136bb6706e9f236117c68d79cdaf14b39ee43",
+          "qntFacts": [
+            "RollModifierEffectRouteSubject route evidence covers Bless, Bane, and Guidance through copied spell invocation, active-effect, Concentration, roll-mode, and skill-choice route facts."
+          ],
+          "acceptedActions": [
+            "doBlessAttackAndSaveModifier",
+            "doBaneFailedSavePenalty",
+            "doGuidanceSkillAbilityCheckModifier"
+          ]
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-damage-reduction.route.mbt.qnt",
+          "sha256": "1b4d063136159781040c1adc7ba3c2f28a3948e81db5dd3b8a3765aad8f7751c",
+          "qntFacts": [
+            "SpellDamageReductionRouteSubject route evidence covers the Resistance selected row through target-choice, damage-type-choice, active-effect, Concentration, rolled-dice, and damage-adjustment owners."
+          ],
+          "acceptedActions": [
+            "doResistanceReducesMatchingDamage"
+          ]
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
+          "sha256": "70a836f0b6453b69a5164c30d7d4abf910aa95e49fd22aedd67711c467aab400",
+          "qntFacts": [
+            "ScalarBuffEffectRouteSubject route evidence covers the Shield of Faith selected row through copied active-effect, Armor Class, and Concentration owners."
+          ],
+          "acceptedActions": [
+            "doShieldOfFaithArmorClassBonus"
+          ]
+        }
       ]
     }
   ],
   "completion": {
+    "branchObligations": 17,
     "acceptedRuns": 15,
+    "outOfScopeRuns": 2,
     "blockers": [],
-    "pairedTaskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES"
+    "outOfScopeRows": [
+      {
+        "branchAction": "doAdrenalineRushDash",
+        "branchFamily": "step",
+        "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt#step:doAdrenalineRushDash",
+        "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt",
+        "reason": "The 17-row CP4 passive/roll/resource denominator included Adrenaline Rush feature-resource rows, but SQNT-07B current-package replay selected only the four species/passive adjacent drivers listed in the lane. This row remains owned by the copied Adrenaline Rush connector and is not accepted by SQNT-07B evidence."
+      },
+      {
+        "branchAction": "doRejectSecondDash",
+        "branchFamily": "step",
+        "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt",
+        "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.mbt.qnt#step:doRejectSecondDash",
+        "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-adrenaline-rush.route.mbt.qnt",
+        "reason": "The 17-row CP4 passive/roll/resource denominator included Adrenaline Rush feature-resource rows, but SQNT-07B current-package replay selected only the four species/passive adjacent drivers listed in the lane. This row remains owned by the copied Adrenaline Rush connector and is not accepted by SQNT-07B evidence."
+      }
+    ],
+    "pairedTaskIds": [
+      "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
+      "L15-RR07-FU03-CONDITION-AND-ROLL-MODIFIER-FEATURE-SUBSTRATES"
+    ]
   },
   "expectedNextReuse": [
     {
@@ -141,5 +244,140 @@
   "sourcePackageSha": "21504ef764118f5fd13086aa6266f19280196664",
   "targetProfile": "rust",
   "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
-  "taskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES"
+  "taskId": "L15-RR07-FU02-SPECIES-PASSIVE-TRAIT-SUBSTRATES",
+  "routeConnectorAuthorities": [
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt",
+      "sha256": "baf09c389c333ddcfa5123cfa7beb43074e9e34ab84cbd7d1aec5a2c47c71561",
+      "qntFacts": [
+        "CreatureStatProjectionRouteSubject, PassiveDamageAdjustmentRouteSubject, PassiveSavingThrowRollModeRouteSubject, PassiveAbilityCheckRollModeRouteSubject, and CreatureSpaceMovementPermissionRouteSubject route species passive size/speed, damage, roll-mode, and occupied-space movement facts through copied owner groups."
+      ],
+      "acceptedActions": [
+        "doMoveThroughLargerCreatureSpace",
+        "doRejectOccupiedStop",
+        "doRejectMissingProfile",
+        "doRejectSameSizeTraversal",
+        "doDragonbornDamageResistance",
+        "doDwarvenResilience",
+        "doHalflingBrave",
+        "doGoliathPowerfulBuild"
+      ]
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-danger-sense-substrates.route.mbt.qnt",
+      "sha256": "2eaab0e247887395741858a7d6f84816deec4bb8193e0d9ea2f42481afcf51af",
+      "qntFacts": [
+        "PassiveSavingThrowRollModeRouteSubject route evidence covers Dexterity Saving Throw advantage and Incapacitated suppression for the selected Danger Sense rows without selected feature identity dispatch."
+      ],
+      "acceptedActions": [
+        "doProjectDangerSenseDexterityAdvantage",
+        "doSuppressDangerSenseWhileIncapacitated"
+      ]
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt",
+      "sha256": "b7d16f07f634e1a21f9be0d40a8136bb6706e9f236117c68d79cdaf14b39ee43",
+      "qntFacts": [
+        "RollModifierEffectRouteSubject route evidence covers Bless, Bane, and Guidance through copied spell invocation, active-effect, Concentration, roll-mode, and skill-choice route facts."
+      ],
+      "acceptedActions": [
+        "doBlessAttackAndSaveModifier",
+        "doBaneFailedSavePenalty",
+        "doGuidanceSkillAbilityCheckModifier"
+      ]
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-spell-damage-reduction.route.mbt.qnt",
+      "sha256": "1b4d063136159781040c1adc7ba3c2f28a3948e81db5dd3b8a3765aad8f7751c",
+      "qntFacts": [
+        "SpellDamageReductionRouteSubject route evidence covers the Resistance selected row through target-choice, damage-type-choice, active-effect, Concentration, rolled-dice, and damage-adjustment owners."
+      ],
+      "acceptedActions": [
+        "doResistanceReducesMatchingDamage"
+      ]
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt",
+      "sha256": "70a836f0b6453b69a5164c30d7d4abf910aa95e49fd22aedd67711c467aab400",
+      "qntFacts": [
+        "ScalarBuffEffectRouteSubject route evidence covers the Shield of Faith selected row through copied active-effect, Armor Class, and Concentration owners."
+      ],
+      "acceptedActions": [
+        "doShieldOfFaithArmorClassBonus"
+      ]
+    }
+  ],
+  "verificationPlan": {
+    "focusedTests": [
+      "cargo test species_passive_trait_adapter_replays_all_branches -- --nocapture",
+      "cargo test halfling_nimbleness_adapter_replays_all_branches -- --nocapture",
+      "cargo test danger_sense_adapter_replays_all_branches -- --nocapture",
+      "cargo test roll_modifier_buff_selected_identity_adapter_replays_all_branches -- --nocapture"
+    ],
+    "evidenceChecker": "custom selected-driver validateTargetReplayEvidence invocation over the four SQNT-07B drivers with routeInventory and requireAllObligations=true",
+    "standardChecks": [
+      "cargo fmt --check",
+      "cargo test",
+      "cargo clippy --all-targets -- -D warnings",
+      "node scripts/check-cleanroom-harness.cjs",
+      "git diff --check 84c637980698971b3df1d8dc4a613bc7b7bc50af...HEAD"
+    ]
+  },
+  "verificationResults": [
+    {
+      "command": "node - <<'NODE' /* selected-driver validateTargetReplayEvidence over four SQNT-07B drivers */",
+      "result": "pass",
+      "summary": "selected SQNT-07B evidence check passed: 15 obligations covered"
+    },
+    {
+      "command": "cargo test species_passive_trait_adapter_replays_all_branches -- --nocapture",
+      "result": "pass",
+      "summary": "1 passed; 232 filtered out"
+    },
+    {
+      "command": "cargo test halfling_nimbleness_adapter_replays_all_branches -- --nocapture",
+      "result": "pass",
+      "summary": "1 passed; 232 filtered out"
+    },
+    {
+      "command": "cargo test danger_sense_adapter_replays_all_branches -- --nocapture",
+      "result": "pass",
+      "summary": "1 passed; 232 filtered out"
+    },
+    {
+      "command": "cargo test roll_modifier_buff_selected_identity_adapter_replays_all_branches -- --nocapture",
+      "result": "pass",
+      "summary": "1 passed; 232 filtered out"
+    },
+    {
+      "command": "cargo fmt --check",
+      "result": "pass",
+      "summary": "no formatting diffs"
+    },
+    {
+      "command": "cargo test",
+      "result": "pass",
+      "summary": "233 passed; 0 failed"
+    },
+    {
+      "command": "cargo clippy --all-targets -- -D warnings",
+      "result": "pass",
+      "summary": "finished with warnings denied"
+    },
+    {
+      "command": "node scripts/check-cleanroom-harness.cjs",
+      "result": "global-preexisting-fail",
+      "summary": "Harness still fails on stale cleanroom-input manifest guidance hashes, stale RUN_LEDGER/evidence from unrelated tasks, existing authored-identity/import heuristics; not remediated in SQNT-07B because shared bookkeeping was out of lane scope."
+    },
+    {
+      "command": "node scripts/check-cleanroom-harness.cjs 2>&1 | rg -n \"SQNT-07B|species-passive-current|battle-runtime-(halfling-nimbleness|species-passive-trait|danger-sense|roll-modifier-buff)|AdrenalineRush|adrenaline-rush\"",
+      "result": "pass",
+      "summary": "No SQNT-07B, selected-driver, or Adrenaline Rush scope lines found in harness output; rg exited 1 because there were no matches."
+    },
+    {
+      "command": "git diff --check 84c637980698971b3df1d8dc4a613bc7b7bc50af...HEAD",
+      "result": "pass",
+      "summary": "no whitespace errors"
+    }
+  ]
 }
