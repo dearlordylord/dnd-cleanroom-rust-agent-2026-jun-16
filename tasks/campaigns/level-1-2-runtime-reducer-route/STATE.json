@@ -8,16 +8,16 @@
     "branch": "ralph/rrconv-19-cleanroom",
     "laneBasePolicy": "Use `git rev-parse HEAD` in the integration worktree when launching each lane. Do not hard-code the campaign-control commit SHA inside this file.",
     "bootstrapSourceBaseline": "6e3ec7c4fff70a28a4ab29cfebeaf9133daec4f0",
-    "lastVerifiedIntegrationHead": "e2568c0a0c8af60bec2fddfc92cd84f2b552bdd6",
+    "lastVerifiedIntegrationHead": "801b05df55a1393d6acd5c3fa7b2624ed91f9494",
     "lastMergedLane": {
-      "laneId": "PACT-SLOT-HANDOFF-INIT-PROJECTION-ROUTE-REFRESH",
-      "mergeCommit": "1abe8f87fcff9e72efd2e006f549373ff9f00b83",
-      "laneHead": "23eca8a08e055864630161ad953c65f00fb9027b",
-      "note": "Diagnostic dirty target replay refresh only. The worker consumed source commit b57772b459f1b75592fd45b9196fd60965b534d3 Pact Slot route connector facts and added replay evidence for the character-battle init projection driver; bookkeeping commit e2568c0a0c8af60bec2fddfc92cd84f2b552bdd6 records verification and does not alter fresh target acceptance."
+      "laneId": "FEXP-04-EXACT-ROLL-CHOICE-PAYLOAD-DIRTY-REPLAY",
+      "mergeCommit": "801b05df55a1393d6acd5c3fa7b2624ed91f9494",
+      "laneHead": "801b05df55a1393d6acd5c3fa7b2624ed91f9494",
+      "note": "Diagnostic dirty target replay refresh only. The worker consumed source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375 exact route-choice payload facts and routed skill-choice, ability-choice, and two-target ability-choice fill evidence through the shared reducer route surface. Focused Rust tests and full cargo tests pass; global cleanroom harness remains intentionally not accepted because the full RUN_LEDGER and historical evidence files are stale after the source input refresh."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "b57772b459f1b75592fd45b9196fd60965b534d3",
-      "note": "Refreshed cleanroom-input from source after Pact Slot handoff route surfaces landed on top of the character-battle encounter-composition route connector and prerequisite scaffold rendering."
+      "sourceCommitSha": "0c2ba34c5a45f18b73dfe590e0e86419ba377375",
+      "note": "Refreshed cleanroom-input from source after exact route-choice payload QNT facts landed for ability/search choice and roll-modifier active-effect routes."
     }
   },
   "denominator": {
@@ -71,6 +71,36 @@
         "git diff --check HEAD~1...HEAD"
       ],
       "note": "Diagnostic dirty target replay only. Refreshes Pact Slot init-projection route evidence so doProjectPurePactMagicSlot and doRejectMixedSpellAndPactSlotInit match the copied qRoute connector; does not change fresh target acceptance or the canonical 659/659 dirty-campaign denominator."
+    },
+    {
+      "id": "fexp04-exact-roll-choice-payloads",
+      "status": "dirty-target-focused-accepted-global-harness-stale",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-roll-choice-replay",
+      "branch": "ralph/roll-choice-replay",
+      "baseCommit": "2f4d5f5750ff77f8997ca3f88a1886f5b768ab3d",
+      "workerAgent": "Lorentz the 3rd (019f0bc9-0715-7c41-a641-fb5b05298137)",
+      "workerCommit": "801b05df55a1393d6acd5c3fa7b2624ed91f9494",
+      "mergeCommit": "801b05df55a1393d6acd5c3fa7b2624ed91f9494",
+      "manifestSourceCommitSha": "0c2ba34c5a45f18b73dfe590e0e86419ba377375",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-ability-check-choice-search.route.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-roll-modifier-active-effects.route.mbt.qnt"
+      ],
+      "focusedEvidence": "tasks/VALIDATION_REPORT.md#FEXP-04 Exact Roll-Choice Payload Dirty Diagnostic",
+      "checks": [
+        "cargo fmt --check",
+        "cargo test ability_check_choice_search_adapter_replays_accepted_branches",
+        "cargo test roll_modifier_active_effects_routes_all_branches_through_reducer",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check 2f4d5f5750ff77f8997ca3f88a1886f5b768ab3d...HEAD",
+        "node scripts/check-cleanroom-harness.cjs 2>&1 | head -120 (expected broad stale RUN_LEDGER/evidence failure)"
+      ],
+      "note": "Dirty diagnostic replay only. Focused tests prove exact choice payloads flow through reducer route events; target replay evidence JSON was not refreshed because updating old evidence hashes without a generator would fake acceptance. Does not change fresh target acceptance."
     }
   ],
   "completedBeforeCampaign": [
@@ -2767,7 +2797,7 @@
     }
   },
   "nextWorkRecommendations": [
-    "Refresh cleanroom input from source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375 or newer before replaying the FEXP-04 exact roll-choice payload blocker.",
+    "Dirty target focused replay for the FEXP-04 exact roll-choice payload blocker is complete at 801b05df55a1393d6acd5c3fa7b2624ed91f9494; refresh a fresh cleanroom target from source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375 or newer before claiming fresh acceptance.",
     "Use the accepted fresh target at a77a41dc752326eab69d8110de78928b9dcb9691 as the current strongest target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, and FEXP-01 through FEXP-07 expansion evidence, verified by python3 tools/verify_current_fresh_target.py.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",
@@ -2931,8 +2961,8 @@
           {
             "blocker": "FEXP-04-exact-roll-choice-payloads-not-admitted-by-route-fills",
             "sourceCommit": "0c2ba34c5a45f18b73dfe590e0e86419ba377375",
-            "status": "source-resolved-target-refresh-pending",
-            "summary": "Exact skill-choice, ability-choice, and two-target ability-choice route-fill payloads are now exposed by focused source QNT route inputs without model-barrel imports or production authored-identity dispatch."
+            "status": "source-resolved-dirty-target-focused-accepted-fresh-target-refresh-pending",
+            "summary": "Exact skill-choice, ability-choice, and two-target ability-choice route-fill payloads are now exposed by focused source QNT route inputs without model-barrel imports or production authored-identity dispatch. Dirty target commit 801b05df55a1393d6acd5c3fa7b2624ed91f9494 verifies focused Rust replay through reducer route events; fresh target package refresh/replay remains pending."
           }
         ]
       },
@@ -3057,7 +3087,7 @@
     "nextPlannedLane": null,
     "nextWorkRecommendations": [
       "FEXP-07 closes the initially planned fresh expansion lanes. Re-audit GOAL_STATUS_AUDIT.md before launching more work.",
-      "Likely next proof step is a source-input feedback pass for FEXP-02 through FEXP-07 blockers, or a fresh campaign plan that targets the remaining blocked generic route inputs."
+      "Exact roll-choice payloads have source-side and dirty-target focused replay evidence, but not fresh-target acceptance. The next useful proof step is a fresh package refresh/replay for that source feedback or a source-input feedback pass for the remaining FEXP-02 through FEXP-07 blockers."
     ]
   },
   "sdkTracerBullet": {

@@ -71,8 +71,11 @@ Resolved source input:
   The source package now exposes exact skill-choice, ability-choice, and
   two-target ability-choice route-fill payload evidence in focused route QNT
   without importing the `battle-runtime-model.qnt` barrel or adding production
-  authored-identity dispatch. This still needs a cleanroom package refresh and
-  target replay before it can be counted as accepted target evidence.
+  authored-identity dispatch. Dirty target commit
+  `801b05df55a1393d6acd5c3fa7b2624ed91f9494` focused-replays those payloads
+  through reducer route events for the ability/search and roll-modifier active
+  effect routes. This still needs a fresh cleanroom package refresh and target
+  replay before it can be counted as accepted fresh target evidence.
 
 ### Reaction And Interrupt Payload Taxonomy
 

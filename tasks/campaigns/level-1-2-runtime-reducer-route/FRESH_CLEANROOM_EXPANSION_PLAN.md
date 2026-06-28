@@ -156,8 +156,10 @@ Status:
   public reducer entrypoints;
 - residual concentration-break cleanup and cumulative scalar sequencing remain
   source-input blockers; exact roll-choice payloads were resolved source-side
-  by source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375` and await
-  cleanroom package refresh/replay;
+  by source commit `0c2ba34c5a45f18b73dfe590e0e86419ba377375` and
+  focused-replayed in the dirty target by commit
+  `801b05df55a1393d6acd5c3fa7b2624ed91f9494`; fresh target replay remains
+  pending;
 - `FEXP-05-REACTION-INTERRUPT-AND-BOUNDARY` is accepted-with-blockers at fresh
   target head `eb05e8495eac993b69e17f68544edace6e56caee`;
 - generic reaction casting-time interrupt/resume, after-damage reaction, nested
