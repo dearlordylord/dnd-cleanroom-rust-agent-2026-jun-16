@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03e-object-light-replay` | `ralph/sqnt03e-object-light-dirty-replay` | `da56942` | pending | worktree-created-worker-pending |
 
 ## Active Fresh Dry Run Targets
 
@@ -32,7 +32,8 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03F-MIXED-TARGET-OUTCOMES | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes` | `ralph/source-sqnt-03f-mixed-target-outcomes` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | pending | worktree-created-worker-pending |
+| SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection` | `ralph/source-sqnt-03g-exact-damage-projection` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | pending | worktree-created-worker-pending |
 
 ## Historical RRCONV-19 Worktrees
 

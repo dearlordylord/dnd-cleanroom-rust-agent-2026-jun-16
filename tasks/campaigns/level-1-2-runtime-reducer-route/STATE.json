@@ -621,8 +621,43 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03D evidence, ledger, or artifact failures",
     "review": "Locke the 3rd initially found four artifact blockers: route-connector authority was mixed with selected-driver evidence mapping, evidence used BattleSavingThrowOwner instead of BattleSavingThrowOutcomeOwner, VALIDATION_REPORT lacked FCSF-03D, and RUN_LEDGER omitted the cleanroom harness check. Kierkegaard fixed these in e55484397d4d60d0521cb4e8c20f0b0452b90f3b. Locke re-review accepted the lane."
   },
-  "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY",
+      "routeTaskId": "FCSF-03E-OBJECT-AND-LIGHT-RIDERS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03e-object-light-replay",
+      "branch": "ralph/sqnt03e-object-light-dirty-replay",
+      "baseSha": "da56942",
+      "workerAgent": "pending",
+      "workerName": "pending",
+      "status": "worktree-created-worker-pending",
+      "scope": "dirty target replay only; no fresh target acceptance claimed"
+    }
+  ],
+  "activeSourceQntLanes": [
+    {
+      "laneId": "SQNT-03F-MIXED-TARGET-OUTCOMES",
+      "routeTaskId": "FCSF-03F-MIXED-TARGET-OUTCOMES",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes",
+      "branch": "ralph/source-sqnt-03f-mixed-target-outcomes",
+      "baseSha": "32e51f46a71f5a714034966e018fe79abbb7fcae",
+      "workerAgent": "pending",
+      "workerName": "pending",
+      "status": "worktree-created-worker-pending",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
+    },
+    {
+      "laneId": "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS",
+      "routeTaskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection",
+      "branch": "ralph/source-sqnt-03g-exact-damage-projection",
+      "baseSha": "32e51f46a71f5a714034966e018fe79abbb7fcae",
+      "workerAgent": "pending",
+      "workerName": "pending",
+      "status": "worktree-created-worker-pending",
+      "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
+    }
+  ],
   "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03E-OBJECT-AND-LIGHT-RIDERS",
