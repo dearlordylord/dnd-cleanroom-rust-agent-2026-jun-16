@@ -199,6 +199,8 @@ pub enum ReducerRouteSubjectFamily {
     CharmSourceDamageBreak,
     WardedTargetInterdiction,
     MixedTargetOutcomeSpell,
+    SpatialEffectRoute,
+    MovementPresentationRoute,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -241,6 +243,10 @@ pub enum ReducerRouteOwnerGroup {
     ArmorClass,
     LightProjection,
     SpellInvocation,
+    ObscurementProjection,
+    SightProjection,
+    AreaHazard,
+    TablePresentation,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -843,6 +849,8 @@ pub fn setup_from_battle_state(state: BattleState) -> BattleSetup {
         command_effect_procedure: state.command_effect_procedure,
         spatial_route_subjects: state.spatial_route_subjects,
         object_light_route: state.object_light_route,
+        spatial_effect_route: state.spatial_effect_route,
+        movement_presentation_route: state.movement_presentation_route,
         ability_check_choice_search: state.ability_check_choice_search,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
@@ -893,6 +901,8 @@ pub fn battle_setup_from_state(state: BattleState) -> BattleSetup {
         command_effect_procedure: state.command_effect_procedure,
         spatial_route_subjects: state.spatial_route_subjects,
         object_light_route: state.object_light_route,
+        spatial_effect_route: state.spatial_effect_route,
+        movement_presentation_route: state.movement_presentation_route,
         ability_check_choice_search: state.ability_check_choice_search,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,
@@ -1122,6 +1132,12 @@ const fn reducer_route_subject(
         BattleReducerRouteSubjectFamily::MixedTargetOutcomeSpell => {
             ReducerRouteSubjectFamily::MixedTargetOutcomeSpell
         }
+        BattleReducerRouteSubjectFamily::SpatialEffectRoute => {
+            ReducerRouteSubjectFamily::SpatialEffectRoute
+        }
+        BattleReducerRouteSubjectFamily::MovementPresentationRoute => {
+            ReducerRouteSubjectFamily::MovementPresentationRoute
+        }
     }
 }
 
@@ -1303,6 +1319,14 @@ const fn reducer_route_owner(owner: BattleReducerRouteOwnerGroup) -> ReducerRout
         BattleReducerRouteOwnerGroup::ArmorClass => ReducerRouteOwnerGroup::ArmorClass,
         BattleReducerRouteOwnerGroup::LightProjection => ReducerRouteOwnerGroup::LightProjection,
         BattleReducerRouteOwnerGroup::SpellInvocation => ReducerRouteOwnerGroup::SpellInvocation,
+        BattleReducerRouteOwnerGroup::ObscurementProjection => {
+            ReducerRouteOwnerGroup::ObscurementProjection
+        }
+        BattleReducerRouteOwnerGroup::SightProjection => ReducerRouteOwnerGroup::SightProjection,
+        BattleReducerRouteOwnerGroup::AreaHazard => ReducerRouteOwnerGroup::AreaHazard,
+        BattleReducerRouteOwnerGroup::TablePresentation => {
+            ReducerRouteOwnerGroup::TablePresentation
+        }
     }
 }
 
@@ -1657,6 +1681,10 @@ fn owner_ref(owner: ReducerRouteOwnerGroup) -> &'static str {
         ReducerRouteOwnerGroup::ArmorClass => "BattleArmorClassOwner",
         ReducerRouteOwnerGroup::LightProjection => "BattleLightProjectionOwner",
         ReducerRouteOwnerGroup::SpellInvocation => "BattleSpellInvocationOwner",
+        ReducerRouteOwnerGroup::ObscurementProjection => "BattleObscurementProjectionOwner",
+        ReducerRouteOwnerGroup::SightProjection => "BattleSightProjectionOwner",
+        ReducerRouteOwnerGroup::AreaHazard => "BattleAreaHazardOwner",
+        ReducerRouteOwnerGroup::TablePresentation => "BattleTablePresentationOwner",
     }
 }
 
@@ -1823,6 +1851,8 @@ fn subject_ref(subject: ReducerRouteSubjectFamily) -> &'static str {
             "WardedTargetInterdictionRouteSubject"
         }
         ReducerRouteSubjectFamily::MixedTargetOutcomeSpell => "MixedTargetOutcomeSpellRouteSubject",
+        ReducerRouteSubjectFamily::SpatialEffectRoute => "SpatialEffectRouteSubject",
+        ReducerRouteSubjectFamily::MovementPresentationRoute => "MovementPresentationRouteSubject",
     }
 }
 

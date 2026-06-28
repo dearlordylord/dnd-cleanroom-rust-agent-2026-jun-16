@@ -207,6 +207,8 @@ fn quickened_setup_for_action(observed_action_taken: &str) -> BattleSetup {
         command_effect_procedure: state.command_effect_procedure,
         spatial_route_subjects: state.spatial_route_subjects,
         object_light_route: state.object_light_route,
+        spatial_effect_route: state.spatial_effect_route,
+        movement_presentation_route: state.movement_presentation_route,
         ability_check_choice_search: state.ability_check_choice_search,
         feature_substrates: state.feature_substrates,
         feature_resources: state.feature_resources,

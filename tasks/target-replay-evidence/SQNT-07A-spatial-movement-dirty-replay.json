@@ -1,0 +1,488 @@
+{
+  "acceptedRowCount": 16,
+  "blockedRows": [
+    {
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "branchAction": "doJumpMovementReplacementLandingWitness",
+      "reason": "target-blocker: copied movement-presentation route facts cover movement replacement budget/distance and table-supplied landing presentation witnesses, but do not yet encode landing legality or failed-landing Prone consequence."
+    },
+    {
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+      "branchAction": "concentration-backed-area-hazard-selected-rows",
+      "reason": "target-blocker: copied spatial-effect route facts cover non-Concentration area hazard lifecycle plus separate movement-damage trigger, but not concentration-backed Sleet Storm / Spike Growth / Web-like hazard rows."
+    }
+  ],
+  "cleanroomManifestSourceCommitSha": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
+  "generatedBy": {
+    "name": "rust-cleanroom-sqnt07a-spatial-movement-dirty-replay",
+    "tag": "target-harness"
+  },
+  "routeConnectorAuthority": [
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "sha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "factsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "factsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709"
+    },
+    {
+      "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt",
+      "sha256": "ad41dd95c3b40e4b2ea0b2fe3e3695543e17b658155d0d8c051b7009866d82b9",
+      "factsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation-route-facts.qnt",
+      "factsSha256": "51a07c9ddcaf77192d649f41747e412971f1935c122d654c59e0e48272ad25bd"
+    }
+  ],
+  "runs": [
+    {
+      "branchAction": "doAdmitMovableMultiEmitterLight",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doAdmitMovableMultiEmitterLight",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "f74dc8c02e9f3414e1c2a060e00bbe13b5ada704c016e490b3202998c53bddb4",
+        "observedProjectionSha256": "f74dc8c02e9f3414e1c2a060e00bbe13b5ada704c016e490b3202998c53bddb4",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doAdmitMovableMultiEmitterLight"
+    },
+    {
+      "branchAction": "doMoveMovableMultiEmitterLight",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doMoveMovableMultiEmitterLight",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "ea156a33f047bd311ff91389c42c690163d89574684a517bd572f6253baa0e17",
+        "observedProjectionSha256": "ea156a33f047bd311ff91389c42c690163d89574684a517bd572f6253baa0e17",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doMoveMovableMultiEmitterLight"
+    },
+    {
+      "branchAction": "doAdmitOutlineSightEffect",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doAdmitOutlineSightEffect",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "cc6670afda587e2fad2a244307692bdc640d5b85aa6f70100097a55b3f6b25b0",
+        "observedProjectionSha256": "cc6670afda587e2fad2a244307692bdc640d5b85aa6f70100097a55b3f6b25b0",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doAdmitOutlineSightEffect"
+    },
+    {
+      "branchAction": "doProjectOutlineSightAttackAdvantage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doProjectOutlineSightAttackAdvantage",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "c7b5e4bb6011a53b15e59d8a4e511c78cf3b1724a6a007c77d7310d56504c559",
+        "observedProjectionSha256": "c7b5e4bb6011a53b15e59d8a4e511c78cf3b1724a6a007c77d7310d56504c559",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doProjectOutlineSightAttackAdvantage"
+    },
+    {
+      "branchAction": "doAdmitAreaObscurement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doAdmitAreaObscurement",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "57d928deedf525eaa5a558bd1323d96344531e3ab0d6335a52887ab58f465d16",
+        "observedProjectionSha256": "57d928deedf525eaa5a558bd1323d96344531e3ab0d6335a52887ab58f465d16",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doAdmitAreaObscurement"
+    },
+    {
+      "branchAction": "doCleanupAreaObscurementByDuration",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doCleanupAreaObscurementByDuration",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "f8518adc478effc9d4817ad026f40905159eb4ffa521fe15fd6b713d0f3fe96f",
+        "observedProjectionSha256": "f8518adc478effc9d4817ad026f40905159eb4ffa521fe15fd6b713d0f3fe96f",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doCleanupAreaObscurementByDuration"
+    },
+    {
+      "branchAction": "doDisperseAreaObscurementByStrongWind",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doDisperseAreaObscurementByStrongWind",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "84afc1966df75af1e516a0ecb4edd39249317a8c8e6b5ea2ca98401d8779a495",
+        "observedProjectionSha256": "84afc1966df75af1e516a0ecb4edd39249317a8c8e6b5ea2ca98401d8779a495",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doDisperseAreaObscurementByStrongWind"
+    },
+    {
+      "branchAction": "doAdmitAreaHazard",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doAdmitAreaHazard",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "f4bbecc9733e27530b94dd19e475fc82bc9f6c9580e27390974ac5a693fcd623",
+        "observedProjectionSha256": "f4bbecc9733e27530b94dd19e475fc82bc9f6c9580e27390974ac5a693fcd623",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doAdmitAreaHazard"
+    },
+    {
+      "branchAction": "doResolveAreaHazardSavingThrowTrigger",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doResolveAreaHazardSavingThrowTrigger",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "242941eebe7566f14b04b05165d74741285043288eb8938a8af0fa59b2acb481",
+        "observedProjectionSha256": "242941eebe7566f14b04b05165d74741285043288eb8938a8af0fa59b2acb481",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doResolveAreaHazardSavingThrowTrigger"
+    },
+    {
+      "branchAction": "doResolveAreaHazardDifficultTerrainMovement",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doResolveAreaHazardDifficultTerrainMovement",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "3167a9b18c5521f12cf13bcfa343f734c4f4c86e5bdc2cc5e47cca945224611e",
+        "observedProjectionSha256": "3167a9b18c5521f12cf13bcfa343f734c4f4c86e5bdc2cc5e47cca945224611e",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doResolveAreaHazardDifficultTerrainMovement"
+    },
+    {
+      "branchAction": "doResolveAreaHazardMovementDamageTrigger",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doResolveAreaHazardMovementDamageTrigger",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "fd1acf5369a0c0b00797aabc5b56e2045d842c223173058afcf9df9c07c15011",
+        "observedProjectionSha256": "fd1acf5369a0c0b00797aabc5b56e2045d842c223173058afcf9df9c07c15011",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doResolveAreaHazardMovementDamageTrigger"
+    },
+    {
+      "branchAction": "doCleanupAreaHazard",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doCleanupAreaHazard",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "92f27aa2fc3602bbb658bedc1ee2aed5b3fd280de7bb6c92a86485ef10d20b0c",
+        "observedProjectionSha256": "92f27aa2fc3602bbb658bedc1ee2aed5b3fd280de7bb6c92a86485ef10d20b0c",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doCleanupAreaHazard"
+    },
+    {
+      "branchAction": "doRecordTableOwnedSpatialWitnesses",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_spatial_effects_route.rs",
+      "observedActionTaken": "doRecordTableOwnedSpatialWitnesses",
+      "qntFileSha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
+      "routeFactsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "123db40ab237669df297234c769fdb4c8d0e372e3c94af410cc35b8f211b14fe",
+        "observedProjectionSha256": "123db40ab237669df297234c769fdb4c8d0e372e3c94af410cc35b8f211b14fe",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doRecordTableOwnedSpatialWitnesses"
+    },
+    {
+      "branchAction": "doRouteMovementReplacementLandingWitness",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_movement_presentation_route.rs",
+      "observedActionTaken": "doRouteMovementReplacementLandingWitness",
+      "qntFileSha256": "ad41dd95c3b40e4b2ea0b2fe3e3695543e17b658155d0d8c051b7009866d82b9",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation-route-facts.qnt",
+      "routeFactsSha256": "51a07c9ddcaf77192d649f41747e412971f1935c122d654c59e0e48272ad25bd",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "9d7617880550102edd7985feaf8585351b2adb814da71a1228dfdb1bbfbd98f9",
+        "observedProjectionSha256": "9d7617880550102edd7985feaf8585351b2adb814da71a1228dfdb1bbfbd98f9",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doRouteMovementReplacementLandingWitness"
+    },
+    {
+      "branchAction": "doRouteForcedCreatureMovementPresentation",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_movement_presentation_route.rs",
+      "observedActionTaken": "doRouteForcedCreatureMovementPresentation",
+      "qntFileSha256": "ad41dd95c3b40e4b2ea0b2fe3e3695543e17b658155d0d8c051b7009866d82b9",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation-route-facts.qnt",
+      "routeFactsSha256": "51a07c9ddcaf77192d649f41747e412971f1935c122d654c59e0e48272ad25bd",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "1b923f9b64f584138ecabaa2788d6802956a5540911621ef6c627c21f3f31efb",
+        "observedProjectionSha256": "1b923f9b64f584138ecabaa2788d6802956a5540911621ef6c627c21f3f31efb",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doRouteForcedCreatureMovementPresentation"
+    },
+    {
+      "branchAction": "doRouteObjectPushPresentation",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_movement_presentation_route.rs",
+      "observedActionTaken": "doRouteObjectPushPresentation",
+      "qntFileSha256": "ad41dd95c3b40e4b2ea0b2fe3e3695543e17b658155d0d8c051b7009866d82b9",
+      "routeFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation-route-facts.qnt",
+      "routeFactsSha256": "51a07c9ddcaf77192d649f41747e412971f1935c122d654c59e0e48272ad25bd",
+      "result": {
+        "tag": "pass"
+      },
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleState.spatial_effect_route",
+          "BattleState.movement_presentation_route",
+          "qRoute",
+          "qProjectionPayload"
+        ],
+        "comparator": "route-event-list-and-projection-payload-v1",
+        "expectedProjectionSha256": "de7b83cba07ad173b623c02aaf2946304227d8f5811733eedadabd049954fda4",
+        "observedProjectionSha256": "de7b83cba07ad173b623c02aaf2946304227d8f5811733eedadabd049954fda4",
+        "projection": "qRoute+qProjectionPayload",
+        "tag": "state-match"
+      },
+      "traceId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doRouteObjectPushPresentation"
+    }
+  ],
+  "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+  "sourceReducerRouteInventorySha256": "47d653396694fdd963e314174161247c20e431d93a94ec9d32685a3fbc230829",
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
