@@ -26,6 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
+| FRESH-FEXP04-EXACT-ROLL-CHOICE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-roll-choice-replay` | `ralph/fresh-roll-choice-replay` | `a77a41dc752326eab69d8110de78928b9dcb9691` | Ohm the 3rd (`019f0be3-4fe3-78a1-9ad2-bcf35300d6e6`) | pending | running; refreshed package source `0c2ba34c5a45f18b73dfe590e0e86419ba377375` |
 
 ## Historical RRCONV-19 Worktrees
 

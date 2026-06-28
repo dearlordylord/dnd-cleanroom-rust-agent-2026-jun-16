@@ -2806,7 +2806,7 @@
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
     "status": "fexp07-accepted-with-blockers",
-    "activeLane": null,
+    "activeLane": "FRESH-FEXP04-EXACT-ROLL-CHOICE-REPLAY",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "a77a41dc752326eab69d8110de78928b9dcb9691",
@@ -3079,12 +3079,12 @@
         ]
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
-    "activeLaneBaseCommit": null,
-    "workerAgent": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-roll-choice-replay",
+    "activeBranch": "ralph/fresh-roll-choice-replay",
+    "activeLaneBaseCommit": "a77a41dc752326eab69d8110de78928b9dcb9691",
+    "workerAgent": "Ohm the 3rd (019f0be3-4fe3-78a1-9ad2-bcf35300d6e6)",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": null,
+    "nextPlannedLane": "FRESH-FEXP04-EXACT-ROLL-CHOICE-REPLAY",
     "nextWorkRecommendations": [
       "FEXP-07 closes the initially planned fresh expansion lanes. Re-audit GOAL_STATUS_AUDIT.md before launching more work.",
       "Exact roll-choice payloads have source-side and dirty-target focused replay evidence, but not fresh-target acceptance. The next useful proof step is a fresh package refresh/replay for that source feedback or a source-input feedback pass for the remaining FEXP-02 through FEXP-07 blockers."
