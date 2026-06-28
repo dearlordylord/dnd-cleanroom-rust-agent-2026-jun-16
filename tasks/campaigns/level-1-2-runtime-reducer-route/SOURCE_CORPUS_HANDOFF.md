@@ -66,4 +66,4 @@ Source-side work completed:
 
 ## Next Campaign Boundary
 
-This handoff is closed. The next useful campaign boundary is not another target lane for these rows; it is deciding whether to clean up global stale validator hashes / old historical evidence debt, or to start a new source-QNT architecture campaign beyond this dirty cleanroom rehearsal.
+This handoff is closed. The next useful campaign boundary is not another target lane for these rows; it is deciding whether to clean up old historical evidence debt, or to start a new source-QNT architecture campaign beyond this dirty cleanroom rehearsal.

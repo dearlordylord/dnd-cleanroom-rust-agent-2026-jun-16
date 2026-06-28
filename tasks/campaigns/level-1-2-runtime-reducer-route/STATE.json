@@ -19,6 +19,12 @@
       ],
       "note": "Diagnostic dirty target replay only. The batch merged SQNT-07B species/passive adjacent replay, SQNT-07C metamagic replay, and SQNT-07D active-feature spell-benefit replay against copied source package 21504ef764118f5fd13086aa6266f19280196664. Accepted dirty replay rows: 15 for SQNT-07B, 30 for SQNT-07C, and 3 for SQNT-07D. SQNT-07B explicitly leaves 2 inherited Adrenaline Rush feature-resource rows out of scope for this lane. This does not claim fresh target acceptance."
     },
+    "currentHarnessStatus": {
+      "checkedAtHead": "6b889ca181fe3fa66d0d6201ec57d0c1ded18353",
+      "check": "node scripts/check-cleanroom-harness.cjs",
+      "result": "fails-after-validator-provenance",
+      "note": "Guidance hashes and approved validator patch hashes now match the dirty target files. The harness progresses past validator provenance and fails on older historical replay/ledger debt still pinned to source package 564376fd95218a209bb9eae5c9ccb54ca3e04a52, plus pre-existing heuristic findings outside the SQNT-07B/C/D replay batch."
+    },
     "lastSourceRefresh": {
       "sourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
       "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A hit-point-regain-prevention route connector evidence, SQNT-03B next-Attack-Roll mode route connector evidence, SQNT-03C Opportunity Attack denial route connector evidence, SQNT-03D condition/poison rider route connector evidence, SQNT-03E object/light rider route connector evidence and reducer-owner domain-boundary guidance, SQNT-03F mixed-target outcome route connector evidence, SQNT-03G exact damage projection component witness evidence, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim dirty target acceptance, fresh target acceptance, or new Rust runtime coverage for SQNT-03G."

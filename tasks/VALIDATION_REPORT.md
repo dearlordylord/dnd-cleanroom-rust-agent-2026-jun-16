@@ -4456,7 +4456,7 @@ Integration verification results:
 - `cargo test` passed with 234 tests.
 - `cargo clippy --all-targets -- -D warnings` passed.
 - `git diff --check` passed.
-- After refreshing the guidance hashes in `cleanroom-input/MANIFEST.md`, `node scripts/check-cleanroom-harness.cjs` fails at the two stale validator-script hashes for `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs`. Updating those hashes cleanly requires a current-source `tasks/VALIDATOR_PATCH.json` refresh rather than a lane-local SQNT-07 replay fix.
+- After refreshing the guidance hashes in `cleanroom-input/MANIFEST.md` and carrying forward the approved `tasks/VALIDATOR_PATCH.json` to source package `21504ef764118f5fd13086aa6266f19280196664`, `node scripts/check-cleanroom-harness.cjs` progresses past validator provenance. It now fails on older historical replay/ledger debt still pinned to source package `564376fd95218a209bb9eae5c9ccb54ca3e04a52`, plus pre-existing heuristic findings outside the SQNT-07B/C/D replay batch.
 
 Verifier note:
 

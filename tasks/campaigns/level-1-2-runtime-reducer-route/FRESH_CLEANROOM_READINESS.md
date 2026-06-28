@@ -112,11 +112,11 @@ generic connector route shape but was not counted as a new CP8 row.
   fresh target commit `a30e6729711ddc3f595cf008931ba5cd6265c58a` now also
   accepts them through public handoff entrypoints and verifies the current
   package through `python3 tools/verify_current_fresh_target.py`.
-- It does not prove global harness cleanliness. `node
-  scripts/check-cleanroom-harness.cjs` still fails on stale validator hashes in
-  `cleanroom-input/MANIFEST.md` for:
-  - `scripts/check-cleanroom-harness.cjs`
-  - `scripts/cleanroom-branch-coverage-check.cjs`
+- It does not prove global harness cleanliness. After the SQNT-07 bookkeeping
+  pass, `node scripts/check-cleanroom-harness.cjs` progresses past guidance and
+  validator provenance and fails on older historical replay/ledger debt still
+  pinned to source package `564376fd95218a209bb9eae5c9ccb54ca3e04a52`, plus
+  pre-existing heuristic findings outside the SQNT-07B/C/D replay batch.
 - The `73fb3ce66c3fb107a1e53f6a9a5d516c78880391` dirty package refresh
   packages source-feedback Task 3 residual selected-spell route tasks, SQNT-03A
   hit-point-regain-prevention connector evidence, SQNT-03B next-Attack-Roll mode
