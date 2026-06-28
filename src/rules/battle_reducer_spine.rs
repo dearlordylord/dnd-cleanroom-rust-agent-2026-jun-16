@@ -534,6 +534,25 @@ impl BattleHitPointRegainPreventionEffect {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleOpportunityAttackDenialEffect {
+    Inactive,
+    Active,
+    Expired,
+}
+
+impl BattleOpportunityAttackDenialEffect {
+    #[must_use]
+    pub const fn is_present(self) -> bool {
+        matches!(self, Self::Active | Self::Expired)
+    }
+
+    #[must_use]
+    pub const fn prevents_opportunity_attacks(self) -> bool {
+        matches!(self, Self::Active)
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BattleNextAttackRollModeEffect {
     Inactive,
     Active,
@@ -558,7 +577,7 @@ pub struct BattleSpellActiveEffects {
     pub armor_class_base_effect: BattleArmorClassBaseEffect,
     pub hit_point_regain_prevention: BattleHitPointRegainPreventionEffect,
     pub next_attack_roll_against_self_advantage: BattleNextAttackRollModeEffect,
-    pub opportunity_attack_denied: bool,
+    pub opportunity_attack_denied: BattleOpportunityAttackDenialEffect,
     pub poisoned: bool,
     pub next_attack_roll_disadvantage: BattleNextAttackRollModeEffect,
 }
@@ -570,7 +589,7 @@ impl BattleSpellActiveEffects {
             armor_class_base_effect: BattleArmorClassBaseEffect::None,
             hit_point_regain_prevention: BattleHitPointRegainPreventionEffect::Inactive,
             next_attack_roll_against_self_advantage: BattleNextAttackRollModeEffect::Inactive,
-            opportunity_attack_denied: false,
+            opportunity_attack_denied: BattleOpportunityAttackDenialEffect::Inactive,
             poisoned: false,
             next_attack_roll_disadvantage: BattleNextAttackRollModeEffect::Inactive,
         }
@@ -589,7 +608,7 @@ impl BattleSpellActiveEffects {
                 ..Self::none()
             },
             BattleSpellActiveEffectKind::OpportunityAttackDenied => Self {
-                opportunity_attack_denied: true,
+                opportunity_attack_denied: BattleOpportunityAttackDenialEffect::Active,
                 ..Self::none()
             },
             BattleSpellActiveEffectKind::Poisoned => Self {
@@ -608,7 +627,7 @@ impl BattleSpellActiveEffects {
         self.armor_class_base_effect.is_active() as usize
             + self.hit_point_regain_prevention.is_present() as usize
             + self.next_attack_roll_against_self_advantage.is_present() as usize
-            + self.opportunity_attack_denied as usize
+            + self.opportunity_attack_denied.is_present() as usize
             + self.poisoned as usize
             + self.next_attack_roll_disadvantage.is_present() as usize
     }
@@ -10430,7 +10449,11 @@ fn resolve_generic_route_state(
             BattleGenericRouteFill::WithoutFill,
         ) => {
             if let Some(target) = subject.target {
-                with_opportunity_attack_denial(state, target, true)
+                with_opportunity_attack_denial(
+                    state,
+                    target,
+                    BattleOpportunityAttackDenialEffect::Active,
+                )
             } else {
                 state
             }
@@ -10438,13 +10461,27 @@ fn resolve_generic_route_state(
         (
             BattleSubjectKind::ReactionInterdictionDurationExpiry,
             BattleGenericRouteFill::WithoutFill,
-        )
-        | (
+        ) => {
+            if let Some(target) = subject.target {
+                with_opportunity_attack_denial(
+                    state,
+                    target,
+                    BattleOpportunityAttackDenialEffect::Expired,
+                )
+            } else {
+                state
+            }
+        }
+        (
             BattleSubjectKind::ReactionInterdictionActiveEffectCleanup,
             BattleGenericRouteFill::WithoutFill,
         ) => {
             if let Some(target) = subject.target {
-                with_opportunity_attack_denial(state, target, false)
+                with_opportunity_attack_denial(
+                    state,
+                    target,
+                    BattleOpportunityAttackDenialEffect::Inactive,
+                )
             } else {
                 state
             }
@@ -10564,7 +10601,7 @@ fn reaction_interdiction_state_rejection(
     subject: BattleSubject,
 ) -> Option<BattleResolutionInvalidReason> {
     let target = subject.target?;
-    let active = combatant_for(state, target)
+    let effect = combatant_for(state, target)
         .spell_active_effects
         .opportunity_attack_denied;
     match subject.kind {
@@ -10572,11 +10609,13 @@ fn reaction_interdiction_state_rejection(
         | BattleSubjectKind::ReactionInterdictionMovementProjection
         | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
         | BattleSubjectKind::ReactionInterdictionDurationExpiry
-            if !active =>
+            if effect != BattleOpportunityAttackDenialEffect::Active =>
         {
             Some(BattleResolutionInvalidReason::StaleSubject)
         }
-        BattleSubjectKind::ReactionInterdictionActiveEffectCleanup if active => {
+        BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
+            if effect != BattleOpportunityAttackDenialEffect::Expired =>
+        {
             Some(BattleResolutionInvalidReason::StaleSubject)
         }
         _ => None,
@@ -13150,11 +13189,11 @@ fn with_hit_point_regain_prevention(
 fn with_opportunity_attack_denial(
     mut state: BattleState,
     target: Actor,
-    active: bool,
+    effect: BattleOpportunityAttackDenialEffect,
 ) -> BattleState {
     combatant_for_mut(&mut state, target)
         .spell_active_effects
-        .opportunity_attack_denied = active;
+        .opportunity_attack_denied = effect;
     state
 }
 

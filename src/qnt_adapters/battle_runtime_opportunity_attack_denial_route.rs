@@ -1,9 +1,9 @@
 use crate::rules::battle_reducer_spine::{
     discover_spell_attack_damage_subject_observed, reaction_interdiction_route_subject_for_target,
     resolve_battle_subject_observed, start_battle_observed, Actor, AttackRollFacts,
-    BattleEntrypointTrace, BattleGenericRouteFill, BattleResolutionRequest, BattleResolutionResult,
-    BattleSetup, BattleSpellActiveEffectKind, BattleSpellAttackFill, BattleState, BattleSubject,
-    BattleSubjectKind,
+    BattleEntrypointTrace, BattleGenericRouteFill, BattleOpportunityAttackDenialEffect,
+    BattleResolutionRequest, BattleResolutionResult, BattleSetup, BattleSpellActiveEffectKind,
+    BattleSpellAttackFill, BattleState, BattleSubject, BattleSubjectKind,
 };
 
 use super::battle_runtime_reducer_route::{
@@ -159,7 +159,8 @@ fn replay_observed_state_and_route(
                 BattleSubjectKind::ReactionInterdictionDurationExpiry,
                 &mut trace,
             );
-            let expired = !opportunity_attack_denied(&state);
+            let expired = opportunity_attack_denial_effect(&state)
+                == BattleOpportunityAttackDenialEffect::Expired;
             let state = resolve_reaction_interdiction_without_fill(
                 state,
                 BattleSubjectKind::ReactionInterdictionActiveEffectCleanup,
@@ -276,6 +277,10 @@ fn resolved_state(result: BattleResolutionResult, context: &str) -> BattleState 
 }
 
 fn opportunity_attack_denied(state: &BattleState) -> bool {
+    opportunity_attack_denial_effect(state).prevents_opportunity_attacks()
+}
+
+fn opportunity_attack_denial_effect(state: &BattleState) -> BattleOpportunityAttackDenialEffect {
     state
         .skeleton
         .spell_active_effects

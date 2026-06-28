@@ -2713,6 +2713,67 @@ fn opportunity_attack_denial_dirty_replay_routes_through_reducer() {
 }
 
 #[test]
+fn opportunity_attack_denial_cleanup_requires_turn_boundary_expiry() {
+    use crate::rules::battle_reducer_spine::{
+        reaction_interdiction_route_subject_for_target, resolve_battle_subject_observed,
+        start_battle_observed, Actor, BattleEntrypointTrace, BattleGenericRouteFill,
+        BattleOpportunityAttackDenialEffect, BattleResolutionInvalidReason,
+        BattleResolutionRequest, BattleResolutionResult, BattleSetup, BattleSpellActiveEffectKind,
+        BattleSubjectKind,
+    };
+
+    let mut setup = BattleSetup::standard();
+    setup.skeleton.spell_active_effects =
+        crate::rules::battle_reducer_spine::BattleSpellActiveEffects::with_effect(
+            BattleSpellActiveEffectKind::OpportunityAttackDenied,
+        );
+    let mut trace = BattleEntrypointTrace::default();
+    let state = start_battle_observed(setup, &mut trace).state;
+    let admission_subject = reaction_interdiction_route_subject_for_target(
+        &state,
+        BattleSubjectKind::ReactionInterdictionActiveEffectAdmission,
+        Actor::Skeleton,
+    );
+    let BattleResolutionResult::Resolved { state } = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(
+            admission_subject,
+            BattleGenericRouteFill::WithoutFill,
+        )
+        .expect("admission should accept without-fill"),
+        &mut trace,
+    ) else {
+        panic!("active-effect admission should resolve");
+    };
+
+    let cleanup_subject = reaction_interdiction_route_subject_for_target(
+        &state,
+        BattleSubjectKind::ReactionInterdictionActiveEffectCleanup,
+        Actor::Skeleton,
+    );
+    let BattleResolutionResult::Invalid { reason, state, .. } = resolve_battle_subject_observed(
+        state,
+        BattleResolutionRequest::generic_route(
+            cleanup_subject,
+            BattleGenericRouteFill::WithoutFill,
+        )
+        .expect("cleanup should accept without-fill"),
+        &mut trace,
+    ) else {
+        panic!("cleanup before duration expiry should reject");
+    };
+
+    assert_eq!(reason, BattleResolutionInvalidReason::StaleSubject);
+    assert_eq!(
+        state
+            .skeleton
+            .spell_active_effects
+            .opportunity_attack_denied,
+        BattleOpportunityAttackDenialEffect::Active
+    );
+}
+
+#[test]
 fn hit_point_regain_prevention_cleanup_requires_turn_boundary_expiry() {
     use crate::rules::battle_reducer_spine::{
         hit_point_regain_prevention_route_subject_for_target, resolve_battle_subject_observed,
