@@ -5,15 +5,14 @@ repositories as `cleanroom-input/guidance/**`.
 
 Use this pack with the copied RAW, QNT, source branch inventory, reducer-route
 inventory, domain language, and assumptions. Those files are the cleanroom
-authority; production TypeScript code and previous cleanroom attempts are not
-inputs.
+authority for target work.
 
 For the level-1 through level-5 reducer-route package, the acceptance slice is
 the `freshCleanroomPackageGate` record in
 `cleanroom-input/branch-coverage/reducer-route-inventory.json`. A target task
 is acceptable only from copied corpus evidence and harness-generated replay
 evidence; dirty cleanroom ledgers, prior validation reports, adapters, and
-target code are not evidence.
+target code are diagnostic history.
 
 Core rules:
 
@@ -28,8 +27,9 @@ Core rules:
   `component-first` rows. Target replay evidence must match `qComponentRoute`
   rather than a driver-local helper.
 - Treat `catalog-after-substrate` and `substrate-first` rows as blocked until
-  their generic route substrate is executable. Selected authored identity never
-  becomes production reducer dispatch.
+  their generic route substrate is executable. Selected authored identity stays
+  at catalog, selection, adapter, test, evidence, and support-profile admission
+  boundaries.
 - Keep QNT/MBT replay adapters quarantined from production modules.
 - Treat forbidden source-code reads and production reducer dispatch on
   authored or fixture identity as the same cleanroom-boundary violation class.
@@ -37,10 +37,10 @@ Core rules:
   procedures, and battle-owned state; fixture identity belongs only in
   adapters, tests, evidence, catalog/selection boundaries, or documented
   support-profile admission.
-- Do not dispatch production runtime behavior on authored ids, names, slugs,
-  provenance headings, page references, or official catalog labels.
-- Do not store derivable facts beside their owners unless the duplicate is an
-  explicit executable boundary projection.
+- Keep authored ids, names, slugs, provenance headings, page references, and
+  official catalog labels outside production runtime dispatch.
+- Store derivable facts at their owners, with explicit executable boundary
+  projections when a duplicate is required.
 - Record missing architecture guidance as a `source-qnt-corpus` blocker instead
   of guessing.
 
