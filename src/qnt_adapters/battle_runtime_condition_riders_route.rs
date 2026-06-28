@@ -15,7 +15,7 @@ use super::battle_runtime_reducer_route::{
     ReducerRouteFillKind, ReducerRouteOwnerGroup, ReducerRouteSubjectFamily,
 };
 
-pub const CONNECTOR_ACTIONS: [&str; 16] = [
+pub const CONNECTOR_ACTIONS: [&str; 18] = [
     "doAdmitAttackHitPoisonConditionRider",
     "doRejectAttackHitPoisonConditionRiderByImmunity",
     "doExpireAttackHitPoisonConditionRider",
@@ -32,6 +32,8 @@ pub const CONNECTOR_ACTIONS: [&str; 16] = [
     "doAdmitFailedSaveSleepIncapacitatedConditionRider",
     "doOpenSleepRepeatSaveFrontier",
     "doResolveSleepRepeatSaveFailureTransitionToUnconscious",
+    "doAdmitFailedSaveParalyzedUntilSpellEndRepeatSaveConditionRider",
+    "doAdmitFailedSaveIncapacitatedProneSelfEndBlockedConditionRider",
 ];
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -48,6 +50,8 @@ pub enum ConditionRiderRouteFact {
     RepeatSaveSucceeded,
     RepeatSaveFailed,
     Transition(BattleConditionRiderCondition),
+    ImpliedCondition(BattleConditionRiderCondition),
+    SelfEndBlocked(BattleConditionRiderCondition),
     EscapeCheckFrontierOpened,
     EscapeCheckSucceeded,
     Expired,
@@ -448,6 +452,10 @@ fn seed_condition(action: &str) -> BattleConditionRiderCondition {
         action if action.contains("Deafened") => BattleConditionRiderCondition::Deafened,
         action if action.contains("Restrained") => BattleConditionRiderCondition::Restrained,
         action if action.contains("Sleep") => BattleConditionRiderCondition::Incapacitated,
+        action if action.contains("Paralyzed") => BattleConditionRiderCondition::Paralyzed,
+        action if action.contains("IncapacitatedProne") => {
+            BattleConditionRiderCondition::Incapacitated
+        }
         action if action.contains("Blinded") => BattleConditionRiderCondition::Blinded,
         action => panic!("unsupported condition-rider action {action}"),
     }
@@ -467,6 +475,9 @@ fn seed_boundary(action: &str) -> BattleConditionRiderBoundary {
         action if action.contains("Restrained") => BattleConditionRiderBoundary::UntilSpellEnds,
         action if action.contains("Sleep") => {
             BattleConditionRiderBoundary::UntilAffectedTargetNextTurnEnds
+        }
+        action if action.contains("Paralyzed") || action.contains("IncapacitatedProne") => {
+            BattleConditionRiderBoundary::UntilSpellEnds
         }
         action if action.contains("Blinded") => {
             BattleConditionRiderBoundary::UntilSourceNextTurnEnds
@@ -509,7 +520,7 @@ fn expected_for_action(action: &str) -> (ConditionRiderRouteWitness, Vec<Reducer
     } else {
         route.extend(condition_admission_route());
         facts.push(ConditionRiderRouteFact::ConditionApplied);
-        facts.push(ConditionRiderRouteFact::Boundary(seed_boundary(action)));
+        facts.extend(admission_boundary_facts(action));
         BattleConditionRiderEffect::Active {
             condition: seed_condition(action),
             boundary: seed_boundary(action),
@@ -759,6 +770,29 @@ fn host_facts(action: &str) -> Vec<ConditionRiderRouteFact> {
     if action.contains("Restrained") {
         facts.push(ConditionRiderRouteFact::AthleticsActionEscapeCheck);
     }
+    if action.contains("Paralyzed") {
+        facts.push(ConditionRiderRouteFact::ImpliedCondition(
+            BattleConditionRiderCondition::Incapacitated,
+        ));
+    }
+    if action.contains("IncapacitatedProne") {
+        facts.push(ConditionRiderRouteFact::Condition(
+            BattleConditionRiderCondition::Prone,
+        ));
+        facts.push(ConditionRiderRouteFact::SelfEndBlocked(
+            BattleConditionRiderCondition::Prone,
+        ));
+    }
+    facts
+}
+
+fn admission_boundary_facts(action: &str) -> Vec<ConditionRiderRouteFact> {
+    let mut facts = vec![ConditionRiderRouteFact::Boundary(seed_boundary(action))];
+    if action.contains("Paralyzed") || action.contains("IncapacitatedProne") {
+        facts.push(ConditionRiderRouteFact::Boundary(
+            BattleConditionRiderBoundary::AffectedTargetEndTurnRepeatSave,
+        ));
+    }
     facts
 }
 
@@ -817,6 +851,8 @@ fn fact_ref(fact: &ConditionRiderRouteFact) -> &'static str {
         ConditionRiderRouteFact::RepeatSaveSucceeded => "RepeatSaveSucceeded",
         ConditionRiderRouteFact::RepeatSaveFailed => "RepeatSaveFailed",
         ConditionRiderRouteFact::Transition(condition) => condition_ref(*condition),
+        ConditionRiderRouteFact::ImpliedCondition(condition) => condition_ref(*condition),
+        ConditionRiderRouteFact::SelfEndBlocked(condition) => condition_ref(*condition),
         ConditionRiderRouteFact::EscapeCheckFrontierOpened => "EscapeCheckFrontierOpened",
         ConditionRiderRouteFact::EscapeCheckSucceeded => "EscapeCheckSucceeded",
         ConditionRiderRouteFact::Expired => "Expired",
@@ -846,6 +882,8 @@ fn condition_ref(condition: BattleConditionRiderCondition) -> &'static str {
         BattleConditionRiderCondition::Deafened => "DeafenedCondition",
         BattleConditionRiderCondition::Restrained => "RestrainedCondition",
         BattleConditionRiderCondition::Incapacitated => "IncapacitatedCondition",
+        BattleConditionRiderCondition::Paralyzed => "ParalyzedCondition",
+        BattleConditionRiderCondition::Prone => "ProneCondition",
         BattleConditionRiderCondition::Unconscious => "UnconsciousCondition",
     }
 }

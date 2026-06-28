@@ -4461,3 +4461,37 @@ Integration verification results:
 Verifier note:
 
 - `tasks/target-replay-evidence/SQNT-07C-metamagic-current-package-replay.json` is aggregate evidence across selected metamagic driver obligations. The per-file evidence checker intentionally fails if pointed at only `battle-runtime-sorcerer-metamagic.route.mbt.qnt`, because that route connector is recorded as connector authority while each run is keyed to its selected-driver source obligation.
+## SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY
+
+- Lane: `SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY`
+- Base check: declared base `2645478`; `HEAD` was `264547898ce2c64e9a49266bf2e1a9585301d288`; `git merge-base --is-ancestor 2645478 HEAD` passed.
+- Cleanroom source package: `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb`
+- Source branch inventory SHA: `aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862`
+- Evidence file: `tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json`
+
+Accepted rows:
+
+- 18 copied condition-rider connector actions replay through public reducer route events, including Paralyzed with implied Incapacitated and laughter-style Incapacitated plus Prone with blocked self-ending fact.
+- 9 copied marked-damage/immunity connector actions replay through public reducer route events for marked attack-roll damage, target-drop transfer timing, condition-immunity rejection, turn-start Temporary Hit Points, and Concentration cleanup.
+- 4 selected level-one buff/mark rows now count through the copied generic marked/immunity connector route facts: Heroism admission/grant, Heroism cleanup, Hunter's Mark same-turn transfer, and Hex later-turn transfer.
+
+Blocked rows:
+
+- Selected condition-saving-throw identity rows are not counted by this dirty lane. The generic condition-rider connector is accepted, but the selected condition-saving adapter was not refreshed to replay selected rows through those generic facts.
+
+RAW/domain check:
+
+- Read copied RAW/domain anchors for `Condition`, `Immunity`, `Temporary Hit Points`, `Concentration`, `Paralyzed`, `Prone`, `Incapacitated`, `Heroism`, `Hex`, `Hunter's Mark`, `Hideous Laughter`, and `Hold Person` in `cleanroom-input/raw/srd-5.2.1/**` and `cleanroom-input/domain/UBIQUITOUS_LANGUAGE.md`.
+- No selected spell/name/id/provenance dispatch was added to production reducer behavior.
+
+Verification:
+
+- `cargo test dirty_replay_routes_through_reducer` passed.
+- `cargo test level1_buff_mark_smite_adapter_replays_all_branches` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json` passed with 4 covered obligations and 8 explicit target blockers.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `jq empty tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json tasks/STATE_OWNER_MANIFEST.json tasks/RUN_LEDGER.json` passed before ledger append; rerun after ledger append is recorded in the run ledger.
+- `git diff --check` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed on pre-existing stale ledger/evidence drift from older package SHAs and pre-existing heuristic findings. The lane-specific selected evidence checker above passed after recording non-lane selected rows as target blockers.

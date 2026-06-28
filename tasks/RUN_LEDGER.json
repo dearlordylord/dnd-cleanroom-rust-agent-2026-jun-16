@@ -4381,9 +4381,134 @@
         }
       ],
       "taskId": "SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY"
+    },
+    {
+      "taskId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY",
+      "assignmentId": "level-1-2-battle",
+      "laneId": "battle",
+      "campaignLaneId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY",
+      "manifestSourceCommitSha": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
+      "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+      "sourceReducerRouteInventorySha256": "47d653396694fdd963e314174161247c20e431d93a94ec9d32685a3fbc230829",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt"
+      ],
+      "routeConnectorAuthorities": [
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+          "sha256": "805a7841559c6d0cbd5c1592c19da43f593493e4c68d70f51609e1a4d3167cbb"
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-rider-route-facts.qnt",
+          "sha256": "c180489d116f90aef70aede76cf1de5fbe3b48589a2f3262d4357346d4a22062"
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt",
+          "sha256": "482c779f657248cf3c51fddfb647f33ff327473ce644edc5266f1fe7e02899eb"
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-route-facts.qnt",
+          "sha256": "c75e5985025ad5811647ef383709435ff99311009d8fa5674fc1b2205c9aad71"
+        }
+      ],
+      "acceptedRows": {
+        "conditionRiderConnectorRows": 18,
+        "markedDamageImmunityConnectorRows": 9,
+        "selectedRowsThroughGenericFacts": 4
+      },
+      "blockedRows": {
+        "selectedRowsOutsideLaneGenericFacts": 8,
+        "selectedConditionSavingAdapterNotRefreshed": true
+      },
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY/START_GATE.json",
+          "sha256": "d764217261861240eec0e593e39ae5db37ea6d96db73e5a34b11ce3aa49910c5"
+        },
+        "engineDepth": {
+          "path": "tasks/history/SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "86628bb5f45bb4282bc511398ef712bababa4730958b624a4eb0e2b05e21b535"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY/STATE_OWNER_MANIFEST.json",
+          "sha256": "adc675c645dd5e72176dc94d98c0a7fa5256c140b3f9123426dffd09953b2bf0"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY/REVIEW_LOOP.json",
+          "sha256": "143f6ff555242d2133816bfad012ba59a7c1a6221789b300400d0d8015cf55cb"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY/DECIDER_DECISION.json",
+          "sha256": "2db0944aa09b89d513c86d97fa66621178dd8531cc7bf1ce8cb5c599dbfcacd7"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json",
+          "sha256": "01e111de3305fdd54ead548adfce28f62de4b539199863d5dd6c28ae9383c80a",
+          "acceptedRowCount": 4,
+          "targetBlockedRowCount": 8,
+          "acceptedConnectorRowCount": 27,
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPoints#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHexMarkedDamageRiderAndLaterTurnTransfer#step:doHexMarkedDamageRiderAndLaterTurnTransfer",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer"
+          ],
+          "acceptedEvidenceRefs": [
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPoints#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHexMarkedDamageRiderAndLaterTurnTransfer#step:doHexMarkedDamageRiderAndLaterTurnTransfer",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "git merge-base --is-ancestor 2645478 HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test dirty_replay_routes_through_reducer",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test level1_buff_mark_smite_adapter_replays_all_branches",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "jq empty tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json tasks/STATE_OWNER_MANIFEST.json tasks/RUN_LEDGER.json",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-cleanroom-harness.cjs",
+          "status": "fail: historical stale ledger/evidence and pre-existing heuristic findings outside SQNT-07A; lane-specific target evidence checker passed"
+        }
+      ]
     }
   ],
-  "manifestSourceCommitSha": "21504ef764118f5fd13086aa6266f19280196664",
+  "manifestSourceCommitSha": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
   "schemaVersion": 1,
   "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862"
 }
