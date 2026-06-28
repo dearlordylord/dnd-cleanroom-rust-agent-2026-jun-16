@@ -1,0 +1,38 @@
+{
+  "baseCheck": {
+    "ancestorCommand": "git merge-base --is-ancestor 84c637980698971b3df1d8dc4a613bc7b7bc50af HEAD",
+    "declaredBaseSha": "84c637980698971b3df1d8dc4a613bc7b7bc50af",
+    "headSha": "84c637980698971b3df1d8dc4a613bc7b7bc50af",
+    "result": "pass"
+  },
+  "preImplementationStatus": {
+    "command": "git status --short",
+    "output": "",
+    "result": "clean"
+  },
+  "schemaVersion": 1,
+  "startHeadSha": "84c637980698971b3df1d8dc4a613bc7b7bc50af",
+  "taskId": "SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY",
+  "taskScope": {
+    "assignmentId": "level-1-2-runtime-reducer-route",
+    "laneId": "SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY",
+    "parentRouteTaskId": "L15-RR07-FU08-METAMAGIC-GOVERNOR-AND-OPTION-SUBSTRATES",
+    "routeClass": "metamagic-current-package-replay",
+    "routeConnector": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic.route.mbt.qnt",
+    "selectedDrivers": [
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-spell-attack-sequence-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-careful-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-distant-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-empowered-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-extended-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-heightened-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-seeking-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-subtle-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-transmuted-selected-identity.mbt.qnt",
+      "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-twinned-selected-identity.mbt.qnt"
+    ]
+  }
+}

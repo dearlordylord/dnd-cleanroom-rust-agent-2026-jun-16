@@ -102,6 +102,8 @@ mod battle_runtime_sorcerer_metamagic_empowered_selected_identity;
 mod battle_runtime_sorcerer_metamagic_extended_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_heightened_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_heightened_selected_identity;
+#[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_route.rs"]
+mod battle_runtime_sorcerer_metamagic_route;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_seeking_selected_identity.rs"]
 mod battle_runtime_sorcerer_metamagic_seeking_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_sorcerer_metamagic_selected_identity.rs"]
@@ -1038,6 +1040,14 @@ use battle_runtime_sorcerer_metamagic_heightened_selected_identity::{
     replay_observed_action as replay_heightened_spell_action,
     replay_observed_route as replay_heightened_spell_route,
     BRANCH_ACTIONS as HEIGHTENED_SPELL_BRANCH_ACTIONS,
+};
+use battle_runtime_sorcerer_metamagic_route::{
+    expected_route as expected_metamagic_route_connector_route,
+    expected_witness as expected_metamagic_route_connector_witness,
+    projection_payload as metamagic_route_connector_projection_payload,
+    replay_observed_action as replay_metamagic_route_connector_action,
+    replay_observed_route as replay_metamagic_route_connector_route,
+    BRANCH_ACTIONS as METAMAGIC_ROUTE_CONNECTOR_BRANCH_ACTIONS,
 };
 use battle_runtime_sorcerer_metamagic_seeking_selected_identity::{
     expected_route as expected_seeking_spell_route,
@@ -8148,6 +8158,24 @@ fn quickened_metamagic_adapter_replays_all_branches() {
         let route_payload = reducer_route_payload(&route);
         assert!(route_payload.contains("MetamagicOptionSpellRouteSubject"));
         assert!(route_payload.contains("BattleSpellSlotAndActionEconomyOwner"));
+    }
+}
+
+#[test]
+fn sorcerer_metamagic_route_connector_replays_all_branches() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-sorcerer-metamagic.route.mbt.qnt.
+    for action in METAMAGIC_ROUTE_CONNECTOR_BRANCH_ACTIONS {
+        let observed = replay_metamagic_route_connector_action(action);
+        assert_eq!(observed, expected_metamagic_route_connector_witness(action));
+        let route = replay_metamagic_route_connector_route(action);
+        assert_eq!(
+            reducer_route_payload(&route),
+            reducer_route_payload(&expected_metamagic_route_connector_route(action))
+        );
+        let projection = metamagic_route_connector_projection_payload(observed, &route);
+        assert!(projection.contains("Metamagic"));
+        assert!(projection.contains("BattleFeatureResourceOwner"));
     }
 }
 

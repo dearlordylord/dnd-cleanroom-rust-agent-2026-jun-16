@@ -1,0 +1,166 @@
+{
+  "accumulatorGrowth": [],
+  "adapterModules": [
+    {
+      "adapterScope": "Quickened metamagic governor selected replay through public BattleState reducer entrypoints and typed option/resource facts.",
+      "path": "src/qnt_adapters/battle_runtime_quickened_spell_governor.rs",
+      "quarantinedWitnessNames": [
+        "doRejectOnePerSpell",
+        "doRejectPriorLevelOnePlusSpell",
+        "doRejectUnaffordable",
+        "doRejectUnknownOption",
+        "doRejectUnsupportedSecondOption",
+        "doResolveQuickenedAfterMagicActionSpent",
+        "doResolveQuickenedDirectCondition",
+        "doResolveQuickenedRestoration",
+        "doResolveQuickenedRollModifier",
+        "doResolveQuickenedSaveGatedCondition",
+        "doResolveQuickenedSaveGatedConditionImmunity",
+        "mbt::actionTaken",
+        "observedActionTaken",
+        "traceId",
+        "qntFileSha256",
+        "sourceBranchInventorySha256",
+        "cleanroomManifestSourceCommitSha",
+        "targetProfile",
+        "targetProfileSha256",
+        "stateCheck"
+      ],
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/SQNT-07C-metamagic-current-package-replay.json"
+      ]
+    },
+    {
+      "adapterScope": "Selected-option metamagic replay through BattleMetamagicOptionFacts, Sorcery Point resource ownership, spell procedure shape, and option-specific projection owners.",
+      "path": "src/qnt_adapters/battle_runtime_sorcerer_metamagic*.rs",
+      "quarantinedWitnessNames": [
+        "doResolveCarefulSaveGatedDamage",
+        "doResolveCarefulSaveGatedNoEffect",
+        "doResolveDistantObjectLight",
+        "doResolveEmpoweredSpellDamageReroll",
+        "doResolveExtendedCreatureSizeIncrease",
+        "doResolveHeightenedGreaseEntrySave",
+        "doResolveHeightenedGustOfWindEndTurnSave",
+        "doResolveHeightenedHideousLaughter",
+        "doResolveHeightenedSaveGatedConditionEndTurnSave",
+        "doResolveHeightenedSaveGatedDamage",
+        "doResolveSeekingSpellAttackReroll",
+        "doResolveQuickenedSaveGatedDamage",
+        "doResolveQuickenedSpellAttack",
+        "doResolveQuickenedSpellAttackSequence",
+        "doRejectSubtleFalseLifeWithoutSorceryPoints",
+        "doResolveSubtleFalseLife",
+        "doResolveTransmutedSaveGatedDamage",
+        "doResolveTransmutedSpellAttack",
+        "doResolveTwinnedTargetCount",
+        "doRouteMetamagicResourceGovernor",
+        "doRejectMetamagicResourceGovernor",
+        "doRouteBonusActionCastingTime",
+        "doRejectPriorLevelOnePlusSpell",
+        "doRouteSavingThrowProtection",
+        "doRouteSavingThrowRollMode",
+        "doRouteDamageTypeSubstitution",
+        "doRouteEffectiveSpellLevel",
+        "doRouteSpellRangeProjection",
+        "doRouteSpellDurationProjection",
+        "doRouteSpellComponentProjection",
+        "doRouteMissedSpellAttackReroll",
+        "doRouteDamageDiceReroll",
+        "mbt::actionTaken",
+        "observedActionTaken",
+        "traceId",
+        "qntFileSha256",
+        "sourceBranchInventorySha256",
+        "cleanroomManifestSourceCommitSha",
+        "targetProfile",
+        "targetProfileSha256",
+        "stateCheck"
+      ],
+      "routeConnectorAuthority": {
+        "inventoryKind": "reducer-route-inventory",
+        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic.route.mbt.qnt",
+        "sha256": "e0ecec8d1ea2c0e5019e9382fde7ea93bffbe52dc40ec6a68ad5db1b9b6ff2ac"
+      },
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/SQNT-07C-metamagic-current-package-replay.json"
+      ]
+    }
+  ],
+  "expectedNextReuse": [
+    {
+      "api": "BattleMetamagicOptionFacts",
+      "driver": "future metamagic selected-option and route connector lanes needing option facts without authored option identity dispatch",
+      "module": "src/rules/battle_reducer_spine.rs"
+    },
+    {
+      "api": "BattleMetamagicOptionSpellSubstrate",
+      "driver": "future metamagic projection-owner lanes for damage dice, attack reroll, component, damage type, and duration projections",
+      "module": "src/rules/battle_reducer_spine.rs"
+    }
+  ],
+  "productionModulesExtended": [
+    {
+      "domainApis": [
+        "BattleMetamagicOptionFacts",
+        "BattleMetamagicSpellModification",
+        "BattleMetamagicOptionSpellEffect",
+        "BattleMetamagicOptionSpellFill",
+        "BattleMetamagicOptionSpellSubstrate",
+        "BattleMetamagicSpellSubstrate",
+        "BattleQuickenedSpellSubstrate",
+        "resolve_battle_subject_observed"
+      ],
+      "path": "src/rules/battle_reducer_spine.rs",
+      "reason": "Owns public reducer entrypoints, typed option facts, Sorcery Point spend, spell procedure effects, and projection-owner substrates used by all accepted metamagic rows.",
+      "role": "domain-engine"
+    },
+    {
+      "domainApis": [
+        "QuickenedSpellGovernorState",
+        "QuickenedMetamagicState",
+        "CarefulSpellState",
+        "DistantSpellState",
+        "EmpoweredSpellState",
+        "ExtendedSpellState",
+        "HeightenedSpellState",
+        "SeekingSpellState",
+        "SubtleSpellState",
+        "TransmutedSpellState",
+        "TwinnedSpellState"
+      ],
+      "path": "src/rules/sorcerer_metamagic.rs",
+      "reason": "Owns typed metamagic witness projection states consumed by reducer-observed adapters.",
+      "role": "runtime-projection"
+    },
+    {
+      "domainApis": [
+        "QuickenedSpellGovernorState",
+        "QuickenedSpellInvalidKind",
+        "QuickenedSpellScenarioOutcome"
+      ],
+      "path": "src/rules/quickened_spell_governor.rs",
+      "reason": "Owns quickened governor projection state for resource rejection, one-option-per-spell rejection, and same-turn level-one-plus rejection.",
+      "role": "runtime-projection"
+    },
+    {
+      "domainApis": [
+        "ReducerRouteSubjectFamily::MetamagicSpellGovernor",
+        "ReducerRouteSubjectFamily::MetamagicBonusActionCastingTime",
+        "ReducerRouteSubjectFamily::MetamagicSavingThrowProtection",
+        "ReducerRouteSubjectFamily::MetamagicSavingThrowRollMode",
+        "ReducerRouteSubjectFamily::MetamagicDamageTypeSubstitution",
+        "ReducerRouteSubjectFamily::MetamagicEffectiveSpellLevel",
+        "ReducerRouteSubjectFamily::MetamagicSpellRangeProjection",
+        "ReducerRouteSubjectFamily::MetamagicSpellDurationProjection",
+        "ReducerRouteSubjectFamily::MetamagicSpellComponentProjection",
+        "ReducerRouteSubjectFamily::MetamagicMissedSpellAttackReroll",
+        "ReducerRouteSubjectFamily::MetamagicDamageDiceReroll"
+      ],
+      "path": "src/qnt_adapters/battle_runtime_reducer_route.rs",
+      "reason": "Maps copied metamagic route connector vocabulary into dirty target route-event payloads without production authored-identity dispatch.",
+      "role": "runtime-projection"
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "SQNT-07C-METAMAGIC-CURRENT-PACKAGE-REPLAY"
+}
