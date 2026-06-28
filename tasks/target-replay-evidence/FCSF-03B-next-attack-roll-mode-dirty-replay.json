@@ -26,11 +26,12 @@
       ]
     },
     {
-      "observedProjectionSha256": "c2455ced2a452a823e6c6ce8e1262640e8e674ba15bc0839c4f043eb8ab1804d",
+      "observedProjectionSha256": "f49a701ce2a5d1da0bb8a8add0c62b23d5ce64a4df01f98767c39999e7159732",
       "observedThrough": "BattleEntrypointTrace.route_events from start_battle_observed, discover_generic_route_subject_observed, resolve_battle_subject_observed, save_gated_next_attack_roll_mode_subject_for_target, and next_attack_roll_mode_route_subject_for_target",
       "routeConnectorAction": "doAdmitHostEffectNextAttackDisadvantageEffect",
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
+        "BattleSpellSlotAndActionEconomyOwner",
         "BattleTargetSelectionOwner",
         "BattleSavingThrowOutcomeOwner",
         "BattleActiveEffectOwner"
@@ -59,11 +60,12 @@
       ]
     },
     {
-      "observedProjectionSha256": "96cad894ac4444559dab955715c0ee7f85756129476fcf2f17b9b788f8cf4938",
+      "observedProjectionSha256": "bfd6feca553a5c98bac646135f0d845a611ed8140971b37d7d6926b1cc0778a7",
       "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints and reducer-owned save-gated and next-Attack-Roll mode subject construction",
       "routeConnectorAction": "doProjectDisadvantageOnAffectedTargetNextAttack",
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
+        "BattleSpellSlotAndActionEconomyOwner",
         "BattleTargetSelectionOwner",
         "BattleSavingThrowOutcomeOwner",
         "BattleActiveEffectOwner",
@@ -96,11 +98,12 @@
       ]
     },
     {
-      "observedProjectionSha256": "852d800fdb5d1c83092efe2a70e7b765e29d5ba44093f13c148b8f65c15acc63",
+      "observedProjectionSha256": "8a96c9cc315272abf4adbb9edab64c342005acce8d34f61f3c31b8220ff29369",
       "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints and reducer-owned save-gated and next-Attack-Roll mode subject construction",
       "routeConnectorAction": "doExpireDisadvantageAtBoundary",
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
+        "BattleSpellSlotAndActionEconomyOwner",
         "BattleTargetSelectionOwner",
         "BattleSavingThrowOutcomeOwner",
         "BattleActiveEffectOwner",
@@ -179,8 +182,8 @@
           "BattleNextAttackRollModeEffect::Inactive"
         ],
         "comparator": "route-event-list",
-        "expectedProjectionSha256": "96cad894ac4444559dab955715c0ee7f85756129476fcf2f17b9b788f8cf4938",
-        "observedProjectionSha256": "96cad894ac4444559dab955715c0ee7f85756129476fcf2f17b9b788f8cf4938",
+        "expectedProjectionSha256": "bfd6feca553a5c98bac646135f0d845a611ed8140971b37d7d6926b1cc0778a7",
+        "observedProjectionSha256": "bfd6feca553a5c98bac646135f0d845a611ed8140971b37d7d6926b1cc0778a7",
         "projection": "qRoute",
         "tag": "state-match"
       },
