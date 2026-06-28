@@ -58,6 +58,8 @@ mod battle_runtime_magic_missile;
 mod battle_runtime_movement_forced_movement_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_next_attack_roll_mode_route.rs"]
 mod battle_runtime_next_attack_roll_mode_route;
+#[path = "../qnt_adapters/battle_runtime_opportunity_attack_denial_route.rs"]
+mod battle_runtime_opportunity_attack_denial_route;
 #[path = "../qnt_adapters/battle_runtime_quickened_spell_governor.rs"]
 mod battle_runtime_quickened_spell_governor;
 #[path = "../qnt_adapters/battle_runtime_reaction_casting_time.rs"]
@@ -863,6 +865,14 @@ use battle_runtime_next_attack_roll_mode_route::{
     replay_observed_action as replay_next_attack_roll_mode_action,
     replay_observed_route as replay_next_attack_roll_mode_route,
     CONNECTOR_ACTIONS as NEXT_ATTACK_ROLL_MODE_CONNECTOR_ACTIONS,
+};
+use battle_runtime_opportunity_attack_denial_route::{
+    expected_route as expected_opportunity_attack_denial_route,
+    expected_witness as expected_opportunity_attack_denial_witness,
+    projection_payload as opportunity_attack_denial_projection_payload,
+    replay_observed_action as replay_opportunity_attack_denial_action,
+    replay_observed_route as replay_opportunity_attack_denial_route,
+    CONNECTOR_ACTIONS as OPPORTUNITY_ATTACK_DENIAL_CONNECTOR_ACTIONS,
 };
 use battle_runtime_quickened_spell_governor::{
     expected_route as expected_quickened_spell_route,
@@ -2660,6 +2670,41 @@ fn next_attack_roll_mode_dirty_replay_routes_through_reducer() {
         assert!(route_payload.contains("BattleActiveEffectOwner"));
         if action.contains("Project") {
             assert!(route_payload.contains("BattleAttackRollModeOwner"));
+        }
+        if action.contains("Expire") {
+            assert!(route_payload.contains("BattleTurnBoundaryOwner"));
+        }
+    }
+}
+
+#[test]
+fn opportunity_attack_denial_dirty_replay_routes_through_reducer() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-opportunity-attack-denial.route.mbt.qnt; RAW:
+    // cleanroom-input/raw/srd-5.2.1/Playing-the-Game.md "Making an Attack"
+    // and "Opportunity Attacks"; cleanroom-input/raw/srd-5.2.1/
+    // Rules-Glossary.md "Reaction" and "Opportunity Attacks".
+    for action in OPPORTUNITY_ATTACK_DENIAL_CONNECTOR_ACTIONS {
+        let observed = replay_opportunity_attack_denial_action(action);
+        let observed_route = replay_opportunity_attack_denial_route(action);
+        assert_eq!(observed, expected_opportunity_attack_denial_witness(action));
+        assert_eq!(
+            observed_route,
+            expected_opportunity_attack_denial_route(action)
+        );
+        let projection_payload = opportunity_attack_denial_projection_payload(&observed);
+        assert!(projection_payload
+            .contains("RouteReactionInterdictionTriggerFamily.OpportunityAttackTriggerFamily"));
+        assert!(projection_payload.contains(
+            "RouteReactionInterdictionExpirationBoundary.UntilAffectedTargetNextTurnStarts"
+        ));
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("SpellAttackRouteSubject"));
+        assert!(route_payload.contains("ReactionInterdictionRouteSubject"));
+        assert!(route_payload.contains("BattleActiveEffectOwner"));
+        if action.contains("Project") || action.contains("Projected") {
+            assert!(route_payload.contains("BattleMovementResourceOwner"));
+            assert!(route_payload.contains("BattleInterruptStackOwner"));
         }
         if action.contains("Expire") {
             assert!(route_payload.contains("BattleTurnBoundaryOwner"));

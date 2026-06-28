@@ -1249,6 +1249,11 @@ pub enum BattleSubjectKind {
     HitPointRegainPreventionHealingInterdiction,
     HitPointRegainPreventionDurationExpiry,
     HitPointRegainPreventionActiveEffectCleanup,
+    ReactionInterdictionActiveEffectAdmission,
+    ReactionInterdictionMovementProjection,
+    ReactionInterdictionReactionDiscoveryProjection,
+    ReactionInterdictionDurationExpiry,
+    ReactionInterdictionActiveEffectCleanup,
     SaveGatedNextAttackRollModeTargetChoice,
     SaveGatedNextAttackRollModeSavingThrow,
     NextAttackRollModeActiveEffectAdmission,
@@ -2602,6 +2607,7 @@ pub enum BattleReducerRouteSubjectFamily {
     HitPointRestoration,
     HitPointRegainPrevention,
     NextAttackRollMode,
+    ReactionInterdiction,
     LightProjection,
     MovementResource,
     ObjectBoundaryEffect,
@@ -3190,6 +3196,19 @@ pub fn next_attack_roll_mode_route_subject_for_target(
     assert!(
         next_attack_roll_mode_route_kind(kind),
         "targeted next-attack-roll mode subject construction requires a next-attack-roll mode route subject"
+    );
+    diagnostic_subject(kind, current_actor(state), Some(target))
+}
+
+#[must_use]
+pub fn reaction_interdiction_route_subject_for_target(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+    target: Actor,
+) -> BattleSubject {
+    assert!(
+        reaction_interdiction_route_kind(kind),
+        "targeted reaction-interdiction subject construction requires a reaction-interdiction route subject"
     );
     diagnostic_subject(kind, current_actor(state), Some(target))
 }
@@ -7580,6 +7599,11 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
             | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
             | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+            | BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
+            | BattleSubjectKind::ReactionInterdictionMovementProjection
+            | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
+            | BattleSubjectKind::ReactionInterdictionDurationExpiry
+            | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
             | BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
             | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
             | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
@@ -7708,6 +7732,17 @@ fn next_attack_roll_mode_route_kind(kind: BattleSubjectKind) -> bool {
     )
 }
 
+fn reaction_interdiction_route_kind(kind: BattleSubjectKind) -> bool {
+    matches!(
+        kind,
+        BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
+            | BattleSubjectKind::ReactionInterdictionMovementProjection
+            | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
+            | BattleSubjectKind::ReactionInterdictionDurationExpiry
+            | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
+    )
+}
+
 fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
     use BattleReducerRouteHoleKind::{
         AbilityCheck, AbilityChoice, AttackRoll, ConcentrationSavingThrow, DamageTypeChoice,
@@ -7726,8 +7761,8 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
         AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
         CompanionTouchDelivery, CreatureTypeTargetAdmission, HeldWeaponActiveEffect,
         HitPointRegainPrevention, InterruptStackResume, MarkedEffect, NextAttackRollMode,
-        ObjectTargetSpellAttack, ProtectionCharmActiveEffect, ReactionSpell, SaveGatedSpell,
-        ScalarBuffEffect, SlotSpell, SpellAttack, SpellHostedWeaponAttack,
+        ObjectTargetSpellAttack, ProtectionCharmActiveEffect, ReactionInterdiction, ReactionSpell,
+        SaveGatedSpell, ScalarBuffEffect, SlotSpell, SpellAttack, SpellHostedWeaponAttack,
         WardedTargetInterdiction, WeaponAttack, WeaponDamageRider, WeaponEnhancementItemTarget,
     };
 
@@ -7989,6 +8024,36 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
         },
         BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup => GenericRouteShape {
             subject: HitPointRegainPrevention,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::ReactionInterdictionActiveEffectAdmission => GenericRouteShape {
+            subject: ReactionInterdiction,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::ReactionInterdictionMovementProjection => GenericRouteShape {
+            subject: ReactionInterdiction,
+            holes: Vec::new(),
+            discover_owner: MovementResource,
+            resolve_owner: MovementResource,
+        },
+        BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection => GenericRouteShape {
+            subject: ReactionInterdiction,
+            holes: Vec::new(),
+            discover_owner: InterruptStack,
+            resolve_owner: InterruptStack,
+        },
+        BattleSubjectKind::ReactionInterdictionDurationExpiry => GenericRouteShape {
+            subject: ReactionInterdiction,
+            holes: Vec::new(),
+            discover_owner: TurnBoundary,
+            resolve_owner: TurnBoundary,
+        },
+        BattleSubjectKind::ReactionInterdictionActiveEffectCleanup => GenericRouteShape {
+            subject: ReactionInterdiction,
             holes: Vec::new(),
             discover_owner: ActiveEffect,
             resolve_owner: ActiveEffect,
@@ -10083,6 +10148,11 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
             | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
             | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+            | BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
+            | BattleSubjectKind::ReactionInterdictionMovementProjection
+            | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
+            | BattleSubjectKind::ReactionInterdictionDurationExpiry
+            | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
             | BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
             | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
             | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
@@ -10238,6 +10308,10 @@ fn resolve_generic_route_subject(
         return invalid_with_holes(state, reason, Vec::new());
     }
 
+    if let Some(reason) = reaction_interdiction_state_rejection(&state, subject) {
+        return invalid_with_holes(state, reason, Vec::new());
+    }
+
     let next_holes = generic_route_next_holes(subject.kind, fill);
     let state = resolve_generic_route_state(state, subject, fill);
     if next_holes.is_empty() {
@@ -10257,6 +10331,11 @@ fn generic_route_subject_shape_matches(subject: BattleSubject) -> bool {
         | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
         | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
         | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+        | BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
+        | BattleSubjectKind::ReactionInterdictionMovementProjection
+        | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
+        | BattleSubjectKind::ReactionInterdictionDurationExpiry
+        | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
         | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
         | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
         | BattleSubjectKind::NextAttackRollModeProjection
@@ -10342,6 +10421,30 @@ fn resolve_generic_route_state(
                     .spell_active_effects
                     .next_attack_roll_disadvantage = BattleNextAttackRollModeEffect::Active;
                 state
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::ReactionInterdictionActiveEffectAdmission,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            if let Some(target) = subject.target {
+                with_opportunity_attack_denial(state, target, true)
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::ReactionInterdictionDurationExpiry,
+            BattleGenericRouteFill::WithoutFill,
+        )
+        | (
+            BattleSubjectKind::ReactionInterdictionActiveEffectCleanup,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            if let Some(target) = subject.target {
+                with_opportunity_attack_denial(state, target, false)
             } else {
                 state
             }
@@ -10450,6 +10553,30 @@ fn next_attack_roll_mode_state_rejection(
         BattleSubjectKind::NextAttackRollModeActiveEffectCleanup
             if !next_attack_roll_mode_effect_ready_for_cleanup(effects) =>
         {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        _ => None,
+    }
+}
+
+fn reaction_interdiction_state_rejection(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> Option<BattleResolutionInvalidReason> {
+    let target = subject.target?;
+    let active = combatant_for(state, target)
+        .spell_active_effects
+        .opportunity_attack_denied;
+    match subject.kind {
+        BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
+        | BattleSubjectKind::ReactionInterdictionMovementProjection
+        | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
+        | BattleSubjectKind::ReactionInterdictionDurationExpiry
+            if !active =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ReactionInterdictionActiveEffectCleanup if active => {
             Some(BattleResolutionInvalidReason::StaleSubject)
         }
         _ => None,
@@ -10730,6 +10857,11 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
         | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
         | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+        | BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
+        | BattleSubjectKind::ReactionInterdictionMovementProjection
+        | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
+        | BattleSubjectKind::ReactionInterdictionDurationExpiry
+        | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
         | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
         | BattleSubjectKind::NextAttackRollModeProjection
         | BattleSubjectKind::NextAttackRollModeDurationExpiry
@@ -11072,6 +11204,11 @@ fn generic_route_next_holes(
             | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
             | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
             | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+            | BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
+            | BattleSubjectKind::ReactionInterdictionMovementProjection
+            | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
+            | BattleSubjectKind::ReactionInterdictionDurationExpiry
+            | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
             | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
             | BattleSubjectKind::NextAttackRollModeProjection
             | BattleSubjectKind::NextAttackRollModeDurationExpiry
@@ -13007,6 +13144,17 @@ fn with_hit_point_regain_prevention(
     combatant_for_mut(&mut state, target)
         .spell_active_effects
         .hit_point_regain_prevention = effect;
+    state
+}
+
+fn with_opportunity_attack_denial(
+    mut state: BattleState,
+    target: Actor,
+    active: bool,
+) -> BattleState {
+    combatant_for_mut(&mut state, target)
+        .spell_active_effects
+        .opportunity_attack_denied = active;
     state
 }
 

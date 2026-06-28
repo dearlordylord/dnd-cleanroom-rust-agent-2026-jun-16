@@ -1,0 +1,239 @@
+{
+  "acceptedConnectorRowCount": 4,
+  "acceptedEvidenceRefs": [
+    "tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json#routeConnectorAction:doAdmitAttackHitOpportunityAttackDenialEffect",
+    "tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json#routeConnectorAction:doProjectOpportunityAttackDenialIntoMovementReactionDiscovery",
+    "tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json#routeConnectorAction:doExpireActiveDenialAtAffectedTargetTurnStart",
+    "tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json#routeConnectorAction:doExpireProjectedDenialAtAffectedTargetTurnStart"
+  ],
+  "cleanroomManifestSourceCommitSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
+  "connectorRuns": [
+    {
+      "observedProjectionSha256": "23256f7d3773ac89b4730e3b2cbf366d76f3013a22493fcf8dae4ff89858751d",
+      "observedThrough": "BattleEntrypointTrace.route_events from start_battle_observed, discover_spell_attack_damage_subject_observed, resolve_battle_subject_observed, and reaction_interdiction_route_subject_for_target",
+      "routeConnectorAction": "doAdmitAttackHitOpportunityAttackDenialEffect",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleAttackRollOwner",
+        "BattleHitPointOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.opportunity_attack_denied=true"
+      ]
+    },
+    {
+      "observedProjectionSha256": "5f35845cc0d2811ac667e8cd3ec176c2a81847b1f106c5bc49d5f182c498f015",
+      "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints and reducer-owned ReactionInterdiction subject construction",
+      "routeConnectorAction": "doProjectOpportunityAttackDenialIntoMovementReactionDiscovery",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleAttackRollOwner",
+        "BattleHitPointOwner",
+        "BattleActiveEffectOwner",
+        "BattleMovementResourceOwner",
+        "BattleInterruptStackOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.opportunity_attack_denied=true",
+        "movement/reaction projection observed through route owners; no duplicate durable projection field"
+      ]
+    },
+    {
+      "observedProjectionSha256": "7f1d33b86465419dc8ddc772d1490aa8aa1c5ca5f7f2dbe49e4170e14922ac73",
+      "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints and reducer-owned ReactionInterdiction subject construction",
+      "routeConnectorAction": "doExpireActiveDenialAtAffectedTargetTurnStart",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleAttackRollOwner",
+        "BattleHitPointOwner",
+        "BattleActiveEffectOwner",
+        "BattleTurnBoundaryOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.opportunity_attack_denied=true",
+        "BattleState.skeleton.spell_active_effects.opportunity_attack_denied=false"
+      ]
+    },
+    {
+      "observedProjectionSha256": "2dcac89d83f7cec594a8fc0b8666239ac357b25cc9652111027a59d75eee23a5",
+      "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints and reducer-owned ReactionInterdiction subject construction",
+      "routeConnectorAction": "doExpireProjectedDenialAtAffectedTargetTurnStart",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleAttackRollOwner",
+        "BattleHitPointOwner",
+        "BattleActiveEffectOwner",
+        "BattleMovementResourceOwner",
+        "BattleInterruptStackOwner",
+        "BattleTurnBoundaryOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.opportunity_attack_denied=true",
+        "movement/reaction projection observed through route owners; no duplicate durable projection field",
+        "BattleState.skeleton.spell_active_effects.opportunity_attack_denied=false"
+      ]
+    }
+  ],
+  "generatedBy": {
+    "name": "rust-cleanroom-fcsf03c-opportunity-attack-denial-dirty-replay",
+    "tag": "target-harness"
+  },
+  "reducerRouteInventorySha256": "298468860bf5f46e237441adba826136327acdac3e5c733d05beaf1b8370a309",
+  "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial.route.mbt.qnt",
+  "routeConnectorSha256": "4aa3fc3352469fa7b620d161e676d8cabfa0d48bf45a12c6b4cd64a6872a95db",
+  "runs": [
+    {
+      "branchAction": "doShockingGraspOpportunityAttackDenied",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_opportunity_attack_denial_route.rs",
+      "observedActionTaken": "doShockingGraspOpportunityAttackDenied",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "routeConnectorAction": "doAdmitAttackHitOpportunityAttackDenialEffect",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial.route.mbt.qnt",
+      "routeConnectorSha256": "4aa3fc3352469fa7b620d161e676d8cabfa0d48bf45a12c6b4cd64a6872a95db",
+      "routeEvidenceBasis": "focused Rust replay observes BattleEntrypointTrace.route_events through public reducer start/discover/resolve entrypoints and reducer-owned targeted ReactionInterdiction subject construction; expected route/fact records are copied from the SQNT-03C route connector",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::SpellAttack",
+          "BattleReducerRouteSubjectFamily::ReactionInterdiction",
+          "BattleReducerRouteOwnerGroup::ActiveEffect",
+          "BattleState.skeleton.spell_active_effects.opportunity_attack_denied",
+          "ReactionInterdictionRouteFact::SourceHostAttackHitDamageOutcome",
+          "ReactionInterdictionRouteFact::TriggerFamilyOpportunityAttack",
+          "ReactionInterdictionRouteFact::ExpirationUntilAffectedTargetNextTurnStarts"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "23256f7d3773ac89b4730e3b2cbf366d76f3013a22493fcf8dae4ff89858751d",
+        "observedProjectionSha256": "23256f7d3773ac89b4730e3b2cbf366d76f3013a22493fcf8dae4ff89858751d",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03C-OPPORTUNITY-ATTACK-DENIAL dirty route action=doAdmitAttackHitOpportunityAttackDenialEffect",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "branchAction": "doShockingGraspOpportunityAttackDenied",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_opportunity_attack_denial_route.rs",
+      "observedActionTaken": "doShockingGraspOpportunityAttackDenied",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "routeConnectorAction": "doProjectOpportunityAttackDenialIntoMovementReactionDiscovery",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial.route.mbt.qnt",
+      "routeConnectorSha256": "4aa3fc3352469fa7b620d161e676d8cabfa0d48bf45a12c6b4cd64a6872a95db",
+      "routeEvidenceBasis": "focused Rust replay observes movement and reaction discovery projection through BattleEntrypointTrace.route_events and reducer-owned ReactionInterdiction subject construction, not a selected-spell local replay helper",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::ReactionInterdiction",
+          "BattleReducerRouteOwnerGroup::MovementResource",
+          "BattleReducerRouteOwnerGroup::InterruptStack",
+          "BattleState.skeleton.spell_active_effects.opportunity_attack_denied",
+          "ReactionInterdictionRouteFact::ProjectedToMovementDiscovery",
+          "ReactionInterdictionRouteFact::ProjectedToReactionDiscovery"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5f35845cc0d2811ac667e8cd3ec176c2a81847b1f106c5bc49d5f182c498f015",
+        "observedProjectionSha256": "5f35845cc0d2811ac667e8cd3ec176c2a81847b1f106c5bc49d5f182c498f015",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03C-OPPORTUNITY-ATTACK-DENIAL dirty route action=doProjectOpportunityAttackDenialIntoMovementReactionDiscovery",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "branchAction": "doShockingGraspOpportunityAttackDenied",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_opportunity_attack_denial_route.rs",
+      "observedActionTaken": "doShockingGraspOpportunityAttackDenied",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "routeConnectorAction": "doExpireActiveDenialAtAffectedTargetTurnStart",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial.route.mbt.qnt",
+      "routeConnectorSha256": "4aa3fc3352469fa7b620d161e676d8cabfa0d48bf45a12c6b4cd64a6872a95db",
+      "routeEvidenceBasis": "focused Rust replay observes affected-target turn-start expiry and cleanup through BattleEntrypointTrace.route_events and BattleState-owned opportunity_attack_denied state",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::ReactionInterdiction",
+          "BattleReducerRouteOwnerGroup::TurnBoundary",
+          "BattleReducerRouteOwnerGroup::ActiveEffect",
+          "BattleState.skeleton.spell_active_effects.opportunity_attack_denied",
+          "ReactionInterdictionRouteFact::Expired",
+          "ReactionInterdictionRouteFact::CleanedUp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "7f1d33b86465419dc8ddc772d1490aa8aa1c5ca5f7f2dbe49e4170e14922ac73",
+        "observedProjectionSha256": "7f1d33b86465419dc8ddc772d1490aa8aa1c5ca5f7f2dbe49e4170e14922ac73",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03C-OPPORTUNITY-ATTACK-DENIAL dirty route action=doExpireActiveDenialAtAffectedTargetTurnStart",
+      "result": {
+        "tag": "pass"
+      }
+    },
+    {
+      "branchAction": "doShockingGraspOpportunityAttackDenied",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_opportunity_attack_denial_route.rs",
+      "observedActionTaken": "doShockingGraspOpportunityAttackDenied",
+      "qntFileSha256": "4638ade2ba63454db4e851f353cd30361ce6f5c85acc4c65ee3a708d4e08d014",
+      "routeConnectorAction": "doExpireProjectedDenialAtAffectedTargetTurnStart",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial.route.mbt.qnt",
+      "routeConnectorSha256": "4aa3fc3352469fa7b620d161e676d8cabfa0d48bf45a12c6b4cd64a6872a95db",
+      "routeEvidenceBasis": "focused Rust replay observes projected denial expiry and cleanup through public reducer entrypoints; movement/reaction projection remains route-event evidence rather than duplicate durable state",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::ReactionInterdiction",
+          "BattleReducerRouteOwnerGroup::MovementResource",
+          "BattleReducerRouteOwnerGroup::InterruptStack",
+          "BattleReducerRouteOwnerGroup::TurnBoundary",
+          "BattleReducerRouteOwnerGroup::ActiveEffect",
+          "BattleState.skeleton.spell_active_effects.opportunity_attack_denied",
+          "ReactionInterdictionRouteFact::ProjectedToMovementDiscovery",
+          "ReactionInterdictionRouteFact::ProjectedToReactionDiscovery",
+          "ReactionInterdictionRouteFact::Expired",
+          "ReactionInterdictionRouteFact::CleanedUp"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "2dcac89d83f7cec594a8fc0b8666239ac357b25cc9652111027a59d75eee23a5",
+        "observedProjectionSha256": "2dcac89d83f7cec594a8fc0b8666239ac357b25cc9652111027a59d75eee23a5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03C-OPPORTUNITY-ATTACK-DENIAL dirty route action=doExpireProjectedDenialAtAffectedTargetTurnStart",
+      "result": {
+        "tag": "pass"
+      }
+    }
+  ],
+  "scopeNote": "dirty target replay for SQNT-03C only; this does not claim fresh cleanroom acceptance. The existing BattleState opportunity_attack_denied boolean owns active/not-active execution state; projected movement/reaction discovery is accepted as route-event evidence to avoid duplicate durable state.",
+  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+  "targetBlockerCount": 0,
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}
