@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03e-object-light-replay` | `ralph/sqnt03e-object-light-dirty-replay` | `da56942` | Anscombe the 3rd (`019f0ea2-bb16-7b22-b9dc-6c07b22fa7c2`) | implemented-review-pending at `dd34c9f02c4ef02d0b662b5b951df7e4db41ced9` |
+| _none_ | | | | | |
 
 ## Active Fresh Dry Run Targets
 
@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03F-MIXED-TARGET-OUTCOMES | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes` | `ralph/source-sqnt-03f-mixed-target-outcomes` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Plato the 3rd (`019f0ea3-051b-7cc2-bafa-d14052b7a258`); reviewer Kepler the 3rd (`019f0eb8-d32f-7d51-8246-c3f69da2850b`) | implemented-review-running at `b138c187d8a8c5c9450d5f671cfaa971a40aa725` |
+| SQNT-03F-MIXED-TARGET-OUTCOMES | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03f-mixed-target-outcomes` | `ralph/source-sqnt-03f-mixed-target-outcomes` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Plato the 3rd (`019f0ea3-051b-7cc2-bafa-d14052b7a258`); reviewer Kepler the 3rd (`019f0eb8-d32f-7d51-8246-c3f69da2850b`) | review-blocker-fix-running after `b138c187d8a8c5c9450d5f671cfaa971a40aa725`; split shared saving-throw roll facts from shared resource spend facts before merge |
 | SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection` | `ralph/source-sqnt-03g-exact-damage-projection` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Halley the 3rd (`019f0ea3-50cd-7ae3-b243-436cef287aa2`) | worker-running |
 
 ## Historical RRCONV-19 Worktrees
@@ -63,7 +63,8 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03E-OBJECT-AND-LIGHT-RIDERS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03e-object-light-riders` | `ralph/source-sqnt-03e-object-light-riders` | `6ef016af8293575f97a6dd0bfcf7793afc3947b7` | `32e51f46a71f5a714034966e018fe79abbb7fcae` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty target replay pending, no fresh target acceptance claimed |
+| SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03e-object-light-replay` | `ralph/sqnt03e-object-light-dirty-replay` | `dd34c9f02c4ef02d0b662b5b951df7e4db41ced9` | `9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67` | removable after retention decision; dirty replay accepted 9 copied connector actions and covered 2 selected spatial obligations through public reducer entrypoints; no fresh target acceptance claimed |
+| SQNT-03E-OBJECT-AND-LIGHT-RIDERS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03e-object-light-riders` | `ralph/source-sqnt-03e-object-light-riders` | `6ef016af8293575f97a6dd0bfcf7793afc3947b7` | `32e51f46a71f5a714034966e018fe79abbb7fcae` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty target replay accepted at `9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67`, no fresh target acceptance claimed |
 | SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03d-condition-rider-replay` | `ralph/sqnt03d-condition-rider-dirty-replay` | `e55484397d4d60d0521cb4e8c20f0b0452b90f3b` | `4d4107b51c595b8cbbaa6c0c11f458b35d2070c1` | removable after retention decision; dirty replay accepted 16 connector rows and 3 selected-driver obligations, with Hold Person and Hideous Laughter still source-QNT blockers; no fresh target acceptance claimed |
 | SQNT-03D-CONDITION-AND-POISON-RIDERS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03d-condition-poison-riders` | `ralph/source-sqnt-03d-condition-poison-riders` | `938ba5b4fb91e0e5a156882a36ffad4d7cdd726d` | `3e9297cab2dd998e5dc09670f771bfcdf0a04c93` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty target replay accepted at `4d4107b51c595b8cbbaa6c0c11f458b35d2070c1`, no fresh target acceptance claimed |
 | SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03c-opportunity-attack-denial-replay` | `ralph/sqnt03c-opportunity-attack-denial-dirty-replay` | `638642e326ff9829b19297f4ea5abf8fbaa3843d` | `7521115f61077326b67e933dc9663f19d7e41570` | removable after retention decision; dirty replay accepted 4 connector transitions and 1 selected-driver obligation, no fresh target acceptance claimed |
