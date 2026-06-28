@@ -552,7 +552,8 @@
     "FCSF-04-OBJECT-STALE-DIRTY-REPLAY": "merged-verified",
     "SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY": "merged-verified",
     "SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY": "merged-verified",
-    "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL": "merged-packaged-source-input"
+    "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL": "merged-packaged-source-input",
+    "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY": "running"
   },
   "lastIntegrationVerification": {
     "head": "4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e",
@@ -572,7 +573,19 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no SQNT-03B evidence, ledger, or artifact failures",
     "review": "Epicurus the 3rd initially found one blocker: disadvantage evidence omitted BattleSpellSlotAndActionEconomyOwner from route owner sequences. Popper fixed this in ba0b8d7b197bb41abbb62abf1a00f2de5a1ec055; Epicurus re-review accepted the lane."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY",
+      "routeTaskId": "FCSF-03C-OPPORTUNITY-ATTACK-DENIAL",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03c-opportunity-attack-denial-replay",
+      "branch": "ralph/sqnt03c-opportunity-attack-denial-dirty-replay",
+      "baseSha": "73fb3ce66c3fb107a1e53f6a9a5d516c78880391",
+      "workerAgent": "019f0df5-fbdf-70a3-b0ec-202c827c907a",
+      "workerName": "Hume the 3rd",
+      "status": "running",
+      "scope": "dirty target replay only; no fresh target acceptance claimed"
+    }
+  ],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {

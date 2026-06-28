@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03c-opportunity-attack-denial-replay` | `ralph/sqnt03c-opportunity-attack-denial-dirty-replay` | `73fb3ce66c3fb107a1e53f6a9a5d516c78880391` | Hume the 3rd (`019f0df5-fbdf-70a3-b0ec-202c827c907a`) | running |
 
 ## Active Fresh Dry Run Targets
 
