@@ -3628,8 +3628,9 @@
     "Source feedback task FCSF-02 landed at ee4894fa71e9307b9251639f0b54577ff764c63f, adding generic scalar-buff profile projection/domain facts; fresh target commit 05280a8e2d6e9705411c114c80ae2a4e4290de2c accepts scalar profile replay through copied QNT plus public reducer route observations.",
     "Dirty cleanroom package refreshes now package source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A/B/C route connector evidence, source-feedback Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, and SQNT-07B/C/D feature/species/metamagic route evidence through latest source package 21504ef764118f5fd13086aa6266f19280196664. FCSF-04, FCSF-05, FCSF-06, SQNT-03A, SQNT-03B, SQNT-03C, SQNT-07B, SQNT-07C, and SQNT-07D have been dirty-replayed; those replays do not claim fresh target acceptance.",
     "Fresh target baseline refresh FRESH-RR-BASELINE-21504EF is accepted at c196b33c634169cfc991c3de101c23fde8f75bae. The fresh verifier now recognizes source package 21504ef764118f5fd13086aa6266f19280196664 and classifies pre-refresh runtime evidence as historical snapshot evidence. This baseline refresh claims no new current-package runtime coverage.",
+    "Fresh target FRESH-RR-CHARACTER-SHEET-HANDOFF is accepted at 214e43e194fd37fa039fbf68baaaf003eee4143e. Its verifier derives expected route records from copied FCSF-06 QNT route connectors and compares them to public character creation, sheet, and handoff entrypoint observations; the merged verifier rejects duplicate JSON evidence keys.",
     "Do not launch more dirty target lanes for Task 3 residual selected-spell branches beyond SQNT-03C, or for FEXP-07 selected/grouped residual branches, until source-side QNT/guidance adds the remaining generic route facts listed in SOURCE_QNT_NEXT_TASKS.md.",
-    "Use accepted fresh target c196b33c634169cfc991c3de101c23fde8f75bae as the current package baseline for future fresh replay lanes. Use 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the strongest pre-21504ef runtime evidence for SDK composition, Pact Slot handoff replay, FEXP-04 exact route-choice payload replay, Ability Check/Search public reducer routing, Concentration cleanup routing, and scalar profile replay; those runtime rows are historical snapshots until replayed against 21504ef.",
+    "Use accepted fresh target 214e43e194fd37fa039fbf68baaaf003eee4143e as the current fresh target head. Use c196b33c634169cfc991c3de101c23fde8f75bae as the package baseline ancestor and 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the strongest pre-21504ef runtime evidence for SDK composition, Pact Slot handoff replay, FEXP-04 exact route-choice payload replay, Ability Check/Search public reducer routing, Concentration cleanup routing, and scalar profile replay; those runtime rows are historical snapshots until replayed against 21504ef.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean old historical replay/ledger debt only if the dirty harness needs to pass without exception; validator provenance has already been refreshed.",
     "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints."
@@ -3640,7 +3641,7 @@
     "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "c196b33c634169cfc991c3de101c23fde8f75bae",
+    "acceptedTargetHead": "214e43e194fd37fa039fbf68baaaf003eee4143e",
     "strongestRuntimeEvidenceHead": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
     "completedLanes": [
       {
@@ -3963,6 +3964,35 @@
           "git diff --check HEAD~1...HEAD"
         ],
         "coverageClaim": "baseline package refresh only; source package 21504ef764118f5fd13086aa6266f19280196664 is current, pre-refresh runtime evidence is classified historical, and no current-package runtime acceptance claims are made"
+      },
+      {
+        "laneId": "FRESH-RR-CHARACTER-SHEET-HANDOFF",
+        "status": "accepted",
+        "baseCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
+        "targetCommit": "214e43e194fd37fa039fbf68baaaf003eee4143e",
+        "workerAgent": "Feynman the 3rd (019f0f54-539f-7b90-84c8-4e097429bfcd)",
+        "reviewerAgent": "orchestrator review",
+        "artifacts": [
+          "src/lib.rs",
+          "examples/fexp06_route_observations.rs",
+          "tools/verify_fexp06.py",
+          "tools/verify_current_fresh_target.py",
+          "EVIDENCE/fexp06-character-creation-sheet-handoff-pack.json",
+          "FRESH_EXPANSION_STATE.json",
+          "FRESH_EXPANSION_REPORT.md",
+          "FRESH_RUN_STATE.json",
+          "BLOCKERS.json",
+          "STATE_OWNERS.md"
+        ],
+        "checks": [
+          "git merge-base --is-ancestor c196b33c634169cfc991c3de101c23fde8f75bae HEAD",
+          "python3 tools/verify_current_fresh_target.py",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check HEAD~1...HEAD"
+        ],
+        "coverageClaim": "FCSF-06 character creation, sheet resource/rest, handoff settlement, and zero-HP Stable lifecycle route records accepted through copied QNT-derived expected records matched to public character/sheet/handoff entrypoint observations"
       }
     ],
     "activeWorktree": null,
@@ -3986,14 +4016,6 @@
         "status": "active"
       },
       {
-        "laneId": "FRESH-RR-CHARACTER-SHEET-HANDOFF",
-        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-rr-character-sheet-handoff",
-        "branch": "ralph/fresh-rr-character-sheet-handoff",
-        "baseCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
-        "workerAgent": "Feynman the 3rd (019f0f54-539f-7b90-84c8-4e097429bfcd)",
-        "status": "active"
-      },
-      {
         "laneId": "FRESH-RR-FEATURE-SPECIES-METAMAGIC",
         "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-rr-feature-species-metamagic",
         "branch": "ralph/fresh-rr-feature-species-metamagic",
@@ -4007,7 +4029,8 @@
     "nextPlannedLane": "Wave 1 fresh replay lanes from NEXT_RALPH_CAMPAIGN.md",
     "nextWorkRecommendations": [
       "FRESH-RR-BASELINE-21504EF refreshed the fresh target to source package 21504ef764118f5fd13086aa6266f19280196664 and made pre-refresh runtime evidence historical for the current gate.",
-      "Next launch the four independent fresh replay lanes from NEXT_RALPH_CAMPAIGN.md against base c196b33c634169cfc991c3de101c23fde8f75bae: battle active effects, spatial/damage, character/sheet/handoff, and feature/species/metamagic."
+      "FRESH-RR-CHARACTER-SHEET-HANDOFF is merged at 214e43e194fd37fa039fbf68baaaf003eee4143e with QNT-derived expected route records compared to public entrypoint observations.",
+      "Continue the three active repair lanes from NEXT_RALPH_CAMPAIGN.md: battle active effects, spatial/damage, and feature/species/metamagic. They must independently derive expected route records from copied QNT/source facts before acceptance."
     ]
   },
   "sdkTracerBullet": {
