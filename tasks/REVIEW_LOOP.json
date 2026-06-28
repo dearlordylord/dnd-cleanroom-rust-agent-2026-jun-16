@@ -20,7 +20,7 @@
         },
         {
           "checklist": "branch-coverage",
-          "notes": "The focused adapter replays all 16 copied connector actions. The active ledger selected driver is narrowed to condition-saving branches this lane can honestly map; level-1 damage spell selected identity remains residual context because selecting the whole driver would pull unrelated damage-spell obligations into this lane.",
+          "notes": "The focused adapter replays all 16 copied route connector actions. The route connector is the lane authority and is recorded from reducer-route inventory; the selected condition-saving driver is used only for downstream source-branch evidence checking of mapped obligations. Level-1 damage spell selected identity remains residual context because selecting the whole driver would pull unrelated damage-spell obligations into this lane.",
           "status": "pass"
         },
         {

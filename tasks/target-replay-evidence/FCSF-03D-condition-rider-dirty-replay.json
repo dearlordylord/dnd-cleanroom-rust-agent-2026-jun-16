@@ -9,6 +9,12 @@
   "cleanroomManifestSourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
   "conditionRiderRouteFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-rider-route-facts.qnt",
   "conditionRiderRouteFactsSha256": "c54bf44435821a987bb65e7f12b47e6045fea9dc500a70ff0f46b8d9be2e0662",
+  "routeConnectorLaneAuthority": {
+    "checkerSupport": "node scripts/check-target-replay-evidence-file.cjs filters source-branch-inventory drivers and does not accept reducer-route connector paths as --driver values",
+    "inventoryKind": "reducer-route-inventory",
+    "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+    "validatedBy": "cargo test condition_rider -- --nocapture"
+  },
   "connectorRuns": [
     {
       "observedThrough": "BattleEntrypointTrace.route_events from start_battle_observed, discover_spell_attack_damage_subject_observed, resolve_battle_subject_observed, condition_rider_route_subject_for_target, and discover_condition_rider_route_subject_observed",
@@ -66,7 +72,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner"
       ],
@@ -80,7 +86,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner",
         "BattleTurnBoundaryOwner",
@@ -99,7 +105,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner"
       ],
       "stateLifecycle": [
@@ -113,7 +119,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner"
       ],
@@ -127,7 +133,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner"
       ],
@@ -141,7 +147,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner",
         "BattleTurnBoundaryOwner"
@@ -156,7 +162,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner",
         "BattleTurnBoundaryOwner",
@@ -174,7 +180,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner"
       ],
@@ -188,7 +194,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner",
         "BattleAbilityCheckOwner"
@@ -203,7 +209,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner",
         "BattleAbilityCheckOwner",
@@ -221,7 +227,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner"
       ],
@@ -235,7 +241,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner",
         "BattleTurnBoundaryOwner"
@@ -250,7 +256,7 @@
       "routeOwnerSequence": [
         "BattleActionEconomyOwner",
         "BattleTargetSelectionOwner",
-        "BattleSavingThrowOwner",
+        "BattleSavingThrowOutcomeOwner",
         "BattleConditionLifecycleOwner",
         "BattleActiveEffectOwner",
         "BattleTurnBoundaryOwner",
@@ -270,6 +276,24 @@
   "reducerRouteInventorySha256": "08a849247b3d80ddaf2b7bf499fbe2e3c500537f7c95e8c47d418fbdc72a671e",
   "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
   "routeConnectorSha256": "6830de719d5d06ddc4a0f85755da7196f03d4f3beab1ae3c512a1e88906db394",
+  "acceptedRouteConnectorRows": [
+    "doAdmitAttackHitPoisonConditionRider",
+    "doRejectAttackHitPoisonConditionRiderByImmunity",
+    "doExpireAttackHitPoisonConditionRider",
+    "doAdmitFailedSaveBlindedNextTurnConditionRider",
+    "doExpireFailedSaveBlindedNextTurnConditionRider",
+    "doRejectFailedSaveBlindedConditionRiderByImmunity",
+    "doAdmitFailedSaveBlindedRepeatSaveConditionRider",
+    "doAdmitFailedSaveDeafenedRepeatSaveConditionRider",
+    "doOpenFailedSaveConditionRepeatSaveFrontier",
+    "doResolveFailedSaveConditionRepeatSaveSuccessCleanup",
+    "doAdmitFailedSaveRestrainedUntilSpellEndEscapeConditionRider",
+    "doOpenRestrainedAthleticsEscapeFrontier",
+    "doResolveRestrainedAthleticsEscapeSuccessCleanup",
+    "doAdmitFailedSaveSleepIncapacitatedConditionRider",
+    "doOpenSleepRepeatSaveFrontier",
+    "doResolveSleepRepeatSaveFailureTransitionToUnconscious"
+  ],
   "runs": [
     {
       "branchAction": "doResolveColorSprayFailedSavingThrow",

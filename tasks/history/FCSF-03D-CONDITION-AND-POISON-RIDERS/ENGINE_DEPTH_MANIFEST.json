@@ -4,6 +4,11 @@
     {
       "adapterScope": "Replays copied SQNT-03D ConditionRiderRouteSubject rows through public BattleEntrypointTrace.route_events using reducer-owned spell-attack, save-gated, condition-rider, turn-boundary, active-effect, and ability-check subjects, then compares them to connector-derived expected route facts.",
       "path": "src/qnt_adapters/battle_runtime_condition_riders_route.rs",
+      "routeConnectorAuthority": {
+        "inventoryKind": "reducer-route-inventory",
+        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+        "sha256": "6830de719d5d06ddc4a0f85755da7196f03d4f3beab1ae3c512a1e88906db394"
+      },
       "quarantinedWitnessNames": [
         "doAdmitAttackHitPoisonConditionRider",
         "doRejectAttackHitPoisonConditionRiderByImmunity",

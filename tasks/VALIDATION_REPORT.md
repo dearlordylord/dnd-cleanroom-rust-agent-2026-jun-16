@@ -1,5 +1,69 @@
 # Validation Report
 
+## FCSF-03D-CONDITION-AND-POISON-RIDERS
+
+- Lane: `SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY`
+- Base SHA: `18fc6b4`
+- Current route connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt`
+- Route connector SHA-256: `6830de719d5d06ddc4a0f85755da7196f03d4f3beab1ae3c512a1e88906db394`
+- Route facts SHA-256: `c54bf44435821a987bb65e7f12b47e6045fea9dc500a70ff0f46b8d9be2e0662`
+- Evidence file: `tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json`
+- Scope note: dirty target replay only; this is not fresh cleanroom acceptance.
+
+Route authority and downstream coverage:
+
+- Lane authority is the copied route connector from `reducer-route-inventory.json`.
+- `node scripts/check-target-replay-evidence-file.cjs` validates source-branch driver obligations, not reducer-route connector paths, so the selected condition-saving driver is used only as downstream evidence-check mapping.
+- The route connector check with `--driver cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt` is unsupported by that checker and reports the selected-driver rows as unknown source obligations.
+
+Accepted route connector rows:
+
+- `doAdmitAttackHitPoisonConditionRider`
+- `doRejectAttackHitPoisonConditionRiderByImmunity`
+- `doExpireAttackHitPoisonConditionRider`
+- `doAdmitFailedSaveBlindedNextTurnConditionRider`
+- `doExpireFailedSaveBlindedNextTurnConditionRider`
+- `doRejectFailedSaveBlindedConditionRiderByImmunity`
+- `doAdmitFailedSaveBlindedRepeatSaveConditionRider`
+- `doAdmitFailedSaveDeafenedRepeatSaveConditionRider`
+- `doOpenFailedSaveConditionRepeatSaveFrontier`
+- `doResolveFailedSaveConditionRepeatSaveSuccessCleanup`
+- `doAdmitFailedSaveRestrainedUntilSpellEndEscapeConditionRider`
+- `doOpenRestrainedAthleticsEscapeFrontier`
+- `doResolveRestrainedAthleticsEscapeSuccessCleanup`
+- `doAdmitFailedSaveSleepIncapacitatedConditionRider`
+- `doOpenSleepRepeatSaveFrontier`
+- `doResolveSleepRepeatSaveFailureTransitionToUnconscious`
+
+Covered downstream obligations:
+
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveColorSprayFailedSavingThrow`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveEntangleFailedSavingThrow`
+- `cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt#step:doResolveSleepRepeatSavingThrowFailure`
+
+Blockers:
+
+- Hold Person lifecycle remains a copied source-QNT blocker; no Paralyzed lifecycle is inferred from selected identity.
+- Hideous Laughter lifecycle remains a copied source-QNT blocker; no Incapacitated plus Prone laughter lifecycle is inferred from selected identity.
+
+Behavior implemented:
+
+- Added typed battle-owned condition-rider state for condition, duration boundary, repeat-save frontier, escape frontier, expiry, cleanup-ready, and inactive phases.
+- Added combatant-owned condition-immunity facts for copied condition-immunity rejection rows.
+- Added public reducer route subjects and observed entrypoints for condition-rider admission, rejection, expiry, cleanup, repeat-save, transition, and Athletics escape.
+- Expected records come from copied route connector vocabulary; production routing uses typed condition/boundary/fill/owner state, not selected spell or unit identity.
+
+Verification results:
+
+- `git merge-base --is-ancestor 18fc6b4 HEAD` passed.
+- `cargo test condition_rider -- --nocapture` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json` is unsupported by the checker because the route connector is not a source-branch-inventory driver; it reports unknown selected-driver obligations.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json` passed with 3 downstream obligations covered.
+- `node scripts/check-cleanroom-harness.cjs` failed only on the two known stale validator hashes recorded in `cleanroom-input/MANIFEST.md`:
+  - `scripts/check-cleanroom-harness.cjs`: expected `bf3a3120ef5bb10b0a11093bb3bbe8d911199f720cc4cba050d4080e78ba5130`, got `0ed7656ef183599a8f54c604219ad34e51a0addb757d4be34deb694938db82f1`.
+  - `scripts/cleanroom-branch-coverage-check.cjs`: expected `f96e26aac6fc7679c1801e3a048ba1426eb301a2aab91cf3cd284063ce62be0c`, got `5b7f4913a2c6455c556e13a276107337219804698ffd087c64d536cf66c6e06c`.
+- `git diff --check 18fc6b4...HEAD` passed.
+
 ## FCSF-04-OBJECT-STALE-DIRTY-REPLAY
 
 - Lane: `FCSF-04-OBJECT-STALE-DIRTY-REPLAY`

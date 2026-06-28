@@ -18,6 +18,11 @@
     "laneId": "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY",
     "routeClass": "condition-rider-route",
     "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+    "routeConnectorValidation": {
+      "connectorSha256": "6830de719d5d06ddc4a0f85755da7196f03d4f3beab1ae3c512a1e88906db394",
+      "inventoryKind": "reducer-route-inventory",
+      "purpose": "lane authority; focused dirty replay validates copied ConditionRiderRouteSubject rows directly"
+    },
     "selectedBranches": [
       "step:doResolveColorSprayFailedSavingThrow",
       "step:doResolveEntangleFailedSavingThrow",
@@ -27,6 +32,7 @@
     "selectedDrivers": [
       "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt"
     ],
+    "selectedDriversPurpose": "downstream source-branch evidence checker only; these obligations are mapped from the route connector rows and are not the lane authority",
     "residualDriversDocumentedOnly": [
       "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt"
     ]

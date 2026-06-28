@@ -28,6 +28,14 @@
       "status": "pass"
     },
     {
+      "gate": "route-connector-lane-authority",
+      "status": "pass"
+    },
+    {
+      "gate": "downstream-selected-driver-evidence-check",
+      "status": "pass"
+    },
+    {
       "gate": "cleanup-lifecycle-regression",
       "status": "pass"
     },
@@ -48,7 +56,7 @@
       "status": "pass"
     }
   ],
-  "rationale": "Accepted the SQNT-03D dirty target replay as diagnostic evidence only. ConditionRiderRouteSubject rows are observed through public reducer entrypoints and BattleState-owned condition-rider lifecycle state. Production routing uses typed condition, boundary, immunity, repeat-save, escape, and cleanup facts rather than selected spell or unit identity.",
+  "rationale": "Accepted the SQNT-03D dirty target replay as diagnostic evidence only. The lane authority is the copied condition-rider route connector in reducer-route inventory; the condition-saving selected driver is recorded only as downstream evidence-check coverage for mapped residual obligations. ConditionRiderRouteSubject rows are observed through public reducer entrypoints and BattleState-owned condition-rider lifecycle state. Production routing uses typed condition, boundary, immunity, repeat-save, escape, and cleanup facts rather than selected spell or unit identity.",
   "rejectedFindings": [],
   "schemaVersion": 1,
   "targetBlockedRows": [
