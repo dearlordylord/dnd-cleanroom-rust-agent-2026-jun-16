@@ -1,0 +1,430 @@
+{
+  "acceptedConnectorRowCount": 7,
+  "acceptedEvidenceRefs": [
+    "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json#FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAreaSavingThrowMixedOutcomes#step:doResolveBurningHandsMixedConeSavingThrows",
+    "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json#FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAttackHitBurstSavingThrowMixedOutcomes#step:doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+    "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json#FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAttackMissBurstSavingThrowMixedOutcomes#step:doResolveIceKnifeMissBurstSavingThrows"
+  ],
+  "cleanroomManifestSha256": "006e2a9d3320e567ea4fffea8fdbadfea436a3186024f92b8886cde555834460",
+  "cleanroomManifestSourceCommitSha": "2de6a5e5401985e5673f5c2be737bbe2374d46d0",
+  "connectorRuns": [
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from start_battle_observed, discover_generic_route_subject_observed, and resolve_battle_subject_observed",
+      "routeConnectorAction": "doRouteAreaSavingThrowMixedOutcomes",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner"
+      ],
+      "stateLifecycle": [
+        "RouteMixedTargetOutcomeSharedSpend(SharedSpellSlotSpend)",
+        "RouteMixedTargetOutcomeSharedDamageRoll(SharedSavingThrowDamageRoll)",
+        "PrimaryTarget failed Saving Throw full-damage projection",
+        "SecondaryTarget succeeded Saving Throw half-damage projection"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from shared mixed-target route subject discovery and resolution",
+      "routeConnectorAction": "doRouteAttackHitBurstSavingThrowMixedOutcomes",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner"
+      ],
+      "stateLifecycle": [
+        "RouteMixedTargetOutcomeSharedSpend(SharedSpellSlotSpend)",
+        "RouteMixedTargetOutcomeSharedDamageRoll(SharedSavingThrowDamageRoll)",
+        "PrimaryTarget AttackHitOutcome plus burst SavingThrowFailedOutcome",
+        "SecondaryTarget SavingThrowSucceededOutcome"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from shared mixed-target route subject discovery and resolution",
+      "routeConnectorAction": "doRouteAttackMissBurstSavingThrowMixedOutcomes",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner"
+      ],
+      "stateLifecycle": [
+        "RouteMixedTargetOutcomeSharedSpend(SharedSpellSlotSpend)",
+        "RouteMixedTargetOutcomeSharedDamageRoll(SharedSavingThrowDamageRoll)",
+        "PrimaryTarget AttackMissOutcome with NoDamageProjection plus burst SavingThrowFailedOutcome",
+        "SecondaryTarget SavingThrowSucceededOutcome"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from shared mixed-target route subject discovery, attack resolution, damage roll, and projection",
+      "routeConnectorAction": "doRouteObjectAttackSecondaryProjection",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner"
+      ],
+      "stateLifecycle": [
+        "RouteMixedTargetOutcomeSharedSpend(SharedCantripActionSpend)",
+        "ObjectTarget AttackHitOutcome",
+        "ObjectBoundaryProjection and LightProjection are witness facts only; object/light selected obligation remains owned by SQNT-03E"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from shared mixed-target route subject discovery, attack resolution, damage roll, and projection",
+      "routeConnectorAction": "doRouteAttackHitConditionProjection",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner"
+      ],
+      "stateLifecycle": [
+        "RouteMixedTargetOutcomeSharedSpend(SharedSpellSlotSpend)",
+        "PrimaryTarget AttackHitOutcome",
+        "ConditionProjection is a witness fact only; active condition-rider lifecycle remains owned by SQNT-03D"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from shared mixed-target route subject discovery, save outcome, damage roll, and projection",
+      "routeConnectorAction": "doRouteSaveFailureNextAttackProjection",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner"
+      ],
+      "stateLifecycle": [
+        "RouteMixedTargetOutcomeSharedSpend(SharedCantripActionSpend)",
+        "PrimaryTarget SavingThrowFailedOutcome",
+        "NextAttackRollModeProjection is a witness fact only; active next-attack-roll lifecycle remains owned by SQNT-03B"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from shared mixed-target route subject discovery and chained target/attack/damage resolution",
+      "routeConnectorAction": "doRouteChainedAttackMixedTargetOutcomes",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner",
+        "BattleSpellInvocationOwner"
+      ],
+      "stateLifecycle": [
+        "RouteMixedTargetOutcomeSharedSpend(SharedSpellSlotSpend)",
+        "PrimaryTarget and SecondaryTarget explicit AttackHitOutcome facts",
+        "ChainedAttackTargetProjection is a witness fact only; exact duplicate damage and authored selected identity remain blocked"
+      ]
+    }
+  ],
+  "generatedBy": {
+    "name": "rust-cleanroom-fcsf03f-mixed-target-dirty-replay",
+    "tag": "target-harness"
+  },
+  "mixedTargetOutcomeRouteFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcome-route-facts.qnt",
+  "mixedTargetOutcomeRouteFactsSha256": "5688172d7a2bfd6c26e137954a9e4c531482a9fe6c0d243e6697a84f2ac6ee5a",
+  "reducerRouteInventorySha256": "f65c64c99d0dc0262cab36eca4030c6f24604108e7791c595c18310e58f326a2",
+  "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt",
+  "routeConnectorSha256": "7aa5c3bc5a374751af296b0c03f3ed7222346e150501269a5d7ab078bd103795",
+  "routeVocabularyPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-route.qnt",
+  "routeVocabularySha256": "1a65043a4833e82c44d52448afa5d1108082bdeb1a3a371205e4a58b343348cb",
+  "runs": [
+    {
+      "branchAction": "doResolveBurningHandsMixedConeSavingThrows",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "observedActionTaken": "doResolveBurningHandsMixedConeSavingThrows",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doRouteAreaSavingThrowMixedOutcomes",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt",
+      "routeConnectorSha256": "7aa5c3bc5a374751af296b0c03f3ed7222346e150501269a5d7ab078bd103795",
+      "routeEvidenceBasis": "focused Rust replay observes the copied area Saving Throw mixed-outcome connector row through shared battle reducer route events and explicit target/outcome/damage witness facts",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::MixedTargetOutcomeSpell",
+          "BattleReducerRouteOwnerGroup::SpellInvocation",
+          "RouteMixedTargetOutcomeSharedSpend(SharedSpellSlotSpend)",
+          "RouteMixedTargetOutcomeSharedDamageRoll(SharedSavingThrowDamageRoll)",
+          "PrimaryTarget SavingThrowFailedOutcome",
+          "SecondaryTarget SavingThrowSucceededOutcome"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "5fbde485d91418a73c559e458288b8e4be1fa7d1d74658ba255ce95097e84cd5",
+        "observedProjectionSha256": "5fbde485d91418a73c559e458288b8e4be1fa7d1d74658ba255ce95097e84cd5",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAreaSavingThrowMixedOutcomes"
+    },
+    {
+      "branchAction": "doResolveChromaticOrbDuplicateDamageLeap",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "observedActionTaken": "doResolveChromaticOrbDuplicateDamageLeap",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "blockerId": "SQNT-03F-SELECTED-IDENTITY-EXACT-DAMAGE-BLOCKER",
+        "reason": "The copied 03F chained mixed-target row proves generic target/outcome/damage-projection route facts only; exact duplicate damage leap, authored selected spell identity, dice counts, and duplicate-face limits remain outside FCSF-03F.",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "MixedTargetOutcomeSpellRouteSubject",
+          "ChainedAttackTargetProjection witness fact",
+          "source-QNT blocker: exact duplicate damage projection and selected identity"
+        ],
+        "comparator": "source-qnt-blocker-record",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route blocker=ChromaticOrbDuplicateDamageLeap"
+    },
+    {
+      "branchAction": "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "observedActionTaken": "doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doRouteAttackHitBurstSavingThrowMixedOutcomes",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt",
+      "routeConnectorSha256": "7aa5c3bc5a374751af296b0c03f3ed7222346e150501269a5d7ab078bd103795",
+      "routeEvidenceBasis": "focused Rust replay observes target choice, attack roll, Saving Throw outcome, and shared damage-roll route facts through MixedTargetOutcomeSpellRouteSubject",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::MixedTargetOutcomeSpell",
+          "RouteMixedTargetOutcomeSharedSpend(SharedSpellSlotSpend)",
+          "RouteMixedTargetOutcomeSharedDamageRoll(SharedSavingThrowDamageRoll)",
+          "PrimaryTarget AttackHitOutcome",
+          "BurstSavingThrowProjection"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "b331777ac3cf6e65b0b19a48f0a5ba8a8671e6fc822b0e032740297e43676dcd",
+        "observedProjectionSha256": "b331777ac3cf6e65b0b19a48f0a5ba8a8671e6fc822b0e032740297e43676dcd",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAttackHitBurstSavingThrowMixedOutcomes"
+    },
+    {
+      "branchAction": "doResolveIceKnifeMissBurstSavingThrows",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "observedActionTaken": "doResolveIceKnifeMissBurstSavingThrows",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doRouteAttackMissBurstSavingThrowMixedOutcomes",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt",
+      "routeConnectorSha256": "7aa5c3bc5a374751af296b0c03f3ed7222346e150501269a5d7ab078bd103795",
+      "routeEvidenceBasis": "focused Rust replay observes target choice, miss outcome, Saving Throw outcome, shared damage roll, and no-attack-damage projection through MixedTargetOutcomeSpellRouteSubject",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::MixedTargetOutcomeSpell",
+          "RouteMixedTargetOutcomeSharedSpend(SharedSpellSlotSpend)",
+          "RouteMixedTargetOutcomeSharedDamageRoll(SharedSavingThrowDamageRoll)",
+          "PrimaryTarget AttackMissOutcome",
+          "NoDamageProjection",
+          "BurstSavingThrowProjection"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "dba933dadabebb8cb51c2f151511c7c62c2325211313f1bfa3fcdd7100481f53",
+        "observedProjectionSha256": "dba933dadabebb8cb51c2f151511c7c62c2325211313f1bfa3fcdd7100481f53",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route action=doRouteAttackMissBurstSavingThrowMixedOutcomes"
+    },
+    {
+      "branchAction": "doResolvePoisonSpraySpellAttackDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "observedActionTaken": "doResolvePoisonSpraySpellAttackDamage",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "blockerId": "SQNT-03F-SINGLE-TARGET-EXACT-DAMAGE-BLOCKER",
+        "reason": "This selected-driver branch is a single-target exact damage projection; copied 03F facts cover mixed target/outcome route facts, not exact damage amounts, dice, damage types, or selected spell identity.",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "source-QNT blocker: exact single-target damage projection",
+          "source-QNT blocker: selected spell identity"
+        ],
+        "comparator": "source-qnt-blocker-record",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route blocker=PoisonSprayExactDamage"
+    },
+    {
+      "branchAction": "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "observedActionTaken": "doResolveRayOfSicknessSpellAttackDamageAndPoisoned",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "blockerId": "SQNT-03F-ACTIVE-EFFECT-RIDER-ROUTING-BLOCKER",
+        "reason": "03F records the generic attack-hit condition secondary projection row only; condition-rider active-effect admission, immunity, duration, and cleanup are owned by SQNT-03D and selected spell identity remains blocked here.",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ConditionProjection witness fact",
+          "source-QNT blocker: condition-rider active-effect lifecycle",
+          "source-QNT blocker: selected spell identity"
+        ],
+        "comparator": "source-qnt-blocker-record",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route blocker=RayOfSicknessConditionRider"
+    },
+    {
+      "branchAction": "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "observedActionTaken": "doResolveSacredFlameDexteritySavingThrowRadiantDamage",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "blockerId": "SQNT-03F-SINGLE-TARGET-SAVE-DAMAGE-BLOCKER",
+        "reason": "This selected-driver branch is a single-target exact Saving Throw damage projection; copied 03F facts cover mixed multi-target or secondary projection route facts only.",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "source-QNT blocker: exact single-target Saving Throw damage",
+          "source-QNT blocker: selected spell identity"
+        ],
+        "comparator": "source-qnt-blocker-record",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route blocker=SacredFlameExactDamage"
+    },
+    {
+      "branchAction": "doResolveSorcerousBurstSpellAttackDamage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "observedActionTaken": "doResolveSorcerousBurstSpellAttackDamage",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "blockerId": "SQNT-03F-EXACT-DAMAGE-PROJECTION-BLOCKER",
+        "reason": "Copied 03F facts do not cover exact authored spell damage amounts, dice counts, damage type choice, or selected spell identity for this single-target branch.",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "source-QNT blocker: exact damage projection",
+          "source-QNT blocker: selected spell identity"
+        ],
+        "comparator": "source-qnt-blocker-record",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route blocker=SorcerousBurstExactDamage"
+    },
+    {
+      "branchAction": "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "observedActionTaken": "doResolveStarryWispObjectSpellAttackDamageAndDimLight",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "blockerId": "SQNT-03F-OBJECT-LIGHT-ALREADY-03E-BLOCKER",
+        "reason": "03F accepts the generic ObjectTarget plus ObjectBoundaryProjection/LightProjection witness row only; selected object target validity, object durability, and light projection lifecycle were already handled by SQNT-03E.",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "ObjectBoundaryProjection witness fact",
+          "LightProjection witness fact",
+          "source-QNT blocker: object/light selected-driver replay already assigned to SQNT-03E"
+        ],
+        "comparator": "source-qnt-blocker-record",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route blocker=StarryWispObjectLight"
+    },
+    {
+      "branchAction": "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "observedActionTaken": "doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage",
+      "qntFileSha256": "d3180d0cc365134d5cc1f008cbc6ff75286c92bfd0e96ea8fbf77a5091bc8b42",
+      "result": {
+        "blockerId": "SQNT-03F-NEXT-ATTACK-ACTIVE-EFFECT-RIDER-BLOCKER",
+        "reason": "03F accepts the generic failed-save next-Attack-Roll projection row only; active next-Attack-Roll mode lifecycle and selected spell identity remain assigned to SQNT-03B or exact-damage tasks.",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "NextAttackRollModeProjection witness fact",
+          "source-QNT blocker: active next-Attack-Roll mode lifecycle",
+          "source-QNT blocker: selected spell identity"
+        ],
+        "comparator": "source-qnt-blocker-record",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03F-MIXED-TARGET-OUTCOMES dirty route blocker=ViciousMockeryNextAttackRider"
+    }
+  ],
+  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+  "targetProfile": "target-profile.json#rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

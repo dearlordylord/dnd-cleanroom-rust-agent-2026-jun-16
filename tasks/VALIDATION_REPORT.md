@@ -4295,3 +4295,45 @@ Blocked selected rows:
 - `doFeatherFallReactionMitigationLanding`: reaction mitigation is outside the object/light rider lane.
 
 The selected level-1 damage driver is not accepted wholesale; Starry Wisp object-target spell attack damage/light remains covered by `FCSF-04-OBJECT-STALE-DIRTY-REPLAY`, not SQNT-03E.
+
+## FCSF-03F Mixed Target Outcomes Dirty Replay
+
+- Declared base SHA: `a8d936aef660a17ed79482e68ba7fe489b5035f6`
+- Manifest source commit SHA: `2de6a5e5401985e5673f5c2be737bbe2374d46d0`
+- Source branch inventory SHA: `331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81`
+- Reducer-route inventory SHA: `f65c64c99d0dc0262cab36eca4030c6f24604108e7791c595c18310e58f326a2`
+- Driver checked by per-file verifier: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt`
+- Route connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt`
+- Evidence file: `tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json`
+- Accepted SQNT-03F connector rows: all 7 connector actions are replayed by `cargo test mixed_target_outcomes_dirty_replay_routes_through_reducer -- --nocapture`.
+- Accepted selected pressure obligations: `doResolveBurningHandsMixedConeSavingThrows`, `doResolveIceKnifeHitAttackDamageAndBurstSavingThrows`, `doResolveIceKnifeMissBurstSavingThrows`.
+
+Behavior implemented:
+
+- Added `MixedTargetOutcomeSpellRouteSubject` and `BattleSpellInvocationOwner` route vocabulary.
+- Routed all copied SQNT-03F terminal surfaces through public reducer start/discover/resolve route events using generic reducer subject entrypoints.
+- Kept copied target/outcome/damage/projection facts as adapter witness facts. No durable `BattleState` field was added.
+- Preserved the split between shared spend facts and shared Saving Throw damage-roll facts; shared damage rolls are not modeled as resource spend.
+
+Verification results:
+
+- Branch-base check passed for declared base `a8d936aef660a17ed79482e68ba7fe489b5035f6`.
+- `cargo test mixed_target_outcomes_dirty_replay_routes_through_reducer -- --nocapture` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json` passed with 3 obligations covered.
+- `cargo fmt --check` passed.
+- `cargo test` passed.
+- `cargo clippy --all-targets -- -D warnings` passed.
+- `git diff --check a8d936aef660a17ed79482e68ba7fe489b5035f6...HEAD` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed only on the two known stale validator hashes recorded in `cleanroom-input/MANIFEST.md`:
+  - `scripts/check-cleanroom-harness.cjs`: expected `bf3a3120ef5bb10b0a11093bb3bbe8d911199f720cc4cba050d4080e78ba5130`, got `0ed7656ef183599a8f54c604219ad34e51a0addb757d4be34deb694938db82f1`.
+  - `scripts/cleanroom-branch-coverage-check.cjs`: expected `f96e26aac6fc7679c1801e3a048ba1426eb301a2aab91cf3cd284063ce62be0c`, got `5b7f4913a2c6455c556e13a276107337219804698ffd087c64d536cf66c6e06c`.
+
+Blocked selected rows:
+
+- `doResolveChromaticOrbDuplicateDamageLeap`: exact duplicate damage leap, authored selected spell identity, dice counts, and duplicate-face limits remain outside FCSF-03F.
+- `doResolvePoisonSpraySpellAttackDamage`, `doResolveSacredFlameDexteritySavingThrowRadiantDamage`, `doResolveSorcerousBurstSpellAttackDamage`: single-target exact damage projection remains outside FCSF-03F.
+- `doResolveRayOfSicknessSpellAttackDamageAndPoisoned`: active condition-rider lifecycle remains owned by SQNT-03D.
+- `doResolveStarryWispObjectSpellAttackDamageAndDimLight`: object/light lifecycle remains owned by SQNT-03E and FCSF-04.
+- `doResolveViciousMockeryWisdomSavingThrowPsychicDamageAndNextAttackDisadvantage`: active next-Attack-Roll lifecycle remains owned by SQNT-03B.
+
+The selected level-1 damage driver is not accepted wholesale; only obligations matched by copied generic SQNT-03F route facts count here.

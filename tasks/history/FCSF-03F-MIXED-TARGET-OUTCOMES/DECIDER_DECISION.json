@@ -1,0 +1,59 @@
+{
+  "acceptedConnectorRowCount": 7,
+  "acceptedConnectorRows": [
+    "doRouteAreaSavingThrowMixedOutcomes",
+    "doRouteAttackHitBurstSavingThrowMixedOutcomes",
+    "doRouteAttackMissBurstSavingThrowMixedOutcomes",
+    "doRouteObjectAttackSecondaryProjection",
+    "doRouteAttackHitConditionProjection",
+    "doRouteSaveFailureNextAttackProjection",
+    "doRouteChainedAttackMixedTargetOutcomes"
+  ],
+  "acceptedSelectedObligations": [
+    "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveBurningHandsMixedConeSavingThrows",
+    "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveIceKnifeHitAttackDamageAndBurstSavingThrows",
+    "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt#step:doResolveIceKnifeMissBurstSavingThrows"
+  ],
+  "decision": "accepted-diagnostic-dirty-replay",
+  "deterministicGates": [
+    {
+      "gate": "branch-base",
+      "status": "pass"
+    },
+    {
+      "gate": "focused-replay",
+      "status": "pass"
+    },
+    {
+      "gate": "route-connector-lane-authority",
+      "status": "pass"
+    },
+    {
+      "gate": "downstream-selected-driver-evidence-check",
+      "status": "pass"
+    },
+    {
+      "gate": "authored-identity-dispatch",
+      "status": "pass"
+    }
+  ],
+  "evidencePath": "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json",
+  "rationale": "Accepted only generic mixed-target outcome route facts matched by copied SQNT-03F connector rows. The selected level-1 damage spell driver is not accepted wholesale. Shared spend facts and shared Saving Throw damage-roll facts remain separate witness facts, and production routing uses typed route subjects, fill kinds, and holes rather than authored selected identity.",
+  "rejectedFindings": [],
+  "schemaVersion": 1,
+  "targetBlockedRows": [
+    {
+      "blockerId": "SQNT-03F-SELECTED-IDENTITY-EXACT-DAMAGE-BLOCKER",
+      "reason": "Exact damage amounts, dice counts, damage types, duplicate-face limits, and authored selected spell identity are outside FCSF-03F."
+    },
+    {
+      "blockerId": "SQNT-03F-ACTIVE-EFFECT-RIDER-ROUTING-BLOCKER",
+      "reason": "Condition and next-Attack-Roll active-effect lifecycle rows remain owned by SQNT-03D and SQNT-03B respectively."
+    },
+    {
+      "blockerId": "SQNT-03F-OBJECT-LIGHT-ALREADY-03E-BLOCKER",
+      "reason": "Selected object/light lifecycle rows remain covered by SQNT-03E and FCSF-04 object stale replay, not by 03F."
+    }
+  ],
+  "taskId": "FCSF-03F-MIXED-TARGET-OUTCOMES"
+}

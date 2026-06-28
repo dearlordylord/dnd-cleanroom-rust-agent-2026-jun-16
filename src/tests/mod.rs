@@ -56,6 +56,8 @@ mod battle_runtime_level1_spatial_witness_selected_identity;
 mod battle_runtime_mage_armor_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_magic_missile.rs"]
 mod battle_runtime_magic_missile;
+#[path = "../qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs"]
+mod battle_runtime_mixed_target_outcomes_route;
 #[path = "../qnt_adapters/battle_runtime_movement_forced_movement_selected_identity.rs"]
 mod battle_runtime_movement_forced_movement_selected_identity;
 #[path = "../qnt_adapters/battle_runtime_next_attack_roll_mode_route.rs"]
@@ -860,6 +862,14 @@ use battle_runtime_magic_missile::{
     replay_observed_route as replay_magic_missile_route,
     BRANCH_ACTIONS as MAGIC_MISSILE_BRANCH_ACTIONS,
     DAMAGE_SAMPLE_DART_ROLL_TOTALS as MAGIC_MISSILE_DAMAGE_SAMPLES,
+};
+use battle_runtime_mixed_target_outcomes_route::{
+    expected_route as expected_mixed_target_outcomes_route,
+    expected_witness as expected_mixed_target_outcomes_witness,
+    projection_payload as mixed_target_outcomes_projection_payload,
+    replay_observed_action as replay_mixed_target_outcomes_action,
+    replay_observed_route as replay_mixed_target_outcomes_route,
+    CONNECTOR_ACTIONS as MIXED_TARGET_OUTCOMES_CONNECTOR_ACTIONS,
 };
 use battle_runtime_movement_forced_movement_selected_identity::{
     expected_route as expected_movement_forced_movement_route,
@@ -2732,6 +2742,40 @@ fn object_light_dirty_replay_routes_through_reducer() {
             assert!(projection_payload.contains("OpaqueBlockerGeometryWitness"));
             assert!(projection_payload.contains("ColorPresentationWitness"));
             assert!(projection_payload.contains("ObjectDurabilityBoundaryWitness"));
+        }
+    }
+}
+
+#[test]
+fn mixed_target_outcomes_dirty_replay_routes_through_reducer() {
+    // QNT: cleanroom-input/qnt/battle-runtime/
+    // battle-runtime-mixed-target-outcomes.route.mbt.qnt; copied facts keep
+    // shared spend and shared Saving Throw damage-roll evidence distinct.
+    for action in MIXED_TARGET_OUTCOMES_CONNECTOR_ACTIONS {
+        let observed = replay_mixed_target_outcomes_action(action);
+        let observed_route = replay_mixed_target_outcomes_route(action);
+        assert_eq!(observed, expected_mixed_target_outcomes_witness(action));
+        assert_eq!(observed_route, expected_mixed_target_outcomes_route(action));
+        let projection_payload = mixed_target_outcomes_projection_payload(&observed);
+        let route_payload = reducer_route_payload(&observed_route);
+        assert!(route_payload.contains("MixedTargetOutcomeSpellRouteSubject"));
+        assert!(route_payload.contains("BattleSpellInvocationOwner"));
+        assert!(route_payload.contains("resolve_battle_subject"));
+        if action.contains("AreaSavingThrow") || action.contains("BurstSavingThrow") {
+            assert!(projection_payload.contains("SharedSavingThrowDamageRoll"));
+        }
+        if action.contains("ObjectAttack") {
+            assert!(projection_payload.contains("ObjectBoundaryProjection"));
+            assert!(projection_payload.contains("LightProjection"));
+        }
+        if action.contains("Condition") {
+            assert!(projection_payload.contains("ConditionProjection"));
+        }
+        if action.contains("NextAttack") {
+            assert!(projection_payload.contains("NextAttackRollModeProjection"));
+        }
+        if action.contains("Chained") {
+            assert!(projection_payload.contains("ChainedAttackTargetProjection"));
         }
     }
 }

@@ -1,0 +1,84 @@
+{
+  "accumulatorGrowth": [],
+  "adapterModules": [
+    {
+      "adapterScope": "Replays copied SQNT-03F MixedTargetOutcomeSpellRouteSubject rows through public BattleEntrypointTrace.route_events using reducer-owned generic route discovery and resolution, then compares them to connector-derived expected route and fact rows.",
+      "path": "src/qnt_adapters/battle_runtime_mixed_target_outcomes_route.rs",
+      "quarantinedWitnessNames": [
+        "doRouteAreaSavingThrowMixedOutcomes",
+        "doRouteAttackHitBurstSavingThrowMixedOutcomes",
+        "doRouteAttackMissBurstSavingThrowMixedOutcomes",
+        "doRouteObjectAttackSecondaryProjection",
+        "doRouteAttackHitConditionProjection",
+        "doRouteSaveFailureNextAttackProjection",
+        "doRouteChainedAttackMixedTargetOutcomes",
+        "MixedTargetOutcomeRouteFact",
+        "expectedProjectionSha256",
+        "observedProjectionSha256",
+        "routeConnectorAction",
+        "routeConnectorPath",
+        "stateCheck",
+        "traceId"
+      ],
+      "routeConnectorAuthority": {
+        "inventoryKind": "reducer-route-inventory",
+        "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-mixed-target-outcomes.route.mbt.qnt",
+        "sha256": "7aa5c3bc5a374751af296b0c03f3ed7222346e150501269a5d7ab078bd103795"
+      },
+      "targetReplayEvidence": [
+        "tasks/target-replay-evidence/FCSF-03F-mixed-target-outcomes-dirty-replay.json"
+      ]
+    }
+  ],
+  "durableStateOwners": [],
+  "expectedNextReuse": [
+    {
+      "api": "BattleReducerRouteSubjectFamily::MixedTargetOutcomeSpell",
+      "driver": "future generic mixed-target spell-invocation replay lanes that need target/outcome/damage/projection routing without authored spell identity",
+      "module": "src/rules/battle_reducer_spine.rs"
+    }
+  ],
+  "nonDurableWitnesses": [
+    "shared spell-slot spend witness",
+    "shared cantrip action spend witness",
+    "shared Saving Throw damage-roll witness",
+    "explicit synthetic target facts",
+    "per-target Attack Roll or Saving Throw outcome facts",
+    "per-target damage projection facts",
+    "secondary projection facts"
+  ],
+  "productionModulesExtended": [
+    {
+      "domainApis": [
+        "BattleSubjectKind::MixedTargetOutcomeInitialSavingThrow",
+        "BattleSubjectKind::MixedTargetOutcomeInitialTargetChoice",
+        "BattleSubjectKind::MixedTargetOutcomeTargetChoiceToAttack",
+        "BattleSubjectKind::MixedTargetOutcomeTargetChoiceToSavingThrow",
+        "BattleSubjectKind::MixedTargetOutcomeAttackRollToSavingThrow",
+        "BattleSubjectKind::MixedTargetOutcomeAttackRollToDamage",
+        "BattleSubjectKind::MixedTargetOutcomeSavingThrowToDamage",
+        "BattleSubjectKind::MixedTargetOutcomeDamageRoll",
+        "BattleSubjectKind::MixedTargetOutcomeRolledDiceToTargetChoice",
+        "BattleSubjectKind::MixedTargetOutcomeDamageRollToTargetChoice",
+        "BattleSubjectKind::MixedTargetOutcomeProjection",
+        "BattleReducerRouteSubjectFamily::MixedTargetOutcomeSpell",
+        "BattleReducerRouteOwnerGroup::SpellInvocation",
+        "resolve_battle_subject_observed"
+      ],
+      "path": "src/rules/battle_reducer_spine.rs",
+      "reason": "Expose SQNT-03F mixed-target route rows through production reducer route observers without adding authored spell identity dispatch or durable duplicate state.",
+      "role": "domain-engine"
+    },
+    {
+      "domainApis": [
+        "ReducerRouteSubjectFamily::MixedTargetOutcomeSpell",
+        "ReducerRouteOwnerGroup::SpellInvocation"
+      ],
+      "path": "src/qnt_adapters/battle_runtime_reducer_route.rs",
+      "reason": "Map production mixed-target route subject and owner events into the shared dirty replay route vocabulary.",
+      "role": "runtime-projection"
+    }
+  ],
+  "schemaVersion": 1,
+  "taskId": "FCSF-03F-MIXED-TARGET-OUTCOMES"
+}
