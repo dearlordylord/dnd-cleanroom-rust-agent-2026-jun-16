@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| FCSF-06-CHARACTER-SHEET-HANDOFF-REJECTION-PAYLOADS | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf06-character-sheet-handoff` | `ralph/fresh-source-feedback-task6-character-sheet-handoff` | `cf60f7a5b822ee9d9458e98577d47026242fd16e` | Nietzsche the 3rd (`019f0cd8-49f8-7d63-a606-a8268dd9637e`) | reviewed clean at `d63838e22137c4b329dc877ca0d963876f3459bf` |
+| _none_ | | | | | |
 
 ## Active Fresh Dry Run Targets
 
@@ -56,6 +56,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| FCSF-06-CHARACTER-SHEET-HANDOFF-REJECTION-PAYLOADS | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf06-character-sheet-handoff` | `ralph/fresh-source-feedback-task6-character-sheet-handoff` | `d63838e22137c4b329dc877ca0d963876f3459bf` | `d63838e22137c4b329dc877ca0d963876f3459bf` source fast-forward / package synced into dirty campaign | removable after source/package retention decision; source-feedback only, no dirty/fresh target acceptance or Rust runtime coverage claimed |
 | FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf05-reaction-taxonomy` | `ralph/fresh-source-feedback-task5-reaction-taxonomy` | `cf60f7a5b822ee9d9458e98577d47026242fd16e` | `cf60f7a5b822ee9d9458e98577d47026242fd16e` source fast-forward / package synced into dirty campaign | removable after source/package retention decision; source-feedback only, no dirty/fresh target acceptance or Rust runtime coverage claimed |
 | FCSF-04-OBJECT-STALE-PUBLIC-PROTOCOL | `/workspace/typescript/.codex-worktrees/dnd-source-fcsf04-object-stale` | `ralph/fresh-source-feedback-task4-object-stale` | `e8cb231ce1183ed96b2865000562f0395f2d712f` | `e8cb231ce1183ed96b2865000562f0395f2d712f` source fast-forward / package synced into dirty campaign | removable after source/package retention decision; source-feedback only, no dirty/fresh target acceptance or Rust runtime coverage claimed |
 | FC-06-SOURCE-FEEDBACK-AUDIT | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19` | `ralph/rrconv-19-cleanroom` | recorded in final FC-06 commit | n/a | complete; artifact `tasks/campaigns/level-1-2-runtime-reducer-route/FC06_SOURCE_FEEDBACK.md` |

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "source-feedback-fcsf06-running",
+  "status": "source-feedback-fcsf06-packaged",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -16,15 +16,15 @@
       "note": "Diagnostic dirty target replay refresh only. The worker consumed source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375 exact route-choice payload facts and routed skill-choice, ability-choice, and two-target ability-choice fill evidence through the shared reducer route surface. Focused Rust tests and full cargo tests pass; global cleanroom harness remains intentionally not accepted because the full RUN_LEDGER and historical evidence files are stale after the source input refresh."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "cf60f7a5b822ee9d9458e98577d47026242fd16e",
-      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, and FCSF-05 reaction/interrupt payload taxonomy evidence. This does not claim fresh target acceptance or new Rust runtime coverage."
+      "sourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages source-feedback Task 3 residual selected-spell route-task queue, source-feedback Task 8 active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This does not claim fresh target acceptance or new Rust runtime coverage."
     },
     "sourceFeedbackPackageRefresh": {
-      "id": "fcsf-package-refresh-cf60f7a5",
+      "id": "fcsf-package-refresh-d63838e",
       "status": "packaged-in-dirty-cleanroom-input",
       "branch": "ralph/rrconv-19-cleanroom",
-      "baseCommit": "3cebb9bddfebff0fec9df37e5e9dadae1e1f4a03",
-      "manifestSourceCommitSha": "cf60f7a5b822ee9d9458e98577d47026242fd16e",
+      "baseCommit": "58ad00f876b54594e0b44f26fb2c0ef9935e5322",
+      "manifestSourceCommitSha": "d63838e22137c4b329dc877ca0d963876f3459bf",
       "packagedTasks": [
         {
           "task": "source-feedback Task 3",
@@ -49,6 +49,12 @@
           "status": "reaction-interrupt-payload-taxonomy-packaged",
           "packageEvidence": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt and reducer-route-inventory.json FCSF-05 route record",
           "note": "The copied route connector now exposes generic reaction trigger/procedure/continuation facts for reaction Armor Class effects, after-damage save/damage reactions, spell interruption end/resume, and falling mitigation. This resolves the FEXP-05 source-input blockers, but target replay remains pending."
+        },
+        {
+          "task": "FCSF-06",
+          "status": "character-sheet-handoff-rejection-resource-payloads-packaged",
+          "packageEvidence": "cleanroom-input/qnt/character-creation-runtime, cleanroom-input/qnt/character-sheet-runtime, cleanroom-input/qnt/character-battle-runtime route connectors and reducer-route-inventory.json FCSF-06 route records",
+          "note": "The copied route connectors now expose typed character creation partial-fill/stale-rejection/build-projection facts, sheet spell-resource/rest/feature-resource payload facts, and character-battle settlement conflict/source-exact resource/zero-HP Stable lifecycle facts. This resolves the FEXP-06 source-input blockers, but target replay remains pending."
         }
       ],
       "conditionImmunityEvidence": "not-accepted-as-scalar-buff-route-replay",
@@ -56,7 +62,7 @@
       "newRustRuntimeCoverage": "none",
       "validation": [
         {
-          "check": "git merge-base --is-ancestor 23c5480 HEAD",
+          "check": "git merge-base --is-ancestor cf60f7a5b822ee9d9458e98577d47026242fd16e d63838e22137c4b329dc877ca0d963876f3459bf",
           "result": "passed"
         },
         {
@@ -64,8 +70,12 @@
           "result": "passed"
         },
         {
-          "check": "python3 -m json.tool on touched campaign JSON and copied branch-coverage JSON",
+          "check": "source gates: pnpm check:mbt-driver-closure, pnpm check:reducer-route-connectors, pnpm rules-kernel-coverage:check, pnpm cleanroom-branch-coverage:check",
           "result": "passed"
+        },
+        {
+          "check": "node scripts/sync-cleanroom-input.cjs --target /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
+          "result": "passed at source SHA d63838e22137c4b329dc877ca0d963876f3459bf"
         },
         {
           "check": "node scripts/check-cleanroom-harness.cjs",
@@ -407,13 +417,14 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no CP8/FU01E/Mage Armor evidence, ledger, or artifact failures",
     "review": "Rawls the 2nd re-review returned no blockers for commit a8b96ec0aa91b4249b352009b1384292f917f7e2"
   },
-  "activeLaneWorktrees": [
+  "activeLaneWorktrees": [],
+  "completedLaneWorktrees": [
     {
       "laneId": "FCSF-06-CHARACTER-SHEET-HANDOFF-REJECTION-PAYLOADS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-fcsf06-character-sheet-handoff",
       "branch": "ralph/fresh-source-feedback-task6-character-sheet-handoff",
       "baseSha": "cf60f7a5b822ee9d9458e98577d47026242fd16e",
-      "status": "source-feedback-reviewed",
+      "status": "source-merged-and-packaged",
       "workerAgent": "019f0cd8-49f8-7d63-a606-a8268dd9637e",
       "workerName": "Nietzsche the 3rd",
       "workerCommit": "1aec6bd61c2096f834fbef93d0f2712263214e9e",
@@ -421,11 +432,11 @@
       "reviewAgent": "019f0cef-e14c-7112-9e73-aedf537c5e2c",
       "reviewName": "Archimedes the 3rd",
       "reviewVerdict": "clean after spell-resource route fact fix",
+      "sourceIntegrationHead": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "packageEvidence": "cleanroom-input source SHA d63838e22137c4b329dc877ca0d963876f3459bf",
       "targetAcceptance": "not-claimed",
       "dirtyRuntimeCoverage": "not-claimed"
-    }
-  ],
-  "completedLaneWorktrees": [
+    },
     {
       "laneId": "FCSF-05-REACTION-INTERRUPT-PAYLOAD-TAXONOMY",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-fcsf05-reaction-taxonomy",
@@ -2911,7 +2922,7 @@
     "Fresh target public Ability Check/Search replay is accepted at cd4465556d18729121f56f5834ac00f8b0b3d15c.",
     "Source feedback task FCSF-01 landed at c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d, adding public concentration cleanup route source input through BattleConcentrationOwner and BattleActiveEffectOwner; fresh target commit bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c accepts failed-save, voluntary-end, and replacement Concentration cleanup through public reducer entrypoints.",
     "Source feedback task FCSF-02 landed at ee4894fa71e9307b9251639f0b54577ff764c63f, adding generic scalar-buff profile projection/domain facts; fresh target commit 05280a8e2d6e9705411c114c80ae2a4e4290de2c accepts scalar profile replay through copied QNT plus public reducer route observations.",
-    "Dirty cleanroom package refresh cf60f7a5b822ee9d9458e98577d47026242fd16e packages source-feedback Task 3 residual selected-spell route-task queue, source-feedback Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, and FCSF-05 reaction/interrupt payload taxonomy evidence. This is source-input bookkeeping only: condition-immunity is still not accepted as scalar-buff route replay evidence, no fresh target acceptance is claimed, and no new Rust runtime coverage was added.",
+    "Dirty cleanroom package refresh d63838e22137c4b329dc877ca0d963876f3459bf packages source-feedback Task 3 residual selected-spell route-task queue, source-feedback Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff rejection and resource payload evidence. This is source-input bookkeeping only: condition-immunity is still not accepted as scalar-buff route replay evidence, no fresh target acceptance is claimed, and no new Rust runtime coverage was added.",
     "Use accepted fresh target 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the current strongest accepted target evidence for SDK composition, Pact Slot handoff replay, FEXP-00 baseline lock, FEXP-04 exact route-choice payload replay, FEXP-04 Ability Check/Search public reducer routing, FEXP-04 Concentration cleanup routing, FEXP-04 scalar profile replay, and FEXP-06 current-package evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 are explicit historical snapshots after the source-input refresh.",
     "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
     "Clean global stale validator-hash / historical evidence debt only if the dirty harness needs to pass without exception.",

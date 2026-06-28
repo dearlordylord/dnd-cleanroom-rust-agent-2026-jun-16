@@ -14,13 +14,14 @@ python3 tools/verify_current_fresh_target.py
 
 Current dirty package refresh:
 
-- source package: `cf60f7a5b822ee9d9458e98577d47026242fd16e`
+- source package: `d63838e22137c4b329dc877ca0d963876f3459bf`
 - branch: `ralph/rrconv-19-cleanroom`
 - boundary: package/state reconciliation only; this refresh does not claim
   fresh target acceptance or new Rust runtime coverage.
 - packaged source-feedback items: Task 3 residual selected-spell route-task
-  queue, Task 8 active reducer diagnostic seed, and FCSF-04 object stale public
-  route-history evidence, and FCSF-05 reaction/interrupt payload taxonomy
+  queue, Task 8 active reducer diagnostic seed, FCSF-04 object stale public
+  route-history evidence, FCSF-05 reaction/interrupt payload taxonomy
+  evidence, and FCSF-06 character/sheet/handoff rejection and resource payload
   evidence.
 
 ## Purpose
@@ -132,7 +133,7 @@ Resolved source input:
 Packaged source input:
 
 - Source-feedback Task 8 remains packaged in current source package
-  `cf60f7a5b822ee9d9458e98577d47026242fd16e` as a six-driver active
+  `d63838e22137c4b329dc877ca0d963876f3459bf` as a six-driver active
   reducer-spine diagnostic seed. The active batch includes Concentration
   teardown and scalar-buff active-effect profile projection replay work, and
   `cleanroom-input/guidance/reducer-spine.md` requires future target evidence
@@ -164,23 +165,26 @@ Target status:
 
 ### Character, Sheet, And Settlement Payloads
 
-Source blockers:
+Resolved source input:
 
 - `FEXP-06-creation-rejection-and-partial-fill-branches-not-accepted`
 - `FEXP-06-sheet-spell-resource-rejection-rest-feature-branches-not-accepted`
 - `FEXP-06-battle-settlement-conflict-and-zero-hp-branches-not-accepted`
 - `FEXP-06-non-route-projection-fields-not-runtime-settled`
+  are resolved as source input by FCSF-06 at source commit
+  `d63838e22137c4b329dc877ca0d963876f3459bf`. The copied character creation,
+  character sheet, and character-battle route connectors expose typed draft
+  partial-fill, stale-rejection, selected-reference retention, build-projection,
+  sheet spell-resource/rest/feature-resource, source-exact resource delta,
+  settlement conflict, generic Hit Point maximum, and zero-HP Stable lifecycle
+  facts without authored identity dispatch.
 
-Needed source input:
+Target status:
 
-- typed draft facts for partial fills, stale rejection, selected-reference
-  retention, and build projection;
-- durable rest/resource payloads for sheet spell resources and feature
-  recovery;
-- executable settlement conflict, source-exact resource delta, feature-resource
-  handoff, and zero-HP stable lifecycle facts;
-- generic build-projection inputs for hit-point maximum arithmetic without
-  authored class or feature identity.
+- not yet fresh-target replay acceptance;
+- future target evidence must consume these typed route facts through public
+  character creation, character sheet, handoff, settlement, and battle reducer
+  entrypoints rather than local replay payload islands.
 
 ### Feature, Species, And Metamagic Substrates
 

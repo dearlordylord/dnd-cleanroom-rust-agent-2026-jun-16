@@ -37,7 +37,7 @@ Authoritative state:
 - active fresh dry-run worktrees: none
 - strongest fresh target evidence: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - latest dirty package refresh:
-  `cf60f7a5b822ee9d9458e98577d47026242fd16e`
+  `d63838e22137c4b329dc877ca0d963876f3459bf`
 
 The final CP8 lane accepted exactly these three newly accepted rows:
 
@@ -90,10 +90,11 @@ generic connector route shape but was not counted as a new CP8 row.
   `cleanroom-input/MANIFEST.md` for:
   - `scripts/check-cleanroom-harness.cjs`
   - `scripts/cleanroom-branch-coverage-check.cjs`
-- The `cf60f7a5b822ee9d9458e98577d47026242fd16e` dirty package refresh
+- The `d63838e22137c4b329dc877ca0d963876f3459bf` dirty package refresh
   packages source-feedback Task 3 residual selected-spell route tasks, the
   Task 8 six-driver active reducer diagnostic seed, and FCSF-04 public object
-  stale route-history evidence, and FCSF-05 reaction/interrupt payload taxonomy
+  stale route-history evidence, FCSF-05 reaction/interrupt payload taxonomy
+  evidence, and FCSF-06 character/sheet/handoff rejection and resource payload
   evidence. It does not add fresh target acceptance or Rust runtime coverage,
   and condition-immunity is still not accepted as scalar-buff route replay
   evidence.
