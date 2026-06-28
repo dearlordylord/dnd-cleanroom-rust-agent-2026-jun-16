@@ -7,15 +7,14 @@ Audit date: 2026-06-28
 Audit baseline:
 
 - dirty campaign branch: `ralph/rrconv-19-cleanroom`
-- dirty campaign integration head before this bookkeeping update:
-  `7521115f61077326b67e933dc9663f19d7e41570`
+- dirty campaign head after the SQNT-07 dirty replay and validator-provenance
+  bookkeeping:
+  `ebd3699fb03c99d0ec674361ebf69835e64bfd0c`
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - accepted fresh target head: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - current fresh gate: `python3 tools/verify_current_fresh_target.py`
-- latest dirty package refresh: source
-  `ebc37e935fdd45ac07198bbec6b3bcc23be2270e` synced into branch
-  `ralph/rrconv-19-cleanroom` as
-  `73fb3ce66c3fb107a1e53f6a9a5d516c78880391`
+- latest dirty package source used by the SQNT-07 current-package replay batch:
+  `21504ef764118f5fd13086aa6266f19280196664`
 
 ## Objective
 
@@ -43,8 +42,8 @@ fresh cleanroom and which review checks prevent false positives.
 | FEXP-04 active-effect lifecycle lane is accepted in the fresh target. | Fresh target head `05280a8e2d6e9705411c114c80ae2a4e4290de2c` includes refreshed `EVIDENCE/fexp04-active-effect-lifecycle-and-roll-modifiers.json`, `examples/fexp04_route_observations.rs`, `tools/verify_fexp04.py`, and `tools/verify_current_fresh_target.py`; `python3 tools/verify_current_fresh_target.py` passes against source package `ee4894fa71e9307b9251639f0b54577ff764c63f`. | Proven for generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, turn-boundary cleanup, exact skill/ability/two-target ability route-fill payloads, public Ability Check/Search target-choice/ability-check/rejection/result surfaces, failed-save/voluntary-end/replacement Concentration cleanup, and scalar-buff profile projection/domain sequencing through public reducer entrypoints. | FEXP-04 currently has no blockers. Older FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 evidence is historical after the full input refresh. |
 | FEXP-05 reaction/interrupt lane is accepted with blockers in the fresh target. | Fresh target head `eb05e8495eac993b69e17f68544edace6e56caee` includes `EVIDENCE/fexp05-reaction-interrupt-and-boundary.json`, `examples/fexp05_route_observations.rs`, and `tools/verify_fexp05.py`; `python3 tools/verify_current_fresh_target.py` passes. FCSF-05 at source commit `cf60f7a5b822ee9d9458e98577d47026242fd16e` now packages generic reaction/interrupt payload taxonomy evidence. Dirty replay evidence `tasks/target-replay-evidence/FCSF-05-reaction-interrupt-dirty-replay.json` accepts all 5 connector rows and covers 3 selected-context obligations. | Proven for the historical fresh snapshot's generic reaction casting-time interrupt/resume, after-damage reaction, nested interrupt resume, active-effect resume, and recorded procedure replay route surfaces through public reducer entrypoints; source-resolved for selected reaction spell projection and interrupt-trigger taxonomy blockers; dirty-replayed for all 5 current-package taxonomy connector rows. | FCSF-05 is not yet fresh-target replay acceptance against the current package. |
 | FEXP-06 character/sheet/handoff lane is accepted with blockers in the fresh target. | Fresh target head `0d5200e43fd7e9f094a93585f00eaf6bd2266c75` includes `EVIDENCE/fexp06-character-creation-sheet-handoff-pack.json`, `examples/fexp06_route_observations.rs`, and `tools/verify_fexp06.py`; `python3 tools/verify_current_fresh_target.py` passes. FCSF-06 at source commit `d63838e22137c4b329dc877ca0d963876f3459bf` now packages typed character/sheet/handoff rejection, resource, settlement, and zero-HP lifecycle evidence. Dirty replay evidence `tasks/target-replay-evidence/FCSF-06-character-sheet-handoff-dirty-replay.json` records 30 accepted reducer-route witness rows and 14 target blockers. | Proven for character creation finalization, sheet hit-point route projection, short-rest Pact-slot completion, and happy-path battle settlement route surfaces through public character/sheet/handoff entrypoints; source-resolved for partial/rejection/resource/conflict blockers; dirty-replayed for 30 current-package rows. | FCSF-06 is not yet fresh-target replay acceptance against the current package. The dirty target still lacks independent public sheet qRoute state for 11 spell-resource rows, and the copied settlement connector lacks 3 driver rows. |
-| FEXP-07 feature/species/metamagic lane is accepted with blockers in the fresh target. | Fresh target head `a77a41dc752326eab69d8110de78928b9dcb9691` includes `EVIDENCE/fexp07-feature-species-metamagic-substrates.json`, `examples/fexp07_route_observations.rs`, and `tools/verify_fexp07.py`; `python3 tools/verify_current_fresh_target.py` passes. Dirty campaign head `4b2c415259ad5f3b10d281a536a5aa8499f926b7` also merges current-package SQNT-07B/C/D dirty replay evidence for source package `21504ef764118f5fd13086aa6266f19280196664`. | Proven in the historical fresh target for feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces through public reducer entrypoints. Proven in the dirty current-package target for 15 species/passive-adjacent rows, 30 selected metamagic rows, and 3 active-feature spell-benefit rows through copied route connectors and observed reducer entrypoints. | Selected/grouped identity witnesses and residual species/metamagic/feature branches remain source-input work before fresh target replay can claim them; the dirty SQNT-07B/C/D replay does not claim fresh target acceptance. |
-| Post-FC06 and post-FEXP04 source feedback was resolved and replayed. | `FC06_SOURCE_FEEDBACK.md` records encounter composition and Pact Slot route-surface resolution; fresh target head `05280a8e2d6e9705411c114c80ae2a4e4290de2c` includes the accepted Pact Slot replay, SDK tracer, FEXP-04 exact roll-choice replay, Ability Check/Search replay, Concentration cleanup replay, scalar profile replay, FEXP-06 current-package verifier, and historical classification for stale older FC/FEXP snapshots. Dirty package refresh `73fb3ce66c3fb107a1e53f6a9a5d516c78880391` now packages SQNT-03A, SQNT-03B, and SQNT-03C source connectors plus Task 3, Task 8, FCSF-04, FCSF-05, and FCSF-06 inputs. Dirty replay merges include FCSF-04 `9c9d728640e28a003a5a051f7ddc9be56bbc980e`, FCSF-05 `5d07ad816c08ab3335c7e95c87f26c2e73e80d9c`, FCSF-06 `4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d`, SQNT-03A `73627315f70528e73f5eb4ef781606e876e87367`, SQNT-03B `4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e`, and SQNT-03C `7521115f61077326b67e933dc9663f19d7e41570`. | Proven for the two recorded FC-06 feedback items, exact roll-choice payload feedback, Ability Check/Search public observability feedback, Concentration cleanup source feedback `FCSF-01`, scalar profile source feedback `FCSF-02`, SQNT-03A/SQNT-03B/SQNT-03C source connector evidence and dirty target replay, object stale source feedback `FCSF-04`, reaction/interrupt taxonomy source feedback `FCSF-05`, character/sheet/handoff source feedback `FCSF-06`, all 6 dirty FCSF-04 connector rows / 7 Starry Wisp object obligations, all 5 dirty FCSF-05 connector rows, 30 dirty FCSF-06 replay rows, 3 dirty SQNT-03A connector transitions / 1 attack-shape obligation, 6 dirty SQNT-03B connector transitions / 2 selected-driver obligations, and 4 dirty SQNT-03C connector transitions / 1 selected-driver obligation. | Older FC/FEXP verifier artifacts that were not refreshed against source `ee4894fa71e9307b9251639f0b54577ff764c63f` are historical snapshots, not current-package gates. The `73fb3ce` refresh and dirty replays do not claim fresh target acceptance or condition-immunity scalar-buff route replay acceptance. SQNT-03A, SQNT-03B, and SQNT-03C still need fresh target replay before any counts as fresh runtime acceptance. |
+| FEXP-07 feature/species/metamagic lane is accepted with blockers in the fresh target. | Fresh target head `a77a41dc752326eab69d8110de78928b9dcb9691` includes `EVIDENCE/fexp07-feature-species-metamagic-substrates.json`, `examples/fexp07_route_observations.rs`, and `tools/verify_fexp07.py`; `python3 tools/verify_current_fresh_target.py` passes. SQNT-07 replay merge head `4b2c415259ad5f3b10d281a536a5aa8499f926b7` merges current-package dirty replay evidence for source package `21504ef764118f5fd13086aa6266f19280196664`; current campaign-control head is `ebd3699fb03c99d0ec674361ebf69835e64bfd0c`. | Proven in the historical fresh target for feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces through public reducer entrypoints. Proven in the dirty current-package target for 15 species/passive-adjacent rows, 30 selected metamagic rows, and 3 active-feature spell-benefit rows through copied route connectors and observed reducer entrypoints. | Selected/grouped identity witnesses and residual species/metamagic/feature branches remain source-input work before fresh target replay can claim them; the dirty SQNT-07B/C/D replay does not claim fresh target acceptance. |
+| Post-FC06 and post-FEXP04 source feedback was resolved and replayed. | `FC06_SOURCE_FEEDBACK.md` records encounter composition and Pact Slot route-surface resolution; fresh target head `05280a8e2d6e9705411c114c80ae2a4e4290de2c` includes the accepted Pact Slot replay, SDK tracer, FEXP-04 exact roll-choice replay, Ability Check/Search replay, Concentration cleanup replay, scalar profile replay, FEXP-06 current-package verifier, and historical classification for stale older FC/FEXP snapshots. Dirty package refreshes now package SQNT-03A/B/C source connectors plus Task 3, Task 8, FCSF-04, FCSF-05, FCSF-06, and SQNT-07B/C/D inputs through latest source package `21504ef764118f5fd13086aa6266f19280196664`. Dirty replay merges include FCSF-04 `9c9d728640e28a003a5a051f7ddc9be56bbc980e`, FCSF-05 `5d07ad816c08ab3335c7e95c87f26c2e73e80d9c`, FCSF-06 `4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d`, SQNT-03A `73627315f70528e73f5eb4ef781606e876e87367`, SQNT-03B `4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e`, SQNT-03C `7521115f61077326b67e933dc9663f19d7e41570`, and SQNT-07B/C/D replay merge `4b2c415259ad5f3b10d281a536a5aa8499f926b7`. | Proven for the two recorded FC-06 feedback items, exact roll-choice payload feedback, Ability Check/Search public observability feedback, Concentration cleanup source feedback `FCSF-01`, scalar profile source feedback `FCSF-02`, SQNT-03A/SQNT-03B/SQNT-03C source connector evidence and dirty target replay, object stale source feedback `FCSF-04`, reaction/interrupt taxonomy source feedback `FCSF-05`, character/sheet/handoff source feedback `FCSF-06`, all 6 dirty FCSF-04 connector rows / 7 Starry Wisp object obligations, all 5 dirty FCSF-05 connector rows, 30 dirty FCSF-06 replay rows, 3 dirty SQNT-03A connector transitions / 1 attack-shape obligation, 6 dirty SQNT-03B connector transitions / 2 selected-driver obligations, 4 dirty SQNT-03C connector transitions / 1 selected-driver obligation, and SQNT-07B/C/D dirty current-package rows. | Older FC/FEXP verifier artifacts that were not refreshed against source `ee4894fa71e9307b9251639f0b54577ff764c63f` are historical snapshots, not current-package gates. These dirty refreshes and replays do not claim fresh target acceptance or condition-immunity scalar-buff route replay acceptance. SQNT-03A/B/C and SQNT-07B/C/D still need fresh target replay before any count as fresh runtime acceptance. |
 | Production runtime semantics avoid authored identity dispatch. | Dirty campaign review artifacts and fresh verifier check production source for selected identity terms; accepted docs state identity remains in adapter/test/evidence boundaries. | Proven for sampled/accepted target scopes. | A future full fresh run still needs the same static and review gates across its whole production surface. |
 | Focused QNT slices are sufficient to guide a full independent runtime. | Dirty campaign plus fresh dry run prove multiple focused slices, route connectors, source feedback loops, and SDK tracer surfaces. | Not fully proven. | Current evidence is strong but partial: it proves a successful dry run and diagnostic dirty coverage, not a complete fresh runtime campaign from only the package. |
 | The final architecture is complete and ready to mark the thread goal achieved. | No artifact currently proves full fresh-cleanroom generation or complete runtime coverage independent of dirty scaffolding. | Not achieved. | Keep the goal active. The next proof step should be a larger fresh-cleanroom campaign or source-side guidance/QNT promotion based on this audit. |
@@ -75,16 +74,15 @@ This gate validates:
 - FC-03/FC-04/FC-05/FC-07 and FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07
   historical snapshot classification after the source package refresh.
 
-The later dirty package refresh at
-`73fb3ce66c3fb107a1e53f6a9a5d516c78880391` is not part of that accepted fresh
-gate yet. It records that source-feedback Task 3 residual selected-spell
-route-task records, SQNT-03A hit-point-regain-prevention connector evidence,
-SQNT-03B next-Attack-Roll mode connector evidence, SQNT-03C Opportunity Attack
-denial connector evidence, the Task 8 six-driver active reducer diagnostic seed,
-and FCSF-04 public object stale route-history evidence, FCSF-05
-reaction/interrupt payload taxonomy evidence, and FCSF-06 character/sheet/handoff
-payload evidence are available in `cleanroom-input/**`; future fresh acceptance
-still has to replay those package facts through public reducer/source entrypoints.
+The later dirty package refreshes are not part of that accepted fresh gate yet.
+They record that source-feedback Task 3 residual selected-spell route-task
+records, SQNT-03A/B/C route connector evidence, the Task 8 six-driver active
+reducer diagnostic seed, FCSF-04 public object stale route-history evidence,
+FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06
+character/sheet/handoff payload evidence, and SQNT-07B/C/D
+feature/species/metamagic route evidence are available in `cleanroom-input/**`;
+future fresh acceptance still has to replay those package facts through public
+reducer/source entrypoints.
 
 Dirty campaign state:
 
@@ -96,7 +94,7 @@ jq '.status, .coverageCurrent, .freshCleanroomDryRun.status' \
 
 Expected state:
 
-- `sqnt03c-dirty-replay-merged-verified`
+- `sqnt07-current-package-replay-merged-verified`
 - `659 / 659` refreshed in-scope dirty obligations accepted
 - `accepted-through-current-verifier`
 
@@ -117,8 +115,8 @@ Expected state:
 4. Preserve the review gates from this campaign: observed reducer events,
    independent expected route records, state-owner derivability records, and no
    production authored identity dispatch.
-5. Treat global dirty-harness validator-hash cleanup as optional unless the
-   dirty harness must pass without exception; it is not the main proof path.
+5. Treat old dirty-harness historical replay/ledger cleanup as optional unless
+   the dirty harness must pass without exception; it is not the main proof path.
 
 ## Completion Decision
 
@@ -150,20 +148,17 @@ The current evidence proves:
   source feedback `FCSF-02` landed at source commit
   `ee4894fa71e9307b9251639f0b54577ff764c63f` and is accepted in the fresh
   target by commit `05280a8e2d6e9705411c114c80ae2a4e4290de2c`;
-- source-feedback Task 3, SQNT-03A, SQNT-03B, SQNT-03C, Task 8, FCSF-04, FCSF-05, and
-  FCSF-06 are packaged in the dirty cleanroom input at source commit
-  `ebc37e935fdd45ac07198bbec6b3bcc23be2270e`, with Task 3 carrying residual
-  selected-spell route tasks forward, SQNT-03A adding hit-point-regain-prevention
-  route connector evidence, SQNT-03B adding next-Attack-Roll mode route connector
-  evidence, SQNT-03C adding Opportunity Attack denial route connector evidence,
-  Task 8 seeding the six-driver active reducer diagnostic batch, and FCSF-04
-  adding public object stale route-history evidence, FCSF-05 adding generic
-  reaction/interrupt payload taxonomy evidence, and FCSF-06 adding typed
-  character/sheet/handoff rejection and resource payload evidence. FCSF-04,
-  FCSF-05, FCSF-06, SQNT-03A, SQNT-03B, and SQNT-03C have been diagnostic-replayed in the
-  dirty target; those dirty replays add target-side rehearsal evidence but do not
-  add fresh target acceptance. SQNT-03A, SQNT-03B, and SQNT-03C are dirty target
-  accepted but not fresh target accepted;
+- source-feedback Task 3, SQNT-03A/B/C, Task 8, FCSF-04/05/06, and later
+  SQNT-07B/C/D are packaged in the dirty cleanroom input. The SQNT-03/FCSF
+  package refresh at source commit `ebc37e935fdd45ac07198bbec6b3bcc23be2270e`
+  carried residual selected-spell route tasks, hit-point-regain-prevention,
+  next-Attack-Roll mode, Opportunity Attack denial, object stale route-history,
+  reaction/interrupt taxonomy, and character/sheet/handoff payload evidence.
+  The later current-package replay batch uses source commit
+  `21504ef764118f5fd13086aa6266f19280196664` for SQNT-07B species/passive
+  adjacent evidence, SQNT-07C metamagic evidence, and SQNT-07D active-feature
+  spell-benefit evidence. These dirty replays add target-side rehearsal evidence
+  but do not add fresh target acceptance;
 - FEXP-05 independently accepted reaction/interrupt substrate evidence with
   explicit historical blockers for residual selected reaction spell and
   interrupt-trigger source-input gaps; FCSF-05 resolves those blockers as source

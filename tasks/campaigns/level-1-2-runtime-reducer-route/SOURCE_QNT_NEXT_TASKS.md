@@ -92,7 +92,9 @@ generic route facts below. The target acceptance gate stays the same:
 
 ## Current Replay Queue
 
-Audit result at dirty campaign head `4b2c415259ad5f3b10d281a536a5aa8499f926b7`:
+Audit result at SQNT-07 replay merge head
+`4b2c415259ad5f3b10d281a536a5aa8499f926b7`, with current dirty campaign
+control head `ebd3699fb03c99d0ec674361ebf69835e64bfd0c`:
 
 - SQNT-07B, SQNT-07C, and SQNT-07D dirty current-package replay lanes are
   merged and verified against copied package source

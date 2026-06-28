@@ -6,9 +6,9 @@ Integration worktree: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrco
 
 Integration branch: `ralph/rrconv-19-cleanroom`
 
-Integration head when this readiness report was refreshed: `5234a36b2831c5ab781dbc73e88e3d43e07a1154`
+Integration head when this readiness report was refreshed: `ebd3699fb03c99d0ec674361ebf69835e64bfd0c`
 
-Verified reducer-route head: `73627315f70528e73f5eb4ef781606e876e87367`
+Verified reducer-route replay merge head: `4b2c415259ad5f3b10d281a536a5aa8499f926b7`
 
 ## Goal Boundary
 
@@ -27,7 +27,7 @@ review checks were needed to prevent false positives.
 
 Authoritative state:
 
-- `STATE.json.status`: `sqnt03c-dirty-replay-merged-verified`
+- `STATE.json.status`: `sqnt07-current-package-replay-merged-verified`
 - refreshed in-scope obligations: `659`
 - accepted obligations: `659`
 - accepted driver coverage: `97 / 97`
@@ -36,19 +36,15 @@ Authoritative state:
 - active lane worktrees: none
 - active fresh dry-run worktrees: none
 - strongest fresh target evidence: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
-- latest dirty package refresh:
-  `73fb3ce66c3fb107a1e53f6a9a5d516c78880391`, from source package
-  `ebc37e935fdd45ac07198bbec6b3bcc23be2270e`
-- latest source-QNT connector: SQNT-03C Opportunity Attack Denial source input is
-  packaged in
-  `cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial.route.mbt.qnt`
-  and `cleanroom-input/qnt/battle-runtime/battle-runtime-opportunity-attack-denial-route-facts.qnt`;
-  dirty target replay is accepted at merge
-  `7521115f61077326b67e933dc9663f19d7e41570`; fresh target replay remains
-  pending.
-- previous source-QNT connectors: SQNT-03A Hit Point regain prevention and
-  SQNT-03B Next Attack Roll mode are packaged and dirty-replayed; fresh target
-  replay remains pending.
+- latest dirty package source used by current replay evidence:
+  `21504ef764118f5fd13086aa6266f19280196664`
+- latest source-QNT connector replay batch: SQNT-07B species/passive-adjacent,
+  SQNT-07C metamagic, and SQNT-07D active-feature spell-benefit dirty replay is
+  accepted at merge head `4b2c415259ad5f3b10d281a536a5aa8499f926b7`; fresh
+  target replay remains pending.
+- previous source-QNT connectors: SQNT-03A Hit Point regain prevention,
+  SQNT-03B Next Attack Roll mode, and SQNT-03C Opportunity Attack Denial are
+  packaged and dirty-replayed; fresh target replay remains pending.
 - latest dirty replay refreshes: FCSF-04 accepted 6 object stale route-history
   connector rows covering all 7 Starry Wisp object obligations in
   `tasks/target-replay-evidence/FCSF-04-object-stale-dirty-replay.json`;
@@ -59,12 +55,15 @@ Authoritative state:
   SQNT-03A accepted 3 Hit Point regain prevention connector transitions and 1
   attack-shape obligation with 0 SQNT-03A target behavior blockers in
   `tasks/target-replay-evidence/FCSF-03A-hit-point-regain-prevention-dirty-replay.json`;
-  SQNT-03B accepted 6 next-Attack-Roll mode connector transitions covering 2
-  selected-driver obligations in
+  SQNT-03B accepted 6 next-Attack-Roll connector transitions and 2 selected
+  driver obligations in
   `tasks/target-replay-evidence/FCSF-03B-next-attack-roll-mode-dirty-replay.json`;
-  SQNT-03C accepted 4 Opportunity Attack denial connector transitions covering
-  1 selected-driver obligation in
-  `tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json`.
+  SQNT-03C accepted 4 Opportunity Attack denial connector transitions and 1
+  selected-driver obligation in
+  `tasks/target-replay-evidence/FCSF-03C-opportunity-attack-denial-dirty-replay.json`;
+  SQNT-07B accepted 15 species/passive-adjacent rows with 2 inherited Adrenaline
+  Rush rows out of scope for that lane; SQNT-07C accepted 30 selected metamagic
+  rows; SQNT-07D accepted 3 active-feature spell-benefit rows.
 
 The final CP8 lane accepted exactly these three newly accepted rows:
 
@@ -122,23 +121,14 @@ generic connector route shape but was not counted as a new CP8 row.
   hit-point-regain-prevention connector evidence, SQNT-03B next-Attack-Roll mode
   connector evidence, SQNT-03C Opportunity Attack denial connector evidence, the
   Task 8 six-driver active reducer diagnostic seed, and FCSF-04 public object
-  stale route-history evidence, FCSF-05
-  reaction/interrupt payload taxonomy evidence, and FCSF-06
-  character/sheet/handoff rejection and resource payload evidence. The earlier
-  FCSF-04 dirty replay adds diagnostic Rust coverage for all
-  7 Starry Wisp object obligations including public stale route history, the
-  FCSF-05 dirty replay adds diagnostic Rust coverage for all 5 reaction/interrupt
-  taxonomy connector rows, and the FCSF-06 dirty replay adds diagnostic Rust
-  coverage for 30 rows while recording 14 target blockers. The SQNT-03A dirty
-  replay adds diagnostic Rust coverage for the copied Hit Point regain
-  prevention route connector through public reducer route events. The SQNT-03B
-  dirty replay adds diagnostic Rust coverage for the copied next-Attack-Roll
-  mode route connector through public reducer route events. The SQNT-03C dirty
-  replay adds diagnostic Rust coverage for the copied Opportunity Attack denial
-  route connector through public reducer route events. These dirty replays do
-  not add fresh target acceptance, and
-  condition-immunity is still not accepted as scalar-buff route replay
-  evidence.
+  stale route-history evidence, FCSF-05 reaction/interrupt payload taxonomy
+  evidence, and FCSF-06 character/sheet/handoff rejection and resource payload
+  evidence. The later SQNT-07B/C/D replay batch uses source package
+  `21504ef764118f5fd13086aa6266f19280196664` for species/passive-adjacent,
+  metamagic, and active-feature spell-benefit route evidence. The dirty replays
+  add diagnostic Rust coverage for FCSF-04, FCSF-05, FCSF-06, SQNT-03A,
+  SQNT-03B, SQNT-03C, SQNT-07B, SQNT-07C, and SQNT-07D rows through public
+  reducer route events, but do not add fresh target acceptance.
 - It does not remove every old historical evidence artifact. The fresh current
   gate classifies FC-03/FC-04/FC-05 as historical snapshots after the input
   refresh; broader dirty-rehearsal cleanup remains optional unless the dirty
@@ -196,23 +186,16 @@ Next useful work is one of:
   FEXP-07 selected/grouped residual blockers into source-side QNT/guidance
   updates before launching more target implementation;
 - use `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` and fresh target commit
-  `05280a8e2d6e9705411c114c80ae2a4e4290de2c` as the accepted evidence for the
-  integrated SDK tracer-bullet plus post-FC06 Pact Slot handoff replay plus
-  FEXP-00 expansion baseline lock, FEXP-01 diagnostic battle route pack, and
-  FEXP-02 generic spell-attack/save-gated substrate lane plus FEXP-03
-  chained/object spell-attack substrate lane plus FEXP-04 active-effect
-  lifecycle substrate lane, exact roll-choice replay, Ability Check/Search
-  public reducer replay, Concentration cleanup replay, and scalar profile
-  replay plus FEXP-05
-  reaction/interrupt substrate lane plus
-  FEXP-06 character/sheet/handoff substrate lane plus FEXP-07
-  feature/species/metamagic substrate lane. The current gate verifies the
-  refreshed `ee4894fa` package plus current FEXP-04/FEXP-06 evidence, and the
-  dirty campaign now also records FCSF-04, FCSF-05, SQNT-03A, SQNT-03B,
-  SQNT-03C, SQNT-07B, SQNT-07C, and SQNT-07D current-package dirty replays as
-  accepted and FCSF-06 current-package dirty replay as accepted-with-target
-  blockers. Older stale snapshots remain explicitly classified;
-- clean the global stale validator-hash / historical evidence debt so the dirty
+  `05280a8e2d6e9705411c114c80ae2a4e4290de2c` as accepted evidence for the
+  integrated SDK tracer-bullet, post-FC06 Pact Slot handoff replay, FEXP-00
+  expansion baseline lock, current FEXP-04 evidence, and current FEXP-06
+  evidence. FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 remain useful historical
+  fresh evidence after the source-input refresh, not current-package fresh
+  acceptance. The dirty campaign now also records FCSF-04, FCSF-05, SQNT-03A,
+  SQNT-03B, SQNT-03C, SQNT-07B, SQNT-07C, and SQNT-07D current-package dirty
+  replays as accepted and FCSF-06 current-package dirty replay as
+  accepted-with-target blockers;
+- clean the old historical evidence debt so the dirty
   harness can pass without exception;
 - promote the strongest route-connector lessons back into source-side QNT and
   cleanroom guidance before a fresh run;

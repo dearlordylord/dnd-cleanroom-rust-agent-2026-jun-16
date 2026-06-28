@@ -6,7 +6,7 @@ Integration worktree: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrco
 
 Integration branch: `ralph/rrconv-19-cleanroom`
 
-Last dirty-cleanroom integration head: `5b1e976b6af7fadefa4ea5a065ae81de53b94d09`
+Last dirty-cleanroom integration head: `ebd3699fb03c99d0ec674361ebf69835e64bfd0c`
 
 ## Status
 

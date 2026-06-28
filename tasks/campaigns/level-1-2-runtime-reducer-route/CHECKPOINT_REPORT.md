@@ -28,16 +28,20 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Last Known Verification
 
-At CP8 integration head `5b1e976b6af7fadefa4ea5a065ae81de53b94d09`:
+At current campaign-control head `ebd3699fb03c99d0ec674361ebf69835e64bfd0c`
+after the SQNT-07 current-package dirty replay batch:
 
-- `cargo test mage_armor_adapter_replays_all_branches -- --nocapture`: pass
-- `cargo test mage_armor_projects_base_armor_class_and_duration -- --nocapture`: pass
-- `jq empty` over `tasks/RUN_LEDGER.json`, affected FU01E history/evidence files, `CP8_AUDIT.json`, and `STATE.json`: pass
+- focused SQNT-07B species/passive tests: pass
+- focused SQNT-07C metamagic route connector test: pass
+- focused SQNT-07D active-feature test and evidence checker: pass
 - `cargo fmt --check`: pass
-- `git diff --check HEAD~1...HEAD`: pass
-- `cargo test`: pass, `220` tests
+- `cargo test`: pass, `234` tests
 - `cargo clippy --all-targets -- -D warnings`: pass
-- `node scripts/check-cleanroom-harness.cjs`: fails only on known stale validator hashes in `cleanroom-input/MANIFEST.md`; `/tmp/rrcp8-integration-harness.out` contained no CP8/FU01E/Mage Armor evidence, ledger, or artifact failures.
+- `git diff --check`: pass
+- `node scripts/check-cleanroom-harness.cjs`: progresses past guidance and
+  approved validator provenance, then fails on older historical replay/ledger
+  debt still pinned to source package `564376fd95218a209bb9eae5c9ccb54ca3e04a52`
+  plus pre-existing heuristic findings outside the SQNT-07B/C/D replay batch.
 
 ## Source Corpus Boundary
 
@@ -593,7 +597,7 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 ### SQNT-07-CURRENT-PACKAGE-DIRTY-REPLAY-BATCH
 
 - Integration merge head: `4b2c415259ad5f3b10d281a536a5aa8499f926b7`
-- Bookkeeping head: `84873615effbdd05e8cf7a51a55dfd2a5d505b17`
+- Bookkeeping/provenance-cleanup head: `ebd3699fb03c99d0ec674361ebf69835e64bfd0c`
 - Source package commit: `21504ef764118f5fd13086aa6266f19280196664`
 - Lanes merged:
   - `SQNT-07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY`: lane head `2e3b1e21ebfbe634263b5034d9a531cc34fccb0a`, merge commit `4b2c415259ad5f3b10d281a536a5aa8499f926b7`.
