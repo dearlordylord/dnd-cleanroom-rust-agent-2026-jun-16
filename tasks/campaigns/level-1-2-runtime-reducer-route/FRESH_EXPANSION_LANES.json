@@ -7,11 +7,12 @@
   "sourcePackageCommit": "21504ef764118f5fd13086aa6266f19280196664",
   "acceptedFreshTargetPackageCommit": "21504ef764118f5fd13086aa6266f19280196664",
   "currentFreshBaselineCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
-  "acceptedFreshTargetHead": "27bcbabc524c2087a73689c407e95c82a54fe10f",
+  "acceptedFreshTargetHead": "b28d9dbdd83c49bdd21dd36473d0b96612279fb7",
   "strongestRuntimeEvidenceCommit": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
   "currentPackageRuntimeAcceptanceClaims": [
     "FEXP-06/FRESH-RR-CHARACTER-SHEET-HANDOFF",
-    "FRESH-RR-FEATURE-SPECIES-METAMAGIC"
+    "FRESH-RR-FEATURE-SPECIES-METAMAGIC",
+    "FRESH-RR-SPATIAL-DAMAGE"
   ],
   "latestDirtyPackageRefreshCommit": "21504ef764118f5fd13086aa6266f19280196664",
   "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, and SQNT-07B/C/D feature-species-metamagic route evidence are packaged in cleanroom-input. FCSF-04 dirty replay later accepted 6 connector rows and covered 7 object-route obligations, FCSF-05 dirty replay accepted all 5 connector rows, FCSF-06 dirty replay accepted 30 reducer-route witness rows and recorded 14 target blockers, SQNT-07B dirty replay accepted 15 selected species/passive-adjacent rows with 2 inherited Adrenaline Rush rows out of scope, SQNT-07C dirty replay accepted 30 selected metamagic rows, and SQNT-07D dirty replay accepted 3 active-feature spell-benefit rows; no fresh target acceptance is claimed from these dirty replays.",
@@ -269,6 +270,31 @@
         "verifier update for accepted substrate subset"
       ],
       "acceptanceSummary": "Accepted with blockers in the historical fresh target: feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces pass through public reducer entrypoints with connector-derived expected records. Current-package dirty replay now also accepts SQNT-07B/C/D rows through copied route connectors and observed reducer entrypoints. Selected/grouped identity witnesses and residual species/metamagic/feature branches remain explicit source-input work before fresh target replay can claim them."
+    },
+    {
+      "laneId": "FRESH-RR-SPATIAL-DAMAGE",
+      "checkpointId": "FRESH-RR-CP3",
+      "status": "merged-with-blockers",
+      "purpose": "Replay SQNT-03E object/light and SQNT-03F mixed-target route surfaces against the current fresh target package, while keeping SQNT-03G exact damage and FCSF-04 stale-object rows downgraded where copied source facts are insufficient.",
+      "drivers": [
+        "battle-runtime-object-light-riders.route.mbt.qnt",
+        "battle-runtime-mixed-target-outcomes.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "spatial/damage evidence records copied-QNT/vocabulary-derived expected route records",
+        "public battle reducer observations match accepted expected records",
+        "SQNT-03G exact damage and FCSF-04 stale-object route rows remain explicit downgraded blockers",
+        "tools/verify_current_fresh_target.py includes the accepted current-package lane"
+      ],
+      "requiredChecks": [
+        "git merge-base --is-ancestor c196b33c634169cfc991c3de101c23fde8f75bae HEAD",
+        "python3 tools/verify_current_fresh_target.py",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "acceptanceSummary": "Accepted-with-blockers at fresh target b28d9dbdd83c49bdd21dd36473d0b96612279fb7. SQNT-03E object/light and SQNT-03F mixed-target route surfaces are compared from copied QNT/vocabulary-derived expected records to public reducer observations; SQNT-03G exact damage and FCSF-04 stale-object rows remain downgraded blockers where copied source facts are insufficient."
     }
   ]
 }

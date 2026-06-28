@@ -1,8 +1,8 @@
 # Reducer-Spine Cleanroom Guidance
 
 This guidance is for cleanroom target agents implementing reducer-spine
-diagnostics from copied QNT. It is language-independent and intentionally does
-describe only the copied corpus, reducer-route contract, and domain boundaries.
+diagnostics from copied QNT. It is language-independent and describes the
+copied corpus, reducer-route contract, and domain boundaries.
 
 ## Target Surface
 
@@ -38,9 +38,10 @@ For a selected driver:
 
 The reducer-spine contract witness
 `cleanroom-input/qnt/battle-runtime/battle-runtime-reducer-spine-contract.mbt.qnt`
-is a thin composition witness. It proves the shared route shape. It is not a
-rule owner for spell targeting, damage math, attack resolution, turn-boundary
-effects, or interrupt behavior.
+is a thin composition witness. It proves the shared route shape. Spell
+targeting, damage math, attack resolution, turn-boundary effects, and interrupt
+behavior are owned by their focused route connectors or reusable component
+facts.
 
 The character-to-battle encounter-composition connector
 `cleanroom-input/qnt/character-battle-runtime/character-battle-encounter-composition.route.mbt.qnt`
@@ -54,7 +55,8 @@ shape-based:
   combatant and any non-sheet participants, plus each participant's Encounter
   Side;
 - battle subject-profile setup owns availability of generic action/profile
-  facts for each participant; profiles are capabilities, not authored ids;
+  facts for each participant; profiles are capability facts rather than authored
+  ids;
 - battle Initiative setup owns Initiative counts, stable Initiative order, and
   the initial current actor selected from that order;
 - battle runtime entry happens after those composition facts exist, so
@@ -75,9 +77,9 @@ the marker sequence and the owned composition fact families. A target replay
 proves reducer routing only when its observed route events match the copied
 connector, including those fact-family sets, while production state owns the
 corresponding participant, Encounter Side, subject-profile, Initiative, and
-current-actor facts. Matching marker order or the focused non-route projection
-alone proves behavior parity; reducer architecture evidence includes the owned
-fact families and shared reducer entrypoints.
+current-actor facts. Reducer architecture evidence includes the owned fact
+families and shared reducer entrypoints, beyond marker order or focused
+non-route projection parity.
 
 Reducer-route owner names are semantic domain boundaries. A target may encode
 them in its native type and module system, while preserving domain-shaped
@@ -103,10 +105,10 @@ copied scalar-buff profile source functions and the
 `ScalarBuffEffectRouteSubject` route, then flow through reducer-owned
 active-effect, movement, Hit Point, Temporary Hit Point, and Concentration
 owners. Condition-immunity scalar-buff projection exists in rule-core
-vocabulary, but it is not exposed by this active replay route and remains with
-the selected-spell residual blocker that calls for a generic condition-immunity
-plus turn-start Temporary Hit Point active-effect substrate. Those projection
-domains are accepted when copied generic substrate evidence exists.
+vocabulary. The active replay route covers the listed projection domains; the
+selected-spell residual blocker calls for generic condition-immunity plus
+turn-start Temporary Hit Point active-effect substrate evidence before accepting
+that remaining domain.
 
 The reducer-route inventory is an ordering and derivability index. A
 `reducer-routed` row is accepted only with copied connector evidence from
@@ -169,7 +171,7 @@ Fixture names, QNT branch names, selected authored identities, and catalog rows
 belong only in adapters, tests, replay evidence, catalog/selection boundaries,
 or explicitly documented support-profile admission. If a reducer route appears
 to need a selected identity, first extract the generic shape or capability it
-represents. If the copied corpus does not state that shape, record a
+represents. If the copied corpus lacks that shape, record a
 `source-qnt-corpus` blocker instead of inferring it.
 
 ## Selected Identity And Catalog Timing
@@ -230,7 +232,7 @@ For reducer-spine diagnostics, use
   runtime substrate exists.
 - `replay-refresh-only` means rerun evidence without new production behavior.
 
-If the route needs a reducer fact not present in copied QNT, RAW, domain
-language, assumptions, or this guidance, record a `source-qnt-corpus` blocker.
+If the route needs a reducer fact absent from copied QNT, RAW, domain language,
+assumptions, and this guidance, record a `source-qnt-corpus` blocker.
 Acceptance evidence for a fresh package run comes from copied corpus inputs and
 fresh target replay artifacts.
