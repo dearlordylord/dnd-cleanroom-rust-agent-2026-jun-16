@@ -32,7 +32,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection` | `ralph/source-sqnt-03g-exact-damage-projection` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Halley the 3rd (`019f0ea3-50cd-7ae3-b243-436cef287aa2`); reviewer Franklin the 3rd (`019f0ec3-9951-7271-8cf6-f0d219725b54`) | review-blocker-fix-running after `ddbff4328bdde9e34b94fac3450f3133fff03a84`; remove TS duplicate damage semantics, fix owner evidence, remove self-dependency |
+| SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03g-exact-damage-projection` | `ralph/source-sqnt-03g-exact-damage-projection` | `32e51f46a71f5a714034966e018fe79abbb7fcae` | Halley the 3rd (`019f0ea3-50cd-7ae3-b243-436cef287aa2`); reviewer Franklin the 3rd (`019f0ec3-9951-7271-8cf6-f0d219725b54`); re-reviewer Rawls the 3rd (`019f0ed0-a8cb-7323-bceb-cb5f6be72f99`) | fix-implemented-rereview-running at `34ac799c484b7ea8207a7278232d892fced54f79`; TS bridge reduced to replay/decoding glue, owner evidence fixed, self-dependency removed |
 
 ## Historical RRCONV-19 Worktrees
 

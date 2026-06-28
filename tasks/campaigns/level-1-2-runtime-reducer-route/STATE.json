@@ -646,7 +646,7 @@
     "SQNT-03E-OBJECT-AND-LIGHT-RIDERS": "merged-packaged-source-input",
     "SQNT-03E-OBJECT-LIGHT-DIRTY-REPLAY": "merged-verified",
     "SQNT-03F-MIXED-TARGET-OUTCOMES": "merged-packaged-source-input",
-    "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS": "review-blocker-fix-running"
+    "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS": "fix-implemented-rereview-running"
   },
   "lastIntegrationVerification": {
     "head": "9b4ece63f3bad64209afa1ba4c1d44efdc1bbe67",
@@ -690,12 +690,16 @@
       "workerCommit": "ddbff4328bdde9e34b94fac3450f3133fff03a84",
       "reviewAgent": "019f0ec3-9951-7271-8cf6-f0d219725b54",
       "reviewName": "Franklin the 3rd",
-      "status": "review-blocker-fix-running",
+      "fixCommit": "34ac799c484b7ea8207a7278232d892fced54f79",
+      "rereviewAgent": "019f0ed0-a8cb-7323-bceb-cb5f6be72f99",
+      "rereviewName": "Rawls the 3rd",
+      "status": "fix-implemented-rereview-running",
       "reviewFindings": [
         "TS MBT bridge duplicated exact damage reducer semantics instead of proving them through a runtime/source route or remaining replay/decoding glue.",
         "QNT witness claimed Hit Point application facts while qComponentRoute exposed only RuleCoreSpellProcedureProfileOwner.",
         "Inventory row listed FCSF-03G as its own dependent route task."
       ],
+      "fixSummary": "Halley changed the TS MBT bridge to literal replay/decoding glue, added RuleCoreHitPointDamageOwner beside RuleCoreSpellProcedureProfileOwner in qComponentRoute, removed the inventory self-dependency, and kept selected-identity blockers explicit.",
       "scope": "source-QNT route connector evidence only; no dirty or fresh target acceptance claimed"
     }
   ],
