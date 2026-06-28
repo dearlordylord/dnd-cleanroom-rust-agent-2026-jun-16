@@ -1,0 +1,440 @@
+{
+  "acceptedConnectorRowCount": 16,
+  "acceptedEvidenceRefs": [
+    "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json#FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doAdmitFailedSaveBlindedNextTurnConditionRider#step:doResolveColorSprayFailedSavingThrow",
+    "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json#FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doAdmitFailedSaveRestrainedUntilSpellEndEscapeConditionRider#step:doResolveEntangleFailedSavingThrow",
+    "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json#FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doResolveSleepRepeatSaveFailureTransitionToUnconscious#step:doResolveSleepRepeatSavingThrowFailure"
+  ],
+  "cleanroomManifestSha256": "1f0bfe104456bd4c86f6b15b3d512e317307d2e6aa06f01809c9691018376dd3",
+  "cleanroomManifestSourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
+  "conditionRiderRouteFactsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-rider-route-facts.qnt",
+  "conditionRiderRouteFactsSha256": "c54bf44435821a987bb65e7f12b47e6045fea9dc500a70ff0f46b8d9be2e0662",
+  "connectorRuns": [
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from start_battle_observed, discover_spell_attack_damage_subject_observed, resolve_battle_subject_observed, condition_rider_route_subject_for_target, and discover_condition_rider_route_subject_observed",
+      "routeConnectorAction": "doAdmitAttackHitPoisonConditionRider",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleAttackRollOwner",
+        "BattleHitPointOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=Active(Poisoned, UntilSourceNextTurnEnds)"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints with target Combatant.condition_immunities",
+      "routeConnectorAction": "doRejectAttackHitPoisonConditionRiderByImmunity",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleAttackRollOwner",
+        "BattleHitPointOwner",
+        "BattleConditionLifecycleOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.condition_immunities contains Poisoned",
+        "BattleState.skeleton.spell_active_effects.condition_rider=Inactive"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from public reducer start/discover/resolve entrypoints and reducer-owned turn-boundary/cleanup subjects",
+      "routeConnectorAction": "doExpireAttackHitPoisonConditionRider",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleAttackRollOwner",
+        "BattleHitPointOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner",
+        "BattleTurnBoundaryOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=Active(Poisoned, UntilSourceNextTurnEnds)",
+        "BattleState.skeleton.spell_active_effects.condition_rider=Expired(Poisoned, UntilSourceNextTurnEnds)",
+        "BattleState.skeleton.spell_active_effects.condition_rider=Inactive"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from save-gated host setup and ConditionRider lifecycle admission",
+      "routeConnectorAction": "doAdmitFailedSaveBlindedNextTurnConditionRider",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=Active(Blinded, UntilSourceNextTurnEnds)"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from failed-save Blinded host setup and turn-boundary cleanup",
+      "routeConnectorAction": "doExpireFailedSaveBlindedNextTurnConditionRider",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner",
+        "BattleTurnBoundaryOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=Active(Blinded, UntilSourceNextTurnEnds)",
+        "BattleState.skeleton.spell_active_effects.condition_rider=Expired(Blinded, UntilSourceNextTurnEnds)",
+        "BattleState.skeleton.spell_active_effects.condition_rider=Inactive"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from failed-save condition host setup with target Combatant.condition_immunities",
+      "routeConnectorAction": "doRejectFailedSaveBlindedConditionRiderByImmunity",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.condition_immunities contains Blinded",
+        "BattleState.skeleton.spell_active_effects.condition_rider=Inactive"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from save-gated host setup and repeat-save boundary admission",
+      "routeConnectorAction": "doAdmitFailedSaveBlindedRepeatSaveConditionRider",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=Active(Blinded, AffectedTargetEndTurnRepeatSave)"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from save-gated host setup and repeat-save boundary admission",
+      "routeConnectorAction": "doAdmitFailedSaveDeafenedRepeatSaveConditionRider",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=Active(Deafened, AffectedTargetEndTurnRepeatSave)"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from condition-rider repeat-save frontier discovery",
+      "routeConnectorAction": "doOpenFailedSaveConditionRepeatSaveFrontier",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner",
+        "BattleTurnBoundaryOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=RepeatSaveFrontier(Blinded, AffectedTargetEndTurnRepeatSave)"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from condition-rider repeat-save success cleanup",
+      "routeConnectorAction": "doResolveFailedSaveConditionRepeatSaveSuccessCleanup",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner",
+        "BattleTurnBoundaryOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=RepeatSaveFrontier(Blinded, AffectedTargetEndTurnRepeatSave)",
+        "BattleState.skeleton.spell_active_effects.condition_rider=Inactive"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from save-gated Restrained host setup",
+      "routeConnectorAction": "doAdmitFailedSaveRestrainedUntilSpellEndEscapeConditionRider",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=Active(Restrained, UntilSpellEnds)"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from Athletics escape frontier discovery",
+      "routeConnectorAction": "doOpenRestrainedAthleticsEscapeFrontier",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner",
+        "BattleAbilityCheckOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=EscapeCheckFrontier(Restrained, UntilSpellEnds)"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from Athletics escape success cleanup",
+      "routeConnectorAction": "doResolveRestrainedAthleticsEscapeSuccessCleanup",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner",
+        "BattleAbilityCheckOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=EscapeCheckFrontier(Restrained, UntilSpellEnds)",
+        "BattleState.skeleton.spell_active_effects.condition_rider=Inactive"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from Sleep-style failed-save host setup",
+      "routeConnectorAction": "doAdmitFailedSaveSleepIncapacitatedConditionRider",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=Active(Incapacitated, UntilAffectedTargetNextTurnEnds)"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from Sleep-style repeat-save frontier discovery",
+      "routeConnectorAction": "doOpenSleepRepeatSaveFrontier",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner",
+        "BattleTurnBoundaryOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=RepeatSaveFrontier(Incapacitated, UntilAffectedTargetNextTurnEnds)"
+      ]
+    },
+    {
+      "observedThrough": "BattleEntrypointTrace.route_events from Sleep-style repeat-save failure transition to Unconscious",
+      "routeConnectorAction": "doResolveSleepRepeatSaveFailureTransitionToUnconscious",
+      "routeOwnerSequence": [
+        "BattleActionEconomyOwner",
+        "BattleTargetSelectionOwner",
+        "BattleSavingThrowOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner",
+        "BattleTurnBoundaryOwner",
+        "BattleConditionLifecycleOwner",
+        "BattleActiveEffectOwner"
+      ],
+      "stateLifecycle": [
+        "BattleState.skeleton.spell_active_effects.condition_rider=RepeatSaveFrontier(Incapacitated, UntilAffectedTargetNextTurnEnds)",
+        "BattleState.skeleton.spell_active_effects.condition_rider=Active(Unconscious, UntilSpellEnds)"
+      ]
+    }
+  ],
+  "generatedBy": {
+    "name": "rust-cleanroom-fcsf03d-condition-rider-dirty-replay",
+    "tag": "target-harness"
+  },
+  "reducerRouteInventorySha256": "08a849247b3d80ddaf2b7bf499fbe2e3c500537f7c95e8c47d418fbdc72a671e",
+  "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+  "routeConnectorSha256": "6830de719d5d06ddc4a0f85755da7196f03d4f3beab1ae3c512a1e88906db394",
+  "runs": [
+    {
+      "branchAction": "doResolveColorSprayFailedSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_riders_route.rs",
+      "observedActionTaken": "doResolveColorSprayFailedSavingThrow",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doAdmitFailedSaveBlindedNextTurnConditionRider",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+      "routeConnectorSha256": "6830de719d5d06ddc4a0f85755da7196f03d4f3beab1ae3c512a1e88906db394",
+      "routeEvidenceBasis": "focused Rust replay observes failed-save Blinded admission and until-source-next-turn boundary through public reducer start/discover/resolve entrypoints; expected route/fact records are copied from the SQNT-03D route connector",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::SaveGatedSpell",
+          "BattleReducerRouteSubjectFamily::ConditionRider",
+          "BattleReducerRouteOwnerGroup::ConditionLifecycle",
+          "BattleReducerRouteOwnerGroup::ActiveEffect",
+          "BattleState.skeleton.spell_active_effects.condition_rider",
+          "BattleConditionRiderEffect::Active",
+          "BattleConditionRiderCondition::Blinded",
+          "BattleConditionRiderBoundary::UntilSourceNextTurnEnds"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e1a6a218d7c0edec8f9746f419528702a04e2d41fc95a3416f1b5dfb8e950404",
+        "observedProjectionSha256": "e1a6a218d7c0edec8f9746f419528702a04e2d41fc95a3416f1b5dfb8e950404",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doAdmitFailedSaveBlindedNextTurnConditionRider"
+    },
+    {
+      "branchAction": "doResolveEntangleFailedSavingThrow",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_riders_route.rs",
+      "observedActionTaken": "doResolveEntangleFailedSavingThrow",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doAdmitFailedSaveRestrainedUntilSpellEndEscapeConditionRider",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+      "routeConnectorSha256": "6830de719d5d06ddc4a0f85755da7196f03d4f3beab1ae3c512a1e88906db394",
+      "routeEvidenceBasis": "focused Rust replay observes failed-save Restrained admission and until-spell-end escape shape through public reducer route events; expected route/fact records are copied from the SQNT-03D route connector",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::SaveGatedSpell",
+          "BattleReducerRouteSubjectFamily::ConditionRider",
+          "BattleReducerRouteOwnerGroup::ConditionLifecycle",
+          "BattleReducerRouteOwnerGroup::ActiveEffect",
+          "BattleState.skeleton.spell_active_effects.condition_rider",
+          "BattleConditionRiderEffect::Active",
+          "BattleConditionRiderCondition::Restrained",
+          "BattleConditionRiderBoundary::UntilSpellEnds",
+          "BattleSubjectKind::ConditionRiderEscapeCheck",
+          "BattleSubjectKind::ConditionRiderEscapeCheckSuccess"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "042c5bd756cd24d92a98cd5c9c6e1463a4706c0c98e2d604d4bcc8a5d7a4df7e",
+        "observedProjectionSha256": "042c5bd756cd24d92a98cd5c9c6e1463a4706c0c98e2d604d4bcc8a5d7a4df7e",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doAdmitFailedSaveRestrainedUntilSpellEndEscapeConditionRider"
+    },
+    {
+      "branchAction": "doResolveHideousLaughterRepeatSavingThrowSuccess",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_riders_route.rs",
+      "observedActionTaken": "doResolveHideousLaughterRepeatSavingThrowSuccess",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
+      "result": {
+        "blockerId": "SQNT-03D-HIDEOUS-LAUGHTER-LIFECYCLE-SOURCE-QNT-BLOCKER",
+        "reason": "Copied SQNT-03D route connector explicitly leaves Hideous Laughter lifecycle shapes blocked; dirty replay must not infer the Incapacitated plus Prone lifecycle from selected identity.",
+        "tag": "target-blocker"
+      },
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+          "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-rider-route-facts.qnt",
+          "source-QNT blocker: Hideous Laughter lifecycle shape"
+        ],
+        "comparator": "source-qnt-blocker-record",
+        "projection": "qRoute",
+        "tag": "target-blocker"
+      },
+      "traceId": "FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route blocker=HideousLaughterLifecycle"
+    },
+    {
+      "branchAction": "doResolveSleepRepeatSavingThrowFailure",
+      "branchFamily": "step",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "evidenceKind": "target-qnt-mbt-replay",
+      "harnessTestPath": "src/qnt_adapters/battle_runtime_condition_riders_route.rs",
+      "observedActionTaken": "doResolveSleepRepeatSavingThrowFailure",
+      "qntFileSha256": "eaffed9f09ee7c80f7e15bc5caffdca80cc9d2062a5a8fa82493bd97cc43fad7",
+      "result": {
+        "tag": "pass"
+      },
+      "routeConnectorAction": "doResolveSleepRepeatSaveFailureTransitionToUnconscious",
+      "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-riders.route.mbt.qnt",
+      "routeConnectorSha256": "6830de719d5d06ddc4a0f85755da7196f03d4f3beab1ae3c512a1e88906db394",
+      "routeEvidenceBasis": "focused Rust replay observes Sleep-style Incapacitated repeat-save failure transition to Unconscious through public reducer route events; expected route/fact records are copied from the SQNT-03D route connector",
+      "sampledInputs": [],
+      "stateCheck": {
+        "checkedTargetStateFields": [
+          "BattleEntrypointTrace.route_events",
+          "BattleReducerRouteSubjectFamily::SaveGatedSpell",
+          "BattleReducerRouteSubjectFamily::ConditionRider",
+          "BattleReducerRouteOwnerGroup::ConditionLifecycle",
+          "BattleReducerRouteOwnerGroup::ActiveEffect",
+          "BattleReducerRouteOwnerGroup::TurnBoundary",
+          "BattleState.skeleton.spell_active_effects.condition_rider",
+          "BattleConditionRiderEffect::RepeatSaveFrontier",
+          "BattleConditionRiderEffect::Active",
+          "BattleConditionRiderCondition::Incapacitated",
+          "BattleConditionRiderCondition::Unconscious",
+          "BattleConditionRiderBoundary::UntilAffectedTargetNextTurnEnds",
+          "BattleConditionRiderBoundary::UntilSpellEnds"
+        ],
+        "comparator": "route-event-list",
+        "expectedProjectionSha256": "e68862f80accb9fcf301e326761b4e923d7b7c8b72de6d0e830d218d6faf6669",
+        "observedProjectionSha256": "e68862f80accb9fcf301e326761b4e923d7b7c8b72de6d0e830d218d6faf6669",
+        "projection": "qRoute",
+        "tag": "state-match"
+      },
+      "traceId": "FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doResolveSleepRepeatSaveFailureTransitionToUnconscious"
+    }
+  ],
+  "selectedResidualDrivers": [
+    {
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt",
+      "note": "The copied attack-hit Poisoned route row is replayed through the dirty reducer surface, but this evidence file does not select the whole level-1 damage spell driver because unrelated damage spell obligations are outside this lane."
+    },
+    {
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt",
+      "note": "Selected for condition-rider residual branches that match copied SQNT-03D modeled shapes; Hideous Laughter is recorded as a source-QNT blocker."
+    }
+  ],
+  "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+  "sourceLimits": {
+    "blockedRows": [
+      {
+        "reason": "Copied source QNT names Hold Person lifecycle as a blocker and does not expose a generic Paralyzed plus Incapacitated until-spell-end repeat-save lifecycle route fact set.",
+        "scope": "Hold Person lifecycle"
+      },
+      {
+        "reason": "Copied source QNT names Hideous Laughter lifecycle as a blocker and does not expose a generic Incapacitated plus Prone laughter-style lifecycle route fact set.",
+        "scope": "Hideous Laughter lifecycle"
+      }
+    ]
+  },
+  "targetProfile": "rust",
+  "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1"
+}

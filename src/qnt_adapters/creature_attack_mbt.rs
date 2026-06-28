@@ -253,6 +253,7 @@ fn creature_attack_combatant() -> Combatant {
         recharge_available: false,
         spell_slots: crate::rules::battle_reducer_spine::BattleSpellSlotLedger::none(),
         spell_active_effects: crate::rules::battle_reducer_spine::BattleSpellActiveEffects::none(),
+        condition_immunities: crate::rules::battle_reducer_spine::BattleConditionImmunities::none(),
     }
 }
 

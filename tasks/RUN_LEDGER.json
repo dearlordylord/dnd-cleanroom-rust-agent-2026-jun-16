@@ -3933,9 +3933,83 @@
           "status": "pass"
         }
       ]
+    },
+    {
+      "taskId": "FCSF-03D-CONDITION-AND-POISON-RIDERS",
+      "assignmentId": "level-1-2-runtime-reducer-route",
+      "laneId": "SQNT-03D-CONDITION-RIDER-DIRTY-REPLAY",
+      "manifestSourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
+      "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81",
+      "sourceReducerRouteInventorySha256": "08a849247b3d80ddaf2b7bf499fbe2e3c500537f7c95e8c47d418fbdc72a671e",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt"
+      ],
+      "artifacts": {
+        "startGate": {
+          "path": "tasks/history/FCSF-03D-CONDITION-AND-POISON-RIDERS/START_GATE.json",
+          "sha256": "0dcb02d874d94c15672493012ce4f04b94dbff73d2ba7ade605a197934c99181"
+        },
+        "engineDepth": {
+          "path": "tasks/history/FCSF-03D-CONDITION-AND-POISON-RIDERS/ENGINE_DEPTH_MANIFEST.json",
+          "sha256": "a39cff59420ec1d979dd62dd33559d81e39648b480b7b3468ca7b4a4a989d6c6"
+        },
+        "stateOwnerManifest": {
+          "path": "tasks/history/FCSF-03D-CONDITION-AND-POISON-RIDERS/STATE_OWNER_MANIFEST.json",
+          "sha256": "315ece59bd9c5cdf1781d08e0ce3472602048b06a87aad7c87b7ef923ce0f9ca"
+        },
+        "reviewLoop": {
+          "path": "tasks/history/FCSF-03D-CONDITION-AND-POISON-RIDERS/REVIEW_LOOP.json",
+          "sha256": "8138cce92cae106dc28bc1d27798c189577ecd894aca214ff7b211118b281522"
+        },
+        "deciderDecision": {
+          "path": "tasks/history/FCSF-03D-CONDITION-AND-POISON-RIDERS/DECIDER_DECISION.json",
+          "sha256": "9c8d595a552461fc2951650b46a9e495f794fd2d2a82fc455ce867712507373e"
+        }
+      },
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json",
+          "sha256": "2534d025f1dbdb51f3e8cbfc94d70dc42777e7be5ab9d2aa52baf0a11ad36777",
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json#FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doAdmitFailedSaveBlindedNextTurnConditionRider#step:doResolveColorSprayFailedSavingThrow",
+            "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json#FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doAdmitFailedSaveRestrainedUntilSpellEndEscapeConditionRider#step:doResolveEntangleFailedSavingThrow",
+            "tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json#FCSF-03D-CONDITION-AND-POISON-RIDERS dirty route action=doResolveSleepRepeatSaveFailureTransitionToUnconscious#step:doResolveSleepRepeatSavingThrowFailure"
+          ]
+        }
+      ],
+      "commandResults": [
+        {
+          "command": "git merge-base --is-ancestor 18fc6b4 HEAD",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test condition_rider -- --nocapture",
+          "status": "pass"
+        },
+        {
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/FCSF-03D-condition-rider-dirty-replay.json",
+          "status": "pass"
+        },
+        {
+          "command": "cargo fmt --check",
+          "status": "pass"
+        },
+        {
+          "command": "cargo test",
+          "status": "pass"
+        },
+        {
+          "command": "cargo clippy --all-targets -- -D warnings",
+          "status": "pass"
+        },
+        {
+          "command": "git diff --check 18fc6b4...HEAD",
+          "status": "pass"
+        }
+      ]
     }
   ],
-  "manifestSourceCommitSha": "ebc37e935fdd45ac07198bbec6b3bcc23be2270e",
+  "manifestSourceCommitSha": "3e9297cab2dd998e5dc09670f771bfcdf0a04c93",
   "schemaVersion": 1,
   "sourceBranchInventorySha256": "331c9588ead2427076a8578b63e62dfabae40fc270c2da4cca0d03b1a0f5ca81"
 }

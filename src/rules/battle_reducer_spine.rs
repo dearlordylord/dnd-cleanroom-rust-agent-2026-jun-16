@@ -485,6 +485,7 @@ pub struct Combatant {
     pub recharge_available: bool,
     pub spell_slots: BattleSpellSlotLedger,
     pub spell_active_effects: BattleSpellActiveEffects,
+    pub condition_immunities: BattleConditionImmunities,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -511,6 +512,10 @@ pub enum BattleSpellActiveEffectKind {
     NextAttackRollAgainstSelfAdvantage,
     OpportunityAttackDenied,
     Poisoned,
+    ConditionRider {
+        condition: BattleConditionRiderCondition,
+        boundary: BattleConditionRiderBoundary,
+    },
     NextAttackRollDisadvantage,
 }
 
@@ -573,12 +578,139 @@ impl BattleNextAttackRollModeEffect {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleConditionRiderCondition {
+    Poisoned,
+    Blinded,
+    Deafened,
+    Restrained,
+    Incapacitated,
+    Unconscious,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleConditionRiderBoundary {
+    UntilSourceNextTurnEnds,
+    UntilAffectedTargetNextTurnEnds,
+    UntilSpellEnds,
+    AffectedTargetEndTurnRepeatSave,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BattleConditionRiderEffect {
+    Inactive,
+    Active {
+        condition: BattleConditionRiderCondition,
+        boundary: BattleConditionRiderBoundary,
+    },
+    RepeatSaveFrontier {
+        condition: BattleConditionRiderCondition,
+        boundary: BattleConditionRiderBoundary,
+    },
+    EscapeCheckFrontier {
+        condition: BattleConditionRiderCondition,
+        boundary: BattleConditionRiderBoundary,
+    },
+    Expired {
+        condition: BattleConditionRiderCondition,
+        boundary: BattleConditionRiderBoundary,
+    },
+    CleanupReady {
+        condition: BattleConditionRiderCondition,
+        boundary: BattleConditionRiderBoundary,
+    },
+}
+
+impl BattleConditionRiderEffect {
+    #[must_use]
+    pub const fn is_present(self) -> bool {
+        !matches!(self, Self::Inactive)
+    }
+
+    #[must_use]
+    pub const fn active_condition(self, condition: BattleConditionRiderCondition) -> bool {
+        matches!(
+            self,
+            Self::Active {
+                condition: active,
+                ..
+            } if active as u8 == condition as u8
+        )
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BattleConditionImmunities {
+    pub poisoned: bool,
+    pub blinded: bool,
+    pub deafened: bool,
+    pub restrained: bool,
+    pub incapacitated: bool,
+    pub unconscious: bool,
+}
+
+impl BattleConditionImmunities {
+    #[must_use]
+    pub const fn none() -> Self {
+        Self {
+            poisoned: false,
+            blinded: false,
+            deafened: false,
+            restrained: false,
+            incapacitated: false,
+            unconscious: false,
+        }
+    }
+
+    #[must_use]
+    pub const fn only(condition: BattleConditionRiderCondition) -> Self {
+        match condition {
+            BattleConditionRiderCondition::Poisoned => Self {
+                poisoned: true,
+                ..Self::none()
+            },
+            BattleConditionRiderCondition::Blinded => Self {
+                blinded: true,
+                ..Self::none()
+            },
+            BattleConditionRiderCondition::Deafened => Self {
+                deafened: true,
+                ..Self::none()
+            },
+            BattleConditionRiderCondition::Restrained => Self {
+                restrained: true,
+                ..Self::none()
+            },
+            BattleConditionRiderCondition::Incapacitated => Self {
+                incapacitated: true,
+                ..Self::none()
+            },
+            BattleConditionRiderCondition::Unconscious => Self {
+                unconscious: true,
+                ..Self::none()
+            },
+        }
+    }
+
+    #[must_use]
+    pub const fn contains(self, condition: BattleConditionRiderCondition) -> bool {
+        match condition {
+            BattleConditionRiderCondition::Poisoned => self.poisoned,
+            BattleConditionRiderCondition::Blinded => self.blinded,
+            BattleConditionRiderCondition::Deafened => self.deafened,
+            BattleConditionRiderCondition::Restrained => self.restrained,
+            BattleConditionRiderCondition::Incapacitated => self.incapacitated,
+            BattleConditionRiderCondition::Unconscious => self.unconscious,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct BattleSpellActiveEffects {
     pub armor_class_base_effect: BattleArmorClassBaseEffect,
     pub hit_point_regain_prevention: BattleHitPointRegainPreventionEffect,
     pub next_attack_roll_against_self_advantage: BattleNextAttackRollModeEffect,
     pub opportunity_attack_denied: BattleOpportunityAttackDenialEffect,
-    pub poisoned: bool,
+    pub condition_rider: BattleConditionRiderEffect,
     pub next_attack_roll_disadvantage: BattleNextAttackRollModeEffect,
 }
 
@@ -590,7 +722,7 @@ impl BattleSpellActiveEffects {
             hit_point_regain_prevention: BattleHitPointRegainPreventionEffect::Inactive,
             next_attack_roll_against_self_advantage: BattleNextAttackRollModeEffect::Inactive,
             opportunity_attack_denied: BattleOpportunityAttackDenialEffect::Inactive,
-            poisoned: false,
+            condition_rider: BattleConditionRiderEffect::Inactive,
             next_attack_roll_disadvantage: BattleNextAttackRollModeEffect::Inactive,
         }
     }
@@ -612,7 +744,20 @@ impl BattleSpellActiveEffects {
                 ..Self::none()
             },
             BattleSpellActiveEffectKind::Poisoned => Self {
-                poisoned: true,
+                condition_rider: BattleConditionRiderEffect::Active {
+                    condition: BattleConditionRiderCondition::Poisoned,
+                    boundary: BattleConditionRiderBoundary::UntilSourceNextTurnEnds,
+                },
+                ..Self::none()
+            },
+            BattleSpellActiveEffectKind::ConditionRider {
+                condition,
+                boundary,
+            } => Self {
+                condition_rider: BattleConditionRiderEffect::Active {
+                    condition,
+                    boundary,
+                },
                 ..Self::none()
             },
             BattleSpellActiveEffectKind::NextAttackRollDisadvantage => Self {
@@ -628,7 +773,7 @@ impl BattleSpellActiveEffects {
             + self.hit_point_regain_prevention.is_present() as usize
             + self.next_attack_roll_against_self_advantage.is_present() as usize
             + self.opportunity_attack_denied.is_present() as usize
-            + self.poisoned as usize
+            + self.condition_rider.is_present() as usize
             + self.next_attack_roll_disadvantage.is_present() as usize
     }
 }
@@ -1268,6 +1413,17 @@ pub enum BattleSubjectKind {
     HitPointRegainPreventionHealingInterdiction,
     HitPointRegainPreventionDurationExpiry,
     HitPointRegainPreventionActiveEffectCleanup,
+    ConditionRiderConditionLifecycleAdmission,
+    ConditionRiderConditionLifecycleRejection,
+    ConditionRiderActiveEffectAdmission,
+    ConditionRiderDurationExpiry,
+    ConditionRiderConditionLifecycleCleanup,
+    ConditionRiderActiveEffectCleanup,
+    ConditionRiderRepeatSave,
+    ConditionRiderRepeatSaveSuccess,
+    ConditionRiderRepeatSaveFailureTransition,
+    ConditionRiderEscapeCheck,
+    ConditionRiderEscapeCheckSuccess,
     ReactionInterdictionActiveEffectAdmission,
     ReactionInterdictionMovementProjection,
     ReactionInterdictionReactionDiscoveryProjection,
@@ -1275,6 +1431,8 @@ pub enum BattleSubjectKind {
     ReactionInterdictionActiveEffectCleanup,
     SaveGatedNextAttackRollModeTargetChoice,
     SaveGatedNextAttackRollModeSavingThrow,
+    SaveGatedConditionRiderTargetChoice,
+    SaveGatedConditionRiderSavingThrow,
     NextAttackRollModeActiveEffectAdmission,
     NextAttackRollModeProjection,
     NextAttackRollModeDurationExpiry,
@@ -2625,6 +2783,7 @@ pub enum BattleReducerRouteSubjectFamily {
     ForcedMovement,
     HitPointRestoration,
     HitPointRegainPrevention,
+    ConditionRider,
     NextAttackRollMode,
     ReactionInterdiction,
     LightProjection,
@@ -3207,6 +3366,47 @@ pub fn hit_point_regain_prevention_route_subject_for_target(
 }
 
 #[must_use]
+pub fn condition_rider_route_subject_for_target(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+    target: Actor,
+) -> BattleSubject {
+    assert!(
+        condition_rider_route_kind(kind),
+        "targeted condition-rider subject construction requires a condition-rider route subject"
+    );
+    diagnostic_subject(kind, current_actor(state), Some(target))
+}
+
+#[must_use]
+pub fn discover_condition_rider_route_subject_observed(
+    state: BattleState,
+    kind: BattleSubjectKind,
+    target: Actor,
+    observer: &mut impl BattleEntrypointObserver,
+) -> (BattleState, BattleSubject) {
+    assert!(
+        matches!(
+            kind,
+            BattleSubjectKind::ConditionRiderRepeatSave
+                | BattleSubjectKind::ConditionRiderEscapeCheck
+        ),
+        "condition-rider discovery requires a frontier-opening route subject"
+    );
+    let shape = generic_route_shape(kind);
+    observer.observe_battle_reducer_route(BattleReducerRouteEvent::DiscoverBattleActs {
+        subject: shape.subject,
+        holes: shape.holes,
+        owner: shape.discover_owner,
+    });
+    let subject = diagnostic_subject(kind, current_actor(&state), Some(target));
+    (
+        resolve_generic_route_state(state, subject, BattleGenericRouteFill::WithoutFill),
+        subject,
+    )
+}
+
+#[must_use]
 pub fn next_attack_roll_mode_route_subject_for_target(
     state: &BattleState,
     kind: BattleSubjectKind,
@@ -3241,6 +3441,19 @@ pub fn save_gated_next_attack_roll_mode_subject_for_target(
     assert!(
         matches!(kind, BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow),
         "targeted save-gated next-attack-roll mode subject construction requires its saving-throw route subject"
+    );
+    diagnostic_subject(kind, current_actor(state), Some(target))
+}
+
+#[must_use]
+pub fn save_gated_condition_rider_subject_for_target(
+    state: &BattleState,
+    kind: BattleSubjectKind,
+    target: Actor,
+) -> BattleSubject {
+    assert!(
+        matches!(kind, BattleSubjectKind::SaveGatedConditionRiderSavingThrow),
+        "targeted save-gated condition-rider subject construction requires its saving-throw route subject"
     );
     diagnostic_subject(kind, current_actor(state), Some(target))
 }
@@ -4505,6 +4718,42 @@ pub fn discover_save_gated_damage_subject_observed(
             damage_dice_required: true,
             last_ordering_error: None,
             damage_application,
+        });
+    (state, subject)
+}
+
+#[must_use]
+pub fn discover_save_gated_condition_rider_subject_observed(
+    state: BattleState,
+    target_effect: BattleSpellActiveEffectKind,
+    observer: &mut impl BattleEntrypointObserver,
+) -> (BattleState, BattleSubject) {
+    let actor = current_actor(&state);
+    let subject = diagnostic_subject(
+        BattleSubjectKind::SaveGatedConditionRiderTargetChoice,
+        actor,
+        None,
+    );
+    observer.observe_battle_reducer_route(BattleReducerRouteEvent::DiscoverBattleActs {
+        subject: BattleReducerRouteSubjectFamily::SaveGatedSpell,
+        holes: sorted_battle_reducer_route_holes(vec![BattleReducerRouteHoleKind::TargetChoice]),
+        owner: BattleReducerRouteOwnerGroup::SpellSlotAndActionEconomy,
+    });
+    let mut state = state;
+    if !state.action_available {
+        return (state, subject);
+    }
+    state.action_available = false;
+    state.save_gated_spell_procedure =
+        BattleSaveGatedSpellProcedure::Active(BattleSaveGatedSpellSubject {
+            actor,
+            stage: SaveGatedSpellFrontierStage::Resolved,
+            damage_dice_required: false,
+            last_ordering_error: None,
+            damage_application: BattleSaveGatedDamageApplication {
+                primary_effect: target_effect,
+                ..BattleSaveGatedDamageApplication::none(actor)
+            },
         });
     (state, subject)
 }
@@ -6873,6 +7122,7 @@ fn fighter_combatant() -> Combatant {
         recharge_available: false,
         spell_slots: BattleSpellSlotLedger::none(),
         spell_active_effects: BattleSpellActiveEffects::none(),
+        condition_immunities: BattleConditionImmunities::none(),
     }
 }
 
@@ -6899,6 +7149,7 @@ fn goblin_combatant() -> Combatant {
         recharge_available: true,
         spell_slots: BattleSpellSlotLedger::none(),
         spell_active_effects: BattleSpellActiveEffects::none(),
+        condition_immunities: BattleConditionImmunities::none(),
     }
 }
 
@@ -6925,6 +7176,7 @@ fn rogue_combatant() -> Combatant {
         recharge_available: false,
         spell_slots: BattleSpellSlotLedger::none(),
         spell_active_effects: BattleSpellActiveEffects::none(),
+        condition_immunities: BattleConditionImmunities::none(),
     }
 }
 
@@ -6951,6 +7203,7 @@ fn skeleton_combatant() -> Combatant {
         recharge_available: false,
         spell_slots: BattleSpellSlotLedger::none(),
         spell_active_effects: BattleSpellActiveEffects::none(),
+        condition_immunities: BattleConditionImmunities::none(),
     }
 }
 
@@ -7618,6 +7871,17 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
             | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
             | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+            | BattleSubjectKind::ConditionRiderConditionLifecycleAdmission
+            | BattleSubjectKind::ConditionRiderConditionLifecycleRejection
+            | BattleSubjectKind::ConditionRiderActiveEffectAdmission
+            | BattleSubjectKind::ConditionRiderDurationExpiry
+            | BattleSubjectKind::ConditionRiderConditionLifecycleCleanup
+            | BattleSubjectKind::ConditionRiderActiveEffectCleanup
+            | BattleSubjectKind::ConditionRiderRepeatSave
+            | BattleSubjectKind::ConditionRiderRepeatSaveSuccess
+            | BattleSubjectKind::ConditionRiderRepeatSaveFailureTransition
+            | BattleSubjectKind::ConditionRiderEscapeCheck
+            | BattleSubjectKind::ConditionRiderEscapeCheckSuccess
             | BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
             | BattleSubjectKind::ReactionInterdictionMovementProjection
             | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
@@ -7625,6 +7889,8 @@ fn generic_route_subject_kind(kind: BattleSubjectKind) -> bool {
             | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
             | BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
             | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
+            | BattleSubjectKind::SaveGatedConditionRiderTargetChoice
+            | BattleSubjectKind::SaveGatedConditionRiderSavingThrow
             | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
             | BattleSubjectKind::NextAttackRollModeProjection
             | BattleSubjectKind::NextAttackRollModeDurationExpiry
@@ -7741,6 +8007,23 @@ fn hit_point_regain_prevention_route_kind(kind: BattleSubjectKind) -> bool {
     )
 }
 
+fn condition_rider_route_kind(kind: BattleSubjectKind) -> bool {
+    matches!(
+        kind,
+        BattleSubjectKind::ConditionRiderConditionLifecycleAdmission
+            | BattleSubjectKind::ConditionRiderConditionLifecycleRejection
+            | BattleSubjectKind::ConditionRiderActiveEffectAdmission
+            | BattleSubjectKind::ConditionRiderDurationExpiry
+            | BattleSubjectKind::ConditionRiderConditionLifecycleCleanup
+            | BattleSubjectKind::ConditionRiderActiveEffectCleanup
+            | BattleSubjectKind::ConditionRiderRepeatSave
+            | BattleSubjectKind::ConditionRiderRepeatSaveSuccess
+            | BattleSubjectKind::ConditionRiderRepeatSaveFailureTransition
+            | BattleSubjectKind::ConditionRiderEscapeCheck
+            | BattleSubjectKind::ConditionRiderEscapeCheckSuccess
+    )
+}
+
 fn next_attack_roll_mode_route_kind(kind: BattleSubjectKind) -> bool {
     matches!(
         kind,
@@ -7769,20 +8052,21 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
         SkillChoice, TargetAbilityChoices, TargetChoice,
     };
     use BattleReducerRouteOwnerGroup::{
-        AbilityCheckRollMode, ActiveEffect, ArmorClass, AttackRoll as AttackRollOwner,
-        AttackRollMode, Concentration, ConditionLifecycle, FeatureResource, HitPoint,
-        HitPointAndZeroHpLifecycle, HoleFrontier, InterruptStack, MovementResource,
-        ObjectTargetBoundary, SavingThrowOutcome as SavingThrowOutcomeOwner,
+        AbilityCheck as AbilityCheckOwner, AbilityCheckRollMode, ActiveEffect, ArmorClass,
+        AttackRoll as AttackRollOwner, AttackRollMode, Concentration, ConditionLifecycle,
+        FeatureResource, HitPoint, HitPointAndZeroHpLifecycle, HoleFrontier, InterruptStack,
+        MovementResource, ObjectTargetBoundary, SavingThrowOutcome as SavingThrowOutcomeOwner,
         SpellAttackProcedure as SpellAttackOwner, SpellSlotAndActionEconomy, StatBlockAction,
         TargetSelection, TemporaryHitPoint, TurnBoundary,
     };
     use BattleReducerRouteSubjectFamily::{
         AfterHitDamageRider, CompanionLifecycle, CompanionReactionAttack, CompanionSharedSenses,
-        CompanionTouchDelivery, CreatureTypeTargetAdmission, HeldWeaponActiveEffect,
-        HitPointRegainPrevention, InterruptStackResume, MarkedEffect, NextAttackRollMode,
-        ObjectTargetSpellAttack, ProtectionCharmActiveEffect, ReactionInterdiction, ReactionSpell,
-        SaveGatedSpell, ScalarBuffEffect, SlotSpell, SpellAttack, SpellHostedWeaponAttack,
-        WardedTargetInterdiction, WeaponAttack, WeaponDamageRider, WeaponEnhancementItemTarget,
+        CompanionTouchDelivery, ConditionRider, CreatureTypeTargetAdmission,
+        HeldWeaponActiveEffect, HitPointRegainPrevention, InterruptStackResume, MarkedEffect,
+        NextAttackRollMode, ObjectTargetSpellAttack, ProtectionCharmActiveEffect,
+        ReactionInterdiction, ReactionSpell, SaveGatedSpell, ScalarBuffEffect, SlotSpell,
+        SpellAttack, SpellHostedWeaponAttack, WardedTargetInterdiction, WeaponAttack,
+        WeaponDamageRider, WeaponEnhancementItemTarget,
     };
 
     match kind {
@@ -8047,6 +8331,62 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             discover_owner: ActiveEffect,
             resolve_owner: ActiveEffect,
         },
+        BattleSubjectKind::ConditionRiderConditionLifecycleAdmission
+        | BattleSubjectKind::ConditionRiderConditionLifecycleRejection => GenericRouteShape {
+            subject: ConditionRider,
+            holes: Vec::new(),
+            discover_owner: ConditionLifecycle,
+            resolve_owner: ConditionLifecycle,
+        },
+        BattleSubjectKind::ConditionRiderActiveEffectAdmission => GenericRouteShape {
+            subject: ConditionRider,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::ConditionRiderDurationExpiry => GenericRouteShape {
+            subject: ConditionRider,
+            holes: Vec::new(),
+            discover_owner: TurnBoundary,
+            resolve_owner: TurnBoundary,
+        },
+        BattleSubjectKind::ConditionRiderConditionLifecycleCleanup => GenericRouteShape {
+            subject: ConditionRider,
+            holes: Vec::new(),
+            discover_owner: ConditionLifecycle,
+            resolve_owner: ConditionLifecycle,
+        },
+        BattleSubjectKind::ConditionRiderActiveEffectCleanup => GenericRouteShape {
+            subject: ConditionRider,
+            holes: Vec::new(),
+            discover_owner: ActiveEffect,
+            resolve_owner: ActiveEffect,
+        },
+        BattleSubjectKind::ConditionRiderRepeatSave => GenericRouteShape {
+            subject: ConditionRider,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: TurnBoundary,
+            resolve_owner: TurnBoundary,
+        },
+        BattleSubjectKind::ConditionRiderRepeatSaveSuccess
+        | BattleSubjectKind::ConditionRiderRepeatSaveFailureTransition => GenericRouteShape {
+            subject: ConditionRider,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: TurnBoundary,
+            resolve_owner: ConditionLifecycle,
+        },
+        BattleSubjectKind::ConditionRiderEscapeCheck => GenericRouteShape {
+            subject: ConditionRider,
+            holes: vec![AbilityCheck],
+            discover_owner: AbilityCheckOwner,
+            resolve_owner: AbilityCheckOwner,
+        },
+        BattleSubjectKind::ConditionRiderEscapeCheckSuccess => GenericRouteShape {
+            subject: ConditionRider,
+            holes: vec![AbilityCheck],
+            discover_owner: AbilityCheckOwner,
+            resolve_owner: AbilityCheckOwner,
+        },
         BattleSubjectKind::ReactionInterdictionActiveEffectAdmission => GenericRouteShape {
             subject: ReactionInterdiction,
             holes: Vec::new(),
@@ -8084,6 +8424,18 @@ fn generic_route_shape(kind: BattleSubjectKind) -> GenericRouteShape {
             resolve_owner: TargetSelection,
         },
         BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow => GenericRouteShape {
+            subject: SaveGatedSpell,
+            holes: vec![SavingThrowOutcome],
+            discover_owner: TargetSelection,
+            resolve_owner: SavingThrowOutcomeOwner,
+        },
+        BattleSubjectKind::SaveGatedConditionRiderTargetChoice => GenericRouteShape {
+            subject: SaveGatedSpell,
+            holes: vec![TargetChoice],
+            discover_owner: SpellSlotAndActionEconomy,
+            resolve_owner: TargetSelection,
+        },
+        BattleSubjectKind::SaveGatedConditionRiderSavingThrow => GenericRouteShape {
             subject: SaveGatedSpell,
             holes: vec![SavingThrowOutcome],
             discover_owner: TargetSelection,
@@ -10167,6 +10519,17 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
             | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
             | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+            | BattleSubjectKind::ConditionRiderConditionLifecycleAdmission
+            | BattleSubjectKind::ConditionRiderConditionLifecycleRejection
+            | BattleSubjectKind::ConditionRiderActiveEffectAdmission
+            | BattleSubjectKind::ConditionRiderDurationExpiry
+            | BattleSubjectKind::ConditionRiderConditionLifecycleCleanup
+            | BattleSubjectKind::ConditionRiderActiveEffectCleanup
+            | BattleSubjectKind::ConditionRiderRepeatSave
+            | BattleSubjectKind::ConditionRiderRepeatSaveSuccess
+            | BattleSubjectKind::ConditionRiderRepeatSaveFailureTransition
+            | BattleSubjectKind::ConditionRiderEscapeCheck
+            | BattleSubjectKind::ConditionRiderEscapeCheckSuccess
             | BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
             | BattleSubjectKind::ReactionInterdictionMovementProjection
             | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
@@ -10174,6 +10537,8 @@ fn resolve_battle_subject_unchecked(
             | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
             | BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
             | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
+            | BattleSubjectKind::SaveGatedConditionRiderTargetChoice
+            | BattleSubjectKind::SaveGatedConditionRiderSavingThrow
             | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
             | BattleSubjectKind::NextAttackRollModeProjection
             | BattleSubjectKind::NextAttackRollModeDurationExpiry
@@ -10323,6 +10688,10 @@ fn resolve_generic_route_subject(
         return invalid_with_holes(state, reason, Vec::new());
     }
 
+    if let Some(reason) = condition_rider_state_rejection(&state, subject) {
+        return invalid_with_holes(state, reason, Vec::new());
+    }
+
     if let Some(reason) = next_attack_roll_mode_state_rejection(&state, subject) {
         return invalid_with_holes(state, reason, Vec::new());
     }
@@ -10350,12 +10719,24 @@ fn generic_route_subject_shape_matches(subject: BattleSubject) -> bool {
         | BattleSubjectKind::HitPointRegainPreventionHealingInterdiction
         | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
         | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+        | BattleSubjectKind::ConditionRiderConditionLifecycleAdmission
+        | BattleSubjectKind::ConditionRiderConditionLifecycleRejection
+        | BattleSubjectKind::ConditionRiderActiveEffectAdmission
+        | BattleSubjectKind::ConditionRiderDurationExpiry
+        | BattleSubjectKind::ConditionRiderConditionLifecycleCleanup
+        | BattleSubjectKind::ConditionRiderActiveEffectCleanup
+        | BattleSubjectKind::ConditionRiderRepeatSave
+        | BattleSubjectKind::ConditionRiderRepeatSaveSuccess
+        | BattleSubjectKind::ConditionRiderRepeatSaveFailureTransition
+        | BattleSubjectKind::ConditionRiderEscapeCheck
+        | BattleSubjectKind::ConditionRiderEscapeCheckSuccess
         | BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
         | BattleSubjectKind::ReactionInterdictionMovementProjection
         | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
         | BattleSubjectKind::ReactionInterdictionDurationExpiry
         | BattleSubjectKind::ReactionInterdictionActiveEffectCleanup
         | BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
+        | BattleSubjectKind::SaveGatedConditionRiderSavingThrow
         | BattleSubjectKind::NextAttackRollModeActiveEffectAdmission
         | BattleSubjectKind::NextAttackRollModeProjection
         | BattleSubjectKind::NextAttackRollModeDurationExpiry
@@ -10431,6 +10812,93 @@ fn resolve_generic_route_state(
             }
         }
         (
+            BattleSubjectKind::ConditionRiderConditionLifecycleAdmission
+            | BattleSubjectKind::ConditionRiderActiveEffectAdmission,
+            BattleGenericRouteFill::WithoutFill,
+        ) => state,
+        (
+            BattleSubjectKind::ConditionRiderConditionLifecycleRejection,
+            BattleGenericRouteFill::WithoutFill,
+        ) => state,
+        (BattleSubjectKind::ConditionRiderDurationExpiry, BattleGenericRouteFill::WithoutFill) => {
+            if let Some(target) = subject.target {
+                with_condition_rider_effect(state, target, condition_rider_expired)
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::ConditionRiderConditionLifecycleCleanup,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            if let Some(target) = subject.target {
+                with_condition_rider_effect(state, target, condition_rider_cleanup_ready)
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::ConditionRiderActiveEffectCleanup,
+            BattleGenericRouteFill::WithoutFill,
+        ) => {
+            if let Some(target) = subject.target {
+                set_condition_rider(state, target, BattleConditionRiderEffect::Inactive)
+            } else {
+                state
+            }
+        }
+        (BattleSubjectKind::ConditionRiderRepeatSave, BattleGenericRouteFill::WithoutFill) => {
+            if let Some(target) = subject.target {
+                with_condition_rider_effect(state, target, condition_rider_repeat_save_frontier)
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::ConditionRiderRepeatSaveSuccess,
+            BattleGenericRouteFill::SavingThrowOutcome,
+        ) => {
+            if let Some(target) = subject.target {
+                with_condition_rider_effect(state, target, condition_rider_cleanup_ready)
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::ConditionRiderRepeatSaveFailureTransition,
+            BattleGenericRouteFill::SavingThrowOutcome,
+        ) => {
+            if let Some(target) = subject.target {
+                set_condition_rider(
+                    state,
+                    target,
+                    BattleConditionRiderEffect::Active {
+                        condition: BattleConditionRiderCondition::Unconscious,
+                        boundary: BattleConditionRiderBoundary::UntilSpellEnds,
+                    },
+                )
+            } else {
+                state
+            }
+        }
+        (BattleSubjectKind::ConditionRiderEscapeCheck, BattleGenericRouteFill::WithoutFill) => {
+            if let Some(target) = subject.target {
+                with_condition_rider_effect(state, target, condition_rider_escape_check_frontier)
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::ConditionRiderEscapeCheckSuccess,
+            BattleGenericRouteFill::AbilityCheck,
+        ) => {
+            if let Some(target) = subject.target {
+                with_condition_rider_effect(state, target, condition_rider_cleanup_ready)
+            } else {
+                state
+            }
+        }
+        (
             BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow,
             BattleGenericRouteFill::SavingThrowOutcome,
         ) => {
@@ -10440,6 +10908,22 @@ fn resolve_generic_route_state(
                     .spell_active_effects
                     .next_attack_roll_disadvantage = BattleNextAttackRollModeEffect::Active;
                 state
+            } else {
+                state
+            }
+        }
+        (
+            BattleSubjectKind::SaveGatedConditionRiderSavingThrow,
+            BattleGenericRouteFill::SavingThrowOutcome,
+        ) => {
+            if let Some(target) = subject.target {
+                let effect = match state.save_gated_spell_procedure {
+                    BattleSaveGatedSpellProcedure::Active(active) => {
+                        active.damage_application.primary_effect
+                    }
+                    BattleSaveGatedSpellProcedure::Inactive => BattleSpellActiveEffectKind::None,
+                };
+                apply_spell_damage_to_target(state, target, 0, effect)
             } else {
                 state
             }
@@ -10566,6 +11050,64 @@ fn hit_point_regain_prevention_state_rejection(
         }
         BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
             if effect != BattleHitPointRegainPreventionEffect::Expired =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        _ => None,
+    }
+}
+
+fn condition_rider_state_rejection(
+    state: &BattleState,
+    subject: BattleSubject,
+) -> Option<BattleResolutionInvalidReason> {
+    let target = subject.target?;
+    let effect = combatant_for(state, target)
+        .spell_active_effects
+        .condition_rider;
+    match subject.kind {
+        BattleSubjectKind::ConditionRiderConditionLifecycleAdmission
+        | BattleSubjectKind::ConditionRiderActiveEffectAdmission
+        | BattleSubjectKind::ConditionRiderDurationExpiry
+        | BattleSubjectKind::ConditionRiderRepeatSave
+        | BattleSubjectKind::ConditionRiderEscapeCheck
+            if !matches!(effect, BattleConditionRiderEffect::Active { .. }) =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ConditionRiderConditionLifecycleRejection
+            if effect != BattleConditionRiderEffect::Inactive =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ConditionRiderRepeatSaveSuccess
+        | BattleSubjectKind::ConditionRiderRepeatSaveFailureTransition
+            if !matches!(
+                effect,
+                BattleConditionRiderEffect::RepeatSaveFrontier { .. }
+            ) =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ConditionRiderEscapeCheckSuccess
+            if !matches!(
+                effect,
+                BattleConditionRiderEffect::EscapeCheckFrontier { .. }
+            ) =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ConditionRiderConditionLifecycleCleanup
+            if !matches!(
+                effect,
+                BattleConditionRiderEffect::Expired { .. }
+                    | BattleConditionRiderEffect::CleanupReady { .. }
+            ) =>
+        {
+            Some(BattleResolutionInvalidReason::StaleSubject)
+        }
+        BattleSubjectKind::ConditionRiderActiveEffectCleanup
+            if !matches!(effect, BattleConditionRiderEffect::CleanupReady { .. }) =>
         {
             Some(BattleResolutionInvalidReason::StaleSubject)
         }
@@ -10810,6 +11352,8 @@ fn generic_route_fill_matches_subject(
         BattleSubjectKind::RollModifierEffectSavingThrow
         | BattleSubjectKind::RepeatSaveConditionEffectInitialSave
         | BattleSubjectKind::RepeatSaveConditionEffectRepeatSave
+        | BattleSubjectKind::ConditionRiderRepeatSaveSuccess
+        | BattleSubjectKind::ConditionRiderRepeatSaveFailureTransition
         | BattleSubjectKind::TurnBoundaryEffectLifecycleTargetStartSave
         | BattleSubjectKind::ProtectionCharmSavingThrowOutcome => {
             fill == BattleGenericRouteFill::SavingThrowOutcome
@@ -10824,10 +11368,12 @@ fn generic_route_fill_matches_subject(
                 BattleGenericRouteFill::HitPointHealingDistribution { .. }
             )
         }
-        BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice => {
+        BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
+        | BattleSubjectKind::SaveGatedConditionRiderTargetChoice => {
             fill == BattleGenericRouteFill::TargetChoice
         }
-        BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow => {
+        BattleSubjectKind::SaveGatedNextAttackRollModeSavingThrow
+        | BattleSubjectKind::SaveGatedConditionRiderSavingThrow => {
             fill == BattleGenericRouteFill::SavingThrowOutcome
         }
         BattleSubjectKind::SpellHostedWeaponAttackAttackRoll
@@ -10896,6 +11442,14 @@ fn generic_route_fill_matches_subject(
         | BattleSubjectKind::HitPointRegainPreventionActiveEffectAdmission
         | BattleSubjectKind::HitPointRegainPreventionDurationExpiry
         | BattleSubjectKind::HitPointRegainPreventionActiveEffectCleanup
+        | BattleSubjectKind::ConditionRiderConditionLifecycleAdmission
+        | BattleSubjectKind::ConditionRiderConditionLifecycleRejection
+        | BattleSubjectKind::ConditionRiderActiveEffectAdmission
+        | BattleSubjectKind::ConditionRiderDurationExpiry
+        | BattleSubjectKind::ConditionRiderConditionLifecycleCleanup
+        | BattleSubjectKind::ConditionRiderActiveEffectCleanup
+        | BattleSubjectKind::ConditionRiderRepeatSave
+        | BattleSubjectKind::ConditionRiderEscapeCheck
         | BattleSubjectKind::ReactionInterdictionActiveEffectAdmission
         | BattleSubjectKind::ReactionInterdictionMovementProjection
         | BattleSubjectKind::ReactionInterdictionReactionDiscoveryProjection
@@ -10967,7 +11521,8 @@ fn generic_route_fill_matches_subject(
         }
         BattleSubjectKind::AfterHitDamageRiderEscapeCheck
         | BattleSubjectKind::AfterHitDamageRiderEscapeConditionCleanup
-        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup => {
+        | BattleSubjectKind::AfterHitDamageRiderEscapeConcentrationCleanup
+        | BattleSubjectKind::ConditionRiderEscapeCheckSuccess => {
             fill == BattleGenericRouteFill::AbilityCheck
         }
         BattleSubjectKind::ReactionSpellInterruptDecision
@@ -11113,7 +11668,8 @@ fn generic_route_next_holes(
             vec![BattleHoleKind::AbilityCheck]
         }
         (
-            BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice,
+            BattleSubjectKind::SaveGatedNextAttackRollModeTargetChoice
+            | BattleSubjectKind::SaveGatedConditionRiderTargetChoice,
             BattleGenericRouteFill::TargetChoice,
         ) => vec![BattleHoleKind::SavingThrowOutcome],
         (
@@ -13046,10 +13602,32 @@ fn apply_spell_damage_to_target(
 ) -> BattleState {
     let mut state = with_damaged_target(state, target, damage);
     if effect != BattleSpellActiveEffectKind::None {
+        if condition_effect_rejected_by_immunity(&state, target, effect) {
+            return state;
+        }
         combatant_for_mut(&mut state, target).spell_active_effects =
             BattleSpellActiveEffects::with_effect(effect);
     }
     state
+}
+
+fn condition_effect_rejected_by_immunity(
+    state: &BattleState,
+    target: Actor,
+    effect: BattleSpellActiveEffectKind,
+) -> bool {
+    let condition = match effect {
+        BattleSpellActiveEffectKind::Poisoned => BattleConditionRiderCondition::Poisoned,
+        BattleSpellActiveEffectKind::ConditionRider { condition, .. } => condition,
+        BattleSpellActiveEffectKind::None
+        | BattleSpellActiveEffectKind::HitPointRegainPrevented
+        | BattleSpellActiveEffectKind::NextAttackRollAgainstSelfAdvantage
+        | BattleSpellActiveEffectKind::OpportunityAttackDenied
+        | BattleSpellActiveEffectKind::NextAttackRollDisadvantage => return false,
+    };
+    combatant_for(state, target)
+        .condition_immunities
+        .contains(condition)
 }
 
 fn finalize_slot_spell_damage(
@@ -13184,6 +13762,103 @@ fn with_hit_point_regain_prevention(
         .spell_active_effects
         .hit_point_regain_prevention = effect;
     state
+}
+
+fn set_condition_rider(
+    mut state: BattleState,
+    target: Actor,
+    effect: BattleConditionRiderEffect,
+) -> BattleState {
+    combatant_for_mut(&mut state, target)
+        .spell_active_effects
+        .condition_rider = effect;
+    state
+}
+
+fn with_condition_rider_effect(
+    mut state: BattleState,
+    target: Actor,
+    transition: fn(BattleConditionRiderEffect) -> BattleConditionRiderEffect,
+) -> BattleState {
+    let effect = combatant_for(&state, target)
+        .spell_active_effects
+        .condition_rider;
+    combatant_for_mut(&mut state, target)
+        .spell_active_effects
+        .condition_rider = transition(effect);
+    state
+}
+
+fn condition_rider_expired(effect: BattleConditionRiderEffect) -> BattleConditionRiderEffect {
+    match effect {
+        BattleConditionRiderEffect::Active {
+            condition,
+            boundary,
+        } => BattleConditionRiderEffect::Expired {
+            condition,
+            boundary,
+        },
+        other => other,
+    }
+}
+
+fn condition_rider_cleanup_ready(effect: BattleConditionRiderEffect) -> BattleConditionRiderEffect {
+    match effect {
+        BattleConditionRiderEffect::Active {
+            condition,
+            boundary,
+        }
+        | BattleConditionRiderEffect::RepeatSaveFrontier {
+            condition,
+            boundary,
+        }
+        | BattleConditionRiderEffect::EscapeCheckFrontier {
+            condition,
+            boundary,
+        }
+        | BattleConditionRiderEffect::Expired {
+            condition,
+            boundary,
+        }
+        | BattleConditionRiderEffect::CleanupReady {
+            condition,
+            boundary,
+        } => BattleConditionRiderEffect::CleanupReady {
+            condition,
+            boundary,
+        },
+        BattleConditionRiderEffect::Inactive => BattleConditionRiderEffect::Inactive,
+    }
+}
+
+fn condition_rider_repeat_save_frontier(
+    effect: BattleConditionRiderEffect,
+) -> BattleConditionRiderEffect {
+    match effect {
+        BattleConditionRiderEffect::Active {
+            condition,
+            boundary,
+        } => BattleConditionRiderEffect::RepeatSaveFrontier {
+            condition,
+            boundary,
+        },
+        other => other,
+    }
+}
+
+fn condition_rider_escape_check_frontier(
+    effect: BattleConditionRiderEffect,
+) -> BattleConditionRiderEffect {
+    match effect {
+        BattleConditionRiderEffect::Active {
+            condition,
+            boundary,
+        } => BattleConditionRiderEffect::EscapeCheckFrontier {
+            condition,
+            boundary,
+        },
+        other => other,
+    }
 }
 
 fn with_opportunity_attack_denial(
