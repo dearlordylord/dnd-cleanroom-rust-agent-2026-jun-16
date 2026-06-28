@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf06-dirty-replay` | `ralph/fcsf06-character-sheet-handoff-dirty-replay` | `6d13eb64e4850ebc06f7ce67afa497b0f5a0f895` | pending | dirty-target-replay-running |
 
 ## Active Fresh Dry Run Targets
 

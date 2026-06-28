@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "source-feedback-fcsf06-packaged",
+  "status": "dirty-replay-fcsf06-running",
   "dirtyCleanroomOnly": false,
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
@@ -417,7 +417,18 @@
     "cleanroomHarness": "failed as expected on stale validator hashes for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; no CP8/FU01E/Mage Armor evidence, ledger, or artifact failures",
     "review": "Rawls the 2nd re-review returned no blockers for commit a8b96ec0aa91b4249b352009b1384292f917f7e2"
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "FCSF-06-CHARACTER-SHEET-HANDOFF-DIRTY-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-fcsf06-dirty-replay",
+      "branch": "ralph/fcsf06-character-sheet-handoff-dirty-replay",
+      "baseSha": "6d13eb64e4850ebc06f7ce67afa497b0f5a0f895",
+      "status": "dirty-target-replay-running",
+      "workerAgent": "pending",
+      "sourcePackageCommit": "d63838e22137c4b329dc877ca0d963876f3459bf",
+      "freshTargetAcceptance": "not-claimed"
+    }
+  ],
   "completedLaneWorktrees": [
     {
       "laneId": "FCSF-06-CHARACTER-SHEET-HANDOFF-REJECTION-PAYLOADS",
