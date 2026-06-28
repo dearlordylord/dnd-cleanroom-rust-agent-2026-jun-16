@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03c-opportunity-attack-denial-replay` | `ralph/sqnt03c-opportunity-attack-denial-dirty-replay` | `73fb3ce66c3fb107a1e53f6a9a5d516c78880391` | Hume the 3rd (`019f0df5-fbdf-70a3-b0ec-202c827c907a`) | running |
+| _none_ | | | | | |
 
 ## Active Fresh Dry Run Targets
 
@@ -62,7 +62,8 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
-| SQNT-03C-OPPORTUNITY-ATTACK-DENIAL | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03c-opportunity-attack-denial` | `ralph/source-sqnt-03c-opportunity-attack-denial` | `b0cdcb8697152a1860278f101a0d88cbb5453266` | `ebc37e935fdd45ac07198bbec6b3bcc23be2270e` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty and fresh target replay pending |
+| SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03c-opportunity-attack-denial-replay` | `ralph/sqnt03c-opportunity-attack-denial-dirty-replay` | `638642e326ff9829b19297f4ea5abf8fbaa3843d` | `7521115f61077326b67e933dc9663f19d7e41570` | removable after retention decision; dirty replay accepted 4 connector transitions and 1 selected-driver obligation, no fresh target acceptance claimed |
+| SQNT-03C-OPPORTUNITY-ATTACK-DENIAL | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03c-opportunity-attack-denial` | `ralph/source-sqnt-03c-opportunity-attack-denial` | `b0cdcb8697152a1860278f101a0d88cbb5453266` | `ebc37e935fdd45ac07198bbec6b3bcc23be2270e` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty target replay accepted at `7521115f61077326b67e933dc9663f19d7e41570`, no fresh target acceptance claimed |
 | SQNT-03B-NEXT-ATTACK-ROLL-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03b-next-attack-roll-replay` | `ralph/sqnt03b-next-attack-roll-dirty-replay` | `ba0b8d7b197bb41abbb62abf1a00f2de5a1ec055` | `4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e` | removable after retention decision; dirty replay accepted 6 connector transitions and 2 selected-driver obligations, no fresh target acceptance claimed |
 | SQNT-03B-NEXT-ATTACK-ROLL-MODE | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt-03b-next-attack-roll-mode` | `ralph/source-sqnt-03b-next-attack-roll-mode` | `e948fcc86fe557b114c8369d63df344ae50a5ded` | `d00c92a3d12531e50d95ead220303b66a5265e1e` source merge / package synced into dirty campaign | removable after source/package retention decision; source-QNT connector accepted and packaged; dirty target replay accepted at `4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e`, no fresh target acceptance claimed |
 | SQNT-03A-HIT-POINT-REGAIN-DIRTY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt03a-hit-point-regain-replay` | `ralph/sqnt03a-hit-point-regain-dirty-replay` | `a8aa385f07bd937cec62ca6f2a934c259cda3e53` | `73627315f70528e73f5eb4ef781606e876e87367` | removable after retention decision; dirty replay accepted 3 SQNT-03A connector transitions and 1 attack-shape obligation, no fresh target acceptance claimed |
