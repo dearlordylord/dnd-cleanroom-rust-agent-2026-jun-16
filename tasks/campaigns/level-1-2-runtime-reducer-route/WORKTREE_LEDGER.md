@@ -14,9 +14,9 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX | `/workspace/typescript/.codex-worktrees/dnd-comp-audit-01-current-package-gate` | `ralph/comp-audit-01-current-package-gate` | `73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5` | pending spawn | running-audit |
-| COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION | `/workspace/typescript/.codex-worktrees/dnd-comp-audit-02-foundation-renewal` | `ralph/comp-audit-02-foundation-renewal` | `73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5` | pending spawn | running-audit |
-| COMP-AUDIT-03-BLOCKER-TO-LANE-MAP | `/workspace/typescript/.codex-worktrees/dnd-comp-audit-03-blocker-map` | `ralph/comp-audit-03-blocker-map` | `73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5` | pending spawn | running-audit |
+| COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX | `/workspace/typescript/.codex-worktrees/dnd-comp-audit-01-current-package-gate` | `ralph/comp-audit-01-current-package-gate` | `73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5` | Pascal the 5th (`019f143d-e2ce-7901-a5af-c8cd2a9865f9`) | running-audit |
+| COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION | `/workspace/typescript/.codex-worktrees/dnd-comp-audit-02-foundation-renewal` | `ralph/comp-audit-02-foundation-renewal` | `73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5` | Raman the 5th (`019f143e-b74e-72b2-af90-4c45f5810b62`) | running-audit |
+| COMP-AUDIT-03-BLOCKER-TO-LANE-MAP | `/workspace/typescript/.codex-worktrees/dnd-comp-audit-03-blocker-map` | `ralph/comp-audit-03-blocker-map` | `73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5` | Ampere the 5th (`019f143f-129a-7612-8a9d-53ac322fd2aa`) | running-audit |
 
 ## Active Fresh Dry Run Targets
 

@@ -4888,7 +4888,7 @@
         "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
         "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-01-current-package-gate",
         "branch": "ralph/comp-audit-01-current-package-gate",
-        "agent": "pending spawn"
+        "agent": "Pascal the 5th (019f143d-e2ce-7901-a5af-c8cd2a9865f9)"
       },
       {
         "laneId": "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION",
@@ -4901,7 +4901,7 @@
         "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
         "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-02-foundation-renewal",
         "branch": "ralph/comp-audit-02-foundation-renewal",
-        "agent": "pending spawn"
+        "agent": "Raman the 5th (019f143e-b74e-72b2-af90-4c45f5810b62)"
       },
       {
         "laneId": "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP",
@@ -4914,7 +4914,7 @@
         "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
         "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-03-blocker-map",
         "branch": "ralph/comp-audit-03-blocker-map",
-        "agent": "pending spawn"
+        "agent": "Ampere the 5th (019f143f-129a-7612-8a9d-53ac322fd2aa)"
       }
     ],
     "integrationRule": "Merge the three audit reports before launching implementation. Implementation lanes become executable only after this set is merged and STATE.json is updated with concrete lane bases.",
@@ -4927,7 +4927,7 @@
       "branch": "ralph/comp-audit-01-current-package-gate",
       "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
       "status": "running-audit",
-      "agent": "pending spawn"
+      "agent": "Pascal the 5th (019f143d-e2ce-7901-a5af-c8cd2a9865f9)"
     },
     {
       "laneId": "COMP-AUDIT-02-HISTORICAL-FOUNDATION-RENEWAL-DECISION",
@@ -4935,7 +4935,7 @@
       "branch": "ralph/comp-audit-02-foundation-renewal",
       "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
       "status": "running-audit",
-      "agent": "pending spawn"
+      "agent": "Raman the 5th (019f143e-b74e-72b2-af90-4c45f5810b62)"
     },
     {
       "laneId": "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP",
@@ -4943,7 +4943,7 @@
       "branch": "ralph/comp-audit-03-blocker-map",
       "baseSha": "73e2db4eb5ab420123a6eb8cc7a803f0b5d091d5",
       "status": "running-audit",
-      "agent": "pending spawn"
+      "agent": "Ampere the 5th (019f143f-129a-7612-8a9d-53ac322fd2aa)"
     }
   ]
 }
