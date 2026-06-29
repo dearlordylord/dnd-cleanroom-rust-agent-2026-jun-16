@@ -4383,19 +4383,93 @@
       "taskId": "SQNT-07D-ACTIVE-FEATURE-BENEFITS-CURRENT-PACKAGE-REPLAY"
     },
     {
+      "taskId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY",
       "assignmentId": "level-1-2-battle",
+      "laneId": "battle",
       "campaignLaneId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY",
+      "manifestSourceCommitSha": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
+      "sourceReducerRouteInventorySha256": "2b55eb2cd97a28c978e6affc38fa9a09d11d5b1db5fc980ec64f9dd96b1ec8fc",
+      "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
+      "selectedDrivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
+      ],
+      "routeConnectorAuthority": [
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.route.mbt.qnt",
+          "sha256": "4eb0a8bcaead7498072a1065bf17177a9782d6d85174bda0a3007406951af082"
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-save-gated-spell-ordering.route.mbt.qnt",
+          "sha256": "53158acbee365d467cab341ed75609aab7fc2d3092f8d5904a717298e21b25e3"
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-casting-time.route.mbt.qnt",
+          "sha256": "b53a97320fec767ecb40626008b68576c6af29767fb2b7760cf4b9650813755d"
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt",
+          "sha256": "1f0fc7249c20d10848de622428e62ffaf435416b48a0dad5bc11f5a1e85cf5e2"
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt",
+          "sha256": "ed95f7dce66871b84d36ea918d267737150e9fad7253dceb494bddf3b0b06baa"
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
+          "sha256": "5fbb9972f4be4f70aa039fe4aaef5461e4253f4eb9418fbc132c1eb418fa5b5c"
+        },
+        {
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt",
+          "sha256": "68e1cba43b61a040212a4db11b1de25d9a3df66d2f5ebe7892917727513d6a64"
+        }
+      ],
+      "routeTaskIds": [
+        "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES"
+      ],
+      "acceptedRows": {
+        "selectedSpatialRowsThroughCompositionConnector": 10
+      },
+      "blockedRows": {},
+      "targetReplayEvidence": [
+        {
+          "path": "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json",
+          "sha256": "c66f7fbc35fcbca6311d8acd752e0073fa0929fa73b401e6b575536d26829fb9",
+          "acceptedRowCount": 10,
+          "targetBlockedRowCount": 0,
+          "evidenceRefs": [
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doDancingLightsMovableDimLight#step:doDancingLightsMovableDimLight",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doFaerieFireOutlineAdvantageInvisibleDimLight#step:doFaerieFireOutlineAdvantageInvisibleDimLight",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doFeatherFallReactionMitigationLanding#step:doFeatherFallReactionMitigationLanding",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doFogCloudAreaIdentityObscurementStrongWindCleanup#step:doFogCloudAreaIdentityObscurementStrongWindCleanup",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doGreaseCastGroundHazardSavingThrows#step:doGreaseCastGroundHazardSavingThrows",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doGreaseMovementAndTurnTriggers#step:doGreaseMovementAndTurnTriggers",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doJumpMovementReplacementLandingWitness#step:doJumpMovementReplacementLandingWitness",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doLightObjectEmitterProjectionReplacementCleanup#step:doLightObjectEmitterProjectionReplacementCleanup",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doProduceFlameHeldLightProjectionHurlCleanup#step:doProduceFlameHeldLightProjectionHurlCleanup",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doThunderwaveSavePushObjectsBoom#step:doThunderwaveSavePushObjectsBoom"
+          ],
+          "acceptedEvidenceRefs": [
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doDancingLightsMovableDimLight#step:doDancingLightsMovableDimLight",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doFaerieFireOutlineAdvantageInvisibleDimLight#step:doFaerieFireOutlineAdvantageInvisibleDimLight",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doFeatherFallReactionMitigationLanding#step:doFeatherFallReactionMitigationLanding",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doFogCloudAreaIdentityObscurementStrongWindCleanup#step:doFogCloudAreaIdentityObscurementStrongWindCleanup",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doGreaseCastGroundHazardSavingThrows#step:doGreaseCastGroundHazardSavingThrows",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doGreaseMovementAndTurnTriggers#step:doGreaseMovementAndTurnTriggers",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doJumpMovementReplacementLandingWitness#step:doJumpMovementReplacementLandingWitness",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doLightObjectEmitterProjectionReplacementCleanup#step:doLightObjectEmitterProjectionReplacementCleanup",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doProduceFlameHeldLightProjectionHurlCleanup#step:doProduceFlameHeldLightProjectionHurlCleanup",
+            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY selected-route action=doThunderwaveSavePushObjectsBoom#step:doThunderwaveSavePushObjectsBoom"
+          ]
+        }
+      ],
       "commandResults": [
         {
-          "command": "git merge-base --is-ancestor 2645478 HEAD",
+          "command": "cargo test level1_spatial_witness_adapter_replays_all_branches",
           "status": "pass"
         },
         {
-          "command": "cargo test spatial_effects_dirty_replay_routes_through_reducer",
-          "status": "pass"
-        },
-        {
-          "command": "cargo test movement_presentation_dirty_replay_routes_through_reducer",
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json",
           "status": "pass"
         },
         {
@@ -4404,80 +4478,36 @@
         },
         {
           "command": "cargo test",
-          "status": "pass"
+          "status": "pass: 237 tests"
         },
         {
           "command": "cargo clippy --all-targets -- -D warnings",
           "status": "pass"
         },
         {
-          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json",
-          "status": "fail: checker validates source-branch-inventory obligations only; route connector rows reported as unknown source obligations"
-        },
-        {
-          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json",
-          "status": "fail: checker validates source-branch-inventory obligations only; route connector rows reported as unknown source obligations"
-        },
-        {
           "command": "node scripts/check-cleanroom-harness.cjs",
-          "status": "fail: existing stale ledger/evidence debt under refreshed manifest; lane-specific focused Rust tests pass"
+          "status": "fail: cleanroom-input/MANIFEST.md validator hashes are stale for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; grep of captured output found no SQNT-07A spatial evidence matches"
+        },
+        {
+          "command": "node -e JSON.parse checks for SQNT-07A spatial evidence, RUN_LEDGER, and campaign STATE",
+          "status": "pass"
         },
         {
           "command": "git diff --check",
           "status": "pass"
         }
       ],
-      "laneId": "battle",
-      "manifestSourceCommitSha": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
-      "routeConnectorAuthority": [
+      "routeEvidenceBasis": "All 10 selected spatial witness branches replay through the copied selected-spatial composition connector and public BattleState start/discover/resolve entrypoints; runtime route evidence uses generic route subject families, not selected spell identity dispatch.",
+      "qntAuthority": [
         {
-          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
-          "sha256": "b32d59a149cbaa9e49079b0725e1c3c5d155d7bb9a283714685d7183765434e8",
-          "factsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt",
-          "factsSha256": "9a4d04cbea2d9f9311ab2a90773bd0d1c8f343ac5c53dea8f58eb3d411264709"
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt",
+          "sha256": "504f8ac40de6c810f172f58c61849a40313ad39eb0d400948e567d0900e7cda3"
         },
         {
-          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt",
-          "sha256": "ad41dd95c3b40e4b2ea0b2fe3e3695543e17b658155d0d8c051b7009866d82b9",
-          "factsPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation-route-facts.qnt",
-          "factsSha256": "51a07c9ddcaf77192d649f41747e412971f1935c122d654c59e0e48272ad25bd"
+          "path": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.route.mbt.qnt",
+          "sha256": "4eb0a8bcaead7498072a1065bf17177a9782d6d85174bda0a3007406951af082"
         }
-      ],
-      "routeTaskIds": [
-        "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES"
-      ],
-      "selectedDrivers": [
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
-      ],
-      "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862",
-      "sourceReducerRouteInventorySha256": "47d653396694fdd963e314174161247c20e431d93a94ec9d32685a3fbc230829",
-      "targetReplayEvidence": [
-        {
-          "acceptedEvidenceRefs": [
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doAdmitMovableMultiEmitterLight#step:doAdmitMovableMultiEmitterLight",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doMoveMovableMultiEmitterLight#step:doMoveMovableMultiEmitterLight",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doAdmitOutlineSightEffect#step:doAdmitOutlineSightEffect",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doProjectOutlineSightAttackAdvantage#step:doProjectOutlineSightAttackAdvantage",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doAdmitAreaObscurement#step:doAdmitAreaObscurement",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doCleanupAreaObscurementByDuration#step:doCleanupAreaObscurementByDuration",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doDisperseAreaObscurementByStrongWind#step:doDisperseAreaObscurementByStrongWind",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doAdmitAreaHazard#step:doAdmitAreaHazard",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doResolveAreaHazardSavingThrowTrigger#step:doResolveAreaHazardSavingThrowTrigger",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doResolveAreaHazardDifficultTerrainMovement#step:doResolveAreaHazardDifficultTerrainMovement",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doResolveAreaHazardMovementDamageTrigger#step:doResolveAreaHazardMovementDamageTrigger",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doCleanupAreaHazard#step:doCleanupAreaHazard",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doRecordTableOwnedSpatialWitnesses#step:doRecordTableOwnedSpatialWitnesses",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doRouteMovementReplacementLandingWitness#step:doRouteMovementReplacementLandingWitness",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doRouteForcedCreatureMovementPresentation#step:doRouteForcedCreatureMovementPresentation",
-            "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json#SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY route action=doRouteObjectPushPresentation#step:doRouteObjectPushPresentation"
-          ],
-          "acceptedRowCount": 16,
-          "blockedRowCount": 2,
-          "path": "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json",
-          "sha256": "44090fb0f043782a49fdf4088a787338f5d27b619b772766b49b15ff1b9b36d2"
-        }
-      ],
-      "taskId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY"
+      ]
     },
     {
       "taskId": "SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY",
@@ -4633,7 +4663,7 @@
       ]
     }
   ],
-  "manifestSourceCommitSha": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
+  "manifestSourceCommitSha": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
   "schemaVersion": 1,
   "sourceBranchInventorySha256": "aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862"
 }

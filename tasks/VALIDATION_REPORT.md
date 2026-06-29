@@ -4465,49 +4465,49 @@ Verifier note:
 ## SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY
 
 - Lane: `SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY`
-- Base SHA: `2645478`
-- Source package commit: `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb`
+- Worktree: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19`
+- Source package commit: `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
+- Source branch inventory SHA: `aa3f39e77bdcee77048e48b56e13ced80190cd251b665326d0cec858d8dec862`
+- Target profile SHA: `6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1`
 - Evidence file: `tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json`
-- Accepted rows: 16 route connector rows.
-- Blocked rows: 2.
+- Accepted rows: 10 selected spatial witness branches.
+- Blocked rows: 0.
 - Scope note: dirty target replay only; this is not fresh target acceptance.
 
-Drivers and route connectors:
+Driver and route connector:
 
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt`
-- `cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation-route-facts.qnt`
+- Driver: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt`
+- Copied composition connector: `cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.route.mbt.qnt`
 
-Accepted route rows:
+Accepted selected branches:
 
-- Spatial effects: `doAdmitMovableMultiEmitterLight`, `doMoveMovableMultiEmitterLight`, `doAdmitOutlineSightEffect`, `doProjectOutlineSightAttackAdvantage`, `doAdmitAreaObscurement`, `doCleanupAreaObscurementByDuration`, `doDisperseAreaObscurementByStrongWind`, `doAdmitAreaHazard`, `doResolveAreaHazardSavingThrowTrigger`, `doResolveAreaHazardDifficultTerrainMovement`, `doResolveAreaHazardMovementDamageTrigger`, `doCleanupAreaHazard`, `doRecordTableOwnedSpatialWitnesses`.
-- Movement presentation: `doRouteMovementReplacementLandingWitness`, `doRouteForcedCreatureMovementPresentation`, `doRouteObjectPushPresentation`.
-
-Blocked rows preserved:
-
-- `doJumpMovementReplacementLandingWitness`: movement replacement budget/distance and table landing presentation are accepted, but landing legality and failed-landing Prone consequence are not supported by copied route facts.
-- Concentration-backed Sleet Storm / Spike Growth / Web-like area hazards: copied spatial route facts cover non-Concentration area hazard lifecycle plus separate movement-damage trigger, not concentration-backed hazard rows.
+- `doDancingLightsMovableDimLight`
+- `doFaerieFireOutlineAdvantageInvisibleDimLight`
+- `doFeatherFallReactionMitigationLanding`
+- `doFogCloudAreaIdentityObscurementStrongWindCleanup`
+- `doGreaseCastGroundHazardSavingThrows`
+- `doGreaseMovementAndTurnTriggers`
+- `doJumpMovementReplacementLandingWitness`
+- `doLightObjectEmitterProjectionReplacementCleanup`
+- `doProduceFlameHeldLightProjectionHurlCleanup`
+- `doThunderwaveSavePushObjectsBoom`
 
 Behavior implemented:
 
-- Added battle-owned route-surface state for generic spatial effects and movement presentation.
-- Added public reducer subject/owner/fill/hole shapes for spatial-effect and movement-presentation route connectors.
-- Added focused adapters/tests that obtain observed routes only through public battle start/discover/resolve entrypoints.
-- Kept selected spell identity out of production dispatch; adapter action names are copied QNT row names only.
+- Refreshed the selected-spatial adapter route evidence to follow the copied selected-spatial composition connector, not the older selected identity route subject mapping.
+- Added the missing `MovementPresentationReplacementConditionLifecycle` generic route subject so the copied movement replacement connector route is executable through the public reducer.
+- Kept authored selected row names quarantined to adapter/evidence identity. Runtime route evidence uses generic `SpatialEffectRouteSubject`, `ReactionFallMitigationRouteSubject`, `MovementPresentationRouteSubject`, and `ObjectLightRiderRouteSubject`.
 
 Verification results:
 
-- `git merge-base --is-ancestor 2645478 HEAD` passed.
-- `cargo test spatial_effects_dirty_replay_routes_through_reducer` passed.
-- `cargo test movement_presentation_dirty_replay_routes_through_reducer` passed.
+- `cargo test level1_spatial_witness_adapter_replays_all_branches` passed.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json` passed with 10 obligations covered.
 - `cargo fmt --check` passed.
-- `cargo test` passed.
+- `cargo test` passed with 237 tests.
 - `cargo clippy --all-targets -- -D warnings` passed.
+- `node scripts/check-cleanroom-harness.cjs` failed only on stale validator hashes in `cleanroom-input/MANIFEST.md` for `scripts/check-cleanroom-harness.cjs` and `scripts/cleanroom-branch-coverage-check.cjs`; grep of the captured harness output found no SQNT-07A spatial evidence matches.
+- JSON parse checks for the refreshed evidence, run ledger, and campaign state passed.
 - `git diff --check` passed.
-- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json` failed because route connector rows are not source-branch-inventory obligations; all 16 connector runs are reported as unknown source obligations.
-- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json` failed for the same source-inventory limitation.
-- `node scripts/check-cleanroom-harness.cjs` failed on existing stale ledger/evidence debt under the refreshed manifest, plus the known broad harness scan; the lane-specific focused Rust tests and JSON syntax checks pass.
 
 ## SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY
 

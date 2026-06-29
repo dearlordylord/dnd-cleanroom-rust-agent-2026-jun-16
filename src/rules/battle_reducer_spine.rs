@@ -1609,6 +1609,7 @@ pub enum BattleSubjectKind {
     SpatialEffectTableAreaHazardWitness,
     MovementPresentationReplacementMovement,
     MovementPresentationReplacementTable,
+    MovementPresentationReplacementConditionLifecycle,
     MovementPresentationForcedSavingThrow,
     MovementPresentationForcedMovement,
     MovementPresentationForcedTable,
@@ -8391,6 +8392,7 @@ fn movement_presentation_route_kind(kind: BattleSubjectKind) -> bool {
         kind,
         BattleSubjectKind::MovementPresentationReplacementMovement
             | BattleSubjectKind::MovementPresentationReplacementTable
+            | BattleSubjectKind::MovementPresentationReplacementConditionLifecycle
             | BattleSubjectKind::MovementPresentationForcedSavingThrow
             | BattleSubjectKind::MovementPresentationForcedMovement
             | BattleSubjectKind::MovementPresentationForcedTable
@@ -8545,8 +8547,8 @@ fn spatial_effect_route_shape(kind: BattleSubjectKind) -> Option<GenericRouteSha
 fn movement_presentation_route_shape(kind: BattleSubjectKind) -> Option<GenericRouteShape> {
     use BattleReducerRouteHoleKind::{Movement, SavingThrowOutcome};
     use BattleReducerRouteOwnerGroup::{
-        MovementResource, ObjectTargetBoundary, SavingThrowOutcome as SavingThrowOutcomeOwner,
-        TablePresentation,
+        ConditionLifecycle, MovementResource, ObjectTargetBoundary,
+        SavingThrowOutcome as SavingThrowOutcomeOwner, TablePresentation,
     };
 
     let shape = match kind {
@@ -8563,6 +8565,12 @@ fn movement_presentation_route_shape(kind: BattleSubjectKind) -> Option<GenericR
             holes: Vec::new(),
             discover_owner: TablePresentation,
             resolve_owner: TablePresentation,
+        },
+        BattleSubjectKind::MovementPresentationReplacementConditionLifecycle => GenericRouteShape {
+            subject: BattleReducerRouteSubjectFamily::MovementPresentationRoute,
+            holes: Vec::new(),
+            discover_owner: ConditionLifecycle,
+            resolve_owner: ConditionLifecycle,
         },
         BattleSubjectKind::MovementPresentationForcedSavingThrow => GenericRouteShape {
             subject: BattleReducerRouteSubjectFamily::MovementPresentationRoute,

@@ -21,17 +21,17 @@
         "86c0c70b22fbb4e619a6f154a56b38c7382c7d22",
         "6d9712af44372a73134364778a9bbbc255527e24"
       ],
-      "note": "Diagnostic dirty target replay only. Integrated SQNT-07A spatial/movement and active-effect/condition dirty replay lanes against copied source package e9f75e22. Accepted spatial/movement rows: 16 route connector rows. Accepted active-effect/condition rows: 18 condition connector rows, 9 marked/immunity connector rows, and exactly 4 selected level-one rows through copied generic route facts. The selected condition-saving refresh accepts 5 additional selected rows through copied generic route facts and carries forward the existing 4 selected rows without recounting them as new. Preserved blockers for Jump landing legality/failed-landing Prone, concentration-backed Sleet Storm / Spike Growth / Web-like hazards, and 8 selected level-one rows outside lane generic facts. This does not claim fresh target acceptance."
+      "note": "Diagnostic dirty target replay only. Current package refresh at source manifest 545d7848692fcb18adf14e5c009d9e7f4d0cb1d5 accepts all 10 SQNT-07A selected spatial witness rows through the copied selected-spatial composition connector. Active-effect/condition records remain historical unless separately refreshed. This does not claim fresh target acceptance."
     },
     "currentHarnessStatus": {
       "checkedAtHead": "6d9712af44372a73134364778a9bbbc255527e24",
       "check": "node scripts/check-cleanroom-harness.cjs",
-      "result": "fails-on-historical-stale-ledger-evidence-outside-sqnt07a",
-      "note": "Focused cargo/fmt/clippy/diff/JSON checks passed for both SQNT-07A dirty replay lanes. Full cleanroom harness still fails on historical stale RUN_LEDGER/target replay evidence and pre-existing heuristic findings outside these lanes; captured output had no SQNT-07A-specific matches."
+      "result": "fails-on-stale-cleanroom-input-validator-hashes",
+      "note": "Focused SQNT-07A selected spatial cargo and evidence checks pass. Full cleanroom harness fails only on stale validator hashes in cleanroom-input/MANIFEST.md for scripts/check-cleanroom-harness.cjs and scripts/cleanroom-branch-coverage-check.cjs; grep of captured output found no SQNT-07A spatial evidence matches."
     },
     "lastSourceRefresh": {
-      "sourceCommitSha": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
-      "note": "Dirty package refresh only. Refreshed cleanroom-input now packages the completed Wave 2 SQNT-07A source-QNT lanes: condition lifecycle, movement/presentation, spatial effects, and marked damage/immunity active-effect substrates, in addition to the previously packaged SQNT-03/FCSF/FEXP route evidence. The package refresh alone does not claim dirty target acceptance, fresh target acceptance, or new Rust runtime coverage; target replay may count only rows supported by copied generic route facts."
+      "sourceCommitSha": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "note": "Dirty package refresh only. cleanroom-input now includes the selected-spatial composition connector for battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt; the current dirty replay covers all 10 selected spatial rows through that copied connector without claiming fresh target acceptance."
     },
     "sourceFeedbackPackageRefresh": {
       "id": "fcsf-package-refresh-21504ef",
@@ -1190,29 +1190,24 @@
     },
     {
       "laneId": "SQNT-07A-SPATIAL-MOVEMENT-DIRTY-REPLAY",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07a-spatial-movement",
-      "branch": "ralph/sqnt07a-spatial-movement-dirty-replay",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
+      "branch": "ralph/rrconv-19-cleanroom",
       "baseSha": "2645478",
-      "status": "accepted-with-known-harness-debt",
+      "status": "current-package-dirty-replay-refreshed-with-known-harness-validator-debt",
       "workerCommit": "ff870c11ae3f3d8dbc78f43cbb4b7cf6f3b65d36",
-      "sourcePackageCommit": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
       "freshTargetAcceptance": "not-claimed",
       "drivers": [
         "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
       ],
       "routeConnectors": [
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt",
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt"
-      ],
-      "acceptedConnectorRows": 16,
-      "targetBlockedRows": 2,
-      "targetBlockers": [
-        "Jump landing legality and failed-landing Prone consequence remain unsupported by copied route facts.",
-        "Concentration-backed Sleet Storm / Spike Growth / Web-like hazards remain blocked; copied route facts cover non-Concentration area hazard lifecycle plus separate movement-damage trigger."
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.route.mbt.qnt"
       ],
       "mergeCommit": "86c0c70b22fbb4e619a6f154a56b38c7382c7d22",
       "evidence": "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json",
-      "statusNote": "Dirty replay accepted with known broad harness debt outside this lane; no fresh target acceptance claimed."
+      "statusNote": "Current package dirty replay accepted all 10 selected spatial witness branches through the copied selected-spatial composition connector; full harness is blocked only by stale cleanroom-input validator hashes.",
+      "acceptedSelectedRowsThroughCompositionConnector": 10,
+      "targetBlockedRows": 0
     },
     {
       "laneId": "SQNT-03C-OPPORTUNITY-ATTACK-DENIAL-DIRTY-REPLAY",

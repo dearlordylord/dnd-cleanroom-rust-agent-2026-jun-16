@@ -5556,14 +5556,14 @@ fn level1_spatial_witness_adapter_replays_all_branches() {
         .map(|action| reducer_route_payload(&replay_level1_spatial_route(action)))
         .collect::<Vec<_>>()
         .join("\n");
-    assert!(route_payloads.contains("LightProjectionRouteSubject"));
-    assert!(route_payloads.contains("OutlineEffectRouteSubject"));
-    assert!(route_payloads.contains("FallingMitigationRouteSubject"));
-    assert!(route_payloads.contains("AreaObscurementRouteSubject"));
-    assert!(route_payloads.contains("AreaHazardRouteSubject"));
-    assert!(route_payloads.contains("MovementResourceRouteSubject"));
-    assert!(route_payloads.contains("ObjectBoundaryEffectRouteSubject"));
-    assert!(route_payloads.contains("ForcedMovementRouteSubject"));
+    assert!(route_payloads.contains("SpatialEffectRouteSubject"));
+    assert!(route_payloads.contains("ReactionFallMitigationRouteSubject"));
+    assert!(route_payloads.contains("MovementPresentationRouteSubject"));
+    assert!(route_payloads.contains("ObjectLightRiderRouteSubject"));
+    assert!(route_payloads.contains("BattleLightProjectionOwner"));
+    assert!(route_payloads.contains("BattleSightProjectionOwner"));
+    assert!(route_payloads.contains("BattleAreaHazardOwner"));
+    assert!(route_payloads.contains("BattleTablePresentationOwner"));
 }
 
 #[test]
