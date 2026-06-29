@@ -58,7 +58,9 @@
       ],
       "remainingLane": null,
       "nextParallelism": "Next selected-row reduction work should split by non-overlapping write sets where possible: after-hit/timed rider rows and weapon-hosted rows are fresh-ready but should usually serialize because they touch shared fresh verifier/state/blocker files; Hex ability-check roll-mode is source-QNT-first. Do not relaunch broad selected/grouped identity replay.",
-      "activeParallelLanes": []
+      "activeParallelLanes": [
+        "FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY"
+      ]
     },
     "campaignControlHeadNote": "This field records the committed checkpoint head before later bookkeeping commits. For the live campaign head, use git rev-parse HEAD in the campaign control worktree."
   },
@@ -872,7 +874,17 @@
     "cleanroomHarness": "Failed on broad historical stale ledger/evidence and pre-existing heuristic findings outside SQNT-07A; grep of captured output found no SQNT-07A-specific errors.",
     "review": "Conflict resolution preserved both lanes: route subject/fill/owner support, tests, evidence, state-owner records, validation records, accepted rows, and blockers. Production reducer support remains shape/fact/typed-subject routed; adapter row labels remain evidence identity only."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-after-hit-timed-selected",
+      "branch": "ralph/fresh-sqnt07a-level1-after-hit-timed-selected",
+      "baseSha": "6f526cb20165a00707bf90c59096087464a5d108",
+      "workerAgent": null,
+      "reviewerAgent": null,
+      "status": "active-worktree-created-worker-launch-pending"
+    }
+  ],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
@@ -4487,10 +4499,12 @@
         ]
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-after-hit-timed-selected",
+    "activeBranch": "ralph/fresh-sqnt07a-level1-after-hit-timed-selected",
     "activeLaneBaseCommit": "6f526cb20165a00707bf90c59096087464a5d108",
-    "activeParallelLanes": [],
+    "activeParallelLanes": [
+      "FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY"
+    ],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "completion-audit-or-explicit-source-input-blocker-lane",
