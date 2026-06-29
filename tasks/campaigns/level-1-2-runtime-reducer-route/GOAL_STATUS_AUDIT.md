@@ -8,7 +8,8 @@ Audit baseline:
 
 - dirty campaign branch: `ralph/rrconv-19-cleanroom`
 - dirty campaign head after current fresh-expansion bookkeeping:
-  `a97c902952558e18f681c9117c9ffa00d274714a`
+  `3891f274103489c72b0e51c211b1baaf6bb02426`
+- live campaign head source: `git rev-parse HEAD` in the campaign control worktree
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - current accepted fresh package/runtime head:
   `d776f392bcffb1ce28283281570d486e54e4b3ed`

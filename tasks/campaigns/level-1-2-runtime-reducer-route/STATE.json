@@ -5,7 +5,7 @@
   "dirtyCleanroomOnly": false,
   "currentCheckpoint": {
     "recordedAt": "2026-06-29",
-    "campaignControlHead": "a97c902952558e18f681c9117c9ffa00d274714a",
+    "campaignControlHead": "3891f274103489c72b0e51c211b1baaf6bb02426",
     "dirtyRehearsalStatus": "complete-with-known-historical-harness-debt",
     "dirtyRehearsalCoverage": {
       "driverFiles": 97,
@@ -55,7 +55,8 @@
       "remainingLane": null,
       "nextParallelism": "No planned current-package renewal lane remains in this batch. Next work should start from a completion audit or an explicit source-input blocker lane, not broad selected/grouped identity replay.",
       "activeParallelLanes": []
-    }
+    },
+    "campaignControlHeadNote": "This field records the committed checkpoint head before later bookkeeping commits. For the live campaign head, use git rev-parse HEAD in the campaign control worktree."
   },
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
