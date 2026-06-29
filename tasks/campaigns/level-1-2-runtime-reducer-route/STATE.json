@@ -4721,9 +4721,10 @@
     "activeBranch": "parallel-source-qnt-lanes",
     "activeLaneBaseCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac",
     "activeParallelLanes": [
-      "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS"
+      "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
+      "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
     ],
-    "workerAgent": "019f134e-d458-7bb0-9508-37feb3d38f78",
+    "workerAgent": "019f134e-d458-7bb0-9508-37feb3d38f78, 019f1381-1d41-7af0-9823-7126e187c1e6",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "merge-source-qnt-wave-then-fresh-replay-ready-facts",
     "nextWorkRecommendations": [
@@ -4759,6 +4760,15 @@
         "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY"
       ],
       "nextProofRenewalBatch": []
+    },
+    "activeFreshReplayLane": {
+      "laneId": "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-hex-exact-damage-source-consumption",
+      "branch": "ralph/fresh-sqnt07a-hex-exact-damage-source-consumption",
+      "baseSha": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+      "workerAgent": "019f1381-1d41-7af0-9823-7126e187c1e6",
+      "sourcePackageCommit": "031d2d988ccc6475c04c990fa4c44f4fdbaba383",
+      "scope": "consume accepted Hex targeted ability-check roll-mode and exact damage route bridge source facts through copied QNT and public fresh reducer observations"
     },
     "acceptedFreshTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
     "lastCompletedBatch": "fresh weapon-hosted selected witness consumption",

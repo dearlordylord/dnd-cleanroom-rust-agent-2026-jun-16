@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-hex-exact-damage-source-consumption` | `ralph/fresh-sqnt07a-hex-exact-damage-source-consumption` | `42b40af28b5c6cb554869f2c4ef4c999bcec3ab2` | Boole the 5th (`019f1381-1d41-7af0-9823-7126e187c1e6`) | _pending_ | running; sync source package `031d2d988ccc6475c04c990fa4c44f4fdbaba383` and consume accepted Hex roll-mode plus exact-damage route facts |
 
 ## Active Source-QNT Lanes
 
