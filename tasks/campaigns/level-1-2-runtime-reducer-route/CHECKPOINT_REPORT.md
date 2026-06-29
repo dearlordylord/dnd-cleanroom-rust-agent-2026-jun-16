@@ -28,11 +28,13 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Current Fresh Verification
 
-At campaign-control head `4cf40097d8f536cf4be1a402c93f700df4042ec0`
+At campaign-control head `ddfc1efb2b8bba79fa7e58f4c9f0e01b34ffae1b`
 before this checkpoint update and fresh target head
-`6f526cb20165a00707bf90c59096087464a5d108`:
+`9737474a21fb77df382cf3504dd8a4b3b46ffb5d`:
 
 - `python3 tools/verify_current_fresh_target.py`: pass
+- `python3 tools/verify_fresh_rr_sqnt07a_level1_after_hit_timed_selected.py`:
+  pass
 - `python3 tools/verify_fresh_rr_reaction_interrupt_taxonomy.py`: pass
 - `python3 tools/verify_fresh_rr_battle_active_effects.py`: pass
 - `python3 tools/verify_fresh_rr_sqnt07a_level1_marked_immunity_selected.py`:
@@ -49,7 +51,7 @@ before this checkpoint update and fresh target head
 - current fresh runtime claims: FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A
   active-effect/condition, spatial/damage, character/sheet/handoff,
   reaction/interrupt taxonomy, battle active-effects, and level-1
-  marked/immunity plus scalar-buff selected-row replays
+  marked/immunity, scalar-buff, and after-hit/timed rider selected-row replays
 - active fresh expansion lanes: none
 
 This supersedes the older FEXP-09G and partial renewal checkpoints as the
@@ -81,7 +83,7 @@ refreshed source inventory also marks `45` obligations out of scope, including
 the nine scenario sequencing rows moved out of the reducer-route denominator.
 
 The current fresh package checkpoint is separate: the fresh verifier at
-`6f526cb20165a00707bf90c59096087464a5d108` reports `98` drivers, `663`
+`9737474a21fb77df382cf3504dd8a4b3b46ffb5d` reports `98` drivers, `663`
 in-scope obligations, and `45` out-of-scope obligations for source package
 `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
 
@@ -772,3 +774,31 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Scope note: this is selected-row acceptance only where the selected rows
   reduce to generic copied scalar-buff route facts. It does not accept broad
   selected identity replay.
+
+### FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY
+
+- Fresh target merge commit: `9737474a21fb77df382cf3504dd8a4b3b46ffb5d`.
+- Worker head: `73d7da78b5e350cefc4115292f3fce119885a499`.
+- Worker: Bacon the 4th (`019f12b7-3baa-7752-ba05-b524f5a94e49`).
+- Reviewer: Faraday the 4th (`019f12c3-7c4b-76f3-a5ce-86164de59e7e`).
+- Result: accepted-with-blockers. Exactly three selected level-1 rows route
+  through copied generic after-hit rider route/lifecycle/owner facts: Divine
+  Smite after-hit damage, Ensnaring Strike restraint/turn-start/escape, and
+  Searing Smite timed damage/save cleanup.
+- Review/fixer notes: reviewer found verifier and bookkeeping weaknesses. The
+  follow-up commit broadened production authored-identity scans, made the
+  focused verifier check `BLOCKERS.json`, `FRESH_RUN_STATE.json`, and
+  `FRESH_RUN_REPORT.md`, and preserved older checkpoint after-hit blockers as
+  superseded records instead of deleting them.
+- Verification in fresh target: `python3
+  tools/verify_fresh_rr_sqnt07a_level1_after_hit_timed_selected.py`, `python3
+  tools/verify_current_fresh_target.py`, `cargo test
+  after_hit_timed_save_cleanup_surface_is_publicly_routed -- --nocapture`,
+  `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D
+  warnings`, and `git diff --check HEAD~1...HEAD` passed after merge.
+- Residual blockers preserved: exact after-hit/timed damage type, dice, and
+  amount, weapon-hosted selected rows, Hex ability-check roll-mode, Jump landing
+  legality and failed-landing Prone, and concentration-backed area hazards.
+- Scope note: this is selected-row acceptance only where the selected rows
+  reduce to generic copied after-hit route facts. It does not accept exact
+  damage details or broad selected identity replay.

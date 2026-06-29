@@ -12,7 +12,7 @@ history.
 After this queue was written, the SQNT-07A Wave 2 source-input package was
 refreshed to `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb` and replayed in the
 fresh cleanroom target. Fresh target `master` is now
-`ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb`.
+`9737474a21fb77df382cf3504dd8a4b3b46ffb5d`.
 
 Accepted fresh replay now covers:
 
@@ -26,21 +26,24 @@ Accepted fresh replay now covers:
   accepted through copied generic marked-damage/immunity route facts.
 - SQNT-07A level-1 scalar-buff selected-row replay: 2 selected rows accepted
   through copied generic scalar-buff route facts.
+- SQNT-07A level-1 after-hit/timed rider selected-row replay: 3 selected rows
+  accepted through copied generic after-hit route/lifecycle/owner facts, with
+  exact damage type, dice, and amount still blocked.
 
 Still blocked:
 
-- Level-1 after-hit/timed rider selected rows.
 - Level-1 weapon-hosted selected rows.
+- Exact after-hit/timed damage details as public reducer route facts.
 - Hex ability-check roll-mode.
 - `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`.
 - `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
 
 Future work should close one of those exact blockers through generic route
-facts. After-hit/timed rider and weapon-hosted selected rows have copied route
-facts and can proceed as fresh replay. Hex ability-check roll-mode, Jump
-landing/Prone, and concentration-backed area hazards still need source-QNT
-facts first. Do not treat broad selected/grouped identity replay as an
-implementation task.
+facts. Weapon-hosted selected rows have copied route facts and can proceed as
+fresh replay. Exact after-hit damage details, Hex ability-check roll-mode, Jump
+landing/Prone, and concentration-backed area hazards still need source-QNT or
+public route facts first. Do not treat broad selected/grouped identity replay as
+an implementation task.
 
 ## Current Boundary
 
