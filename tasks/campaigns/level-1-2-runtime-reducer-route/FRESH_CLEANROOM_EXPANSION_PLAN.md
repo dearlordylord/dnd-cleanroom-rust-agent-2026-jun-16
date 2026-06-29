@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: current-package FEXP-08 SQNT-07A selected-spatial replay accepted at fresh target head `64f7fad1902a7617264cbddf8d6eb236c786e8dd`
+Status: current-package FEXP-08 selected-spatial and FEXP-09A active-feature replays accepted at fresh target head `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `64f7fad1902a7617264cbddf8d6eb236c786e8dd`
+- current accepted fresh target head: `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
 
@@ -253,6 +253,10 @@ Status:
   object-light target-choice rows use `SubjectProgress.selected_object` as the
   single runtime object owner instead of carrying duplicate object ids in route
   or no-fill state.
+- `FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY` is accepted at
+  fresh target head `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1`; it accepts all
+  3 SQNT-07D active-feature spell-benefit rows through copied active-feature
+  route connector facts and public reducer entrypoints, with no blockers.
 
 Why last:
 

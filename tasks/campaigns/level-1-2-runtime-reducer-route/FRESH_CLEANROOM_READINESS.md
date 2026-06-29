@@ -42,7 +42,7 @@ Authoritative state:
 - latest dirty package source used by current replay evidence:
   `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
 - latest accepted fresh target head:
-  `64f7fad1902a7617264cbddf8d6eb236c786e8dd`
+  `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1`
 - latest current-package fresh runtime evidence:
   `FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY` accepts all 10
   SQNT-07A selected spatial witness rows through copied selected-spatial route
@@ -50,6 +50,9 @@ Authoritative state:
   Its review loop fixed expected-route derivation to parse copied QNT route
   bodies and removed duplicate object ids from object-light route/no-fill
   state.
+  `FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY` accepts all 3
+  SQNT-07D active-feature spell-benefit rows through copied active-feature route
+  connector facts and public reducer entrypoints, with 0 blocked rows.
 - latest source-QNT connector replay batch: SQNT-07B species/passive-adjacent,
   SQNT-07C metamagic, and SQNT-07D active-feature spell-benefit dirty replay is
   accepted at merge head `4b2c415259ad5f3b10d281a536a5aa8499f926b7`; fresh
@@ -202,9 +205,9 @@ Next useful work is one of:
   promote the remaining Task 3 selected-spell blockers after SQNT-03B and the
   FEXP-07 selected/grouped residual blockers into source-side QNT/guidance
   updates before launching more target implementation;
-- use fresh target commit `64f7fad1902a7617264cbddf8d6eb236c786e8dd` as the
+- use fresh target commit `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1` as the
   current `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5` package baseline for
-  FEXP-08 selected-spatial runtime evidence. Use
+  FEXP-08 selected-spatial and FEXP-09A active-feature runtime evidence. Use
   `05280a8e2d6e9705411c114c80ae2a4e4290de2c` and
   `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` as historical fresh runtime evidence
   for the integrated SDK tracer-bullet, post-FC06 Pact Slot handoff replay, and

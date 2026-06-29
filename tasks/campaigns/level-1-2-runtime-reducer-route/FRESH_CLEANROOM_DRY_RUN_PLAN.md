@@ -38,7 +38,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`64f7fad1902a7617264cbddf8d6eb236c786e8dd`
+`eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -106,6 +106,10 @@ route facts.
 `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`; it accepts all 10 selected spatial
 witness rows through copied selected-spatial route connector facts and public
 battle reducer entrypoints, with 0 blocked rows.
+`FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY` is accepted at
+`eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1` against the same source package; it
+accepts all 3 active-feature spell-benefit rows through copied route connector
+facts and public battle reducer entrypoints, with 0 blocked rows.
 
 ## Hard Boundaries
 
