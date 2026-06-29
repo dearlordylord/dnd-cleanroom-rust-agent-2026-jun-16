@@ -28,13 +28,14 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-jump-landing` | `ralph/fresh-sqnt07a-jump-landing` | `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` | pending | pending | worktree-created-awaiting-worker |
+| FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-concentration-hazard` | `ralph/fresh-sqnt07a-concentration-hazard` | `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` | pending | pending | worktree-created-awaiting-worker |
 
 ## Active Source-QNT Lanes
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| SOURCE-SQNT07A-WEAPON-HOSTED-SELECTED-ROUTE-WITNESS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-weapon-hosted-selected-route` | `ralph/source-sqnt07a-weapon-hosted-selected-route` | `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5` | pending | worktree-created-awaiting-worker |
 
 ## Historical RRCONV-19 Worktrees
 

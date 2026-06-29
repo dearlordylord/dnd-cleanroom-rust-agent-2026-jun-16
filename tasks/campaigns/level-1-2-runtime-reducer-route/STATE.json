@@ -876,8 +876,36 @@
     "cleanroomHarness": "Failed on broad historical stale ledger/evidence and pre-existing heuristic findings outside SQNT-07A; grep of captured output found no SQNT-07A-specific errors.",
     "review": "Conflict resolution preserved both lanes: route subject/fill/owner support, tests, evidence, state-owner records, validation records, accepted rows, and blockers. Production reducer support remains shape/fact/typed-subject routed; adapter row labels remain evidence identity only."
   },
-  "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-jump-landing",
+      "branch": "ralph/fresh-sqnt07a-jump-landing",
+      "baseSha": "ce9f653e3cba6a9eefa0d2f14e11757f7081e618",
+      "workerAgent": null,
+      "reviewerAgent": null,
+      "status": "worktree-created-awaiting-worker"
+    },
+    {
+      "laneId": "FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-concentration-hazard",
+      "branch": "ralph/fresh-sqnt07a-concentration-hazard",
+      "baseSha": "ce9f653e3cba6a9eefa0d2f14e11757f7081e618",
+      "workerAgent": null,
+      "reviewerAgent": null,
+      "status": "worktree-created-awaiting-worker"
+    }
+  ],
+  "activeSourceQntLanes": [
+    {
+      "laneId": "SOURCE-SQNT07A-WEAPON-HOSTED-SELECTED-ROUTE-WITNESS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-weapon-hosted-selected-route",
+      "branch": "ralph/source-sqnt07a-weapon-hosted-selected-route",
+      "baseSha": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "workerAgent": null,
+      "status": "worktree-created-awaiting-worker"
+    }
+  ],
   "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS",
@@ -3929,7 +3957,7 @@
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
     "status": "current-package-renewal-batch-accepted",
-    "activeLane": null,
+    "activeLane": "parallel-fresh-jump-and-concentration-plus-source-weapon-hosted-witness",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "ce9f653e3cba6a9eefa0d2f14e11757f7081e618",
@@ -4585,11 +4613,14 @@
     ],
     "activeWorktree": null,
     "activeBranch": null,
-    "activeLaneBaseCommit": null,
-    "activeParallelLanes": [],
+    "activeLaneBaseCommit": "ce9f653e3cba6a9eefa0d2f14e11757f7081e618",
+    "activeParallelLanes": [
+      "FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY",
+      "FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY"
+    ],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "completion-audit-or-explicit-source-input-blocker-lane",
+    "nextPlannedLane": "parallel-fresh-jump-concentration-and-source-weapon-hosted-witness",
     "nextWorkRecommendations": [
       "Current-package renewal batch is accepted at fresh target ce9f653e3cba6a9eefa0d2f14e11757f7081e618, including level-1 weapon-hosted generic route-surface replay.",
       "Run a completion audit before declaring the global objective complete; the proof still needs requirement-by-requirement evidence that focused QNT slices sufficiently constrain the independent runtime without TypeScript implementation knowledge or authored identity dispatch.",
