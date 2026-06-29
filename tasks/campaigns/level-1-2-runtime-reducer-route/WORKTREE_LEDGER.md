@@ -34,7 +34,9 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-hex-ability-roll-mode` | `ralph/source-sqnt07a-hex-ability-roll-mode` | `06f8042513df94bc96e02ec9d213a0d52d942bac` | Hume the 5th (`019f134e-9326-74d0-8b92-0fe8852fc12d`) | running; add public targeted ability-check roll-mode route facts for Hex-style selected ability disadvantage |
+| SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-concentration-hazard-selected` | `ralph/source-sqnt07a-concentration-hazard-selected` | `06f8042513df94bc96e02ec9d213a0d52d942bac` | Peirce the 5th (`019f134e-d458-7bb0-9508-37feb3d38f78`) | running; add selected-to-generic concentration-backed hazard public route witness |
+| SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-exact-damage-route-bridge` | `ralph/source-sqnt07a-exact-damage-route-bridge` | `06f8042513df94bc96e02ec9d213a0d52d942bac` | Lagrange the 5th (`019f134f-754c-7ce3-bbb7-d398363dd204`) | running; bridge exact damage component facts to public reducer route facts where domain-shaped |
 
 ## Historical RRCONV-19 Worktrees
 

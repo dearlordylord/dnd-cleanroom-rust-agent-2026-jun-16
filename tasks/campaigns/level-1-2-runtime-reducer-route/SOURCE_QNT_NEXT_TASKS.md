@@ -57,6 +57,19 @@ damage details, Hex ability-check roll-mode, and selected concentration-backed
 hazard exactness still need source-QNT or public route facts first. Do not treat
 broad selected/grouped identity replay as an implementation task.
 
+## Active Source-QNT Wave
+
+Launched from source master `06f8042513df94bc96e02ec9d213a0d52d942bac`.
+All three lanes are source-input work; none claims fresh cleanroom acceptance
+until the resulting package is synced and replayed through public reducer
+entrypoints.
+
+| Lane | Worker | Scope |
+| --- | --- | --- |
+| `FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE` | Hume the 5th (`019f134e-9326-74d0-8b92-0fe8852fc12d`) | Add generic targeted ability-check roll-mode route facts for selected-ability disadvantage and cleanup. |
+| `SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS` | Peirce the 5th (`019f134e-d458-7bb0-9508-37feb3d38f78`) | Map selected concentration-backed hazard rows to existing generic hazard route surfaces. |
+| `SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT` | Lagrange the 5th (`019f134f-754c-7ce3-bbb7-d398363dd204`) | Bridge exact damage component facts to public after-hit/timed and/or weapon-hosted route facts. |
+
 ## Current Boundary
 
 Dirty replay status:

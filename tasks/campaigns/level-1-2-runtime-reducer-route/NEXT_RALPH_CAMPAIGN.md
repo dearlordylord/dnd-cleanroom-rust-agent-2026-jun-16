@@ -69,6 +69,18 @@ and fresh replay refresh completed. Current authoritative checkpoint:
   backed by copied generic route facts or by a source-QNT lane that creates
   those facts first.
 
+## Active Source-QNT Wave
+
+Launched from source master `06f8042513df94bc96e02ec9d213a0d52d942bac`.
+These lanes run in parallel because their primary QNT subject families differ;
+merge/review must serialize shared branch-inventory and package-sync artifacts.
+
+| Lane | Worktree | Worker | Expected output |
+| --- | --- | --- | --- |
+| `FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE` | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-hex-ability-roll-mode` | Hume the 5th (`019f134e-9326-74d0-8b92-0fe8852fc12d`) | Public targeted ability-check roll-mode route facts for selected-ability disadvantage, nonmatching normal projection, active-effect/Concentration ownership, and cleanup. |
+| `SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS` | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-concentration-hazard-selected` | Peirce the 5th (`019f134e-d458-7bb0-9508-37feb3d38f78`) | Selected concentration-backed hazard rows mapped to generic concentration-backed hazard route surfaces without production selected-identity dispatch. |
+| `SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT` | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-exact-damage-route-bridge` | Lagrange the 5th (`019f134f-754c-7ce3-bbb7-d398363dd204`) | Exact damage component facts bridged to public after-hit/timed and/or weapon-hosted reducer route facts; retained identity details stay blocked unless boundary-only. |
+
 ## Execution Rules
 
 - Each lane runs in its own worktree.

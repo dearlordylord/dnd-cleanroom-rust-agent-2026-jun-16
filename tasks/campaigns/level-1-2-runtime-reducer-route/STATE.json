@@ -65,9 +65,13 @@
       ],
       "remainingLane": null,
       "nextParallelism": "Remaining work can split by source-input families with non-overlapping write sets: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, and exact weapon-hosted arithmetic/identity details.",
-      "activeParallelLanes": [],
-      "activeLane": null,
-      "nextPlannedLane": "source-hex-ability-check-roll-mode-or-exact-damage-details",
+      "activeParallelLanes": [
+        "FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE",
+        "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
+        "SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT"
+      ],
+      "activeLane": "source-qnt-wave-06f804",
+      "nextPlannedLane": "merge-source-qnt-wave-then-fresh-replay-ready-facts",
       "lastCompletedBatch": "parallel fresh jump/concentration plus source weapon-hosted selected witness",
       "lastCompletedFreshTargetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
       "lastCompletedSourceMergeHead": "06f8042513df94bc96e02ec9d213a0d52d942bac",
@@ -893,7 +897,35 @@
     "review": "Conflict resolution preserved both lanes: route subject/fill/owner support, tests, evidence, state-owner records, validation records, accepted rows, and blockers. Production reducer support remains shape/fact/typed-subject routed; adapter row labels remain evidence identity only."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [],
+  "activeSourceQntLanes": [
+    {
+      "laneId": "FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-hex-ability-roll-mode",
+      "branch": "ralph/source-sqnt07a-hex-ability-roll-mode",
+      "baseSha": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+      "workerAgent": "019f134e-9326-74d0-8b92-0fe8852fc12d",
+      "status": "running",
+      "scope": "generic targeted ability-check roll-mode route facts for selected-ability disadvantage"
+    },
+    {
+      "laneId": "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-concentration-hazard-selected",
+      "branch": "ralph/source-sqnt07a-concentration-hazard-selected",
+      "baseSha": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+      "workerAgent": "019f134e-d458-7bb0-9508-37feb3d38f78",
+      "status": "running",
+      "scope": "selected concentration-backed hazard rows mapped to generic route surfaces"
+    },
+    {
+      "laneId": "SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-exact-damage-route-bridge",
+      "branch": "ralph/source-sqnt07a-exact-damage-route-bridge",
+      "baseSha": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+      "workerAgent": "019f134f-754c-7ce3-bbb7-d398363dd204",
+      "status": "running",
+      "scope": "exact damage component facts bridged to public after-hit or weapon-hosted route facts"
+    }
+  ],
   "completedSourceQntLanes": [
     {
       "laneId": "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS",
@@ -4677,13 +4709,17 @@
         ]
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
-    "activeLaneBaseCommit": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
-    "activeParallelLanes": [],
-    "workerAgent": null,
+    "activeWorktree": "source-qnt-wave-from-06f804",
+    "activeBranch": "parallel-source-qnt-lanes",
+    "activeLaneBaseCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+    "activeParallelLanes": [
+      "FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE",
+      "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
+      "SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT"
+    ],
+    "workerAgent": "019f134e-9326-74d0-8b92-0fe8852fc12d, 019f134e-d458-7bb0-9508-37feb3d38f78, 019f134f-754c-7ce3-bbb7-d398363dd204",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "source-hex-ability-check-roll-mode-or-exact-damage-details",
+    "nextPlannedLane": "merge-source-qnt-wave-then-fresh-replay-ready-facts",
     "nextWorkRecommendations": [
       "Current fresh target 42b40af28b5c6cb554869f2c4ef4c999bcec3ab2 is synced to source package 06f8042513df94bc96e02ec9d213a0d52d942bac and accepts weapon-hosted selected-row route-event exactness through copied QNT witness plus public reducer observations.",
       "Remaining source-input blockers: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, and exact weapon-hosted arithmetic/damage/type/item/attack identity details.",
