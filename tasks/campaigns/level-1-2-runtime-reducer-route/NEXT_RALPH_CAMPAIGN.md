@@ -38,9 +38,9 @@ This document was originally prepared before the SQNT-07A Wave 2 source lanes
 and fresh replay refresh completed. Current authoritative checkpoint:
 
 - Source/cleanroom-input package is now
-  `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb`.
+  `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
 - Fresh target `master` is now
-  `ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb`.
+  `a7b4a30fae4b293ca48feec50041c9fa6a706db8`.
 - `FRESH-RR-BASELINE-E9F75E22`,
   `FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION`, and
   `FRESH-RR-SQNT07A-SPATIAL-MOVEMENT` are complete.
@@ -48,9 +48,12 @@ and fresh replay refresh completed. Current authoritative checkpoint:
   condition lifecycle plus marked damage/immunity active effects, and
   spatial-effect plus movement/presentation routes; the selected condition-save
   refresh now accepts 5 additional selected rows through copied generic route
-  facts and carries forward the existing 4 selected rows.
+  facts and carries forward the existing 4 selected rows. The level-1
+  marked/immunity selected replay also accepts exactly 4 selected rows through
+  copied generic marked-damage/immunity facts.
 - Remaining SQNT-07A blockers are exact and should drive future work:
-  `SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts`,
+  level-1 scalar-buff selected rows, after-hit/timed rider selected rows,
+  weapon-hosted selected rows, Hex ability-check roll-mode,
   `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`,
   and `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
 - Do not relaunch broad selected/grouped identity replay. Launch only lanes

@@ -28,13 +28,15 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Current Fresh Verification
 
-At campaign-control head `3efa9808aa4190e5035d2d8f2bf67f3dc5612c03`
+At campaign-control head `50b63000df17efd8c47c30a50461421aca6598ee`
 before this checkpoint update and fresh target head
-`d776f392bcffb1ce28283281570d486e54e4b3ed`:
+`a7b4a30fae4b293ca48feec50041c9fa6a706db8`:
 
 - `python3 tools/verify_current_fresh_target.py`: pass
 - `python3 tools/verify_fresh_rr_reaction_interrupt_taxonomy.py`: pass
 - `python3 tools/verify_fresh_rr_battle_active_effects.py`: pass
+- `python3 tools/verify_fresh_rr_sqnt07a_level1_marked_immunity_selected.py`:
+  pass
 - `cargo test fresh_reaction_interrupt_taxonomy_routes_use_generic_payload_shapes --test reducer_spine`: pass
 - `cargo fmt --check`: pass
 - `cargo test`: pass
@@ -45,7 +47,8 @@ before this checkpoint update and fresh target head
   obligations
 - current fresh runtime claims: FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A
   active-effect/condition, spatial/damage, character/sheet/handoff,
-  reaction/interrupt taxonomy, and battle active-effects
+  reaction/interrupt taxonomy, battle active-effects, and level-1
+  marked/immunity selected-row replay
 - active fresh expansion lanes: none
 
 This supersedes the older FEXP-09G and partial renewal checkpoints as the
@@ -77,7 +80,7 @@ refreshed source inventory also marks `45` obligations out of scope, including
 the nine scenario sequencing rows moved out of the reducer-route denominator.
 
 The current fresh package checkpoint is separate: the fresh verifier at
-`d776f392bcffb1ce28283281570d486e54e4b3ed` reports `98` drivers, `663`
+`a7b4a30fae4b293ca48feec50041c9fa6a706db8` reports `98` drivers, `663`
 in-scope obligations, and `45` out-of-scope obligations for source package
 `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
 
@@ -706,5 +709,37 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Spatial/movement lane: worker head `04b9f235e889b99cc70a1ea3a4d5a4d075cb280a`, integrated by `ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb`. Accepted 16 copied spatial-effect and movement/presentation rows.
 - Review/fixer notes: active-effect verifier now requires exact retained blockers and scans production for lane-relevant authored-identity dispatch. Spatial review found a real single-slot follow-up overwrite risk; the accepted fix uses a keyed follow-up queue and proves two pending spatial follow-ups cannot overwrite each other.
 - Verification in fresh target: `python3 tools/verify_current_fresh_target.py`, `python3 tools/verify_fresh_rr_sqnt07a_active_effect_condition.py`, `python3 tools/verify_fresh_rr_sqnt07a_spatial_movement.py`, `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check` passed in the integration lane before fast-forward.
-- Residual blockers preserved: `SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts`, `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`, and `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
+- Residual blockers preserved at that checkpoint: selected level-1 marked/immunity
+  residual rows later split into scalar-buff, after-hit/timed rider,
+  weapon-hosted, and Hex ability-check residual groups;
+  `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`;
+  and `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
 - Scope note: this is fresh cleanroom replay acceptance for the generic SQNT-07A route facts now present in the copied cleanroom-input package. It does not accept broad selected/grouped identity drivers wholesale.
+
+### FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY
+
+- Fresh target merge commit: `a7b4a30fae4b293ca48feec50041c9fa6a706db8`.
+- Worker head: `e6f3a440ec69949dde17d351e3172b2897006b07`.
+- Result: accepted-with-blockers. Exactly four selected level-1 rows route
+  through copied generic marked-damage/immunity facts: Heroism frightened
+  immunity turn-start Temporary Hit Points, Heroism cleanup, Hunter's Mark
+  marked damage plus same-turn transfer, and Hex marked damage plus later-turn
+  transfer.
+- Review/fixer notes: review rejected overclaims that accepted transfer without
+  marked-damage projection, local-current source hashes instead of exact copied
+  input hashes, missing exact blocked-row checks, and transfer availability when
+  a marked target was already at 0 HP. The accepted lane projects marked damage
+  before transfer, pins exact copied input hashes, asserts exact blockers, and
+  opens transfer only on an above-zero to zero HP transition.
+- Verification in fresh target: `python3
+  tools/verify_fresh_rr_sqnt07a_level1_marked_immunity_selected.py`, `python3
+  tools/verify_current_fresh_target.py`, `cargo fmt --check`, `cargo test`,
+  `cargo clippy --all-targets -- -D warnings`, and `git diff --check
+  HEAD~1...HEAD` passed.
+- Residual blockers preserved: scalar-buff selected rows, after-hit/timed rider
+  selected rows, weapon-hosted selected rows, Hex ability-check roll-mode, Jump
+  landing legality and failed-landing Prone, and concentration-backed area
+  hazards.
+- Scope note: this is selected-row acceptance only where the selected rows
+  reduce to generic copied QNT route facts. It does not accept broad selected
+  identity replay.

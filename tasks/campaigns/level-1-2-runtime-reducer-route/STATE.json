@@ -18,7 +18,7 @@
     },
     "currentFreshPackageStatus": {
       "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
-      "targetHead": "d776f392bcffb1ce28283281570d486e54e4b3ed",
+      "targetHead": "a7b4a30fae4b293ca48feec50041c9fa6a706db8",
       "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
       "driverFiles": 98,
       "inScopeBranchObligations": 663,
@@ -37,23 +37,25 @@
         "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
         "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
         "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION",
-        "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY"
+        "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY"
       ]
     },
     "nextCampaignBatch": {
       "status": "accepted-current-package-renewal-batch",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
-      "acceptedFreshTargetHead": "d776f392bcffb1ce28283281570d486e54e4b3ed",
+      "acceptedFreshTargetHead": "a7b4a30fae4b293ca48feec50041c9fa6a706db8",
       "purpose": "renew historical fresh evidence against the current package through copied QNT-derived expected records and public reducer/source entrypoint observations",
       "acceptedLanes": [
         "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY",
         "FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY",
         "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY",
         "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
-        "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY"
+        "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY"
       ],
       "remainingLane": null,
-      "nextParallelism": "No planned current-package renewal lane remains in this batch. Next work should start from a completion audit or an explicit source-input blocker lane, not broad selected/grouped identity replay.",
+      "nextParallelism": "Next selected-row reduction work should split by non-overlapping write sets where possible: level-1 scalar-buff rows, after-hit/timed rider rows, weapon-hosted rows, and the Hex ability-check roll-mode residual. Do not relaunch broad selected/grouped identity replay.",
       "activeParallelLanes": []
     },
     "campaignControlHeadNote": "This field records the committed checkpoint head before later bookkeeping commits. For the live campaign head, use git rev-parse HEAD in the campaign control worktree."
@@ -868,18 +870,7 @@
     "cleanroomHarness": "Failed on broad historical stale ledger/evidence and pre-existing heuristic findings outside SQNT-07A; grep of captured output found no SQNT-07A-specific errors.",
     "review": "Conflict resolution preserved both lanes: route subject/fill/owner support, tests, evidence, state-owner records, validation records, accepted rows, and blockers. Production reducer support remains shape/fact/typed-subject routed; adapter row labels remain evidence identity only."
   },
-  "activeLaneWorktrees": [
-    {
-      "laneId": "FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-marked-immunity-selected",
-      "branch": "ralph/fresh-sqnt07a-level1-marked-immunity-selected",
-      "baseSha": "d776f392bcffb1ce28283281570d486e54e4b3ed",
-      "workerAgent": "019f1266-4ae9-7111-8bdb-b124533ff343",
-      "workerName": "Einstein the 4th",
-      "status": "active",
-      "scope": "Fresh target replay for exactly four selected level-1 rows reducible to copied generic marked-damage/immunity route facts; no broad selected-identity replay."
-    }
-  ],
+  "activeLaneWorktrees": [],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
@@ -3924,10 +3915,10 @@
   },
   "nextWorkRecommendations": [
     "Do not launch more dirty cleanroom replay lanes from LANES.json: the CP8 dirty rehearsal denominator is closed at 659/659 accepted in-scope obligations with known historical harness debt.",
-    "Use accepted fresh target d776f392bcffb1ce28283281570d486e54e4b3ed as the current fresh base. The current package is 545d7848692fcb18adf14e5c009d9e7f4d0cb1d5, and the fresh verifier reports 98 drivers, 663 in-scope obligations, 45 out-of-scope obligations, and current runtime claims for FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, and battle active-effects.",
-    "No planned fresh current-package proof-renewal lane remains in this batch. Run a completion audit next, or choose only an explicit source-input blocker lane if more implementation is required.",
+    "Use accepted fresh target a7b4a30fae4b293ca48feec50041c9fa6a706db8 as the current fresh base. The current package is 545d7848692fcb18adf14e5c009d9e7f4d0cb1d5, and the fresh verifier reports 98 drivers, 663 in-scope obligations, 45 out-of-scope obligations, and current runtime claims for FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects, and the level-1 marked/immunity selected-row replay.",
+    "Next fresh work should choose one explicit residual group at a time: scalar-buff selected rows, after-hit/timed rider selected rows, weapon-hosted selected rows, or the Hex ability-check roll-mode residual.",
     "For every future fresh lane, require copied QNT-derived expected records, public reducer/source entrypoint observed records, state-owner derivability records for any durable fields, forbidden-path scans, authored-identity dispatch scans, focused verifier updates, and the aggregate current fresh verifier.",
-    "Keep remaining true blockers as source-input work only: marked-immunity residual selected rows, Jump landing legality and failed-landing Prone, and concentration-backed area hazards. Do not relaunch broad selected/grouped identity replay."
+    "Keep remaining true blockers as source-input work only: scalar-buff selected rows, after-hit/timed rider selected rows, weapon-hosted selected rows, Hex ability-check roll-mode, Jump landing legality and failed-landing Prone, and concentration-backed area hazards. Do not relaunch broad selected/grouped identity replay."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
@@ -3935,8 +3926,8 @@
     "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "d776f392bcffb1ce28283281570d486e54e4b3ed",
-    "strongestRuntimeEvidenceHead": "d776f392bcffb1ce28283281570d486e54e4b3ed",
+    "acceptedTargetHead": "a7b4a30fae4b293ca48feec50041c9fa6a706db8",
+    "strongestRuntimeEvidenceHead": "a7b4a30fae4b293ca48feec50041c9fa6a706db8",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -4443,7 +4434,10 @@
         ],
         "coverageClaim": "SQNT-07A active-effect/condition replay accepts 27 copied connector action rows and 19 public-entrypoint route surfaces for condition lifecycle plus marked damage/immunity active-effect facts, and the selected condition-saving refresh accepts 5 additional selected rows through copied generic route facts while carrying forward 4 existing selected rows; expected records derive from copied QNT and observed records come from public reducer/shared adapter route paths",
         "blockers": [
-          "SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts"
+          "SQNT-07A-level1-scalar-buff-selected-rows-not-reduced-to-generic-facts",
+          "SQNT-07A-level1-after-hit-timed-rider-selected-rows-not-reduced-to-generic-facts",
+          "SQNT-07A-level1-weapon-hosted-selected-rows-not-reduced-to-generic-facts",
+          "SQNT-07A-hex-ability-check-roll-mode-not-covered-by-marked-damage-facts"
         ],
         "reviewFixes": [
           "Verifier now requires exact retained blocker ids across evidence/state/report/blocker records.",
@@ -4493,20 +4487,20 @@
     ],
     "activeWorktree": null,
     "activeBranch": null,
-    "activeLaneBaseCommit": "d776f392bcffb1ce28283281570d486e54e4b3ed",
+    "activeLaneBaseCommit": "a7b4a30fae4b293ca48feec50041c9fa6a706db8",
     "activeParallelLanes": [],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "completion-audit-or-explicit-source-input-blocker-lane",
     "nextWorkRecommendations": [
-      "Current-package renewal batch is accepted at fresh target d776f392bcffb1ce28283281570d486e54e4b3ed, including battle active-effects FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY.",
+      "Current-package renewal batch is accepted at fresh target a7b4a30fae4b293ca48feec50041c9fa6a706db8, including battle active-effects FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY and level-1 marked/immunity selected-row replay.",
       "Run a completion audit before declaring the global objective complete; the proof still needs requirement-by-requirement evidence that focused QNT slices sufficiently constrain the independent runtime without TypeScript implementation knowledge or authored identity dispatch.",
-      "If more implementation is needed, choose only explicit source-input blocker lanes: marked-immunity residual selected rows, Jump landing legality plus failed-landing Prone, or concentration-backed area hazards.",
+      "If more implementation is needed, choose only explicit source-input blocker lanes: scalar-buff selected rows, after-hit/timed rider selected rows, weapon-hosted selected rows, Hex ability-check roll-mode, Jump landing legality plus failed-landing Prone, or concentration-backed area hazards.",
       "Do not launch broad selected/grouped identity replay."
     ],
     "currentPackageCheckpoint": {
       "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
-      "targetHead": "d776f392bcffb1ce28283281570d486e54e4b3ed",
+      "targetHead": "a7b4a30fae4b293ca48feec50041c9fa6a706db8",
       "inventory": {
         "driverFiles": 98,
         "inScopeBranchObligations": 663,
@@ -4525,7 +4519,8 @@
         "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
         "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
         "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION",
-        "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY"
+        "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY"
       ],
       "nextProofRenewalBatch": []
     }

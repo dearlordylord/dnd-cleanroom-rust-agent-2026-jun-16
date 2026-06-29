@@ -22,10 +22,15 @@ Accepted fresh replay now covers:
   rows through copied generic route facts, with 4 existing selected rows carried
   forward but not recounted as new.
 - SQNT-07A spatial/movement generic route facts: 16 copied route rows.
+- SQNT-07A level-1 marked/immunity selected-row replay: 4 selected rows
+  accepted through copied generic marked-damage/immunity route facts.
 
 Still blocked:
 
-- `SQNT-07A-selected-grouped-marked-immunity-residual-rows-not-generic-facts`.
+- Level-1 scalar-buff selected rows.
+- Level-1 after-hit/timed rider selected rows.
+- Level-1 weapon-hosted selected rows.
+- Hex ability-check roll-mode.
 - `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`.
 - `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
 
