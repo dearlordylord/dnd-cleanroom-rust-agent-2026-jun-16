@@ -26,9 +26,24 @@ Campaign: `level-1-2-runtime-reducer-route`
 | CP7 Post-CP6 Target Blocker Reduction | complete after source refresh | `L15-RRCP7-A` through `L15-RRCP7-E` merged and verified; source refresh `d5a70b23` moved nine fixture scenario transition rows out of the reducer-route denominator and supplied a generic spell base Armor Class route connector. |
 | CP8 Post-Refresh Mage Armor Route Acceptance | complete | `L15-RRCP8-A-MAGE-ARMOR-GENERIC-AC-ROUTES` merged and verified; the three remaining Mage Armor admission/lifecycle rows now replay through `SpellBaseArmorClassEffectRouteSubject`. |
 
-## Last Known Verification
+## Current Fresh Verification
 
-At current campaign-control head `ebd3699fb03c99d0ec674361ebf69835e64bfd0c`
+At campaign-control head `abff50ff7ffc977ce503f4aa7ac2c20f599f6f17`
+and fresh target head `b0036b7a0d81ffcc54c5c2d828122bd1352dc31c`:
+
+- `python3 tools/verify_current_fresh_target.py`: pass
+- current package: `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
+- inventory: `98` drivers, `663` in-scope obligations, `45` out-of-scope
+  obligations
+- current fresh runtime claims: FEXP-08 and FEXP-09A through FEXP-09G
+- active fresh expansion lanes: none
+
+This supersedes the older FEXP-09B checkpoint as the current fresh target state.
+It does not change the CP8 dirty rehearsal denominator.
+
+## Last Dirty Rehearsal Verification
+
+At campaign-control head `ebd3699fb03c99d0ec674361ebf69835e64bfd0c`
 after the SQNT-07 current-package dirty replay batch:
 
 - focused SQNT-07B species/passive tests: pass
@@ -45,7 +60,15 @@ after the SQNT-07 current-package dirty replay batch:
 
 ## Source Corpus Boundary
 
-CP8 closes the post-refresh target-side dirty cleanroom rehearsal. Current accepted coverage is `659 / 659` refreshed in-scope obligations. The refreshed source inventory also marks `45` obligations out of scope, including the nine scenario sequencing rows moved out of the reducer-route denominator.
+CP8 closes the post-refresh target-side dirty cleanroom rehearsal. Dirty
+rehearsal accepted coverage is `659 / 659` refreshed in-scope obligations. The
+refreshed source inventory also marks `45` obligations out of scope, including
+the nine scenario sequencing rows moved out of the reducer-route denominator.
+
+The current fresh package checkpoint is separate: the fresh verifier at
+`b0036b7a0d81ffcc54c5c2d828122bd1352dc31c` reports `98` drivers, `663`
+in-scope obligations, and `45` out-of-scope obligations for source package
+`545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
 
 Detailed source-refresh handoff: `tasks/campaigns/level-1-2-runtime-reducer-route/SOURCE_CORPUS_HANDOFF.md`.
 

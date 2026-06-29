@@ -2,22 +2,24 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: current-package FEXP-08 selected-spatial, FEXP-09A active-feature, and FEXP-09B species/passive replays accepted at fresh target head `aa2a77374c9dcfb3923643418795cd0572ce9ee6`
+Status: current-package FEXP-08 and FEXP-09A through FEXP-09G replays accepted at fresh target head `b0036b7a0d81ffcc54c5c2d828122bd1352dc31c`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `aa2a77374c9dcfb3923643418795cd0572ce9ee6`
+- current accepted fresh target head: `b0036b7a0d81ffcc54c5c2d828122bd1352dc31c`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
+- current package inventory: `98` drivers, `663` in-scope obligations, `45` out-of-scope obligations
 
 ## Purpose
 
 Run the next fresh-cleanroom campaign against the accepted fresh target, still
 without TypeScript implementation knowledge and without dirty `src/**` input.
 
-The aim is not to copy the dirty Rust target's `659 / 659` shape. The aim is to
+The aim is not to copy the dirty Rust target's historical CP8 `659 / 659`
+shape. The aim is to
 prove that the current cleanroom package can continue expanding an independent
 runtime through focused QNT route connectors, with blockers recorded when the
 package does not state enough.
@@ -262,6 +264,52 @@ Status:
   15 SQNT-07B species/passive-adjacent rows through copied species/passive
   route facts and public reducer entrypoints, with 2 inherited Adrenaline Rush
   rows kept out of scope.
+- `FEXP-09C-SQNT07C-QUICKENED-GOVERNOR-CURRENT-PACKAGE-REPLAY` is accepted as
+  current-package fresh evidence for the Quickened metamagic governor rows.
+- `FEXP-09D-SQNT07C-METAMAGIC-SAVE-MODES` is accepted at fresh target head
+  `76d48f853379d5de62f463677188984afc2d3bda`; it accepts 9 save-mode rows
+  after save-result ownership and setup target-validation fixes.
+- `FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE` is accepted at fresh target head
+  `2a19398143f37391eb304efab302c27b43d19bd1`; it accepts 7 spell-shape rows
+  after effective-level pending/resolved state was made explicit.
+- `FEXP-09F-SQNT07C-METAMAGIC-REROLLS` is accepted at fresh target head
+  `b0036b7a0d81ffcc54c5c2d828122bd1352dc31c`; it accepts 4 reroll rows after
+  Seeking reroll sequencing and the post-reroll public fill frontier were fixed.
+- `FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION` is accepted at fresh target
+  head `76d48f853379d5de62f463677188984afc2d3bda`; it accepts 5
+  component/duration rows.
+- The current aggregate verifier accepts FEXP-08, FEXP-09A, FEXP-09B,
+  FEXP-09C, FEXP-09D, FEXP-09E, FEXP-09F, and FEXP-09G at final fresh target
+  head `b0036b7a0d81ffcc54c5c2d828122bd1352dc31c`.
+
+## Next Fresh Proof-Renewal Batch
+
+Do not launch more dirty cleanroom lanes. The dirty CP8 rehearsal denominator is
+closed, and `MERGE_QUEUE.md` is empty.
+
+Launch the next Ralph work against fresh target head
+`b0036b7a0d81ffcc54c5c2d828122bd1352dc31c` unless a later accepted fresh base
+is recorded before launch:
+
+- `FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY`
+- `FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY`
+- `FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY`
+- `FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY`
+- `FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY`
+
+Recommended parallelism:
+
+- run character/sheet/handoff and reaction/interrupt immediately in separate
+  worktrees because their write scopes are mostly independent;
+- run spatial/damage in parallel only with an explicit reducer-surface conflict
+  review because it has moderate battle reducer overlap;
+- merge battle active-effects after SQNT-07A active-effect/condition because
+  both touch active-effect owners.
+
+Remaining true blockers stay source-input work only: marked-immunity residual
+selected rows, Jump landing legality plus failed-landing Prone, and
+concentration-backed area hazards. Do not relaunch broad selected/grouped
+identity replay.
 
 Why last:
 

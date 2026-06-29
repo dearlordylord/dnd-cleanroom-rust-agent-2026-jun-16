@@ -1,8 +1,54 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "sqnt-07a-dirty-replay-lanes-accepted-with-known-harness-debt",
+  "status": "dirty-rehearsal-complete-current-fresh-package-replay-batch-accepted",
   "dirtyCleanroomOnly": false,
+  "currentCheckpoint": {
+    "recordedAt": "2026-06-29",
+    "campaignControlHead": "abff50ff7ffc977ce503f4aa7ac2c20f599f6f17",
+    "dirtyRehearsalStatus": "complete-with-known-historical-harness-debt",
+    "dirtyRehearsalCoverage": {
+      "driverFiles": 97,
+      "acceptedUniqueDrivers": 97,
+      "acceptedObligations": 659,
+      "canonicalInScopeBranchObligations": 659,
+      "outOfScopeObligations": 45,
+      "unresolvedInScopeObligations": 0,
+      "scope": "CP8 dirty rehearsal denominator; not the current fresh package denominator"
+    },
+    "currentFreshPackageStatus": {
+      "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
+      "targetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "driverFiles": 98,
+      "inScopeBranchObligations": 663,
+      "outOfScopeBranchObligations": 45,
+      "currentVerifier": "python3 tools/verify_current_fresh_target.py",
+      "acceptedRuntimeClaims": [
+        "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY",
+        "FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY",
+        "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+        "FEXP-09C-SQNT07C-QUICKENED-GOVERNOR-CURRENT-PACKAGE-REPLAY",
+        "FEXP-09D-SQNT07C-METAMAGIC-SAVE-MODES",
+        "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
+        "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
+        "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION"
+      ]
+    },
+    "nextCampaignBatch": {
+      "status": "planned-not-launched",
+      "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+      "purpose": "renew remaining historical fresh evidence against the current package through copied QNT-derived expected records and public reducer/source entrypoint observations",
+      "lanes": [
+        "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY"
+      ],
+      "parallelism": "Character/sheet/handoff and reaction/interrupt can run independently; battle active-effect should merge after SQNT-07A active-effect/condition because both touch active-effect owners; spatial/damage has moderate battle reducer overlap."
+    }
+  },
   "integration": {
     "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
     "branch": "ralph/rrconv-19-cleanroom",
@@ -3857,38 +3903,21 @@
     }
   },
   "nextWorkRecommendations": [
-    "Fresh target focused replay for the FEXP-04 exact roll-choice payload blocker is accepted at b43797af240c1486e5ad92c3698bf2cd2958a91e after refreshing the copied package to source commit 0c2ba34c5a45f18b73dfe590e0e86419ba377375.",
-    "Fresh target public Ability Check/Search replay is accepted at cd4465556d18729121f56f5834ac00f8b0b3d15c.",
-    "Source feedback task FCSF-01 landed at c62aa73be7f80e4d3a5b460aa2bef42cea0c0f7d, adding public concentration cleanup route source input through BattleConcentrationOwner and BattleActiveEffectOwner; fresh target commit bd6c6ba2407ac00a8295bbe1cd66a70e5ae8364c accepts failed-save, voluntary-end, and replacement Concentration cleanup through public reducer entrypoints.",
-    "Source feedback task FCSF-02 landed at ee4894fa71e9307b9251639f0b54577ff764c63f, adding generic scalar-buff profile projection/domain facts; fresh target commit 05280a8e2d6e9705411c114c80ae2a4e4290de2c accepts scalar profile replay through copied QNT plus public reducer route observations.",
-    "Dirty cleanroom package refreshes now package source-feedback Task 3 residual selected-spell route-task queue, SQNT-03A/B/C route connector evidence, source-feedback Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, and SQNT-07B/C/D feature/species/metamagic route evidence through latest source package 21504ef764118f5fd13086aa6266f19280196664. FCSF-04, FCSF-05, FCSF-06, SQNT-03A, SQNT-03B, SQNT-03C, SQNT-07B, SQNT-07C, and SQNT-07D have been dirty-replayed; those replays do not claim fresh target acceptance.",
-    "Fresh target baseline refresh FRESH-RR-BASELINE-21504EF is accepted at c196b33c634169cfc991c3de101c23fde8f75bae. The fresh verifier now recognizes source package 21504ef764118f5fd13086aa6266f19280196664 and classifies pre-refresh runtime evidence as historical snapshot evidence. This baseline refresh claims no new current-package runtime coverage.",
-    "Fresh target FRESH-RR-CHARACTER-SHEET-HANDOFF is accepted at 214e43e194fd37fa039fbf68baaaf003eee4143e. Its verifier derives expected route records from copied FCSF-06 QNT route connectors and compares them to public character creation, sheet, and handoff entrypoint observations; the merged verifier rejects duplicate JSON evidence keys.",
-    "Fresh target FRESH-RR-FEATURE-SPECIES-METAMAGIC is accepted at 27bcbabc524c2087a73689c407e95c82a54fe10f. Its verifier derives expected route records from copied SQNT-07B/C/D route connector action bodies and helper vocabulary, compares them to public battle reducer observations, and carries forward the SQNT-07A selected/grouped residual blocker.",
-    "Do not launch more dirty target lanes for Task 3 residual selected-spell branches beyond SQNT-03C, or for FEXP-07 selected/grouped residual branches, until source-side QNT/guidance adds the remaining generic route facts listed in SOURCE_QNT_NEXT_TASKS.md.",
-    "Use accepted fresh target 10918170ebbb342c7d45664601cb8eb354991db2 as the current fresh target head. Use c196b33c634169cfc991c3de101c23fde8f75bae as the package baseline ancestor and 05280a8e2d6e9705411c114c80ae2a4e4290de2c as the strongest pre-21504ef runtime evidence for SDK composition, Pact Slot handoff replay, FEXP-04 exact route-choice payload replay, Ability Check/Search public reducer routing, Concentration cleanup routing, and scalar profile replay; those runtime rows are historical snapshots until replayed against 21504ef.",
-    "Use the fresh SDK tracer success as evidence that encounter composition must be QNT-inferable through route connectors and fact-family sets, not guidance-only prose.",
-    "Clean old historical replay/ledger debt only if the dirty harness needs to pass without exception; validator provenance has already been refreshed.",
-    "For later fresh-cleanroom expansion, continue selecting focused QNT route connectors and require observed reducer/handoff route events from public entrypoints.",
-    "Fresh target FRESH-RR-SPATIAL-DAMAGE is accepted-with-blockers at b28d9dbdd83c49bdd21dd36473d0b96612279fb7. Its verifier derives object/light and mixed-target expected records from copied QNT/vocabulary facts and compares them to public reducer observations; SQNT-03G exact damage and FCSF-04 stale-object route rows remain downgraded blockers.",
-    "Fresh target FRESH-RR-BATTLE-ACTIVE-EFFECTS is accepted-with-blockers at 10918170ebbb342c7d45664601cb8eb354991db2. Its verifier derives SQNT-03A/B/C/D active-effect expected records from copied route connectors and compares them to public reducer observations; FCSF-05 trigger taxonomy remains blocked for durable production state.",
-    "Wave 2 source-QNT lanes are active from source base 21504ef764118f5fd13086aa6266f19280196664: condition lifecycle, marked damage/immunity, spatial effects, and movement/presentation. Workers must add generic route facts plus TS MBT parity tests without running MBT concurrently; orchestrator schedules MBT during integration.",
-    "SQNT-07A-CONDITION-LIFECYCLE is source-merged at df223d2389e95e416993c300dae97720d5fc99c9.",
-    "SQNT-07A-MOVEMENT-PRESENTATION is source-merged at f7d2ea22d27e9457fd46014697fc55a4000f823e after narrowing Jump/table-presentation claims and preserving landing legality plus failed-landing Prone blockers.",
-    "SQNT-07A-SPATIAL-EFFECTS is source-merged at c596f55f6ccea08a65e94804ede4ca443adf8bd4 after splitting spatial facts so Grease-like hazards, obscurement cleanup, movable multi-emitter light, and outline/save outcome routes stay domain-shaped.",
-    "SQNT-07A-MARKED-DAMAGE-AND-IMMUNITY is source-merged at e9f75e22a10891cd438fb06f6ea1ca666f79aaeb after removing unsupported ability-check claims and keeping marked damage, condition-immunity, Temporary HP, and Concentration cleanup route facts shape-based.",
-    "cleanroom-input is refreshed from source e9f75e22a10891cd438fb06f6ea1ca666f79aaeb. The package includes battle-runtime-condition-riders.route.mbt.qnt updates plus new battle-runtime-movement-presentation, battle-runtime-spatial-effects, and battle-runtime-marked-damage-immunity active-effect route connectors.",
-    "node scripts/check-cleanroom-harness.cjs progresses past validator provenance after carrying forward tasks/VALIDATOR_PATCH.json to source e9f75e22, then fails on historical dirty replay/ledger debt that remains outside this package refresh.",
-    "SQNT-07A dirty replay lanes are accepted with known broad harness debt at merge head 6d9712af44372a73134364778a9bbbc255527e24. Future work should leave the historical stale ledger/evidence cleanup separate unless the broad dirty harness must pass globally."
+    "Do not launch more dirty cleanroom replay lanes from LANES.json: the CP8 dirty rehearsal denominator is closed at 659/659 accepted in-scope obligations with known historical harness debt.",
+    "Use accepted fresh target b0036b7a0d81ffcc54c5c2d828122bd1352dc31c as the current fresh base. The current package is 545d7848692fcb18adf14e5c009d9e7f4d0cb1d5, and the fresh verifier reports 98 drivers, 663 in-scope obligations, 45 out-of-scope obligations, and current runtime claims for FEXP-08 plus FEXP-09A through FEXP-09G.",
+    "Launch the next Ralph work as a fresh current-package proof-renewal batch, not as dirty rehearsal work: SQNT-07A active-effect/condition, battle active-effects SQNT-03A/B/C/D, spatial/damage, reaction/interrupt taxonomy, and character/sheet/handoff.",
+    "Parallelize the next batch by write-scope: character/sheet/handoff and reaction/interrupt can run immediately in separate worktrees; spatial/damage can run with moderate battle reducer overlap; battle active-effects should merge after SQNT-07A active-effect/condition because both touch active-effect owners.",
+    "For every next fresh lane, require copied QNT-derived expected records, public reducer/source entrypoint observed records, state-owner derivability records for any durable fields, forbidden-path scans, authored-identity dispatch scans, focused verifier updates, and the aggregate current fresh verifier.",
+    "Keep remaining true blockers as source-input work only: marked-immunity residual selected rows, Jump landing legality and failed-landing Prone, and concentration-backed area hazards. Do not relaunch broad selected/grouped identity replay."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fresh-rr-sqnt07a-accepted-with-blockers",
+    "status": "current-package-fexp08-and-fexp09a-through-fexp09g-accepted-next-proof-renewal-batch-planned",
     "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb",
-    "strongestRuntimeEvidenceHead": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
+    "acceptedTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+    "strongestRuntimeEvidenceHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -4456,7 +4485,33 @@
       "FRESH-RR-SQNT07A-SPATIAL-MOVEMENT is integrated at ead584abf5b6aa07f9365e4fdd3694f4c9dd18bb with 16 spatial/movement rows compared from copied QNT-derived expected records to public reducer observations.",
       "Retain the four explicit SQNT-07A blockers until copied source inputs expose the missing generic route facts or selected-row reductions without authored identity dispatch.",
       "Do not launch broad selected/grouped identity replay; keep future lanes scoped to one generic substrate family or one explicit blocker closure."
-    ]
+    ],
+    "currentPackageCheckpoint": {
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "targetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+      "inventory": {
+        "driverFiles": 98,
+        "inScopeBranchObligations": 663,
+        "outOfScopeBranchObligations": 45
+      },
+      "acceptedRuntimeClaims": [
+        "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY",
+        "FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY",
+        "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+        "FEXP-09C-SQNT07C-QUICKENED-GOVERNOR-CURRENT-PACKAGE-REPLAY",
+        "FEXP-09D-SQNT07C-METAMAGIC-SAVE-MODES",
+        "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
+        "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
+        "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION"
+      ],
+      "nextProofRenewalBatch": [
+        "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
+        "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY"
+      ]
+    }
   },
   "sdkTracerBullet": {
     "status": "reviewed-accepted",
