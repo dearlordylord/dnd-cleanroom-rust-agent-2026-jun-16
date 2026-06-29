@@ -273,6 +273,34 @@
       "acceptanceSummary": "Accepted with blockers in the historical fresh target: feature bonus-action Dash/temporary-hit-point, species creature-stat projection, metamagic resource governor, and active-feature Spell Save DC benefit route surfaces pass through public reducer entrypoints with connector-derived expected records. Current-package dirty replay now also accepts SQNT-07B/C/D rows through copied route connectors and observed reducer entrypoints. Selected/grouped identity witnesses and residual species/metamagic/feature branches remain explicit source-input work before fresh target replay can claim them."
     },
     {
+      "laneId": "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY",
+      "checkpointId": "FEXP-CP5",
+      "status": "in-progress",
+      "routeClass": "catalog-after-substrate",
+      "purpose": "Replay the current-package SQNT-07A selected spatial witness driver against the fresh target only through the copied selected-spatial composition connector and public battle reducer entrypoints.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.route.mbt.qnt"
+      ],
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "expectedOutputs": [
+        "EVIDENCE/fexp08-sqnt07a-selected-spatial-current-package-replay.json",
+        "BLOCKERS.json entries for any selected spatial branch not backed by copied generic route facts",
+        "STATE_OWNERS.md entries for any new durable fresh-target state",
+        "tools/verify_current_fresh_target.py includes accepted FEXP-08 evidence"
+      ],
+      "requiredChecks": [
+        "python3 tools/verify_current_fresh_target.py",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "acceptanceSummary": "Running. Dirty target package replay at integration commit e370f8e74d34a0433a48ad566b354083452e069b accepts all 10 selected spatial witness rows through copied selected-spatial composition connector facts; this lane tests whether the same current package can be accepted in the independent fresh target without dirty src input."
+    },
+    {
       "laneId": "FRESH-RR-SPATIAL-DAMAGE",
       "checkpointId": "FRESH-RR-CP3",
       "status": "merged-with-blockers",

@@ -243,6 +243,12 @@ Status:
 - selected/grouped identity witnesses and residual species/metamagic/feature
   branches remain explicit source-input blockers; the earlier exact metamagic
   driver note was corrected as a campaign manifest naming error.
+- `FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY` is in progress
+  against the current package from source commit
+  `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`. It should accept selected
+  spatial witness rows only through the copied selected-spatial composition
+  connector and public reducer entrypoints, with branch blockers recorded when
+  copied connector facts are insufficient.
 
 Why last:
 
