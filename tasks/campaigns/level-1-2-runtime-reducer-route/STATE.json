@@ -870,7 +870,18 @@
     "cleanroomHarness": "Failed on broad historical stale ledger/evidence and pre-existing heuristic findings outside SQNT-07A; grep of captured output found no SQNT-07A-specific errors.",
     "review": "Conflict resolution preserved both lanes: route subject/fill/owner support, tests, evidence, state-owner records, validation records, accepted rows, and blockers. Production reducer support remains shape/fact/typed-subject routed; adapter row labels remain evidence identity only."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-scalar-buff-selected",
+      "branch": "ralph/fresh-sqnt07a-level1-scalar-buff-selected",
+      "baseSha": "a7b4a30fae4b293ca48feec50041c9fa6a706db8",
+      "workerAgent": null,
+      "workerName": null,
+      "status": "active",
+      "scope": "Fresh target replay for exactly two selected level-1 scalar-buff rows reducible to copied generic scalar-buff route facts: False Life Temporary Hit Points and Longstrider Speed increase. No broad selected-identity replay."
+    }
+  ],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
