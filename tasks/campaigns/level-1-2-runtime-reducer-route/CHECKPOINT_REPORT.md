@@ -4,13 +4,14 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Latest Checkpoint
 
-- Source master merged the SQNT-07A Hex ability-check roll-mode, exact-damage route bridge, and selected concentration-hazard route inputs at `53c516ee1c9fd3898c89a93cb8abe063218e4146`.
+- Source master merged the SQNT-07A Hex ability-check roll-mode, exact-damage route bridge, selected concentration-hazard route inputs, weapon-hosted capability facts, and concentration-hazard save-triggered Hit Point damage ownership at `4d196258a51f4264803ff11f7c806c969f0aff2d`.
 - Fresh target `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` is accepted at `b3de1456c54162357abed70608ec37cc936dee92`.
 - Fresh accepted in this checkpoint: `FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION`, after review required the verifier to pin the copied QNT import closure before accepting literal comparison records.
 - Current fresh verifier reports source package `53c516ee1c9fd3898c89a93cb8abe063218e4146`, `100` drivers, `667` in-scope obligations, and `61` out-of-scope obligations.
 - Final fresh checks passed: `python3 tools/verify_fresh_rr_sqnt07a_hex_exact_damage_source_consumption.py`, `python3 tools/verify_current_fresh_target.py`, `cargo test marked_damage_rider_projects_ability_check_roll_mode_until_concentration_cleanup`, `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check`.
-- Active Ralph lanes: `SOURCE-SQNT07A-WEAPON-HOSTED-ITEM-ATTACK-CAPABILITY-FACTS` in `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-weapon-hosted-capability` and `SQNT-07A-CONCENTRATION-HAZARD-SAVE-DAMAGE-OWNER` in `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-concentration-hazard-save-damage`, both launched from source base `53c516ee1c9fd3898c89a93cb8abe063218e4146`.
-- Retained blockers now under active source-QNT work: authored item/attack identity is not publicly routed, and exact save-triggered Hit Point damage for concentration-backed hazards remains blocked until a generic damage-owner route exists.
+- Source blocker lanes completed and passed focused source verification: weapon-hosted capability lane `50d41e183e52a191ba3109079801c19b68d7adf1`, concentration-hazard save-damage lane `d40c5e7f30cbbc3103cfad841c6c0002a777165e`, merged into source master by `4d196258a51f4264803ff11f7c806c969f0aff2d`.
+- Active Ralph lane: `FRESH-RR-SQNT07A-SOURCE-BLOCKER-CONSUMPTION` in `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-source-blocker-consumption`, launched from fresh target base `b3de1456c54162357abed70608ec37cc936dee92`, consuming source package `4d196258a51f4264803ff11f7c806c969f0aff2d`.
+- No fresh acceptance is claimed yet for source package `4d196258a51f4264803ff11f7c806c969f0aff2d`; review and merge remain pending.
 
 ## Bootstrap Snapshot
 

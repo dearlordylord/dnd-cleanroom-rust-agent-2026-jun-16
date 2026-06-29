@@ -66,27 +66,28 @@
         "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
       ],
       "remainingLane": null,
-      "nextParallelism": "Two source-QNT blocker lanes are active in parallel with non-overlapping new focused outputs: weapon-hosted item/attack capability facts and concentration-hazard save-triggered Hit Point damage ownership.",
+      "nextParallelism": "The two source-QNT blocker lanes completed and merged into source master. One fresh cleanroom replay lane is active because it must consume the combined source package in a single target worktree.",
       "activeParallelLanes": [
-        "SOURCE-SQNT07A-WEAPON-HOSTED-ITEM-ATTACK-CAPABILITY-FACTS",
-        "SQNT-07A-CONCENTRATION-HAZARD-SAVE-DAMAGE-OWNER"
+        "FRESH-RR-SQNT07A-SOURCE-BLOCKER-CONSUMPTION"
       ],
-      "activeLane": "source-input-blocker-wave-after-53c516ee",
-      "nextPlannedLane": "review-and-merge-source-input-blocker-wave",
-      "lastCompletedBatch": "source Hex exact-damage concentration-hazard QNT wave",
+      "activeLane": "fresh-source-blocker-consumption-after-4d196258",
+      "nextPlannedLane": "review-and-merge-fresh-source-blocker-consumption",
+      "lastCompletedBatch": "source weapon-hosted capability and concentration-hazard save-damage blocker wave",
       "lastCompletedFreshTargetHead": "b3de1456c54162357abed70608ec37cc936dee92",
-      "lastCompletedSourceMergeHead": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
+      "lastCompletedSourceMergeHead": "4d196258a51f4264803ff11f7c806c969f0aff2d",
       "notes": [
         "Merged source weapon-hosted selected route witness into main source master at 06f8042513df94bc96e02ec9d213a0d52d942bac.",
         "Merged source Hex ability-check roll-mode, exact damage route bridge, and concentration-backed selected hazard route inputs into main source master at 53c516ee1c9fd3898c89a93cb8abe063218e4146.",
         "Merged fresh Jump landing/prone and concentration-backed area hazard generic route-surface replays into fresh target at 444295121a3cbe0631dc36ef2280c27d2ef5631c.",
         "Merged fresh Hex/exact-damage/concentration-hazard source consumption into fresh target at b3de1456c54162357abed70608ec37cc936dee92; verifier now pins the copied QNT import closure before accepting literal comparison records.",
         "Launched source-QNT blocker wave from 53c516ee1c9fd3898c89a93cb8abe063218e4146: weapon-hosted item/attack capability facts and concentration-hazard save-triggered Hit Point damage ownership.",
-        "Retained blockers after the wave: authored item/attack identity is not publicly routed, and exact save-triggered Hit Point damage for concentration-backed hazards remains blocked until a generic damage-owner route exists."
+        "Merged source weapon-hosted capability facts into main source master at 3bfcfca7b.",
+        "Merged source concentration-hazard save-triggered Hit Point damage ownership into main source master at 4d196258a51f4264803ff11f7c806c969f0aff2d.",
+        "Launched fresh replay FRESH-RR-SQNT07A-SOURCE-BLOCKER-CONSUMPTION from fresh target b3de1456c54162357abed70608ec37cc936dee92 to consume source package 4d196258a51f4264803ff11f7c806c969f0aff2d."
       ],
       "targetHead": "b3de1456c54162357abed70608ec37cc936dee92",
-      "sourceRouteWitnessHead": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
-      "sourcePackageCommit": "53c516ee1c9fd3898c89a93cb8abe063218e4146"
+      "sourceRouteWitnessHead": "4d196258a51f4264803ff11f7c806c969f0aff2d",
+      "sourcePackageCommit": "4d196258a51f4264803ff11f7c806c969f0aff2d"
     },
     "campaignControlHeadNote": "This field records the committed checkpoint head before later bookkeeping commits. For the live campaign head, use git rev-parse HEAD in the campaign control worktree."
   },
