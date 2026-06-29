@@ -14,7 +14,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Agent | Status |
 | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | |
+| COMP-AUDIT-04-FRESH-TARGET-CLOSURE | `/workspace/typescript/.codex-worktrees/dnd-comp-audit-04-fresh-target-closure` | `ralph/comp-audit-04-fresh-target-closure` | `b650352e9c8e40a031f50ae22ed2bb264be26d2c` | pending | running |
 
 ## Active Fresh Dry Run Targets
 
