@@ -4,11 +4,12 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Latest Checkpoint
 
-- Source master merged `SOURCE-SQNT07A-WEAPON-HOSTED-SELECTED-ROUTE-WITNESS` at `06f8042513df94bc96e02ec9d213a0d52d942bac`; focused source checks passed (`quint typecheck`, selected route connector Vitest, MBT driver closure).
-- Fresh target `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` is accepted at `42b40af28b5c6cb554869f2c4ef4c999bcec3ab2`.
-- Fresh accepted in this checkpoint: `FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY`, `FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY`, and `FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION`.
-- Final fresh checks passed: `python3 tools/verify_current_fresh_target.py`, jump/concentration/weapon-hosted selected focused verifiers, focused reducer tests for `jump_landing`, `concentration`, and `sqnt07a_level1_weapon_hosted`, `cargo fmt --check`, `cargo test`, and `cargo clippy --all-targets -- -D warnings`.
-- Active Ralph lanes: none. Retained blockers: Hex ability-check roll-mode, selected concentration hazard exactness, and exact damage/arithmetic details.
+- Source master merged the SQNT-07A Hex ability-check roll-mode, exact-damage route bridge, and selected concentration-hazard route inputs at `53c516ee1c9fd3898c89a93cb8abe063218e4146`.
+- Fresh target `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` is accepted at `b3de1456c54162357abed70608ec37cc936dee92`.
+- Fresh accepted in this checkpoint: `FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION`, after review required the verifier to pin the copied QNT import closure before accepting literal comparison records.
+- Current fresh verifier reports source package `53c516ee1c9fd3898c89a93cb8abe063218e4146`, `100` drivers, `667` in-scope obligations, and `61` out-of-scope obligations.
+- Final fresh checks passed: `python3 tools/verify_fresh_rr_sqnt07a_hex_exact_damage_source_consumption.py`, `python3 tools/verify_current_fresh_target.py`, `cargo test marked_damage_rider_projects_ability_check_roll_mode_until_concentration_cleanup`, `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets -- -D warnings`, and `git diff --check`.
+- Active Ralph lanes: none. Retained blockers: authored item/attack identity is not publicly routed, and exact save-triggered Hit Point damage for concentration-backed hazards remains blocked until a generic damage-owner route exists.
 
 ## Bootstrap Snapshot
 
@@ -36,11 +37,12 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Current Fresh Verification
 
-At campaign-control head `63075124dc0de6a2cfbc0ce9516fea7a3d8aaf1a`
-before this checkpoint update and fresh target head
-`ce9f653e3cba6a9eefa0d2f14e11757f7081e618`:
+At campaign-control head before this checkpoint update and fresh target head
+`b3de1456c54162357abed70608ec37cc936dee92`:
 
 - `python3 tools/verify_current_fresh_target.py`: pass
+- `python3 tools/verify_fresh_rr_sqnt07a_hex_exact_damage_source_consumption.py`:
+  pass
 - `python3 tools/verify_fresh_rr_sqnt07a_level1_after_hit_timed_selected.py`:
   pass
 - `python3 tools/verify_fresh_rr_reaction_interrupt_taxonomy.py`: pass
@@ -55,15 +57,17 @@ before this checkpoint update and fresh target head
 - `cargo fmt --check`: pass
 - `cargo test`: pass
 - `cargo clippy --all-targets -- -D warnings`: pass
-- `git diff --check HEAD~1...HEAD`: pass
-- current package: `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
-- inventory: `98` drivers, `663` in-scope obligations, `45` out-of-scope
+- `git diff --check`: pass
+- current package: `53c516ee1c9fd3898c89a93cb8abe063218e4146`
+- inventory: `100` drivers, `667` in-scope obligations, `61` out-of-scope
   obligations
 - current fresh runtime claims: FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A
   active-effect/condition, spatial/damage, character/sheet/handoff,
   reaction/interrupt taxonomy, battle active-effects, and level-1
   marked/immunity, scalar-buff, after-hit/timed rider selected-row replays, and
-  weapon-hosted generic route-surface replay
+  weapon-hosted generic route-surface replay, plus Hex ability-check roll-mode,
+  exact-damage route bridge consumption, and selected concentration-backed
+  hazard route facts from `FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION`
 - active fresh expansion lanes: none
 
 This supersedes the older FEXP-09G and partial renewal checkpoints as the
@@ -95,9 +99,9 @@ refreshed source inventory also marks `45` obligations out of scope, including
 the nine scenario sequencing rows moved out of the reducer-route denominator.
 
 The current fresh package checkpoint is separate: the fresh verifier at
-`ce9f653e3cba6a9eefa0d2f14e11757f7081e618` reports `98` drivers, `663`
-in-scope obligations, and `45` out-of-scope obligations for source package
-`545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
+`b3de1456c54162357abed70608ec37cc936dee92` reports `100` drivers, `667`
+in-scope obligations, and `61` out-of-scope obligations for source package
+`53c516ee1c9fd3898c89a93cb8abe063218e4146`.
 
 Detailed source-refresh handoff: `tasks/campaigns/level-1-2-runtime-reducer-route/SOURCE_CORPUS_HANDOFF.md`.
 

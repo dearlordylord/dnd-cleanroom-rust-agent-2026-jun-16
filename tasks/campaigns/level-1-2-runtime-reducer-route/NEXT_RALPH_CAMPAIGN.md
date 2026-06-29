@@ -38,9 +38,9 @@ This document was originally prepared before the SQNT-07A Wave 2 source lanes
 and fresh replay refresh completed. Current authoritative checkpoint:
 
 - Source/cleanroom-input package is now
-  `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
+  `53c516ee1c9fd3898c89a93cb8abe063218e4146`.
 - Fresh target `master` is now
-  `42b40af28b5c6cb554869f2c4ef4c999bcec3ab2`.
+  `b3de1456c54162357abed70608ec37cc936dee92`.
 - Source master contains the weapon-hosted selected-row public route witness at
   merge `06f8042513df94bc96e02ec9d213a0d52d942bac`.
 - `FRESH-RR-BASELINE-E9F75E22`,
@@ -62,24 +62,29 @@ and fresh replay refresh completed. Current authoritative checkpoint:
   public reducer route-event exactness for the three selected weapon-hosted
   rows. Jump landing/prone generic route surfaces and concentration-backed area
   hazard generic route surfaces are also accepted in the fresh target.
-- Remaining SQNT-07A blockers are exact and should drive future work:
-  Hex ability-check roll-mode, selected concentration hazard exactness, and
-  exact after-hit and weapon-hosted damage/arithmetic details.
+  Fresh target `b3de1456c54162357abed70608ec37cc936dee92` also accepts Hex
+  ability-check roll-mode, exact-damage route bridge consumption, and selected
+  concentration-backed hazard route facts through copied QNT import-closure
+  pinned evidence.
+- Remaining SQNT-07A blockers are exact source-input work: authored item/attack
+  identity is not publicly routed, and exact save-triggered Hit Point damage
+  for concentration-backed hazards still needs a generic damage-owner route.
 - Do not relaunch broad selected/grouped identity replay. Launch only lanes
   backed by copied generic route facts or by a source-QNT lane that creates
   those facts first.
 
-## Active Source-QNT Wave
+## Completed Source-QNT Wave
 
-Launched from source master `06f8042513df94bc96e02ec9d213a0d52d942bac`.
-These lanes run in parallel because their primary QNT subject families differ;
-merge/review must serialize shared branch-inventory and package-sync artifacts.
+Launched from source master `06f8042513df94bc96e02ec9d213a0d52d942bac` and
+merged to source master at `53c516ee1c9fd3898c89a93cb8abe063218e4146`.
+The fresh target consumed the resulting package at
+`b3de1456c54162357abed70608ec37cc936dee92`.
 
 | Lane | Worktree | Worker | Expected output |
 | --- | --- | --- | --- |
-| `FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE` | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-hex-ability-roll-mode` | Hume the 5th (`019f134e-9326-74d0-8b92-0fe8852fc12d`) | Public targeted ability-check roll-mode route facts for selected-ability disadvantage, nonmatching normal projection, active-effect/Concentration ownership, and cleanup. |
-| `SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS` | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-concentration-hazard-selected` | Peirce the 5th (`019f134e-d458-7bb0-9508-37feb3d38f78`) | Selected concentration-backed hazard rows mapped to generic concentration-backed hazard route surfaces without production selected-identity dispatch. |
-| `SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT` | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-exact-damage-route-bridge` | Lagrange the 5th (`019f134f-754c-7ce3-bbb7-d398363dd204`) | Exact damage component facts bridged to public after-hit/timed and/or weapon-hosted reducer route facts; retained identity details stay blocked unless boundary-only. |
+| `FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE` | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-hex-ability-roll-mode` | Hume the 5th (`019f134e-9326-74d0-8b92-0fe8852fc12d`) | Accepted and source-merged; fresh-consumed as public targeted ability-check roll-mode route facts. |
+| `SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS` | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-concentration-hazard-selected` | Peirce the 5th (`019f134e-d458-7bb0-9508-37feb3d38f78`) | Accepted and source-merged; fresh-consumed for selected concentration-backed hazard route facts and cleanup surfaces. |
+| `SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT` | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-exact-damage-route-bridge` | Lagrange the 5th (`019f134f-754c-7ce3-bbb7-d398363dd204`) | Accepted and source-merged; fresh-consumed as exact-damage route bridge consumption evidence. |
 
 ## Execution Rules
 

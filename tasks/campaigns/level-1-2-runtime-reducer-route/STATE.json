@@ -18,11 +18,11 @@
     },
     "currentFreshPackageStatus": {
       "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
-      "targetHead": "ce9f653e3cba6a9eefa0d2f14e11757f7081e618",
-      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
-      "driverFiles": 98,
-      "inScopeBranchObligations": 663,
-      "outOfScopeBranchObligations": 45,
+      "targetHead": "b3de1456c54162357abed70608ec37cc936dee92",
+      "sourcePackageCommit": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
+      "driverFiles": 100,
+      "inScopeBranchObligations": 667,
+      "outOfScopeBranchObligations": 61,
       "currentVerifier": "python3 tools/verify_current_fresh_target.py",
       "acceptedRuntimeClaims": [
         "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION",
@@ -41,13 +41,14 @@
         "FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY",
         "FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY",
         "FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY",
-        "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY"
+        "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY",
+        "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
       ]
     },
     "nextCampaignBatch": {
       "status": "accepted-current-package-renewal-batch",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
-      "acceptedFreshTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+      "acceptedFreshTargetHead": "b3de1456c54162357abed70608ec37cc936dee92",
       "purpose": "renew historical fresh evidence against the current package through copied QNT-derived expected records and public reducer/source entrypoint observations",
       "acceptedLanes": [
         "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY",
@@ -61,25 +62,25 @@
         "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY",
         "FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY",
         "FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY",
-        "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION"
-      ],
-      "remainingLane": null,
-      "nextParallelism": "Remaining work can split by source-input families with non-overlapping write sets: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, and exact weapon-hosted arithmetic/identity details.",
-      "activeParallelLanes": [
+        "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION",
         "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
       ],
-      "activeLane": "fresh-replay-source-wave-53c516ee",
-      "nextPlannedLane": "finish-fresh-replay-source-wave-53c516ee",
+      "remainingLane": null,
+      "nextParallelism": "No active lane remains in this source-package consumption wave. Next work should split only around explicit source-input blocker families with non-overlapping route owners.",
+      "activeParallelLanes": [],
+      "activeLane": null,
+      "nextPlannedLane": "completion-audit-or-next-source-input-blocker-wave",
       "lastCompletedBatch": "source Hex exact-damage concentration-hazard QNT wave",
-      "lastCompletedFreshTargetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
+      "lastCompletedFreshTargetHead": "b3de1456c54162357abed70608ec37cc936dee92",
       "lastCompletedSourceMergeHead": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
       "notes": [
         "Merged source weapon-hosted selected route witness into main source master at 06f8042513df94bc96e02ec9d213a0d52d942bac.",
         "Merged source Hex ability-check roll-mode, exact damage route bridge, and concentration-backed selected hazard route inputs into main source master at 53c516ee1c9fd3898c89a93cb8abe063218e4146.",
         "Merged fresh Jump landing/prone and concentration-backed area hazard generic route-surface replays into fresh target at 444295121a3cbe0631dc36ef2280c27d2ef5631c.",
-        "Retained source blocker after the wave: exact save-triggered Hit Point damage for concentration-backed hazards remains blocked until a generic damage-owner route exists."
+        "Merged fresh Hex/exact-damage/concentration-hazard source consumption into fresh target at b3de1456c54162357abed70608ec37cc936dee92; verifier now pins the copied QNT import closure before accepting literal comparison records.",
+        "Retained blockers after the wave: authored item/attack identity is not publicly routed, and exact save-triggered Hit Point damage for concentration-backed hazards remains blocked until a generic damage-owner route exists."
       ],
-      "targetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+      "targetHead": "b3de1456c54162357abed70608ec37cc936dee92",
       "sourceRouteWitnessHead": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
       "sourcePackageCommit": "53c516ee1c9fd3898c89a93cb8abe063218e4146"
     },
@@ -4004,10 +4005,10 @@
   },
   "nextWorkRecommendations": [
     "Do not launch more dirty cleanroom replay lanes from LANES.json: the CP8 dirty rehearsal denominator is closed at 659/659 accepted in-scope obligations with known historical harness debt.",
-    "Use accepted fresh target 42b40af28b5c6cb554869f2c4ef4c999bcec3ab2 as the current fresh base. The current package is 06f8042513df94bc96e02ec9d213a0d52d942bac, and the fresh verifier reports 98 drivers, 663 in-scope obligations, 45 out-of-scope obligations, with weapon-hosted selected-row route-event exactness accepted through the copied source witness.",
-    "Next fresh work should choose one explicit residual group at a time: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, or exact weapon-hosted arithmetic/identity details.",
+    "Use accepted fresh target b3de1456c54162357abed70608ec37cc936dee92 as the current fresh base. The current package is 53c516ee1c9fd3898c89a93cb8abe063218e4146, and the fresh verifier reports 100 drivers, 667 in-scope obligations, 61 out-of-scope obligations, with Hex ability-check roll-mode, exact-damage route bridge consumption, and selected concentration-backed hazard route facts accepted through copied QNT import-closure pinned evidence.",
+    "Next fresh work should choose only explicit source-input blocker groups: authored item/attack identity public routing, or exact save-triggered Hit Point damage for concentration-backed hazards.",
     "For every future fresh lane, require copied QNT-derived expected records, public reducer/source entrypoint observed records, state-owner derivability records for any durable fields, forbidden-path scans, authored-identity dispatch scans, focused verifier updates, and the aggregate current fresh verifier.",
-    "Keep remaining true blockers as source-input work only: Hex ability-check roll-mode, selected concentration hazard exactness, and exact after-hit/weapon-hosted damage or arithmetic details. Do not relaunch broad selected/grouped identity replay."
+    "Keep remaining true blockers as source-input work only: authored item/attack identity is not publicly routed, and exact save-triggered Hit Point damage for concentration-backed hazards still needs a generic damage-owner route. Do not relaunch broad selected/grouped identity replay."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
@@ -4015,8 +4016,8 @@
     "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
-    "strongestRuntimeEvidenceHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+    "acceptedTargetHead": "b3de1456c54162357abed70608ec37cc936dee92",
+    "strongestRuntimeEvidenceHead": "b3de1456c54162357abed70608ec37cc936dee92",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -4722,29 +4723,51 @@
           "exact after-hit/timed damage details",
           "Hex ability-check roll-mode"
         ]
+      },
+      {
+        "laneId": "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION",
+        "status": "accepted-with-blockers",
+        "baseCommit": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+        "workerHead": "b3de1456c54162357abed70608ec37cc936dee92",
+        "mergeCommit": "b3de1456c54162357abed70608ec37cc936dee92",
+        "sourcePackageCommit": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
+        "workerAgent": "Boole the 5th (019f1381-1d41-7af0-9823-7126e187c1e6)",
+        "reviewerAgent": "Hypatia the 5th, Herschel the 5th, and Laplace the 5th",
+        "checks": [
+          "python3 tools/verify_fresh_rr_sqnt07a_hex_exact_damage_source_consumption.py",
+          "python3 tools/verify_current_fresh_target.py",
+          "cargo test marked_damage_rider_projects_ability_check_roll_mode_until_concentration_cleanup",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check"
+        ],
+        "coverageClaim": "Accepts Hex ability-check roll-mode, exact-damage route bridge consumption, and selected concentration-backed hazard route facts through public reducer observations guarded by copied QNT import-closure and top-level definition pins.",
+        "retainedBlockers": [
+          "authored item/attack identity is not publicly routed",
+          "exact save-triggered Hit Point damage for concentration-backed hazards needs a generic damage-owner route"
+        ]
       }
     ],
-    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-hex-exact-damage-source-consumption",
-    "activeBranch": "ralph/fresh-sqnt07a-hex-exact-damage-source-consumption",
-    "activeLaneBaseCommit": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
-    "activeParallelLanes": [
-      "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
-    ],
-    "workerAgent": "019f1381-1d41-7af0-9823-7126e187c1e6",
+    "activeWorktree": null,
+    "activeBranch": null,
+    "activeLaneBaseCommit": null,
+    "activeParallelLanes": [],
+    "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "merge-source-qnt-wave-then-fresh-replay-ready-facts",
+    "nextPlannedLane": "completion-audit-or-next-source-input-blocker-wave",
     "nextWorkRecommendations": [
       "Source master 53c516ee1c9fd3898c89a93cb8abe063218e4146 now contains accepted Hex ability-check roll-mode, exact damage route bridge, and selected concentration-backed hazard route inputs.",
-      "Active fresh replay lane is syncing/consuming accepted Hex and exact damage source facts from source package 031d2d988ccc6475c04c990fa4c44f4fdbaba383; refresh again to 53c516ee if concentration hazard replay is included.",
-      "Do not launch broad selected/grouped identity replay; exact concentration-backed save-triggered Hit Point damage remains source-input blocked."
+      "Fresh target b3de1456c54162357abed70608ec37cc936dee92 consumes those facts through copied QNT import-closure pinned evidence and public reducer observations.",
+      "Do not launch broad selected/grouped identity replay; authored item/attack identity and exact concentration-backed save-triggered Hit Point damage remain source-input blocked."
     ],
     "currentPackageCheckpoint": {
-      "sourcePackageCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac",
-      "targetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+      "sourcePackageCommit": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
+      "targetHead": "b3de1456c54162357abed70608ec37cc936dee92",
       "inventory": {
-        "driverFiles": 98,
-        "inScopeBranchObligations": 663,
-        "outOfScopeBranchObligations": 45
+        "driverFiles": 100,
+        "inScopeBranchObligations": 667,
+        "outOfScopeBranchObligations": 61
       },
       "acceptedRuntimeClaims": [
         "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION",
@@ -4763,28 +4786,21 @@
         "FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY",
         "FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY",
         "FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY",
-        "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY"
+        "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY",
+        "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
       ],
       "nextProofRenewalBatch": []
     },
-    "activeFreshReplayLane": {
-      "laneId": "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-hex-exact-damage-source-consumption",
-      "branch": "ralph/fresh-sqnt07a-hex-exact-damage-source-consumption",
-      "baseSha": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
-      "workerAgent": "019f1381-1d41-7af0-9823-7126e187c1e6",
-      "sourcePackageCommit": "031d2d988ccc6475c04c990fa4c44f4fdbaba383",
-      "newerSourcePackageCommitAvailable": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
-      "scope": "consume accepted Hex targeted ability-check roll-mode and exact damage route bridge source facts through copied QNT and public fresh reducer observations; may refresh again to include selected concentration-backed hazard source facts"
-    },
-    "acceptedFreshTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
-    "lastCompletedBatch": "fresh weapon-hosted selected witness consumption",
-    "lastCompletedFreshTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+    "activeFreshReplayLane": null,
+    "acceptedFreshTargetHead": "b3de1456c54162357abed70608ec37cc936dee92",
+    "lastCompletedBatch": "fresh Hex exact-damage concentration-hazard source consumption",
+    "lastCompletedFreshTargetHead": "b3de1456c54162357abed70608ec37cc936dee92",
     "lastCompletedSourceMergeHead": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
     "notes": [
       "Merged source weapon-hosted selected route witness into main source master at 06f8042513df94bc96e02ec9d213a0d52d942bac.",
       "Merged fresh Jump landing/prone and concentration-backed area hazard generic route-surface replays into fresh target at 444295121a3cbe0631dc36ef2280c27d2ef5631c.",
-      "Retained blockers: weapon-hosted selected-row exactness consumption in fresh target, Hex ability-check roll-mode, selected concentration hazard exactness, and exact damage/arithmetic details."
+      "Merged fresh Hex/exact-damage/concentration-hazard source consumption into fresh target at b3de1456c54162357abed70608ec37cc936dee92.",
+      "Retained blockers: authored item/attack identity is not publicly routed, and exact save-triggered Hit Point damage for concentration-backed hazards needs a generic damage-owner route."
     ]
   },
   "sdkTracerBullet": {
