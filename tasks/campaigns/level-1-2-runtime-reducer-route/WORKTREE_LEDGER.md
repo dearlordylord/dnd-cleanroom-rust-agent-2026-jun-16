@@ -22,7 +22,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-weapon-hosted-selected-witness` | `ralph/fresh-sqnt07a-weapon-hosted-selected-witness` | `444295121a3cbe0631dc36ef2280c27d2ef5631c` | Laplace the 4th (`019f132f-a734-7b32-8135-0d2807ea1826`) | pending | active-worker-running |
+| _none_ | | | | | | |
 
 ## Active Fresh Expansion Targets
 
@@ -45,6 +45,7 @@ These predate this campaign bootstrap. They may be removable after confirming no
 | SOURCE-SQNT07A-WEAPON-HOSTED-SELECTED-ROUTE-WITNESS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-weapon-hosted-selected-route` | `ralph/source-sqnt07a-weapon-hosted-selected-route` | `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5` | worker `70d310e4f2c2275f4809d584a2344a589e6a4c91`; source master merge `06f8042513df94bc96e02ec9d213a0d52d942bac` | completed; reviewed by Mencius the 4th (`019f130c-8eac-7a22-897e-66756761e1fd`); removable after retention decision |
 | FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-jump-landing` | `ralph/fresh-sqnt07a-jump-landing` | `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` | worker `d9135a71e14fa66dea8a565314a11652d7cdde6b`; fresh target merge `d7be97e` | completed; reviewed by Lovelace the 4th (`019f130e-dd7a-7123-bf76-d378fd6e6cdf`); removable after retention decision |
 | FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-concentration-hazard` | `ralph/fresh-sqnt07a-concentration-hazard` | `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` | worker `837317d88123e6b8f4b1b0114ae3286396149802`; fresh target merge `444295121a3cbe0631dc36ef2280c27d2ef5631c` | completed; reviewed by Lagrange the 4th (`019f1310-d6e0-7782-b571-15f15e146d37`); removable after retention decision |
+| FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-weapon-hosted-selected-witness` | `ralph/fresh-sqnt07a-weapon-hosted-selected-witness` | `444295121a3cbe0631dc36ef2280c27d2ef5631c` | worker `815136fa771c2904811638b7957062177d3423fb`; fresh target merge `42b40af28b5c6cb554869f2c4ef4c999bcec3ab2` | completed; reviewed by Ramanujan the 4th (`019f133e-7697-7872-bd34-8501b41725dc`); removable after retention decision |
 
 | Lane | Path | Branch | Status |
 | --- | --- | --- | --- |

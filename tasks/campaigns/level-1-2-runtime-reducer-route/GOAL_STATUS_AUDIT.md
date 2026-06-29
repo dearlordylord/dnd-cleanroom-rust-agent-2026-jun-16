@@ -12,12 +12,12 @@ Audit baseline:
 - live campaign head source: `git rev-parse HEAD` in the campaign control worktree
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - current accepted fresh package/runtime head:
-  `444295121a3cbe0631dc36ef2280c27d2ef5631c`
+  `42b40af28b5c6cb554869f2c4ef4c999bcec3ab2`
 - source master route-witness head:
   `06f8042513df94bc96e02ec9d213a0d52d942bac`
 - current fresh gate: `python3 tools/verify_current_fresh_target.py`
 - current fresh package source:
-  `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
+  `06f8042513df94bc96e02ec9d213a0d52d942bac`
 - current fresh package inventory:
   `98` drivers, `663` in-scope obligations, `45` out-of-scope obligations
 - current accepted fresh runtime claims:
@@ -25,7 +25,7 @@ Audit baseline:
   spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, and
   battle active-effects, plus level-1 marked/immunity and scalar-buff
   selected-row replays, level-1 after-hit/timed rider selected-row replay, and
-  level-1 weapon-hosted generic route-surface replay, Jump landing/prone
+  level-1 weapon-hosted selected-row route-event replay, Jump landing/prone
   generic route-surface replay, and concentration-backed area hazard generic
   route-surface replay
 
@@ -46,7 +46,7 @@ fresh cleanroom and which review checks prevent false positives.
 | --- | --- | --- | --- |
 | Dirty rehearsal routes the refreshed in-scope denominator through reducer-shaped evidence. | `STATE.json.coverageCurrent` records `97 / 97` accepted drivers and `659 / 659` accepted refreshed in-scope obligations; `CHECKPOINT_REPORT.md` records CP8 and Pact Slot replay evidence. | Proven for dirty rehearsal. | This is diagnostic evidence only. It must not be treated as final architecture proof. |
 | Accepted dirty evidence uses shared reducer entrypoints rather than local replay islands. | `FRESH_CLEANROOM_READINESS.md` summarizes the review loop that rejected adapter-local synthesis and required observed route events from reducer entrypoints; `CHECKPOINT_REPORT.md` records per-lane verification. | Proven for accepted dirty rows by campaign review artifacts. | The proof strength is bounded by the dirty target and its historical scaffolding. |
-| Fresh target can be built without reading TypeScript implementation or dirty `src/**` implementation files. | Fresh target state/evidence records `copiedDirtySrcImplementation: false`; `python3 tools/verify_current_fresh_target.py` passes at `444295121a3cbe0631dc36ef2280c27d2ef5631c`; current package is `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`. | Proven for the FC/FEXP dry-run scope plus current-package FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects acceptance, level-1 marked/immunity selected-row replay, level-1 scalar-buff selected-row replay, level-1 after-hit/timed rider selected-row replay, level-1 weapon-hosted generic route-surface replay, Jump landing/prone generic route-surface replay, and concentration-backed area hazard generic route-surface replay. | Older fresh evidence remains historical until renewed against the current package. |
+| Fresh target can be built without reading TypeScript implementation or dirty `src/**` implementation files. | Fresh target state/evidence records `copiedDirtySrcImplementation: false`; `python3 tools/verify_current_fresh_target.py` passes at `42b40af28b5c6cb554869f2c4ef4c999bcec3ab2`; current package is `06f8042513df94bc96e02ec9d213a0d52d942bac`. | Proven for the FC/FEXP dry-run scope plus current-package FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects acceptance, level-1 marked/immunity selected-row replay, level-1 scalar-buff selected-row replay, level-1 after-hit/timed rider selected-row replay, level-1 weapon-hosted selected-row route-event replay, Jump landing/prone generic route-surface replay, and concentration-backed area hazard generic route-surface replay. | Older fresh evidence remains historical until renewed against the current package. |
 | Fresh target exposes the reducer-shaped surface. | `FRESH_RUN_REPORT.md`, `STATE_OWNERS.md`, and tests in the fresh target cover `start_battle`, `discover_battle_acts`, `resolve_battle_subject`, and turn advancement. | Proven for the dry-run target. | The surface is intentionally minimal and tracer-driven. |
 | Fresh target supports an SDK-style programmatic character plus simple battle scenario. | `FRESH_SDK_COMPOSITION_ACCEPTANCE.md`, `EVIDENCE/sdk-tracer-bullet-programmatic-surface.json`, and `python3 tools/verify_current_fresh_target.py` cover sheet creation, projection, encounter composition, battle entry, act resolution, HP mutation, action spend, and turn advancement. | Proven for the accepted tracer scenario. | This is a tracer-bullet scenario, not full character/battle runtime parity. |
 | FEXP-01 diagnostic battle route pack is accepted in the fresh target. | Fresh target head `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639` includes `EVIDENCE/fexp01-diagnostic-battle-route-pack.json`, `examples/fexp01_route_observations.rs`, and `tools/verify_fexp01.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for Magic Missile slot-spell route, HP restoration ordering, Death Saving Throw, and Concentration teardown. | The verifier parser is intentionally narrow for the accepted connector shapes; broader drivers still need their own lanes. |
@@ -55,7 +55,7 @@ fresh cleanroom and which review checks prevent false positives.
 | FEXP-04 active-effect lifecycle lane is accepted in the fresh target. | Fresh target head `05280a8e2d6e9705411c114c80ae2a4e4290de2c` includes refreshed `EVIDENCE/fexp04-active-effect-lifecycle-and-roll-modifiers.json`, `examples/fexp04_route_observations.rs`, `tools/verify_fexp04.py`, and `tools/verify_current_fresh_target.py`; `python3 tools/verify_current_fresh_target.py` passes against source package `ee4894fa71e9307b9251639f0b54577ff764c63f`. | Proven for generic roll-modifier active-effect, scalar-buff active-effect, targeted-speed scalar buff, turn-boundary cleanup, exact skill/ability/two-target ability route-fill payloads, public Ability Check/Search target-choice/ability-check/rejection/result surfaces, failed-save/voluntary-end/replacement Concentration cleanup, and scalar-buff profile projection/domain sequencing through public reducer entrypoints. | FEXP-04 currently has no blockers. Older FEXP-01/FEXP-02/FEXP-03/FEXP-05/FEXP-07 evidence is historical after the full input refresh. |
 | FEXP-05 reaction/interrupt lane is accepted with blockers in the fresh target. | Fresh target head `eb05e8495eac993b69e17f68544edace6e56caee` includes `EVIDENCE/fexp05-reaction-interrupt-and-boundary.json`, `examples/fexp05_route_observations.rs`, and `tools/verify_fexp05.py`; current reaction/interrupt taxonomy renewal accepts all 5 current-package taxonomy connector rows through generic payload shapes, and current battle active-effects renewal remains covered by the current aggregate gate at `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` with SQNT-03A/B/C/D active-effect rows and no retained blockers. | Proven for the historical fresh snapshot's generic reaction casting-time interrupt/resume, after-damage reaction, nested interrupt resume, active-effect resume, recorded procedure replay surfaces, and current-package generic taxonomy surfaces through public reducer entrypoints. | Selected reaction spell projections remain explicitly blocked. |
 | FEXP-06 character/sheet/handoff lane is accepted in the fresh target. | Fresh target head `0d5200e43fd7e9f094a93585f00eaf6bd2266c75` includes the historical FEXP-06 evidence; current character/sheet/handoff renewal accepts copied current-package character creation, sheet resource, handoff, settlement, and zero-HP lifecycle rows through public character/sheet/handoff entrypoints and remains covered by the current aggregate gate at `ce9f653e3cba6a9eefa0d2f14e11757f7081e618`. | Proven for character creation finalization, sheet hit-point/resource route projection, short-rest Pact-slot completion, rejection/resource/conflict cases, happy-path battle settlement, and zero-HP lifecycle surfaces. | Current-package renewal is accepted; broader runtime parity remains outside this tracer-slice proof. |
-| FEXP-07 feature/species/metamagic lane is accepted with blockers in the fresh target, and current-package SQNT-07B/C/D plus SQNT-07A active-effect/condition subsets have been renewed. | Historical FEXP-07 evidence remains at `a77a41dc752326eab69d8110de78928b9dcb9691`; current fresh verifier at `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` accepts FEXP-09A through FEXP-09G plus SQNT-07A active-effect/condition, battle active-effects, level-1 marked/immunity selected-row replay, level-1 scalar-buff selected-row replay, level-1 after-hit/timed rider selected-row replay, and level-1 weapon-hosted generic route-surface replay. | Proven for the renewed current-package FEXP-09A through FEXP-09G subsets, SQNT-07A active-effect/condition rows, four selected level-1 rows reduced to generic marked-damage/immunity facts, two selected level-1 rows reduced to generic scalar-buff facts, three selected level-1 rows reduced to generic after-hit route/lifecycle/owner facts, and weapon-hosted generic route-surface groups. | Broad selected/grouped identity replay remains excluded; selected-row exactness, exact damage details, and remaining true blockers stay source-input work. |
+| FEXP-07 feature/species/metamagic lane is accepted with blockers in the fresh target, and current-package SQNT-07B/C/D plus SQNT-07A active-effect/condition subsets have been renewed. | Historical FEXP-07 evidence remains at `a77a41dc752326eab69d8110de78928b9dcb9691`; current fresh verifier at `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` accepts FEXP-09A through FEXP-09G plus SQNT-07A active-effect/condition, battle active-effects, level-1 marked/immunity selected-row replay, level-1 scalar-buff selected-row replay, level-1 after-hit/timed rider selected-row replay, and level-1 weapon-hosted selected-row route-event replay. | Proven for the renewed current-package FEXP-09A through FEXP-09G subsets, SQNT-07A active-effect/condition rows, four selected level-1 rows reduced to generic marked-damage/immunity facts, two selected level-1 rows reduced to generic scalar-buff facts, three selected level-1 rows reduced to generic after-hit route/lifecycle/owner facts, and three weapon-hosted selected rows accepted as public reducer route-event exactness. | Broad selected/grouped identity replay remains excluded; exact damage/arithmetic details and remaining true blockers stay source-input work. |
 | Post-FC06 and post-FEXP04 source feedback was resolved and replayed. | `FC06_SOURCE_FEEDBACK.md` records encounter composition and Pact Slot route-surface resolution; fresh target head `05280a8e2d6e9705411c114c80ae2a4e4290de2c` includes the accepted Pact Slot replay, SDK tracer, FEXP-04 exact roll-choice replay, Ability Check/Search replay, Concentration cleanup replay, scalar profile replay, FEXP-06 current-package verifier, and historical classification for stale older FC/FEXP snapshots. Dirty package refreshes now package SQNT-03A/B/C source connectors plus Task 3, Task 8, FCSF-04, FCSF-05, FCSF-06, and SQNT-07B/C/D inputs through latest source package `21504ef764118f5fd13086aa6266f19280196664`. Dirty replay merges include FCSF-04 `9c9d728640e28a003a5a051f7ddc9be56bbc980e`, FCSF-05 `5d07ad816c08ab3335c7e95c87f26c2e73e80d9c`, FCSF-06 `4f4d8535b5dc1b35083dfda63bd8e5ed35c21f6d`, SQNT-03A `73627315f70528e73f5eb4ef781606e876e87367`, SQNT-03B `4437eacc311a8ea069bc1d7c9dd9d2b334a8fb4e`, SQNT-03C `7521115f61077326b67e933dc9663f19d7e41570`, and SQNT-07B/C/D replay merge `4b2c415259ad5f3b10d281a536a5aa8499f926b7`. | Proven for the two recorded FC-06 feedback items, exact roll-choice payload feedback, Ability Check/Search public observability feedback, Concentration cleanup source feedback `FCSF-01`, scalar profile source feedback `FCSF-02`, SQNT-03A/SQNT-03B/SQNT-03C source connector evidence and dirty target replay, object stale source feedback `FCSF-04`, reaction/interrupt taxonomy source feedback `FCSF-05`, character/sheet/handoff source feedback `FCSF-06`, all 6 dirty FCSF-04 connector rows / 7 Starry Wisp object obligations, all 5 dirty FCSF-05 connector rows, 30 dirty FCSF-06 replay rows, 3 dirty SQNT-03A connector transitions / 1 attack-shape obligation, 6 dirty SQNT-03B connector transitions / 2 selected-driver obligations, 4 dirty SQNT-03C connector transitions / 1 selected-driver obligation, and SQNT-07B/C/D dirty current-package rows. | Older FC/FEXP verifier artifacts that were not refreshed against source `ee4894fa71e9307b9251639f0b54577ff764c63f` are historical snapshots, not current-package gates. These dirty refreshes and replays do not claim fresh target acceptance or condition-immunity scalar-buff route replay acceptance. SQNT-03A/B/C and SQNT-07B/C/D still need fresh target replay before any count as fresh runtime acceptance. |
 | Production runtime semantics avoid authored identity dispatch. | Dirty campaign review artifacts and fresh verifier check production source for selected identity terms; accepted docs state identity remains in adapter/test/evidence boundaries. | Proven for sampled/accepted target scopes. | A future full fresh run still needs the same static and review gates across its whole production surface. |
 | Focused QNT slices are sufficient to guide a full independent runtime. | Dirty campaign plus fresh dry run prove multiple focused slices, route connectors, source feedback loops, and SDK tracer surfaces. | Not fully proven. | Current evidence is strong but partial: it proves a successful dry run and diagnostic dirty coverage, not a complete fresh runtime campaign from only the package. |
@@ -72,13 +72,13 @@ python3 tools/verify_current_fresh_target.py
 
 This gate validates:
 
-- current `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5` input package inventory;
+- current `06f8042513df94bc96e02ec9d213a0d52d942bac` input package inventory;
 - `98` drivers, `663` in-scope obligations, and `45` out-of-scope obligations;
 - current-package runtime acceptance claims for FEXP-08 and FEXP-09A through
   FEXP-09G, SQNT-07A active-effect/condition, spatial/damage,
   character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects,
   level-1 marked/immunity, scalar-buff, after-hit/timed rider selected-row
-  replays, weapon-hosted generic route-surface replay, Jump landing/prone
+  replays, weapon-hosted selected-row route-event replay, Jump landing/prone
   generic route-surface replay, and concentration-backed area hazard generic
   route-surface replay;
 - historical snapshot classification for older runtime evidence that has not
@@ -100,13 +100,14 @@ Expected state:
 - CP8 dirty rehearsal coverage remains `659 / 659` refreshed in-scope
   obligations accepted
 - current fresh package checkpoint records target head
-  `ce9f653e3cba6a9eefa0d2f14e11757f7081e618`, source package
-  `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`, and FEXP-08, FEXP-09A
+  `42b40af28b5c6cb554869f2c4ef4c999bcec3ab2`, source package
+  `06f8042513df94bc96e02ec9d213a0d52d942bac`, and FEXP-08, FEXP-09A
   through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage,
   character/sheet/handoff, reaction/interrupt taxonomy, and battle
   active-effects, plus level-1 marked/immunity, scalar-buff, after-hit/timed
-  rider selected-row replay, and weapon-hosted generic route-surface replay
-  accepted runtime claims
+  rider selected-row replay, weapon-hosted selected-row route-event replay,
+  Jump landing/prone generic route-surface replay, and concentration-backed area
+  hazard generic route-surface replay accepted runtime claims
 
 ## Remaining Work To Prove The Full Objective
 
@@ -117,8 +118,7 @@ Expected state:
 3. Keep remaining true blockers as source-input work only:
    Hex ability-check roll-mode, selected concentration hazard exactness, and
    exact after-hit/timed and weapon-hosted damage details. Fresh-consume the
-   source weapon-hosted selected-row route witness before claiming selected-row
-   exactness.
+   exact weapon-hosted damage/arithmetic facts before claiming arithmetic or identity details.
 4. Preserve the review gates from this campaign: observed reducer events,
    independent expected route records, state-owner derivability records, and no
    production authored identity dispatch.

@@ -47,7 +47,7 @@
     "nextCampaignBatch": {
       "status": "accepted-current-package-renewal-batch",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
-      "acceptedFreshTargetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
+      "acceptedFreshTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
       "purpose": "renew historical fresh evidence against the current package through copied QNT-derived expected records and public reducer/source entrypoint observations",
       "acceptedLanes": [
         "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY",
@@ -60,13 +60,14 @@
         "FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY",
         "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY",
         "FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY",
-        "FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY"
+        "FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY",
+        "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION"
       ],
       "remainingLane": null,
-      "nextParallelism": "Fresh target can now consume the source weapon-hosted selected-row public route witness. Remaining source-input work can split by non-overlapping write sets: Hex ability-check roll-mode, selected concentration hazard exactness, and exact damage/arithmetic details.",
+      "nextParallelism": "Remaining work can split by source-input families with non-overlapping write sets: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, and exact weapon-hosted arithmetic/identity details.",
       "activeParallelLanes": [],
       "activeLane": null,
-      "nextPlannedLane": "source-qnt-selected-witness-consumption-or-hex-ability-check-roll-mode",
+      "nextPlannedLane": "source-hex-ability-check-roll-mode-or-exact-damage-details",
       "lastCompletedBatch": "parallel fresh jump/concentration plus source weapon-hosted selected witness",
       "lastCompletedFreshTargetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
       "lastCompletedSourceMergeHead": "06f8042513df94bc96e02ec9d213a0d52d942bac",
@@ -75,8 +76,9 @@
         "Merged fresh Jump landing/prone and concentration-backed area hazard generic route-surface replays into fresh target at 444295121a3cbe0631dc36ef2280c27d2ef5631c.",
         "Retained blockers: weapon-hosted selected-row exactness consumption in fresh target, Hex ability-check roll-mode, selected concentration hazard exactness, and exact damage/arithmetic details."
       ],
-      "targetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
-      "sourceRouteWitnessHead": "06f8042513df94bc96e02ec9d213a0d52d942bac"
+      "targetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+      "sourceRouteWitnessHead": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+      "sourcePackageCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac"
     },
     "campaignControlHeadNote": "This field records the committed checkpoint head before later bookkeeping commits. For the live campaign head, use git rev-parse HEAD in the campaign control worktree."
   },
@@ -890,17 +892,7 @@
     "cleanroomHarness": "Failed on broad historical stale ledger/evidence and pre-existing heuristic findings outside SQNT-07A; grep of captured output found no SQNT-07A-specific errors.",
     "review": "Conflict resolution preserved both lanes: route subject/fill/owner support, tests, evidence, state-owner records, validation records, accepted rows, and blockers. Production reducer support remains shape/fact/typed-subject routed; adapter row labels remain evidence identity only."
   },
-  "activeLaneWorktrees": [
-    {
-      "laneId": "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-weapon-hosted-selected-witness",
-      "branch": "ralph/fresh-sqnt07a-weapon-hosted-selected-witness",
-      "baseSha": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
-      "workerAgent": "Laplace the 4th (019f132f-a734-7b32-8135-0d2807ea1826)",
-      "reviewerAgent": null,
-      "status": "active-worker-running"
-    }
-  ],
+  "activeLaneWorktrees": [],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
@@ -1263,7 +1255,7 @@
         "pnpm --filter @dnd/battle-runtime exec vitest run src/reducer-route-connectors.mbt.test.ts -t \"selected level-1 weapon-hosted\"",
         "node scripts/check-mbt-driver-closure.cjs"
       ],
-      "coverageClaim": "Adds source-side public route witness for doDivineFavorWeaponDamageRider, doShillelaghWeaponAttackOverride, and doTrueStrikeSpellHostedWeaponAttack reducing to generic weapon-hosted route surfaces; fresh target consumption remains pending."
+      "coverageClaim": "Adds source-side public route witness for doDivineFavorWeaponDamageRider, doShillelaghWeaponAttackOverride, and doTrueStrikeSpellHostedWeaponAttack reducing to generic weapon-hosted route surfaces; consumed by fresh target 42b40af28b5c6cb554869f2c4ef4c999bcec3ab2."
     }
   ],
   "completedLaneWorktrees": [
@@ -3965,19 +3957,19 @@
   },
   "nextWorkRecommendations": [
     "Do not launch more dirty cleanroom replay lanes from LANES.json: the CP8 dirty rehearsal denominator is closed at 659/659 accepted in-scope obligations with known historical harness debt.",
-    "Use accepted fresh target 444295121a3cbe0631dc36ef2280c27d2ef5631c as the current fresh base. The current package is 545d7848692fcb18adf14e5c009d9e7f4d0cb1d5, and the fresh verifier reports 98 drivers, 663 in-scope obligations, 45 out-of-scope obligations, and current runtime claims through level-1 weapon-hosted generic route-surface replay plus Jump landing/prone and concentration-backed area hazard generic route-surface replay.",
-    "Next fresh work should choose one explicit residual group at a time: fresh-consume the source weapon-hosted selected-row public route witness, or create source-QNT for Hex ability-check roll-mode, selected concentration hazard exactness, or exact damage/arithmetic details.",
+    "Use accepted fresh target 42b40af28b5c6cb554869f2c4ef4c999bcec3ab2 as the current fresh base. The current package is 06f8042513df94bc96e02ec9d213a0d52d942bac, and the fresh verifier reports 98 drivers, 663 in-scope obligations, 45 out-of-scope obligations, with weapon-hosted selected-row route-event exactness accepted through the copied source witness.",
+    "Next fresh work should choose one explicit residual group at a time: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, or exact weapon-hosted arithmetic/identity details.",
     "For every future fresh lane, require copied QNT-derived expected records, public reducer/source entrypoint observed records, state-owner derivability records for any durable fields, forbidden-path scans, authored-identity dispatch scans, focused verifier updates, and the aggregate current fresh verifier.",
-    "Keep remaining true blockers as source-input work only: Hex ability-check roll-mode, selected concentration hazard exactness, and exact after-hit/weapon-hosted damage details; consume source weapon-hosted selected witness in fresh before claiming selected-row exactness. Do not relaunch broad selected/grouped identity replay."
+    "Keep remaining true blockers as source-input work only: Hex ability-check roll-mode, selected concentration hazard exactness, and exact after-hit/weapon-hosted damage or arithmetic details. Do not relaunch broad selected/grouped identity replay."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
     "status": "current-package-renewal-batch-accepted",
-    "activeLane": "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
-    "strongestRuntimeEvidenceHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
+    "acceptedTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+    "strongestRuntimeEvidenceHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -4658,26 +4650,48 @@
           "cargo clippy --all-targets -- -D warnings"
         ],
         "coverageClaim": "Accepts generic concentration-backed area hazard admission and Concentration-break cleanup route surfaces through public reducer observations; selected hazard row exactness remains blocked."
+      },
+      {
+        "laneId": "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION",
+        "status": "accepted-with-blockers",
+        "baseCommit": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
+        "workerHead": "815136fa771c2904811638b7957062177d3423fb",
+        "mergeCommit": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+        "sourcePackageCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+        "workerAgent": "Laplace the 4th (019f132f-a734-7b32-8135-0d2807ea1826)",
+        "reviewerAgent": "Ramanujan the 4th (019f133e-7697-7872-bd34-8501b41725dc)",
+        "checks": [
+          "python3 tools/verify_fresh_rr_sqnt07a_level1_weapon_hosted_selected.py",
+          "python3 tools/verify_current_fresh_target.py",
+          "cargo test sqnt07a_level1_weapon_hosted -- --nocapture",
+          "cargo fmt --check",
+          "cargo test",
+          "cargo clippy --all-targets -- -D warnings",
+          "git diff --check HEAD~1...HEAD"
+        ],
+        "coverageClaim": "Accepts doDivineFavorWeaponDamageRider, doShillelaghWeaponAttackOverride, and doTrueStrikeSpellHostedWeaponAttack as public reducer route-event exactness through copied selected witness and generic weapon-hosted route surfaces.",
+        "retainedBlockers": [
+          "exact weapon-hosted arithmetic/damage/type/item/attack identity details",
+          "exact after-hit/timed damage details",
+          "Hex ability-check roll-mode"
+        ]
       }
     ],
-    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-weapon-hosted-selected-witness",
-    "activeBranch": "ralph/fresh-sqnt07a-weapon-hosted-selected-witness",
-    "activeLaneBaseCommit": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
-    "activeParallelLanes": [
-      "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION"
-    ],
-    "workerAgent": "Laplace the 4th (019f132f-a734-7b32-8135-0d2807ea1826)",
+    "activeWorktree": null,
+    "activeBranch": null,
+    "activeLaneBaseCommit": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+    "activeParallelLanes": [],
+    "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "complete-active-weapon-hosted-selected-witness-consumption",
+    "nextPlannedLane": "source-hex-ability-check-roll-mode-or-exact-damage-details",
     "nextWorkRecommendations": [
-      "Current-package renewal batch is accepted at fresh target 444295121a3cbe0631dc36ef2280c27d2ef5631c, including Jump landing/prone and concentration-backed area hazard generic route-surface replay.",
-      "Source master contains weapon-hosted selected-row public route witness at 06f8042513df94bc96e02ec9d213a0d52d942bac; next fresh target work can consume it without TypeScript implementation knowledge.",
-      "Remaining source-input blockers: Hex ability-check roll-mode, selected concentration hazard exactness, and exact after-hit/weapon-hosted damage or arithmetic details.",
+      "Current fresh target 42b40af28b5c6cb554869f2c4ef4c999bcec3ab2 is synced to source package 06f8042513df94bc96e02ec9d213a0d52d942bac and accepts weapon-hosted selected-row route-event exactness through copied QNT witness plus public reducer observations.",
+      "Remaining source-input blockers: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, and exact weapon-hosted arithmetic/damage/type/item/attack identity details.",
       "Do not launch broad selected/grouped identity replay."
     ],
     "currentPackageCheckpoint": {
-      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
-      "targetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
+      "sourcePackageCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+      "targetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
       "inventory": {
         "driverFiles": 98,
         "inScopeBranchObligations": 663,
@@ -4704,9 +4718,9 @@
       ],
       "nextProofRenewalBatch": []
     },
-    "acceptedFreshTargetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
-    "lastCompletedBatch": "parallel fresh jump/concentration plus source weapon-hosted selected witness",
-    "lastCompletedFreshTargetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
+    "acceptedFreshTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
+    "lastCompletedBatch": "fresh weapon-hosted selected witness consumption",
+    "lastCompletedFreshTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
     "lastCompletedSourceMergeHead": "06f8042513df94bc96e02ec9d213a0d52d942bac",
     "notes": [
       "Merged source weapon-hosted selected route witness into main source master at 06f8042513df94bc96e02ec9d213a0d52d942bac.",

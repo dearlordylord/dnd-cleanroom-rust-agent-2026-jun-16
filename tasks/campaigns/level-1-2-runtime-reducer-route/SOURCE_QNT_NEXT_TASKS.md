@@ -34,8 +34,9 @@ Accepted fresh replay now covers:
   observations. No selected rows are accepted exactly.
 - SQNT-07A weapon-hosted selected-row public route witness: source master merge
   `06f8042513df94bc96e02ec9d213a0d52d942bac` adds the source-side QNT/MBT
-  witness for the three selected weapon-hosted rows. Fresh target consumption is
-  still pending.
+  witness for the three selected weapon-hosted rows, and fresh target
+  `42b40af28b5c6cb554869f2c4ef4c999bcec3ab2` consumes it as public reducer
+  route-event exactness.
 - SQNT-07A Jump landing/prone generic route-surface replay: accepted in the
   fresh target at `444295121a3cbe0631dc36ef2280c27d2ef5631c`.
 - SQNT-07A concentration-backed area hazard generic route-surface replay:
@@ -45,20 +46,16 @@ Accepted fresh replay now covers:
 
 Still blocked:
 
-- Fresh target consumption of the new level-1 weapon-hosted selected-row public
-  route witness.
 - Exact weapon-hosted arithmetic, damage type/amount, item identity, and attack
   identity details as public reducer route facts.
 - Exact after-hit/timed damage details as public reducer route facts.
 - Hex ability-check roll-mode.
 - Selected concentration-backed hazard row exactness.
 
-Future work should close one of those exact blockers through generic route
-facts. Weapon-hosted selected-row exactness now has source-side public route
-witness input and needs a fresh cleanroom consumption lane. Exact damage
-details, Hex ability-check roll-mode, and selected concentration-backed hazard
-exactness still need source-QNT or public route facts first. Do not treat broad
-selected/grouped identity replay as an implementation task.
+Future work should close one exact blocker through generic route facts. Exact
+damage details, Hex ability-check roll-mode, and selected concentration-backed
+hazard exactness still need source-QNT or public route facts first. Do not treat
+broad selected/grouped identity replay as an implementation task.
 
 ## Current Boundary
 
