@@ -880,9 +880,9 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-after-hit-timed-selected",
       "branch": "ralph/fresh-sqnt07a-level1-after-hit-timed-selected",
       "baseSha": "6f526cb20165a00707bf90c59096087464a5d108",
-      "workerAgent": null,
+      "workerAgent": "019f12b7-3baa-7752-ba05-b524f5a94e49",
       "reviewerAgent": null,
-      "status": "active-worktree-created-worker-launch-pending"
+      "status": "active-worker-running"
     }
   ],
   "activeSourceQntLanes": [],
@@ -4505,7 +4505,7 @@
     "activeParallelLanes": [
       "FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY"
     ],
-    "workerAgent": null,
+    "workerAgent": "019f12b7-3baa-7752-ba05-b524f5a94e49",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "completion-audit-or-explicit-source-input-blocker-lane",
     "nextWorkRecommendations": [

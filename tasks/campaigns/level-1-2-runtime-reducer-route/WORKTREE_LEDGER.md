@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-after-hit-timed-selected` | `ralph/fresh-sqnt07a-level1-after-hit-timed-selected` | `6f526cb20165a00707bf90c59096087464a5d108` | pending | pending | active: worktree created; worker launch pending |
+| FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-after-hit-timed-selected` | `ralph/fresh-sqnt07a-level1-after-hit-timed-selected` | `6f526cb20165a00707bf90c59096087464a5d108` | Bacon the 4th (`019f12b7-3baa-7752-ba05-b524f5a94e49`) | pending | active: worker running |
 
 ## Active Source-QNT Lanes
 
