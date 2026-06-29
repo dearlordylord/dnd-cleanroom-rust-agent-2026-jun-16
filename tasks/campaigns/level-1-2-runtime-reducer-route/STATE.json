@@ -2,6 +2,35 @@
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
   "status": "current-fresh-package-accepted-awaiting-completion-audit",
+  "currentFreshPackageCheckpoint": {
+    "status": "accepted",
+    "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
+    "targetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
+    "sourcePackageCommit": "4d196258a51f4264803ff11f7c806c969f0aff2d",
+    "inventory": {
+      "driverFiles": 100,
+      "inScopeBranchObligations": 667,
+      "outOfScopeBranchObligations": 61
+    },
+    "currentVerifier": "python3 tools/verify_current_fresh_target.py",
+    "acceptedRuntimeClaims": [
+      "FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY",
+      "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
+      "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
+      "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY",
+      "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY",
+      "FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY",
+      "FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY",
+      "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+      "FEXP-09C-SQNT07C-QUICKENED-GOVERNOR-CURRENT-PACKAGE-REPLAY",
+      "FEXP-09D-SQNT07C-METAMAGIC-SAVE-MODES",
+      "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
+      "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
+      "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION",
+      "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY",
+      "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
+    ]
+  },
   "dirtyCleanroomOnly": false,
   "currentCheckpoint": {
     "recordedAt": "2026-06-29",
@@ -17,34 +46,11 @@
       "scope": "CP8 dirty rehearsal denominator; not the current fresh package denominator"
     },
     "currentFreshPackageStatus": {
-      "status": "accepted",
-      "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
-      "targetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
-      "sourcePackageCommit": "4d196258a51f4264803ff11f7c806c969f0aff2d",
-      "driverFiles": 100,
-      "inScopeBranchObligations": 667,
-      "outOfScopeBranchObligations": 61,
-      "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-      "acceptedRuntimeClaims": [
-        "FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY",
-        "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
-        "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
-        "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY",
-        "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY",
-        "FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY",
-        "FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY",
-        "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
-        "FEXP-09C-SQNT07C-QUICKENED-GOVERNOR-CURRENT-PACKAGE-REPLAY",
-        "FEXP-09D-SQNT07C-METAMAGIC-SAVE-MODES",
-        "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
-        "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
-        "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION",
-        "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY",
-        "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
-      ]
+      "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint"
     },
     "nextCampaignBatch": {
       "status": "accepted-current-fresh-package-archived",
+      "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "acceptedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
       "purpose": "current fresh package acceptance is complete; future lanes must be selected by completion audit, not resumed from stale fresh-expansion plans",
@@ -4800,15 +4806,9 @@
       "Do not launch broad selected/grouped identity replay; authored identity stays outside production runtime dispatch."
     ],
     "currentPackageCheckpoint": {
-      "sourcePackageCommit": "4d196258a51f4264803ff11f7c806c969f0aff2d",
-      "targetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
-      "inventory": {
-        "driverFiles": 100,
-        "inScopeBranchObligations": 667,
-        "outOfScopeBranchObligations": 61
-      },
+      "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint",
       "nextProofRenewalBatch": [],
-      "acceptedRuntimeClaimsRef": "currentCheckpoint.currentFreshPackageStatus.acceptedRuntimeClaims"
+      "acceptedRuntimeClaimsRef": "currentFreshPackageCheckpoint.acceptedRuntimeClaims"
     },
     "activeFreshReplayLane": null,
     "acceptedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",

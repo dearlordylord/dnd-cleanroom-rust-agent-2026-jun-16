@@ -21,6 +21,9 @@ Do not resume or relaunch the source-QNT lanes from the consumed wave. Future
 source-side work is audit-selected only and should be launched only after the
 completion audit chooses a concrete residual branch family.
 
+The lower source task and replay tables are historical snapshot records unless
+a future completion audit explicitly reselects a row.
+
 ## Historical Consumed Source-QNT Wave
 
 Launched from source master `06f8042513df94bc96e02ec9d213a0d52d942bac` and

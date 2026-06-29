@@ -9,6 +9,7 @@
   "currentFreshBaselineCommit": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
   "acceptedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
   "strongestRuntimeEvidenceCommit": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
+  "notNextExecutableLaneSet": true,
   "currentPackageRuntimeAcceptanceClaims": [
     "FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY",
     "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
