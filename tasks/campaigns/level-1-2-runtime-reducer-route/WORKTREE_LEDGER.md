@@ -28,14 +28,14 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-jump-landing` | `ralph/fresh-sqnt07a-jump-landing` | `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` | pending | pending | worktree-created-awaiting-worker |
-| FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-concentration-hazard` | `ralph/fresh-sqnt07a-concentration-hazard` | `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` | pending | pending | worktree-created-awaiting-worker |
+| FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-jump-landing` | `ralph/fresh-sqnt07a-jump-landing` | `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` | Godel the 4th (`019f1301-2c2f-7551-b1a5-898e243fd0ec`) | pending | active-worker-running |
+| FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-concentration-hazard` | `ralph/fresh-sqnt07a-concentration-hazard` | `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` | Leibniz the 4th (`019f1301-70a6-7b53-b36a-3b16ffbddee3`) | pending | active-worker-running |
 
 ## Active Source-QNT Lanes
 
 | Lane | Path | Branch | Base SHA | Worker | Status |
 | --- | --- | --- | --- | --- | --- |
-| SOURCE-SQNT07A-WEAPON-HOSTED-SELECTED-ROUTE-WITNESS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-weapon-hosted-selected-route` | `ralph/source-sqnt07a-weapon-hosted-selected-route` | `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5` | pending | worktree-created-awaiting-worker |
+| SOURCE-SQNT07A-WEAPON-HOSTED-SELECTED-ROUTE-WITNESS | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-weapon-hosted-selected-route` | `ralph/source-sqnt07a-weapon-hosted-selected-route` | `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5` | Nietzsche the 4th (`019f1301-c444-7d81-b429-413d4be064be`) | active-worker-running |
 
 ## Historical RRCONV-19 Worktrees
 

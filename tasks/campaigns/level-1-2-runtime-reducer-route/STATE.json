@@ -882,18 +882,18 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-jump-landing",
       "branch": "ralph/fresh-sqnt07a-jump-landing",
       "baseSha": "ce9f653e3cba6a9eefa0d2f14e11757f7081e618",
-      "workerAgent": null,
+      "workerAgent": "019f1301-2c2f-7551-b1a5-898e243fd0ec",
       "reviewerAgent": null,
-      "status": "worktree-created-awaiting-worker"
+      "status": "active-worker-running"
     },
     {
       "laneId": "FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-concentration-hazard",
       "branch": "ralph/fresh-sqnt07a-concentration-hazard",
       "baseSha": "ce9f653e3cba6a9eefa0d2f14e11757f7081e618",
-      "workerAgent": null,
+      "workerAgent": "019f1301-70a6-7b53-b36a-3b16ffbddee3",
       "reviewerAgent": null,
-      "status": "worktree-created-awaiting-worker"
+      "status": "active-worker-running"
     }
   ],
   "activeSourceQntLanes": [
@@ -902,8 +902,8 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-weapon-hosted-selected-route",
       "branch": "ralph/source-sqnt07a-weapon-hosted-selected-route",
       "baseSha": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
-      "workerAgent": null,
-      "status": "worktree-created-awaiting-worker"
+      "workerAgent": "019f1301-c444-7d81-b429-413d4be064be",
+      "status": "active-worker-running"
     }
   ],
   "completedSourceQntLanes": [
