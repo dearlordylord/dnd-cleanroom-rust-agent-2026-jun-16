@@ -66,21 +66,22 @@
       "remainingLane": null,
       "nextParallelism": "Remaining work can split by source-input families with non-overlapping write sets: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, and exact weapon-hosted arithmetic/identity details.",
       "activeParallelLanes": [
-        "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS"
+        "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
       ],
-      "activeLane": "source-qnt-wave-06f804",
-      "nextPlannedLane": "merge-source-qnt-wave-then-fresh-replay-ready-facts",
-      "lastCompletedBatch": "parallel fresh jump/concentration plus source weapon-hosted selected witness",
+      "activeLane": "fresh-replay-source-wave-53c516ee",
+      "nextPlannedLane": "finish-fresh-replay-source-wave-53c516ee",
+      "lastCompletedBatch": "source Hex exact-damage concentration-hazard QNT wave",
       "lastCompletedFreshTargetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
-      "lastCompletedSourceMergeHead": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+      "lastCompletedSourceMergeHead": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
       "notes": [
         "Merged source weapon-hosted selected route witness into main source master at 06f8042513df94bc96e02ec9d213a0d52d942bac.",
+        "Merged source Hex ability-check roll-mode, exact damage route bridge, and concentration-backed selected hazard route inputs into main source master at 53c516ee1c9fd3898c89a93cb8abe063218e4146.",
         "Merged fresh Jump landing/prone and concentration-backed area hazard generic route-surface replays into fresh target at 444295121a3cbe0631dc36ef2280c27d2ef5631c.",
-        "Retained blockers: weapon-hosted selected-row exactness consumption in fresh target, Hex ability-check roll-mode, selected concentration hazard exactness, and exact damage/arithmetic details."
+        "Retained source blocker after the wave: exact save-triggered Hit Point damage for concentration-backed hazards remains blocked until a generic damage-owner route exists."
       ],
       "targetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
-      "sourceRouteWitnessHead": "06f8042513df94bc96e02ec9d213a0d52d942bac",
-      "sourcePackageCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac"
+      "sourceRouteWitnessHead": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
+      "sourcePackageCommit": "53c516ee1c9fd3898c89a93cb8abe063218e4146"
     },
     "campaignControlHeadNote": "This field records the committed checkpoint head before later bookkeeping commits. For the live campaign head, use git rev-parse HEAD in the campaign control worktree."
   },
@@ -895,18 +896,24 @@
     "review": "Conflict resolution preserved both lanes: route subject/fill/owner support, tests, evidence, state-owner records, validation records, accepted rows, and blockers. Production reducer support remains shape/fact/typed-subject routed; adapter row labels remain evidence identity only."
   },
   "activeLaneWorktrees": [],
-  "activeSourceQntLanes": [
+  "activeSourceQntLanes": [],
+  "completedSourceQntLanes": [
     {
       "laneId": "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-concentration-hazard-selected",
       "branch": "ralph/source-sqnt07a-concentration-hazard-selected",
       "baseSha": "06f8042513df94bc96e02ec9d213a0d52d942bac",
       "workerAgent": "019f134e-d458-7bb0-9508-37feb3d38f78",
-      "status": "running",
-      "scope": "selected concentration-backed hazard rows mapped to generic route surfaces"
-    }
-  ],
-  "completedSourceQntLanes": [
+      "laneHead": "7261047b5a6c3767c6309e5ff5eb11fde6620363",
+      "sourceMergeCommit": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
+      "status": "accepted-and-merged-to-source-master-with-retained-damage-blocker",
+      "reviewerAgents": [
+        "019f1370-9824-7da0-bfb2-1db1f37d2551",
+        "019f137a-6a99-75e0-a253-7dc3756687ca",
+        "019f1389-f990-7e72-898e-0f1d501e0c61"
+      ],
+      "scope": "selected concentration-backed hazards reuse shared generic spatial route/fact definitions; exact save-triggered Hit Point damage remains blocked until a generic damage-owner route exists"
+    },
     {
       "laneId": "SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-exact-damage-route-bridge",
@@ -4717,20 +4724,19 @@
         ]
       }
     ],
-    "activeWorktree": "source-qnt-wave-from-06f804",
-    "activeBranch": "parallel-source-qnt-lanes",
-    "activeLaneBaseCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-hex-exact-damage-source-consumption",
+    "activeBranch": "ralph/fresh-sqnt07a-hex-exact-damage-source-consumption",
+    "activeLaneBaseCommit": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
     "activeParallelLanes": [
-      "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
       "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
     ],
-    "workerAgent": "019f134e-d458-7bb0-9508-37feb3d38f78, 019f1381-1d41-7af0-9823-7126e187c1e6",
+    "workerAgent": "019f1381-1d41-7af0-9823-7126e187c1e6",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "merge-source-qnt-wave-then-fresh-replay-ready-facts",
     "nextWorkRecommendations": [
-      "Current fresh target 42b40af28b5c6cb554869f2c4ef4c999bcec3ab2 is synced to source package 06f8042513df94bc96e02ec9d213a0d52d942bac and accepts weapon-hosted selected-row route-event exactness through copied QNT witness plus public reducer observations.",
-      "Remaining source-input blockers: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, and exact weapon-hosted arithmetic/damage/type/item/attack identity details.",
-      "Do not launch broad selected/grouped identity replay."
+      "Source master 53c516ee1c9fd3898c89a93cb8abe063218e4146 now contains accepted Hex ability-check roll-mode, exact damage route bridge, and selected concentration-backed hazard route inputs.",
+      "Active fresh replay lane is syncing/consuming accepted Hex and exact damage source facts from source package 031d2d988ccc6475c04c990fa4c44f4fdbaba383; refresh again to 53c516ee if concentration hazard replay is included.",
+      "Do not launch broad selected/grouped identity replay; exact concentration-backed save-triggered Hit Point damage remains source-input blocked."
     ],
     "currentPackageCheckpoint": {
       "sourcePackageCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac",
@@ -4768,12 +4774,13 @@
       "baseSha": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
       "workerAgent": "019f1381-1d41-7af0-9823-7126e187c1e6",
       "sourcePackageCommit": "031d2d988ccc6475c04c990fa4c44f4fdbaba383",
-      "scope": "consume accepted Hex targeted ability-check roll-mode and exact damage route bridge source facts through copied QNT and public fresh reducer observations"
+      "newerSourcePackageCommitAvailable": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
+      "scope": "consume accepted Hex targeted ability-check roll-mode and exact damage route bridge source facts through copied QNT and public fresh reducer observations; may refresh again to include selected concentration-backed hazard source facts"
     },
     "acceptedFreshTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
     "lastCompletedBatch": "fresh weapon-hosted selected witness consumption",
     "lastCompletedFreshTargetHead": "42b40af28b5c6cb554869f2c4ef4c999bcec3ab2",
-    "lastCompletedSourceMergeHead": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+    "lastCompletedSourceMergeHead": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
     "notes": [
       "Merged source weapon-hosted selected route witness into main source master at 06f8042513df94bc96e02ec9d213a0d52d942bac.",
       "Merged fresh Jump landing/prone and concentration-backed area hazard generic route-surface replays into fresh target at 444295121a3cbe0631dc36ef2280c27d2ef5631c.",
