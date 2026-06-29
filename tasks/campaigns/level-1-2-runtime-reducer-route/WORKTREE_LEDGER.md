@@ -22,7 +22,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Phase | Path | Branch | Input Commit | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-weapon-hosted-selected-witness` | `ralph/fresh-sqnt07a-weapon-hosted-selected-witness` | `444295121a3cbe0631dc36ef2280c27d2ef5631c` | Laplace the 4th (`019f132f-a734-7b32-8135-0d2807ea1826`) | pending | active-worker-running |
 
 ## Active Fresh Expansion Targets
 

@@ -890,7 +890,17 @@
     "cleanroomHarness": "Failed on broad historical stale ledger/evidence and pre-existing heuristic findings outside SQNT-07A; grep of captured output found no SQNT-07A-specific errors.",
     "review": "Conflict resolution preserved both lanes: route subject/fill/owner support, tests, evidence, state-owner records, validation records, accepted rows, and blockers. Production reducer support remains shape/fact/typed-subject routed; adapter row labels remain evidence identity only."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-weapon-hosted-selected-witness",
+      "branch": "ralph/fresh-sqnt07a-weapon-hosted-selected-witness",
+      "baseSha": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
+      "workerAgent": "Laplace the 4th (019f132f-a734-7b32-8135-0d2807ea1826)",
+      "reviewerAgent": null,
+      "status": "active-worker-running"
+    }
+  ],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
@@ -3963,7 +3973,7 @@
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
     "status": "current-package-renewal-batch-accepted",
-    "activeLane": null,
+    "activeLane": "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
@@ -4650,13 +4660,15 @@
         "coverageClaim": "Accepts generic concentration-backed area hazard admission and Concentration-break cleanup route surfaces through public reducer observations; selected hazard row exactness remains blocked."
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-weapon-hosted-selected-witness",
+    "activeBranch": "ralph/fresh-sqnt07a-weapon-hosted-selected-witness",
     "activeLaneBaseCommit": "444295121a3cbe0631dc36ef2280c27d2ef5631c",
-    "activeParallelLanes": [],
-    "workerAgent": null,
+    "activeParallelLanes": [
+      "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION"
+    ],
+    "workerAgent": "Laplace the 4th (019f132f-a734-7b32-8135-0d2807ea1826)",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "fresh-consume-source-weapon-hosted-selected-witness-or-source-hex-ability-check-roll-mode",
+    "nextPlannedLane": "complete-active-weapon-hosted-selected-witness-consumption",
     "nextWorkRecommendations": [
       "Current-package renewal batch is accepted at fresh target 444295121a3cbe0631dc36ef2280c27d2ef5631c, including Jump landing/prone and concentration-backed area hazard generic route-surface replay.",
       "Source master contains weapon-hosted selected-row public route witness at 06f8042513df94bc96e02ec9d213a0d52d942bac; next fresh target work can consume it without TypeScript implementation knowledge.",
