@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "completion-audit-running",
+  "status": "closure-proven",
   "currentFreshPackageCheckpoint": {
     "status": "accepted",
     "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
@@ -52,7 +52,7 @@
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint"
     },
     "nextCampaignBatch": {
-      "status": "completion-audit-running",
+      "status": "closure-proven",
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "acceptedFreshTargetHead": "02a1337d5e2be04307d44c63e2596f60c2104301",
@@ -76,18 +76,12 @@
       ],
       "remainingLane": null,
       "nextParallelism": "Object-stale public history replay is the next serial fresh-runtime lane because it likely touches the same reducer/verifier/state files as the just-accepted reaction projection replay.",
-      "activeParallelLanes": [
-        "COMP-AUDIT-04-FRESH-TARGET-CLOSURE"
-      ],
-      "activeLane": "COMP-AUDIT-04-FRESH-TARGET-CLOSURE",
-      "activeLanes": [
-        "COMP-AUDIT-04-FRESH-TARGET-CLOSURE"
-      ],
-      "nextExecutableLaneSet": [
-        "COMP-AUDIT-04-FRESH-TARGET-CLOSURE"
-      ],
-      "nextPlannedLane": "COMP-AUDIT-04-FRESH-TARGET-CLOSURE",
-      "lastCompletedBatch": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
+      "activeParallelLanes": [],
+      "activeLane": null,
+      "activeLanes": [],
+      "nextExecutableLaneSet": [],
+      "nextPlannedLane": null,
+      "lastCompletedBatch": "COMP-AUDIT-04-FRESH-TARGET-CLOSURE",
       "lastCompletedFreshTargetHead": "02a1337d5e2be04307d44c63e2596f60c2104301",
       "lastCompletedSourceMergeHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
       "notes": [
@@ -107,7 +101,8 @@
         "Merged FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION into the accepted fresh target at ff09b6579ebb507f3c8dca06f2b040d0d46d05fb.",
         "Verification passed on the accepted fresh target: python3 tools/verify_fexp09b_sqnt07b_species_passive.py, python3 tools/verify_current_fresh_target.py, cargo fmt --check, cargo test, cargo clippy --all-targets -- -D warnings, and git diff --check.",
         "Merged FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY into the accepted fresh target at 02a1337d5e2be04307d44c63e2596f60c2104301.",
-        "Verification passed on the accepted fresh target: python3 tools/verify_fresh_object_stale_public_history_replay.py, python3 tools/verify_current_fresh_target.py, cargo fmt --check, cargo test, cargo clippy --all-targets -- -D warnings, git diff --check, and git status --short."
+        "Verification passed on the accepted fresh target: python3 tools/verify_fresh_object_stale_public_history_replay.py, python3 tools/verify_current_fresh_target.py, cargo fmt --check, cargo test, cargo clippy --all-targets -- -D warnings, git diff --check, and git status --short.",
+        "Completion audit COMP-AUDIT-04-FRESH-TARGET-CLOSURE reports closure-proven with no mandatory remaining work. SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP is optional future planning guidance, not required for closure."
       ],
       "targetHead": "02a1337d5e2be04307d44c63e2596f60c2104301",
       "sourceRouteWitnessHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
@@ -908,8 +903,8 @@
     "SOURCE-REACTION-PROJECTION-FACTS": "merged-to-source-master",
     "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY": "merged-accepted-current-package",
     "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY": "merged-verified",
-    "COMP-AUDIT-04-FRESH-TARGET-CLOSURE": "running",
-    "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP": "deferred-planning-guidance",
+    "COMP-AUDIT-04-FRESH-TARGET-CLOSURE": "merged-report-closure-proven",
+    "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP": "optional-future-guidance",
     "SOURCE-SPATIAL-OBJECT-BOUNDARY-CLASSIFICATION": "optional-guidance",
     "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS": "merged-verified",
     "FRESH-REACTION-PROJECTION-REPLAY": "merged-verified"
@@ -4047,13 +4042,13 @@
   "nextWorkRecommendations": [
     "Do not launch more dirty cleanroom replay lanes from LANES.json: the CP8 dirty rehearsal denominator is closed at 659/659 accepted in-scope obligations with known historical harness debt.",
     "Use accepted fresh target 02a1337d5e2be04307d44c63e2596f60c2104301 as the current fresh base. The current package is 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1, and the fresh verifier reports 100 drivers, 667 in-scope obligations, 61 out-of-scope obligations, with 17 current-package runtime claims verified through copied QNT plus public reducer observations.",
-    "Next work is a completion audit against the full objective, not another implementation replay selected from stale source-blocker bookkeeping.",
+    "Completion audit COMP-AUDIT-04-FRESH-TARGET-CLOSURE reports closure-proven with no mandatory remaining work.",
     "For every future fresh lane, require copied QNT-derived expected records, public reducer/source entrypoint observed records, state-owner derivability records for any durable fields, forbidden-path scans, authored-identity dispatch scans, focused verifier updates, and the aggregate current fresh verifier."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "completion-audit-running",
-    "activeLane": "COMP-AUDIT-04-FRESH-TARGET-CLOSURE",
+    "status": "closure-proven",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "02a1337d5e2be04307d44c63e2596f60c2104301",
@@ -4819,16 +4814,15 @@
     "activeWorktree": null,
     "activeBranch": null,
     "activeLaneBaseCommit": null,
-    "activeParallelLanes": [
-      "COMP-AUDIT-04-FRESH-TARGET-CLOSURE"
-    ],
+    "activeParallelLanes": [],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "COMP-AUDIT-04-FRESH-TARGET-CLOSURE",
+    "nextPlannedLane": null,
     "nextWorkRecommendations": [
       "Source master 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1 now contains accepted reaction projection facts in addition to the earlier Hex, exact damage, weapon-hosted, and concentration-hazard source inputs.",
       "Fresh target 02a1337d5e2be04307d44c63e2596f60c2104301 consumes source package 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1 for 17 current-package runtime claims; object-stale public history is accepted through public reducer observations and battle-owned stale subject frontier rejection.",
-      "Do not launch broad selected/grouped identity replay; authored identity stays outside production runtime dispatch."
+      "Do not launch broad selected/grouped identity replay; authored identity stays outside production runtime dispatch.",
+      "Completion audit reports no mandatory remaining work for the architecture proof. Residual selected-spell mapping is optional future guidance."
     ],
     "currentPackageCheckpoint": {
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint",
@@ -4837,7 +4831,7 @@
     },
     "activeFreshReplayLane": null,
     "acceptedFreshTargetHead": "02a1337d5e2be04307d44c63e2596f60c2104301",
-    "lastCompletedBatch": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
+    "lastCompletedBatch": "COMP-AUDIT-04-FRESH-TARGET-CLOSURE",
     "lastCompletedFreshTargetHead": "02a1337d5e2be04307d44c63e2596f60c2104301",
     "lastCompletedSourceMergeHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
     "notes": [
@@ -4848,7 +4842,8 @@
       "Merged FEXP09B current-gate reconciliation into fresh target at ff09b6579ebb507f3c8dca06f2b040d0d46d05fb; aggregate verifier now enforces the standalone FEXP-09B claim and metadata/target consistency.",
       "Merged package refresh FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS into fresh target at 059881d245cf8b1be4cc8cfea5f7dcde48aba5ee; current package now points to source 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1 and reaction projection facts are copied for the next replay lane.",
       "Merged fresh reaction projection replay into fresh target at 5c6163ac6988495e0435b81fcb2696e661c6eca8; the lane accepts generic Armor Class bonus, save/damage, interruption slot/effect, and fall-mitigation projection facts through copied QNT facts and discovered public BattleSubject profiles. Selected reaction spell identity remains blocked.",
-      "Merged fresh object-stale public history replay into fresh target at 02a1337d5e2be04307d44c63e2596f60c2104301; the lane accepts copied ObjectTargetSpellAttack stale route history through public reducer entrypoints and BattleHoleFrontierOwner stale rejection."
+      "Merged fresh object-stale public history replay into fresh target at 02a1337d5e2be04307d44c63e2596f60c2104301; the lane accepts copied ObjectTargetSpellAttack stale route history through public reducer entrypoints and BattleHoleFrontierOwner stale rejection.",
+      "Merged completion audit COMP-AUDIT-04-FRESH-TARGET-CLOSURE into campaign control; verdict closure-proven, mandatory remaining work none."
     ],
     "nextExecutableLaneSetRef": "nextExecutableLaneSet"
   },
@@ -4885,43 +4880,18 @@
     ]
   },
   "nextExecutableLaneSet": {
-    "status": "running",
-    "reason": "Fresh object-stale public history replay is accepted into the target at 02a1337d5e2be04307d44c63e2596f60c2104301. The next work is a completion audit against the full QNT-driven cleanroom objective before any residual selected-spell planning lane.",
-    "lanes": [
-      {
-        "laneId": "COMP-AUDIT-04-FRESH-TARGET-CLOSURE",
-        "kind": "completion-audit",
-        "status": "running",
-        "basePolicy": "Resolve from campaign-control worktree /workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19 at launch; inspect accepted fresh target /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 at 02a1337d5e2be04307d44c63e2596f60c2104301.",
-        "sourceHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
-        "purpose": "Audit whether the current source/QNT package and fresh target evidence prove the thread objective, identify any remaining required tasks, and distinguish closure from residual selected-spell planning.",
-        "parallelGroup": "serial-audit",
-        "writeScopeKind": "campaign-control audit report and state only",
-        "baseSha": "b650352e9c8e40a031f50ae22ed2bb264be26d2c",
-        "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-04-fresh-target-closure",
-        "branch": "ralph/comp-audit-04-fresh-target-closure",
-        "agent": "McClintock the 5th (019f14ab-e91b-7a42-b1a3-bbe8d3999aa1)"
-      }
-    ],
+    "status": "complete",
+    "reason": "COMP-AUDIT-04-FRESH-TARGET-CLOSURE reports closure-proven for the QNT-driven cleanroom reducer-route architecture proof. No mandatory remaining work is queued.",
+    "lanes": [],
     "deferredLanes": [
       {
         "laneId": "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP",
         "reason": "Planning map only if residual selected-spell queue remains ambiguous after narrower lanes."
       }
     ],
-    "integrationRule": "Launch completion audit as the next single campaign-control lane. Only launch SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP if the audit finds it is still required for the real objective."
+    "integrationRule": "No next implementation lane is required for this objective. SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP remains optional future guidance only."
   },
-  "activeParallelLanes": [
-    {
-      "laneId": "COMP-AUDIT-04-FRESH-TARGET-CLOSURE",
-      "kind": "completion-audit",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-comp-audit-04-fresh-target-closure",
-      "branch": "ralph/comp-audit-04-fresh-target-closure",
-      "baseSha": "b650352e9c8e40a031f50ae22ed2bb264be26d2c",
-      "status": "running",
-      "agent": "McClintock the 5th (019f14ab-e91b-7a42-b1a3-bbe8d3999aa1)"
-    }
-  ],
+  "activeParallelLanes": [],
   "completionAuditReports": [
     {
       "laneId": "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
@@ -4940,6 +4910,14 @@
       "status": "merged-report",
       "laneCommit": "4e1e1dc136483ebcc087eb4a49f6ffee800a23da",
       "report": "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_03_BLOCKER_TO_LANE_MAP.md"
+    },
+    {
+      "laneId": "COMP-AUDIT-04-FRESH-TARGET-CLOSURE",
+      "status": "merged-report-closure-proven",
+      "laneCommit": "21d89d119fe3d2dc5ff097b75f1d6819c7ac5e92",
+      "report": "tasks/campaigns/level-1-2-runtime-reducer-route/COMP_AUDIT_04_FRESH_TARGET_CLOSURE.md",
+      "verdict": "closure-proven",
+      "mandatoryRemainingWork": []
     }
   ],
   "lastMergedImplementationBatch": {
