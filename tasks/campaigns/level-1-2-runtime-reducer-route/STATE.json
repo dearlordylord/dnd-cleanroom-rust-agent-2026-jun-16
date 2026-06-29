@@ -882,9 +882,9 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-weapon-hosted-selected",
       "branch": "ralph/fresh-sqnt07a-level1-weapon-hosted-selected",
       "baseSha": "9737474a21fb77df382cf3504dd8a4b3b46ffb5d",
-      "workerAgent": null,
+      "workerAgent": "019f12d4-3c6b-7b42-911a-422e3b0f5c63",
       "reviewerAgent": null,
-      "status": "active-worktree-created-worker-launch-pending"
+      "status": "active-worker-running"
     }
   ],
   "activeSourceQntLanes": [],
@@ -4548,7 +4548,7 @@
     "activeParallelLanes": [
       "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY"
     ],
-    "workerAgent": null,
+    "workerAgent": "019f12d4-3c6b-7b42-911a-422e3b0f5c63",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "completion-audit-or-explicit-source-input-blocker-lane",
     "nextWorkRecommendations": [
