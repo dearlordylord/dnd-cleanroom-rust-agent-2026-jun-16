@@ -299,6 +299,35 @@
       "acceptanceSummary": "Accepted at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. The 545d784 current package replay accepts all 10 SQNT-07A selected spatial witness rows through copied selected-spatial composition connector facts and public reducer entrypoints. Follow-up review fixed the evidence gate to parse copied QNT route bodies and removed duplicate object ids from object-light route/no-fill state; object-light target-choice rows now use SubjectProgress.selected_object as the single runtime owner."
     },
     {
+      "laneId": "FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY",
+      "checkpointId": "FEXP-CP5",
+      "status": "in-progress",
+      "routeClass": "catalog-after-substrate",
+      "purpose": "Renew current-package fresh replay for SQNT-07D active-feature spell-benefit rows through copied generic active-feature route facts and public battle reducer entrypoints.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-feature-selected-identity.route.mbt.qnt"
+      ],
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "expectedOutputs": [
+        "EVIDENCE/fexp09a-sqnt07d-active-feature-current-package-replay.json",
+        "BLOCKERS.json entries for any active-feature spell-benefit row not backed by copied generic route facts",
+        "STATE_OWNERS.md entries for any new durable fresh-target state",
+        "tools/verify_current_fresh_target.py includes accepted FEXP-09A evidence"
+      ],
+      "requiredChecks": [
+        "python3 tools/verify_current_fresh_target.py",
+        "focused FEXP-09A verifier",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "acceptanceSummary": "Running. This is the smallest pending current-package fresh renewal after FEXP-08: active-feature spell-benefit rows were dirty-replayed through copied SQNT-07D route facts, but fresh target acceptance against package 545d784 remains to be proven."
+    },
+    {
       "laneId": "FRESH-RR-SPATIAL-DAMAGE",
       "checkpointId": "FRESH-RR-CP3",
       "status": "merged-with-blockers",
