@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-reaction-projection-accepted-awaiting-object-stale",
+  "status": "fresh-object-stale-public-history-running",
   "currentFreshPackageCheckpoint": {
     "status": "accepted",
     "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
@@ -51,7 +51,7 @@
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint"
     },
     "nextCampaignBatch": {
-      "status": "fresh-reaction-projection-accepted-awaiting-object-stale",
+      "status": "fresh-object-stale-public-history-running",
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "acceptedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
@@ -75,9 +75,13 @@
       ],
       "remainingLane": null,
       "nextParallelism": "Object-stale public history replay is the next serial fresh-runtime lane because it likely touches the same reducer/verifier/state files as the just-accepted reaction projection replay.",
-      "activeParallelLanes": [],
-      "activeLane": null,
-      "activeLanes": [],
+      "activeParallelLanes": [
+        "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY"
+      ],
+      "activeLane": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
+      "activeLanes": [
+        "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY"
+      ],
       "nextExecutableLaneSet": [
         "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY"
       ],
@@ -900,7 +904,7 @@
     "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP": "merged-report",
     "SOURCE-REACTION-PROJECTION-FACTS": "merged-to-source-master",
     "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY": "merged-accepted-current-package",
-    "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY": "ready",
+    "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY": "running",
     "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP": "deferred-planning-guidance",
     "SOURCE-SPATIAL-OBJECT-BOUNDARY-CLASSIFICATION": "optional-guidance",
     "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS": "merged-verified",
@@ -4044,8 +4048,8 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fresh-reaction-projection-accepted-awaiting-object-stale",
-    "activeLane": null,
+    "status": "fresh-object-stale-public-history-running",
+    "activeLane": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
@@ -4811,7 +4815,9 @@
     "activeWorktree": null,
     "activeBranch": null,
     "activeLaneBaseCommit": null,
-    "activeParallelLanes": [],
+    "activeParallelLanes": [
+      "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY"
+    ],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
@@ -4874,19 +4880,22 @@
     ]
   },
   "nextExecutableLaneSet": {
-    "status": "ready",
+    "status": "running",
     "reason": "Fresh reaction projection replay is accepted into the target at 5c6163ac6988495e0435b81fcb2696e661c6eca8. The next runtime evidence should accept object-stale public history through public reducer observations without reading source implementation.",
     "lanes": [
       {
         "laneId": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
         "kind": "fresh-runtime-replay",
-        "status": "ready",
+        "status": "running",
         "basePolicy": "Resolve from accepted fresh target /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 at launch; expected base 5c6163ac6988495e0435b81fcb2696e661c6eca8 unless target advances.",
         "sourceHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
         "purpose": "Consume copied object-stale public route-history facts from battle-runtime-starry-wisp-object.route.mbt.qnt through fresh Rust public reducer observations, preserving the no-authored-identity-dispatch boundary.",
         "parallelGroup": "serial-fresh-runtime",
         "writeScopeKind": "fresh target runtime/evidence/verifier for object-stale public history only",
-        "baseSha": "5c6163ac6988495e0435b81fcb2696e661c6eca8"
+        "baseSha": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-object-stale-public-history-replay",
+        "branch": "ralph/fresh-object-stale-public-history-replay",
+        "agent": "pending"
       }
     ],
     "deferredLanes": [
@@ -4897,7 +4906,17 @@
     ],
     "integrationRule": "Launch object-stale public history as the next single fresh runtime lane from accepted target 5c6163a. After it lands, run completion audit/closure before adding any residual source-selected-spell planning lane."
   },
-  "activeParallelLanes": [],
+  "activeParallelLanes": [
+    {
+      "laneId": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
+      "kind": "fresh-runtime-replay",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-object-stale-public-history-replay",
+      "branch": "ralph/fresh-object-stale-public-history-replay",
+      "baseSha": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
+      "status": "running",
+      "agent": "pending"
+    }
+  ],
   "completionAuditReports": [
     {
       "laneId": "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",

@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-object-stale-public-history-replay` | `ralph/fresh-object-stale-public-history-replay` | `5c6163ac6988495e0435b81fcb2696e661c6eca8` | pending | pending | running |
 
 ## Active Source-QNT Lanes
 
