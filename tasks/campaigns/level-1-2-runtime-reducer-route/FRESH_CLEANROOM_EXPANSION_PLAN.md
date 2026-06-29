@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: current-package FEXP-08 selected-spatial and FEXP-09A active-feature replays accepted at fresh target head `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1`
+Status: current-package FEXP-08 selected-spatial, FEXP-09A active-feature, and FEXP-09B species/passive replays accepted at fresh target head `aa2a77374c9dcfb3923643418795cd0572ce9ee6`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1`
+- current accepted fresh target head: `aa2a77374c9dcfb3923643418795cd0572ce9ee6`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
 
@@ -257,6 +257,11 @@ Status:
   fresh target head `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1`; it accepts all
   3 SQNT-07D active-feature spell-benefit rows through copied active-feature
   route connector facts and public reducer entrypoints, with no blockers.
+- `FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY` is accepted at
+  fresh target head `aa2a77374c9dcfb3923643418795cd0572ce9ee6`; it accepts all
+  15 SQNT-07B species/passive-adjacent rows through copied species/passive
+  route facts and public reducer entrypoints, with 2 inherited Adrenaline Rush
+  rows kept out of scope.
 
 Why last:
 

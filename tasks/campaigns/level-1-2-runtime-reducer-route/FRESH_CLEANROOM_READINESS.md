@@ -42,7 +42,7 @@ Authoritative state:
 - latest dirty package source used by current replay evidence:
   `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
 - latest accepted fresh target head:
-  `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1`
+  `aa2a77374c9dcfb3923643418795cd0572ce9ee6`
 - latest current-package fresh runtime evidence:
   `FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY` accepts all 10
   SQNT-07A selected spatial witness rows through copied selected-spatial route
@@ -53,6 +53,11 @@ Authoritative state:
   `FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY` accepts all 3
   SQNT-07D active-feature spell-benefit rows through copied active-feature route
   connector facts and public reducer entrypoints, with 0 blocked rows.
+  `FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY` accepts all 15
+  SQNT-07B species/passive-adjacent rows through copied species/passive route
+  facts and public reducer entrypoints, with 0 blocked rows and 2 inherited
+  Adrenaline Rush rows out of scope. Its review loop added explicit
+  state-owner/derivability records for the new executable passive/species state.
 - latest source-QNT connector replay batch: SQNT-07B species/passive-adjacent,
   SQNT-07C metamagic, and SQNT-07D active-feature spell-benefit dirty replay is
   accepted at merge head `4b2c415259ad5f3b10d281a536a5aa8499f926b7`; fresh
@@ -205,9 +210,10 @@ Next useful work is one of:
   promote the remaining Task 3 selected-spell blockers after SQNT-03B and the
   FEXP-07 selected/grouped residual blockers into source-side QNT/guidance
   updates before launching more target implementation;
-- use fresh target commit `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1` as the
+- use fresh target commit `aa2a77374c9dcfb3923643418795cd0572ce9ee6` as the
   current `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5` package baseline for
-  FEXP-08 selected-spatial and FEXP-09A active-feature runtime evidence. Use
+  FEXP-08 selected-spatial, FEXP-09A active-feature, and FEXP-09B
+  species/passive runtime evidence. Use
   `05280a8e2d6e9705411c114c80ae2a4e4290de2c` and
   `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` as historical fresh runtime evidence
   for the integrated SDK tracer-bullet, post-FC06 Pact Slot handoff replay, and

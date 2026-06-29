@@ -7,14 +7,15 @@
   "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
   "acceptedFreshTargetPackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
   "currentFreshBaselineCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
-  "acceptedFreshTargetHead": "eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1",
-  "strongestRuntimeEvidenceCommit": "eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1",
+  "acceptedFreshTargetHead": "aa2a77374c9dcfb3923643418795cd0572ce9ee6",
+  "strongestRuntimeEvidenceCommit": "aa2a77374c9dcfb3923643418795cd0572ce9ee6",
   "currentPackageRuntimeAcceptanceClaims": [
     "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY",
-    "FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY"
+    "FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY",
+    "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY"
   ],
   "latestDirtyPackageRefreshCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
-  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, SQNT-07B/C/D feature-species-metamagic route evidence, and SQNT-07A selected-spatial composition route evidence are packaged in cleanroom-input. FEXP-08 fresh replay accepted all 10 selected-spatial route surfaces through public reducer entrypoints at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. FEXP-09A fresh replay accepted all 3 SQNT-07D active-feature spell-benefit rows through public reducer entrypoints at fresh target eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1. Earlier current-package claims are historical after the 545d784 package refresh unless separately replayed against that package.",
+  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, SQNT-07B/C/D feature-species-metamagic route evidence, and SQNT-07A selected-spatial composition route evidence are packaged in cleanroom-input. FEXP-08 fresh replay accepted all 10 selected-spatial route surfaces through public reducer entrypoints at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. FEXP-09A fresh replay accepted all 3 SQNT-07D active-feature spell-benefit rows through public reducer entrypoints at fresh target eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1. FEXP-09B fresh replay accepted all 15 SQNT-07B species/passive-adjacent rows through public reducer entrypoints at fresh target aa2a77374c9dcfb3923643418795cd0572ce9ee6, with 2 inherited Adrenaline Rush rows kept out of scope. Earlier current-package claims are historical after the 545d784 package refresh unless separately replayed against that package.",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,
@@ -331,7 +332,7 @@
     {
       "laneId": "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
       "checkpointId": "FEXP-CP5",
-      "status": "in-progress",
+      "status": "merged",
       "routeClass": "catalog-after-substrate",
       "purpose": "Renew current-package fresh replay for SQNT-07B species/passive-adjacent rows through copied generic species/passive route facts and public battle reducer entrypoints.",
       "drivers": [
@@ -349,13 +350,13 @@
       ],
       "requiredChecks": [
         "python3 tools/verify_current_fresh_target.py",
-        "focused FEXP-09B verifier",
+        "python3 tools/verify_fexp09b_sqnt07b_species_passive.py",
         "cargo fmt --check",
         "cargo test",
         "cargo clippy --all-targets -- -D warnings",
         "git diff --check HEAD~1...HEAD"
       ],
-      "acceptanceSummary": "Running. SQNT-07B species/passive-adjacent rows were dirty-replayed through copied route facts, but fresh target acceptance against package 545d784 remains to be proven."
+      "acceptanceSummary": "Accepted at fresh target aa2a77374c9dcfb3923643418795cd0572ce9ee6. The 545d784 current package replay accepts all 15 SQNT-07B species/passive-adjacent rows through copied species/passive route facts and public reducer entrypoints; 2 inherited Adrenaline Rush rows remain out of scope for this lane. Follow-up review added state-owner and derivability records for the new executable passive/species state."
     },
     {
       "laneId": "FRESH-RR-SPATIAL-DAMAGE",

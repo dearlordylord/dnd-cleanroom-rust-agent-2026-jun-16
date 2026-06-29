@@ -38,7 +38,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1`
+`aa2a77374c9dcfb3923643418795cd0572ce9ee6`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -110,6 +110,11 @@ battle reducer entrypoints, with 0 blocked rows.
 `eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1` against the same source package; it
 accepts all 3 active-feature spell-benefit rows through copied route connector
 facts and public battle reducer entrypoints, with 0 blocked rows.
+`FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY` is accepted at
+`aa2a77374c9dcfb3923643418795cd0572ce9ee6` against the same source package; it
+accepts all 15 species/passive-adjacent rows through copied route facts and
+public battle reducer entrypoints, with 0 blocked rows and 2 inherited
+Adrenaline Rush rows out of scope.
 
 ## Hard Boundaries
 
