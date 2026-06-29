@@ -15,7 +15,7 @@
     "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY"
   ],
   "latestDirtyPackageRefreshCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
-  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, SQNT-07B/C/D feature-species-metamagic route evidence, and SQNT-07A selected-spatial composition route evidence are packaged in cleanroom-input. FEXP-08 fresh replay accepted all 10 selected-spatial route surfaces through public reducer entrypoints at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. FEXP-09A fresh replay accepted all 3 SQNT-07D active-feature spell-benefit rows through public reducer entrypoints at fresh target eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1. FEXP-09B fresh replay accepted all 15 SQNT-07B species/passive-adjacent rows through public reducer entrypoints at fresh target aa2a77374c9dcfb3923643418795cd0572ce9ee6, with 2 inherited Adrenaline Rush rows kept out of scope. Earlier current-package claims are historical after the 545d784 package refresh unless separately replayed against that package.",
+  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, SQNT-07B/C/D feature-species-metamagic route evidence, and SQNT-07A selected-spatial composition route evidence are packaged in cleanroom-input. FEXP-08 fresh replay accepted all 10 selected-spatial route surfaces through public reducer entrypoints at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. FEXP-09A fresh replay accepted all 3 SQNT-07D active-feature spell-benefit rows through public reducer entrypoints at fresh target eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1. FEXP-09B fresh replay accepted all 15 SQNT-07B species/passive-adjacent rows through public reducer entrypoints at fresh target aa2a77374c9dcfb3923643418795cd0572ce9ee6, with 2 inherited Adrenaline Rush rows kept out of scope. FEXP-09C is in progress for the SQNT-07C Quickened/governor subset; it is not an accepted current-package claim yet. Earlier current-package claims are historical after the 545d784 package refresh unless separately replayed against that package.",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,
@@ -357,6 +357,36 @@
         "git diff --check HEAD~1...HEAD"
       ],
       "acceptanceSummary": "Accepted at fresh target aa2a77374c9dcfb3923643418795cd0572ce9ee6. The 545d784 current package replay accepts all 15 SQNT-07B species/passive-adjacent rows through copied species/passive route facts and public reducer entrypoints; 2 inherited Adrenaline Rush rows remain out of scope for this lane. Follow-up review added state-owner and derivability records for the new executable passive/species state."
+    },
+    {
+      "laneId": "FEXP-09C-SQNT07C-QUICKENED-GOVERNOR-CURRENT-PACKAGE-REPLAY",
+      "checkpointId": "FEXP-CP5",
+      "status": "in-progress",
+      "routeClass": "catalog-after-substrate",
+      "purpose": "Renew current-package fresh replay for the SQNT-07C Quickened/governor metamagic subset through copied generic metamagic route facts and public battle reducer entrypoints.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-quickened-spell-governor.mbt.qnt",
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic-selected-identity.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-sorcerer-metamagic.route.mbt.qnt"
+      ],
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "expectedOutputs": [
+        "EVIDENCE/fexp09c-sqnt07c-quickened-governor-current-package-replay.json",
+        "BLOCKERS.json entries for metamagic option rows outside the Quickened/governor subset",
+        "STATE_OWNERS.md entries for new durable metamagic/governor state",
+        "tools/verify_current_fresh_target.py includes accepted FEXP-09C evidence"
+      ],
+      "requiredChecks": [
+        "python3 tools/verify_current_fresh_target.py",
+        "python3 tools/verify_fexp09c_sqnt07c_quickened_governor.py",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "acceptanceSummary": "Running. SQNT-07C Quickened/governor metamagic rows must be replayed from copied route facts through public reducer entrypoints against package 545d784 before this becomes an accepted current-package claim."
     },
     {
       "laneId": "FRESH-RR-SPATIAL-DAMAGE",
