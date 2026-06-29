@@ -66,7 +66,6 @@
       "remainingLane": null,
       "nextParallelism": "Remaining work can split by source-input families with non-overlapping write sets: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, and exact weapon-hosted arithmetic/identity details.",
       "activeParallelLanes": [
-        "FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE",
         "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
         "SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT"
       ],
@@ -899,15 +898,6 @@
   "activeLaneWorktrees": [],
   "activeSourceQntLanes": [
     {
-      "laneId": "FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-hex-ability-roll-mode",
-      "branch": "ralph/source-sqnt07a-hex-ability-roll-mode",
-      "baseSha": "06f8042513df94bc96e02ec9d213a0d52d942bac",
-      "workerAgent": "019f134e-9326-74d0-8b92-0fe8852fc12d",
-      "status": "running",
-      "scope": "generic targeted ability-check roll-mode route facts for selected-ability disadvantage"
-    },
-    {
       "laneId": "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-concentration-hazard-selected",
       "branch": "ralph/source-sqnt07a-concentration-hazard-selected",
@@ -927,6 +917,19 @@
     }
   ],
   "completedSourceQntLanes": [
+    {
+      "laneId": "FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-hex-ability-roll-mode",
+      "branch": "ralph/source-sqnt07a-hex-ability-roll-mode",
+      "baseSha": "06f8042513df94bc96e02ec9d213a0d52d942bac",
+      "workerAgent": "019f134e-9326-74d0-8b92-0fe8852fc12d",
+      "laneHead": "ba70004531229d4cff641afea8a045405bf1870f",
+      "sourceMergeCommit": "6d4991144",
+      "sourceFollowUpCommit": "bc06e3fbe",
+      "status": "accepted-and-merged-to-source-master",
+      "reviewerAgent": "019f136b-bff6-7fd3-a136-45b6f0bf5b66",
+      "scope": "generic targeted ability-check roll-mode route facts for selected-ability disadvantage, nonmatching normal projections, active-effect/Concentration ownership, and cleanup"
+    },
     {
       "laneId": "SQNT-03G-EXACT-DAMAGE-PROJECTION-FACTS",
       "routeTaskId": "FCSF-03G-EXACT-DAMAGE-PROJECTION-FACTS",
@@ -4713,11 +4716,10 @@
     "activeBranch": "parallel-source-qnt-lanes",
     "activeLaneBaseCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac",
     "activeParallelLanes": [
-      "FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE",
       "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
       "SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT"
     ],
-    "workerAgent": "019f134e-9326-74d0-8b92-0fe8852fc12d, 019f134e-d458-7bb0-9508-37feb3d38f78, 019f134f-754c-7ce3-bbb7-d398363dd204",
+    "workerAgent": "019f134e-d458-7bb0-9508-37feb3d38f78, 019f134f-754c-7ce3-bbb7-d398363dd204",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "merge-source-qnt-wave-then-fresh-replay-ready-facts",
     "nextWorkRecommendations": [
