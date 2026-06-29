@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: current-package FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, and reaction/interrupt taxonomy replays accepted at fresh target head `f9ed3d1d1562233599fd88b44fa55f9637277e56`
+Status: current-package FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, and battle active-effects replays accepted at fresh target head `d776f392bcffb1ce28283281570d486e54e4b3ed`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `f9ed3d1d1562233599fd88b44fa55f9637277e56`
+- current accepted fresh target head: `d776f392bcffb1ce28283281570d486e54e4b3ed`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
 - current package inventory: `98` drivers, `663` in-scope obligations, `45` out-of-scope obligations
@@ -280,39 +280,29 @@ Status:
   component/duration rows.
 - The current aggregate verifier accepts FEXP-08, FEXP-09A, FEXP-09B,
   FEXP-09C, FEXP-09D, FEXP-09E, FEXP-09F, FEXP-09G, SQNT-07A
-  active-effect/condition, spatial/damage, character/sheet/handoff, and
-  reaction/interrupt taxonomy at final fresh target head
-  `f9ed3d1d1562233599fd88b44fa55f9637277e56`.
+  active-effect/condition, spatial/damage, character/sheet/handoff,
+  reaction/interrupt taxonomy, and battle active-effects at final fresh target
+  head `d776f392bcffb1ce28283281570d486e54e4b3ed`.
 
 ## Next Fresh Proof-Renewal Batch
 
 Do not launch more dirty cleanroom lanes. The dirty CP8 rehearsal denominator is
 closed, and `MERGE_QUEUE.md` is empty.
 
-The latest Ralph batch accepted four current-package renewal lanes:
+The latest Ralph renewal batch is accepted. It renewed these current-package
+lanes against the fresh target:
 
 - `FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY`
 - `FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY`
 - `FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY`
 - `FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY`
-
-Launch the next Ralph work against fresh target head
-`f9ed3d1d1562233599fd88b44fa55f9637277e56` unless a later accepted fresh base
-is recorded before launch:
-
 - `FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY`
 
-Recommended parallelism:
-
-- run battle active-effects as a single focused lane unless it is split by
-  active-effect owner family during preflight;
-- if it splits, each sublane must have disjoint owner/write scopes and a final
-  integration pass must reconcile shared active-effect state-owner records.
-
-Remaining true blockers stay source-input work only: marked-immunity residual
-selected rows, Jump landing legality plus failed-landing Prone, and
-concentration-backed area hazards. Do not relaunch broad selected/grouped
-identity replay.
+No planned current-package proof-renewal lane remains in this batch. The next
+work should be a completion audit or a lane for an explicit source-input blocker:
+marked-immunity residual selected rows, Jump landing legality plus
+failed-landing Prone, or concentration-backed area hazards. Do not relaunch
+broad selected/grouped identity replay.
 
 Why last:
 

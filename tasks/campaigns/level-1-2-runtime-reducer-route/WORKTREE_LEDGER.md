@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-battle-active-effects` | `ralph/fresh-renew-battle-active-effects` | `f9ed3d1d1562233599fd88b44fa55f9637277e56` | Darwin the 4th (`019f124c-0910-7ee1-9cff-424a10c089de`) | _pending_ | running |
+| _none_ | | | | | | |
 
 ## Active Source-QNT Lanes
 
@@ -64,6 +64,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-battle-active-effects` | `ralph/fresh-renew-battle-active-effects` | `b74b0fa643c80ab384987e95e7e2927af73faea2` | `d776f392bcffb1ce28283281570d486e54e4b3ed` | removable after retention decision; accepted after current-package hash renewal and verifier hardening; SQNT-03A/B/C/D active-effect route surfaces are current-package fresh evidence with no retained blockers |
 | FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-reaction-interrupt-taxonomy` | `ralph/fresh-renew-reaction-interrupt-taxonomy` | `0033f9be5616fe8f2e71de0b469d38294d2515d4` | `f9ed3d1d1562233599fd88b44fa55f9637277e56` | removable after retention decision; accepted-with-blockers after source-hash and static-example verifier hardening; 5 generic reaction/interrupt taxonomy route surfaces are current-package fresh evidence, with selected reaction spell projections explicitly blocked |
 | FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-character-sheet-handoff` | `ralph/fresh-renew-character-sheet-handoff` | `a3765d0ba5d3ded241a30ff9b51706c7ba257d1f` | `bde5f7840e91788bc18f48762fae669b31ec3757` | removable after retention decision; accepted after verifier hardening for stale drift classification, blocker slot checks, and duplicate claim/classification keys; character creation, sheet, resource, handoff, settlement, and zero-HP lifecycle rows are current-package fresh evidence |
 | FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-spatial-damage` | `ralph/fresh-renew-spatial-damage` | `34c716e7cef019c89782170ca319917c6c6f21d9` | `83119b9e7b2af11134c7dfa7efcfceb0277083db` | removable after retention decision; accepted-with-blockers after residual blocker verifier hardening; spatial/object-light/mixed-target route surfaces are current-package fresh evidence, while exact component/source-input gaps remain explicit blockers |

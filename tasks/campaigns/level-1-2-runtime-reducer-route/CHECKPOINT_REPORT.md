@@ -28,12 +28,13 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Current Fresh Verification
 
-At campaign-control head `a3bf8ddbe8054b9d88269d245e3fc3dc99e9eb49`
+At campaign-control head `3efa9808aa4190e5035d2d8f2bf67f3dc5612c03`
 before this checkpoint update and fresh target head
-`f9ed3d1d1562233599fd88b44fa55f9637277e56`:
+`d776f392bcffb1ce28283281570d486e54e4b3ed`:
 
 - `python3 tools/verify_current_fresh_target.py`: pass
 - `python3 tools/verify_fresh_rr_reaction_interrupt_taxonomy.py`: pass
+- `python3 tools/verify_fresh_rr_battle_active_effects.py`: pass
 - `cargo test fresh_reaction_interrupt_taxonomy_routes_use_generic_payload_shapes --test reducer_spine`: pass
 - `cargo fmt --check`: pass
 - `cargo test`: pass
@@ -43,13 +44,13 @@ before this checkpoint update and fresh target head
 - inventory: `98` drivers, `663` in-scope obligations, `45` out-of-scope
   obligations
 - current fresh runtime claims: FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A
-  active-effect/condition, spatial/damage, character/sheet/handoff, and
-  reaction/interrupt taxonomy
+  active-effect/condition, spatial/damage, character/sheet/handoff,
+  reaction/interrupt taxonomy, and battle active-effects
 - active fresh expansion lanes: none
 
-This supersedes the older FEXP-09G checkpoint as the current fresh target state.
-It does not change the CP8 dirty rehearsal denominator. The remaining planned
-current-package renewal lane is `FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY`.
+This supersedes the older FEXP-09G and partial renewal checkpoints as the
+current fresh target state. It does not change the CP8 dirty rehearsal
+denominator. No planned current-package proof-renewal lane remains in this batch.
 
 ## Last Dirty Rehearsal Verification
 
@@ -76,7 +77,7 @@ refreshed source inventory also marks `45` obligations out of scope, including
 the nine scenario sequencing rows moved out of the reducer-route denominator.
 
 The current fresh package checkpoint is separate: the fresh verifier at
-`f9ed3d1d1562233599fd88b44fa55f9637277e56` reports `98` drivers, `663`
+`d776f392bcffb1ce28283281570d486e54e4b3ed` reports `98` drivers, `663`
 in-scope obligations, and `45` out-of-scope obligations for source package
 `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
 
