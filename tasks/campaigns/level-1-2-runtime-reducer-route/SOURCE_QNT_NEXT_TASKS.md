@@ -24,18 +24,22 @@ Accepted fresh replay now covers:
 - SQNT-07A spatial/movement generic route facts: 16 copied route rows.
 - SQNT-07A level-1 marked/immunity selected-row replay: 4 selected rows
   accepted through copied generic marked-damage/immunity route facts.
+- SQNT-07A level-1 scalar-buff selected-row replay: 2 selected rows accepted
+  through copied generic scalar-buff route facts.
 
 Still blocked:
 
-- Level-1 scalar-buff selected rows.
 - Level-1 after-hit/timed rider selected rows.
 - Level-1 weapon-hosted selected rows.
 - Hex ability-check roll-mode.
 - `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`.
 - `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
 
-Future source-QNT work should close one of those exact blockers through generic
-route facts. Do not treat broad selected/grouped identity replay as an
+Future work should close one of those exact blockers through generic route
+facts. After-hit/timed rider and weapon-hosted selected rows have copied route
+facts and can proceed as fresh replay. Hex ability-check roll-mode, Jump
+landing/Prone, and concentration-backed area hazards still need source-QNT
+facts first. Do not treat broad selected/grouped identity replay as an
 implementation task.
 
 ## Current Boundary

@@ -28,15 +28,16 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Current Fresh Verification
 
-At campaign-control head `50b63000df17efd8c47c30a50461421aca6598ee`
+At campaign-control head `4cf40097d8f536cf4be1a402c93f700df4042ec0`
 before this checkpoint update and fresh target head
-`a7b4a30fae4b293ca48feec50041c9fa6a706db8`:
+`6f526cb20165a00707bf90c59096087464a5d108`:
 
 - `python3 tools/verify_current_fresh_target.py`: pass
 - `python3 tools/verify_fresh_rr_reaction_interrupt_taxonomy.py`: pass
 - `python3 tools/verify_fresh_rr_battle_active_effects.py`: pass
 - `python3 tools/verify_fresh_rr_sqnt07a_level1_marked_immunity_selected.py`:
   pass
+- `python3 tools/verify_fresh_rr_sqnt07a_level1_scalar_buff_selected.py`: pass
 - `cargo test fresh_reaction_interrupt_taxonomy_routes_use_generic_payload_shapes --test reducer_spine`: pass
 - `cargo fmt --check`: pass
 - `cargo test`: pass
@@ -48,7 +49,7 @@ before this checkpoint update and fresh target head
 - current fresh runtime claims: FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A
   active-effect/condition, spatial/damage, character/sheet/handoff,
   reaction/interrupt taxonomy, battle active-effects, and level-1
-  marked/immunity selected-row replay
+  marked/immunity plus scalar-buff selected-row replays
 - active fresh expansion lanes: none
 
 This supersedes the older FEXP-09G and partial renewal checkpoints as the
@@ -80,7 +81,7 @@ refreshed source inventory also marks `45` obligations out of scope, including
 the nine scenario sequencing rows moved out of the reducer-route denominator.
 
 The current fresh package checkpoint is separate: the fresh verifier at
-`a7b4a30fae4b293ca48feec50041c9fa6a706db8` reports `98` drivers, `663`
+`6f526cb20165a00707bf90c59096087464a5d108` reports `98` drivers, `663`
 in-scope obligations, and `45` out-of-scope obligations for source package
 `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
 
@@ -736,10 +737,38 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
   tools/verify_current_fresh_target.py`, `cargo fmt --check`, `cargo test`,
   `cargo clippy --all-targets -- -D warnings`, and `git diff --check
   HEAD~1...HEAD` passed.
-- Residual blockers preserved: scalar-buff selected rows, after-hit/timed rider
-  selected rows, weapon-hosted selected rows, Hex ability-check roll-mode, Jump
-  landing legality and failed-landing Prone, and concentration-backed area
-  hazards.
+- Residual blockers preserved at that checkpoint: scalar-buff selected rows,
+  after-hit/timed rider selected rows, weapon-hosted selected rows, Hex
+  ability-check roll-mode, Jump landing legality and failed-landing Prone, and
+  concentration-backed area hazards. The scalar-buff subset is closed by
+  `FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY`.
 - Scope note: this is selected-row acceptance only where the selected rows
   reduce to generic copied QNT route facts. It does not accept broad selected
   identity replay.
+
+### FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY
+
+- Fresh target merge commit: `6f526cb20165a00707bf90c59096087464a5d108`.
+- Worker head: `9a79b6942a8a2e839f5be04e3e0663c21754fd3b`.
+- Worker: Planck the 4th (`019f129d-43d6-7250-9d4f-5b4a0e11ecdd`).
+- Reviewer: Fermat the 4th (`019f12ab-9d5e-7f50-94e4-d1ee2609f2c8`).
+- Result: accepted-with-blockers. Exactly two selected level-1 rows route
+  through copied generic scalar-buff facts: False Life immediate Temporary Hit
+  Points and Longstrider Speed increase.
+- Review/fixer notes: orchestrator pre-review caught a duplicate evidence JSON
+  key before commit; the worker fixed it and added duplicate-key checks. The
+  independent reviewer found no findings. The reviewer noted residual trust in
+  the narrow copied-QNT parser, mitigated by source hash pins, duplicate-key
+  rejection, public reducer observations, and aggregate verifier coverage.
+- Verification in fresh target: `python3
+  tools/verify_fresh_rr_sqnt07a_level1_scalar_buff_selected.py`, `python3
+  tools/verify_fresh_rr_sqnt07a_level1_marked_immunity_selected.py`, `python3
+  tools/verify_current_fresh_target.py`, `cargo test sqnt07a_level1_ --
+  --nocapture`, `cargo fmt --check`, `cargo test`, `cargo clippy --all-targets
+  -- -D warnings`, and `git diff --check HEAD~1...HEAD` passed after merge.
+- Residual blockers preserved: after-hit/timed rider selected rows,
+  weapon-hosted selected rows, Hex ability-check roll-mode, Jump landing
+  legality and failed-landing Prone, and concentration-backed area hazards.
+- Scope note: this is selected-row acceptance only where the selected rows
+  reduce to generic copied scalar-buff route facts. It does not accept broad
+  selected identity replay.

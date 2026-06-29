@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: current-package FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects, and level-1 marked/immunity selected-row replays accepted at fresh target head `a7b4a30fae4b293ca48feec50041c9fa6a706db8`
+Status: current-package FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects, level-1 marked/immunity selected-row, and level-1 scalar-buff selected-row replays accepted at fresh target head `6f526cb20165a00707bf90c59096087464a5d108`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `a7b4a30fae4b293ca48feec50041c9fa6a706db8`
+- current accepted fresh target head: `6f526cb20165a00707bf90c59096087464a5d108`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
 - current package inventory: `98` drivers, `663` in-scope obligations, `45` out-of-scope obligations
@@ -281,14 +281,19 @@ Status:
 - `FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY` is accepted at
   fresh target head `a7b4a30fae4b293ca48feec50041c9fa6a706db8`; it accepts
   exactly four selected level-1 rows through copied generic marked-damage and
-  immunity route facts, with scalar-buff, after-hit/timed rider, weapon-hosted,
-  and Hex ability-check rows still blocked.
+  immunity route facts. At that checkpoint scalar-buff, after-hit/timed rider,
+  weapon-hosted, and Hex ability-check rows were still blocked; the scalar-buff
+  subset is closed by the next lane below.
+- `FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY` is accepted at fresh
+  target head `6f526cb20165a00707bf90c59096087464a5d108`; it accepts exactly
+  two selected level-1 rows through copied generic scalar-buff route facts, with
+  after-hit/timed rider, weapon-hosted, and Hex ability-check rows still blocked.
 - The current aggregate verifier accepts FEXP-08, FEXP-09A, FEXP-09B,
   FEXP-09C, FEXP-09D, FEXP-09E, FEXP-09F, FEXP-09G, SQNT-07A
   active-effect/condition, spatial/damage, character/sheet/handoff,
-  reaction/interrupt taxonomy, battle active-effects, and level-1
-  marked/immunity selected-row replay at final fresh target head
-  `a7b4a30fae4b293ca48feec50041c9fa6a706db8`.
+  reaction/interrupt taxonomy, battle active-effects, level-1 marked/immunity
+  selected-row replay, and level-1 scalar-buff selected-row replay at final
+  fresh target head `6f526cb20165a00707bf90c59096087464a5d108`.
 
 ## Next Fresh Proof-Renewal Batch
 
@@ -304,12 +309,14 @@ lanes against the fresh target:
 - `FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY`
 - `FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY`
 - `FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY`
+- `FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY`
 
 The next fresh work should choose one explicit residual group at a time:
-level-1 scalar-buff selected rows, after-hit/timed rider selected rows,
-weapon-hosted selected rows, Hex ability-check roll-mode, Jump landing legality
-plus failed-landing Prone, or concentration-backed area hazards. Do not relaunch
-broad selected/grouped identity replay.
+after-hit/timed rider selected rows or weapon-hosted selected rows can start as
+fresh replay from copied generic facts. Hex ability-check roll-mode, Jump
+landing legality plus failed-landing Prone, and concentration-backed area
+hazards need source-QNT work first. Do not relaunch broad selected/grouped
+identity replay.
 
 Why last:
 

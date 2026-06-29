@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-scalar-buff-selected` | `ralph/fresh-sqnt07a-level1-scalar-buff-selected` | `a7b4a30fae4b293ca48feec50041c9fa6a706db8` | Planck the 4th (`019f129d-43d6-7250-9d4f-5b4a0e11ecdd`) | pending | active; accepts only False Life and Longstrider selected rows reducible to copied generic scalar-buff route facts |
+| _none_ | | | | | | |
 
 ## Active Source-QNT Lanes
 
@@ -64,6 +64,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-scalar-buff-selected` | `ralph/fresh-sqnt07a-level1-scalar-buff-selected` | `9a79b6942a8a2e839f5be04e3e0663c21754fd3b` | `6f526cb20165a00707bf90c59096087464a5d108` | removable after retention decision; accepted-with-blockers; exactly two selected level-1 scalar-buff rows route through copied generic scalar-buff facts; retained after-hit/timed rider, weapon-hosted, Hex ability-check, Jump/Prone, and concentration-backed hazard blockers |
 | FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-marked-immunity-selected` | `ralph/fresh-sqnt07a-level1-marked-immunity-selected` | `e6f3a440ec69949dde17d351e3172b2897006b07` | `a7b4a30fae4b293ca48feec50041c9fa6a706db8` | removable after retention decision; accepted-with-blockers; exactly four selected level-1 rows route through copied generic marked-damage/immunity facts; retained scalar-buff, after-hit/timed rider, weapon-hosted, and Hex ability-check blockers |
 | FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-battle-active-effects` | `ralph/fresh-renew-battle-active-effects` | `b74b0fa643c80ab384987e95e7e2927af73faea2` | `d776f392bcffb1ce28283281570d486e54e4b3ed` | removable after retention decision; accepted after current-package hash renewal and verifier hardening; SQNT-03A/B/C/D active-effect route surfaces are current-package fresh evidence with no retained blockers |
 | FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-reaction-interrupt-taxonomy` | `ralph/fresh-renew-reaction-interrupt-taxonomy` | `0033f9be5616fe8f2e71de0b469d38294d2515d4` | `f9ed3d1d1562233599fd88b44fa55f9637277e56` | removable after retention decision; accepted-with-blockers after source-hash and static-example verifier hardening; 5 generic reaction/interrupt taxonomy route surfaces are current-package fresh evidence, with selected reaction spell projections explicitly blocked |
