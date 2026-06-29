@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FEXP-09F-SQNT07C-METAMAGIC-REROLLS | `/workspace/typescript/.codex-worktrees/dnd-fresh-fexp09f-metamagic-rerolls` | `ralph/fexp-09f-metamagic-rerolls` | `2a19398143f37391eb304efab302c27b43d19bd1` | Cicero the 4th (`019f11f1-f27e-7912-9de0-05c214b2cc29`) | pending | running |
 
 ## Active Source-QNT Lanes
 
