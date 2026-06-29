@@ -392,7 +392,7 @@
     {
       "laneId": "FEXP-09D-SQNT07C-METAMAGIC-SAVE-MODES",
       "checkpointId": "FEXP-CP6",
-      "status": "pending-after-FEXP-09C",
+      "status": "in-progress",
       "routeClass": "catalog-after-substrate",
       "purpose": "Replay remaining SQNT-07C Careful/Heightened save-mode rows through copied metamagic save-protection and saving-throw-roll-mode route facts.",
       "drivers": [
@@ -413,7 +413,7 @@
         "tools/verify_fexp09d_sqnt07c_metamagic_save_modes.py",
         "STATE_OWNERS.md entries for any new save outcome, save roll-mode, damage adjustment, or condition lifecycle state"
       ],
-      "parallelism": "Can run beside FEXP-09G after FEXP-09C if evidence/verifier files remain disjoint and shared metamagic resource/admission state is already landed."
+      "parallelism": "Running beside FEXP-09G from base e47a0dd in isolated worktree /workspace/typescript/.codex-worktrees/dnd-fresh-fexp09d-metamagic-save-modes; merge serially after review."
     },
     {
       "laneId": "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
@@ -472,7 +472,7 @@
     {
       "laneId": "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION",
       "checkpointId": "FEXP-CP6",
-      "status": "pending-after-FEXP-09C",
+      "status": "in-progress",
       "routeClass": "catalog-after-substrate",
       "purpose": "Replay remaining SQNT-07C Subtle/Extended component and duration rows through copied spell-component and spell-duration route facts.",
       "drivers": [
@@ -493,7 +493,7 @@
         "tools/verify_fexp09g_sqnt07c_metamagic_component_duration.py",
         "STATE_OWNERS.md entries for any new component projection, duration, active-effect, or concentration state"
       ],
-      "parallelism": "Can run beside FEXP-09D after FEXP-09C if evidence/verifier files remain disjoint and shared metamagic resource/admission state is already landed."
+      "parallelism": "Running beside FEXP-09D from base e47a0dd in isolated worktree /workspace/typescript/.codex-worktrees/dnd-fresh-fexp09g-metamagic-component-duration; merge serially after review."
     },
     {
       "laneId": "FRESH-RR-SPATIAL-DAMAGE",

@@ -28,6 +28,8 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
+| FEXP-09D-SQNT07C-METAMAGIC-SAVE-MODES | `/workspace/typescript/.codex-worktrees/dnd-fresh-fexp09d-metamagic-save-modes` | `ralph/fexp-09d-metamagic-save-modes` | `e47a0dd21a59b164f5478dfa1eb0ae056aa13b6b` | Singer the 4th (`019f11aa-9bae-70f2-a035-4074384c3e04`) | pending | running |
+| FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION | `/workspace/typescript/.codex-worktrees/dnd-fresh-fexp09g-metamagic-component-duration` | `ralph/fexp-09g-metamagic-component-duration` | `e47a0dd21a59b164f5478dfa1eb0ae056aa13b6b` | Halley the 4th (`019f11ab-0235-7b53-9cdf-a75116bb1c7d`) | pending | running |
 
 ## Active Source-QNT Lanes
 
