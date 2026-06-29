@@ -26,7 +26,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS | `/workspace/typescript/.codex-worktrees/dnd-fresh-package-refresh-source-01ffe` | `ralph/fresh-package-refresh-source-01ffe-reaction-facts` | `8f37459edf5585313314b91a3969aa38741a82a1` | pending spawn | pending | running |
 
 ## Active Source-QNT Lanes
 

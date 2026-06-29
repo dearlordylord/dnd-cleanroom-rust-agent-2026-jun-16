@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "condition-saving-accepted-source-reaction-merged-awaiting-package-refresh",
+  "status": "package-refresh-running",
   "currentFreshPackageCheckpoint": {
     "status": "accepted",
     "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
@@ -51,7 +51,7 @@
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint"
     },
     "nextCampaignBatch": {
-      "status": "condition-saving-accepted-source-reaction-merged-awaiting-package-refresh",
+      "status": "package-refresh-running",
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "acceptedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
@@ -75,9 +75,13 @@
       ],
       "remainingLane": null,
       "nextParallelism": "Package refresh is serial; after it lands, reaction projection replay and object-stale replay can be reassessed for parallelism.",
-      "activeParallelLanes": [],
-      "activeLane": null,
-      "activeLanes": [],
+      "activeParallelLanes": [
+        "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS"
+      ],
+      "activeLane": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
+      "activeLanes": [
+        "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS"
+      ],
       "nextExecutableLaneSet": null,
       "nextPlannedLane": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
       "lastCompletedBatch": "SOURCE-REACTION-PROJECTION-FACTS + FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
@@ -901,7 +905,7 @@
     "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY": "deferred-after-package-refresh-decision",
     "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP": "deferred-planning-guidance",
     "SOURCE-SPATIAL-OBJECT-BOUNDARY-CLASSIFICATION": "optional-guidance",
-    "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS": "ready",
+    "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS": "running",
     "FRESH-REACTION-PROJECTION-REPLAY": "blocked-on-package-refresh"
   },
   "lastIntegrationVerification": {
@@ -4042,8 +4046,8 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "condition-saving-accepted-awaiting-package-refresh",
-    "activeLane": null,
+    "status": "package-refresh-running",
+    "activeLane": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
     "acceptedTargetHead": "8f37459edf5585313314b91a3969aa38741a82a1",
@@ -4809,7 +4813,9 @@
     "activeWorktree": null,
     "activeBranch": null,
     "activeLaneBaseCommit": null,
-    "activeParallelLanes": [],
+    "activeParallelLanes": [
+      "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS"
+    ],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
@@ -4870,18 +4876,22 @@
     ]
   },
   "nextExecutableLaneSet": {
-    "status": "ready-serial-package-refresh-not-launched",
+    "status": "running-serial-package-refresh",
     "reason": "Source master advanced from current cleanroom-input package 4d196258 to 01ffe81e with reaction projection QNT facts. Refresh the package before accepting reaction projection replay so new runtime evidence is not immediately stale.",
     "lanes": [
       {
         "laneId": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
         "kind": "fresh-package-refresh",
-        "status": "ready",
+        "status": "running",
         "basePolicy": "Resolve from accepted fresh target /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 at launch; expected base 8f37459edf5585313314b91a3969aa38741a82a1 unless target advances.",
         "sourceHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
         "purpose": "Refresh copied cleanroom-input from source master 01ffe81e so reaction projection facts are available to future fresh replay; update manifest/hash/inventory/current gate without adding new runtime behavior.",
         "parallelGroup": "serial-package-refresh",
-        "writeScopeKind": "fresh target cleanroom-input package, manifest/hash/current package metadata/verifier only"
+        "writeScopeKind": "fresh target cleanroom-input package, manifest/hash/current package metadata/verifier only",
+        "baseSha": "8f37459edf5585313314b91a3969aa38741a82a1",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-package-refresh-source-01ffe",
+        "branch": "ralph/fresh-package-refresh-source-01ffe-reaction-facts",
+        "agent": "pending spawn"
       }
     ],
     "deferredLanes": [
@@ -4900,7 +4910,17 @@
     ],
     "integrationRule": "Run the package refresh serially. After it passes the aggregate gate, select fresh reaction projection and object-stale replay with non-overlapping write scopes or run sequentially if src/lib.rs/verifier overlap remains likely."
   },
-  "activeParallelLanes": [],
+  "activeParallelLanes": [
+    {
+      "laneId": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
+      "kind": "fresh-package-refresh",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-package-refresh-source-01ffe",
+      "branch": "ralph/fresh-package-refresh-source-01ffe-reaction-facts",
+      "baseSha": "8f37459edf5585313314b91a3969aa38741a82a1",
+      "status": "running",
+      "agent": "pending spawn"
+    }
+  ],
   "completionAuditReports": [
     {
       "laneId": "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
