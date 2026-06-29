@@ -12,7 +12,9 @@ Audit baseline:
 - live campaign head source: `git rev-parse HEAD` in the campaign control worktree
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - current accepted fresh package/runtime head:
-  `ce9f653e3cba6a9eefa0d2f14e11757f7081e618`
+  `444295121a3cbe0631dc36ef2280c27d2ef5631c`
+- source master route-witness head:
+  `06f8042513df94bc96e02ec9d213a0d52d942bac`
 - current fresh gate: `python3 tools/verify_current_fresh_target.py`
 - current fresh package source:
   `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
@@ -23,7 +25,9 @@ Audit baseline:
   spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, and
   battle active-effects, plus level-1 marked/immunity and scalar-buff
   selected-row replays, level-1 after-hit/timed rider selected-row replay, and
-  level-1 weapon-hosted generic route-surface replay
+  level-1 weapon-hosted generic route-surface replay, Jump landing/prone
+  generic route-surface replay, and concentration-backed area hazard generic
+  route-surface replay
 
 ## Objective
 
@@ -42,7 +46,7 @@ fresh cleanroom and which review checks prevent false positives.
 | --- | --- | --- | --- |
 | Dirty rehearsal routes the refreshed in-scope denominator through reducer-shaped evidence. | `STATE.json.coverageCurrent` records `97 / 97` accepted drivers and `659 / 659` accepted refreshed in-scope obligations; `CHECKPOINT_REPORT.md` records CP8 and Pact Slot replay evidence. | Proven for dirty rehearsal. | This is diagnostic evidence only. It must not be treated as final architecture proof. |
 | Accepted dirty evidence uses shared reducer entrypoints rather than local replay islands. | `FRESH_CLEANROOM_READINESS.md` summarizes the review loop that rejected adapter-local synthesis and required observed route events from reducer entrypoints; `CHECKPOINT_REPORT.md` records per-lane verification. | Proven for accepted dirty rows by campaign review artifacts. | The proof strength is bounded by the dirty target and its historical scaffolding. |
-| Fresh target can be built without reading TypeScript implementation or dirty `src/**` implementation files. | Fresh target state/evidence records `copiedDirtySrcImplementation: false`; `python3 tools/verify_current_fresh_target.py` passes at `ce9f653e3cba6a9eefa0d2f14e11757f7081e618`; current package is `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`. | Proven for the FC/FEXP dry-run scope plus current-package FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects acceptance, level-1 marked/immunity selected-row replay, level-1 scalar-buff selected-row replay, level-1 after-hit/timed rider selected-row replay, and level-1 weapon-hosted generic route-surface replay. | Older fresh evidence remains historical until renewed against the current package. |
+| Fresh target can be built without reading TypeScript implementation or dirty `src/**` implementation files. | Fresh target state/evidence records `copiedDirtySrcImplementation: false`; `python3 tools/verify_current_fresh_target.py` passes at `444295121a3cbe0631dc36ef2280c27d2ef5631c`; current package is `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`. | Proven for the FC/FEXP dry-run scope plus current-package FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects acceptance, level-1 marked/immunity selected-row replay, level-1 scalar-buff selected-row replay, level-1 after-hit/timed rider selected-row replay, level-1 weapon-hosted generic route-surface replay, Jump landing/prone generic route-surface replay, and concentration-backed area hazard generic route-surface replay. | Older fresh evidence remains historical until renewed against the current package. |
 | Fresh target exposes the reducer-shaped surface. | `FRESH_RUN_REPORT.md`, `STATE_OWNERS.md`, and tests in the fresh target cover `start_battle`, `discover_battle_acts`, `resolve_battle_subject`, and turn advancement. | Proven for the dry-run target. | The surface is intentionally minimal and tracer-driven. |
 | Fresh target supports an SDK-style programmatic character plus simple battle scenario. | `FRESH_SDK_COMPOSITION_ACCEPTANCE.md`, `EVIDENCE/sdk-tracer-bullet-programmatic-surface.json`, and `python3 tools/verify_current_fresh_target.py` cover sheet creation, projection, encounter composition, battle entry, act resolution, HP mutation, action spend, and turn advancement. | Proven for the accepted tracer scenario. | This is a tracer-bullet scenario, not full character/battle runtime parity. |
 | FEXP-01 diagnostic battle route pack is accepted in the fresh target. | Fresh target head `a78d1d6c4c5ec6eaad5ea99c9b6bfde296020639` includes `EVIDENCE/fexp01-diagnostic-battle-route-pack.json`, `examples/fexp01_route_observations.rs`, and `tools/verify_fexp01.py`; `python3 tools/verify_current_fresh_target.py` passes. | Proven for Magic Missile slot-spell route, HP restoration ordering, Death Saving Throw, and Concentration teardown. | The verifier parser is intentionally narrow for the accepted connector shapes; broader drivers still need their own lanes. |
@@ -73,8 +77,10 @@ This gate validates:
 - current-package runtime acceptance claims for FEXP-08 and FEXP-09A through
   FEXP-09G, SQNT-07A active-effect/condition, spatial/damage,
   character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects,
-  and level-1 marked/immunity, scalar-buff, after-hit/timed rider selected-row
-  replays, plus weapon-hosted generic route-surface replay;
+  level-1 marked/immunity, scalar-buff, after-hit/timed rider selected-row
+  replays, weapon-hosted generic route-surface replay, Jump landing/prone
+  generic route-surface replay, and concentration-backed area hazard generic
+  route-surface replay;
 - historical snapshot classification for older runtime evidence that has not
   yet been renewed against the current package.
 
@@ -109,10 +115,10 @@ Expected state:
 2. If more implementation is needed, choose only explicit source-input blocker
    lanes, not broad selected/grouped identity replay.
 3. Keep remaining true blockers as source-input work only:
-   selected-row-to-public-route witness for weapon-hosted exactness, Hex
-   ability-check roll-mode, exact after-hit/timed and weapon-hosted damage
-   details, Jump landing legality plus failed-landing Prone, and
-   concentration-backed area hazards.
+   Hex ability-check roll-mode, selected concentration hazard exactness, and
+   exact after-hit/timed and weapon-hosted damage details. Fresh-consume the
+   source weapon-hosted selected-row route witness before claiming selected-row
+   exactness.
 4. Preserve the review gates from this campaign: observed reducer events,
    independent expected route records, state-owner derivability records, and no
    production authored identity dispatch.

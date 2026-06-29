@@ -2,6 +2,14 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
+## Latest Checkpoint
+
+- Source master merged `SOURCE-SQNT07A-WEAPON-HOSTED-SELECTED-ROUTE-WITNESS` at `06f8042513df94bc96e02ec9d213a0d52d942bac`; focused source checks passed (`quint typecheck`, selected route connector Vitest, MBT driver closure).
+- Fresh target `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00` is accepted at `444295121a3cbe0631dc36ef2280c27d2ef5631c`.
+- Fresh accepted in this checkpoint: `FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY` and `FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY`.
+- Final fresh checks passed: `python3 tools/verify_current_fresh_target.py`, jump/concentration focused verifiers, focused reducer tests for `jump_landing` and `concentration`, `cargo fmt --check`, `cargo test`, and `cargo clippy --all-targets -- -D warnings`.
+- Active Ralph lanes: none. Retained blockers: fresh consumption of source weapon-hosted selected witness, Hex ability-check roll-mode, selected concentration hazard exactness, and exact damage/arithmetic details.
+
 ## Bootstrap Snapshot
 
 - Integration worktree: `/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19`

@@ -40,7 +40,9 @@ and fresh replay refresh completed. Current authoritative checkpoint:
 - Source/cleanroom-input package is now
   `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
 - Fresh target `master` is now
-  `ce9f653e3cba6a9eefa0d2f14e11757f7081e618`.
+  `444295121a3cbe0631dc36ef2280c27d2ef5631c`.
+- Source master contains the weapon-hosted selected-row public route witness at
+  merge `06f8042513df94bc96e02ec9d213a0d52d942bac`.
 - `FRESH-RR-BASELINE-E9F75E22`,
   `FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION`, and
   `FRESH-RR-SQNT07A-SPATIAL-MOVEMENT` are complete.
@@ -56,12 +58,14 @@ and fresh replay refresh completed. Current authoritative checkpoint:
   selected rows through copied generic after-hit route/lifecycle/owner facts;
   exact damage details remain blocked. The level-1 weapon-hosted replay accepts
   generic route-surface groups through copied route connectors and public
-  reducer observations; selected-row exactness remains blocked.
+  reducer observations; selected-row exactness remained blocked until the
+  source witness above landed. Jump landing/prone generic route surfaces and
+  concentration-backed area hazard generic route surfaces are now accepted in
+  the fresh target.
 - Remaining SQNT-07A blockers are exact and should drive future work:
-  selected-row-to-public-route witness for weapon-hosted exactness, Hex
-  ability-check roll-mode, exact after-hit and weapon-hosted damage details,
-  `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`,
-  and `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
+  fresh target consumption of the weapon-hosted selected-row public route
+  witness, Hex ability-check roll-mode, selected concentration hazard exactness,
+  and exact after-hit and weapon-hosted damage/arithmetic details.
 - Do not relaunch broad selected/grouped identity replay. Launch only lanes
   backed by copied generic route facts or by a source-QNT lane that creates
   those facts first.

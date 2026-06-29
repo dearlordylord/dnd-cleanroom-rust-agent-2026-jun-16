@@ -2,13 +2,13 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: current-package FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects, level-1 marked/immunity selected-row, level-1 scalar-buff selected-row, level-1 after-hit/timed rider selected-row replay, and level-1 weapon-hosted generic route-surface replay accepted at fresh target head `ce9f653e3cba6a9eefa0d2f14e11757f7081e618`
+Status: current-package FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A active-effect/condition, spatial/damage, character/sheet/handoff, reaction/interrupt taxonomy, battle active-effects, level-1 marked/immunity selected-row, level-1 scalar-buff selected-row, level-1 after-hit/timed rider selected-row replay, level-1 weapon-hosted generic route-surface replay, Jump landing/prone generic route-surface replay, and concentration-backed area hazard generic route-surface replay accepted at fresh target head `444295121a3cbe0631dc36ef2280c27d2ef5631c`. Source master also contains the weapon-hosted selected-row public route witness at merge `06f8042513df94bc96e02ec9d213a0d52d942bac`.
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `ce9f653e3cba6a9eefa0d2f14e11757f7081e618`
+- current accepted fresh target head: `444295121a3cbe0631dc36ef2280c27d2ef5631c`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
 - input source package: `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
 - current package inventory: `98` drivers, `663` in-scope obligations, `45` out-of-scope obligations
@@ -328,11 +328,11 @@ lanes against the fresh target:
 - `FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY`
 
 The next fresh work should choose one explicit residual group at a time:
-weapon-hosted selected-row exactness needs a copied public selected-row route
-witness. Hex ability-check roll-mode, Jump landing legality plus failed-landing
-Prone, concentration-backed area hazards, and exact after-hit/timed or
-weapon-hosted damage details need source-QNT or public route input first. Do
-not relaunch broad selected/grouped identity replay.
+weapon-hosted selected-row exactness now has source-side QNT witness input and
+needs a fresh target consumption lane. Hex ability-check roll-mode, selected
+concentration-backed hazard exactness, and exact after-hit/timed or
+weapon-hosted damage details still need source-QNT or public route input first.
+Do not relaunch broad selected/grouped identity replay.
 
 Why last:
 

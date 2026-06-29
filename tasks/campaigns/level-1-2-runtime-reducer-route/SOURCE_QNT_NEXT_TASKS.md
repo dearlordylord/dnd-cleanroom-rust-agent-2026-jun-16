@@ -32,23 +32,32 @@ Accepted fresh replay now covers:
 - SQNT-07A level-1 weapon-hosted replay: generic weapon-hosted route-surface
   groups accepted through copied route connectors and public reducer
   observations. No selected rows are accepted exactly.
+- SQNT-07A weapon-hosted selected-row public route witness: source master merge
+  `06f8042513df94bc96e02ec9d213a0d52d942bac` adds the source-side QNT/MBT
+  witness for the three selected weapon-hosted rows. Fresh target consumption is
+  still pending.
+- SQNT-07A Jump landing/prone generic route-surface replay: accepted in the
+  fresh target at `444295121a3cbe0631dc36ef2280c27d2ef5631c`.
+- SQNT-07A concentration-backed area hazard generic route-surface replay:
+  accepted in the fresh target at
+  `444295121a3cbe0631dc36ef2280c27d2ef5631c`; selected hazard row exactness
+  remains blocked.
 
 Still blocked:
 
-- Level-1 weapon-hosted selected-row exactness without a copied public
-  selected-row route witness.
+- Fresh target consumption of the new level-1 weapon-hosted selected-row public
+  route witness.
 - Exact weapon-hosted arithmetic, damage type/amount, item identity, and attack
   identity details as public reducer route facts.
 - Exact after-hit/timed damage details as public reducer route facts.
 - Hex ability-check roll-mode.
-- `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`.
-- `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
+- Selected concentration-backed hazard row exactness.
 
 Future work should close one of those exact blockers through generic route
-facts. Weapon-hosted selected-row exactness now needs a source-side public route
-witness rather than more target-side inference. Exact damage details, Hex
-ability-check roll-mode, Jump landing/Prone, and concentration-backed area
-hazards still need source-QNT or public route facts first. Do not treat broad
+facts. Weapon-hosted selected-row exactness now has source-side public route
+witness input and needs a fresh cleanroom consumption lane. Exact damage
+details, Hex ability-check roll-mode, and selected concentration-backed hazard
+exactness still need source-QNT or public route facts first. Do not treat broad
 selected/grouped identity replay as an implementation task.
 
 ## Current Boundary
