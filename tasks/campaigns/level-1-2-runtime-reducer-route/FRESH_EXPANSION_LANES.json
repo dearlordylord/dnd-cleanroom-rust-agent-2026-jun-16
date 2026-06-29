@@ -7,18 +7,19 @@
   "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
   "acceptedFreshTargetPackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
   "currentFreshBaselineCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
-  "acceptedFreshTargetHead": "76d48f853379d5de62f463677188984afc2d3bda",
-  "strongestRuntimeEvidenceCommit": "76d48f853379d5de62f463677188984afc2d3bda",
+  "acceptedFreshTargetHead": "2a19398143f37391eb304efab302c27b43d19bd1",
+  "strongestRuntimeEvidenceCommit": "2a19398143f37391eb304efab302c27b43d19bd1",
   "currentPackageRuntimeAcceptanceClaims": [
     "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY",
     "FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY",
     "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
     "FEXP-09C-SQNT07C-QUICKENED-GOVERNOR-CURRENT-PACKAGE-REPLAY",
     "FEXP-09D-SQNT07C-METAMAGIC-SAVE-MODES",
+    "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
     "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION"
   ],
   "latestDirtyPackageRefreshCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
-  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, SQNT-07B/C/D feature-species-metamagic route evidence, and SQNT-07A selected-spatial composition route evidence are packaged in cleanroom-input. FEXP-08 fresh replay accepted all 10 selected-spatial route surfaces through public reducer entrypoints at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. FEXP-09A fresh replay accepted all 3 SQNT-07D active-feature spell-benefit rows through public reducer entrypoints at fresh target eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1. FEXP-09B fresh replay accepted all 15 SQNT-07B species/passive-adjacent rows through public reducer entrypoints at fresh target aa2a77374c9dcfb3923643418795cd0572ce9ee6, with 2 inherited Adrenaline Rush rows kept out of scope. FEXP-09C fresh replay accepted all 12 SQNT-07C Quickened/governor rows through public reducer entrypoints at fresh target e47a0dd21a59b164f5478dfa1eb0ae056aa13b6b after follow-up review fixed selected-target ownership and non-sentinel rejection construction. FEXP-09D fresh replay accepted 9 SQNT-07C metamagic save-mode rows through public reducer entrypoints after follow-up review fixed save-result ownership and setup target validation. FEXP-09G fresh replay accepted 5 SQNT-07C component/duration rows through public reducer entrypoints. The merged fresh target gate is 76d48f853379d5de62f463677188984afc2d3bda. Earlier current-package claims are historical after the 545d784 package refresh unless separately replayed against that package.",
+  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, SQNT-07B/C/D feature-species-metamagic route evidence, and SQNT-07A selected-spatial composition route evidence are packaged in cleanroom-input. FEXP-08 fresh replay accepted all 10 selected-spatial route surfaces through public reducer entrypoints at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. FEXP-09A fresh replay accepted all 3 SQNT-07D active-feature spell-benefit rows through public reducer entrypoints at fresh target eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1. FEXP-09B fresh replay accepted all 15 SQNT-07B species/passive-adjacent rows through public reducer entrypoints at fresh target aa2a77374c9dcfb3923643418795cd0572ce9ee6, with 2 inherited Adrenaline Rush rows kept out of scope. FEXP-09C fresh replay accepted all 12 SQNT-07C Quickened/governor rows through public reducer entrypoints at fresh target e47a0dd21a59b164f5478dfa1eb0ae056aa13b6b after follow-up review fixed selected-target ownership and non-sentinel rejection construction. FEXP-09D fresh replay accepted 9 SQNT-07C metamagic save-mode rows through public reducer entrypoints after follow-up review fixed save-result ownership and setup target validation. FEXP-09E fresh replay accepted 7 SQNT-07C spell-shape rows through public reducer entrypoints after follow-up review fixed effective-level pending/resolved state and verifier coverage. FEXP-09G fresh replay accepted 5 SQNT-07C component/duration rows through public reducer entrypoints. The merged fresh target gate is 2a19398143f37391eb304efab302c27b43d19bd1. Earlier current-package claims are historical after the 545d784 package refresh unless separately replayed against that package.",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,
@@ -421,7 +422,7 @@
     {
       "laneId": "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
       "checkpointId": "FEXP-CP6",
-      "status": "in-progress",
+      "status": "merged",
       "routeClass": "catalog-after-substrate",
       "purpose": "Replay remaining SQNT-07C Distant/Transmuted/Twinned spell-shape rows through copied range, damage-type, and effective-level route facts.",
       "drivers": [
@@ -444,7 +445,8 @@
         "tools/verify_fexp09e_sqnt07c_metamagic_spell_shape.py",
         "STATE_OWNERS.md entries for any new target cardinality/range, damage type, effective spell level, damage-roll, or hit-point state"
       ],
-      "parallelism": "Running alone from base 76d48f853379d5de62f463677188984afc2d3bda in isolated worktree /workspace/typescript/.codex-worktrees/dnd-fresh-fexp09e-metamagic-spell-shape because FEXP-09F may share damage-roll or hit-point projection code."
+      "parallelism": "Ran alone from base 76d48f853379d5de62f463677188984afc2d3bda in isolated worktree /workspace/typescript/.codex-worktrees/dnd-fresh-fexp09e-metamagic-spell-shape because FEXP-09F may share damage-roll or hit-point projection code.",
+      "acceptanceSummary": "Accepted after worker commit efe24a5ccd39f2902eba9792998dd1c9c1769e11, review-blocker fix commit 2a19398143f37391eb304efab302c27b43d19bd1, and follow-up review. The fresh target gate at 2a19398143f37391eb304efab302c27b43d19bd1 accepts 7 SQNT-07C spell-shape rows: 4 selected Distant/Transmuted/Twinned rows plus doRouteSpellRangeProjection, doRouteDamageTypeSubstitution, and doRouteEffectiveSpellLevel."
     },
     {
       "laneId": "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
