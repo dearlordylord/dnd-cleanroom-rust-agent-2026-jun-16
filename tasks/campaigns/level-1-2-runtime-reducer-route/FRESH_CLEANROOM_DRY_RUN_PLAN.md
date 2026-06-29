@@ -3,7 +3,8 @@
 Campaign: `level-1-2-runtime-reducer-route`
 
 Status: accepted through the SDK tracer-bullet composition checkpoint, Pact
-Slot handoff replay, FEXP-07 feature/species/metamagic substrate expansion, and current
+Slot handoff replay, FEXP-07 feature/species/metamagic substrate expansion,
+FEXP-08 SQNT-07A selected-spatial current-package replay, and current
 fresh-target verifier.
 
 ## Purpose
@@ -37,7 +38,7 @@ Current accepted SDK tracer commit:
 `893198ce66a35c8aad007ad8ac7a61c4631c64d9`
 
 Current accepted fresh target head:
-`05280a8e2d6e9705411c114c80ae2a4e4290de2c`
+`64f7fad1902a7617264cbddf8d6eb236c786e8dd`
 
 Current package gate:
 `python3 tools/verify_current_fresh_target.py`
@@ -100,6 +101,11 @@ later accepted SQNT-07B/C/D evidence for 15 species/passive-adjacent rows,
 30 selected metamagic rows, and 3 active-feature spell-benefit rows, but this is
 diagnostic dirty evidence only until a fresh target replays the same copied
 route facts.
+`FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY` is accepted at
+`64f7fad1902a7617264cbddf8d6eb236c786e8dd` against source package
+`545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`; it accepts all 10 selected spatial
+witness rows through copied selected-spatial route connector facts and public
+battle reducer entrypoints, with 0 blocked rows.
 
 ## Hard Boundaries
 

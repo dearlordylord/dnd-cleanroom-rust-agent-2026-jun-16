@@ -4,19 +4,16 @@
   "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
   "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
   "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-  "sourcePackageCommit": "21504ef764118f5fd13086aa6266f19280196664",
-  "acceptedFreshTargetPackageCommit": "21504ef764118f5fd13086aa6266f19280196664",
+  "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+  "acceptedFreshTargetPackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
   "currentFreshBaselineCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
-  "acceptedFreshTargetHead": "10918170ebbb342c7d45664601cb8eb354991db2",
-  "strongestRuntimeEvidenceCommit": "05280a8e2d6e9705411c114c80ae2a4e4290de2c",
+  "acceptedFreshTargetHead": "64f7fad1902a7617264cbddf8d6eb236c786e8dd",
+  "strongestRuntimeEvidenceCommit": "64f7fad1902a7617264cbddf8d6eb236c786e8dd",
   "currentPackageRuntimeAcceptanceClaims": [
-    "FEXP-06/FRESH-RR-CHARACTER-SHEET-HANDOFF",
-    "FRESH-RR-BATTLE-ACTIVE-EFFECTS",
-    "FRESH-RR-FEATURE-SPECIES-METAMAGIC",
-    "FRESH-RR-SPATIAL-DAMAGE"
+    "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY"
   ],
-  "latestDirtyPackageRefreshCommit": "21504ef764118f5fd13086aa6266f19280196664",
-  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, and SQNT-07B/C/D feature-species-metamagic route evidence are packaged in cleanroom-input. FCSF-04 dirty replay later accepted 6 connector rows and covered 7 object-route obligations, FCSF-05 dirty replay accepted all 5 connector rows, FCSF-06 dirty replay accepted 30 reducer-route witness rows and recorded 14 target blockers, SQNT-07B dirty replay accepted 15 selected species/passive-adjacent rows with 2 inherited Adrenaline Rush rows out of scope, SQNT-07C dirty replay accepted 30 selected metamagic rows, and SQNT-07D dirty replay accepted 3 active-feature spell-benefit rows; no fresh target acceptance is claimed from these dirty replays.",
+  "latestDirtyPackageRefreshCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, SQNT-07B/C/D feature-species-metamagic route evidence, and SQNT-07A selected-spatial composition route evidence are packaged in cleanroom-input. FEXP-08 fresh replay accepted all 10 selected-spatial route surfaces through public reducer entrypoints at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. Earlier current-package claims are historical after the 545d784 package refresh unless separately replayed against that package.",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,
@@ -275,7 +272,7 @@
     {
       "laneId": "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY",
       "checkpointId": "FEXP-CP5",
-      "status": "in-progress",
+      "status": "merged",
       "routeClass": "catalog-after-substrate",
       "purpose": "Replay the current-package SQNT-07A selected spatial witness driver against the fresh target only through the copied selected-spatial composition connector and public battle reducer entrypoints.",
       "drivers": [
@@ -293,12 +290,13 @@
       ],
       "requiredChecks": [
         "python3 tools/verify_current_fresh_target.py",
+        "python3 tools/verify_fresh_rr_sqnt07a_spatial_movement.py",
         "cargo fmt --check",
         "cargo test",
         "cargo clippy --all-targets -- -D warnings",
         "git diff --check HEAD~1...HEAD"
       ],
-      "acceptanceSummary": "Running. Dirty target package replay at integration commit e370f8e74d34a0433a48ad566b354083452e069b accepts all 10 selected spatial witness rows through copied selected-spatial composition connector facts; this lane tests whether the same current package can be accepted in the independent fresh target without dirty src input."
+      "acceptanceSummary": "Accepted at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. The 545d784 current package replay accepts all 10 SQNT-07A selected spatial witness rows through copied selected-spatial composition connector facts and public reducer entrypoints. Follow-up review fixed the evidence gate to parse copied QNT route bodies and removed duplicate object ids from object-light route/no-fill state; object-light target-choice rows now use SubjectProgress.selected_object as the single runtime owner."
     },
     {
       "laneId": "FRESH-RR-SPATIAL-DAMAGE",

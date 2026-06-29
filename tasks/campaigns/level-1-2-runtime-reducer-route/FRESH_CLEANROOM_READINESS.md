@@ -40,7 +40,16 @@ Authoritative state:
 - strongest pre-21504ef fresh runtime evidence:
   `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
 - latest dirty package source used by current replay evidence:
-  `21504ef764118f5fd13086aa6266f19280196664`
+  `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
+- latest accepted fresh target head:
+  `64f7fad1902a7617264cbddf8d6eb236c786e8dd`
+- latest current-package fresh runtime evidence:
+  `FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY` accepts all 10
+  SQNT-07A selected spatial witness rows through copied selected-spatial route
+  connector facts and public battle reducer entrypoints, with 0 blocked rows.
+  Its review loop fixed expected-route derivation to parse copied QNT route
+  bodies and removed duplicate object ids from object-light route/no-fill
+  state.
 - latest source-QNT connector replay batch: SQNT-07B species/passive-adjacent,
   SQNT-07C metamagic, and SQNT-07D active-feature spell-benefit dirty replay is
   accepted at merge head `4b2c415259ad5f3b10d281a536a5aa8499f926b7`; fresh
@@ -193,15 +202,17 @@ Next useful work is one of:
   promote the remaining Task 3 selected-spell blockers after SQNT-03B and the
   FEXP-07 selected/grouped residual blockers into source-side QNT/guidance
   updates before launching more target implementation;
-- use fresh target commit `c196b33c634169cfc991c3de101c23fde8f75bae` as the
-  current 21504ef package baseline. Use `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
-  and `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` as historical fresh runtime evidence
+- use fresh target commit `64f7fad1902a7617264cbddf8d6eb236c786e8dd` as the
+  current `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5` package baseline for
+  FEXP-08 selected-spatial runtime evidence. Use
+  `05280a8e2d6e9705411c114c80ae2a4e4290de2c` and
+  `FRESH_SDK_COMPOSITION_ACCEPTANCE.md` as historical fresh runtime evidence
   for the integrated SDK tracer-bullet, post-FC06 Pact Slot handoff replay, and
   FEXP-04/FEXP-06 runtime surfaces until current-package replay lanes renew
   those claims. The dirty campaign records FCSF-04, FCSF-05, SQNT-03A, SQNT-03B,
-  SQNT-03C, SQNT-07B, SQNT-07C, and SQNT-07D current-package dirty replays as
-  accepted and FCSF-06 current-package dirty replay as accepted-with-target
-  blockers;
+  SQNT-03C, SQNT-07B, SQNT-07C, SQNT-07D, and SQNT-07A selected-spatial
+  current-package dirty replays as accepted and FCSF-06 current-package dirty
+  replay as accepted-with-target blockers;
 - clean the old historical evidence debt so the dirty
   harness can pass without exception;
 - promote the strongest route-connector lessons back into source-side QNT and

@@ -2,15 +2,15 @@
 
 Campaign: `level-1-2-runtime-reducer-route`
 
-Status: post-refresh FEXP-04 exact roll-choice, Ability Check/Search, Concentration cleanup, and scalar profile projection public reducer replays accepted at fresh target head `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
+Status: current-package FEXP-08 SQNT-07A selected-spatial replay accepted at fresh target head `64f7fad1902a7617264cbddf8d6eb236c786e8dd`
 
 Baseline evidence:
 
 - accepted fresh target: `/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00`
 - expansion baseline head: `a30e6729711ddc3f595cf008931ba5cd6265c58a`
-- current accepted fresh target head: `05280a8e2d6e9705411c114c80ae2a4e4290de2c`
+- current accepted fresh target head: `64f7fad1902a7617264cbddf8d6eb236c786e8dd`
 - current verifier: `python3 tools/verify_current_fresh_target.py`
-- input source package: `ee4894fa71e9307b9251639f0b54577ff764c63f`
+- input source package: `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`
 
 ## Purpose
 
@@ -243,12 +243,16 @@ Status:
 - selected/grouped identity witnesses and residual species/metamagic/feature
   branches remain explicit source-input blockers; the earlier exact metamagic
   driver note was corrected as a campaign manifest naming error.
-- `FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY` is in progress
-  against the current package from source commit
-  `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`. It should accept selected
-  spatial witness rows only through the copied selected-spatial composition
-  connector and public reducer entrypoints, with branch blockers recorded when
-  copied connector facts are insufficient.
+- `FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY` is accepted at
+  fresh target head `64f7fad1902a7617264cbddf8d6eb236c786e8dd` against source
+  package `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`; it accepts all 10
+  selected spatial witness rows through the copied selected-spatial composition
+  connector and public reducer entrypoints.
+- The FEXP-08 review loop fixed two false-positive risks before acceptance:
+  expected route records are parsed from copied QNT route bodies, and
+  object-light target-choice rows use `SubjectProgress.selected_object` as the
+  single runtime object owner instead of carrying duplicate object ids in route
+  or no-fill state.
 
 Why last:
 
