@@ -7,20 +7,24 @@
   "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
   "acceptedFreshTargetPackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
   "currentFreshBaselineCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
-  "acceptedFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
-  "strongestRuntimeEvidenceCommit": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+  "acceptedFreshTargetHead": "f9ed3d1d1562233599fd88b44fa55f9637277e56",
+  "strongestRuntimeEvidenceCommit": "f9ed3d1d1562233599fd88b44fa55f9637277e56",
   "currentPackageRuntimeAcceptanceClaims": [
+    "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION",
+    "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
     "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY",
+    "FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY",
     "FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY",
     "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
     "FEXP-09C-SQNT07C-QUICKENED-GOVERNOR-CURRENT-PACKAGE-REPLAY",
     "FEXP-09D-SQNT07C-METAMAGIC-SAVE-MODES",
     "FEXP-09E-SQNT07C-METAMAGIC-SPELL-SHAPE",
     "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
-    "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION"
+    "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION",
+    "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY"
   ],
   "latestDirtyPackageRefreshCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
-  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, SQNT-07B/C/D feature-species-metamagic route evidence, and SQNT-07A selected-spatial composition route evidence are packaged in cleanroom-input. FEXP-08 fresh replay accepted all 10 selected-spatial route surfaces through public reducer entrypoints at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. FEXP-09A fresh replay accepted all 3 SQNT-07D active-feature spell-benefit rows through public reducer entrypoints at fresh target eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1. FEXP-09B fresh replay accepted all 15 SQNT-07B species/passive-adjacent rows through public reducer entrypoints at fresh target aa2a77374c9dcfb3923643418795cd0572ce9ee6, with 2 inherited Adrenaline Rush rows kept out of scope. FEXP-09C fresh replay accepted all 12 SQNT-07C Quickened/governor rows through public reducer entrypoints at fresh target e47a0dd21a59b164f5478dfa1eb0ae056aa13b6b after follow-up review fixed selected-target ownership and non-sentinel rejection construction. FEXP-09D fresh replay accepted 9 SQNT-07C metamagic save-mode rows through public reducer entrypoints after follow-up review fixed save-result ownership and setup target validation. FEXP-09E fresh replay accepted 7 SQNT-07C spell-shape rows through public reducer entrypoints after follow-up review fixed effective-level pending/resolved state and verifier coverage. FEXP-09F fresh replay accepted 4 SQNT-07C reroll rows through public reducer entrypoints after review fixes made Seeking reroll sequencing explicit and blocked non-QNT extra-fill paths. FEXP-09G fresh replay accepted 5 SQNT-07C component/duration rows through public reducer entrypoints. The merged fresh target gate is b0036b7a0d81ffcc54c5c2d828122bd1352dc31c. Earlier current-package claims are historical after the 545d784 package refresh unless separately replayed against that package.",
+  "latestDirtyPackageRefreshStatus": "source-feedback Task 3 residual selected-spell route-task queue, Task 8 six-driver active reducer diagnostic seed, FCSF-04 object stale public route-history evidence, FCSF-05 reaction/interrupt payload taxonomy evidence, FCSF-06 character/sheet/handoff rejection and resource payload evidence, SQNT-07B/C/D feature-species-metamagic route evidence, and SQNT-07A selected-spatial composition route evidence are packaged in cleanroom-input. FEXP-08 fresh replay accepted all 10 selected-spatial route surfaces through public reducer entrypoints at fresh target 64f7fad1902a7617264cbddf8d6eb236c786e8dd. FEXP-09A fresh replay accepted all 3 SQNT-07D active-feature spell-benefit rows through public reducer entrypoints at fresh target eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1. FEXP-09B fresh replay accepted all 15 SQNT-07B species/passive-adjacent rows through public reducer entrypoints at fresh target aa2a77374c9dcfb3923643418795cd0572ce9ee6, with 2 inherited Adrenaline Rush rows kept out of scope. FEXP-09C fresh replay accepted all 12 SQNT-07C Quickened/governor rows through public reducer entrypoints at fresh target e47a0dd21a59b164f5478dfa1eb0ae056aa13b6b after follow-up review fixed selected-target ownership and non-sentinel rejection construction. FEXP-09D fresh replay accepted 9 SQNT-07C metamagic save-mode rows through public reducer entrypoints after follow-up review fixed save-result ownership and setup target validation. FEXP-09E fresh replay accepted 7 SQNT-07C spell-shape rows through public reducer entrypoints after follow-up review fixed effective-level pending/resolved state and verifier coverage. FEXP-09F fresh replay accepted 4 SQNT-07C reroll rows through public reducer entrypoints after review fixes made Seeking reroll sequencing explicit and blocked non-QNT extra-fill paths. FEXP-09G fresh replay accepted 5 SQNT-07C component/duration rows through public reducer entrypoints. The merged FEXP-09G fresh target gate was b0036b7a0d81ffcc54c5c2d828122bd1352dc31c; the current accepted fresh target gate is f9ed3d1d1562233599fd88b44fa55f9637277e56. Earlier current-package claims are historical after the 545d784 package refresh unless separately replayed against that package. Current-package fresh renewal also accepted SQNT-07A active-effect/condition at fd4104470dc2437efe4e594893daf7e939ab34d0, spatial/damage at 83119b9e7b2af11134c7dfa7efcfceb0277083db, character/sheet/handoff at bde5f7840e91788bc18f48762fae669b31ec3757, and reaction/interrupt taxonomy at f9ed3d1d1562233599fd88b44fa55f9637277e56.",
   "laneSizingPolicy": {
     "recommendedMaxDrivers": 5,
     "recommendedMaxBranchObligations": 35,
@@ -556,6 +560,122 @@
         "git diff --check HEAD~1...HEAD"
       ],
       "acceptanceSummary": "Accepted-with-blockers at fresh target 10918170ebbb342c7d45664601cb8eb354991db2. SQNT-03A/B/C/D active-effect residual route records are compared from copied connector-derived expected records to public reducer observations; FCSF-05 trigger taxonomy remains blocked for durable production state."
+    },
+    {
+      "laneId": "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY",
+      "checkpointId": "FRESH-RR-CP6",
+      "status": "merged",
+      "purpose": "Renew SQNT-07A active-effect/condition current-package evidence against the fresh target through copied QNT-derived expected records and public reducer observations.",
+      "drivers": [
+        "battle-runtime-condition-lifecycle.route.mbt.qnt",
+        "battle-runtime-marked-damage-and-immunity.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "fresh SQNT-07A active-effect/condition evidence records copied QNT-derived expectations",
+        "public battle reducer observations match accepted expected route records",
+        "verifier enforces top-level accepted counts, observed source claims, entrypoint claims, and residual blockers",
+        "tools/verify_current_fresh_target.py includes the accepted current-package lane"
+      ],
+      "requiredChecks": [
+        "git merge-base --is-ancestor b0036b7a0d81ffcc54c5c2d828122bd1352dc31c HEAD",
+        "python3 tools/verify_fresh_rr_sqnt07a_active_effect_condition.py",
+        "python3 tools/verify_current_fresh_target.py",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "workerHead": "6b244d454792ffdcad6f83e3aa71e11b42c434a8",
+      "mergeCommit": "fd4104470dc2437efe4e594893daf7e939ab34d0",
+      "acceptanceSummary": "Accepted at fresh target fd4104470dc2437efe4e594893daf7e939ab34d0 after reviewer/fixer hardening. Expected records are copied-QNT-derived; observed records come from public reducer entrypoints; residual blockers remain explicit."
+    },
+    {
+      "laneId": "FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY",
+      "checkpointId": "FRESH-RR-CP6",
+      "status": "merged-with-blockers",
+      "purpose": "Renew spatial/damage current-package evidence against the fresh target and enforce the full residual blocker set for source facts not yet public route records.",
+      "drivers": [
+        "battle-runtime-object-light-riders.route.mbt.qnt",
+        "battle-runtime-mixed-target-outcomes.route.mbt.qnt",
+        "rule-core-exact-damage-projection.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "fresh spatial/damage evidence records copied QNT/vocabulary-derived expectations",
+        "public battle reducer observations match accepted expected route records",
+        "residual blockers for movable multi-emitter light, presentation/invisible revealing, selected identity, and exact damage component facts remain enforced",
+        "tools/verify_current_fresh_target.py includes the accepted current-package lane"
+      ],
+      "requiredChecks": [
+        "git merge-base --is-ancestor b0036b7a0d81ffcc54c5c2d828122bd1352dc31c HEAD",
+        "python3 tools/verify_fresh_rr_spatial_damage.py",
+        "python3 tools/verify_current_fresh_target.py",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "workerHead": "34c716e7cef019c89782170ca319917c6c6f21d9",
+      "mergeCommit": "83119b9e7b2af11134c7dfa7efcfceb0277083db",
+      "acceptanceSummary": "Accepted-with-blockers at fresh target 83119b9e7b2af11134c7dfa7efcfceb0277083db after verifier hardening. Accepted rows compare copied QNT/vocabulary expectations to public reducer observations; residual source-input blockers are exact."
+    },
+    {
+      "laneId": "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY",
+      "checkpointId": "FRESH-RR-CP6",
+      "status": "merged",
+      "purpose": "Renew character creation, sheet resource, handoff, settlement, and zero-HP lifecycle current-package evidence against the fresh target through public character/sheet/handoff entrypoints.",
+      "drivers": [
+        "character-creation-runtime.route.mbt.qnt",
+        "character-sheet-hit-point-maximum.route.mbt.qnt",
+        "character-sheet-spell-slots-pact-slots.route.mbt.qnt",
+        "character-battle-settlement.route.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "fresh character/sheet/handoff evidence records copied QNT-derived expectations",
+        "public character creation, sheet, and handoff observations match expected records",
+        "verifier rejects duplicate claim/classification keys and stale drift commands",
+        "tools/verify_current_fresh_target.py includes the accepted current-package lane"
+      ],
+      "requiredChecks": [
+        "git merge-base --is-ancestor b0036b7a0d81ffcc54c5c2d828122bd1352dc31c HEAD",
+        "python3 tools/verify_fexp06.py",
+        "python3 tools/verify_current_fresh_target.py",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "workerHead": "a3765d0ba5d3ded241a30ff9b51706c7ba257d1f",
+      "mergeCommit": "bde5f7840e91788bc18f48762fae669b31ec3757",
+      "acceptanceSummary": "Accepted at fresh target bde5f7840e91788bc18f48762fae669b31ec3757 after verifier hardening. Copied-QNT expected records are compared to public character/sheet/handoff observations, including rejection/resource/conflict cases."
+    },
+    {
+      "laneId": "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
+      "checkpointId": "FRESH-RR-CP6",
+      "status": "merged-with-blockers",
+      "purpose": "Renew reaction/interrupt taxonomy current-package evidence against the fresh target through generic payload shapes and public reducer observations.",
+      "drivers": [
+        "battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt",
+        "battle-runtime-reaction-spell-selected-identity.mbt.qnt"
+      ],
+      "expectedOutputs": [
+        "fresh reaction/interrupt taxonomy evidence records copied QNT-derived expectations",
+        "public battle reducer observations match five accepted current-package route surfaces",
+        "selected reaction spell projection blocker remains explicit and source-hashed",
+        "tools/verify_current_fresh_target.py includes the accepted current-package lane"
+      ],
+      "requiredChecks": [
+        "git merge-base --is-ancestor b0036b7a0d81ffcc54c5c2d828122bd1352dc31c HEAD",
+        "python3 tools/verify_fresh_rr_reaction_interrupt_taxonomy.py",
+        "python3 tools/verify_current_fresh_target.py",
+        "cargo test fresh_reaction_interrupt_taxonomy_routes_use_generic_payload_shapes --test reducer_spine",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "workerHead": "0033f9be5616fe8f2e71de0b469d38294d2515d4",
+      "mergeCommit": "f9ed3d1d1562233599fd88b44fa55f9637277e56",
+      "acceptanceSummary": "Accepted-with-blockers at fresh target f9ed3d1d1562233599fd88b44fa55f9637277e56 after source-hash and static-example verifier hardening. Five taxonomy route surfaces use generic payload shapes through public reducer observations; selected reaction spell projections remain explicitly blocked."
     }
   ]
 }
