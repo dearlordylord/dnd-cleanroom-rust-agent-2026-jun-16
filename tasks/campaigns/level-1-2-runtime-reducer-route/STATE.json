@@ -66,8 +66,7 @@
       "remainingLane": null,
       "nextParallelism": "Remaining work can split by source-input families with non-overlapping write sets: Hex ability-check roll-mode, selected concentration hazard exactness, exact after-hit/timed damage details, and exact weapon-hosted arithmetic/identity details.",
       "activeParallelLanes": [
-        "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
-        "SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT"
+        "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS"
       ],
       "activeLane": "source-qnt-wave-06f804",
       "nextPlannedLane": "merge-source-qnt-wave-then-fresh-replay-ready-facts",
@@ -905,18 +904,24 @@
       "workerAgent": "019f134e-d458-7bb0-9508-37feb3d38f78",
       "status": "running",
       "scope": "selected concentration-backed hazard rows mapped to generic route surfaces"
-    },
+    }
+  ],
+  "completedSourceQntLanes": [
     {
       "laneId": "SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-exact-damage-route-bridge",
       "branch": "ralph/source-sqnt07a-exact-damage-route-bridge",
       "baseSha": "06f8042513df94bc96e02ec9d213a0d52d942bac",
       "workerAgent": "019f134f-754c-7ce3-bbb7-d398363dd204",
-      "status": "running",
-      "scope": "exact damage component facts bridged to public after-hit or weapon-hosted route facts"
-    }
-  ],
-  "completedSourceQntLanes": [
+      "laneHead": "eee45d4743ed00c5e9bb9b7cc7069ed3effabb3f",
+      "sourceMergeCommit": "031d2d988ccc6475c04c990fa4c44f4fdbaba383",
+      "status": "accepted-and-merged-to-source-master",
+      "reviewerAgents": [
+        "019f135f-4688-7863-b94a-1821efd9ff99",
+        "019f1377-99b0-7df1-b351-57afaa42ddbc"
+      ],
+      "scope": "exact damage details computed from rule-core functions and bridged to after-hit/timed and weapon-hosted public route facts; authored spell, item, and attack identity remain outside the bridge"
+    },
     {
       "laneId": "FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE",
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-hex-ability-roll-mode",
@@ -4716,10 +4721,9 @@
     "activeBranch": "parallel-source-qnt-lanes",
     "activeLaneBaseCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac",
     "activeParallelLanes": [
-      "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
-      "SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT"
+      "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS"
     ],
-    "workerAgent": "019f134e-d458-7bb0-9508-37feb3d38f78, 019f134f-754c-7ce3-bbb7-d398363dd204",
+    "workerAgent": "019f134e-d458-7bb0-9508-37feb3d38f78",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "merge-source-qnt-wave-then-fresh-replay-ready-facts",
     "nextWorkRecommendations": [
