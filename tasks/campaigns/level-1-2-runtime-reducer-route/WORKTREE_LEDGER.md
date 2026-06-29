@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-weapon-hosted-selected` | `ralph/fresh-sqnt07a-level1-weapon-hosted-selected` | `9737474a21fb77df382cf3504dd8a4b3b46ffb5d` | pending | pending | active: worktree created; worker launch pending |
 
 ## Active Source-QNT Lanes
 
