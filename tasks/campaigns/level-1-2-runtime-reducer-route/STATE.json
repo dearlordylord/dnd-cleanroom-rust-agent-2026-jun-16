@@ -4894,7 +4894,7 @@
         "baseSha": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
         "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-reaction-projection-replay",
         "branch": "ralph/fresh-reaction-projection-replay",
-        "agent": "pending"
+        "agent": "Banach the 5th (019f1476-ea25-72e0-8b61-a258c1715ee0)"
       }
     ],
     "deferredLanes": [
@@ -4917,7 +4917,7 @@
       "branch": "ralph/fresh-reaction-projection-replay",
       "baseSha": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
       "status": "running",
-      "agent": "pending"
+      "agent": "Banach the 5th (019f1476-ea25-72e0-8b61-a258c1715ee0)"
     }
   ],
   "completionAuditReports": [
