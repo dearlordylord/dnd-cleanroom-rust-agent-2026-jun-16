@@ -40,7 +40,7 @@
       ]
     },
     "nextCampaignBatch": {
-      "status": "accepted-partial-batch-battle-active-effects-still-pending",
+      "status": "running-final-renewal-lane",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "acceptedFreshTargetHead": "f9ed3d1d1562233599fd88b44fa55f9637277e56",
       "purpose": "renew historical fresh evidence against the current package through copied QNT-derived expected records and public reducer/source entrypoint observations",
@@ -52,7 +52,16 @@
       ],
       "remainingLane": "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
       "nextParallelism": "Launch battle active-effects as the next single lane unless a source-input lane is chosen first; it was intentionally held until SQNT-07A active-effect/condition merged because both touch active-effect owners.",
-      "activeParallelLanes": []
+      "activeParallelLanes": [
+        {
+          "laneId": "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
+          "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-battle-active-effects",
+          "branch": "ralph/fresh-renew-battle-active-effects",
+          "baseCommit": "f9ed3d1d1562233599fd88b44fa55f9637277e56",
+          "workerAgent": "Darwin the 4th (019f124c-0910-7ee1-9cff-424a10c089de)",
+          "status": "running"
+        }
+      ]
     }
   },
   "integration": {
@@ -4478,11 +4487,20 @@
         ]
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-battle-active-effects",
+    "activeBranch": "ralph/fresh-renew-battle-active-effects",
     "activeLaneBaseCommit": "f9ed3d1d1562233599fd88b44fa55f9637277e56",
-    "activeParallelLanes": [],
-    "workerAgent": null,
+    "activeParallelLanes": [
+      {
+        "laneId": "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-battle-active-effects",
+        "branch": "ralph/fresh-renew-battle-active-effects",
+        "baseCommit": "f9ed3d1d1562233599fd88b44fa55f9637277e56",
+        "workerAgent": "Darwin the 4th (019f124c-0910-7ee1-9cff-424a10c089de)",
+        "status": "running"
+      }
+    ],
+    "workerAgent": "Darwin the 4th (019f124c-0910-7ee1-9cff-424a10c089de)",
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
     "nextWorkRecommendations": [

@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-battle-active-effects` | `ralph/fresh-renew-battle-active-effects` | `f9ed3d1d1562233599fd88b44fa55f9637277e56` | Darwin the 4th (`019f124c-0910-7ee1-9cff-424a10c089de`) | _pending_ | running |
 
 ## Active Source-QNT Lanes
 
