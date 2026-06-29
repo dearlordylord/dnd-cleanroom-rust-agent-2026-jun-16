@@ -876,8 +876,8 @@
       "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-scalar-buff-selected",
       "branch": "ralph/fresh-sqnt07a-level1-scalar-buff-selected",
       "baseSha": "a7b4a30fae4b293ca48feec50041c9fa6a706db8",
-      "workerAgent": null,
-      "workerName": null,
+      "workerAgent": "019f129d-43d6-7250-9d4f-5b4a0e11ecdd",
+      "workerName": "Planck the 4th",
       "status": "active",
       "scope": "Fresh target replay for exactly two selected level-1 scalar-buff rows reducible to copied generic scalar-buff route facts: False Life Temporary Hit Points and Longstrider Speed increase. No broad selected-identity replay."
     }

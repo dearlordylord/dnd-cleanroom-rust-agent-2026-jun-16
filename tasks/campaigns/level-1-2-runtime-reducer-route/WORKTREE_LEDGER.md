@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-scalar-buff-selected` | `ralph/fresh-sqnt07a-level1-scalar-buff-selected` | `a7b4a30fae4b293ca48feec50041c9fa6a706db8` | pending | pending | active; accepts only False Life and Longstrider selected rows reducible to copied generic scalar-buff route facts |
+| FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-scalar-buff-selected` | `ralph/fresh-sqnt07a-level1-scalar-buff-selected` | `a7b4a30fae4b293ca48feec50041c9fa6a706db8` | Planck the 4th (`019f129d-43d6-7250-9d4f-5b4a0e11ecdd`) | pending | active; accepts only False Life and Longstrider selected rows reducible to copied generic scalar-buff route facts |
 
 ## Active Source-QNT Lanes
 
