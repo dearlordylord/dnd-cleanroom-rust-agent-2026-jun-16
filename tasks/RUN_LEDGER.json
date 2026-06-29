@@ -4489,7 +4489,7 @@
       "sourceReducerRouteInventorySha256": "47d653396694fdd963e314174161247c20e431d93a94ec9d32685a3fbc230829",
       "targetProfileSha256": "6d4cc6c6a4769962798133d57aff01438fb2b661941f71d1aa8a3333f4b7ecc1",
       "selectedDrivers": [
-        "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt"
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt"
       ],
       "routeConnectorAuthorities": [
         {
@@ -4512,11 +4512,12 @@
       "acceptedRows": {
         "conditionRiderConnectorRows": 18,
         "markedDamageImmunityConnectorRows": 9,
-        "selectedRowsThroughGenericFacts": 4
+        "selectedConditionSavingRowsThroughGenericFacts": 9,
+        "newSelectedConditionSavingRowsThroughGenericFacts": 5,
+        "carriedForwardSelectedConditionSavingRows": 4
       },
       "blockedRows": {
-        "selectedRowsOutsideLaneGenericFacts": 8,
-        "selectedConditionSavingAdapterNotRefreshed": true
+        "selectedRowsOutsideLaneGenericFacts": 8
       },
       "artifacts": {
         "startGate": {
@@ -4543,21 +4544,31 @@
       "targetReplayEvidence": [
         {
           "path": "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json",
-          "sha256": "01e111de3305fdd54ead548adfce28f62de4b539199863d5dd6c28ae9383c80a",
-          "acceptedRowCount": 4,
+          "sha256": "9d221cb45c8c27050b4b31dc031fecd06076083feaab43cb3825b8a5252a8cb1",
+          "acceptedRowCount": 9,
           "targetBlockedRowCount": 8,
           "acceptedConnectorRowCount": 27,
           "evidenceRefs": [
-            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPoints#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
-            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
-            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHexMarkedDamageRiderAndLaterTurnTransfer#step:doHexMarkedDamageRiderAndLaterTurnTransfer",
-            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer"
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveBlindnessDeafnessBlindedSavingThrow#step:doResolveBlindnessDeafnessBlindedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveBlindnessDeafnessDeafenedSavingThrow#step:doResolveBlindnessDeafnessDeafenedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveColorSprayFailedSavingThrow#step:doResolveColorSprayFailedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveEntangleFailedSavingThrow#step:doResolveEntangleFailedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHoldPersonFailedSavingThrow#step:doResolveHoldPersonFailedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHoldPersonRepeatSavingThrowSuccess#step:doResolveHoldPersonRepeatSavingThrowSuccess",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHideousLaughterRepeatSavingThrowSuccess#step:doResolveHideousLaughterRepeatSavingThrowSuccess",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHypnoticPatternFailedSavingThrow#step:doResolveHypnoticPatternFailedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveSleepRepeatSavingThrowFailure#step:doResolveSleepRepeatSavingThrowFailure"
           ],
           "acceptedEvidenceRefs": [
-            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPoints#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
-            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
-            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHexMarkedDamageRiderAndLaterTurnTransfer#step:doHexMarkedDamageRiderAndLaterTurnTransfer",
-            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-ACTIVE-EFFECT-CONDITION-DIRTY-REPLAY route action=doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer"
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveBlindnessDeafnessBlindedSavingThrow#step:doResolveBlindnessDeafnessBlindedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveBlindnessDeafnessDeafenedSavingThrow#step:doResolveBlindnessDeafnessDeafenedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveColorSprayFailedSavingThrow#step:doResolveColorSprayFailedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveEntangleFailedSavingThrow#step:doResolveEntangleFailedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHoldPersonFailedSavingThrow#step:doResolveHoldPersonFailedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHoldPersonRepeatSavingThrowSuccess#step:doResolveHoldPersonRepeatSavingThrowSuccess",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHideousLaughterRepeatSavingThrowSuccess#step:doResolveHideousLaughterRepeatSavingThrowSuccess",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveHypnoticPatternFailedSavingThrow#step:doResolveHypnoticPatternFailedSavingThrow",
+            "tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json#SQNT-07A-CONDITION-SELECTED-IDENTITY-DIRTY-REPLAY route action=doResolveSleepRepeatSavingThrowFailure#step:doResolveSleepRepeatSavingThrowFailure"
           ]
         }
       ],
@@ -4575,7 +4586,7 @@
           "status": "pass"
         },
         {
-          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json",
+          "command": "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json",
           "status": "pass"
         },
         {

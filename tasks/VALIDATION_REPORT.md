@@ -4536,7 +4536,7 @@ Verification:
 
 - `cargo test dirty_replay_routes_through_reducer` passed.
 - `cargo test level1_buff_mark_smite_adapter_replays_all_branches` passed.
-- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json` passed with 4 covered obligations and 8 explicit target blockers.
+- `node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-condition-saving-throw-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-active-effect-condition-dirty-replay.json` passed with 9 covered obligations.
 - `cargo fmt --check` passed.
 - `cargo test` passed.
 - `cargo clippy --all-targets -- -D warnings` passed.
