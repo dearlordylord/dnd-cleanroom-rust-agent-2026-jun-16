@@ -12,7 +12,7 @@ history.
 After this queue was written, the SQNT-07A Wave 2 source-input package was
 refreshed to `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb` and replayed in the
 fresh cleanroom target. Fresh target `master` is now
-`9737474a21fb77df382cf3504dd8a4b3b46ffb5d`.
+`ce9f653e3cba6a9eefa0d2f14e11757f7081e618`.
 
 Accepted fresh replay now covers:
 
@@ -29,21 +29,27 @@ Accepted fresh replay now covers:
 - SQNT-07A level-1 after-hit/timed rider selected-row replay: 3 selected rows
   accepted through copied generic after-hit route/lifecycle/owner facts, with
   exact damage type, dice, and amount still blocked.
+- SQNT-07A level-1 weapon-hosted replay: generic weapon-hosted route-surface
+  groups accepted through copied route connectors and public reducer
+  observations. No selected rows are accepted exactly.
 
 Still blocked:
 
-- Level-1 weapon-hosted selected rows.
+- Level-1 weapon-hosted selected-row exactness without a copied public
+  selected-row route witness.
+- Exact weapon-hosted arithmetic, damage type/amount, item identity, and attack
+  identity details as public reducer route facts.
 - Exact after-hit/timed damage details as public reducer route facts.
 - Hex ability-check roll-mode.
 - `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`.
 - `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
 
 Future work should close one of those exact blockers through generic route
-facts. Weapon-hosted selected rows have copied route facts and can proceed as
-fresh replay. Exact after-hit damage details, Hex ability-check roll-mode, Jump
-landing/Prone, and concentration-backed area hazards still need source-QNT or
-public route facts first. Do not treat broad selected/grouped identity replay as
-an implementation task.
+facts. Weapon-hosted selected-row exactness now needs a source-side public route
+witness rather than more target-side inference. Exact damage details, Hex
+ability-check roll-mode, Jump landing/Prone, and concentration-backed area
+hazards still need source-QNT or public route facts first. Do not treat broad
+selected/grouped identity replay as an implementation task.
 
 ## Current Boundary
 

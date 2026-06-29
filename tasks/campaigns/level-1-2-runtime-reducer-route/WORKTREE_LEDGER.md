@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-weapon-hosted-selected` | `ralph/fresh-sqnt07a-level1-weapon-hosted-selected` | `9737474a21fb77df382cf3504dd8a4b3b46ffb5d` | Volta the 4th (`019f12d4-3c6b-7b42-911a-422e3b0f5c63`) | pending | active: worker running |
+| _none_ | | | | | | |
 
 ## Active Source-QNT Lanes
 
@@ -64,6 +64,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-weapon-hosted-selected` | `ralph/fresh-sqnt07a-level1-weapon-hosted-selected` | `6216453d8599c3ab5069e647ffd5109573c79c78` | `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` | removable after retention decision; accepted-with-blockers; generic weapon-hosted route-surface groups route through copied connector-derived expected records and public reducer observations; `acceptedSelectedRows` remains empty; selected-row exactness and exact arithmetic/identity details remain blocked; reviewed by Ptolemy the 4th (`019f12e6-e23c-7032-97e4-88ff3cb3fc18`) and Zeno the 4th (`019f12f0-86d0-7010-91ee-dd9700f70b90`) |
 | FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-after-hit-timed-selected` | `ralph/fresh-sqnt07a-level1-after-hit-timed-selected` | `73d7da78b5e350cefc4115292f3fce119885a499` | `9737474a21fb77df382cf3504dd8a4b3b46ffb5d` | removable after retention decision; accepted-with-blockers; exactly three selected level-1 after-hit/timed rider rows route through copied generic after-hit route/lifecycle/owner surfaces; exact damage details, weapon-hosted rows, Hex ability-check, Jump/Prone, and concentration-backed hazard blockers remain explicit; reviewed by Faraday the 4th (`019f12c3-7c4b-76f3-a5ce-86164de59e7e`) |
 | FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-scalar-buff-selected` | `ralph/fresh-sqnt07a-level1-scalar-buff-selected` | `9a79b6942a8a2e839f5be04e3e0663c21754fd3b` | `6f526cb20165a00707bf90c59096087464a5d108` | removable after retention decision; accepted-with-blockers; exactly two selected level-1 scalar-buff rows route through copied generic scalar-buff facts; retained after-hit/timed rider, weapon-hosted, Hex ability-check, Jump/Prone, and concentration-backed hazard blockers |
 | FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-marked-immunity-selected` | `ralph/fresh-sqnt07a-level1-marked-immunity-selected` | `e6f3a440ec69949dde17d351e3172b2897006b07` | `a7b4a30fae4b293ca48feec50041c9fa6a706db8` | removable after retention decision; accepted-with-blockers; exactly four selected level-1 rows route through copied generic marked-damage/immunity facts; retained scalar-buff, after-hit/timed rider, weapon-hosted, and Hex ability-check blockers |

@@ -28,9 +28,9 @@ Campaign: `level-1-2-runtime-reducer-route`
 
 ## Current Fresh Verification
 
-At campaign-control head `ddfc1efb2b8bba79fa7e58f4c9f0e01b34ffae1b`
+At campaign-control head `63075124dc0de6a2cfbc0ce9516fea7a3d8aaf1a`
 before this checkpoint update and fresh target head
-`9737474a21fb77df382cf3504dd8a4b3b46ffb5d`:
+`ce9f653e3cba6a9eefa0d2f14e11757f7081e618`:
 
 - `python3 tools/verify_current_fresh_target.py`: pass
 - `python3 tools/verify_fresh_rr_sqnt07a_level1_after_hit_timed_selected.py`:
@@ -40,7 +40,10 @@ before this checkpoint update and fresh target head
 - `python3 tools/verify_fresh_rr_sqnt07a_level1_marked_immunity_selected.py`:
   pass
 - `python3 tools/verify_fresh_rr_sqnt07a_level1_scalar_buff_selected.py`: pass
+- `python3 tools/verify_fresh_rr_sqnt07a_level1_weapon_hosted_selected.py`:
+  pass
 - `cargo test fresh_reaction_interrupt_taxonomy_routes_use_generic_payload_shapes --test reducer_spine`: pass
+- `cargo test sqnt07a_level1_ -- --nocapture`: pass
 - `cargo fmt --check`: pass
 - `cargo test`: pass
 - `cargo clippy --all-targets -- -D warnings`: pass
@@ -51,7 +54,8 @@ before this checkpoint update and fresh target head
 - current fresh runtime claims: FEXP-08, FEXP-09A through FEXP-09G, SQNT-07A
   active-effect/condition, spatial/damage, character/sheet/handoff,
   reaction/interrupt taxonomy, battle active-effects, and level-1
-  marked/immunity, scalar-buff, and after-hit/timed rider selected-row replays
+  marked/immunity, scalar-buff, after-hit/timed rider selected-row replays, and
+  weapon-hosted generic route-surface replay
 - active fresh expansion lanes: none
 
 This supersedes the older FEXP-09G and partial renewal checkpoints as the
@@ -83,7 +87,7 @@ refreshed source inventory also marks `45` obligations out of scope, including
 the nine scenario sequencing rows moved out of the reducer-route denominator.
 
 The current fresh package checkpoint is separate: the fresh verifier at
-`9737474a21fb77df382cf3504dd8a4b3b46ffb5d` reports `98` drivers, `663`
+`ce9f653e3cba6a9eefa0d2f14e11757f7081e618` reports `98` drivers, `663`
 in-scope obligations, and `45` out-of-scope obligations for source package
 `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
 
@@ -802,3 +806,37 @@ All CP5 lanes must preserve the campaign rule: accepted coverage requires reduce
 - Scope note: this is selected-row acceptance only where the selected rows
   reduce to generic copied after-hit route facts. It does not accept exact
   damage details or broad selected identity replay.
+
+### FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY
+
+- Fresh target merge commit: `ce9f653e3cba6a9eefa0d2f14e11757f7081e618`.
+- Worker head: `6216453d8599c3ab5069e647ffd5109573c79c78`.
+- Worker: Volta the 4th (`019f12d4-3c6b-7b42-911a-422e3b0f5c63`).
+- Reviewers: Ptolemy the 4th
+  (`019f12e6-e23c-7032-97e4-88ff3cb3fc18`) and Zeno the 4th
+  (`019f12f0-86d0-7010-91ee-dd9700f70b90`).
+- Result: accepted-with-blockers. Generic weapon-hosted route-surface groups
+  route through copied connector-derived expected records and public reducer
+  observations:
+  `WeaponDamageRiderGenericRouteSurface`,
+  `HeldWeaponActiveEffectGenericRouteSurface`, and
+  `SpellHostedWeaponAttackGenericRouteSurface`.
+- Review/fixer notes: the initial worker claim was too strong. The lane was
+  downgraded so `acceptedSelectedRows` is empty, selected-row exactness remains
+  blocked without a copied public selected-row route witness, production
+  `src/**/*.rs` is scanned for lane-relevant authored spell/item/row identity
+  terms, older after-hit blocker history remains blocked, and the verifier
+  checks `STATE_OWNERS.md` wording.
+- Verification in fresh target: `python3
+  tools/verify_fresh_rr_sqnt07a_level1_weapon_hosted_selected.py`, `python3
+  tools/verify_current_fresh_target.py`, `cargo test sqnt07a_level1_ --
+  --nocapture`, `cargo fmt --check`, `cargo test`, `cargo clippy
+  --all-targets -- -D warnings`, and `git diff --check HEAD~1...HEAD` passed
+  after merge.
+- Residual blockers preserved: selected-row-to-public-route witness for
+  weapon-hosted exactness, exact weapon-hosted arithmetic and identity details,
+  exact after-hit/timed damage details, Hex ability-check roll-mode, Jump
+  landing legality and failed-landing Prone, and concentration-backed area
+  hazards.
+- Scope note: this is not selected-row exactness acceptance and not broad
+  selected identity replay.

@@ -40,7 +40,7 @@ and fresh replay refresh completed. Current authoritative checkpoint:
 - Source/cleanroom-input package is now
   `545d7848692fcb18adf14e5c009d9e7f4d0cb1d5`.
 - Fresh target `master` is now
-  `9737474a21fb77df382cf3504dd8a4b3b46ffb5d`.
+  `ce9f653e3cba6a9eefa0d2f14e11757f7081e618`.
 - `FRESH-RR-BASELINE-E9F75E22`,
   `FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION`, and
   `FRESH-RR-SQNT07A-SPATIAL-MOVEMENT` are complete.
@@ -54,10 +54,12 @@ and fresh replay refresh completed. Current authoritative checkpoint:
   replay accepts exactly 2 selected rows through copied generic scalar-buff
   facts. The level-1 after-hit/timed rider selected replay accepts exactly 3
   selected rows through copied generic after-hit route/lifecycle/owner facts;
-  exact damage details remain blocked.
+  exact damage details remain blocked. The level-1 weapon-hosted replay accepts
+  generic route-surface groups through copied route connectors and public
+  reducer observations; selected-row exactness remains blocked.
 - Remaining SQNT-07A blockers are exact and should drive future work:
-  weapon-hosted selected rows, Hex ability-check roll-mode, exact after-hit
-  damage details,
+  selected-row-to-public-route witness for weapon-hosted exactness, Hex
+  ability-check roll-mode, exact after-hit and weapon-hosted damage details,
   `FRESH-RR-SQNT07A-jump-landing-legality-and-failed-landing-prone-blocked`,
   and `FRESH-RR-SQNT07A-concentration-backed-area-hazards-blocked`.
 - Do not relaunch broad selected/grouped identity replay. Launch only lanes
