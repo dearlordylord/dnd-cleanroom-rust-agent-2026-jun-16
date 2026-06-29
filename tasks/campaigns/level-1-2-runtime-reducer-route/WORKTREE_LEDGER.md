@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-marked-immunity-selected` | `ralph/fresh-sqnt07a-level1-marked-immunity-selected` | `d776f392bcffb1ce28283281570d486e54e4b3ed` | Einstein the 4th (`019f1266-4ae9-7111-8bdb-b124533ff343`) | pending | active; accepts only the four selected level-1 rows reducible to copied generic marked-damage/immunity route facts |
 
 ## Active Source-QNT Lanes
 

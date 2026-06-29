@@ -868,7 +868,18 @@
     "cleanroomHarness": "Failed on broad historical stale ledger/evidence and pre-existing heuristic findings outside SQNT-07A; grep of captured output found no SQNT-07A-specific errors.",
     "review": "Conflict resolution preserved both lanes: route subject/fill/owner support, tests, evidence, state-owner records, validation records, accepted rows, and blockers. Production reducer support remains shape/fact/typed-subject routed; adapter row labels remain evidence identity only."
   },
-  "activeLaneWorktrees": [],
+  "activeLaneWorktrees": [
+    {
+      "laneId": "FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-marked-immunity-selected",
+      "branch": "ralph/fresh-sqnt07a-level1-marked-immunity-selected",
+      "baseSha": "d776f392bcffb1ce28283281570d486e54e4b3ed",
+      "workerAgent": "019f1266-4ae9-7111-8bdb-b124533ff343",
+      "workerName": "Einstein the 4th",
+      "status": "active",
+      "scope": "Fresh target replay for exactly four selected level-1 rows reducible to copied generic marked-damage/immunity route facts; no broad selected-identity replay."
+    }
+  ],
   "activeSourceQntLanes": [],
   "completedSourceQntLanes": [
     {
