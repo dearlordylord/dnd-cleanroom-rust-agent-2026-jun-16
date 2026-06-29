@@ -329,6 +329,35 @@
       "acceptanceSummary": "Accepted at fresh target eaaefdbb1172b37b75f9a29ca3132f8e547cd2f1. The 545d784 current package replay accepts all 3 SQNT-07D active-feature spell-benefit rows through copied active-feature route connector facts and public reducer entrypoints, with no production runtime changes and no blockers."
     },
     {
+      "laneId": "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
+      "checkpointId": "FEXP-CP5",
+      "status": "in-progress",
+      "routeClass": "catalog-after-substrate",
+      "purpose": "Renew current-package fresh replay for SQNT-07B species/passive-adjacent rows through copied generic species/passive route facts and public battle reducer entrypoints.",
+      "drivers": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-halfling-nimbleness-selected-identity.mbt.qnt"
+      ],
+      "routeConnectors": [
+        "cleanroom-input/qnt/battle-runtime/battle-runtime-species-passive-trait-substrates.route.mbt.qnt"
+      ],
+      "sourcePackageCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
+      "expectedOutputs": [
+        "EVIDENCE/fexp09b-sqnt07b-species-passive-current-package-replay.json",
+        "BLOCKERS.json entries for any species/passive-adjacent row not backed by copied generic route facts",
+        "STATE_OWNERS.md entries for any new durable fresh-target state",
+        "tools/verify_current_fresh_target.py includes accepted FEXP-09B evidence"
+      ],
+      "requiredChecks": [
+        "python3 tools/verify_current_fresh_target.py",
+        "focused FEXP-09B verifier",
+        "cargo fmt --check",
+        "cargo test",
+        "cargo clippy --all-targets -- -D warnings",
+        "git diff --check HEAD~1...HEAD"
+      ],
+      "acceptanceSummary": "Running. SQNT-07B species/passive-adjacent rows were dirty-replayed through copied route facts, but fresh target acceptance against package 545d784 remains to be proven."
+    },
+    {
       "laneId": "FRESH-RR-SPATIAL-DAMAGE",
       "checkpointId": "FRESH-RR-CP3",
       "status": "merged-with-blockers",
