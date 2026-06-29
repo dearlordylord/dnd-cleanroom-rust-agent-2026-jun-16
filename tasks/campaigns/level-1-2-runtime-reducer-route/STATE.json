@@ -4897,7 +4897,7 @@
         "baseSha": "4d196258a51f4264803ff11f7c806c969f0aff2d",
         "worktree": "/workspace/typescript/.codex-worktrees/dnd-source-reaction-projection-facts",
         "branch": "ralph/source-reaction-projection-facts",
-        "agent": "pending spawn"
+        "agent": "Einstein the 5th (019f1448-090d-7222-ae15-43509ed3e721)"
       },
       {
         "laneId": "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
@@ -4915,7 +4915,7 @@
         "baseSha": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
         "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-condition-saving-selected",
         "branch": "ralph/fresh-sqnt07a-condition-saving-selected",
-        "agent": "pending spawn"
+        "agent": "Harvey the 5th (019f1448-72ac-7a73-8c1d-028d51099d20)"
       }
     ],
     "deferredLanes": [
@@ -4942,7 +4942,7 @@
       "branch": "ralph/source-reaction-projection-facts",
       "baseSha": "4d196258a51f4264803ff11f7c806c969f0aff2d",
       "status": "running",
-      "agent": "pending spawn"
+      "agent": "Einstein the 5th (019f1448-090d-7222-ae15-43509ed3e721)"
     },
     {
       "laneId": "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY",
@@ -4951,7 +4951,7 @@
       "branch": "ralph/fresh-sqnt07a-condition-saving-selected",
       "baseSha": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
       "status": "running",
-      "agent": "pending spawn"
+      "agent": "Harvey the 5th (019f1448-72ac-7a73-8c1d-028d51099d20)"
     }
   ],
   "completionAuditReports": [
