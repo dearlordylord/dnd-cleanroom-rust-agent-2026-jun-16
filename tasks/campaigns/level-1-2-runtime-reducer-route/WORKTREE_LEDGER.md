@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION | `/workspace/typescript/.codex-worktrees/dnd-fresh-fexp09b-current-gate-reconciliation` | `ralph/fresh-fexp09b-current-gate-reconciliation` | `ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44` | pending | pending | active; reconcile FEXP-09B current-package verifier/status mismatch by proving the standalone verifier or reclassifying stale claims |
 
 ## Active Source-QNT Lanes
 

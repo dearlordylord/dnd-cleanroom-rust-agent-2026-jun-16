@@ -48,7 +48,7 @@
       ]
     },
     "nextCampaignBatch": {
-      "status": "accepted-source-blocker-fresh-consumption",
+      "status": "active-fexp09b-current-gate-reconciliation",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "acceptedFreshTargetHead": "ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44",
       "purpose": "renew historical fresh evidence against the current package through copied QNT-derived expected records and public reducer/source entrypoint observations",
@@ -69,10 +69,12 @@
         "FRESH-RR-SQNT07A-SOURCE-BLOCKER-CONSUMPTION"
       ],
       "remainingLane": null,
-      "nextParallelism": "No active parallel lanes. The source blocker wave and its fresh replay are merged and verified; next work should be chosen from a fresh completion audit, not from stale blocker bookkeeping.",
-      "activeParallelLanes": [],
-      "activeLane": null,
-      "nextPlannedLane": "completion-audit-and-next-campaign-selection",
+      "nextParallelism": "One active fresh reconciliation lane. It is deliberately narrow because it edits the aggregate verifier/status metadata for one current-package claim.",
+      "activeParallelLanes": [
+        "FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION"
+      ],
+      "activeLane": "FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION",
+      "nextPlannedLane": "review-and-merge-fexp09b-current-gate-reconciliation",
       "lastCompletedBatch": "fresh source blocker consumption for weapon-hosted capability and concentration-hazard exact damage",
       "lastCompletedFreshTargetHead": "ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44",
       "lastCompletedSourceMergeHead": "4d196258a51f4264803ff11f7c806c969f0aff2d",
@@ -87,7 +89,9 @@
         "Launched fresh replay FRESH-RR-SQNT07A-SOURCE-BLOCKER-CONSUMPTION from fresh target b3de1456c54162357abed70608ec37cc936dee92 to consume source package 4d196258a51f4264803ff11f7c806c969f0aff2d.",
         "Fresh replay FRESH-RR-SQNT07A-SOURCE-BLOCKER-CONSUMPTION merged into fresh target at ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44.",
         "Accepted current source package 4d196258a51f4264803ff11f7c806c969f0aff2d in the fresh target: weapon-hosted item/attack capability facts, concentration-backed hazard save-triggered exact Hit Point damage, and Hex/exact-damage source consumption all verify through copied QNT plus public reducer observations.",
-        "Verification passed on the accepted fresh target: focused SQNT-07A verifiers, python3 tools/verify_current_fresh_target.py, cargo fmt --check, cargo test, cargo clippy --all-targets -- -D warnings, and git diff --check."
+        "Verification passed on the accepted fresh target: focused SQNT-07A verifiers, python3 tools/verify_current_fresh_target.py, cargo fmt --check, cargo test, cargo clippy --all-targets -- -D warnings, and git diff --check.",
+        "Launched fresh reconciliation lane FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION from accepted fresh target ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44.",
+        "Purpose: resolve mismatch where status files claim FEXP-09B current-package acceptance while the aggregate verifier omits the standalone FEXP-09B verifier and claim."
       ],
       "targetHead": "ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44",
       "sourceRouteWitnessHead": "4d196258a51f4264803ff11f7c806c969f0aff2d",
@@ -4020,7 +4024,7 @@
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "source-blocker-consumption-accepted",
+    "status": "active-fexp09b-current-gate-reconciliation",
     "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
@@ -4757,13 +4761,13 @@
         ]
       }
     ],
-    "activeWorktree": null,
-    "activeBranch": null,
-    "activeLaneBaseCommit": null,
+    "activeWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-fexp09b-current-gate-reconciliation",
+    "activeBranch": "ralph/fresh-fexp09b-current-gate-reconciliation",
+    "activeLaneBaseCommit": "ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44",
     "activeParallelLanes": [],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "completion-audit-and-next-campaign-selection",
+    "nextPlannedLane": "review-and-merge-fexp09b-current-gate-reconciliation",
     "nextWorkRecommendations": [
       "Source master 4d196258a51f4264803ff11f7c806c969f0aff2d now contains accepted Hex ability-check roll-mode, exact damage route bridge, selected concentration-backed hazard route inputs, weapon-hosted capability facts, and concentration-hazard save-triggered Hit Point damage ownership.",
       "Fresh target ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44 consumes those facts through copied QNT and public reducer observations.",
@@ -4802,7 +4806,7 @@
       ],
       "nextProofRenewalBatch": []
     },
-    "activeFreshReplayLane": null,
+    "activeFreshReplayLane": "FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION",
     "acceptedFreshTargetHead": "ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44",
     "lastCompletedBatch": "fresh source blocker consumption for weapon-hosted capability and concentration-hazard exact damage",
     "lastCompletedFreshTargetHead": "ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44",
