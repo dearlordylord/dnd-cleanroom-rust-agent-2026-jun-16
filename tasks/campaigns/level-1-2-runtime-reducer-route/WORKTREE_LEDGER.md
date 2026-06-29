@@ -28,7 +28,7 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION | `/workspace/typescript/.codex-worktrees/dnd-fresh-fexp09b-current-gate-reconciliation` | `ralph/fresh-fexp09b-current-gate-reconciliation` | `ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44` | pending | pending | active; reconcile FEXP-09B current-package verifier/status mismatch by proving the standalone verifier or reclassifying stale claims |
+| _none_ | | | | | | |
 
 ## Active Source-QNT Lanes
 
@@ -71,6 +71,7 @@ When launching a lane:
 
 | Lane | Path | Branch | Lane Head | Merge Commit | Status |
 | --- | --- | --- | --- | --- | --- |
+| FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION | `/workspace/typescript/.codex-worktrees/dnd-fresh-fexp09b-current-gate-reconciliation` | `ralph/fresh-fexp09b-current-gate-reconciliation` | `ff09b6579ebb507f3c8dca06f2b040d0d46d05fb` | `ff09b6579ebb507f3c8dca06f2b040d0d46d05fb` | removable after retention decision; accepted; reconciles FEXP-09B current-package claim into the aggregate fresh target gate, enforces target metadata consistency and metadata-only post-target changes; reviewed by Lovelace, Confucius, Cicero, and orchestrator |
 | FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-level1-weapon-hosted-selected` | `ralph/fresh-sqnt07a-level1-weapon-hosted-selected` | `6216453d8599c3ab5069e647ffd5109573c79c78` | `ce9f653e3cba6a9eefa0d2f14e11757f7081e618` | removable after retention decision; accepted-with-blockers; generic weapon-hosted route-surface groups route through copied connector-derived expected records and public reducer observations; `acceptedSelectedRows` remains empty; selected-row exactness and exact arithmetic/identity details remain blocked; reviewed by Ptolemy the 4th (`019f12e6-e23c-7032-97e4-88ff3cb3fc18`) and Zeno the 4th (`019f12f0-86d0-7010-91ee-dd9700f70b90`) |
 | FRESH-RR-SQNT07A-SOURCE-BLOCKER-CONSUMPTION | `/workspace/typescript/.codex-worktrees/dnd-fresh-sqnt07a-source-blocker-consumption` | `ralph/fresh-sqnt07a-source-blocker-consumption` | `b3de1456c54162357abed70608ec37cc936dee92` | `ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44` | `ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44` | removable after retention decision; accepted; consumes source package `4d196258a51f4264803ff11f7c806c969f0aff2d`; weapon-hosted item/attack capability facts and concentration-hazard save-triggered exact Hit Point damage route through copied QNT and public reducer observations; reviewed by Socrates, Avicenna, Boyle, and Galileo the 5th |
 | FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE | `/workspace/typescript/.codex-worktrees/dnd-source-sqnt07a-hex-ability-roll-mode` | `ralph/source-sqnt07a-hex-ability-roll-mode` | `ba70004531229d4cff641afea8a045405bf1870f` | source master merge `6d4991144`; inventory follow-up `bc06e3fbe` | accepted; public targeted ability-check roll-mode route facts for selected-ability disadvantage, nonmatching normal projections, active-effect/Concentration ownership, and cleanup; reviewed by Kuhn the 5th (`019f136b-bff6-7fd3-a136-45b6f0bf5b66`) |
