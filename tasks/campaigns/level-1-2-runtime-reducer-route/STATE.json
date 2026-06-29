@@ -36,7 +36,7 @@
       ]
     },
     "nextCampaignBatch": {
-      "status": "planned-not-launched",
+      "status": "running",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "purpose": "renew remaining historical fresh evidence against the current package through copied QNT-derived expected records and public reducer/source entrypoint observations",
       "lanes": [
@@ -46,7 +46,41 @@
         "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
         "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY"
       ],
-      "parallelism": "Character/sheet/handoff and reaction/interrupt can run independently; battle active-effect should merge after SQNT-07A active-effect/condition because both touch active-effect owners; spatial/damage has moderate battle reducer overlap."
+      "parallelism": "Character/sheet/handoff and reaction/interrupt can run independently; battle active-effect should merge after SQNT-07A active-effect/condition because both touch active-effect owners; spatial/damage has moderate battle reducer overlap.",
+      "activeParallelLanes": [
+        {
+          "laneId": "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY",
+          "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-sqnt07a-active-effect-condition",
+          "branch": "ralph/fresh-renew-sqnt07a-active-effect-condition",
+          "baseCommit": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+          "workerAgent": "Euclid the 4th (019f1222-50cc-7533-b78b-139fc1caa584)",
+          "status": "running"
+        },
+        {
+          "laneId": "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
+          "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-reaction-interrupt-taxonomy",
+          "branch": "ralph/fresh-renew-reaction-interrupt-taxonomy",
+          "baseCommit": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+          "workerAgent": "Chandrasekhar the 4th (019f1222-9fe6-7e63-b82d-7eeb673d8224)",
+          "status": "running"
+        },
+        {
+          "laneId": "FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY",
+          "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-spatial-damage",
+          "branch": "ralph/fresh-renew-spatial-damage",
+          "baseCommit": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+          "workerAgent": "Dalton the 4th (019f1222-f3c4-73e2-bf8d-907637458ec0)",
+          "status": "running"
+        },
+        {
+          "laneId": "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY",
+          "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-character-sheet-handoff",
+          "branch": "ralph/fresh-renew-character-sheet-handoff",
+          "baseCommit": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+          "workerAgent": "Herschel the 4th (019f1223-4709-74e3-8488-d2a2ffab1c65)",
+          "status": "running"
+        }
+      ]
     }
   },
   "integration": {
@@ -4474,8 +4508,41 @@
     ],
     "activeWorktree": null,
     "activeBranch": null,
-    "activeLaneBaseCommit": null,
-    "activeParallelLanes": [],
+    "activeLaneBaseCommit": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+    "activeParallelLanes": [
+      {
+        "laneId": "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-sqnt07a-active-effect-condition",
+        "branch": "ralph/fresh-renew-sqnt07a-active-effect-condition",
+        "baseCommit": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+        "workerAgent": "Euclid the 4th (019f1222-50cc-7533-b78b-139fc1caa584)",
+        "status": "running"
+      },
+      {
+        "laneId": "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-reaction-interrupt-taxonomy",
+        "branch": "ralph/fresh-renew-reaction-interrupt-taxonomy",
+        "baseCommit": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+        "workerAgent": "Chandrasekhar the 4th (019f1222-9fe6-7e63-b82d-7eeb673d8224)",
+        "status": "running"
+      },
+      {
+        "laneId": "FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-spatial-damage",
+        "branch": "ralph/fresh-renew-spatial-damage",
+        "baseCommit": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+        "workerAgent": "Dalton the 4th (019f1222-f3c4-73e2-bf8d-907637458ec0)",
+        "status": "running"
+      },
+      {
+        "laneId": "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY",
+        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-renew-character-sheet-handoff",
+        "branch": "ralph/fresh-renew-character-sheet-handoff",
+        "baseCommit": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
+        "workerAgent": "Herschel the 4th (019f1223-4709-74e3-8488-d2a2ffab1c65)",
+        "status": "running"
+      }
+    ],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
     "nextPlannedLane": "Post-SQNT-07A fresh replay checkpoint; choose next source-input or fresh replay batch from explicit blockers only",

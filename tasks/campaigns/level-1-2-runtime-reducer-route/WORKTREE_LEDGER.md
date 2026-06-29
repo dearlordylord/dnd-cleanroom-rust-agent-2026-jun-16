@@ -28,7 +28,10 @@ This file prevents orphaned or confused Ralph worktrees.
 
 | Lane | Path | Branch | Base SHA | Worker | Reviewer | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| _none_ | | | | | | |
+| FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-sqnt07a-active-effect-condition` | `ralph/fresh-renew-sqnt07a-active-effect-condition` | `b0036b7a0d81ffcc54c5c2d828122bd1352dc31c` | Euclid the 4th (`019f1222-50cc-7533-b78b-139fc1caa584`) | _pending_ | running |
+| FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-reaction-interrupt-taxonomy` | `ralph/fresh-renew-reaction-interrupt-taxonomy` | `b0036b7a0d81ffcc54c5c2d828122bd1352dc31c` | Chandrasekhar the 4th (`019f1222-9fe6-7e63-b82d-7eeb673d8224`) | _pending_ | running |
+| FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-spatial-damage` | `ralph/fresh-renew-spatial-damage` | `b0036b7a0d81ffcc54c5c2d828122bd1352dc31c` | Dalton the 4th (`019f1222-f3c4-73e2-bf8d-907637458ec0`) | _pending_ | running |
+| FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY | `/workspace/typescript/.codex-worktrees/dnd-fresh-renew-character-sheet-handoff` | `ralph/fresh-renew-character-sheet-handoff` | `b0036b7a0d81ffcc54c5c2d828122bd1352dc31c` | Herschel the 4th (`019f1223-4709-74e3-8488-d2a2ffab1c65`) | _pending_ | running |
 
 ## Active Source-QNT Lanes
 
