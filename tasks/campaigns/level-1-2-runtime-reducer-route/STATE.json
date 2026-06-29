@@ -200,27 +200,27 @@
     },
     {
       "id": "sqnt07a-spatial-movement-dirty-replay",
-      "status": "accepted-with-known-harness-debt",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-sqnt07a-spatial-movement",
-      "branch": "ralph/sqnt07a-spatial-movement-dirty-replay",
+      "status": "current-package-dirty-replay-refreshed-with-known-harness-validator-debt",
+      "worktree": "/workspace/typescript/.codex-worktrees/dnd-cleanroom-rrconv-19",
+      "branch": "ralph/rrconv-19-cleanroom",
       "baseCommit": "2645478",
       "workerCommit": "ff870c11ae3f3d8dbc78f43cbb4b7cf6f3b65d36",
-      "mergeCommit": "86c0c70b22fbb4e619a6f154a56b38c7382c7d22",
-      "manifestSourceCommitSha": "e9f75e22a10891cd438fb06f6ea1ca666f79aaeb",
+      "mergeCommit": "89063dbab01a4df38a550a4d50fe536b49ea6f50",
+      "manifestSourceCommitSha": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
       "evidence": "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json",
-      "acceptedConnectorRows": 16,
-      "targetBlockedRows": 2,
+      "acceptedSelectedRowsThroughCompositionConnector": 10,
+      "targetBlockedRows": 0,
       "checks": [
         "cargo fmt --check",
-        "cargo test spatial_effects_dirty_replay_routes_through_reducer",
-        "cargo test movement_presentation_dirty_replay_routes_through_reducer",
+        "cargo test level1_spatial_witness_adapter_replays_all_branches",
+        "node scripts/check-target-replay-evidence-file.cjs --driver cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.mbt.qnt --evidence tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json",
         "cargo test",
         "cargo clippy --all-targets -- -D warnings",
         "git diff --check",
         "JSON parse checks",
-        "node scripts/check-cleanroom-harness.cjs (known historical stale debt outside SQNT-07A; no SQNT-07A-specific matches)"
+        "node scripts/check-cleanroom-harness.cjs (known cleanroom-input validator hash debt; no SQNT-07A spatial-specific matches)"
       ],
-      "note": "Diagnostic dirty target replay only; no fresh target acceptance claimed."
+      "note": "Diagnostic dirty target replay only. Current package replay accepts all 10 selected spatial witness rows through the copied selected-spatial composition connector; no fresh target acceptance claimed."
     },
     {
       "id": "fcsf03g-exact-damage-projection-dirty-replay",
@@ -1203,7 +1203,7 @@
       "routeConnectors": [
         "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-spatial-witness-selected-identity.route.mbt.qnt"
       ],
-      "mergeCommit": "86c0c70b22fbb4e619a6f154a56b38c7382c7d22",
+      "mergeCommit": "89063dbab01a4df38a550a4d50fe536b49ea6f50",
       "evidence": "tasks/target-replay-evidence/SQNT-07A-spatial-movement-dirty-replay.json",
       "statusNote": "Current package dirty replay accepted all 10 selected spatial witness branches through the copied selected-spatial composition connector; full harness is blocked only by stale cleanroom-input validator hashes.",
       "acceptedSelectedRowsThroughCompositionConnector": 10,
