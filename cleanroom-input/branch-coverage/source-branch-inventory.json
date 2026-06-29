@@ -3184,7 +3184,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doDivineFavorWeaponDamageRider",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3203,7 +3203,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doDivineSmiteAfterHitDamage",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3222,7 +3222,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doEnsnaringStrikeAfterHitRestraintTurnStartDamageAndEscape",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3241,7 +3241,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doFalseLifeTemporaryHitPoints",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3260,7 +3260,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPoints",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3279,7 +3279,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHeroismFrightenedImmunityTurnStartTemporaryHitPointsCleanup",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3298,7 +3298,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHexMarkedDamageRiderAndLaterTurnTransfer",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3317,7 +3317,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doHuntersMarkMarkedDamageRiderConcentrationAndSameTurnTransfer",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3336,7 +3336,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doLongstriderSpeedIncrease",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3355,7 +3355,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doSearingSmiteAfterHitTimedDamageAndSaveCleanup",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3374,7 +3374,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doShillelaghWeaponAttackOverride",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3393,7 +3393,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level1-buff-mark-smite-selected-identity.mbt.qnt#step:doTrueStrikeSpellHostedWeaponAttack",
-      "qntFileSha256": "f2fe833c482c840b7cab1525bef8d4cb870cfff9d7993b18ff1330750f6defe4",
+      "qntFileSha256": "c73b07f6de26fbbcddd3d33ba3f6ab1adce87e9f72e461048fa01386cd5230b8",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -3780,6 +3780,418 @@
       },
       "scope": {
         "tag": "in-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverCalmEmotionsConditionImmunity",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverCalmEmotionsConditionImmunity"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt#step:doDiscoverCalmEmotionsConditionImmunity",
+      "qntFileSha256": "13117ad980d4f1389a7fbf8f5a79ac84d52e5da4248d10ddda54dce369169b3a",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverCharmPersonSaveGatedCondition",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverCharmPersonSaveGatedCondition"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt#step:doDiscoverCharmPersonSaveGatedCondition",
+      "qntFileSha256": "13117ad980d4f1389a7fbf8f5a79ac84d52e5da4248d10ddda54dce369169b3a",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverDarknessPointOrigin",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverDarknessPointOrigin"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt#step:doDiscoverDarknessPointOrigin",
+      "qntFileSha256": "13117ad980d4f1389a7fbf8f5a79ac84d52e5da4248d10ddda54dce369169b3a",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverEnthrallPerceptionPenalty",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverEnthrallPerceptionPenalty"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt#step:doDiscoverEnthrallPerceptionPenalty",
+      "qntFileSha256": "13117ad980d4f1389a7fbf8f5a79ac84d52e5da4248d10ddda54dce369169b3a",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverGustOfWindLine",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverGustOfWindLine"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt#step:doDiscoverGustOfWindLine",
+      "qntFileSha256": "13117ad980d4f1389a7fbf8f5a79ac84d52e5da4248d10ddda54dce369169b3a",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverInvisibilityDirectCondition",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverInvisibilityDirectCondition"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt#step:doDiscoverInvisibilityDirectCondition",
+      "qntFileSha256": "13117ad980d4f1389a7fbf8f5a79ac84d52e5da4248d10ddda54dce369169b3a",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverLevitateCreature",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverLevitateCreature"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt#step:doDiscoverLevitateCreature",
+      "qntFileSha256": "13117ad980d4f1389a7fbf8f5a79ac84d52e5da4248d10ddda54dce369169b3a",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverSeeInvisibilityObserverSight",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverSeeInvisibilityObserverSight"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt#step:doDiscoverSeeInvisibilityObserverSight",
+      "qntFileSha256": "13117ad980d4f1389a7fbf8f5a79ac84d52e5da4248d10ddda54dce369169b3a",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverSpikeGrowthMovementHazard",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverSpikeGrowthMovementHazard"
+      ],
+      "decisionSource": "branch-decision",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt#step:doDiscoverSpikeGrowthMovementHazard",
+      "qntFileSha256": "13117ad980d4f1389a7fbf8f5a79ac84d52e5da4248d10ddda54dce369169b3a",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "tag": "in-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverWebRestraintHazard",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverWebRestraintHazard"
+      ],
+      "decisionSource": "branch-decision",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt#step:doDiscoverWebRestraintHazard",
+      "qntFileSha256": "13117ad980d4f1389a7fbf8f5a79ac84d52e5da4248d10ddda54dce369169b3a",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "tag": "in-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverAcidArrowAttackTiming",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverAcidArrowAttackTiming"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt#step:doDiscoverAcidArrowAttackTiming",
+      "qntFileSha256": "71ccf6feea9c9cebe099cc78a6f40c66cf5884fa487acd5cead3232dc2ba97c3",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverDragonsBreathInitial",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverDragonsBreathInitial"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt#step:doDiscoverDragonsBreathInitial",
+      "qntFileSha256": "71ccf6feea9c9cebe099cc78a6f40c66cf5884fa487acd5cead3232dc2ba97c3",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverFlameBladeHeldObject",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverFlameBladeHeldObject"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt#step:doDiscoverFlameBladeHeldObject",
+      "qntFileSha256": "71ccf6feea9c9cebe099cc78a6f40c66cf5884fa487acd5cead3232dc2ba97c3",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverFlamingSphereHazard",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverFlamingSphereHazard"
+      ],
+      "decisionSource": "branch-decision",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt#step:doDiscoverFlamingSphereHazard",
+      "qntFileSha256": "71ccf6feea9c9cebe099cc78a6f40c66cf5884fa487acd5cead3232dc2ba97c3",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "tag": "in-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverHeatMetalObjectContact",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverHeatMetalObjectContact"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt#step:doDiscoverHeatMetalObjectContact",
+      "qntFileSha256": "71ccf6feea9c9cebe099cc78a6f40c66cf5884fa487acd5cead3232dc2ba97c3",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverMoonbeamMovableZone",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverMoonbeamMovableZone"
+      ],
+      "decisionSource": "branch-decision",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt#step:doDiscoverMoonbeamMovableZone",
+      "qntFileSha256": "71ccf6feea9c9cebe099cc78a6f40c66cf5884fa487acd5cead3232dc2ba97c3",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "tag": "in-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverRayOfEnfeeblementSaveGate",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverRayOfEnfeeblementSaveGate"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt#step:doDiscoverRayOfEnfeeblementSaveGate",
+      "qntFileSha256": "71ccf6feea9c9cebe099cc78a6f40c66cf5884fa487acd5cead3232dc2ba97c3",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverScorchingRayAttackSequence",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverScorchingRayAttackSequence"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt#step:doDiscoverScorchingRayAttackSequence",
+      "qntFileSha256": "71ccf6feea9c9cebe099cc78a6f40c66cf5884fa487acd5cead3232dc2ba97c3",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverShatterSaveGatedDamage",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverShatterSaveGatedDamage"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt#step:doDiscoverShatterSaveGatedDamage",
+      "qntFileSha256": "71ccf6feea9c9cebe099cc78a6f40c66cf5884fa487acd5cead3232dc2ba97c3",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
+      }
+    },
+    {
+      "branchAction": "doDiscoverSpiritualWeaponAttackProxy",
+      "branchFamily": "step",
+      "branchPath": [
+        "step",
+        "doDiscoverSpiritualWeaponAttackProxy"
+      ],
+      "decisionSource": "default",
+      "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+      "obligationId": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt#step:doDiscoverSpiritualWeaponAttackProxy",
+      "qntFileSha256": "71ccf6feea9c9cebe099cc78a6f40c66cf5884fa487acd5cead3232dc2ba97c3",
+      "replay": {
+        "stepAction": "step",
+        "tag": "observable-from-step"
+      },
+      "scope": {
+        "reason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+        "reviewedBy": "codex-2026-06-29",
+        "tag": "out-of-scope"
       }
     },
     {
@@ -8355,7 +8767,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt#step:doMeleeKnockOut",
-      "qntFileSha256": "6cc621473240f21e0d94e78f51593a4da61f49bc68133d055019c30f6d4cdbf5",
+      "qntFileSha256": "f84dc7f3b8cb3b93e97c31932bf78c158d1e6b6da321833ede53d4b3ac1f6710",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8374,7 +8786,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-attack-damage-disposition.mbt.qnt#step:doRejectRangedKnockOut",
-      "qntFileSha256": "6cc621473240f21e0d94e78f51593a4da61f49bc68133d055019c30f6d4cdbf5",
+      "qntFileSha256": "f84dc7f3b8cb3b93e97c31932bf78c158d1e6b6da321833ede53d4b3ac1f6710",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8393,7 +8805,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt#step:doAttackCriticalDamage",
-      "qntFileSha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47",
+      "qntFileSha256": "64ef8c22a8318edafe626a3b114963772644dde52ca5bf77c7617765533603f0",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8412,7 +8824,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt#step:doDirectInstanceDamage",
-      "qntFileSha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47",
+      "qntFileSha256": "64ef8c22a8318edafe626a3b114963772644dde52ca5bf77c7617765533603f0",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8431,7 +8843,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt#step:doSaveSuccessHalfDamage",
-      "qntFileSha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47",
+      "qntFileSha256": "64ef8c22a8318edafe626a3b114963772644dde52ca5bf77c7617765533603f0",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8450,7 +8862,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt#step:doSaveSuccessNoDamage",
-      "qntFileSha256": "c035aaad12be2f428d375027b44a2c4007d3536e951a37dc39b3f8c4365a9c47",
+      "qntFileSha256": "64ef8c22a8318edafe626a3b114963772644dde52ca5bf77c7617765533603f0",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8469,7 +8881,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doActionSurgeActivate",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8488,7 +8900,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doActionSurgeRejectTwice",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8507,7 +8919,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doActionSurgeSpendAttack",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8526,7 +8938,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doArcheryAttackRollBonus",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8545,7 +8957,7 @@
       "decisionSource": "branch-decision",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doCombatProwessMissToHit",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8566,7 +8978,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doCunningDash",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8585,7 +8997,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doCunningDisengage",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8604,7 +9016,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doCunningHide",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8623,7 +9035,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doCuttingWordsDamage",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8642,7 +9054,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doDefenseArmorClass",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8661,7 +9073,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doDeflectAttacksDamageReduction",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8680,7 +9092,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doDiscoverSecondWind",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8699,7 +9111,7 @@
       "decisionSource": "branch-decision",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doEvasionFailure",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8720,7 +9132,7 @@
       "decisionSource": "branch-decision",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doEvasionSuccess",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8741,7 +9153,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doFrenzy",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8760,7 +9172,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doImprovedCritical",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8779,7 +9191,7 @@
       "decisionSource": "branch-decision",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doMyceliumStepDash",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "blockerId": "MYCELIUM_STEP_NO_SRD_SOURCE",
         "reason": "No copied SRD 5.2.1 passage establishes Mycelium Step or its acquisition level.",
@@ -8802,7 +9214,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doRageActivateAndDamage",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8821,7 +9233,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doRecklessAttack",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8840,7 +9252,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doResolveSecondWindHigh",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8859,7 +9271,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doResolveSecondWindLow",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8878,7 +9290,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doSavageAttackerDamage",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8897,7 +9309,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doSneakAttack",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8916,7 +9328,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doTacticalMindConvertedSuccess",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8935,7 +9347,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doTacticalMindStillFailed",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8954,7 +9366,7 @@
       "decisionSource": "branch-decision",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doUncannyDodge",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"
@@ -8975,7 +9387,7 @@
       "decisionSource": "default",
       "driverPath": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt",
       "obligationId": "cleanroom-input/qnt/battle-runtime/rule-core-features.mbt.qnt#step:doZeroHitPointReplacement",
-      "qntFileSha256": "74149393cbc722a0ffaa8c9d2aa09765bd5139401c52cd5ba74024b72085dd01",
+      "qntFileSha256": "e3dd4814d2fe2b25e9a59458ea067b948e58c1aade6c578c11454ec43743fcb4",
       "replay": {
         "stepAction": "step",
         "tag": "observable-from-step"

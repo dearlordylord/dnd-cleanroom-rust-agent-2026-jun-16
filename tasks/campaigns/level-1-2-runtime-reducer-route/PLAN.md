@@ -4,7 +4,12 @@
 
 Prove and refine a QNT-driven architecture where focused `.qnt` slices and curated cleanroom input define enough reducer-shaped semantics for an independent character/battle runtime to be built without TypeScript implementation knowledge or production authored-identity dispatch.
 
-This campaign uses the dirty Rust cleanroom only as a rehearsal and evidence target to save time. The Rust reducer-spine implementation is not the final product. It is a diagnostic place to show which QNT slices can route through shared reducer-shaped semantics and which facts are still missing from the cleanroom input package.
+This campaign used the dirty Rust cleanroom as a rehearsal and evidence target
+to save time. That dirty reducer-spine implementation remains historical and
+diagnostic; it is not the final product. Current acceptance is recorded against
+the fresh cleanroom target at
+`ff09b6579ebb507f3c8dca06f2b040d0d46d05fb`, using source package
+`4d196258a51f4264803ff11f7c806c969f0aff2d`.
 
 The goal is not to make local replay helpers pass tests. The goal is to make each accepted driver consume the shared reducer-shaped substrate appropriate to its route:
 
@@ -13,7 +18,9 @@ The goal is not to make local replay helpers pass tests. The goal is to make eac
 - catalog/selected-identity routes wait for generic substrates and must not create production identity dispatch;
 - replay-refresh-only routes refresh evidence over already-established substrate.
 
-This is a dirty cleanroom rehearsal. It is allowed to reuse the existing Rust cleanroom implementation to save time, but evidence must stay honest about that. Do not claim fresh cleanroom acceptance from this campaign.
+Fresh target acceptance is now in scope for the accepted current package.
+Dirty rehearsal evidence remains useful only as historical/diagnostic context
+and must not be resumed as a substitute for fresh-target acceptance.
 
 ## Agent Role Boundary
 

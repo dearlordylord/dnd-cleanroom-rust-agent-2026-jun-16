@@ -255,16 +255,16 @@
         5
       ],
       "sourceBranchInventory": {
-        "driverFiles": 98,
-        "branchObligations": 708,
-        "currentInScopeBranchObligations": 663,
-        "currentOutOfScopeBranchObligations": 45,
+        "driverFiles": 100,
+        "branchObligations": 728,
+        "currentInScopeBranchObligations": 667,
+        "currentOutOfScopeBranchObligations": 61,
         "sampledInputs": 24,
         "baselineWitnessDriverFiles": 1,
         "alreadyReducerRoutedDriverFiles": 3,
-        "currentNonBaselineRemainingDriverFiles": 94,
-        "currentDriverFilesWithoutRouteOrComponentConnector": 84,
-        "currentOutOfScopeBranchDecisionsInLevelDenominator": 27,
+        "currentNonBaselineRemainingDriverFiles": 96,
+        "currentDriverFilesWithoutRouteOrComponentConnector": 86,
+        "currentOutOfScopeBranchDecisionsInLevelDenominator": 43,
         "currentOutOfScopeBranchDecisionsOutsideLevelDenominator": 17,
         "currentOutOfScopeBranchDecisionSourceBlockers": 1
       },
@@ -894,7 +894,7 @@
               "cleanroom-input/qnt/battle-runtime/battle-runtime-after-hit-damage-riders.route.mbt.qnt exposes AfterHitDamageRiderRouteSubject evidence for selected after-hit damage, condition, turn-start, and cleanup rider branches.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-scalar-buff-active-effects.route.mbt.qnt exposes ScalarBuffEffectRouteSubject evidence for selected scalar buff branches such as temporary Hit Points and Speed increases.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-weapon-damage-rider.route.mbt.qnt, battle-runtime-spell-hosted-weapon-attack.route.mbt.qnt, and battle-runtime-held-weapon-active-effect.route.mbt.qnt expose the generic weapon-hosted rider and held-weapon override substrates.",
-              "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt exposes MarkedDamageRiderEffectRouteSubject and ConditionImmunityTemporaryHitPointEffectRouteSubject evidence for marked-target damage projection, target-drop transfer timing, condition-immunity projection, turn-start Temporary Hit Point grants, and Concentration cleanup through active-effect, damage, Hit Point, turn-boundary, temporary-HP, condition-lifecycle, and Concentration owners."
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt exposes MarkedDamageRiderEffectRouteSubject and ConditionImmunityTemporaryHitPointEffectRouteSubject evidence for marked-target damage projection, target-drop transfer timing, targeted ability-check roll-mode projection and cleanup, condition-immunity projection, turn-start Temporary Hit Point grants, and Concentration cleanup through active-effect, ability-check roll-mode, damage, Hit Point, turn-boundary, temporary-HP, condition-lifecycle, and Concentration owners."
             ],
             "rawDomainFacts": [
               ".references/srd-5.2.1/Playing-the-Game.md#Making an Attack, #Damage Rolls, #Temporary Hit Points, and #Movement and Position define the generic attack, damage, temporary Hit Point, and Speed facts represented by connector evidence.",
@@ -964,7 +964,7 @@
               "cleanroom-input/qnt/battle-runtime/battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt records ReactionFallMitigationRouteSubject evidence for falling-trigger reaction mitigation through generic trigger/procedure/continuation facts, spell-slot/action-economy, active-effect, movement-resource, and Hit Point owners.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-object-light-riders.route.mbt.qnt supplies generic object-attached and held light-emitter route evidence for object admission, active-effect admission, Bright/Dim Light projection, replacement cleanup, hurl cleanup, duration cleanup, and table-owned object/geometry witnesses.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt defines typed route facts that separate battle-owned effect lifecycle from table-owned light, geometry, presentation, sight, object, and hazard witnesses without selected spell identity.",
-              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt exposes SpatialEffectRouteSubject evidence for concentration-backed movable multi-emitter Dim Light movement, area-plus-Saving Throw outcome outline admission, invisible-benefit denial/Attack Roll Advantage projections, area obscurement admission plus separate duration and strong-wind dispersal cleanup, non-Concentration area hazard save/difficult-terrain movement/cleanup lifecycle, concentration-backed area hazard admission plus Concentration-break cleanup, and a separate movement-damage trigger shape through action-economy, active-effect, Concentration, light, sight, obscurement, hazard, area-shape, Saving Throw, movement, Hit Point, and turn-boundary owners.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt exposes SpatialEffectRouteSubject evidence for concentration-backed movable multi-emitter Dim Light movement, area-plus-Saving Throw outcome outline admission, invisible-benefit denial/Attack Roll Advantage projections, area obscurement admission plus separate duration and strong-wind dispersal cleanup, non-Concentration area hazard save/difficult-terrain movement/cleanup lifecycle, concentration-backed area hazard admission, save/condition, difficult-terrain movement, movement-damage Hit Point, and Concentration-break cleanup paths through action-economy, active-effect, Concentration, light, sight, obscurement, hazard, area-shape, Saving Throw, movement, Hit Point, and turn-boundary owners.",
               "cleanroom-input/qnt/battle-runtime/battle-runtime-movement-presentation.route.mbt.qnt supplies generic MovementPresentationRouteSubject evidence for movement replacement budget/distance plus table-supplied landing presentation witnesses, landing legality outcomes, failed Difficult Terrain landing Prone through BattleConditionLifecycleOwner, forced creature movement presentation, and object push/audible presentation through movement-resource, table-presentation, landing-outcome, condition-lifecycle, and object-boundary facts.",
               "The grouped spatial witness's SQNT-07A generic spatial, movement, light, area hazard, and presentation rows now route through generic spatial-effects, movement-presentation, reaction, object-light, and save-gated connectors rather than selected identity."
             ],
@@ -977,6 +977,70 @@
               "UBIQUITOUS_LANGUAGE.md defines Spell Effect, Area of Effect, Movement, Reaction, Target, Saving Throw, Boundary Crossing, Illumination, Obscurement, Attack Roll, and Table Decision."
             ],
             "blockers": []
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+          "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-hazard-selected-route.route.mbt.qnt",
+          "routeConnectorPaths": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-hazard-selected-route.route.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-surfaces.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt"
+          ],
+          "route": "reducer-routed",
+          "routeTaskId": "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
+          "subjectFamily": "selected level-2 damage spell concentration-backed area hazard rows",
+          "branchObligations": 2,
+          "currentOutOfScopeBranchObligations": 0,
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt exposes doDiscoverFlamingSphereHazard and doDiscoverMoonbeamMovableZone selected-row branches.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-hazard-selected-route.route.mbt.qnt maps those selected rows to the generic SpatialEffectRouteSubject admission, Saving Throw trigger, light projection, and Concentration-break cleanup route/fact surfaces without selected spell identity dispatch in the public reducer facts.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-surfaces.qnt supplies the shared concentration-backed area hazard route/fact definitions consumed by both the generic spatial route and this selected witness, so the selected witness does not carry parallel reducer route fragments.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt defines generic concentration-backed area hazard admission, area geometry, light, Saving Throw trigger, movement trigger, failed-save restraint trigger, and Concentration-break cleanup facts.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt remains the generic concentration-backed area hazard route substrate for admission, hazard projection, Saving Throw/ConditionLifecycle resolution, movement resolution, movement-damage Hit Point resolution, and Concentration-break cleanup owners."
+            ],
+            "rawDomainFacts": [
+              ".references/srd-5.2.1/Spells/Descriptions-E-L.md#Flaming Sphere defines a Concentration fire sphere whose movement into a creature space and end-turn adjacency force Dexterity Saving Throws.",
+              ".references/srd-5.2.1/Spells/Descriptions-M-P.md#Moonbeam defines a Concentration Cylinder whose creation, movement into a creature space, creature entry, and end-turn presence force Constitution Saving Throws once per turn.",
+              ".references/srd-5.2.1/Rules-Glossary.md#Concentration defines creator Concentration loss as ending the effect, and .references/srd-5.2.1/Spells/Gaining-and-Casting.md#Saving Throws defines spell Saving Throw frontiers.",
+              "UBIQUITOUS_LANGUAGE.md defines Spell Effect, Area of Effect, Concentration, Movement, Saving Throw, and Table Decision."
+            ],
+            "blockers": [
+              "retained-blocker: doDiscoverFlamingSphereHazard and doDiscoverMoonbeamMovableZone are accepted here only for concentration-backed hazard admission, selected Saving Throw trigger exactness, light projection where applicable, and Concentration-break cleanup. Exact Hit Point damage for save-triggered Flaming Sphere and Moonbeam rows remains blocked until a generic concentration-backed save-damage hazard route exposes damage roll and BattleHitPointOwner evidence."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+          "routeConnectorPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-hazard-selected-route.route.mbt.qnt",
+          "routeConnectorPaths": [
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-hazard-selected-route.route.mbt.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-surfaces.qnt",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt"
+          ],
+          "route": "reducer-routed",
+          "routeTaskId": "SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS",
+          "subjectFamily": "selected level-2 control spell concentration-backed area hazard rows",
+          "branchObligations": 2,
+          "currentOutOfScopeBranchObligations": 0,
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt exposes doDiscoverSpikeGrowthMovementHazard and doDiscoverWebRestraintHazard selected-row branches.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-concentration-hazard-selected-route.route.mbt.qnt maps those selected rows to the generic SpatialEffectRouteSubject admission, movement-damage or Saving Throw trigger, obscurement projection, and Concentration-break cleanup route/fact surfaces without selected spell identity dispatch in the public reducer facts.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-surfaces.qnt supplies the shared concentration-backed area hazard route/fact definitions consumed by both the generic spatial route and this selected witness, so the selected witness does not carry parallel reducer route fragments.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effect-route-facts.qnt defines generic concentration-backed area hazard admission, Difficult Terrain, area geometry, Lightly Obscured sight projection, Saving Throw trigger, movement-damage trigger, failed-save restraint trigger, and Concentration-break cleanup facts.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-spatial-effects.route.mbt.qnt remains the generic concentration-backed area hazard route substrate for admission, hazard projection, Saving Throw/ConditionLifecycle resolution, movement resolution, movement-damage Hit Point resolution, and Concentration-break cleanup owners."
+            ],
+            "rawDomainFacts": [
+              ".references/srd-5.2.1/Spells/Descriptions-S-Z.md#Spike Growth defines a Concentration Sphere that becomes Difficult Terrain and deals Piercing damage when a creature moves into or within the area.",
+              ".references/srd-5.2.1/Spells/Descriptions-S-Z.md#Web defines a Concentration Cube that is Difficult Terrain and Lightly Obscured, with entry/start-turn Dexterity Saving Throws that can impose Restrained.",
+              ".references/srd-5.2.1/Rules-Glossary.md#Concentration defines creator Concentration loss as ending the effect, .references/srd-5.2.1/Rules-Glossary.md#Difficult Terrain defines movement-cost projection, and .references/srd-5.2.1/Spells/Gaining-and-Casting.md#Saving Throws defines spell Saving Throw frontiers.",
+              "UBIQUITOUS_LANGUAGE.md defines Spell Effect, Area of Effect, Concentration, Movement, Difficult Terrain, Saving Throw, Restrained, and Table Decision."
+            ],
+            "blockers": [
+              "retained-blocker: doDiscoverWebRestraintHazard is accepted here for admission, Difficult Terrain, Lightly Obscured projection, selected Saving Throw/restraint trigger exactness, and Concentration-break cleanup; it does not claim Hit Point damage. Spike Growth movement damage uses the generic movement-damage Hit Point route."
+            ]
           }
         },
         {
@@ -2248,7 +2312,8 @@
           ],
           "dependentRouteTaskIds": [
             "L15-RR06-BATTLE-SPELL-EFFECT-ROUTES",
-            "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES"
+            "L15-RR07-FU01-LEVEL1-SPELL-IDENTITY-SUBSTRATES",
+            "SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT"
           ],
           "subjectFamily": "rule-core exact spell damage projection component evidence",
           "branchObligations": 4,
@@ -2257,6 +2322,7 @@
             "qntFacts": [
               "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt exposes qComponentRoute through RuleCoreSpellProcedureProfileOwner and RuleCoreHitPointDamageOwner.",
               "The component witness projects exact direct damage instance count and damage-per-instance facts, spell attack damage base dice, rolled dice count, critical doubling, damage die size, exact damage amount and damage type, save-gated success policy, saving-throw outcome, target initial Hit Points, applied target Hit Points, and damage-to-Hit-Points facts.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-exact-damage-details.route.mbt.qnt computes exact details from the same rule-core fact records and functions as rule-core-exact-damage-projection.mbt.qnt, then exposes them beside public AfterHitDamageRiderRouteSubject, WeaponDamageRiderRouteSubject, HeldWeaponActiveEffectRouteSubject, and SpellHostedWeaponAttackRouteSubject Hit Point damage routes without selected spell, item, or attack identity.",
               "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-damage-projection-core.qnt remains the semantic owner for direct, spell-attack, and save-gated exact damage projection; packages/shared-algebras/proofs/rule-core/hit-point-damage.qnt remains the semantic owner for target Hit Point application."
             ],
             "rawDomainFacts": [
@@ -2266,7 +2332,7 @@
               ".references/srd-5.2.1/Playing-the-Game.md#Damage Types and UBIQUITOUS_LANGUAGE.md define Damage Type, Critical Hit, Attack Roll, Saving Throw, and Hit Points."
             ],
             "blockers": [
-              "source-qnt-corpus-blocker: this component evidence makes exact projection facts public, but it does not by itself route mixed-target outcome ordering or active-effect riders; selected-identity drivers remain blocked except for branches whose reducer route also consumes matching generic component or route facts.",
+              "source-qnt-corpus-blocker: exact projection facts are now public for after-hit attack damage, after-hit timed damage, weapon damage rider damage, held-weapon active-effect damage, and spell-hosted weapon attack damage through packages/battle-runtime/battle-runtime-exact-damage-details.route.mbt.qnt, but this does not accept mixed-target outcome ordering, object-target durability, duplicate-face limits, or other non-damage branch obligations.",
               "source-qnt-corpus-blocker: selected spell identity remains a catalog/admission fixture boundary and must not be counted as generic exact-damage evidence."
             ]
           }
@@ -3777,6 +3843,358 @@
             ],
             "blockers": []
           }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverCalmEmotionsConditionImmunity",
+          "currentScopeReason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt exposes doDiscoverCalmEmotionsConditionImmunity under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected control spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverCharmPersonSaveGatedCondition",
+          "currentScopeReason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt exposes doDiscoverCharmPersonSaveGatedCondition under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected control spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverDarknessPointOrigin",
+          "currentScopeReason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt exposes doDiscoverDarknessPointOrigin under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected control spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverEnthrallPerceptionPenalty",
+          "currentScopeReason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt exposes doDiscoverEnthrallPerceptionPenalty under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected control spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverGustOfWindLine",
+          "currentScopeReason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt exposes doDiscoverGustOfWindLine under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected control spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverInvisibilityDirectCondition",
+          "currentScopeReason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt exposes doDiscoverInvisibilityDirectCondition under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected control spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverLevitateCreature",
+          "currentScopeReason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt exposes doDiscoverLevitateCreature under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected control spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverSeeInvisibilityObserverSight",
+          "currentScopeReason": "This selected level-2 control spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-control-spell-selected-identity.mbt.qnt exposes doDiscoverSeeInvisibilityObserverSight under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected control spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverAcidArrowAttackTiming",
+          "currentScopeReason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt exposes doDiscoverAcidArrowAttackTiming under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected damage spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverDragonsBreathInitial",
+          "currentScopeReason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt exposes doDiscoverDragonsBreathInitial under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected damage spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverFlameBladeHeldObject",
+          "currentScopeReason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt exposes doDiscoverFlameBladeHeldObject under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected damage spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverHeatMetalObjectContact",
+          "currentScopeReason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt exposes doDiscoverHeatMetalObjectContact under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected damage spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverRayOfEnfeeblementSaveGate",
+          "currentScopeReason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt exposes doDiscoverRayOfEnfeeblementSaveGate under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected damage spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverScorchingRayAttackSequence",
+          "currentScopeReason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt exposes doDiscoverScorchingRayAttackSequence under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected damage spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverShatterSaveGatedDamage",
+          "currentScopeReason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt exposes doDiscoverShatterSaveGatedDamage under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected damage spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
+        },
+        {
+          "driverPath": "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt",
+          "branchFamily": "step",
+          "branchAction": "doDiscoverSpiritualWeaponAttackProxy",
+          "currentScopeReason": "This selected level-2 damage spell identity driver contains non-hazard rows outside SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+          "currentReplay": "observable-from-step",
+          "levelDenominatorScope": "in-denominator",
+          "route": "catalog-after-substrate",
+          "routeTaskId": "outside-source-sqnt07a-concentration-hazard-selected-route-witness",
+          "derivability": {
+            "qntFacts": [
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-level2-damage-spell-selected-identity.mbt.qnt exposes doDiscoverSpiritualWeaponAttackProxy under branch family step."
+            ],
+            "rawDomainFacts": [
+              "This branch is a level-2 selected damage spell row, but it is not a concentration-backed area hazard row for SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS.",
+              "UBIQUITOUS_LANGUAGE.md keeps selected identity at catalog, fixture, and evidence boundaries."
+            ],
+            "blockers": [
+              "Outside this selected concentration-backed hazard route witness lane."
+            ]
+          }
         }
       ],
       "rawTraceabilitySources": [
@@ -3985,7 +4403,8 @@
           "existingSourceEvidence": [
             "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-damage-projection-core.qnt already models exact direct, attack, and save damage projection facts.",
             "cleanroom-input/qnt/shared-algebras/proofs/rule-core/spell-attack-damage-projection-core.qnt already maps attack damage profiles to damage types, hit effects, and object-target support.",
-            "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt exposes component connector evidence for exact damage amount, damage type, direct instance count, spell-attack dice count, critical doubling, save success policy, saving-throw outcome, and target Hit Point application facts without dispatching on selected spell identity."
+            "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt exposes component connector evidence for exact damage amount, damage type, direct instance count, spell-attack dice count, critical doubling, save success policy, saving-throw outcome, and target Hit Point application facts without dispatching on selected spell identity.",
+            "cleanroom-input/qnt/battle-runtime/battle-runtime-exact-damage-details.route.mbt.qnt connects exact damage details to public after-hit/timed and weapon-hosted damage route subjects and carries no authored spell, item, or attack identity."
           ],
           "rawDomainFacts": [
             ".references/srd-5.2.1/Playing-the-Game.md#Damage Rolls defines spell damage dice and modifier rules.",
@@ -3997,6 +4416,7 @@
             "qntFacts": [
               "cleanroom-input/qnt/battle-runtime/rule-core-exact-damage-projection.mbt.qnt is component-first evidence through RuleCoreSpellProcedureProfileOwner and RuleCoreHitPointDamageOwner.",
               "The witness records qScenario, qDamageType, qDamageAmount, qInstanceCount, qDamagePerInstance, qBaseDamageDice, qRolledDamageDiceCount, qDamageDieSize, qCritical, qSuccessPolicy, qSavingThrowFailed, qTargetInitialHp, qTargetHp, and qDamageToHitPoints as public replay facts.",
+              "cleanroom-input/qnt/battle-runtime/battle-runtime-exact-damage-details.route.mbt.qnt records qRoute plus qComponentRoute for AfterHitDamageRiderRouteSubject attack damage, AfterHitDamageRiderRouteSubject timed damage with its Ability Check next-hole frontier, WeaponDamageRiderRouteSubject damage, HeldWeaponActiveEffectRouteSubject damage, and SpellHostedWeaponAttackRouteSubject damage.",
               "The reusable rule-core semantic owners remain packages/shared-algebras/proofs/rule-core/spell-damage-projection-core.qnt for exact spell damage projection and packages/shared-algebras/proofs/rule-core/hit-point-damage.qnt for target damage application."
             ],
             "rawDomainFacts": [
@@ -4007,10 +4427,10 @@
             ],
             "blockers": [
               "source-qnt-corpus-blocker: exact-damage component evidence does not over-accept packages/battle-runtime/battle-runtime-attack-spell-shape-selected-identity.mbt.qnt or packages/battle-runtime/battle-runtime-level1-damage-spell-selected-identity.mbt.qnt wholesale; those drivers still need their non-damage route/component blockers cleared branch by branch.",
-              "source-qnt-corpus-blocker: mixed-target outcome ordering remains under FCSF-03F, and active-effect rider routing remains under FCSF-03A through FCSF-03E."
+              "source-qnt-corpus-blocker: mixed-target outcome ordering remains under FCSF-03F, and object durability, duplicate-face limits, target-admission identity, selected item identity, selected attack identity, and authored spell identity remain outside this exact-damage bridge."
             ]
           },
-          "acceptanceGate": "Target replay may count exact-damage residual branches only after copied connector evidence makes the exact projection facts public enough that a fresh target need not infer them from TypeScript or selected spell identity."
+          "acceptanceGate": "Target replay may count after-hit/timed and weapon-hosted exact-damage residual branches only after copied connector evidence observes packages/battle-runtime/battle-runtime-exact-damage-details.route.mbt.qnt qRoute plus qComponentRoute and need not infer damage details from TypeScript or selected spell, item, or attack identity."
         },
         {
           "taskId": "FCSF-03H-MOVEMENT-PRESENTATION",
@@ -4101,9 +4521,9 @@
         },
         {
           "taskId": "L15-RR07-FU06A-MARKED-DAMAGE-IMMUNITY-ACTIVE-EFFECT-SUBSTRATES",
-          "subjectFamily": "marked damage rider transfer plus condition-immunity turn-start Temporary Hit Point substrates",
+          "subjectFamily": "marked damage rider transfer, targeted ability-check roll-mode, and condition-immunity turn-start Temporary Hit Point substrates",
           "requiredSourceWork": [
-            "Task SQNT-07A supplied packages/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt as generic MarkedDamageRiderEffectRouteSubject and ConditionImmunityTemporaryHitPointEffectRouteSubject evidence for marked-target extra damage, target-drop transfer timing, condition-immunity rejection, turn-start Temporary Hit Point grants, and Concentration cleanup through public reducer owners before selected level-1 buff/mark/smite identity replay counts."
+            "Task SQNT-07A supplied packages/battle-runtime/battle-runtime-marked-damage-immunity-active-effects.route.mbt.qnt as generic MarkedDamageRiderEffectRouteSubject and ConditionImmunityTemporaryHitPointEffectRouteSubject evidence for marked-target extra damage, target-drop transfer timing, targeted ability-check roll-mode projection and cleanup, condition-immunity rejection, turn-start Temporary Hit Point grants, and Concentration cleanup through public reducer owners before selected level-1 buff/mark/smite identity replay counts."
           ]
         },
         {

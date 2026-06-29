@@ -4,17 +4,18 @@
   "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
   "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
   "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-  "sourcePackageCommit": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
-  "acceptedFreshTargetPackageCommit": "53c516ee1c9fd3898c89a93cb8abe063218e4146",
-  "currentFreshBaselineCommit": "c196b33c634169cfc991c3de101c23fde8f75bae",
-  "acceptedFreshTargetHead": "b3de1456c54162357abed70608ec37cc936dee92",
-  "strongestRuntimeEvidenceCommit": "b3de1456c54162357abed70608ec37cc936dee92",
+  "sourcePackageCommit": "4d196258a51f4264803ff11f7c806c969f0aff2d",
+  "acceptedFreshTargetPackageCommit": "4d196258a51f4264803ff11f7c806c969f0aff2d",
+  "currentFreshBaselineCommit": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
+  "acceptedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
+  "strongestRuntimeEvidenceCommit": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
   "currentPackageRuntimeAcceptanceClaims": [
-    "FRESH-RR-SQNT07A-ACTIVE-EFFECT-CONDITION",
+    "FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY",
     "FRESH-RR-REACTION-INTERRUPT-TAXONOMY-CURRENT-PACKAGE-REPLAY",
     "FRESH-RR-BATTLE-ACTIVE-EFFECTS-CURRENT-PACKAGE-REPLAY",
     "FEXP-08-SQNT07A-SELECTED-SPATIAL-CURRENT-PACKAGE-REPLAY",
-    "FRESH-RR-SPATIAL-DAMAGE-CURRENT-PACKAGE-REPLAY",
+    "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY",
+    "FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY",
     "FEXP-09A-SQNT07D-ACTIVE-FEATURE-CURRENT-PACKAGE-REPLAY",
     "FEXP-09B-SQNT07B-SPECIES-PASSIVE-CURRENT-PACKAGE-REPLAY",
     "FEXP-09C-SQNT07C-QUICKENED-GOVERNOR-CURRENT-PACKAGE-REPLAY",
@@ -23,13 +24,6 @@
     "FEXP-09F-SQNT07C-METAMAGIC-REROLLS",
     "FEXP-09G-SQNT07C-METAMAGIC-COMPONENT-DURATION",
     "FRESH-RR-CHARACTER-SHEET-HANDOFF-CURRENT-PACKAGE-REPLAY",
-    "FRESH-RR-SQNT07A-LEVEL1-MARKED-IMMUNITY-SELECTED-REPLAY",
-    "FRESH-RR-SQNT07A-LEVEL1-SCALAR-BUFF-SELECTED-REPLAY",
-    "FRESH-RR-SQNT07A-LEVEL1-AFTER-HIT-TIMED-RIDER-SELECTED-REPLAY",
-    "FRESH-RR-SQNT07A-LEVEL1-WEAPON-HOSTED-SELECTED-REPLAY",
-    "FRESH-RR-SQNT07A-JUMP-LANDING-PRONE-REPLAY",
-    "FRESH-RR-SQNT07A-CONCENTRATION-AREA-HAZARD-REPLAY",
-    "FRESH-RR-SQNT07A-WEAPON-HOSTED-SELECTED-WITNESS-CONSUMPTION",
     "FRESH-RR-SQNT07A-HEX-AND-EXACT-DAMAGE-SOURCE-CONSUMPTION"
   ],
   "latestDirtyPackageRefreshCommit": "545d7848692fcb18adf14e5c009d9e7f4d0cb1d5",
@@ -858,5 +852,11 @@
       "sourcePackageCommit": "06f8042513df94bc96e02ec9d213a0d52d942bac"
     }
   ],
-  "latestFreshBatchStatus": "Fresh target b3de1456c54162357abed70608ec37cc936dee92 synced cleanroom-input to source 53c516ee1c9fd3898c89a93cb8abe063218e4146 and accepted Hex ability-check roll-mode, exact-damage route bridge consumption, and selected concentration-backed hazard route facts through copied QNT import-closure pinned evidence; authored item/attack identity and exact concentration-backed save-triggered Hit Point damage remain blocked."
+  "latestFreshBatchStatus": "Archived after accepted fresh target ff09b6579ebb507f3c8dca06f2b040d0d46d05fb consumed source package 4d196258a51f4264803ff11f7c806c969f0aff2d. No lanes in this file are next-executable; future work must be selected by completion audit.",
+  "status": "archived-completed",
+  "archiveStatus": "completed-not-next-executable",
+  "notNextExecutable": true,
+  "nextExecutableLaneSet": null,
+  "activeLanes": [],
+  "nextPlannedLane": "completion-audit-selected-fresh-runtime-coverage"
 }

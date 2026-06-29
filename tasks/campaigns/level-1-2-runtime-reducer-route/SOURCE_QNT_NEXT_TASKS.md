@@ -7,68 +7,30 @@ cleanroom replay queue was exhausted. These are not dirty target implementation
 lanes. A target worker must not infer these facts from TypeScript or dirty Rust
 history.
 
-## Current Checkpoint Override
+## Current Checkpoint
 
-After this queue was written, the SQNT-07A Wave 2 source-input package was
-refreshed to `e9f75e22a10891cd438fb06f6ea1ca666f79aaeb` and replayed in the
-fresh cleanroom target. Fresh target `master` is now
-`ce9f653e3cba6a9eefa0d2f14e11757f7081e618`.
+No active source-QNT blocker lanes remain for the accepted current batch.
 
-Accepted fresh replay now covers:
+The Hex ability-check roll-mode, exact-damage route bridge, and
+concentration-backed hazard source blocker wave was consumed by fresh target
+`ff09b6579ebb507f3c8dca06f2b040d0d46d05fb`, using source package
+`4d196258a51f4264803ff11f7c806c969f0aff2d`. That target is the current
+accepted fresh package checkpoint.
 
-- SQNT-07A active-effect/condition generic route facts: 27 copied connector
-  rows and 19 public route surfaces.
-- SQNT-07A selected condition-saving adapter refresh: 5 newly accepted selected
-  rows through copied generic route facts, with 4 existing selected rows carried
-  forward but not recounted as new.
-- SQNT-07A spatial/movement generic route facts: 16 copied route rows.
-- SQNT-07A level-1 marked/immunity selected-row replay: 4 selected rows
-  accepted through copied generic marked-damage/immunity route facts.
-- SQNT-07A level-1 scalar-buff selected-row replay: 2 selected rows accepted
-  through copied generic scalar-buff route facts.
-- SQNT-07A level-1 after-hit/timed rider selected-row replay: 3 selected rows
-  accepted through copied generic after-hit route/lifecycle/owner facts, with
-  exact damage type, dice, and amount still blocked.
-- SQNT-07A level-1 weapon-hosted replay: generic weapon-hosted route-surface
-  groups accepted through copied route connectors and public reducer
-  observations. No selected rows are accepted exactly.
-- SQNT-07A weapon-hosted selected-row public route witness: source master merge
-  `06f8042513df94bc96e02ec9d213a0d52d942bac` adds the source-side QNT/MBT
-  witness for the three selected weapon-hosted rows, and fresh target
-  `42b40af28b5c6cb554869f2c4ef4c999bcec3ab2` consumes it as public reducer
-  route-event exactness.
-- SQNT-07A Jump landing/prone generic route-surface replay: accepted in the
-  fresh target at `444295121a3cbe0631dc36ef2280c27d2ef5631c`.
-- SQNT-07A concentration-backed area hazard generic route-surface replay:
-  accepted in the fresh target at
-  `444295121a3cbe0631dc36ef2280c27d2ef5631c`; selected hazard row exactness
-  remains blocked.
+Do not resume or relaunch the source-QNT lanes from the consumed wave. Future
+source-side work is audit-selected only and should be launched only after the
+completion audit chooses a concrete residual branch family.
 
-Still blocked:
+## Historical Consumed Source-QNT Wave
 
-- Exact weapon-hosted arithmetic, damage type/amount, item identity, and attack
-  identity details as public reducer route facts.
-- Exact after-hit/timed damage details as public reducer route facts.
-- Hex ability-check roll-mode.
-- Selected concentration-backed hazard row exactness.
+Launched from source master `06f8042513df94bc96e02ec9d213a0d52d942bac` and
+consumed by the accepted current fresh package.
 
-Future work should close one exact blocker through generic route facts. Exact
-damage details, Hex ability-check roll-mode, and selected concentration-backed
-hazard exactness still need source-QNT or public route facts first. Do not treat
-broad selected/grouped identity replay as an implementation task.
-
-## Active Source-QNT Wave
-
-Launched from source master `06f8042513df94bc96e02ec9d213a0d52d942bac`.
-All three lanes are source-input work; none claims fresh cleanroom acceptance
-until the resulting package is synced and replayed through public reducer
-entrypoints.
-
-| Lane | Worker | Scope |
-| --- | --- | --- |
-| `FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE` | Hume the 5th (`019f134e-9326-74d0-8b92-0fe8852fc12d`) | Add generic targeted ability-check roll-mode route facts for selected-ability disadvantage and cleanup. |
-| `SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS` | Peirce the 5th (`019f134e-d458-7bb0-9508-37feb3d38f78`) | Map selected concentration-backed hazard rows to existing generic hazard route surfaces. |
-| `SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT` | Lagrange the 5th (`019f134f-754c-7ce3-bbb7-d398363dd204`) | Bridge exact damage component facts to public after-hit/timed and/or weapon-hosted route facts. |
+| Lane | Worker | Scope | Final status |
+| --- | --- | --- | --- |
+| `FCSF-SQNT07A-HEX-ABILITY-CHECK-ROLL-MODE` | Hume the 5th (`019f134e-9326-74d0-8b92-0fe8852fc12d`) | Add generic targeted ability-check roll-mode route facts for selected-ability disadvantage and cleanup. | consumed by fresh target `ff09b6579ebb507f3c8dca06f2b040d0d46d05fb` |
+| `SOURCE-SQNT07A-CONCENTRATION-HAZARD-SELECTED-ROUTE-WITNESS` | Peirce the 5th (`019f134e-d458-7bb0-9508-37feb3d38f78`) | Map selected concentration-backed hazard rows to existing generic hazard route surfaces. | consumed by fresh target `ff09b6579ebb507f3c8dca06f2b040d0d46d05fb` |
+| `SQNT-07A-EXACT-DAMAGE-DETAILS-SOURCE-QNT` | Lagrange the 5th (`019f134f-754c-7ce3-bbb7-d398363dd204`) | Bridge exact damage component facts to public after-hit/timed and/or weapon-hosted route facts. | consumed by fresh target `ff09b6579ebb507f3c8dca06f2b040d0d46d05fb` |
 
 ## Current Boundary
 
