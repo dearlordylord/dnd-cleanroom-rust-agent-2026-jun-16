@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "campaignId": "level-1-2-runtime-reducer-route",
-  "status": "fresh-reaction-projection-replay-running",
+  "status": "fresh-reaction-projection-accepted-awaiting-object-stale",
   "currentFreshPackageCheckpoint": {
     "status": "accepted",
     "targetWorktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
-    "targetHead": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
+    "targetHead": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
     "sourcePackageCommit": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
     "inventory": {
       "driverFiles": 100,
@@ -51,7 +51,7 @@
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint"
     },
     "nextCampaignBatch": {
-      "status": "fresh-reaction-projection-replay-running",
+      "status": "fresh-reaction-projection-accepted-awaiting-object-stale",
       "currentFreshPackageCheckpointRef": "currentFreshPackageCheckpoint",
       "baseFreshTargetHead": "b0036b7a0d81ffcc54c5c2d828122bd1352dc31c",
       "acceptedFreshTargetHead": "ff09b6579ebb507f3c8dca06f2b040d0d46d05fb",
@@ -74,20 +74,16 @@
         "FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION"
       ],
       "remainingLane": null,
-      "nextParallelism": "Package refresh is serial; after it lands, reaction projection replay and object-stale replay can be reassessed for parallelism.",
-      "activeParallelLanes": [
-        "FRESH-REACTION-PROJECTION-REPLAY"
-      ],
-      "activeLane": "FRESH-REACTION-PROJECTION-REPLAY",
-      "activeLanes": [
-        "FRESH-REACTION-PROJECTION-REPLAY"
-      ],
+      "nextParallelism": "Object-stale public history replay is the next serial fresh-runtime lane because it likely touches the same reducer/verifier/state files as the just-accepted reaction projection replay.",
+      "activeParallelLanes": [],
+      "activeLane": null,
+      "activeLanes": [],
       "nextExecutableLaneSet": [
-        "FRESH-REACTION-PROJECTION-REPLAY"
+        "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY"
       ],
-      "nextPlannedLane": "FRESH-REACTION-PROJECTION-REPLAY",
-      "lastCompletedBatch": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
-      "lastCompletedFreshTargetHead": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
+      "nextPlannedLane": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
+      "lastCompletedBatch": "FRESH-REACTION-PROJECTION-REPLAY",
+      "lastCompletedFreshTargetHead": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
       "lastCompletedSourceMergeHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
       "notes": [
         "Merged source weapon-hosted selected route witness into main source master at 06f8042513df94bc96e02ec9d213a0d52d942bac.",
@@ -106,7 +102,7 @@
         "Merged FRESH-RR-FEXP09B-CURRENT-GATE-RECONCILIATION into the accepted fresh target at ff09b6579ebb507f3c8dca06f2b040d0d46d05fb.",
         "Verification passed on the accepted fresh target: python3 tools/verify_fexp09b_sqnt07b_species_passive.py, python3 tools/verify_current_fresh_target.py, cargo fmt --check, cargo test, cargo clippy --all-targets -- -D warnings, and git diff --check."
       ],
-      "targetHead": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
+      "targetHead": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
       "sourceRouteWitnessHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
       "sourcePackageCommit": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
       "nextExecutableLaneSetRef": "nextExecutableLaneSet"
@@ -904,11 +900,11 @@
     "COMP-AUDIT-03-BLOCKER-TO-LANE-MAP": "merged-report",
     "SOURCE-REACTION-PROJECTION-FACTS": "merged-to-source-master",
     "FRESH-SQNT07A-CONDITION-SAVING-SELECTED-REPLAY": "merged-accepted-current-package",
-    "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY": "deferred-after-package-refresh-decision",
+    "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY": "ready",
     "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP": "deferred-planning-guidance",
     "SOURCE-SPATIAL-OBJECT-BOUNDARY-CLASSIFICATION": "optional-guidance",
     "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS": "merged-verified",
-    "FRESH-REACTION-PROJECTION-REPLAY": "running"
+    "FRESH-REACTION-PROJECTION-REPLAY": "merged-verified"
   },
   "lastIntegrationVerification": {
     "head": "6d9712af44372a73134364778a9bbbc255527e24",
@@ -4042,18 +4038,18 @@
   },
   "nextWorkRecommendations": [
     "Do not launch more dirty cleanroom replay lanes from LANES.json: the CP8 dirty rehearsal denominator is closed at 659/659 accepted in-scope obligations with known historical harness debt.",
-    "Use accepted fresh target 059881d245cf8b1be4cc8cfea5f7dcde48aba5ee as the current fresh base. The current package is 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1, and the fresh verifier reports 100 drivers, 667 in-scope obligations, 61 out-of-scope obligations, with reaction projection facts packaged as source input and the existing 16 current-package runtime claims verified through copied QNT plus public reducer observations.",
+    "Use accepted fresh target 5c6163ac6988495e0435b81fcb2696e661c6eca8 as the current fresh base. The current package is 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1, and the fresh verifier reports 100 drivers, 667 in-scope obligations, 61 out-of-scope obligations, with reaction projection facts accepted through discovered BattleSubject profile shape and the existing 16 current-package runtime claims verified through copied QNT plus public reducer observations.",
     "Next work should be selected by a completion audit against the full objective, not by stale source-blocker bookkeeping.",
     "For every future fresh lane, require copied QNT-derived expected records, public reducer/source entrypoint observed records, state-owner derivability records for any durable fields, forbidden-path scans, authored-identity dispatch scans, focused verifier updates, and the aggregate current fresh verifier."
   ],
   "freshCleanroomExpansion": {
     "campaignId": "fresh-cleanroom-expansion-after-fc08",
-    "status": "fresh-reaction-projection-replay-running",
-    "activeLane": "FRESH-REACTION-PROJECTION-REPLAY",
+    "status": "fresh-reaction-projection-accepted-awaiting-object-stale",
+    "activeLane": null,
     "baselineTarget": "/workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00",
     "baselineCommit": "a30e6729711ddc3f595cf008931ba5cd6265c58a",
-    "acceptedTargetHead": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
-    "strongestRuntimeEvidenceHead": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
+    "acceptedTargetHead": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
+    "strongestRuntimeEvidenceHead": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
     "completedLanes": [
       {
         "laneId": "FEXP-00-BASELINE-LOCK",
@@ -4815,15 +4811,13 @@
     "activeWorktree": null,
     "activeBranch": null,
     "activeLaneBaseCommit": null,
-    "activeParallelLanes": [
-      "FRESH-REACTION-PROJECTION-REPLAY"
-    ],
+    "activeParallelLanes": [],
     "workerAgent": null,
     "currentVerifier": "python3 tools/verify_current_fresh_target.py",
-    "nextPlannedLane": "FRESH-REACTION-PROJECTION-REPLAY",
+    "nextPlannedLane": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
     "nextWorkRecommendations": [
       "Source master 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1 now contains accepted reaction projection facts in addition to the earlier Hex, exact damage, weapon-hosted, and concentration-hazard source inputs.",
-      "Fresh target 059881d245cf8b1be4cc8cfea5f7dcde48aba5ee consumes source package 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1 for the existing 16 current-package runtime claims; the reaction projection facts are packaged and ready for fresh replay acceptance.",
+      "Fresh target 5c6163ac6988495e0435b81fcb2696e661c6eca8 consumes source package 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1 for the existing 16 current-package runtime claims; reaction projection facts are accepted through public reducer observations and discovered BattleSubject profile shape.",
       "Do not launch broad selected/grouped identity replay; authored identity stays outside production runtime dispatch."
     ],
     "currentPackageCheckpoint": {
@@ -4832,9 +4826,9 @@
       "acceptedRuntimeClaimsRef": "currentFreshPackageCheckpoint.acceptedRuntimeClaims"
     },
     "activeFreshReplayLane": null,
-    "acceptedFreshTargetHead": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
-    "lastCompletedBatch": "FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS",
-    "lastCompletedFreshTargetHead": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
+    "acceptedFreshTargetHead": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
+    "lastCompletedBatch": "FRESH-REACTION-PROJECTION-REPLAY",
+    "lastCompletedFreshTargetHead": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
     "lastCompletedSourceMergeHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
     "notes": [
       "Merged source weapon-hosted selected route witness into main source master at 06f8042513df94bc96e02ec9d213a0d52d942bac.",
@@ -4842,7 +4836,8 @@
       "Merged fresh Hex/exact-damage/concentration-hazard source consumption into fresh target at b3de1456c54162357abed70608ec37cc936dee92.",
       "Merged fresh source blocker consumption into fresh target at ec3b5d0ac12fe0ca6a8e4ccc855a540d12458b44; weapon-hosted item/attack capability facts and concentration-hazard save-triggered exact Hit Point damage are accepted through copied QNT plus public reducer observations.",
       "Merged FEXP09B current-gate reconciliation into fresh target at ff09b6579ebb507f3c8dca06f2b040d0d46d05fb; aggregate verifier now enforces the standalone FEXP-09B claim and metadata/target consistency.",
-      "Merged package refresh FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS into fresh target at 059881d245cf8b1be4cc8cfea5f7dcde48aba5ee; current package now points to source 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1 and reaction projection facts are copied for the next replay lane."
+      "Merged package refresh FRESH-PACKAGE-REFRESH-SOURCE-01FFE-REACTION-FACTS into fresh target at 059881d245cf8b1be4cc8cfea5f7dcde48aba5ee; current package now points to source 01ffe81e9166af50443d4aa4a76a4c34ca79d2c1 and reaction projection facts are copied for the next replay lane.",
+      "Merged fresh reaction projection replay into fresh target at 5c6163ac6988495e0435b81fcb2696e661c6eca8; the lane accepts generic Armor Class bonus, save/damage, interruption slot/effect, and fall-mitigation projection facts through copied QNT facts and discovered public BattleSubject profiles. Selected reaction spell identity remains blocked."
     ],
     "nextExecutableLaneSetRef": "nextExecutableLaneSet"
   },
@@ -4879,47 +4874,30 @@
     ]
   },
   "nextExecutableLaneSet": {
-    "status": "running",
-    "reason": "Source master 01ffe81e reaction projection facts are now copied into the accepted fresh package at 059881d. The next runtime evidence should accept those projection facts through public reducer observations without reading source implementation.",
+    "status": "ready",
+    "reason": "Fresh reaction projection replay is accepted into the target at 5c6163ac6988495e0435b81fcb2696e661c6eca8. The next runtime evidence should accept object-stale public history through public reducer observations without reading source implementation.",
     "lanes": [
       {
-        "laneId": "FRESH-REACTION-PROJECTION-REPLAY",
+        "laneId": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
         "kind": "fresh-runtime-replay",
-        "status": "running",
-        "basePolicy": "Resolve from accepted fresh target /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 at launch; expected base 059881d245cf8b1be4cc8cfea5f7dcde48aba5ee unless target advances.",
+        "status": "ready",
+        "basePolicy": "Resolve from accepted fresh target /workspace/typescript/.codex-worktrees/dnd-fresh-cleanroom-dry-run-fc00 at launch; expected base 5c6163ac6988495e0435b81fcb2696e661c6eca8 unless target advances.",
         "sourceHead": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
-        "purpose": "Consume copied reaction projection facts from battle-runtime-reaction-interrupt-payload-taxonomy.route.mbt.qnt through fresh Rust public reducer observations, preserving the no-authored-identity-dispatch boundary.",
+        "purpose": "Consume copied object-stale public route-history facts from battle-runtime-starry-wisp-object.route.mbt.qnt through fresh Rust public reducer observations, preserving the no-authored-identity-dispatch boundary.",
         "parallelGroup": "serial-fresh-runtime",
-        "writeScopeKind": "fresh target runtime/evidence/verifier for reaction projection only",
-        "baseSha": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
-        "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-reaction-projection-replay",
-        "branch": "ralph/fresh-reaction-projection-replay",
-        "agent": "Banach the 5th (019f1476-ea25-72e0-8b61-a258c1715ee0)"
+        "writeScopeKind": "fresh target runtime/evidence/verifier for object-stale public history only",
+        "baseSha": "5c6163ac6988495e0435b81fcb2696e661c6eca8"
       }
     ],
     "deferredLanes": [
-      {
-        "laneId": "FRESH-OBJECT-STALE-PUBLIC-HISTORY-REPLAY",
-        "reason": "Strong fresh replay candidate, but likely overlaps src/lib.rs and aggregate verifier/state files with reaction projection; run after reaction replay unless a later orchestrator proves non-overlap."
-      },
       {
         "laneId": "SOURCE-SELECTED-SPELL-RESIDUAL-BRANCH-MAP",
         "reason": "Planning map only if residual selected-spell queue remains ambiguous after narrower lanes."
       }
     ],
-    "integrationRule": "Launch reaction projection as the next single fresh runtime lane from accepted target 059881d. Reassess object-stale replay after reaction projection lands."
+    "integrationRule": "Launch object-stale public history as the next single fresh runtime lane from accepted target 5c6163a. After it lands, run completion audit/closure before adding any residual source-selected-spell planning lane."
   },
-  "activeParallelLanes": [
-    {
-      "laneId": "FRESH-REACTION-PROJECTION-REPLAY",
-      "kind": "fresh-runtime-replay",
-      "worktree": "/workspace/typescript/.codex-worktrees/dnd-fresh-reaction-projection-replay",
-      "branch": "ralph/fresh-reaction-projection-replay",
-      "baseSha": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
-      "status": "running",
-      "agent": "Banach the 5th (019f1476-ea25-72e0-8b61-a258c1715ee0)"
-    }
-  ],
+  "activeParallelLanes": [],
   "completionAuditReports": [
     {
       "laneId": "COMP-AUDIT-01-CURRENT-PACKAGE-GATE-MATRIX",
@@ -4976,6 +4954,24 @@
       "review": "orchestrator accepted package/verifier metadata refresh; no runtime src changes",
       "verification": [
         "python3 tools/verify_current_fresh_target.py passed",
+        "cargo fmt --check passed",
+        "cargo test passed",
+        "cargo clippy --all-targets -- -D warnings passed",
+        "git diff --check passed"
+      ]
+    },
+    "freshReactionProjectionLane": {
+      "laneId": "FRESH-REACTION-PROJECTION-REPLAY",
+      "freshTargetHead": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
+      "laneHead": "5c6163ac6988495e0435b81fcb2696e661c6eca8",
+      "baseSha": "059881d245cf8b1be4cc8cfea5f7dcde48aba5ee",
+      "sourcePackageCommit": "01ffe81e9166af50443d4aa4a76a4c34ca79d2c1",
+      "worker": "Banach the 5th (019f1476-ea25-72e0-8b61-a258c1715ee0)",
+      "review": "Dewey the 5th plus orchestrator review; accepted after target metadata, evidence derivability, invalid payload product, and discovered-subject-profile issues were fixed",
+      "verification": [
+        "python3 tools/verify_fresh_rr_reaction_interrupt_taxonomy.py passed",
+        "python3 tools/verify_current_fresh_target.py passed",
+        "cargo test fresh_reaction_interrupt_taxonomy_routes_use_generic_payload_shapes passed",
         "cargo fmt --check passed",
         "cargo test passed",
         "cargo clippy --all-targets -- -D warnings passed",
